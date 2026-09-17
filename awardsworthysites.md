@@ -1,0 +1,20 @@
+- https://www.leoparpeix.com/
+- https://white-desert.com/
+- https://why.zero.university/
+- https://www.usavionix.com/
+- https://www.seasats.com/
+- https://www.trevornoah.com/
+- https://unitedcarriers.com/
+- https://sondaven.com/en
+- https://lamalama.com/
+- https://floema.com/en
+- https://oryzo.ai/
+- https://www.shopify.com/editions/winter2026
+- https://landonorris.com/
+- https://mindmarket.com/
+- https://mont-fort.com/
+- https://animejs.com/
+- https://thelinestudio.com/
+- https://www.igloo.inc/
+- https://sloshseltzer.com/
+
