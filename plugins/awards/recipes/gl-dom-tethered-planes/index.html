@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>gl-dom-tethered-planes — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ gl-dom-tethered-planes · <span data-gl-readout>dom</span></p></header>
+  <main id="main">
+    <section class="section wrap hero" aria-labelledby="t">
+      <p class="label">/ html lays out, webgl renders</p>
+      <h1 class="display" id="t">Planes over<br>real images.</h1>
+      <p class="lede">Every image below stays an <code>&lt;img&gt;</code> with alt text. One canvas, positioned absolutely and re-offset to the scroll each frame, draws a plane exactly over each image's rectangle and bends it with the scroll velocity. No WebGL, or reduced motion, and the images are simply images.</p>
+    </section>
+    <section class="section wrap grid" aria-label="Gallery">
+      <figure><img data-gl-plane src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000'%3E%3Crect width='800' height='1000' fill='%23c97164'/%3E%3Ccircle cx='400' cy='420' r='220' fill='%23f9f1e7'/%3E%3C/svg%3E" width="800" height="1000" alt="Terracotta field with a bone disc" loading="eager"><figcaption><span class="label">01</span> Terracotta</figcaption></figure>
+      <figure><img data-gl-plane src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000'%3E%3Crect width='800' height='1000' fill='%230016cb'/%3E%3Crect x='160' y='200' width='480' height='600' fill='%23f4f2ee'/%3E%3C/svg%3E" width="800" height="1000" alt="Ultramarine field with a bone rectangle" loading="lazy"><figcaption><span class="label">02</span> Ultramarine</figcaption></figure>
+      <figure><img data-gl-plane src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000'%3E%3Crect width='800' height='1000' fill='%231a1c1c'/%3E%3Cpath d='M100 900 L400 150 L700 900 Z' fill='%23ffc800'/%3E%3C/svg%3E" width="800" height="1000" alt="Near-black field with a yellow triangle" loading="lazy"><figcaption><span class="label">03</span> Yellow</figcaption></figure>
+      <figure><img data-gl-plane src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000'%3E%3Crect width='800' height='1000' fill='%23619785'/%3E%3Crect x='120' y='120' width='560' height='760' fill='none' stroke='%23bf5114' stroke-width='40'/%3E%3C/svg%3E" width="800" height="1000" alt="Sea-green field with a rust frame" loading="lazy"><figcaption><span class="label">04</span> Sea green</figcaption></figure>
+      <figure><img data-gl-plane src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000'%3E%3Crect width='800' height='1000' fill='%23a89474'/%3E%3Ccircle cx='400' cy='500' r='300' fill='none' stroke='%232c2824' stroke-width='30'/%3E%3C/svg%3E" width="800" height="1000" alt="Brass field with a near-black ring" loading="lazy"><figcaption><span class="label">05</span> Brass</figcaption></figure>
+      <figure><img data-gl-plane src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 1000'%3E%3Crect width='800' height='1000' fill='%23ff9bb4'/%3E%3Crect x='100' y='100' width='600' height='800' fill='%231d2440'/%3E%3C/svg%3E" width="800" height="1000" alt="Pink field with a navy block" loading="lazy"><figcaption><span class="label">06</span> Pink</figcaption></figure>
+    </section>
+    <section class="section wrap notes"><h2>Rules</h2><ul><li>The canvas is <code>position: absolute</code> at the top of the document and translated to <code>scrollY</code> every frame: no fixed canvas that drifts against a smooth scroller, no scroll hijack.</li><li>Each frame reads <code>getBoundingClientRect()</code> of every visible image and writes the plane's position and scale in pixel units through a perspective camera whose distance makes one unit one pixel at depth zero.</li><li>The bulge is the Floema formula: <code>z −= (sin(uv.y·π) + sin(uv.x·π)) · |speed| · strength</code>, with speed damped from the scroll velocity.</li><li>DPR from the quality tier, geometry segments from the tier, textures disposed with the renderer on <code>pagehide</code>.</li></ul></section>
+  </main>
+  <footer class="wrap footer"><p class="label">awards · recipe 19 · MIT</p></footer>
+  <canvas class="gl" data-gl aria-hidden="true"></canvas>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

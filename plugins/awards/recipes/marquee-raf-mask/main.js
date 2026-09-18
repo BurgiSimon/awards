@@ -4,7 +4,9 @@ import { motionTier, syncMotionTierAttribute, onMotionTierChange } from '../_sha
 import { ticker, damp } from '../_shared/raf.js';
 
 syncMotionTierAttribute();
-const lenis = new Lenis({ lerp: 0.1 });
+// Lenis 1.3 defaults to autoRaf: false; without a clock it swallows wheel events and never scrolls. Ride the shared ticker.
+const lenis = new Lenis({ lerp: 0.1, autoRaf: false });
+ticker.add((dt, t) => lenis.raf(t));
 window.lenis = lenis;
 
 const state = { x: 0, speed: 0, paused: false, running: false, movedLast500: 0, copies: 1 };

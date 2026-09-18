@@ -1,0 +1,32 @@
+{
+  "id": "gl-dom-tethered-planes",
+  "title": "DOM-tethered WebGL planes with a velocity bulge",
+  "tags": [
+    "webgl",
+    "three",
+    "images",
+    "scroll",
+    "velocity",
+    "dom-mirror"
+  ],
+  "tier": "P0",
+  "deps": [
+    "three@0.186.0",
+    "lenis@1.3.26"
+  ],
+  "variants": [
+    "Three.js (this)",
+    "OGL: same mapping with ogl Plane + Program",
+    "R3F: useFrame reading refs from getBoundingClientRect"
+  ],
+  "seenIn": [
+    "floema",
+    "oryzo",
+    "trevor-noah",
+    "leo-parpeix"
+  ],
+  "verified": {
+    "date": "2026-09-17",
+    "chromium": "141.0.7390.37"
+  }
+}

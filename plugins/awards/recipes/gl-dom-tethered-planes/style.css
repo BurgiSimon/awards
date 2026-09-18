@@ -1,0 +1,21 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+body { position: relative; }
+.topbar { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); position: relative; z-index: 2; }
+.lede { max-width: 60ch; margin-top: calc(var(--unit) * 8); }
+.hero { min-height: 70svh; position: relative; z-index: 2; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); align-content: start; }
+figure { margin: 0; }
+figure img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+figcaption { margin-top: calc(var(--unit) * 3); font-family: var(--font-display); font-size: 1.1rem; }
+figcaption .label { margin-right: 1ch; }
+.notes ul { max-width: 60ch; padding-left: 1.2em; }
+.notes { position: relative; z-index: 2; }
+.footer { padding-block: calc(var(--unit) * 12); }
+/* The canvas sits at the top of the document and is moved to the scroll position each frame. */
+.gl { position: absolute; top: 0; left: 0; width: 100%; height: 100vh; pointer-events: none; z-index: 1; display: none; }
+html.gl-active .gl { display: block; }
+/* Once planes are drawn, the source images turn invisible but stay in the tree (alt text, layout, no-GL fallback). */
+html.gl-active [data-gl-plane] { visibility: hidden; }
+@media (max-width: 767px) { .grid { grid-template-columns: repeat(2, 1fr); } }

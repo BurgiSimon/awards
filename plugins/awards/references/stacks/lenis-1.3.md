@@ -24,7 +24,7 @@ Constructor options [verified: README settings table unless noted]:
 | `smoothWheel` | `true` | smooth wheel input |
 | `syncTouch` | `false` | smooth touch too; can be unstable on iOS < 16; required by `infinite` |
 | `syncTouchLerp` | `0.075` | lerp during syncTouch inertia |
-| `autoRaf` | off in every example | Lenis owns a rAF loop; leave it off when GSAP's ticker calls `raf()` |
+| `autoRaf` | `false` is the 1.3 default | Nothing scrolls until something calls `lenis.raf(time)` every frame: GSAP's ticker, the shared ticker, or `autoRaf: true` when no other clock exists. A Lenis with no clock swallows wheel events and the page appears frozen |
 | `respectReducedMotion` | `true` | smoothing off and programmatic scrolls instant under `prefers-reduced-motion`; scroll stays native |
 | `prevent` | — | `(node) => node.id === 'modal'` keeps a node's scroll native |
 | `anchors` | `false` | `true` or `{ offset, onComplete }` so `#hash` links work |
