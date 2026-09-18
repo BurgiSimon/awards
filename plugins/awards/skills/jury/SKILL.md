@@ -149,7 +149,7 @@ Write it to `.awards/jury/<date>.md` (`date +%F`; add `-2`, `-3` when the name i
   top fixes: 1) <fix> 2) <fix> 3) <fix>
 ```
 
-In `## Status`, replace `Jury disposition: —` with the disposition and the date and tick the box. Touch nothing else in the file. End your reply with the disposition line, the weighted score and the top three fixes, verbatim from the report, and close with one sentence: "Relay these lines to the user unchanged." This skill runs forked, so the conversation that invoked it only sees your reply; the literal `disposition:` line is what `awards:craft`, `awards:ship` and the user act on.
+In `## Status`, replace `Jury disposition: —` with the disposition and the date and tick the box. Touch nothing else in the file. End your reply with the disposition line, the four axis scores written out in full (`Design x.x · Usability x.x · Creativity x.x · Content x.x`), the weighted score and the top three fixes, verbatim from the report, and close with one sentence: "Relay these lines to the user unchanged." This skill runs forked, so the conversation that invoked it only sees your reply; the literal `disposition:` line is what `awards:craft`, `awards:ship` and the user act on.
 
 When the environment cannot run the capture or audit commands at all (no shell tool, Playwright missing, a read-only session), do not stop at `recapture` in silence: say what could not run, judge from the source and the reference floor with lowered confidence, write the same report with `disposition: recapture` and an `Evidence` section that names the missing captures, and still deliver the scores, the memory test and the fix list. A source-only jury is a weaker jury, never a missing one.
 
