@@ -14,7 +14,7 @@ Blender / Cinema 4D / Houdini
   → workers       — Draco, Basis, EXR, audio and MSDF decoded off the main thread
 ```
 
-Evidence: Draco geometry, KTX2/ETC1S textures and atlases out of Blender is the Why Zero recipe [site:why-zero] [verified, Codrops]; Igloo's manifest holds 19 Draco `.drc` files and 36 KTX2 textures and nothing else but a favicon [site:igloo] [verified]; Léo Parpeix exports Blender to Draco-compressed glTF [site:leo-parpeix] [verified tags + clone]; Lando loads DRACO, GLTF, RGBE and KTX2/Basis [site:lando-norris] [verified]; Mont-fort ships a KTX2 loader in its own chunk beside `.glb` models and an EXR HDRI [site:mont-fort] [verified]. UASTC for data maps is the plugin's rule, not a card's — the cards name ETC1S only [inferred: ETC1S's block quantisation is visible on normal maps]. Meshopt appears on no card; the audit accepts either compressor [P03].
+Evidence: Draco geometry, KTX2/ETC1S textures and atlases out of Blender is the Why Zero recipe [site:why-zero] [verified, Codrops]; Igloo's manifest holds 19 Draco `.drc` files and 36 KTX2 textures and nothing else but a favicon [site:igloo] [verified]; Léo Parpeix exports Blender to Draco-compressed glTF [site:leo-parpeix] [verified tags + clone]; Lando registers DRACO, GLTF, RGBE and KTX2/Basis loaders, though its shipped textures are all WebP [site:lando-norris] [verified, live source 2026-09-18]; Mont-fort ships a KTX2 loader in its own chunk beside `.glb` models and an EXR HDRI [site:mont-fort] [verified]. UASTC for data maps is the plugin's rule, not a card's — the cards name ETC1S only [inferred: ETC1S's block quantisation is visible on normal maps]. Meshopt appears on no card; the audit accepts either compressor [P03].
 
 ## Budget stories
 
@@ -35,7 +35,7 @@ Why: two cards give the whole argument in numbers.
 | Rule | Evidence |
 |---|---|
 | KTX2 for anything a shader samples: it stays compressed on the GPU and transcodes to the device's own format | [site:igloo] 36 KTX2, zero PNG/JPG [verified]; [site:why-zero] ETC1S [verified]; [site:shopify-editions-w26] texture compression for 60 fps on mobile [recalled high] |
-| Tier textures by capability, not width: Lando serves WebP above 991 px and KTX2 at or below, keyed on `innerWidth`, so a narrow desktop gets phone textures and a wide low-VRAM device gets WebP | [site:lando-norris] [verified]; branch on `WEBGL_compressed_texture_*` support and `deviceMemory` instead |
+| Tier textures by capability, not width. A width key gives a narrow desktop phone textures and a wide low-VRAM device the heavy ones | `[site:lando-norris]` was the source for this, keyed on `innerWidth`; the 2026-09-18 live pass found only `/webp/` paths in its GL manifest, so the attribution no longer holds and the rule stands on its own [unknown]. Branch on `WEBGL_compressed_texture_*` support and `deviceMemory` |
 | 1024–2048 px per map; environment maps PMREM'd at 1K | [site:shopify-editions-w26] [recalled medium-low, third-party] |
 | Icons and UI glyphs as data textures when the UI lives in the scene | [site:igloo] `ui/*-datatexture.ktx2` [verified] |
 | Colour maps sRGB, data maps linear, mipmaps on | `stacks/three-0.186.md` |

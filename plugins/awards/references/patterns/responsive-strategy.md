@@ -61,7 +61,7 @@ Why: mobile GPUs fail on pixel count and bandwidth, not on triangle count. The r
 | Absolute pixel cap | 2560 × 1440 at high, 1920 × 1080 mid, 1280 × 720 low; DPR scaled down to fit | [site:slosh-seltzer] [inferred]; `applyRendererBudget()` |
 | Render targets | half-float; no depth buffer on fullscreen quads | [site:slosh-seltzer] [inferred]; `stacks/three-0.186.md` |
 | Anti-aliasing | SMAA in the composer, renderer `antialias: false` | [site:slosh-seltzer] [inferred] |
-| Assets | low-detail variants per tier; texture format by capability | [site:slosh-seltzer] [inferred]; [site:lando-norris] [verified, keyed on width — do not copy the key] |
+| Assets | low-detail variants per tier; texture format by capability | [site:slosh-seltzer] [inferred]; [site:lando-norris] [contradicted by the live build, 2026-09-18: every texture path in the shipped GL manifest is /webp/ and the only KTX2 code is GLTFLoader's inert Basis extension — recorded from a rebuild document, not observable on the site today] |
 | Loop | paused off-screen and when the tab is hidden | [site:slosh-seltzer] [inferred] [M08] |
 | Adaptive | step DPR, blur samples and geometry detail from measured frame time | [site:why-zero] [verified]; 30 fps target at low [site:shopify-editions-w26] [recalled medium-low] |
 

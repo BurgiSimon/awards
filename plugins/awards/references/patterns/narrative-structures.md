@@ -43,7 +43,7 @@ A brand with several selves or many catalogue entries, presented as a hub in fro
 - **Register.** Label-like and low in word count, with rotating phrase loops carrying the voice [site:lando-norris] [inferred]; warm-professional for a services catalogue [site:mindmarket] [inferred medium].
 - **DOM.** Routes are real pages with their own `<h1>`; 3D-anchored labels are HTML positioned against projected coordinates so text stays text [site:lando-norris] [verified]; map pins are `<button>` or `<a>` elements with names [site:mindmarket]; the block kit reflows — no breakpoint reloads.
 - **Choose when.** The subject is plural — two personas, several ventures, a service × sector matrix — and every facet can be finished to the same standard.
-- **Risk.** Finish across N routes: Lando shipped dead branches, a width-keyed texture tier and a reload at 992 px [site:lando-norris] [verified]; programmatic pages go thin without a real block kit.
+- **Risk.** Finish across N routes: Lando ships dead branches — a `window.ScrollTrigger` fallback that always runs, a helper that returns `"body"` on both sides of its own ternary, and a `localhost:6645` script tag [site:lando-norris] [verified, live source 2026-09-18]. The width-keyed texture tier and the 992 px reload that used to be listed here are not observable in the 2026-09-18 build [see the card's §8]. Programmatic pages go thin without a real block kit.
 
 ## Manifesto with gates
 

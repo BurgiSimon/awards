@@ -71,7 +71,7 @@ Rule: `data-theme` on `<html>` is the single source for the CSS tokens *and* the
 
 ## Anti-pattern: reload at a breakpoint
 
-Lando Norris forces a full page reload when the viewport crosses 992 px because its six scenes were not built to resize [site:lando-norris] [verified]. Zoom users and anyone dragging a window edge trip it, and every transition above is lost mid-visit. Rebuild the scene on `ResizeObserver` instead and pick texture tiers by capability, not width (`[pattern:responsive-strategy#never-reload-at-a-breakpoint]`).
+A reload on crossing a breakpoint costs every transition above it: zoom users and anyone dragging a window edge trip it mid-visit. Rebuild the scene on `ResizeObserver` instead, and pick texture tiers by capability rather than width (`[pattern:responsive-strategy#never-reload-at-a-breakpoint]`). This was recorded against `[site:lando-norris]`, whose six scenes were said not to resize; the 2026-09-18 live pass did not find the reload in the served bundle, so treat the rule on its own merits [the attribution is [unknown] as of that pass].
 
 ## Verify
 
