@@ -29,6 +29,12 @@ Everything here was read from two course clones of an Awwwards Academy capstone,
 
 ## Confidence
 
+Live pass 2026-09-18: **not performed on this site, deliberately.** The pass that created this card
+rendered and verified `[site:floema]`, the company that actually holds this slug's award entry, and
+split this clone-level material out of it. Nothing here has been checked against a live render, and
+the card should not be read as though it had been.
+
+
 Clone-level throughout. No live render, no award entry read, no capture set. Split out of
 `floema.md` on 2026-09-18 during the 0.2 corpus verification; see
 `docs/handoff/verification-log.md`.
