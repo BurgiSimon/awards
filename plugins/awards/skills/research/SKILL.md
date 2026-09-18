@@ -63,6 +63,7 @@ On exit 0 or 2, open every capture with the Read tool and read each one for what
 
 - Describe each composition in your own words: what is where, at what scale, what the type and colour system appear to be, what changed between states. Everything read this way is `[verified]` against the capture name.
 - A preloader or a consent wall in every frame is itself an observation about the load gate; add `--wait 3000` or `--wait-for <selector>` once, then record what you got.
+- Frames that are identical, or a `scrollMode` of `wheel` in the manifest with nothing changing between states, mean the page hijacks the wheel and never moved: rerun once with `--wheel 12000 --wait 6000 --timeout 90000`, and say in §9 how the states were reached.
 
 ## 3. When the site is unreachable
 

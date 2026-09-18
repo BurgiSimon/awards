@@ -24,7 +24,7 @@ npm run dev                                               # from recipes/: Vite 
 
 node scripts/audit.mjs recipes                            # craft-floor audit; must stay free of P0–P2 findings
 node scripts/audit.mjs <dir|file|url> [--json] [--quick] [--render]
-node scripts/capture.mjs <url|file|dir> [--out .awards/captures]   # jury evidence: three scroll positions, phone, reduced motion
+node scripts/capture.mjs <url|file|dir> [--out .awards/captures] [--wheel <px>]   # jury evidence: three scroll positions, phone, reduced motion
 node scripts/new-project.mjs --stack vite|next|nuxt|astro|sveltekit --name <dir> [--webgl] [--dry-run]
 node scripts/roll.mjs --deal 3 --of 7 [--seed <key>]      # seeded direction roll used by the concept skill
 

@@ -47,7 +47,7 @@ Locate the captures directory (`--captures`, else `.awards/captures`) and its `m
 Open every capture with the Read tool and judge validity:
 
 - not blank, not one flat colour, not a stuck preloader (a frozen counter or an empty stage at s50 or s100)
-- s00, s50 and s100 actually differ; identical frames mean the scroll never moved
+- s00, s50 and s100 actually differ; identical frames mean the scroll never moved. Identical frames, or `metrics.<label>.scrollMode` of `wheel` in the manifest with no change between states, mean the page drives a virtual scroll: rerun with `--wheel 12000 --wait 6000 --timeout 90000` and say in the report how the states were reached
 - `manifest.json` has no `pageErrors`, and its `consoleErrors` did not prevent rendering
 - no capture is older than the newest source file (`find <dir> -newer <capture>`); older is stale
 

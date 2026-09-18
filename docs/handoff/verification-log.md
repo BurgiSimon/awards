@@ -43,6 +43,27 @@ Recipes were re-verified on Chromium 153.0.8010.12 (the stamps said 141.0.7390.3
 4. **`.gitignore` did not ignore `plugins/awards/.awards/`**: `.awards/audit.json` and its siblings
    contain a slash, so git anchored them to the repository root. Rewritten as `**/.awards/…`.
 
+5. **`verify-recipes.mjs` is not safe to run beside another Chromium.** With a site capture running
+   in parallel, `gl-virtual-scroll-camera` failed `idle float snaps to a chapter (0.855)`; alone it
+   passes 3 / 3, and the whole suite passed it. Run the suite with nothing else driving a browser.
+
+## Phase 1 — capture.mjs hardening
+
+Checked against `https://www.igloo.inc/` (a virtual-scroll site, the case the old `scrollTo` could
+not move) with `--only desktop --scroll 0,50,100 --wheel 12000 --wait 6000 --timeout 90000`:
+
+| Check | Result |
+|---|---|
+| exit code | 0 |
+| `manifest.json` written | yes, 3 captures, 0 page errors, 0 console errors |
+| `metrics.desktop.scrollMode` | `wheel` |
+| frames differ | yes: wireframe field → igloo on a snowfield → a rock in fog |
+| `metrics.desktop` | `domNodes: 27`, `canvases: 0`, `awardsHook: false`, LCP 864 ms, CLS 0 |
+| `verify-recipes --only gl-virtual-scroll-camera,boot-lenis-gsap` | 3 / 3 runs green |
+
+The 27-node DOM behind a full-screen canvas is itself evidence for the `igloo` card's accessibility
+claim; it is recorded here and confirmed on that card's own pass.
+
 ### Environment findings that change the plan
 
 - **Awwwards answers 403 to curl**, with or without a browser user agent and full navigation
