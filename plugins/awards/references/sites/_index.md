@@ -6,7 +6,7 @@ Confidence is the card's overall label: **high** = sources read verbatim (bundle
 
 | Slug | Site | Class | Visitor mode | Narrative model | WebGL dosage | Scroll model | Palette strategy | Type contract | Awards / score | Confidence |
 |---|---|---|---|---|---|---|---|---|---|---|
-| `leo-parpeix` | Léo Parpeix | portfolio | experience | collage → index | canvas-first + one global post-process | native + Lenis | 4 named themes swapped per section, light-dominant | grotesque body + wide display (Monument Grotesk + Avantt) | SOTD Sep 2026 + Dev, ≈ 7.69 | medium-high |
+| `leo-parpeix` | Léo Parpeix | portfolio | experience | collage → index | canvas-first + one velocity post-pass | native + Lenis | 3 named themes per route, light-dominant (#f7f7f7 / #022016) | grotesque body + variable display (Monument Grotesk + Avantt) | SOTD 14 Sep 2026, 7.69 + Dev 7.47 | high |
 | `white-desert` | White Desert | luxury travel | persuade | specification, place-led | none | native + Lenis | navy ink + warm bone grounds, one orange CTA accent | Cardinal Classic italic + Inter Tight + Oswald | SOTD 11 Sep 2026, 7.31 (dev 7.61) | high |
 | `why-zero` | Why Zero | campaign / manifesto | persuade (experience-led) | manifesto with gates | 100 % canvas | virtual float | white + one signal green | Google-served family [unknown]; shader text at key moments | SOTD + Dev, CSSDA 8.99, FWA of the Month | medium-high |
 | `usavionix` | USAvionix | B2B defence-tech | persuade | specification with role-casting | canvas-first | native, layered depth | pure #000 + #fff (diegetic) | [unknown] | HM → SOTD Sep 2026 + Dev, 7.41 | medium |
