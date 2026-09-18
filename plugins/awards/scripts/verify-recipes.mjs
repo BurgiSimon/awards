@@ -17,18 +17,19 @@ const only = args.only ? new Set(String(args.only).split(',').map((s) => s.trim(
 const outDir = path.resolve(args.out ?? path.join(recipesDir, '_verify'));
 const VIEWPORTS = { desktop: { width: 1440, height: 900 }, mobile: { width: 390, height: 844 } };
 
-const ids = fs.readdirSync(recipesDir, { withFileTypes: true })
+const allIds = fs.readdirSync(recipesDir, { withFileTypes: true })
   .filter((d) => d.isDirectory() && !d.name.startsWith('_') && !['node_modules', 'dist'].includes(d.name) && fs.existsSync(path.join(recipesDir, d.name, 'index.html')))
-  .map((d) => d.name)
-  .filter((id) => !only || only.has(id));
+  .map((d) => d.name);
+const ids = allIds.filter((id) => !only || only.has(id));
 if (!ids.length) {
   console.error('no recipes found');
   process.exit(1);
 }
 
-// Regenerate the gallery index from recipe.json files.
+// Regenerate the gallery index from recipe.json files — from every recipe, never the --only subset,
+// which would otherwise rewrite the committed page down to the few that were run.
 {
-  const cards = ids.map((id) => {
+  const cards = allIds.map((id) => {
     const meta = safeJson(path.join(recipesDir, id, 'recipe.json')) || {};
     return `<li><a href="./${id}/index.html"><strong>${meta.title || id}</strong></a> <span class="label">${(meta.tags || []).join(' · ')}${meta.tier ? ' · ' + meta.tier : ''}</span></li>`;
   });
@@ -99,6 +100,9 @@ for (const id of ids) {
         if (action.type === 'up') await page.mouse.up();
         if (action.type === 'wheel') await page.mouse.wheel(action.dx || 0, action.dy || 0);
         if (action.type === 'wait') await page.waitForTimeout(action.ms || 300);
+        // Wait on the page's own state instead of a guess: headless SwiftShader stalls rAF for
+        // seconds while it compiles a shader, and no fixed sleep is both fast and safe.
+        if (action.type === 'waitFor') await page.waitForFunction(action.fn, null, { timeout: action.timeout || 15000 }).catch(() => errors.push(`waitFor timed out: ${action.fn}`));
         if (action.type === 'focus') await page.focus(action.selector).catch((e) => errors.push(`focus failed: ${e.message}`));
       }
       if (typeof st.scroll === 'number') {
