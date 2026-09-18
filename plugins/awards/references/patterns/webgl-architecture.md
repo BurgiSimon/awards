@@ -90,7 +90,7 @@ Why: shaders do two different jobs, and mixing them is how a page turns into a d
 
 | Kind | What it does | Sites |
 |---|---|---|
-| Unifier | one global pass every pixel goes through, so DOM and scene share a physics: fluid wake + chromatic aberration [site:leo-parpeix] [recalled medium-high]; a shared fluid field across scenes [site:shopify-editions-w26] sibling [recalled high]; a grade + grain stack [site:igloo] [recalled high] | one per site |
+| Unifier | one global pass every pixel goes through, so DOM and scene share a physics: a fluid wake read as a velocity-driven hash blur [site:leo-parpeix] [verified, live bundle 2026-09-18] (no chromatic aberration — that was a clone's invention); a shared fluid field across scenes [site:shopify-editions-w26] sibling [recalled high]; a grade + grain stack [site:igloo] [recalled high] | one per site |
 | Narrative | a shader that enacts a beat once: frost unlock, burning money, shredded certificates, tunnel pulse, hexagonal text blur [site:why-zero] [verified]; a scanline over a wireframe helmet [site:lando-norris] [verified]; brushstroke-edged chapter wipes [site:shopify-editions-w26] [recalled high] | one per chapter, each tied to a sentence of the thesis |
 
 Rules: one unifier, named in the direction contract; narrative shaders only where the story turns; an idle noise displacement that keeps a hero alive between beats [site:lando-norris] [verified] is seasoning, not a third kind.
@@ -117,8 +117,8 @@ Every value below is a published or reconstructed number from one card. Take the
 |---|---|---|---|
 | Velocity bulge | vertex: `z -= (sin(y/H·π + π/2) + sin(x/W·π + π/2)) · abs(uSpeed)`; `uSpeed = scroll.current − scroll.last`, eased to 0; fragment is a plain lookup with `uAlpha` .4; camera at z = 5 | [site:floema] | [verified], clone |
 | Shared-element flight | source mesh lifted `z += .01`; scale, position and rotation tween 1.5 s `expo.inOut`; removed .2 s after | [site:floema] | [verified], clone |
-| Fluid wake | 128² ping-pong velocity FBO; pointer delta × 10 splatted; radius .0015 at rest → .002 moving; dissipation .96; advection only, no pressure solve | [site:leo-parpeix] | [recalled medium-high], clone |
-| Wake post-pass | UV distortion .0035; velocity scale 1.5; chromatic aberration samples R and B at ± velocity × .001 | [site:leo-parpeix] | [recalled medium-high], clone |
+| Fluid wake | `mouse_force 80`, `resolution 0.2` of the viewport (not a fixed 128²), `cursor_size 40`, `dt 0.015`, `deltaFactor 1.75`, `dissipation 0.98`, `iterations_poisson 1`, viscosity off, BFECC advection behind a switch | [site:leo-parpeix] | [verified, live bundle 2026-09-18] |
+| Wake post-pass | `fluidDistortionStrength 0.003`, `fluidVelocityBlurScale 15`, `aaType none`; a hash blur scaled by velocity, no colour fringing | [site:leo-parpeix] | [verified, live bundle 2026-09-18] |
 | Scroll multiplier, cloud drift | `rotation.y = scrollY × 0.00015`; sprites on `sin(t × .15 + i) × .002` | [site:leo-parpeix] | [recalled medium] |
 | Bloom presets | 1.5 / .5 / .25 intensity, chosen per scene; chain RenderPass → UnrealBloom → ShaderPass | [site:lando-norris] | [verified] |
 | Scanline helmet | time-driven scanline over a wireframe; idle Perlin/Simplex displacement so nothing is static; a six-pass fluid with noise sampling | [site:lando-norris] | [verified]; no constants |

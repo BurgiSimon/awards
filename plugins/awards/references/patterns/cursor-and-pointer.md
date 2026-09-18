@@ -33,7 +33,7 @@ Rules:
 
 ## Hover previews and cursor-following reveals
 
-Why: on an index of work, a preview that follows the pointer keeps the list typographic and lets the image arrive only when asked for. Two variants exist: Léo Parpeix's archive rows spawn a preview that chases the cursor at lerp .25 (`k ≈ 17`) [site:leo-parpeix] [recalled medium]; The Line's about and work lists reveal footage under the pointer through `Cursor`, `CursorPlane` and `HoverReveal` components — whether the plane is GL or CSS is unknown [site:the-line] [verified names].
+Why: on an index of work, a preview that follows the pointer keeps the list typographic and lets the image arrive only when asked for. One corpus variant survives verification: `[site:leo-parpeix]`'s archive is an **accordion** whose numbered rows expand in place, not a cursor-chasing preview [verified, live bundle 2026-09-18], so the technique below has no corpus exemplar; The Line's about and work lists reveal footage under the pointer through `Cursor`, `CursorPlane` and `HoverReveal` components — whether the plane is GL or CSS is unknown [site:the-line] [verified names].
 
 Rules:
 - One preview element per list, repositioned by `damp()` in the loop; swap its source (or GL texture) on row enter and decode the first rows ahead (`img.decode()`).

@@ -51,7 +51,7 @@ Why: duration tells the visitor what kind of event just happened. The corpus kee
 | Hero-scale (preloader exit, shared-element flight, chapter cut) | 1.2–1.5 s; token `--dur-hero` 1400 ms | 1.5 s [site:floema] [verified]; 1.4 s hero lines in `[recipe:boot-lenis-gsap]`; 1 s wordmark settle on `outExpo` [site:animejs] |
 | Theme swap | ≈ 1 s [site:slosh-seltzer] (family-level) to 1.5 s [site:floema] | both tween `documentElement` colours |
 | Section snap (virtual scroll) | 1.4 s | [site:igloo] [recalled medium-high] |
-| Counter tick | one jump per 100 ms | [site:leo-parpeix] [recalled medium] |
+| Counter tick | one jump per 100 ms | no corpus source — `[site:leo-parpeix]` ships an SVG circular progress ring, not a counter [verified, live bundle 2026-09-18] |
 | Hold at 100 % | ≈ 1 s before the exit | [site:floema] [verified] |
 
 Rules:
@@ -91,7 +91,7 @@ Why: motion that answers how fast the visitor moves feels physical; motion that 
 | Effect | Formula / parameters | Site | Confidence |
 |---|---|---|---|
 | Bulge on drag | `z -= (sin(y/H·π + π/2) + sin(x/W·π + π/2)) · abs(uSpeed)` in the vertex stage; `uSpeed = scroll.current − scroll.last`, eased back to 0 at rest; fragment stage stays a plain texture lookup | [site:floema] | [verified], clone shader |
-| Fluid wake | pointer delta × 10 splatted into a 128² ping-pong velocity FBO, radius .0015 at rest → .002 moving, dissipation .96, advection only; read by one post pass: UV distortion .0035, velocity scale 1.5, chromatic aberration ± velocity × .001 | [site:leo-parpeix] | [recalled medium-high], clone |
+| Fluid wake | `mouse_force 80`, `resolution 0.2` of the viewport (not a fixed 128²), `cursor_size 40`, `dt 0.015`, `deltaFactor 1.75`, `dissipation 0.98`, `iterations_poisson 1`, viscosity off, BFECC advection behind a switch; the post pass reads `fluidDistortionStrength 0.003` and `fluidVelocityBlurScale 15` — a velocity-driven hash blur, **and no chromatic aberration at all** | [site:leo-parpeix] | [verified, live bundle 2026-09-18] — the figures previously here came from an educational clone and match the shipped site on no parameter |
 | Marquee speed | rAF translate with wraparound, so speed can follow scroll velocity instead of a fixed keyframe rate | [site:seasats] (clone-described); `[recipe:marquee-raf-mask]` | [recalled medium] |
 | Carousel drift | auto-speed tweened to 0 on grab and back to 2 on release (500 ms each); wheel input lerped at .2 into the same value | [site:animejs] | [verified] |
 | Hero inertia | drag momentum with lighting that answers the object's motion; no numbers published | [site:oryzo] | [recalled high], parameters unknown |
@@ -148,7 +148,7 @@ The hinge [site:the-line] [verified]: a full-viewport panel and its logo layer, 
 
 - Whole-line `x` shift by a vw-locked amount on expo-out [site:the-line] [verified].
 - Duplicate-char roll: clone each char to the left inside a clipped wrapper, then stagger `x: '100%'` at 5 ms per char [site:animejs] [verified].
-- Cursor answer: ring scales 1.35×, dot shrinks to .7×, ring opacity .35 → .8 [site:leo-parpeix] [recalled medium] — see `[pattern:cursor-and-pointer#two-speed-cursor]`.
+- Cursor answer: no corpus card is a source for dot-and-ring scale figures — `[site:leo-parpeix]`, which these were attributed to, ships a contextual text label off an event bus [verified, live bundle 2026-09-18]. See `[pattern:cursor-and-pointer#two-speed-cursor]` for the technique on its own merits.
 - `composition: 'blend'` lets a hover offset and a scroll offset on the same property coexist [site:animejs] [verified]; in GSAP, drive the pointer part with `quickTo` `[recipe:magnetic-button]`.
 
 Rules: ≤ 300 ms, transform and opacity only, and `:focus-visible` triggers the same state as hover.

@@ -19,7 +19,7 @@ Rules:
 | Archetype | Mechanism | Site | Confidence |
 |---|---|---|---|
 | Counter with a hold | percent written from real decode progress; holds ≈ 1 s at 100 so the number is read; exits with the titles at `y: '150%'`, 1.5 s, `expo.out`, stagger .1, then the number (`y: '100%'`) and the container | [site:floema] | [verified], clone |
-| Non-linear counter + sound gate | random 5–23-point jumps every 100 ms, then a click-to-enter gesture that also enables sound | [site:leo-parpeix] | [recalled medium], clone |
+| Progress ring + sound gate | an SVG circular progress ring labelled "World building", then a click that enables sound — a consent, not a content wall; the real hold afterwards is a hard-coded 3.75 s navbar delay | [site:leo-parpeix] | [verified, live bundle 2026-09-18] |
 | Participatory gesture | draw a zero; when the stroke closes, frost spreads from it and dissolves into the scene | [site:why-zero] | [verified] |
 | Diegetic boot sequence | thermal, lidar and IR readouts flicker on before the hero — loading as the product's own console | [site:usavionix] | [verified description]; timing unknown |
 | Cinematic title card | the loader as a film's opening title | [site:son-daven] | [verified feature] |
