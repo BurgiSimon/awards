@@ -1,6 +1,6 @@
 ---
 name: jury
-description: Scores a site, page or single component the way a design-award jury does. Design, Usability, Creativity and Content on anchored 0–10 scales (Site of the Day winners sit at 7.2–7.9), the five Developer Award criteria, the memory test, the specificity test (could a juror name the source site?), the keyboard and reduced-motion walk and a slop scan, ending in an ordered fix list and one disposition (ship, fix, rebuild or recapture). Use whenever the user asks to review, critique, score, judge, rate or evaluate a site or component, asks "would this win", "is this award-worthy", "what is missing", "what would the jury say", or before shipping award-level work; also re-checks a fix batch with --verdict. Runs in a fresh context on Playwright captures and the audit, so the build conversation cannot talk it upward. Not for code review, failing tests or accessibility work with no award framing.
+description: Scores a site, page or single component the way a design-award jury does. Design, Usability, Creativity and Content on anchored 0–10 scales (Site of the Day winners sit at 7.3–8.2), the five Developer Award criteria, the memory test, the specificity test (could a juror name the source site?), the keyboard and reduced-motion walk and a slop scan, ending in an ordered fix list and one disposition (ship, fix, rebuild or recapture). Use whenever the user asks to review, critique, score, judge, rate or evaluate a site or component, asks "would this win", "is this award-worthy", "what is missing", "what would the jury say", or before shipping award-level work; also re-checks a fix batch with --verdict. Runs in a fresh context on Playwright captures and the audit, so the build conversation cannot talk it upward. Not for code review, failing tests or accessibility work with no award framing.
 argument-hint: "[url | path | --component <selector>] [--captures <dir>] [--verdict]"
 context: fork
 agent: awards-jury
@@ -101,7 +101,7 @@ Why: a Developer Award accompanies nearly every Site of the Day in the corpus, a
 
 ## 4. Assessment C — the usability walk
 
-Why: usability was the lowest axis on every scored site in the corpus, which makes it the axis where a new build beats the reference set instead of copying it. Read `${CLAUDE_PLUGIN_ROOT}/references/jury/usability-walk.md` and run its eight steps against the captures, the DOM and the source. When a canvas exists, add the resilience capture for step 8:
+Why: usability is the lowest axis on nineteen of the twenty verified corpus entries [verified, twenty Awwwards entries read 2026-09-18], which makes it the axis where a new build beats the reference set instead of copying it. Read `${CLAUDE_PLUGIN_ROOT}/references/jury/usability-walk.md` and run its eight steps against the captures, the DOM and the source. When a canvas exists, add the resilience capture for step 8:
 
 ```
 node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <target> --out .awards/captures --only desktop --scroll 0 --no-webgl --name nogl

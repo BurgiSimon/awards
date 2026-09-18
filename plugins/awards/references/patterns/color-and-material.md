@@ -125,7 +125,7 @@ Rules: choose one policy and name it under `DESIGN.md ## Elevation & Depth`; sha
 
 ## Contrast
 
-Why: a duotone that clears AA is the creditable detail, not the obvious one — usability is the lowest axis on every scored site.
+Why: a duotone that clears AA is the creditable detail, not the obvious one — usability is the lowest axis on nineteen of the twenty verified entries [verified, twenty Awwwards entries read 2026-09-18].
 
 - Worked example [site:son-daven] [verified hexes; ratio computed]: ink #2C2824 on brass #A89474 gives a relative luminance of .022 against .308, so `(.308 + .05) / (.022 + .05)` ≈ 5.0:1 — body text passes on the brass surface. The same brass as *text* on a light ground lands near 2.7:1 and fails: the accent is a surface and an ink, never a body colour.
 - Counter-example [site:floema] [verified hexes; ratio computed]: terracotta #c97164 on bone #f9f1e7 is ≈ 3.1:1 — large type only. The card does not say so; the number does.

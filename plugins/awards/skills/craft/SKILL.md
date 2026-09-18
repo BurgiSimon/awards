@@ -15,7 +15,7 @@ Why: the reference corpus (19 analysed winners, `${CLAUDE_PLUGIN_ROOT}/reference
 - Concept first. Every winner makes one idea do the job a feature list usually does; effects serve that idea or get cut.
 - One world, one signature, one authored load and one authored close. A page that is loud everywhere has no loud moment.
 - A Developer Award accompanied nearly every Site of the Day in the corpus, so the technical bar (one ticker, budgets, disposal, semantics) is part of the brief, not a polish step.
-- Usability was the lowest axis on every scored reference (7.16–7.51). The reduced-motion, keyboard and DOM-mirror paths they skipped are where new work beats them without borrowing anything.
+- Usability is the lowest axis on nineteen of the twenty verified references, and the lowest-scoring axis in the corpus overall (7.00–7.90) [verified, twenty Awwwards entries read 2026-09-18]. The reduced-motion, keyboard and DOM-mirror paths they skipped are where new work beats them without borrowing anything.
 - The memory test: what a visitor describes an hour later must be an object or a behaviour, never a mood. "Cinematic" is not an answer; "the shipment that crosses the page" is.
 
 ## Setup
@@ -161,9 +161,9 @@ Why: the build order keeps every layer honest against the one below it, and the 
 
 Why: a build aimed at "great" lands at 6; a build aimed at the rubric's anchors lands where the corpus does. Read `${CLAUDE_PLUGIN_ROOT}/references/jury/rubric.md` before writing a calibration line into the brief.
 
-- Four axes, weighted Design 40 · Usability 30 · Creativity 20 · Content 10. Site of the Day territory starts at a weighted 7.2 with no axis under 6.8; corpus winners cluster at 7.2–7.9; Site of the Month sits at 7.5–7.9.
+- Four axes, weighted Design 40 · Usability 30 · Creativity 20 · Content 10 — the split printed on every entry page [verified, twenty Awwwards entries read 2026-09-18]. Site of the Day territory starts at a weighted 7.2 with no axis under 6.8; the twenty verified corpus entries run 7.28–8.18, median 7.67. This plugin's own jury scores about 0.7 below the award by design, so read `ship` as clearing our floor rather than as a prediction; `${CLAUDE_PLUGIN_ROOT}/references/jury/rubric.md` has the derivation.
 - Developer criteria are scored separately: animation and interaction, performance, responsive, accessibility and semantics, code and markup. A Developer Award needs the average above 7, and one accompanied nearly every Site of the Day in the corpus.
-- Where points are lost: usability first (the lowest axis on every scored site, 7.16–7.51), then load (a gate that always plays), then mobile (a shrunken desktop). Design rarely loses a winner the award; usability does.
+- Where points are lost: usability first (the lowest axis on nineteen of twenty verified entries, range 7.00–7.90) [verified, twenty Awwwards entries read 2026-09-18], then load (a gate that always plays), then mobile (a shrunken desktop). Design rarely loses a winner the award; usability does.
 - Creativity is the highest axis on concept-led winners (`[site:son-daven]` 8.15, `[site:oryzo]` 8.35) and it comes from the concept, not from the effect count. Effect inflation caps Creativity at 6.
 - WebGL dosage is a budget choice, not a quality signal: `[site:the-line]` took Site of the Month DOM-first, `[site:igloo]` took Site of the Year at 100 % canvas, `[site:seasats]` reads as 3D with no runtime GL. Pick the lowest rung the thesis survives (`[pattern:webgl-architecture#dosage-ladder]`).
 - Content caps at 6 with placeholder copy and adjectives; numbers with units, dual units and a conversion matched to the stakes move it (`[pattern:copy-and-content#numbers-not-adjectives]`).

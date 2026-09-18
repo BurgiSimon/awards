@@ -126,7 +126,7 @@ The entry chunk is the one `index.html` loads with `type="module"`; the GL chunk
 
 ## 5. Accessibility and usability
 
-Why: usability was the lowest axis on every corpus site, and a jury that finds a keyboard dead end at the first gesture stops looking for the good parts. Verify each item from the captures and the source; when a reduced-motion tier needs rework, read `${CLAUDE_PLUGIN_ROOT}/references/patterns/accessibility-and-reduced-motion.md` for the three tiers and the keyboard paths.
+Why: usability is the lowest axis on nineteen of the twenty verified corpus entries [verified, twenty Awwwards entries read 2026-09-18], and a jury that finds a keyboard dead end at the first gesture stops looking for the good parts. Verify each item from the captures and the source; when a reduced-motion tier needs rework, read `${CLAUDE_PLUGIN_ROOT}/references/patterns/accessibility-and-reduced-motion.md` for the three tiers and the keyboard paths.
 
 - Landmarks with one `<main>` and one `<h1>`, an unbroken heading order, `lang` on `<html>` (A01, A03, A09).
 - A skip link first in the tab order, landing on `<main>`.

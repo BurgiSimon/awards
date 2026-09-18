@@ -1,6 +1,6 @@
 # Usability walk
 
-Usability is the lowest score on every site in the corpus (7.16–7.51), which makes it the axis where new work can beat the reference set instead of copying it. This walk is a fixed sequence the jury runs against the captures, the DOM and, when a page is reachable, the live page. Each step ends with a pass / fail and a one-line note; the failing steps become fix items and cap the Usability score as noted.
+Usability is the lowest of the four axes on nineteen of the twenty verified corpus entries (range 7.00–7.90; `[site:white-desert]` is the one exception) [verified, twenty Awwwards entries read 2026-09-18], which makes it the axis where new work can beat the reference set instead of copying it. This walk is a fixed sequence the jury runs against the captures, the DOM and, when a page is reachable, the live page. Each step ends with a pass / fail and a one-line note; the failing steps become fix items and cap the Usability score as noted.
 
 ## 1. Keyboard only (caps Usability at 6 if any item fails)
 - Tab from the top: a skip link appears first and lands on `<main>`.
