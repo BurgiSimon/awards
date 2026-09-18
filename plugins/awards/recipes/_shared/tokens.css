@@ -1,0 +1,39 @@
+/* Demo tokens for the recipes. A real project generates these from DESIGN.md via /awards:system.
+   The faces below are system stacks on purpose: recipes never ship licensed fonts. */
+:root {
+  --ground: #f4f2ee;
+  --ink: #1a1c1c;
+  --accent: #0016cb;
+  --muted: color-mix(in oklab, var(--ink) 55%, var(--ground));
+  --line: color-mix(in oklab, var(--ink) 14%, var(--ground));
+
+  --font-display: "Helvetica Neue", "Arial Nova", Helvetica, Arial, sans-serif;
+  --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* vw-lock: every desktop measure is a fraction of a 1728px artboard. 210px → 12.1528vw. */
+  --artboard: 1728;
+  --display: clamp(3rem, 12.1528vw, 13.125rem);
+  --label: 0.6875rem;
+  --gutter: clamp(20px, 4.1667vw, 120px);
+  --unit: 4px;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+  --ease-theme: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --dur-feedback: 160ms;
+  --dur-routine: 400ms;
+  --dur-hero: 1400ms;
+}
+
+[data-theme="dark"] {
+  --ground: #1a1c1c;
+  --ink: #f4f2ee;
+  --accent: #ffc800;
+}
+
+[data-theme="accent"] {
+  --ground: #0016cb;
+  --ink: #f4f2ee;
+  --accent: #f4f2ee;
+}

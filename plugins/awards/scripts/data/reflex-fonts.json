@@ -1,0 +1,20 @@
+{
+  "note": "Faces that AI-generated interfaces reach for by reflex. Flag when used as the FIRST family in a font-family declaration. Fallback stacks (Helvetica, Arial, system-ui after a real face) are fine. Mirrors references/reflex-lists.md.",
+  "display": [
+    "Inter", "Roboto", "Arial", "Helvetica", "Space Grotesk", "Space Mono", "DM Sans", "DM Serif Display", "DM Serif Text",
+    "Manrope", "Geist", "Geist Mono", "Outfit", "Plus Jakarta Sans", "Instrument Sans", "Instrument Serif", "Fraunces",
+    "Playfair Display", "Cormorant", "Cormorant Garamond", "Lora", "Crimson Pro", "Crimson Text", "Newsreader", "Syne",
+    "IBM Plex Sans", "IBM Plex Mono", "IBM Plex Serif", "Poppins", "Montserrat", "Open Sans", "Lato", "Raleway", "Nunito",
+    "Work Sans", "Rubik", "Sora", "Urbanist", "Bricolage Grotesque", "Clash Display", "Satoshi", "General Sans", "Cabinet Grotesk",
+    "Impact", "Arial Black", "Comic Sans MS", "Papyrus"
+  ],
+  "systemDisplay": ["Impact", "Arial Black", "system-ui", "-apple-system", "Segoe UI"],
+  "verifiedOpenAlternatives": {
+    "note": "Open-licence faces with character, by class. Verify the licence file before shipping.",
+    "grotesk": ["Mona Sans (OFL)", "Hubot Sans (OFL)", "Familjen Grotesk (OFL)", "Schibsted Grotesk (OFL)", "Archivo (OFL)", "Public Sans (OFL)"],
+    "geometric": ["Jost (OFL)", "Figtree (OFL)", "Red Hat Display (OFL)", "Albert Sans (OFL)"],
+    "condensed-display": ["Anton (OFL)", "Bebas Neue (OFL)", "Big Shoulders Display (OFL)", "Archivo Narrow (OFL)"],
+    "serif-display": ["Instrument Serif (OFL, use sparingly)", "Gloock (OFL)", "Bodoni Moda (OFL)", "Young Serif (OFL)"],
+    "mono": ["JetBrains Mono (OFL)", "Commit Mono (OFL)", "Martian Mono (OFL)", "Azeret Mono (OFL)"]
+  }
+}

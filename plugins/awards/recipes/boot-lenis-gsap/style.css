@@ -1,0 +1,11 @@
+.topbar { display: flex; justify-content: space-between; align-items: center; padding-block: calc(var(--unit) * 5); position: sticky; top: 0; background: color-mix(in oklab, var(--ground) 88%, transparent); backdrop-filter: none; z-index: 10; }
+.hero .mask { display: block; overflow: hidden; }
+.hero .line { display: block; will-change: transform; }
+.lede { max-width: 60ch; margin-top: calc(var(--unit) * 8); }
+.chapter h2 { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 5rem); line-height: .95; letter-spacing: -.02em; margin: .25em 0 .5em; }
+.chapter p { max-width: 55ch; }
+.chapter { opacity: 0; transform: translateY(24px); transition: opacity var(--dur-hero) var(--ease-out-expo), transform var(--dur-hero) var(--ease-out-expo); }
+.chapter.is-inview { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .chapter { transform: none; transition-duration: var(--dur-routine); }
+}
