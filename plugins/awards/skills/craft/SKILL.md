@@ -2,6 +2,7 @@
 name: craft
 description: "Design and build award-worthy websites end to end (Site of the Day / Month / Year and Developer Award league): brief → concept → visual system → page structure → stack → motion → WebGL → jury → ship. Use whenever the user wants a site, landing page, portfolio, campaign, product, studio or brand site that should be 'award-worthy', 'award-level', 'the best site you can build', 'immersive', 'cinematic', 'creative-developer style', 'with smooth scroll / GSAP / Lenis / WebGL', names studios or sites (Lusion, basement, Igloo, Lando Norris, Léo Parpeix) or says 'make it stunning'. Also the entry point when unsure which awards skill applies: it routes single elements to awards:component and critiques to awards:jury, and it owns AWARDS.md. Not for dashboards, admin CRUD, bug fixes, API docs or accessibility work with no award framing."
 argument-hint: "[brief | site | component | resume | status | jury | ship] [target]"
+allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
 ---
 
 # awards:craft — the orchestrating skill

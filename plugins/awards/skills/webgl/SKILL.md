@@ -2,6 +2,7 @@
 name: webgl
 description: "Build the WebGL layer of an award-level site with Three.js 0.186, OGL, React Three Fiber or Threlte: DOM-tethered image planes with velocity distortion, a fluid-wake post-process, depth-map 2.5D parallax, scroll-driven camera rigs on a virtual scroll, render-to-texture section transitions, procedural landscapes, one hero object with inertia, particles, bloom and grain post-processing, plus the Blender to glTF + Draco + KTX2 pipeline, adaptive quality tiers, disposal, a semantic DOM mirror and a no-GL, reduced-motion fallback. Use when asked for 3D, WebGL, shaders, GLSL, Three.js, R3F, OGL, particles, liquid, fluid or distortion effects, image hover distortion, a 3D hero, scroll-scrubbed models or any canvas effect beyond CSS, and when a canvas site is slow, drifts against the DOM or renders dark. Not for DOM-only motion (awards:motion), charts, or 'make it 3D' with no concept behind it."
 argument-hint: "[effect or scene] [--lib three|ogl|r3f] [--tier low|mid|high]"
+allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
 ---
 
 # awards:webgl

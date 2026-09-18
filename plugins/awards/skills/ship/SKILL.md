@@ -2,6 +2,7 @@
 name: ship
 description: Takes an award-level site or component from "it works" to "it ships". Applies the jury's fix list in one batch, runs the deterministic craft-floor audit (reflex fonts, contrast, reduced-motion branch, landmarks and alt, overflow, scrub easing, will-change, browser surfaces, slop patterns) until every finding is fixed or recorded as an exception, captures desktop, mobile, scroll-state and reduced-motion screenshots, checks the performance budgets (entry JS, GL chunk, images, meshes, fonts, LCP, CLS), meta and Open Graph, favicon, 404, console errors, and writes the ship report. Use whenever the user says ship, launch, finalize, polish, QA, "make it production-ready", "check performance or accessibility", "run the audit", "take screenshots", or after any awards build or jury round in a project with an AWARDS.md. Not a deploy tool, nor for ordinary app screens with no award framing.
 argument-hint: "[path | url] [--fix] [--report-only]"
+allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
 ---
 
 # awards:ship — fix, prove, report

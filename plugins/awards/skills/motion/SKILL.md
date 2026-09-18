@@ -2,6 +2,7 @@
 name: motion
 description: "Author the motion of an award-level site or component with GSAP 3.15 (ScrollTrigger, SplitText, Flip, Observer), Lenis, anime.js 4 or CSS: a preloader that holds at 100 on a real load signal, masked line reveals, scroll-scrubbed pins and sticky stages, velocity-driven effects, a two-speed contextual cursor, magnetic targets, rAF marquees, flicker and scramble text, theme swaps, page and shared-element transitions, all on one expo-out vocabulary with framerate-independent damping and three reduced-motion tiers. Use when asked to animate, add motion or smooth scroll, build scroll-triggered or scrollytelling effects, text reveals, transitions, micro-interactions or cursor effects, make a page feel alive, premium or cinematic, or fix animation that feels generic, janky or fade-up-everything. Not for chart or dashboard animation, and not for the WebGL layer itself (awards:webgl)."
 argument-hint: "[target or feature] [--lib gsap|anime|css] [--score-only]"
+allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
 ---
 
 # awards:motion

@@ -2,6 +2,7 @@
 name: structure
 description: "Plan and build the page architecture of an award-level site: a chapter or route map with pacing, the hero archetype, navigation and a fullscreen menu overlay, the preloader slot, marquee, sticky and pinned stacks, horizontal rails, galleries, hover-preview archive lists, spec blocks, a designed footer and 404, as semantic HTML with keyboard paths and a responsive strategy decided before build. Use whenever the user asks for page structure, sections, the layout of a landing page or portfolio, 'what sections should this have', wireframes, a hero that 'needs to feel premium', a nav, menu, footer or 404 page, scrollytelling structure, or when turning a locked direction into markup. Draws on a catalogue of components seen across 19 award-winning sites. Not for dashboards, admin CRUD, forms-only pages or accessibility fixes with no award framing."
 argument-hint: "[page | route] [--from AWARDS.md] [--skeleton]"
+allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
 ---
 
 # awards:structure — page map and skeleton

@@ -2,6 +2,7 @@
 name: stack
 description: "Choose and scaffold the technical foundation of a creative-developer site and boot it correctly: Vite + vanilla by default, or Next.js (@gsap/react, React Three Fiber), Nuxt, Astro with View Transitions, SvelteKit + Threlte, or a Webflow shell with an injected ESM engine. Wires Lenis 1.3 and GSAP ScrollTrigger on one ticker, lazy-chunks Three.js, self-hosts fonts, picks the page-transition mechanism, sets up the glTF/Draco/KTX2 pipeline, quality tiers and one reduced-motion switch, and records budgets in AWARDS.md. Use when asked to set up, scaffold, bootstrap or configure a project for smooth scroll, GSAP, Lenis, Three.js, WebGL or page transitions, which framework suits an award-style site, or to add these libraries to an existing Next, Nuxt, Astro, Svelte or Webflow app. Not for CRUD or dashboard scaffolds without award framing, nor for authoring the animations (awards:motion)."
 argument-hint: "[vite|next|nuxt|astro|sveltekit|webflow] [--name <dir>] [--webgl] [--cms <name>]"
+allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
 ---
 
 # awards:stack

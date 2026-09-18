@@ -2,6 +2,7 @@
 name: research
 description: Turns a reference website into a structured case-study card in the awards corpus format — concept, palette, type, components, motion with parameters, stack evidence, weaknesses, generalisable principles, take / don't take, and a confidence label on every claim. Uses Playwright captures and light source inspection when the site is reachable, and marks recalled or inferred material honestly when it is not. Use whenever the user shares a site to learn from, asks "what makes this site award-winning", "analyse / deconstruct / break down this site", "why did this win", "add this to the references", pastes a CSSDA, FWA or other award-gallery entry, or wants the awards skills to learn a new style. Produces principles for awards:concept to diverge from, never a reproduction. Not for competitor SEO or content audits, and not for downloading a site's assets.
 argument-hint: "<url | notes file> [--slug <name>] [--to project|plugin]"
+allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
 ---
 
 # awards:research — turn a site into a case study

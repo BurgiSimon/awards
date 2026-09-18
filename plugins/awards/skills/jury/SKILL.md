@@ -5,7 +5,7 @@ argument-hint: "[url | path | --component <selector>] [--captures <dir>] [--verd
 context: fork
 agent: awards-jury
 background: false
-allowed-tools: Read, Glob, Grep, Bash
+allowed-tools: Read, Glob, Grep, Bash, Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
 ---
 
 # awards:jury — the fresh-context jury
