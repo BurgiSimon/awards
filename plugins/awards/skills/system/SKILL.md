@@ -7,6 +7,8 @@ allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_P
 
 # awards:system — the visual system
 
+Codex: read [the runtime guidance](../../references/codex.md) before following this skill; it maps plugin paths, tool names and handoffs to Codex.
+
 This skill turns the WORLD block of a direction contract into the tokens every later phase builds with: one type contract, two to four colour tokens under a named strategy, a spacing base, a material policy, motion tokens and themed browser surfaces. It writes `DESIGN.md` and `src/styles/tokens.css`, keeps their values identical, and proves the result with the audit.
 
 ## Why few tokens

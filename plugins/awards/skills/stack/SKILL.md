@@ -7,6 +7,8 @@ allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_P
 
 # awards:stack
 
+Codex: read [the runtime guidance](../../references/codex.md) before following this skill; it maps plugin paths, tool names and handoffs to Codex.
+
 Pick the stack, scaffold it, and boot Lenis, GSAP and (when the concept needs it) Three on one clock, so every later phase inherits a page that scrolls, measures and degrades correctly. The stack is a decision made once per project; the architecture under it is the same on every stack in the corpus.
 
 ## Setup

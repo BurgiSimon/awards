@@ -7,6 +7,8 @@ allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_P
 
 # awards:webgl
 
+Codex: read [the runtime guidance](../../references/codex.md) before following this skill; it maps plugin paths, tool names and handoffs to Codex.
+
 Fix the dose before the first mesh, let the DOM own layout, feed scroll and pointer to the shaders as numbers, and ship a page that still reads with the context blocked. WebGL earns a Developer Award when it disappears into the page; it loses one when the page disappears into it.
 
 ## Setup

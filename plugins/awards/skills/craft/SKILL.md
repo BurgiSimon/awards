@@ -7,6 +7,8 @@ allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_P
 
 # awards:craft — the orchestrating skill
 
+Codex: read [the runtime guidance](../../references/codex.md) before following this skill; it maps plugin paths, tool names and handoffs to Codex.
+
 This skill turns a brief into a finished, judged and shipped site by driving the other awards skills in order. It never does their work itself: it captures the brief, keeps `AWARDS.md` honest, routes each phase to the right skill, calibrates against the award rubric and refuses to call a build finished before a jury and a ship report exist.
 
 ## What award-worthy means here

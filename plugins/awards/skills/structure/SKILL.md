@@ -7,6 +7,8 @@ allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_P
 
 # awards:structure — page map and skeleton
 
+Codex: read [the runtime guidance](../../references/codex.md) before following this skill; it maps plugin paths, tool names and handoffs to Codex.
+
 This skill turns a locked direction into the architecture of the page: a page map with beats and pacing, one hero archetype, the components each chapter needs, a semantic DOM plan, a responsive strategy decided before any component exists, and the static skeleton itself, 404 included. Motion and WebGL come later and must survive on top of what this phase ships.
 
 ## Pages are chaptered arguments

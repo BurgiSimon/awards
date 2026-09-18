@@ -7,6 +7,8 @@ allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_P
 
 # awards:research — turn a site into a case study
 
+Codex: read [the runtime guidance](../../references/codex.md) before following this skill; it maps plugin paths, tool names and handoffs to Codex.
+
 Arguments: `$ARGUMENTS`
 
 - `<url | notes file>` — the site, or a file of notes, screenshots and pasted award listings about it

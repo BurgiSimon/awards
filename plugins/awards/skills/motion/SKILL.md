@@ -7,6 +7,8 @@ allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_P
 
 # awards:motion
 
+Codex: read [the runtime guidance](../../references/codex.md) before following this skill; it maps plugin paths, tool names and handoffs to Codex.
+
 Write the motion score first, then build it: one authored moment per chapter, one signature, one easing family, one clock, and a reduced-motion tier that still shows every state. Motion is the layer a jury feels before it can name it, and it is where "generic" gets diagnosed.
 
 ## Setup

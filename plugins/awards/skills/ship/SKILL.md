@@ -7,6 +7,8 @@ allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_P
 
 # awards:ship — fix, prove, report
 
+Codex: read [the runtime guidance](../../references/codex.md) before following this skill; it maps plugin paths, tool names and handoffs to Codex.
+
 The jury judges; this skill fixes and proves. A ship pass ends with evidence a stranger could check: an audit at zero, five valid captures, measured budgets and a report. It never redesigns, because a fix that needs a new idea is a concept problem and goes back to `awards:craft`.
 
 Arguments: `$ARGUMENTS`

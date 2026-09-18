@@ -7,6 +7,8 @@ allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_P
 
 # awards:component — one element, award-level
 
+Codex: read [the runtime guidance](../../references/codex.md) before following this skill; it maps plugin paths, tool names and handoffs to Codex.
+
 The fast path. A component inside an established world inherits that world; it is never a new identity exercise. The job is to give one element a signature move, every state and every path, and to prove it with a capture, while touching nothing around it.
 
 ## Setup

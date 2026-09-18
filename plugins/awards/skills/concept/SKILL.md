@@ -7,6 +7,8 @@ allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_P
 
 # awards:concept — the direction contract
 
+Codex: read [the runtime guidance](../../references/codex.md) before following this skill; it maps plugin paths, tool names and handoffs to Codex.
+
 This skill produces the one artefact every later phase depends on: a direction contract in `AWARDS.md` whose blocks are concrete enough to build from and specific enough that no juror can trace the page to a reference site. It reads the corpus, diverges from it, deals candidate worlds with a seeded roll, lets the user lock one, and writes the contract.
 
 ## Why concept first
