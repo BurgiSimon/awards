@@ -1,7 +1,8 @@
 node_modules/
-.awards/captures/
-.awards/research/
-.awards/audit.json
+**/.awards/captures/
+**/.awards/research/
+**/.awards/audit.json
+**/.awards/jury/
 plugins/awards/recipes/dist/
 plugins/awards/recipes/_verify/
 plugins/awards/recipes/node_modules/
