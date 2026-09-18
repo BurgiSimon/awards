@@ -322,6 +322,32 @@ with the `awards:` prefix optional, `min: 0 max: 0 arm: both` on the negatives.
 
 | Run | Command | Date | CLI | Result | Cost |
 |---|---|---|---|---|---|
+| smoke, cheap pass | `--tag smoke --runs 1 --ablation none -j 3 --threshold 0.67` | 2026-09-18 | 2.1.51 | **15 / 17**, misses `trigger-motion` and `trigger-component-nav` | $9.20 |
+| rerun, `--case trigger-motion` | `--runs 1 --ablation none --keep-temp` | 2026-09-18 | 2.1.51 | pass, skill called 1× | included below |
+| rerun, `--case trigger-component-nav` | `--runs 1 --ablation none --keep-temp` | 2026-09-18 | 2.1.51 | pass, skill called 1× | $0.68 both |
+
+### Phase 5c — what the two misses turned out to be
+
+All six new cases passed on their first run, including the three new triggers, and all six negatives
+held. The two misses are both pre-existing fixture cases, and both pass when rerun on their own, so
+the defect is not the wording the plan told me to fix first: `motion`'s description already carries
+the failing prompt's own phrase ("fix animation that feels generic, janky or fade-up-everything")
+and `component`'s already carries "add a menu / cursor / marquee like the creative studios do".
+Neither description is near the 1,536-character cap, so there is nothing to buy by adding more.
+
+What both failing runs share is that the agent spent its whole turn budget reading the fixture and
+then answered from what it had read. That is a sampling outcome, not a routing rule, and the honest
+fix is in the measurement rather than in the case: **the smoke tier needs more than one run per
+case.** `--runs 1 --threshold 0.67` — the command the plan specifies — cannot apply a 0.67 threshold
+to a single sample, so one miss flips a case from 1.00 to 0.00. The tier is scheduled to run again
+in Phase 7 with the baseline arm; it runs at `--runs 3` there, where a 2-of-3 pass is what 0.67
+actually means. The graders were left alone: they assert the skill fired, which is the whole point
+of the case.
+
+Cost note: the run reported `cost ceiling $8 exceeded: $9.20 spent by runs already in flight when it
+was crossed; nothing was skipped`. The ceiling is checked before a run launches, so three concurrent
+runs can overshoot it; `-j 3` and a tight ceiling do not combine.
+
 
 ## Phase 8 — end-to-end build
 

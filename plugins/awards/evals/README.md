@@ -8,7 +8,9 @@ Cases for `claude plugin eval`, in the `prompt.md` + `graders/*.md` layout. Two 
 ## Run
 ```bash
 cd plugins/awards
-claude plugin eval . --tag smoke                                   # triggering, with the no-plugin baseline
+claude plugin eval . --tag smoke --runs 3 --threshold 0.67          # triggering, with the no-plugin baseline
+# One run per case cannot apply a threshold: routing is sampled, and two of these cases have been
+# seen to miss once and pass on rerun. Three runs and 0.67 is the smallest honest measurement.
 claude plugin eval . --tag smoke --runs 1 --ablation none          # cheap iteration on descriptions
 claude plugin eval . --tag build --scaffold --runs 1 --ablation none \
   --allow-tools Write Edit WebFetch "Bash(node *)" "Bash(npm *)" "Bash(npx *)" "Bash(ls *)" "Bash(cat *)" "Bash(mkdir *)"
