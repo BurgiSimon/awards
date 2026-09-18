@@ -349,6 +349,37 @@ was crossed; nothing was skipped`. The ceiling is checked before a run launches,
 runs can overshoot it; `-j 3` and a tight ceiling do not combine.
 
 
+## Phase 6 — the two missing recipes
+
+Both P2 rows in the catalogue now ship, and `lint-refs` is at **0 dangling references** for the
+first time (it was 8, all of them these two recipes being cited by files that described them as
+planned). Every such citation was rewritten to the present tense, including the three that called
+them "planned" or "deferred".
+
+| Recipe | Checks | Dependencies | Note |
+|---|---|---|---|
+| `sound-toggle-opt-in` | 9 / 9 | none | no audio file: the bed is two detuned sines under filtered noise, synthesised at the levels the corpus publishes |
+| `gl-msdf-text` | 8 / 8 | `three` | no font file: the atlas is rasterised and distance-transformed in the page |
+
+Two things worth keeping from the second one.
+
+**A verify that passed a page that was visibly broken.** `gl-msdf-text` passed 8/8 on its first run
+while rendering the headline as a solid black slab with glyph-shaped holes. The assertion asked
+whether `readPixels` found ink inside the text rect; a fully opaque quad answers yes. The screenshot
+is what caught it. The assertion now asks for an ink fraction between 0.08 and 0.45 — what a line of
+text actually covers — and would have failed the slab at 0.83. The general lesson for this
+repository: an existence check on a render proves almost nothing, and every recipe screenshot in
+`recipes/_verify/` is worth a look before believing a PASS.
+
+**The defect under it was real and is documented.** Instrumenting the shader channel by channel
+showed the field, the layout and the UVs were all correct: `fwidth(d)` is exactly zero wherever the
+distance field has saturated, which is most of a padded atlas, and `d / 0.0` came back as something
+`clamp` resolved to 1 — every flat pixel opaque. The divisor now carries a floor, and the rule is in
+`CLAUDE.md` with the other conventions that bite, because any distance-field shader in this plugin
+will hit it.
+
+`node scripts/audit.mjs recipes` stays at 0 P0–P2 findings with both recipes in.
+
 ## Phase 8 — end-to-end build
 
 | Artefact | Present | Note |
