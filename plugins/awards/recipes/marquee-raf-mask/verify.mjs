@@ -1,10 +1,10 @@
-// The band sits just below the first viewport, so states scroll ≈ 20 % to bring it on screen (it stops while off-screen).
+// States scroll ≈ 20 % so the band is well inside the viewport on every device; at the very end of the page it is off-screen and must stop.
 export const states = [
   { name: 'top', scroll: 0.2, settle: 1200 },
   // Scroll by wheel inside the actions so no scroll happens after the hover (a scroll under the pointer would re-enter the band).
   { name: 'hover', actions: [{ type: 'wheel', dy: 600 }, { type: 'wait', ms: 1200 }, { type: 'hover', selector: '[data-marquee]' }, { type: 'wait', ms: 1500 }], settle: 100 },
   { name: 'focus', scroll: 0.2, actions: [{ type: 'focus', selector: '[data-track] a' }, { type: 'wait', ms: 900 }], settle: 100 },
-  { name: 'offscreen', scroll: 0, settle: 900 },
+  { name: 'offscreen', scroll: 1, settle: 900 },
   { name: 'rm', scroll: 0.2, reducedMotion: true, settle: 900 },
   { name: 'mobile', scroll: 0.2, viewport: 'mobile', settle: 1200 },
 ];

@@ -8,8 +8,10 @@ const root = path.dirname(fileURLToPath(import.meta.url));
 const input = {};
 for (const dir of fs.readdirSync(root, { withFileTypes: true })) {
   if (!dir.isDirectory() || dir.name.startsWith('_') || dir.name === 'node_modules' || dir.name === 'dist') continue;
-  const html = path.join(root, dir.name, 'index.html');
-  if (fs.existsSync(html)) input[dir.name] = html;
+  // Every top-level .html in a recipe folder is an entry (page-transition recipes ship several pages).
+  for (const f of fs.readdirSync(path.join(root, dir.name))) {
+    if (f.endsWith('.html')) input[`${dir.name}/${f.replace(/\.html$/, '')}`] = path.join(root, dir.name, f);
+  }
 }
 input.index = path.join(root, 'index.html');
 

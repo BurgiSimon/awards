@@ -1,0 +1,32 @@
+{
+  "id": "preloader-counter-hold",
+  "title": "Preloader: real-signal counter that holds at 100",
+  "tags": [
+    "preloader",
+    "loading",
+    "gsap",
+    "accessibility",
+    "sessionStorage"
+  ],
+  "tier": "P0",
+  "deps": [
+    "gsap@3.15.0"
+  ],
+  "variants": [
+    "counter",
+    "boot-sequence readouts (swap the count for telemetry lines)",
+    "click-to-enter sound consent (add a button that resolves a consent promise)",
+    "fps counter (00/24)"
+  ],
+  "seenIn": [
+    "floema",
+    "leo-parpeix",
+    "the-line",
+    "son-daven",
+    "usavionix"
+  ],
+  "verified": {
+    "date": "2026-09-17",
+    "chromium": "141.0.7390.37"
+  }
+}

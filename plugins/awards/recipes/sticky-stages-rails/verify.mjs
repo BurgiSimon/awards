@@ -19,7 +19,7 @@ export function assert(r) {
   out.push({ ok: (r.mid.state?.stages ?? 0) > 0.05 && (r.mid.state?.stages ?? 0) < 0.95, message: `stages rail mid-way at mid (${r.mid.state?.stages})` });
   const midOpac = r.mid.probe?.cards?.map((c) => c.opacity) || [];
   out.push({ ok: midOpac.some((o) => o > 0.9) && midOpac.some((o) => o < 0.5), message: `one stage active, others faded at mid (${midOpac.map((o) => o.toFixed(2)).join(', ')})` });
-  out.push({ ok: (r.top.state?.pinned ?? 1) === 0, message: 'no ScrollTrigger uses pin: true' });
+  out.push({ ok: (r.top.state?.pinned ?? 1) === 0, message: 'no ScrollTrigger pins anything (sticky rails only)' });
   out.push({ ok: r.rm.state?.motion === 'reduced' && Math.abs(r.rm.state?.panelRotation ?? 1) < 0.01 && (r.rm.probe?.cards || []).every((c) => c.opacity === 1), message: 'reduced motion: no hinge, all stages readable' });
   out.push({ ok: (r.mobile.state?.stages ?? 0) > 0.05, message: `mobile stages rail tracks progress (${r.mobile.state?.stages})` });
   return out;

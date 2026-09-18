@@ -7,7 +7,7 @@ The register every model reaches for when asked for "an award-winning site": nea
 
 | Tell | Why it fails | Rewrite |
 |---|---|---|
-| Dark + neon + glow with no diegetic reason | Reads as a genre, not a brand; 7 of 12 palette-known corpus sites are light-dominant | Derive ground and accent from the subject's environment `[pattern:color-and-material#colour-strategies]`; if dark, warm the black and earn it (`[site:usavionix]` earns pure black with night-vision imagery) |
+| Dark + neon + glow with no diegetic reason | Reads as a genre, not a brand; 10 of the 17 corpus sites with a known ground are light-dominant | Derive ground and accent from the subject's environment `[pattern:color-and-material#colour-strategies]`; if dark, warm the black and earn it (`[site:usavionix]` earns pure black with night-vision imagery) |
 | Blob / mesh-gradient / particle hero | Effect without concept; Creativity caps at 6 | Pick a hero archetype that enacts the thesis `[pattern:hero-archetypes]` |
 | Fade-and-rise on every section | Nobody in the corpus ships it; motion becomes wallpaper | One authored moment per chapter, masked line reveals for text, scrubbed choreography for the signature `[pattern:motion-vocabulary]` |
 | Glow buttons, gradient text, glass cards | Costume, not material | Sharp and shadowless with depth by luminance, or one material policy chosen on purpose `[site:the-line]` |

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>theme-swap-tokens — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <!-- audit-ignore: X07 numbered labels are deliberate texture in this demo -->
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ theme-swap-tokens · <span data-theme-readout>default</span></p></header>
+  <main id="main">
+    <section class="section wrap chapter" data-swap="default" aria-labelledby="t">
+      <p class="label">/ 01 · default</p>
+      <h1 class="display" id="t">Colour is<br>page state.</h1>
+      <p class="lede">Each chapter names a theme. Crossing its midpoint tweens the tokens on <code>&lt;html&gt;</code> in one beat, and the canvas clear colour rides the same tween, so DOM and WebGL never disagree for a frame.</p>
+      <canvas class="swatch" data-canvas width="480" height="200" aria-hidden="true"></canvas>
+    </section>
+    <section class="section wrap chapter" data-swap="dark" aria-labelledby="c2"><p class="label">/ 02 · dark</p><h2 id="c2">Warm near-black,<br>bone ink.</h2><p>The dark theme is not an inversion: it has its own accent and its own near-black, and the tween crosses through mixed values rather than snapping.</p></section>
+    <section class="section wrap chapter" data-swap="accent" aria-labelledby="c3"><p class="label">/ 03 · accent</p><h2 id="c3">Drenched<br>in one hue.</h2><p>A full-bleed accent chapter is the loudest move available; it works because the page spends most of its length on the quiet grounds.</p></section>
+    <section class="section wrap chapter" data-swap="default" aria-labelledby="c4"><p class="label">/ 04 · default</p><h2 id="c4">And back.</h2><p>Scrolling up replays the swaps in reverse; nothing is left half-tweened because the tween is retargeted, not stacked.</p></section>
+  </main>
+  <footer class="wrap footer"><p class="label">awards · recipe 11 · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

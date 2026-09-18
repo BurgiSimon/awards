@@ -8,7 +8,7 @@ colors:
 typography:
   display:
     fontFamily: "<Display face>, <fallback>"
-    fontSize: "clamp(2.75rem, 12.1528vw, 13.125rem)"
+    fontSize: "clamp(3rem, 12.1528vw, 13.125rem)"
     fontWeight: 500
     lineHeight: 0.9
     letterSpacing: "-0.03em"

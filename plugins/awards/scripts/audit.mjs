@@ -221,8 +221,12 @@ eachCss((file, css, off = 0) => {
   if (animates && !hasRM) add('M01', 'project', null);
   eachJs((file, js, off = 0) => {
     for (const m of js.matchAll(/scrub\s*:/g)) {
-      const start = Math.max(0, m.index - 400);
-      const win = js.slice(start, m.index + 400);
+      // Judge only the tween or trigger that owns this scrub: from the nearest enclosing call to the next call.
+      const before = js.slice(0, m.index);
+      const callStart = Math.max(...['gsap.to(', 'gsap.from(', 'gsap.fromTo(', 'gsap.timeline(', 'animate(', 'ScrollTrigger.create(', 'onScroll('].map((k) => before.lastIndexOf(k)));
+      const start = callStart >= 0 ? callStart : Math.max(0, m.index - 300);
+      const nextCall = js.slice(m.index).search(/gsap\.(?:to|from|fromTo|timeline|set)\(|ScrollTrigger\.create\(/);
+      const win = js.slice(start, m.index + (nextCall > 0 ? Math.min(nextCall, 500) : 500));
       const eases = [...win.matchAll(/ease\s*:\s*['"]([^'"]+)['"]/g)].map((e) => e[1]);
       if (eases.length && !eases.every((e) => /^(none|linear)$/i.test(e))) add('M03', file, lineOf(js, m.index) + off, eases.join(', '));
     }

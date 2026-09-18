@@ -1,0 +1,12 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+/* GSAP tweens the tokens; no CSS transition on body, or the colour would be smoothed twice. */
+body { transition: none; }
+.topbar { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); }
+.lede { max-width: 60ch; margin-top: calc(var(--unit) * 8); }
+.chapter h2 { font-family: var(--font-display); font-size: clamp(2rem, 6vw, 6rem); line-height: .95; letter-spacing: -.03em; margin: .25em 0 .5em; }
+.chapter p { max-width: 55ch; }
+.swatch { margin-top: calc(var(--unit) * 10); width: min(100%, 480px); height: auto; border: 1px solid var(--line); }
+.chapter { min-height: 100svh; }
+.footer { padding-block: calc(var(--unit) * 12); }

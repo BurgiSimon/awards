@@ -32,7 +32,7 @@ if (!ids.length) {
     const meta = safeJson(path.join(recipesDir, id, 'recipe.json')) || {};
     return `<li><a href="./${id}/index.html"><strong>${meta.title || id}</strong></a> <span class="label">${(meta.tags || []).join(' · ')}${meta.tier ? ' · ' + meta.tier : ''}</span></li>`;
   });
-  const html = `<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light dark"><title>awards recipes</title><link rel="stylesheet" href="./_shared/base.css"><style>ul{list-style:none;padding:0;margin:0}li{padding:.6rem 0;border-bottom:1px solid var(--line)}</style></head>\n<body><main class="wrap section"><p class="label">awards · recipes</p><h1 class="display" style="font-size:clamp(2rem,6vw,5rem)">Recipes</h1><ul>\n${cards.join('\n')}\n</ul></main></body></html>\n`;
+  const html = `<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="theme-color" content="#f4f2ee"><title>awards recipes</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E"><link rel="stylesheet" href="./_shared/base.css"><style>ul{list-style:none;padding:0;margin:0}li{padding:.6rem 0;border-bottom:1px solid var(--line)}</style></head>\n<body><main class="wrap section"><p class="label">awards · recipes</p><h1 class="display" style="font-size:clamp(2rem,6vw,5rem)">Recipes</h1><ul>\n${cards.join('\n')}\n</ul></main></body></html>\n`;
   fs.writeFileSync(path.join(recipesDir, 'index.html'), html);
 }
 

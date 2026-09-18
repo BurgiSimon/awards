@@ -1,0 +1,31 @@
+{
+  "id": "theme-swap-tokens",
+  "title": "Theme swap by scroll: tokens and canvas in one tween",
+  "tags": [
+    "colour",
+    "theme",
+    "gsap",
+    "scrolltrigger",
+    "canvas"
+  ],
+  "tier": "P0",
+  "deps": [
+    "gsap@3.15.0",
+    "lenis@1.3.26"
+  ],
+  "variants": [
+    "vanilla (2D canvas)",
+    "Three.js: renderer.setClearColor(live['--ground']) in the same onUpdate"
+  ],
+  "seenIn": [
+    "leo-parpeix",
+    "floema",
+    "slosh-seltzer",
+    "shopify-editions-w26",
+    "lando-norris"
+  ],
+  "verified": {
+    "date": "2026-09-17",
+    "chromium": "141.0.7390.37"
+  }
+}
