@@ -45,7 +45,7 @@ Test with `any-pointer` as well as `pointer`: a touch laptop with a mouse attach
 
 Why: a heavy canvas site has two honest options on a phone, and the corpus took both.
 
-- **Dedicated**: Oryzo's mobile treatment is indexed on Awwwards as its own inspiration entry [site:oryzo] [recalled high]; Slosh is cited twice as proof that heavy WebGL runs on the mobile web — an engineered path, not a still [site:slosh-seltzer] [recalled medium]; Trevor Noah designed the tour flow for each device with full attention rather than reducing desktop [site:trevor-noah] [verified intent]. Floema branches its markup on the server by device class through a UA parser [site:floema] [verified] — a third route, with the fragility UA sniffing carries.
+- **Dedicated**: Oryzo's mobile treatment is indexed on Awwwards as its own inspiration entry [site:oryzo] [recalled high]; Slosh is cited twice as proof that heavy WebGL runs on the mobile web — an engineered path, not a still [site:slosh-seltzer] [recalled medium]; Trevor Noah designed the tour flow for each device with full attention rather than reducing desktop [site:trevor-noah] [verified intent]. Floema branches its markup on the server by device class through a UA parser [site:floema-jewelry] [verified] — a third route, with the fragility UA sniffing carries.
 - **Degrade**: Shopify built for 70 % mobile sessions and a 60 fps target, with three content tiers — scene, static media, text — chosen from capability and measured frame rate [site:shopify-editions-w26] [recalled high for the numbers; medium-low for the tiers].
 - **The anti-model**: Lando shows a rotate-your-device prompt in phone landscape instead of a landscape layout [site:lando-norris] [verified].
 
@@ -61,7 +61,7 @@ Why: mobile GPUs fail on pixel count and bandwidth, not on triangle count. The r
 | Absolute pixel cap | 2560 × 1440 at high, 1920 × 1080 mid, 1280 × 720 low; DPR scaled down to fit | [site:slosh-seltzer] [inferred]; `applyRendererBudget()` |
 | Render targets | half-float; no depth buffer on fullscreen quads | [site:slosh-seltzer] [inferred]; `stacks/three-0.186.md` |
 | Anti-aliasing | SMAA in the composer, renderer `antialias: false` | [site:slosh-seltzer] [inferred] |
-| Assets | low-detail variants per tier; texture format by capability | [site:slosh-seltzer] [inferred]; [site:lando-norris] [verified, keyed on width — do not copy the key] |
+| Assets | low-detail variants per tier; texture format by capability | [site:slosh-seltzer] [inferred]; [site:lando-norris] [contradicted by the live build, 2026-09-18: every texture path in the shipped GL manifest is /webp/ and the only KTX2 code is GLTFLoader's inert Basis extension — recorded from a rebuild document, not observable on the site today] |
 | Loop | paused off-screen and when the tab is hidden | [site:slosh-seltzer] [inferred] [M08] |
 | Adaptive | step DPR, blur samples and geometry detail from measured frame time | [site:why-zero] [verified]; 30 fps target at low [site:shopify-editions-w26] [recalled medium-low] |
 

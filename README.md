@@ -1,8 +1,30 @@
-# awards — award-worthy websites with Claude Code
+# awards — award-worthy websites with Claude Code and Codex
 
-A Claude Code plugin that teaches Claude to design and build websites and single components in the league of Site of the Day / Month / Year award winners: in that style, never as copies. It is built from an analysis of nineteen award-winning sites, the pattern language they share, twenty-eight motion and WebGL recipes verified in a headless browser, a deterministic craft-floor audit, and a fresh-context jury that scores the way the real one does.
+A plugin for Claude Code and Codex that teaches the agent to design and build websites and single components in the league of Site of the Day / Month / Year award winners: in that style, never as copies. It is built from an analysis of nineteen award-winning sites, the pattern language they share, twenty-eight motion and WebGL recipes verified in a headless browser, a deterministic craft-floor audit, and a fresh-context jury that scores the way the real one does.
 
 ## Install
+
+### Codex
+
+From a local checkout of this repository:
+
+```bash
+codex plugin marketplace add /absolute/path/to/awards
+codex plugin add awards@awards
+```
+
+Or install the published repository (after these changes are pushed to the chosen branch):
+
+```bash
+codex plugin marketplace add burgisimon/awards
+codex plugin add awards@awards
+```
+
+Start a new Codex session and invoke `$awards:craft` for a site or `$awards:component` for one element. All eleven skills use the same `$awards:<name>` form and remain available for automatic selection. Install the whole plugin rather than copying individual skill folders: they share the corpus, recipes, scripts and templates.
+
+Codex supports the existing [Claude-compatible marketplace format](https://developers.openai.com/plugins/build/plugins#how-local-marketplaces-work), so both clients use the same package. The [Codex runtime guidance](plugins/awards/references/codex.md) covers installed paths, phase handoffs, jury delegation and explicit audits. The automatic edit hook is Claude-specific; Codex runs the audit after edit batches. Fresh-context jury reviews require available delegation; otherwise the report discloses that it used the current context.
+
+### Claude Code
 
 ```
 /plugin marketplace add burgisimon/awards
@@ -12,6 +34,8 @@ A Claude Code plugin that teaches Claude to design and build websites and single
 Local development: `claude --plugin-dir plugins/awards`. Requirements: Node 20 or newer; Playwright (`npm i -D playwright` in the project, or a global install) for screenshots and the jury's evidence; `npm install` inside `plugins/awards/recipes` to build or verify the recipes.
 
 ## Skills
+
+The table uses Claude Code's `/awards:<name>` notation; use `$awards:<name>` in Codex.
 
 | Skill | Use it for |
 |---|---|
@@ -37,7 +61,7 @@ Every skill also triggers on its own request ("add a custom cursor", "judge this
 4. **Motion and WebGL.** A motion score per chapter, recipes adapted rather than pasted, a DOM mirror and a no-GL path for every canvas.
 5. **Jury and ship.** Playwright captures at three scroll positions, on a phone and under reduced motion; the audit; a forked jury that scores Design / Usability / Creativity / Content and the developer criteria and returns `ship`, `fix`, `rebuild` or `recapture`; a ship pass that applies the fix batch and writes the report.
 
-Durable files: `AWARDS.md` (brief, contract, page map, motion score, budgets, jury and ship logs, exceptions), `DESIGN.md` (tokens and rules), `.awards/` (captures, reports, audit output; gitignored). A `PostToolUse` hook runs a sub-second audit after each edit, only in projects that carry an `AWARDS.md`; set `AWARDS_HOOK=0` to silence it.
+Durable files: `AWARDS.md` (brief, contract, page map, motion score, budgets, jury and ship logs, exceptions), `DESIGN.md` (tokens and rules), `.awards/` (captures, reports, audit output; gitignored). In Claude Code, a `PostToolUse` hook runs a sub-second audit after each edit, only in projects that carry an `AWARDS.md`; set `AWARDS_HOOK=0` to silence it. Codex runs the same audit explicitly after edit batches.
 
 ## What is inside
 
@@ -47,6 +71,14 @@ Durable files: `AWARDS.md` (brief, contract, page map, motion score, budgets, ju
 - `plugins/awards/evals/` — a `claude plugin eval` suite: eleven routing cases and six build cases with fixtures.
 
 ## Verify
+
+From the repository root, with Codex CLI and Node installed:
+
+```bash
+node plugins/awards/evals/codex-install.mjs
+```
+
+This installs into a temporary Codex home, checks actual skill discovery through the app server, resolves bundled references and exercises the installed scaffold from another working directory. It makes no model calls and leaves your Codex configuration untouched.
 
 ```
 cd plugins/awards

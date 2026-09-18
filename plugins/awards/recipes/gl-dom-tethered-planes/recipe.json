@@ -20,13 +20,13 @@
     "R3F: useFrame reading refs from getBoundingClientRect"
   ],
   "seenIn": [
-    "floema",
+    "floema-jewelry",
     "oryzo",
     "trevor-noah",
     "leo-parpeix"
   ],
   "verified": {
     "date": "2026-09-18",
-    "chromium": "141.0.7390.37"
+    "chromium": "151.0.7922.34"
   }
 }

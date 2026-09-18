@@ -2,9 +2,12 @@
 name: webgl
 description: "Build the WebGL layer of an award-level site with Three.js 0.186, OGL, React Three Fiber or Threlte: DOM-tethered image planes with velocity distortion, a fluid-wake post-process, depth-map 2.5D parallax, scroll-driven camera rigs on a virtual scroll, render-to-texture section transitions, procedural landscapes, one hero object with inertia, particles, bloom and grain post-processing, plus the Blender to glTF + Draco + KTX2 pipeline, adaptive quality tiers, disposal, a semantic DOM mirror and a no-GL, reduced-motion fallback. Use when asked for 3D, WebGL, shaders, GLSL, Three.js, R3F, OGL, particles, liquid, fluid or distortion effects, image hover distortion, a 3D hero, scroll-scrubbed models or any canvas effect beyond CSS, and when a canvas site is slow, drifts against the DOM or renders dark. Not for DOM-only motion (awards:motion), charts, or 'make it 3D' with no concept behind it."
 argument-hint: "[effect or scene] [--lib three|ogl|r3f] [--tier low|mid|high]"
+allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
 ---
 
 # awards:webgl
+
+Codex: read [the runtime guidance](../../references/codex.md) before following this skill; it maps plugin paths, tool names and handoffs to Codex.
 
 Fix the dose before the first mesh, let the DOM own layout, feed scroll and pointer to the shaders as numbers, and ship a page that still reads with the context blocked. WebGL earns a Developer Award when it disappears into the page; it loses one when the page disappears into it.
 
@@ -34,7 +37,7 @@ The corpus took Site of the Month with no canvas at all and Site of the Year wit
 | Rung | Meaning | Cards | What it costs |
 |---|---|---|---|
 | 100 % canvas | the DOM is a shell; layout is camera framing | `[site:igloo]` `[site:why-zero]` | a full DOM mirror, a virtual scroll with keys, the whole pipeline; the 6.6 accessibility score lives here |
-| Canvas-first | one canvas behind or over DOM content: tethered planes, a hero object, a scene per section | `[site:leo-parpeix]` `[site:oryzo]` `[site:lando-norris]` `[site:mont-fort]` `[site:floema]` `[site:shopify-editions-w26]` | a lazy chunk, tiers, disposal, a mirror; text stays in the DOM |
+| Canvas-first | one canvas behind or over DOM content: tethered planes, a hero object, a scene per section | `[site:leo-parpeix]` `[site:oryzo]` `[site:lando-norris]` `[site:mont-fort]` `[site:floema-jewelry]` `[site:shopify-editions-w26]` | a lazy chunk, tiers, disposal, a mirror; text stays in the DOM |
 | Moments | flat planes or one demo inside a DOM-first page | `[site:trevor-noah]` `[site:the-line]` `[site:son-daven]` | one material behaviour, one recipe, one fallback still |
 | None | 3D by pre-render, vector runtime or photography | `[site:seasats]` `[site:white-desert]` `[site:mindmarket]` | a frame sequence or a poster; zero runtime GL risk |
 
@@ -66,8 +69,8 @@ When the DOM owns layout, semantics, responsiveness and CMS content survive, and
 
 Native scrolling and `requestAnimationFrame` do not share a clock, so a fixed canvas whose planes are placed from the scroll value can lag the DOM by a frame and the planes swim against their placeholders `[pattern:webgl-architecture#canvas-positioning]`.
 
-- Absolute canvas, re-offset every frame: `position: absolute` and `translate3d(0, scrollY, 0)` in the ticker, with ≈ 25 % vertical over-render against a fast scroll `[site:oryzo]` (`[recipe:gl-dom-tethered-planes]`).
-- Or a fixed canvas plus a scroll uniform, where every plane offsets itself by the same smoothed value the DOM moved with `[site:floema]`.
+- Absolute canvas, re-offset every frame: `position: absolute` and `translate3d(0, scrollY, 0)` in the ticker, with ≈ 25 % vertical over-render against a fast scroll — Lusion's published `WebGL-Scroll-Sync` technique, though `[site:oryzo]` itself ships a fixed canvas tethered by DOM rects [verified, live source 2026-09-18] (`[recipe:gl-dom-tethered-planes]`).
+- Or a fixed canvas plus a scroll uniform, where every plane offsets itself by the same smoothed value the DOM moved with `[site:floema-jewelry]`.
 - Choose one, write it into the contract, and never scroll-jack to cure drift: fix the clock.
 - One canvas per page, created in the layout; scenes mount into it and dispose. Two contexts cannot share resources and the second one is the one that gets lost.
 
@@ -116,7 +119,7 @@ Every parameter below is published or reconstructed from one card and lives, wit
 
 | Effect | Recipe | Architecture to take | What you design |
 |---|---|---|---|
-| Velocity bulge on planes | `gl-dom-tethered-planes` | vertex-stage displacement scaled by a damped scroll speed; a trivial fragment stage | the displacement shape, the strength, the rest state `[site:floema]` |
+| Velocity bulge on planes | `gl-dom-tethered-planes` | vertex-stage displacement scaled by a damped scroll speed; a trivial fragment stage | the displacement shape, the strength, the rest state `[site:floema-jewelry]` |
 | Global fluid wake | `gl-fluid-wake-post` | a 128² ping-pong velocity field, advection only, dissipation ≈ .96; one post pass reading it as UV distortion plus chromatic aberration | the splat radius and force, the distortion magnitude, what the wake touches `[site:leo-parpeix]` |
 | Depth-map parallax | `gl-depth-map-parallax` | image plus greyscale depth, parallax occlusion with a forward pass and a refinement pass | the offset range, the pointer and scroll mix `[site:shopify-editions-w26]` |
 | Section transition | `gl-rtt-composite-transition` | each section to a render target; a fullscreen plane's fragment blends them | the blend (wipe, warp, dissolve), the duration on the in-out curve `[site:slosh-seltzer]` |
@@ -126,16 +129,16 @@ Every parameter below is published or reconstructed from one card and lives, wit
 | Cheap ice, matte worlds | none (pattern) | matte blocks, no transmission: bevelled edges, a key light, a Fresnel rim, high-threshold bloom, fog, fine grain, saturation ≈ 0; refraction on one hero object only | the material world `[site:igloo]` |
 | Procedural landscape | none (pattern) | Perlin and Voronoi noise, a rock diffuse and normal, a mix mask, a baked lightmap, one HDRI, KTX2 textures | the terrain and its ink `[site:mont-fort]` |
 | Frame sequence | `image-sequence-scrub` | pre-rendered frames decoded to `ImageBitmap`, drawn to a 2D canvas, a poster underneath | the render and the frame count `[site:seasats]` |
-| Text in the scene | `gl-msdf-text` (planned) | MSDF glyphs from a pre-built atlas with a DOM twin | the scramble or blur it earns `[site:igloo]` `[site:why-zero]` |
+| Text in the scene | `gl-msdf-text` | MSDF glyphs, atlas built at runtime or pre-built, with a DOM twin | the scramble or blur it earns `[site:igloo]` `[site:why-zero]` |
 
-Library choice: Three by default; OGL for a planes-only page where the smaller bundle matters `[site:floema]`; R3F only inside a React app with a component-shaped scene (`<Canvas dpr={[1, 2]} frameloop="always" flat gl={{ antialias: false, powerPreference: 'high-performance' }}>`, `useFrame((state, delta) => …)`); Threlte inside SvelteKit (`useTask`, `useThrelte()` for `renderer`, `dpr`, `renderMode`, `invalidate`). Whatever the wrapper, the rect loop, the uniforms and the disposal rules above are unchanged.
+Library choice: Three by default; OGL for a planes-only page where the smaller bundle matters `[site:floema-jewelry]`; R3F only inside a React app with a component-shaped scene (`<Canvas dpr={[1, 2]} frameloop="always" flat gl={{ antialias: false, powerPreference: 'high-performance' }}>`, `useFrame((state, delta) => …)`); Threlte inside SvelteKit (`useTask`, `useThrelte()` for `renderer`, `dpr`, `renderMode`, `invalidate`). Whatever the wrapper, the rect loop, the uniforms and the disposal rules above are unchanged.
 
 ## Post-processing
 
 A post stack is the fastest way to make six scenes read as one site, and the fastest way to lose the frame budget on a phone `[pattern:webgl-architecture#post-processing]`.
 
 - One pipeline: pmndrs `postprocessing` 6.39.5 with `frameBufferType: HalfFloatType`, a `RenderPass` and one `EffectPass` merging bloom and SMAA; the renderer created with `antialias: false`. Never mix it with Three's own `examples/jsm/postprocessing` passes `[recipe:gl-postprocessing-presets]`.
-- Fixed presets, not per-scene guesses: three bloom intensities across the site (1.5 / .5 / .25), a high luminance threshold on bright scenes so bloom does not smear the frame, one grade LUT.
+- Fixed presets, not per-scene guesses: three bloom intensities across the site (1.5 / .5 / .25), one grade LUT. Pick the luminance threshold from the scene's histogram rather than by rule — a near-white scene may want it *low*, as `[site:igloo]` shows at .2 and 0 [verified, live bundle 2026-09-18].
 - Half-float render targets, no depth buffer on fullscreen quads, SMAA over MSAA on mobile.
 - Step down by tier: DPR first, then blur samples, then geometry detail; the low tier drops post-processing entirely (`profile.postprocessing === false`).
 
@@ -196,7 +199,7 @@ Sound is opt-in only: browsers refuse audio without a gesture and a jury refuses
 
 - A visible `<button aria-pressed>` whose name carries the state, styled from the tokens; the audio context created or resumed inside its click handler; the bed fetched only after consent.
 - Consent may ride the preloader's exit gesture, but content never waits for it.
-- Levels well under full scale (the published ceiling is ambient ≈ .375, SFX ≈ .35); one-shots named and rate-limited; the visualiser frozen under reduced motion `[pattern:sound#the-control]`. `[recipe:sound-toggle-opt-in]` is the planned reference.
+- Levels well under full scale (the published ceiling is ambient ≈ .375, SFX ≈ .35); one-shots named and rate-limited; the visualiser frozen under reduced motion `[pattern:sound#the-control]`. `[recipe:sound-toggle-opt-in]` is the reference.
 
 ## Verify
 

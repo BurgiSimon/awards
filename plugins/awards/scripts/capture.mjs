@@ -2,7 +2,7 @@
 // Capture desktop / mobile / scroll-state / reduced-motion screenshots of a page or component for review.
 // Usage: node capture.mjs <url|file|dir> [--out .awards/captures] [--desktop 1440x900] [--mobile 390x844]
 //   [--only desktop|mobile] [--scroll 0,50,100] [--reduced-motion] [--full-page] [--selector <css>] [--hover <css>]
-//   [--wait <ms>] [--wait-for <css>] [--no-webgl] [--json] [--name <prefix>] [--timeout <ms>]
+//   [--wait <ms>] [--wait-for <css>] [--no-webgl] [--json] [--name <prefix>] [--timeout <ms>] [--wheel <px>]
 // Exit codes: 0 ok · 2 page/console errors · 3 Playwright missing · 4 target unreachable · 1 usage.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -29,6 +29,9 @@ const settle = Number(args.wait ?? 600);
 const timeout = Number(args.timeout ?? 30000);
 const webgl = args.webgl !== false;
 const only = args.only ? String(args.only) : null;
+// Virtual-scroll sites (hijacked wheel, no document scroll height) ignore window.scrollTo.
+// wheelPx is the pixel budget a 0 → 100 pass spends through the wheel; 0 turns the fallback off.
+const wheelPx = Number(args.wheel ?? 8000);
 
 const found = resolvePlaywright();
 if (!found) {
@@ -84,19 +87,34 @@ async function settlePage(page) {
   await page.waitForTimeout(settle);
 }
 
-async function scrollTo(page, percent) {
-  await page.evaluate(async (p) => {
+// Returns the mode it used: 'hook', 'native' or 'wheel'.
+async function scrollTo(page, percent, previous) {
+  const mode = await page.evaluate(async ({ p, wheel }) => {
     const f = p / 100;
     if (window.__awards && typeof window.__awards.scrollTo === 'function') {
       await window.__awards.scrollTo(f);
-    } else {
-      const max = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
-      window.scrollTo(0, Math.round(max * f));
-      window.dispatchEvent(new Event('scroll'));
+      window.ScrollTrigger?.update?.();
+      return 'hook';
     }
+    const max = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    if (wheel > 0 && max < window.innerHeight * 0.25) return 'wheel';
+    window.scrollTo(0, Math.round(max * f));
+    window.dispatchEvent(new Event('scroll'));
     window.ScrollTrigger?.update?.();
-  }, percent);
+    return 'native';
+  }, { p: percent, wheel: wheelPx });
+
+  if (mode === 'wheel') {
+    const vp = page.viewportSize() ?? desktop;
+    await page.mouse.move(Math.round(vp.width / 2), Math.round(vp.height / 2));
+    const step = (((percent - previous) / 100) * wheelPx) / 10;
+    for (let i = 0; i < 10; i++) {
+      await page.mouse.wheel(0, step);
+      await page.waitForTimeout(80);
+    }
+  }
   await page.waitForTimeout(settle);
+  return mode;
 }
 
 const browser = await launchChromium(pw, { webgl });
@@ -131,6 +149,7 @@ try {
       break;
     }
     await settlePage(page);
+    let scrollMode = null;
 
     if (args.selector) {
       const sel = String(args.selector);
@@ -156,11 +175,18 @@ try {
         }
       }
     } else {
+      let previous = 0;
       for (const s of states) {
-        await scrollTo(page, s);
+        scrollMode = await scrollTo(page, s, previous);
+        previous = s;
         const file = path.join(outDir, `${name}${label}-s${String(s).padStart(2, '0')}.png`);
-        await page.screenshot({ path: file, fullPage: !!args['full-page'] && s === states[0] });
-        manifest.captures.push({ label, kind: 'scroll', scroll: s, file });
+        try {
+          await page.screenshot({ path: file, fullPage: !!args['full-page'] && s === states[0], timeout });
+          manifest.captures.push({ label, kind: 'scroll', scroll: s, file });
+        } catch {
+          // A heavy GL page can miss the compositor deadline; lose the frame, never the manifest.
+          manifest.pageErrors.push(`[${label}] screenshot timeout at s${String(s).padStart(2, '0')}`);
+        }
       }
     }
 
@@ -181,8 +207,11 @@ try {
         awardsState: (() => { try { return window.__awards?.state?.() ?? null; } catch { return null; } })(),
       };
     });
+    manifest.metrics[label].scrollMode = scrollMode;
     await context.close();
   }
+} catch (e) {
+  manifest.pageErrors.push(`[capture] ${e.message}`);
 } finally {
   await browser.close();
   if (server) await server.close();

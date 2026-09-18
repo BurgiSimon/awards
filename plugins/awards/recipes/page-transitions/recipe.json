@@ -20,12 +20,12 @@
     "Flip shared element inside the same swap"
   ],
   "seenIn": [
-    "floema",
+    "floema-jewelry",
     "lando-norris",
     "mont-fort"
   ],
   "verified": {
     "date": "2026-09-18",
-    "chromium": "141.0.7390.37"
+    "chromium": "151.0.7922.34"
   }
 }

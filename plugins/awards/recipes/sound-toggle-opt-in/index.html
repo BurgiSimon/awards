@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>sound-toggle-opt-in — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <!-- audit-ignore: X07 numbered labels are deliberate texture in this demo -->
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar">
+    <a href="../index.html" class="label">← recipes</a>
+    <button class="toggle" type="button" data-sound aria-pressed="false">
+      <canvas class="meter" width="24" height="24" aria-hidden="true"></canvas>
+      <span data-sound-label>Sound off</span>
+    </button>
+  </header>
+  <main id="main">
+    <section class="section wrap" aria-labelledby="t">
+      <p class="label">/ 01 · consent</p>
+      <h1 class="display" id="t">Sound waits<br>to be asked.</h1>
+      <p class="lede">Nothing here creates an <code>AudioContext</code> until a visitor presses the switch. The bed and the click are synthesised — oscillators, filtered noise, one analyser — so the page ships no audio file and the first gesture is the first sound.</p>
+      <dl class="facts">
+        <div><dt class="label">Ambient bed</dt><dd>two detuned sines under filtered noise, gain .375</dd></div>
+        <div><dt class="label">Click</dt><dd>one-shot blip, gain .35</dd></div>
+        <div><dt class="label">Stored</dt><dd><code>awards:sound</code> in localStorage, read in a try/catch</dd></div>
+      </dl>
+    </section>
+    <section class="section wrap" aria-labelledby="c2">
+      <p class="label">/ 02 · the three states</p>
+      <h2 id="c2">Off, armed, on.</h2>
+      <p><strong>Off</strong> is the default and the honest one: no context, no nodes, nothing suspended in the background. <strong>Armed</strong> is what a returning visitor gets — the stored yes is remembered, the audio still waits for a gesture, because the browser and the visitor both insist on one. <strong>On</strong> is the only state that makes a sound, and it is the only state that has ever touched the audio hardware.</p>
+      <p>The switch is a real <code>&lt;button&gt;</code>: its name carries the state, <code>aria-pressed</code> carries it again for assistive tech, and Enter or Space works because nothing intercepts the keyboard. The 24 × 24 meter beside the label is decoration over that button, driven by an <code>AnalyserNode</code>; under reduced motion it freezes in the on pose and never subscribes to a clock.</p>
+    </section>
+    <section class="section wrap" aria-labelledby="c3">
+      <p class="label">/ 03 · leaving the tab</p>
+      <h2 id="c3">Hidden is silent.</h2>
+      <p>A bed that keeps playing in a background tab is the fastest way to be closed. <code>visibilitychange</code> suspends the context and the meter stops; coming back resumes both, and only if the switch was on when you left.</p>
+    </section>
+  </main>
+  <footer class="wrap footer"><p class="label">awards · recipe · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

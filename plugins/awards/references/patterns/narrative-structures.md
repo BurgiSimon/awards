@@ -24,7 +24,7 @@ Why: the template order (hero → logos → features → testimonials → pricin
 One continuous world read in order; scroll depth is progress through a process, a place or an argument. Seen in [site:united-carriers] (one shipment across warehouse, road, sea and air [verified concept]), [site:son-daven] (prologue → seasons → programme → typologies → location → economics → progress [verified]), [site:mont-fort] (identity → capability → four divisions → footprint → ESG, with a chapter rail [verified]) and, as a spatial descent that wraps, [site:igloo] [recalled high]. Shopify's chapter walk belongs to the gallery model below.
 
 - **Beats.** Entrance: the mode change or camera move is the designed moment [site:united-carriers]. Hold: an informational block at rest — real heading, real paragraph, one spec or one image. Exit: the next transition, scrubbed, never a hard cut. Four to six chapters is the corpus range [site:united-carriers]; Igloo adds a modulo wrap so the descent never ends [site:igloo] [verified tag].
-- **Interruption.** A device that changes the input: hold-to-compare between two seasons and a horizontal rail inside the vertical page [site:son-daven] [verified]; a jump rail that lets the visitor leave the sequence [site:mont-fort] [verified].
+- **Interruption.** A device that changes the input: a drag-to-compare between two seasons and a horizontal rail inside the vertical page [site:son-daven] [verified, live source 2026-09-18]; a jump rail that lets the visitor leave the sequence [site:mont-fort] [verified].
 - **Rule of three.** Inside a hold, three support points at most; three transport modes carry United Carriers' whole story. Plugin guidance, not a card measurement.
 - **Close.** A footer strong enough to be selected on its own [site:united-carriers] [verified]; a progress log or a news route that gives the story a future [site:son-daven] [site:mont-fort]; or the loop [site:igloo].
 - **Register.** Confident operator, service-promise led [site:united-carriers]; poetic then numeric by chapter [site:son-daven] (`[pattern:copy-and-content#two-registers]`); boardroom copy under an extravagant camera [site:mont-fort] [inferred]; expedition telemetry [site:igloo] [verified].
@@ -43,7 +43,7 @@ A brand with several selves or many catalogue entries, presented as a hub in fro
 - **Register.** Label-like and low in word count, with rotating phrase loops carrying the voice [site:lando-norris] [inferred]; warm-professional for a services catalogue [site:mindmarket] [inferred medium].
 - **DOM.** Routes are real pages with their own `<h1>`; 3D-anchored labels are HTML positioned against projected coordinates so text stays text [site:lando-norris] [verified]; map pins are `<button>` or `<a>` elements with names [site:mindmarket]; the block kit reflows — no breakpoint reloads.
 - **Choose when.** The subject is plural — two personas, several ventures, a service × sector matrix — and every facet can be finished to the same standard.
-- **Risk.** Finish across N routes: Lando shipped dead branches, a width-keyed texture tier and a reload at 992 px [site:lando-norris] [verified]; programmatic pages go thin without a real block kit.
+- **Risk.** Finish across N routes: Lando ships dead branches — a `window.ScrollTrigger` fallback that always runs, a helper that returns `"body"` on both sides of its own ternary, and a `localhost:6645` script tag [site:lando-norris] [verified, live source 2026-09-18]. The width-keyed texture tier and the 992 px reload that used to be listed here are not observable in the 2026-09-18 build [see the card's §8]. Programmatic pages go thin without a real block kit.
 
 ## Manifesto with gates
 
@@ -86,16 +86,16 @@ A collage (a manifesto, scattered snapshots) that resolves into an index (an arc
 
 ## Gallery
 
-The work or the items are the argument, hung one per viewport. Seen in [site:floema] (drifting image field → arced collections rail → one piece → editorial about, the theme swapped per route [verified, clone]), [site:lama-lama] (video hero → poster-scale case blocks → studio and people → contact [recalled low-medium]) and [site:shopify-editions-w26] (150+ updates as wall labels beside their own paintings in about seven chapters, with an edition switcher and local search [recalled high for the concept, medium for the chapters]).
+The work or the items are the argument, hung one per viewport. Seen in [site:floema-jewelry] (drifting image field → arced collections rail → one piece → editorial about, the theme swapped per route [verified, clone]), [site:lama-lama] (video hero → poster-scale case blocks → studio and people → contact [recalled low-medium]) and [site:shopify-editions-w26] (150+ updates as wall labels beside their own paintings in about seven chapters, with an edition switcher and local search [recalled high for the concept, medium for the chapters]).
 
-- **Beats.** Entrance: the poster or plane owns the viewport and arrives with mass — the plugin's default is a scale from ≈ .94 or a clip wipe on `--ease-out-expo` over 1.2–1.5 s; Lama Lama's own numbers are unknown. Hold: the label reads — title, client, year. Exit: the next poster, or a shared-element flight into the detail [site:floema] [verified].
-- **Interruption.** A tempo change: a near-black full-bleed section [site:lama-lama] [recalled medium]; a painted wipe between chapters [site:shopify-editions-w26] [recalled high]; the flight from field to piece [site:floema].
+- **Beats.** Entrance: the poster or plane owns the viewport and arrives with mass — the plugin's default is a scale from ≈ .94 or a clip wipe on `--ease-out-expo` over 1.2–1.5 s; Lama Lama's own numbers are unknown. Hold: the label reads — title, client, year. Exit: the next poster, or a shared-element flight into the detail [site:floema-jewelry] [verified].
+- **Interruption.** A tempo change: a near-black full-bleed section [site:lama-lama] [recalled medium]; a torn paper edge between chapters [site:shopify-editions-w26] [verified, live source 2026-09-18]; the flight from field to piece [site:floema-jewelry].
 - **Rule of three.** Cluster the run in threes and change tempo between clusters; twelve identical posters are a grid on its side. Plugin guidance.
-- **Close.** Contact [site:lama-lama]; the editorial about page [site:floema]; a designed 404 in the same world [site:shopify-editions-w26] [recalled high].
-- **Register.** Numbered label plus title, almost no prose [site:floema] [verified]; warm value-led copy against loud visuals [site:lama-lama] [recalled medium-high]; grand visuals over plain, scannable update copy [site:shopify-editions-w26].
-- **DOM.** Every block is a real `<a>` inside a list; every plane sits over an `<img alt>` [site:floema] [verified]; every update card is real content under an `aria-hidden` canvas, in one document with native anchors — never an iframe shell [site:shopify-editions-w26]; a content schema (`Section { id, navLabel, title, summary, items }`) precedes the scenes [recalled medium-low].
+- **Close.** Contact [site:lama-lama]; the editorial about page [site:floema-jewelry]; a designed 404 in the same world [site:shopify-editions-w26] [recalled high].
+- **Register.** Numbered label plus title, almost no prose [site:floema-jewelry] [verified]; warm value-led copy against loud visuals [site:lama-lama] [recalled medium-high]; grand visuals over plain, scannable update copy [site:shopify-editions-w26].
+- **DOM.** Every block is a real `<a>` inside a list; every plane sits over an `<img alt>` [site:floema-jewelry] [verified]; every update card is real content under an `aria-hidden` canvas, in one document with native anchors — never an iframe shell [site:shopify-editions-w26]; a content schema (`Section { id, navLabel, title, summary, items }`) precedes the scenes [recalled medium-low].
 - **Choose when.** Studios, product lines and changelogs; past ≈ 100 items add the switcher and a local search.
-- **Risk.** Unusual navigation costs usability (7.53 with that tag [site:floema] [recalled medium-high]); drag-only galleries with no focusable stops [site:floema] [verified absence]; a preloader that waits for every texture on the site [site:floema] [verified].
+- **Risk.** Unusual navigation costs usability (7.53 with that tag [site:floema-jewelry] [recalled medium-high]); drag-only galleries with no focusable stops [site:floema-jewelry] [verified absence]; a preloader that waits for every texture on the site [site:floema-jewelry] [verified].
 
 ## Print artefact
 
@@ -148,11 +148,11 @@ Why: a page that runs at one input speed becomes wallpaper by the third chapter;
 | A gate: draw, hold or drag before the next stage | between stages, N−1 of them | [site:why-zero] [verified] |
 | A typographic break at full viewport | after the first cluster of three | [site:leo-parpeix] [recalled medium] |
 | A scenario triptych | after the capability claim | [site:usavionix] [verified] |
-| Hold-to-compare between two conditions | inside the seasons chapter | [site:son-daven] [verified feature] |
+| Drag-to-compare between two conditions, with real buttons behind it | inside the seasons chapter | [site:son-daven] [verified, live source 2026-09-18] |
 | A horizontal rail inside the vertical page | one chapter, never two | [site:son-daven] [verified] |
 | A hinge that swings the first screen away | the hero's exit | [site:the-line] [verified] |
 | A dwell-gated close-up | the zoom section | [site:oryzo] [recalled high] |
-| A theme swap that repaints the page | at a section or route boundary | [site:leo-parpeix] [site:floema] [site:slosh-seltzer] |
+| A theme swap that repaints the page | at a section or route boundary | [site:leo-parpeix] [site:floema-jewelry] [site:slosh-seltzer] |
 
 Rules: one interruption per page; it comes after the first content beat, never before; it has a keyboard equivalent and a skip (`[pattern:accessibility-and-reduced-motion]`); under reduced motion it becomes a cut or a static state that still shows both sides.
 
@@ -187,7 +187,7 @@ Why: the model follows the class, the visitor mode and the assets that actually 
 | Personal brand, holding group, catalogue | experience | many ventures or routes | Faceted world | [site:lando-norris] [site:mindmarket]; boundary [site:trevor-noah] |
 | Brand monument | experience | a full bake pipeline | Chaptered journey as spatial descent | [site:igloo] |
 | Changelog, docs, OSS | read | 100+ items, live demos | Gallery with switcher and search; Specification as playground | [site:shopify-editions-w26] [site:animejs] |
-| Fashion, jewellery | experience | product photography | Gallery with a theme per route | [site:floema] |
+| Fashion, jewellery | experience | product photography | Gallery with a theme per route | [site:floema-jewelry] |
 
 Rules: read mode beats spectacle — the model must stay scannable under every effect [site:shopify-editions-w26] [site:animejs]; photography-only assets point to Specification or Gallery, never to a world you cannot render; when two models fit, take the one whose interruption you can build with a keyboard path.
 

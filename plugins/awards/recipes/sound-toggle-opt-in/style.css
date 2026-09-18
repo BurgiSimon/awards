@@ -1,0 +1,24 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+.topbar { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: calc(var(--unit) * 4); padding-block: calc(var(--unit) * 5); background: var(--ground); border-bottom: 1px solid var(--line); }
+
+.toggle {
+  display: inline-flex; align-items: center; gap: calc(var(--unit) * 2);
+  padding: calc(var(--unit) * 2) calc(var(--unit) * 3);
+  font-family: var(--font-mono); font-size: var(--label); letter-spacing: .08em; text-transform: uppercase;
+  background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 0; cursor: pointer;
+  transition: border-color var(--dur-feedback) var(--ease-out-expo), color var(--dur-feedback) var(--ease-out-expo);
+}
+.toggle:hover { border-color: var(--ink); }
+.toggle[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+.meter { width: 24px; height: 24px; }
+
+.lede { max-width: 60ch; margin-top: calc(var(--unit) * 8); }
+h2 { font-family: var(--font-display); font-size: clamp(2rem, 6vw, 5rem); line-height: .95; letter-spacing: -.03em; margin: .25em 0 .5em; }
+section p { max-width: 60ch; }
+.facts { display: grid; gap: calc(var(--unit) * 4); margin-top: calc(var(--unit) * 10); max-width: 60ch; }
+.facts div { display: grid; gap: calc(var(--unit) * 1); border-top: 1px solid var(--line); padding-top: calc(var(--unit) * 2); }
+.facts dd { margin: 0; }
+code { font-family: var(--font-mono); font-size: .9em; }
+.footer { padding-block: calc(var(--unit) * 12); }

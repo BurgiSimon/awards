@@ -2,9 +2,12 @@
 name: research
 description: Turns a reference website into a structured case-study card in the awards corpus format — concept, palette, type, components, motion with parameters, stack evidence, weaknesses, generalisable principles, take / don't take, and a confidence label on every claim. Uses Playwright captures and light source inspection when the site is reachable, and marks recalled or inferred material honestly when it is not. Use whenever the user shares a site to learn from, asks "what makes this site award-winning", "analyse / deconstruct / break down this site", "why did this win", "add this to the references", pastes a CSSDA, FWA or other award-gallery entry, or wants the awards skills to learn a new style. Produces principles for awards:concept to diverge from, never a reproduction. Not for competitor SEO or content audits, and not for downloading a site's assets.
 argument-hint: "<url | notes file> [--slug <name>] [--to project|plugin]"
+allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
 ---
 
 # awards:research — turn a site into a case study
+
+Codex: read [the runtime guidance](../../references/codex.md) before following this skill; it maps plugin paths, tool names and handoffs to Codex.
 
 Arguments: `$ARGUMENTS`
 
@@ -63,6 +66,7 @@ On exit 0 or 2, open every capture with the Read tool and read each one for what
 
 - Describe each composition in your own words: what is where, at what scale, what the type and colour system appear to be, what changed between states. Everything read this way is `[verified]` against the capture name.
 - A preloader or a consent wall in every frame is itself an observation about the load gate; add `--wait 3000` or `--wait-for <selector>` once, then record what you got.
+- Frames that are identical, or a `scrollMode` of `wheel` in the manifest with nothing changing between states, mean the page hijacks the wheel and never moved: rerun once with `--wheel 12000 --wait 6000 --timeout 90000`, and say in §9 how the states were reached.
 
 ## 3. When the site is unreachable
 

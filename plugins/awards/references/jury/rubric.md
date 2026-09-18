@@ -11,9 +11,30 @@ This file calibrates `awards:jury` and the award-calibration section of `awards:
 | Creativity | 20 | Whether one concept does the work a feature list usually does, and whether the medium enacts it |
 | Content | 10 | Whether the copy and assets are specific, true and authored at full fidelity |
 
-Weighted score = Design × 0.4 + Usability × 0.3 + Creativity × 0.2 + Content × 0.1. The 40/30/20/10 split is the published Awwwards weighting as recalled [recalled medium]; it reproduces the corpus arithmetic (Oryzo 7.9 / 7.51 / 8.35 → 7.86 implies Content ≈ 7.77 [site:oryzo]). Re-check against awwwards.com when a session has network access.
+Weighted score = Design × 0.4 + Usability × 0.3 + Creativity × 0.2 + Content × 0.1. The 40/30/20/10 split is printed on the entry page beside each axis and reproduces every published overall in the corpus to within 0.01 [verified, twenty Awwwards entries read 2026-09-18]. `[site:oryzo]` is 7.90 / 7.51 / 8.35 / 7.76 → 7.86; the card's earlier inference of Content ≈ 7.77 was one hundredth out.
 
-**Thresholds.** Site of the Day territory begins at a weighted **7.2** with **no axis below 6.8**. Honourable Mention begins around 6.5. Site of the Month winners in the corpus sit at 7.5–7.9. A Developer Award needs the developer jury's average above **7**.
+**Thresholds.** Site of the Day territory begins at a weighted **7.2** with **no axis below 6.8**. That floor is confirmed: the twenty verified entries run **7.28 to 8.18**, median 7.67, and none scores an axis below 7.00 [verified, entries read 2026-09-18]. Honourable Mention begins around 6.5 [recalled medium — the one Honourable Mention entry read, `leo-parpeix-portfolio` 2021, publishes no axis scores]. A Developer Award needs the developer average above **7**; the verified range is 7.22 to 8.09, median 7.63.
+
+Per axis, across the same twenty entries:
+
+| Axis | min | median | max |
+|---|---|---|---|
+| Design | 7.28 | 7.70 | 8.12 |
+| Usability | 7.00 | 7.38 | 7.90 |
+| Creativity | 7.21 | 7.97 | 8.71 |
+| Content | 7.16 | 7.70 | 8.18 |
+| Overall | 7.28 | 7.67 | 8.18 |
+| Developer award | 7.22 | 7.63 | 8.09 |
+
+**This rubric scores below the award, on purpose.** Six corpus sites were juried blind against their
+own live entries during the 0.2 calibration, and this instrument came out about **0.7 lower** on the
+weighted score, almost all of it in Usability (mean −1.25) and in the Accessibility leg of the
+developer average. Every one of those gaps came from a usability-walk cap for a skip link or a
+reduced-motion tier the winning site genuinely does not have. So `ship` here means *clears our
+floor, which is stricter than the award's*, and a `fix` or `rebuild` on work of real Site-of-the-Day
+quality is the expected result, not a contradiction. Do not re-scale to close the gap: it is the one
+axis on which new work can beat the reference set instead of copying it. Full table in
+`docs/handoff/verification-log.md`.
 
 ## Design anchors (40)
 
@@ -37,7 +58,7 @@ What moves Design up: a decided colour strategy (`[pattern:color-and-material#co
 | 6 | Content sits behind a gesture with no alternative; the mobile experience is a shrunken desktop; the core task (enquire, buy, read) takes effort to find |
 | ≤ 5 | The core task cannot be completed by keyboard or on a phone; empty DOM behind a canvas; no reduced-motion path and motion that blocks reading |
 
-Usability is the lowest axis on every scored corpus site. It is therefore the cheapest axis to beat the reference set on: run `usability-walk.md` and fix what it finds before touching anything else.
+Usability is the lowest of the four axes on **nineteen of the twenty** verified entries — `[site:white-desert]` is the single exception, scoring Creativity 7.21 under Usability 7.27 [verified, entries read 2026-09-18]. It is therefore the cheapest axis to beat the reference set on: run `usability-walk.md` and fix what it finds before touching anything else.
 
 ## Creativity anchors (20)
 
@@ -63,7 +84,19 @@ The naming test belongs here: if a juror could name the source site from the fir
 
 ## Developer criteria
 
-The developer jury scores five things; each is a 0–10 with the same anchors in spirit. Corpus calibration: `[site:igloo]` scored animation 9.6, performance 8.0, responsive 8.4, accessibility and semantics 6.6, markup 6.4 [recalled medium]; `[site:lama-lama]` averaged 7.30 from votes of 7, 8, 7, 7, 7, 8 [recalled medium].
+Awwwards publishes **six** developer criteria; this rubric anchors **five**, because Semantics / SEO and Accessibility are judged together here. The mapping [verified, entries read 2026-09-18]:
+
+| Awwwards criterion | This rubric's criterion |
+|---|---|
+| Animations / Transitions | Animation and interaction |
+| WPO | Performance |
+| Responsive Design | Responsive |
+| Accessibility **and** Semantics / SEO | Accessibility and semantics |
+| Markup / Meta-data | Code and markup |
+
+The published **DEV AWARD** score is the mean of the six, to within 0.07 across every entry read — the displayed sub-scores are rounded to two places, the mean is not.
+
+Corpus calibration, now read rather than recalled: `[site:igloo]` scored Semantics/SEO 6.60, Animations 9.60, Accessibility 6.60, WPO 8.00, Responsive 8.40, Markup/Meta 6.40 → 7.66. (The earlier `[recalled medium]` figures were right but collapsed two 6.60s into one "accessibility and semantics".) Across the twenty entries the criteria run: Semantics/SEO 6.60–8.20, Animations 7.40–9.60, Accessibility 6.60–7.60, WPO 6.80–8.60, Responsive 7.00–8.40, Markup/Meta 6.40–8.00. **Accessibility is the lowest-ceilinged of the six** — its maximum across the whole corpus is 7.60.
 
 | Criterion | 9–10 | 7 | ≤ 5 |
 |---|---|---|---|

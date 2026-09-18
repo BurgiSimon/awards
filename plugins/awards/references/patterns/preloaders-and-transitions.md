@@ -4,7 +4,7 @@ What this file is for: the first moment and the in-between moments — how the c
 
 ## The load contract
 
-Why: a preloader is only honest when it waits for something real. The corpus's best loaders gate on asset promises — Floema counts decoded textures [site:floema] [verified]; Lando reveals only after `Promise.all([riveReady, glAssetsLoaded])` [site:lando-norris] [verified]. Its worst wall the whole site behind a click [site:leo-parpeix] or behind every texture on every route [site:floema].
+Why: a preloader is only honest when it waits for something real. The corpus's best loaders gate on asset promises — Floema counts decoded textures [site:floema-jewelry] [verified]; Lando reveals only after `Promise.all([riveReady, glAssetsLoaded])` [site:lando-norris] [verified]. Its worst wall the whole site behind a click [site:leo-parpeix] or behind every texture on every route [site:floema-jewelry].
 
 Rules:
 - Gate on `Promise.all([document.fonts.ready, firstSceneAssets])` — the first viewport's assets, not the site's. Stream the rest by `IntersectionObserver` or by scene window (`[pattern:webgl-architecture#scene-windows-and-disposal]`).
@@ -18,8 +18,8 @@ Rules:
 
 | Archetype | Mechanism | Site | Confidence |
 |---|---|---|---|
-| Counter with a hold | percent written from real decode progress; holds ≈ 1 s at 100 so the number is read; exits with the titles at `y: '150%'`, 1.5 s, `expo.out`, stagger .1, then the number (`y: '100%'`) and the container | [site:floema] | [verified], clone |
-| Non-linear counter + sound gate | random 5–23-point jumps every 100 ms, then a click-to-enter gesture that also enables sound | [site:leo-parpeix] | [recalled medium], clone |
+| Counter with a hold | percent written from real decode progress; holds ≈ 1 s at 100 so the number is read; exits with the titles at `y: '150%'`, 1.5 s, `expo.out`, stagger .1, then the number (`y: '100%'`) and the container | [site:floema-jewelry] | [verified], clone |
+| Progress ring + sound gate | an SVG circular progress ring labelled "World building", then a click that enables sound — a consent, not a content wall; the real hold afterwards is a hard-coded 3.75 s navbar delay | [site:leo-parpeix] | [verified, live bundle 2026-09-18] |
 | Participatory gesture | draw a zero; when the stroke closes, frost spreads from it and dissolves into the scene | [site:why-zero] | [verified] |
 | Diegetic boot sequence | thermal, lidar and IR readouts flicker on before the hero — loading as the product's own console | [site:usavionix] | [verified description]; timing unknown |
 | Cinematic title card | the loader as a film's opening title | [site:son-daven] | [verified feature] |
@@ -41,12 +41,12 @@ Rule: the gesture may enable sound, but content never waits for it. Either offer
 
 | Archetype | Mechanism | Site | Confidence |
 |---|---|---|---|
-| Shared element in GL space | the source plane is lifted (`z += .01`) and its scale, position and rotation tween to the destination rect over 1.5 s on `expo.inOut`; the temporary mesh is removed .2 s later | [site:floema] | [verified], clone |
+| Shared element in GL space | the source plane is lifted (`z += .01`) and its scale, position and rotation tween to the destination rect over 1.5 s on `expo.inOut`; the temporary mesh is removed .2 s later | [site:floema-jewelry] | [verified], clone |
 | Render-to-texture composite | each section renders to an off-screen target; a fullscreen plane's fragment shader blends them — wipe, warp or dissolve | [site:slosh-seltzer] | [verified], Codrops `[recipe:gl-rtt-composite-transition]` |
-| Brushstroke-edged mask | chapter wipes with a painted edge; a third-party read adds wave masks bound to scroll progress with metallic flecks along the edge | [site:shopify-editions-w26] | [recalled high] for the brushstroke; [recalled medium-low] for the wave mask |
+| Torn-edge mask | chapter wipes on a deckled paper edge with fibrous tendrils — a treated material edge, not a painted one | [site:shopify-editions-w26] | [verified, live source 2026-09-18]; the "brushstroke" and the wave-mask flecks were a third-party read and are not in the served source |
 | Hinge | the hero sheet swings away on a bottom-left origin (`[pattern:motion-vocabulary#sticky-stages-and-hinges]`) | [site:the-line] | [verified] `[recipe:sticky-stages-rails]` |
 | Flash and interference cuts | interior scenes cut through glitch frames, never a fade; RTT compositing is the likely mechanism | [site:igloo] | [recalled high]; mechanism [inferred] |
-| Theme swap on `documentElement` | see the next section | [site:floema] [site:slosh-seltzer] [site:leo-parpeix] | mixed |
+| Theme swap on `documentElement` | see the next section | [site:floema-jewelry] [site:slosh-seltzer] [site:leo-parpeix] | mixed |
 | Choreographed route change | Rive state change + camera move + Three teardown and setup sequenced on one GSAP timeline; scenes rebuilt per route | [site:lando-norris] | [verified] |
 | Cross-document morph | Astro `ClientRouter` (View Transitions API); elements sharing a `view-transition-name` morph natively | [site:mont-fort] | [verified] |
 
@@ -56,7 +56,7 @@ Rules: make the transition the hero and the sections the rests — United Carrie
 
 Why: when ground and ink change together, navigation becomes art direction and the page needs no other transition.
 
-- Floema declares `data-background` and `data-color` per template; a singleton tweens `document.documentElement` over 1.5 s and exactly two values are live at a time [site:floema] [verified].
+- Floema declares `data-background` and `data-color` per template; a singleton tweens `document.documentElement` over 1.5 s and exactly two values are live at a time [site:floema-jewelry] [verified].
 - The flavour-field family repaints every slot in ≈ 1 s on `cubic-bezier(.645,.045,.355,1)`, restarts from the current value under rapid switching, and lerps the WebGL clear colour in the same tween so canvas and DOM never desync [site:slosh-seltzer] [verified at family level].
 - Léo Parpeix swaps four named themes per section so scrolling reads like turning pages [site:leo-parpeix] [recalled medium]; Lando flips light and dark by sampling the section under the header [site:lando-norris] [verified].
 
@@ -64,14 +64,14 @@ Rule: `data-theme` on `<html>` is the single source for the CSS tokens *and* the
 
 ## Route transition mechanics
 
-- **Hand-rolled** [site:floema] [verified]: `await page.hide()` → `fetch(url)` → parse into a detached element → `pushState` → swap `innerHTML` → build the new page and canvas scene → `page.show()`. Per-template scenes are created and destroyed on every change.
+- **Hand-rolled** [site:floema-jewelry] [verified]: `await page.hide()` → `fetch(url)` → parse into a detached element → `pushState` → swap `innerHTML` → build the new page and canvas scene → `page.show()`. Per-template scenes are created and destroyed on every change.
 - **taxi** [site:lando-norris] [verified]: link interception, prefetch, DOM teardown and page-init callbacks. Pair it with a Lenis reset and `gsap.context()` cleanup so no ticker or trigger outlives the swap `[recipe:page-transitions]`.
 - **View Transitions (MPA)** [site:mont-fort] [verified]: the cinematic site without a SPA; content stays static HTML and only the island re-hydrates.
 - Whatever the router: reset scroll (`lenis.scrollTo(0, { immediate: true })`), move focus to the new `<main>` or `<h1>`, and refresh ScrollTrigger once the new fonts and images have landed.
 
 ## Anti-pattern: reload at a breakpoint
 
-Lando Norris forces a full page reload when the viewport crosses 992 px because its six scenes were not built to resize [site:lando-norris] [verified]. Zoom users and anyone dragging a window edge trip it, and every transition above is lost mid-visit. Rebuild the scene on `ResizeObserver` instead and pick texture tiers by capability, not width (`[pattern:responsive-strategy#never-reload-at-a-breakpoint]`).
+A reload on crossing a breakpoint costs every transition above it: zoom users and anyone dragging a window edge trip it mid-visit. Rebuild the scene on `ResizeObserver` instead, and pick texture tiers by capability rather than width (`[pattern:responsive-strategy#never-reload-at-a-breakpoint]`). This was recorded against `[site:lando-norris]`, whose six scenes were said not to resize; the 2026-09-18 live pass did not find the reload in the served bundle, so treat the rule on its own merits [the attribution is [unknown] as of that pass].
 
 ## Verify
 

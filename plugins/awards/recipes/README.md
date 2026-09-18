@@ -47,7 +47,7 @@ Screenshots land in `_verify/<id>/<state>.png`; `recipe.json.verified` is stampe
 | Hero object | `gl-hero-object-inertia` | P1 | One object with pointer inertia and scroll rotation | oryzo, lando-norris |
 | Post presets | `gl-postprocessing-presets` | P1 | Fixed bloom presets, grain, SMAA, half-float on mobile | lando-norris, igloo |
 | Frame scrub | `image-sequence-scrub` | P1 | Pre-rendered frames scrubbed on scroll | seasats |
-| Sound | `sound-toggle-opt-in` | P2 | Opt-in ambient + SFX, persisted | leo-parpeix, igloo, mont-fort |
+| Sound | `sound-toggle-opt-in` | P2 | Opt-in ambient + SFX, persisted | igloo, mont-fort |
 | GL text | `gl-msdf-text` | P2 | MSDF text with a DOM mirror | igloo, lando-norris |
 
-Every P0 and P1 recipe ships verified; the two P2 rows are planned for 0.2 and have no folder yet. Demo pages deliberately skip an Open Graph image (audit S06), which a real site must ship.
+Every row ships verified. Demo pages deliberately skip an Open Graph image (audit S06), which a real site must ship.

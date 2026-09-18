@@ -2,9 +2,12 @@
 name: stack
 description: "Choose and scaffold the technical foundation of a creative-developer site and boot it correctly: Vite + vanilla by default, or Next.js (@gsap/react, React Three Fiber), Nuxt, Astro with View Transitions, SvelteKit + Threlte, or a Webflow shell with an injected ESM engine. Wires Lenis 1.3 and GSAP ScrollTrigger on one ticker, lazy-chunks Three.js, self-hosts fonts, picks the page-transition mechanism, sets up the glTF/Draco/KTX2 pipeline, quality tiers and one reduced-motion switch, and records budgets in AWARDS.md. Use when asked to set up, scaffold, bootstrap or configure a project for smooth scroll, GSAP, Lenis, Three.js, WebGL or page transitions, which framework suits an award-style site, or to add these libraries to an existing Next, Nuxt, Astro, Svelte or Webflow app. Not for CRUD or dashboard scaffolds without award framing, nor for authoring the animations (awards:motion)."
 argument-hint: "[vite|next|nuxt|astro|sveltekit|webflow] [--name <dir>] [--webgl] [--cms <name>]"
+allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
 ---
 
 # awards:stack
+
+Codex: read [the runtime guidance](../../references/codex.md) before following this skill; it maps plugin paths, tool names and handoffs to Codex.
 
 Pick the stack, scaffold it, and boot Lenis, GSAP and (when the concept needs it) Three on one clock, so every later phase inherits a page that scrolls, measures and degrades correctly. The stack is a decision made once per project; the architecture under it is the same on every stack in the corpus.
 
@@ -47,7 +50,7 @@ Each row is a question the brief already answers; write the answers into `AWARDS
 | Svelte team, engine-first site with a component model | SvelteKit + Threlte; keep SSR on for the DOM mirror `[site:igloo]` (framework at medium confidence) | `stacks/sveltekit.md` |
 | The client edits and hosts in Webflow | Webflow shell + an injected ESM engine from your own origin; the ceiling is Site of the Month `[site:lando-norris]` `[site:son-daven]` | `stacks/webflow-export.md` |
 | Is a shared-element or overlay transition the money moment? | Yes: SPA navigation (taxi on Vite and Webflow, the framework router elsewhere). No: MPA with cross-document View Transitions | `[pattern:preloaders-and-transitions#route-transition-mechanics]` |
-| WebGL dose from the direction contract | Any dose above "none" means a lazy chunk, a quality tier and a mirror; OGL for planes-only sites `[site:floema]`, Three otherwise, R3F or Threlte only inside their frameworks | `[pattern:webgl-architecture#dosage-ladder]` |
+| WebGL dose from the direction contract | Any dose above "none" means a lazy chunk, a quality tier and a mirror; OGL for planes-only sites `[site:floema-jewelry]`, Three otherwise, R3F or Threlte only inside their frameworks | `[pattern:webgl-architecture#dosage-ladder]` |
 | `--cms <name>` given | The framework the CMS SDK serves best; content routes stay static HTML and the engine hydrates by attribute | the framework note |
 
 Choose for the team and the content, never for the motion: the motion is identical on every row.

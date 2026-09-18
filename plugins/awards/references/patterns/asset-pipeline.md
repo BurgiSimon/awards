@@ -14,7 +14,7 @@ Blender / Cinema 4D / Houdini
   → workers       — Draco, Basis, EXR, audio and MSDF decoded off the main thread
 ```
 
-Evidence: Draco geometry, KTX2/ETC1S textures and atlases out of Blender is the Why Zero recipe [site:why-zero] [verified, Codrops]; Igloo's manifest holds 19 Draco `.drc` files and 36 KTX2 textures and nothing else but a favicon [site:igloo] [verified]; Léo Parpeix exports Blender to Draco-compressed glTF [site:leo-parpeix] [verified tags + clone]; Lando loads DRACO, GLTF, RGBE and KTX2/Basis [site:lando-norris] [verified]; Mont-fort ships a KTX2 loader in its own chunk beside `.glb` models and an EXR HDRI [site:mont-fort] [verified]. UASTC for data maps is the plugin's rule, not a card's — the cards name ETC1S only [inferred: ETC1S's block quantisation is visible on normal maps]. Meshopt appears on no card; the audit accepts either compressor [P03].
+Evidence: Draco geometry, KTX2/ETC1S textures and atlases out of Blender is the Why Zero recipe [site:why-zero] [verified, Codrops]; Igloo's manifest holds 19 Draco `.drc` files and 36 KTX2 textures and nothing else but a favicon [site:igloo] [verified]; Léo Parpeix exports Blender to Draco-compressed glTF [site:leo-parpeix] [verified tags + clone]; Lando registers DRACO, GLTF, RGBE and KTX2/Basis loaders, though its shipped textures are all WebP [site:lando-norris] [verified, live source 2026-09-18]; Mont-fort ships a KTX2 loader in its own chunk beside `.glb` models and an EXR HDRI [site:mont-fort] [verified]. UASTC for data maps is the plugin's rule, not a card's — the cards name ETC1S only [inferred: ETC1S's block quantisation is visible on normal maps]. Meshopt appears on no card; the audit accepts either compressor [P03].
 
 ## Budget stories
 
@@ -35,7 +35,7 @@ Why: two cards give the whole argument in numbers.
 | Rule | Evidence |
 |---|---|
 | KTX2 for anything a shader samples: it stays compressed on the GPU and transcodes to the device's own format | [site:igloo] 36 KTX2, zero PNG/JPG [verified]; [site:why-zero] ETC1S [verified]; [site:shopify-editions-w26] texture compression for 60 fps on mobile [recalled high] |
-| Tier textures by capability, not width: Lando serves WebP above 991 px and KTX2 at or below, keyed on `innerWidth`, so a narrow desktop gets phone textures and a wide low-VRAM device gets WebP | [site:lando-norris] [verified]; branch on `WEBGL_compressed_texture_*` support and `deviceMemory` instead |
+| Tier textures by capability, not width. A width key gives a narrow desktop phone textures and a wide low-VRAM device the heavy ones | `[site:lando-norris]` was the source for this, keyed on `innerWidth`; the 2026-09-18 live pass found only `/webp/` paths in its GL manifest, so the attribution no longer holds and the rule stands on its own [unknown]. Branch on `WEBGL_compressed_texture_*` support and `deviceMemory` |
 | 1024–2048 px per map; environment maps PMREM'd at 1K | [site:shopify-editions-w26] [recalled medium-low, third-party] |
 | Icons and UI glyphs as data textures when the UI lives in the scene | [site:igloo] `ui/*-datatexture.ktx2` [verified] |
 | Colour maps sRGB, data maps linear, mipmaps on | `stacks/three-0.186.md` |
@@ -59,7 +59,7 @@ Rules (`[recipe:image-sequence-scrub]`): encode with `ffmpeg` to WebP or AVIF fr
 
 ## Fonts
 
-Self-hosted woff2 subsets, at most four files and 400 KB, `font-display` set, a metric-matched fallback with `size-adjust` so lines do not reflow when text re-splits [T02] [T05] [T06] [P05]. Every readable winner self-hosts: Floema six files across two families [site:floema] [verified]; Lando a variable Mona Sans plus Brier [site:lando-norris] [verified]; Mont-fort three files [site:mont-fort] [verified]; The Line one variable `DenimVF.woff` — a variable file is the cheapest route to several weights, but ship it as woff2 [site:the-line] [verified]. Why Zero serves through the Google Fonts API [site:why-zero] [verified], the one exception and exactly what T02 flags. Preload the two files above the fold; split text only after `document.fonts.ready`.
+Self-hosted woff2 subsets, at most four files and 400 KB, `font-display` set, a metric-matched fallback with `size-adjust` so lines do not reflow when text re-splits [T02] [T05] [T06] [P05]. Every readable winner self-hosts: Floema six files across two families [site:floema-jewelry] [verified]; Lando a variable Mona Sans plus Brier [site:lando-norris] [verified]; Mont-fort three files [site:mont-fort] [verified]; The Line one variable `DenimVF.woff` — a variable file is the cheapest route to several weights, but ship it as woff2 [site:the-line] [verified]. Why Zero serves through the Google Fonts API [site:why-zero] [verified], the one exception and exactly what T02 flags. Preload the two files above the fold; split text only after `document.fonts.ready`.
 
 ## Budgets
 
@@ -96,7 +96,7 @@ Why: the preloader needs a real signal, and the signal is only honest when the s
 2. The shell entry (≈ 20 KB): fonts, Lenis, the score, the preloader logic.
 3. First-scene assets: the hero glb, its textures and the two fonts above the fold — this `Promise.all` plus `document.fonts.ready` resolves the counter, holds it at 100, and lets it exit.
 4. Neighbour scenes: streamed by scene window or `IntersectionObserver`, decoded in workers.
-5. Everything else on idle — or nothing: Floema decoded every route's textures before the first frame, its worst decision [site:floema] [verified]; the audio bed only after consent.
+5. Everything else on idle — or nothing: Floema decoded every route's textures before the first frame, its worst decision [site:floema-jewelry] [verified]; the audio bed only after consent.
 
 Repeat visits skip the sequence (`sessionStorage`); a timeout shows the page with the static tier; failures isolate to one scene.
 

@@ -1,0 +1,25 @@
+{
+  "id": "sound-toggle-opt-in",
+  "title": "Opt-in sound: a real toggle, a synthesised bed, a remembered yes",
+  "tags": [
+    "sound",
+    "webaudio",
+    "accessibility",
+    "consent",
+    "canvas"
+  ],
+  "tier": "P2",
+  "deps": [],
+  "variants": [
+    "vanilla WebAudio (no files, no dependency)",
+    "Howler: new Howl({ src, loop, volume: .375 }) behind the same toggle and the same stored consent"
+  ],
+  "seenIn": [
+    "igloo",
+    "mont-fort"
+  ],
+  "verified": {
+    "date": "2026-09-18",
+    "chromium": "151.0.7922.34"
+  }
+}

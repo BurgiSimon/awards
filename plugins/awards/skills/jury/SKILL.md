@@ -1,14 +1,16 @@
 ---
 name: jury
-description: Scores a site, page or single component the way a design-award jury does. Design, Usability, Creativity and Content on anchored 0–10 scales (Site of the Day winners sit at 7.2–7.9), the five Developer Award criteria, the memory test, the specificity test (could a juror name the source site?), the keyboard and reduced-motion walk and a slop scan, ending in an ordered fix list and one disposition (ship, fix, rebuild or recapture). Use whenever the user asks to review, critique, score, judge, rate or evaluate a site or component, asks "would this win", "is this award-worthy", "what is missing", "what would the jury say", or before shipping award-level work; also re-checks a fix batch with --verdict. Runs in a fresh context on Playwright captures and the audit, so the build conversation cannot talk it upward. Not for code review, failing tests or accessibility work with no award framing.
+description: Scores a site, page or single component the way a design-award jury does. Design, Usability, Creativity and Content on anchored 0–10 scales (Site of the Day winners sit at 7.3–8.2), the five Developer Award criteria, the memory test, the specificity test (could a juror name the source site?), the keyboard and reduced-motion walk and a slop scan, ending in an ordered fix list and one disposition (ship, fix, rebuild or recapture). Use whenever the user asks to review, critique, score, judge, rate or evaluate a site or component, asks "would this win", "is this award-worthy", "what is missing", "what would the jury say", or before shipping award-level work; also re-checks a fix batch with --verdict. Runs in a fresh context on Playwright captures and the audit, so the build conversation cannot talk it upward. Not for code review, failing tests or accessibility work with no award framing.
 argument-hint: "[url | path | --component <selector>] [--captures <dir>] [--verdict]"
 context: fork
 agent: awards-jury
 background: false
-allowed-tools: Read, Glob, Grep, Bash
+allowed-tools: Read, Glob, Grep, Bash, Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
 ---
 
 # awards:jury — the fresh-context jury
+
+Codex: read [the runtime guidance](../../references/codex.md) before following this skill; it maps plugin paths, tool names and handoffs to Codex.
 
 You are the jury, not the builder. This skill runs forked into the `awards-jury` agent: the build conversation, its reasoning and its excuses do not reach you, and that is the point. A juror who watched a site being made scores the intention; you score what a stranger sees. Everything you know about the job is in this text, in the arguments and in the files on disk.
 
@@ -47,7 +49,7 @@ Locate the captures directory (`--captures`, else `.awards/captures`) and its `m
 Open every capture with the Read tool and judge validity:
 
 - not blank, not one flat colour, not a stuck preloader (a frozen counter or an empty stage at s50 or s100)
-- s00, s50 and s100 actually differ; identical frames mean the scroll never moved
+- s00, s50 and s100 actually differ; identical frames mean the scroll never moved. Identical frames, or `metrics.<label>.scrollMode` of `wheel` in the manifest with no change between states, mean the page drives a virtual scroll: rerun with `--wheel 12000 --wait 6000 --timeout 90000` and say in the report how the states were reached
 - `manifest.json` has no `pageErrors`, and its `consoleErrors` did not prevent rendering
 - no capture is older than the newest source file (`find <dir> -newer <capture>`); older is stale
 
@@ -101,7 +103,7 @@ Why: a Developer Award accompanies nearly every Site of the Day in the corpus, a
 
 ## 4. Assessment C — the usability walk
 
-Why: usability was the lowest axis on every scored site in the corpus, which makes it the axis where a new build beats the reference set instead of copying it. Read `${CLAUDE_PLUGIN_ROOT}/references/jury/usability-walk.md` and run its eight steps against the captures, the DOM and the source. When a canvas exists, add the resilience capture for step 8:
+Why: usability is the lowest axis on nineteen of the twenty verified corpus entries [verified, twenty Awwwards entries read 2026-09-18], which makes it the axis where a new build beats the reference set instead of copying it. Read `${CLAUDE_PLUGIN_ROOT}/references/jury/usability-walk.md` and run its eight steps against the captures, the DOM and the source. When a canvas exists, add the resilience capture for step 8:
 
 ```
 node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <target> --out .awards/captures --only desktop --scroll 0 --no-webgl --name nogl

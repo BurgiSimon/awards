@@ -24,9 +24,9 @@ Why: a site reads as one hand when every movement decelerates the same way. The 
 | Role | Curve | Seen in | Confidence |
 |---|---|---|---|
 | House curve: entrances, hover, cursor | expo-out `cubic-bezier(.16,1,.3,1)` | [site:leo-parpeix], page motion and cursor on the same curve | [recalled medium], from a clone |
-| Same family, older constants | `cubic-bezier(.19,1,.22,1)` | [site:floema] SCSS token; [site:the-line] hover shift | [verified], clone and reconstruction |
-| Travel between two known states: shared-element flights, camera moves | expo-in-out `cubic-bezier(.87,0,.13,1)`; GSAP `expo.inOut` | [site:leo-parpeix]; [site:floema] mesh flight, 1.5 s | [recalled medium]; [verified] |
-| Floema's own in-out | `cubic-bezier(.77,0,.175,1)` | [site:floema] | [verified] |
+| Same family, older constants | `cubic-bezier(.19,1,.22,1)` | [site:floema-jewelry] SCSS token; [site:the-line] hover shift | [verified], clone and reconstruction |
+| Travel between two known states: shared-element flights, camera moves | expo-in-out `cubic-bezier(.87,0,.13,1)`; GSAP `expo.inOut` | [site:leo-parpeix]; [site:floema-jewelry] mesh flight, 1.5 s | [recalled medium]; [verified] |
+| Floema's own in-out | `cubic-bezier(.77,0,.175,1)` | [site:floema-jewelry] | [verified] |
 | Theme swap, whole-page repaint | `cubic-bezier(.645,.045,.355,1)`, ≈ 1 s | [site:slosh-seltzer] | [verified] at family level only; not confirmed on Slosh itself |
 | Section snap after a virtual scroll settles | ease-in-out cubic, 1.4 s | [site:igloo] | [recalled medium-high], one detailed source |
 | Landing with squash | Anime `outElastic(1, 1.4)` | [site:animejs] wordmark drop | [verified] |
@@ -42,20 +42,20 @@ Rules:
 
 ## Durations
 
-Why: duration tells the visitor what kind of event just happened. The corpus keeps three bands apart, and one site sets a single unit for its hero moments: Floema uses 1.5 s for the colour tween, the mesh flight and the preloader exit, so every big beat carries the same weight [site:floema] [verified].
+Why: duration tells the visitor what kind of event just happened. The corpus keeps three bands apart, and one site sets a single unit for its hero moments: Floema uses 1.5 s for the colour tween, the mesh flight and the preloader exit, so every big beat carries the same weight [site:floema-jewelry] [verified].
 
 | Band | Range | Evidence |
 |---|---|---|
 | Feedback (hover, press, toggle) | ≤ .3 s; token `--dur-feedback` 160 ms | impact morphs of 60–140 ms followed by a 180–340 ms settle [site:animejs] [verified] |
 | Routine (reveals, menu items, cards) | ≈ .4 s; token `--dur-routine` | plugin default; no card publishes a routine duration |
-| Hero-scale (preloader exit, shared-element flight, chapter cut) | 1.2–1.5 s; token `--dur-hero` 1400 ms | 1.5 s [site:floema] [verified]; 1.4 s hero lines in `[recipe:boot-lenis-gsap]`; 1 s wordmark settle on `outExpo` [site:animejs] |
-| Theme swap | ≈ 1 s [site:slosh-seltzer] (family-level) to 1.5 s [site:floema] | both tween `documentElement` colours |
+| Hero-scale (preloader exit, shared-element flight, chapter cut) | 1.2–1.5 s; token `--dur-hero` 1400 ms | 1.5 s [site:floema-jewelry] [verified]; 1.4 s hero lines in `[recipe:boot-lenis-gsap]`; 1 s wordmark settle on `outExpo` [site:animejs] |
+| Theme swap | ≈ 1 s [site:slosh-seltzer] (family-level) to 1.5 s [site:floema-jewelry] | both tween `documentElement` colours |
 | Section snap (virtual scroll) | 1.4 s | [site:igloo] [recalled medium-high] |
-| Counter tick | one jump per 100 ms | [site:leo-parpeix] [recalled medium] |
-| Hold at 100 % | ≈ 1 s before the exit | [site:floema] [verified] |
+| Counter tick | one jump per 100 ms | no corpus source — `[site:leo-parpeix]` ships an SVG circular progress ring, not a counter [verified, live bundle 2026-09-18] |
+| Hold at 100 % | ≈ 1 s before the exit | [site:floema-jewelry] [verified] |
 
 Rules:
-- Exits are faster than entrances. Floema sends the counter out on a shorter travel (`y: '100%'`) than the titles (`y: '150%'`) inside one timeline [site:floema]; the Anime.js outro drops its letters with a tighter stagger (30 ms) than the pop that brought them in (80 ms) [site:animejs].
+- Exits are faster than entrances. Floema sends the counter out on a shorter travel (`y: '100%'`) than the titles (`y: '150%'`) inside one timeline [site:floema-jewelry]; the Anime.js outro drops its letters with a tighter stagger (30 ms) than the pop that brought them in (80 ms) [site:animejs].
 - Spend 1.2–1.5 s on one moment per chapter. On a hover it reads as lag.
 - Lama Lama publishes no numbers; the 1.2–1.5 s hero and .06–.1 s stagger on that card are the plugin's defaults, not the site's [site:lama-lama].
 
@@ -65,7 +65,7 @@ Why: a stagger turns a block into a sequence the eye can follow; too wide and th
 
 | Unit | Step | Seen in |
 |---|---|---|
-| Lines or words of a heading | .06–.1 s | 0.1 s on preloader titles [site:floema] [verified]; .09 s in `[recipe:boot-lenis-gsap]` |
+| Lines or words of a heading | .06–.1 s | 0.1 s on preloader titles [site:floema-jewelry] [verified]; .09 s in `[recipe:boot-lenis-gsap]` |
 | Letters of a wordmark | 80 ms from the centre | [site:animejs] [verified] |
 | Flicker glyphs | ≈ .04 s baked into the keyframe `times` | [site:the-line] [verified] |
 | Scramble characters | 30 ms from the centre, eased | [site:animejs] [verified] |
@@ -78,8 +78,8 @@ Rule: keep `count × step` under ≈ .6 s for text blocks; use `from: 'center'` 
 
 Why: a line rising out of a clipped box reads as typesetting rather than a fade; it is the corpus's default entrance for headings.
 
-- Travel: `y: '150%'` → 0 on `expo.out` over 1.5 s, stagger 0.1 [site:floema] [verified]; `yPercent: 120` over 1.4 s, stagger .09 in `[recipe:boot-lenis-gsap]`. Anything beyond 100 % exists to clear descenders when the line-height sits below 1.
-- Lines are found by measuring: Floema wraps units in spans and buckets them by `offsetTop` [site:floema]; GSAP `SplitText` with `mask: 'lines'` does the same in `[recipe:split-text-masked-reveal]`; Anime's `splitText` builds a clipped wrapper with an inert clone at ±100 % [site:animejs] [verified].
+- Travel: `y: '150%'` → 0 on `expo.out` over 1.5 s, stagger 0.1 [site:floema-jewelry] [verified]; `yPercent: 120` over 1.4 s, stagger .09 in `[recipe:boot-lenis-gsap]`. Anything beyond 100 % exists to clear descenders when the line-height sits below 1.
+- Lines are found by measuring: Floema wraps units in spans and buckets them by `offsetTop` [site:floema-jewelry]; GSAP `SplitText` with `mask: 'lines'` does the same in `[recipe:split-text-masked-reveal]`; Anime's `splitText` builds a clipped wrapper with an inert clone at ±100 % [site:animejs] [verified].
 - Split only after `document.fonts.ready` and re-split on resize: Lando re-runs SplitText after font load so a fallback face cannot shred the lines [site:lando-norris] [verified]; Anime's `.addEffect()` survives a re-split [site:animejs].
 - Two text systems, split by role — a masked reveal for headings, a per-character wave or scramble for accents — never both on one element [site:mindmarket].
 - Split spans are not readable text; keep an accessible copy (`aria-label` or a visually hidden original) [site:animejs]. Reduced tier: opacity only, ≤ .4 s.
@@ -90,13 +90,13 @@ Why: motion that answers how fast the visitor moves feels physical; motion that 
 
 | Effect | Formula / parameters | Site | Confidence |
 |---|---|---|---|
-| Bulge on drag | `z -= (sin(y/H·π + π/2) + sin(x/W·π + π/2)) · abs(uSpeed)` in the vertex stage; `uSpeed = scroll.current − scroll.last`, eased back to 0 at rest; fragment stage stays a plain texture lookup | [site:floema] | [verified], clone shader |
-| Fluid wake | pointer delta × 10 splatted into a 128² ping-pong velocity FBO, radius .0015 at rest → .002 moving, dissipation .96, advection only; read by one post pass: UV distortion .0035, velocity scale 1.5, chromatic aberration ± velocity × .001 | [site:leo-parpeix] | [recalled medium-high], clone |
+| Bulge on drag | `z -= (sin(y/H·π + π/2) + sin(x/W·π + π/2)) · abs(uSpeed)` in the vertex stage; `uSpeed = scroll.current − scroll.last`, eased back to 0 at rest; fragment stage stays a plain texture lookup | [site:floema-jewelry] | [verified], clone shader |
+| Fluid wake | `mouse_force 80`, `resolution 0.2` of the viewport (not a fixed 128²), `cursor_size 40`, `dt 0.015`, `deltaFactor 1.75`, `dissipation 0.98`, `iterations_poisson 1`, viscosity off, BFECC advection behind a switch; the post pass reads `fluidDistortionStrength 0.003` and `fluidVelocityBlurScale 15` — a velocity-driven hash blur, **and no chromatic aberration at all** | [site:leo-parpeix] | [verified, live bundle 2026-09-18] — the figures previously here came from an educational clone and match the shipped site on no parameter |
 | Marquee speed | rAF translate with wraparound, so speed can follow scroll velocity instead of a fixed keyframe rate | [site:seasats] (clone-described); `[recipe:marquee-raf-mask]` | [recalled medium] |
 | Carousel drift | auto-speed tweened to 0 on grab and back to 2 on release (500 ms each); wheel input lerped at .2 into the same value | [site:animejs] | [verified] |
 | Hero inertia | drag momentum with lighting that answers the object's motion; no numbers published | [site:oryzo] | [recalled high], parameters unknown |
 
-Rules: compute speed per frame from the smoothed value, never from raw wheel deltas; clamp it; lerp it back to zero so the effect settles; put the character in the vertex stage and keep the fragment stage trivial [site:floema]. The Floema bulge and its grid-to-detail flight are the most-cloned moves on the web — take the architecture and design your own displacement `[recipe:gl-dom-tethered-planes]` `[recipe:gl-fluid-wake-post]`.
+Rules: compute speed per frame from the smoothed value, never from raw wheel deltas; clamp it; lerp it back to zero so the effect settles; put the character in the vertex stage and keep the fragment stage trivial [site:floema-jewelry]. The Floema bulge and its grid-to-detail flight are the most-cloned moves on the web — take the architecture and design your own displacement `[recipe:gl-dom-tethered-planes]` `[recipe:gl-fluid-wake-post]`.
 
 ## Scroll philosophies
 
@@ -106,9 +106,9 @@ Why: smooth scroll is a decision with costs — scroll restoration, find-in-page
 |---|---|---|---|
 | (a) Native + Lenis + ScrollTrigger | Lenis driven from `gsap.ticker` with `lagSmoothing(0)`; Lenis feeds `ScrollTrigger.update` | [site:leo-parpeix] Lenis ^1.1 [recalled medium]; [site:lando-norris] Lenis 1.1.20 + GSAP 3.13 [verified]; [site:mont-fort] [verified] | the default for any page that reads; the document stays scrollable `[recipe:boot-lenis-gsap]` |
 | (b) Studio abstraction | `@bsmnt/scrollytelling` (`Root`, `Animation`, `Waypoint`, `Parallax`, `ImageSequenceCanvas`) on top of ScrollTrigger | [site:usavionix] [inferred medium, the studio's house stack] | React teams authoring many scroll scenes |
-| (c) Hand-rolled lerp | wheel → `target`; `current = lerp(current, target, .1)`; `translateY` on a wrapper; target clamped to `[0, limit]` | [site:floema] [verified] | small sites whose GL layer must read the smoothed value; costs the native scrollbar and restoration |
+| (c) Hand-rolled lerp | wheel → `target`; `current = lerp(current, target, .1)`; `translateY` on a wrapper; target clamped to `[0, limit]` | [site:floema-jewelry] [verified] | small sites whose GL layer must read the smoothed value; costs the native scrollbar and restoration |
 | (d) Virtual float | wheel and touch update a target that eases; one 0–1 progress drives everything, which is what makes gates, holds and redirects possible | [site:why-zero] [verified]; [site:igloo] wheel × .1 → friction .97 → double lerp .075 then .15 → 1.4 s snap → modulo wrap [recalled medium-high] | only when the page is a world with gates or holds `[recipe:gl-virtual-scroll-camera]` |
-| (e) Native + DOM-tethered canvas | native scroll; the canvas is `position: absolute` and re-offset every rAF to the scroll position, with ≈ 25 % over-render against clipping | [site:oryzo] [verified technique; use on the site inferred] | GL planes anchored to DOM elements, zero scroll-jacking |
+| (e) Native + DOM-tethered canvas | native scroll with a **fixed** canvas tethered by mapping DOM rects into the scroll timeline; the `position: absolute` + re-offset variant is a published Lusion technique but is not what the site ships | [site:oryzo] [verified, live source 2026-09-18] | GL planes anchored to DOM elements, zero scroll-jacking |
 | Variants | section switcher: scroll moves between composited GL sections [site:slosh-seltzer] [verified]; scroll-linked timelines via `onScroll({ sync })` [site:animejs] [verified] | | short loops; docs-style set-pieces |
 
 Rules: never two smooth-scroll libraries; never CSS `scroll-behavior: smooth` beside Lenis; (c) and (d) must still answer keys and expose progress (`[pattern:accessibility-and-reduced-motion#scroll-jacking-rules]`). The double lerp in (d) is what makes weight feel responsive — one slow lerp on the input, a faster one on the camera reading it [site:igloo].
@@ -134,7 +134,7 @@ Convert a 60 fps lerp `l` with `k = −60 · ln(1 − l)`: .1 → ≈ 6.3, .15 �
 
 ## Sticky stages and hinges
 
-Why: `pin: true` inserts spacer elements and fights the native scroll; a `position: sticky` visual under a tall transparent rail gives the same hold with the document intact. The Line does exactly this and never pins [site:the-line] [verified] `[recipe:sticky-stages-rails]`. Pin + scrub remains acceptable inside one chapter whose media must be scrubbed frame by frame (Son Daven's chapters, mechanism inferred) [site:son-daven] `[recipe:scroll-pin-scrub]`; Shopify keeps a sticky scene layer per section with static media beneath it [site:shopify-editions-w26] [recalled medium-low].
+Why: `pin: true` inserts spacer elements and fights the native scroll; a `position: sticky` visual under a tall transparent rail gives the same hold with the document intact. The Line does exactly this and never pins [site:the-line] [verified] `[recipe:sticky-stages-rails]`. Pin + scrub remains acceptable inside one chapter whose media must be scrubbed frame by frame — the corpus example is a canvas frame sequence, not a pin [site:seasats] [verified, live source 2026-09-18] `[recipe:scroll-pin-scrub]`. Son Daven, previously cited here, ships 23 scrubbed triggers and zero `pin:`; its holds are CSS sticky [site:son-daven] [verified, live source 2026-09-18]; Shopify keeps a sticky scene layer per section with static media beneath it [site:shopify-editions-w26] [recalled medium-low].
 
 The hinge [site:the-line] [verified]: a full-viewport panel and its logo layer, both `transform-origin: bottom left`, translate `x: 0 → −10 %` and rotate `0 → −15°` across the hero's scroll range. Generalised rule (medium confidence as a generalisation): hinge 4–15° on a *named* corner, and let the child rotate harder and lag the parent so the sheet shears instead of moving as one rigid block.
 
@@ -148,14 +148,14 @@ The hinge [site:the-line] [verified]: a full-viewport panel and its logo layer, 
 
 - Whole-line `x` shift by a vw-locked amount on expo-out [site:the-line] [verified].
 - Duplicate-char roll: clone each char to the left inside a clipped wrapper, then stagger `x: '100%'` at 5 ms per char [site:animejs] [verified].
-- Cursor answer: ring scales 1.35×, dot shrinks to .7×, ring opacity .35 → .8 [site:leo-parpeix] [recalled medium] — see `[pattern:cursor-and-pointer#two-speed-cursor]`.
+- Cursor answer: no corpus card is a source for dot-and-ring scale figures — `[site:leo-parpeix]`, which these were attributed to, ships a contextual text label off an event bus [verified, live bundle 2026-09-18]. See `[pattern:cursor-and-pointer#two-speed-cursor]` for the technique on its own merits.
 - `composition: 'blend'` lets a hover offset and a scroll offset on the same property coexist [site:animejs] [verified]; in GSAP, drive the pointer part with `quickTo` `[recipe:magnetic-button]`.
 
 Rules: ≤ 300 ms, transform and opacity only, and `:focus-visible` triggers the same state as hover.
 
 ## Reduced-motion tiers
 
-Why: no card in the corpus documents a reduced-motion path — Floema and the Anime.js source verifiably have none [site:floema] [site:animejs], Léo Parpeix appears to have none [site:leo-parpeix], and the rest are unknown. Shipping tiers is where new work beats the reference set (`[pattern:accessibility-and-reduced-motion#motion-tiers]`).
+Why: no card in the corpus documents a reduced-motion path — Floema and the Anime.js source verifiably have none [site:floema-jewelry] [site:animejs], Léo Parpeix appears to have none [site:leo-parpeix], and the rest are unknown. Shipping tiers is where new work beats the reference set (`[pattern:accessibility-and-reduced-motion#motion-tiers]`).
 
 | Tier | Trigger | Keeps | Drops |
 |---|---|---|---|

@@ -2,9 +2,12 @@
 name: motion
 description: "Author the motion of an award-level site or component with GSAP 3.15 (ScrollTrigger, SplitText, Flip, Observer), Lenis, anime.js 4 or CSS: a preloader that holds at 100 on a real load signal, masked line reveals, scroll-scrubbed pins and sticky stages, velocity-driven effects, a two-speed contextual cursor, magnetic targets, rAF marquees, flicker and scramble text, theme swaps, page and shared-element transitions, all on one expo-out vocabulary with framerate-independent damping and three reduced-motion tiers. Use when asked to animate, add motion or smooth scroll, build scroll-triggered or scrollytelling effects, text reveals, transitions, micro-interactions or cursor effects, make a page feel alive, premium or cinematic, or fix animation that feels generic, janky or fade-up-everything. Not for chart or dashboard animation, and not for the WebGL layer itself (awards:webgl)."
 argument-hint: "[target or feature] [--lib gsap|anime|css] [--score-only]"
+allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
 ---
 
 # awards:motion
+
+Codex: read [the runtime guidance](../../references/codex.md) before following this skill; it maps plugin paths, tool names and handoffs to Codex.
 
 Write the motion score first, then build it: one authored moment per chapter, one signature, one easing family, one clock, and a reduced-motion tier that still shows every state. Motion is the layer a jury feels before it can name it, and it is where "generic" gets diagnosed.
 
@@ -72,7 +75,7 @@ Name the curves and bands once as tokens and use nothing else; a site reads as o
 | Role | Value | Notes |
 |---|---|---|
 | Entrances, hover, cursor | expo-out `cubic-bezier(.16,1,.3,1)`, GSAP `expo.out`, anime `'outExpo'` | the house curve; page and cursor share it `[site:leo-parpeix]` |
-| Travel between two known states (flights, camera moves) | expo-in-out `cubic-bezier(.87,0,.13,1)`, `expo.inOut` | symmetric because departure and arrival are both known `[site:floema]` |
+| Travel between two known states (flights, camera moves) | expo-in-out `cubic-bezier(.87,0,.13,1)`, `expo.inOut` | symmetric because departure and arrival are both known `[site:floema-jewelry]` |
 | Theme swap, whole-page repaint | `cubic-bezier(.645,.045,.355,1)`, 1–1.5 s | symmetric on purpose: a repaint has no arrival |
 | Anything scrubbed by scroll | `ease: 'none'` | the smoothing lives in Lenis or in `scrub: .4–.6` [M03] |
 | Feedback (hover, press, toggle) | ≤ .3 s; token 160 ms | slower reads as lag |
@@ -97,7 +100,7 @@ Smooth scroll is a decision with costs (restoration, find-in-page, keyboard, ass
 |---|---|---|
 | Native + Lenis + ScrollTrigger | the boot from `[recipe:boot-lenis-gsap]`; triggers read Lenis through `ScrollTrigger.update` | the default for any page that reads |
 | Sticky stages on invisible rails | `position: sticky` visuals under tall transparent rails, scrubbed by triggers on the rail `[recipe:sticky-stages-rails]` | holds and hinges; never `pin: true` where sticky works [M06] `[site:the-line]` |
-| Pin + scrub inside one chapter | `pin: true`, `scrub: .4–.6`, `invalidateOnRefresh: true`; animate the children, never the pinned element `[recipe:scroll-pin-scrub]` | media that must scrub frame by frame `[site:son-daven]` |
+| Pin + scrub inside one chapter | `pin: true`, `scrub: .4–.6`, `invalidateOnRefresh: true`; animate the children, never the pinned element `[recipe:scroll-pin-scrub]` | media that must scrub frame by frame `[site:seasats]` — and prefer CSS `position: sticky`, which is what the corpus actually ships |
 | Virtual float | wheel and touch into a target, a damped float, one 0–1 progress driving timelines and the camera; keys, `awards.setScroller`, hash restore `[recipe:gl-virtual-scroll-camera]` | only when the story must gate, hold or redirect `[site:why-zero]` `[site:igloo]` |
 | Section switcher | `Observer.create({ type: 'wheel,touch', tolerance: 10, onUp, onDown })` and a keyboard `next()` | short loops `[site:slosh-seltzer]` |
 | CSS scroll-driven animations | `animation-timeline: view()` on the same markup | a progressive enhancement, with the JS path kept where Safari matters |
@@ -189,7 +192,7 @@ The pointer is an affordance system, not decoration: a cursor with two rates car
 
 One transition vocabulary per site; a shared-element flight and a wipe on the same route are two ideas `[pattern:preloaders-and-transitions#transition-archetypes]`.
 
-- Shared element: `Flip.getState(el)`, change the DOM, `Flip.from(state, { duration: 1–1.5, ease: 'expo.inOut', absolute: true })`; `Flip.fit` moves one element into another's box. In GL the source plane is lifted and tweened to the destination rect on the same curve `[site:floema]`.
+- Shared element: `Flip.getState(el)`, change the DOM, `Flip.from(state, { duration: 1–1.5, ease: 'expo.inOut', absolute: true })`; `Flip.fit` moves one element into another's box. In GL the source plane is lifted and tweened to the destination rect on the same curve `[site:floema-jewelry]`.
 - Routes: taxi on Vite SPA and Webflow (`Renderer.onEnter` opens a `gsap.context`, `onLeave` reverts it; the `Transition` resets Lenis, then refreshes before `done()`); the framework router with View Transitions on Next, Nuxt, Astro and SvelteKit `[recipe:page-transitions]`.
 - Theme swap: tween `--ground`, `--ink` and `--accent` on `documentElement` over 1–1.5 s on the theme curve, retarget rather than stack under fast scrolling, and paint the canvas clear colour from the same live object; update `theme-color` on complete `[recipe:theme-swap-tokens]`.
 - After any route change: scroll reset with `lenis.scrollTo(0, { immediate: true })`, focus to the new `<main>` or `<h1>`, old contexts reverted, `ScrollTrigger.refresh()` once fonts and images have landed `[pattern:preloaders-and-transitions#route-transition-mechanics]`.
@@ -259,4 +262,4 @@ Tick "Motion score authored and built (motion)" in `AWARDS.md ## Status`. When t
 - Eased scrubs that fight the scroll; `pin: true` where a sticky stage works.
 - A global animation kill presented as the reduced-motion path; marquees and flickers that keep running under it.
 - Framer Motion or `motion` for scroll scrub; two smooth-scroll libraries.
-- `[site:floema]`'s bulge and flight, `[site:leo-parpeix]`'s cursor badges and counter jumps, `[site:the-line]`'s hinge and `00/24` leader, or any corpus device reproduced as a signature: they are pattern pointers, never parts.
+- `[site:floema-jewelry]`'s bulge and flight, `[site:leo-parpeix]`'s cursor badges and counter jumps, `[site:the-line]`'s hinge and `00/24` leader, or any corpus device reproduced as a signature: they are pattern pointers, never parts.

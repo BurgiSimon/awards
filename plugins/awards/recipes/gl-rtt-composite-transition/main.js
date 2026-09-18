@@ -75,16 +75,19 @@ async function start() {
   let t = 0, tStart = 0, queued = null;
   function go(index) {
     const next = (index + SECTIONS.length) % SECTIONS.length;
-    if (next === state.section) return;
+    if (next === pending()) return;                       // already there, or already on the way there
     if (state.transitioning) { queued = next; return; }   // a request during a switch runs right after it
     state.from = state.section; state.to = next; state.switches++;
     if (motionTier() !== 'full') { state.section = next; state.progress = 1; announce(); return; }
     state.transitioning = true; state.progress = 0; tStart = performance.now(); // wall clock: the duration holds at any frame rate
   }
   function announce() { sectionReadout.textContent = `${String(state.section + 1).padStart(2, '0')} / ${String(SECTIONS.length).padStart(2, '0')} · ${SECTIONS[state.section].name}`; }
-  document.querySelector('[data-next]').addEventListener('click', () => go(state.section + 1));
-  document.querySelector('[data-prev]').addEventListener('click', () => go(state.section - 1));
-  addEventListener('keydown', (e) => { if (['ArrowRight', 'ArrowDown', 'PageDown'].includes(e.key)) { e.preventDefault(); go(state.section + 1); } if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); go(state.section - 1); } });
+  // Step from where the switch is heading, not from where it left: during a transition `state.section`
+  // is still the outgoing one, so a relative step taken from it queues the section already on its way.
+  const pending = () => (state.transitioning ? state.to : state.section);
+  document.querySelector('[data-next]').addEventListener('click', () => go(pending() + 1));
+  document.querySelector('[data-prev]').addEventListener('click', () => go(pending() - 1));
+  addEventListener('keydown', (e) => { if (['ArrowRight', 'ArrowDown', 'PageDown'].includes(e.key)) { e.preventDefault(); go(pending() + 1); } if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); go(pending() - 1); } });
 
   const unsubscribe = ticker.add((dt) => {
     t += dt;

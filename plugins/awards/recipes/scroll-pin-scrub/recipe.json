@@ -19,13 +19,12 @@
     "@bsmnt/scrollytelling Root/Animation"
   ],
   "seenIn": [
-    "son-daven",
     "united-carriers",
     "mont-fort",
     "shopify-editions-w26"
   ],
   "verified": {
     "date": "2026-09-18",
-    "chromium": "141.0.7390.37"
+    "chromium": "151.0.7922.34"
   }
 }

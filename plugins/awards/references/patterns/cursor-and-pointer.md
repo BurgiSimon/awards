@@ -33,7 +33,7 @@ Rules:
 
 ## Hover previews and cursor-following reveals
 
-Why: on an index of work, a preview that follows the pointer keeps the list typographic and lets the image arrive only when asked for. Two variants exist: Léo Parpeix's archive rows spawn a preview that chases the cursor at lerp .25 (`k ≈ 17`) [site:leo-parpeix] [recalled medium]; The Line's about and work lists reveal footage under the pointer through `Cursor`, `CursorPlane` and `HoverReveal` components — whether the plane is GL or CSS is unknown [site:the-line] [verified names].
+Why: on an index of work, a preview that follows the pointer keeps the list typographic and lets the image arrive only when asked for. One corpus variant survives verification: `[site:leo-parpeix]`'s archive is an **accordion** whose numbered rows expand in place, not a cursor-chasing preview [verified, live bundle 2026-09-18], so the technique below has no corpus exemplar; The Line's about and work lists reveal footage under the pointer through `Cursor`, `CursorPlane` and `HoverReveal` components — whether the plane is GL or CSS is unknown [site:the-line] [verified names].
 
 Rules:
 - One preview element per list, repositioned by `damp()` in the loop; swap its source (or GL texture) on row enter and decode the first rows ahead (`img.decode()`).
@@ -57,8 +57,8 @@ Why: dragging is the one gesture that makes a gallery feel handled rather than p
 
 | Affordance | Mechanism | Site | Confidence |
 |---|---|---|---|
-| Infinite draggable plane | wheel and touch push a 2D field of planes; an item recycles to the far edge once it passes 60 % of the viewport, with a fresh random tilt | [site:floema] | [verified], clone |
-| Arc gallery | horizontal drag; per-item rotation from `mapRange(−.2, .2)` plus a cosine vertical offset, so the row bows like a dial | [site:floema] | [verified], clone |
+| Infinite draggable plane | wheel and touch push a 2D field of planes; an item recycles to the far edge once it passes 60 % of the viewport, with a fresh random tilt | [site:floema-jewelry] | [verified], clone |
+| Arc gallery | horizontal drag; per-item rotation from `mapRange(−.2, .2)` plus a cosine vertical offset, so the row bows like a dial | [site:floema-jewelry] | [verified], clone |
 | Draggable project carousel | lazy WebP slides under a `drag` badge | [site:leo-parpeix] | [recalled medium] |
 | Hero object with momentum | drag inertia on one mesh; lighting answers the motion | [site:oryzo] | [recalled high], numbers unknown |
 | Auto-drifting carousel | auto-speed tweened to 0 on grab and back on release (500 ms each); wheel lerped at .2 into the same value; `releaseStiffness` default 80 | [site:animejs] | [verified] |
@@ -66,12 +66,12 @@ Why: dragging is the one gesture that makes a gallery feel handled rather than p
 Rules:
 - Inertia through the same damping as everything else; clamp velocity; `setPointerCapture` so a fast drag survives leaving the element.
 - Show the gesture: a `drag` badge on fine pointers, an edge peek or scrollbar on coarse ones.
-- Every dragged item stays a real link in a list. Floema's items are not focusable and the site has no keyboard path [site:floema] [verified absence]; the plugin's version moves the scroll target one item per arrow key.
+- Every dragged item stays a real link in a list. Floema's items are not focusable and the site has no keyboard path [site:floema-jewelry] [verified absence]; the plugin's version moves the scroll target one item per arrow key.
 - On touch, a horizontal drag rail becomes native `overflow-x: auto` with scroll snap (`[pattern:responsive-strategy#coarse-pointer-swaps]`).
 
 ## Hold gates
 
-Why: a hold asks for a commitment a click does not, and it can pace a story. Why Zero joins its stages with five gates — a drawn shape, a hold that shatters, a hold that launches — and owning the input is what lets it pause and redirect the flow [site:why-zero] [verified]; Son Daven's seasonal compare is a hold- or drag-to-reveal between two aligned renders [site:son-daven] [verified feature, medium on the verb].
+Why: a hold asks for a commitment a click does not, and it can pace a story. Why Zero joins its stages with five gates — a drawn shape, a hold that shatters, a hold that launches — and owning the input is what lets it pause and redirect the flow [site:why-zero] [verified]; Son Daven's seasonal compare is a **drag**, and not a mask: a handle is dragged along an SVG path via `getPointAtLength`, `cursor` flips `grab`/`grabbing`, it snaps to either end on release, and at the 0.4/0.5 thresholds it programmatically clicks the real season buttons underneath [site:son-daven] [verified, live source 2026-09-18]. The buttons are the reason it works without a pointer at all.
 
 Rules:
 - A hold fills visibly (ring, bar or mask) and completes in ≈ .8–1.2 s; releasing early rewinds rather than resets — a plugin default, since no card publishes hold timings.

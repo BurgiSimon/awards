@@ -2,7 +2,7 @@
 
 Load this before any UI edit in an awards project. It is the floor, not the ceiling: everything here is what a Developer-Award jury checks in the first minute and what the deterministic audit (`scripts/audit.mjs`) can measure. Rule ids in brackets are the audit's; a finding either gets fixed or gets a reason under `AWARDS.md ## Exceptions`.
 
-Why a floor exists: a Developer Award accompanied nearly every Site of the Day in the corpus, and usability was the lowest axis on every scored site. The floor is where new work beats the reference set without borrowing anything from it.
+Why a floor exists: every Site of the Day in the corpus also carries a published developer score, and usability is the lowest of the four axes on nineteen of the twenty verified entries [verified, twenty Awwwards entries read 2026-09-18]. The floor is where new work beats the reference set without borrowing anything from it.
 
 ## Verify before you call anything done
 

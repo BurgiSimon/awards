@@ -2,9 +2,12 @@
 name: component
 description: "Design and build ONE award-worthy component inside an existing site, or as a standalone piece: a hero, preloader, navigation overlay, custom cursor, marquee, sticky stack, horizontal gallery, hover-preview list, image-distortion grid, theme switcher, compare slider, magnetic CTA, page transition, footer or 404. Use whenever the user asks to make a specific element 'award-worthy', 'award-level', 'more premium / impressive / memorable', to 'add a menu / cursor / marquee like the creative studios do', or to build a single section or component with real motion without redesigning the whole site. Inherits the site's tokens and motion library, adds one signature interaction, every state, keyboard, touch and reduced-motion paths, and verifies with a component capture. Not for whole-site builds (awards:craft), dashboards, admin UI or plain bug fixes."
 argument-hint: "<component name | file | selector> [--standalone] [--lib gsap|anime|css]"
+allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
 ---
 
 # awards:component — one element, award-level
+
+Codex: read [the runtime guidance](../../references/codex.md) before following this skill; it maps plugin paths, tool names and handoffs to Codex.
 
 The fast path. A component inside an established world inherits that world; it is never a new identity exercise. The job is to give one element a signature move, every state and every path, and to prove it with a capture, while touching nothing around it.
 

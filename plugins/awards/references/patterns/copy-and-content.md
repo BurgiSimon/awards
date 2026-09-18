@@ -73,7 +73,7 @@ Rules: pick the audience's real paperwork — a call sheet for film, a console f
 
 ## Metadata as boast
 
-Why: adjectives about craft are unverifiable; a team size, a year and an award count are not. Every project on Léo Parpeix's page carries a quartet — name · discipline · year · team of N at a studio — plus an award tally, and the About page is a tabular CV with an awards count [site:leo-parpeix] [recalled medium]. The Line credits directors, composers and years in tables [site:the-line] [verified]; Floema labels each piece with a number and a collection [site:floema] [verified].
+Why: adjectives about craft are unverifiable; a team size, a year and an award count are not. Every project on Léo Parpeix's page carries a quartet — name · discipline · year · team of N at a studio — plus an award tally, and the About page is a tabular CV with an awards count [site:leo-parpeix] [recalled medium]. The Line credits directors, composers and years in tables [site:the-line] [verified]; Floema labels each piece with a number and a collection [site:floema-jewelry] [verified].
 
 Rules: credibility travels as structured data in a `<dl>` or a table; count what can be counted (people, years, awards, offices) and name what can be named (roles, studios); leave out the adjective the number replaces.
 

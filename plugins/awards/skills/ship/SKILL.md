@@ -2,9 +2,12 @@
 name: ship
 description: Takes an award-level site or component from "it works" to "it ships". Applies the jury's fix list in one batch, runs the deterministic craft-floor audit (reflex fonts, contrast, reduced-motion branch, landmarks and alt, overflow, scrub easing, will-change, browser surfaces, slop patterns) until every finding is fixed or recorded as an exception, captures desktop, mobile, scroll-state and reduced-motion screenshots, checks the performance budgets (entry JS, GL chunk, images, meshes, fonts, LCP, CLS), meta and Open Graph, favicon, 404, console errors, and writes the ship report. Use whenever the user says ship, launch, finalize, polish, QA, "make it production-ready", "check performance or accessibility", "run the audit", "take screenshots", or after any awards build or jury round in a project with an AWARDS.md. Not a deploy tool, nor for ordinary app screens with no award framing.
 argument-hint: "[path | url] [--fix] [--report-only]"
+allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
 ---
 
 # awards:ship — fix, prove, report
+
+Codex: read [the runtime guidance](../../references/codex.md) before following this skill; it maps plugin paths, tool names and handoffs to Codex.
 
 The jury judges; this skill fixes and proves. A ship pass ends with evidence a stranger could check: an audit at zero, five valid captures, measured budgets and a report. It never redesigns, because a fix that needs a new idea is a concept problem and goes back to `awards:craft`.
 
@@ -126,7 +129,7 @@ The entry chunk is the one `index.html` loads with `type="module"`; the GL chunk
 
 ## 5. Accessibility and usability
 
-Why: usability was the lowest axis on every corpus site, and a jury that finds a keyboard dead end at the first gesture stops looking for the good parts. Verify each item from the captures and the source; when a reduced-motion tier needs rework, read `${CLAUDE_PLUGIN_ROOT}/references/patterns/accessibility-and-reduced-motion.md` for the three tiers and the keyboard paths.
+Why: usability is the lowest axis on nineteen of the twenty verified corpus entries [verified, twenty Awwwards entries read 2026-09-18], and a jury that finds a keyboard dead end at the first gesture stops looking for the good parts. Verify each item from the captures and the source; when a reduced-motion tier needs rework, read `${CLAUDE_PLUGIN_ROOT}/references/patterns/accessibility-and-reduced-motion.md` for the three tiers and the keyboard paths.
 
 - Landmarks with one `<main>` and one `<h1>`, an unbroken heading order, `lang` on `<html>` (A01, A03, A09).
 - A skip link first in the tab order, landing on `<main>`.

@@ -2,9 +2,12 @@
 name: concept
 description: "Find the concept for an award-worthy site or component before any code: the one idea the page owns, its narrative or scroll story, the signature interaction and a committed visual world, grounded in 19 analysed award-winning sites and deliberately diverging from them. Use whenever the user asks for ideas, creative direction, a concept or 'big idea', storytelling or scrollytelling structure for a product story, 'how would an award-winning studio approach this', 'what would make this site win', 'would this win', or when a build request arrives with no direction yet. Deals three directions plus a conventional exit with a seeded roll, lets the user lock one in a single question, and writes the AWARDS.md direction contract. Never copies a reference site. Not for copywriting alone, dashboards, admin tools or feature work with no award framing."
 argument-hint: "[subject or brief] [--mode persuade|experience|read] [--reroll] [--component]"
+allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
 ---
 
 # awards:concept — the direction contract
+
+Codex: read [the runtime guidance](../../references/codex.md) before following this skill; it maps plugin paths, tool names and handoffs to Codex.
 
 This skill produces the one artefact every later phase depends on: a direction contract in `AWARDS.md` whose blocks are concrete enough to build from and specific enough that no juror can trace the page to a reference site. It reads the corpus, diverges from it, deals candidate worlds with a seeded roll, lets the user lock one, and writes the contract.
 

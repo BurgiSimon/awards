@@ -30,11 +30,16 @@ addEventListener('keydown', (e) => {
   const step = { ArrowDown: 1, PageDown: 1, ' ': 1, ArrowUp: -1, PageUp: -1, Home: -N, End: N }[e.key];
   if (step === undefined || e.target.closest('input, textarea')) return;
   e.preventDefault(); state.keySteps++;
-  goToChapter(clamp(Math.round(state.target * (N - 1)) + step, 0, N - 1));
+  // Step from where the tour is heading, not from where it is: during a snap `target` is still
+  // mid-flight, and a step taken from it asks for the chapter already on its way.
+  const from = state.snapRequest ?? state.snapTarget ?? state.target;
+  goToChapter(clamp(Math.round(from * (N - 1)) + step, 0, N - 1));
 });
-function goToChapter(i) { state.target = i / (N - 1); state.velocity = 0; state.snapping = true; state.idleMs = 0; }
+// A key step asks for the same tween the idle snap uses; the ticker owns it, so it is the ticker that
+// sets `snapping` and the ticker that clears it.
+function goToChapter(i) { state.velocity = 0; state.snapRequest = i / (N - 1); state.idleMs = 0; }
 // The capture tool and the jury drive the float through this scroller instead of window.scrollTo.
-awards.setScroller((p) => { state.target = state.mid = state.float = p; state.velocity = 0; state.snapping = false; state.idleMs = SNAP_AFTER * -10; });
+awards.setScroller((p) => { state.target = state.mid = state.float = p; state.velocity = 0; state.snapping = false; state.snapTarget = state.snapRequest = undefined; state.idleMs = SNAP_AFTER * -10; });
 
 async function start() {
   let renderer;
@@ -67,8 +72,9 @@ async function start() {
     state.target = clamp(state.target + state.velocity, 0, 1);
     state.velocity *= Math.pow(FRICTION, dt * 60);
     if (Math.abs(state.velocity) < 1e-5) state.velocity = 0;
-    // 2. Snap to the nearest chapter after idling.
+    // 2. Snap to the nearest chapter after idling, or to the one a key step asked for.
     state.idleMs += dt * 1000;
+    if (state.snapRequest !== undefined) { snapFrom = state.target; snapT = 0; state.snapTarget = state.snapRequest; state.snapping = true; state.snapRequest = undefined; }
     if (!state.snapping && state.velocity === 0 && state.idleMs > SNAP_AFTER) {
       const nearest = Math.round(state.target * (N - 1)) / (N - 1);
       if (Math.abs(nearest - state.target) > 0.002) { state.snapping = true; snapFrom = state.target; snapT = 0; state.snapTarget = nearest; }

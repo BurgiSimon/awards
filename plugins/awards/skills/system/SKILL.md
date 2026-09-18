@@ -2,9 +2,12 @@
 name: system
 description: "Turn a direction into a complete visual system for an award-level site and write DESIGN.md plus src/styles/tokens.css: a typeface contract (expressive display + neutral grotesque, or one characterful grotesque at display scale), a fluid type scale locked to an artboard, two to four colour tokens under a named strategy, warm near-blacks, a spacing unit, grid and gutters, radius and shadow policy, per-section themes, easing and duration tokens and themed browser surfaces. Use whenever the user asks for design tokens, a palette, fonts or typography, 'pick fonts and colours for …', a design system, DESIGN.md, 'make the type feel premium', theme switching, or when an awards build has no DESIGN.md yet. Avoids the reflex faces and generated palettes. Not for a Tailwind config conversion, a Figma hand-off or component styling with no award framing."
 argument-hint: "[--from AWARDS.md | describe the world] [--light|--dark|--flip]"
+allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
 ---
 
 # awards:system — the visual system
+
+Codex: read [the runtime guidance](../../references/codex.md) before following this skill; it maps plugin paths, tool names and handoffs to Codex.
 
 This skill turns the WORLD block of a direction contract into the tokens every later phase builds with: one type contract, two to four colour tokens under a named strategy, a spacing base, a material policy, motion tokens and themed browser surfaces. It writes `DESIGN.md` and `src/styles/tokens.css`, keeps their values identical, and proves the result with the audit.
 

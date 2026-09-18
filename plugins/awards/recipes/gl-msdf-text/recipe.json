@@ -1,0 +1,29 @@
+{
+  "id": "gl-msdf-text",
+  "title": "MSDF text in WebGL, atlas built at runtime, mirrored in the DOM",
+  "tags": [
+    "webgl",
+    "three",
+    "type",
+    "msdf",
+    "dom-mirror",
+    "accessibility"
+  ],
+  "tier": "P2",
+  "deps": [
+    "three@0.186.0"
+  ],
+  "variants": [
+    "runtime single-channel field from the system stack (this)",
+    "msdf-bmfont atlas + JSON layout: same shader, three real channels",
+    "three-msdf-text-utils with a word wrapper for multi-line headlines"
+  ],
+  "seenIn": [
+    "igloo",
+    "lando-norris"
+  ],
+  "verified": {
+    "date": "2026-09-18",
+    "chromium": "151.0.7922.34"
+  }
+}

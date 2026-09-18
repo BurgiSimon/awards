@@ -17,12 +17,9 @@
     "OGL: same fragment on a Triangle",
     "CSS-only fallback: two layers with translate on pointer"
   ],
-  "seenIn": [
-    "shopify-editions-w26",
-    "trevor-noah"
-  ],
+  "seenIn": [],
   "verified": {
     "date": "2026-09-18",
-    "chromium": "141.0.7390.37"
+    "chromium": "151.0.7922.34"
   }
 }
