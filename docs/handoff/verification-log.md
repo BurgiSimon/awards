@@ -108,19 +108,57 @@ the live entry markup on the pass date · **conf** = card confidence before → 
 | 4 | `mont-fort` | https://mont-fort.com/ | https://www.awwwards.com/sites/montfort | 2026-09-18 | 200 | 2 | native | 7.62 (D 7.67 · U 7.40 · C 7.85 · Co 7.65 · DEV 7.84) | high → high (live + entry) | **done** |
 | 5 | `mindmarket` | https://mindmarket.com/ | https://www.awwwards.com/sites/mindmarket | 2026-09-18 | 200 | 0 | native | 7.85 (D 8.09 · U 7.48 · C 7.95 · Co 7.75 · DEV 7.55) | low-medium → high | **done** |
 | 6 | `lando-norris` | https://landonorris.com/ | https://www.awwwards.com/sites/lando-norris | 2026-09-18 | 200 | 0 | native | 8.18 (D 8.12 · U 7.90 · C 8.71 · Co 8.18 · DEV 7.58) | high → high (live + entry) | **done** |
-| 7 | `lama-lama` | https://lamalama.com/ | https://www.awwwards.com/sites/lama-lama-2 (live) · `/lama-lama` is the 2021 .nl site | 2026-09-18 | 200 | 0 | wheel (virtual float) | 7.51 (D 7.64 · U 7.36 · C 7.52 · Co 7.39 · DEV 7.37) | medium → high | **done** |
+| 7 | `lama-lama` | https://lamalama.com/ | `/sites/lama-lama-2` (live) · `/lama-lama` is the 2021 .nl site | 2026-09-18 | 200 | 0 | wheel (virtual float) | 7.51 (D 7.64 · U 7.36 · C 7.52 · Co 7.39 · DEV 7.37) | medium → high | **done** |
 | 8 | `trevor-noah` | https://www.trevornoah.com/ | https://www.awwwards.com/sites/trevor-noah | 2026-09-18 | 200 | 0 | native | 7.45 (D 7.38 · U 7.32 · C 7.78 · Co 7.40 · DEV 7.23) | medium → high | **done** |
 | 9 | `animejs` | https://animejs.com/ | https://www.awwwards.com/sites/anime-js | 2026-09-18 | 200 | 0 | native | 7.62 (D 7.63 · U 7.51 · C 7.75 · Co 7.63 · DEV 7.84) | high (repo) / low (site) → high (live + entry) | **done** |
-| 10 | `son-daven` | https://sondaven.com/en | https://www.awwwards.com/sites/son-daven | | | | | | high → | todo |
-| 11 | `why-zero` | https://why.zero.university/ | https://www.awwwards.com/sites/why-zero | | | | | | medium-high → | todo |
-| 12 | `leo-parpeix` | https://www.leoparpeix.com/ | https://www.awwwards.com/sites/leo-parpeix-portfolio-2026 | | | | | | medium-high → | todo |
-| 13 | `floema` | https://floema.com/en | https://www.awwwards.com/sites/floema | | | | | | high → | todo |
-| 14 | `slosh-seltzer` | https://sloshseltzer.com/ | https://www.awwwards.com/sites/slosh-seltzer | | | | | | medium-high → | todo |
-| 15 | `igloo` | https://www.igloo.inc/ | https://www.awwwards.com/sites/igloo-inc | | | | | | high → | todo |
-| 16 | `shopify-editions-w26` | https://www.shopify.com/editions/winter2026 | https://www.awwwards.com/sites/the-renaissance-edition | | | | | | medium → | todo |
-| 17 | `oryzo` | https://oryzo.ai/ | https://www.awwwards.com/sites/oryzo-ai | | | | | | medium-high → | todo |
-| 18 | `usavionix` | https://www.usavionix.com/ | https://www.awwwards.com/sites/usavionix | | | | | | medium → | todo |
-| 19 | `the-line` | https://thelinestudio.com/ | https://www.awwwards.com/sites/thelinestudio-com | | | | | | high → | todo |
+| 10 | `son-daven` | https://sondaven.com/en | https://www.awwwards.com/sites/son-daven | 2026-09-18 | 200 | 2 | native | 7.62 (D 7.70 · U 7.16 · C 8.15 · Co 7.59 · DEV 8.09) | high → high | **done** |
+| 11 | `why-zero` | https://why.zero.university/ | https://www.awwwards.com/sites/why-zero | 2026-09-18 | 200 | 0 | wheel — gate never passed | 7.73 (D 7.70 · U 7.46 · C 8.16 · Co 7.75 · DEV 7.26) | medium-high → high | **done** |
+| 12 | `leo-parpeix` | https://www.leoparpeix.com/ | https://www.awwwards.com/sites/leo-parpeix-portfolio-2026 | 2026-09-18 | 200 | 0 | native | 7.69 (D 7.79 · U 7.34 · C 8.04 · Co 7.63 · DEV 7.47) | medium-high → high | **done** |
+| 13 | `floema` | https://floema.com/en | https://www.awwwards.com/sites/floema | 2026-09-18 | 200 | 2 | native | 7.65 (D 7.77 · U 7.38 · C 7.82 · Co 7.64 · DEV 7.67) | high (clone) → high (live) | **done** |
+| 14 | `slosh-seltzer` | https://sloshseltzer.com/ | https://www.awwwards.com/sites/slosh-seltzer | 2026-09-18 | 200 | 0 | wheel — WebGL gate redirected | 7.69 (D 7.60 · U 7.34 · C 8.30 · Co 7.87 · DEV 7.45) | medium-high → medium-high | **done** |
+| 15 | `igloo` | https://www.igloo.inc/ | https://www.awwwards.com/sites/igloo-inc | 2026-09-18 | 200 | 0 | wheel (virtual float) | 7.92 (D 8.05 · U 7.50 · C 8.31 · Co 7.91 · DEV 7.66) | high → high (live) | **done** |
+| 16 | `shopify-editions-w26` | https://www.shopify.com/editions/winter2026 | https://www.awwwards.com/sites/the-renaissance-edition | 2026-09-18 | 200 | 2 | native | 7.92 (D 8.03 · U 7.51 · C 8.24 · Co 8.09 · DEV 8.05) | medium → high | **done** |
+| 17 | `oryzo` | https://oryzo.ai/ | https://www.awwwards.com/sites/oryzo-ai | 2026-09-18 | 200 | 0 | native | 7.86 (D 7.90 · U 7.51 · C 8.35 · Co 7.76 · DEV 7.87) | medium-high → high | **done** |
+| 18 | `usavionix` | https://www.usavionix.com/ | https://www.awwwards.com/sites/usavionix | 2026-09-18 | 200 | 2 | native | 7.41 (D 7.38 · U 7.03 · C 8.00 · Co 7.47 · DEV 7.74) | medium → high | **done** |
+| 19 | `the-line` | https://thelinestudio.com/ | https://www.awwwards.com/sites/thelinestudio-com | 2026-09-18 | 200 | 0 | native | 7.76 (D 8.02 · U 7.40 · C 7.78 · Co 7.77 · DEV 7.76) | high → very high | **done** |
+
+### Phase 3 outcome — 19 / 19 done
+
+Every card was rendered live, its source read, and its award entry read from the entry page. What
+the pass found is not a scatter of small errors but four repeating kinds:
+
+**1. Cards written from someone else's code — four of nineteen.** `mindmarket` (a practice clone),
+`animejs` (the library's own `examples/`), `leo-parpeix` (an educational clone) and `the-line` (a
+third-party React rebuild). These were the most damaging, because clone code reads as evidence: it
+produced exact-looking parameters — a 128² FBO, dissipation .96, chromatic aberration ±.001, a
+six-value flicker ladder — that the shipped sites match on no value. `floema` was worse still: the
+card described **a different company**, and the slug had to be split (see that commit).
+
+**2. Award claims the entry does not carry — nine of nineteen.** `son-daven`, `why-zero`,
+`slosh-seltzer`, `usavionix`, `shopify-editions-w26`, `the-line`, `lama-lama`, `igloo` and
+`trevor-noah` each claimed a Site of the Month, a Site of the Year, an Honorable Mention or a
+Developer Award **badge** that is absent from the entry page. The root cause is one mistake repeated:
+every entry publishes a `DEV AWARD` **score** panel beside its `SOTD / SCORE` panel, and an earlier
+search-extraction batch read that as a badge. Dates were a day or a year out on five cards.
+
+**3. Techniques the corpus taught on the authority of sites that do not use them.** Three had to be
+retired outright: ScrollTrigger `pin:` (no corpus card uses it — `son-daven` and `lando-norris` both
+ship CSS sticky), the absolute-canvas scroll sync (`oryzo` ships a fixed canvas tethered by DOM
+rects), and depth-map 2.5D parallax (`shopify-editions-w26` ships Blender glTF; `trevor-noah`'s
+"planes" are DOM). Also gone: lando's width-keyed texture tiering, why-zero's hexagonal text-blur
+shader, and the "bloom wants a high luminance threshold" rule of thumb, which igloo inverts at .2
+and 0.
+
+**4. What survived, and is now first-party.** MSDF type is confirmed twice (`igloo`'s KTX2 atlas in a
+named worker, `lando-norris`'s two atlases), which matters because Phase 6 has to write that recipe.
+The Line's never-`pin` sticky rail is confirmed in its own bundle. `seasats`' canvas frame sequences,
+`mindmarket`'s three recipe citations and `slosh-seltzer`'s RTT composite all hold — and slosh gave
+the RTT recipe a better idea than it had, feeding the liquid target *into* the transition shader.
+
+**Two sites could not be rendered at all** by headless SwiftShader, and both say so on their cards
+rather than describing frames they did not see: `why-zero` gates on a pointer-drag ring that
+`--wheel` cannot complete, and `slosh-seltzer` fails its own WebGL check and redirects to an
+apology page. `slosh-seltzer` is the one card that did **not** reach high confidence for that reason.
 
 ### Deltas
 
