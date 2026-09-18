@@ -25,14 +25,14 @@ Why: the corpus took Site of the Month with no canvas at all and Site of the Yea
 |---|---|---|---|
 | 100 % canvas | the DOM is a shell; layout is camera framing | [site:igloo] [site:why-zero] | the winner's 6.6 accessibility and empty DOM live here [site:igloo] [recalled medium]; only with a full DOM mirror |
 | Canvas-first | one canvas behind or over DOM content: tethered planes, a hero object, or a scene per section | [site:leo-parpeix] [site:oryzo] [site:slosh-seltzer] [site:lando-norris] [site:shopify-editions-w26] [site:floema] [site:mont-fort] [site:united-carriers] [site:usavionix] | the corpus median; text stays in the DOM |
-| Moments | flat planes or one demo, DOM-first | [site:trevor-noah] [site:the-line] [site:son-daven] [site:animejs] [site:lama-lama] | the scoping rule: pick one material behaviour and refuse every other 3D temptation [site:trevor-noah] [verified quote fragment] |
+| Moments | flat planes or one demo, DOM-first | [site:the-line] [site:son-daven] [site:animejs] [site:lama-lama] | the scoping rule: pick one material behaviour and refuse every other 3D temptation [site:trevor-noah] [verified quote fragment — the studio's stated intent; the shipped site went canvas-first instead, see its card] |
 | None | 3D by pre-render, vector runtime or photography | [site:white-desert] [site:seasats] [site:mindmarket] | Seasats reads as 3D with no runtime GL [site:seasats] [inferred medium] |
 
 Rules: pick the lowest rung the thesis survives; every rung up costs an asset pipeline, a tier system and a mirror. "Make it 3D" without a beat that needs depth is refused at the floor.
 
 ## HTML lays out, WebGL renders
 
-Why: when the DOM owns layout, semantics, responsiveness and CMS content survive, and the canvas only adds what shaders can do. Floema draws every image as an OGL plane exactly over an `<img data-src>` placeholder [site:floema] [verified]; Lando registers HTML sprint markers against projected 3D coordinates so labels stay text while geometry stays canvas [site:lando-norris] [verified]; Trevor Noah keeps flat photo planes with a single material behaviour [site:trevor-noah] [verified].
+Why: when the DOM owns layout, semantics, responsiveness and CMS content survive, and the canvas only adds what shaders can do. Floema draws every image as an OGL plane exactly over an `<img data-src>` placeholder [site:floema] [verified]; Lando registers HTML sprint markers against projected 3D coordinates so labels stay text while geometry stays canvas [site:lando-norris] [verified]; Trevor Noah keeps its photo cards in the DOM entirely and gives the canvas a modelled scene instead of planes [site:trevor-noah] [verified, live source 2026-09-18].
 
 The tether [site:floema] [verified in substance, clone]: read the element's rect, convert width and height to viewport units, place the plane at the rect's centre with y inverted, add any accumulated recycle offset. Floema caches the rect on resize and subtracts its lerped scroll each frame; with Lenis on the native document a fresh `getBoundingClientRect()` per frame is already viewport-relative, so nothing is subtracted — read it after Lenis has updated on the same tick (`stacks/three-0.186.md`, `[recipe:gl-dom-tethered-planes]`).
 
@@ -101,7 +101,7 @@ Why: depth is bought by the rung, and each rung up costs an order of magnitude i
 
 | Rung | Technique | Cost | Site | Recipe |
 |---|---|---|---|---|
-| 1 | 2D-in-3D: flat planes with one material behaviour (a Polaroid corner that curls on pointer proximity) | subdivided quads, no scene | [site:trevor-noah] [verified name; mechanism inferred] | `[recipe:gl-dom-tethered-planes]` |
+| 1 | 2D-in-3D: flat planes with one material behaviour | subdivided quads, no scene | no corpus card demonstrates this tier as of the 2026-09-18 pass — `[site:trevor-noah]` was the source and its planes turned out to be DOM | `[recipe:gl-dom-tethered-planes]` |
 | 2 | Depth-map 2.5D: source image + greyscale depth, parallax occlusion ray-marched with a forward pass and a backward refinement | image-file cost per scene | [site:shopify-editions-w26] [recalled medium-low, third-party] | `[recipe:gl-depth-map-parallax]` |
 | 3 | Pre-rendered sequence scrubbed on scroll: C4D frames drawn to a 2D canvas | the frames' weight; zero runtime GL risk | [site:seasats] [inferred medium]; scrubbed scene sequence [site:united-carriers] [verified tags]; an `ImageSequenceCanvas` in the basement stack [site:usavionix] [verified repo] | `[recipe:image-sequence-scrub]` |
 | 4 | Single hero object with inertia: one mesh, physical materials, drag momentum, lighting that answers motion | one Draco glb (≤ 300 KB in the recipe) plus an HDRI or matcap | [site:oryzo] [recalled high; parameters unknown] | `[recipe:gl-hero-object-inertia]` |
@@ -128,7 +128,7 @@ Every value below is a published or reconstructed number from one card. Take the
 | Render-to-texture composite | each section to a `WebGLRenderTarget`; a fullscreen plane's fragment blends them (wipe, warp, dissolve) | [site:slosh-seltzer] | [verified], Codrops |
 | Depth-map parallax | JPG + greyscale depth; POM with forward and backward refinement; wave masks bound to scroll; UnrealBloom; cursor dust | [site:shopify-editions-w26] | [recalled medium-low], third-party |
 | Baked simulation | smoke, shatter and particle bursts as Draco geometry; 32³ / 64³ volumes as KTX2 atlases | [site:igloo] | [verified manifest] |
-| Polaroid curl | corner vertices displaced along a curl axis, amplitude eased on leave | [site:trevor-noah] | [inferred]; no values |
+| Polaroid curl | **not a shader.** Trevor Noah builds the curl and its shadow as generated SVG arc paths on a DOM wrapper, animated on their own rAF: fold 8° at rest, 55° on hover, 500 ms, one corner, with a scroll-driven mode | [site:trevor-noah] | [verified, live source 2026-09-18] — do not reach for geometry here |
 | Hero inertia | drag momentum, motion-reactive lighting | [site:oryzo] | [recalled high]; damping, mass, light unknown |
 
 ## Post-processing

@@ -59,7 +59,7 @@ One object with real weight and lighting that answers its motion, and no scene a
 
 ## Collage of flat planes
 
-Photographs treated as physical objects — flat planes with one material behaviour, a corner that lifts — scattered, then resolving into an index [site:trevor-noah] [verified concept, mechanism inferred]. The drag-driven cousin is Floema's drifting field of translucent planes [site:floema] [verified, clone].
+Photographs treated as physical objects — a corner that lifts — scattered, then resolving into an index [site:trevor-noah] [verified concept [verified, live source 2026-09-18]; the cards are DOM and the lift is an SVG path, not a plane]. The drag-driven cousin is Floema's drifting field of translucent planes [site:floema] [verified, clone].
 
 - **Anatomy.** Five to nine image planes over a two-token ground; one line of type; a featured rail for what is current; the planes are the imagery, so no other 3D exists.
 - **Entrance.** Planes settle with a .06–.1 s stagger from slight offsets; sub-degree to few-degree rotations read as hand-placed (`Math.PI * 0.01`, `mapRange(-0.2, 0.2)` [site:floema] [verified]); the material answers pointer proximity or scroll; nothing else parallaxes.
