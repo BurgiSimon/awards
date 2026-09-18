@@ -8,3 +8,7 @@ plugins/awards/recipes/node_modules/
 *.log
 .DS_Store
 cap.txt
+
+# plugin eval runs
+plugins/awards/evals/results/
+plugins/awards/evals/**/results/

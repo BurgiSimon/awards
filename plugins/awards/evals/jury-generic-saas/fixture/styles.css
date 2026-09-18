@@ -1,0 +1,18 @@
+body { margin: 0; background: #0b0b14; color: #fff; font-family: 'Inter', sans-serif; }
+h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+.nav { display: flex; justify-content: space-between; padding: 20px 40px; backdrop-filter: blur(12px); background: rgba(255,255,255,.05); }
+.hero { position: relative; text-align: center; padding: 140px 24px 100px; overflow: hidden; }
+.eyebrow { font-size: 12px; letter-spacing: .2em; color: #a78bfa; }
+.gradient-text { background: linear-gradient(90deg, #a78bfa, #ec4899); -webkit-background-clip: text; color: transparent; font-size: 56px; }
+.blob { position: absolute; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, #7c3aed, transparent 70%); filter: blur(80px); top: -200px; left: 50%; transform: translateX(-50%); z-index: -1; animation: float 6s ease-in-out infinite; }
+@keyframes float { 50% { transform: translate(-50%, 30px); } }
+.cta { display: inline-block; padding: 14px 24px; border-radius: 999px; background: linear-gradient(90deg, #7c3aed, #ec4899); color: #fff; text-decoration: none; box-shadow: 0 0 30px #7c3aed; margin: 8px; }
+.cta.secondary { background: transparent; border: 1px solid #fff4; box-shadow: none; }
+.metrics { display: flex; justify-content: center; gap: 64px; padding: 40px; }
+.metrics strong { display: block; font-size: 40px; }
+.features, .pricing, .testimonials { padding: 80px 40px; text-align: center; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1000px; margin: 0 auto; }
+.card { background: rgba(255,255,255,.05); border: 1px solid #fff2; border-radius: 16px; padding: 32px; backdrop-filter: blur(8px); }
+.card.featured { border-left: 4px solid #a78bfa; }
+.icon { font-size: 32px; }
+footer { padding: 40px; text-align: center; color: #888; }
