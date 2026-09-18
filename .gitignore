@@ -1,0 +1,10 @@
+node_modules/
+.awards/captures/
+.awards/research/
+.awards/audit.json
+plugins/awards/recipes/dist/
+plugins/awards/recipes/_verify/
+plugins/awards/recipes/node_modules/
+*.log
+.DS_Store
+cap.txt
