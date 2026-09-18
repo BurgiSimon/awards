@@ -66,7 +66,7 @@ When the DOM owns layout, semantics, responsiveness and CMS content survive, and
 
 Native scrolling and `requestAnimationFrame` do not share a clock, so a fixed canvas whose planes are placed from the scroll value can lag the DOM by a frame and the planes swim against their placeholders `[pattern:webgl-architecture#canvas-positioning]`.
 
-- Absolute canvas, re-offset every frame: `position: absolute` and `translate3d(0, scrollY, 0)` in the ticker, with ≈ 25 % vertical over-render against a fast scroll `[site:oryzo]` (`[recipe:gl-dom-tethered-planes]`).
+- Absolute canvas, re-offset every frame: `position: absolute` and `translate3d(0, scrollY, 0)` in the ticker, with ≈ 25 % vertical over-render against a fast scroll — Lusion's published `WebGL-Scroll-Sync` technique, though `[site:oryzo]` itself ships a fixed canvas tethered by DOM rects [verified, live source 2026-09-18] (`[recipe:gl-dom-tethered-planes]`).
 - Or a fixed canvas plus a scroll uniform, where every plane offsets itself by the same smoothed value the DOM moved with `[site:floema-jewelry]`.
 - Choose one, write it into the contract, and never scroll-jack to cure drift: fix the clock.
 - One canvas per page, created in the layout; scenes mount into it and dispose. Two contexts cannot share resources and the second one is the one that gets lost.

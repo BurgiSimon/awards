@@ -47,7 +47,7 @@ Why: native scrolling and `requestAnimationFrame` do not share a clock, so a `po
 
 | Model | Mechanism | Cost | Site |
 |---|---|---|---|
-| Absolute, re-offset each rAF | the canvas is `position: absolute` and translated to the current scroll every frame, so it physically moves with the page; ≈ 25 % vertical over-render (or a framebuffer with edge fade) covers a fast scroll | extra pixels; the studio judged clipping worse than the render cost | [site:oryzo] [verified README; use on Oryzo inferred] |
+| Absolute, re-offset each rAF | the canvas is `position: absolute` and translated to the current scroll every frame, so it physically moves with the page; ≈ 25 % vertical over-render (or a framebuffer with edge fade) covers a fast scroll | extra pixels; the studio judged clipping worse than the render cost | Lusion's `WebGL-Scroll-Sync` README [verified]. **Not what `[site:oryzo]` ships** — its canvas is `position: fixed` and never repositioned; it tethers by mapping DOM rects into the scroll timeline instead [verified, live source 2026-09-18] |
 | Fixed canvas + scroll uniform | canvas fixed; the smoothed scroll goes in as a uniform and every plane offsets itself | a frame of lag unless the scroll value is the same smoothed one the DOM moved with | [site:floema-jewelry] wrapper `translateY` from one lerp [verified]; [site:shopify-editions-w26] sibling [recalled high] |
 | Sticky scene layer per section | a full-viewport sticky layer per chapter with static media beneath | one canvas re-targeted per section, never one context per section | [site:shopify-editions-w26] [recalled medium-low] |
 
