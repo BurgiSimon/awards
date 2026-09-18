@@ -50,4 +50,4 @@ Screenshots land in `_verify/<id>/<state>.png`; `recipe.json.verified` is stampe
 | Sound | `sound-toggle-opt-in` | P2 | Opt-in ambient + SFX, persisted | igloo, mont-fort |
 | GL text | `gl-msdf-text` | P2 | MSDF text with a DOM mirror | igloo, lando-norris |
 
-Every P0 and P1 recipe ships verified; `gl-msdf-text` is planned for 0.2 and has no folder yet. Demo pages deliberately skip an Open Graph image (audit S06), which a real site must ship.
+Every row ships verified. Demo pages deliberately skip an Open Graph image (audit S06), which a real site must ship.

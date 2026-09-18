@@ -147,7 +147,7 @@ Why: type in the scene gets depth, parallax and the post stack; it also disappea
 - MSDF glyphs from a pre-built atlas: IBM Plex Mono as a KTX2 data texture with a JSON layout, decoded in a worker [site:igloo] [verified]; `three-msdf-text-utils` 1.5.0 with a word wrapper for headline type [site:lando-norris] [verified]. Scramble reveals offset glyphs inside the atlas so nothing reflows [site:igloo] [recalled high].
 - Hexagonal text blur: type drawn through a shader at key moments [site:why-zero] [verified].
 - Always mirrored: the same string in the DOM, visible or `.sr-only`, and the canvas `aria-hidden` [A04]. Whether Lando mirrors its MSDF headlines is unknown [site:lando-norris]; Igloo does not [site:igloo] [verified: empty DOM] — that is the 6.6.
-- Reduced tier: the DOM string shows and the GL string sits still; static tier: DOM only. `[recipe:gl-msdf-text]` (deferred to a later release).
+- Reduced tier: the DOM string shows and the GL string sits still; static tier: DOM only. `[recipe:gl-msdf-text]` builds the field at runtime, so it ships no font file.
 
 ## Content fallback tiers
 

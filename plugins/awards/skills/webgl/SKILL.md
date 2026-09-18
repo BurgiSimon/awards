@@ -126,7 +126,7 @@ Every parameter below is published or reconstructed from one card and lives, wit
 | Cheap ice, matte worlds | none (pattern) | matte blocks, no transmission: bevelled edges, a key light, a Fresnel rim, high-threshold bloom, fog, fine grain, saturation ≈ 0; refraction on one hero object only | the material world `[site:igloo]` |
 | Procedural landscape | none (pattern) | Perlin and Voronoi noise, a rock diffuse and normal, a mix mask, a baked lightmap, one HDRI, KTX2 textures | the terrain and its ink `[site:mont-fort]` |
 | Frame sequence | `image-sequence-scrub` | pre-rendered frames decoded to `ImageBitmap`, drawn to a 2D canvas, a poster underneath | the render and the frame count `[site:seasats]` |
-| Text in the scene | `gl-msdf-text` (planned) | MSDF glyphs from a pre-built atlas with a DOM twin | the scramble or blur it earns `[site:igloo]` `[site:why-zero]` |
+| Text in the scene | `gl-msdf-text` | MSDF glyphs, atlas built at runtime or pre-built, with a DOM twin | the scramble or blur it earns `[site:igloo]` `[site:why-zero]` |
 
 Library choice: Three by default; OGL for a planes-only page where the smaller bundle matters `[site:floema-jewelry]`; R3F only inside a React app with a component-shaped scene (`<Canvas dpr={[1, 2]} frameloop="always" flat gl={{ antialias: false, powerPreference: 'high-performance' }}>`, `useFrame((state, delta) => …)`); Threlte inside SvelteKit (`useTask`, `useThrelte()` for `renderer`, `dpr`, `renderMode`, `invalidate`). Whatever the wrapper, the rect loop, the uniforms and the disposal rules above are unchanged.
 

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>gl-msdf-text — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <!-- audit-ignore: X07 numbered labels are deliberate texture in this demo -->
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ gl-msdf-text · <span data-readout>booting</span></p></header>
+  <main id="main">
+    <section class="section wrap" aria-labelledby="t">
+      <p class="label">/ 01 · the headline</p>
+      <div class="headline" data-headline>
+        <h1 class="display" id="t" data-mirror>Type, in the scene.</h1>
+        <canvas data-gl aria-hidden="true"></canvas>
+      </div>
+      <p class="lede">The heading above is real text: selectable, in the accessibility tree, and the thing that decides the layout. The glyphs you can see are drawn in WebGL from a distance-field atlas built in this tab, at this size, from the same system font — no atlas file, no font file, no glyph baked at a fixed size.</p>
+      <p><button class="toggle" type="button" data-fallback>Drop to the DOM text</button></p>
+    </section>
+    <section class="section wrap" aria-labelledby="c2">
+      <p class="label">/ 02 · the field</p>
+      <h2 id="c2">Distance, not pixels.</h2>
+      <p>A glyph is rasterised once into a padded cell, then every pixel is asked how far it is from the nearest edge — a Felzenszwalb distance transform, two passes, about sixty lines and no dependency. The signed result is stored in all three colour channels, so the fragment shader takes <code>median(r, g, b)</code> exactly as it would with a real three-channel atlas from <code>msdf-bmfont</code>: drop one in and nothing else changes.</p>
+      <p><code>fwidth</code> turns that distance into a screen-space edge width, which is the whole trick — one texture stays crisp at any scale, and the headline can be thrown at the camera without turning to mush. The honest limit: a single-channel field rounds sharp corners, so a true MSDF atlas still beats this on a serif's spurs.</p>
+    </section>
+    <section class="section wrap" aria-labelledby="c3">
+      <p class="label">/ 03 · the mirror</p>
+      <h2 id="c3">The canvas is not the text.</h2>
+      <p>The canvas carries <code>aria-hidden</code> and the string lives in the DOM as the heading it claims to be. Drop to the DOM text with the button above and the same words stay in the same place, ink restored, WebGL disposed — which is also what a visitor with no WebGL, or the static motion tier, gets on the first frame.</p>
+    </section>
+  </main>
+  <footer class="wrap footer"><p class="label">awards · recipe · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+.topbar { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); }
+.headline { position: relative; margin-top: calc(var(--unit) * 10); }
+/* line-height 1 makes the DOM baseline computable from the font metrics, which is how the GL text finds it. */
+.headline h1 { font-size: clamp(1.6rem, 7vw, 5rem); line-height: 1; margin: 0; }
+.headline h1[data-gl-on] { color: transparent; }
+.headline canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.lede { max-width: 60ch; margin-top: calc(var(--unit) * 8); }
+h2 { font-family: var(--font-display); font-size: clamp(2rem, 6vw, 5rem); line-height: .95; letter-spacing: -.03em; margin: .25em 0 .5em; }
+section p { max-width: 62ch; }
+code { font-family: var(--font-mono); font-size: .9em; }
+.toggle { padding: calc(var(--unit) * 2) calc(var(--unit) * 3); font-family: var(--font-mono); font-size: var(--label); letter-spacing: .08em; text-transform: uppercase; background: transparent; color: var(--ink); border: 1px solid var(--line); cursor: pointer; transition: border-color var(--dur-feedback) var(--ease-out-expo); }
+.toggle:hover { border-color: var(--ink); }
+.footer { padding-block: calc(var(--unit) * 12); }

@@ -60,6 +60,7 @@ Requirements: Node 20+, Playwright (global or project-local) for `verify-recipes
 - Recipe stylesheets `@import '../_shared/base.css'` themselves rather than linking it from HTML. Vite emitted the shared chunk after the recipe CSS and reversed the cascade.
 - Lenis 1.3 defaults to `autoRaf: false`. Every recipe drives `lenis.raf(time)` from the GSAP ticker or the shared ticker; a Lenis with no clock swallows wheel events and the page looks frozen.
 - Custom `ShaderMaterial`s include `#include <colorspace_fragment>`, otherwise sRGB textures and render targets render dark.
+- Distance-field shaders divide by `max(fwidth(d), 1e-5)`. A padded atlas is flat almost everywhere, `fwidth` is exactly zero there, and the division renders the whole quad opaque under SwiftShader.
 - Pinned library versions live in `recipes/package.json` and `references/stacks/versions.md`; keep them in sync. Bump `version` in `plugins/awards/.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` together.
 - Original prose only: the workflow shape echoes the *impeccable* skill, its wording never does. Site copy is quoted in fragments of at most 25 words. Every fact on a site card carries `[verified]`, `[recalled]`, `[inferred]` or `[unknown]`.
 - No model identifiers in any repository artefact (code, docs, commit titles or bodies). Commit messages end with the attribution footer the session provides.
