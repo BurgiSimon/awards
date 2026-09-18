@@ -91,7 +91,7 @@ Why: shaders do two different jobs, and mixing them is how a page turns into a d
 | Kind | What it does | Sites |
 |---|---|---|
 | Unifier | one global pass every pixel goes through, so DOM and scene share a physics: a fluid wake read as a velocity-driven hash blur [site:leo-parpeix] [verified, live bundle 2026-09-18] (no chromatic aberration — that was a clone's invention); a shared fluid field across scenes [site:shopify-editions-w26] sibling [recalled high]; a grade + grain stack [site:igloo] [recalled high] | one per site |
-| Narrative | a shader that enacts a beat once: frost unlock, burning money, shredded certificates, tunnel pulse, hexagonal text blur [site:why-zero] [verified]; a scanline over a wireframe helmet [site:lando-norris] [verified]; brushstroke-edged chapter wipes [site:shopify-editions-w26] [recalled high] | one per chapter, each tied to a sentence of the thesis |
+| Narrative | a shader that enacts a beat once: frost unlock, burning money, shredded certificates, tunnel pulse [site:why-zero] [verified, live bundle 2026-09-18] — the "hexagonal text blur" once listed here is not in the served build, which uses a `lensBlur` pass and a KTX2 sprite atlas for narrative type; a scanline over a wireframe helmet [site:lando-norris] [verified]; brushstroke-edged chapter wipes [site:shopify-editions-w26] [recalled high] | one per chapter, each tied to a sentence of the thesis |
 
 Rules: one unifier, named in the direction contract; narrative shaders only where the story turns; an idle noise displacement that keeps a hero alive between beats [site:lando-norris] [verified] is seasoning, not a third kind.
 
