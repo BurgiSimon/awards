@@ -107,10 +107,10 @@ the live entry markup on the pass date · **conf** = card confidence before → 
 | 3 | `seasats` | https://www.seasats.com/ | https://www.awwwards.com/sites/seasats | 2026-09-18 | 200 | 0 | native | 7.44 (D 7.61 · U 7.17 · C 7.38 · Co 7.65 · DEV 7.22) | medium → high | **done** |
 | 4 | `mont-fort` | https://mont-fort.com/ | https://www.awwwards.com/sites/montfort | 2026-09-18 | 200 | 2 | native | 7.62 (D 7.67 · U 7.40 · C 7.85 · Co 7.65 · DEV 7.84) | high → high (live + entry) | **done** |
 | 5 | `mindmarket` | https://mindmarket.com/ | https://www.awwwards.com/sites/mindmarket | 2026-09-18 | 200 | 0 | native | 7.85 (D 8.09 · U 7.48 · C 7.95 · Co 7.75 · DEV 7.55) | low-medium → high | **done** |
-| 6 | `lando-norris` | https://landonorris.com/ | https://www.awwwards.com/sites/lando-norris | | | | | | high → | todo |
-| 7 | `lama-lama` | https://lamalama.com/ | https://www.awwwards.com/sites/lama-lama | | | | | | medium → | todo |
-| 8 | `trevor-noah` | https://www.trevornoah.com/ | https://www.awwwards.com/sites/trevor-noah | | | | | | medium → | todo |
-| 9 | `animejs` | https://animejs.com/ | https://www.awwwards.com/sites/anime-js | | | | | | high/low → | todo |
+| 6 | `lando-norris` | https://landonorris.com/ | https://www.awwwards.com/sites/lando-norris | 2026-09-18 | 200 | 0 | native | 8.18 (D 8.12 · U 7.90 · C 8.71 · Co 8.18 · DEV 7.58) | high → high (live + entry) | **done** |
+| 7 | `lama-lama` | https://lamalama.com/ | https://www.awwwards.com/sites/lama-lama-2 (live) · `/lama-lama` is the 2021 .nl site | 2026-09-18 | 200 | 0 | wheel (virtual float) | 7.51 (D 7.64 · U 7.36 · C 7.52 · Co 7.39 · DEV 7.37) | medium → high | **done** |
+| 8 | `trevor-noah` | https://www.trevornoah.com/ | https://www.awwwards.com/sites/trevor-noah | 2026-09-18 | 200 | 0 | native | 7.45 (D 7.38 · U 7.32 · C 7.78 · Co 7.40 · DEV 7.23) | medium → high | **done** |
+| 9 | `animejs` | https://animejs.com/ | https://www.awwwards.com/sites/anime-js | 2026-09-18 | 200 | 0 | native | 7.62 (D 7.63 · U 7.51 · C 7.75 · Co 7.63 · DEV 7.84) | high (repo) / low (site) → high (live + entry) | **done** |
 | 10 | `son-daven` | https://sondaven.com/en | https://www.awwwards.com/sites/son-daven | | | | | | high → | todo |
 | 11 | `why-zero` | https://why.zero.university/ | https://www.awwwards.com/sites/why-zero | | | | | | medium-high → | todo |
 | 12 | `leo-parpeix` | https://www.leoparpeix.com/ | https://www.awwwards.com/sites/leo-parpeix-portfolio-2026 | | | | | | medium-high → | todo |
@@ -251,6 +251,14 @@ the same empty rectangle, so the case was grading blankness rather than the "tem
 page" its own description names. Fixed in `0e44624`, re-captured, and re-juried: **4.70,
 `rebuild`** — under the 6.5 bar and not `ship`, with a page that now actually renders. The
 broken-fixture score of 1.95 is kept in the table above only as the before-reading.
+
+### Usage limit, 2026-09-18
+
+The account's monthly spend limit terminated the `animejs` and `son-daven` card agents mid-run and
+reset shortly after. `animejs` had finished writing its card but never reported, so its card was
+inspected directly (nine sections, 47 labelled claims, a complete §9) and committed with its index
+row derived from its own header table. `son-daven` had written nothing and was relaunched from
+scratch. No other work was lost: the capture batch is a shell job and kept running throughout.
 
 ## Eval runs
 
