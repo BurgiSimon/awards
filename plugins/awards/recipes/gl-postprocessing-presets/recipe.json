@@ -1,0 +1,29 @@
+{
+  "id": "gl-postprocessing-presets",
+  "title": "Post-processing with three fixed presets",
+  "tags": [
+    "webgl",
+    "three",
+    "postprocessing",
+    "bloom",
+    "grain"
+  ],
+  "tier": "P1",
+  "deps": [
+    "three@0.186.0",
+    "postprocessing@6.39.5"
+  ],
+  "variants": [
+    "pmndrs postprocessing (this)",
+    "Three EffectComposer + UnrealBloomPass (one pipeline, never both)"
+  ],
+  "seenIn": [
+    "lando-norris",
+    "igloo",
+    "united-carriers"
+  ],
+  "verified": {
+    "date": "2026-09-18",
+    "chromium": "141.0.7390.37"
+  }
+}

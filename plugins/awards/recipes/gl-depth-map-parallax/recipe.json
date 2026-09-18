@@ -1,0 +1,28 @@
+{
+  "id": "gl-depth-map-parallax",
+  "title": "Depth-map (2.5D) parallax",
+  "tags": [
+    "webgl",
+    "three",
+    "shader",
+    "image",
+    "parallax"
+  ],
+  "tier": "P1",
+  "deps": [
+    "three@0.186.0"
+  ],
+  "variants": [
+    "Three.js (this)",
+    "OGL: same fragment on a Triangle",
+    "CSS-only fallback: two layers with translate on pointer"
+  ],
+  "seenIn": [
+    "shopify-editions-w26",
+    "trevor-noah"
+  ],
+  "verified": {
+    "date": "2026-09-18",
+    "chromium": "141.0.7390.37"
+  }
+}
