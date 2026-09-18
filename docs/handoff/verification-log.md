@@ -73,10 +73,17 @@ claim; it is recorded here and confirmed on that card's own pass.
   developer sub-scores in the order Semantics / SEO, Animations / Transitions, Accessibility, WPO,
   Responsive Design, Markup / Meta-data). Live sites themselves still answer curl. Site cards are
   therefore fetched with curl and award entries with a headless browser.
-- **`shopify-editions-w26` and `the-line` entry slugs are still unresolved.** Five guesses 404
-  (`shopify-editions`, `shopify-editions-winter-26`, `shopify-editions-winter-2026`, `the-line`,
-  `the-line-studio`) and `awwwards.com/search/` is not a route. To be resolved with a web search in
-  Phase 3.
+- **`shopify-editions-w26` and `the-line` entry slugs, resolved by web search.** Shopify Editions
+  Winter '26 is `the-renaissance-edition` (its entry links to `shopify.com/editions/winter2026`) and
+  The Line is `thelinestudio-com`. **Both cards claim a Site of the Month that neither entry lists** —
+  each shows Site of the Day only (Feb 9 2026 and Nov 5 2024). `awwwards.com/search/` is not a route
+  and five slug guesses 404ed, so the listing pages are not a usable index.
+- **`lama-lama` resolves to two entries.** `lama-lama` is Site of the Day 30 Dec **2021** at 7.69;
+  `lama-lama-2` is Site of the Day 20 Jul 2026 at 7.51. The card says "SOTM Jul 2026 + Dev 7.30",
+  which matches neither, and calls it Site of the Month where both entries say Site of the Day. Its
+  own pass has to decide which entry the live site is.
+- **`floema`'s entry contradicts its card outright**: the entry is Site of the Day 13 May **2026** at
+  7.65, the card says SOTD Jul **2021** at 7.53.
 - **Plugin eval and skill documentation, answered from the docs** (for Phases 5a and 6c): grader
   types are `regex`, `tool_used`, `tool_order`, `file_exists`, `llm`, `baseline` — there is no
   command or script grader; targets are `last_message` (the default), `trace`, `files`,
@@ -96,7 +103,7 @@ the live entry markup on the pass date · **conf** = card confidence before → 
 | # | Slug | Live URL | Entry URL | Pass date | Reach | Exit | Scroll | Overall (verified) | Conf before → after | Status |
 |---|---|---|---|---|---|---|---|---|---|---|
 | 1 | `united-carriers` | https://unitedcarriers.com/ | https://www.awwwards.com/sites/united-carriers | 2026-09-18 | 200 | 2 | native / wheel (mobile) | 7.28 (D 7.35 · U 7.00 · C 7.61 · Co 7.16 · DEV 7.54) | medium-high → high | **done** |
-| 2 | `white-desert` | https://white-desert.com/ | https://www.awwwards.com/sites/white-desert | | | | | | medium → | todo |
+| 2 | `white-desert` | https://white-desert.com/ | https://www.awwwards.com/sites/white-desert | 2026-09-18 | 200 | 0 | native | 7.31 (D 7.28 · U 7.27 · C 7.21 · Co 7.74 · DEV 7.61) | medium → high | **done** |
 | 3 | `seasats` | https://www.seasats.com/ | https://www.awwwards.com/sites/seasats | | | | | | medium → | todo |
 | 4 | `mont-fort` | https://mont-fort.com/ | https://www.awwwards.com/sites/montfort | | | | | | high → | todo |
 | 5 | `mindmarket` | https://mindmarket.com/ | https://www.awwwards.com/sites/mindmarket | | | | | | low-medium → | todo |
@@ -110,10 +117,10 @@ the live entry markup on the pass date · **conf** = card confidence before → 
 | 13 | `floema` | https://floema.com/en | https://www.awwwards.com/sites/floema | | | | | | high → | todo |
 | 14 | `slosh-seltzer` | https://sloshseltzer.com/ | https://www.awwwards.com/sites/slosh-seltzer | | | | | | medium-high → | todo |
 | 15 | `igloo` | https://www.igloo.inc/ | https://www.awwwards.com/sites/igloo-inc | | | | | | high → | todo |
-| 16 | `shopify-editions-w26` | https://www.shopify.com/editions/winter2026 | search needed | | | | | | medium → | todo |
+| 16 | `shopify-editions-w26` | https://www.shopify.com/editions/winter2026 | https://www.awwwards.com/sites/the-renaissance-edition | | | | | | medium → | todo |
 | 17 | `oryzo` | https://oryzo.ai/ | https://www.awwwards.com/sites/oryzo-ai | | | | | | medium-high → | todo |
 | 18 | `usavionix` | https://www.usavionix.com/ | https://www.awwwards.com/sites/usavionix | | | | | | medium → | todo |
-| 19 | `the-line` | https://thelinestudio.com/ | search needed | | | | | | high → | todo |
+| 19 | `the-line` | https://thelinestudio.com/ | https://www.awwwards.com/sites/thelinestudio-com | | | | | | high → | todo |
 
 ### Deltas
 
