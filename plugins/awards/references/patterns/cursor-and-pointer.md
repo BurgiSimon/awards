@@ -71,7 +71,7 @@ Rules:
 
 ## Hold gates
 
-Why: a hold asks for a commitment a click does not, and it can pace a story. Why Zero joins its stages with five gates — a drawn shape, a hold that shatters, a hold that launches — and owning the input is what lets it pause and redirect the flow [site:why-zero] [verified]; Son Daven's seasonal compare is a hold- or drag-to-reveal between two aligned renders [site:son-daven] [verified feature, medium on the verb].
+Why: a hold asks for a commitment a click does not, and it can pace a story. Why Zero joins its stages with five gates — a drawn shape, a hold that shatters, a hold that launches — and owning the input is what lets it pause and redirect the flow [site:why-zero] [verified]; Son Daven's seasonal compare is a **drag**, and not a mask: a handle is dragged along an SVG path via `getPointAtLength`, `cursor` flips `grab`/`grabbing`, it snaps to either end on release, and at the 0.4/0.5 thresholds it programmatically clicks the real season buttons underneath [site:son-daven] [verified, live source 2026-09-18]. The buttons are the reason it works without a pointer at all.
 
 Rules:
 - A hold fills visibly (ring, bar or mask) and completes in ≈ .8–1.2 s; releasing early rewinds rather than resets — a plugin default, since no card publishes hold timings.

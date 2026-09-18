@@ -102,7 +102,7 @@ Why: a component earns its place by the job it does in the story, not by being s
 
 ### Pinned chapter with scrubbed media
 - **Role.** A chapter that holds still while its media plays through — a render across seasons, a painting behind its labels.
-- **Seen in.** Pinned, scrubbed chapter transitions [site:son-daven] [verified description; mechanism inferred]; a sticky scene layer per section with static fallback media beneath [site:shopify-editions-w26] [recalled medium-low]; sticky stages with invisible rails, never `pin: true` [site:the-line] [verified].
+- **Seen in.** Scrubbed chapter transitions held by CSS `position: sticky`, 23 scrubbed triggers and no `pin:` at all [site:son-daven] [verified, live source 2026-09-18]; a sticky scene layer per section with static fallback media beneath [site:shopify-editions-w26] [recalled medium-low]; sticky stages with invisible rails, never `pin: true` [site:the-line] [verified]. No corpus card is now known to use `pin: true`.
 - **Anatomy.** A tall transparent rail sets the distance; the visual is `position: sticky`; the media is a frame sequence, a video scrubbed by `currentTime`, or a GL scene.
 - **Motion.** Scrub with no easing; the chapter's one authored moment lives here; rail height ≈ 200–300 vh, longer only with something to read.
 - **Accessibility.** Each chapter is a `<section>` with a heading; the rail never traps focus; one still per chapter under reduced motion.
@@ -138,7 +138,7 @@ Why: a component earns its place by the job it does in the story, not by being s
 
 ### Hold or drag to compare
 - **Role.** Two conditions of one subject — summer and winter, before and after — in one frame.
-- **Seen in.** A hold- or drag-driven mask between two aligned renders [site:son-daven] [verified feature; the input verb is medium].
+- **Seen in.** A drag handle travelling an SVG path, snapping on release and clicking the real buttons underneath at threshold — no mask, no second render [site:son-daven] [verified, live source 2026-09-18].
 - **Anatomy.** Two aligned images; a clip driven by pointer position or by a held press; a handle.
 - **Motion.** The clip follows the pointer with pointer capture; the release eases back or holds, on the routine band.
 - **Accessibility.** Arrow keys or a `<input type="range">` drive the clip; both images carry alt text; the current side is announced.

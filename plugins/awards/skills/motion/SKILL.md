@@ -97,7 +97,7 @@ Smooth scroll is a decision with costs (restoration, find-in-page, keyboard, ass
 |---|---|---|
 | Native + Lenis + ScrollTrigger | the boot from `[recipe:boot-lenis-gsap]`; triggers read Lenis through `ScrollTrigger.update` | the default for any page that reads |
 | Sticky stages on invisible rails | `position: sticky` visuals under tall transparent rails, scrubbed by triggers on the rail `[recipe:sticky-stages-rails]` | holds and hinges; never `pin: true` where sticky works [M06] `[site:the-line]` |
-| Pin + scrub inside one chapter | `pin: true`, `scrub: .4–.6`, `invalidateOnRefresh: true`; animate the children, never the pinned element `[recipe:scroll-pin-scrub]` | media that must scrub frame by frame `[site:son-daven]` |
+| Pin + scrub inside one chapter | `pin: true`, `scrub: .4–.6`, `invalidateOnRefresh: true`; animate the children, never the pinned element `[recipe:scroll-pin-scrub]` | media that must scrub frame by frame `[site:seasats]` — and prefer CSS `position: sticky`, which is what the corpus actually ships |
 | Virtual float | wheel and touch into a target, a damped float, one 0–1 progress driving timelines and the camera; keys, `awards.setScroller`, hash restore `[recipe:gl-virtual-scroll-camera]` | only when the story must gate, hold or redirect `[site:why-zero]` `[site:igloo]` |
 | Section switcher | `Observer.create({ type: 'wheel,touch', tolerance: 10, onUp, onDown })` and a keyboard `next()` | short loops `[site:slosh-seltzer]` |
 | CSS scroll-driven animations | `animation-timeline: view()` on the same markup | a progressive enhancement, with the JS path kept where Safari matters |

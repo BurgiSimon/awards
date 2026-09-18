@@ -24,7 +24,7 @@ Why: the template order (hero → logos → features → testimonials → pricin
 One continuous world read in order; scroll depth is progress through a process, a place or an argument. Seen in [site:united-carriers] (one shipment across warehouse, road, sea and air [verified concept]), [site:son-daven] (prologue → seasons → programme → typologies → location → economics → progress [verified]), [site:mont-fort] (identity → capability → four divisions → footprint → ESG, with a chapter rail [verified]) and, as a spatial descent that wraps, [site:igloo] [recalled high]. Shopify's chapter walk belongs to the gallery model below.
 
 - **Beats.** Entrance: the mode change or camera move is the designed moment [site:united-carriers]. Hold: an informational block at rest — real heading, real paragraph, one spec or one image. Exit: the next transition, scrubbed, never a hard cut. Four to six chapters is the corpus range [site:united-carriers]; Igloo adds a modulo wrap so the descent never ends [site:igloo] [verified tag].
-- **Interruption.** A device that changes the input: hold-to-compare between two seasons and a horizontal rail inside the vertical page [site:son-daven] [verified]; a jump rail that lets the visitor leave the sequence [site:mont-fort] [verified].
+- **Interruption.** A device that changes the input: a drag-to-compare between two seasons and a horizontal rail inside the vertical page [site:son-daven] [verified, live source 2026-09-18]; a jump rail that lets the visitor leave the sequence [site:mont-fort] [verified].
 - **Rule of three.** Inside a hold, three support points at most; three transport modes carry United Carriers' whole story. Plugin guidance, not a card measurement.
 - **Close.** A footer strong enough to be selected on its own [site:united-carriers] [verified]; a progress log or a news route that gives the story a future [site:son-daven] [site:mont-fort]; or the loop [site:igloo].
 - **Register.** Confident operator, service-promise led [site:united-carriers]; poetic then numeric by chapter [site:son-daven] (`[pattern:copy-and-content#two-registers]`); boardroom copy under an extravagant camera [site:mont-fort] [inferred]; expedition telemetry [site:igloo] [verified].
@@ -148,7 +148,7 @@ Why: a page that runs at one input speed becomes wallpaper by the third chapter;
 | A gate: draw, hold or drag before the next stage | between stages, N−1 of them | [site:why-zero] [verified] |
 | A typographic break at full viewport | after the first cluster of three | [site:leo-parpeix] [recalled medium] |
 | A scenario triptych | after the capability claim | [site:usavionix] [verified] |
-| Hold-to-compare between two conditions | inside the seasons chapter | [site:son-daven] [verified feature] |
+| Drag-to-compare between two conditions, with real buttons behind it | inside the seasons chapter | [site:son-daven] [verified, live source 2026-09-18] |
 | A horizontal rail inside the vertical page | one chapter, never two | [site:son-daven] [verified] |
 | A hinge that swings the first screen away | the hero's exit | [site:the-line] [verified] |
 | A dwell-gated close-up | the zoom section | [site:oryzo] [recalled high] |
