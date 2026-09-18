@@ -28,9 +28,11 @@ node scripts/capture.mjs <url|file|dir> [--out .awards/captures] [--wheel <px>] 
 node scripts/new-project.mjs --stack vite|next|nuxt|astro|sveltekit --name <dir> [--webgl] [--dry-run]
 node scripts/roll.mjs --deal 3 --of 7 [--seed <key>]      # seeded direction roll used by the concept skill
 
+node evals/selftest.mjs                                   # every file-target grader must fail on untouched input
+
 claude plugin eval . --tag smoke                          # 11 routing cases with no-plugin baseline (model calls, costs money)
 claude plugin eval . --case trigger-jury --runs 1 --ablation none   # one case, cheapest iteration
-claude plugin eval . --tag build --scaffold --runs 1 --ablation none --allow-tools Write Edit "Bash(node *)" "Bash(npm *)"   # 20–30 min per case
+claude plugin eval . --tag build --scaffold --runs 1 --ablation none --allow-tools Write Edit WebFetch "Bash(node *)" "Bash(npm *)"   # 20–30 min per case
 ```
 
 Requirements: Node 20+, Playwright (global or project-local) for `verify-recipes`, `capture` and `audit --render`. Verification outputs (`recipes/_verify/`, `recipes/dist/`, `evals/results/`, `.awards/`) are gitignored. Headless SwiftShader proves recipes correct, not fast.
