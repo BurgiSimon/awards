@@ -15,10 +15,11 @@ Ordered by value. None of these blocks using the plugin as it is.
 ## Plugin
 7. **P2 recipes**: `sound-toggle-opt-in` (Howler or `HTMLAudioElement`, persisted consent, audio-reactive 24×24 icon) and `gl-msdf-text` (MSDF text with a DOM mirror). Both are in the catalogue and cited by the pattern files.
 8. **`allowed-tools` for the scripts** (`Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*)`) once the wildcard form is confirmed to work in plugin skills; v1 leaves prompts on.
-9. **Framework adapters as code**: the recipes carry adapter notes; `recipes/<id>/adapters/{react.tsx,vue.vue,svelte.svelte,astro.astro}` are still to write for the P0 set, and `assets/scaffold/` has only `vite-vanilla` (the stack skill routes other stacks to `references/stacks/*.md`).
-10. **`tools/extract-report.mjs`** (plan §7 tree, dev-only JSONL → last assistant text) was never needed and not written; drop it from the plan or add it.
-11. Consider a `references/sites/_index.md` column for "last verified" once cards get re-checked.
+9. **`capture.mjs` reports a cold-cache LCP as if it were a field measurement.** The manifest's `metrics[label].lcp` is whatever a first, uncached headless load produced; the jury reads it as the site's LCP and scores performance from it. Either label it in the manifest as a cold synthetic load, or measure twice and report the warm number.
+10. **Framework adapters as code**: the recipes carry adapter notes; `recipes/<id>/adapters/{react.tsx,vue.vue,svelte.svelte,astro.astro}` are still to write for the P0 set, and `assets/scaffold/` has only `vite-vanilla` (the stack skill routes other stacks to `references/stacks/*.md`).
+11. **`tools/extract-report.mjs`** (plan §7 tree, dev-only JSONL → last assistant text) was never needed and not written; drop it from the plan or add it.
+12. Consider a `references/sites/_index.md` column for "last verified" once cards get re-checked.
 
 ## Housekeeping
-12. Pull request #1 is open on `claude/award-worthy-website-skill-rbcead`; merge or keep iterating on the branch. `evals/results/` and `recipes/_verify/` are gitignored; `recipes/node_modules` must be installed locally (`npm install` in `plugins/awards/recipes`) before `verify-recipes.mjs`.
-13. Bump `version` in `plugins/awards/.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` together on the next release.
+13. Pull request #1 is open on `claude/award-worthy-website-skill-rbcead`; merge or keep iterating on the branch. `evals/results/` and `recipes/_verify/` are gitignored; `recipes/node_modules` must be installed locally (`npm install` in `plugins/awards/recipes`) before `verify-recipes.mjs`.
+14. Bump `version` in `plugins/awards/.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` together on the next release.
