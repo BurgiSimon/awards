@@ -1,6 +1,6 @@
 # awards — award-worthy websites with Claude Code
 
-A Claude Code plugin that teaches Claude to design and build websites and single components in the league of Awwwards Site of the Day / Month / Year winners: in that style, never as copies. It is built from an analysis of nineteen award-winning sites, the pattern language they share, twenty-eight motion and WebGL recipes verified in a headless browser, a deterministic craft-floor audit, and a fresh-context jury that scores the way the real one does.
+A Claude Code plugin that teaches Claude to design and build websites and single components in the league of Site of the Day / Month / Year award winners: in that style, never as copies. It is built from an analysis of nineteen award-winning sites, the pattern language they share, twenty-eight motion and WebGL recipes verified in a headless browser, a deterministic craft-floor audit, and a fresh-context jury that scores the way the real one does.
 
 ## Install
 
@@ -23,7 +23,7 @@ Local development: `claude --plugin-dir plugins/awards`. Requirements: Node 20 o
 | `/awards:motion` | The motion score: preloader, reveals, scrub, cursor, transitions, reduced-motion tiers |
 | `/awards:webgl` | Three.js / OGL / R3F layer, shaders, asset pipeline, quality tiers, fallbacks |
 | `/awards:component` | One award-worthy component inside an existing site |
-| `/awards:jury` | Score like an Awwwards jury in a fresh context; ordered fixes; a disposition |
+| `/awards:jury` | Score like a design-award jury in a fresh context; ordered fixes; a disposition |
 | `/awards:ship` | Fix batch, audit, captures, performance, accessibility, meta; the ship report |
 | `/awards:research` | Turn a reference site into a corpus case study |
 

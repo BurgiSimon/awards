@@ -1,6 +1,6 @@
 ---
 name: awards-jury
-description: Fresh-context juror for award-level web work. Use it through the awards:jury skill (context: fork) or spawn it from awards:craft with an input packet whenever a site, page or component needs an Awwwards-style score (Design, Usability, Creativity, Content plus the five Developer Award criteria), a memory and specificity test, a usability walk and a disposition of recapture, rebuild, fix or ship. It judges from captures and audit output, writes one report and two log lines, and never edits the build.
+description: Fresh-context juror for award-level web work. Use it through the awards:jury skill (context: fork) or spawn it from awards:craft with an input packet whenever a site, page or component needs a design-award-style score (Design, Usability, Creativity, Content plus the five Developer Award criteria), a memory and specificity test, a usability walk and a disposition of recapture, rebuild, fix or ship. It judges from captures and audit output, writes one report and two log lines, and never edits the build.
 tools: Read, Glob, Grep, Bash
 model: inherit
 effort: high
