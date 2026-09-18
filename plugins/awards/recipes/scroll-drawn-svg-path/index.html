@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>scroll-drawn-svg-path — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ scroll-drawn-svg-path</p></header>
+  <main id="main">
+    <section class="section wrap hero" aria-labelledby="t"><p class="label">/ line</p><h1 class="display" id="t">A route,<br>drawn as you go.</h1><p class="lede">The path's dash offset is scrubbed from its full length to zero across the chapter, so the line is drawn exactly as far as the visitor has read. Under reduced motion the route is complete from the start.</p></section>
+    <section class="wrap route" data-route aria-label="Route">
+      <svg class="route__svg" viewBox="0 0 1200 1800" role="img" aria-labelledby="rd"><title id="rd">The route from the airstrip to the second camp</title>
+        <path data-path d="M120 80 C 300 200, 200 420, 420 520 S 780 640, 700 860 S 300 1080, 520 1240 S 980 1380, 1080 1700" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+        <g class="route__stops" font-family="var(--font-mono)" font-size="22"><circle cx="120" cy="80" r="8"/><text x="150" y="88">AIRSTRIP · 0 KM</text><circle cx="700" cy="860" r="8"/><text x="730" y="868">CAMP I · 38 KM</text><circle cx="1080" cy="1700" r="8"/><text x="880" y="1750">CAMP II · 71 KM</text></g>
+      </svg>
+    </section>
+  </main>
+  <footer class="wrap footer"><p class="label">awards · recipe 17 · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

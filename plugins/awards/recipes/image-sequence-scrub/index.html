@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>image-sequence-scrub — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ image-sequence-scrub</p></header>
+  <main id="main">
+    <section class="section wrap hero" aria-labelledby="t"><p class="label">/ frames</p><h1 class="display" id="t">Rendered offline,<br>scrubbed on scroll.</h1><p class="lede">A pre-rendered frame sequence (here 48 frames generated at runtime as a stand-in for JPEGs) is decoded up front, reported to a progress signal, and drawn to a canvas at the frame the scroll position selects. The poster image stays in the DOM for no-JS, no-canvas and reduced-motion visitors.</p></section>
+    <section class="seq" data-seq aria-labelledby="st">
+      <div class="seq__stage">
+        <h2 id="st" class="sr-only">The hull, turning</h2>
+        <img class="seq__poster" data-poster src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1280 720'%3E%3Crect width='1280' height='720' fill='%231a1c1c'/%3E%3Cellipse cx='640' cy='360' rx='300' ry='120' fill='%23619785'/%3E%3C/svg%3E" width="1280" height="720" alt="The hull seen from the side">
+        <canvas class="seq__canvas" data-canvas width="1280" height="720" aria-hidden="true"></canvas>
+        <p class="seq__readout label"><span data-frame>00</span> / <span data-total>48</span></p>
+      </div>
+    </section>
+    <section class="section wrap outro"><h2>After the sequence.</h2></section>
+  </main>
+  <footer class="wrap footer"><p class="label">awards · recipe 26 · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
