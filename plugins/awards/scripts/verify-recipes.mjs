@@ -104,6 +104,12 @@ for (const id of ids) {
         // seconds while it compiles a shader, and no fixed sleep is both fast and safe.
         if (action.type === 'waitFor') await page.waitForFunction(action.fn, null, { timeout: action.timeout || 15000 }).catch(() => errors.push(`waitFor timed out: ${action.fn}`));
         if (action.type === 'focus') await page.focus(action.selector).catch((e) => errors.push(`focus failed: ${e.message}`));
+        // Reload inside a state, not between them: each state gets a fresh context, so a recipe that
+        // persists a choice can only prove it survives a reload within the context that stored it.
+        if (action.type === 'reload') {
+          await page.reload({ waitUntil: 'load', timeout: 30000 });
+          await page.evaluate(() => Promise.race([window.__awards?.ready, new Promise((r) => setTimeout(r, 8000))])).catch(() => {});
+        }
       }
       if (typeof st.scroll === 'number') {
         await page.evaluate(async (p) => { await window.__awards?.scrollTo?.(p); window.ScrollTrigger?.update?.(); }, st.scroll);

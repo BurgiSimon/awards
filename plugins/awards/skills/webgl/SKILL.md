@@ -196,7 +196,7 @@ Sound is opt-in only: browsers refuse audio without a gesture and a jury refuses
 
 - A visible `<button aria-pressed>` whose name carries the state, styled from the tokens; the audio context created or resumed inside its click handler; the bed fetched only after consent.
 - Consent may ride the preloader's exit gesture, but content never waits for it.
-- Levels well under full scale (the published ceiling is ambient ≈ .375, SFX ≈ .35); one-shots named and rate-limited; the visualiser frozen under reduced motion `[pattern:sound#the-control]`. `[recipe:sound-toggle-opt-in]` is the planned reference.
+- Levels well under full scale (the published ceiling is ambient ≈ .375, SFX ≈ .35); one-shots named and rate-limited; the visualiser frozen under reduced motion `[pattern:sound#the-control]`. `[recipe:sound-toggle-opt-in]` is the reference.
 
 ## Verify
 
