@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>scroll-pin-scrub — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../_shared/base.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ scroll-pin-scrub</p></header>
+  <main id="main">
+    <section class="section wrap intro" aria-labelledby="t">
+      <h1 class="display" id="t">A pinned chapter, scrubbed.</h1>
+      <p class="lede">One chapter pins for three viewport heights while a timeline scrubs through three beats: the object turns, the caption swaps, the readout counts. The scrub ease is <code>none</code>; the smoothing lives in the scroll, never in the tween.</p>
+    </section>
+    <section class="chapter" data-pin aria-labelledby="c">
+      <div class="stage wrap">
+        <p class="label"><span data-beat>01</span> / 03 · <span data-readout>000</span></p>
+        <div class="object" data-object aria-hidden="true"><span></span><span></span><span></span></div>
+        <h2 id="c" class="caption"><span data-caption="0" class="is-active">Approach.</span><span data-caption="1">Turn.</span><span data-caption="2">Land.</span></h2>
+        <p class="note">Three beats; each holds for a third of the pin. Keyboard users scroll through with Space or PageDown; nothing is hijacked.</p>
+      </div>
+    </section>
+    <section class="section wrap outro"><h2>After the pin, the page resumes.</h2><p class="lede">The chapter's own height is what the scroll consumes, so the browser's scrollbar stays truthful and the address of every beat is a real scroll position.</p></section>
+  </main>
+  <footer class="section wrap"><p class="label">awards · recipe 02 · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

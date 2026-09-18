@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>magnetic-button — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../_shared/base.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ magnetic-button</p></header>
+  <main id="main">
+    <section class="section wrap hero" aria-labelledby="t">
+      <p class="label">/ pull</p>
+      <h1 class="display" id="t">Magnetic,<br>within reason.</h1>
+      <p class="lede">The button leans toward a fine pointer inside a radius, its label leaning a little less than its ring so the two read as one object with depth. Outside the radius, and on every coarse pointer, it is an ordinary button.</p>
+    </section>
+    <section class="stage" aria-label="Demonstration">
+      <a class="magnet" data-magnet href="#main" data-radius="1.6" data-strength="0.45">
+        <span class="ring" data-magnet-ring aria-hidden="true"></span>
+        <span class="text" data-magnet-text>Book a call</span>
+      </a>
+    </section>
+    <section class="section wrap notes"><h2>Rules</h2><ul><li>Pull only inside <code>1.6 ×</code> the button's diagonal; ease back with expo-out on leave.</li><li>Label moves at <code>0.45</code> of the ring's displacement.</li><li><code>gsap.quickTo</code> on <code>x</code>/<code>y</code>: one tween per axis, retargeted every move, never a new tween per event.</li><li>Nothing pulls under <code>(pointer: coarse)</code> or <code>prefers-reduced-motion</code>; focus shows the ring at full strength.</li></ul></section>
+  </main>
+  <footer class="section wrap"><p class="label">awards · recipe 07 · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

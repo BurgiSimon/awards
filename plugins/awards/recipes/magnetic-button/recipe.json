@@ -1,0 +1,26 @@
+{
+  "id": "magnetic-button",
+  "title": "Magnetic button with distance falloff",
+  "tags": [
+    "pointer",
+    "gsap",
+    "quickTo",
+    "hover",
+    "button"
+  ],
+  "tier": "P0",
+  "deps": [
+    "gsap@3.15.0"
+  ],
+  "variants": [
+    "vanilla"
+  ],
+  "seenIn": [
+    "leo-parpeix",
+    "lando-norris"
+  ],
+  "verified": {
+    "date": "2026-09-17",
+    "chromium": "141.0.7390.37"
+  }
+}

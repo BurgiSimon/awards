@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>reduced-motion-switch — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../_shared/base.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar">
+    <a href="../index.html" class="label">← recipes</a>
+    <p class="label">tier: <output data-tier-readout aria-live="polite">full</output></p>
+    <div class="switch" role="group" aria-label="Motion tier override">
+      <button type="button" data-tier="auto" aria-pressed="true">auto</button>
+      <button type="button" data-tier="full" aria-pressed="false">full</button>
+      <button type="button" data-tier="reduced" aria-pressed="false">reduced</button>
+      <button type="button" data-tier="static" aria-pressed="false">static</button>
+    </div>
+  </header>
+  <main id="main">
+    <section class="section wrap hero" aria-labelledby="t">
+      <p class="label">/ one switch</p>
+      <h1 class="display" id="t">Three tiers,<br>one decision.</h1>
+      <p class="lede">The page asks <code>motionTier()</code> once and every effect branches on the answer: <strong>full</strong> is the authored score, <strong>reduced</strong> keeps state changes and drops spatial movement, <strong>static</strong> settles everything on load. A user override lives on <code>&lt;html data-motion&gt;</code>.</p>
+    </section>
+    <section class="section wrap demo" aria-labelledby="d">
+      <h2 id="d" class="sr-only">Demonstration</h2>
+      <div class="orbit" data-orbit aria-hidden="true"><span></span></div>
+      <ul class="facts">
+        <li><span class="label">full</span> orbit loops, panels slide in, marquee runs</li>
+        <li><span class="label">reduced</span> orbit parked, panels fade, marquee is a static row</li>
+        <li><span class="label">static</span> everything already in its end state; no ticker subscribed</li>
+      </ul>
+      <div class="marquee" data-marquee aria-hidden="true"><div class="track"><span>one clock · three tiers · never a kill switch · </span><span>one clock · three tiers · never a kill switch · </span></div></div>
+      <p class="marquee-mirror sr-only">one clock · three tiers · never a kill switch</p>
+      <div class="panels"><div class="panel" data-panel>state change kept</div><div class="panel" data-panel>hierarchy kept</div><div class="panel" data-panel>motion tiered</div></div>
+    </section>
+  </main>
+  <footer class="section wrap"><p class="label">awards · recipe 28 · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+.topbar { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); }
+.hero .display { font-size: clamp(2.2rem, 7.5vw, 8rem); max-width: 14ch; }
+.lede { max-width: 60ch; margin-top: calc(var(--unit) * 8); }
+.chapter h2 { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 5rem); line-height: .95; letter-spacing: -.02em; margin: .25em 0 .5em; max-width: 18ch; }
+.chapter p { max-width: 55ch; }
+/* Before JS splits the text, nothing is hidden: no flash of invisible copy if a script fails. */
+[data-split] { visibility: visible; }
+[data-split].is-split .line, [data-split].is-split .word { will-change: transform; }
