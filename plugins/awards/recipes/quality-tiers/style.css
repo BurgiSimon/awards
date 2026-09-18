@@ -1,0 +1,12 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+.topbar { display: flex; justify-content: space-between; align-items: center; gap: var(--gutter); padding-block: calc(var(--unit) * 5); flex-wrap: wrap; }
+.switch { display: flex; gap: calc(var(--unit) * 2); }
+.switch button { border: 1px solid var(--ink); background: transparent; padding: calc(var(--unit) * 2) calc(var(--unit) * 4); font-family: var(--font-mono); font-size: var(--label); text-transform: uppercase; letter-spacing: .08em; cursor: pointer; min-height: 44px; }
+.switch button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+.lede { max-width: 60ch; margin-top: calc(var(--unit) * 8); }
+.demo { display: grid; gap: calc(var(--unit) * 8); align-content: start; }
+.field, .still { width: min(100%, 960px); height: auto; border: 1px solid var(--line); }
+.profile { display: grid; grid-template-columns: max-content 1fr; gap: calc(var(--unit) * 1) calc(var(--unit) * 6); margin: 0; }
+.profile dd { margin: 0; color: var(--ink); text-transform: none; letter-spacing: 0; }

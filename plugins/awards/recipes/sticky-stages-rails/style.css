@@ -1,0 +1,18 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+.topbar { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); position: relative; z-index: 2; }
+.lede { max-width: 60ch; margin-top: calc(var(--unit) * 8); }
+.rail { position: relative; }
+.hero-rail { height: 220svh; }
+.stages-rail { height: 400svh; }
+.stage { position: sticky; top: 0; height: 100svh; display: grid; align-content: center; overflow: hidden; }
+.panel { background: var(--ink); color: var(--ground); padding: clamp(24px, 5vw, 96px); transform-origin: 0% 100%; will-change: transform; min-height: 70svh; display: grid; align-content: end; gap: calc(var(--unit) * 6); }
+.panel .label { color: color-mix(in oklab, var(--ground) 60%, var(--ink)); }
+.logo { width: clamp(64px, 10vw, 160px); aspect-ratio: 1; background: var(--accent); transform-origin: 0% 100%; will-change: transform; }
+.stages { grid-template-columns: repeat(3, 1fr); gap: var(--gutter); align-items: center; }
+.card { margin: 0; aspect-ratio: 3 / 4; background: var(--ground); border: 1px solid var(--ink); display: grid; align-content: end; padding: calc(var(--unit) * 5); will-change: transform, opacity; }
+.card figcaption { font-family: var(--font-display); font-size: clamp(1.2rem, 2vw, 2rem); line-height: 1.1; letter-spacing: -.02em; }
+.card .label { display: block; margin-bottom: calc(var(--unit) * 3); }
+@media (max-width: 767px) { .stages { grid-template-columns: 1fr; align-content: center; } .card { aspect-ratio: 16 / 9; } .hero-rail { height: 160svh; } }
+html[data-motion-tier="reduced"] .panel, html[data-motion-tier="reduced"] .logo, html[data-motion-tier="reduced"] .card { transform: none !important; opacity: 1 !important; }

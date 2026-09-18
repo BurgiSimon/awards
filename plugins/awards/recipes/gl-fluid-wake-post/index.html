@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#1a1c1c">
+  <title>gl-fluid-wake-post — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ gl-fluid-wake-post · <span data-gl-readout>dom</span></p></header>
+  <main id="main">
+    <section class="hero" aria-labelledby="t">
+      <canvas class="gl" data-gl aria-hidden="true"></canvas>
+      <div class="hero__copy wrap" data-hero-copy>
+        <p class="label">/ one global layer</p>
+        <h1 class="display" id="t" data-hero-title>The whole page<br>ripples in your wake.</h1>
+        <p class="lede">A 128 × 128 ping-pong velocity field is advected and dissipated every frame and splatted where the pointer moves. One full-frame pass reads it to distort the rendered hero and fringe its channels. There is no second trick; this is the trick.</p>
+      </div>
+    </section>
+    <section class="section wrap notes"><h2>Rules</h2><ul><li>Advection only: no pressure solve. Dissipation <code>0.96</code> per frame keeps the wake short.</li><li>Splat force is the pointer delta × 10; the splat variance is <code>0.0015</code> at rest and <code>0.002</code> while moving.</li><li>The composite pass offsets the UV by the velocity and samples R and B at ± the velocity for the fringe.</li><li>Half-float render targets when the device has them, bytes with a dead zone otherwise; DPR from the quality tier; everything disposed on <code>pagehide</code>.</li><li>Reduced motion: no simulation, no canvas; the hero is plain DOM.</li></ul></section>
+  </main>
+  <footer class="wrap footer"><p class="label">awards · recipe 20 · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

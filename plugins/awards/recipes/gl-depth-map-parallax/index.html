@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>gl-depth-map-parallax — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ gl-depth-map-parallax · <span data-gl-readout>dom</span></p></header>
+  <main id="main">
+    <section class="section wrap hero" aria-labelledby="t"><p class="label">/ 2.5D</p><h1 class="display" id="t">A painting<br>with depth.</h1><p class="lede">A flat image plus a greyscale depth map. The shader offsets each texel by its depth times the pointer (or scroll) offset, so the near parts move more than the far parts and a still reads as a shallow relief. The still stays in the DOM.</p></section>
+    <section class="stage stage--frame wrap" aria-label="Demonstration">
+      <figure class="frame">
+        <img class="fallback" data-color src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800'%3E%3Crect width='1200' height='800' fill='%23e8e2d6'/%3E%3Ccircle cx='900' cy='240' r='120' fill='%23ffc800'/%3E%3Cpath d='M0 560 L300 380 L520 520 L800 300 L1200 480 L1200 800 L0 800Z' fill='%23619785'/%3E%3Cpath d='M0 700 L260 600 L560 720 L900 620 L1200 700 L1200 800 L0 800Z' fill='%232c2824'/%3E%3C/svg%3E" width="1200" height="800" alt="A stylised valley: a sun, a green ridge, a dark foreground" loading="eager">
+        <img class="depth" data-depth hidden loading="eager" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800'%3E%3Crect width='1200' height='800' fill='%23202020'/%3E%3Ccircle cx='900' cy='240' r='120' fill='%23101010'/%3E%3Cpath d='M0 560 L300 380 L520 520 L800 300 L1200 480 L1200 800 L0 800Z' fill='%23909090'/%3E%3Cpath d='M0 700 L260 600 L560 720 L900 620 L1200 700 L1200 800 L0 800Z' fill='%23f0f0f0'/%3E%3C/svg%3E" width="1200" height="800" alt="">
+        <canvas class="gl" data-gl aria-hidden="true"></canvas>
+        <figcaption class="label">Colour + depth · pointer parallax</figcaption>
+      </figure>
+    </section>
+  </main>
+  <footer class="wrap footer"><p class="label">awards · recipe 21 · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

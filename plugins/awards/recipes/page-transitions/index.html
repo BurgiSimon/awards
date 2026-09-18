@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>Work — page-transitions — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label" data-taxi-ignore>← recipes</a><p class="label">/ page-transitions</p><a href="./about.html" class="label" data-nav>About →</a></header>
+  <main id="main" data-taxi>
+    <div data-taxi-view="" data-view="index">
+      <section class="section wrap hero" aria-labelledby="t">
+        <p class="label">/ index</p>
+        <h1 class="display" id="t" data-page-title><span class="mask"><span class="line">Work</span></span></h1>
+        <p class="lede">Click the link: the next page is fetched, the current view leaves under a wipe, the new view enters, the scroll resets, and the module that runs this page is never executed twice.</p>
+        <p><a href="./about.html" class="cta">About →</a></p>
+      </section>
+    </div>
+  </main>
+  <footer class="section wrap"><p class="label">awards · recipe 18 · MIT</p></footer>
+  <div class="wipe" data-wipe aria-hidden="true"></div>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

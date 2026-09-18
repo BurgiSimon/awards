@@ -1,0 +1,17 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+.topbar { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); position: relative; z-index: 3; }
+.lede { max-width: 60ch; margin-top: calc(var(--unit) * 8); }
+.footer { padding-block: calc(var(--unit) * 12); }
+/* The tour owns the first viewport; the DOM chapters below are the mirror and the way out. */
+.world { position: relative; height: 100svh; overflow: hidden; display: grid; align-content: center; }
+.world .gl { position: absolute; inset: 0; width: 100%; height: 100%; display: none; }
+html.gl-active .world .gl { display: block; }
+.hud { position: relative; z-index: 1; max-width: 48vw; }
+.labels { position: absolute; inset: 0; pointer-events: none; }
+.labels .tag { position: absolute; transform: translate(-50%, -50%); font-family: var(--font-mono); font-size: var(--label); letter-spacing: .08em; text-transform: uppercase; padding: 4px 8px; border: 1px solid var(--ink); background: color-mix(in oklab, var(--ground) 70%, transparent); white-space: nowrap; opacity: 0; transition: opacity var(--dur-routine); }
+.labels .tag.is-visible { opacity: 1; }
+.chapters { padding-block: calc(var(--unit) * 24); }
+.chapter-list { list-style: none; margin: 0; padding: 0; display: grid; gap: calc(var(--unit) * 8); }
+.chapter-list h3 { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 5rem); line-height: .95; letter-spacing: -.03em; margin: 0 0 .2em; }
+@media (max-width: 767px) { .hud { max-width: none; } }

@@ -1,0 +1,10 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+.topbar { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); }
+.lede { max-width: 60ch; margin-top: calc(var(--unit) * 8); }
+.footer { padding-block: calc(var(--unit) * 12); }
+.readouts { display: grid; gap: calc(var(--unit) * 6); margin: calc(var(--unit) * 16) 0 0; }
+.readouts div { display: grid; grid-template-columns: 12ch 1fr; align-items: baseline; gap: var(--gutter); border-top: 1px solid var(--line); padding-top: calc(var(--unit) * 3); }
+.readout { margin: 0; font-family: var(--font-mono); font-size: clamp(1.25rem, 3vw, 2.5rem); font-variant-numeric: tabular-nums; }
+.readout .live { white-space: pre; }
+.replay { margin-top: calc(var(--unit) * 10); background: none; border: 1px solid currentColor; color: inherit; padding: calc(var(--unit) * 2) calc(var(--unit) * 4); min-height: 44px; cursor: pointer; }

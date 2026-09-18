@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>flicker-text — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ flicker-text</p></header>
+  <main id="main">
+    <section class="section wrap hero" aria-labelledby="t">
+      <p class="label">/ ladder</p>
+      <h1 class="display" id="t" data-flicker>Letters flicker in.</h1>
+      <p class="lede">Each glyph runs an opacity ladder <code>[0, 1, 0, 0, 1, 1]</code> with a 40 ms stagger, so the line switches on like a tube light rather than fading. On hover, the same ladder replays with an expo-out shift. The source text stays intact for assistive technology; the glyph spans are decoration.</p>
+      <nav class="links" aria-label="Demonstration links">
+        <a href="#main" data-flicker data-flicker-hover>Studio</a>
+        <a href="#main" data-flicker data-flicker-hover>Work</a>
+        <a href="#main" data-flicker data-flicker-hover>Contact</a>
+      </nav>
+    </section>
+  </main>
+  <footer class="wrap footer"><p class="label">awards · recipe 05 · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

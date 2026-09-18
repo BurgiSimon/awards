@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#1a1c1c">
+  <meta name="robots" content="noindex">
+  <title>404 — page not found</title>
+  <link rel="stylesheet" href="/src/styles/tokens.css">
+  <style>
+    /* The 404 is an authored moment in the same world: same tokens, same type contract, one small signature echo. */
+    body { margin: 0; min-height: 100svh; display: grid; place-items: center; background: var(--ground); color: var(--ink); font-family: var(--font-body); }
+    main { padding: var(--gutter); text-align: left; max-width: 60ch; }
+    h1 { font-family: var(--font-display); font-size: clamp(3rem, 12.1528vw, 13.125rem); line-height: .9; letter-spacing: -.03em; margin: 0 0 .25em; }
+    p { font-size: 1rem; line-height: 1.5; margin: 0 0 1.5rem; }
+    a { color: currentColor; text-decoration: underline; text-underline-offset: .2em; }
+    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+    ::selection { background: var(--accent); color: var(--ground); }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="label" aria-hidden="true">/ 404</p>
+    <h1>Not here.</h1>
+    <p>The page you asked for does not exist at this address. <a href="/">Back to the beginning</a>.</p>
+  </main>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://code.claude.com/docs/schemas/marketplace-v1.json",
+  "name": "awards",
+  "description": "Claude Code skills for designing and building award-worthy websites and components.",
+  "owner": {
+    "name": "BurgiSimon",
+    "url": "https://github.com/burgisimon"
+  },
+  "plugins": [
+    {
+      "name": "awards",
+      "displayName": "Awards",
+      "source": "./plugins/awards",
+      "description": "Design and build award-worthy websites and components: craft, concept, system, structure, stack, motion, webgl, component, jury, ship and research skills with verified recipes and a 19-site reference corpus.",
+      "version": "0.1.0",
+      "author": {
+        "name": "BurgiSimon",
+        "url": "https://github.com/burgisimon"
+      },
+      "homepage": "https://github.com/burgisimon/awards",
+      "repository": "https://github.com/burgisimon/awards",
+      "license": "MIT",
+      "category": "design",
+      "keywords": ["design", "frontend", "motion", "webgl", "gsap", "lenis", "three.js"],
+      "tags": ["design", "frontend", "motion", "webgl", "creative-developer"]
+    }
+  ]
+}

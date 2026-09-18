@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>boot-lenis-gsap — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar">
+    <a href="../index.html" class="label">← recipes</a>
+    <p class="label" aria-live="polite"><span data-progress>000</span> / 100</p>
+  </header>
+  <main id="main">
+    <section class="section hero wrap" aria-labelledby="t">
+      <p class="label">/ boot-lenis-gsap</p>
+      <h1 class="display" id="t"><span class="mask"><span class="line">One clock.</span></span><span class="mask"><span class="line">Every motion.</span></span></h1>
+      <p class="lede">Lenis smooth scroll driven by GSAP's ticker, ScrollTrigger kept in sync, fonts awaited before text splits, a reduced-motion tier, and the <code>window.__awards</code> hook the review tools use.</p>
+    </section>
+    <section class="section wrap chapter" data-reveal aria-labelledby="c1"><p class="label">/ 01</p><h2 id="c1">Reveal once, on entry.</h2><p>Each chapter enters through a masked line reveal the first time it crosses 80% of the viewport. It never replays: the page should feel authored, not looping.</p></section>
+    <section class="section wrap chapter" data-reveal aria-labelledby="c2"><p class="label">/ 02</p><h2 id="c2">Scrub is linear.</h2><p>The progress readout in the header is scrubbed with <code>ease: 'none'</code>; the smoothing comes from Lenis' lerp, never from the tween's ease.</p></section>
+    <section class="section wrap chapter" data-reveal aria-labelledby="c3"><p class="label">/ 03</p><h2 id="c3">Reduced motion is a tier.</h2><p>Under <code>prefers-reduced-motion</code> the lines still appear, by opacity, in a third of the time. Nothing is hidden behind an animation that will never run.</p></section>
+  </main>
+  <footer class="section wrap"><p class="label">awards · recipe 01 · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

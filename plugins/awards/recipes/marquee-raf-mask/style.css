@@ -1,0 +1,15 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+.topbar { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); }
+.lede { max-width: 60ch; margin-top: calc(var(--unit) * 8); }
+.hero { min-height: 70svh; }
+.band { border-block: 1px solid var(--line); padding-block: calc(var(--unit) * 6); }
+.marquee { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.track { display: flex; gap: var(--gutter); list-style: none; margin: 0; padding: 0; white-space: nowrap; width: max-content; will-change: transform; }
+.track li a { font-family: var(--font-display); font-size: clamp(2rem, 6vw, 6rem); letter-spacing: -.03em; line-height: 1; text-decoration: none; display: inline-block; padding-inline: calc(var(--unit) * 2); }
+.track li a:hover, .track li a:focus-visible { color: var(--accent); }
+/* Reduced motion (or the static tier): a static row that scrolls by hand, no mask so nothing looks cut off. */
+html[data-motion-tier="reduced"] .marquee, html[data-motion-tier="static"] .marquee { overflow-x: auto; mask-image: none; -webkit-mask-image: none; }
+html[data-motion-tier="reduced"] .track, html[data-motion-tier="static"] .track { transform: none !important; }
+.notes ul { max-width: 60ch; padding-left: 1.2em; }

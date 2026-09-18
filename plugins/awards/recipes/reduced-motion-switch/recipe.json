@@ -1,0 +1,24 @@
+{
+  "id": "reduced-motion-switch",
+  "title": "Central motion-tier switch (full / reduced / static)",
+  "tags": [
+    "reduced-motion",
+    "accessibility",
+    "gsap",
+    "ticker"
+  ],
+  "tier": "P0",
+  "deps": [
+    "gsap@3.15.0"
+  ],
+  "variants": [
+    "vanilla (_shared/reduced-motion.js)",
+    "gsap.matchMedia branches",
+    "anime.js createScope({ mediaQueries })"
+  ],
+  "seenIn": [],
+  "verified": {
+    "date": "2026-09-18",
+    "chromium": "141.0.7390.37"
+  }
+}

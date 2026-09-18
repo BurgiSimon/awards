@@ -1,0 +1,19 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+.topbar { display: flex; justify-content: space-between; gap: var(--gutter); padding-block: calc(var(--unit) * 5); }
+.linkish { background: none; border: 0; cursor: pointer; text-decoration: underline; text-underline-offset: .2em; }
+.lede { max-width: 60ch; margin-top: calc(var(--unit) * 8); }
+.hero__img { margin-top: calc(var(--unit) * 12); max-width: 60ch; }
+.mask { display: block; overflow: hidden; }
+.line { display: block; will-change: transform; }
+.preloader { position: fixed; inset: 0; z-index: 50; background: var(--ink); color: var(--ground); display: grid; grid-template-rows: 1fr auto; padding: var(--gutter); }
+.preloader[hidden] { display: none; }
+.preloader__count { align-self: end; margin: 0; font-variant-numeric: tabular-nums; }
+.preloader__signals { list-style: none; margin: calc(var(--unit) * 6) 0 0; padding: 0; display: flex; gap: calc(var(--unit) * 6); color: color-mix(in oklab, var(--ground) 45%, var(--ink)); }
+.preloader__signals li.is-done { color: var(--ground); }
+.preloader__signals li.is-done::after { content: " ·"; }
+.preloader__skip { position: absolute; top: var(--gutter); right: var(--gutter); background: none; border: 1px solid currentColor; color: inherit; padding: calc(var(--unit) * 2) calc(var(--unit) * 4); min-height: 44px; cursor: pointer; }
+/* Hero lines stay hidden under the preloader and reveal after it exits (reduced motion: they are simply visible). */
+html.is-loading .hero .line { transform: translateY(120%); }
+html[data-motion-tier="reduced"].is-loading .hero .line { transform: none; }

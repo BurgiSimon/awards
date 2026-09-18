@@ -1,0 +1,29 @@
+{
+  "id": "gl-fluid-wake-post",
+  "title": "Fluid wake as one global post-process",
+  "tags": [
+    "webgl",
+    "three",
+    "shader",
+    "fluid",
+    "post-processing",
+    "pointer"
+  ],
+  "tier": "P0",
+  "deps": [
+    "three@0.186.0"
+  ],
+  "variants": [
+    "Three.js (this)",
+    "OGL: same two passes with ogl RenderTarget",
+    "postprocessing: wrap the composite as an Effect"
+  ],
+  "seenIn": [
+    "leo-parpeix",
+    "lando-norris"
+  ],
+  "verified": {
+    "date": "2026-09-18",
+    "chromium": "141.0.7390.37"
+  }
+}

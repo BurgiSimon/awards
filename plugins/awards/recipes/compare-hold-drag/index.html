@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>compare-hold-drag — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ compare-hold-drag</p></header>
+  <main id="main">
+    <section class="section wrap hero" aria-labelledby="t">
+      <p class="label">/ two conditions</p>
+      <h1 class="display" id="t">Summer, held<br>against winter.</h1>
+      <p class="lede">Two aligned renders of the same view. Drag the handle, or hold anywhere on the image to peek at the other season; arrow keys move the divider for keyboard users, and the current split is announced.</p>
+    </section>
+    <section class="wrap" aria-label="Demonstration">
+      <div class="compare" data-compare>
+        <img class="compare__a" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Crect width='1600' height='900' fill='%23a89474'/%3E%3Cpath d='M0 700 L400 380 L700 620 L1000 300 L1300 560 L1600 420 L1600 900 L0 900Z' fill='%236b5a3c'/%3E%3C/svg%3E" width="1600" height="900" alt="The valley in summer: brass grass, dark ridges" loading="eager">
+        <div class="compare__b" data-compare-b><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900'%3E%3Crect width='1600' height='900' fill='%23e6ebf1'/%3E%3Cpath d='M0 700 L400 380 L700 620 L1000 300 L1300 560 L1600 420 L1600 900 L0 900Z' fill='%23b6bac5'/%3E%3C/svg%3E" width="1600" height="900" alt="The same valley in winter: snow, pale ridges" loading="eager"></div>
+        <div class="compare__handle" data-compare-handle role="slider" tabindex="0" aria-label="Season divider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="50% winter"><span class="compare__grip" aria-hidden="true"></span></div>
+        <p class="compare__labels label" aria-hidden="true"><span>Summer</span><span>Winter</span></p>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap footer"><p class="label">awards · recipe 16 · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+.topbar { display: flex; justify-content: space-between; gap: var(--gutter); padding-block: calc(var(--unit) * 5); }
+.lede { max-width: 60ch; margin-top: calc(var(--unit) * 8); }
+.mask { display: block; overflow: hidden; }
+.line { display: block; will-change: transform; }
+.cta { font-family: var(--font-display); font-size: 1.5rem; }
+.wipe { position: fixed; inset: 0; background: var(--ink); z-index: 40; pointer-events: none; will-change: transform; }
+[data-taxi-view] { min-height: 60svh; }

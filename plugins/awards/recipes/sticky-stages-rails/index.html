@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>sticky-stages-rails — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ sticky-stages-rails</p></header>
+  <main id="main">
+    <section class="rail hero-rail" data-rail="hero" aria-labelledby="t">
+      <div class="stage wrap">
+        <div class="panel" data-hinge>
+          <p class="label">/ hinge</p>
+          <h1 class="display" id="t">The panel<br>hinges out.</h1>
+          <div class="logo" data-hinge-child aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+    <section class="rail stages-rail" data-rail="stages" aria-labelledby="s">
+      <div class="stage wrap stages">
+        <h2 id="s" class="sr-only">Three stages</h2>
+        <figure class="card" data-stage="0"><figcaption><span class="label">Stage I</span> A tall section is the rail.</figcaption></figure>
+        <figure class="card" data-stage="1"><figcaption><span class="label">Stage II</span> A sticky child is the stage.</figcaption></figure>
+        <figure class="card" data-stage="2"><figcaption><span class="label">Stage III</span> Progress drives the transforms.</figcaption></figure>
+      </div>
+    </section>
+    <section class="section wrap outro"><h2>No <code>pin: true</code>.</h2><p class="lede">Every stage is a sticky element inside a tall, invisible rail. The rail's height decides how long the stage holds; ScrollTrigger reads progress and nothing else. Resize, font loads and route changes cannot leave a spacer behind.</p></section>
+  </main>
+  <footer class="section wrap"><p class="label">awards · recipe 03 · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

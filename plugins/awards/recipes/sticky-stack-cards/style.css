@@ -1,0 +1,13 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+.topbar { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); position: relative; z-index: 3; }
+.lede { max-width: 60ch; margin-top: calc(var(--unit) * 8); }
+.footer { padding-block: calc(var(--unit) * 12); }
+.stack { display: grid; gap: 0; padding-bottom: 40svh; }
+.card { position: sticky; top: 12svh; min-height: 70svh; margin-bottom: 18svh; background: var(--ground); border: 1px solid var(--ink); padding: var(--gutter); display: grid; align-content: end; transform-origin: 50% 0%; will-change: transform, opacity; }
+.card:nth-child(2) { background: color-mix(in oklab, var(--ground) 92%, var(--ink)); }
+.card:nth-child(3) { background: color-mix(in oklab, var(--ground) 84%, var(--ink)); }
+.card:nth-child(4) { background: var(--accent); color: var(--ground); }
+.card h2 { font-family: var(--font-display); font-size: clamp(2.5rem, 7vw, 7rem); line-height: .95; letter-spacing: -.03em; margin: .2em 0 .3em; }
+.card p { max-width: 50ch; }
+html[data-motion-tier="reduced"] .card { transform: none !important; opacity: 1 !important; }

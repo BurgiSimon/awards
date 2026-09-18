@@ -1,0 +1,12 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+.topbar { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); position: relative; z-index: 3; }
+.lede { max-width: 60ch; margin-top: calc(var(--unit) * 8); }
+.footer { padding-block: calc(var(--unit) * 12); }
+.stage { position: relative; min-height: 100svh; display: grid; align-content: center; }
+.stage .gl { position: absolute; inset: 0; width: 100%; height: 100%; display: none; }
+html.gl-active .stage .gl { display: block; }
+.stage .fallback { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+html.gl-active .stage .fallback { visibility: hidden; }
+.copy { position: relative; z-index: 1; padding-block: calc(var(--unit) * 24); max-width: 60vw; }
+@media (max-width: 767px) { .copy { max-width: none; } }

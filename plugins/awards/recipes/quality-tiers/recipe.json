@@ -1,0 +1,27 @@
+{
+  "id": "quality-tiers",
+  "title": "Adaptive quality tiers from a one-time probe",
+  "tags": [
+    "performance",
+    "webgl",
+    "tiers",
+    "dpr",
+    "fallback"
+  ],
+  "tier": "P0",
+  "deps": [],
+  "variants": [
+    "vanilla (_shared/quality-tiers.js)",
+    "Three.js: applyRendererBudget(renderer, profile)"
+  ],
+  "seenIn": [
+    "why-zero",
+    "shopify-editions-w26",
+    "slosh-seltzer",
+    "igloo"
+  ],
+  "verified": {
+    "date": "2026-09-18",
+    "chromium": "141.0.7390.37"
+  }
+}

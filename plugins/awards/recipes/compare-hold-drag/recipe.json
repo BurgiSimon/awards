@@ -1,0 +1,23 @@
+{
+  "id": "compare-hold-drag",
+  "title": "Compare reveal: drag the divider or hold to peek",
+  "tags": [
+    "pointer",
+    "compare",
+    "slider",
+    "keyboard"
+  ],
+  "tier": "P1",
+  "deps": [],
+  "variants": [
+    "vanilla (this)",
+    "WebGL: the same split as a uniform on two textures"
+  ],
+  "seenIn": [
+    "son-daven"
+  ],
+  "verified": {
+    "date": "2026-09-18",
+    "chromium": "141.0.7390.37"
+  }
+}

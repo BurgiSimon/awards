@@ -1,0 +1,28 @@
+{
+  "id": "marquee-raf-mask",
+  "title": "rAF marquee with mask fade, pause and scroll-velocity speed",
+  "tags": [
+    "marquee",
+    "ticker",
+    "raf",
+    "lenis",
+    "reduced-motion"
+  ],
+  "tier": "P0",
+  "deps": [
+    "lenis@1.3.26"
+  ],
+  "variants": [
+    "vanilla",
+    "anime.js createTimer",
+    "GSAP horizontalLoop helper"
+  ],
+  "seenIn": [
+    "seasats",
+    "mindmarket"
+  ],
+  "verified": {
+    "date": "2026-09-18",
+    "chromium": "141.0.7390.37"
+  }
+}

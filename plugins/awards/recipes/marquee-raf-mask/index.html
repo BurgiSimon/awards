@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>marquee-raf-mask — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ marquee-raf-mask</p></header>
+  <main id="main">
+    <section class="section wrap hero" aria-labelledby="t">
+      <p class="label">/ ticker</p>
+      <h1 class="display" id="t">A marquee that<br>can stop.</h1>
+      <p class="lede">A rAF translate with wraparound, not a CSS keyframe loop: it can pause on hover and focus, take its speed from scroll velocity, resume without a jump and stand still under reduced motion. The edges fade through a mask; the links inside stay real.</p>
+    </section>
+    <section class="band" aria-label="Clients">
+      <div class="marquee" data-marquee data-speed="80" tabindex="-1">
+        <ul class="track" data-track>
+          <li><a href="#main">Seasats</a></li><li><a href="#main">White Desert</a></li><li><a href="#main">Montfort</a></li><li><a href="#main">The Line</a></li><li><a href="#main">Oryzo</a></li><li><a href="#main">Floema</a></li>
+        </ul>
+      </div>
+    </section>
+    <section class="section wrap notes"><h2>Rules</h2><ul><li>The track is duplicated until it covers twice the viewport; the transform wraps at one copy's width.</li><li>Speed is <code>80 px/s</code> plus <code>|scroll velocity| × 0.6</code>, damped, so fast scrolling flicks the band.</li><li>Pause on <code>pointerenter</code> and <code>focusin</code>; resume without a jump because the position is a float, not a keyframe time.</li><li>Under reduced motion the band is a static row that can be scrolled by hand.</li></ul></section>
+  </main>
+  <footer class="section wrap"><p class="label">awards · recipe 09 · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

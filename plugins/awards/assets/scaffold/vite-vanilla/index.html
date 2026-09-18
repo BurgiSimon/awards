@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>__PROJECT_NAME__</title>
+  <meta name="description" content="">
+  <meta property="og:title" content="__PROJECT_NAME__">
+  <meta property="og:image" content="/og.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <!-- <link rel="preload" href="/fonts/display.woff2" as="font" type="font/woff2" crossorigin> -->
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="wrap" id="top">
+    <nav aria-label="Primary">
+      <a href="/" aria-label="__PROJECT_NAME__ home">__PROJECT_NAME__</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="section hero wrap" aria-labelledby="hero-title">
+      <p class="label">/ 01</p>
+      <h1 class="display" id="hero-title">
+        <span class="line">Replace this</span>
+        <span class="line">with the thesis.</span>
+      </h1>
+    </section>
+
+    <section class="section wrap" data-reveal aria-labelledby="chapter-1">
+      <h2 id="chapter-1">Chapter one</h2>
+      <p>Authored content goes here. Label synthetic material until the real copy lands.</p>
+    </section>
+
+    <section class="section wrap" data-reveal data-scene aria-labelledby="chapter-2" style="position: relative">
+      <h2 id="chapter-2">Chapter two</h2>
+      <p>This section mounts the optional WebGL island.</p>
+    </section>
+  </main>
+
+  <footer class="section wrap">
+    <p class="label">© <span id="year"></span> __PROJECT_NAME__</p>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

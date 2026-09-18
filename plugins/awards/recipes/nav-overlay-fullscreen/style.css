@@ -1,0 +1,22 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+.topbar { display: flex; justify-content: space-between; align-items: center; padding-block: calc(var(--unit) * 5); position: sticky; top: 0; z-index: 20; }
+.lede { max-width: 60ch; margin-top: calc(var(--unit) * 8); }
+.menu-btn { display: inline-flex; align-items: center; gap: calc(var(--unit) * 3); background: none; border: 0; padding: calc(var(--unit) * 2); min-height: 44px; cursor: pointer; position: relative; z-index: 40; color: var(--ink); }
+html.menu-open .menu-btn { color: #f4f2ee; }
+.menu-btn__bars { width: 28px; height: 12px; position: relative; display: block; }
+.menu-btn__bars i { position: absolute; left: 0; right: 0; height: 1.5px; background: currentColor; transition: transform var(--dur-routine) var(--ease-out-expo); }
+.menu-btn__bars i:first-child { top: 0; } .menu-btn__bars i:last-child { bottom: 0; }
+.menu-btn[aria-expanded="true"] .menu-btn__bars i:first-child { transform: translateY(5.25px) rotate(45deg); }
+.menu-btn[aria-expanded="true"] .menu-btn__bars i:last-child { transform: translateY(-5.25px) rotate(-45deg); }
+.menu { position: fixed; inset: 0; z-index: 30; background: var(--ground); color: var(--ink); display: grid; clip-path: inset(0 0 100% 0); }
+.menu[hidden] { display: none; }
+.menu__inner { display: grid; grid-template-rows: auto 1fr auto; padding-block: calc(var(--unit) * 5); min-height: 100svh; }
+.menu__close { justify-self: end; background: none; border: 0; color: inherit; cursor: pointer; min-height: 44px; padding: calc(var(--unit) * 2); }
+.menu__list { list-style: none; margin: 0; padding: 0; align-self: center; display: grid; gap: calc(var(--unit) * 2); }
+.menu__list a { display: flex; align-items: baseline; gap: calc(var(--unit) * 6); text-decoration: none; overflow: hidden; }
+.menu__word { font-family: var(--font-display); font-size: clamp(2.5rem, 9vw, 9rem); line-height: 1; letter-spacing: -.04em; display: inline-block; will-change: transform; transition: color var(--dur-feedback); }
+.menu__list a:hover .menu__word, .menu__list a:focus-visible .menu__word { color: var(--accent); }
+.menu__meta { justify-self: start; }
+html.menu-open { overflow: hidden; }

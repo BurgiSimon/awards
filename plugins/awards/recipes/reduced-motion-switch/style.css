@@ -1,0 +1,18 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+.topbar { display: flex; justify-content: space-between; align-items: center; gap: var(--gutter); padding-block: calc(var(--unit) * 5); flex-wrap: wrap; }
+.switch { display: flex; gap: calc(var(--unit) * 2); }
+.switch button { border: 1px solid var(--ink); background: transparent; padding: calc(var(--unit) * 2) calc(var(--unit) * 4); font-family: var(--font-mono); font-size: var(--label); text-transform: uppercase; letter-spacing: .08em; cursor: pointer; min-height: 44px; }
+.switch button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+.lede { max-width: 60ch; margin-top: calc(var(--unit) * 8); }
+.demo { display: grid; gap: calc(var(--unit) * 12); align-content: start; }
+.orbit { width: clamp(120px, 20vw, 240px); aspect-ratio: 1; border: 1px solid var(--line); border-radius: 50%; position: relative; }
+.orbit span { position: absolute; top: -8px; left: calc(50% - 8px); width: 16px; height: 16px; background: var(--accent); border-radius: 50%; }
+.facts { list-style: none; padding: 0; margin: 0; display: grid; gap: calc(var(--unit) * 3); max-width: 60ch; }
+.facts .label { margin-right: 1ch; }
+.marquee { overflow: hidden; border-block: 1px solid var(--line); padding-block: calc(var(--unit) * 4); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+.marquee .track { display: flex; white-space: nowrap; font-family: var(--font-display); font-size: clamp(1.5rem, 4vw, 4rem); letter-spacing: -.02em; will-change: transform; }
+.panels { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); }
+.panel { border: 1px solid var(--ink); padding: calc(var(--unit) * 6); min-height: 30svh; display: grid; align-content: end; font-family: var(--font-display); font-size: clamp(1.2rem, 2vw, 2rem); letter-spacing: -.02em; }
+@media (max-width: 767px) { .panels { grid-template-columns: 1fr; } .panel { min-height: 20svh; } }

@@ -1,0 +1,8 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+.topbar { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); position: relative; z-index: 3; }
+.lede { max-width: 60ch; margin-top: calc(var(--unit) * 8); }
+.footer { padding-block: calc(var(--unit) * 12); }
+.route { padding-bottom: calc(var(--unit) * 24); }
+.route__svg { width: min(100%, 900px); height: auto; margin-inline: auto; overflow: visible; }
+.route__stops { fill: var(--ink); }

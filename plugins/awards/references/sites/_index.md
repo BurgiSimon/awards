@@ -1,0 +1,39 @@
+# Corpus index — 19 analysed award-winning sites
+
+Use this table to pick **neighbours** for a new brief: the three cards closest by class, visitor mode, WebGL dosage and budget. Read those three cards in full, write down the principle each one gives you and the literal move you refuse to copy (the DIVERGENCE block of the direction contract). Everything here is a pattern citation, never an instruction to reproduce a site.
+
+Confidence is the card's overall label: **high** = sources read verbatim (bundles, clones, case studies); **medium** = search extraction of award pages and galleries; **low** = model recall only. No card was written from a live render of the site.
+
+| Slug | Site | Class | Visitor mode | Narrative model | WebGL dosage | Scroll model | Palette strategy | Type contract | Awards / score | Confidence |
+|---|---|---|---|---|---|---|---|---|---|---|
+| `leo-parpeix` | Léo Parpeix | portfolio | experience | collage → index | canvas-first + one global post-process | native + Lenis | 4 named themes swapped per section, light-dominant | grotesque body + wide display (Monument Grotesk + Avantt) | SOTD Sep 2026 + Dev, ≈ 7.69 | medium-high |
+| `white-desert` | White Desert | luxury travel | persuade | specification, place-led | none | native | 2 colours, chroma from photography | [unknown] | SOTD Sep 2026, ≈ 7.35 | medium |
+| `why-zero` | Why Zero | campaign / manifesto | persuade (experience-led) | manifesto with gates | 100 % canvas | virtual float | white + one signal green | Google-served family [unknown]; shader text at key moments | SOTD + Dev, CSSDA 8.99, FWA of the Month | medium-high |
+| `usavionix` | USAvionix | B2B defence-tech | persuade | specification with role-casting | canvas-first | native, layered depth | pure #000 + #fff (diegetic) | [unknown] | HM → SOTD Sep 2026 + Dev, 7.41 | medium |
+| `seasats` | Seasats | B2B hardware | persuade | specification, scale escalation | none (pre-rendered C4D likely) | native + scrollspy index | sea-green + rust from the environment | [unknown] | SOTD Sep 2026 + Dev, 7.44 (U 7.17) | medium |
+| `trevor-noah` | Trevor Noah | personal brand | experience → persuade | collage → index | moments (flat planes, Polaroid curl) | native | pink + ink navy, refuses the category default | [unknown] | SOTD Sep 2026 + Dev, 7.45 (C 7.78) | medium |
+| `united-carriers` | United Carriers | B2B freight | persuade | chaptered journey (scroll = freight route) | canvas-first scenes | native + scrubbed sequence | one ultramarine on near-black with glow | condensed display + neutral grotesque (BT Steinhart + Helvetica Now) | SOTD Sep 2026 + Dev, 7.28 | medium-high |
+| `son-daven` | Son Daven | real-estate + hospitality | persuade wrapped in experience | chaptered journey, emotion before economics | moments | native + pinned chapters + rails | warm duotone on light, AA-checked | one superfamily, two cuts (KTF Metro Roman + Blueline) | SOTD + SOTM Jun 2026 + Dev, 7.62 (C 8.15, U 7.16) | high |
+| `lama-lama` | Lama Lama | studio | persuade | gallery (poster-scale case blocks) | moments | native (assumed) | bone + warm near-black | one grotesque at display scale (Suisse BP Int'l) | SOTM Jul 2026 + Dev 7.30 | medium |
+| `floema` | Floema | brand (jewellery) | experience | gallery | canvas-first (OGL planes over DOM placeholders) | virtual float, hand-rolled lerp .1 | 5 warm tokens + one CTA accent, colour animated per route | serif display + light grotesque (George X + Suisse BP Intl) | SOTD Jul 2021 + Dev, 7.53 | high (source read) |
+| `oryzo` | Oryzo AI | campaign (satirical launch) | experience | single-object launch | canvas-first | native + absolute canvas re-offset | 4 values, one orange accent on warm near-black | one family at ~99 % | SOTD Apr 2026, 7.86 (C 8.35) | medium-high |
+| `shopify-editions-w26` | Shopify Editions Winter '26 | campaign / changelog | read under an experience layer | chaptered gallery | canvas-first with static fallback | sticky stages + rails | black stage + warm paper + one accent per chapter | serif display + grotesque + script accent | SOTD + SOTM Feb 2026, CSSDA, RGD | medium |
+| `lando-norris` | Lando Norris | athlete brand | experience | faceted world (persona fork, 7 routes + 404) | canvas-first (6 scenes) | native + Lenis, pinned helmet stage | dual light/dark flipped by scroll position | variable grotesque + bold display (Mona Sans + Brier), MSDF in GL | SOTD [inferred], bundle read | high (bundle read) |
+| `mont-fort` | Montfort Group | corporate group | experience + read routes | chaptered journey with jump rail | canvas-first island in a static site | native + Lenis + sticky chapters | procedural landscape + one desaturated blue (P3 duplicated) | two geometric sans (Century Gothic + Josefin Sans) | [unknown]; heavily cloned | high (bundle read) |
+| `animejs` | Anime.js v4 | docs / OSS marketing | read with set-pieces | specification, docs as playground | moments (one Three adapter demo) | native + `onScroll` sync | warm near-black ramps, 17 hues × 6 tinted steps | single monospace (IoskeleyMono) | SOTD [recalled] | high (repo read) for the system, low for the site |
+| `mindmarket` | MindMarket | B2B research network | persuade | faceted world (methodology × sector catalogue) | none (Rive) | native, DOM transforms | [unknown] | [unknown] | [unknown] | low-medium |
+| `igloo` | Igloo Inc | brand monument | experience | chaptered spatial descent, wrapping | 100 % canvas | virtual float, snapping, modulo-wrapped | one temperature, saturation ≈ 0, fog gradient + one rim accent | single monospace as MSDF (IBM Plex Mono) | SOTY 2024 + Dev SOTY, 7.92 (a11y 6.6) | high (manifest read) |
+| `the-line` | The Line | studio (animation) | persuade | print artefact | moments (cursor, reveal) | native + sticky stages, never `pin` | one flooded ink (#FF0000 multiply) + flare red as bookend | single variable grotesk, macro/micro (Denim, 210 px on 1728) | SOTM Nov 2024 | high (tokens verified) |
+| `slosh-seltzer` | Slosh Seltzer | DTC beverage | experience | single-object launch, short loop | canvas-first, DOM colour bound to canvas | section switcher (GPU compositing) | six flat hues, one on screen at a time | [unknown]; display word through the object | SOTM Jun 2024, CSSDA WOTY nominee 8.99 | medium-high |
+
+## Picking neighbours
+
+1. **Match the class first** (portfolio, studio, B2B product, campaign, brand, docs, e-commerce). A B2B hardware brief has `seasats`, `usavionix`, `united-carriers` and `white-desert` as its natural set; a portfolio has `leo-parpeix`, `the-line`, `lama-lama`.
+2. **Then the visitor mode.** Persuade sites carry conversion; experience sites carry a world; read sites must stay scannable under any effect (`shopify-editions-w26`, `animejs`).
+3. **Then the WebGL dosage you can afford.** `the-line` took Site of the Month DOM-first; `igloo` took Site of the Year 100 % canvas; `seasats` is 3D without WebGL. Dosage is a budget decision, not a quality signal.
+4. **Then the scroll model.** Native + smooth library is the default; virtual float only when the story must gate or hold (`why-zero`, `igloo`, `floema`); section switcher for short loops (`slosh-seltzer`).
+5. Read the three cards' §7 (principles) and §8 (take / don't take); copy nothing from §1–§4 literally.
+
+## Calibration rows
+
+Jury scores cluster 7.2–7.9 for Site of the Day. Usability is the lowest axis on every scored site (7.16–7.51). Creativity is the highest axis on concept-led winners (`son-daven` 8.15, `oryzo` 8.35, `trevor-noah` 7.78). A Developer Award accompanies nearly every SOTD in the 2026 rows, so the technical bar is not optional. The Site of the Year 2024 scored 6.6 on accessibility: the reduced-motion, keyboard and DOM-mirror paths are where new work can beat the reference set rather than copy it.

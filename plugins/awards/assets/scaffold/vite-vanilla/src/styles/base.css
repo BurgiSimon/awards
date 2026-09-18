@@ -1,0 +1,31 @@
+@import "./tokens.css";
+@import "./fonts.css";
+
+*, *::before, *::after { box-sizing: border-box; }
+html { color-scheme: light dark; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--ground); color: var(--ink);
+  font-family: var(--font-body); font-size: 1rem; line-height: 1.5;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  transition: background-color var(--dur-hero) var(--ease-theme), color var(--dur-hero) var(--ease-theme);
+}
+img, video, canvas, svg { display: block; max-width: 100%; }
+button, input, select, textarea { font: inherit; color: inherit; }
+a { color: currentColor; text-underline-offset: 0.2em; }
+::selection { background: var(--accent); color: var(--ground); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+:focus:not(:focus-visible) { outline: none; }
+html { scrollbar-color: var(--ink) transparent; scrollbar-width: thin; }
+.skip-link { position: absolute; left: var(--gutter); top: -100%; background: var(--ink); color: var(--ground); padding: .5rem 1rem; z-index: 100; }
+.skip-link:focus { top: 1rem; }
+.display { font-family: var(--font-display); font-size: var(--display); font-weight: 500; line-height: .9; letter-spacing: -.03em; margin: 0; }
+.label { font-family: var(--font-mono); font-size: var(--label); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.wrap { padding-inline: var(--gutter); }
+.section { min-height: 100svh; padding-block: calc(var(--unit) * 24); }
+.gl-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+/* Reduced motion is a tier, not a kill switch. */
+@media (prefers-reduced-motion: reduce) {
+  html { --dur-feedback: 0ms; --dur-routine: 120ms; --dur-hero: 200ms; }
+}

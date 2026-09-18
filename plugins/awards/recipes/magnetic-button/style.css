@@ -1,0 +1,15 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+.topbar { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); }
+.lede { max-width: 60ch; margin-top: calc(var(--unit) * 8); }
+.hero { min-height: 60svh; }
+.stage { min-height: 100svh; display: grid; place-items: center; }
+.magnet { position: relative; display: inline-grid; place-items: center; min-width: 200px; min-height: 200px; text-decoration: none; will-change: transform; }
+.magnet .ring { position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid var(--ink); transition: background-color var(--dur-routine) var(--ease-out-expo), transform var(--dur-routine) var(--ease-out-expo); }
+.magnet .text { position: relative; font-family: var(--font-display); font-size: 1.25rem; letter-spacing: -.01em; will-change: transform; }
+.magnet:hover .ring, .magnet:focus-visible .ring { background: var(--ink); }
+.magnet:hover .text, .magnet:focus-visible .text { color: var(--ground); }
+.magnet:focus-visible { outline: none; }
+.magnet:focus-visible .ring { transform: scale(1.08); box-shadow: 0 0 0 4px var(--ground), 0 0 0 6px var(--accent); }
+.notes ul { max-width: 60ch; padding-left: 1.2em; }

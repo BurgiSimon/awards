@@ -1,0 +1,25 @@
+{
+  "id": "cursor-two-speed",
+  "title": "Two-speed contextual cursor",
+  "tags": [
+    "pointer",
+    "cursor",
+    "damping",
+    "badges"
+  ],
+  "tier": "P0",
+  "deps": [],
+  "variants": [
+    "vanilla (shared ticker)",
+    "gsap.quickTo per element"
+  ],
+  "seenIn": [
+    "leo-parpeix",
+    "the-line",
+    "why-zero"
+  ],
+  "verified": {
+    "date": "2026-09-18",
+    "chromium": "141.0.7390.37"
+  }
+}
