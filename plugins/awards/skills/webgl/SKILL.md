@@ -135,7 +135,7 @@ Library choice: Three by default; OGL for a planes-only page where the smaller b
 A post stack is the fastest way to make six scenes read as one site, and the fastest way to lose the frame budget on a phone `[pattern:webgl-architecture#post-processing]`.
 
 - One pipeline: pmndrs `postprocessing` 6.39.5 with `frameBufferType: HalfFloatType`, a `RenderPass` and one `EffectPass` merging bloom and SMAA; the renderer created with `antialias: false`. Never mix it with Three's own `examples/jsm/postprocessing` passes `[recipe:gl-postprocessing-presets]`.
-- Fixed presets, not per-scene guesses: three bloom intensities across the site (1.5 / .5 / .25), a high luminance threshold on bright scenes so bloom does not smear the frame, one grade LUT.
+- Fixed presets, not per-scene guesses: three bloom intensities across the site (1.5 / .5 / .25), one grade LUT. Pick the luminance threshold from the scene's histogram rather than by rule — a near-white scene may want it *low*, as `[site:igloo]` shows at .2 and 0 [verified, live bundle 2026-09-18].
 - Half-float render targets, no depth buffer on fullscreen quads, SMAA over MSAA on mobile.
 - Step down by tier: DPR first, then blur samples, then geometry detail; the low tier drops post-processing entirely (`profile.postprocessing === false`).
 
