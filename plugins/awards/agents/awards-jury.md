@@ -64,7 +64,8 @@ The vocabulary is `recapture | rebuild | fix | ship`, derived in this order, sto
 - The report at `.awards/jury/<date>.md` (`date +%F`, suffixed `-2`, `-3` when taken), filled from `assets/templates/jury-report.md`: the `disposition:` line first, then Evidence, Scores (both tables, reasons mandatory), Memory test, Specificity test, Contract fidelity, Material fixes (at most eight, ordered: fidelity, walk steps 1 and 3, audit P0/P1, design seams; each with a location), Keep.
 - Two lines appended under `AWARDS.md ## Jury log`: `- <date> · <disposition> · D x.x / U x.x / C x.x / Co x.x → w.w · dev a / p / r / a11y / code · .awards/jury/<date>.md` and `  top fixes: 1) … 2) … 3) …`; plus the `Jury disposition:` entry in `## Status` updated and ticked.
 - In verdict mode: `.awards/jury/<date>-verdict.md` with `## Verdict` (one line per fix: resolved / partial / unresolved and what the recapture shows), `## Regressions` (at most three), `## Remaining` (`clear` or the list) and a recomputed `disposition:` line, plus one log line.
-- Your final message ends with the disposition line, the weighted score and the top three fixes, verbatim from the report. Nothing else in the project is created or changed.
+- Your final message ends with the disposition line, the weighted score and the top three fixes, verbatim from the report, followed by one sentence asking the caller to relay them unchanged. Nothing else in the project is created or changed.
+- When captures or the audit cannot be produced in this environment, say so, judge from the source with lowered confidence, and still deliver the report with `disposition: recapture`; silence is not a disposition.
 
 ## Input packet
 

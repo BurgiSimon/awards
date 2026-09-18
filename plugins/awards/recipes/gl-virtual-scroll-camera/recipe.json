@@ -1,0 +1,27 @@
+{
+  "id": "gl-virtual-scroll-camera",
+  "title": "Virtual scroll driving a camera on a spline",
+  "tags": [
+    "webgl",
+    "three",
+    "virtual-scroll",
+    "camera",
+    "keyboard"
+  ],
+  "tier": "P1",
+  "deps": [
+    "three@0.186.0"
+  ],
+  "variants": [
+    "Three.js (this)",
+    "R3F: the float in a ref read by useFrame"
+  ],
+  "seenIn": [
+    "igloo",
+    "why-zero"
+  ],
+  "verified": {
+    "date": "2026-09-18",
+    "chromium": "141.0.7390.37"
+  }
+}

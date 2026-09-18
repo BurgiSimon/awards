@@ -1,0 +1,28 @@
+{
+  "id": "gl-rtt-composite-transition",
+  "title": "Section switch by render-to-texture compositing",
+  "tags": [
+    "webgl",
+    "three",
+    "transition",
+    "render-target",
+    "sections"
+  ],
+  "tier": "P1",
+  "deps": [
+    "three@0.186.0"
+  ],
+  "variants": [
+    "Three.js (this)",
+    "postprocessing: the blend as a custom Effect",
+    "R3F: useFBO for the two targets"
+  ],
+  "seenIn": [
+    "slosh-seltzer",
+    "lando-norris"
+  ],
+  "verified": {
+    "date": "2026-09-18",
+    "chromium": "141.0.7390.37"
+  }
+}

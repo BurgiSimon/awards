@@ -50,4 +50,4 @@ Screenshots land in `_verify/<id>/<state>.png`; `recipe.json.verified` is stampe
 | Sound | `sound-toggle-opt-in` | P2 | Opt-in ambient + SFX, persisted | leo-parpeix, igloo, mont-fort |
 | GL text | `gl-msdf-text` | P2 | MSDF text with a DOM mirror | igloo, lando-norris |
 
-P1 and P2 rows describe the planned recipe; a folder exists only once the recipe is verified. Demo pages deliberately skip an Open Graph image (audit S06), which a real site must ship.
+Every P0 and P1 recipe ships verified; the two P2 rows are planned for 0.2 and have no folder yet. Demo pages deliberately skip an Open Graph image (audit S06), which a real site must ship.
