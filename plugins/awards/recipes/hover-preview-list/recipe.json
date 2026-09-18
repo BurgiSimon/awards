@@ -1,0 +1,24 @@
+{
+  "id": "hover-preview-list",
+  "title": "Archive list with a cursor-following preview",
+  "tags": [
+    "pointer",
+    "list",
+    "hover",
+    "keyboard"
+  ],
+  "tier": "P1",
+  "deps": [],
+  "variants": [
+    "vanilla (this)",
+    "GSAP quickTo for the chase"
+  ],
+  "seenIn": [
+    "leo-parpeix",
+    "the-line"
+  ],
+  "verified": {
+    "date": "2026-09-17",
+    "chromium": "141.0.7390.37"
+  }
+}

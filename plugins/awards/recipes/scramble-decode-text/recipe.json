@@ -1,0 +1,26 @@
+{
+  "id": "scramble-decode-text",
+  "title": "Scramble decode readouts (anime.js scrambleText)",
+  "tags": [
+    "text",
+    "animejs",
+    "telemetry"
+  ],
+  "tier": "P1",
+  "deps": [
+    "animejs@4.5.0"
+  ],
+  "variants": [
+    "anime.js (this)",
+    "vanilla: per-frame character substitution with the same reveal/settle rates"
+  ],
+  "seenIn": [
+    "igloo",
+    "usavionix",
+    "lando-norris"
+  ],
+  "verified": {
+    "date": "2026-09-17",
+    "chromium": "141.0.7390.37"
+  }
+}
