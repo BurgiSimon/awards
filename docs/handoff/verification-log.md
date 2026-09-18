@@ -105,7 +105,7 @@ the live entry markup on the pass date · **conf** = card confidence before → 
 | 1 | `united-carriers` | https://unitedcarriers.com/ | https://www.awwwards.com/sites/united-carriers | 2026-09-18 | 200 | 2 | native / wheel (mobile) | 7.28 (D 7.35 · U 7.00 · C 7.61 · Co 7.16 · DEV 7.54) | medium-high → high | **done** |
 | 2 | `white-desert` | https://white-desert.com/ | https://www.awwwards.com/sites/white-desert | 2026-09-18 | 200 | 0 | native | 7.31 (D 7.28 · U 7.27 · C 7.21 · Co 7.74 · DEV 7.61) | medium → high | **done** |
 | 3 | `seasats` | https://www.seasats.com/ | https://www.awwwards.com/sites/seasats | 2026-09-18 | 200 | 0 | native | 7.44 (D 7.61 · U 7.17 · C 7.38 · Co 7.65 · DEV 7.22) | medium → high | **done** |
-| 4 | `mont-fort` | https://mont-fort.com/ | https://www.awwwards.com/sites/montfort | | | | | | high → | todo |
+| 4 | `mont-fort` | https://mont-fort.com/ | https://www.awwwards.com/sites/montfort | 2026-09-18 | 200 | 2 | native | 7.62 (D 7.67 · U 7.40 · C 7.85 · Co 7.65 · DEV 7.84) | high → high (live + entry) | **done** |
 | 5 | `mindmarket` | https://mindmarket.com/ | https://www.awwwards.com/sites/mindmarket | | | | | | low-medium → | todo |
 | 6 | `lando-norris` | https://landonorris.com/ | https://www.awwwards.com/sites/lando-norris | | | | | | high → | todo |
 | 7 | `lama-lama` | https://lamalama.com/ | https://www.awwwards.com/sites/lama-lama | | | | | | medium → | todo |
