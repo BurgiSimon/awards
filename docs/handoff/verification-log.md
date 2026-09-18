@@ -125,21 +125,102 @@ technique attribution the live site contradicts and anything that stayed blocked
 Six sites plus the generic fixture, juried blind before any verified score reached a card or
 `_index.md`. Deltas are jury minus the award entry.
 
-| Site | Jury D | U | C | Co | Weighted | Dev | Entry D | U | C | Co | Overall | Dev | Disposition |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| `united-carriers` | | | | | | | | | | | | | |
-| `white-desert` | | | | | | | | | | | | | |
-| `seasats` | | | | | | | | | | | | | |
-| `mont-fort` | | | | | | | | | | | | | |
-| `mindmarket` | | | | | | | | | | | | | |
-| `lando-norris` | | | | | | | | | | | | | |
-| generic fixture | | | | | | | — | — | — | — | — | — | must be < 6.5, not `ship` |
+Seven runs, all blind, all before a single verified score reached a card or `_index.md`. Each was
+an `awards-jury` agent spawned fresh with the plan's verbatim packet, given the research captures
+and a `--render` audit, and told to write nothing to disk.
 
-Decision taken: pending.
+**Answer key removed from the instrument.** The jury reads `references/jury/rubric.md`, and that
+file cites `[site:seasats]` and `[site:white-desert]` with their per-axis scores in four of its own
+anchor rows — a complete answer key for two of the six. The runs were therefore given a redacted
+copy of the plugin root at `<scratch>/plugin-blind`: no `references/sites/` at all, and every score
+on a line naming one of the six calibration targets replaced by `[redacted for calibration]` (25
+lines). The anchors keep their descriptive text, which is the actual instrument. Two jurors noted
+unprompted that they could still see *which* anchor rows named their target, and said so in their
+reports; that residual is real and is why those two rows are the weakest in the table.
 
-Residual contamination: the juror model may recall published scores for the most famous sites
-(`lando-norris`, `igloo`). Blind packets forbid lookups but cannot erase recall; treat those two
-rows as the weakest evidence in the table.
+| Site | Jury D | U | C | Co | Weighted | Dev | Entry D | U | C | Co | Overall | Dev | Jury disposition | Real award |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `united-carriers` | 7.20 | 6.00 | 7.30 | 7.20 | 6.86 | 5.60 | 7.35 | 7.00 | 7.61 | 7.16 | 7.28 | 7.54 | fix | SOTD 2026-09-06 |
+| `white-desert` | 7.20 | 6.70 | 6.90 | 8.80 | 7.15 | 6.10 | 7.28 | 7.27 | 7.21 | 7.74 | 7.31 | 7.61 | fix | SOTD 2026-09-11 |
+| `seasats` | 7.30 | 6.00 | 7.20 | 8.80 | 7.04 | 6.24 | 7.61 | 7.17 | 7.38 | 7.65 | 7.44 | 7.22 | fix | SOTD 2026-09-08 |
+| `mont-fort` | 6.90 | 6.00 | 6.50 | 6.80 | 6.54 | 6.20 | 7.67 | 7.40 | 7.85 | 7.65 | 7.62 | 7.84 | rebuild | SOTD 2025-06-23 |
+| `mindmarket` | 7.00 | 6.00 | 7.00 | 7.50 | 6.75 | 7.20 | 8.09 | 7.48 | 7.95 | 7.75 | 7.85 | 7.55 | rebuild | SOTD 2025-12-29 |
+| `lando-norris` | 7.60 | 6.00 | 7.40 | 7.80 | 7.10 | 6.00 | 8.12 | 7.90 | 8.71 | 8.18 | 8.18 | 7.58 | fix | SOTD 2025-11-17 |
+| generic fixture | 5.00 | 5.00 | 4.00 | 4.00 | **4.70** | 4.30 | — | — | — | — | — | — | **rebuild** | — (bar: < 6.5, not `ship`) |
+
+Deltas, jury minus entry:
+
+| Site | ΔD | ΔU | ΔC | ΔCo | Δ weighted | Δ dev |
+|---|---|---|---|---|---|---|
+| `united-carriers` | −0.15 | −1.00 | −0.31 | +0.04 | −0.42 | −1.94 |
+| `white-desert` | −0.08 | −0.57 | −0.31 | +1.06 | −0.16 | −1.51 |
+| `seasats` | −0.31 | −1.17 | −0.18 | +1.15 | −0.40 | −0.98 |
+| `mont-fort` | −0.77 | −1.40 | −1.35 | −0.85 | −1.08 | −1.64 |
+| `mindmarket` | −1.09 | −1.48 | −0.95 | −0.25 | −1.10 | −0.35 |
+| `lando-norris` | −0.52 | −1.90 | −1.31 | −0.38 | −1.08 | −1.58 |
+| **mean** | **−0.487** | **−1.253** | **−0.735** | **+0.128** | **−0.707** | **−1.333** |
+
+### Decision taken
+
+The rule is: move an anchor only when an axis is off by more than 0.5 in the same direction on at
+least 5 of 6 sites.
+
+| Axis | Qualifies? | Action |
+|---|---|---|
+| Design | no — 3 of 6 | anchors unchanged |
+| Creativity | no — 3 of 6 | anchors unchanged |
+| Content | no — 1 of 6, and the deltas change sign (+1.15 to −0.85) | anchors unchanged |
+| Usability | **yes — 6 of 6** | **recorded, not corrected** |
+| Developer average | **yes — 5 of 6** | **recorded, not corrected** |
+
+**No rubric anchor wording changes.** Both axes that qualify are the plugin's deliberate strictness,
+which the plan says to record rather than correct. Every one of the six Usability scores was capped
+by usability-walk step 1 or step 3, and in each case for something the site really does lack: no
+skip link on `seasats`, `mindmarket`, `lando-norris`, `united-carriers` and `mont-fort`; no authored
+reduced-motion tier on `mont-fort` and `lando-norris`. The developer average is under for the same
+reason through its Accessibility leg — the jury scored 4.5–6.5 where Awwwards scored 6.60–7.20. That
+gap *is* the plugin's stated edge over its own corpus, so closing it would be closing the only thing
+the corpus is being beaten on.
+
+**What does change, in Phase 4, and is factual rather than calibrational:**
+
+1. The 40/30/20/10 weighting is no longer `[recalled medium]`. It reproduces the published overall
+   to within 0.01 on all six entries, read from live markup.
+2. The rubric says the developer jury scores **five** things; Awwwards publishes **six**
+   (Semantics / SEO, Animations / Transitions, Accessibility, WPO, Responsive Design,
+   Markup / Meta-data). The mapping has to be written down.
+3. The threshold "Site of the Day territory begins at a weighted 7.2" is **confirmed**: the six
+   verified entries run 7.28 to 8.18.
+4. A calibration note is owed to the reader. This jury handed `fix` or `rebuild` to six sites that
+   all actually won Site of the Day, and its weighted score sits about 0.7 below the published one.
+   `ship` therefore means "clears our floor, which is stricter than the award's", not "this would
+   win", and `rebuild` on a real winner is not a contradiction. Without that sentence the numbers
+   invite exactly the wrong reading.
+
+### Protocol split, recorded rather than hidden
+
+The first three runs (`white-desert`, `seasats`, `united-carriers`) were given no caveat about the
+manifest's LCP and scored Performance 3.5, 4.0 and 4.5 almost entirely on it; `white-desert`'s
+Usability cap at walk 4 cites the same number. Those LCP figures are a headless SwiftShader
+cold-cache artifact — `united-carriers` reported 71,044 ms desktop against 368 ms mobile *in the
+same run*, which cannot be a property of the site. The remaining runs were told to read manifest LCP
+as an asset-weight signal only. **Performance and the developer average are therefore not comparable
+between the two arms**, and `white-desert`'s Usability carries one artifact-driven cap. The public
+axes are otherwise unaffected, and the Usability finding holds without walk 4 because every site's
+binding cap came from walk 1 or walk 3.
+
+This is itself a defect worth fixing: the jury is handed a number that looks like a field LCP and is
+not. Tracked for Phase 4 in `todo.md`.
+
+### The generic fixture was broken, and is now fixed
+
+The seventh run reported the fixture rendering nothing: `evals/jury-generic-saas/fixture/main.js`
+set `opacity: 0` inline on every `section` and `.card`, then added a class `in` that `styles.css`
+never defined and that could not have beaten an inline style anyway. All five desktop frames were
+the same empty rectangle, so the case was grading blankness rather than the "template-grade SaaS
+page" its own description names. Fixed in `0e44624`, re-captured, and re-juried: **4.70,
+`rebuild`** — under the 6.5 bar and not `ship`, with a page that now actually renders. The
+broken-fixture score of 1.95 is kept in the table above only as the before-reading.
 
 ## Eval runs
 
