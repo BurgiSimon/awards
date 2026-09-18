@@ -65,7 +65,7 @@ return <><ReactLenis root options={{ autoRaf: false }} ref={lenisRef} />{childre
 <VueLenis root :options="{ autoRaf: false }" />
 ```
 - `useLenis((lenis) => ...)` runs every scroll in React and Vue [verified]; wire the ticker once the instance exists.
-- Three / OGL: read `lenis.scroll` and `lenis.velocity` in the same ticker callback → uniforms (velocity bulge at [site:floema], fluid wake at [site:leo-parpeix]).
+- Three / OGL: read `lenis.scroll` and `lenis.velocity` in the same ticker callback → uniforms (velocity bulge at [site:floema-jewelry], fluid wake at [site:leo-parpeix]).
 - Capture: `window.lenis = lenis` lets `recipes/_shared/awards-hook.js` call `scrollTo(y, { immediate: true, force: true })`.
 - Nav overlays: stop while open, start on close, `data-lenis-prevent` on the overlay's own scroller [recipe:nav-overlay-fullscreen].
 - Page transitions: `scrollTo(0, { immediate: true })` in the enter hook, then `ScrollTrigger.refresh()` [recipe:page-transitions].
@@ -86,4 +86,4 @@ One rAF: GSAP's ticker or Lenis's `autoRaf`, never both. `lerp` for scroll feel;
 - Lando shipped 1.1.20; 1.3 has the same option shape and honours reduced motion by default [verified]; read the changelog before relying on anything else [unknown].
 
 ## Where the corpus used it
-[site:leo-parpeix] (Lenis + GSAP + Three), [site:lando-norris] (Lenis 1.1.20 inside the injected bundle), [site:mont-fort] (Lenis + ScrollTrigger in Astro); Satūs, the Lenis authors' Next starter, is the reference integration. [site:floema] hand-rolled the same lerp (0.1) before Lenis existed; [site:why-zero] and [site:igloo] chose a virtual float instead.
+[site:leo-parpeix] (Lenis + GSAP + Three), [site:lando-norris] (Lenis 1.1.20 inside the injected bundle), [site:mont-fort] (Lenis + ScrollTrigger in Astro); Satūs, the Lenis authors' Next starter, is the reference integration. [site:floema-jewelry] hand-rolled the same lerp (0.1) before Lenis existed; [site:why-zero] and [site:igloo] chose a virtual float instead.

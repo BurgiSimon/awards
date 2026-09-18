@@ -38,7 +38,7 @@
 ## 3. Visual language
 - **Imagery:** generative, 3D-rendered Renaissance paintings with "rich textures, warm luminosity, dramatic composition" [recalled high — RGD / Awwwards via search], mashed up with modern-commerce elements; character animation inside the paintings, human-finished [recalled high].
 - **Palette roles:** a black stage behind the scenes; paper and ink for the reading layer; muted panels for cards; one product accent per chapter [recalled medium-low]. Note the content black is warm (#292919) while the stage is pure #000000 — the batch-wide "no pure black as content black" rule holds, with the stage as the diegetic exception.
-- **Type:** serif display + grotesque + a script for moments; the serif-display + grotesque pairing recurs in [site:floema], but here a third layer exists because 150 discrete items need more hierarchy than a craft site does. Negative tracking only at display size.
+- **Type:** serif display + grotesque + a script for moments; the serif-display + grotesque pairing recurs in [site:floema-jewelry], but here a third layer exists because 150 discrete items need more hierarchy than a craft site does. Negative tracking only at display size.
 - **Layout:** the sticky scene fills the viewport; editorial content scrolls over it in chapters; the rail on the side indexes them [recalled medium-low].
 - **Browser surfaces:** [unknown]; the third-party doc expects visible focus rings and contrast in both light and dark nav themes [recalled medium-low].
 

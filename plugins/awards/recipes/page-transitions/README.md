@@ -18,4 +18,4 @@ Document title updates per page; focus is moved to the primary nav link after na
 - **View Transitions (MPA, Astro):** drop taxi, add `@view-transition { navigation: auto; }` and name shared elements with `view-transition-name`; run per-page setup on `astro:page-load` (see `references/stacks/astro.md`).
 - **Shared element:** inside `onEnter`, use `Flip.fit` from the leaving element's recorded state to the entering one.
 
-Seen in: `[site:floema]`, `[site:lando-norris]`, `[site:mont-fort]`.
+Seen in: `[site:floema-jewelry]`, `[site:lando-norris]`, `[site:mont-fort]`.

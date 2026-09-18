@@ -34,7 +34,7 @@
 - **Nav, cursor, 404:** [unknown].
 
 ## 3. Visual language
-- **Palette roles:** cream ground, warm near-black ink (#100904), olive as the mid-tone, orange (#FF8539) as the single hot accent [recalled high for the system, hexes from Awwwards]; no pure black — the same warm-shifted neutral logic as [site:lama-lama], [site:floema] and [site:shopify-editions-w26].
+- **Palette roles:** cream ground, warm near-black ink (#100904), olive as the mid-tone, orange (#FF8539) as the single hot accent [recalled high for the system, hexes from Awwwards]; no pure black — the same warm-shifted neutral logic as [site:lama-lama], [site:floema-jewelry] and [site:shopify-editions-w26].
 - **Type:** ~99 % one family; the stated principle is "fewer typefaces, fewer colours, and fewer UI ideas competing for attention" [recalled high — BTS part 3].
 - **Illustration** is a major register beside the 3D [recalled high]. AI was allowed into parts of the pipeline without being allowed to define the final look — a boundary the studio states explicitly [recalled high]; the same "AI for the substrate, humans for the finish" line [site:shopify-editions-w26] drew independently.
 - **Art-direction rule (in Lusion's words):** the loud parts — the desk scene, the humour, the illustrations — "only work because everything around them stays relatively quiet" [recalled high].

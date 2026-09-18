@@ -45,7 +45,7 @@ Test with `any-pointer` as well as `pointer`: a touch laptop with a mouse attach
 
 Why: a heavy canvas site has two honest options on a phone, and the corpus took both.
 
-- **Dedicated**: Oryzo's mobile treatment is indexed on Awwwards as its own inspiration entry [site:oryzo] [recalled high]; Slosh is cited twice as proof that heavy WebGL runs on the mobile web — an engineered path, not a still [site:slosh-seltzer] [recalled medium]; Trevor Noah designed the tour flow for each device with full attention rather than reducing desktop [site:trevor-noah] [verified intent]. Floema branches its markup on the server by device class through a UA parser [site:floema] [verified] — a third route, with the fragility UA sniffing carries.
+- **Dedicated**: Oryzo's mobile treatment is indexed on Awwwards as its own inspiration entry [site:oryzo] [recalled high]; Slosh is cited twice as proof that heavy WebGL runs on the mobile web — an engineered path, not a still [site:slosh-seltzer] [recalled medium]; Trevor Noah designed the tour flow for each device with full attention rather than reducing desktop [site:trevor-noah] [verified intent]. Floema branches its markup on the server by device class through a UA parser [site:floema-jewelry] [verified] — a third route, with the fragility UA sniffing carries.
 - **Degrade**: Shopify built for 70 % mobile sessions and a 60 fps target, with three content tiers — scene, static media, text — chosen from capability and measured frame rate [site:shopify-editions-w26] [recalled high for the numbers; medium-low for the tiers].
 - **The anti-model**: Lando shows a rotate-your-device prompt in phone landscape instead of a landscape layout [site:lando-norris] [verified].
 

@@ -19,9 +19,9 @@ Why: a component earns its place by the job it does in the story, not by being s
 
 ### Authored preloader
 - **Role.** The first beat of the story and the honest gate on the first scene's assets; often the sound-consent gesture (`[pattern:preloaders-and-transitions#the-load-contract]`).
-- **Seen in.** Counter with a hold [site:floema] [verified]; circular progress ring plus a sound-consent click [site:leo-parpeix] [verified, live bundle 2026-09-18]; drawn gesture [site:why-zero] [verified]; boot readouts [site:usavionix] [verified]; title card [site:son-daven] [verified feature]; `00/24` frame counter [site:the-line] [verified]; vector animation on `Promise.all` [site:lando-norris] [verified]; two-arc ring [site:mont-fort] [verified]; pure-CSS ASCII [site:igloo] [verified]; intro interaction [site:oryzo] [recalled high].
+- **Seen in.** Counter with a hold [site:floema-jewelry] [verified]; circular progress ring plus a sound-consent click [site:leo-parpeix] [verified, live bundle 2026-09-18]; drawn gesture [site:why-zero] [verified]; boot readouts [site:usavionix] [verified]; title card [site:son-daven] [verified feature]; `00/24` frame counter [site:the-line] [verified]; vector animation on `Promise.all` [site:lando-norris] [verified]; two-arc ring [site:mont-fort] [verified]; pure-CSS ASCII [site:igloo] [verified]; intro interaction [site:oryzo] [recalled high].
 - **Anatomy.** A number, a leader or a readout in the page's own register; costs nothing before first paint; resolves on `Promise.all([document.fonts.ready, firstSceneAssets])` with a timeout and a visible skip.
-- **Motion.** Hold ≈ 1 s at 100; exit ≤ 1.5 s with titles at `y: 150%`, stagger .1, expo-out [site:floema]; ≤ 2.5 s or skipped on repeat visits.
+- **Motion.** Hold ≈ 1 s at 100; exit ≤ 1.5 s with titles at `y: 150%`, stagger .1, expo-out [site:floema-jewelry]; ≤ 2.5 s or skipped on repeat visits.
 - **Accessibility.** `aria-live="polite"` progress; removed from the tree afterwards; content never waits for the sound gesture; instant under reduced motion.
 - **Recipe.** `[recipe:preloader-counter-hold]`.
 - **Refuse.** A spinner, a `setTimeout` counter, a click wall, loading every route's assets.
@@ -37,7 +37,7 @@ Why: a component earns its place by the job it does in the story, not by being s
 
 ### Custom cursor
 - **Role.** The affordance system — a pointer that names what a target does (drag, play, view, copy) and gives the page mass.
-- **Seen in.** Dot at lerp .75 with a ring at .22; ring 1.35× and dot .7× on hover, ring opacity .35 → .8; contextual pill badges; suppressed on `(hover: none), (pointer: coarse)` [site:leo-parpeix] [recalled medium]; `Cursor` plus a `CursorPlane` for reveals [site:the-line] [verified names]; a custom cursor by tag [site:why-zero] [verified]; none in the Floema source [site:floema] [verified absence].
+- **Seen in.** Dot at lerp .75 with a ring at .22; ring 1.35× and dot .7× on hover, ring opacity .35 → .8; contextual pill badges; suppressed on `(hover: none), (pointer: coarse)` [site:leo-parpeix] [recalled medium]; `Cursor` plus a `CursorPlane` for reveals [site:the-line] [verified names]; a custom cursor by tag [site:why-zero] [verified]; none in the Floema source [site:floema-jewelry] [verified absence].
 - **Anatomy.** Two elements at two lerp rates; badge text from a `data-cursor` attribute on the target; hidden on window leave and on coarse pointers.
 - **Motion.** Framerate-independent damping (`[pattern:motion-vocabulary#damping-math]`); hover answer ≤ 300 ms on the house curve; magnetic pull only on real targets.
 - **Accessibility.** The badge's verb is also in the target's accessible name; the native cursor returns over inputs and text; focus-visible states carry the same information without the cursor (`[pattern:cursor-and-pointer]`).
@@ -82,7 +82,7 @@ Why: a component earns its place by the job it does in the story, not by being s
 
 ### Colour-bound product row and theme switcher
 - **Role.** Variant selection that repaints the world; colour as navigation or as section rhythm.
-- **Seen in.** A low product row whose underline doubles as an autoplay countdown, each choice repainting ground, panel, button, ink and shadow [site:slosh-seltzer] [verified at family level]; four named themes swapped per section [site:leo-parpeix] [recalled medium]; a theme per route tweened on `<html>` [site:floema] [verified]; nav theme sampled from the section under the header [site:lando-norris] [verified].
+- **Seen in.** A low product row whose underline doubles as an autoplay countdown, each choice repainting ground, panel, button, ink and shadow [site:slosh-seltzer] [verified at family level]; four named themes swapped per section [site:leo-parpeix] [recalled medium]; a theme per route tweened on `<html>` [site:floema-jewelry] [verified]; nav theme sampled from the section under the header [site:lando-norris] [verified].
 - **Anatomy.** `data-theme` on `<html>` as the single source; N token sets; the switcher a radio group; the canvas clear colour read from the same tokens.
 - **Motion.** ≈ 1 s on `--ease-theme`, every slot and the clear colour in one tween, restarting from the current value; instant under reduced motion (`[pattern:color-and-material#colour-as-state]`).
 - **Accessibility.** Arrow keys move the selection; `aria-pressed` or checked state; the autoplay countdown pauses on hover, focus and reduced motion; contrast holds in every theme.
@@ -111,7 +111,7 @@ Why: a component earns its place by the job it does in the story, not by being s
 
 ### Horizontal rail inside a vertical page
 - **Role.** A change of axis for one chapter — a collection, a timeline, a row of typologies.
-- **Seen in.** Horizontal rails in a long-form page [site:son-daven] [verified]; an arced collections rail in GL with a dial of titles [site:floema] [verified, clone].
+- **Seen in.** Horizontal rails in a long-form page [site:son-daven] [verified]; an arced collections rail in GL with a dial of titles [site:floema-jewelry] [verified, clone].
 - **Anatomy.** A pinned container translating a track on `x`; items as list entries; progress mirrored by a small index.
 - **Motion.** `x` scrubbed from scroll on `ease: 'none'`; touch gets native `overflow-x` instead of a pin.
 - **Accessibility.** Arrow keys move the track; every item focusable; no wheel hijack; reduced tier is a plain horizontal scroller.
@@ -129,7 +129,7 @@ Why: a component earns its place by the job it does in the story, not by being s
 
 ### Scroll-drawn path
 - **Role.** A line that connects beats as the visitor descends — a journey, a network, a process.
-- **Seen in.** `ScrollPathSection` [site:mindmarket] [verified component]; `svg.createDrawable` [site:animejs] [verified]; a hand-drawn ellipse stroked on the home link [site:floema] [verified, clone].
+- **Seen in.** `ScrollPathSection` [site:mindmarket] [verified component]; `svg.createDrawable` [site:animejs] [verified]; a hand-drawn ellipse stroked on the home link [site:floema-jewelry] [verified, clone].
 - **Anatomy.** An inline SVG path with `stroke-dasharray` and `stroke-dashoffset` bound to scroll progress; markers at the beats.
 - **Motion.** Drawn on `ease: 'none'`; a stroke that also draws once on hover for a CTA.
 - **Accessibility.** Decorative: `aria-hidden`; fully drawn under reduced motion; the beats it connects are real headings.
@@ -149,7 +149,7 @@ Why: a component earns its place by the job it does in the story, not by being s
 
 ### Infinite draggable plane and arc gallery
 - **Role.** Physicality instead of navigation: push a field of work around, or drag an arced row.
-- **Seen in.** An infinite plane recycling items past 60 % of the viewport with re-randomised rotation; a collections row arced by `mapRange(-0.2, 0.2)` and a cosine offset [site:floema] [verified, clone]; a seamless carousel with `utils.wrap`, auto-speed tweened to 0 on grab and back on release [site:animejs] [verified].
+- **Seen in.** An infinite plane recycling items past 60 % of the viewport with re-randomised rotation; a collections row arced by `mapRange(-0.2, 0.2)` and a cosine offset [site:floema-jewelry] [verified, clone]; a seamless carousel with `utils.wrap`, auto-speed tweened to 0 on grab and back on release [site:animejs] [verified].
 - **Anatomy.** A list of `<a>` items in the DOM; planes or cards mapped from their rects; drag through the same lerp as the scroll.
 - **Motion.** Lerp ≈ .1 on the scroll value; velocity into a vertex uniform if GL; 500 ms speed tweens on grab and release.
 - **Accessibility.** Tab and arrow keys move the target one item at a time with a visible focus ring; `<img alt>` behind every plane; a grid on the reduced tier.
@@ -176,7 +176,7 @@ Why: a component earns its place by the job it does in the story, not by being s
 
 ### Metadata-labelled project rows
 - **Role.** Credibility as structured data: name · discipline · year · team, an award tally, a credit table.
-- **Seen in.** A metadata quartet with a "team of N at studio" line and an award count; an about page as a tabular CV [site:leo-parpeix] [recalled medium]; underlined credit tables and `/ MICRO / LABELS /` [site:the-line] [verified]; a numbered label plus collection title per item [site:floema] [verified].
+- **Seen in.** A metadata quartet with a "team of N at studio" line and an award count; an about page as a tabular CV [site:leo-parpeix] [recalled medium]; underlined credit tables and `/ MICRO / LABELS /` [site:the-line] [verified]; a numbered label plus collection title per item [site:floema-jewelry] [verified].
 - **Anatomy.** A `<table>` or `<dl>` per row; labels at the `--label` size as texture; numerals as the first column.
 - **Motion.** A masked reveal per row on entry; a hover shift on the whole row; nothing on the numbers.
 - **Accessibility.** Labels that carry meaning are text, not pseudo-elements (a decorative slash may be `::before`); rows are links or contain one.

@@ -12,11 +12,11 @@ Any of these can still be right for a body role in a specific world, and IBM Ple
 
 | Class | Open-licence (verify the licence file) | Corpus faces, if you can license |
 |---|---|---|
-| Neutral grotesque (body / UI) | Mona Sans, Hubot Sans, Familjen Grotesk, Schibsted Grotesk, Archivo, Public Sans | Monument Grotesk `[site:leo-parpeix]`, Helvetica Now `[site:united-carriers]`, Suisse BP Int'l `[site:lama-lama]` `[site:floema]`, KTF Metro Blueline `[site:son-daven]` |
+| Neutral grotesque (body / UI) | Mona Sans, Hubot Sans, Familjen Grotesk, Schibsted Grotesk, Archivo, Public Sans | Monument Grotesk `[site:leo-parpeix]`, Helvetica Now `[site:united-carriers]`, Suisse BP Int'l `[site:lama-lama]` `[site:floema-jewelry]`, KTF Metro Blueline `[site:son-daven]` |
 | Characterful grotesk at display scale | Mona Sans at heavy weights, Hubot Sans, Big Shoulders Display | Denim `[site:the-line]`, Suisse BP Int'l `[site:lama-lama]`, Avantt `[site:leo-parpeix]`, KTF Metro Roman `[site:son-daven]` |
 | Condensed display | Anton, Bebas Neue, Big Shoulders Display, Archivo Narrow | BT Steinhart `[site:united-carriers]`, Brier `[site:lando-norris]` |
 | Geometric | Jost, Figtree, Red Hat Display, Albert Sans | Century Gothic + Josefin Sans `[site:mont-fort]` (Josefin is open) |
-| Serif display | Gloock, Bodoni Moda, Young Serif (Instrument Serif only when it is not the costume) | George X `[site:floema]`; the display serif of `[site:shopify-editions-w26]` [unknown face] |
+| Serif display | Gloock, Bodoni Moda, Young Serif (Instrument Serif only when it is not the costume) | George X `[site:floema-jewelry]`; the display serif of `[site:shopify-editions-w26]` [unknown face] |
 | Monospace identity | JetBrains Mono, Commit Mono, Martian Mono, Azeret Mono | IoskeleyMono `[site:animejs]`, IBM Plex Mono as MSDF `[site:igloo]` |
 
 Choose by what the world needs (a voice and a silence, or one voice), then by character (round vs sharp, wide vs narrow, warm vs cold), then by licence. Google-served families are checked against the `google/fonts` repository when fonts.google.com is unreachable, and always self-hosted.

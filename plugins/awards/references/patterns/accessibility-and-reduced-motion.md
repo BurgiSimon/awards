@@ -1,6 +1,6 @@
 # Accessibility and reduced motion
 
-What this file is for: the part of the plugin that is deliberately better than its references. `[site:igloo]` scored 6.60 on Accessibility and 6.40 on Markup / Meta-data behind a 27-node DOM [verified, twenty Awwwards entries read 2026-09-18]; usability is the lowest axis on nineteen of the twenty verified entries, and Accessibility is the lowest-ceilinged developer criterion of the six, topping out at 7.60 across the whole corpus; and no card documents a reduced-motion path — Floema and the Anime.js source verifiably have none [site:floema] [site:animejs], Léo Parpeix appears to have none [site:leo-parpeix], the rest are unknown. Everything below is therefore plugin policy, checked by the audit rules in brackets, and it is where new work beats the corpus instead of copying it. Cite as `[pattern:accessibility-and-reduced-motion#section]`.
+What this file is for: the part of the plugin that is deliberately better than its references. `[site:igloo]` scored 6.60 on Accessibility and 6.40 on Markup / Meta-data behind a 27-node DOM [verified, twenty Awwwards entries read 2026-09-18]; usability is the lowest axis on nineteen of the twenty verified entries, and Accessibility is the lowest-ceilinged developer criterion of the six, topping out at 7.60 across the whole corpus; and no card documents a reduced-motion path — Floema and the Anime.js source verifiably have none [site:floema-jewelry] [site:animejs], Léo Parpeix appears to have none [site:leo-parpeix], the rest are unknown. Everything below is therefore plugin policy, checked by the audit rules in brackets, and it is where new work beats the corpus instead of copying it. Cite as `[pattern:accessibility-and-reduced-motion#section]`.
 
 ## The improvement over the corpus
 
@@ -36,7 +36,7 @@ Never a global kill — `* { animation: none !important }` or a 0.01 ms duration
 Why: a screen reader, a search crawler, find-in-page, translation and the `--no-webgl` capture all read the DOM. Igloo's DOM is a shell around a loader [site:igloo] [verified], which is the whole story of its 6.6.
 
 Rules [A04]:
-- Every string and image the canvas draws exists in the DOM first. Floema's `<img alt>` placeholders are the model [site:floema] [verified]; Trevor Noah reaches the same end by keeping its photo cards in the DOM and giving the canvas a separate modelled scene, though it ships no `aria-hidden` on that canvas [site:trevor-noah] [verified, live source 2026-09-18]; Shopify's update cards are real content under the scenes [site:shopify-editions-w26] [recalled medium-low]; MindMarket gets the mirror free by having no canvas [site:mindmarket] [inferred high].
+- Every string and image the canvas draws exists in the DOM first. Floema's `<img alt>` placeholders are the model [site:floema-jewelry] [verified]; Trevor Noah reaches the same end by keeping its photo cards in the DOM and giving the canvas a separate modelled scene, though it ships no `aria-hidden` on that canvas [site:trevor-noah] [verified, live source 2026-09-18]; Shopify's update cards are real content under the scenes [site:shopify-editions-w26] [recalled medium-low]; MindMarket gets the mirror free by having no canvas [site:mindmarket] [inferred high].
 - The canvas is `aria-hidden="true"`; if it is interactive (a map, a gallery), the interaction has DOM controls — `<button>`s or `<a>`s — and the canvas is decoration over them [A05].
 - MSDF or shader text carries a visible or `.sr-only` twin (`[pattern:webgl-architecture#text-in-webgl]`); split spans are not readable text and need an `aria-label` or a hidden original (`[pattern:motion-vocabulary#masked-line-reveals]`).
 - Rive and Lottie canvases carry an accessible name or hidden text [site:mindmarket] [inferred].
@@ -49,7 +49,7 @@ Why: drag, hold and draw gestures have no keyboard evidence anywhere in the corp
 |---|---|---|
 | Hold to proceed | Enter or Space held, or pressed once with a visible countdown | a `Skip` button beside every gate |
 | Draw a shape | a `Skip` button; the gesture is never the only way in | announce completion in a live region |
-| Drag a field, rail or carousel | arrow keys move one item; Home/End; items are links in a list (Floema's are not [site:floema] [verified]) | touch = native overflow |
+| Drag a field, rail or carousel | arrow keys move one item; Home/End; items are links in a list (Floema's are not [site:floema-jewelry] [verified]) | touch = native overflow |
 | Compare reveal | arrow keys in 5 % steps; Home/End to each condition | `[recipe:compare-hold-drag]` |
 | Intro interaction | Enter/Space triggers it; the reduced tier completes it instantly | [site:oryzo] (skill) |
 | Scrollspy or chapter rail | a real `<nav>` of links with `aria-current` | [site:mont-fort] (skill); [site:seasats] |
@@ -87,7 +87,7 @@ Rules: body and labels ≥ 4.5:1, display ≥ 3:1, on every theme of a swap and 
 
 ## Scroll-jacking rules
 
-Why: a virtual scroll (models c and d in `[pattern:motion-vocabulary#scroll-philosophies]`) replaces the browser's own scrolling, and with it keyboard scrolling, scroll restoration, deep links and find-in-page anchoring — Floema's `translateY` wrapper and Igloo's viewport-height document both pay this [site:floema] [verified] [site:igloo] [verified].
+Why: a virtual scroll (models c and d in `[pattern:motion-vocabulary#scroll-philosophies]`) replaces the browser's own scrolling, and with it keyboard scrolling, scroll restoration, deep links and find-in-page anchoring — Floema's `translateY` wrapper and Igloo's viewport-height document both pay this [site:floema-jewelry] [verified] [site:igloo] [verified].
 
 - Keys: ArrowDown/Up, PageDown/Up, Space, Home and End move the target by line, page and whole; Tab moving focus to an off-screen item scrolls the float to it.
 - Progress is exposed: `awards.setScroller()` and `state()` from `_shared/awards-hook.js`, so `capture.mjs` and the jury can drive it; a chapter rail or index shows position and jumps [site:mont-fort] [verified rail].

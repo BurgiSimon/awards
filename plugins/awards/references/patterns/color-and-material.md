@@ -27,7 +27,7 @@ Why: a palette is a system only when it is small enough to hold in the head; the
 | [site:oryzo] | 4 | a cream, #100904, an olive, #FF8539 | [recalled high; two hexes only] |
 | [site:the-line] | 4 + one overprint | #DDDEE2, #F8F8F8, #0B0B0B, #FF391E; #FF0000 under multiply | [verified] |
 | [site:leo-parpeix] | 5 across 4 themes | #FFFFFF / #F7F7F7, #083D2A, #008841, #F6E016, #EED6C8 | [recalled medium, clone] |
-| [site:floema] | 5 named + 1 CTA, 2 live at a time | #f9f1e7, #c97164, #bc978c, #b2b8c3, #37384c; #FFC400 on one stroke | [verified, clone] |
+| [site:floema-jewelry] | 5 named + 1 CTA, 2 live at a time | #f9f1e7, #c97164, #bc978c, #b2b8c3, #37384c; #FFC400 on one stroke | [verified, clone] |
 | [site:igloo] | 6 sampled, one temperature | #6A6F7D → #E1E6F1 fog, #383e4e, #b6bac5, #A0A5B1, #83A1C5 rim | [verified, sampled] |
 | [site:shopify-editions-w26] | stage + paper + ink + panels + focus + one accent per chapter | #000000, #f7f7ee, #292919, #dcdcd0 / #e2e2d9, #739bff | [recalled medium-low] |
 | [site:slosh-seltzer] | 6 hues, one at a time | #FFC1FF #00A165 #FF0837 #0069D8 #FF5F00 #FFC800 | [verified, sampled] |
@@ -48,7 +48,7 @@ Why: pure #000 has no temperature and flattens every material on it; the corpus 
 | #252423 | [site:animejs] `--bg-1` | warm, brown-shifted charcoal | [verified] |
 | #1A1C1C | [site:lama-lama] | neutral, a hair cool — the card calls it warm | [recalled medium-high] |
 | #0B0B0B | [site:the-line] | neutral, under a cool grey ground | [verified] |
-| #37384C | [site:floema] | cool navy | [verified, clone] |
+| #37384C | [site:floema-jewelry] | cool navy | [verified, clone] |
 | #1D2440 | [site:trevor-noah] | cool navy | [verified] |
 | #383E4E | [site:igloo] darkest ink | cool slate | [verified, sampled] |
 | #083D2A | [site:leo-parpeix] | a chromatic ink: forest green | [recalled medium] |
@@ -57,7 +57,7 @@ When pure #000 is allowed: as a diegetic black — night vision and cockpits [si
 
 ## Light grounds
 
-Why: the Awwwards default is dark, and the corpus is not. Of the 17 cards whose ground is known or inferable, ten are light-dominant — [site:leo-parpeix] [recalled medium], [site:white-desert] [inferred], [site:why-zero] [verified], [site:son-daven] [verified], [site:lama-lama] with dark sections as tempo changes [recalled medium], [site:floema] [verified], [site:oryzo] [recalled high], [site:the-line] [verified], [site:mont-fort] [inferred, high-key], [site:igloo] as a pale fog [verified hexes] — four are dark ([site:united-carriers] [verified tags], [site:usavionix] [verified], [site:animejs] [verified tokens], [site:trevor-noah] [inferred navy ground]) and three are dual or contested ([site:lando-norris] flips by scroll position [verified]; [site:shopify-editions-w26] paper on a black stage; [site:slosh-seltzer] contested). Grounds for [site:seasats] and [site:mindmarket] are unknown.
+Why: the Awwwards default is dark, and the corpus is not. Of the 17 cards whose ground is known or inferable, ten are light-dominant — [site:leo-parpeix] [recalled medium], [site:white-desert] [inferred], [site:why-zero] [verified], [site:son-daven] [verified], [site:lama-lama] with dark sections as tempo changes [recalled medium], [site:floema-jewelry] [verified], [site:oryzo] [recalled high], [site:the-line] [verified], [site:mont-fort] [inferred, high-key], [site:igloo] as a pale fog [verified hexes] — four are dark ([site:united-carriers] [verified tags], [site:usavionix] [verified], [site:animejs] [verified tokens], [site:trevor-noah] [inferred navy ground]) and three are dual or contested ([site:lando-norris] flips by scroll position [verified]; [site:shopify-editions-w26] paper on a black stage; [site:slosh-seltzer] contested). Grounds for [site:seasats] and [site:mindmarket] are unknown.
 
 Rules: the use scene chooses — reading, photography and daylight products want a light ground; dark is earned by a diegetic reason, a stage, or one chapter's tempo change. Light grounds are rarely white: bone #F9F4EB, warm bone #f9f1e7, paper #f7f7ee, cool silver #DDDEE2, off-white #F7F7F7 [cards above].
 
@@ -89,7 +89,7 @@ Rules: strong, coherent imagery → duotone UI; heterogeneous imagery → greysc
 
 Why: when ground and ink change together, navigation and rhythm become art direction, and the page needs no other transition (`[pattern:preloaders-and-transitions#theme-swap-as-a-transition]`).
 
-- Per route: `data-background` and `data-color` on each template; a singleton tweens `document.documentElement` over 1.5 s; exactly two values live at a time [site:floema] [verified, clone].
+- Per route: `data-background` and `data-color` on each template; a singleton tweens `document.documentElement` over 1.5 s; exactly two values live at a time [site:floema-jewelry] [verified, clone].
 - Per section: four named themes swapped as the page scrolls, so scrolling reads like turning printed pages [site:leo-parpeix] [recalled medium]; a nav that samples the section under the header and flips light or dark [site:lando-norris] [verified]; one product accent per chapter on a constant stage [site:shopify-editions-w26] [recalled medium-low].
 - Per variant: every slot repainted in ≈ 1 s on `cubic-bezier(.645,.045,.355,1)`, the WebGL clear colour RGBA-lerped in the same tween, restarting from the current value under rapid switching; one hue on screen at a time [site:slosh-seltzer] [verified at family level].
 - One palette for DOM and scene: the Three adapter resolves CSS custom properties into scene colours, so `var(--bg-1)` sets a clear colour [site:animejs] [verified].
@@ -117,7 +117,7 @@ Why: material is what makes a colour read as a surface, and one policy per world
 | Fixed bloom presets | [site:lando-norris] | 1.5 / .5 / .25 chosen per scene; PBR sets, matcaps and an HDRI | [verified] |
 | Flat, unmodulated field | [site:slosh-seltzer] | no gradient, noise or photographic ground; shadows tinted to the theme's own darkness at a constant .15 alpha | [verified, family level] |
 | Matte surfaces with a baked lightmap | [site:mont-fort] | procedural noise textures, rock and snow diffuse and normal maps, one baked lightmap, one EXR environment | [verified files] |
-| Translucent planes | [site:floema] | image planes at alpha .4, never opaque — atmosphere at the cost of contrast | [verified, clone] |
+| Translucent planes | [site:floema-jewelry] | image planes at alpha .4, never opaque — atmosphere at the cost of contrast | [verified, clone] |
 | 2.5D depth-map parallax | [site:shopify-editions-w26] | image + grayscale depth, ray-marched parallax, bloom and dust | [recalled medium-low] |
 | Narrative materials | [site:why-zero] | frost, glass, paper and currency as the argument's own substances | [verified] |
 
@@ -128,7 +128,7 @@ Rules: choose one policy and name it under `DESIGN.md ## Elevation & Depth`; sha
 Why: a duotone that clears AA is the creditable detail, not the obvious one — usability is the lowest axis on nineteen of the twenty verified entries [verified, twenty Awwwards entries read 2026-09-18].
 
 - Worked example [site:son-daven] [verified hexes; ratio computed]: ink #2C2824 on brass #A89474 gives a relative luminance of .022 against .308, so `(.308 + .05) / (.022 + .05)` ≈ 5.0:1 — body text passes on the brass surface. The same brass as *text* on a light ground lands near 2.7:1 and fails: the accent is a surface and an ink, never a body colour.
-- Counter-example [site:floema] [verified hexes; ratio computed]: terracotta #c97164 on bone #f9f1e7 is ≈ 3.1:1 — large type only. The card does not say so; the number does.
+- Counter-example [site:floema-jewelry] [verified hexes; ratio computed]: terracotta #c97164 on bone #f9f1e7 is ≈ 3.1:1 — large type only. The card does not say so; the number does.
 - White at .8 opacity over rendered snow [site:mont-fort] is flagged unknown on its card; treat any ink over imagery as a check per frame, not per token.
 
 Rules: body ≥ 4.5:1 (audit C01), large text ≥ 3:1, focus ring ≥ 3:1 against its neighbours; check every theme of a theme-per-section site separately; write the ratios into `DESIGN.md ## Colors`.
@@ -149,7 +149,7 @@ Why: the strategy is the sentence that explains every token; `DESIGN.md ## Overv
 |---|---|---|
 | Restrained duotone | ground + ink; chroma from imagery or from none; the accent, if any, is a surface or a bookend | [site:white-desert] [site:lama-lama] [site:son-daven] [site:usavionix] [site:mont-fort] [site:igloo] [site:the-line] |
 | Committed accent | one environment-derived hue does all emphasis on a near-black or a light ground | [site:united-carriers] [site:why-zero] [site:trevor-noah] [site:oryzo] [site:seasats] |
-| Theme-per-section | token sets swapped per section or route as narrative rhythm; two values live at a time | [site:leo-parpeix] [site:floema] [site:shopify-editions-w26] [site:lando-norris] |
+| Theme-per-section | token sets swapped per section or route as narrative rhythm; two values live at a time | [site:leo-parpeix] [site:floema-jewelry] [site:shopify-editions-w26] [site:lando-norris] |
 | Palette-as-navigation (the template's "drenched") | a hand-picked set of four to ten hues, one on screen at a time; the swap is the transition | [site:slosh-seltzer]; the ramp system of [site:animejs] as its dark-UI cousin |
 
 Rules: pick one; write it and the reason the use scene forces light or dark into `DESIGN.md ## Overview`; a restrained duotone can hold a bookend accent, a committed accent cannot hold a second; theme-per-section and palette-as-navigation share `[recipe:theme-swap-tokens]` and differ only in what triggers the swap.

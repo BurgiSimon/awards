@@ -59,7 +59,7 @@ Rules (`[recipe:image-sequence-scrub]`): encode with `ffmpeg` to WebP or AVIF fr
 
 ## Fonts
 
-Self-hosted woff2 subsets, at most four files and 400 KB, `font-display` set, a metric-matched fallback with `size-adjust` so lines do not reflow when text re-splits [T02] [T05] [T06] [P05]. Every readable winner self-hosts: Floema six files across two families [site:floema] [verified]; Lando a variable Mona Sans plus Brier [site:lando-norris] [verified]; Mont-fort three files [site:mont-fort] [verified]; The Line one variable `DenimVF.woff` — a variable file is the cheapest route to several weights, but ship it as woff2 [site:the-line] [verified]. Why Zero serves through the Google Fonts API [site:why-zero] [verified], the one exception and exactly what T02 flags. Preload the two files above the fold; split text only after `document.fonts.ready`.
+Self-hosted woff2 subsets, at most four files and 400 KB, `font-display` set, a metric-matched fallback with `size-adjust` so lines do not reflow when text re-splits [T02] [T05] [T06] [P05]. Every readable winner self-hosts: Floema six files across two families [site:floema-jewelry] [verified]; Lando a variable Mona Sans plus Brier [site:lando-norris] [verified]; Mont-fort three files [site:mont-fort] [verified]; The Line one variable `DenimVF.woff` — a variable file is the cheapest route to several weights, but ship it as woff2 [site:the-line] [verified]. Why Zero serves through the Google Fonts API [site:why-zero] [verified], the one exception and exactly what T02 flags. Preload the two files above the fold; split text only after `document.fonts.ready`.
 
 ## Budgets
 
@@ -96,7 +96,7 @@ Why: the preloader needs a real signal, and the signal is only honest when the s
 2. The shell entry (≈ 20 KB): fonts, Lenis, the score, the preloader logic.
 3. First-scene assets: the hero glb, its textures and the two fonts above the fold — this `Promise.all` plus `document.fonts.ready` resolves the counter, holds it at 100, and lets it exit.
 4. Neighbour scenes: streamed by scene window or `IntersectionObserver`, decoded in workers.
-5. Everything else on idle — or nothing: Floema decoded every route's textures before the first frame, its worst decision [site:floema] [verified]; the audio bed only after consent.
+5. Everything else on idle — or nothing: Floema decoded every route's textures before the first frame, its worst decision [site:floema-jewelry] [verified]; the audio bed only after consent.
 
 Repeat visits skip the sequence (`sessionStorage`); a timeout shows the page with the static tier; failures isolate to one scene.
 

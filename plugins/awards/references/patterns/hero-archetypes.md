@@ -59,12 +59,12 @@ One object with real weight and lighting that answers its motion, and no scene a
 
 ## Collage of flat planes
 
-Photographs treated as physical objects — a corner that lifts — scattered, then resolving into an index [site:trevor-noah] [verified concept [verified, live source 2026-09-18]; the cards are DOM and the lift is an SVG path, not a plane]. The drag-driven cousin is Floema's drifting field of translucent planes [site:floema] [verified, clone].
+Photographs treated as physical objects — a corner that lifts — scattered, then resolving into an index [site:trevor-noah] [verified concept [verified, live source 2026-09-18]; the cards are DOM and the lift is an SVG path, not a plane]. The drag-driven cousin is Floema's drifting field of translucent planes [site:floema-jewelry] [verified, clone].
 
 - **Anatomy.** Five to nine image planes over a two-token ground; one line of type; a featured rail for what is current; the planes are the imagery, so no other 3D exists.
-- **Entrance.** Planes settle with a .06–.1 s stagger from slight offsets; sub-degree to few-degree rotations read as hand-placed (`Math.PI * 0.01`, `mapRange(-0.2, 0.2)` [site:floema] [verified]); the material answers pointer proximity or scroll; nothing else parallaxes.
+- **Entrance.** Planes settle with a .06–.1 s stagger from slight offsets; sub-degree to few-degree rotations read as hand-placed (`Math.PI * 0.01`, `mapRange(-0.2, 0.2)` [site:floema-jewelry] [verified]); the material answers pointer proximity or scroll; nothing else parallaxes.
 - **Mobile.** Fewer planes, scroll-driven only; the revenue module gets the craft attention first [site:trevor-noah] [verified intent].
-- **DOM.** Every plane is an `<img>` in a list in the DOM behind an `aria-hidden` canvas, so the collage degrades to a real gallery [site:trevor-noah]; planes are mapped from their rects each frame [site:floema].
+- **DOM.** Every plane is an `<img>` in a list in the DOM behind an `aria-hidden` canvas, so the collage degrades to a real gallery [site:trevor-noah]; planes are mapped from their rects each frame [site:floema-jewelry].
 - **Recipes.** `[recipe:gl-dom-tethered-planes]`.
 - **Refuse.** The Polaroid curl and the "snapshots of a mind" framing; the Floema bulge as a signature.
 
@@ -122,7 +122,7 @@ Why: the archetype follows the narrative model and the WebGL dosage the budget a
 | Role-casting boot sequence | specification (role-casting), chaptered journey | moments → canvas-first | [site:usavionix] |
 | Poster or video hero | gallery, specification (place-led), chaptered journey | none → moments | [site:lama-lama] [site:white-desert] [site:seasats] |
 | Single object with inertia | single-object launch, a faceted hub | canvas-first | [site:oryzo] |
-| Collage of flat planes | collage index, gallery | moments → canvas-first, planes only | [site:trevor-noah] [site:floema] |
+| Collage of flat planes | collage index, gallery | moments → canvas-first, planes only | [site:trevor-noah] [site:floema-jewelry] |
 | Spatial descent | chaptered journey as a world, manifesto with gates | 100 % canvas | [site:igloo]; gesture entry [site:why-zero] |
 | Print artefact with an acetate | print artefact, gallery | none → moments | [site:the-line] |
 | Headline as string | chaptered journey, faceted world | one canvas-first island in a static page | [site:mont-fort] |

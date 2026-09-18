@@ -4,7 +4,7 @@ A counter that only counts what is loading: fonts, image decodes and a scene pro
 
 ## Why
 - **Tied to a real signal.** A timer-only preloader is a lie the jury notices; the counter's ceiling is `done / total` of real promises (`[pattern:preloaders-and-transitions#the-load-contract]`).
-- **Non-linear on purpose.** Jumps of 3–14 every 90 ms feel like a machine reporting, not a progress bar `[site:leo-parpeix]`; the hold at 100 is the beat before the curtain `[site:floema]`.
+- **Non-linear on purpose.** Jumps of 3–14 every 90 ms feel like a machine reporting, not a progress bar `[site:leo-parpeix]`; the hold at 100 is the beat before the curtain `[site:floema-jewelry]`.
 - **Repeat visits skip it.** `sessionStorage` remembers; the second load takes no gate at all, which keeps the usability axis intact.
 - **Skippable and announced.** A Skip button, `role="status"` with `aria-live`, and `hidden` after exit so the overlay leaves the accessibility tree.
 
@@ -16,4 +16,4 @@ Jump `3–14` every `90 ms` · hold `450 ms` (300 under reduced motion) · exit:
 - **Sound consent:** add an Enter button after 100 that resolves a consent promise and starts audio; never gate content on it `[site:leo-parpeix]`.
 - **fps counter:** `00/24` at headline scale, each frame a signal `[site:the-line]`.
 
-Seen in: `[site:floema]`, `[site:leo-parpeix]`, `[site:the-line]`, `[site:son-daven]`, `[site:usavionix]`.
+Seen in: `[site:floema-jewelry]`, `[site:leo-parpeix]`, `[site:the-line]`, `[site:son-daven]`, `[site:usavionix]`.

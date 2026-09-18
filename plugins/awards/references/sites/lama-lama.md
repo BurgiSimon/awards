@@ -83,7 +83,7 @@
   - The WebGL-over-real-`<img srcset alt>` pattern, and the lazy component graph mounted from `data-component` attributes.
   - A case index as rows with horizontal rails when the work is image-rich and the client wants breadth visible at a glance.
 - **Don't take:**
-  - `#1A1C1C` / `#F9F4EB` or Suisse BP Int'l as "the award look" — this batch already carries both, and [site:floema] uses the same family.
+  - `#1A1C1C` / `#F9F4EB` or Suisse BP Int'l as "the award look" — this batch already carries both, and [site:floema-jewelry] uses the same family.
   - The jokes themselves, the chapter label sets, or the pill-and-right-card-stack chrome as a shape.
   - The virtual scroll on a fixed `html,body` unless you are willing to rebuild the scrollbar, find-in-page, scroll restoration and the full keyboard path.
   - `maximum-scale=1.0, user-scalable=0`, the missing `prefers-reduced-motion` branch and the div-soup link tree — this is the 6.60 accessibility score, and it is the axis a new build should beat.

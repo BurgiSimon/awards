@@ -22,7 +22,7 @@ Why: a site reads as one voice when the number of faces is a decision. The corpu
 |---|---|---|---|
 | Expressive display + neutral grotesque | Avantt (variable display) + Monument Grotesk (UI, body) | [site:leo-parpeix] | [verified] |
 | Expressive display + neutral grotesque | BT Steinhart (condensed display) + Helvetica Now (body, UI) | [site:united-carriers] | [verified] |
-| Serif display + light grotesque | George X + Suisse BP Intl at ultralight, light and regular | [site:floema] | [verified, clone fonts] |
+| Serif display + light grotesque | George X + Suisse BP Intl at ultralight, light and regular | [site:floema-jewelry] | [verified, clone fonts] |
 | One superfamily, two cuts | KTF Metro Roman (display) + KTF Metro Blueline (body) | [site:son-daven] | [verified] |
 | Variable grotesque + bold display, headlines also in GL | Mona Sans (several instances) + Brier Bold | [site:lando-norris] | [verified] |
 | One characterful grotesque at display scale | Suisse BP Int'l, set oversized | [site:lama-lama] | [recalled medium] |
@@ -77,7 +77,7 @@ Why: small labels are the texture that makes a big-type page feel set rather tha
 
 | Texture | Seen in | Confidence |
 |---|---|---|
-| Numerals 01 / 02 / 03 on nav links; a numbered label per item | [site:leo-parpeix]; [site:floema] `${collection} ${index}` | [recalled medium]; [verified] |
+| Numerals 01 / 02 / 03 on nav links; a numbered label per item | [site:leo-parpeix]; [site:floema-jewelry] `${collection} ${index}` | [recalled medium]; [verified] |
 | Numbered chapters and numbered pillars | [site:mont-fort] | [verified] |
 | Roman numerals for the year and for sections | [site:the-line]; [site:shopify-editions-w26] | [verified]; [recalled medium-low] |
 | Metadata quartet: name · discipline · year · team of N | [site:leo-parpeix] | [recalled medium] |
@@ -99,7 +99,7 @@ Why: at a punctuation moment — the manifesto, the break between two clusters, 
 
 Why: a display face that swaps late shreds the lines already split, and a Google Fonts link is a third-party round trip the corpus does not make.
 
-- Self-hosted files, seen everywhere the sources show delivery: woff2 [site:lando-norris] [verified] [site:mont-fort] [verified] [site:animejs] [verified] [site:leo-parpeix] [clone, medium]; woff and woff2 across six files for two families [site:floema] [verified]; a single variable `DenimVF.woff` [site:the-line] [verified]; no web font at all, only an atlas [site:igloo] [verified]. Why Zero serves from the Google Fonts API [site:why-zero] [verified] — the family may be right, the CDN link is refused (audit T02): self-host the same files.
+- Self-hosted files, seen everywhere the sources show delivery: woff2 [site:lando-norris] [verified] [site:mont-fort] [verified] [site:animejs] [verified] [site:leo-parpeix] [clone, medium]; woff and woff2 across six files for two families [site:floema-jewelry] [verified]; a single variable `DenimVF.woff` [site:the-line] [verified]; no web font at all, only an atlas [site:igloo] [verified]. Why Zero serves from the Google Fonts API [site:why-zero] [verified] — the family may be right, the CDN link is refused (audit T02): self-host the same files.
 - Budget: ≤ 4 files and ≤ 400 KB (audit P05). A variable face covers many instances in one file [site:lando-norris] [site:the-line].
 - `@font-face` with `font-display: swap`, plus a fallback face declared with `size-adjust`, `ascent-override`, `descent-override` and `line-gap-override` so the swap does not move a line (audit T05, T06); preload the display face only.
 - Split text only after `document.fonts.ready`, and re-split on resize: Lando re-runs its splitter after font load so a fallback cannot shred the lines [site:lando-norris] [verified]; Anime's splitter re-applies effects after a re-split [site:animejs] [verified].
@@ -113,11 +113,11 @@ Why: naming the face with its licence turns "use something like this" into a dec
 |---|---|---|---|
 | Monument Grotesk | neutral body, UI | [site:leo-parpeix] | commercial, Dinamo [recalled high] |
 | Avantt | variable wide display | [site:leo-parpeix] | commercial, Displaay [recalled medium-high] |
-| Suisse BP Int'l | display grotesque; light body | [site:lama-lama] [site:floema] | commercial, Swiss Typefaces [recalled medium, from the card] |
+| Suisse BP Int'l | display grotesque; light body | [site:lama-lama] [site:floema-jewelry] | commercial, Swiss Typefaces [recalled medium, from the card] |
 | BT Steinhart | condensed display | [site:united-carriers] | commercial, Bitstream/Monotype [verified on the card] |
 | Helvetica Now | neutral body, UI | [site:united-carriers] | commercial, Monotype [recalled high] |
 | KTF Metro Roman / Blueline | superfamily, two cuts | [site:son-daven] | commercial, Kyiv Type Foundry [verified] |
-| George X | serif display | [site:floema] | commercial; foundry [unknown] |
+| George X | serif display | [site:floema-jewelry] | commercial; foundry [unknown] |
 | Denim | variable grotesk, `ss03` | [site:the-line] | commercial; foundry not on the card [unknown] |
 | Mona Sans | variable grotesque, UI and body | [site:lando-norris] | open, SIL OFL, GitHub [verified as open on the card] |
 | Brier | bold display | [site:lando-norris] | commercial [inferred]; foundry [unknown] |
@@ -126,7 +126,7 @@ Why: naming the face with its licence turns "use something like this" into a dec
 | Century Gothic | geometric display and body | [site:mont-fort] | commercial, Monotype; desktop bundles do not include web use [recalled medium] |
 | Josefin Sans | geometric light | [site:mont-fort] | open, SIL OFL [recalled high] |
 
-Two notes on the evidence: IBM Plex Mono sits on the avoid list in `reflex-lists.md` and is also the display face of a Site of the Year — the list is about reflex, not prohibition, and an on-purpose choice is recorded under `AWARDS.md ## Exceptions`. Suisse BP appears twice in the corpus five years apart [site:floema] [site:lama-lama], which is exactly why a new build should not make it three.
+Two notes on the evidence: IBM Plex Mono sits on the avoid list in `reflex-lists.md` and is also the display face of a Site of the Year — the list is about reflex, not prohibition, and an on-purpose choice is recorded under `AWARDS.md ## Exceptions`. Suisse BP appears twice in the corpus five years apart [site:floema-jewelry] [site:lama-lama], which is exactly why a new build should not make it three.
 
 ## Choosing by character class
 
@@ -143,7 +143,7 @@ Why: the face follows the world, then the character, then the licence — never 
 | Studio, animation, film | one characterful grotesk, macro/micro | [site:the-line] [site:lama-lama] |
 | Freight, industry, hardware | condensed display + neutral body | [site:united-carriers] |
 | Heritage corporate group | two geometric sans, institutional | [site:mont-fort] |
-| Jewellery, fashion | serif display + light grotesque | [site:floema] |
+| Jewellery, fashion | serif display + light grotesque | [site:floema-jewelry] |
 | Property, hospitality with a place | one superfamily, two cuts, local foundry | [site:son-daven] |
 | Athlete, personal brand | variable grotesque + bold display | [site:lando-norris] |
 | Library, research station, console | monospace identity | [site:animejs] [site:igloo]; readouts [site:usavionix] [inferred] |

@@ -57,8 +57,8 @@ Why: dragging is the one gesture that makes a gallery feel handled rather than p
 
 | Affordance | Mechanism | Site | Confidence |
 |---|---|---|---|
-| Infinite draggable plane | wheel and touch push a 2D field of planes; an item recycles to the far edge once it passes 60 % of the viewport, with a fresh random tilt | [site:floema] | [verified], clone |
-| Arc gallery | horizontal drag; per-item rotation from `mapRange(−.2, .2)` plus a cosine vertical offset, so the row bows like a dial | [site:floema] | [verified], clone |
+| Infinite draggable plane | wheel and touch push a 2D field of planes; an item recycles to the far edge once it passes 60 % of the viewport, with a fresh random tilt | [site:floema-jewelry] | [verified], clone |
+| Arc gallery | horizontal drag; per-item rotation from `mapRange(−.2, .2)` plus a cosine vertical offset, so the row bows like a dial | [site:floema-jewelry] | [verified], clone |
 | Draggable project carousel | lazy WebP slides under a `drag` badge | [site:leo-parpeix] | [recalled medium] |
 | Hero object with momentum | drag inertia on one mesh; lighting answers the motion | [site:oryzo] | [recalled high], numbers unknown |
 | Auto-drifting carousel | auto-speed tweened to 0 on grab and back on release (500 ms each); wheel lerped at .2 into the same value; `releaseStiffness` default 80 | [site:animejs] | [verified] |
@@ -66,7 +66,7 @@ Why: dragging is the one gesture that makes a gallery feel handled rather than p
 Rules:
 - Inertia through the same damping as everything else; clamp velocity; `setPointerCapture` so a fast drag survives leaving the element.
 - Show the gesture: a `drag` badge on fine pointers, an edge peek or scrollbar on coarse ones.
-- Every dragged item stays a real link in a list. Floema's items are not focusable and the site has no keyboard path [site:floema] [verified absence]; the plugin's version moves the scroll target one item per arrow key.
+- Every dragged item stays a real link in a list. Floema's items are not focusable and the site has no keyboard path [site:floema-jewelry] [verified absence]; the plugin's version moves the scroll target one item per arrow key.
 - On touch, a horizontal drag rail becomes native `overflow-x: auto` with scroll snap (`[pattern:responsive-strategy#coarse-pointer-swaps]`).
 
 ## Hold gates

@@ -47,7 +47,7 @@ Each row is a question the brief already answers; write the answers into `AWARDS
 | Svelte team, engine-first site with a component model | SvelteKit + Threlte; keep SSR on for the DOM mirror `[site:igloo]` (framework at medium confidence) | `stacks/sveltekit.md` |
 | The client edits and hosts in Webflow | Webflow shell + an injected ESM engine from your own origin; the ceiling is Site of the Month `[site:lando-norris]` `[site:son-daven]` | `stacks/webflow-export.md` |
 | Is a shared-element or overlay transition the money moment? | Yes: SPA navigation (taxi on Vite and Webflow, the framework router elsewhere). No: MPA with cross-document View Transitions | `[pattern:preloaders-and-transitions#route-transition-mechanics]` |
-| WebGL dose from the direction contract | Any dose above "none" means a lazy chunk, a quality tier and a mirror; OGL for planes-only sites `[site:floema]`, Three otherwise, R3F or Threlte only inside their frameworks | `[pattern:webgl-architecture#dosage-ladder]` |
+| WebGL dose from the direction contract | Any dose above "none" means a lazy chunk, a quality tier and a mirror; OGL for planes-only sites `[site:floema-jewelry]`, Three otherwise, R3F or Threlte only inside their frameworks | `[pattern:webgl-architecture#dosage-ladder]` |
 | `--cms <name>` given | The framework the CMS SDK serves best; content routes stay static HTML and the engine hydrates by attribute | the framework note |
 
 Choose for the team and the content, never for the motion: the motion is identical on every row.

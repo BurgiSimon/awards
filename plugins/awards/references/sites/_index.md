@@ -1,8 +1,16 @@
-# Corpus index — 19 analysed award-winning sites
+# Corpus index — 19 analysed award-winning sites, plus one clone-level reference
 
 Use this table to pick **neighbours** for a new brief: the three cards closest by class, visitor mode, WebGL dosage and budget. Read those three cards in full, write down the principle each one gives you and the literal move you refuse to copy (the DIVERGENCE block of the direction contract). Everything here is a pattern citation, never an instruction to reproduce a site.
 
-Confidence is the card's overall label: **high** = sources read verbatim (bundles, clones, case studies); **medium** = search extraction of award pages and galleries; **low** = model recall only. No card was written from a live render of the site.
+Confidence is the card's overall label. Since the 0.2 pass it means: **high** = the live site was
+rendered and its source read, and its award entry was read from the entry page itself; **medium** =
+search extraction of award pages and galleries; **low** = model recall only. Rows still marked
+medium or low have not had their live pass yet — the ledger at `docs/handoff/verification-log.md`
+says which.
+
+`floema-jewelry` is not an award reference and carries no verified score: it is the clone-level
+material that was filed under `floema` until the 2026-09-18 pass showed that slug belongs to a
+different company. It is listed so its ninety-six citations resolve honestly.
 
 | Slug | Site | Class | Visitor mode | Narrative model | WebGL dosage | Scroll model | Palette strategy | Type contract | Awards / score | Confidence |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -16,6 +24,7 @@ Confidence is the card's overall label: **high** = sources read verbatim (bundle
 | `son-daven` | Son Daven | real-estate + hospitality | persuade wrapped in experience | chaptered journey, emotion before economics | moments (16 canvases, one dither shader) | native + Lenis + CSS sticky + nested-Lenis rails | two tokens inverted by theme class, 4.98:1 | one superfamily, two cuts (KTF Metro Roman + Blueline) | SOTD 5 Jun 2026, 7.62 (dev 8.09) | high |
 | `lama-lama` | Lama Lama | studio | persuade | gallery (6 labelled chapters, case rails) | canvas-first (2 fixed canvases, hand-written WebGL2) | virtual float (Lenis on fixed html/body) | near-black + bone + 4 accents, semantic tokens re-pointed per section | grotesque display + mono labels (Suisse BP Int'l + Sometype Mono) | SOTD 20 Jul 2026, 7.51 (dev 7.37, a11y 6.60) | high |
 | `floema` | Floema® | brand + catalogue e-commerce (outdoor signage & furniture, PT) | experience → persuade | chaptered journey | moments (3 canvases, DOM-led, explicit no-WebGL degrade) | native + Lenis 1.3.8 on the GSAP ticker; 900vh fixed stage, no pin | ivory #ebe7df + stoneBrown800 #241f21, theme per section, one accent per collection | one variable family (Zimula, shipped .ttf) | SOTD 13 May 2026, 7.65 + Dev 7.67 | high (live source + captures + entry) |
+| `floema-jewelry` | Floema Jewelry | brand (jewellery) — **course capstone, not an award reference** | experience | gallery | canvas-first (OGL planes over `<img data-src>`) | virtual float, hand-rolled lerp .1 | 5 warm tokens + one CTA accent, cross-faded per route | serif display + light grotesque (George X + Suisse BP Intl) | claimed SOTD Jul 2021, 7.53 [recalled medium, unverified] | clone-level only |
 | `oryzo` | Oryzo AI | campaign (satirical launch) | experience | single-object launch | canvas-first | native + absolute canvas re-offset | 4 values, one orange accent on warm near-black | one family at ~99 % | SOTD Apr 2026, 7.86 (C 8.35) | medium-high |
 | `shopify-editions-w26` | Shopify Editions Winter '26 | campaign / changelog | read under an experience layer | chaptered gallery | canvas-first with static fallback | sticky stages + rails | black stage + warm paper + one accent per chapter | serif display + grotesque + script accent | SOTD + SOTM Feb 2026, CSSDA, RGD | medium |
 | `lando-norris` | Lando Norris | athlete brand | experience | faceted world (persona fork, 7 routes + 404) | canvas-first (6 scenes, RTT planes on DOM bounds) | native + Lenis 1.1.20, sticky hero scrubbed (no pin) | acid lime #d2ff00 + near-black #111112 on warm cream/olive; nav theme sampled per section | variable grotesque + display serif (Mona Sans + Brier), MSDF atlases for both in GL | SOTD 17 Nov 2025 · 8.18 · dev 7.58 | high (live source + captures + entry) |

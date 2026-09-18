@@ -10,4 +10,4 @@ A sticky stage whose track moves sideways as the page scrolls: the rail's height
 ## Parameters
 `scrub: 0.3` · rail height `innerHeight + overflow` · panel `min(70vw, 720px)` · key step = one panel + gap.
 
-Seen in: `[site:son-daven]`, `[site:floema]` (as a drag rail).
+Seen in: `[site:son-daven]`, `[site:floema-jewelry]` (as a drag rail).

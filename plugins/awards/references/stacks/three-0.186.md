@@ -3,7 +3,7 @@
 <!-- Labels: [verified] = checked against Context7 (`/websites/threejs`, `/mrdoob/three.js`, `/pmndrs/postprocessing`, `/websites/pmndrs_github_io_postprocessing_public`, `/pmndrs/react-three-fiber`, `/threlte/threlte`), 2026-09 · [recalled] · [unverified]. -->
 
 ## What it is for in this skill set
-The rendering layer under "HTML lays out, WebGL renders": one canvas, planes mapped from DOM rects, scroll and pointer as uniforms, scenes mounted per section and disposed on route change [pattern:webgl-architecture]. Three is the corpus default (Léo Parpeix, Why Zero, Lando, Mont-Fort, Igloo, Oryzo, United Carriers, Shopify); OGL is the lighter sibling with the same architecture [site:floema]; R3F and Threlte wrap it for React and Svelte.
+The rendering layer under "HTML lays out, WebGL renders": one canvas, planes mapped from DOM rects, scroll and pointer as uniforms, scenes mounted per section and disposed on route change [pattern:webgl-architecture]. Three is the corpus default (Léo Parpeix, Why Zero, Lando, Mont-Fort, Igloo, Oryzo, United Carriers, Shopify); OGL is the lighter sibling with the same architecture [site:floema-jewelry]; R3F and Threlte wrap it for React and Svelte.
 
 ## Install (pinned)
 ```sh
@@ -74,7 +74,7 @@ Fixed presets keep a multi-scene site coherent: bloom 1.5 / .5 / .25 [site:lando
 ## Integration with the others
 - Ticker: render inside `gsap.ticker.add(...)` after Lenis has updated, reading `lenis.scroll` / `lenis.velocity` into uniforms [recipe:gl-dom-tethered-planes].
 - Scroll sync: a `position: fixed` canvas whose planes receive `uScroll`, or Lusion's absolute canvas re-offset every frame (no drift, no fixed-layer cost) [site:oryzo].
-- DOM tethering, per frame after Lenis updated, y inverted [site:floema]:
+- DOM tethering, per frame after Lenis updated, y inverted [site:floema-jewelry]:
 ```js
 const r = el.getBoundingClientRect();
 mesh.scale.set((r.width / innerWidth) * viewW, (r.height / innerHeight) * viewH, 1);
@@ -100,4 +100,4 @@ DPR ≤ 2 plus an absolute pixel cap (mobile GPUs die on pixel count); half-floa
 - A 50 MB glb because nobody ran `gltf-transform`; hero objects stay under ~300 KB [recipe:gl-hero-object-inertia].
 
 ## Where the corpus used it
-[site:leo-parpeix] (Draco glTF, fluid FBO + one post-process), [site:why-zero] (vanilla Three, five GLSL shaders, adaptive quality, DRACO + KTX2 atlases), [site:lando-norris] (r174, six scenes, bloom presets, fluid sim, MSDF text), [site:mont-fort] (procedural mountain, KTX2, EXR HDRI, baked lightmap), [site:igloo] (Draco + KTX2 for everything, workers, MSDF), [site:oryzo] (absolute-canvas scroll sync), [site:united-carriers], [site:shopify-editions-w26] (Theatre.js + KTX2 array textures), [site:slosh-seltzer] (render-to-texture compositing), [site:trevor-noah] (2D planes with a Polaroid curl); [site:floema] used OGL.
+[site:leo-parpeix] (Draco glTF, fluid FBO + one post-process), [site:why-zero] (vanilla Three, five GLSL shaders, adaptive quality, DRACO + KTX2 atlases), [site:lando-norris] (r174, six scenes, bloom presets, fluid sim, MSDF text), [site:mont-fort] (procedural mountain, KTX2, EXR HDRI, baked lightmap), [site:igloo] (Draco + KTX2 for everything, workers, MSDF), [site:oryzo] (absolute-canvas scroll sync), [site:united-carriers], [site:shopify-editions-w26] (Theatre.js + KTX2 array textures), [site:slosh-seltzer] (render-to-texture compositing), [site:trevor-noah] (2D planes with a Polaroid curl); [site:floema-jewelry] used OGL.
