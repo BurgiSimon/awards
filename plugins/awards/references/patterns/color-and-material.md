@@ -118,7 +118,7 @@ Why: material is what makes a colour read as a surface, and one policy per world
 | Flat, unmodulated field | [site:slosh-seltzer] | no gradient, noise or photographic ground; shadows tinted to the theme's own darkness at a constant .15 alpha | [verified, family level] |
 | Matte surfaces with a baked lightmap | [site:mont-fort] | procedural noise textures, rock and snow diffuse and normal maps, one baked lightmap, one EXR environment | [verified files] |
 | Translucent planes | [site:floema-jewelry] | image planes at alpha .4, never opaque — atmosphere at the cost of contrast | [verified, clone] |
-| 2.5D depth-map parallax | [site:shopify-editions-w26] | image + grayscale depth, ray-marched parallax, bloom and dust | [recalled medium-low] |
+| 2.5D depth-map parallax | **no corpus source** — `[site:shopify-editions-w26]` was the citation and its scenes are real Blender glTF geometry with KTX2 textures, no depth-map signature at all [verified, live source 2026-09-18] | image + grayscale depth, ray-marched parallax, bloom and dust | technique only |
 | Narrative materials | [site:why-zero] | frost, glass, paper and currency as the argument's own substances | [verified] |
 
 Rules: choose one policy and name it under `DESIGN.md ## Elevation & Depth`; sharp and shadowless is the default when nothing argues otherwise; grain goes last in the post stack and never over text (`[recipe:gl-postprocessing-presets]`); glass, glow and gradient are policies a world can choose, never defaults (`craft-floor.md`).

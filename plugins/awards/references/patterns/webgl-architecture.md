@@ -91,7 +91,7 @@ Why: shaders do two different jobs, and mixing them is how a page turns into a d
 | Kind | What it does | Sites |
 |---|---|---|
 | Unifier | one global pass every pixel goes through, so DOM and scene share a physics: a fluid wake read as a velocity-driven hash blur [site:leo-parpeix] [verified, live bundle 2026-09-18] (no chromatic aberration — that was a clone's invention); a shared fluid field across scenes [site:shopify-editions-w26] sibling [recalled high]; a grade + grain stack [site:igloo] [recalled high] | one per site |
-| Narrative | a shader that enacts a beat once: frost unlock, burning money, shredded certificates, tunnel pulse [site:why-zero] [verified, live bundle 2026-09-18] — the "hexagonal text blur" once listed here is not in the served build, which uses a `lensBlur` pass and a KTX2 sprite atlas for narrative type; a scanline over a wireframe helmet [site:lando-norris] [verified]; brushstroke-edged chapter wipes [site:shopify-editions-w26] [recalled high] | one per chapter, each tied to a sentence of the thesis |
+| Narrative | a shader that enacts a beat once: frost unlock, burning money, shredded certificates, tunnel pulse [site:why-zero] [verified, live bundle 2026-09-18] — the "hexagonal text blur" once listed here is not in the served build, which uses a `lensBlur` pass and a KTX2 sprite atlas for narrative type; a scanline over a wireframe helmet [site:lando-norris] [verified]; chapter wipes on a torn, deckled paper edge with fibrous tendrils — not the painted brushstroke this file used to claim; there is no brush, wipe or stroke-mask signature in the served source [site:shopify-editions-w26] [verified, live source 2026-09-18] | one per chapter, each tied to a sentence of the thesis |
 
 Rules: one unifier, named in the direction contract; narrative shaders only where the story turns; an idle noise displacement that keeps a hero alive between beats [site:lando-norris] [verified] is seasoning, not a third kind.
 
@@ -102,12 +102,12 @@ Why: depth is bought by the rung, and each rung up costs an order of magnitude i
 | Rung | Technique | Cost | Site | Recipe |
 |---|---|---|---|---|
 | 1 | 2D-in-3D: flat planes with one material behaviour | subdivided quads, no scene | no corpus card demonstrates this tier as of the 2026-09-18 pass — `[site:trevor-noah]` was the source and its planes turned out to be DOM | `[recipe:gl-dom-tethered-planes]` |
-| 2 | Depth-map 2.5D: source image + greyscale depth, parallax occlusion ray-marched with a forward pass and a backward refinement | image-file cost per scene | [site:shopify-editions-w26] [recalled medium-low, third-party] | `[recipe:gl-depth-map-parallax]` |
+| 2 | Depth-map 2.5D: source image + greyscale depth, parallax occlusion ray-marched with a forward pass and a backward refinement | image-file cost per scene | **no corpus card demonstrates this rung.** `[site:shopify-editions-w26]` was the source and ships real Blender geometry instead [verified, live source 2026-09-18] | `[recipe:gl-depth-map-parallax]` |
 | 3 | Pre-rendered sequence scrubbed on scroll: C4D frames drawn to a 2D canvas | the frames' weight; zero runtime GL risk | [site:seasats] [inferred medium]; scrubbed scene sequence [site:united-carriers] [verified tags]; an `ImageSequenceCanvas` in the basement stack [site:usavionix] [verified repo] | `[recipe:image-sequence-scrub]` |
 | 4 | Single hero object with inertia: one mesh, physical materials, drag momentum, lighting that answers motion | one Draco glb (≤ 300 KB in the recipe) plus an HDRI or matcap | [site:oryzo] [recalled high; parameters unknown] | `[recipe:gl-hero-object-inertia]` |
 | 5 | Full scene with a camera rig: a spline the scroll drives, per-chapter scenes, a post stack | the whole pipeline, and a mirror for everything | [site:igloo] [site:mont-fort] [site:lando-norris] [site:why-zero] | `[recipe:gl-virtual-scroll-camera]` |
 
-Rule: rung 2 smears at depth edges under large parallax offsets [site:shopify-editions-w26] [inferred]; rung 3 needs a poster and preloading; rung 5 needs `[recipe:quality-tiers]` before it needs anything else.
+Rule: rung 2 smears at depth edges under large parallax offsets [inferred — no corpus card ships it]; rung 3 needs a poster and preloading; rung 5 needs `[recipe:quality-tiers]` before it needs anything else.
 
 ## Effect parameters
 
@@ -126,7 +126,7 @@ Every value below is a published or reconstructed number from one card. Take the
 | Camera on a spline | wheel × .1 → friction .97 → lerp .075 then .15 → 1.4 s ease-in-out-cubic snap → modulo wrap; exponential damping | [site:igloo] | [recalled medium-high], one source |
 | Procedural mountain | Perlin + Voronoi noise, rock diffuse + normal, a snow/rock mix mask, a baked lightmap, one EXR HDRI, KTX2 textures | [site:mont-fort] | [verified files]; shader use inferred |
 | Render-to-texture composite | each section to a `WebGLRenderTarget`; a fullscreen plane's fragment blends them (wipe, warp, dissolve) | [site:slosh-seltzer] | [verified], Codrops |
-| Depth-map parallax | JPG + greyscale depth; POM with forward and backward refinement; wave masks bound to scroll; UnrealBloom; cursor dust | [site:shopify-editions-w26] | [recalled medium-low], third-party |
+| Depth-map parallax | JPG + greyscale depth; POM with forward and backward refinement | the recipe's own parameters — `[site:shopify-editions-w26]` does not use this technique [verified, live source 2026-09-18] | technique only |
 | Baked simulation | smoke, shatter and particle bursts as Draco geometry; 32³ / 64³ volumes as KTX2 atlases | [site:igloo] | [verified manifest] |
 | Polaroid curl | **not a shader.** Trevor Noah builds the curl and its shadow as generated SVG arc paths on a DOM wrapper, animated on their own rAF: fold 8° at rest, 55° on hover, 500 ms, one corner, with a scroll-driven mode | [site:trevor-noah] | [verified, live source 2026-09-18] — do not reach for geometry here |
 | Hero inertia | drag momentum, motion-reactive lighting | [site:oryzo] | [recalled high]; damping, mass, light unknown |

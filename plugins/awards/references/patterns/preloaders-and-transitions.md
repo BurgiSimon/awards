@@ -43,7 +43,7 @@ Rule: the gesture may enable sound, but content never waits for it. Either offer
 |---|---|---|---|
 | Shared element in GL space | the source plane is lifted (`z += .01`) and its scale, position and rotation tween to the destination rect over 1.5 s on `expo.inOut`; the temporary mesh is removed .2 s later | [site:floema-jewelry] | [verified], clone |
 | Render-to-texture composite | each section renders to an off-screen target; a fullscreen plane's fragment shader blends them — wipe, warp or dissolve | [site:slosh-seltzer] | [verified], Codrops `[recipe:gl-rtt-composite-transition]` |
-| Brushstroke-edged mask | chapter wipes with a painted edge; a third-party read adds wave masks bound to scroll progress with metallic flecks along the edge | [site:shopify-editions-w26] | [recalled high] for the brushstroke; [recalled medium-low] for the wave mask |
+| Torn-edge mask | chapter wipes on a deckled paper edge with fibrous tendrils — a treated material edge, not a painted one | [site:shopify-editions-w26] | [verified, live source 2026-09-18]; the "brushstroke" and the wave-mask flecks were a third-party read and are not in the served source |
 | Hinge | the hero sheet swings away on a bottom-left origin (`[pattern:motion-vocabulary#sticky-stages-and-hinges]`) | [site:the-line] | [verified] `[recipe:sticky-stages-rails]` |
 | Flash and interference cuts | interior scenes cut through glitch frames, never a fade; RTT compositing is the likely mechanism | [site:igloo] | [recalled high]; mechanism [inferred] |
 | Theme swap on `documentElement` | see the next section | [site:floema-jewelry] [site:slosh-seltzer] [site:leo-parpeix] | mixed |
