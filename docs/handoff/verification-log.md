@@ -95,7 +95,7 @@ the live entry markup on the pass date · **conf** = card confidence before → 
 
 | # | Slug | Live URL | Entry URL | Pass date | Reach | Exit | Scroll | Overall (verified) | Conf before → after | Status |
 |---|---|---|---|---|---|---|---|---|---|---|
-| 1 | `united-carriers` | https://unitedcarriers.com/ | https://www.awwwards.com/sites/united-carriers | | | | | | medium-high → | todo |
+| 1 | `united-carriers` | https://unitedcarriers.com/ | https://www.awwwards.com/sites/united-carriers | 2026-09-18 | 200 | 2 | native / wheel (mobile) | 7.28 (D 7.35 · U 7.00 · C 7.61 · Co 7.16 · DEV 7.54) | medium-high → high | **done** |
 | 2 | `white-desert` | https://white-desert.com/ | https://www.awwwards.com/sites/white-desert | | | | | | medium → | todo |
 | 3 | `seasats` | https://www.seasats.com/ | https://www.awwwards.com/sites/seasats | | | | | | medium → | todo |
 | 4 | `mont-fort` | https://mont-fort.com/ | https://www.awwwards.com/sites/montfort | | | | | | high → | todo |
@@ -119,6 +119,29 @@ the live entry markup on the pass date · **conf** = card confidence before → 
 
 One subsection per site, filled after its pass: `field: old → new [evidence]`, plus any
 technique attribution the live site contradicts and anything that stayed blocked.
+
+**`united-carriers`** — the two load-bearing technique claims were both wrong.
+
+- *WebGL dosage*: "canvas-first for the journey scenes", with ScrollTrigger scrubbing a Three.js
+  scene state machine → **moments**. The land beats are 554 pre-rendered AVIF frames scrubbed into
+  2D canvases by a sequence player; real-time WebGL is the hero globe, an ocean/wake scene and a
+  footer particle canvas [verified, `chunk-Home-CZ3JhV-m.js`, `chunk-globe.js`]. The old card would
+  have sent a build down a Three.js scene-graph route for an effect this site bought with a render
+  farm.
+- *Palette*: "one hue, one ground, no second accent" → **two tokens**. `--secondary:#f50` is used 67
+  times and is the entire cursor system; only the hero is dark, the body and footer are white
+  [verified, `webflow-shared.css`]. A §7 principle rested on the single-hue claim and is replaced.
+- *Type*: "Helvetica Now" → **Helvetica Neue**, plus a third face the card never had, BT Steinhart
+  Mono [verified, `@font-face`].
+- *Awards*: sub-scores `[unknown]` → 7.28, D 7.35 / U 7.00 / C 7.61 / Co 7.16, DEV 7.54 with all six
+  developer criteria [verified, entry read 2026-09-18].
+- *Accessibility*: `[unknown]` → fails on three counts — no landmarks or skip link, zero key
+  handlers, one `prefers-reduced-motion` guard in the whole homepage bundle [verified].
+- *Scroll model*: below 767px the page scrolls an inner `.body-inner` element rather than the
+  window, which is exactly why the Phase 1 wheel fallback was needed for its mobile frames.
+- Still open: the preloader and the menu overlay appear in no frame, so their behaviour stays
+  `[unknown]`; a bare `[verified]` on gallery curation had no named source and was downgraded to
+  `[recalled medium, not re-checked]`.
 
 ## Calibration
 
