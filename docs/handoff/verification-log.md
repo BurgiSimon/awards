@@ -298,6 +298,26 @@ inspected directly (nine sections, 47 labelled claims, a complete §9) and commi
 row derived from its own header table. `son-daven` had written nothing and was relaunched from
 scratch. No other work was lost: the capture batch is a shell job and kept running throughout.
 
+## Phase 5b — the smoke tier now covers every skill
+
+Six cases added, so the eleven triggering cases are one per skill and no skill is graded only by a
+sibling's regex. `trigger-structure`, `trigger-concept` and `trigger-ship` each quote the phrasing
+its skill description claims ("what sections should this have", "how would an award-winning studio
+approach this", "make it production-ready: run the audit, take the screenshots") without naming a
+skill, which is what makes a miss in 5c a wording defect rather than a prompt accident.
+`trigger-ship` carries the only new fixture: the bicycle-workshop site from `trigger-motion` plus a
+filled `AWARDS.md` whose jury log already reads `fix`, because `ship` is described as a skill for a
+project that has one.
+
+The three new negatives are chosen against the descriptions that reach furthest. `structure` and
+`ship` both name accessibility, so `no-trigger-a11y-settings` asks for exactly that on an internal
+settings form; `system` and `structure` both name tokens and page architecture, so
+`no-trigger-figma-tailwind` asks for a signed-off frame translated as drawn; and
+`no-trigger-crud-admin` covers the admin CRUD that three descriptions explicitly disclaim.
+
+Smoke is now 17 cases: 11 triggering, 6 negative. Graders unchanged in kind — `tool_used: Skill`
+with the `awards:` prefix optional, `min: 0 max: 0 arm: both` on the negatives.
+
 ## Eval runs
 
 | Run | Command | Date | CLI | Result | Cost |
