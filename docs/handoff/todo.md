@@ -29,13 +29,16 @@ ledger (`verification-log.md`) is the evidence. Nothing here blocks using the pl
      baseline to compare against.
    - Budget note: three smoke cases × three runs cost $6.64, not the ≈ $2 estimated. The build tier
      came in at $27.68 against a $45 ceiling, and the two grader verification runs at $3.17.
-2. **Phase 8 — one real end-to-end build**, network and Playwright available, ceiling $25. The open
-   question is whether the forked jury's literal `disposition:` line reaches the user; the fallback
-   (spawn `awards-jury` through the Agent tool) is already documented in `skills/craft/SKILL.md`.
-   The eval evidence is encouraging but not an answer: `disposition-line` passed 3/3 with the plugin
-   inside the eval sandbox, which is not the same as a forked jury inside a real `craft` run.
-   Worth running before the build tier — it is the defect-finder, and any wording fix it produces
-   invalidates eval numbers bought earlier.
+2. ~~**Phase 8 — one real end-to-end build.**~~ **Done 2026-09-21**, $23.89, every check in the plan
+   met, and **`plan.md` risk 2 is resolved** — the forked jury's literal `disposition:` line reaches
+   the user verbatim. Details in the ledger. It left one defect to fix:
+   - **`scripts/audit.mjs` writes its report to the wrong directory.** `projectDir` comes from
+     `CLAUDE_PROJECT_DIR` or `process.cwd()` (`audit.mjs:55`) and line 394 writes
+     `<projectDir>/.awards/audit.json`. Audit a project from inside `public/fonts` and the report
+     lands in `public/fonts/.awards/`, which Vite copies into `dist/` — the Phase 8 build shipped
+     one. The report even names the project root as its `target` while landing elsewhere. Decide
+     whether it should write beside the audited target or resolve upward to the nearest `AWARDS.md`,
+     then fix it once where every caller routes through.
 3. **Phase 9 — finish the docs and the version.** The free half was done on 2026-09-21 (counts,
    `state.md`, this file). Still open: `version` to `0.2.0` in **both**
    `plugins/awards/.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` together,

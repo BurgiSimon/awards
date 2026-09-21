@@ -520,7 +520,85 @@ comparison in 102 runs was `trigger-jury`, where the baseline named the Usabilit
 produced the `disposition:` line 0/3. Half the tier's cost buys that one row; `--ablation none` is
 the honest default for iteration.
 
-## Phase 8 — end-to-end build
+## Phase 8 — end-to-end build, 2026-09-21
+
+Scratch project at `/tmp/awards-phase8`, outside the repo, with the real environment the eval
+sandbox could not give: node 24.21, npm 11.19 on `PATH`, the Playwright cache reachable through
+`AWARDS_PLAYWRIGHT`, network up. **129 turns, 42.8 minutes, $23.89 of a $25 budget, exit 0.**
+
+### The plan's own command does not work, and attempt 1 proved it
+
+`--permission-mode acceptEdits` auto-approves edits and nothing else. Under `-p` there is nobody to
+approve anything else, so the **Skill tool itself was denied**: the trace shows exactly two attempts,
+`awards:craft` and `awards:concept`, each coming back as a bare `Execute skill: awards:craft` error.
+Bash was denied for the same reason — no `npm install`, no build, no capture. The agent gave up on
+the plugin and, in its own words, "ran the phase structure by hand instead", producing a plausible
+27-file site for $7.72 that tested nothing. Kept at `/tmp/awards-phase8-attempt1`.
+
+The skill name resolved rather than erroring as unknown, so `--plugin-dir` had loaded the plugin;
+the block was permission, not discovery. The fix is `--allowedTools Skill Bash Write Edit Read Glob
+Grep WebFetch` — the grant the case's own `prompt.md` frontmatter already declares. Corrected in
+`plan-0.2.md`.
+
+### Attempt 2: the whole chain ran
+
+Eight skill calls, no errors: `craft` → `concept` → `system` → `structure` → `stack` → `motion` →
+`jury` → `jury --verdict`. `webgl` was declined at rung *none* by the skill's own ladder, which is a
+decision the chain is supposed to be able to make.
+
+| Check (from the plan) | Result |
+|---|---|
+| `AWARDS.md` contract blocks | all present |
+| three real `[site:…]` cards | five cited: `white-desert`, `seasats`, `oryzo`, `son-daven`, `lando-norris` |
+| direction seed recorded | `SEED shck92in247c · DEALT 1 5 7 of 7 · LEAD 1` |
+| `DESIGN.md`, `src/styles/tokens.css` | both present |
+| `npm run build` | passed — `dist/` with hashed assets, entry JS 55.4 KB gz |
+| `audit.mjs <dir>` 0 P0–P1 | **re-run independently: 15 files, P0 0 · P1 0 · P2 0 · P3 0, clean** |
+| captures: desktop, mobile, reduced motion | 18 PNGs across `desktop`, `mobile`, `desktop-rm`; manifest has all three, 0 console errors, 0 page errors |
+| `.awards/jury/<date>.md` | present, plus `-verdict.md` from the second round |
+| ship report | `.awards/ship/2026-09-21.md` |
+
+### Risk 2 is resolved
+
+`plan.md` §14 risk 2 asked whether the forked jury's literal `disposition:` line survives the relay
+back to the user. **It does.** The final message opens with it quoted verbatim:
+
+```
+disposition: fix
+Design 7.6 · Usability 7.9 · Creativity 8.1 · Content 7.5 — weighted 7.78
+```
+
+The documented fallback in `skills/craft/SKILL.md` — spawning `awards-jury` through the Agent tool —
+is therefore not needed and can stay where it is as insurance.
+
+Two rounds ran: 7.50 `fix`, then 7.78 `fix` after an eight-item batch, the second inside the corpus
+band of 7.28–8.18. The verdict held at `fix` on the contract rule rather than on the scores, and the
+two-round cap stopped a third, which is the mechanism behaving as written.
+
+### The LCP rename is working in the field
+
+The jury report, unprompted: *"The manifest's `lcpColdSynthetic` (152 ms desktop vs 3,680 ms mobile)
+is a headless cold-cache software-GL number, read here only as a rough asset-weight signal — the
+byte counts are the real evidence."* The two-orders-of-magnitude artefact appeared again in this
+run's own manifest (144 ms desktop, 3,588 ms mobile) and this time nothing scored performance from
+it. The ship report labels its row *"LCP (headless, cold, synthetic) … not a field metric"*.
+
+### One real defect found, not yet fixed
+
+`dist/fonts/.awards/audit.json` shipped into the build output. `scripts/audit.mjs:55` takes
+`projectDir` from `CLAUDE_PROJECT_DIR` or **`process.cwd()`**, and line 394 writes
+`<projectDir>/.awards/audit.json`. The run audited the project from inside `public/fonts`, so the
+report was written to `public/fonts/.awards/` — under `public/`, which Vite copies verbatim into
+`dist/`. The report names the project root as its `target` while landing somewhere else entirely.
+Any project that audits a subdirectory of `public/` ships an internal report. Filed in `todo.md`.
+
+### Tools still denied, neither blocking
+
+`git init` (a compound command needing approval, so no phase-boundary commits — the run recorded it
+as `NO-GIT`) and the Playwright **MCP** server's navigate tool. The run drove the live build through
+the plugin's own Playwright instead, which is how its keyboard walk is evidenced rather than assumed.
+
+### Old stub, kept for shape
 
 | Artefact | Present | Note |
 |---|---|---|

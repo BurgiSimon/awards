@@ -9,7 +9,7 @@ resume. `plan.md` is the 0.1.0 specification, kept for reference and no longer t
 
 | Item | Location |
 |---|---|
-| Repository | `github.com/BurgiSimon/awards`; branch `feat/live-verification-0.2`, 55 commits ahead of `main`, nothing behind. The 0.1.0 pull request #1 is merged |
+| Repository | `github.com/BurgiSimon/awards`; branch `feat/live-verification-0.2`, 56 commits ahead of `main`, nothing behind. The 0.1.0 pull request #1 is merged |
 | Plugin | `plugins/awards/` (manifest `plugins/awards/.claude-plugin/plugin.json`, version **0.1.0**); marketplace manifest `.claude-plugin/marketplace.json` at the repo root, also 0.1.0. Phase 9 bumps both to 0.2.0 together |
 | Skills | `plugins/awards/skills/{craft,concept,system,structure,stack,motion,webgl,component,jury,ship,research}/SKILL.md` — eleven, each with `allowed-tools` for the plugin's own scripts |
 | Agent and hook | `plugins/awards/agents/awards-jury.md`, `plugins/awards/hooks/hooks.json` |
@@ -22,8 +22,9 @@ resume. `plan.md` is the 0.1.0 specification, kept for reference and no longer t
 
 ## Where the 0.2.0 work stands
 
-`plan-0.2.md` has nine phases. **Phases 0–6 are done and committed. Phase 7 is half done, Phase 8
-has not started, and Phase 9 has had its free half taken early.**
+`plan-0.2.md` has nine phases. **Phases 0–8 are done. Phase 9 has had its free half taken early;
+the version bump and release notes remain.** Three findings from Phases 7 and 8 are open and named
+in `todo.md`.
 
 | Phase | What it was | State |
 |---|---|---|
@@ -35,7 +36,7 @@ has not started, and Phase 9 has had its free half taken early.**
 | 5 | Repair graders, add `selftest.mjs`, six new smoke cases, cheap smoke run | done — but its conclusion about the two misses was wrong; see the ledger's 5c correction |
 | 6 | The two missing P2 recipes, `allowed-tools` on every skill | done, 30/30 recipes |
 | 7 | Full smoke with the baseline arm, build tier once | **both tiers have run.** Smoke meets its bars; the build tier is 2/6 all-green with 47/53 graders passing, and its six failures are diagnosed but not yet fixed |
-| 8 | One real end-to-end build | **not started** — the ledger's Phase 8 section is an empty stub |
+| 8 | One real end-to-end build | **done 2026-09-21**, $23.89, every check met, and `plan.md` risk 2 is resolved |
 | 9 | Docs, counts, version bump, final verification | **partly done** — see below |
 
 The calibration outcome is load-bearing and easy to misread: this jury scores roughly 0.7 below the
@@ -91,10 +92,16 @@ Stamped on 2026-09-18 and **not** re-run since:
 - Graders are now proven in **both** directions for the build tier: `selftest.mjs` checks that each
   fails on untouched input, and the 2026-09-21 run showed 47 of 53 passing on real output. The four
   that were wrong are named in the ledger.
-- **The skills have never been driven end to end on a real project.** The open question is
-  `plan.md` risk 2: whether the forked jury's literal `disposition:` line survives the relay back to
-  the user. If it does not, the fallback is documented in `skills/craft/SKILL.md` — spawn
-  `awards-jury` through the Agent tool with the input packet.
+- ~~The skills have never been driven end to end on a real project.~~ **Done 2026-09-21.** Eight
+  skill calls, `craft` → `concept` → `system` → `structure` → `stack` → `motion` → `jury` →
+  `jury --verdict`, 129 turns, $23.89. `npm run build` passed, the audit re-run independently is
+  clean at P0–P3 0, and the captures cover desktop, mobile and reduced motion with no console or
+  page errors. **`plan.md` risk 2 is resolved**: the forked jury's literal `disposition:` line
+  reaches the user verbatim, so the Agent-tool fallback in `skills/craft/SKILL.md` stays as
+  insurance rather than being needed. Full account in the ledger's Phase 8 section.
+- One defect that run surfaced is **not fixed**: `scripts/audit.mjs` writes its report to
+  `process.cwd()`, so auditing from inside `public/` leaves `.awards/audit.json` there and the build
+  ships it. See `todo.md`.
 - **No recipe or skill has run on a real GPU or a real phone.** SwiftShader proves the recipes
   correct, not fast. The quality-tier thresholds in `recipes/_shared/quality-tiers.js` are still
   unmeasured guesses.
@@ -140,7 +147,7 @@ Stamped on 2026-09-18 and **not** re-run since:
 
 | | |
 |---|---|
-| Commits on `feat/live-verification-0.2` ahead of `main` | 55 |
+| Commits on `feat/live-verification-0.2` ahead of `main` | 56 |
 | Site cards / pattern files / stack notes | 20 / 14 / 11 |
 | Recipes verified | 30 |
 | Audit rules | 55 (`T` fonts, `C` colour, `M` motion, `A` accessibility, `L` layout, `P` performance, `S` surfaces, `X` slop) |
