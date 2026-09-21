@@ -1,25 +1,65 @@
 # Open todos
 
-Ordered by value. None of these blocks using the plugin as it is.
+Rewritten 2026-09-21, after Phases 0–6 of `plan-0.2.md`. The plan is the specification, the
+ledger (`verification-log.md`) is the evidence. Nothing here blocks using the plugin as it is.
 
-## Before calling 0.1.0 done in practice
-1. **Run one real build with the skills.** `claude --plugin-dir plugins/awards`, then `/awards:craft brief …` on a small brief with network access (so `npm install` and Playwright work). Expect wording to tighten in `craft`, `concept` and `jury`; record what the first real jury round looks like. Check that a forked `awards:jury` reply reaches the user with its `disposition:` line intact (plan §14 risk 2; fallback: `craft` spawns `awards-jury` with the input packet through the Agent tool).
-2. **Run the smoke evals with the baseline** (`claude plugin eval . --tag smoke`, ≈ 11 cases × 3 runs × 2 arms; costs model calls). Tune skill descriptions where `tool_used: Skill` fails on natural phrasing; the three `no-trigger` cases guard against over-triggering.
-3. **Run the build evals once** (`--tag build --scaffold --runs 1 --ablation none --allow-tools Write Edit "Bash(node *)" "Bash(npm *)" …`) and fix graders that turn out too strict or too loose; `research-unreachable` also tests honest confidence labelling.
-4. **Real-device pass on the GL recipes** (a phone and a laptop GPU): `gl-fluid-wake-post`, `gl-dom-tethered-planes`, `gl-postprocessing-presets`, `gl-virtual-scroll-camera`; adjust the quality-tier thresholds in `recipes/_shared/quality-tiers.js` from measured frame rates.
+## Before 0.2.0 ships
 
-## Corpus
-5. **Re-verify the cards with network access**: `/awards:research <url> --to plugin` for each site, starting with the low-confidence ones (`mindmarket`, `lama-lama`, `white-desert`, `seasats` type, `trevor-noah` type, `animejs` awards, `mont-fort` awards, `lando-norris` awards). Fetch the published Awwwards weighting and update `references/jury/rubric.md` if it differs from 40 / 30 / 20 / 10.
-6. Resolve the flagged conflicts: Son Daven 7.62 vs 9.01 (probably CSSDA), Why Zero's SOTD date, Léo Parpeix's "built by" credit, Floema's home-theme contrast (≈ 3.1:1 by the clone's hexes).
+1. **Phase 7 — finish the eval suite.** The smoke half is done: it ran in full on 2026-09-18
+   (17 × 3 × 2, $36.22, 13/17, mean delta +0.48) and the result is now in `evals/README.md` under
+   "Last run". Two things are still owed:
+   - **Re-run the three cases whose fixes have never been tested**: `trigger-motion`,
+     `trigger-component-nav` and `trigger-jury`. They failed the full run because of two harness
+     defects — fixtures that never reached the workspace, and a jury reply contract that never
+     promised the axis names — and both were fixed afterwards (`2dfa1e3`, `b49d6a2`). Only
+     `trigger-webgl-hero` was re-run, at 3/3. Three cases, one arm, `--runs 3 --ablation none`,
+     roughly $2. **Do this first; it is nearly free and it decides whether the tier meets its bar.**
+   - **Build tier, `--tag build --scaffold --runs 1`, ceiling $45.** Never run, zero executions
+     ever. It is the only check that a grader can *pass* — `selftest.mjs` only proves they fail on
+     untouched input — and the only breadth test of what the skills produce rather than whether
+     they fire.
+   - The baseline arm does not need running again. Measured over 102 runs: every `skill-fired`
+     grader scores 0 without the plugin, because the skill does not exist there, and all six
+     negatives pass trivially for the same reason. The one informative row was `trigger-jury`
+     (`disposition-line` 3/3 with, 0/3 without). Use `--ablation none` from here.
+   - Pass bar is in `plan-0.2.md` Phase 7. The first bar — every trigger case firing in ≥ 2 of 3
+     runs — was **not** met on 2026-09-18 and is what the reruns settle.
+2. **Phase 8 — one real end-to-end build**, network and Playwright available, ceiling $25. The open
+   question is whether the forked jury's literal `disposition:` line reaches the user; the fallback
+   (spawn `awards-jury` through the Agent tool) is already documented in `skills/craft/SKILL.md`.
+   The eval evidence is encouraging but not an answer: `disposition-line` passed 3/3 with the plugin
+   inside the eval sandbox, which is not the same as a forked jury inside a real `craft` run.
+   Worth running before the build tier — it is the defect-finder, and any wording fix it produces
+   invalidates eval numbers bought earlier.
+3. **Phase 9 — finish the docs and the version.** The free half was done on 2026-09-21 (counts,
+   `state.md`, this file). Still open: `version` to `0.2.0` in **both**
+   `plugins/awards/.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` together,
+   release notes in `README.md`, the eval "Last run" table, and the full verification block at the
+   end of `plan-0.2.md`.
 
-## Plugin
-7. **P2 recipes**: `sound-toggle-opt-in` (Howler or `HTMLAudioElement`, persisted consent, audio-reactive 24×24 icon) and `gl-msdf-text` (MSDF text with a DOM mirror). Both are in the catalogue and cited by the pattern files.
-8. **`allowed-tools` for the scripts** (`Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*)`) once the wildcard form is confirmed to work in plugin skills; v1 leaves prompts on.
-9. **`capture.mjs` reports a cold-cache LCP as if it were a field measurement.** The manifest's `metrics[label].lcp` is whatever a first, uncached headless load produced; the jury reads it as the site's LCP and scores performance from it. Either label it in the manifest as a cold synthetic load, or measure twice and report the warm number.
-10. **Framework adapters as code**: the recipes carry adapter notes; `recipes/<id>/adapters/{react.tsx,vue.vue,svelte.svelte,astro.astro}` are still to write for the P0 set, and `assets/scaffold/` has only `vite-vanilla` (the stack skill routes other stacks to `references/stacks/*.md`).
-11. **`tools/extract-report.mjs`** (plan §7 tree, dev-only JSONL → last assistant text) was never needed and not written; drop it from the plan or add it.
-12. Consider a `references/sites/_index.md` column for "last verified" once cards get re-checked.
+## Out of scope for 0.2.0 by decision, still worth doing
 
-## Housekeeping
-13. Pull request #1 is open on `claude/award-worthy-website-skill-rbcead`; merge or keep iterating on the branch. `evals/results/` and `recipes/_verify/` are gitignored; `recipes/node_modules` must be installed locally (`npm install` in `plugins/awards/recipes`) before `verify-recipes.mjs`.
-14. Bump `version` in `plugins/awards/.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` together on the next release.
+4. **Real-device pass on the GL recipes** (a phone and a laptop GPU): `gl-fluid-wake-post`,
+   `gl-dom-tethered-planes`, `gl-postprocessing-presets`, `gl-virtual-scroll-camera`, `gl-msdf-text`.
+   Adjust the thresholds in `recipes/_shared/quality-tiers.js` from measured frame rates; they are
+   guesses today. This is a human task — headless SwiftShader cannot answer it.
+5. **Framework adapters as code.** The recipes carry adapter notes;
+   `recipes/<id>/adapters/{react.tsx,vue.vue,svelte.svelte,astro.astro}` are unwritten for the P0
+   set, and `assets/scaffold/` has only `vite-vanilla` (the stack skill routes other stacks to
+   `references/stacks/*.md`).
+
+## Smaller, open
+
+6. **Slosh Seltzer's captures show its WebGL gate, not the site.** Its card records this and its
+   confidence stayed medium-high. A capture through a GL-capable browser would close it.
+7. **The fifteen site cards that disclaim the manifest's LCP by hand** still say "the manifest's LCP
+   figures". The field is now `lcpColdSynthetic` and carries its own warning, so those sentences are
+   redundant rather than wrong. Tidy them only if a card is being edited anyway.
+
+## Closed since 0.1.0
+
+Everything else on the old list. The corpus is live-verified 19/19 (item 5), the flagged conflicts
+are resolved (6), both P2 recipes ship (7), `allowed-tools` is on every skill (8), the cold-LCP
+defect is fixed (9), `_index.md` has its `Last verified` column (12), and pull request #1 is merged
+(13). `tools/extract-report.mjs` (11) was never needed and is **dropped**, not deferred. Details and
+evidence for each are in `verification-log.md`.

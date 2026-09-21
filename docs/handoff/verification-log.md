@@ -348,6 +348,14 @@ Cost note: the run reported `cost ceiling $8 exceeded: $9.20 spent by runs alrea
 was crossed; nothing was skipped`. The ceiling is checked before a run launches, so three concurrent
 runs can overshoot it; `-j 3` and a tight ceiling do not combine.
 
+**Correction, written 2026-09-21.** The reading above — "a sampling outcome, not a routing rule" —
+was wrong, and the full run in Phase 7 disproved it. `trigger-motion` and `trigger-component-nav`
+were failing because `context.add_dirs` grants a read on a directory *inside the case* and puts
+nothing in the working directory, so the fixture the prompt names was never there. Three of the five
+fixture cases passed anyway, because their prompts route on the request itself before the missing
+files matter, which is what kept it invisible. Fixed in `2dfa1e3`; the paragraph above is kept as
+the before-reading.
+
 
 ## Phase 6 — the two missing recipes
 
@@ -380,7 +388,76 @@ will hit it.
 
 `node scripts/audit.mjs recipes` stays at 0 P0–P2 findings with both recipes in.
 
+## Phase 7 — evals, expensive half
+
+**Step 1, the full smoke tier with the baseline arm, ran on 2026-09-18 and was never written down
+until 2026-09-21.** `evals/results/smoke-full.json`, 91 KB: 17 cases × 3 runs × 2 arms, CLI 2.1.276,
+49.2 minutes, **$36.22**, `partial: false`. Result **13 / 17 cases passed**, overall score 0.86,
+mean delta over the no-plugin baseline **+0.48**. The per-case table now lives in
+`evals/README.md` under "Last run".
+
+Against the plan's pass bar:
+
+| Bar | Result |
+|---|---|
+| every trigger case fires in ≥ 2 of 3 runs | **not met** — `trigger-motion` 0/3, `trigger-component-nav` 1/3 |
+| every no-trigger case clean 3 of 3 on both arms | **met**, all six |
+| plugin arm beats baseline on the jury case's scored graders | **met** — `disposition-line` 3/3 with, 0/3 without |
+
+Both root causes were found and fixed after the run, and both were defects in the harness rather
+than in the skills:
+
+1. `context.add_dirs` grants a read-only copy inside the case and stages nothing in the working
+   directory, so five cases named a `fixture/` their agent never had. `2dfa1e3` gives each a
+   `fixture.sh`. The diagnostic evidence is in the kept sandboxes behind
+   `rerun2-trigger-motion.json` (1/3) and `rerun2-trigger-component-nav.json` (0/3), both run
+   *before* that fix.
+2. The forked jury reply was only ever required to carry the disposition, the weighted score and
+   the three fixes — the axes appear in the `AWARDS.md` log line as D / U / C / Co, so a compliant
+   reply could omit the word "Usability" entirely. `b49d6a2` puts the axes in the contract.
+
+**What is still owed on Phase 7:**
+
+- Re-run `trigger-motion`, `trigger-component-nav` and `trigger-jury` against the fixes.
+  `trigger-webgl-hero` was re-run at 16:11 and passed **3 / 3** (`rerun2-trigger-webgl-hero.json`),
+  which is the only post-fix evidence that exists. Three cases, one arm, ≈ $2.
+- The build tier has **never run**. Zero executions of all six cases.
+
+**What the baseline arm actually bought, now measured rather than argued.** Every `skill-fired`
+grader scored 0 in the `without` arm, which it must: the plugin is not loaded, so the skill cannot
+be called. All six negatives pass there trivially for the same reason. The single informative
+comparison in 102 runs was `trigger-jury`, where the baseline named the Usability axis 3/3 and
+produced the `disposition:` line 0/3. Half the tier's cost buys that one row; `--ablation none` is
+the honest default for iteration.
+
 ## Phase 8 — end-to-end build
 
 | Artefact | Present | Note |
 |---|---|---|
+
+## The cold-LCP defect, fixed 2026-09-21
+
+Phase 2 recorded it and Phase 4 did not close it: `capture.mjs` wrote a raw headless cold-cache
+number into `manifest.metrics[label].lcp`, and the jury read it as a field LCP. It scored
+Performance 3.5, 4.0 and 4.5 from that number on the first three calibration runs, and capped
+`white-desert`'s Usability with it. The number cannot be a property of a site — `united-carriers`
+reported **71,044 ms desktop against 368 ms mobile in the same run**.
+
+Fixed by naming it, not by measuring twice: measuring twice would double the wall-clock cost of
+every capture, and the problem was never precision, it was that the field claimed to be something
+it is not.
+
+| Change | File |
+|---|---|
+| `lcp` → `lcpColdSynthetic` in the manifest, with a comment at the source | `scripts/capture.mjs` |
+| Performance must never be scored from it; what it is and what it is worth | `skills/jury/SKILL.md` |
+| LCP row takes Lighthouse or a throttled trace, otherwise `not measured`; report line and checklist | `skills/ship/SKILL.md` |
+| Named as a cold-cache artefact in the manifest table | `skills/research/SKILL.md` |
+| Named as not a field LCP in the evidence table | `agents/awards-jury.md` |
+
+Checked: `node --check` on the script, then a real capture of a local page — manifest written,
+`"lcpColdSynthetic": 124`, `scrollMode: "native"`, exit 0. `lint-refs` 0 dangling,
+`claude plugin validate` passes.
+
+The fifteen site cards that disclaim "the manifest's LCP figures" by hand are left alone: they are
+dated evidence records, and the sentences are now redundant rather than wrong.

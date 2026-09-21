@@ -22,6 +22,33 @@ Every run is a real model call on your account; the build tier can take 20–30 
 
 The build cases run inside the eval sandbox, where `npm install` and Playwright captures usually cannot run; the prompts ask Claude to say so and continue, and the graders read the transcript and the files rather than a rendered page. Run the same prompts in a normal session with network access for the full loop.
 
+## Last run
+
+| Tier | Command | Date | CLI | Result | Cost |
+|---|---|---|---|---|---|
+| smoke | `--tag smoke --runs 1 --ablation none -j 3 --threshold 0.67` | 2026-09-18 | 2.1.51 | 15 / 17 | $9.20 |
+| smoke | `--tag smoke --runs 3 --threshold 0.67` (both arms, 102 runs, 49 min) | 2026-09-18 | 2.1.276 | **13 / 17**, overall score 0.86, mean delta over baseline **+0.48** | $36.22 |
+| build | never run | — | — | — | — |
+
+All six negatives held 3/3 on both arms. Of the eleven triggering cases, seven fired 3/3 with the
+plugin and 0/3 without it. The four that missed:
+
+| Case | With | Without | What it was |
+|---|---|---|---|
+| `trigger-motion` | 0 / 3 | 0 / 3 | the fixture never reached the workspace |
+| `trigger-component-nav` | 1 / 3 | 0 / 3 | the fixture never reached the workspace |
+| `trigger-webgl-hero` | 2 / 3 | 0 / 3 | same; the failing run answered in **one turn**, exactly like every baseline run |
+| `trigger-jury` | 3 / 3 fired, `usability-axis` 1 / 3 | 0 / 3 on `disposition-line`, 3 / 3 on `usability-axis` | the forked reply was never required to name the axes |
+
+Both causes were fixed after the run (`b49d6a2`, `2dfa1e3`). Only `trigger-webgl-hero` has been
+re-run since, at **3 / 3**. `trigger-motion`, `trigger-component-nav` and `trigger-jury` are still
+unverified against their fixes — rerun those three before reading this table as final.
+
+What the baseline arm bought, measured: every `skill-fired` grader scored 0 without the plugin, as
+it must, since the skill does not exist there. The one informative comparison was `trigger-jury`,
+where the baseline named the Usability axis in 3 / 3 runs and never produced the `disposition:`
+line. `--ablation none` costs about half as much and loses that single comparison.
+
 ## Grader self-test
 ```bash
 node evals/selftest.mjs      # free, about a second

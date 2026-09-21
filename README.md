@@ -90,7 +90,7 @@ claude plugin eval . --tag smoke                                      # routing,
 
 ## Status
 
-Version 0.1.0. The corpus was compiled without live access to the sites, so every fact carries a confidence label and `/awards:research` re-verifies a site when a session has network access. Headless verification proves the recipes are correct, not fast: run a real-device pass before shipping anything WebGL. Two planned recipes (an opt-in sound toggle and MSDF text with a DOM mirror) are scheduled for 0.2.
+Version 0.1.0; 0.2.0 is in progress on `feat/live-verification-0.2`. Every corpus site has been checked against its live render and its live award entry, and every fact still carries a confidence label; `/awards:research` re-verifies a site whenever a session has network access. Headless verification proves the recipes are correct, not fast: run a real-device pass before shipping anything WebGL.
 
 ## Provenance and licence
 
