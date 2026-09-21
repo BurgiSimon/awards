@@ -637,6 +637,43 @@ survivable. `max_turns: 150` is left alone, since 129 fits inside it. **This one
 measurement, not re-tested**: confirming it means paying for the case again, and it is the tier's
 expensive one at $15.68 even when truncated.
 
+### Build tier, second run 2026-09-21 — $41.43, 45.6 min, not partial
+
+With `Bash` granted whole and four graders repaired: **4 / 6 cases all-green, 50 of 53 graders,
+overall score 0.95**, against 2 / 6 and 47 / 53 the first time. Committed fixtures clean. The $55
+ceiling was $10 more than needed — $45 would have held.
+
+`build-antarctic-site` went from 0 to **10 / 10** at 153 turns and 2,737 s, which also settles the
+timeout: the old 1800 s cap would have cut it off again, so the number raised from the Phase 8
+measurement is now measured in the tier itself. `jury-generic-saas` and `research-unreachable`
+confirmed their repairs inside the tier at 6 / 6 and 4 / 4.
+
+Two graders failed that had passed the first time, both by luck of presentation rather than any
+change in the plugin.
+
+`motion-score-written` required the table directly beneath `## Motion score`; this run wrote a
+sentence of rationale first. Loosened to allow prose while refusing to cross into the next `##`
+section, checked three ways before applying — the template still fails, this run's file passes, and
+a filled table further down cannot rescue an empty section. Re-run at **7 / 7**.
+
+**`scope-respected` is the finding worth keeping.** It failed 3 / 3 twice on runs that changed
+nothing outside the nav — a diff of the first against the fixture showed the hero, work grid and
+footer byte-identical. The judges were right to refuse: the evidence an llm grader gets for
+`focus: trace` is **truncated to about 25 lines**, 25 for a 44-turn run and 25 for a 51-turn one,
+the last cut mid-object. What arrived held a single `Edit main.js` and none of the rest of the file
+work, so three judges were asked to affirm something their evidence did not contain. Rewording it
+changed nothing, which is the evidence that the first diagnosis was wrong. It is replaced by two
+file guards, `hero-and-work-kept` and `footer-kept`, in `selftest.mjs`'s `GUARDS` set, holding on
+the untouched fixture and passing on the exact run the judges failed. Its keyboard clauses were
+already covered by `escape-closes`, `focus-management` and `overlay-accessible`.
+
+Four of the six failures across both build runs came from a grader encoding how work is *presented*
+rather than what it *is*: the shape of a score line, which file a marker sits in, whether a fix list
+leads with direction work, whether a table follows its heading. Prefer a file target.
+
+**The tier has not been re-measured since those last two repairs.** 50 / 53 predates them, and
+`build-nav-component` now carries seven graders where it had six.
+
 ### Tools still denied, neither blocking
 
 `git init` (a compound command needing approval, so no phase-boundary commits — the run recorded it

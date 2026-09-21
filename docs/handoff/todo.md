@@ -23,9 +23,10 @@ ledger (`verification-log.md`) is the evidence. Nothing here blocks using the pl
    - The baseline arm does not need running again. Measured over 102 runs: every `skill-fired`
      grader scores 0 without the plugin, and all six negatives pass trivially there. The one
      informative row was `trigger-jury` (`disposition-line` 3/3 with, 0/3 without).
-   - **Re-run the build tier once the two open findings are settled.** The 2026-09-21 numbers were
-     produced with every script call denied, so they measure written output only and are not a
-     baseline to compare against.
+   - ~~Re-run the build tier.~~ **Done 2026-09-21**: 50 / 53 graders, 4 / 6 cases all-green, $41.43.
+     It surfaced two more grader defects, both since repaired and verified on their own. **One run
+     is still owed**, because 50 / 53 predates those two repairs — expect the tier to cost about $42
+     and take 45 minutes, and note `build-antarctic-site` alone is $27 of it.
    - Budget note: three smoke cases × three runs cost $6.64, not the ≈ $2 estimated. The build tier
      came in at $27.68 against a $45 ceiling, and the two grader verification runs at $3.17.
 2. ~~**Phase 8 — one real end-to-end build.**~~ **Done 2026-09-21**, $23.89, every check in the plan

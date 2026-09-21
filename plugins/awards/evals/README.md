@@ -35,35 +35,59 @@ The build cases run inside the eval sandbox, where `npm install` and Playwright 
 | smoke | `--tag smoke --runs 3 --threshold 0.67` (both arms, 102 runs, 49 min) | 2026-09-18 | 2.1.276 | **13 / 17**, overall score 0.86, mean delta over baseline **+0.48** | $36.22 |
 | smoke | `--case <name> --runs 3 --ablation none --scaffold` on the three unverified cases | 2026-09-21 | 2.1.278 | **3 / 3 each, every grader green** | $6.64 |
 | build | `--tag build --scaffold --runs 1 --ablation none -j 2 --keep-temp` + the documented `--allow-tools` set | 2026-09-21 | 2.1.278 | **2 / 6 cases all-green; 47 of 53 graders passed**, overall score 0.86 | $27.68 |
+| build | same, re-run with `--allow-tools … Bash` working and four graders repaired | 2026-09-21 | 2.1.278 | **4 / 6 cases all-green; 50 of 53 graders passed**, overall score **0.95** | $41.43 |
 
-Per case, and what each failure turned out to be. Every skill fired 1× in every case — routing is not
-the problem anywhere in this tier.
+Per case, from the **second** build run — the first is summarised under it. Every skill fired 1× in
+every case in both runs; routing is not a problem anywhere in this tier.
 
 | Case | Graders | Failure | Verdict |
 |---|---|---|---|
-| `build-nav-component` | 6 / 6 | — | pass |
+| `build-antarctic-site` | **10 / 10** | — | 153 turns, 2,737 s, $27.31. It needed the raised timeout: the old 1800 s cap would have cut it off again |
 | `build-webgl-hero` | 8 / 8 | — | pass |
-| `build-antarctic-site` | 9 / 10 | `final-report-honest` | **harness**: the run hit `timed out after 1800s` at 122 turns and $15.68, so there was no final message to judge |
-| `motion-pass-fadeup` | 6 / 7 | `pin-kept` | **grader**: it greps `main.js` for `data-pin\|frame-stage`, but the rewrite moved the hold to a CSS sticky stage on purpose (`// 0: the hold is CSS sticky`) and the markers live in `index.html` and `styles.css`. Consistent with the corpus finding that no card uses ScrollTrigger pin |
-| `research-unreachable` | 3 / 4 | `card-written` | **skill gap**: the agent refused to write a card for a domain that does not resolve, arguing a phantom neighbour in `_index.md` is worse than none. The skill has no branch separating "temporarily unreachable" from "does not exist" |
-| `jury-generic-saas` | 4 / 6 | `scores-present`, `fixes-ordered-and-specific` | **grader** both: the regex wants `x/10` or a table cell, while the skill's own format is `Design 3.5 · Usability 3.0 · …`; the judge reads the numbered fix list alone, and the reply names six of the eight listed anti-patterns in its rationale section instead |
+| `jury-generic-saas` | 6 / 6 | — | the three repaired graders hold inside the tier |
+| `research-unreachable` | 4 / 4 | — | the new branch holds inside the tier |
+| `motion-pass-fadeup` | 6 / 7 | `motion-score-written` | **grader**: the pattern demanded the table sit directly under `## Motion score`, and this run wrote a sentence of rationale first. Loosened to allow prose without crossing into the next `##` section; re-run at **7 / 7** |
+| `build-nav-component` | 5 / 6 | `scope-respected` | **grader, and the interesting one** — see below |
 
-**That run never executed a plugin script**, and that is why the command above now grants `Bash`
-whole. `--allow-tools "Bash(node *)"` matches on the command prefix, and the skills invoke
-`timeout 120 node …`, `cd … && …` and `node … | head -200`, so every call was denied.
+### An llm grader cannot audit a long run from `focus: trace`
 
-**Fixed and verified the same day.** With the whole grant, `audit.mjs` produced a real
-`P0 1 · P1 5 · P2 8 · P3 6` and `capture.mjs` ran and exited 3 (no Playwright in the sandbox — the
-documented path). The three grader defects are repaired and `jury-generic-saas` went
-**0.67 → 0.83 → 1.00, 6 / 6**, across two verification runs costing $3.17. `pin-kept` was verified
-without a rerun by replaying the failing run's edits to `index.html`: the marker survives.
+`scope-respected` asked three judges to certify that the hero, work grid and footer were unchanged.
+It failed 3 / 3 twice, on runs that had changed nothing: a diff of the first against the fixture
+showed all three sections **byte-identical**, and the agent said so in its own final message.
 
-Both remaining findings from that run are closed. `research` gained the branch it was missing for a
-host that does not resolve, and `card-written` now accepts either correct outcome — a card, or a
-reasoned refusal — verified at 4 / 4 twice. `build-antarctic-site` went from `timeout_seconds: 1800`
-to **3600**, set from the Phase 8 run of the same prompt, which needed 129 turns and 2,567 s; that
-change is reasoned from a measurement rather than re-tested, since the case costs $15.68 even when
-it is cut off.
+The judges were right to refuse. The evidence an llm grader receives for `focus: trace` is
+**truncated to about 25 lines** — 25 for a 44-turn run and 25 for a 51-turn one, the last line cut
+mid-object. What reached the judge contained a single `Edit main.js` and none of the rest of the
+file work. They were asked to affirm something the evidence did not contain.
+
+No wording fixes that, and an attempt to reword it changed nothing. The grader is replaced by two
+deterministic file guards, `hero-and-work-kept` and `footer-kept`, which is the mechanism this suite
+already uses for "must not be deleted" (`pin-kept`, `images-remain`). Both are in `selftest.mjs`'s
+`GUARDS` set, both hold on the untouched fixture, and both were checked against the exact run three
+judges had failed: **they pass on it.** The keyboard requirements the old grader also carried are
+already covered by `escape-closes`, `focus-management` and `overlay-accessible`.
+
+**The lesson for this suite**: prefer a file target. Four of the six failures across the two build
+runs came from a grader encoding how work is *presented* — the shape of a score line, which file a
+marker sits in, whether a fix list leads with direction work, whether the table follows its heading —
+rather than what the work *is*.
+
+### What the first build run found
+
+It scored 47 / 53 with **every Bash call denied**: `--allow-tools "Bash(node *)"` matches on the
+command prefix, and the skills invoke `timeout 120 node …`, `cd … && …` and `node … | head -200`.
+`capture.mjs` and `audit.mjs` never executed, so it measured written output only. With `Bash`
+granted whole, the second run had `audit.mjs` returning a real `P0 1 · P1 5 · P2 8 · P3 6` and
+`capture.mjs` exiting 3 for a missing Playwright, which is its documented path.
+
+Its other findings are all closed: `pin-kept` retargeted to `index.html`, `scores-present` matched to
+the format `skills/jury/SKILL.md` promises, `fixes-ordered-and-specific` no longer failing a reply
+that correctly reaches `rebuild`, `research` given its missing branch for a host that cannot exist,
+and `card-written` accepting either correct outcome.
+
+**Not yet re-measured as a whole.** The 50 / 53 above predates the two grader repairs made after it,
+and `build-nav-component` now has seven graders where it had six. Both repairs were verified on their
+own; the tier has not been run again since.
 
 All six negatives held 3/3 on both arms. Of the eleven triggering cases, seven fired 3/3 with the
 plugin and 0/3 without it. The four that missed:

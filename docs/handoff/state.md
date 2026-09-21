@@ -9,7 +9,7 @@ resume. `plan.md` is the 0.1.0 specification, kept for reference and no longer t
 
 | Item | Location |
 |---|---|
-| Repository | `github.com/BurgiSimon/awards`; branch `feat/live-verification-0.2`, 58 commits ahead of `main`, nothing behind. The 0.1.0 pull request #1 is merged |
+| Repository | `github.com/BurgiSimon/awards`; branch `feat/live-verification-0.2`, 59 commits ahead of `main`, nothing behind. The 0.1.0 pull request #1 is merged |
 | Plugin | `plugins/awards/` (manifest `plugins/awards/.claude-plugin/plugin.json`, version **0.1.0**); marketplace manifest `.claude-plugin/marketplace.json` at the repo root, also 0.1.0. Phase 9 bumps both to 0.2.0 together |
 | Skills | `plugins/awards/skills/{craft,concept,system,structure,stack,motion,webgl,component,jury,ship,research}/SKILL.md` — eleven, each with `allowed-tools` for the plugin's own scripts |
 | Agent and hook | `plugins/awards/agents/awards-jury.md`, `plugins/awards/hooks/hooks.json` |
@@ -80,10 +80,16 @@ Stamped on 2026-09-18 and **not** re-run since:
   for a host that cannot exist (4/4 twice), and `build-antarctic-site` went to `timeout_seconds:
   3600` from the Phase 8 measurement of 129 turns and 2,567 s. The timeout is reasoned from that
   measurement rather than re-tested.
-- **That tier run measured written output only**, because Bash was denied on every call. The grant
-  is now `--allow-tools … Bash` granted whole and verified working — `audit.mjs` and `capture.mjs`
-  execute inside an eval — but **the tier has not been re-run since**, so its 47/53 is not a
-  baseline to compare a future run against.
+- **The build tier was re-run on 2026-09-21 with the grant working**: $41.43, 45.6 min, **4/6 cases
+  all-green, 50 of 53 graders, overall 0.95**, against 2/6 and 47/53 before. `build-antarctic-site`
+  went 0 → 10/10 at 2,737 s, which also confirms the raised timeout by measurement rather than by
+  reasoning. Two graders failed that had passed before, both on presentation rather than substance;
+  both are repaired and verified. **The tier has not been measured again since those two repairs**,
+  so 50/53 predates them and `build-nav-component` now has seven graders where it had six.
+- An `llm` grader with `focus: trace` receives **about 25 lines** of transcript regardless of run
+  length, so it cannot audit a long run. `scope-respected` failed 3/3 twice on runs that changed
+  nothing, and is replaced by two file guards. Prefer a file target for anything a judge would have
+  to reconstruct.
 - The smoke tier **is** verified, in two parts: the full tier on 2026-09-18 (17 cases × 3 runs × 2
   arms, CLI 2.1.276, 49 min, $36.22, 13/17, mean delta over baseline +0.48) and the four repaired
   cases re-run afterwards at 3/3 each ($6.64 for the last three, CLI 2.1.278). Every Phase 7 bar is
@@ -148,7 +154,7 @@ Stamped on 2026-09-18 and **not** re-run since:
 
 | | |
 |---|---|
-| Commits on `feat/live-verification-0.2` ahead of `main` | 58 |
+| Commits on `feat/live-verification-0.2` ahead of `main` | 59 |
 | Site cards / pattern files / stack notes | 20 / 14 / 11 |
 | Recipes verified | 30 |
 | Audit rules | 55 (`T` fonts, `C` colour, `M` motion, `A` accessibility, `L` layout, `P` performance, `S` surfaces, `X` slop) |
