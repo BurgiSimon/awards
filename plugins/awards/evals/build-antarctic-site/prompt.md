@@ -1,7 +1,7 @@
 ---
 description: "The full site loop: contract, system, structure, build, motion, jury, ship. Grades the durable files, the reduced-motion path and the absence of copied reference phrases."
 max_turns: 150
-timeout_seconds: 1800
+timeout_seconds: 3600
 allowed_tools: [Read, Glob, Grep, Skill, Write, Edit, Bash, AskUserQuestion]
 ---
 

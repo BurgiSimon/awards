@@ -76,6 +76,8 @@ Why: a card written from memory and presented as observation poisons every brief
 - Write the header table and the sections you can support; leave `[unknown]` where you cannot.
 - Do not retry with a scraper, a proxy or an archive that would fetch assets; say what was not observed and move on.
 
+**A host that does not resolve is not an unreachable site, and gets no card.** `ENOTFOUND`, `NXDOMAIN` or a placeholder top-level domain means there is nothing to have seen and nothing to recall: every field would be invented, and the card would then sit in `_index.md` as a neighbour `awards:concept` can draw for a real brief. A phantom reference is worse for the user than no reference. Write no card and no index row. Say what you established, name the one thing that would unblock it — the real URL, a screenshot, a notes file — and stop. The branch above is for a site that *does* resolve and still cannot be read: a 403, a consent wall, a timeout, exit 3 or exit 4. That one gets its card, with the labels dropped accordingly.
+
 ## 4. Source inspection
 
 Why: a library name is a claim about how a site was built, and jurors, clients and the next build all act on it. A claim needs a signature you can point at. Fetch one document and the text assets it links, and nothing else:

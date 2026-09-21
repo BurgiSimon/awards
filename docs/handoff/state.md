@@ -9,7 +9,7 @@ resume. `plan.md` is the 0.1.0 specification, kept for reference and no longer t
 
 | Item | Location |
 |---|---|
-| Repository | `github.com/BurgiSimon/awards`; branch `feat/live-verification-0.2`, 57 commits ahead of `main`, nothing behind. The 0.1.0 pull request #1 is merged |
+| Repository | `github.com/BurgiSimon/awards`; branch `feat/live-verification-0.2`, 58 commits ahead of `main`, nothing behind. The 0.1.0 pull request #1 is merged |
 | Plugin | `plugins/awards/` (manifest `plugins/awards/.claude-plugin/plugin.json`, version **0.1.0**); marketplace manifest `.claude-plugin/marketplace.json` at the repo root, also 0.1.0. Phase 9 bumps both to 0.2.0 together |
 | Skills | `plugins/awards/skills/{craft,concept,system,structure,stack,motion,webgl,component,jury,ship,research}/SKILL.md` — eleven, each with `allowed-tools` for the plugin's own scripts |
 | Agent and hook | `plugins/awards/agents/awards-jury.md`, `plugins/awards/hooks/hooks.json` |
@@ -76,10 +76,10 @@ Stamped on 2026-09-18 and **not** re-run since:
 
 - **The build tier ran once, on 2026-09-21** (CLI 2.1.278, 33 min, $27.68): 2/6 cases all-green,
   **47 of 53 graders passed**, every skill fired. Three grader defects and the tool grant have since
-  been fixed and verified. Two findings stay open: `build-antarctic-site` times out at 1800 s, and
-  `research` has no branch for a host that does not resolve at all — it refused to write a phantom
-  card and argued the case well, which its own `confidence-labels` and `unreachable-stated` graders
-  both passed on.
+  been fixed and verified, and so have both remaining findings: `research` gained its missing branch
+  for a host that cannot exist (4/4 twice), and `build-antarctic-site` went to `timeout_seconds:
+  3600` from the Phase 8 measurement of 129 turns and 2,567 s. The timeout is reasoned from that
+  measurement rather than re-tested.
 - **That tier run measured written output only**, because Bash was denied on every call. The grant
   is now `--allow-tools … Bash` granted whole and verified working — `audit.mjs` and `capture.mjs`
   execute inside an eval — but **the tier has not been re-run since**, so its 47/53 is not a
@@ -148,7 +148,7 @@ Stamped on 2026-09-18 and **not** re-run since:
 
 | | |
 |---|---|
-| Commits on `feat/live-verification-0.2` ahead of `main` | 57 |
+| Commits on `feat/live-verification-0.2` ahead of `main` | 58 |
 | Site cards / pattern files / stack notes | 20 / 14 / 11 |
 | Recipes verified | 30 |
 | Audit rules | 55 (`T` fonts, `C` colour, `M` motion, `A` accessibility, `L` layout, `P` performance, `S` surfaces, `X` slop) |

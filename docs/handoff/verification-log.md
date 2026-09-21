@@ -610,6 +610,33 @@ Checked by reproducing the Phase 8 scenario and four regressions:
 | `AWARDS_HOOK=0` | silent |
 | URL target | unaffected |
 
+### The two remaining build-tier findings, closed 2026-09-21
+
+**`research` had no branch for a host that does not exist.** Its §3 covered a site that resolves and
+cannot be read; the case's URL is `https://example-studio.tld`, and `.tld` is not a delegated
+top-level domain, so it can never resolve. The skill now separates the two: a 403, consent wall,
+timeout or `capture.mjs` exit 3/4 still gets a card with the labels dropped, while `ENOTFOUND`,
+`NXDOMAIN` or a placeholder TLD gets **no card and no index row**, a statement of what was
+established, and the one thing that would unblock it.
+
+`card-written` was `file_exists` on `.awards/sites/*.md`, which cannot express "or a reasoned
+refusal", and it failed the 2026-09-21 run for doing the right thing. It is now a trace regex
+accepting either correct outcome, because the run cannot choose which situation it is in: with live
+DNS the case always takes the refusal branch, inside a sandbox without DNS it can take the card one.
+
+Verified twice, **4 / 4 graders, score 1.00, $0.57 for both runs**, and the second kept its trace to
+confirm *which* branch fired: no file was written, and the reply names the distinction the skill now
+draws. It also reasoned past what the branch asks for — the sandbox blocks outbound DNS, so
+`example.com` fails too, which makes the network evidence inconclusive; it settled the question on
+the placeholder TLD instead of on the failed lookup. Turns fell from 10 to 6, the skill no longer
+having to derive the rule.
+
+**`build-antarctic-site` timed out at 1800 s.** Set to **3600** from the measured Phase 8 run of the
+same prompt, which took 129 turns and 2,567 s with the whole chain working — 1800 s was never
+survivable. `max_turns: 150` is left alone, since 129 fits inside it. **This one is reasoned from a
+measurement, not re-tested**: confirming it means paying for the case again, and it is the tier's
+expensive one at $15.68 even when truncated.
+
 ### Tools still denied, neither blocking
 
 `git init` (a compound command needing approval, so no phase-boundary commits — the run recorded it

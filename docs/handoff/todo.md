@@ -14,13 +14,12 @@ ledger (`verification-log.md`) is the evidence. Nothing here blocks using the pl
      ($3.17). `scores-present` matches the contract format; `pin-kept` reads `index.html`;
      `fixes-ordered-and-specific` no longer fails a reply that correctly reaches `rebuild` and names
      direction work as its first fix.
-   - **One real skill gap**: `research` has no branch for a host that does not resolve at all, only
-     for one that is temporarily down. The run refused to write a phantom card and argued the case
-     well; decide whether the skill should say so explicitly and whether `card-written` should
-     accept a reasoned refusal.
-   - **One timeout**: `build-antarctic-site` hit 1800 s at 122 turns and $15.68 — over half the
-     tier's cost — so its `final-report-honest` judge had nothing to read. Either raise that case's
-     `timeout_seconds` or accept that the full craft chain does not fit one eval run.
+   - ~~One real skill gap in `research`.~~ **Done and verified**, 4 / 4 twice: the skill now
+     separates a host that cannot exist from a site that is merely unreadable, and `card-written`
+     accepts either correct outcome.
+   - ~~One timeout on `build-antarctic-site`.~~ **Raised to 3600**, from the Phase 8 measurement of
+     129 turns and 2,567 s for the same prompt. Reasoned from a measurement, not re-tested — the
+     next build-tier run is what confirms it.
    - The baseline arm does not need running again. Measured over 102 runs: every `skill-fired`
      grader scores 0 without the plugin, and all six negatives pass trivially there. The one
      informative row was `trigger-jury` (`disposition-line` 3/3 with, 0/3 without).

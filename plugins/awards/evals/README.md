@@ -58,8 +58,12 @@ documented path). The three grader defects are repaired and `jury-generic-saas` 
 **0.67 → 0.83 → 1.00, 6 / 6**, across two verification runs costing $3.17. `pin-kept` was verified
 without a rerun by replaying the failing run's edits to `index.html`: the marker survives.
 
-Two findings from that run are still open, and neither is a grader bug: the `research` skill has no
-branch for a host that does not resolve at all, and `build-antarctic-site` times out at 1800 s.
+Both remaining findings from that run are closed. `research` gained the branch it was missing for a
+host that does not resolve, and `card-written` now accepts either correct outcome — a card, or a
+reasoned refusal — verified at 4 / 4 twice. `build-antarctic-site` went from `timeout_seconds: 1800`
+to **3600**, set from the Phase 8 run of the same prompt, which needed 129 turns and 2,567 s; that
+change is reasoned from a measurement rather than re-tested, since the case costs $15.68 even when
+it is cut off.
 
 All six negatives held 3/3 on both arms. Of the eleven triggering cases, seven fired 3/3 with the
 plugin and 0/3 without it. The four that missed:
