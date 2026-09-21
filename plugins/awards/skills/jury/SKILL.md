@@ -151,7 +151,7 @@ Write it to `.awards/jury/<date>.md` (`date +%F`; add `-2`, `-3` when the name i
 
 In `## Status`, replace `Jury disposition: —` with the disposition and the date and tick the box. Touch nothing else in the file.
 
-**End your reply with exactly this block, verbatim from the report.** Not a table, not a prose sentence, not a `## Scores` section — these four lines, in this order, as the last thing you write:
+**Your reply must carry exactly this block, verbatim from the report, unbroken.** Not a table, not a prose sentence, not a `## Scores` section — these lines, in this order, either opening the reply or closing it, never split apart and never reformatted:
 
 ```
 disposition: <ship|fix|rebuild|recapture>
@@ -161,7 +161,7 @@ Design x.x · Usability x.x · Creativity x.x · Content x.x — weighted w.ww
 3. <fix, with its location>
 ```
 
-Then one closing sentence: "Relay these lines to the user unchanged." Everything else you want to say goes **above** the block.
+Then, wherever the block sits, one closing sentence: "Relay these lines to the user unchanged." Your reasoning, evidence and anything else you want to say goes outside the block, never inside it.
 
 Why this shape and not your own: the skill runs forked, so the conversation that invoked it sees only your reply, and `awards:craft` and `awards:ship` act on these lines without parsing prose. A `## Scores` table writes the same numbers in a form the caller cannot read. A jury run on 2026-09-21 ended with "**Disposition: recapture.**" and put its axes in a table; the disposition survived and the scores did not.
 

@@ -28,8 +28,13 @@ ledger (`verification-log.md`) is the evidence. Nothing here blocks using the pl
      40 / 42 graders and 4 / 6 cases, $44.37. That run found two more things, both now fixed and
      **neither re-measured**: `build-antarctic-site` exhausted `max_turns` (151 of 150) inside its
      raised time cap, so the cap is 200 now; and the jury skill drifted off its own reply contract,
-     writing the axes as a table, so the contract is a literal block in the skill. One more tier run
-     would close those — about $44 and 55 minutes, with `build-antarctic-site` roughly $32 of it.
+     writing the axes as a table, so the contract is a literal block in the skill.
+   - The jury contract was then sampled on its own for $1.63: **6 / 6**, and the shape held where it
+     had drifted. It also showed "end your reply with the block" is stricter than the need — the
+     reply led with the block and dropped the closing sentence — so the skill now asks for it
+     verbatim and unbroken at either end. **That last wording change is unsampled.** The turn cap is
+     unsampled too, and is arithmetic from three measurements (129, 153, 151 turns against a cap of
+     200); a tier run to watch it costs about $44, of which `build-antarctic-site` is $32.
    - Budget note: three smoke cases × three runs cost $6.64, not the ≈ $2 estimated. The build tier
      came in at $27.68 against a $45 ceiling, and the two grader verification runs at $3.17.
 2. ~~**Phase 8 — one real end-to-end build.**~~ **Done 2026-09-21**, $23.89, every check in the plan

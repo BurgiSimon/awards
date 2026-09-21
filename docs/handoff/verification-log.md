@@ -707,6 +707,31 @@ The tier has 41, and the real totals are 36 and 39. The wrong figures reached th
 `evals/README.md`, `state.md` and `todo.md` before anyone added up the per-case numbers, and are
 corrected throughout. Sum `evals/results/build-r*.json`; do not trust a total written in prose.
 
+### The jury reply contract, sampled once 2026-09-21
+
+`jury-generic-saas` at **6 / 6, $1.63** after the contract became a literal block. Run alone, because
+the tier's $44 is $32 of `build-antarctic-site`, which tests the turn cap — arithmetic from three
+measurements, not something a fourth sample settles.
+
+**The graders passed and the contract still did not hold.** The shape is fixed: the reply carries
+`disposition: recapture`, the four axes separated by `·`, the weighted score and three located
+fixes, where the run before it wrote a `## Scores` table and closed in prose. That was the part that
+mattered — a caller can parse this one and could not parse that one.
+
+But the block sat **16 % into a 3,303-character reply** as a blockquote, with 2,764 characters of
+prose after it, and the closing sentence "Relay these lines to the user unchanged" was missing
+entirely. The skill said "as the last thing you write" and the reply led with it instead.
+
+No grader catches that, because `scores-present` and `disposition-line` scan the whole message. The
+honest reading is that "last" was stricter than the need: the requirement `awards:craft` and
+`awards:ship` actually have is a block in a fixed shape, unbroken, that a regex can find — and
+leading with the verdict reads better for a human than burying it under the reasoning. The skill now
+asks for the block verbatim and unbroken, opening or closing the reply, and restores the closing
+sentence, which had simply been dropped.
+
+**That wording change is not sampled.** It was written after this run, and re-running to watch one
+more sample of a wording tweak is not worth $1.63 of anyone's money without a reason.
+
 ### Tools still denied, neither blocking
 
 `git init` (a compound command needing approval, so no phase-boundary commits — the run recorded it
