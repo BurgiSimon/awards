@@ -10,7 +10,7 @@ resume. `plan.md` is the 0.1.0 specification, kept for reference and no longer t
 | Item | Location |
 |---|---|
 | Repository | `github.com/BurgiSimon/awards`, branch `feat/live-verification-0.2`. Pull request #1 (0.1.0) and **#3** are both merged: `main` carries the branch through `c3b1740`, which is Phases 0–6. Everything from the cold-LCP fix onward — Phases 7 and 8, and the fixes they produced — is on the branch and not yet in `main`. Do not trust a "commits ahead" count in this file; it moved by 39 the moment #3 landed |
-| Plugin | `plugins/awards/` (manifest `plugins/awards/.claude-plugin/plugin.json`, version **0.1.0**); marketplace manifest `.claude-plugin/marketplace.json` at the repo root, also 0.1.0. Phase 9 bumps both to 0.2.0 together |
+| Plugin | `plugins/awards/` (manifest `plugins/awards/.claude-plugin/plugin.json`, version **0.2.0**); marketplace manifest `.claude-plugin/marketplace.json` at the repo root, also 0.2.0. Bump the two together; `recipes/package.json` and the scaffold's `package.json` are unrelated private versions and stay where they are |
 | Skills | `plugins/awards/skills/{craft,concept,system,structure,stack,motion,webgl,component,jury,ship,research}/SKILL.md` — eleven, each with `allowed-tools` for the plugin's own scripts |
 | Agent and hook | `plugins/awards/agents/awards-jury.md`, `plugins/awards/hooks/hooks.json` |
 | Reference corpus | `plugins/awards/references/` — 20 site cards + `_index.md` + `_TEMPLATE.md`, 14 pattern files, `jury/{rubric,usability-walk,report-template}.md`, `craft-floor.md`, `anti-patterns.md`, `reflex-lists.md`, 11 stack and library notes |
@@ -22,9 +22,9 @@ resume. `plan.md` is the 0.1.0 specification, kept for reference and no longer t
 
 ## Where the 0.2.0 work stands
 
-`plan-0.2.md` has nine phases. **Phases 0–8 are done. Phase 9 has had its free half taken early;
-the version bump and release notes remain.** Three findings from Phases 7 and 8 are open and named
-in `todo.md`.
+`plan-0.2.md` has nine phases, and **all nine are done**. What remains open is listed in `todo.md`:
+two fixes from the third build-tier run that have not been re-measured, and the work put out of
+scope by decision (a real-device GPU pass, framework adapters, extra scaffolds).
 
 | Phase | What it was | State |
 |---|---|---|
@@ -37,7 +37,7 @@ in `todo.md`.
 | 6 | The two missing P2 recipes, `allowed-tools` on every skill | done, 30/30 recipes |
 | 7 | Full smoke with the baseline arm, build tier once | **both tiers have run.** Smoke meets its bars; the build tier is 2/6 all-green with 36/41 graders passing, and its six failures are diagnosed but not yet fixed |
 | 8 | One real end-to-end build | **done 2026-09-21**, $23.89, every check met, and `plan.md` risk 2 is resolved |
-| 9 | Docs, counts, version bump, final verification | **partly done** — see below |
+| 9 | Docs, counts, version bump, final verification | **done 2026-09-21** — both manifests at 0.2.0, release notes in `README.md`, counts corrected, verification block run |
 
 The calibration outcome is load-bearing and easy to misread: this jury scores roughly 0.7 below the
 published Awwwards overall and handed `fix` or `rebuild` to six sites that all actually won Site of

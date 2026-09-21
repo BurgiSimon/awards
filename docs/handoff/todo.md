@@ -39,11 +39,10 @@ ledger (`verification-log.md`) is the evidence. Nothing here blocks using the pl
    `public/` wrote the report there and the build shipped it — and, less visibly, dropped every
    signed-off `## Exceptions` entry, since those are read from the same place. It now walks up from
    the audited target to the nearest `AWARDS.md`, falling back to cwd where there is none.
-3. **Phase 9 — finish the docs and the version.** The free half was done on 2026-09-21 (counts,
-   `state.md`, this file). Still open: `version` to `0.2.0` in **both**
-   `plugins/awards/.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` together,
-   release notes in `README.md`, the eval "Last run" table, and the full verification block at the
-   end of `plan-0.2.md`.
+3. ~~**Phase 9 — docs and version.**~~ **Done 2026-09-21.** Both manifests are at 0.2.0, the
+   release notes are in `README.md`, the counts are corrected everywhere, and the verification
+   block at the end of `plan-0.2.md` was run. **Nothing is pushed and no pull request is open** —
+   the plan says to stop and report first, and that still stands.
 
 ## Out of scope for 0.2.0 by decision, still worth doing
 

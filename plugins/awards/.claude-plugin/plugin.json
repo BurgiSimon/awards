@@ -1,8 +1,8 @@
 {
   "name": "awards",
   "displayName": "Awards",
-  "version": "0.1.0",
-  "description": "Design and build award-worthy websites and components: an orchestrating craft skill plus concept, system, structure, stack, motion, webgl, component, jury, ship and research skills, a fresh-context jury agent, verified motion and WebGL recipes, and a 19-site reference corpus.",
+  "version": "0.2.0",
+  "description": "Design and build award-worthy websites and components: an orchestrating craft skill plus concept, system, structure, stack, motion, webgl, component, jury, ship and research skills, a fresh-context jury agent, thirty verified motion and WebGL recipes, and a twenty-card reference corpus checked against the live sites and their live award entries.",
   "author": {
     "name": "BurgiSimon",
     "url": "https://github.com/burgisimon"
