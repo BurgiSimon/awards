@@ -468,6 +468,32 @@ before the next run.
 
 Committed fixtures were clean afterwards: `git status -- plugins/awards/evals` empty.
 
+#### Fixed and verified, 2026-09-21
+
+The grant list and the three grader defects are repaired. Two verification runs of
+`jury-generic-saas` ($1.65 then $1.52) took the case from **0.67 → 0.83 → 1.00, 6 / 6 graders**.
+
+- **The grant.** `--allow-tools Write Edit WebFetch Bash`, granted whole, in `evals/README.md`,
+  `CLAUDE.md` and this plan. Confirmed: every Bash call ran, `audit.mjs` produced a real
+  `P0 1 · P1 5 · P2 8 · P3 6`, and `capture.mjs` ran and exited 3 because Playwright is absent from
+  the sandbox — the documented path, not a denial. The plugin has now executed its own scripts
+  inside an eval for the first time. The OS sandbox still confines the shell to the case workspace,
+  and `--scaffold` already ran author bash as the user, so the widening is smaller than it looks.
+- **`scores-present`** now matches the format the skill promises at `skills/jury/SKILL.md:152`.
+- **`pin-kept`** reads `index.html`. Verified without another run by replaying the 2026-09-18 trace's
+  write and four edits to that file: the marker survives, so the retargeted guard passes on the run
+  it previously failed. `selftest.mjs` reports `guard holds on index.html`.
+
+**Correction to finding 2 above, same day.** The first diagnosis — that the judge reads only the
+numbered list — was wrong, and the first repair (telling it to look anywhere) did not move the
+verdict: still FAIL, FAIL, FAIL. The real cause is the grader's own closing clause, *"FAIL if the
+reply ... proposes a redesign instead of a fix list"*. On this fixture the jury correctly lands in
+rebuild territory and names direction work as fix #1, and `skills/jury/SKILL.md:190` routes
+`rebuild` back to `awards:concept` — so the clause was failing the behaviour the skill documents.
+The grader is rewritten against the contract and keeps its teeth: praise, scores without reasons,
+and fixes with no location all still FAIL. The reasoning is in the grader file so the change can be
+judged as principled rather than fitted to turn a test green.
+
 ### The three repairs, verified 2026-09-21
 
 `--case <name> --runs 3 --ablation none --scaffold --no-publish --trust-plugin -j 1`, serially, CLI

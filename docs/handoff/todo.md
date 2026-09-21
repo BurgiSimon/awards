@@ -8,16 +8,12 @@ ledger (`verification-log.md`) is the evidence. Nothing here blocks using the pl
 1. **Phase 7 — close out the build tier's findings.** Both tiers have now run. Smoke meets every
    bar. The build tier ran on 2026-09-21 ($27.68, 33 min): 2/6 cases all-green, **47 of 53 graders
    passed**, every skill fired. Six failures, diagnosed in the ledger, **none fixed yet**:
-   - **Fix the `--allow-tools` grant first — it is the one that invalidates the rest.** Bash was
-     denied on every call in every case, because the grant matches a command prefix and the skills
-     invoke `timeout 120 node …`, `cd … && …` and `node … | head`. `capture.mjs` and `audit.mjs`
-     have never executed inside an eval. Until this is fixed the tier tests written output only.
-     Update the command in `evals/README.md` and `plan-0.2.md` together.
-   - **Three grader defects to repair**: `jury-generic-saas/scores-present` (wants `x/10`, the skill
-     writes `Design 3.5 · Usability 3.0 · …`), `jury-generic-saas/fixes-ordered-and-specific` (the
-     judge reads only the numbered list; the reply names six of the eight anti-patterns in its
-     rationale), `motion-pass-fadeup/pin-kept` (greps `main.js` for a marker the rewrite moved to
-     `index.html` and `styles.css` when it converted the pin to CSS sticky on purpose).
+   - ~~Fix the `--allow-tools` grant.~~ **Done and verified**: `Bash` is granted whole in all three
+     places that document the command. `audit.mjs` and `capture.mjs` now execute inside an eval.
+   - ~~Three grader defects.~~ **Done and verified**, `jury-generic-saas` 0.67 → 1.00 over two runs
+     ($3.17). `scores-present` matches the contract format; `pin-kept` reads `index.html`;
+     `fixes-ordered-and-specific` no longer fails a reply that correctly reaches `rebuild` and names
+     direction work as its first fix.
    - **One real skill gap**: `research` has no branch for a host that does not resolve at all, only
      for one that is temporarily down. The run refused to write a phantom card and argued the case
      well; decide whether the skill should say so explicitly and whether `card-written` should
@@ -28,8 +24,11 @@ ledger (`verification-log.md`) is the evidence. Nothing here blocks using the pl
    - The baseline arm does not need running again. Measured over 102 runs: every `skill-fired`
      grader scores 0 without the plugin, and all six negatives pass trivially there. The one
      informative row was `trigger-jury` (`disposition-line` 3/3 with, 0/3 without).
+   - **Re-run the build tier once the two open findings are settled.** The 2026-09-21 numbers were
+     produced with every script call denied, so they measure written output only and are not a
+     baseline to compare against.
    - Budget note: three smoke cases × three runs cost $6.64, not the ≈ $2 estimated. The build tier
-     came in at $27.68 against a $45 ceiling.
+     came in at $27.68 against a $45 ceiling, and the two grader verification runs at $3.17.
 2. **Phase 8 — one real end-to-end build**, network and Playwright available, ceiling $25. The open
    question is whether the forked jury's literal `disposition:` line reaches the user; the fallback
    (spawn `awards-jury` through the Agent tool) is already documented in `skills/craft/SKILL.md`.

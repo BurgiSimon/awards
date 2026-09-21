@@ -16,7 +16,12 @@ claude plugin eval . --tag smoke --scaffold --runs 3 --threshold 0.67   # trigge
 # tier runs three times and 0.67 means two of three.
 claude plugin eval . --tag smoke --runs 1 --ablation none          # cheap iteration on descriptions
 claude plugin eval . --tag build --scaffold --runs 1 --ablation none \
-  --allow-tools Write Edit WebFetch "Bash(node *)" "Bash(npm *)" "Bash(npx *)" "Bash(ls *)" "Bash(cat *)" "Bash(mkdir *)"
+  --allow-tools Write Edit WebFetch Bash
+# Bash is granted whole, not as Bash(node *) and siblings. Those patterns match the command prefix,
+# and the skills invoke `timeout 120 node …`, `cd … && …` and `node … | head -200`, none of which
+# start with a granted word. The 2026-09-21 run was denied Bash on every call in every case, so
+# capture.mjs and audit.mjs never executed and nothing was graded against a rendered page. The OS
+# sandbox still confines the shell to the case workspace, and --scaffold already runs author bash.
 ```
 Every run is a real model call on your account; the build tier can take 20–30 minutes per case. `results/` is gitignored.
 
@@ -43,11 +48,18 @@ the problem anywhere in this tier.
 | `research-unreachable` | 3 / 4 | `card-written` | **skill gap**: the agent refused to write a card for a domain that does not resolve, arguing a phantom neighbour in `_index.md` is worse than none. The skill has no branch separating "temporarily unreachable" from "does not exist" |
 | `jury-generic-saas` | 4 / 6 | `scores-present`, `fixes-ordered-and-specific` | **grader** both: the regex wants `x/10` or a table cell, while the skill's own format is `Design 3.5 · Usability 3.0 · …`; the judge reads the numbered fix list alone, and the reply names six of the eight listed anti-patterns in its rationale section instead |
 
-**The tier never ran a single one of the plugin's scripts.** Bash was denied on every call in every
-case, because `--allow-tools "Bash(node *)"` matches on the command prefix and the skills invoke
-`timeout 120 node …`, `cd … && …`, and `node … | head -200`. `capture.mjs` and `audit.mjs` were
-never executed, so no grader in this tier has been tested against a rendered page or a real audit.
-Fix the grant list before reading the tier as a test of anything but written output.
+**That run never executed a plugin script**, and that is why the command above now grants `Bash`
+whole. `--allow-tools "Bash(node *)"` matches on the command prefix, and the skills invoke
+`timeout 120 node …`, `cd … && …` and `node … | head -200`, so every call was denied.
+
+**Fixed and verified the same day.** With the whole grant, `audit.mjs` produced a real
+`P0 1 · P1 5 · P2 8 · P3 6` and `capture.mjs` ran and exited 3 (no Playwright in the sandbox — the
+documented path). The three grader defects are repaired and `jury-generic-saas` went
+**0.67 → 0.83 → 1.00, 6 / 6**, across two verification runs costing $3.17. `pin-kept` was verified
+without a rerun by replaying the failing run's edits to `index.html`: the marker survives.
+
+Two findings from that run are still open, and neither is a grader bug: the `research` skill has no
+branch for a host that does not resolve at all, and `build-antarctic-site` times out at 1800 s.
 
 All six negatives held 3/3 on both arms. Of the eleven triggering cases, seven fired 3/3 with the
 plugin and 0/3 without it. The four that missed:
