@@ -1,6 +1,8 @@
 # awards plugin
 
-Skills, agent, hook, reference corpus, recipes and scripts for building award-worthy websites and components with Claude Code and Codex. Start with `/awards:craft` for a whole site or `/awards:component` for a single element in Claude Code; use `$awards:craft` or `$awards:component` in Codex. Every other skill also triggers on its own request. See the [installation instructions](../../README.md#install) and [Codex runtime guidance](references/codex.md).
+Skills, agent, hook, reference corpus, recipes and scripts for building award-worthy websites and components with Claude Code and Codex. Start with `/awards:craft` for a whole site or `/awards:component` for a single element in Claude Code; use `$awards:craft` or `$awards:component` in Codex. Every other skill also triggers on its own request. See the [installation instructions](https://github.com/burgisimon/awards#install) and [Codex runtime guidance](references/codex.md).
+
+Install this whole folder; individual skills depend on its shared resources. Node 20.19+ (20.x) or 22.12+ is required for Vite builds. In the website project, run `npm install --save-dev playwright` and `npx playwright install chromium` for captures and jury evidence. The static audit and scaffold do not require Playwright. Both client manifests live here; [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md) travel with the installed package.
 
 - `skills/` — the eleven skills (`craft`, `concept`, `system`, `structure`, `stack`, `motion`, `webgl`, `component`, `jury`, `ship`, `research`).
 - `agents/awards-jury.md` — the fresh-context jury.

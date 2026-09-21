@@ -1,6 +1,6 @@
 # awards — award-worthy websites with Claude Code and Codex
 
-A plugin for Claude Code and Codex that teaches the agent to design and build websites and single components in the league of Site of the Day / Month / Year award winners: in that style, never as copies. It is built from an analysis of nineteen award-winning sites, the pattern language they share, twenty-eight motion and WebGL recipes verified in a headless browser, a deterministic craft-floor audit, and a fresh-context jury that scores the way the real one does.
+A plugin for Claude Code and Codex that teaches the agent to design and build websites and single components in the league of Site of the Day / Month / Year award winners: in that style, never as copies. It is built from twenty site case studies, the pattern language they share, thirty motion and WebGL recipes verified in a headless browser, a deterministic craft-floor audit, and a fresh-context jury that scores the way the real one does.
 
 ## Install
 
@@ -22,7 +22,7 @@ codex plugin add awards@awards
 
 Start a new Codex session and invoke `$awards:craft` for a site or `$awards:component` for one element. All eleven skills use the same `$awards:<name>` form and remain available for automatic selection. Install the whole plugin rather than copying individual skill folders: they share the corpus, recipes, scripts and templates.
 
-Codex supports the existing [Claude-compatible marketplace format](https://developers.openai.com/plugins/build/plugins#how-local-marketplaces-work), so both clients use the same package. The [Codex runtime guidance](plugins/awards/references/codex.md) covers installed paths, phase handoffs, jury delegation and explicit audits. The automatic edit hook is Claude-specific; Codex runs the audit after edit batches. Fresh-context jury reviews require available delegation; otherwise the report discloses that it used the current context.
+Codex supports the existing [Claude-compatible marketplace format](https://developers.openai.com/plugins/build/plugins#how-local-marketplaces-work), so both clients use the same marketplace and skill files. The package includes a `.codex-plugin/plugin.json` compatibility manifest with Codex display metadata and starter prompts, alongside the Claude manifest. The [Codex runtime guidance](plugins/awards/references/codex.md) covers installed paths, phase handoffs, jury delegation and explicit audits. The automatic edit hook is Claude-specific; Codex runs the audit after edit batches. Fresh-context jury reviews require available delegation; otherwise the report discloses that it used the current context.
 
 ### Claude Code
 
@@ -31,7 +31,45 @@ Codex supports the existing [Claude-compatible marketplace format](https://devel
 /plugin install awards@awards
 ```
 
-Local development: `claude --plugin-dir plugins/awards`. Requirements: Node 20 or newer; Playwright (`npm i -D playwright` in the project, or a global install) for screenshots and the jury's evidence; `npm install` inside `plugins/awards/recipes` to build or verify the recipes.
+For an unpublished local checkout, use `/plugin marketplace add /absolute/path/to/awards`, then `/plugin install awards@awards`. Local development from the repository root: `claude --plugin-dir ./plugins/awards`. Start with `/awards:craft` or `/awards:component`.
+
+### Runtime requirements
+
+Use a current Claude Code or Codex CLI with plugin support. Installation checks were run with Claude Code 2.1.278 and Codex CLI 0.155.1. Builds require Node **20.19+ on the 20.x line, or 22.12+**, matching the bundled Vite version; Node 24 works. npm and network access are needed to install project dependencies. Context7 is optional; the skills can use official web documentation instead.
+
+For captures, rendered audits and jury evidence, install Playwright **and Chromium** in the website project:
+
+```bash
+npm install --save-dev playwright
+npx playwright install chromium
+```
+
+Run captures from that project directory. For an existing Playwright installation elsewhere, set `AWARDS_PLAYWRIGHT` to its parent project directory; `AWARDS_CHROMIUM` can point to an installed Chromium executable. Linux/cloud hosts may need `npx playwright install --with-deps chromium`. Static audits and scaffolding do not need a browser. If captures cannot be produced, the jury reports `recapture`.
+
+### Cloud sessions and Cowork
+
+Claude Code cloud sessions do not inherit plugins enabled only in your local user settings. In the **website repository** that should use Awards, merge this into `.claude/settings.json` and commit it once the plugin changes are published:
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "awards": {
+      "source": { "source": "github", "repo": "burgisimon/awards" }
+    }
+  },
+  "enabledPlugins": { "awards@awards": true }
+}
+```
+
+Provision Node and the browser dependencies in that cloud environment too. See [Claude's cloud skill loading rules](https://code.claude.com/docs/en/skills#skills-in-cowork-and-cloud-sessions).
+
+For Cowork, install the **whole plugin** through Cowork → Customize → Plugins, using a custom plugin upload or an available marketplace. A terminal installation does not install it into Cowork. See [Claude's plugin installation guide](https://support.claude.com/en/articles/13837440-use-plugins-in-claude). After committing the release files, create a clean upload from the repository root:
+
+```bash
+git archive --format=zip --output=/tmp/awards.zip HEAD:plugins/awards
+```
+
+This includes committed files only. Do not upload individual `skills/<name>` folders as standalone skills: their shared resources live at the plugin root. Their names and descriptions follow the [Agent Skills specification](https://agentskills.io/specification); the frontmatter also retains Claude-specific invocation and jury settings. Cowork/cloud availability and browser permissions depend on the host; those sessions have not been tested here.
 
 ## Skills
 
@@ -78,20 +116,25 @@ From the repository root, with Codex CLI and Node installed:
 node plugins/awards/evals/codex-install.mjs
 ```
 
-This installs into a temporary Codex home, checks actual skill discovery through the app server, resolves bundled references and exercises the installed scaffold from another working directory. It makes no model calls and leaves your Codex configuration untouched.
+This installs into a temporary Codex home, checks actual skill discovery through the app server, resolves bundled references and exercises both installed scaffold variants from another working directory. It makes no model calls and leaves your Codex configuration untouched. After `npm ci` in `plugins/awards/recipes`, add `--build` to also compile both generated projects.
 
 ```
 claude plugin validate plugins/awards
-cd plugins/awards
-(cd recipes && npm install)                  # once
-node scripts/verify-recipes.mjs              # all 30 recipes, headless Chromium with WebGL
-node scripts/audit.mjs recipes               # the craft floor: must stay free of P0-P2
-node scripts/lint-refs.mjs                   # every [site:]/[recipe:]/[pattern:] reference resolves
-node evals/selftest.mjs                      # every file-target grader fails on untouched input
+claude plugin validate .claude-plugin/marketplace.json
+cd plugins/awards/recipes
+npm ci
+npm install --no-save --package-lock=false playwright  # verification tool only
+npx playwright install chromium
+node ../scripts/verify-recipes.mjs            # all 30 recipes, headless Chromium with WebGL
+node ../scripts/audit.mjs .                   # the craft floor: must stay free of P0-P2
+node ../scripts/lint-refs.mjs                 # every [site:]/[recipe:]/[pattern:] reference resolves
+node ../evals/selftest.mjs                    # every file-target grader fails on untouched input
+node ../evals/codex-install.mjs --build       # installed scaffolds, with and without WebGL
+cd ..
 claude plugin eval . --tag smoke --scaffold --runs 3 --threshold 0.67   # routing (model calls)
 ```
 
-The first four make no model calls. `verify-recipes` and the captures need Playwright, and are not
+Only `claude plugin eval` makes model calls. `verify-recipes` and the captures need Playwright, and are not
 safe to run beside another browser.
 
 ## Status

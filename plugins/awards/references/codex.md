@@ -8,7 +8,7 @@ The installed plugin root is **two directories above the folder containing the a
 
 `${CLAUDE_PLUGIN_ROOT}` in the shared instructions means that resolved plugin root. Substitute the absolute root into each path and command before calling a tool; Codex need not provide this environment variable, and shell exports need not survive between calls. Quote paths that contain spaces. Run project commands from the user's project directory so `.awards/`, `AWARDS.md` and `DESIGN.md` are written there.
 
-`$ARGUMENTS` means the user's request and any supplied flags. Claude's `Read`, `Glob`, `Grep` and `Bash` names mean the available file-reading, search and shell tools. Open screenshots with an image-viewing tool; reading PNG bytes is not visual inspection. If Context7 is unavailable, consult the library's official documentation using available web tools and state anything you could not verify.
+`$ARGUMENTS` means the user's request and any supplied flags. Claude's `Read`, `Glob`, `Grep` and `Bash` names mean the available file-reading, search and shell tools. `AskUserQuestion` means an available user-input tool, or a concise question in the conversation when none is available; respect that tool's limits on option counts. Open screenshots with an image-viewing tool; reading PNG bytes is not visual inspection. If Context7 is unavailable, consult the library's official documentation using available web tools and state anything you could not verify.
 
 ## Skill handoffs
 

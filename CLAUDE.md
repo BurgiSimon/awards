@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A Claude Code plugin, `plugins/awards/`, for designing and building award-worthy (Awwwards-league) websites and components. The repo root is also the plugin marketplace (`.claude-plugin/marketplace.json`). There is no application code at the root: everything lives under `plugins/awards/`.
+A Claude Code and Codex plugin, `plugins/awards/`, for designing and building award-worthy (Awwwards-league) websites and components. The repo root is also the plugin marketplace (`.claude-plugin/marketplace.json`). There is no application code at the root: everything lives under `plugins/awards/`.
 
 Continuing the work: read `docs/handoff/state.md` and `docs/handoff/todo.md` first. `docs/handoff/plan.md` is the approved specification, `docs/handoff/decisions.md` the record of choices already made (do not re-litigate them).
 
@@ -30,13 +30,14 @@ node scripts/roll.mjs --deal 3 --of 7 [--seed <key>]      # seeded direction rol
 
 node scripts/lint-refs.mjs                                 # every [site:]/[recipe:]/[pattern:] and ${CLAUDE_PLUGIN_ROOT} path resolves
 node evals/selftest.mjs                                   # every file-target grader must fail on untouched input
+node evals/codex-install.mjs --build                       # isolated install, discovery and both scaffold builds (needs recipes/node_modules)
 
 claude plugin eval . --tag smoke                          # 11 routing cases with no-plugin baseline (model calls, costs money)
 claude plugin eval . --case trigger-jury --runs 1 --ablation none   # one case, cheapest iteration
 claude plugin eval . --tag build --scaffold --runs 1 --ablation none --allow-tools Write Edit WebFetch Bash   # 20–30 min per case; Bash whole, not Bash(node *): those match a command prefix and deny everything the skills actually run
 ```
 
-Requirements: Node 20+, Playwright (global or project-local) for `verify-recipes`, `capture` and `audit --render`. Verification outputs (`recipes/_verify/`, `recipes/dist/`, `evals/results/`, `.awards/`) are gitignored. Headless SwiftShader proves recipes correct, not fast.
+Requirements: Node 20.19+ (20.x) or 22.12+, Playwright plus its Chromium browser (global or project-local) for `verify-recipes`, `capture` and `audit --render`. Verification outputs (`recipes/_verify/`, `recipes/dist/`, `evals/results/`, `.awards/`) are gitignored. Headless SwiftShader proves recipes correct, not fast.
 
 ## Architecture
 
@@ -62,7 +63,7 @@ Requirements: Node 20+, Playwright (global or project-local) for `verify-recipes
 - Lenis 1.3 defaults to `autoRaf: false`. Every recipe drives `lenis.raf(time)` from the GSAP ticker or the shared ticker; a Lenis with no clock swallows wheel events and the page looks frozen.
 - Custom `ShaderMaterial`s include `#include <colorspace_fragment>`, otherwise sRGB textures and render targets render dark.
 - Distance-field shaders divide by `max(fwidth(d), 1e-5)`. A padded atlas is flat almost everywhere, `fwidth` is exactly zero there, and the division renders the whole quad opaque under SwiftShader.
-- Pinned library versions live in `recipes/package.json` and `references/stacks/versions.md`; keep them in sync. Bump `version` in `plugins/awards/.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` together.
+- Pinned library versions live in `recipes/package.json` and `references/stacks/versions.md`; keep them in sync. Keep `version` in `plugins/awards/.claude-plugin/plugin.json`, `plugins/awards/.codex-plugin/plugin.json` and `.claude-plugin/marketplace.json` in sync. Keep the root and plugin copies of `LICENSE` and `NOTICE.md` in sync.
 - Original prose only: the workflow shape echoes the *impeccable* skill, its wording never does. Site copy is quoted in fragments of at most 25 words. Every fact on a site card carries `[verified]`, `[recalled]`, `[inferred]` or `[unknown]`.
 - No model identifiers in any repository artefact (code, docs, commit titles or bodies). Commit messages end with the attribution footer the session provides.
 - Fonts: recipes use system stacks and never ship font files.

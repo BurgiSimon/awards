@@ -20,8 +20,9 @@ gsap.utils.toArray('[data-reveal]').forEach((el) => {
 });
 
 // WebGL is optional and lazy: only when the concept needs it and the device can carry it.
-if (document.querySelector('[data-scene]') && quality.tier !== 'low') {
-  const { mountScene } = await import('./webgl/scene.js');
+const loadScene = import.meta.glob('./webgl/scene.js')['./webgl/scene.js'];
+if (loadScene && document.querySelector('[data-scene]') && quality.tier !== 'low') {
+  const { mountScene } = await loadScene();
   mountScene(document.querySelector('[data-scene]'), quality);
 }
 

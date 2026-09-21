@@ -3,6 +3,9 @@
   "private": true,
   "type": "module",
   "version": "0.1.0",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
   "description": "Verified motion and WebGL recipes shipped with the awards plugin (vanilla Vite).",
   "scripts": {
     "dev": "vite",

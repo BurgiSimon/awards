@@ -769,3 +769,37 @@ Checked: `node --check` on the script, then a real capture of a local page — m
 
 The fifteen site cards that disclaim "the manifest's LCP figures" by hand are left alone: they are
 dated evidence records, and the sentences are now redundant rather than wrong.
+
+
+## Installation compatibility review — 2026-09-21
+
+Reviewed against the current [Claude skills documentation](https://code.claude.com/docs/en/skills#skills-in-cowork-and-cloud-sessions), [Agent Skills specification](https://agentskills.io/specification), and [OpenAI plugin packaging documentation](https://developers.openai.com/plugins/build/plugins).
+
+The existing Claude-compatible marketplace already installed in both clients. Added the supported
+`.codex-plugin/plugin.json` compatibility manifest for native display metadata and starter prompts;
+kept one shared marketplace and skill tree. Bundled `LICENSE` and `NOTICE.md` inside the plugin so
+an installed copy retains them. Corrected the Vite Node requirement and documented Chromium setup,
+cloud project settings, whole-plugin Cowork uploads and standalone-skill limitations. Claude-specific
+frontmatter is intentional; only its core name/description fields claim Agent Skills portability.
+
+A real build exposed an omitted-file bug: `new-project.mjs` without `--webgl` excludes
+`src/webgl/scene.js`, but the scaffold still imported it. The installed scaffold build failed with
+`UNRESOLVED_IMPORT`. Vite's lazy `import.meta.glob` now makes that module optional. The existing
+`evals/codex-install.mjs --build` check reproduces the failure before the fix and builds both variants
+after it; it also checks installed license files and matching client manifest identities/versions.
+
+Fresh checks (Node 24.21.0, Claude Code 2.1.278, Codex CLI 0.155.1):
+
+- Both Claude manifests validate; the bundled Codex plugin-creator validator passes.
+- Claude marketplace add/install/list succeeds in a temporary `CLAUDE_CONFIG_DIR`; the plugin is enabled.
+- Codex add/install and app-server discovery succeed in a temporary `CODEX_HOME`: 11 skills, no load errors.
+- All 11 skill files parse as YAML, match directory names, meet the 64/1024 character limits and stay below 500 lines.
+- Installed scaffolds with and without WebGL both build, from paths containing spaces.
+- Both scaffold variants reach `html.is-ready` in headless Chromium with normal and reduced motion, with no page/console errors (four runs). Chromium required permission to run outside the restricted shell sandbox.
+- `lint-refs.mjs`: 333 files, zero dangling references.
+- `evals/selftest.mjs`: 14 file-target graders, zero defective, two skipped because their untouched fixtures have no index.html.
+- Recipe static audit: zero P0/P1/P2 findings; 32 P3 findings.
+
+No model-backed evaluations were rerun. This review does not establish end-to-end Codex design
+quality, cloud/Cowork execution, real-device performance, or closure of the previously recorded
+build-tier caveats. No user installation settings were changed and nothing was published.

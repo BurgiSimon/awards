@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // Install and discover every skill with the real Codex CLI; no model calls or user config changes.
 // Its parser accepts the Claude-specific frontmatter retained by this shared package.
-// Usage: node plugins/awards/evals/codex-install.mjs
+// Usage: node plugins/awards/evals/codex-install.mjs [--build]
+// --build needs `npm ci` in recipes/ and builds both installed scaffold variants.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -9,7 +10,7 @@ import path from 'node:path';
 import { spawn, spawnSync } from 'node:child_process';
 import { once } from 'node:events';
 import { createInterface } from 'node:readline';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const plugin = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const repo = path.resolve(plugin, '../..');
@@ -28,6 +29,13 @@ try {
   assert.equal(installed.pluginId, 'awards@awards');
   const root = installed.installedPath;
   assert.ok(root.startsWith(testHome + path.sep), 'installation must stay inside the temporary home');
+  const claude = JSON.parse(fs.readFileSync(path.join(root, '.claude-plugin/plugin.json'), 'utf8'));
+  const codex = JSON.parse(fs.readFileSync(path.join(root, '.codex-plugin/plugin.json'), 'utf8'));
+  assert.equal(codex.name, claude.name);
+  assert.equal(codex.version, claude.version);
+  for (const file of ['LICENSE', 'NOTICE.md']) {
+    assert.equal(fs.readFileSync(path.join(root, file), 'utf8'), fs.readFileSync(path.join(repo, file), 'utf8'));
+  }
 
   const server = spawn('codex', ['app-server', '--stdio'], { cwd: testHome, env, stdio: ['pipe', 'pipe', 'pipe'] });
   const exited = once(server, 'exit');
@@ -69,11 +77,23 @@ try {
   }
 
   run(process.execPath, [path.join(root, 'scripts/lint-refs.mjs')]);
-  const project = path.join(testHome, 'sample site');
-  run(process.execPath, [path.join(root, 'scripts/new-project.mjs'), '--stack', 'vite', '--name', project]);
-  assert.ok(fs.existsSync(path.join(project, 'AWARDS.md')));
-  assert.ok(fs.existsSync(path.join(project, 'src/main.js')));
-  console.log(`Codex install passed: ${skills.length} skills discovered; bundled references and scaffold work.`);
+  for (const webgl of [false, true]) {
+    const project = path.join(testHome, webgl ? 'site with webgl' : 'site without webgl');
+    run(process.execPath, [path.join(root, 'scripts/new-project.mjs'), '--stack', 'vite', '--name', project, ...(webgl ? ['--webgl'] : [])]);
+    assert.ok(fs.existsSync(path.join(project, 'AWARDS.md')));
+    assert.equal(fs.existsSync(path.join(project, 'src/webgl/scene.js')), webgl);
+    const pkg = JSON.parse(fs.readFileSync(path.join(project, 'package.json'), 'utf8'));
+    assert.equal(Boolean(pkg.dependencies.three), webgl);
+    if (process.argv.includes('--build')) {
+      const deps = path.join(plugin, 'recipes/node_modules');
+      assert.ok(fs.existsSync(path.join(deps, 'vite/bin/vite.js')), 'Run npm ci in plugins/awards/recipes first');
+      fs.symlinkSync(deps, path.join(project, 'node_modules'), 'junction');
+      const { build } = await import(pathToFileURL(path.join(deps, 'vite/dist/node/index.js')).href);
+      await build({ root: project, logLevel: 'silent' });
+      assert.ok(fs.existsSync(path.join(project, 'dist/index.html')));
+    }
+  }
+  console.log(`Codex install passed: ${skills.length} skills discovered; bundled references and both scaffolds work${process.argv.includes('--build') ? ' and build' : ''}.`);
 } finally {
   fs.rmSync(testHome, { recursive: true, force: true });
 }

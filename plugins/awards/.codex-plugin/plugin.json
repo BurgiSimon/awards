@@ -1,0 +1,27 @@
+{
+  "name": "awards",
+  "version": "0.2.0",
+  "description": "Design and build award-worthy websites and components with eleven skills, a reference corpus, thirty motion and WebGL recipes, and an evidence-based jury.",
+  "author": {
+    "name": "BurgiSimon",
+    "url": "https://github.com/burgisimon"
+  },
+  "homepage": "https://github.com/burgisimon/awards",
+  "repository": "https://github.com/burgisimon/awards",
+  "license": "MIT",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Awards",
+    "shortDescription": "Award-worthy websites and components",
+    "longDescription": "Build a whole site or improve one component with a direction contract, design system, motion and WebGL recipes, accessibility checks, and a jury review grounded in captures and audits.",
+    "developerName": "BurgiSimon",
+    "category": "Design",
+    "capabilities": ["Read", "Write"],
+    "websiteURL": "https://github.com/burgisimon/awards",
+    "defaultPrompt": [
+      "$awards:craft Build an award-worthy website.",
+      "$awards:component Improve this component.",
+      "$awards:jury Review this page."
+    ]
+  }
+}
