@@ -31,14 +31,11 @@ ledger (`verification-log.md`) is the evidence. Nothing here blocks using the pl
      came in at $27.68 against a $45 ceiling, and the two grader verification runs at $3.17.
 2. ~~**Phase 8 — one real end-to-end build.**~~ **Done 2026-09-21**, $23.89, every check in the plan
    met, and **`plan.md` risk 2 is resolved** — the forked jury's literal `disposition:` line reaches
-   the user verbatim. Details in the ledger. It left one defect to fix:
-   - **`scripts/audit.mjs` writes its report to the wrong directory.** `projectDir` comes from
-     `CLAUDE_PROJECT_DIR` or `process.cwd()` (`audit.mjs:55`) and line 394 writes
-     `<projectDir>/.awards/audit.json`. Audit a project from inside `public/fonts` and the report
-     lands in `public/fonts/.awards/`, which Vite copies into `dist/` — the Phase 8 build shipped
-     one. The report even names the project root as its `target` while landing elsewhere. Decide
-     whether it should write beside the audited target or resolve upward to the nearest `AWARDS.md`,
-     then fix it once where every caller routes through.
+   the user verbatim. Details in the ledger. It left one defect, **since fixed**:
+   `scripts/audit.mjs` resolved its project root from `process.cwd()`, so auditing from inside
+   `public/` wrote the report there and the build shipped it — and, less visibly, dropped every
+   signed-off `## Exceptions` entry, since those are read from the same place. It now walks up from
+   the audited target to the nearest `AWARDS.md`, falling back to cwd where there is none.
 3. **Phase 9 — finish the docs and the version.** The free half was done on 2026-09-21 (counts,
    `state.md`, this file). Still open: `version` to `0.2.0` in **both**
    `plugins/awards/.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json` together,

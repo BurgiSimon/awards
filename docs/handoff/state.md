@@ -9,7 +9,7 @@ resume. `plan.md` is the 0.1.0 specification, kept for reference and no longer t
 
 | Item | Location |
 |---|---|
-| Repository | `github.com/BurgiSimon/awards`; branch `feat/live-verification-0.2`, 56 commits ahead of `main`, nothing behind. The 0.1.0 pull request #1 is merged |
+| Repository | `github.com/BurgiSimon/awards`; branch `feat/live-verification-0.2`, 57 commits ahead of `main`, nothing behind. The 0.1.0 pull request #1 is merged |
 | Plugin | `plugins/awards/` (manifest `plugins/awards/.claude-plugin/plugin.json`, version **0.1.0**); marketplace manifest `.claude-plugin/marketplace.json` at the repo root, also 0.1.0. Phase 9 bumps both to 0.2.0 together |
 | Skills | `plugins/awards/skills/{craft,concept,system,structure,stack,motion,webgl,component,jury,ship,research}/SKILL.md` — eleven, each with `allowed-tools` for the plugin's own scripts |
 | Agent and hook | `plugins/awards/agents/awards-jury.md`, `plugins/awards/hooks/hooks.json` |
@@ -99,9 +99,10 @@ Stamped on 2026-09-18 and **not** re-run since:
   page errors. **`plan.md` risk 2 is resolved**: the forked jury's literal `disposition:` line
   reaches the user verbatim, so the Agent-tool fallback in `skills/craft/SKILL.md` stays as
   insurance rather than being needed. Full account in the ledger's Phase 8 section.
-- One defect that run surfaced is **not fixed**: `scripts/audit.mjs` writes its report to
-  `process.cwd()`, so auditing from inside `public/` leaves `.awards/audit.json` there and the build
-  ships it. See `todo.md`.
+- The one defect that run surfaced is fixed: `scripts/audit.mjs` resolved its project root from
+  `process.cwd()`, so auditing from inside `public/` wrote the report there for the build to ship,
+  and silently dropped the project's `## Exceptions`. It now walks up from the audited target to the
+  nearest `AWARDS.md`, falling back to cwd where there is none.
 - **No recipe or skill has run on a real GPU or a real phone.** SwiftShader proves the recipes
   correct, not fast. The quality-tier thresholds in `recipes/_shared/quality-tiers.js` are still
   unmeasured guesses.
@@ -147,7 +148,7 @@ Stamped on 2026-09-18 and **not** re-run since:
 
 | | |
 |---|---|
-| Commits on `feat/live-verification-0.2` ahead of `main` | 56 |
+| Commits on `feat/live-verification-0.2` ahead of `main` | 57 |
 | Site cards / pattern files / stack notes | 20 / 14 / 11 |
 | Recipes verified | 30 |
 | Audit rules | 55 (`T` fonts, `C` colour, `M` motion, `A` accessibility, `L` layout, `P` performance, `S` surfaces, `X` slop) |

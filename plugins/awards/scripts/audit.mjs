@@ -52,14 +52,28 @@ if (!target) {
   process.exit(args.quick ? 0 : 1);
 }
 
-const projectDir = process.env.CLAUDE_PROJECT_DIR || process.cwd();
+const isUrl = /^https?:\/\//i.test(String(target));
+
+// `.awards/` and the `## Exceptions` list belong beside AWARDS.md, never beside the shell. Walking
+// up from the target instead of trusting cwd is what keeps a run from inside `public/` from writing
+// its report there — Vite copies `public/` into `dist/`, so that report shipped.
+const ownerOf = (from) => {
+  for (let d = from; ; d = path.dirname(d)) {
+    if (fs.existsSync(path.join(d, 'AWARDS.md'))) return d;
+    if (d === path.dirname(d)) return null;
+  }
+};
+const targetDir = isUrl ? null : (() => {
+  const abs = path.resolve(String(target));
+  return fs.existsSync(abs) && fs.statSync(abs).isDirectory() ? abs : path.dirname(abs);
+})();
+const projectDir = process.env.CLAUDE_PROJECT_DIR || (targetDir && ownerOf(targetDir)) || process.cwd();
 if (args.quick) {
   // The hook is inert outside award-level projects and for non-UI files.
   if (!fs.existsSync(path.join(projectDir, 'AWARDS.md')) || process.env.AWARDS_HOOK === '0') process.exit(0);
   if (!SCAN_EXT.has(path.extname(String(target)).toLowerCase())) process.exit(0);
 }
 
-const isUrl = /^https?:\/\//i.test(String(target));
 const files = [];
 if (!isUrl) {
   const abs = path.resolve(String(target));

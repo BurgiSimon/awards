@@ -583,14 +583,32 @@ byte counts are the real evidence."* The two-orders-of-magnitude artefact appear
 run's own manifest (144 ms desktop, 3,588 ms mobile) and this time nothing scored performance from
 it. The ship report labels its row *"LCP (headless, cold, synthetic) … not a field metric"*.
 
-### One real defect found, not yet fixed
+### One real defect found, and fixed the same day
 
 `dist/fonts/.awards/audit.json` shipped into the build output. `scripts/audit.mjs:55` takes
 `projectDir` from `CLAUDE_PROJECT_DIR` or **`process.cwd()`**, and line 394 writes
 `<projectDir>/.awards/audit.json`. The run audited the project from inside `public/fonts`, so the
 report was written to `public/fonts/.awards/` — under `public/`, which Vite copies verbatim into
 `dist/`. The report names the project root as its `target` while landing somewhere else entirely.
-Any project that audits a subdirectory of `public/` ships an internal report. Filed in `todo.md`.
+Any project that audits a subdirectory of `public/` ships an internal report.
+
+**The cwd assumption cost more than the report path.** `## Exceptions` is read from
+`projectDir/AWARDS.md` as well, so the same run silently lost every signed-off exception — an audit
+from a subdirectory would re-raise findings the project had already accepted. One helper fixes both:
+`ownerOf()` walks up from the target to the nearest `AWARDS.md`, and `projectDir` is now
+`CLAUDE_PROJECT_DIR` → that owner → `process.cwd()`, in that order.
+
+Checked by reproducing the Phase 8 scenario and four regressions:
+
+| Check | Result |
+|---|---|
+| audit the project root from inside `public/fonts` | report at the project root; **no `public/fonts/.awards`** |
+| `## Exceptions` from the root `AWARDS.md` | `['C02']`, found from the subdirectory |
+| `audit.mjs recipes` in this repo, which has no `AWARDS.md` | falls back to cwd, unchanged |
+| hook on a file inside an awards project, `CLAUDE_PROJECT_DIR` unset | fires — it was cwd-dependent before, and is now measured from the changed file, which is what `CLAUDE.md` always claimed |
+| hook on a file with no `AWARDS.md` above it | silent |
+| `AWARDS_HOOK=0` | silent |
+| URL target | unaffected |
 
 ### Tools still denied, neither blocking
 
