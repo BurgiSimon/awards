@@ -9,7 +9,7 @@ resume. `plan.md` is the 0.1.0 specification, kept for reference and no longer t
 
 | Item | Location |
 |---|---|
-| Repository | `github.com/BurgiSimon/awards`; branch `feat/live-verification-0.2`, 53 commits ahead of `main`, nothing behind. The 0.1.0 pull request #1 is merged |
+| Repository | `github.com/BurgiSimon/awards`; branch `feat/live-verification-0.2`, 54 commits ahead of `main`, nothing behind. The 0.1.0 pull request #1 is merged |
 | Plugin | `plugins/awards/` (manifest `plugins/awards/.claude-plugin/plugin.json`, version **0.1.0**); marketplace manifest `.claude-plugin/marketplace.json` at the repo root, also 0.1.0. Phase 9 bumps both to 0.2.0 together |
 | Skills | `plugins/awards/skills/{craft,concept,system,structure,stack,motion,webgl,component,jury,ship,research}/SKILL.md` — eleven, each with `allowed-tools` for the plugin's own scripts |
 | Agent and hook | `plugins/awards/agents/awards-jury.md`, `plugins/awards/hooks/hooks.json` |
@@ -34,7 +34,7 @@ has not started, and Phase 9 has had its free half taken early.**
 | 4 | Propagate the deltas, re-derive the rubric, `lint-refs.mjs` | done |
 | 5 | Repair graders, add `selftest.mjs`, six new smoke cases, cheap smoke run | done — but its conclusion about the two misses was wrong; see the ledger's 5c correction |
 | 6 | The two missing P2 recipes, `allowed-tools` on every skill | done, 30/30 recipes |
-| 7 | Full smoke with the baseline arm, build tier once | **smoke done and its bars met**; the build tier has never run |
+| 7 | Full smoke with the baseline arm, build tier once | **both tiers have run.** Smoke meets its bars; the build tier is 2/6 all-green with 47/53 graders passing, and its six failures are diagnosed but not yet fixed |
 | 8 | One real end-to-end build | **not started** — the ledger's Phase 8 section is an empty stub |
 | 9 | Docs, counts, version bump, final verification | **partly done** — see below |
 
@@ -73,15 +73,22 @@ Stamped on 2026-09-18 and **not** re-run since:
 
 ## What is not verified
 
-- **The build tier has never run.** Zero executions of all six cases, ever.
+- **The build tier ran once, on 2026-09-21** (CLI 2.1.278, 33 min, $27.68): 2/6 cases all-green,
+  **47 of 53 graders passed**, every skill fired. Four of the six failures are grader defects, one is
+  a 1800 s timeout on `build-antarctic-site`, and one is a real gap in `research` — it has no branch
+  for a host that does not exist, only for one that is temporarily down. **None is fixed yet.**
+- **The build tier has never executed a plugin script.** Bash was denied on every call, because
+  `--allow-tools "Bash(node *)"` matches the command prefix and the skills invoke `timeout 120
+  node …`, `cd … && …` and `node … | head`. `capture.mjs` and `audit.mjs` have never run inside an
+  eval, so no grader has been tested against a rendered page or a real audit.
 - The smoke tier **is** verified, in two parts: the full tier on 2026-09-18 (17 cases × 3 runs × 2
   arms, CLI 2.1.276, 49 min, $36.22, 13/17, mean delta over baseline +0.48) and the four repaired
   cases re-run afterwards at 3/3 each ($6.64 for the last three, CLI 2.1.278). Every Phase 7 bar is
   met. The caveat: the repairs were measured case by case on the plugin arm, not by re-running the
   whole tier in one pass. Per-case tables in `evals/README.md` under "Last run".
-- **Graders are proven to fail on untouched input, never proven to pass.** `selftest.mjs` only
-  checks the failing direction. A grader with a typo'd pattern would be invisible to it and would
-  make its case unpassable. Only the build tier tests the other direction.
+- Graders are now proven in **both** directions for the build tier: `selftest.mjs` checks that each
+  fails on untouched input, and the 2026-09-21 run showed 47 of 53 passing on real output. The four
+  that were wrong are named in the ledger.
 - **The skills have never been driven end to end on a real project.** The open question is
   `plan.md` risk 2: whether the forked jury's literal `disposition:` line survives the relay back to
   the user. If it does not, the fallback is documented in `skills/craft/SKILL.md` — spawn
@@ -131,7 +138,7 @@ Stamped on 2026-09-18 and **not** re-run since:
 
 | | |
 |---|---|
-| Commits on `feat/live-verification-0.2` ahead of `main` | 53 |
+| Commits on `feat/live-verification-0.2` ahead of `main` | 54 |
 | Site cards / pattern files / stack notes | 20 / 14 / 11 |
 | Recipes verified | 30 |
 | Audit rules | 55 (`T` fonts, `C` colour, `M` motion, `A` accessibility, `L` layout, `P` performance, `S` surfaces, `X` slop) |

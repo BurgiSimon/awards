@@ -29,7 +29,25 @@ The build cases run inside the eval sandbox, where `npm install` and Playwright 
 | smoke | `--tag smoke --runs 1 --ablation none -j 3 --threshold 0.67` | 2026-09-18 | 2.1.51 | 15 / 17 | $9.20 |
 | smoke | `--tag smoke --runs 3 --threshold 0.67` (both arms, 102 runs, 49 min) | 2026-09-18 | 2.1.276 | **13 / 17**, overall score 0.86, mean delta over baseline **+0.48** | $36.22 |
 | smoke | `--case <name> --runs 3 --ablation none --scaffold` on the three unverified cases | 2026-09-21 | 2.1.278 | **3 / 3 each, every grader green** | $6.64 |
-| build | never run | — | — | — | — |
+| build | `--tag build --scaffold --runs 1 --ablation none -j 2 --keep-temp` + the documented `--allow-tools` set | 2026-09-21 | 2.1.278 | **2 / 6 cases all-green; 47 of 53 graders passed**, overall score 0.86 | $27.68 |
+
+Per case, and what each failure turned out to be. Every skill fired 1× in every case — routing is not
+the problem anywhere in this tier.
+
+| Case | Graders | Failure | Verdict |
+|---|---|---|---|
+| `build-nav-component` | 6 / 6 | — | pass |
+| `build-webgl-hero` | 8 / 8 | — | pass |
+| `build-antarctic-site` | 9 / 10 | `final-report-honest` | **harness**: the run hit `timed out after 1800s` at 122 turns and $15.68, so there was no final message to judge |
+| `motion-pass-fadeup` | 6 / 7 | `pin-kept` | **grader**: it greps `main.js` for `data-pin\|frame-stage`, but the rewrite moved the hold to a CSS sticky stage on purpose (`// 0: the hold is CSS sticky`) and the markers live in `index.html` and `styles.css`. Consistent with the corpus finding that no card uses ScrollTrigger pin |
+| `research-unreachable` | 3 / 4 | `card-written` | **skill gap**: the agent refused to write a card for a domain that does not resolve, arguing a phantom neighbour in `_index.md` is worse than none. The skill has no branch separating "temporarily unreachable" from "does not exist" |
+| `jury-generic-saas` | 4 / 6 | `scores-present`, `fixes-ordered-and-specific` | **grader** both: the regex wants `x/10` or a table cell, while the skill's own format is `Design 3.5 · Usability 3.0 · …`; the judge reads the numbered fix list alone, and the reply names six of the eight listed anti-patterns in its rationale section instead |
+
+**The tier never ran a single one of the plugin's scripts.** Bash was denied on every call in every
+case, because `--allow-tools "Bash(node *)"` matches on the command prefix and the skills invoke
+`timeout 120 node …`, `cd … && …`, and `node … | head -200`. `capture.mjs` and `audit.mjs` were
+never executed, so no grader in this tier has been tested against a rendered page or a real audit.
+Fix the grant list before reading the tier as a test of anything but written output.
 
 All six negatives held 3/3 on both arms. Of the eleven triggering cases, seven fired 3/3 with the
 plugin and 0/3 without it. The four that missed:

@@ -420,7 +420,53 @@ than in the skills:
 
 - ~~Re-run `trigger-motion`, `trigger-component-nav` and `trigger-jury` against the fixes.~~
   **Done 2026-09-21**, see below.
-- The build tier has **never run**. Zero executions of all six cases.
+- ~~The build tier has **never run**.~~ **Ran 2026-09-21**, see below.
+
+### The build tier, first run ever, 2026-09-21
+
+`--tag build --scaffold --runs 1 --ablation none -j 2 --keep-temp --max-cost-usd 45` plus the
+documented `--allow-tools` set. CLI 2.1.278, 33.2 minutes, **$27.68**, `partial: false`. **2 / 6
+cases all-green, 47 of 53 graders passed**, overall score 0.86. Per-case table in
+`evals/README.md`.
+
+The tier's real purpose was to test the graders in the passing direction, which `selftest.mjs`
+cannot do. That answer is good: 47 of 53 pass, and every skill fired 1× in every case. Of the six
+failures, **four are grader defects, one is a timeout, and one is a genuine gap in a skill** — and
+the skill was arguably right.
+
+1. `jury-generic-saas/scores-present` looks for `x/10` or a table cell `| x |`. The skill's own
+   reply format is `Design 3.5 · Usability 3.0 · Creativity 2.5 · Content 2.5` followed by
+   `Weighted 3.05`, which is exactly what the run produced. The grader was written against a format
+   the skill never specified.
+2. `jury-generic-saas/fixes-ordered-and-specific` failed 3 / 3 judge votes. The reply carries three
+   ordered fixes, each with a file and line, and names six of the eight anti-patterns the grader
+   lists — but in its "why the creativity score is that low" paragraph rather than inside the
+   numbered list the judge is told to read. Boundary case; the grader's PASS condition needs to say
+   where it will look.
+3. `motion-pass-fadeup/pin-kept` greps `main.js` for `data-pin|frame-stage`. The rewrite kept the
+   pinned stage and moved it to CSS sticky on purpose — the new `main.js` says
+   `// 04 The build — the pinned frame. Kept as a CSS sticky stage on a tall transparent rail (no
+   pin spacers)` and asserts `pinned: … // 0: the hold is CSS sticky`, while the markers now live in
+   `index.html` and `styles.css`. That is consistent with this repo's own finding that no corpus
+   card uses ScrollTrigger pin. The guard cannot tell a deleted stage from a relocated one.
+4. `build-antarctic-site/final-report-honest` had nothing to judge: the run **timed out after
+   1800 s** at 122 turns and $15.68, more than half the tier's total cost. The other nine graders
+   passed. The full craft chain does not fit the case's timeout.
+5. `research-unreachable/card-written` is the one worth arguing about. The agent refused to write a
+   card for `example-studio.tld`, a placeholder that does not resolve, on the grounds that a phantom
+   neighbour in `_index.md` is worse for the user than no card — and its `confidence-labels` and
+   `unreachable-stated` graders both passed on that refusal. The skill's unreachable path assumes a
+   real site that is temporarily down; it has no branch for a host that does not exist. **Skill
+   gap, and the behaviour under it was better than the grader's expectation.**
+
+**The tier never executed a single plugin script.** Bash was denied on every call in every case:
+`--allow-tools "Bash(node *)"` matches on the command prefix, and the skills invoke
+`timeout 120 node …`, `cd … && …` and `node … | head -200`. So `capture.mjs` and `audit.mjs` never
+ran, no grader here has been tested against a rendered page or a real audit, and the tier currently
+measures written output only. The grant list in this plan and in `evals/README.md` needs fixing
+before the next run.
+
+Committed fixtures were clean afterwards: `git status -- plugins/awards/evals` empty.
 
 ### The three repairs, verified 2026-09-21
 
