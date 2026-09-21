@@ -44,7 +44,7 @@ Locate the captures directory (`--captures`, else `.awards/captures`) and its `m
 | `desktop-s100.png` | the close: an authored last screen or a dead end |
 | `mobile-s00.png` | a designed phone layout or a shrunken desktop; touch navigation |
 | `desktop-rm-s00.png` | the reduced-motion tier: readable at rest, nothing stuck at opacity 0 |
-| `manifest.json` | console and page errors, failed requests, LCP, CLS, DOM nodes, WebGL, `__awards` hook |
+| `manifest.json` | console and page errors, failed requests, CLS, DOM nodes, WebGL, `__awards` hook, `lcpColdSynthetic` |
 
 Open every capture with the Read tool and judge validity:
 
@@ -96,7 +96,7 @@ Why: Design carries 40 percent of the weight, and it is where a page either owns
 Why: a Developer Award accompanies nearly every Site of the Day in the corpus, and the technical criteria are the easiest place to lose a whole award on details. Read `${CLAUDE_PLUGIN_ROOT}/references/craft-floor.md` now for what the floor demands and which audit rule catches it; grep the source rather than trusting the motion score.
 
 - Animation and interaction: one ticker, framerate-independent damping, scrubbed tweens with `ease: 'none'` (M03), `will-change` scoped to what animates (M04), loops paused off-screen (M08), transforms and opacity only (M07).
-- Performance: `manifest.json` metrics (LCP, CLS, DOM nodes, canvases, WebGL), audit P01–P07, gzipped entry size from `dist/` when a build exists, font count and weight. Budgets are in `${CLAUDE_PLUGIN_ROOT}/references/patterns/asset-pipeline.md#budgets`; read it when a number is in doubt.
+- Performance: `manifest.json` metrics (CLS, DOM nodes, canvases, WebGL), audit P01–P07, gzipped entry size from `dist/` when a build exists, font count and weight. **Never score performance from `metrics[label].lcpColdSynthetic`**: it is a headless cold-cache software-GL number, and one corpus capture reported 71,044 ms desktop against 368 ms mobile in the same run. Read it only as a rough asset-weight signal beside the byte counts, and say which it is whenever you cite it. Budgets are in `${CLAUDE_PLUGIN_ROOT}/references/patterns/asset-pipeline.md#budgets`; read it when a number is in doubt.
 - Responsive: the mobile capture is designed rather than shrunk; no horizontal overflow (L02); eccentric desktop navigation has a touch equivalent; cursor and magnetic effects are guarded on coarse pointers (A08).
 - Accessibility and semantics: landmarks, one h1, alt text, `lang`, canvases `aria-hidden` with a DOM mirror, focus-visible styles, keyboard handlers for pointer gestures (A01–A11).
 - Code and markup: console and page errors from the manifest, debug flags, duplicate tickers, renderers never disposed (P07), dead code.

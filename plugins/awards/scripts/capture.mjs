@@ -200,7 +200,8 @@ try {
         domNodes: document.getElementsByTagName('*').length,
         webgl: gl,
         canvases: document.querySelectorAll('canvas').length,
-        lcp: Math.round(window.__awardsMetrics?.lcp ?? 0),
+        // Headless, cold cache, software GL: an asset-weight signal, never a field LCP.
+        lcpColdSynthetic: Math.round(window.__awardsMetrics?.lcp ?? 0),
         cls: Number((window.__awardsMetrics?.cls ?? 0).toFixed(4)),
         reducedMotion: matchMedia('(prefers-reduced-motion: reduce)').matches,
         awardsHook: !!window.__awards,

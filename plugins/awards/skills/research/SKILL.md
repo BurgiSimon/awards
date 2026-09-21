@@ -62,7 +62,7 @@ On exit 0 or 2, open every capture with the Read tool and read each one for what
 | `desktop-s100` | the close: footer, last action, whether the world holds to the end |
 | `mobile-s00` | a designed phone layout or a shrunken desktop; how eccentric navigation collapses |
 | `desktop-rm-s00` | the reduced-motion path: readable at rest, or lines stuck at opacity 0 |
-| `manifest.json` | title, `lang`, canvas count, WebGL state, DOM nodes, console errors, failed requests, LCP and CLS |
+| `manifest.json` | title, `lang`, canvas count, WebGL state, DOM nodes, console errors, failed requests, CLS, and `lcpColdSynthetic` — a headless cold-cache artefact, never quoted as a performance claim |
 
 - Describe each composition in your own words: what is where, at what scale, what the type and colour system appear to be, what changed between states. Everything read this way is `[verified]` against the capture name.
 - A preloader or a consent wall in every frame is itself an observation about the load gate; add `--wait 3000` or `--wait-for <selector>` once, then record what you got.

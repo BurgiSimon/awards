@@ -26,7 +26,7 @@ Open each capture with the Read tool; each one is evidence for something specifi
 | `desktop-s100` | the close: an authored last screen or a dead end |
 | `mobile-s00` | a designed phone layout or a shrunken desktop; touch navigation |
 | `desktop-rm-s00` | the reduced-motion tier: readable at rest, nothing stuck |
-| `manifest.json` | console and page errors, failed requests, LCP, CLS, DOM nodes, WebGL |
+| `manifest.json` | console and page errors, failed requests, CLS, DOM nodes, WebGL, `lcpColdSynthetic` (not a field LCP) |
 
 Component runs use `desktop-component-<slug>`, its `-hover` frame, `mobile-component-<slug>` and `desktop-rm-component-<slug>`. Source code is evidence for the developer criteria and for what moves; it is never a substitute for a capture.
 
