@@ -348,6 +348,14 @@ Cost note: the run reported `cost ceiling $8 exceeded: $9.20 spent by runs alrea
 was crossed; nothing was skipped`. The ceiling is checked before a run launches, so three concurrent
 runs can overshoot it; `-j 3` and a tight ceiling do not combine.
 
+**Correction, written 2026-09-21.** The reading above — "a sampling outcome, not a routing rule" —
+was wrong, and the full run in Phase 7 disproved it. `trigger-motion` and `trigger-component-nav`
+were failing because `context.add_dirs` grants a read on a directory *inside the case* and puts
+nothing in the working directory, so the fixture the prompt names was never there. Three of the five
+fixture cases passed anyway, because their prompts route on the request itself before the missing
+files matter, which is what kept it invisible. Fixed in `2dfa1e3`; the paragraph above is kept as
+the before-reading.
+
 
 ## Phase 6 — the two missing recipes
 
@@ -380,7 +388,384 @@ will hit it.
 
 `node scripts/audit.mjs recipes` stays at 0 P0–P2 findings with both recipes in.
 
-## Phase 8 — end-to-end build
+## Phase 7 — evals, expensive half
+
+**Step 1, the full smoke tier with the baseline arm, ran on 2026-09-18 and was never written down
+until 2026-09-21.** `evals/results/smoke-full.json`, 91 KB: 17 cases × 3 runs × 2 arms, CLI 2.1.276,
+49.2 minutes, **$36.22**, `partial: false`. Result **13 / 17 cases passed**, overall score 0.86,
+mean delta over the no-plugin baseline **+0.48**. The per-case table now lives in
+`evals/README.md` under "Last run".
+
+Against the plan's pass bar:
+
+| Bar | Result |
+|---|---|
+| every trigger case fires in ≥ 2 of 3 runs | **not met** — `trigger-motion` 0/3, `trigger-component-nav` 1/3 |
+| every no-trigger case clean 3 of 3 on both arms | **met**, all six |
+| plugin arm beats baseline on the jury case's scored graders | **met** — `disposition-line` 3/3 with, 0/3 without |
+
+Both root causes were found and fixed after the run, and both were defects in the harness rather
+than in the skills:
+
+1. `context.add_dirs` grants a read-only copy inside the case and stages nothing in the working
+   directory, so five cases named a `fixture/` their agent never had. `2dfa1e3` gives each a
+   `fixture.sh`. The diagnostic evidence is in the kept sandboxes behind
+   `rerun2-trigger-motion.json` (1/3) and `rerun2-trigger-component-nav.json` (0/3), both run
+   *before* that fix.
+2. The forked jury reply was only ever required to carry the disposition, the weighted score and
+   the three fixes — the axes appear in the `AWARDS.md` log line as D / U / C / Co, so a compliant
+   reply could omit the word "Usability" entirely. `b49d6a2` puts the axes in the contract.
+
+**What is still owed on Phase 7:**
+
+- ~~Re-run `trigger-motion`, `trigger-component-nav` and `trigger-jury` against the fixes.~~
+  **Done 2026-09-21**, see below.
+- ~~The build tier has **never run**.~~ **Ran 2026-09-21**, see below.
+
+### The build tier, first run ever, 2026-09-21
+
+`--tag build --scaffold --runs 1 --ablation none -j 2 --keep-temp --max-cost-usd 45` plus the
+documented `--allow-tools` set. CLI 2.1.278, 33.2 minutes, **$27.68**, `partial: false`. **2 / 6
+cases all-green, 36 of 41 graders passed**, overall score 0.86. Per-case table in
+`evals/README.md`.
+
+The tier's real purpose was to test the graders in the passing direction, which `selftest.mjs`
+cannot do. That answer is good: 36 of 41 pass, and every skill fired 1× in every case. Of the six
+failures, **four are grader defects, one is a timeout, and one is a genuine gap in a skill** — and
+the skill was arguably right.
+
+1. `jury-generic-saas/scores-present` looks for `x/10` or a table cell `| x |`. The skill's own
+   reply format is `Design 3.5 · Usability 3.0 · Creativity 2.5 · Content 2.5` followed by
+   `Weighted 3.05`, which is exactly what the run produced. The grader was written against a format
+   the skill never specified.
+2. `jury-generic-saas/fixes-ordered-and-specific` failed 3 / 3 judge votes. The reply carries three
+   ordered fixes, each with a file and line, and names six of the eight anti-patterns the grader
+   lists — but in its "why the creativity score is that low" paragraph rather than inside the
+   numbered list the judge is told to read. Boundary case; the grader's PASS condition needs to say
+   where it will look.
+3. `motion-pass-fadeup/pin-kept` greps `main.js` for `data-pin|frame-stage`. The rewrite kept the
+   pinned stage and moved it to CSS sticky on purpose — the new `main.js` says
+   `// 04 The build — the pinned frame. Kept as a CSS sticky stage on a tall transparent rail (no
+   pin spacers)` and asserts `pinned: … // 0: the hold is CSS sticky`, while the markers now live in
+   `index.html` and `styles.css`. That is consistent with this repo's own finding that no corpus
+   card uses ScrollTrigger pin. The guard cannot tell a deleted stage from a relocated one.
+4. `build-antarctic-site/final-report-honest` had nothing to judge: the run **timed out after
+   1800 s** at 122 turns and $15.68, more than half the tier's total cost. The other nine graders
+   passed. The full craft chain does not fit the case's timeout.
+5. `research-unreachable/card-written` is the one worth arguing about. The agent refused to write a
+   card for `example-studio.tld`, a placeholder that does not resolve, on the grounds that a phantom
+   neighbour in `_index.md` is worse for the user than no card — and its `confidence-labels` and
+   `unreachable-stated` graders both passed on that refusal. The skill's unreachable path assumes a
+   real site that is temporarily down; it has no branch for a host that does not exist. **Skill
+   gap, and the behaviour under it was better than the grader's expectation.**
+
+**The tier never executed a single plugin script.** Bash was denied on every call in every case:
+`--allow-tools "Bash(node *)"` matches on the command prefix, and the skills invoke
+`timeout 120 node …`, `cd … && …` and `node … | head -200`. So `capture.mjs` and `audit.mjs` never
+ran, no grader here has been tested against a rendered page or a real audit, and the tier currently
+measures written output only. The grant list in this plan and in `evals/README.md` needs fixing
+before the next run.
+
+Committed fixtures were clean afterwards: `git status -- plugins/awards/evals` empty.
+
+#### Fixed and verified, 2026-09-21
+
+The grant list and the three grader defects are repaired. Two verification runs of
+`jury-generic-saas` ($1.65 then $1.52) took the case from **0.67 → 0.83 → 1.00, 6 / 6 graders**.
+
+- **The grant.** `--allow-tools Write Edit WebFetch Bash`, granted whole, in `evals/README.md`,
+  `CLAUDE.md` and this plan. Confirmed: every Bash call ran, `audit.mjs` produced a real
+  `P0 1 · P1 5 · P2 8 · P3 6`, and `capture.mjs` ran and exited 3 because Playwright is absent from
+  the sandbox — the documented path, not a denial. The plugin has now executed its own scripts
+  inside an eval for the first time. The OS sandbox still confines the shell to the case workspace,
+  and `--scaffold` already ran author bash as the user, so the widening is smaller than it looks.
+- **`scores-present`** now matches the format the skill promises at `skills/jury/SKILL.md:152`.
+- **`pin-kept`** reads `index.html`. Verified without another run by replaying the 2026-09-18 trace's
+  write and four edits to that file: the marker survives, so the retargeted guard passes on the run
+  it previously failed. `selftest.mjs` reports `guard holds on index.html`.
+
+**Correction to finding 2 above, same day.** The first diagnosis — that the judge reads only the
+numbered list — was wrong, and the first repair (telling it to look anywhere) did not move the
+verdict: still FAIL, FAIL, FAIL. The real cause is the grader's own closing clause, *"FAIL if the
+reply ... proposes a redesign instead of a fix list"*. On this fixture the jury correctly lands in
+rebuild territory and names direction work as fix #1, and `skills/jury/SKILL.md:190` routes
+`rebuild` back to `awards:concept` — so the clause was failing the behaviour the skill documents.
+The grader is rewritten against the contract and keeps its teeth: praise, scores without reasons,
+and fixes with no location all still FAIL. The reasoning is in the grader file so the change can be
+judged as principled rather than fitted to turn a test green.
+
+### The three repairs, verified 2026-09-21
+
+`--case <name> --runs 3 --ablation none --scaffold --no-publish --trust-plugin -j 1`, serially, CLI
+2.1.278 (the tier ran on 2.1.276), **$6.64** for nine runs — three times the ≈ $2 estimated above.
+
+| Case | Before | After | Graders |
+|---|---|---|---|
+| `trigger-motion` | 0 / 3 | **3 / 3** | `skill-fired` P P P, 9–14 turns |
+| `trigger-component-nav` | 1 / 3 | **3 / 3** | `skill-fired` P P P, 9–15 turns |
+| `trigger-jury` | fired 3 / 3, `usability-axis` 1 / 3 | **3 / 3** | `disposition-line`, `skill-fired`, `usability-axis` all P in all three runs, 2–4 turns |
+
+Both diagnoses hold. The fixture cases now take 9–15 turns where the failing runs took 7–9 and
+answered from an empty directory; `trigger-jury` names the Usability axis in every run now that the
+reply contract requires the four axes.
+
+With `trigger-webgl-hero` at 3 / 3 on 2026-09-18, all four failures of the tier run are repaired and
+measured. **Every Phase 7 pass bar is met for the smoke tier.** The caveat worth keeping: the
+repairs were measured case by case on the plugin arm, not by re-running the whole tier in one pass.
+
+**What the baseline arm actually bought, now measured rather than argued.** Every `skill-fired`
+grader scored 0 in the `without` arm, which it must: the plugin is not loaded, so the skill cannot
+be called. All six negatives pass there trivially for the same reason. The single informative
+comparison in 102 runs was `trigger-jury`, where the baseline named the Usability axis 3/3 and
+produced the `disposition:` line 0/3. Half the tier's cost buys that one row; `--ablation none` is
+the honest default for iteration.
+
+## Phase 8 — end-to-end build, 2026-09-21
+
+Scratch project at `/tmp/awards-phase8`, outside the repo, with the real environment the eval
+sandbox could not give: node 24.21, npm 11.19 on `PATH`, the Playwright cache reachable through
+`AWARDS_PLAYWRIGHT`, network up. **129 turns, 42.8 minutes, $23.89 of a $25 budget, exit 0.**
+
+### The plan's own command does not work, and attempt 1 proved it
+
+`--permission-mode acceptEdits` auto-approves edits and nothing else. Under `-p` there is nobody to
+approve anything else, so the **Skill tool itself was denied**: the trace shows exactly two attempts,
+`awards:craft` and `awards:concept`, each coming back as a bare `Execute skill: awards:craft` error.
+Bash was denied for the same reason — no `npm install`, no build, no capture. The agent gave up on
+the plugin and, in its own words, "ran the phase structure by hand instead", producing a plausible
+27-file site for $7.72 that tested nothing. Kept at `/tmp/awards-phase8-attempt1`.
+
+The skill name resolved rather than erroring as unknown, so `--plugin-dir` had loaded the plugin;
+the block was permission, not discovery. The fix is `--allowedTools Skill Bash Write Edit Read Glob
+Grep WebFetch` — the grant the case's own `prompt.md` frontmatter already declares. Corrected in
+`plan-0.2.md`.
+
+### Attempt 2: the whole chain ran
+
+Eight skill calls, no errors: `craft` → `concept` → `system` → `structure` → `stack` → `motion` →
+`jury` → `jury --verdict`. `webgl` was declined at rung *none* by the skill's own ladder, which is a
+decision the chain is supposed to be able to make.
+
+| Check (from the plan) | Result |
+|---|---|
+| `AWARDS.md` contract blocks | all present |
+| three real `[site:…]` cards | five cited: `white-desert`, `seasats`, `oryzo`, `son-daven`, `lando-norris` |
+| direction seed recorded | `SEED shck92in247c · DEALT 1 5 7 of 7 · LEAD 1` |
+| `DESIGN.md`, `src/styles/tokens.css` | both present |
+| `npm run build` | passed — `dist/` with hashed assets, entry JS 55.4 KB gz |
+| `audit.mjs <dir>` 0 P0–P1 | **re-run independently: 15 files, P0 0 · P1 0 · P2 0 · P3 0, clean** |
+| captures: desktop, mobile, reduced motion | 18 PNGs across `desktop`, `mobile`, `desktop-rm`; manifest has all three, 0 console errors, 0 page errors |
+| `.awards/jury/<date>.md` | present, plus `-verdict.md` from the second round |
+| ship report | `.awards/ship/2026-09-21.md` |
+
+### Risk 2 is resolved
+
+`plan.md` §14 risk 2 asked whether the forked jury's literal `disposition:` line survives the relay
+back to the user. **It does.** The final message opens with it quoted verbatim:
+
+```
+disposition: fix
+Design 7.6 · Usability 7.9 · Creativity 8.1 · Content 7.5 — weighted 7.78
+```
+
+The documented fallback in `skills/craft/SKILL.md` — spawning `awards-jury` through the Agent tool —
+is therefore not needed and can stay where it is as insurance.
+
+Two rounds ran: 7.50 `fix`, then 7.78 `fix` after an eight-item batch, the second inside the corpus
+band of 7.28–8.18. The verdict held at `fix` on the contract rule rather than on the scores, and the
+two-round cap stopped a third, which is the mechanism behaving as written.
+
+### The LCP rename is working in the field
+
+The jury report, unprompted: *"The manifest's `lcpColdSynthetic` (152 ms desktop vs 3,680 ms mobile)
+is a headless cold-cache software-GL number, read here only as a rough asset-weight signal — the
+byte counts are the real evidence."* The two-orders-of-magnitude artefact appeared again in this
+run's own manifest (144 ms desktop, 3,588 ms mobile) and this time nothing scored performance from
+it. The ship report labels its row *"LCP (headless, cold, synthetic) … not a field metric"*.
+
+### One real defect found, and fixed the same day
+
+`dist/fonts/.awards/audit.json` shipped into the build output. `scripts/audit.mjs:55` takes
+`projectDir` from `CLAUDE_PROJECT_DIR` or **`process.cwd()`**, and line 394 writes
+`<projectDir>/.awards/audit.json`. The run audited the project from inside `public/fonts`, so the
+report was written to `public/fonts/.awards/` — under `public/`, which Vite copies verbatim into
+`dist/`. The report names the project root as its `target` while landing somewhere else entirely.
+Any project that audits a subdirectory of `public/` ships an internal report.
+
+**The cwd assumption cost more than the report path.** `## Exceptions` is read from
+`projectDir/AWARDS.md` as well, so the same run silently lost every signed-off exception — an audit
+from a subdirectory would re-raise findings the project had already accepted. One helper fixes both:
+`ownerOf()` walks up from the target to the nearest `AWARDS.md`, and `projectDir` is now
+`CLAUDE_PROJECT_DIR` → that owner → `process.cwd()`, in that order.
+
+Checked by reproducing the Phase 8 scenario and four regressions:
+
+| Check | Result |
+|---|---|
+| audit the project root from inside `public/fonts` | report at the project root; **no `public/fonts/.awards`** |
+| `## Exceptions` from the root `AWARDS.md` | `['C02']`, found from the subdirectory |
+| `audit.mjs recipes` in this repo, which has no `AWARDS.md` | falls back to cwd, unchanged |
+| hook on a file inside an awards project, `CLAUDE_PROJECT_DIR` unset | fires — it was cwd-dependent before, and is now measured from the changed file, which is what `CLAUDE.md` always claimed |
+| hook on a file with no `AWARDS.md` above it | silent |
+| `AWARDS_HOOK=0` | silent |
+| URL target | unaffected |
+
+### The two remaining build-tier findings, closed 2026-09-21
+
+**`research` had no branch for a host that does not exist.** Its §3 covered a site that resolves and
+cannot be read; the case's URL is `https://example-studio.tld`, and `.tld` is not a delegated
+top-level domain, so it can never resolve. The skill now separates the two: a 403, consent wall,
+timeout or `capture.mjs` exit 3/4 still gets a card with the labels dropped, while `ENOTFOUND`,
+`NXDOMAIN` or a placeholder TLD gets **no card and no index row**, a statement of what was
+established, and the one thing that would unblock it.
+
+`card-written` was `file_exists` on `.awards/sites/*.md`, which cannot express "or a reasoned
+refusal", and it failed the 2026-09-21 run for doing the right thing. It is now a trace regex
+accepting either correct outcome, because the run cannot choose which situation it is in: with live
+DNS the case always takes the refusal branch, inside a sandbox without DNS it can take the card one.
+
+Verified twice, **4 / 4 graders, score 1.00, $0.57 for both runs**, and the second kept its trace to
+confirm *which* branch fired: no file was written, and the reply names the distinction the skill now
+draws. It also reasoned past what the branch asks for — the sandbox blocks outbound DNS, so
+`example.com` fails too, which makes the network evidence inconclusive; it settled the question on
+the placeholder TLD instead of on the failed lookup. Turns fell from 10 to 6, the skill no longer
+having to derive the rule.
+
+**`build-antarctic-site` timed out at 1800 s.** Set to **3600** from the measured Phase 8 run of the
+same prompt, which took 129 turns and 2,567 s with the whole chain working — 1800 s was never
+survivable. `max_turns: 150` is left alone, since 129 fits inside it. **This one is reasoned from a
+measurement, not re-tested**: confirming it means paying for the case again, and it is the tier's
+expensive one at $15.68 even when truncated.
+
+### Build tier, second run 2026-09-21 — $41.43, 45.6 min, not partial
+
+With `Bash` granted whole and four graders repaired: **4 / 6 cases all-green, 39 of 41 graders,
+overall score 0.95**, against 2 / 6 and 36 / 41 the first time. Committed fixtures clean. The $55
+ceiling was $10 more than needed — $45 would have held.
+
+`build-antarctic-site` went from 0 to **10 / 10** at 153 turns and 2,737 s, which also settles the
+timeout: the old 1800 s cap would have cut it off again, so the number raised from the Phase 8
+measurement is now measured in the tier itself. `jury-generic-saas` and `research-unreachable`
+confirmed their repairs inside the tier at 6 / 6 and 4 / 4.
+
+Two graders failed that had passed the first time, both by luck of presentation rather than any
+change in the plugin.
+
+`motion-score-written` required the table directly beneath `## Motion score`; this run wrote a
+sentence of rationale first. Loosened to allow prose while refusing to cross into the next `##`
+section, checked three ways before applying — the template still fails, this run's file passes, and
+a filled table further down cannot rescue an empty section. Re-run at **7 / 7**.
+
+**`scope-respected` is the finding worth keeping.** It failed 3 / 3 twice on runs that changed
+nothing outside the nav — a diff of the first against the fixture showed the hero, work grid and
+footer byte-identical. The judges were right to refuse: the evidence an llm grader gets for
+`focus: trace` is **truncated to about 25 lines**, 25 for a 44-turn run and 25 for a 51-turn one,
+the last cut mid-object. What arrived held a single `Edit main.js` and none of the rest of the file
+work, so three judges were asked to affirm something their evidence did not contain. Rewording it
+changed nothing, which is the evidence that the first diagnosis was wrong. It is replaced by two
+file guards, `hero-and-work-kept` and `footer-kept`, in `selftest.mjs`'s `GUARDS` set, holding on
+the untouched fixture and passing on the exact run the judges failed. Its keyboard clauses were
+already covered by `escape-closes`, `focus-management` and `overlay-accessible`.
+
+Four of the six failures across both build runs came from a grader encoding how work is *presented*
+rather than what it *is*: the shape of a score line, which file a marker sits in, whether a fix list
+leads with direction work, whether a table follows its heading. Prefer a file target.
+
+**The tier has not been re-measured since those last two repairs.** 39 / 41 predates them, and
+`build-nav-component` now carries seven graders where it had six.
+
+### Build tier, third run 2026-09-21 — $44.37, 53.3 min, not partial
+
+**4 / 6 cases all-green, 40 of 42 graders, overall 0.96.** Both graders repaired after the second
+run hold in the tier: `build-nav-component` **7 / 7** with the two file guards in place of the
+truncated-evidence judge, and `motion-pass-fadeup` **7 / 7** with the loosened Motion score pattern.
+`build-webgl-hero` and `research-unreachable` clean again. Committed fixtures clean.
+
+Two failures, and they are different in kind from everything before them.
+
+**`build-antarctic-site` ran out of turns, not time.** `exit 1: Reached maximum number of turns
+(150)` at 151 turns and 3,198 s — inside the 3,600 s cap the last run earned it. Phase 8's real run
+of the same prompt took 129 turns, the second tier run 153, this one 151. The ceiling raised last
+time was the wrong one. `max_turns` is now **200**; the timeout stays at 3,600, which has never been
+reached.
+
+**`jury-generic-saas/scores-present` failed, and this time the skill is at fault, not the grader.**
+The reply put its four axes in a `## Scores` markdown table and closed with the prose sentence
+"**Disposition: recapture.**". It never emitted the line `skills/jury/SKILL.md` requires. The
+grader is right to fail it: line 126 of that skill says the format exists so `awards:craft` and
+`awards:ship` "can act on it without parsing prose", and a table defeats exactly that. Phase 8's
+real run produced the correct form, so the skill can do it — the requirement was buried mid-sentence
+in a long paragraph.
+
+The contract is now a literal block the reply must end with, naming what it must not be (a table, a
+prose sentence, a `## Scores` section), with everything else required to go above it. Note the
+direction of this one: the earlier `scores-present` pattern — `x/10` or a table cell — would have
+**passed** this reply. Tightening it to the contract is what exposed the drift.
+
+**A correction to the two runs above.** They were recorded as "47 of 53" and "50 of 53" graders.
+The tier has 41, and the real totals are 36 and 39. The wrong figures reached this ledger,
+`evals/README.md`, `state.md` and `todo.md` before anyone added up the per-case numbers, and are
+corrected throughout. Sum `evals/results/build-r*.json`; do not trust a total written in prose.
+
+### The jury reply contract, sampled once 2026-09-21
+
+`jury-generic-saas` at **6 / 6, $1.63** after the contract became a literal block. Run alone, because
+the tier's $44 is $32 of `build-antarctic-site`, which tests the turn cap — arithmetic from three
+measurements, not something a fourth sample settles.
+
+**The graders passed and the contract still did not hold.** The shape is fixed: the reply carries
+`disposition: recapture`, the four axes separated by `·`, the weighted score and three located
+fixes, where the run before it wrote a `## Scores` table and closed in prose. That was the part that
+mattered — a caller can parse this one and could not parse that one.
+
+But the block sat **16 % into a 3,303-character reply** as a blockquote, with 2,764 characters of
+prose after it, and the closing sentence "Relay these lines to the user unchanged" was missing
+entirely. The skill said "as the last thing you write" and the reply led with it instead.
+
+No grader catches that, because `scores-present` and `disposition-line` scan the whole message. The
+honest reading is that "last" was stricter than the need: the requirement `awards:craft` and
+`awards:ship` actually have is a block in a fixed shape, unbroken, that a regex can find — and
+leading with the verdict reads better for a human than burying it under the reasoning. The skill now
+asks for the block verbatim and unbroken, opening or closing the reply, and restores the closing
+sentence, which had simply been dropped.
+
+**That wording change is not sampled.** It was written after this run, and re-running to watch one
+more sample of a wording tweak is not worth $1.63 of anyone's money without a reason.
+
+### Tools still denied, neither blocking
+
+`git init` (a compound command needing approval, so no phase-boundary commits — the run recorded it
+as `NO-GIT`) and the Playwright **MCP** server's navigate tool. The run drove the live build through
+the plugin's own Playwright instead, which is how its keyboard walk is evidenced rather than assumed.
+
+### Old stub, kept for shape
 
 | Artefact | Present | Note |
 |---|---|---|
+
+## The cold-LCP defect, fixed 2026-09-21
+
+Phase 2 recorded it and Phase 4 did not close it: `capture.mjs` wrote a raw headless cold-cache
+number into `manifest.metrics[label].lcp`, and the jury read it as a field LCP. It scored
+Performance 3.5, 4.0 and 4.5 from that number on the first three calibration runs, and capped
+`white-desert`'s Usability with it. The number cannot be a property of a site — `united-carriers`
+reported **71,044 ms desktop against 368 ms mobile in the same run**.
+
+Fixed by naming it, not by measuring twice: measuring twice would double the wall-clock cost of
+every capture, and the problem was never precision, it was that the field claimed to be something
+it is not.
+
+| Change | File |
+|---|---|
+| `lcp` → `lcpColdSynthetic` in the manifest, with a comment at the source | `scripts/capture.mjs` |
+| Performance must never be scored from it; what it is and what it is worth | `skills/jury/SKILL.md` |
+| LCP row takes Lighthouse or a throttled trace, otherwise `not measured`; report line and checklist | `skills/ship/SKILL.md` |
+| Named as a cold-cache artefact in the manifest table | `skills/research/SKILL.md` |
+| Named as not a field LCP in the evidence table | `agents/awards-jury.md` |
+
+Checked: `node --check` on the script, then a real capture of a local page — manifest written,
+`"lcpColdSynthetic": 124`, `scrollMode: "native"`, exit 0. `lint-refs` 0 dangling,
+`claude plugin validate` passes.
+
+The fifteen site cards that disclaim "the manifest's LCP figures" by hand are left alone: they are
+dated evidence records, and the sentences are now redundant rather than wrong.

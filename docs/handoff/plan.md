@@ -1,5 +1,9 @@
 # Plan: "Award-worthy website" skill set for Claude Code
 
+> **Superseded for the work in progress.** This is the 0.1.0 specification and is kept as the
+> record of why the plugin is shaped the way it is. The current plan is `plan-0.2.md`, with its
+> evidence in `verification-log.md`.
+
 > **How to read this.** §1–§2 context and constraints · §3–§4 what impeccable and Claude Code give us · §5–§6 the research (19 site cards + the cross-site pattern language; these become the plugin's reference corpus) · §7 the validated architecture · §8 the individual plan for the core skill and each sub-skill · §9 decisions taken with the user · §10 shared references and the recipe catalogue · §11 scripts · §12 evals · §13 implementation order and verification · §14 risks. Research transcripts of the five analysis agents are the raw source for the site cards (paths in §5).
 
 ## 1. Context

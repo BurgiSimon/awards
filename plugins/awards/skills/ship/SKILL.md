@@ -94,7 +94,7 @@ Then open each file with the Read tool, once, and check:
 - `desktop-s00`, `desktop-s50`, `desktop-s100`, `mobile-s00`, `desktop-rm-s00` (and the component frames) exist and are not blank, not one flat colour, not a stuck preloader; the three scroll states differ.
 - `desktop-rm-s00` is fully readable at rest: no line left translated, masked or at opacity 0.
 - `mobile-s00` shows a designed phone layout with reachable navigation, not a shrunken desktop.
-- `manifest.json`: `consoleErrors`, `pageErrors` and `failedRequests` are empty; `metrics` carries the LCP and CLS numbers for section 4 and says whether WebGL initialised.
+- `manifest.json`: `consoleErrors`, `pageErrors` and `failedRequests` are empty; `metrics` carries the CLS number for section 4, says whether WebGL initialised, and reports `lcpColdSynthetic`, which is not a field LCP — see the performance table.
 
 An invalid capture is a bug to fix now, followed by a recapture; the report never lists a capture that was not opened.
 
@@ -104,7 +104,7 @@ Why: a Site of the Year shipped its whole 3D app at under half a megabyte gzippe
 
 | Check | Budget | How to measure or fix |
 |---|---|---|
-| LCP | ≤ 2.5 s on a throttled 4G profile | `manifest.json` gives an unthrottled LCP; run Lighthouse or a throttled DevTools trace when available, otherwise record the unthrottled number and label it as such. LCP comes from a poster or DOM text, never from the canvas |
+| LCP | ≤ 2.5 s on a throttled 4G profile | Lighthouse or a throttled DevTools trace. The manifest's `lcpColdSynthetic` is **not** an LCP measurement — headless, cold cache, software GL, and observed to differ by two orders of magnitude between viewports of one run — so never record it as this row's value; write `not measured` when no real trace was taken. LCP comes from a poster or DOM text, never from the canvas |
 | Entry JS | ≤ 200 KB gz (P04 fails at 300) | the bundler's gzip column, or `gzip -c dist/assets/<entry>.js \| wc -c` |
 | GL chunk | lazy, ≤ 500 KB gz | Three, OGL or R3F behind a dynamic `import()` in its own chunk, loaded after the first paint |
 | Textures | compressed, ≤ 700 KB per scene | KTX2 for GL, AVIF or WebP for DOM rasters; no PNG photographs |
@@ -191,7 +191,7 @@ Why: `awards:craft` and the user need one document that says what changed, what 
 - Append one line under `AWARDS.md ## Ship log`:
 
 ```
-- <date> · audit P0 n / P1 n / P2 n / P3 n · exceptions n · captures 5 valid · entry x KB gz · GL y KB gz · LCP z s (throttled | unthrottled) · CLS c · .awards/ship/<date>.md
+- <date> · audit P0 n / P1 n / P2 n / P3 n · exceptions n · captures 5 valid · entry x KB gz · GL y KB gz · LCP z s (throttled | unthrottled | not measured) · CLS c · .awards/ship/<date>.md
 ```
 
 - A material fix is any change that alters what a capture shows: layout, motion, colour, type, copy, a state. Meta, cleanup, exceptions and gitignore changes are not material.
@@ -202,7 +202,7 @@ Why: `awards:craft` and the user need one document that says what changed, what 
 
 - `.awards/audit.json` is fresh, exits 0, and every remaining finding has a reason under `## Exceptions` or inline.
 - Five captures (or the component set) were opened and are valid; the manifest shows zero console errors, page errors and failed requests.
-- Every row of the performance table carries a measured value, gzipped where it is a size, with the throttled or unthrottled label on LCP.
+- Every row of the performance table carries a measured value, gzipped where it is a size, with the throttled, unthrottled or not-measured label on LCP; the capture manifest's `lcpColdSynthetic` is never that value.
 - The keyboard walk and the reduced-motion check were done against the build, not assumed from the source.
 - Title, description, OG image, favicon, `theme-color`, `color-scheme`, 404, robots and sitemap exist and were authored, not generated.
 - `.awards/ship/<date>.md` exists, `## Ship log` has its line, `## Status` reflects the outcome, and no jury fix was skipped without a `deferred — conceptual` entry.

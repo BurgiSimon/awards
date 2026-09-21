@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 
 const evalsDir = path.dirname(fileURLToPath(import.meta.url));
 const templates = path.join(evalsDir, '..', 'assets', 'templates');
-const GUARDS = new Set(['pin-kept', 'no-eased-scrub-after', 'contract-blocks', 'images-remain']);
+const GUARDS = new Set(['pin-kept', 'no-eased-scrub-after', 'contract-blocks', 'images-remain', 'hero-and-work-kept', 'footer-kept']);
 
 const field = (fm, key) => fm.match(new RegExp(`^${key}:\\s*(.+)$`, 'm'))?.[1].trim();
 const unquote = (s) => (s && /^['"].*['"]$/s.test(s) ? s.slice(1, -1) : s);

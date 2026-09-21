@@ -65,10 +65,10 @@ Durable files: `AWARDS.md` (brief, contract, page map, motion score, budgets, ju
 
 ## What is inside
 
-- `plugins/awards/references/` — nineteen site case studies with confidence labels, the pattern language (narrative, heroes, components, motion, preloaders, cursor, typography, colour, copy, WebGL, assets, accessibility, responsive, sound), the jury rubric and usability walk, the craft floor, anti-pattern and reflex lists, per-stack and per-library notes with pinned versions.
-- `plugins/awards/recipes/` — twenty-eight recipes (Lenis + GSAP boot, scrubbed chapters, sticky stages, text reveals, cursor, magnetic CTA, marquee, menu overlay, preloader, theme swap, page transitions, quality tiers, DOM-tethered WebGL planes, fluid wake, depth-map parallax, render-to-texture transitions, virtual scroll camera and more), each with a browser-verified test.
-- `plugins/awards/scripts/` — `capture.mjs`, `audit.mjs`, `new-project.mjs`, `roll.mjs`, `verify-recipes.mjs`.
-- `plugins/awards/evals/` — a `claude plugin eval` suite: eleven routing cases and six build cases with fixtures.
+- `plugins/awards/references/` — twenty site case studies, each checked against the live site and its live award entry on 2026-09-18 and carrying confidence labels, the pattern language (narrative, heroes, components, motion, preloaders, cursor, typography, colour, copy, WebGL, assets, accessibility, responsive, sound), the jury rubric and usability walk, the craft floor, anti-pattern and reflex lists, per-stack and per-library notes with pinned versions.
+- `plugins/awards/recipes/` — thirty recipes (Lenis + GSAP boot, scrubbed chapters, sticky stages, text reveals, cursor, magnetic CTA, marquee, menu overlay, preloader, theme swap, page transitions, quality tiers, DOM-tethered WebGL planes, fluid wake, depth-map parallax, render-to-texture transitions, virtual scroll camera, an opt-in sound toggle and runtime-atlas MSDF text), each with a browser-verified test.
+- `plugins/awards/scripts/` — `capture.mjs`, `audit.mjs`, `new-project.mjs`, `roll.mjs`, `verify-recipes.mjs`, `lint-refs.mjs`.
+- `plugins/awards/evals/` — a `claude plugin eval` suite: seventeen routing cases (eleven that must fire a skill, six that must not) and six build cases with fixtures, plus `selftest.mjs`, which checks every file-target grader fails on untouched input.
 
 ## Verify
 
@@ -81,16 +81,61 @@ node plugins/awards/evals/codex-install.mjs
 This installs into a temporary Codex home, checks actual skill discovery through the app server, resolves bundled references and exercises the installed scaffold from another working directory. It makes no model calls and leaves your Codex configuration untouched.
 
 ```
+claude plugin validate plugins/awards
 cd plugins/awards
-claude plugin validate .
-cd recipes && npm install && node ../scripts/verify-recipes.mjs     # every recipe, headless Chromium with WebGL
-node scripts/audit.mjs recipes                                        # the craft floor on the recipes
-claude plugin eval . --tag smoke                                      # routing, with the no-plugin baseline (model calls)
+(cd recipes && npm install)                  # once
+node scripts/verify-recipes.mjs              # all 30 recipes, headless Chromium with WebGL
+node scripts/audit.mjs recipes               # the craft floor: must stay free of P0-P2
+node scripts/lint-refs.mjs                   # every [site:]/[recipe:]/[pattern:] reference resolves
+node evals/selftest.mjs                      # every file-target grader fails on untouched input
+claude plugin eval . --tag smoke --scaffold --runs 3 --threshold 0.67   # routing (model calls)
 ```
+
+The first four make no model calls. `verify-recipes` and the captures need Playwright, and are not
+safe to run beside another browser.
 
 ## Status
 
-Version 0.1.0. The corpus was compiled without live access to the sites, so every fact carries a confidence label and `/awards:research` re-verifies a site when a session has network access. Headless verification proves the recipes are correct, not fast: run a real-device pass before shipping anything WebGL. Two planned recipes (an opt-in sound toggle and MSDF text with a DOM mirror) are scheduled for 0.2.
+Version 0.2.0.
+
+### 0.2.0 — 2026-09-21
+
+0.1.0 was built in a sandbox that could not reach a single one of the sites it described, and its
+eval suite had run once. This release closes both.
+
+- **The corpus saw the sites.** All nineteen entries were loaded in a real browser and read against
+  their live award entries. Facts changed: one card described a different company, one resolved to
+  the wrong award entry and split into two slugs, a shader that does not exist was removed, and a
+  site the corpus said never asserts a score turned out to hold the highest one in it. Every claim
+  still carries `[verified]`, `[recalled]`, `[inferred]` or `[unknown]`, and `_index.md` gained a
+  `Last verified` column.
+- **The jury rubric is derived rather than recalled.** The 40 / 30 / 20 / 10 weighting was read off
+  twenty live entries and reproduces their published overall to 0.01. Site of the Day runs 7.28 to
+  8.18 in this corpus, not the "7.2–7.9" the old notes claimed, and the six developer criteria
+  Awwwards publishes are now mapped to the five this rubric scores.
+- **Calibration, and how to read a verdict.** Seven blind jury runs scored about 0.7 below the
+  published overall and handed `fix` or `rebuild` to six sites that all won Site of the Day. That
+  gap is deliberate: `ship` means "clears this floor, which is stricter than the award's", not
+  "this would win".
+- **Two recipes finish the catalogue**, at thirty: an opt-in sound toggle that synthesises its own
+  audio, and MSDF text that builds its atlas at runtime, so neither ships an asset file.
+- **The eval suite runs.** Seventeen routing cases across both arms, and a build tier that had never
+  executed once. Running it found more defects in the graders than in the plugin, and one in the
+  jury skill's reply contract.
+- **`lint-refs.mjs`** checks that every `[site:]`, `[recipe:]`, `[pattern:]` and
+  `${CLAUDE_PLUGIN_ROOT}` path resolves. **`evals/selftest.mjs`** checks that every file-target
+  grader fails on untouched input, so a grader that measures nothing cannot pass quietly.
+- **Fixes worth naming**: capture manifests reported a headless cold-cache number as if it were a
+  field LCP, and the jury scored performance from it — the field is now `lcpColdSynthetic` and the
+  skills say what it is worth. `audit.mjs` resolved its project root from the shell's working
+  directory, so auditing from inside `public/` wrote its report there for the build to ship, and
+  silently dropped the project's signed-off exceptions.
+
+**What is not verified.** No recipe has run on a real GPU or a real phone: headless SwiftShader
+proves they are correct, not fast, so run a real-device pass before shipping anything WebGL. The
+quality-tier thresholds are unmeasured guesses. The build eval tier's last two fixes have not been
+re-measured. `docs/handoff/verification-log.md` is the evidence for all of it, including what went
+wrong on the way.
 
 ## Provenance and licence
 

@@ -17,7 +17,7 @@ claude plugin validate .                                  # manifest, skills, ag
 claude --plugin-dir plugins/awards                        # from the repo root: load the plugin locally
 
 cd recipes && npm install                                 # once; pinned deps for every recipe
-node ../scripts/verify-recipes.mjs                        # all 28 recipes: vite build, serve, headless Chromium + SwiftShader WebGL
+node ../scripts/verify-recipes.mjs                        # all 30 recipes: vite build, serve, headless Chromium + SwiftShader WebGL
 node ../scripts/verify-recipes.mjs --only boot-lenis-gsap,marquee-raf-mask   # one or a few recipes
 node ../scripts/verify-recipes.mjs --no-build --json      # reuse recipes/dist, machine-readable report
 npm run dev                                               # from recipes/: Vite dev server with the recipe index page
@@ -33,7 +33,7 @@ node evals/selftest.mjs                                   # every file-target gr
 
 claude plugin eval . --tag smoke                          # 11 routing cases with no-plugin baseline (model calls, costs money)
 claude plugin eval . --case trigger-jury --runs 1 --ablation none   # one case, cheapest iteration
-claude plugin eval . --tag build --scaffold --runs 1 --ablation none --allow-tools Write Edit WebFetch "Bash(node *)" "Bash(npm *)"   # 20–30 min per case
+claude plugin eval . --tag build --scaffold --runs 1 --ablation none --allow-tools Write Edit WebFetch Bash   # 20–30 min per case; Bash whole, not Bash(node *): those match a command prefix and deny everything the skills actually run
 ```
 
 Requirements: Node 20+, Playwright (global or project-local) for `verify-recipes`, `capture` and `audit --render`. Verification outputs (`recipes/_verify/`, `recipes/dist/`, `evals/results/`, `.awards/`) are gitignored. Headless SwiftShader proves recipes correct, not fast.

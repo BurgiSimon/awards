@@ -11,8 +11,8 @@
       "name": "awards",
       "displayName": "Awards",
       "source": "./plugins/awards",
-      "description": "Design and build award-worthy websites and components: craft, concept, system, structure, stack, motion, webgl, component, jury, ship and research skills with verified recipes and a 19-site reference corpus.",
-      "version": "0.1.0",
+      "description": "Design and build award-worthy websites and components: craft, concept, system, structure, stack, motion, webgl, component, jury, ship and research skills with thirty verified recipes and a twenty-card reference corpus checked against the live sites.",
+      "version": "0.2.0",
       "author": {
         "name": "BurgiSimon",
         "url": "https://github.com/burgisimon"

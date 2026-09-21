@@ -62,7 +62,7 @@ On exit 0 or 2, open every capture with the Read tool and read each one for what
 | `desktop-s100` | the close: footer, last action, whether the world holds to the end |
 | `mobile-s00` | a designed phone layout or a shrunken desktop; how eccentric navigation collapses |
 | `desktop-rm-s00` | the reduced-motion path: readable at rest, or lines stuck at opacity 0 |
-| `manifest.json` | title, `lang`, canvas count, WebGL state, DOM nodes, console errors, failed requests, LCP and CLS |
+| `manifest.json` | title, `lang`, canvas count, WebGL state, DOM nodes, console errors, failed requests, CLS, and `lcpColdSynthetic` — a headless cold-cache artefact, never quoted as a performance claim |
 
 - Describe each composition in your own words: what is where, at what scale, what the type and colour system appear to be, what changed between states. Everything read this way is `[verified]` against the capture name.
 - A preloader or a consent wall in every frame is itself an observation about the load gate; add `--wait 3000` or `--wait-for <selector>` once, then record what you got.
@@ -75,6 +75,8 @@ Why: a card written from memory and presented as observation poisons every brief
 - Nothing about a page you did not see can be `[verified]`; it is `[recalled]` with a level, or `[inferred]`.
 - Write the header table and the sections you can support; leave `[unknown]` where you cannot.
 - Do not retry with a scraper, a proxy or an archive that would fetch assets; say what was not observed and move on.
+
+**A host that does not resolve is not an unreachable site, and gets no card.** `ENOTFOUND`, `NXDOMAIN` or a placeholder top-level domain means there is nothing to have seen and nothing to recall: every field would be invented, and the card would then sit in `_index.md` as a neighbour `awards:concept` can draw for a real brief. A phantom reference is worse for the user than no reference. Write no card and no index row. Say what you established, name the one thing that would unblock it — the real URL, a screenshot, a notes file — and stop. The branch above is for a site that *does* resolve and still cannot be read: a 403, a consent wall, a timeout, exit 3 or exit 4. That one gets its card, with the labels dropped accordingly.
 
 ## 4. Source inspection
 
