@@ -34,8 +34,14 @@ The build cases run inside the eval sandbox, where `npm install` and Playwright 
 | smoke | `--tag smoke --runs 1 --ablation none -j 3 --threshold 0.67` | 2026-09-18 | 2.1.51 | 15 / 17 | $9.20 |
 | smoke | `--tag smoke --runs 3 --threshold 0.67` (both arms, 102 runs, 49 min) | 2026-09-18 | 2.1.276 | **13 / 17**, overall score 0.86, mean delta over baseline **+0.48** | $36.22 |
 | smoke | `--case <name> --runs 3 --ablation none --scaffold` on the three unverified cases | 2026-09-21 | 2.1.278 | **3 / 3 each, every grader green** | $6.64 |
-| build | `--tag build --scaffold --runs 1 --ablation none -j 2 --keep-temp` + the documented `--allow-tools` set | 2026-09-21 | 2.1.278 | **2 / 6 cases all-green; 47 of 53 graders passed**, overall score 0.86 | $27.68 |
-| build | same, re-run with `--allow-tools … Bash` working and four graders repaired | 2026-09-21 | 2.1.278 | **4 / 6 cases all-green; 50 of 53 graders passed**, overall score **0.95** | $41.43 |
+| build | `--tag build --scaffold --runs 1 --ablation none -j 2 --keep-temp` + the documented `--allow-tools` set | 2026-09-21 | 2.1.278 | **2 / 6 cases all-green; 36 of 41 graders passed**, overall score 0.86 | $27.68 |
+| build | same, re-run with `--allow-tools … Bash` working and four graders repaired | 2026-09-21 | 2.1.278 | **4 / 6 cases all-green; 39 of 41 graders passed**, overall score **0.95** | $41.43 |
+| build | third run, after the `scope-respected` swap and the `motion-score-written` loosening | 2026-09-21 | 2.1.278 | **4 / 6 cases all-green; 40 of 42 graders passed**, overall score **0.96** | $44.37 |
+
+> **Correction, 2026-09-21.** The first two build rows were recorded here as "47 of 53" and
+> "50 of 53". Both were wrong — the tier has 41 graders, not 53, and the totals are 36 and 39. The
+> figures were written into this file, the ledger, `state.md` and `todo.md` before anyone summed the
+> per-case numbers. Count them from `evals/results/build-r*.json` rather than from prose.
 
 Per case, from the **second** build run — the first is summarised under it. Every skill fired 1× in
 every case in both runs; routing is not a problem anywhere in this tier.
@@ -74,7 +80,7 @@ rather than what the work *is*.
 
 ### What the first build run found
 
-It scored 47 / 53 with **every Bash call denied**: `--allow-tools "Bash(node *)"` matches on the
+It scored 36 / 41 with **every Bash call denied**: `--allow-tools "Bash(node *)"` matches on the
 command prefix, and the skills invoke `timeout 120 node …`, `cd … && …` and `node … | head -200`.
 `capture.mjs` and `audit.mjs` never executed, so it measured written output only. With `Bash`
 granted whole, the second run had `audit.mjs` returning a real `P0 1 · P1 5 · P2 8 · P3 6` and
@@ -85,7 +91,7 @@ the format `skills/jury/SKILL.md` promises, `fixes-ordered-and-specific` no long
 that correctly reaches `rebuild`, `research` given its missing branch for a host that cannot exist,
 and `card-written` accepting either correct outcome.
 
-**Not yet re-measured as a whole.** The 50 / 53 above predates the two grader repairs made after it,
+**Not yet re-measured as a whole.** The 39 / 41 above predates the two grader repairs made after it,
 and `build-nav-component` now has seven graders where it had six. Both repairs were verified on their
 own; the tier has not been run again since.
 

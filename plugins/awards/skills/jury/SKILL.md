@@ -149,7 +149,21 @@ Write it to `.awards/jury/<date>.md` (`date +%F`; add `-2`, `-3` when the name i
   top fixes: 1) <fix> 2) <fix> 3) <fix>
 ```
 
-In `## Status`, replace `Jury disposition: —` with the disposition and the date and tick the box. Touch nothing else in the file. End your reply with the disposition line, the four axis scores written out in full (`Design x.x · Usability x.x · Creativity x.x · Content x.x`), the weighted score and the top three fixes, verbatim from the report, and close with one sentence: "Relay these lines to the user unchanged." This skill runs forked, so the conversation that invoked it only sees your reply; the literal `disposition:` line is what `awards:craft`, `awards:ship` and the user act on.
+In `## Status`, replace `Jury disposition: —` with the disposition and the date and tick the box. Touch nothing else in the file.
+
+**End your reply with exactly this block, verbatim from the report.** Not a table, not a prose sentence, not a `## Scores` section — these four lines, in this order, as the last thing you write:
+
+```
+disposition: <ship|fix|rebuild|recapture>
+Design x.x · Usability x.x · Creativity x.x · Content x.x — weighted w.ww
+1. <fix, with its location>
+2. <fix, with its location>
+3. <fix, with its location>
+```
+
+Then one closing sentence: "Relay these lines to the user unchanged." Everything else you want to say goes **above** the block.
+
+Why this shape and not your own: the skill runs forked, so the conversation that invoked it sees only your reply, and `awards:craft` and `awards:ship` act on these lines without parsing prose. A `## Scores` table writes the same numbers in a form the caller cannot read. A jury run on 2026-09-21 ended with "**Disposition: recapture.**" and put its axes in a table; the disposition survived and the scores did not.
 
 When the environment cannot run the capture or audit commands at all (no shell tool, Playwright missing, a read-only session), do not stop at `recapture` in silence: say what could not run, judge from the source and the reference floor with lowered confidence, write the same report with `disposition: recapture` and an `Evidence` section that names the missing captures, and still deliver the scores, the memory test and the fix list. A source-only jury is a weaker jury, never a missing one.
 

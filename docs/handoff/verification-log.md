@@ -426,11 +426,11 @@ than in the skills:
 
 `--tag build --scaffold --runs 1 --ablation none -j 2 --keep-temp --max-cost-usd 45` plus the
 documented `--allow-tools` set. CLI 2.1.278, 33.2 minutes, **$27.68**, `partial: false`. **2 / 6
-cases all-green, 47 of 53 graders passed**, overall score 0.86. Per-case table in
+cases all-green, 36 of 41 graders passed**, overall score 0.86. Per-case table in
 `evals/README.md`.
 
 The tier's real purpose was to test the graders in the passing direction, which `selftest.mjs`
-cannot do. That answer is good: 47 of 53 pass, and every skill fired 1× in every case. Of the six
+cannot do. That answer is good: 36 of 41 pass, and every skill fired 1× in every case. Of the six
 failures, **four are grader defects, one is a timeout, and one is a genuine gap in a skill** — and
 the skill was arguably right.
 
@@ -639,8 +639,8 @@ expensive one at $15.68 even when truncated.
 
 ### Build tier, second run 2026-09-21 — $41.43, 45.6 min, not partial
 
-With `Bash` granted whole and four graders repaired: **4 / 6 cases all-green, 50 of 53 graders,
-overall score 0.95**, against 2 / 6 and 47 / 53 the first time. Committed fixtures clean. The $55
+With `Bash` granted whole and four graders repaired: **4 / 6 cases all-green, 39 of 41 graders,
+overall score 0.95**, against 2 / 6 and 36 / 41 the first time. Committed fixtures clean. The $55
 ceiling was $10 more than needed — $45 would have held.
 
 `build-antarctic-site` went from 0 to **10 / 10** at 153 turns and 2,737 s, which also settles the
@@ -671,8 +671,41 @@ Four of the six failures across both build runs came from a grader encoding how 
 rather than what it *is*: the shape of a score line, which file a marker sits in, whether a fix list
 leads with direction work, whether a table follows its heading. Prefer a file target.
 
-**The tier has not been re-measured since those last two repairs.** 50 / 53 predates them, and
+**The tier has not been re-measured since those last two repairs.** 39 / 41 predates them, and
 `build-nav-component` now carries seven graders where it had six.
+
+### Build tier, third run 2026-09-21 — $44.37, 53.3 min, not partial
+
+**4 / 6 cases all-green, 40 of 42 graders, overall 0.96.** Both graders repaired after the second
+run hold in the tier: `build-nav-component` **7 / 7** with the two file guards in place of the
+truncated-evidence judge, and `motion-pass-fadeup` **7 / 7** with the loosened Motion score pattern.
+`build-webgl-hero` and `research-unreachable` clean again. Committed fixtures clean.
+
+Two failures, and they are different in kind from everything before them.
+
+**`build-antarctic-site` ran out of turns, not time.** `exit 1: Reached maximum number of turns
+(150)` at 151 turns and 3,198 s — inside the 3,600 s cap the last run earned it. Phase 8's real run
+of the same prompt took 129 turns, the second tier run 153, this one 151. The ceiling raised last
+time was the wrong one. `max_turns` is now **200**; the timeout stays at 3,600, which has never been
+reached.
+
+**`jury-generic-saas/scores-present` failed, and this time the skill is at fault, not the grader.**
+The reply put its four axes in a `## Scores` markdown table and closed with the prose sentence
+"**Disposition: recapture.**". It never emitted the line `skills/jury/SKILL.md` requires. The
+grader is right to fail it: line 126 of that skill says the format exists so `awards:craft` and
+`awards:ship` "can act on it without parsing prose", and a table defeats exactly that. Phase 8's
+real run produced the correct form, so the skill can do it — the requirement was buried mid-sentence
+in a long paragraph.
+
+The contract is now a literal block the reply must end with, naming what it must not be (a table, a
+prose sentence, a `## Scores` section), with everything else required to go above it. Note the
+direction of this one: the earlier `scores-present` pattern — `x/10` or a table cell — would have
+**passed** this reply. Tightening it to the contract is what exposed the drift.
+
+**A correction to the two runs above.** They were recorded as "47 of 53" and "50 of 53" graders.
+The tier has 41, and the real totals are 36 and 39. The wrong figures reached this ledger,
+`evals/README.md`, `state.md` and `todo.md` before anyone added up the per-case numbers, and are
+corrected throughout. Sum `evals/results/build-r*.json`; do not trust a total written in prose.
 
 ### Tools still denied, neither blocking
 

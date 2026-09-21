@@ -6,7 +6,7 @@ ledger (`verification-log.md`) is the evidence. Nothing here blocks using the pl
 ## Before 0.2.0 ships
 
 1. **Phase 7 — close out the build tier's findings.** Both tiers have now run. Smoke meets every
-   bar. The build tier ran on 2026-09-21 ($27.68, 33 min): 2/6 cases all-green, **47 of 53 graders
+   bar. The build tier ran on 2026-09-21 ($27.68, 33 min): 2/6 cases all-green, **36 of 41 graders
    passed**, every skill fired. Six failures, diagnosed in the ledger, **none fixed yet**:
    - ~~Fix the `--allow-tools` grant.~~ **Done and verified**: `Bash` is granted whole in all three
      places that document the command. `audit.mjs` and `capture.mjs` now execute inside an eval.
@@ -23,10 +23,13 @@ ledger (`verification-log.md`) is the evidence. Nothing here blocks using the pl
    - The baseline arm does not need running again. Measured over 102 runs: every `skill-fired`
      grader scores 0 without the plugin, and all six negatives pass trivially there. The one
      informative row was `trigger-jury` (`disposition-line` 3/3 with, 0/3 without).
-   - ~~Re-run the build tier.~~ **Done 2026-09-21**: 50 / 53 graders, 4 / 6 cases all-green, $41.43.
-     It surfaced two more grader defects, both since repaired and verified on their own. **One run
-     is still owed**, because 50 / 53 predates those two repairs — expect the tier to cost about $42
-     and take 45 minutes, and note `build-antarctic-site` alone is $27 of it.
+   - ~~Re-run the build tier.~~ **Done 2026-09-21**: 39 / 41 graders, 4 / 6 cases all-green, $41.43.
+     It surfaced two more grader defects, both since repaired. A **third run** confirmed them at
+     40 / 42 graders and 4 / 6 cases, $44.37. That run found two more things, both now fixed and
+     **neither re-measured**: `build-antarctic-site` exhausted `max_turns` (151 of 150) inside its
+     raised time cap, so the cap is 200 now; and the jury skill drifted off its own reply contract,
+     writing the axes as a table, so the contract is a literal block in the skill. One more tier run
+     would close those — about $44 and 55 minutes, with `build-antarctic-site` roughly $32 of it.
    - Budget note: three smoke cases × three runs cost $6.64, not the ≈ $2 estimated. The build tier
      came in at $27.68 against a $45 ceiling, and the two grader verification runs at $3.17.
 2. ~~**Phase 8 — one real end-to-end build.**~~ **Done 2026-09-21**, $23.89, every check in the plan

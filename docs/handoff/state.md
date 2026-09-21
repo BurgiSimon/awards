@@ -35,7 +35,7 @@ in `todo.md`.
 | 4 | Propagate the deltas, re-derive the rubric, `lint-refs.mjs` | done |
 | 5 | Repair graders, add `selftest.mjs`, six new smoke cases, cheap smoke run | done — but its conclusion about the two misses was wrong; see the ledger's 5c correction |
 | 6 | The two missing P2 recipes, `allowed-tools` on every skill | done, 30/30 recipes |
-| 7 | Full smoke with the baseline arm, build tier once | **both tiers have run.** Smoke meets its bars; the build tier is 2/6 all-green with 47/53 graders passing, and its six failures are diagnosed but not yet fixed |
+| 7 | Full smoke with the baseline arm, build tier once | **both tiers have run.** Smoke meets its bars; the build tier is 2/6 all-green with 36/41 graders passing, and its six failures are diagnosed but not yet fixed |
 | 8 | One real end-to-end build | **done 2026-09-21**, $23.89, every check met, and `plan.md` risk 2 is resolved |
 | 9 | Docs, counts, version bump, final verification | **partly done** — see below |
 
@@ -75,17 +75,22 @@ Stamped on 2026-09-18 and **not** re-run since:
 ## What is not verified
 
 - **The build tier ran once, on 2026-09-21** (CLI 2.1.278, 33 min, $27.68): 2/6 cases all-green,
-  **47 of 53 graders passed**, every skill fired. Three grader defects and the tool grant have since
+  **36 of 41 graders passed**, every skill fired. Three grader defects and the tool grant have since
   been fixed and verified, and so have both remaining findings: `research` gained its missing branch
   for a host that cannot exist (4/4 twice), and `build-antarctic-site` went to `timeout_seconds:
   3600` from the Phase 8 measurement of 129 turns and 2,567 s. The timeout is reasoned from that
   measurement rather than re-tested.
 - **The build tier was re-run on 2026-09-21 with the grant working**: $41.43, 45.6 min, **4/6 cases
-  all-green, 50 of 53 graders, overall 0.95**, against 2/6 and 47/53 before. `build-antarctic-site`
+  all-green, 39 of 41 graders, overall 0.95**, against 2/6 and 36/41 before. `build-antarctic-site`
   went 0 → 10/10 at 2,737 s, which also confirms the raised timeout by measurement rather than by
   reasoning. Two graders failed that had passed before, both on presentation rather than substance;
-  both are repaired and verified. **The tier has not been measured again since those two repairs**,
-  so 50/53 predates them and `build-nav-component` now has seven graders where it had six.
+  both are repaired and verified. **A third run on 2026-09-21** ($44.37, 53.3 min) measured past
+  those repairs: **4/6 cases all-green, 40 of 42 graders, overall 0.96**, with both repaired cases
+  at 7/7. Its two failures are new in kind — `build-antarctic-site` ran out of *turns* (151 of 150)
+  inside its raised time cap, so `max_turns` is now 200; and `jury-generic-saas/scores-present`
+  caught the **jury skill drifting off its own reply contract**, writing its axes as a table and
+  closing in prose. That contract is now a literal block in `skills/jury/SKILL.md`. Neither fix has
+  been re-measured in the tier.
 - An `llm` grader with `focus: trace` receives **about 25 lines** of transcript regardless of run
   length, so it cannot audit a long run. `scope-respected` failed 3/3 twice on runs that changed
   nothing, and is replaced by two file guards. Prefer a file target for anything a judge would have
@@ -96,7 +101,7 @@ Stamped on 2026-09-18 and **not** re-run since:
   met. The caveat: the repairs were measured case by case on the plugin arm, not by re-running the
   whole tier in one pass. Per-case tables in `evals/README.md` under "Last run".
 - Graders are now proven in **both** directions for the build tier: `selftest.mjs` checks that each
-  fails on untouched input, and the 2026-09-21 run showed 47 of 53 passing on real output. The four
+  fails on untouched input, and the first 2026-09-21 run showed 36 of 41 passing on real output. The four
   that were wrong are named in the ledger.
 - ~~The skills have never been driven end to end on a real project.~~ **Done 2026-09-21.** Eight
   skill calls, `craft` → `concept` → `system` → `structure` → `stack` → `motion` → `jury` →
