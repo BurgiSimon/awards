@@ -5,15 +5,9 @@ ledger (`verification-log.md`) is the evidence. Nothing here blocks using the pl
 
 ## Before 0.2.0 ships
 
-1. **Phase 7 — finish the eval suite.** The smoke half is done: it ran in full on 2026-09-18
-   (17 × 3 × 2, $36.22, 13/17, mean delta +0.48) and the result is now in `evals/README.md` under
-   "Last run". Two things are still owed:
-   - **Re-run the three cases whose fixes have never been tested**: `trigger-motion`,
-     `trigger-component-nav` and `trigger-jury`. They failed the full run because of two harness
-     defects — fixtures that never reached the workspace, and a jury reply contract that never
-     promised the axis names — and both were fixed afterwards (`2dfa1e3`, `b49d6a2`). Only
-     `trigger-webgl-hero` was re-run, at 3/3. Three cases, one arm, `--runs 3 --ablation none`,
-     roughly $2. **Do this first; it is nearly free and it decides whether the tier meets its bar.**
+1. **Phase 7 — the build tier, and only that.** The smoke half is finished and its bars are met:
+   the full tier on 2026-09-18 (17 × 3 × 2, $36.22, 13/17, mean delta +0.48) plus the four repaired
+   cases re-run at 3/3 each. Tables in `evals/README.md` under "Last run".
    - **Build tier, `--tag build --scaffold --runs 1`, ceiling $45.** Never run, zero executions
      ever. It is the only check that a grader can *pass* — `selftest.mjs` only proves they fail on
      untouched input — and the only breadth test of what the skills produce rather than whether
@@ -22,8 +16,8 @@ ledger (`verification-log.md`) is the evidence. Nothing here blocks using the pl
      grader scores 0 without the plugin, because the skill does not exist there, and all six
      negatives pass trivially for the same reason. The one informative row was `trigger-jury`
      (`disposition-line` 3/3 with, 0/3 without). Use `--ablation none` from here.
-   - Pass bar is in `plan-0.2.md` Phase 7. The first bar — every trigger case firing in ≥ 2 of 3
-     runs — was **not** met on 2026-09-18 and is what the reruns settle.
+   - If the smoke tier is ever re-run whole, budget more than the arithmetic suggests: three cases
+     × three runs cost $6.64, not the ≈ $2 estimated from the earlier per-run figures.
 2. **Phase 8 — one real end-to-end build**, network and Playwright available, ceiling $25. The open
    question is whether the forked jury's literal `disposition:` line reaches the user; the fallback
    (spawn `awards-jury` through the Agent tool) is already documented in `skills/craft/SKILL.md`.

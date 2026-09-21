@@ -9,7 +9,7 @@ resume. `plan.md` is the 0.1.0 specification, kept for reference and no longer t
 
 | Item | Location |
 |---|---|
-| Repository | `github.com/BurgiSimon/awards`; branch `feat/live-verification-0.2`, 52 commits ahead of `main`, nothing behind. The 0.1.0 pull request #1 is merged |
+| Repository | `github.com/BurgiSimon/awards`; branch `feat/live-verification-0.2`, 53 commits ahead of `main`, nothing behind. The 0.1.0 pull request #1 is merged |
 | Plugin | `plugins/awards/` (manifest `plugins/awards/.claude-plugin/plugin.json`, version **0.1.0**); marketplace manifest `.claude-plugin/marketplace.json` at the repo root, also 0.1.0. Phase 9 bumps both to 0.2.0 together |
 | Skills | `plugins/awards/skills/{craft,concept,system,structure,stack,motion,webgl,component,jury,ship,research}/SKILL.md` — eleven, each with `allowed-tools` for the plugin's own scripts |
 | Agent and hook | `plugins/awards/agents/awards-jury.md`, `plugins/awards/hooks/hooks.json` |
@@ -34,7 +34,7 @@ has not started, and Phase 9 has had its free half taken early.**
 | 4 | Propagate the deltas, re-derive the rubric, `lint-refs.mjs` | done |
 | 5 | Repair graders, add `selftest.mjs`, six new smoke cases, cheap smoke run | done — but its conclusion about the two misses was wrong; see the ledger's 5c correction |
 | 6 | The two missing P2 recipes, `allowed-tools` on every skill | done, 30/30 recipes |
-| 7 | Full smoke with the baseline arm, build tier once | **half done** — the smoke tier ran (13/17, $36.22); the build tier has never run |
+| 7 | Full smoke with the baseline arm, build tier once | **smoke done and its bars met**; the build tier has never run |
 | 8 | One real end-to-end build | **not started** — the ledger's Phase 8 section is an empty stub |
 | 9 | Docs, counts, version bump, final verification | **partly done** — see below |
 
@@ -74,13 +74,11 @@ Stamped on 2026-09-18 and **not** re-run since:
 ## What is not verified
 
 - **The build tier has never run.** Zero executions of all six cases, ever.
-- **The smoke tier ran in full on 2026-09-18 and the result sat unrecorded until 2026-09-21**: 17
-  cases × 3 runs × 2 arms, CLI 2.1.276, 49 minutes, $36.22, **13/17**, mean delta over the no-plugin
-  baseline +0.48. It missed the plan's first pass bar — `trigger-motion` 0/3, `trigger-component-nav`
-  1/3 — and both causes were harness defects, since fixed (`2dfa1e3`, `b49d6a2`). **Only
-  `trigger-webgl-hero` has been re-run since the fixes, at 3/3.** `trigger-motion`,
-  `trigger-component-nav` and `trigger-jury` are still unverified against the fix that was written
-  for them. The per-case table is in `evals/README.md` under "Last run".
+- The smoke tier **is** verified, in two parts: the full tier on 2026-09-18 (17 cases × 3 runs × 2
+  arms, CLI 2.1.276, 49 min, $36.22, 13/17, mean delta over baseline +0.48) and the four repaired
+  cases re-run afterwards at 3/3 each ($6.64 for the last three, CLI 2.1.278). Every Phase 7 bar is
+  met. The caveat: the repairs were measured case by case on the plugin arm, not by re-running the
+  whole tier in one pass. Per-case tables in `evals/README.md` under "Last run".
 - **Graders are proven to fail on untouched input, never proven to pass.** `selftest.mjs` only
   checks the failing direction. A grader with a typo'd pattern would be invisible to it and would
   make its case unpassable. Only the build tier tests the other direction.
@@ -133,7 +131,7 @@ Stamped on 2026-09-18 and **not** re-run since:
 
 | | |
 |---|---|
-| Commits on `feat/live-verification-0.2` ahead of `main` | 52 |
+| Commits on `feat/live-verification-0.2` ahead of `main` | 53 |
 | Site cards / pattern files / stack notes | 20 / 14 / 11 |
 | Recipes verified | 30 |
 | Audit rules | 55 (`T` fonts, `C` colour, `M` motion, `A` accessibility, `L` layout, `P` performance, `S` surfaces, `X` slop) |

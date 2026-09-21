@@ -28,6 +28,7 @@ The build cases run inside the eval sandbox, where `npm install` and Playwright 
 |---|---|---|---|---|---|
 | smoke | `--tag smoke --runs 1 --ablation none -j 3 --threshold 0.67` | 2026-09-18 | 2.1.51 | 15 / 17 | $9.20 |
 | smoke | `--tag smoke --runs 3 --threshold 0.67` (both arms, 102 runs, 49 min) | 2026-09-18 | 2.1.276 | **13 / 17**, overall score 0.86, mean delta over baseline **+0.48** | $36.22 |
+| smoke | `--case <name> --runs 3 --ablation none --scaffold` on the three unverified cases | 2026-09-21 | 2.1.278 | **3 / 3 each, every grader green** | $6.64 |
 | build | never run | — | — | — | — |
 
 All six negatives held 3/3 on both arms. Of the eleven triggering cases, seven fired 3/3 with the
@@ -40,9 +41,14 @@ plugin and 0/3 without it. The four that missed:
 | `trigger-webgl-hero` | 2 / 3 | 0 / 3 | same; the failing run answered in **one turn**, exactly like every baseline run |
 | `trigger-jury` | 3 / 3 fired, `usability-axis` 1 / 3 | 0 / 3 on `disposition-line`, 3 / 3 on `usability-axis` | the forked reply was never required to name the axes |
 
-Both causes were fixed after the run (`b49d6a2`, `2dfa1e3`). Only `trigger-webgl-hero` has been
-re-run since, at **3 / 3**. `trigger-motion`, `trigger-component-nav` and `trigger-jury` are still
-unverified against their fixes — rerun those three before reading this table as final.
+Both causes were fixed after the run (`b49d6a2`, `2dfa1e3`), and **all four cases have now been
+re-run against the fixes and pass 3 / 3**: `trigger-webgl-hero` on 2026-09-18, the other three on
+2026-09-21 at CLI 2.1.278. `trigger-jury` passes all three graders in all three runs, including the
+`usability-axis` that missed 2 / 3 before.
+
+Every bar in `plan-0.2.md` Phase 7 is therefore met for the smoke tier. One honest caveat: the four
+repairs were measured case by case on the plugin arm, not by re-running the whole tier in one pass.
+The other thirteen cases passed in the 2026-09-18 tier run and were not touched by either fix.
 
 What the baseline arm bought, measured: every `skill-fired` grader scored 0 without the plugin, as
 it must, since the skill does not exist there. The one informative comparison was `trigger-jury`,

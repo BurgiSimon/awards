@@ -418,10 +418,28 @@ than in the skills:
 
 **What is still owed on Phase 7:**
 
-- Re-run `trigger-motion`, `trigger-component-nav` and `trigger-jury` against the fixes.
-  `trigger-webgl-hero` was re-run at 16:11 and passed **3 / 3** (`rerun2-trigger-webgl-hero.json`),
-  which is the only post-fix evidence that exists. Three cases, one arm, ≈ $2.
+- ~~Re-run `trigger-motion`, `trigger-component-nav` and `trigger-jury` against the fixes.~~
+  **Done 2026-09-21**, see below.
 - The build tier has **never run**. Zero executions of all six cases.
+
+### The three repairs, verified 2026-09-21
+
+`--case <name> --runs 3 --ablation none --scaffold --no-publish --trust-plugin -j 1`, serially, CLI
+2.1.278 (the tier ran on 2.1.276), **$6.64** for nine runs — three times the ≈ $2 estimated above.
+
+| Case | Before | After | Graders |
+|---|---|---|---|
+| `trigger-motion` | 0 / 3 | **3 / 3** | `skill-fired` P P P, 9–14 turns |
+| `trigger-component-nav` | 1 / 3 | **3 / 3** | `skill-fired` P P P, 9–15 turns |
+| `trigger-jury` | fired 3 / 3, `usability-axis` 1 / 3 | **3 / 3** | `disposition-line`, `skill-fired`, `usability-axis` all P in all three runs, 2–4 turns |
+
+Both diagnoses hold. The fixture cases now take 9–15 turns where the failing runs took 7–9 and
+answered from an empty directory; `trigger-jury` names the Usability axis in every run now that the
+reply contract requires the four axes.
+
+With `trigger-webgl-hero` at 3 / 3 on 2026-09-18, all four failures of the tier run are repaired and
+measured. **Every Phase 7 pass bar is met for the smoke tier.** The caveat worth keeping: the
+repairs were measured case by case on the plugin arm, not by re-running the whole tier in one pass.
 
 **What the baseline arm actually bought, now measured rather than argued.** Every `skill-fired`
 grader scored 0 in the `without` arm, which it must: the plugin is not loaded, so the skill cannot
