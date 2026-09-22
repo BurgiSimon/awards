@@ -20,3 +20,24 @@
 
 # not reviewed
 - https://robbietilton.com/
+- https://pensatori-irrazionali.com/
+- https://boc.studio/work
+- https://www.warmnfuzzy.tv/
+- https://jesperlandberg.com/
+- https://zainabkabira.com/
+- https://wearedirect.co/
+- https://www.oxigen.sa/
+- https://www.runrobrun.com/
+- https://goats.com.pl/
+- https://okaydev.co/
+- https://likova.space/
+- https://www.mensch.club/
+- https://www.to-top.ch/en
+- https://www.siteassist.com/
+- https://www.911rennsport.co.uk/
+- https://www.primesec.ai/
+- https://www.nodeck.online/
+- https://haoqi.design/
+- https://www.noth.in/
+- https://areebali.com/
+- https://serotoninn.com/
