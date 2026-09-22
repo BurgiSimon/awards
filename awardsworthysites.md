@@ -1,3 +1,4 @@
+# Reviewed and in Skill
 - https://www.leoparpeix.com/
 - https://white-desert.com/
 - https://why.zero.university/
@@ -41,3 +42,15 @@
 - https://www.noth.in/
 - https://areebali.com/
 - https://serotoninn.com/
+- https://siena.film/
+- https://gehry.getty.edu/
+- https://the-boyd.com/
+- https://grids.obys.agency/
+- https://www.bethebuzz.co/services
+- https://alectear.com/lettering
+- https://wodniack.dev/
+- https://www.spasoje.dev/
+- https://christoph-nagel.dev/
+
+# new api
+- https://smooothy.federic.ooo/
