@@ -1,7 +1,7 @@
 ---
 name: ship
 description: Takes an award-level site or component from "it works" to "it ships". Applies the jury's fix list in one batch, runs the deterministic craft-floor audit (reflex fonts, contrast, reduced-motion branch, landmarks and alt, overflow, scrub easing, will-change, browser surfaces, slop patterns) until every finding is fixed or recorded as an exception, captures desktop, mobile, scroll-state and reduced-motion screenshots, checks the performance budgets (entry JS, GL chunk, images, meshes, fonts, LCP, CLS), meta and Open Graph, favicon, 404, console errors, and writes the ship report. Use whenever the user says ship, launch, finalize, polish, QA, "make it production-ready", "check performance or accessibility", "run the audit", "take screenshots", or after any awards build or jury round in a project with an AWARDS.md. Not a deploy tool, nor for ordinary app screens with no award framing.
-argument-hint: "[path | url] [--fix] [--report-only]"
+argument-hint: "[path | url] [--fix] [--report-only] [--states <json-file>]"
 allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
 ---
 
@@ -15,13 +15,16 @@ Arguments: `$ARGUMENTS`
 
 - a path (the project directory or its built `dist/`) or a URL; with nothing given, the project root and its build output
 - `--fix` — apply the jury's fix batch and the audit fixes (the default whenever a jury report exists)
-- `--report-only` — prove without changing anything: audit, captures, budgets, checks, report
+- `--report-only` — prove without changing site source: audit, captures, budgets, checks, report; throughout this skill, list fixes without applying them
+- `--states <json-file>` — interaction plan to replay; otherwise reuse the recorded plan or `.awards/capture-states.json` when present
 
 ## Setup
 
 Read `AWARDS.md` and `DESIGN.md` in the project root when they exist; `## Status` in `AWARDS.md` says which phases are done, so resume from there instead of restarting. Read impeccable's `PRODUCT.md` for product truth when it exists and never overwrite it. Detect the scope (a whole site, one component named by file or selector, or a critique of something that already exists) and the stack (framework, animation and 3D libraries, build tool) from `package.json`, lockfiles and the entry files. When the request is clearly a whole site and no direction contract exists yet, offer `/awards:craft` once, then proceed with this skill.
 
-Also read `${CLAUDE_PLUGIN_ROOT}/references/craft-floor.md` before touching any file: it is the list of what a Developer Award jury checks in the first minute, and every rule id below points into it. When the request is "ship" or "finalize" and no `.awards/jury/<date>.md` exists yet, the fix list is missing: invoke the `awards:jury` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. When the request is only the audit or the screenshots, skip section 1 and run the rest.
+Also read `${CLAUDE_PLUGIN_ROOT}/references/craft-floor.md` before touching any file: it is the list of what a Developer Award jury checks in the first minute, and every rule id below points into it. When the request is "ship" or "finalize" and no `.awards/jury/<date>.md` exists yet, the fix list is missing: invoke the `awards:jury` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. When the request is only the audit, run section 2 once and report findings without edits. When it is only screenshots, run section 3 and report the capture paths/errors without fixes or a jury round. Only a full ship/finalize request runs all sections.
+
+Before a build or browser capture, run `node "${CLAUDE_PLUGIN_ROOT}/scripts/doctor.mjs" <project-dir> --json` if this environment has not been checked since setup changed. Follow `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md` for failures; a static-audit-only request needs no browser preflight.
 
 ## How a pass runs
 
@@ -87,7 +90,7 @@ npm run build
 node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" dist --out .awards/captures --scroll 0,50,100 --mobile --reduced-motion --json
 ```
 
-For a component, add `--selector "<selector>" --hover "<selector>"`. When the target is a URL with no local source, capture the URL and say in the report that the static audit and the size budgets were measured from the served files, not from a build.
+For static HTML with no build script, capture the source directory directly. For a component, add `--selector "<selector>" --hover "<selector>"`. Add `--states <json-file>` for the recorded interaction plan; use `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md` to create one for required menu, focus, drag or persistence states. Inspect each named frame and its manifest entry; a failed action is missing evidence, even when baseline frames passed. When the target is a URL with no local source, capture the URL and use `audit.mjs <url> --render` for rendered checks. Mark the static-source audit and build budgets unmeasured unless the served assets were actually fetched and inspected.
 
 Then open each file with the Read tool, once, and check:
 

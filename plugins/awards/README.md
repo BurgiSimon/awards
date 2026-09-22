@@ -9,6 +9,6 @@ Install this whole folder; individual skills depend on its shared resources. Nod
 - `hooks/hooks.json` — a quick craft-floor audit after Claude Code edits, active only in projects that have an `AWARDS.md`; Codex runs the audit explicitly.
 - `references/` — the corpus: 20 live-verified site case studies, the pattern language, the jury rubric, stack notes.
 - `recipes/` — thirty verified motion and WebGL recipes (vanilla Vite first, framework adapters where marked); `recipes/README.md` is the catalogue by intent.
-- `scripts/` — `capture.mjs` (Playwright screenshots), `audit.mjs` (deterministic checks), `new-project.mjs`, `roll.mjs`, `verify-recipes.mjs`.
+- `scripts/` — `doctor.mjs` (early environment check), `capture.mjs` (Playwright screenshots and [interactive states](references/capture-states.md)), `audit.mjs` (deterministic checks), `new-project.mjs`, `roll.mjs`, `verify-recipes.mjs`.
 - `assets/templates/` — `AWARDS.md`, `DESIGN.md`, jury and ship report templates, an authored 404; `assets/scaffold/vite-vanilla/` is what `new-project.mjs` copies.
-- `evals/` — the `claude plugin eval` suite (smoke and build tiers) and `codex-install.mjs` (installation and discovery, no model calls).
+- `evals/` — the `claude plugin eval` suite (smoke and build tiers), `behavior.mjs` (live browser/tool regressions) and `codex-install.mjs` (installation and discovery); both run without model calls. See [verification commands](evals/README.md#behavior-regressions).

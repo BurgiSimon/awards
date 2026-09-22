@@ -20,6 +20,8 @@ Every skill in this set opens the same way, because work that ignores a locked c
 3. Detect the scope from the request: a whole site, one component (a named element, file or selector), or a critique (judge, review, score). Detect the stack from `package.json` and the framework files (`next.config.*`, `nuxt.config.*`, `astro.config.*`, `svelte.config.*`, `vite.config.*`, a Webflow export's `webflow.js`).
 4. When the request is clearly a whole site and `AWARDS.md` holds no direction contract, offer `/awards:craft` once, in one sentence, then proceed with this skill whatever the answer.
 
+Before implementation, run `node "${CLAUDE_PLUGIN_ROOT}/scripts/doctor.mjs" <project-dir> --json` once for this environment (use the existing parent if the project does not exist yet). Read `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md` for failure handling; rerun after scaffolding/installing prerequisites, not at every handoff. Continue independent design/static work while missing browser evidence remains explicit. Skip this for status or ideas-only requests.
+
 ## Arguments
 
 - First word: the stack (`vite` when omitted and no framework is detected; the detected framework otherwise).
@@ -80,7 +82,7 @@ Lenis 1.3 defaults to `autoRaf: false`, so a Lenis nobody ticks swallows wheel e
 - Call `lenis.raf(time * 1000)` from `gsap.ticker.add`: the ticker hands you seconds, Lenis wants milliseconds.
 - `gsap.ticker.lagSmoothing(0)`, so a tab switch does not fast-forward scrubbed values.
 - `lenis.on('scroll', ScrollTrigger.update)`, so triggers read the smoothed position.
-- Every other loop, the GL render included, subscribes to that ticker or to `src/lib/raf.js`; never a private `requestAnimationFrame`. The scaffold's placeholder scene runs its own loop for simplicity; move the real scene onto the ticker.
+- Every other loop, the GL render included, subscribes to that ticker or to `src/lib/raf.js`; never a private `requestAnimationFrame`. The scaffold scene subscribes to GSAP's ticker and removes its listener on disposal.
 
 ### Measure after the page is real
 

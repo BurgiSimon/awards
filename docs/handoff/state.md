@@ -5,6 +5,12 @@ progress and `verification-log.md` is its evidence ledger — on a restart, the 
 resume. `plan.md` is the 0.1.0 specification, kept for reference and no longer the current plan.
 `decisions.md` records choices already taken; do not re-litigate them.
 
+## Latest implementation — interactive capture, behavior checks and preflight
+
+The requested additions are implemented in the current workspace. The [implementation plan and verification record](../superpowers/plans/2026-09-21-capture-behavior-preflight.md) track this pass separately from the older 0.2.0 snapshots below. `capture.mjs --states <json-file>` replays named interactions; `doctor.mjs` checks prerequisites before implementation; `evals/behavior.mjs` tests actual browser/tool behavior without model calls. Shared action dispatch serves both captures and recipe verification. Usage and failure semantics: `plugins/awards/references/capture-states.md`.
+
+The behavior suite passes **11/11**, including the reviewed server, audit, ticker and starter fallback/motion defects. Codex discovers all eleven skills and builds both installed scaffold variants. Manifest checks, reference lint and grader self-test pass. The serial recipe compatibility pass is **30/30 recipes across 156 states**; doctor reports all eight checks passed against the installed recipe project. Paid build/routing evals and real-device GPU measurements remain outside this pass.
+
 ## Where things are
 
 | Item | Location |
@@ -15,9 +21,9 @@ resume. `plan.md` is the 0.1.0 specification, kept for reference and no longer t
 | Agent and hook | `plugins/awards/agents/awards-jury.md`, `plugins/awards/hooks/hooks.json` |
 | Reference corpus | `plugins/awards/references/` — 20 site cards + `_index.md` + `_TEMPLATE.md`, 14 pattern files, `jury/{rubric,usability-walk,report-template}.md`, `craft-floor.md`, `anti-patterns.md`, `reflex-lists.md`, 11 stack and library notes |
 | Recipes | `plugins/awards/recipes/` — 30 folders, `_shared/`, `README.md` catalogue, `package.json` (pinned deps), `vite.config.mjs`, `_verify/` (gitignored) |
-| Scripts | `plugins/awards/scripts/{capture,audit,new-project,roll,verify-recipes,lint-refs}.mjs`, `scripts/lib/*`, `scripts/data/{rules.json,reflex-fonts.json}` |
+| Scripts | `plugins/awards/scripts/{doctor,capture,audit,new-project,roll,verify-recipes,lint-refs}.mjs`, `scripts/lib/*`, `scripts/data/{rules.json,reflex-fonts.json}` |
 | Templates and scaffold | `plugins/awards/assets/templates/`, `plugins/awards/assets/scaffold/vite-vanilla/` |
-| Evals | `plugins/awards/evals/` — 23 cases (17 smoke, 6 build), `selftest.mjs`, `README.md`; `results/` gitignored |
+| Evals | `plugins/awards/evals/` — 23 cases (17 smoke, 6 build), `behavior.mjs`, `selftest.mjs`, `README.md`; `results/` gitignored |
 | Original input | `awardsworthysites.md` (the user's list of 19 sites) |
 
 ## Where the 0.2.0 work stands

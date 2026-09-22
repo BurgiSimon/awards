@@ -38,12 +38,16 @@ const MIME = {
 };
 
 export function serveDirectory(rootDir, { port = 0 } = {}) {
-  const root = path.resolve(rootDir);
+  const root = fs.realpathSync(rootDir);
+  const inside = (file) => {
+    const relative = path.relative(root, file);
+    return relative !== '..' && !relative.startsWith('..' + path.sep) && !path.isAbsolute(relative);
+  };
   const server = http.createServer((req, res) => {
     try {
       const urlPath = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
       let filePath = path.normalize(path.join(root, urlPath));
-      if (!filePath.startsWith(root)) {
+      if (!inside(filePath)) {
         res.writeHead(403).end('forbidden');
         return;
       }
@@ -54,13 +58,18 @@ export function serveDirectory(rootDir, { port = 0 } = {}) {
         res.writeHead(404, { 'content-type': 'text/plain' }).end('not found: ' + urlPath);
         return;
       }
+      filePath = fs.realpathSync(filePath);
+      if (!inside(filePath)) {
+        res.writeHead(403).end('forbidden');
+        return;
+      }
       const ext = path.extname(filePath).toLowerCase();
       res.writeHead(200, {
         'content-type': MIME[ext] || 'application/octet-stream',
         'cache-control': 'no-store',
         'access-control-allow-origin': '*',
       });
-      fs.createReadStream(filePath).pipe(res);
+      fs.createReadStream(filePath).on('error', () => res.destroy()).pipe(res);
     } catch (err) {
       res.writeHead(500).end(String(err));
     }

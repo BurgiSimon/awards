@@ -28,7 +28,7 @@ Open each capture with the Read tool; each one is evidence for something specifi
 | `desktop-rm-s00` | the reduced-motion tier: readable at rest, nothing stuck |
 | `manifest.json` | console and page errors, failed requests, CLS, DOM nodes, WebGL, `lcpColdSynthetic` (not a field LCP) |
 
-Component runs use `desktop-component-<slug>`, its `-hover` frame, `mobile-component-<slug>` and `desktop-rm-component-<slug>`. Source code is evidence for the developer criteria and for what moves; it is never a substitute for a capture.
+Component runs use `desktop-component-<slug>`, its `-hover` frame, `mobile-component-<slug>` and `desktop-rm-component-<slug>`. When an interaction plan is supplied, also open its `<viewport>-state-<name>` frames and inspect their manifest entries; failed or missing required states need recapture. Replay the plan with `capture.mjs --states <json-file>` using `references/capture-states.md`, and reuse a current environment check or run `scripts/doctor.mjs <project-dir> --json` before the first capture attempt. Source code is evidence for the developer criteria and for what moves; it is never a substitute for a capture.
 
 ## Procedure
 
@@ -74,6 +74,7 @@ When `awards:craft` spawns you with the Agent tool instead of through the skill,
 ```
 target: <path or url>              the page, directory or dist to judge
 captures: <dir>                    default .awards/captures
+states: <json-file>                optional; replay the recorded interaction plan
 audit: <path>                      default .awards/audit.json
 awards: <path>                     the project's AWARDS.md
 component: <selector>              optional; scores one element, D / U / C only

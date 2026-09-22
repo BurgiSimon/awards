@@ -2,7 +2,7 @@
 // Deterministic craft-floor audit for award-level front-ends. Static by default; --render adds in-page checks.
 // Usage: node audit.mjs <dir|file|url> [--json] [--quick] [--changed-file <path|->] [--render]
 //   [--scope fonts,contrast,motion,a11y,layout,perf,surfaces,slop] [--ignore T01,…] [--config .awards/audit.json] [--no-write]
-// Exit: 0 clean (no P0/P1) · 2 P0/P1 findings · 1 error. Hook mode (--quick) always exits 0 and prints hook JSON.
+// Exit: 0 clean (no P0/P1) · 2 P0/P1 findings · 3 missing browser · 1 error. Quick mode exits 0 and prints hook JSON.
 import fs from 'node:fs';
 import path from 'node:path';
 import zlib from 'node:zlib';
@@ -53,6 +53,10 @@ if (!target) {
 }
 
 const isUrl = /^https?:\/\//i.test(String(target));
+if (isUrl && !args.render) {
+  console.error('URL audits require --render; static audits need local source files.');
+  process.exit(1);
+}
 
 // `.awards/` and the `## Exceptions` list belong beside AWARDS.md, never beside the shell. Walking
 // up from the target instead of trusting cwd is what keeps a run from inside `public/` from writing
@@ -71,7 +75,8 @@ const projectDir = process.env.CLAUDE_PROJECT_DIR || (targetDir && ownerOf(targe
 if (args.quick) {
   // The hook is inert outside award-level projects and for non-UI files.
   if (!fs.existsSync(path.join(projectDir, 'AWARDS.md')) || process.env.AWARDS_HOOK === '0') process.exit(0);
-  if (!SCAN_EXT.has(path.extname(String(target)).toLowerCase())) process.exit(0);
+  const directory = !isUrl && fs.existsSync(target) && fs.statSync(target).isDirectory();
+  if (!directory && !SCAN_EXT.has(path.extname(String(target)).toLowerCase())) process.exit(0);
 }
 
 const files = [];
@@ -341,6 +346,7 @@ if (args.render) {
   const found = resolvePlaywright();
   if (!found) {
     console.error(MISSING_MESSAGE);
+    process.exit(3);
   } else {
     let server = null;
     let url = String(target);

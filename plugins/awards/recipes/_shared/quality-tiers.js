@@ -36,7 +36,7 @@ export async function detectQualityTier({ sampleMs = 600 } = {}) {
   score += fps >= 55 ? 2 : fps >= 40 ? 1 : fps >= 25 ? 0 : -2;
   score += webgl2 ? 0 : -1;
 
-  const tier = score >= 5 ? 'high' : score >= 2 ? 'mid' : 'low';
+  const tier = !webgl2 ? 'low' : score >= 5 ? 'high' : score >= 2 ? 'mid' : 'low';
   const profile = {
     tier,
     dpr: tier === 'high' ? Math.min(dpr, 2) : tier === 'mid' ? Math.min(dpr, 1.5) : 1,

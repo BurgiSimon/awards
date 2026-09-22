@@ -803,3 +803,11 @@ Fresh checks (Node 24.21.0, Claude Code 2.1.278, Codex CLI 0.155.1):
 No model-backed evaluations were rerun. This review does not establish end-to-end Codex design
 quality, cloud/Cowork execution, real-device performance, or closure of the previously recorded
 build-tier caveats. No user installation settings were changed and nothing was published.
+
+## Interactive captures, behavioral regressions and preflight — 2026-09-21
+
+Implemented the [selected additions](../superpowers/plans/2026-09-21-capture-behavior-preflight.md): named JSON capture states, shared recipe/capture actions, a non-installing environment doctor, and a serial live-behavior suite. The suite reproduced and now guards the static-server boundary, skipped directory/URL audits, duplicate ticker callbacks and starter WebGL/reduced-motion failures. The skills and jury handoff carry the new commands and state plan.
+
+Observed verification: behavior **11/11** (initially 1/10 before implementation; an additional explicit-browser-path regression was then added), recipe compatibility **30/30 across 156 states** on Chromium 153.0.8010.12, reference lint **337 files / 0 dangling**, grader self-test **14 / 0 defective / 2 skipped**, Claude plugin/marketplace and Codex manifest validation passed, isolated Codex install found **11 skills** and both installed scaffolds built. Doctor passed all eight checks against the installed recipe project. Recipe audit stayed **P0 0 / P1 0 / P2 0 / P3 32** (demo OG omissions). Final diff check passed.
+
+Recipe verification ran alone in a temporary plugin copy; tracked gallery/stamps were not rewritten. The menu focus-trap and WebGL postprocessing frames were opened. No new dependencies or paid model evals; real-device performance remains unmeasured.

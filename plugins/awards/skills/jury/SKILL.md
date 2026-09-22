@@ -1,7 +1,7 @@
 ---
 name: jury
 description: Scores a site, page or single component the way a design-award jury does. Design, Usability, Creativity and Content on anchored 0–10 scales (Site of the Day winners sit at 7.3–8.2), the five Developer Award criteria, the memory test, the specificity test (could a juror name the source site?), the keyboard and reduced-motion walk and a slop scan, ending in an ordered fix list and one disposition (ship, fix, rebuild or recapture). Use whenever the user asks to review, critique, score, judge, rate or evaluate a site or component, asks "would this win", "is this award-worthy", "what is missing", "what would the jury say", or before shipping award-level work; also re-checks a fix batch with --verdict. Runs in a fresh context on Playwright captures and the audit, so the build conversation cannot talk it upward. Not for code review, failing tests or accessibility work with no award framing.
-argument-hint: "[url | path | --component <selector>] [--captures <dir>] [--verdict]"
+argument-hint: "[url | path | --component <selector>] [--captures <dir>] [--states <json-file>] [--verdict]"
 context: fork
 agent: awards-jury
 background: false
@@ -18,6 +18,7 @@ Arguments: `$ARGUMENTS`
 
 - a URL, or a path: a project directory, an `index.html`, a built `dist/`; with no target, the project root
 - `--captures <dir>` — where the screenshots live (default `.awards/captures`)
+- `--states <json-file>` — interaction plan to replay on recapture; use the recorded plan or `.awards/capture-states.json` when present
 - `--verdict` — re-check the last fix batch instead of scoring from scratch (section 7)
 - `--component <selector>` — score one element instead of a page (section 8)
 
@@ -53,13 +54,13 @@ Open every capture with the Read tool and judge validity:
 - `manifest.json` has no `pageErrors`, and its `consoleErrors` did not prevent rendering
 - no capture is older than the newest source file (`find <dir> -newer <capture>`); older is stale
 
-Missing, stale or invalid captures are recaptured, then re-checked:
+Missing, stale or invalid captures are recaptured, then re-checked. Before the first capture attempt in this environment, run `node "${CLAUDE_PLUGIN_ROOT}/scripts/doctor.mjs" <project-dir> --json`; use its actionable failures to explain unavailable browser evidence. Reuse a current successful preflight. Add `--states <json-file>` when a plan was supplied or recorded, following `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md`; require its named frames in addition to the baseline set:
 
 ```
 node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <target> --out .awards/captures --scroll 0,50,100 --mobile --reduced-motion --json
 ```
 
-Exit 2 means console or page errors: record them, and keep the frames when they rendered. Exit 3 (Playwright missing) and exit 4 (target unreachable) end the run with `disposition: recapture`, the exact command and the reason; nothing gets scored.
+Exit 2 means console, page or state-action errors: record them, and keep the frames when they rendered. Exit 3 (browser unavailable) and exit 4 (target unreachable) end the run with `disposition: recapture`, the exact command and the reason; nothing gets scored.
 
 Then locate `.awards/audit.json`. When it is missing or older than the sources, run the audit against the project directory; it is static and needs source, and it writes the file itself:
 
@@ -184,7 +185,7 @@ Why: one element inside an existing world is judged on whether it belongs and wh
 node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <target> --out .awards/captures --selector "<selector>" --hover "<selector>" --reduced-motion --json
 ```
 
-This yields `desktop-component-<slug>.png`, its `-hover` frame, `mobile-component-<slug>.png` and `desktop-rm-component-<slug>.png`. States the tool cannot reach (an open menu, a focused field) are read from the source and named as uncaptured.
+This yields `desktop-component-<slug>.png`, its `-hover` frame, `mobile-component-<slug>.png` and `desktop-rm-component-<slug>.png`. For an open menu, focused control, drag or persisted setting, use `--states <json-file>` and the shared state-plan reference. Open and name those additional frames in Evidence; a missing or failed required state needs recapture. Source review can explain behavior but cannot substitute for an uncaptured required state.
 
 - Run the memory test at component scale, the specificity test in both directions, and a states inventory: rest, hover, focus-visible, active, open and closed, reduced motion, coarse pointer, keyboard.
 - Score Design, Usability and Creativity only; the mean of the three stands in for the weighted score in the disposition rules.

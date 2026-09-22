@@ -9,6 +9,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { parseArgs, fmtTable, now } from './lib/report.mjs';
 import { resolvePlaywright, launchChromium, MISSING_MESSAGE } from './lib/playwright.mjs';
 import { serveDirectory } from './lib/server.mjs';
+import { runActions } from './lib/actions.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const recipesDir = path.resolve(here, '../recipes');
@@ -91,26 +92,7 @@ for (const id of ids) {
       await page.evaluate(() => document.fonts?.ready).catch(() => {});
       await page.evaluate(() => Promise.race([window.__awards?.ready, new Promise((r) => setTimeout(r, 8000))])).catch(() => {});
       await page.waitForTimeout(st.settle ?? 500);
-      for (const action of st.actions || []) {
-        if (action.type === 'hover') await page.hover(action.selector).catch((e) => errors.push(`hover failed: ${e.message}`));
-        if (action.type === 'click') await page.click(action.selector).catch((e) => errors.push(`click failed: ${e.message}`));
-        if (action.type === 'press') await page.keyboard.press(action.key);
-        if (action.type === 'move') await page.mouse.move(action.x, action.y, { steps: action.steps || 8 });
-        if (action.type === 'down') await page.mouse.down();
-        if (action.type === 'up') await page.mouse.up();
-        if (action.type === 'wheel') await page.mouse.wheel(action.dx || 0, action.dy || 0);
-        if (action.type === 'wait') await page.waitForTimeout(action.ms || 300);
-        // Wait on the page's own state instead of a guess: headless SwiftShader stalls rAF for
-        // seconds while it compiles a shader, and no fixed sleep is both fast and safe.
-        if (action.type === 'waitFor') await page.waitForFunction(action.fn, null, { timeout: action.timeout || 15000 }).catch(() => errors.push(`waitFor timed out: ${action.fn}`));
-        if (action.type === 'focus') await page.focus(action.selector).catch((e) => errors.push(`focus failed: ${e.message}`));
-        // Reload inside a state, not between them: each state gets a fresh context, so a recipe that
-        // persists a choice can only prove it survives a reload within the context that stored it.
-        if (action.type === 'reload') {
-          await page.reload({ waitUntil: 'load', timeout: 30000 });
-          await page.evaluate(() => Promise.race([window.__awards?.ready, new Promise((r) => setTimeout(r, 8000))])).catch(() => {});
-        }
-      }
+      await runActions(page, st.actions || []);
       if (typeof st.scroll === 'number') {
         await page.evaluate(async (p) => { await window.__awards?.scrollTo?.(p); window.ScrollTrigger?.update?.(); }, st.scroll);
         await page.waitForTimeout(st.settle ?? 500);

@@ -59,7 +59,10 @@ export async function launchChromium(pw, { webgl = true } = {}) {
   const launchOptions = { headless: true, args: webgl ? GL_ARGS : ['--disable-gpu'] };
   // A pinned Playwright without downloaded browsers can still use a system Chromium.
   const exe = process.env.AWARDS_CHROMIUM || process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH;
-  if (exe && fs.existsSync(exe)) launchOptions.executablePath = exe;
+  if (exe) {
+    if (!fs.existsSync(exe)) throw new Error('Chromium executable not found: ' + exe);
+    launchOptions.executablePath = exe;
+  }
   try {
     return await pw.chromium.launch(launchOptions);
   } catch (err) {

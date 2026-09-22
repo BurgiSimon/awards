@@ -24,6 +24,8 @@ Why: the durable files are the memory of the build; a skill that starts without 
 
 A request that names one element ("the hero", "this menu", "a cursor like…", a file, a selector) is this skill's scope even when `AWARDS.md` is absent.
 
+Before implementation, run `node "${CLAUDE_PLUGIN_ROOT}/scripts/doctor.mjs" <project-dir> --json` once for this environment (use the existing parent if the project does not exist yet). Read `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md` for failure handling; rerun after scaffolding/installing prerequisites, not at every handoff. Continue independent design/static work while missing browser evidence remains explicit. Skip this for status or ideas-only requests.
+
 ## Read before you build
 
 Why: the corpus decides what "award-level" means for each component; guessing produces the Awwwards default.
@@ -114,7 +116,7 @@ Why: a component the jury sees in one state is a screenshot; a component that su
 
 Why: a component is proven by a capture and the audit, not by the diff.
 
-1. `node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <page> --out .awards/captures --selector "<selector>" --hover "<selector>" --mobile --reduced-motion --json` and open each image once: rest, hover, mobile, reduced motion. Add `--no-webgl` when the component uses GL.
+1. `node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <page> --out .awards/captures --selector "<selector>" --hover "<selector>" --mobile --reduced-motion --json` and open each image once: rest, hover, mobile, reduced motion. Add `--no-webgl` when the component uses GL. For open, focused, dragged or persisted states, write `.awards/capture-states.json` using `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md` and add `--states .awards/capture-states.json` to the same capture pass. Open every named frame, inspect its manifest errors/state, and carry the plan path into the jury handoff.
 2. `node "${CLAUDE_PLUGIN_ROOT}/scripts/audit.mjs" <file or dir> --json`: no P0/P1 findings in the component's files; record any accepted P2/P3 under `AWARDS.md ## Exceptions` when the project has one.
 3. The removal test: delete the effect (not the element) and confirm the element still does its job; if not, the effect was carrying content.
 4. The specificity test: could a juror name the recipe's source site from this element? If yes, change the metaphor or the timing, not the copy.

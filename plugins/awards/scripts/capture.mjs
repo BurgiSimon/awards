@@ -3,12 +3,14 @@
 // Usage: node capture.mjs <url|file|dir> [--out .awards/captures] [--desktop 1440x900] [--mobile 390x844]
 //   [--only desktop|mobile] [--scroll 0,50,100] [--reduced-motion] [--full-page] [--selector <css>] [--hover <css>]
 //   [--wait <ms>] [--wait-for <css>] [--no-webgl] [--json] [--name <prefix>] [--timeout <ms>] [--wheel <px>]
-// Exit codes: 0 ok · 2 page/console errors · 3 Playwright missing · 4 target unreachable · 1 usage.
+//   [--states <json-file>] — additional named checkpoints: [{ name, actions, selector? }]
+// Exit codes: 0 ok · 2 page/action errors · 3 browser unavailable · 4 target unreachable · 1 usage.
 import fs from 'node:fs';
 import path from 'node:path';
 import { parseArgs, now } from './lib/report.mjs';
 import { resolvePlaywright, launchChromium, MISSING_MESSAGE } from './lib/playwright.mjs';
 import { serveDirectory } from './lib/server.mjs';
+import { validateActions, runActions } from './lib/actions.mjs';
 
 const args = parseArgs(process.argv.slice(2), { 'reduced-motion': 'boolean', 'full-page': 'boolean', json: 'boolean', webgl: 'boolean' });
 const target = args._[0];
@@ -32,6 +34,27 @@ const only = args.only ? String(args.only) : null;
 // Virtual-scroll sites (hijacked wheel, no document scroll height) ignore window.scrollTo.
 // wheelPx is the pixel budget a 0 → 100 pass spends through the wheel; 0 turns the fallback off.
 const wheelPx = Number(args.wheel ?? 8000);
+
+let interactiveStates = [];
+if (args.states !== undefined) {
+  try {
+    if (typeof args.states !== 'string') throw new Error('--states needs a JSON file');
+    interactiveStates = JSON.parse(fs.readFileSync(args.states, 'utf8'));
+    if (!Array.isArray(interactiveStates) || !interactiveStates.length) throw new Error('states must be a nonempty array');
+    const names = new Set();
+    for (const state of interactiveStates) {
+      if (!state || typeof state.name !== 'string' || !/^[a-z0-9][a-z0-9-]{0,63}$/.test(state.name)) throw new Error('each state needs a lowercase slug name (1–64 characters)');
+      if (names.has(state.name)) throw new Error('duplicate state name: ' + state.name);
+      names.add(state.name);
+      for (const key of Object.keys(state)) if (!['name', 'actions', 'selector'].includes(key)) throw new Error('unknown state field: ' + key);
+      if (state.selector !== undefined && (typeof state.selector !== 'string' || !state.selector.trim())) throw new Error('state selector must be a nonempty string');
+      validateActions(state.actions, { allowFunctions: false });
+    }
+  } catch (error) {
+    console.error('invalid capture states: ' + error.message);
+    process.exit(1);
+  }
+}
 
 const found = resolvePlaywright();
 if (!found) {
@@ -62,6 +85,7 @@ const manifest = {
   webglRequested: webgl,
   viewports: { desktop, mobile },
   scrollStates: states,
+  interactiveStates,
   captures: [],
   consoleErrors: [],
   pageErrors: [],
@@ -117,9 +141,10 @@ async function scrollTo(page, percent, previous) {
   return mode;
 }
 
-const browser = await launchChromium(pw, { webgl });
+let browser;
 let exitCode = 0;
 try {
+  browser = await launchChromium(pw, { webgl });
   const plans = [['desktop', desktop, false]];
   if (!only || only === 'mobile') plans.push(['mobile', mobile, true]);
   if (only === 'mobile') plans.shift();
@@ -209,12 +234,35 @@ try {
       };
     });
     manifest.metrics[label].scrollMode = scrollMode;
+    // Each checkpoint starts at the requested URL; storage persists within this viewport.
+    // A failed action cannot contaminate the next checkpoint or erase earlier evidence.
+    for (const state of interactiveStates) {
+      try {
+        await page.mouse.up();
+        const response = await page.goto(url, { waitUntil: 'load', timeout });
+        if (!response || response.status() >= 400) throw new Error('target unreachable: ' + response?.status());
+        await settlePage(page);
+        await runActions(page, state.actions, { timeout });
+        await page.waitForTimeout(settle);
+        const file = path.join(outDir, name + label + '-state-' + state.name + '.png');
+        const selector = state.selector ?? args.selector;
+        if (selector) await page.locator(String(selector)).screenshot({ path: file, timeout });
+        else await page.screenshot({ path: file, timeout });
+        const awardsState = await page.evaluate(() => {
+          try { return window.__awards?.state?.() ?? null; } catch { return null; }
+        });
+        manifest.captures.push({ label, kind: 'state', name: state.name, actions: state.actions, selector: selector ?? null, awardsState, file });
+      } catch (error) {
+        manifest.pageErrors.push('[' + label + ' state ' + state.name + '] ' + error.message);
+      }
+    }
     await context.close();
   }
 } catch (e) {
+  if (!browser) exitCode = 3;
   manifest.pageErrors.push(`[capture] ${e.message}`);
 } finally {
-  await browser.close();
+  if (browser) await browser.close();
   if (server) await server.close();
 }
 

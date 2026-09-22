@@ -24,11 +24,13 @@ npm run dev                                               # from recipes/: Vite 
 
 node scripts/audit.mjs recipes                            # craft-floor audit; must stay free of P0–P2 findings
 node scripts/audit.mjs <dir|file|url> [--json] [--quick] [--render]
-node scripts/capture.mjs <url|file|dir> [--out .awards/captures] [--wheel <px>]   # jury evidence: three scroll positions, phone, reduced motion
+node scripts/doctor.mjs <project-dir> [--json]             # prerequisites + actual browser launch, no installs
+node scripts/capture.mjs <url|file|dir> [--out .awards/captures] [--states <json-file>] [--wheel <px>]   # jury evidence: three scroll positions, phone, reduced motion
 node scripts/new-project.mjs --stack vite|next|nuxt|astro|sveltekit --name <dir> [--webgl] [--dry-run]
 node scripts/roll.mjs --deal 3 --of 7 [--seed <key>]      # seeded direction roll used by the concept skill
 
 node scripts/lint-refs.mjs                                 # every [site:]/[recipe:]/[pattern:] and ${CLAUDE_PLUGIN_ROOT} path resolves
+node evals/behavior.mjs                                   # serial browser/tool regressions; needs recipes/node_modules + Playwright
 node evals/selftest.mjs                                   # every file-target grader must fail on untouched input
 node evals/codex-install.mjs --build                       # isolated install, discovery and both scaffold builds (needs recipes/node_modules)
 
@@ -52,6 +54,8 @@ Requirements: Node 20.19+ (20.x) or 22.12+, Playwright plus its Chromium browser
 **Hook.** `hooks/hooks.json` runs `audit.mjs --quick --changed-file -` on every `Edit|Write`; it is silent unless the project has an `AWARDS.md`, and `AWARDS_HOOK=0` disables it. No `Stop` hook by design.
 
 **Recipes are a contract.** Each `recipes/<id>/` holds `index.html`, `main.js`, `style.css`, `README.md`, `recipe.json` (`id, title, tags, deps, tier, variants, seenIn, verified`) and `verify.mjs` exporting `states`, `probe(), assert(results)`. `verify-recipes.mjs` builds all recipes with `recipes/vite.config.mjs`, serves `dist/`, drives each state (scroll fraction, viewport, reducedMotion, actions) and stamps `recipe.json.verified` on pass. Every page exposes `window.__awards = { ready, scrollTo, state }` via `_shared/awards-hook.js`, which is what `capture.mjs` and the jury use to drive pages. Shared modules: `_shared/raf.js` (single ticker), `reduced-motion.js` (full / reduced / static tiers), `quality-tiers.js` (device probe → DPR/pixel budgets), `tokens.css`, `base.css`.
+
+**Runtime checks.** `scripts/doctor.mjs` checks prerequisites without changing configuration. `scripts/lib/actions.mjs` drives both recipe verification and `capture.mjs --states`; external JSON uses selector waits, while trusted recipe states may use predicates. The schema and exit codes live in `references/capture-states.md`. `evals/behavior.mjs` tests real behavior (no model calls); never run it alongside recipe/browser verification.
 
 **Audit** (`scripts/audit.mjs`) is rule-driven from `scripts/data/rules.json` (55 rules, prefixes T fonts, C colour, M motion, A accessibility, L layout, P performance, S surfaces, X slop) with helpers in `scripts/lib/`. Rule M03 judges only the tween or trigger that owns a `scrub`.
 

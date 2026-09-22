@@ -16,7 +16,7 @@ export const mm = gsap.matchMedia();
 export function revealLines(target, { stagger = 0.08, delay = 0 } = {}) {
   mm.add({ full: '(prefers-reduced-motion: no-preference)', reduced: '(prefers-reduced-motion: reduce)' }, (ctx) => {
     const { full } = ctx.conditions;
-    return gsap.from(target, full
+    gsap.from(target, full
       ? { yPercent: 120, duration: DUR.hero, ease: EASE.out, stagger, delay }
       : { autoAlpha: 0, duration: 0.3, stagger: 0.02, delay });
   });

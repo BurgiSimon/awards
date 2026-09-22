@@ -34,6 +34,8 @@ Why: the durable files are the memory of the build; a skill that starts without 
 
 Inside this skill step 6 is already satisfied: `craft` is the skill being offered, so go straight to scope and routing.
 
+Before implementation, run `node "${CLAUDE_PLUGIN_ROOT}/scripts/doctor.mjs" <project-dir> --json` once for this environment (use the existing parent if the project does not exist yet). Read `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md` for failure handling; rerun after scaffolding/installing prerequisites, not at every handoff. Continue independent design/static work while missing browser evidence remains explicit. Skip this for status or ideas-only requests.
+
 ## Read before you touch anything
 
 Why: the corpus and the floor live in reference files so this skill stays short; reading the right file at the right moment is the whole method.
@@ -156,7 +158,7 @@ Why: the build order keeps every layer honest against the one below it, and the 
 - One artefact per phase, committed at the boundary when the user chose commits, with the phase in the message.
 - Recipes are adapted, never pasted: rename, re-token, re-time (`${CLAUDE_PLUGIN_ROOT}/recipes/README.md` lists the ids and the contract).
 - Bounded verification: one capture round per pass, fixes batched, at most two rounds before the jury. The commands are exact:
-  - `node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <dir|url> --scroll 0,50,100 --reduced-motion` writes `desktop-s00/s50/s100`, `mobile-s00`, `desktop-rm-s00` and `manifest.json` into `.awards/captures/`; add `--no-webgl` for the fallback capture.
+  - `node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <dir|url> --scroll 0,50,100 --reduced-motion` writes `desktop-s00/s50/s100`, `mobile-s00`, `desktop-rm-s00` and `manifest.json` into `.awards/captures/`; add `--no-webgl` for the fallback capture. Use `--states .awards/capture-states.json` for the signature interaction and keyboard/open states, following `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md`; retain the plan path for jury/ship recaptures.
   - `node "${CLAUDE_PLUGIN_ROOT}/scripts/audit.mjs" <dir> --json` runs the whole floor; exit 2 means P0/P1 findings, each fixed or recorded under `## Exceptions` as `RULE — reason`.
 - The PostToolUse hook runs the quick audit after every edit once `AWARDS.md` exists; treat its findings as the floor speaking, not as noise.
 

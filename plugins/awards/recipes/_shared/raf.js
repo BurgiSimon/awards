@@ -1,30 +1,31 @@
 // A single ticker for the whole page plus framerate-independent damping helpers.
-// If GSAP is present we ride gsap.ticker (so Lenis, ScrollTrigger and our loops share one clock).
+// Standalone rAF clock for recipes without a GSAP ticker subscription.
 const subscribers = new Set();
 let running = false;
 let last = 0;
+let raf = 0;
 
 function frame(t) {
+  raf = 0;
+  if (!running) return;
   const dt = last ? Math.min(0.1, (t - last) / 1000) : 1 / 60;
   last = t;
   for (const fn of subscribers) fn(dt, t);
-  if (running) requestAnimationFrame(frame);
+  if (running && !raf && subscribers.size) raf = requestAnimationFrame(frame);
 }
 
 export const ticker = {
   add(fn) {
     subscribers.add(fn);
-    if (!running) {
-      running = true;
-      requestAnimationFrame(frame);
-    }
-    return () => subscribers.delete(fn);
+    ticker.resume();
+    return () => ticker.remove(fn);
   },
   remove(fn) {
     subscribers.delete(fn);
+    if (!subscribers.size) ticker.pause();
   },
-  pause() { running = false; last = 0; },
-  resume() { if (!running) { running = true; requestAnimationFrame(frame); } },
+  pause() { running = false; last = 0; cancelAnimationFrame(raf); raf = 0; },
+  resume() { if (!running && subscribers.size && !document.hidden) { running = true; raf = requestAnimationFrame(frame); } },
 };
 
 // Pause loops when the tab is hidden: nothing should burn frames nobody sees.

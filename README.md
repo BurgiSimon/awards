@@ -46,6 +46,14 @@ npx playwright install chromium
 
 Run captures from that project directory. For an existing Playwright installation elsewhere, set `AWARDS_PLAYWRIGHT` to its parent project directory; `AWARDS_CHROMIUM` can point to an installed Chromium executable. Linux/cloud hosts may need `npx playwright install --with-deps chromium`. Static audits and scaffolding do not need a browser. If captures cannot be produced, the jury reports `recapture`.
 
+Before a build or capture, run the non-installing environment check from the website project:
+
+```bash
+node /absolute/path/to/awards/plugins/awards/scripts/doctor.mjs . --json
+```
+
+It checks Node/npm, dependencies, output access and an actual Chromium screenshot. Exit 2 identifies missing prerequisites; warnings distinguish an unconfigured build or unavailable WebGL from a browser failure. Rerun after setup changes. For menus, keyboard focus, drags and theme reloads, pass `--states .awards/capture-states.json` to `capture.mjs`; see the [state-plan format and environment guidance](plugins/awards/references/capture-states.md).
+
 ### Cloud sessions and Cowork
 
 Claude Code cloud sessions do not inherit plugins enabled only in your local user settings. In the **website repository** that should use Awards, merge this into `.claude/settings.json` and commit it once the plugin changes are published:
@@ -105,8 +113,8 @@ Durable files: `AWARDS.md` (brief, contract, page map, motion score, budgets, ju
 
 - `plugins/awards/references/` — twenty site case studies, each checked against the live site and its live award entry on 2026-09-18 and carrying confidence labels, the pattern language (narrative, heroes, components, motion, preloaders, cursor, typography, colour, copy, WebGL, assets, accessibility, responsive, sound), the jury rubric and usability walk, the craft floor, anti-pattern and reflex lists, per-stack and per-library notes with pinned versions.
 - `plugins/awards/recipes/` — thirty recipes (Lenis + GSAP boot, scrubbed chapters, sticky stages, text reveals, cursor, magnetic CTA, marquee, menu overlay, preloader, theme swap, page transitions, quality tiers, DOM-tethered WebGL planes, fluid wake, depth-map parallax, render-to-texture transitions, virtual scroll camera, an opt-in sound toggle and runtime-atlas MSDF text), each with a browser-verified test.
-- `plugins/awards/scripts/` — `capture.mjs`, `audit.mjs`, `new-project.mjs`, `roll.mjs`, `verify-recipes.mjs`, `lint-refs.mjs`.
-- `plugins/awards/evals/` — a `claude plugin eval` suite: seventeen routing cases (eleven that must fire a skill, six that must not) and six build cases with fixtures, plus `selftest.mjs`, which checks every file-target grader fails on untouched input.
+- `plugins/awards/scripts/` — `doctor.mjs`, `capture.mjs`, `audit.mjs`, `new-project.mjs`, `roll.mjs`, `verify-recipes.mjs`, `lint-refs.mjs`.
+- `plugins/awards/evals/` — a `claude plugin eval` suite: seventeen routing cases (eleven that must fire a skill, six that must not) and six build cases with fixtures, plus `selftest.mjs` for grader checks and `behavior.mjs` for actual browser, audit, capture, server and ticker regressions without model calls.
 
 ## Verify
 
@@ -125,6 +133,8 @@ cd plugins/awards/recipes
 npm ci
 npm install --no-save --package-lock=false playwright  # verification tool only
 npx playwright install chromium
+node ../scripts/doctor.mjs .                 # early prerequisite check; no installs
+node ../evals/behavior.mjs                   # live behavior regressions, no model calls
 node ../scripts/verify-recipes.mjs            # all 30 recipes, headless Chromium with WebGL
 node ../scripts/audit.mjs .                   # the craft floor: must stay free of P0-P2
 node ../scripts/lint-refs.mjs                 # every [site:]/[recipe:]/[pattern:] reference resolves
@@ -134,8 +144,8 @@ cd ..
 claude plugin eval . --tag smoke --scaffold --runs 3 --threshold 0.67   # routing (model calls)
 ```
 
-Only `claude plugin eval` makes model calls. `verify-recipes` and the captures need Playwright, and are not
-safe to run beside another browser.
+Only `claude plugin eval` makes model calls. `behavior`, `verify-recipes` and captures need Playwright. Run browser checks serially;
+SwiftShader verification is not safe beside another browser. See [behavior check groups](plugins/awards/evals/README.md#behavior-regressions).
 
 ## Status
 

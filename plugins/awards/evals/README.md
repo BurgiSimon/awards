@@ -119,6 +119,21 @@ it must, since the skill does not exist there. The one informative comparison wa
 where the baseline named the Usability axis in 3 / 3 runs and never produced the `disposition:`
 line. `--ablation none` costs about half as much and loses that single comparison.
 
+## Behavior regressions
+
+These free checks run the shipped tools and real Chromium interactions. They complement the regex graders; they do not call a model or require an eval account.
+
+```bash
+# From plugins/awards/recipes, after npm ci and Playwright/Chromium setup:
+node ../evals/behavior.mjs
+node ../evals/behavior.mjs --only capture,doctor
+node ../evals/behavior.mjs --only server,audit,ticker  # browser-free subset
+```
+
+For Playwright installed elsewhere, set `AWARDS_PLAYWRIGHT` to its parent project directory. The full suite uses the installed Vite dependencies in `recipes/node_modules` to build the starter and menu into temporary directories; it deletes its fixtures/builds and leaves recipe verification stamps untouched. Run it serially, never beside `verify-recipes.mjs` or another browser. Browser launch or localhost restrictions are prerequisite failures, not skipped passes.
+
+Groups cover static-server root containment, quick/URL audit semantics, ticker pause/resume and teardown, named captures (keyboard, pointer drag, reload persistence, cropping, invalid input and failure recovery), doctor failures and configuration preservation, starter readiness without WebGL and live reduced-motion changes, and the bundled menu's focus trap/Escape restoration. Exit 0 means all selected checks passed; exit 1 means a failure. Add a regression here when a tool can pass syntactically while its observable behavior is broken. Keep the existing 30-recipe verifier as the compatibility pass.
+
 ## Grader self-test
 ```bash
 node evals/selftest.mjs      # free, about a second
