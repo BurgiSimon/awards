@@ -52,5 +52,5 @@
 - https://www.spasoje.dev/
 - https://christoph-nagel.dev/
 
-# new api
+# new stack
 - https://smooothy.federic.ooo/
