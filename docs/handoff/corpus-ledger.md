@@ -83,7 +83,7 @@ wodniack: lenis@1.1.13 — hoisted.js (window.lenisVersion)
 | setup | done | 29 rows carried queued from wave 2 (triage closed there after the pilot) |
 | triage | done | 28 added, 1 blocked (oxigen: headless capture cannot render its voxel scene; retry needs a real GPU); cards for robbietilton, pensatori-irrazionali, warmnfuzzy, jesperlandberg written by the main session after the auto-mode classifier refused subagent writes |
 | synthesis | done | 28 cards folded into all 13 pattern files, reflex-lists, anti-patterns and 21 recipe seenIn arrays |
-| recipes | open | |
+| recipes | done | 16 built (all selected): autoplay-tabs-progress, scroll-word-fill, word-cycle-hero, section-switcher-wheel-commit, persistent-mode-switch, gl-orbit-model-hotspots, sentence-form-enquiry, knockout-wordmark-window, docked-media-grow, preloader-aperture-handoff, gl-endless-reel-sheets, pointer-tilt-shine, blur-peek-snap-carousel, idle-settle-snap, video-clip-wipe-panels, gl-fps-governor-idle-gate; catalogue 60/60 pass 2026-09-24 (no re-stamp diff); audit P0–P2 clean; no new pins |
 | stacks | open | |
 | upkeep | open | |
 
