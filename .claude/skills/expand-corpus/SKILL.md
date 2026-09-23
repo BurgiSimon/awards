@@ -199,7 +199,7 @@ Technique and stack lines for them (from the ledger):
    Every entry passes; the audit reports P0 0, P1 0, P2 0. Commit the re-stamped `recipe.json` files and the regenerated `recipes/index.html`: `chore(recipes): re-verify catalogue`.
 7. **Counts.** Re-derive the current recipe and entry counts from `ls PLUGIN/recipes`, then find every live count with:
    ```bash
-   grep -rnE "\b36 (entries|verifiable|browser)|35 focused|36 browser-verifiable" --include='*.md' --include='*.json' REPO --exclude-dir=node_modules --exclude-dir=docs
+   grep -rnE "\b44 (entries|verifiable|browser)|43 focused|44 browser-verifiable" --include='*.md' --include='*.json' REPO --exclude-dir=node_modules --exclude-dir=docs
    ```
    Update each hit to the new numbers, keeping `PLUGIN/.claude-plugin/plugin.json`, `PLUGIN/.codex-plugin/plugin.json` and `REPO/.claude-plugin/marketplace.json` descriptions in sync with each other. This grep pattern itself names the current counts, so update it here too the next time the catalogue grows. Commit `docs(recipes): update catalogue counts`, and mark the phase `done`.
 

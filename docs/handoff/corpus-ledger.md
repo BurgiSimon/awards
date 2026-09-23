@@ -9,7 +9,7 @@ Maintained by `/expand-corpus` (`.claude/skills/expand-corpus/SKILL.md`). Resume
 | setup | done | |
 | triage | done | closed by maintainer 2026-09-23 after the boc, wodniack pilot (testing); 29 rows stay queued for a later run |
 | synthesis | done | boc, wodniack synthesised |
-| recipes | open | |
+| recipes | done | 8 built: transition-promote-chosen, filmstrip-index-rows, svg-noise-line-field, title-mask-tunnel, dialog-nested-lenis-sheet, throw-objects-css3d, scrollbar-thumb-drag, sprite-rain-canvas2d; catalogue 44/44 |
 | stacks | open | |
 | upkeep | open | |
 
