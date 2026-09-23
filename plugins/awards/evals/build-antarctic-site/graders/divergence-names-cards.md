@@ -1,6 +1,6 @@
 ---
 type: regex
-pattern: '\[site:(animejs|floema|igloo|lama-lama|lando-norris|leo-parpeix|mindmarket|mont-fort|oryzo|seasats|shopify-editions-w26|slosh-seltzer|son-daven|the-line|trevor-noah|united-carriers|usavionix|white-desert|why-zero)\]'
+pattern: '\[site:(animejs|boc|floema|igloo|lama-lama|lando-norris|leo-parpeix|mindmarket|mont-fort|oryzo|seasats|shopify-editions-w26|slosh-seltzer|son-daven|the-line|trevor-noah|united-carriers|usavionix|white-desert|why-zero|wodniack)\]'
 target: { source: file, path: AWARDS.md }
 ---
 
