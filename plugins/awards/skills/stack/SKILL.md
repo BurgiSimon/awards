@@ -32,7 +32,7 @@ Before implementation, run `node "${CLAUDE_PLUGIN_ROOT}/scripts/doctor.mjs" <pro
 
 ## The stack is a decision, the architecture is the constant
 
-The nineteen analysed sites ran Vite + vanilla, Svelte, Nuxt, Astro, Webflow and Next, and Framer Motion appears on none of them; what they share is not a framework but a shape. Every choice below preserves that shape, and the stack notes exist so the shape survives each framework's opinions. Read `${CLAUDE_PLUGIN_ROOT}/references/stacks/versions.md` before installing anything, and the "When to choose it" section of the two candidate notes before deciding.
+The analysed sites run Vite + vanilla, Svelte, Nuxt, Astro, Webflow and Next, and Framer Motion appears on none of them; what they share is not a framework but a shape. Every choice below preserves that shape, and the stack notes exist so the shape survives each framework's opinions. Read `${CLAUDE_PLUGIN_ROOT}/references/stacks/versions.md` before installing anything, and the "When to choose it" section of the two candidate notes before deciding.
 
 - HTML lays out, WebGL renders: text and images live in the DOM, the canvas draws over them `[pattern:webgl-architecture#html-lays-out-webgl-renders]`.
 - One canvas, one ticker: GSAP's ticker drives Lenis, Lenis feeds ScrollTrigger, the render loop reads the same clock `[recipe:boot-lenis-gsap]`.

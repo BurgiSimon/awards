@@ -13,7 +13,7 @@ This skill turns a brief into a finished, judged and shipped site by driving the
 
 ## What award-worthy means here
 
-Why: the reference corpus (19 analysed winners, `${CLAUDE_PLUGIN_ROOT}/references/sites/_index.md`) agrees on more than a look, and the agreement is what a jury rewards. Hold these five points as the definition of done.
+Why: the reference corpus (the analysed winners in `${CLAUDE_PLUGIN_ROOT}/references/sites/_index.md`) agrees on more than a look, and the agreement is what a jury rewards. Hold these five points as the definition of done.
 
 - Concept first. Every winner makes one idea do the job a feature list usually does; effects serve that idea or get cut.
 - One world, one signature, one authored load and one authored close. A page that is loud everywhere has no loud moment.

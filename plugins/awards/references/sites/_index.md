@@ -1,4 +1,4 @@
-# Corpus index — 19 analysed award-winning sites, plus one clone-level reference
+# Corpus index — analysed award-winning sites, plus one clone-level reference
 
 Use this table to pick **neighbours** for a new brief: the three cards closest by class, visitor mode, WebGL dosage and budget. Read those three cards in full, write down the principle each one gives you and the literal move you refuse to copy (the DIVERGENCE block of the direction contract). Everything here is a pattern citation, never an instruction to reproduce a site.
 
