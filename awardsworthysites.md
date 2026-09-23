@@ -33,11 +33,11 @@
 - https://www.911rennsport.co.uk/
 - https://okaydev.co/
 - https://likova.space/
+- https://www.siteassist.com/
+- https://www.to-top.ch/en
 
 # not reviewed
 - https://www.oxigen.sa/
-- https://www.to-top.ch/en
-- https://www.siteassist.com/
 - https://www.primesec.ai/
 - https://www.nodeck.online/
 - https://haoqi.design/
