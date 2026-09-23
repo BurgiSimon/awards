@@ -21,11 +21,11 @@
 - https://boc.studio/work
 - https://wodniack.dev/
 - https://smooothy.federic.ooo/
-
-# not reviewed
 - https://robbietilton.com/
 - https://pensatori-irrazionali.com/
 - https://www.warmnfuzzy.tv/
+
+# not reviewed
 - https://jesperlandberg.com/
 - https://zainabkabira.com/
 - https://wearedirect.co/
