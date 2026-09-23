@@ -11,7 +11,7 @@
       "name": "awards",
       "displayName": "Awards",
       "source": "./plugins/awards",
-      "description": "Design and build award-worthy websites and components with eleven skills, 35 focused recipes plus one complete composition (36 verifiable entries), a visual composition guide and a twenty-card reference corpus.",
+      "description": "Design and build award-worthy websites and components with eleven skills, 35 focused recipes plus one complete composition (36 verifiable entries), a visual composition guide and a reference corpus of analysed award-winning sites.",
       "version": "0.3.0",
       "author": {
         "name": "BurgiSimon",
