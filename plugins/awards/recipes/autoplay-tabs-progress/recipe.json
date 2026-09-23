@@ -1,0 +1,31 @@
+{
+  "id": "autoplay-tabs-progress",
+  "title": "Auto-advancing tabs with a visible clock",
+  "tags": [
+    "tabs",
+    "autoplay",
+    "gsap",
+    "progress",
+    "keyboard",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [
+    "gsap@3.15.0"
+  ],
+  "variants": [
+    "tab set with a panel beside it (this)",
+    "accordion: the bar sits under the open row and the body opens in place",
+    "scroll-driven: sticky-stage progress picks the tab, a click jumps the scroll to that tab's window"
+  ],
+  "seenIn": [
+    "wearedirect",
+    "siteassist",
+    "911rennsport",
+    "primesec"
+  ],
+  "verified": {
+    "date": "2026-09-23",
+    "chromium": "153.0.8010.12"
+  }
+}

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>autoplay-tabs-progress — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ autoplay-tabs-progress</p></header>
+  <main id="main">
+    <section class="section wrap hero" aria-labelledby="t">
+      <p class="label">/ autoplay tabs</p>
+      <h1 class="display" id="t">Four steps,<br>one clock.</h1>
+      <p class="lede">The tab set below advances on its own, and the bar under the open tab is the timer. It waits until it is on screen, holds while you point at it or move through it with the keyboard, and starts over when you choose a tab. This page and its workshop are a synthetic demo.</p>
+      <a class="jump label" href="#steps" data-jump>See the four steps ↓</a>
+    </section>
+
+    <section class="wrap steps" id="steps" aria-labelledby="s">
+      <div class="steps__head">
+        <h2 id="s">How a sash window comes back.</h2>
+        <button type="button" class="toggle label" data-autoplay-toggle aria-pressed="false">Pause autoplay</button>
+      </div>
+      <div class="tabs" data-tabs data-delay="5000">
+        <div class="tabs__list" role="tablist" aria-label="Restoration steps" aria-orientation="vertical">
+          <button type="button" class="tab" role="tab" id="tab-1" aria-controls="panel-1" aria-selected="true" tabindex="0"><span class="tab__num label">01</span><span class="tab__name">Survey</span><span class="tab__rule" aria-hidden="true"><span class="tab__bar" data-bar></span></span></button>
+          <button type="button" class="tab" role="tab" id="tab-2" aria-controls="panel-2" aria-selected="false" tabindex="-1"><span class="tab__num label">02</span><span class="tab__name">Salvage</span><span class="tab__rule" aria-hidden="true"><span class="tab__bar" data-bar></span></span></button>
+          <button type="button" class="tab" role="tab" id="tab-3" aria-controls="panel-3" aria-selected="false" tabindex="-1"><span class="tab__num label">03</span><span class="tab__name">Repair</span><span class="tab__rule" aria-hidden="true"><span class="tab__bar" data-bar></span></span></button>
+          <button type="button" class="tab" role="tab" id="tab-4" aria-controls="panel-4" aria-selected="false" tabindex="-1"><span class="tab__num label">04</span><span class="tab__name">Refit</span><span class="tab__rule" aria-hidden="true"><span class="tab__bar" data-bar></span></span></button>
+        </div>
+        <div class="tabs__panels">
+          <div class="panel" role="tabpanel" id="panel-1" aria-labelledby="tab-1" tabindex="0"><div class="plate" aria-hidden="true"><span>01</span></div><p>Every sash is measured in place. We log the glass, putty and paint of each pane before a single bead comes off.</p></div>
+          <div class="panel" role="tabpanel" id="panel-2" aria-labelledby="tab-2" tabindex="0" hidden><div class="plate" aria-hidden="true"><span>02</span></div><p>Old crown glass comes out whole whenever it can. Nothing is thrown away before it has been photographed and numbered.</p></div>
+          <div class="panel" role="tabpanel" id="panel-3" aria-labelledby="tab-3" tabindex="0" hidden><div class="plate" aria-hidden="true"><span>03</span></div><p>Rotten timber is spliced rather than replaced, and loose joints are re-pegged by hand with oak dowels.</p></div>
+          <div class="panel" role="tabpanel" id="panel-4" aria-labelledby="tab-4" tabindex="0" hidden><div class="plate" aria-hidden="true"><span>04</span></div><p>The sash goes back on new cords, weighted so it holds at any height without a latch.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap outro" aria-labelledby="o"><h2 id="o">After the tabs.</h2><p>Scroll the set off screen and its clock stops; bring it back and it carries on from where it was.</p></section>
+  </main>
+  <footer class="wrap foot"><a href="../index.html" class="label">All recipes</a><p class="label">awards · recipe · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

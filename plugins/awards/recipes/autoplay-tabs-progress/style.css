@@ -1,0 +1,44 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+.topbar { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); }
+.hero { display: grid; align-content: end; gap: calc(var(--unit) * 8); }
+.lede { max-width: 60ch; margin: 0; }
+.jump { justify-self: start; color: var(--ink); }
+
+.steps { padding-block: calc(var(--unit) * 24); }
+.steps__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: calc(var(--unit) * 4); margin-bottom: calc(var(--unit) * 12); }
+.steps__head h2 { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(1.75rem, 3.5vw, 3.5rem); letter-spacing: -0.02em; line-height: 1; }
+.toggle { background: none; border: 1px solid var(--ink); color: var(--ink); padding: .6em 1em; cursor: pointer; }
+.toggle[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+
+.tabs { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--gutter); align-items: start; }
+.tabs__list { display: grid; border-top: 1px solid var(--line); }
+.tab { display: grid; grid-template-columns: auto 1fr; align-items: baseline; gap: calc(var(--unit) * 4); padding: calc(var(--unit) * 5) 0 0; background: none; border: 0; text-align: left; cursor: pointer; color: var(--muted); transition: color var(--dur-routine) var(--ease-out-expo); }
+.tab[aria-selected="true"], .tab:hover, .tab:focus-visible { color: var(--ink); }
+.tab:focus-visible { outline-offset: 2px; }
+.tab__name { font-family: var(--font-display); font-weight: 500; font-size: clamp(2.25rem, 5vw, 5.5rem); line-height: 1; letter-spacing: -0.03em; }
+/* The hairline is the track, the bar on it is the clock: scaleX 0 → 1 from the left, never width. */
+.tab__rule { grid-column: 1 / -1; position: relative; height: 1px; margin-top: calc(var(--unit) * 5); background: var(--line); }
+.tab__bar { position: absolute; inset: -1px 0; background: var(--accent); transform: scaleX(0); transform-origin: 0 50%; }
+
+.panel { display: grid; gap: calc(var(--unit) * 6); }
+.panel[hidden] { display: none; } /* an author display value beats the UA's [hidden] rule */
+.panel p { margin: 0; max-width: 44ch; font-size: 1.125rem; }
+.plate { aspect-ratio: 4 / 3; display: grid; place-items: end start; padding: var(--gutter); background: var(--accent); color: var(--ground); }
+.plate span { font-family: var(--font-display); font-size: clamp(4rem, 12vw, 12rem); line-height: .8; letter-spacing: -0.04em; }
+#panel-2 .plate { background: var(--ink); }
+#panel-3 .plate { background: color-mix(in oklab, var(--accent) 55%, var(--ink)); }
+#panel-4 .plate { background: color-mix(in oklab, var(--ink) 80%, var(--accent)); }
+
+.outro p { max-width: 50ch; }
+.foot { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 12); }
+
+/* No clock under reduced motion, even before main.js runs. */
+@media (prefers-reduced-motion: reduce) {
+  .tab__bar, .toggle { display: none; }
+}
+
+@media (max-width: 767px) {
+  .tabs { grid-template-columns: 1fr; }
+  .plate { aspect-ratio: 16 / 10; }
+}

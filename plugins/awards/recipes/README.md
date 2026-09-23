@@ -45,6 +45,7 @@ The six static visual examples declare their reviewed desktop/mobile image paths
 | Flicker text | `flicker-text` | P1 | Per-letter opacity ladder `[0,1,0,0,1,1]` | the-line |
 | Decode text | `scramble-decode-text` | P1 | Telemetry decode reveal | igloo, usavionix |
 | Stacked cards | `sticky-stack-cards` | P1 | Sticky cards scaling the previous one | mindmarket |
+| Timed feature set | `autoplay-tabs-progress` | P1 | Tabs that auto-advance on a linear `scaleX` 0 → 1 bar that is the timer, start once in view, hold on hover / keyboard focus / off-screen / pause button, restart on click; `role="tab"` with arrow keys, no autoplay under reduced motion | wearedirect, siteassist, 911rennsport, primesec |
 | Horizontal rail | `horizontal-rail` | P1 | Pinned horizontal section, arrows, native overflow on touch | son-daven |
 | Archive list | `hover-preview-list` | P1 | Cursor-following preview, focus shows it too | leo-parpeix |
 | Compare | `compare-hold-drag` | P1 | Hold / drag mask between two states, arrow keys | son-daven |
