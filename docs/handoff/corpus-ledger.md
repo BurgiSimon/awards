@@ -75,3 +75,52 @@ wodniack: lenis@1.1.13 — hoisted.js (window.lenisVersion)
 ### Notes
 
 - 2026-09-23 synthesis (boc, wodniack): duplicates none. boc's filmstrip rows overlap only partly with the seasats and mindmarket marquees: same duplicated strip, different job (portfolio index, not trust strip) and mechanism (width-timed CSS keyframes, not rAF).
+
+## Wave 3 — opened 2026-09-23
+
+| Phase | Status | Note |
+|---|---|---|
+| setup | done | 29 rows carried queued from wave 2 (triage closed there after the pilot) |
+| triage | open | |
+| synthesis | open | |
+| recipes | open | |
+| stacks | open | |
+| upkeep | open | |
+
+### Sites
+
+| Slug | URL | Status | Rating | Novelty | Synthesised | Reason | Date |
+|---|---|---|---|---|---|---|---|
+| robbietilton | https://robbietilton.com/ | queued | | | | | |
+| pensatori-irrazionali | https://pensatori-irrazionali.com/ | queued | | | | | |
+| warmnfuzzy | https://www.warmnfuzzy.tv/ | queued | | | | | |
+| jesperlandberg | https://jesperlandberg.com/ | queued | | | | | |
+| zainabkabira | https://zainabkabira.com/ | queued | | | | | |
+| wearedirect | https://wearedirect.co/ | queued | | | | | |
+| oxigen | https://www.oxigen.sa/ | queued | | | | | |
+| runrobrun | https://www.runrobrun.com/ | queued | | | | | |
+| goats | https://goats.com.pl/ | queued | | | | | |
+| okaydev | https://okaydev.co/ | queued | | | | | |
+| likova | https://likova.space/ | queued | | | | | |
+| mensch | https://www.mensch.club/ | queued | | | | | |
+| to-top | https://www.to-top.ch/en | queued | | | | | |
+| siteassist | https://www.siteassist.com/ | queued | | | | | |
+| 911rennsport | https://www.911rennsport.co.uk/ | queued | | | | | |
+| primesec | https://www.primesec.ai/ | queued | | | | | |
+| nodeck | https://www.nodeck.online/ | queued | | | | | |
+| haoqi | https://haoqi.design/ | queued | | | | | |
+| noth | https://www.noth.in/ | queued | | | | | |
+| areebali | https://areebali.com/ | queued | | | | | |
+| serotoninn | https://serotoninn.com/ | queued | | | | | |
+| siena | https://siena.film/ | queued | | | | | |
+| gehry-getty | https://gehry.getty.edu/ | queued | | | | | |
+| the-boyd | https://the-boyd.com/ | queued | | | | | |
+| grids-obys | https://grids.obys.agency/ | queued | | | | | |
+| bethebuzz | https://www.bethebuzz.co/services | queued | | | | | |
+| alectear | https://alectear.com/lettering | queued | | | | | |
+| spasoje | https://www.spasoje.dev/ | queued | | | | | |
+| christoph-nagel | https://christoph-nagel.dev/ | queued | | | | | |
+
+### Techniques and stacks
+
+### Notes
