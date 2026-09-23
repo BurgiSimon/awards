@@ -41,15 +41,15 @@
 - https://serotoninn.com/
 - https://areebali.com/
 - https://www.noth.in/
+- https://gehry.getty.edu/
+- https://alectear.com/lettering
+- https://grids.obys.agency/
+- https://www.bethebuzz.co/services
 
 # not reviewed
 - https://www.oxigen.sa/
 - https://siena.film/
-- https://gehry.getty.edu/
 - https://the-boyd.com/
-- https://grids.obys.agency/
-- https://www.bethebuzz.co/services
-- https://alectear.com/lettering
 - https://www.spasoje.dev/
 - https://christoph-nagel.dev/
 
