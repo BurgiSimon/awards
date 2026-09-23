@@ -1,0 +1,30 @@
+{
+  "id": "gl-fps-governor-idle-gate",
+  "title": "Frame-rate DPR governor and an idle render gate",
+  "tags": [
+    "webgl",
+    "three",
+    "performance",
+    "dpr",
+    "adaptive-quality",
+    "idle",
+    "render-loop"
+  ],
+  "tier": "P1",
+  "deps": [
+    "three@0.186.0"
+  ],
+  "variants": [
+    "Three.js: half-second fps windows step setPixelRatio by .25 inside the probe's clamp, loop off the shared ticker 1.5 s after the last input (this, default)",
+    "Target-fps tier object: per-tier DPR range and target fps instead of fixed 45 / 57 thresholds",
+    "R3F: <Canvas frameloop=\"demand\"> with invalidate() on input for the gate, and setDpr from a PerformanceMonitor-style callback for the governor"
+  ],
+  "seenIn": [
+    "primesec",
+    "pensatori-irrazionali"
+  ],
+  "verified": {
+    "date": "2026-09-23",
+    "chromium": "153.0.8010.12"
+  }
+}
