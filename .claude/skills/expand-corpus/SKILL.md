@@ -137,3 +137,125 @@ grep -nE '#[0-9a-fA-F]{3,6}\b' "$f" | grep -vE '\[(verified|recalled|inferred|un
 ```
 
 The last line prints hex values with no label on their line. After the index row is appended, `grep -c '^| `<slug>` |' PLUGIN/references/sites/_index.md` must print `1`. Then read the card once for quotes over 25 words; the slug must be identical in the file name, the index row and every `[site:<slug>]` in the card.
+
+## Phase: synthesis
+
+1. Collect the `added` rows of the current wave whose `Synthesised` cell is empty. If there are none, mark the phase `done` (un-narrowed run) and move on.
+2. Spawn one `general-purpose` subagent with the prompt in "Subagent prompt: synthesis".
+3. Check its work:
+   ```bash
+   node PLUGIN/scripts/lint-refs.mjs | tail -1
+   node -e 'const fs=require("fs"),p=process.argv[1];const slugs=new Set(fs.readdirSync(p+"/references/sites").filter(f=>/^[a-z0-9].*\.md$/.test(f)).map(f=>f.slice(0,-3)));let bad=0;for(const d of fs.readdirSync(p+"/recipes")){const f=`${p}/recipes/${d}/recipe.json`;if(!fs.existsSync(f))continue;for(const s of JSON.parse(fs.readFileSync(f)).seenIn||[])if(!slugs.has(s)){console.log("seenIn",d,s);bad=1}}process.exit(bad)' PLUGIN
+   git diff --stat
+   ```
+   The first must end `0 dangling reference(s)`; the second prints nothing. Read `git diff` of `PLUGIN/references/`: every added claim cites a real `[site:<slug>]` of this wave and carries a label, and no site copy runs past 25 words.
+4. Write the subagent's duplicate notes under `### Notes`, tick `Synthesised` (`yes`) on the rows it covered, and commit `docs(corpus): wave <n> synthesis — <slugs>`.
+5. Un-narrowed run: mark `synthesis` `done`.
+
+### Subagent prompt: synthesis
+
+```
+You are folding new site cards into the awards plugin's pattern language. Work alone.
+
+REPO: {repo}
+PLUGIN: {repo}/plugins/awards
+New cards: {PLUGIN/references/sites/<slug>.md, one per line}
+Technique and stack lines for them (from the ledger):
+{lines}
+
+1. Read PLUGIN/references/README.md for the citation and label rules, then every new card in full.
+2. Read the headings of PLUGIN/references/patterns/*.md, PLUGIN/references/reflex-lists.md and PLUGIN/references/anti-patterns.md, and the whole file wherever a card adds something.
+3. Where a new card adds a component, hero archetype, narrative structure, motion parameter, WebGL technique, colour or type strategy, face or cliché that the file lacks, add it in that file's register: one entry or table row, citing [site:<slug>], with the card's confidence label. Extend an existing entry with the new citation instead of duplicating it. No site copy beyond 25-word fragments, no hexes that are not in the card.
+4. For each PLUGIN/recipes/*/recipe.json whose technique a new card shows with evidence, add the slug to `seenIn`. Touch nothing else in recipe.json.
+5. Edit only files under PLUGIN/references/patterns/, PLUGIN/references/reflex-lists.md, PLUGIN/references/anti-patterns.md and recipe.json seenIn arrays.
+6. Reply with: one line per edit (`file — what — [site:<slug>]`), then `duplicates:` followed by any two new cards (or a new card and an existing one) that turned out to cover the same ground, with the reason, or `none`.
+```
+
+## Phase: recipes
+
+1. **Candidates.** From `### Techniques and stacks` of the current wave and the synthesis edits, list every technique no existing recipe covers (compare with the titles and tags of `PLUGIN/recipes/*/recipe.json` and the catalogue in `PLUGIN/recipes/README.md`). Rank by the number of added sites that show it, then by how many skills would cite it.
+2. **Proposals file.** Write `docs/handoff/recipe-proposals-<YYYY-MM-DD>.md`, one entry per candidate:
+   ```markdown
+   ## <rank>. `<recipe-id>` — <title>
+   - Seen in: <slug>, <slug>
+   - Tier: P0 | P1 | P2 · Deps: <pinned packages from PLUGIN/recipes/package.json, or a new pin with its reason>
+   - Overlap: <nearest existing recipe and what this adds>
+   - Verify idea: <the state and the assertion that fail when the technique breaks>
+   ```
+   Commit `docs(corpus): wave <n> recipe proposals`.
+3. **Maintainer gate.** Ask with AskUserQuestion, `multiSelect: true`, four candidates per question, at most four questions, in rank order; each option label is the recipe id and its description the title plus `Seen in`. Candidates beyond sixteen stay in the file unselected. Nothing selected: mark the phase `done`.
+4. **Build, one recipe at a time, never in parallel** (each build runs a browser). Per selected id, spawn one `general-purpose` subagent with the prompt in "Subagent prompt: recipe", wait, then commit `feat(recipes): add <id>` with its files.
+5. **After the last build**, with nothing else driving a browser:
+   ```bash
+   export AWARDS_PLAYWRIGHT="$HOME/.npm/_npx/e41f203b7505f1fb"; cd PLUGIN/recipes && node ../scripts/verify-recipes.mjs
+   cd PLUGIN && node scripts/audit.mjs recipes
+   ```
+   Every entry passes; the audit reports P0 0, P1 0, P2 0.
+6. **Counts.** Update the recipe and entry counts in `REPO/CLAUDE.md` (the `verify-recipes` comment and the "Recipes are a contract" paragraph), `PLUGIN/README.md` (the `recipes/` bullet) and `PLUGIN/recipes/README.md` ("The catalogue now has …"). Commit `docs(recipes): update catalogue counts`, and mark the phase `done`.
+
+### Subagent prompt: recipe
+
+```
+You are adding one recipe to the awards plugin's verified catalogue. Work alone; nothing else is driving a browser.
+
+REPO: {repo}
+PLUGIN: {repo}/plugins/awards
+Recipe id: {id}
+Proposal: {the entry from the proposals file}
+Cards to read for the technique: {PLUGIN/references/sites/<slug>.md, …}
+
+1. Read REPO/CLAUDE.md sections "Recipes are a contract" and "Conventions that bite", PLUGIN/recipes/README.md, and the nearest existing recipe named under Overlap, all six files of it.
+2. Create PLUGIN/recipes/{id}/ with index.html, main.js, style.css, README.md, recipe.json and verify.mjs, to that contract: style.css imports ../_shared/base.css itself; the page exposes window.__awards through _shared/awards-hook.js; the shared ticker drives any Lenis; system font stacks only; full, reduced and static motion tiers through _shared/reduced-motion.js; demo content synthetic and labelled so in README.md. recipe.json carries id, title, tags, deps, tier, variants and seenIn (the proposal's slugs); verify-recipes stamps verified.
+3. A dependency not in PLUGIN/recipes/package.json needs an exact pin added both there and to PLUGIN/references/stacks/versions.md, then `cd PLUGIN/recipes && npm install`.
+4. verify.mjs asserts the proposal's verify idea, plus the reduced-motion state and a mobile state. Confirm the key assertion fails when the technique is disabled, then restore it.
+5. Run until it passes:
+   export AWARDS_PLAYWRIGHT="$HOME/.npm/_npx/e41f203b7505f1fb"; cd PLUGIN/recipes && node ../scripts/verify-recipes.mjs --only {id}
+6. Add one row for {id} to the "Catalogue by intent" table in PLUGIN/recipes/README.md.
+7. Reply with the files written, the verify result line, and any pin added.
+```
+
+## Phase: stacks
+
+1. **Queue.** Each URL under `# new stack` in `awardsworthysites.md`, plus each `stack` novelty hit of the current wave whose library still has no note in `PLUGIN/references/stacks/`.
+2. **Per library**, spawn one `general-purpose` subagent (these need no browser and may run up to four at a time) with this prompt:
+   ```
+   Write PLUGIN/references/stacks/<name>-<major.minor>.md for {library} ({url}), in the register of PLUGIN/references/stacks/lenis-1.3.md: a label header comment, "What it is for in this skill set", "Install (pinned)", "The API surface we use", pitfalls, and which corpus cards use it (from their [site:<slug>] evidence). Take the version from `npm view <package> version`; take every API claim from its documentation through Context7 when available (resolve-library-id, then query-docs) or from its published source, labelled [verified: <source>]; anything else is [recalled] or [unverified]. PLUGIN = {repo}/plugins/awards. Write only that file. Reply with the path, the package name and the exact version.
+   ```
+3. **Pins.** Add a row `| <package> | <version> | <role> |` to `PLUGIN/references/stacks/versions.md`. Add it to `PLUGIN/recipes/package.json` only if a recipe of this wave depends on it. Then check that the two agree:
+   ```bash
+   node -e 'const fs=require("fs"),p=process.argv[1];const pins=Object.fromEntries([...fs.readFileSync(p+"/references/stacks/versions.md","utf8").matchAll(/^\| (\S+) \| (\d[^ |]*) \|/gm)].map(m=>[m[1],m[2]]));const pkg=JSON.parse(fs.readFileSync(p+"/recipes/package.json"));const deps={...pkg.dependencies,...pkg.devDependencies};let bad=0;for(const [n,v] of Object.entries(deps))if(pins[n]&&pins[n]!==v.replace(/^[\^~]/,"")){console.log("pin",n,pins[n],v);bad=1}process.exit(bad)' PLUGIN
+   ```
+   It prints nothing.
+4. Move each handled `# new stack` bullet to `# Reviewed and in Skill`. `node PLUGIN/scripts/lint-refs.mjs` ends `0 dangling reference(s)`. Commit `docs(stacks): wave <n> stack notes`, mark the phase `done`.
+
+## Phase: upkeep
+
+1. **Grader slugs.** Regenerate the alternation in `PLUGIN/evals/build-antarctic-site/graders/divergence-names-cards.md` from the index, all card slugs except `floema-jewelry`, sorted:
+   ```bash
+   grep -oE '^\| `[a-z0-9-]+`' PLUGIN/references/sites/_index.md | tr -d '|` ' | grep -vx floema-jewelry | sort | paste -sd'|'
+   ```
+   The `pattern:` line becomes `pattern: '\[site:(<that output>)\]'`.
+2. **Stack list.** If the wave's `stack_signatures` add a framework, add it to the list in `PLUGIN/skills/stack/SKILL.md` ("The analysed sites run Vite + vanilla, …").
+3. **Checks:**
+   ```bash
+   claude plugin validate PLUGIN
+   node PLUGIN/scripts/lint-refs.mjs | tail -1
+   grep -rnE "19 analysed|across 19 award|nineteen analysed|Corpus index — 19" PLUGIN/skills PLUGIN/references/sites/_index.md
+   ```
+   Validate passes, lint ends `0 dangling reference(s)`, grep prints nothing.
+4. Commit `chore(corpus): wave <n> upkeep`.
+5. **Maintainer gate.** Ask whether to run the smoke evals (`cd PLUGIN && claude plugin eval . --tag smoke`, eleven routing cases with a no-plugin baseline; it costs money). Run them only on a yes and report the pass counts. Mark the phase `done`.
+
+## Narrowed-run report
+
+After the synthesis of a narrowed run, stop and report to the maintainer, then wait:
+
+- per site: slug, status, rating, novelty hits, card path or reason;
+- the synthesis edits, one line each, and any duplicates;
+- anything in the gate wording that decided a case badly: a site skipped that obviously adds something, or added on a thin hit.
+
+The maintainer approves, or edits this skill's novelty wording and asks for a re-run of the same sites.
+
+## Done
+
+A wave is done when every Sites row is `added`, `skipped` or `failed` (a `blocked` row may remain with its reason), `awardsworthysites.md` reflects every status, every phase is `done`, and every phase check passed. Report the counts per status, the new cards, the recipes built, the stack notes written and the eval result if one ran.
