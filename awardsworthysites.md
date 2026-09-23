@@ -47,10 +47,10 @@
 - https://www.bethebuzz.co/services
 - https://christoph-nagel.dev/
 - https://siena.film/
+- https://www.spasoje.dev/
+- https://the-boyd.com/
 
 # not reviewed
 - https://www.oxigen.sa/
-- https://the-boyd.com/
-- https://www.spasoje.dev/
 
 # new stack
