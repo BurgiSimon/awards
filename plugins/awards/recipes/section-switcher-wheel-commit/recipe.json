@@ -1,0 +1,30 @@
+{
+  "id": "section-switcher-wheel-commit",
+  "title": "Section switcher with a wheel commit ring",
+  "tags": [
+    "sections",
+    "wheel",
+    "gsap",
+    "observer",
+    "keyboard",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [
+    "gsap@3.15.0"
+  ],
+  "variants": [
+    "wheel commit ring: |deltaY| summed to 500, idle rollback after 1 s, 900 ms lock (this, default)",
+    "stepped wheel: one step per input past |deltaY| 18 with a 760 ms lock, no ring",
+    "sectioned native scroll: sticky stages over a scrolling document when panels carry long copy"
+  ],
+  "seenIn": [
+    "nodeck",
+    "areebali",
+    "christoph-nagel"
+  ],
+  "verified": {
+    "date": "2026-09-23",
+    "chromium": "153.0.8010.12"
+  }
+}
