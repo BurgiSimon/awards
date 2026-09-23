@@ -35,6 +35,7 @@ The six static visual examples declare their reviewed desktop/mobile image paths
 | Text reveal | `split-text-masked-reveal` | P0 | `SplitText.create` lines with masks, `autoSplit` + `onSplit`, `y 120 % → 0`, expo-out | floema, leo-parpeix, the-line |
 | Motion policy | `reduced-motion-switch` | P0 | Central full / reduced / static tiers, user override, teardown between tiers | (the skill's improvement) |
 | Magnetic CTA | `magnetic-button` | P0 | `quickTo` pull with smoothstep falloff, label parallax, fine pointers only | leo-parpeix |
+| Tilting cards | `pointer-tilt-shine` | P1 | Face turns toward a mouse pointer (`rotateY 7° × nx`, `rotateX −7° × ny`, the corner under the pointer recedes) through `quickTo`, measured on an untransformed link that carries the `perspective`; a shine layer follows the pointer and a shade gathers opposite, moved by translate only; any scroll locks the field until the first pointer move after a `140 ms` quiet period; mouse pointers only, flat with no layers under reduced motion | okaydev, areebali |
 | Custom cursor | `cursor-two-speed` | P0 | Dot `.75` / ring `.22`, hover scale, contextual badges, off on coarse pointers | leo-parpeix, the-line, why-zero |
 | Ticker | `marquee-raf-mask` | P0 | rAF wraparound, mask fade, pause on hover / focus, speed from scroll velocity, off-screen stop | seasats, mindmarket |
 | Menu | `nav-overlay-fullscreen` | P0 | Clip-path wipe, numbered links, `inert`, focus trap, Escape, Lenis stop | son-daven, leo-parpeix, mont-fort |

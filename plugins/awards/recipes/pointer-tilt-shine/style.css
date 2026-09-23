@@ -1,0 +1,62 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.topbar { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); }
+.topbar > * { margin: 0; }
+.hero { padding-block: calc(var(--unit) * 6) calc(var(--unit) * 10); }
+.hero h1 { max-width: 16ch; margin: calc(var(--unit) * 3) 0 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(2.25rem, 4.6vw, 5rem); line-height: .95; letter-spacing: -.03em; }
+.notes h2 { margin: 0 0 calc(var(--unit) * 6); font-family: var(--font-display); font-weight: 500; font-size: clamp(1.75rem, 3vw, 3rem); letter-spacing: -.02em; }
+.notes ul { max-width: 60ch; padding-left: 1.2em; }
+.foot { min-height: auto; }
+
+/* The field: three cards in a row on desktop, one column on a phone. */
+.field { list-style: none; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2.5vw, 40px); }
+@media (max-width: 760px) { .field { grid-template-columns: 1fr; } }
+
+/* The link is the hit box and never transforms; its perspective gives the rotating face depth. */
+.card { display: block; perspective: 800px; text-decoration: none; color: inherit; border-radius: 16px; }
+.card:focus-visible { outline-offset: 6px; }
+.card__face {
+  position: relative; display: grid; grid-template-rows: auto 1fr auto; align-content: space-between;
+  aspect-ratio: 4 / 5; max-height: 62svh; width: 100%; padding: clamp(16px, 1.6vw, 28px);
+  border-radius: 14px; overflow: clip; color: #f4f2ee;
+  box-shadow: 0 1px 2px rgb(0 0 0 / .12), 0 18px 40px -18px rgb(0 0 0 / .45);
+}
+@media (hover: hover) and (pointer: fine) { .card__face { will-change: transform; } }
+.card__idx { justify-self: start; color: inherit; opacity: .8; }
+.card__title { align-self: end; font-family: var(--font-display); font-weight: 500; font-size: clamp(1.75rem, 2.8vw, 3rem); line-height: 1; letter-spacing: -.02em; }
+.card__meta { margin-top: calc(var(--unit) * 2); color: inherit; opacity: .8; }
+
+/* Card faces drawn in CSS (synthetic demo content, no image files). */
+.card__face--tide {
+  background:
+    repeating-linear-gradient(172deg, transparent 0 22px, rgb(244 242 238 / .08) 22px 24px),
+    radial-gradient(120% 70% at 15% 105%, #3a9aa0 0 32%, transparent 33%),
+    linear-gradient(160deg, #0d2830, #1c5660);
+}
+.card__face--orbit {
+  background:
+    radial-gradient(circle at 64% 38%, #ff5a36 0 15%, transparent 15.5%),
+    radial-gradient(circle at 64% 38%, transparent 0 26%, rgb(244 242 238 / .55) 26.4% 27%, transparent 27.4%),
+    radial-gradient(circle at 64% 38%, transparent 0 38%, rgb(244 242 238 / .25) 38.3% 38.8%, transparent 39.2%),
+    #0b0c24;
+}
+.card__face--kiln {
+  color: #1a1c1c;
+  background:
+    conic-gradient(from 200deg at 70% 30%, #c2542d 0 70deg, transparent 70deg),
+    radial-gradient(90% 60% at 80% 100%, #b48a58 0 40%, transparent 41%),
+    linear-gradient(#efe4d0, #dcc6a2);
+}
+
+/* Shine and shade: twice the face, centred, moved by transform only. Hidden until a mouse aims at the card. */
+.card__shine, .card__shade { position: absolute; inset: -50%; pointer-events: none; opacity: 0; }
+.card__shine { background: radial-gradient(circle at 50% 50%, rgb(255 255 255 / .32), rgb(255 255 255 / 0) 30%); mix-blend-mode: screen; }
+.card__shade { background: radial-gradient(circle at 50% 50%, rgb(0 0 0 / .5), rgb(0 0 0 / 0) 34%); mix-blend-mode: multiply; }
+
+/* Reduced and static tiers: a flat card with no layers (main.js never arms the tilt either). */
+@media (prefers-reduced-motion: reduce) { .card__shine, .card__shade { display: none; } }
+html[data-motion="reduced"] .card__shine, html[data-motion="reduced"] .card__shade,
+html[data-motion="static"] .card__shine, html[data-motion="static"] .card__shade { display: none; }
