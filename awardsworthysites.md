@@ -45,12 +45,12 @@
 - https://alectear.com/lettering
 - https://grids.obys.agency/
 - https://www.bethebuzz.co/services
+- https://christoph-nagel.dev/
+- https://siena.film/
 
 # not reviewed
 - https://www.oxigen.sa/
-- https://siena.film/
 - https://the-boyd.com/
 - https://www.spasoje.dev/
-- https://christoph-nagel.dev/
 
 # new stack
