@@ -26,6 +26,7 @@ The six static visual examples declare their reviewed desktop/mobile image paths
 | Editorial story | `editorial-image-text` | P0 | Figure, caption, asymmetric reading column and mobile order | synthetic example; `recipe.json.visuals` |
 | Product facts | `product-specification` | P0 | Semantic facts with units and native care disclosure | synthetic example; `recipe.json.visuals` |
 | Designed close | `designed-footer` | P0 | Statement, contact action, navigation and colophon | synthetic example; `recipe.json.visuals` |
+| Enquiry as prose | `sentence-form-enquiry` | P0 | One sentence the visitor completes: each prose fragment is the `<label>` of its blank (a `span` + `aria-labelledby` names the `radiogroup`), native `required` / `type="email"` validity with the page's own messages tied by `aria-describedby`, `aria-invalid` and focus on the first invalid in sentence order, submit prevented with a focused local confirmation, `field-sizing: content` blanks, fragment-over-field rows on the phone; rise / fade / none entrance tiers | the-boyd, alectear |
 | Whole-page composition | `complete-editorial-composition` | P0 | The five components in one paced, coherent page | synthetic example; six frames in `recipe.json.visuals` |
 | Boot the page | `boot-lenis-gsap` | P0 | Lenis on the GSAP ticker, `lagSmoothing(0)`, fonts before splits, reduced-motion tier, `__awards` hook | leo-parpeix, lando-norris, mont-fort |
 | Scrubbed chapter | `scroll-pin-scrub` | P0 | Sticky stage in a tall section, linear scrub, quantised beats | son-daven, united-carriers, mont-fort |

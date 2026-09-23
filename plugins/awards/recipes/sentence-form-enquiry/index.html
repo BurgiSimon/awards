@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An enquiry form written as one sentence: each prose fragment is the label of the field that completes it.">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#efe9df">
+  <title>sentence-form-enquiry — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%239a3b1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar">
+    <a href="../index.html" class="label">← recipes</a>
+    <p class="label">/ sentence-form-enquiry</p>
+  </header>
+
+  <main id="main" class="wrap">
+    <section class="enquiry" aria-labelledby="enquiry-title">
+      <h1 class="enquiry__title" id="enquiry-title">Write to the Tallow Room.</h1>
+      <p class="enquiry__note">Commissions, loans and studio visits. Complete the sentence; every blank is required.</p>
+
+      <!-- novalidate: the browser's constraint API still decides validity; the page owns the messages and the focus. -->
+      <form class="sentence" action="#" novalidate data-form>
+        <p class="sentence__text">
+          <label class="frag" for="f-name">Hello, my name is</label>
+          <input class="blank" id="f-name" name="name" type="text" autocomplete="name" required placeholder="your name" aria-describedby="e-name"><span class="punct">,</span>
+          <span class="frag" id="l-role">and I am</span>
+          <span class="choices" role="radiogroup" aria-labelledby="l-role" aria-describedby="e-role" aria-required="true" data-role-group>
+            <label class="choice"><input type="radio" name="role" value="collector" required><span>a collector</span></label>
+            <label class="choice"><input type="radio" name="role" value="artist" required><span>an artist</span></label>
+            <label class="choice"><input type="radio" name="role" value="studio" required><span>a studio</span></label></span><span class="punct">.</span>
+          <label class="frag" for="f-topic">I would like to talk about</label>
+          <input class="blank" id="f-topic" name="topic" type="text" required placeholder="a commission" aria-describedby="e-topic"><span class="punct">,</span>
+          <label class="frag" for="f-email">so please write back to</label>
+          <input class="blank" id="f-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com" aria-describedby="e-email"><span class="punct">.</span>
+        </p>
+
+        <ul class="errors">
+          <li class="error" id="e-name" hidden></li>
+          <li class="error" id="e-role" hidden></li>
+          <li class="error" id="e-topic" hidden></li>
+          <li class="error" id="e-email" hidden></li>
+        </ul>
+
+        <div class="sentence__send">
+          <button class="send" type="submit">Send the enquiry</button>
+          <p class="label">This demo sends nothing</p>
+        </div>
+      </form>
+
+      <p class="sent" tabindex="-1" hidden data-sent></p>
+    </section>
+  </main>
+
+  <footer class="wrap footer"><p class="label">The Tallow Room and this enquiry are synthetic demo content · awards · recipe · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
