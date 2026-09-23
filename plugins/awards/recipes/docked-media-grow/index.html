@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>docked-media-grow — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ docked-media-grow</p></header>
+  <!-- The dock's label and link. It sits over the docked card, outside the reel, so the reel's scale never shrinks the text.
+       main.js unhides it only when the dock is live (full tier, ≥ 1024 px). -->
+  <a class="dock-cue label" href="#reel" data-cue hidden>▶ Watch the reel</a>
+  <main id="main">
+    <section class="section wrap hero" aria-labelledby="t">
+      <p class="label">/ docked media</p>
+      <h1 class="display" id="t">The reel waits in the corner.</h1>
+      <p class="lede">The studio reel is on screen from the first frame as a small card docked bottom right. As its section arrives, the card grows to the viewport minus the gutter, then scrolls away with the section like any other block. The studio and its reel are a synthetic demo.</p>
+    </section>
+
+    <section class="section wrap work" aria-labelledby="w">
+      <h2 id="w">Work first, reel second.</h2>
+      <p class="lede">The hero keeps its space for the statement; the reel does not take it. The dock is a promise the page keeps a scroll later, and the scrub between the two is linear so the card's size follows the hand exactly.</p>
+    </section>
+
+    <section class="reel-section" id="reel" data-reel-section aria-labelledby="reel-title">
+      <h2 id="reel-title" class="sr-only">Showreel</h2>
+      <!-- The reel is laid out at its final size, here in the section. Docking is a transform only: scale from the
+           bottom-right corner while position: fixed. No media file ships: the film is a CSS-animated placeholder. -->
+      <div class="reel" data-reel role="img" aria-label="Showreel placeholder: bands of colour drifting across the frame">
+        <div class="reel__film"></div>
+        <p class="reel__title">Reel ’26</p>
+        <p class="reel__meta label">Placeholder · no media</p>
+      </div>
+    </section>
+
+    <section class="section wrap outro" aria-labelledby="o">
+      <h2 id="o">Handed back to the page.</h2>
+      <p class="lede">Once the reel fills its section it stops being fixed and scrolls with the section, so the page resumes without a seam. Under reduced motion there is no dock: the reel simply sits full-size where it belongs.</p>
+    </section>
+  </main>
+  <footer class="section wrap foot"><p class="label">awards · recipe · MIT · synthetic demo content</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
