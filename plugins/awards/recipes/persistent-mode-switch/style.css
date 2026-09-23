@@ -1,0 +1,85 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+:root { --col-gap: clamp(12px, 1.25vw, 24px); --cols: 12; }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+/* A user-held switch answers in 400 ms, not the 1.4 s scroll-theme beat base.css sets on body. */
+body, .topbar, .tile, .dock, .switch, .switch__opt, .pill, .guard__form input {
+  transition: background-color var(--dur-routine) var(--ease-theme), color var(--dur-routine) var(--ease-theme), border-color var(--dur-routine) var(--ease-theme);
+}
+
+.topbar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; gap: calc(var(--unit) * 4); padding-block: calc(var(--unit) * 3); background: var(--ground); }
+.topbar > * { margin: 0; }
+.topbar__id { margin-right: auto; }
+.pill { min-height: 44px; padding: 0 calc(var(--unit) * 4); border: 1px solid currentColor; border-radius: 999px; background: transparent; font-family: var(--font-mono); font-size: var(--label); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+.pill[aria-pressed="true"] { background: var(--ink); color: var(--ground); border-color: var(--ink); }
+.pill__state { font-variant-numeric: tabular-nums; }
+
+/* The page's real grid. The overlay below draws the same columns, so Grid on shows construction, not decoration. */
+.cols { display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); column-gap: var(--col-gap); align-content: start; }
+.hero { min-height: 88svh; align-content: end; row-gap: calc(var(--unit) * 8); padding-block: calc(var(--unit) * 16); }
+.hero__title { grid-column: 1 / -1; max-width: 11ch; }
+.lede { grid-column: 7 / span 5; max-width: 52ch; margin: 0; }
+kbd { font-family: var(--font-mono); font-size: .85em; padding: 0 .35em; border: 1px solid var(--line); border-radius: 4px; }
+
+.wall { row-gap: calc(var(--unit) * 6); padding-block: calc(var(--unit) * 24); }
+.wall__title, .guard__title { grid-column: 1 / span 6; margin: 0 0 calc(var(--unit) * 6); font-family: var(--font-display); font-weight: 500; font-size: clamp(1.75rem, 3.5vw, 3.5rem); line-height: 1; letter-spacing: -.02em; }
+.tile { min-height: 16rem; padding: calc(var(--unit) * 5); border: 1px solid var(--line); background: color-mix(in oklab, var(--ink) 4%, var(--ground)); display: flex; flex-direction: column; }
+.tile h3 { margin: auto 0 calc(var(--unit) * 2); font-size: 1.5rem; font-weight: 500; letter-spacing: -.01em; }
+.tile p { margin: 0; max-width: 34ch; }
+.tile .label { margin-bottom: calc(var(--unit) * 6); }
+.tile--a { grid-column: 1 / span 4; }
+.tile--b { grid-column: 5 / span 4; }
+.tile--c { grid-column: 9 / span 4; }
+.tile--d { grid-column: 3 / span 4; }
+.tile--e { grid-column: 7 / span 3; }
+.tile--f { grid-column: 10 / span 3; }
+
+.guard { padding-block: calc(var(--unit) * 16); }
+.guard__form { grid-column: 7 / span 5; display: grid; gap: calc(var(--unit) * 2); }
+.guard__form input { min-height: 48px; padding: 0 calc(var(--unit) * 4); border: 1px solid var(--ink); border-radius: 0; background: var(--ground); font-size: 1.125rem; }
+
+/* The close: an empty stage the large switch lands in. */
+.close { min-height: 100svh; display: grid; place-content: center; justify-items: center; gap: calc(var(--unit) * 8); text-align: center; }
+.close__title { margin: 0; }
+
+/* Segmented switch: native radios under a sliding indicator. Arrow keys move the choice for free. */
+.switch { position: relative; display: inline-flex; margin: 0; padding: 4px; border: 1px solid var(--ink); border-radius: 999px; background: var(--ground); min-inline-size: 0; }
+.switch__ind { position: absolute; top: 4px; bottom: 4px; left: 0; width: 0; border-radius: 999px; background: var(--ink); }
+.switch__opt { position: relative; z-index: 1; display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; padding: 0 calc(var(--unit) * 5); border-radius: 999px; font-family: var(--font-display); font-weight: 500; cursor: pointer; }
+.switch__opt input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.switch__opt:has(input:checked) { color: var(--ground); }
+.switch__opt:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 3px; }
+.switch--large { font-size: clamp(1.5rem, 3.75vw, 2.65rem); padding: 6px; }
+.switch--large .switch__ind { top: 6px; bottom: 6px; }
+.switch--large .switch__opt { min-height: 1.9em; padding: 0 .8em; }
+
+.dock { position: fixed; z-index: 50; bottom: max(16px, env(safe-area-inset-bottom)); inset-inline: 0; margin-inline: auto; width: max-content; max-width: calc(100% - 32px); display: flex; align-items: center; gap: calc(var(--unit) * 3); padding: 4px calc(var(--unit) * 4) 4px 4px; border: 1px solid var(--line); border-radius: 999px; background: var(--ground); transform-origin: 50% 100%; }
+.dock__state { margin: 0; white-space: nowrap; }
+.dock .switch { border-color: transparent; }
+
+/* Grid overlay: fixed, click-through, fades on the root attribute. */
+.grid-overlay { position: fixed; inset: 0; z-index: 40; pointer-events: none; display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); column-gap: var(--col-gap); opacity: 0; visibility: hidden; transition: opacity var(--dur-routine) var(--ease-theme), visibility 0s linear var(--dur-routine); }
+.grid-overlay span { background: color-mix(in oklab, var(--accent) 7%, transparent); border-inline: 1px solid color-mix(in oklab, var(--accent) 45%, transparent); }
+html[data-grid="on"] .grid-overlay { opacity: 1; visibility: visible; transition: opacity var(--dur-routine) var(--ease-theme), visibility 0s; }
+
+.footer { padding-block: calc(var(--unit) * 8); } /* the dock has handed off by here, so no clearance */
+
+@media (max-width: 767px) {
+  :root { --cols: 4; }
+  .grid-overlay span:nth-child(n + 5) { display: none; }
+  .hero { min-height: 80svh; }
+  .lede, .guard__form, .wall__title, .guard__title { grid-column: 1 / -1; }
+  .tile--a, .tile--c, .tile--e { grid-column: 1 / span 3; }
+  .tile--b, .tile--d, .tile--f { grid-column: 2 / span 3; }
+  .tile { min-height: 12rem; }
+  .topbar__id { display: none; }
+  .topbar > a { margin-right: auto; }
+}
+
+/* Reduced and static tiers: the state changes, nothing eases. main.js also drops the indicator slide and the cross-scale. */
+@media (prefers-reduced-motion: reduce) {
+  body, .topbar, .tile, .dock, .switch, .switch__opt, .pill, .guard__form input, .grid-overlay { transition: none !important; }
+}
+html:is([data-motion="reduced"], [data-motion="static"]) :is(body, .topbar, .tile, .dock, .switch, .switch__opt, .pill, .guard__form input, .grid-overlay) { transition: none !important; }
