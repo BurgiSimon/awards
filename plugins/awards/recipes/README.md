@@ -61,6 +61,7 @@ The six static visual examples declare their reviewed desktop/mobile image paths
 | Title as a doorway | `title-mask-tunnel` | P1 | Capsule title mask scrubbed to a computed cover scale (exponential zoom, linear scrub), counter-scaled CSS-3D scene moved on one layer, focus flies a work to the front, plain list under reduced motion | wodniack |
 | Long-read dialog | `dialog-nested-lenis-sheet` | P2 | Native `<dialog>` + `showModal()`, nested Lenis on the shared ticker, `data-lenis-prevent` on dialog and inner pane, server-rendered content, drag-to-dismiss bottom sheet under 768 px, instant under reduced motion | boc |
 | Throw toy | `throw-objects-css3d` | P2 | Draggable + InertiaPlugin throw of extruded CSS-3D blocks, `snap.points` on the clamped landing point into a perspective tray, velocity tilt on an inner body, a throw button per block, drop-in-place under reduced motion | wodniack |
+| Drawn scrollbar | `scrollbar-thumb-drag` | P2 | Themed thumb mirroring `scrollY` on the shared ticker, drag and track-press write the scroll, native bar and keys kept, `aria-hidden` pointer duplicate, snaps under reduced motion, hidden on coarse pointers | wodniack |
 | Sound | `sound-toggle-opt-in` | P2 | Opt-in ambient + SFX, persisted | igloo, mont-fort |
 | GL text | `gl-msdf-text` | P2 | MSDF text with a DOM mirror | igloo, lando-norris |
 
