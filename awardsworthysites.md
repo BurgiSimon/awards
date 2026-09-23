@@ -24,11 +24,11 @@
 - https://robbietilton.com/
 - https://pensatori-irrazionali.com/
 - https://www.warmnfuzzy.tv/
+- https://wearedirect.co/
+- https://zainabkabira.com/
+- https://jesperlandberg.com/
 
 # not reviewed
-- https://jesperlandberg.com/
-- https://zainabkabira.com/
-- https://wearedirect.co/
 - https://www.oxigen.sa/
 - https://www.runrobrun.com/
 - https://goats.com.pl/
