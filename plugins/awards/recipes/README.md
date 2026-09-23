@@ -57,6 +57,7 @@ The six static visual examples declare their reviewed desktop/mobile image paths
 | Frame scrub | `image-sequence-scrub` | P1 | Pre-rendered frames scrubbed on scroll | seasats |
 | Project index as reels | `filmstrip-index-rows` | P1 | CSS-keyframe rows at one px/s from measured width, one link per project, pause on hover / focus / off-screen, late-overshoot grow, hover clip gated on `(hover: hover)` | boc |
 | Chosen-item exit | `transition-promote-chosen` | P1 | Clicked row rises to the header slot, siblings fade by `.09 s × distance`, route pushed after the rise, phone timing set | boc |
+| Living line field | `svg-noise-line-field` | P1 | Hairline SVG field, one Perlin angle per point drifting in time, pointer push with a framerate-independent spring (.005 / .925), edge-first draw-in, still under reduced motion | wodniack |
 | Sound | `sound-toggle-opt-in` | P2 | Opt-in ambient + SFX, persisted | igloo, mont-fort |
 | GL text | `gl-msdf-text` | P2 | MSDF text with a DOM mirror | igloo, lando-norris |
 

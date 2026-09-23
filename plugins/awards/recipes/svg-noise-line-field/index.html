@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>svg-noise-line-field — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ svg-noise-line-field</p></header>
+  <main id="main">
+    <section class="hero" data-hero aria-labelledby="t">
+      <!-- Decoration only: main.js adds one <path> holding every line and redraws it on the shared ticker. -->
+      <svg class="field" data-field aria-hidden="true" focusable="false"></svg>
+      <div class="wrap hero__copy">
+        <p class="label">/ field</p>
+        <h1 class="display" id="t">Lines that<br>drift and give.</h1>
+        <p class="lede">Every point on every line takes its angle from one noise sample drifting in time. A pointer pushes the points it passes and a spring brings them home. Under reduced motion the field is drawn once and holds still. This hero and its copy are a synthetic demo.</p>
+      </div>
+    </section>
+    <section class="wrap notes" aria-labelledby="r"><h2 id="r">Rules</h2><ul><li>One Perlin sample per point per frame: <code>angle = noise(x, y, t) × 12</code>, offset <code>cos × 32</code>, <code>sin × 16</code> px.</li><li>The pointer pushes points within <code>max(175, pointer speed)</code> px; a spring of <code>.005</code> with damping <code>.925</code> returns them, scaled to real frame time.</li><li>Lines draw in from their ends on load, outer lines first, 3 s expo-out with a .5 s spread.</li><li>Every line is a subpath of one <code>&lt;path&gt;</code>: one draw per frame.</li><li>Touch devices get fewer points and no push; reduced motion and the static tier get a still field and no ticker.</li></ul></section>
+  </main>
+  <footer class="wrap foot"><a href="../index.html" class="label">All recipes</a><p class="label">awards · recipe · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "id": "svg-noise-line-field",
+  "title": "Noise-bent SVG line field with a pointer spring",
+  "tags": [
+    "svg",
+    "hero",
+    "noise",
+    "pointer",
+    "gsap",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [],
+  "variants": [
+    "one merged SVG path redrawn on the shared ticker, hand-written staggered draw-in (this)",
+    "one path per line with GSAP 3.15 DrawSVGPlugin for the intro, for a handful of lines",
+    "canvas 2D polylines when the grid passes ~10k points"
+  ],
+  "seenIn": [
+    "wodniack"
+  ],
+  "verified": {
+    "date": "2026-09-23",
+    "chromium": "153.0.8010.12"
+  }
+}
