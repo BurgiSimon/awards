@@ -7,7 +7,7 @@ The register every model reaches for when asked for "an award-winning site": nea
 
 | Tell | Why it fails | Rewrite |
 |---|---|---|
-| Dark + neon + glow with no diegetic reason | Reads as a genre, not a brand; 10 of the 17 corpus sites with a known ground are light-dominant | Derive ground and accent from the subject's environment `[pattern:color-and-material#colour-strategies]`; if dark, warm the black and earn it (`[site:usavionix]` earns pure black with night-vision imagery) |
+| Dark + neon + glow with no diegetic reason | Reads as a genre, not a brand; 10 of the 19 corpus sites with a known ground are light-dominant | Derive ground and accent from the subject's environment `[pattern:color-and-material#colour-strategies]`; if dark, warm the black and earn it (`[site:usavionix]` earns pure black with night-vision imagery) |
 | Blob / mesh-gradient / particle hero | Effect without concept; Creativity caps at 6 | Pick a hero archetype that enacts the thesis `[pattern:hero-archetypes]` |
 | Fade-and-rise on every section | Nobody in the corpus ships it; motion becomes wallpaper | One authored moment per chapter, masked line reveals for text, scrubbed choreography for the signature `[pattern:motion-vocabulary]` |
 | Glow buttons, gradient text, glass cards | Costume, not material | Sharp and shadowless with depth by luminance, or one material policy chosen on purpose `[site:the-line]` |
@@ -19,8 +19,8 @@ Each class has its own rut. Concept work names both ruts (category and Awwwards)
 
 | Class | What every model ships | What the corpus did instead |
 |---|---|---|
-| Portfolio | Name, one-line role, grid of cards with hover zoom, about, contact | A craft manifesto with a typographic break and a hover-preview archive `[site:leo-parpeix]`; a call sheet about film `[site:the-line]` |
-| Studio / agency | Reel, logo wall, services triad, case grid, "Let's talk" | Work as poster-scale blocks with a single grotesque `[site:lama-lama]`; a print artefact with one flooded ink `[site:the-line]` |
+| Portfolio | Name, one-line role, grid of cards with hover zoom, about, contact | A craft manifesto with a typographic break and a hover-preview archive `[site:leo-parpeix]`; a call sheet about film `[site:the-line]`; a developer's one-pager whose section titles become the rooms the work moves through, with no WebGL `[site:wodniack]` |
+| Studio / agency | Reel, logo wall, services triad, case grid, "Let's talk" | Work as poster-scale blocks with a single grotesque `[site:lama-lama]`; a print artefact with one flooded ink `[site:the-line]`; an index where each project is one self-moving filmstrip row `[site:boc]` |
 | B2B product | Hero metric row, three-feature grid, testimonials, pricing, "Get started" | Scroll as the operational process `[site:united-carriers]`; specs as headlines and a scrollspy index `[site:seasats]`; a boot sequence that casts the visitor as operator `[site:usavionix]` |
 | Campaign / launch | Countdown, video background, sign-up form | A manifesto you sign by drawing `[site:why-zero]`; total-sincerity satire with the world extended off-site `[site:oryzo]`; a changelog hung as a gallery `[site:shopify-editions-w26]` |
 | Luxury / travel / property | Full-bleed photo, serif headline, "Discover", gold accent | Specification-grade copy and a two-colour UI with chroma from photography `[site:white-desert]`; emotion before economics with seasonal compare `[site:son-daven]` |

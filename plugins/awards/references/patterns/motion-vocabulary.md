@@ -23,9 +23,11 @@ Why: a site reads as one hand when every movement decelerates the same way. The 
 
 | Role | Curve | Seen in | Confidence |
 |---|---|---|---|
-| House curve: entrances, hover, cursor | expo-out `cubic-bezier(.16,1,.3,1)` | [site:leo-parpeix], page motion and cursor on the same curve | [recalled medium], from a clone |
+| House curve: entrances, hover, cursor | expo-out `cubic-bezier(.16,1,.3,1)` | [site:leo-parpeix], page motion and cursor on the same curve; [site:boc] dialog entrance over .666 s | [recalled medium], from a clone; [verified] |
 | Same family, older constants | `cubic-bezier(.19,1,.22,1)` | [site:floema-jewelry] SCSS token; [site:the-line] hover shift | [verified], clone and reconstruction |
-| Travel between two known states: shared-element flights, camera moves | expo-in-out `cubic-bezier(.87,0,.13,1)`; GSAP `expo.inOut` | [site:leo-parpeix]; [site:floema-jewelry] mesh flight, 1.5 s | [recalled medium]; [verified] |
+| Travel between two known states: shared-element flights, camera moves | expo-in-out `cubic-bezier(.87,0,.13,1)`; GSAP `expo.inOut` | [site:leo-parpeix]; [site:floema-jewelry] mesh flight, 1.5 s; [site:wodniack] house style, `expo.inOut` ×9 against `power4.inOut` ×6 and `expo.out` ×5 | [recalled medium]; [verified]; [verified] |
+| Dialog close | ease-in `cubic-bezier(.64,0,.78,0)`, the mirror of the entrance | [site:boc] | [verified] |
+| Late-overshoot grow on hover | `cubic-bezier(1,0,.47,1.25)`, .4 s, named once as a token | [site:boc] | [verified] |
 | Floema's own in-out | `cubic-bezier(.77,0,.175,1)` | [site:floema-jewelry] | [verified] |
 | Theme swap, whole-page repaint | `cubic-bezier(.645,.045,.355,1)`, ≈ 1 s | [site:slosh-seltzer] | [verified] at family level only; not confirmed on Slosh itself |
 | Section snap after a virtual scroll settles | ease-in-out cubic, 1.4 s | [site:igloo] | [recalled medium-high], one detailed source |
@@ -48,7 +50,8 @@ Why: duration tells the visitor what kind of event just happened. The corpus kee
 |---|---|---|
 | Feedback (hover, press, toggle) | ≤ .3 s; token `--dur-feedback` 160 ms | impact morphs of 60–140 ms followed by a 180–340 ms settle [site:animejs] [verified] |
 | Routine (reveals, menu items, cards) | ≈ .4 s; token `--dur-routine` | plugin default; no card publishes a routine duration |
-| Hero-scale (preloader exit, shared-element flight, chapter cut) | 1.2–1.5 s; token `--dur-hero` 1400 ms | 1.5 s [site:floema-jewelry] [verified]; 1.4 s hero lines in `[recipe:boot-lenis-gsap]`; 1 s wordmark settle on `outExpo` [site:animejs] |
+| Hero-scale (preloader exit, shared-element flight, chapter cut) | 1.2–1.5 s; token `--dur-hero` 1400 ms | 1.5 s [site:floema-jewelry] [verified]; 1.4 s hero lines in `[recipe:boot-lenis-gsap]`; 1 s wordmark settle on `outExpo` [site:animejs]; a route exit that rises 1.15 s and pushes at 1.6 s, .8 s and 1.15 s on the phone [site:boc] [verified] |
+| Line-art draw-in | 3 s on `expo.out` | [site:wodniack] [verified] — above the band because nothing waits for it |
 | Theme swap | ≈ 1 s [site:slosh-seltzer] (family-level) to 1.5 s [site:floema-jewelry] | both tween `documentElement` colours |
 | Section snap (virtual scroll) | 1.4 s | [site:igloo] [recalled medium-high] |
 | Counter tick | one jump per 100 ms | no corpus source — `[site:leo-parpeix]` ships an SVG circular progress ring, not a counter [verified, live bundle 2026-09-18] |
@@ -71,6 +74,8 @@ Why: a stagger turns a block into a sequence the eye can follow; too wide and th
 | Scramble characters | 30 ms from the centre, eased | [site:animejs] [verified] |
 | Duplicate-char hover roll | 5 ms per char | [site:animejs] [verified] |
 | Onion-skin trail clones | 18 ms per clone, opacity 1 → .4 | [site:animejs] [verified] |
+| Siblings leaving around a chosen item | .09 s × \|i − chosen\| (.06 s on the phone) | [site:boc] [verified] |
+| Paths of a line field | amount .5 shared across all paths, `from: 'edges'` | [site:wodniack] [verified] |
 
 Rule: keep `count × step` under ≈ .6 s for text blocks; use `from: 'center'` or `'last'` when the block has a focal glyph. Stagger by a data attribute (`data-line`, `data-char`) so word and line rhythms nest [site:animejs].
 
@@ -95,6 +100,7 @@ Why: motion that answers how fast the visitor moves feels physical; motion that 
 | Marquee speed | rAF translate with wraparound, so speed can follow scroll velocity instead of a fixed keyframe rate | [site:seasats] (clone-described); `[recipe:marquee-raf-mask]` | [recalled medium] |
 | Carousel drift | auto-speed tweened to 0 on grab and back to 2 on release (500 ms each); wheel input lerped at .2 into the same value | [site:animejs] | [verified] |
 | Hero inertia | drag momentum with lighting that answers the object's motion; no numbers published | [site:oryzo] | [recalled high], parameters unknown |
+| Line-field push | pointer radius `max(175, pointer speed)` px, so a fast hand clears a wider path; spring .005 back to rest, velocity × .925 per frame | [site:wodniack] | [verified] |
 
 Rules: compute speed per frame from the smoothed value, never from raw wheel deltas; clamp it; lerp it back to zero so the effect settles; put the character in the vertex stage and keep the fragment stage trivial [site:floema-jewelry]. The Floema bulge and its grid-to-detail flight are the most-cloned moves on the web — take the architecture and design your own displacement `[recipe:gl-dom-tethered-planes]` `[recipe:gl-fluid-wake-post]`.
 
@@ -104,7 +110,7 @@ Why: smooth scroll is a decision with costs — scroll restoration, find-in-page
 
 | Model | Mechanism | Seen in | Use when |
 |---|---|---|---|
-| (a) Native + Lenis + ScrollTrigger | Lenis driven from `gsap.ticker` with `lagSmoothing(0)`; Lenis feeds `ScrollTrigger.update` | [site:leo-parpeix] Lenis ^1.1 [recalled medium]; [site:lando-norris] Lenis 1.1.20 + GSAP 3.13 [verified]; [site:mont-fort] [verified] | the default for any page that reads; the document stays scrollable `[recipe:boot-lenis-gsap]` |
+| (a) Native + Lenis + ScrollTrigger | Lenis driven from `gsap.ticker` with `lagSmoothing(0)`; Lenis feeds `ScrollTrigger.update` | [site:leo-parpeix] Lenis ^1.1 [recalled medium]; [site:lando-norris] Lenis 1.1.20 + GSAP 3.13 [verified]; [site:mont-fort] [verified]; [site:wodniack] Lenis 1.1.13 defaults + GSAP 3.12.5 [verified] | the default for any page that reads; the document stays scrollable `[recipe:boot-lenis-gsap]` |
 | (b) Studio abstraction | `@bsmnt/scrollytelling` (`Root`, `Animation`, `Waypoint`, `Parallax`, `ImageSequenceCanvas`) on top of ScrollTrigger | [site:usavionix] [inferred medium, the studio's house stack] | React teams authoring many scroll scenes |
 | (c) Hand-rolled lerp | wheel → `target`; `current = lerp(current, target, .1)`; `translateY` on a wrapper; target clamped to `[0, limit]` | [site:floema-jewelry] [verified] | small sites whose GL layer must read the smoothed value; costs the native scrollbar and restoration |
 | (d) Virtual float | wheel and touch update a target that eases; one 0–1 progress drives everything, which is what makes gates, holds and redirects possible | [site:why-zero] [verified]; [site:igloo] wheel × .1 → friction .97 → double lerp .075 then .15 → 1.4 s snap → modulo wrap [recalled medium-high] | only when the page is a world with gates or holds `[recipe:gl-virtual-scroll-camera]` |
@@ -115,7 +121,7 @@ Rules: never two smooth-scroll libraries; never CSS `scroll-behavior: smooth` be
 
 ## Damping math
 
-Why: a per-frame `lerp(current, target, .1)` runs 2.4× faster at 144 Hz than at 60 Hz. Every constant in the corpus (Floema's .1, Igloo's .075 / .15 and friction .97, Léo Parpeix's cursor .75 / .22) was tuned at 60 fps and drifts on other displays.
+Why: a per-frame `lerp(current, target, .1)` runs 2.4× faster at 144 Hz than at 60 Hz. Every constant in the corpus (Floema's .1, Igloo's .075 / .15 and friction .97, Léo Parpeix's cursor .75 / .22, Wodniack's spring .005 and damping .925 [site:wodniack]) was tuned at 60 fps and drifts on other displays.
 
 ```js
 // _shared/raf.js — identical feel at any refresh rate
@@ -155,7 +161,7 @@ Rules: ≤ 300 ms, transform and opacity only, and `:focus-visible` triggers the
 
 ## Reduced-motion tiers
 
-Why: no card in the corpus documents a reduced-motion path — Floema and the Anime.js source verifiably have none [site:floema-jewelry] [site:animejs], Léo Parpeix appears to have none [site:leo-parpeix], and the rest are unknown. Shipping tiers is where new work beats the reference set (`[pattern:accessibility-and-reduced-motion#motion-tiers]`).
+Why: one card documents a reduced-motion path — Boc stops its rows with `animation: none`, skips its case-open timeline and never mounts hover video, though it also ships a global `.01ms` duration clamp [site:boc] [verified]. Floema, the Anime.js source and Wodniack verifiably have none [site:floema-jewelry] [site:animejs] [site:wodniack], Léo Parpeix appears to have none [site:leo-parpeix], and the rest are unknown. Shipping tiers is where new work beats the reference set (`[pattern:accessibility-and-reduced-motion#motion-tiers]`).
 
 | Tier | Trigger | Keeps | Drops |
 |---|---|---|---|

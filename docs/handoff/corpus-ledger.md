@@ -19,7 +19,7 @@ Maintained by `/expand-corpus` (`.claude/skills/expand-corpus/SKILL.md`). Resume
 |---|---|---|---|---|---|---|---|
 | robbietilton | https://robbietilton.com/ | queued | | | | | |
 | pensatori-irrazionali | https://pensatori-irrazionali.com/ | queued | | | | | |
-| boc | https://boc.studio/work | added | D 7.0 / U 7.2 / C 6.8 / Co 7.2 → w 7.04 [inferred]; official: SOTD 7.23 [verified, entry page] | technique: case-open row-rise route exit (distance-staggered fade, clicked row rises to brand bar) — checked against [pattern:preloaders-and-transitions#transition-archetypes] and [recipe:page-transitions]; technique: per-project filmstrip marquee rows as portfolio index, width-derived duration (~70 px/s), overshoot hover grow — checked against [recipe:marquee-raf-mask] and [pattern:components-catalog#ticker-and-marquee]; stack: Motion (framer-motion) for dialogs and bottom sheets — checked against stacks/ (no motion note; nearest next.md) | | | 2026-09-23 |
+| boc | https://boc.studio/work | added | D 7.0 / U 7.2 / C 6.8 / Co 7.2 → w 7.04 [inferred]; official: SOTD 7.23 [verified, entry page] | technique: case-open row-rise route exit (distance-staggered fade, clicked row rises to brand bar) — checked against [pattern:preloaders-and-transitions#transition-archetypes] and [recipe:page-transitions]; technique: per-project filmstrip marquee rows as portfolio index, width-derived duration (~70 px/s), overshoot hover grow — checked against [recipe:marquee-raf-mask] and [pattern:components-catalog#ticker-and-marquee]; stack: Motion (framer-motion) for dialogs and bottom sheets — checked against stacks/ (no motion note; nearest next.md) | yes | 2026-09-23 |
 | warmnfuzzy | https://www.warmnfuzzy.tv/ | queued | | | | | |
 | jesperlandberg | https://jesperlandberg.com/ | queued | | | | | |
 | zainabkabira | https://zainabkabira.com/ | queued | | | | | |
@@ -45,7 +45,7 @@ Maintained by `/expand-corpus` (`.claude/skills/expand-corpus/SKILL.md`). Resume
 | grids-obys | https://grids.obys.agency/ | queued | | | | | |
 | bethebuzz | https://www.bethebuzz.co/services | queued | | | | | |
 | alectear | https://alectear.com/lettering | queued | | | | | |
-| wodniack | https://wodniack.dev/ | added | D 7.9 / U 6.3 / C 7.6 / Co 7.4 → w 7.31 [inferred]; official: SOTD 12 Dec 2024 7.56 (D 7.53 / U 7.30 / C 7.96 / Co 7.69; dev 7.58) [verified, entry page] | class: portfolio has one card — checked against leo-parpeix; model: portfolio + WebGL none + gallery absent — checked against leo-parpeix; technique: Perlin-bent SVG polyline field with pointer spring (no WebGL) — checked against gl-fluid-wake-post and webgl-architecture#effect-parameters; technique: section title as CSS-3D tunnel (capsule mask scales viewer in on scrub, ghost-letter rows carry video reel in z) — checked against gl-virtual-scroll-camera and components-catalog#infinite-draggable-plane-and-arc-gallery; technique: grab-and-throw CSS-3D objects into a perspective catcher — checked against cursor-and-pointer#drag-affordances; world: condensed poster display + light editorial serif + mono, no grotesque — checked against seasats, white-desert, united-carriers | | | 2026-09-23 |
+| wodniack | https://wodniack.dev/ | added | D 7.9 / U 6.3 / C 7.6 / Co 7.4 → w 7.31 [inferred]; official: SOTD 12 Dec 2024 7.56 (D 7.53 / U 7.30 / C 7.96 / Co 7.69; dev 7.58) [verified, entry page] | class: portfolio has one card — checked against leo-parpeix; model: portfolio + WebGL none + gallery absent — checked against leo-parpeix; technique: Perlin-bent SVG polyline field with pointer spring (no WebGL) — checked against gl-fluid-wake-post and webgl-architecture#effect-parameters; technique: section title as CSS-3D tunnel (capsule mask scales viewer in on scrub, ghost-letter rows carry video reel in z) — checked against gl-virtual-scroll-camera and components-catalog#infinite-draggable-plane-and-arc-gallery; technique: grab-and-throw CSS-3D objects into a perspective catcher — checked against cursor-and-pointer#drag-affordances; world: condensed poster display + light editorial serif + mono, no grotesque — checked against seasats, white-desert, united-carriers | yes | 2026-09-23 |
 | spasoje | https://www.spasoje.dev/ | queued | | | | | |
 | christoph-nagel | https://christoph-nagel.dev/ | queued | | | | | |
 
@@ -73,3 +73,5 @@ wodniack: gsap@3.12.5 (ScrollTrigger, SplitText, DrawSVGPlugin, EasePack, Observ
 wodniack: lenis@1.1.13 — hoisted.js (window.lenisVersion)
 
 ### Notes
+
+- 2026-09-23 synthesis (boc, wodniack): duplicates none. boc's filmstrip rows overlap only partly with the seasats and mindmarket marquees: same duplicated strip, different job (portfolio index, not trust strip) and mechanism (width-timed CSS keyframes, not rAF).

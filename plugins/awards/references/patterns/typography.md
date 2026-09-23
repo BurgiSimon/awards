@@ -28,6 +28,8 @@ Why: a site reads as one voice when the number of faces is a decision. The corpu
 | One characterful grotesque at display scale | Suisse BP Int'l, set oversized | [site:lama-lama] | [recalled medium] |
 | One variable grotesk, macro/micro | Denim (`DenimVF`, `ss03` throughout) | [site:the-line] | [verified] |
 | One family at ≈ 99 % of the type | face unknown | [site:oryzo] | [recalled high for the ratio] |
+| One grotesque, one family | PP Mori with a metric-matched fallback; system mono only for code | [site:boc] | [verified] |
+| Three layers: condensed poster display + light serif text + mono labels, no grotesque | Bigger Display + PP Editorial New + PP Fraktion Mono | [site:wodniack] | [verified] |
 | Monospace identity | IoskeleyMono Regular + Bold | [site:animejs] | [verified for the example system; the site is recalled medium] |
 | Monospace identity as an MSDF atlas | IBM Plex Mono Medium, one weight, no DOM text | [site:igloo] | [verified] |
 | Two geometric sans | Century Gothic (regular, bold) + Josefin Sans Light | [site:mont-fort] | [verified] |
@@ -83,6 +85,7 @@ Why: small labels are the texture that makes a big-type page feel set rather tha
 | Metadata quartet: name · discipline · year · team of N | [site:leo-parpeix] | [recalled medium] |
 | Telemetry slashes: `/ MICRO / LABELS /` as real elements; `///////` heading rules; a `Sound: Off` state label | [site:the-line]; [site:igloo] | [verified]; [verified] |
 | 10 px micro type at the 1728 px artboard | [site:the-line] | [verified, live CSS] |
+| Mono serials per work (`#…-0015/34`) and binary ticker rules that regenerate | [site:wodniack] | [verified] |
 
 Rules: labels use the body face (or the one family), uppercase, tracked ≈ .08em, at `--label`; 11 px is the floor for a label that carries meaning, and 9 px is allowed only for decorative repeats; decorative marks (a slash, a rule) live in `::before`, and labels that carry meaning live in the DOM as text (`[pattern:components-catalog#metadata-labelled-project-rows]`); numerals are texture only when they also count something — a chapter, an item, a year (audit X07).
 
@@ -99,9 +102,9 @@ Why: at a punctuation moment — the manifesto, the break between two clusters, 
 
 Why: a display face that swaps late shreds the lines already split, and a Google Fonts link is a third-party round trip the corpus does not make.
 
-- Self-hosted files, seen everywhere the sources show delivery: woff2 [site:lando-norris] [verified] [site:mont-fort] [verified] [site:animejs] [verified] [site:leo-parpeix] [clone, medium]; woff and woff2 across six files for two families [site:floema-jewelry] [verified]; a single variable `DenimVF.woff` [site:the-line] [verified]; no web font at all, only an atlas [site:igloo] [verified]. Why Zero serves from the Google Fonts API [site:why-zero] [verified] — the family may be right, the CDN link is refused (audit T02): self-host the same files.
+- Self-hosted files, seen everywhere the sources show delivery: woff2 [site:lando-norris] [verified] [site:mont-fort] [verified] [site:animejs] [verified] [site:leo-parpeix] [clone, medium]; woff and woff2 across six files for two families [site:floema-jewelry] [verified]; a single variable `DenimVF.woff` [site:the-line] [verified]; five woff2 preloads across three families, one over the file budget [site:wodniack] [verified]; no web font at all, only an atlas [site:igloo] [verified]. Why Zero serves from the Google Fonts API [site:why-zero] [verified] — the family may be right, the CDN link is refused (audit T02): self-host the same files.
 - Budget: ≤ 4 files and ≤ 400 KB (audit P05). A variable face covers many instances in one file [site:lando-norris] [site:the-line].
-- `@font-face` with `font-display: swap`, plus a fallback face declared with `size-adjust`, `ascent-override`, `descent-override` and `line-gap-override` so the swap does not move a line (audit T05, T06); preload the display face only.
+- `@font-face` with `font-display: swap`, plus a fallback face declared with `size-adjust`, `ascent-override`, `descent-override` and `line-gap-override` so the swap does not move a line (audit T05, T06) — `next/font` generates one, as Boc's `ppMori Fallback` shows [site:boc] [verified]; preload the display face only.
 - Split text only after `document.fonts.ready`, and re-split on resize: Lando re-runs its splitter after font load so a fallback cannot shred the lines [site:lando-norris] [verified]; Anime's splitter re-applies effects after a re-split [site:animejs] [verified].
 - Stylistic sets are part of the identity, applied universally (`ss03` on every element [site:the-line] [verified]); keep `font-feature-settings` in the token layer, not per component.
 
@@ -125,6 +128,10 @@ Why: naming the face with its licence turns "use something like this" into a dec
 | IBM Plex Mono | monospace identity as MSDF | [site:igloo] | open, SIL OFL [recalled high] |
 | Century Gothic | geometric display and body | [site:mont-fort] | commercial, Monotype; desktop bundles do not include web use [recalled medium] |
 | Josefin Sans | geometric light | [site:mont-fort] | open, SIL OFL [recalled high] |
+| PP Mori | one grotesque at every size | [site:boc] | commercial, Pangram Pangram [recalled high] |
+| Bigger Display | condensed poster display, uppercase | [site:wodniack] | licence and foundry [unknown] |
+| PP Editorial New | light serif as the text voice | [site:wodniack] | commercial, Pangram Pangram [recalled high] |
+| PP Fraktion Mono | mono micro-labels only | [site:wodniack] | commercial, Pangram Pangram [recalled high] |
 
 Two notes on the evidence: IBM Plex Mono sits on the avoid list in `reflex-lists.md` and is also the display face of a Site of the Year — the list is about reflex, not prohibition, and an on-purpose choice is recorded under `AWARDS.md ## Exceptions`. Suisse BP appears twice in the corpus five years apart [site:floema-jewelry] [site:lama-lama], which is exactly why a new build should not make it three.
 
@@ -140,7 +147,8 @@ Why: the face follows the world, then the character, then the licence — never 
 | World | Contract that fit it | Card |
 |---|---|---|
 | Portfolio, art direction | wide expressive display + neutral grotesque | [site:leo-parpeix] |
-| Studio, animation, film | one characterful grotesk, macro/micro | [site:the-line] [site:lama-lama] |
+| Studio, animation, film | one characterful grotesk, macro/micro | [site:the-line] [site:lama-lama] [site:boc] |
+| Creative developer's own site | condensed poster display + light text serif + mono labels | [site:wodniack] |
 | Freight, industry, hardware | condensed display + neutral body | [site:united-carriers] |
 | Heritage corporate group | two geometric sans, institutional | [site:mont-fort] |
 | Jewellery, fashion | serif display + light grotesque | [site:floema-jewelry] |
@@ -169,4 +177,4 @@ For a rendered comparison of poster, editorial and technical hierarchy using the
 - Heading sizes added by habit rather than a reading need; a display size above ≈ 13 vw or below the phone floor.
 - Tracking tighter than −0.06em; gradient text; monospace as a costume on a non-technical product.
 - GL or split text with no accessible copy; an atlas-only identity with an empty DOM.
-- The pairings as packages: Avantt + Monument Grotesk, George X + Suisse BP, KTF Metro, BT Steinhart + Helvetica Now, Mona Sans + Brier, Century Gothic + Josefin Sans, Denim with `ss03`, IoskeleyMono-only.
+- The pairings as packages: Avantt + Monument Grotesk, George X + Suisse BP, KTF Metro, BT Steinhart + Helvetica Now, Mona Sans + Brier, Century Gothic + Josefin Sans, Denim with `ss03`, IoskeleyMono-only, PP Mori alone, Bigger Display + Editorial New + Fraktion Mono.

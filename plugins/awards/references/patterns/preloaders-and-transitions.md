@@ -28,6 +28,7 @@ Rules:
 | Two-arc gradient ring | inline SVG with two linear gradients on `currentColor` | [site:mont-fort] | [verified] |
 | Zero-cost ASCII | pure CSS `content:` keyframes before the 3D app streams in | [site:igloo] | [verified] |
 | Intro interaction | a gated, interactive entry moment rather than a passive loader | [site:oryzo] | [recalled high] |
+| No loader | content in the first frame; any intro is the hero's own entrance — lines drawn in on `window.load` over 3 s `expo.out` [site:wodniack] | [site:boc] [site:wodniack] | [verified] |
 
 What carries over: the loader speaks the site's register (a frame counter for a film studio, readouts for a defence console, a drawn gesture for a manifesto) and it costs nothing before first paint. What does not: any of these devices as drawn `[recipe:preloader-counter-hold]`.
 
@@ -49,6 +50,8 @@ Rule: the gesture may enable sound, but content never waits for it. Either offer
 | Theme swap on `documentElement` | see the next section | [site:floema-jewelry] [site:slosh-seltzer] [site:leo-parpeix] | mixed |
 | Choreographed route change | Rive state change + camera move + Three teardown and setup sequenced on one GSAP timeline; scenes rebuilt per route | [site:lando-norris] | [verified] |
 | Cross-document morph | Astro `ClientRouter` (View Transitions API); elements sharing a `view-transition-name` morph natively | [site:mont-fort] | [verified] |
+| Promote the chosen | on click the other rows fade (`opacity 0, y 18`, `power2.in`, .65 s) staggered .09 s × distance from the clicked row; the clicked row rises 1.15 s on `power2.inOut` to sit under the header; the route is pushed at 1.6 s; skipped under reduced motion | [site:boc] | [verified] |
+| Title as a doorway | a section title's mask scales from 1 until it covers the viewport (`power4.in`) on a `scrub: 1` timeline, and the section's content travels in CSS 3D inside it | [site:wodniack] | [verified] |
 
 Rules: make the transition the hero and the sections the rests — United Carriers stages its mode changes (road → sea → air) as the designed moments [site:united-carriers] [verified concept]. One transition vocabulary per site: a shared-element flight and a wipe on the same route are two ideas.
 
@@ -92,5 +95,5 @@ A reload on crossing a breakpoint costs every transition above it: zoom users an
 - Cross-fade as the only transition on a site that claims a world.
 - Two transition ideas on one route (a flight and a wipe).
 - Theme swaps that tween elements one by one, or that leave the canvas clear colour behind.
-- The drawn-zero gesture, the `00/24` leader, the boot readouts, the two-arc ring, or the grid-to-detail flight as-is.
+- The drawn-zero gesture, the `00/24` leader, the boot readouts, the two-arc ring, the grid-to-detail flight, the row-rise exit or the title-mask tunnel as-is.
 - A breakpoint reload.

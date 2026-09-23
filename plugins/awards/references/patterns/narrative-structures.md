@@ -86,16 +86,16 @@ A collage (a manifesto, scattered snapshots) that resolves into an index (an arc
 
 ## Gallery
 
-The work or the items are the argument, hung one per viewport. Seen in [site:floema-jewelry] (drifting image field → arced collections rail → one piece → editorial about, the theme swapped per route [verified, clone]), [site:lama-lama] (video hero → poster-scale case blocks → studio and people → contact [recalled low-medium]) and [site:shopify-editions-w26] (150+ updates as wall labels beside their own paintings in about seven chapters, with an edition switcher and local search [recalled high for the concept, medium for the chapters]).
+The work or the items are the argument, hung one per viewport. Seen in [site:floema-jewelry] (drifting image field → arced collections rail → one piece → editorial about, the theme swapped per route [verified, clone]), [site:lama-lama] (video hero → poster-scale case blocks → studio and people → contact [recalled low-medium]) and [site:shopify-editions-w26] (150+ updates as wall labels beside their own paintings in about seven chapters, with an edition switcher and local search [recalled high for the concept, medium for the chapters]). The same model runs as a single self-moving index — one filmstrip row per project, the page ending after the last row [site:boc] [verified] — and as a developer's one-pager whose work reel plays inside its own section title [site:wodniack] [verified].
 
 - **Beats.** Entrance: the poster or plane owns the viewport and arrives with mass — the plugin's default is a scale from ≈ .94 or a clip wipe on `--ease-out-expo` over 1.2–1.5 s; Lama Lama's own numbers are unknown. Hold: the label reads — title, client, year. Exit: the next poster, or a shared-element flight into the detail [site:floema-jewelry] [verified].
-- **Interruption.** A tempo change: a near-black full-bleed section [site:lama-lama] [recalled medium]; a torn paper edge between chapters [site:shopify-editions-w26] [verified, live source 2026-09-18]; the flight from field to piece [site:floema-jewelry].
+- **Interruption.** A tempo change: a near-black full-bleed section [site:lama-lama] [recalled medium]; a torn paper edge between chapters [site:shopify-editions-w26] [verified, live source 2026-09-18]; the flight from field to piece [site:floema-jewelry]; a grab-and-throw toy after the reel [site:wodniack] [verified].
 - **Rule of three.** Cluster the run in threes and change tempo between clusters; twelve identical posters are a grid on its side. Plugin guidance.
 - **Close.** Contact [site:lama-lama]; the editorial about page [site:floema-jewelry]; a designed 404 in the same world [site:shopify-editions-w26] [recalled high].
 - **Register.** Numbered label plus title, almost no prose [site:floema-jewelry] [verified]; warm value-led copy against loud visuals [site:lama-lama] [recalled medium-high]; grand visuals over plain, scannable update copy [site:shopify-editions-w26].
 - **DOM.** Every block is a real `<a>` inside a list; every plane sits over an `<img alt>` [site:floema-jewelry] [verified]; every update card is real content under an `aria-hidden` canvas, in one document with native anchors — never an iframe shell [site:shopify-editions-w26]; a content schema (`Section { id, navLabel, title, summary, items }`) precedes the scenes [recalled medium-low].
 - **Choose when.** Studios, product lines and changelogs; past ≈ 100 items add the switcher and a local search.
-- **Risk.** Unusual navigation costs usability (7.53 with that tag [site:floema-jewelry] [recalled medium-high]); drag-only galleries with no focusable stops [site:floema-jewelry] [verified absence]; a preloader that waits for every texture on the site [site:floema-jewelry] [verified].
+- **Risk.** Unusual navigation costs usability (7.53 with that tag [site:floema-jewelry] [recalled medium-high]); drag-only galleries with no focusable stops [site:floema-jewelry] [verified absence]; a preloader that waits for every texture on the site [site:floema-jewelry] [verified]; an index that never stops moving and ends with no footer [site:boc] [verified].
 
 ## Print artefact
 
@@ -152,6 +152,7 @@ Why: a page that runs at one input speed becomes wallpaper by the third chapter;
 | A horizontal rail inside the vertical page | one chapter, never two | [site:son-daven] [verified] |
 | A hinge that swings the first screen away | the hero's exit | [site:the-line] [verified] |
 | A dwell-gated close-up | the zoom section | [site:oryzo] [recalled high] |
+| A section title that scales until the visitor is inside it | the work chapter | [site:wodniack] [verified] |
 | A theme swap that repaints the page | at a section or route boundary | [site:leo-parpeix] [site:floema-jewelry] [site:slosh-seltzer] |
 
 Rules: one interruption per page; it comes after the first content beat, never before; it has a keyboard equivalent and a skip (`[pattern:accessibility-and-reduced-motion]`); under reduced motion it becomes a cut or a static state that still shows both sides.
@@ -177,8 +178,8 @@ Why: the model follows the class, the visitor mode and the assets that actually 
 
 | Class | Visitor mode | Asset reality | Model | Nearest cards |
 |---|---|---|---|---|
-| Portfolio | experience | stills, a reel, some 3D | Collage index | [site:leo-parpeix]; [site:the-line] if DOM-first |
-| Studio, agency | persuade | footage and case imagery, heterogeneous | Print artefact (one ink unifies) or Gallery (poster run) | [site:the-line] [site:lama-lama] |
+| Portfolio | experience | stills, a reel, some 3D | Collage index | [site:leo-parpeix]; [site:the-line] if DOM-first; [site:wodniack] as a gallery with no WebGL |
+| Studio, agency | persuade | footage and case imagery, heterogeneous | Print artefact (one ink unifies) or Gallery (poster run or self-moving index) | [site:the-line] [site:lama-lama] [site:boc] |
 | B2B hardware, defence, travel | persuade | photography, renders, PDFs | Specification (escalation, place-led or role-casting) | [site:seasats] [site:white-desert] [site:usavionix] |
 | B2B service with a process | persuade | budget for scenes | Chaptered journey (scroll = the process) | [site:united-carriers] [site:mont-fort] |
 | Property, big-ticket | persuade wrapped in experience | renders across time, maps | Chaptered journey, emotion before economics | [site:son-daven] |

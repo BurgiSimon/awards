@@ -23,6 +23,8 @@ Why: a palette is a system only when it is small enough to hold in the head; the
 | [site:son-daven] | 2 | #A89474 + #2C2824 on a light ground | [verified] |
 | [site:lama-lama] | 2 | #F9F4EB + #1A1C1C | [recalled medium-high] |
 | [site:united-carriers] | 2 | a near-black + #0016CB with glow | [verified hex] |
+| [site:boc] | 2 + greys | #181d21 + #ff4421; #f3f3f3 ink on the slate | [verified] |
+| [site:wodniack] | 2 swapped + 1 shadow | #f40c3f + #160000; #540000 for letter extrusions | [verified] |
 | [site:mont-fort] | 1 + opacity steps | #2D628C, white at .8 and 1.0, over a rendered ground | [verified] |
 | [site:oryzo] | 4 | a cream, #100904, an olive, #FF8539 | [recalled high; two hexes only] |
 | [site:the-line] | 4 + one overprint | #DDDEE2, #F8F8F8, #0B0B0B, #FF391E; #FF0000 under multiply | [verified] |
@@ -43,6 +45,7 @@ Why: pure #000 has no temperature and flattens every material on it; the corpus 
 | Hex | Card | Reads as | Confidence |
 |---|---|---|---|
 | #100904 | [site:oryzo] | warm, red-brown | [recalled high] |
+| #160000 | [site:wodniack] | warm, oxblood; also its `theme-color` | [verified] |
 | #292919 | [site:shopify-editions-w26] content black | warm olive | [recalled medium-low] |
 | #2C2824 | [site:son-daven] | warm brown | [verified] |
 | #252423 | [site:animejs] `--bg-1` | warm, brown-shifted charcoal | [verified] |
@@ -51,13 +54,14 @@ Why: pure #000 has no temperature and flattens every material on it; the corpus 
 | #37384C | [site:floema-jewelry] | cool navy | [verified, clone] |
 | #1D2440 | [site:trevor-noah] | cool navy | [verified] |
 | #383E4E | [site:igloo] darkest ink | cool slate | [verified, sampled] |
+| #181d21 | [site:boc] canvas | cool slate, used as the ground | [verified] |
 | #083D2A | [site:leo-parpeix] | a chromatic ink: forest green | [recalled medium] |
 
 When pure #000 is allowed: as a diegetic black — night vision and cockpits [site:usavionix] [verified] — or as a stage behind scenes while the content black stays warm (#000000 stage, #292919 ink [site:shopify-editions-w26] [recalled medium-low]). Either way it is recorded as a C02 exception in `AWARDS.md` with the reason.
 
 ## Light grounds
 
-Why: the Awwwards default is dark, and the corpus is not. Of the 17 cards whose ground is known or inferable, ten are light-dominant — [site:leo-parpeix] [recalled medium], [site:white-desert] [inferred], [site:why-zero] [verified], [site:son-daven] [verified], [site:lama-lama] with dark sections as tempo changes [recalled medium], [site:floema-jewelry] [verified], [site:oryzo] [recalled high], [site:the-line] [verified], [site:mont-fort] [inferred, high-key], [site:igloo] as a pale fog [verified hexes] — four are dark ([site:united-carriers] [verified tags], [site:usavionix] [verified], [site:animejs] [verified tokens], [site:trevor-noah] [inferred navy ground]) and three are dual or contested ([site:lando-norris] flips by scroll position [verified]; [site:shopify-editions-w26] paper on a black stage; [site:slosh-seltzer] contested). Grounds for [site:seasats] and [site:mindmarket] are unknown.
+Why: the Awwwards default is dark, and the corpus is not. Of the 19 cards whose ground is known or inferable, ten are light-dominant — [site:leo-parpeix] [recalled medium], [site:white-desert] [inferred], [site:why-zero] [verified], [site:son-daven] [verified], [site:lama-lama] with dark sections as tempo changes [recalled medium], [site:floema-jewelry] [verified], [site:oryzo] [recalled high], [site:the-line] [verified], [site:mont-fort] [inferred, high-key], [site:igloo] as a pale fog [verified hexes] — five are dark ([site:united-carriers] [verified tags], [site:usavionix] [verified], [site:animejs] [verified tokens], [site:trevor-noah] [inferred navy ground], [site:boc] slate [verified]) and four are dual or contested ([site:lando-norris] flips by scroll position [verified]; [site:shopify-editions-w26] paper on a black stage; [site:slosh-seltzer] contested; [site:wodniack] a red ground that inverts to oxblood for the work reel [verified]). Grounds for [site:seasats] and [site:mindmarket] are unknown.
 
 Rules: the use scene chooses — reading, photography and daylight products want a light ground; dark is earned by a diegetic reason, a stage, or one chapter's tempo change. Light grounds are rarely white: bone #F9F4EB, warm bone #f9f1e7, paper #f7f7ee, cool silver #DDDEE2, off-white #F7F7F7 [cards above].
 
@@ -81,7 +85,7 @@ Rules: one accent live; name its job in `DESIGN.md` — emphasis, bookend, state
 
 ## Chroma outsourced to imagery
 
-Why: when photography is strong, UI colour competes with it. White Desert locks the interface to a ground and an ink and lets ice, dusk, penguins and jets carry every ounce of colour — Content was its highest axis at 7.74 [site:white-desert] [recalled medium]. Lama Lama runs people photography and a hero video on bone and near-black [site:lama-lama] [recalled medium]; Son Daven's renders across seasons carry the chroma over a duotone [site:son-daven]. The Line inverts the rule **locally, not globally**: `filter: grayscale()` sits on exactly two selectors, and the acetate is a hero-and-highlights device over otherwise full-colour work [verified, live source 2026-09-18]. What generalises is the ink, not the desaturation — its one red does ten jobs, from `::selection` to the loading placeholder to the sticky footer [site:the-line] [verified, live source 2026-09-18].
+Why: when photography is strong, UI colour competes with it. White Desert locks the interface to a ground and an ink and lets ice, dusk, penguins and jets carry every ounce of colour — Content was its highest axis at 7.74 [site:white-desert] [recalled medium]. Lama Lama runs people photography and a hero video on bone and near-black [site:lama-lama] [recalled medium]; Son Daven's renders across seasons carry the chroma over a duotone [site:son-daven]. Boc keeps its chrome to a slate ground and one orange bar and lets the clients' campaign stills carry every other hue [site:boc] [verified]; Wodniack holds its line work to two tokens and lets only the project videos bring outside colour [site:wodniack] [verified]. The Line inverts the rule **locally, not globally**: `filter: grayscale()` sits on exactly two selectors, and the acetate is a hero-and-highlights device over otherwise full-colour work [verified, live source 2026-09-18]. What generalises is the ink, not the desaturation — its one red does ten jobs, from `::selection` to the loading placeholder to the sticky footer [site:the-line] [verified, live source 2026-09-18].
 
 Rules: choose a treatment from the subject and the supplied images. Preserve useful color differences; selective desaturation or overprint is an optional unifying treatment. The Line's acetate is local, not a site-wide greyscale policy. With no imagery, let the accent and material carry the world (`[site:igloo]`, `[site:mont-fort]`).
 
@@ -90,7 +94,7 @@ Rules: choose a treatment from the subject and the supplied images. Preserve use
 Why: when ground and ink change together, navigation and rhythm become art direction, and the page needs no other transition (`[pattern:preloaders-and-transitions#theme-swap-as-a-transition]`).
 
 - Per route: `data-background` and `data-color` on each template; a singleton tweens `document.documentElement` over 1.5 s; exactly two values live at a time [site:floema-jewelry] [verified, clone].
-- Per section: four named themes swapped as the page scrolls, so scrolling reads like turning printed pages [site:leo-parpeix] [recalled medium]; a nav that samples the section under the header and flips light or dark [site:lando-norris] [verified]; one product accent per chapter on a constant stage [site:shopify-editions-w26] [recalled medium-low].
+- Per section: four named themes swapped as the page scrolls, so scrolling reads like turning printed pages [site:leo-parpeix] [recalled medium]; a nav that samples the section under the header and flips light or dark [site:lando-norris] [verified]; one product accent per chapter on a constant stage [site:shopify-editions-w26] [recalled medium-low]; two tokens that trade roles per section — red ground with oxblood ink, then the reverse for the work reel — plus a header toggle that re-points the primary and shadow tokens [site:wodniack] [verified].
 - Per variant: every slot repainted in ≈ 1 s on `cubic-bezier(.645,.045,.355,1)`, the WebGL clear colour RGBA-lerped in the same tween, restarting from the current value under rapid switching; one hue on screen at a time [site:slosh-seltzer] [verified at family level].
 - One palette for DOM and scene: the Three adapter resolves CSS custom properties into scene colours, so `var(--bg-1)` sets a clear colour [site:animejs] [verified].
 
@@ -120,6 +124,7 @@ Why: material is what makes a colour read as a surface, and one policy per world
 | Translucent planes | [site:floema-jewelry] | image planes at alpha .4, never opaque — atmosphere at the cost of contrast | [verified, clone] |
 | 2.5D depth-map parallax | **no corpus source** — `[site:shopify-editions-w26]` was the citation and its scenes are real Blender glTF geometry with KTX2 textures, no depth-map signature at all [verified, live source 2026-09-18] | image + grayscale depth, ray-marched parallax, bloom and dust | technique only |
 | Narrative materials | [site:why-zero] | frost, glass, paper and currency as the argument's own substances | [verified] |
+| Hairline line work | [site:wodniack] | every surface drawn at one line weight — noise fields, a perspective corridor, grids, hatching — plus stepped letter shadows in a shadow token; no photography of its own | [verified] |
 
 Rules: choose one policy and name it under `DESIGN.md ## Elevation & Depth`; sharp and shadowless is the default when nothing argues otherwise; grain goes last in the post stack and never over text (`[recipe:gl-postprocessing-presets]`); glass, glow and gradient are policies a world can choose, never defaults (`craft-floor.md`).
 
@@ -137,7 +142,7 @@ Rules: body ≥ 4.5:1 (audit C01), large text ≥ 3:1, focus ring ≥ 3:1 agains
 
 Why: the surfaces the browser paints are part of the page a juror sees first — a blue selection on a bone-and-brass site breaks the world.
 
-Seen: selection in flare red with off-white text and a custom scrollbar whose handle is the ink [site:the-line] [verified]; `theme-color` set to the ink [site:mont-fort] [verified]; a logo that follows `prefers-color-scheme` through `<picture>` [site:animejs] [verified].
+Seen: selection in flare red with off-white text and a custom scrollbar whose handle is the ink [site:the-line] [verified]; `theme-color` set to the ink [site:mont-fort] [verified]; a logo that follows `prefers-color-scheme` through `<picture>` [site:animejs] [verified]; the accent as focus outline and skip-link ground, and a `blur(20px) saturate(160%)` glass on chrome with an opaque fallback [site:boc] [verified]; `::selection` inverting the two tokens, `theme-color` in the oxblood and a thin red scroll thumb [site:wodniack] [verified].
 
 Rules (audit S01–S06): theme every surface from the tokens — `::selection` (accent ground, ink text), `caret-color`, a thin scrollbar with native scrolling kept underneath, a `:focus-visible` ring in the accent at ≥ 3:1, `color-scheme` on `:root`, `<meta name="theme-color">` updated when the theme swaps, a favicon in the ink, an Open Graph image drawn in the world.
 
@@ -147,9 +152,9 @@ Why: the strategy is the sentence that explains every token; `DESIGN.md ## Overv
 
 | Strategy | Rule | Cards |
 |---|---|---|
-| Restrained duotone | ground + ink; chroma from imagery or from none; the accent, if any, is a surface or a bookend | [site:white-desert] [site:lama-lama] [site:son-daven] [site:usavionix] [site:mont-fort] [site:igloo] |
+| Restrained duotone | ground + ink; chroma from imagery or from none; the accent, if any, is a surface or a bookend | [site:white-desert] [site:lama-lama] [site:son-daven] [site:usavionix] [site:mont-fort] [site:igloo] [site:boc] |
 | Committed accent | one environment-derived hue does all emphasis on a near-black or a light ground | [site:united-carriers] [site:why-zero] [site:trevor-noah] [site:oryzo] [site:seasats] [site:the-line] |
-| Theme-per-section | token sets swapped per section or route as narrative rhythm; two values live at a time | [site:leo-parpeix] [site:floema-jewelry] [site:shopify-editions-w26] [site:lando-norris] |
+| Theme-per-section | token sets swapped per section or route as narrative rhythm; two values live at a time | [site:leo-parpeix] [site:floema-jewelry] [site:shopify-editions-w26] [site:lando-norris]; two tokens trading roles [site:wodniack] |
 | Palette-as-navigation (the template's "drenched") | a hand-picked set of four to ten hues, one on screen at a time; the swap is the transition | [site:slosh-seltzer]; the ramp system of [site:animejs] as its dark-UI cousin |
 
 Rules: pick one; write it and the reason the use scene forces light or dark into `DESIGN.md ## Overview`; a restrained duotone can hold a bookend accent, a committed accent cannot hold a second; theme-per-section and palette-as-navigation share `[recipe:theme-swap-tokens]` and differ only in what triggers the swap.
@@ -170,4 +175,4 @@ Rules: pick one; write it and the reason the use scene forces light or dark into
 - Gradient text; glass panels by default; dark + neon + glow by reflex; pure #000 under pure #FFF text with no diegetic reason.
 - A second accent as a token; an accent used as body text; a theme that fails contrast because "it is only one section".
 - Theme swaps that tween elements one by one or leave the canvas clear colour behind.
-- Any card's set as a package: bone + #1A1C1C, cream + #100904 + #FF8539, the five Floema colours, the four Léo themes, the Igloo fog and rim, the six Slosh hues, the Anime ramps, silver + flare red, #2D628C and its P3 twin, pink + navy, sea-green + rust, #0016CB on black.
+- Any card's set as a package: bone + #1A1C1C, cream + #100904 + #FF8539, the five Floema colours, the four Léo themes, the Igloo fog and rim, the six Slosh hues, the Anime ramps, silver + flare red, #2D628C and its P3 twin, pink + navy, sea-green + rust, #0016CB on black, #ff4421 over #181d21, #f40c3f with #160000.

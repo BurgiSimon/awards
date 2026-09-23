@@ -68,12 +68,14 @@ Why: chrome written in the audience's own dialect turns navigation into evidence
 | A Roman-numeral year; a `00/24` frame counter at headline scale | [site:the-line] | [verified] |
 | Coordinate readouts, leader-line callouts, a HUD copyright line | [site:igloo] | [verified] |
 | Thermal, lidar and IR readouts as the loader | [site:usavionix] | [verified description] |
+| A live local clock and an ONLINE/OFFLINE studio status in the brand bar | [site:boc] | [verified] |
+| A typed status line cycling developer jokes; mono serials per work; binary ticker rules | [site:wodniack] | [verified] |
 
 Rules: pick the audience's real paperwork — a call sheet for film, a console for defence, a research station for a monument, a catalogue for jewellery — and render the chrome in it; every state control names its current state; the dialect is decoration only where it is not also information (a slash in `::before`, a status in the DOM); a monospace or HUD register on a product that is not technical is a costume (`craft-floor.md`).
 
 ## Metadata as boast
 
-Why: adjectives about craft are unverifiable; a team size, a year and an award count are not. Every project on Léo Parpeix's page carries a quartet — name · discipline · year · team of N at a studio — plus an award tally, and the About page is a tabular CV with an awards count [site:leo-parpeix] [recalled medium]. The Line credits directors, composers and years in tables [site:the-line] [verified]; Floema labels each piece with a number and a collection [site:floema-jewelry] [verified].
+Why: adjectives about craft are unverifiable; a team size, a year and an award count are not. Every project on Léo Parpeix's page carries a quartet — name · discipline · year · team of N at a studio — plus an award tally, and the About page is a tabular CV with an awards count [site:leo-parpeix] [recalled medium]. The Line credits directors, composers and years in tables [site:the-line] [verified]; Floema labels each piece with a number and a collection [site:floema-jewelry] [verified]. Wodniack sets its awards as a built stack of ruled, hatched boxes down a drawn corridor, so the tally reads as structure rather than a logo row [site:wodniack] [verified].
 
 Rules: credibility travels as structured data in a `<dl>` or a table; count what can be counted (people, years, awards, offices) and name what can be named (roles, studios); leave out the adjective the number replaces.
 

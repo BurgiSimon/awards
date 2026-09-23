@@ -49,6 +49,7 @@ Why: two cards give the whole argument in numbers.
 - Cross-browser transparent video: stack RGB and alpha as two halves of one video and split them in a WebGL2 shader; volumetric light from video via KTX2 array textures rendered as ray-marched boxes; a custom point-cloud format with quantised positions and chroma subsampling — all from the Shopify sibling release [site:shopify-editions-w26] [recalled high for Spring '26; indicative only for Winter '26].
 - Hero video: the poster frame is the LCP, `muted playsinline`, streamed after first paint, paused off-screen [site:lama-lama] [take, inferred] [A10]. The Line places a local red multiply acetate over selected full-colour imagery [site:the-line] [verified]; if a project chooses desaturation, pre-grade sources when practical to avoid a live video filter.
 - Defer third-party players: Vimeo behind a lazy global, off the critical path [site:lando-norris] [verified].
+- Gate video on capability and visibility: a 480p MP4 per still, mounted by `IntersectionObserver` with `rootMargin: "0px 150px"` only for `(hover: hover)` without reduced motion [site:boc] [verified]; 34 muted looping 1082 × 636 MP4s held in `data-src` until the reel approaches [site:wodniack] [verified].
 
 ## Sequences
 
