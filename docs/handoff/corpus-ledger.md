@@ -106,9 +106,9 @@ wodniack: lenis@1.1.13 — hoisted.js (window.lenisVersion)
 | to-top | https://www.to-top.ch/en | added | D 6.8 / U 5.8 / C 6.6 / Co 6.3 → w 6.41 [inferred]; official: none | technique: DOM multi-plane cut-out landscape parallax (six photographic planes scrubbed at yPercent 0–80, CTA disc at 125, headline at −70) — checked against [recipe:gl-depth-map-parallax] (WebGL depth map, not DOM planes) and [pattern:motion-vocabulary#scrub-and-refresh-rules]; stack: Spline (@splinetool/viewer) 3D scenes — checked against references/stacks/three-0.186.md (no Spline stack note) | |  | 2026-09-23 |
 | siteassist | https://www.siteassist.com/ | added | D 6.4 / U 6.5 / C 5.8 / Co 6.8 → w 6.35 [inferred]; official: Awwwards Honorable Mention 17 Aug 2026, no jury axis scores published [verified, entry page] | model: B2B product × specification × WebGL none — checked against usavionix (B2B product, specification, canvas-first) and mindmarket (B2B product, WebGL none, faceted world); technique: pointer position mapped live onto a geographic coordinate readout (viewport → lat/lon box) — checked against [pattern:copy-and-content#telemetry-register] (static coordinate readouts, igloo) and [recipe:scramble-decode-text] | |  | 2026-09-23 |
 | 911rennsport | https://www.911rennsport.co.uk/ | added | D 6.6 / U 5.8 / C 6.0 / Co 6.8 → w 6.26 [inferred]; official: none | technique: a full-width hero logotype scrubbed down into the sticky nav logo slot (GSAP `from` width 100% / y −20%, scrub .4) — checked against hero-archetypes#two-state-typographic and recipe split-text-masked-reveal; technique: a pair of display lines moved in opposite directions by section scroll progress (−100%→100% / 100%→−100%) rather than a looping marquee — checked against components-catalog#ticker-and-marquee and recipe marquee-raf-mask | |  | 2026-09-23 |
-| primesec | https://www.primesec.ai/ | queued | | | | | |
-| nodeck | https://www.nodeck.online/ | queued | | | | | |
-| haoqi | https://haoqi.design/ | queued | | | | | |
+| primesec | https://www.primesec.ai/ | added | D 7.4 / U 6.5 / C 7.2 / Co 6.8 → w 7.03 [inferred]; official: none | technique: a noise-feathered erosion dissolve of a glTF mesh, driven by scroll progress — checked against [pattern:webgl-architecture#unifier-versus-narrative-shaders] and [recipe:gl-rtt-composite-transition]; technique: runtime DPR steps set by measured frame rate — checked against [recipe:quality-tiers]; technique: an idle render gate that stops drawing 1.5 s after the last scroll or pointer input — checked against [pattern:webgl-architecture#scene-windows-and-disposal]; technique: raycast-seeded wireframe ripples on a mesh surface — checked against [recipe:gl-fluid-wake-post] | |  | 2026-09-23 |
+| nodeck | https://www.nodeck.online/ | added | D 7.3 / U 6.9 / C 8.0 / Co 7.6 → w 7.35 [inferred]; official: none | model: campaign + section switcher (a print-artefact slide deck) — checked against slosh-seltzer (the only section-switcher card, DTC) and oryzo (the satirical campaign, native scroll); technique: DOM slide rasterised with html2canvas onto a Three.js plane, crumpled into a noisy ball and dropped into a bin — checked against gl-rtt-composite-transition and patterns/preloaders-and-transitions#transition-archetypes; technique: wheel-delta accumulator that fills an SVG progress ring, commits a slide at 500 px and rolls back after 1 s idle — checked against patterns/cursor-and-pointer#hold-gates and compare-hold-drag; technique: an order button that dodges the mouse cursor — checked against magnetic-button; stack: html2canvas (DOM-to-canvas rendering) — checked against stacks/three-0.186.md | |  | 2026-09-23 |
+| haoqi | https://haoqi.design/ | added | D 7.3 / U 6.6 / C 7.2 / Co 6.8 → w 7.02 [inferred]; official: SOTD 14 Aug 2026, 7.36 (D 7.44 / U 7.10 / C 7.69 / Co 7.17) + Dev 7.43 (Sem 7.00 / Anim 8.80 / A11y 6.60 / WPO 7.80 / Resp 7.20 / Markup 7.00) [verified, entry page] | technique: passcode-gated inline redaction, the employer name shown as six ■ glyphs in a focusable `role="button"` labelled "Protected — enter passcode to reveal" — checked against copy-and-content.md#metadata-as-boast and components-catalog.md#easter-eggs; technique: global single-key theme/sound hotkeys (L/D/A, S), ignored in inputs and with modifier keys, saved to localStorage, with the current state shown as a glyph in brackets in the nav label (`THEME[A]`, `SOUND[/]`) — checked against components-catalog.md#colour-bound-product-row-and-theme-switcher and [recipe:sound-toggle-opt-in] | |  | 2026-09-23 |
 | noth | https://www.noth.in/ | queued | | | | | |
 | areebali | https://areebali.com/ | queued | | | | | |
 | serotoninn | https://serotoninn.com/ | queued | | | | | |
@@ -327,5 +327,59 @@ to-top: gsap@3.15.0 + ScrollTrigger, SplitText, TextPlugin, ScrollToPlugin, Ease
 to-top: lenis@0.2.28 (studio-freight bundled) — .awards/research/to-top/index.html
 to-top: @splinetool/viewer@1.10.40 and @1.10.32 (both imported; causes the duplicate-define page error) — .awards/research/to-top/index.html, manifest.json
 to-top: jquery@3.5.1 — .awards/research/to-top/index.html
+nodeck: paper-crumple exit transition — main-BqI5seD_.js (`Ks`, `_snapshot`, `lt`, `Ot`) — html2canvas at DPR ≤ 2 → CanvasTexture on a 48×36-segment plane; ball radius min(vw,vh)×.2 clamped 64–320 px; three angular sine octaves (3/7/13) + hashed jitter; gather / fall / spin / drift into a bin; skipped under reduced motion; falls through on error
+nodeck: wheel commit ring — main-BqI5seD_.js (`_onWheel`, `hi=500`, `ci=1e3`) — sums |deltaY| to 500; ring tween .2 s power2.out, commit .12 s; 1000 ms idle rollback; resets on direction change; `role="progressbar"`; disconnected under reduced motion
+nodeck: slide transition interstitial — main-BqI5seD_.js (`transition.run`) — band height 300vh, y −100vh, 1 s power3.inOut; SplitText lines+chars masked, yPercent 110→0, .5 s back.out(1.7), stagger .02, in at +.45 s; out back.in(1.7) after .2 s
+nodeck: runaway CTA — main-BqI5seD_.js (`_resolveFlee`, `At=220`, `Mt=160`, `Os=280`, `Ms=120`) — flees within 220 px of its edge; step 160→280 px by proximity; farthest of 9 anchors when still within 40 px; quickTo beyond 120 px, direct set inside; mouse only
+nodeck: reduced-motion helpers — sound-CsfXcoUP.js (`hA`, `w`) — tween duration / delay / stagger zeroed; durations max(180 ms, 40 %); instant slide changes
+nodeck: opt-in sound — sound-CsfXcoUP.js — Howler bank, muted by default, remembered in localStorage, ducking
+nodeck: gsap@3.14.2 (+ ScrollTrigger, SplitText, Flip, Observer, Draggable, InertiaPlugin) — gsap-DUAj52go.js
+nodeck: three@r185 — three-PDSP0dbZ.js
+nodeck: html2canvas@unknown — main-BqI5seD_.js, html2canvas-DXEQVQnt.js
+nodeck: swiper@unknown — swiper-B37jsxd9.js, swiper-hP8iLu9g.js
+nodeck: howler@unknown — howler-EcGChfno.js, sound-CsfXcoUP.js
+nodeck: vite (vanilla) — main-BqI5seD_.js (`__vitePreload`), index.html
+nodeck: vercel (hosting) — getent hosts
+primesec: mesh erosion dissolve — main.js — value-noise edge ×10, amplitude .09 (offset −.6); a hashed stochastic feather over .08 units above the front discards fragments; the front sweeps from bbox min − 1.5·band to max + 1.5·band with progress
+primesec: frame-rate DPR governor — main.js — samples every .5 s; below 45 fps steps −.25 (floor 1), above 57 fps steps +.25 up to min(DPR,1.5) on phones or clamp(DPR,1.5,2) on desktop; antialias only at ≥ 992 px
+primesec: idle render gate — main.js — skips rendering 1500 ms after the last scroll or pointer input unless a transition is busy; stops while the tab is hidden; dt clamped to .05 s
+primesec: raycast surface ripples — main.js — pointer lerps .4 toward the hit point; a new ripple once the pointer moves more than radius × spacing or the cooldown ends; trail decays, cut-off .004
+primesec: scroll-scrubbed glTF clip + pointer head-turn — main.js — mixer time = clipStart + p·length; pointer smoothing .03 per frame; idle bob sin(t·.8)·.012; camera keyframes reached with lerp(1 − .001^dt)
+primesec: stage progress state machine — main.js — 1480vh sticky stage; smootherstep 6t⁵−15t⁴+10t³ windows; act 1 is the first 37.5 %, act 2 starts at 50.5 % on desktop
+primesec: split-headline exit — main.js — halves translate ±52vw (115vw below 1024 px) over the first 18 % of act 1; entrance ±90 px, 1.1 s power3.out
+primesec: two-layer clip-path line fill — main.js — base and fill copies; fill uses inset(0 (1−r)·100% 0 leave·100%); lines enter from translateY 120 %
+primesec: preloader counter hold — main.js, index.html — capped at 92 until glTF ready (.5 s power1.out steps); 100 in .4 s power2.out; slides up in .85 s cubic-bezier(.76,0,.24,1); removed at 950 ms; 12 s fallback; plays on every visit
+primesec: scroll-driven tabs with click jump — main.js — 5 tabs; a label click cross-fades in 700 ms, then scrollTo immediate
+primesec: rAF logo marquee — index.html inline — 26 s per set, 3 copies, dt clamp .1 s, not started under reduced motion
+primesec: sticky numbered why-list — index.html inline — 180svh wrapper, 100svh sticky panel, index = floor(progress × n), .4 s power2.out height and colour swaps
+primesec: SplitText reveals — index.html inline — yPercent 115, 1 s power3.out, stagger .01, delay .5; scrubbed word fade from .3
+primesec: three@0.169.0 (r169) — main.js
+primesec: gsap@3.15.0 + ScrollTrigger + SplitText — index.html (Webflow CDN); gsap@3.15.0 bundled again — main.js
+primesec: lenis@1.0.23 — index.html
+primesec: lenis@1.3.23 — main.js
+primesec: swiper@11 — index.html
+primesec: webflow (IX3) — index.html
+primesec: jquery@3.5.1 — index.html
+primesec: GLTFLoader + DRACOLoader (KTX2Loader, MeshoptDecoder bundled) — main.js
+primesec: Vite-hashed module assets/index-DM4qWrvI.js — index.html
+haoqi: Lenis on inner wrapper — 3c6cc5b2fcccdee5.js — ReactLenis {lerp .1, smoothWheel, syncTouch, anchors, autoRaf:false}, lenis.raf from shared ticker; jumps lenisScrollTo(…,{lerp .1}); SVG thumb drag {immediate:true}
+haoqi: Preloader pill — index.html — 140px track, fill width 520ms cubic-bezier(.22,1,.36,1), fade 250ms cubic-bezier(.25,1,.5,1); FontFace display:"block" before reveal
+haoqi: Scroll-clocked hyperspace shader chapter — 4d3f3b68dbbde33a.js — Shadertoy-style iTime clamped to uScrollDuration, 100 angular cells, uStarRays/uStreakScale/starThinness, 4 stages over 8 segment heights, per-char hsstFadeIn/Out stagger
+haoqi: Instanced sticker rain — 4d3f3b68dbbde33a.js — 12 atlas sprites, fallSpeed 1.8, windStrength 1.8, windFrequency .3, rotationSpeed .8, scale 1.4, click re-spawn, alpha discard <.01
+haoqi: GL-only work thumbnails with hover swap — index.html + 4d3f3b68dbbde33a.js — empty aspect-ratio 1/1 DOM boxes, imageUrl/hoverImageUrl textures, R3F dpr [1,2]
+haoqi: SVG signature stroke draw — index.html — stroke-dashoffset, per-path --path-delay/--path-dur, cubic-bezier(.65,0,.35,1), reduced-motion shows final stroke
+haoqi: Passcode-gated redaction — index.html — role=button tabindex=0, six ■ glyphs, aria-label "Protected — enter passcode to reveal"
+haoqi: Theme/sound hotkeys — 2689132c4e070b68.js — L/D/A → light/dark/system, S → sound, input and modifier guards, localStorage keys `theme` / `sound`
+haoqi: BGM — 2689132c4e070b68.js — /bgm.mp3 loop, volume .35, on by default, play() at once and again on first pointerdown
+haoqi: House ease — 635eb04122aa774f.css + 2689132c4e070b68.js — --ease-66 cubic-bezier(.66,0,.01,1)
+haoqi: next@16.1.6 (App Router, Turbopack) — 56b0d8f9f2c1e441.js
+haoqi: react@19.3.0-canary-f93b9fd4-20251217 — 1098c2541054fc77.js
+haoqi: @react-three/fiber@9.6.1 — 1098c2541054fc77.js
+haoqi: three@r184 — 1098c2541054fc77.js (`__THREE__="184"`)
+haoqi: postprocessing@unknown (EffectComposer, Bloom, SMAA materials) — 1098c2541054fc77.js
+haoqi: GLTFLoader + DRACOLoader + KTX2 — 4d3f3b68dbbde33a.js
+haoqi: lenis@1.3.23 — 1098c2541054fc77.js
+haoqi: motion (React; layoutId / LayoutGroup / whileHover)@unknown — d59f7a97fb1c563f.js
+haoqi: Vercel hosting (`?dpl=dpl_…`) — index.html
 
 ### Notes

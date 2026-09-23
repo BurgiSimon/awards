@@ -35,12 +35,12 @@
 - https://likova.space/
 - https://www.siteassist.com/
 - https://www.to-top.ch/en
+- https://www.nodeck.online/
+- https://www.primesec.ai/
+- https://haoqi.design/
 
 # not reviewed
 - https://www.oxigen.sa/
-- https://www.primesec.ai/
-- https://www.nodeck.online/
-- https://haoqi.design/
 - https://www.noth.in/
 - https://areebali.com/
 - https://serotoninn.com/
