@@ -1,0 +1,29 @@
+{
+  "id": "video-clip-wipe-panels",
+  "title": "Panels changed by a clip-path wipe between two video buffers",
+  "tags": [
+    "sections",
+    "video",
+    "clip-path",
+    "transition",
+    "gsap",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [
+    "gsap@3.15.0"
+  ],
+  "variants": [
+    "directional inset wipe with a 1 px glowing seam, 1 s expo.inOut, reversed going back (this, default)",
+    "opposed-origin scaleY pair: outgoing scaleY → 0 from the top, incoming 0 → 1 from the bottom, 1.5 s, over a greyscale twin",
+    "WebGL composite of the two frames when the edge must be shaped by a texture (gl-rtt-composite-transition)"
+  ],
+  "seenIn": [
+    "christoph-nagel",
+    "serotoninn"
+  ],
+  "verified": {
+    "date": "2026-09-23",
+    "chromium": "153.0.8010.12"
+  }
+}
