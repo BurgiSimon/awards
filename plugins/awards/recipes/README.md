@@ -55,6 +55,7 @@ The six static visual examples declare their reviewed desktop/mobile image paths
 | Hero object | `gl-hero-object-inertia` | P1 | One object with pointer inertia and scroll rotation | oryzo, lando-norris |
 | Post presets | `gl-postprocessing-presets` | P1 | Fixed bloom presets, grain, SMAA, half-float on mobile | lando-norris, igloo |
 | Frame scrub | `image-sequence-scrub` | P1 | Pre-rendered frames scrubbed on scroll | seasats |
+| Chosen-item exit | `transition-promote-chosen` | P1 | Clicked row rises to the header slot, siblings fade by `.09 s × distance`, route pushed after the rise, phone timing set | boc |
 | Sound | `sound-toggle-opt-in` | P2 | Opt-in ambient + SFX, persisted | igloo, mont-fort |
 | GL text | `gl-msdf-text` | P2 | MSDF text with a DOM mirror | igloo, lando-norris |
 

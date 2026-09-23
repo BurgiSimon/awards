@@ -1,0 +1,28 @@
+{
+  "id": "transition-promote-chosen",
+  "title": "Route exit that promotes the chosen item",
+  "tags": [
+    "transitions",
+    "router",
+    "taxi",
+    "gsap",
+    "stagger"
+  ],
+  "tier": "P1",
+  "deps": [
+    "gsap@3.15.0",
+    "@unseenco/taxi@1.9.1"
+  ],
+  "variants": [
+    "taxi (SPA-style swap)",
+    "desktop and phone timing sets",
+    "View Transitions API with a named shared element"
+  ],
+  "seenIn": [
+    "boc"
+  ],
+  "verified": {
+    "date": "2026-09-23",
+    "chromium": "153.0.8010.12"
+  }
+}
