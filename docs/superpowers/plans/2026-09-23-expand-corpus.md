@@ -497,7 +497,7 @@ Start a fresh Claude Code session at the repo root (a skill written mid-session 
 /expand-corpus --only boc,wodniack,likova,911rennsport
 ```
 
-Expected: Setup runs (doctor `PASS` for Playwright and Chromium, ledger with `## Wave 2`), four ledger rows, one triage batch of four subagents, card checks on each `added` card, `lint-refs` clean, triage commit, synthesis subagent, synthesis commit, then the narrowed-run report. `triage` and `synthesis` stay `open`.
+Expected: Setup runs (doctor `PASS` for Playwright and Chromium, ledger with `## Wave 2`), four ledger rows, two triage batches (three subagents, then one), card checks on each `added` card, `lint-refs` clean, triage commit per batch, synthesis subagent, synthesis commit, then the narrowed-run report. `triage` and `synthesis` stay `open`.
 
 - [ ] **Step 3: Verify independently**
 
@@ -511,7 +511,7 @@ Expected: setup, triage and synthesis commits; four rows with statuses from `add
 
 - [ ] **Step 4: Maintainer gate 1**
 
-The maintainer reads the report, the cards and `git diff HEAD~1 -- plugins/awards/references`. On requested changes to the novelty wording: edit `.claude/skills/expand-corpus/SKILL.md` (step 4 of "Subagent prompt: site"), commit `fix(corpus): tune novelty gate`, reset the four rows to `queued`, and re-run Step 2. Continue only on approval.
+The maintainer reads the report, the cards and `git diff HEAD~2 -- plugins/awards/references`. On requested changes to the novelty wording: edit `.claude/skills/expand-corpus/SKILL.md` (step 4 of "Subagent prompt: site"), commit `fix(corpus): tune novelty gate`. To re-run the same sites, first `git revert --no-edit` the narrowed run's triage and synthesis commits (newest first), which restores the index, the queue bullets, the patterns and the ledger rows; then re-run Step 2. Continue only on approval.
 
 ---
 
@@ -529,7 +529,7 @@ The maintainer reads the report, the cards and `git diff HEAD~1 -- plugins/award
 /expand-corpus
 ```
 
-Expected: resumes at `triage`, processes the remaining 29 sites in batches of four with a commit per batch, then synthesis over every unsynthesised added card.
+Expected: resumes at `triage`, processes the remaining 27 sites in batches of three with a commit per batch, then synthesis over every unsynthesised added card.
 
 - [ ] **Step 2: Maintainer gate 2 (recipes)**
 

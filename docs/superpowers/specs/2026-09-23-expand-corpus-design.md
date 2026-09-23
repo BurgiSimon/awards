@@ -4,7 +4,7 @@ Status: approved design; implementation has not started.
 
 ## Goal
 
-Make growing the reference corpus a repeatable, resumable procedure instead of an ad-hoc agent session. The first wave (19 sites) was analysed by batch research agents, card writers, two synthesis agents and a stacks agent, following `docs/handoff/plan.md` §13 phase 1; none of that is written down as a process. `awardsworthysites.md` now lists 33 more sites and one stack under review, and it will keep growing.
+Make growing the reference corpus a repeatable, resumable procedure instead of an ad-hoc agent session. The first wave (19 sites) was analysed by batch research agents, card writers, two synthesis agents and a stacks agent, following `docs/handoff/plan.md` §13 phase 1; none of that is written down as a process. `awardsworthysites.md` now lists 31 more sites and one stack under review, and it will keep growing.
 
 The procedure takes the queue in `awardsworthysites.md`, rates and analyses each site, admits the ones that add something new, and carries what they add into patterns, recipes, stacks and the counts that name the corpus.
 
@@ -36,7 +36,7 @@ Declined:
 | File | Role | Written by |
 |---|---|---|
 | `awardsworthysites.md` | Queue. `# not reviewed` is the site queue, `# new stack` the stack queue. On completion a URL moves to `# Reviewed and in Skill` (added) or a new `# Reviewed, not added` section (skipped), or is marked `(host does not resolve)` in place (failed). | main session |
-| `docs/handoff/corpus-ledger.md` | One row per queued URL: slug, URL, status, rating, novelty hits, reason, date, commit. Resume starts at the first row whose status is not terminal. Same pattern as `docs/handoff/verification-log.md`. | main session |
+| `docs/handoff/corpus-ledger.md` | One row per queued URL: slug, URL, status, rating, novelty hits, synthesised, reason, date. Resume starts at the first row whose status is not terminal. Same pattern as `docs/handoff/verification-log.md`. | main session |
 | `plugins/awards/references/sites/<slug>.md` | The card, for `added` sites only. | the site's subagent |
 | `.awards/research/<slug>/` | Captures, fetched HTML and text assets (gitignored). | the site's subagent |
 | `plugins/awards/references/sites/_index.md` | One row per added site; the count-free title. | main session |
@@ -60,9 +60,9 @@ No arguments: read the ledger and resume at the first unfinished phase (phase 0 
 
 Create the ledger with its header, and add the `Corpus rating` row to `references/sites/_TEMPLATE.md` after `Awards`: weighted score and four axes, the date, labelled `[inferred]`. Commit.
 
-### 1. Triage and card (subagents, batches of four)
+### 1. Triage and card (subagents, batches of three)
 
-The main session creates ledger rows for every queued URL that has none, derives the slug with research's rule (host name without `www` and the public suffix, so `co.uk` counts as one suffix, kebab-case; a collision with an existing slug gets the next host label appended), then spawns up to four `general-purpose` subagents at a time, one site each, and starts no browser of its own while a batch runs.
+The main session creates ledger rows for every queued URL that has none, derives the slug with research's rule (host name without `www` and the public suffix, so `co.uk` counts as one suffix, kebab-case; a collision with an existing slug gets the next host label appended), then spawns up to three `general-purpose` subagents at a time, one site each, and starts no browser of its own while a batch runs.
 
 **Subagent input:** URL, slug, wave date, the absolute `plugins/awards` path (the value of `${CLAUDE_PLUGIN_ROOT}` for every path in the research skill), the path of `plugins/awards/skills/research/SKILL.md`, and the slugs already added this wave.
 
@@ -79,6 +79,8 @@ The main session creates ledger rows for every queued URL that has none, derives
    | `technique` | an effect or interaction is covered by no recipe and no pattern section |
    | `stack` | a library or framework has no stack reference |
    | `world` | the type contract or palette strategy is absent from the corpus |
+
+   `class` and `world` are judged against the fixed vocabularies in `references/sites/_TEMPLATE.md` (class, narrative model, scroll model, WebGL dosage) and the palette-strategy and type-contract families already used in the index, not raw free-text differences. `stack` counts only frameworks and rendering, motion, scroll, page-transition or 3D libraries, never a CMS, analytics, hosting or fonts.
 
 4. **Decide.** At least one hit: write the full card per research §5 to §7, with the `Corpus rating` header row, and verify it with research's own Verify list. No hit: write nothing.
 
@@ -137,7 +139,7 @@ The skill stops and asks at three points:
 
 ## Pilot
 
-`/expand-corpus --only boc,wodniack,likova,911rennsport` (a studio, a developer portfolio, a WebGL-heavy site, a brand with commerce), phases 1 and 2 only. The maintainer reviews the four ratings, the novelty calls, any cards and the pattern diff, and approves or tunes the gate wording before the other 29 sites run. The pilot is the skill's test; the maintainer skill gets no eval suite of its own.
+`/expand-corpus --only boc,wodniack,likova,911rennsport` (a studio, a developer portfolio, a WebGL-heavy site, a brand with commerce), phases 1 and 2 only. The maintainer reviews the four ratings, the novelty calls, any cards and the pattern diff, and approves or tunes the gate wording before the other 27 sites run. The pilot is the skill's test; the maintainer skill gets no eval suite of its own.
 
 ## Verification per phase
 
