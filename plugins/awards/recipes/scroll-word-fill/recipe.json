@@ -1,0 +1,31 @@
+{
+  "id": "scroll-word-fill",
+  "title": "Words fill in one by one on a scrubbed scroll",
+  "tags": [
+    "text",
+    "gsap",
+    "splittext",
+    "scrolltrigger",
+    "scrub",
+    "sticky",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [
+    "gsap@3.15.0"
+  ],
+  "variants": [
+    "opacity floor → 1 per word, staggered on one scrubbed timeline (this)",
+    "colour muted → ink per word through a progress × (N + k) − i window",
+    "two stacked copies per line, the fill copy's clip-path inset opening left to right"
+  ],
+  "seenIn": [
+    "goats",
+    "mensch",
+    "primesec"
+  ],
+  "verified": {
+    "date": "2026-09-23",
+    "chromium": "153.0.8010.12"
+  }
+}
