@@ -20,7 +20,7 @@ Design: `docs/superpowers/specs/2026-09-23-expand-corpus-design.md`. This skill 
 - **Novelty decides inclusion. The rating is recorded, never a gate.**
 - **Single writer.** Subagents write only the files their prompt names. Only this session edits `PLUGIN/references/sites/_index.md`, `docs/handoff/corpus-ledger.md` and `awardsworthysites.md`, so parallel subagents never race on a shared file.
 - **Browsers.** Every command that drives a browser runs with `export AWARDS_PLAYWRIGHT="$HOME/.npm/_npx/e41f203b7505f1fb"` in the same shell call. Never run `verify-recipes.mjs` beside a capture, nor `evals/behavior.mjs` beside either. While a triage batch runs, start no browser here.
-- **Git.** Work on branch `feat/corpus-wave-2`; create it from `main` if it is absent. Commit after every triage batch and every phase. Commit messages name no model and end with the session's attribution footer.
+- **Git.** Work on branch `feat/corpus-wave-<n>`; create it from `main` if it is absent. Commit after every triage batch and every phase. Commit messages name no model and end with the session's attribution footer.
 
 ## Resume
 
@@ -65,21 +65,24 @@ Read `docs/handoff/corpus-ledger.md`. If it does not exist, run Setup. Otherwise
    ### Notes
    ```
 3. Commit: `docs(corpus): open wave <n> ledger`.
+4. Then continue with triage.
 
 ## Phase: triage
 
-1. **Queue.** Read `awardsworthysites.md`. Sites are the bullets under `# not reviewed`; the stack queue is the bullets under `# new stack` (handled in the stacks phase). Every site URL not yet in the current wave's Sites table gets a row with status `queued`.
-2. **Slug.** Host name without `www.` and without the public suffix (`co.uk` counts as one suffix), remaining dots to hyphens, lower-case kebab-case: `why.zero.university` → `why-zero`, `911rennsport.co.uk` → `911rennsport`, `boc.studio` → `boc`. If the slug is already a file in `PLUGIN/references/sites/` or a row in any wave, append the next host label to the left.
-3. **Selection.** Rows with status `queued` or `blocked`, narrowed by `--only` (slugs) or `--limit N` (first N in table order). `blocked` rows get one retry per run.
-4. **Orphans.** A selected slug whose card file already exists while its row is `queued` or `blocked` is left over from a killed run; the subagent overwrites it.
-5. **Batches of four.** Spawn up to four `general-purpose` Agent calls in one message, one site each, with the prompt in "Subagent prompt: site". Wait for all of them before the next batch.
-6. **Per output block:**
+1. **Doctor.** Re-run the Setup doctor command; a `FAIL` stops the run.
+2. **Queue.** Read `awardsworthysites.md`. Sites are the bullets under `# not reviewed`; the stack queue is the bullets under `# new stack` (handled in the stacks phase). Every site URL not yet in the current wave's Sites table gets a row with status `queued`. A URL already in an earlier wave keeps its slug: carry it into the new wave's table only if its last status was `blocked`; a `failed` URL is not re-queued until the maintainer corrects it in `awardsworthysites.md` (a corrected URL is a new URL).
+3. **Slug.** Host name without `www.` and without the public suffix (`co.uk` counts as one suffix), remaining dots to hyphens, lower-case kebab-case: `why.zero.university` → `why-zero`, `911rennsport.co.uk` → `911rennsport`, `boc.studio` → `boc`. This collision rule applies only to new URLs: if the slug is already a file in `PLUGIN/references/sites/` or a row in any wave, append the next host label to the left; if none is left to append, append `-2`.
+4. **Selection.** Rows with status `queued` or `blocked`, narrowed by `--only` (slugs) or `--limit N` (`queued` rows first in table order, then `blocked`). `blocked` rows get one retry per run.
+5. **Orphans.** A selected slug whose card file already exists while its row is `queued` or `blocked` is left over from a killed run; the subagent overwrites it. If that re-run returns `skipped`, `blocked` or `failed`, the main session deletes the orphan card.
+6. **Batches of three.** Spawn up to three `general-purpose` Agent calls in one message, one site each, with the prompt in "Subagent prompt: site". Wait for all of them before the next batch.
+7. **Per output block:**
    - `added`: run "Card checks". A failing check goes back to the same subagent once through SendMessage with the failing lines; if it still fails, delete the card and record `blocked`, reason `card failed checks: <which>`.
-   - `added`: append `index_row` as the last row of the table in `PLUGIN/references/sites/_index.md` (the table ends before `## Picking neighbours`). It must have the table's twelve cells.
+   - `added`: append `index_row` as the last row of the table in `PLUGIN/references/sites/_index.md` (the table ends before `## Picking neighbours`). It must have the table's twelve cells. If `_index.md` already has a row for the slug, replace it instead of appending.
    - Every status: update the Sites row (status, rating, novelty hits separated by `; `, reason, date; `Synthesised` stays empty). Append each `techniques` and `stack_signatures` line to `### Techniques and stacks` prefixed with `<slug>: `.
+   - `blocked` with a reason starting `environment:`: reset the row to `queued` instead of `blocked`, and stop the run after this batch; report the reason to the maintainer.
    - `awardsworthysites.md`: move the bullet from `# not reviewed` to `# Reviewed and in Skill` (added) or to `# Reviewed, not added` (skipped; create that section after `# Reviewed and in Skill` if absent, bullet suffixed ` — <reason>`). A `failed` bullet stays and gets ` (host does not resolve)`. A `blocked` bullet stays unchanged.
-7. **After each batch:** `node PLUGIN/scripts/lint-refs.mjs` must end with `0 dangling reference(s)`. Commit `docs(corpus): wave <n> triage — <slugs>`.
-8. **Done** when no selected row is `queued`. For an un-narrowed run, when no row at all is `queued`: mark `triage` `done` (blocked rows keep their reason).
+8. **After each batch:** `node PLUGIN/scripts/lint-refs.mjs` must end with `0 dangling reference(s)`. Commit `docs(corpus): wave <n> triage — <slugs>`.
+9. **Done** when no selected row is `queued`. For an un-narrowed run, when no row at all is `queued`: mark `triage` `done` (blocked rows keep their reason). Also check: index rows equal `added` rows (count backticked slugs in `_index.md` table vs ledger `added` rows, plus the 20 pre-existing incl. `floema-jewelry`) and ledger Sites rows equal queue size.
 
 ### Subagent prompt: site
 
@@ -100,23 +103,25 @@ export AWARDS_PLAYWRIGHT="$HOME/.npm/_npx/e41f203b7505f1fb";
 
 1. Read PLUGIN/skills/research/SKILL.md and PLUGIN/references/README.md in full. You follow research §2, §4, §5 and §6 with destination `--to plugin`. Return research §7's index row instead of writing it, and skip its Hand-off.
 2. Capture per research §2 into REPO/.awards/research/{slug}/ and inspect the source per §4.
-   - The host does not resolve (ENOTFOUND, NXDOMAIN): stop, status failed.
-   - It resolves but capture.mjs exits 3 or 4, answers 403, or times out after research's one wheel/wait retry: stop, status blocked. Never write a card from memory.
-3. Rate. Read PLUGIN/references/jury/rubric.md. Score Design, Usability, Creativity and Content on its anchors, from the captures and research §6's walk. Weighted = D×0.4 + U×0.3 + C×0.2 + Co×0.1, two decimals, label [inferred]. The award entry page answers curl with 403; if you can read it through headless Chromium, record its published scores separately as [verified, entry page]. Otherwise official is none. The rating never decides inclusion.
+   - First check the host resolves: `getent hosts <host>` (non-zero exit = does not resolve) → status failed, stop.
+   - capture.mjs exit 3 → status blocked, reason `environment: browser unavailable`, and tell the main session; do not retry.
+   - Resolves but exit 4, 403, or a timeout after research's one wheel/wait retry → status blocked. Never write a card from memory.
+3. Rate. Read PLUGIN/references/jury/rubric.md. Score Design, Usability, Creativity and Content on its anchors, from the captures and research §6's walk. Weighted = D×0.4 + U×0.3 + C×0.2 + Co×0.1, two decimals, label [inferred]. Finding the award entry is optional: if its URL is known or turns up from one search, capture it with `--out REPO/.awards/research/{slug}/entry --only desktop` so the site's own captures are not overwritten, and record its published scores as [verified, entry page]. Otherwise official is none. The rating never decides inclusion.
 4. Novelty. Read PLUGIN/references/sites/_index.md, the title and tags of every PLUGIN/recipes/*/recipe.json, the file names in PLUGIN/references/stacks/, and the headings of PLUGIN/references/patterns/*.md. Record each hit as `<type>: <what> — checked against <nearest card, recipe, stack or pattern>`:
    class — the site's class has at most one card in the index
    model — the class together with the site's narrative model, scroll model or WebGL dosage is absent from the index
    technique — an effect or interaction the site has is covered by no recipe and no pattern section
    stack — a library or framework it uses has no stack note
    world — its type contract or palette strategy appears in no index row
-5. At least one hit: write PLUGIN/references/sites/{slug}.md from _TEMPLATE.md per research §5 and §6, including the Corpus rating row, overwriting any file already there. Run research's Verify list on it and fix what fails. No hit: write no card; status skipped.
+   Judge `class` and `world` against the fixed vocabularies in `_TEMPLATE.md` (class, narrative model, scroll model, WebGL dosage) and the palette-strategy and type-contract families already used in the index, not raw free-text differences. `stack` counts only frameworks and rendering, motion, scroll, page-transition or 3D libraries, never a CMS, analytics, hosting or fonts.
+5. At least one hit: write PLUGIN/references/sites/{slug}.md from _TEMPLATE.md per research §5 and §6, including the Corpus rating row, overwriting any file already there. Every hex in the card, including the §8 "Don't take" list, carries a label on its own line. Run research's Verify list on it and fix what fails. No hit: write no card; status skipped.
 6. Reply with exactly this block and nothing else:
 
 slug: {slug}
 status: added | skipped | blocked | failed
 rating: D x.x / U x.x / C x.x / Co x.x → w x.xx [inferred]; official: <scores [verified, entry page]> | none
 novelty: <hit>; <hit> | none
-index_row: | `{slug}` | … |   (added only: the twelve columns of _index.md, in order)
+index_row: | `{slug}` | … |   (added only: the twelve columns of _index.md, in order; the 12th (Last verified) is {YYYY-MM-DD})
 techniques:
 <name> — <evidence file> — <parameters>
 stack_signatures:
@@ -133,7 +138,7 @@ f=PLUGIN/references/sites/<slug>.md
 [ "$(wc -l < "$f")" -lt 200 ] || echo "over 200 lines"
 for n in 1 2 3 4 5 6 7 8 9; do grep -q "^## $n\. " "$f" || echo "missing section $n"; done
 grep -q "^| Corpus rating |" "$f" || echo "missing Corpus rating row"
-grep -nE '#[0-9a-fA-F]{3,6}\b' "$f" | grep -vE '\[(verified|recalled|inferred|unknown)'
+grep -nE '#[0-9a-fA-F]{3,8}\b' "$f" | grep -vE '\[(verified|recalled|inferred|unknown)'
 ```
 
 The last line prints hex values with no label on their line. After the index row is appended, `grep -c '^| `<slug>` |' PLUGIN/references/sites/_index.md` must print `1`. Then read the card once for quotes over 25 words; the slug must be identical in the file name, the index row and every `[site:<slug>]` in the card.
@@ -150,7 +155,7 @@ The last line prints hex values with no label on their line. After the index row
    ```
    The first must end `0 dangling reference(s)`; the second prints nothing. Read `git diff` of `PLUGIN/references/`: every added claim cites a real `[site:<slug>]` of this wave and carries a label, and no site copy runs past 25 words.
 4. Write the subagent's duplicate notes under `### Notes`, tick `Synthesised` (`yes`) on the rows it covered, and commit `docs(corpus): wave <n> synthesis — <slugs>`.
-5. Un-narrowed run: mark `synthesis` `done`.
+5. Un-narrowed run: mark `synthesis` `done` only when `triage` is `done` and no `added` row is unsynthesised.
 
 ### Subagent prompt: synthesis
 
@@ -173,8 +178,9 @@ Technique and stack lines for them (from the ledger):
 
 ## Phase: recipes
 
-1. **Candidates.** From `### Techniques and stacks` of the current wave and the synthesis edits, list every technique no existing recipe covers (compare with the titles and tags of `PLUGIN/recipes/*/recipe.json` and the catalogue in `PLUGIN/recipes/README.md`). Rank by the number of added sites that show it, then by how many skills would cite it.
-2. **Proposals file.** Write `docs/handoff/recipe-proposals-<YYYY-MM-DD>.md`, one entry per candidate:
+1. **Doctor.** Re-run the Setup doctor command; a `FAIL` stops the run.
+2. **Candidates.** From `### Techniques and stacks` of the current wave and the synthesis edits, list every technique no existing recipe covers (compare with the titles and tags of `PLUGIN/recipes/*/recipe.json` and the catalogue in `PLUGIN/recipes/README.md`). Rank by the number of added sites that show it, then by how many skills would cite it.
+3. **Proposals file.** Write `docs/handoff/recipe-proposals-<YYYY-MM-DD>.md`, one entry per candidate:
    ```markdown
    ## <rank>. `<recipe-id>` — <title>
    - Seen in: <slug>, <slug>
@@ -183,15 +189,19 @@ Technique and stack lines for them (from the ledger):
    - Verify idea: <the state and the assertion that fail when the technique breaks>
    ```
    Commit `docs(corpus): wave <n> recipe proposals`.
-3. **Maintainer gate.** Ask with AskUserQuestion, `multiSelect: true`, four candidates per question, at most four questions, in rank order; each option label is the recipe id and its description the title plus `Seen in`. Candidates beyond sixteen stay in the file unselected. Nothing selected: mark the phase `done`.
-4. **Build, one recipe at a time, never in parallel** (each build runs a browser). Per selected id, spawn one `general-purpose` subagent with the prompt in "Subagent prompt: recipe", wait, then commit `feat(recipes): add <id>` with its files.
-5. **After the last build**, with nothing else driving a browser:
+4. **Maintainer gate.** Ask with AskUserQuestion, `multiSelect: true`, four candidates per question, at most four questions, in rank order; each option label is the recipe id and its description the title plus `Seen in`. Candidates beyond sixteen stay in the file unselected. Nothing selected: mark the phase `done`.
+5. **Build, one recipe at a time, never in parallel** (each build runs a browser). Per selected id, spawn one `general-purpose` subagent with the prompt in "Subagent prompt: recipe", wait, then commit `feat(recipes): add <id>` with its files, plus `PLUGIN/recipes/package.json`, `PLUGIN/recipes/package-lock.json` and `PLUGIN/references/stacks/versions.md` when the subagent added a pin.
+6. **After the last build**, with nothing else driving a browser:
    ```bash
    export AWARDS_PLAYWRIGHT="$HOME/.npm/_npx/e41f203b7505f1fb"; cd PLUGIN/recipes && node ../scripts/verify-recipes.mjs
    cd PLUGIN && node scripts/audit.mjs recipes
    ```
-   Every entry passes; the audit reports P0 0, P1 0, P2 0.
-6. **Counts.** Update the recipe and entry counts in `REPO/CLAUDE.md` (the `verify-recipes` comment and the "Recipes are a contract" paragraph), `PLUGIN/README.md` (the `recipes/` bullet) and `PLUGIN/recipes/README.md` ("The catalogue now has …"). Commit `docs(recipes): update catalogue counts`, and mark the phase `done`.
+   Every entry passes; the audit reports P0 0, P1 0, P2 0. Commit the re-stamped `recipe.json` files and the regenerated `recipes/index.html`: `chore(recipes): re-verify catalogue`.
+7. **Counts.** Re-derive the current recipe and entry counts from `ls PLUGIN/recipes`, then find every live count with:
+   ```bash
+   grep -rnE "\b36 (entries|verifiable|browser)|35 focused|36 browser-verifiable" --include='*.md' --include='*.json' REPO --exclude-dir=node_modules --exclude-dir=docs
+   ```
+   Update each hit to the new numbers, keeping `PLUGIN/.claude-plugin/plugin.json`, `PLUGIN/.codex-plugin/plugin.json` and `REPO/.claude-plugin/marketplace.json` descriptions in sync with each other. This grep pattern itself names the current counts, so update it here too the next time the catalogue grows. Commit `docs(recipes): update catalogue counts`, and mark the phase `done`.
 
 ### Subagent prompt: recipe
 
@@ -226,7 +236,8 @@ Cards to read for the technique: {PLUGIN/references/sites/<slug>.md, …}
    node -e 'const fs=require("fs"),p=process.argv[1];const pins=Object.fromEntries([...fs.readFileSync(p+"/references/stacks/versions.md","utf8").matchAll(/^\| (\S+) \| (\d[^ |]*) \|/gm)].map(m=>[m[1],m[2]]));const pkg=JSON.parse(fs.readFileSync(p+"/recipes/package.json"));const deps={...pkg.dependencies,...pkg.devDependencies};let bad=0;for(const [n,v] of Object.entries(deps))if(pins[n]&&pins[n]!==v.replace(/^[\^~]/,"")){console.log("pin",n,pins[n],v);bad=1}process.exit(bad)' PLUGIN
    ```
    It prints nothing.
-4. Move each handled `# new stack` bullet to `# Reviewed and in Skill`. `node PLUGIN/scripts/lint-refs.mjs` ends `0 dangling reference(s)`. Commit `docs(stacks): wave <n> stack notes`, mark the phase `done`.
+4. **Link.** Add a reference to each new stack note in `PLUGIN/skills/stack/SKILL.md`, wherever that file already lists stack notes by path (its framework-choice and page-transition tables, and inline `stacks/<name>.md` mentions).
+5. Move each handled `# new stack` bullet to `# Reviewed and in Skill`. `node PLUGIN/scripts/lint-refs.mjs` ends `0 dangling reference(s)`. Commit `docs(stacks): wave <n> stack notes`, mark the phase `done`.
 
 ## Phase: upkeep
 
@@ -235,14 +246,15 @@ Cards to read for the technique: {PLUGIN/references/sites/<slug>.md, …}
    grep -oE '^\| `[a-z0-9-]+`' PLUGIN/references/sites/_index.md | tr -d '|` ' | grep -vx floema-jewelry | sort | paste -sd'|'
    ```
    The `pattern:` line becomes `pattern: '\[site:(<that output>)\]'`.
-2. **Stack list.** If the wave's `stack_signatures` add a framework, add it to the list in `PLUGIN/skills/stack/SKILL.md` ("The analysed sites run Vite + vanilla, …").
+2. **Stack list.** If the wave's `stack_signatures` add a framework, add it to the list in `PLUGIN/skills/stack/SKILL.md` ("The analysed sites run Vite + vanilla, …"). Re-check that file's "Framer Motion appears on none of them" claim against the wave's `stack_signatures`; correct the sentence if one of them now does.
 3. **Checks:**
    ```bash
    claude plugin validate PLUGIN
    node PLUGIN/scripts/lint-refs.mjs | tail -1
    grep -rnE "19 analysed|across 19 award|nineteen analysed|Corpus index — 19" PLUGIN/skills PLUGIN/references/sites/_index.md
+   grep -rnE "twenty-card|twenty site case studies" REPO/README.md PLUGIN/.claude-plugin PLUGIN/.codex-plugin REPO/.claude-plugin
    ```
-   Validate passes, lint ends `0 dangling reference(s)`, grep prints nothing.
+   Validate passes, lint ends `0 dangling reference(s)`, both greps print nothing.
 4. Commit `chore(corpus): wave <n> upkeep`.
 5. **Maintainer gate.** Ask whether to run the smoke evals (`cd PLUGIN && claude plugin eval . --tag smoke`, eleven routing cases with a no-plugin baseline; it costs money). Run them only on a yes and report the pass counts. Mark the phase `done`.
 
@@ -254,7 +266,7 @@ After the synthesis of a narrowed run, stop and report to the maintainer, then w
 - the synthesis edits, one line each, and any duplicates;
 - anything in the gate wording that decided a case badly: a site skipped that obviously adds something, or added on a thin hit.
 
-The maintainer approves, or edits this skill's novelty wording and asks for a re-run of the same sites.
+The maintainer approves, or edits this skill's novelty wording and asks for a re-run of the same sites. To re-run the same sites, first `git revert --no-edit` the narrowed run's triage and synthesis commits (newest first), which restores the index, the queue bullets, the patterns and the ledger rows; then re-run.
 
 ## Done
 
