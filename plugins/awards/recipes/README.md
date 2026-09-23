@@ -15,7 +15,7 @@ node ../scripts/verify-recipes.mjs --only boot-lenis-gsap,marquee-raf-mask
 ```
 Screenshots land in `_verify/<id>/<state>.png`; `recipe.json.verified` is stamped on a pass. SwiftShader proves correctness, not frame rate: run a real-device pass before shipping anything GL.
 
-The six static visual examples declare their reviewed desktop/mobile image paths and notes in `recipe.json.visuals`. Select and open only relevant images through `references/patterns/visual-composition.md`. The catalogue now has 36 entries: 35 focused recipes and one complete composition.
+The six static visual examples declare their reviewed desktop/mobile image paths and notes in `recipe.json.visuals`. Select and open only relevant images through `references/patterns/visual-composition.md`. The catalogue now has 44 entries: 43 focused recipes and one complete composition.
 
 ## Catalogue by intent
 
@@ -55,6 +55,14 @@ The six static visual examples declare their reviewed desktop/mobile image paths
 | Hero object | `gl-hero-object-inertia` | P1 | One object with pointer inertia and scroll rotation | oryzo, lando-norris |
 | Post presets | `gl-postprocessing-presets` | P1 | Fixed bloom presets, grain, SMAA, half-float on mobile | lando-norris, igloo |
 | Frame scrub | `image-sequence-scrub` | P1 | Pre-rendered frames scrubbed on scroll | seasats |
+| Project index as reels | `filmstrip-index-rows` | P1 | CSS-keyframe rows at one px/s from measured width, one link per project, pause on hover / focus / off-screen, late-overshoot grow, hover clip gated on `(hover: hover)` | boc |
+| Chosen-item exit | `transition-promote-chosen` | P1 | Clicked row rises to the header slot, siblings fade by `.09 s × distance`, route pushed after the rise, phone timing set | boc |
+| Living line field | `svg-noise-line-field` | P1 | Hairline SVG field, one Perlin angle per point drifting in time, pointer push with a framerate-independent spring (.005 / .925), edge-first draw-in, still under reduced motion | wodniack |
+| Title as a doorway | `title-mask-tunnel` | P1 | Capsule title mask scrubbed to a computed cover scale (exponential zoom, linear scrub), counter-scaled CSS-3D scene moved on one layer, focus flies a work to the front, plain list under reduced motion | wodniack |
+| Long-read dialog | `dialog-nested-lenis-sheet` | P2 | Native `<dialog>` + `showModal()`, nested Lenis on the shared ticker, `data-lenis-prevent` on dialog and inner pane, server-rendered content, drag-to-dismiss bottom sheet under 768 px, instant under reduced motion | boc |
+| Throw toy | `throw-objects-css3d` | P2 | Draggable + InertiaPlugin throw of extruded CSS-3D blocks, `snap.points` on the clamped landing point into a perspective tray, velocity tilt on an inner body, a throw button per block, drop-in-place under reduced motion | wodniack |
+| Drawn scrollbar | `scrollbar-thumb-drag` | P2 | Themed thumb mirroring `scrollY` on the shared ticker, drag and track-press write the scroll, native bar and keys kept, `aria-hidden` pointer duplicate, snaps under reduced motion, hidden on coarse pointers | wodniack |
+| Easter-egg rain | `sprite-rain-canvas2d` | P2 | Button-triggered canvas-2D sprite shower from one pre-rendered bitmap, gravity `.45` / spin `±10°` per 60 fps frame scaled by `dt`, live count capped by the quality tier, sprites dropped off-screen and the ticker released, nothing spawns under reduced motion | wodniack |
 | Sound | `sound-toggle-opt-in` | P2 | Opt-in ambient + SFX, persisted | igloo, mont-fort |
 | GL text | `gl-msdf-text` | P2 | MSDF text with a DOM mirror | igloo, lando-norris |
 

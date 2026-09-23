@@ -1,6 +1,6 @@
 # awards — award-worthy websites with Claude Code and Codex
 
-A plugin for Claude Code and Codex that teaches the agent to design and build websites and single components in the league of Site of the Day / Month / Year award winners: in that style, never as copies. It is built from twenty site case studies, the pattern language they share, 35 focused recipes and one complete composition (36 browser-verifiable entries), a deterministic craft-floor audit, and a fresh-context jury that scores the way the real one does.
+A plugin for Claude Code and Codex that teaches the agent to design and build websites and single components in the league of Site of the Day / Month / Year award winners: in that style, never as copies. It is built from a reference corpus of analysed award-winning sites, the pattern language they share, 43 focused recipes and one complete composition (44 browser-verifiable entries), a deterministic craft-floor audit, and a fresh-context jury that scores the way the real one does.
 
 ## Install
 
@@ -111,8 +111,8 @@ Durable files: `AWARDS.md` (brief, contract, page map, motion score, budgets, ju
 
 ## What is inside
 
-- `plugins/awards/references/` — twenty site case studies, each checked against the live site and its live award entry on 2026-09-18 and carrying confidence labels, the [visual composition guide](plugins/awards/references/patterns/visual-composition.md) and broader pattern language, the jury rubric and usability walk, the craft floor, anti-pattern and reflex lists, per-stack and per-library notes with pinned versions.
-- `plugins/awards/recipes/` — 35 focused recipes plus one complete editorial composition, 36 verifiable entries in all. The six new visual examples include reviewed desktop/mobile images and synthetic demonstration content; each entry has a browser verifier. These images are generated and tested examples, not evidence of human preference.
+- `plugins/awards/references/` — the site case studies, each checked against the live site and its live award entry (the original set on 2026-09-18, later cards on the date each one records) and carrying confidence labels, the [visual composition guide](plugins/awards/references/patterns/visual-composition.md) and broader pattern language, the jury rubric and usability walk, the craft floor, anti-pattern and reflex lists, per-stack and per-library notes with pinned versions.
+- `plugins/awards/recipes/` — 43 focused recipes plus one complete editorial composition, 44 verifiable entries in all. The six new visual examples include reviewed desktop/mobile images and synthetic demonstration content; each entry has a browser verifier. These images are generated and tested examples, not evidence of human preference.
 - `plugins/awards/scripts/` — `doctor.mjs`, `capture.mjs`, `audit.mjs`, `new-project.mjs`, `roll.mjs`, `verify-recipes.mjs`, `lint-refs.mjs`.
 - `plugins/awards/evals/` — a `claude plugin eval` suite: seventeen routing cases (eleven that must fire a skill, six that must not) and six build cases with fixtures, plus `selftest.mjs` for grader checks and `behavior.mjs` for actual browser, audit, capture, server and ticker regressions without model calls.
 
@@ -135,7 +135,7 @@ npm install --no-save --package-lock=false playwright  # verification tool only
 npx playwright install chromium
 node ../scripts/doctor.mjs .                 # early prerequisite check; no installs
 node ../evals/behavior.mjs                   # live behavior regressions, no model calls
-node ../scripts/verify-recipes.mjs            # all 36 entries, headless Chromium with WebGL
+node ../scripts/verify-recipes.mjs            # all 44 entries, headless Chromium with WebGL
 node ../scripts/audit.mjs .                   # the craft floor: must stay free of P0-P2
 node ../scripts/lint-refs.mjs                 # every [site:]/[recipe:]/[pattern:] reference resolves
 node ../evals/jury-evidence-selftest.mjs      # jury evidence contract, no model calls
@@ -158,7 +158,7 @@ Version 0.3.0.
 - **Visual composition library.** Five new recipes cover editorial image/text composition,
   responsive art-directed heroes, product specifications, typography specimens and designed
   footers. One complete furniture/materials page combines them with coherent synthetic imagery,
-  shared styles and annotated desktop/mobile captures. The catalogue has 35 focused recipes and
+  shared styles and annotated desktop/mobile captures. The catalogue has 43 focused recipes and
   one complete composition.
 - **Visual evidence in planning.** A composition guide connects real rendered examples to concept,
   system and structure decisions. A static desktop/mobile review precedes motion. Jury and ship
@@ -171,8 +171,8 @@ Version 0.3.0.
   isolated install/discovery checks. Interactive capture state plans, the non-installing `doctor`
   preflight and browser/tool regression checks support the complete workflow.
 
-**Verification and limits.** All 36 entries passed in isolated serial browser runs; a single-session
-full run remains unproven. Headless checks do not establish real-device GPU performance. In the
+**Verification and limits.** All 44 entries passed in one serial browser run on 2026-09-23 and in isolated
+per-recipe runs. Headless checks do not establish real-device GPU performance. In the
 [three-pair pilot](docs/handoff/visual-comparison-2026-09-22.md), the candidate was preferred overall
 twice, tied once, and tied on mobile throughout. Two candidate builds failed keyboard-focus contrast,
 so the pilot did not meet acceptance. None of the six builds invoked the advertised skills;

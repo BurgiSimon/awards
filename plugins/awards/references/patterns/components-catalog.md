@@ -6,14 +6,14 @@ What this file is for: the components the corpus builds more than once — what 
 1. [How to read an entry](#how-to-read-an-entry)
 2. [Arrival and chrome](#arrival-and-chrome): preloader · nav overlay · cursor · sound toggle · chapter jump rail · scrollspy index · edition switcher and search · theme switcher
 3. [Scroll set-pieces](#scroll-set-pieces): scrubbed hero object · pinned chapter · horizontal rail · sticky stack cards · scroll-drawn path · compare reveal
-4. [Galleries and lists](#galleries-and-lists): draggable plane and arc gallery · hover-preview list · poster case blocks · metadata rows · ticker · wavy text
+4. [Galleries and lists](#galleries-and-lists): draggable plane and arc gallery · hover-preview list · poster case blocks · metadata rows · ticker · filmstrip rows · wavy text
 5. [Evidence blocks](#evidence-blocks): spec and metric blocks · map cards
 6. [The close and beyond](#the-close-and-beyond): footer · 404 · easter eggs · living-utility pages
 7. [Verify](#verify) · [Refuse](#refuse)
 
 ## How to read an entry
 
-Why: a component earns its place by the job it does in the story, not by being seen on a winning site. Each entry lists role · seen in · anatomy · motion · accessibility · recipe · refuse. Motion values come from `[pattern:motion-vocabulary]`; where a card publishes none, the plugin's defaults are named as such. No card in the corpus documents a reduced-motion path for any component below, so the accessibility line is where new work beats the reference set (`craft-floor.md`).
+Why: a component earns its place by the job it does in the story, not by being seen on a winning site. Each entry lists role · seen in · anatomy · motion · accessibility · recipe · refuse. Motion values come from `[pattern:motion-vocabulary]`; where a card publishes none, the plugin's defaults are named as such. Only one card documents a reduced-motion path for a component below — its filmstrip rows stop under `animation: none` [site:boc] [verified] — so the accessibility line is where new work beats the reference set (`craft-floor.md`).
 
 ## Arrival and chrome
 
@@ -82,7 +82,7 @@ Why: a component earns its place by the job it does in the story, not by being s
 
 ### Colour-bound product row and theme switcher
 - **Role.** Variant selection that repaints the world; colour as navigation or as section rhythm.
-- **Seen in.** A low product row whose underline doubles as an autoplay countdown, each choice repainting ground, panel, button, ink and shadow [site:slosh-seltzer] [verified at family level]; four named themes swapped per section [site:leo-parpeix] [recalled medium]; a theme per route tweened on `<html>` [site:floema-jewelry] [verified]; nav theme sampled from the section under the header [site:lando-norris] [verified].
+- **Seen in.** A low product row whose underline doubles as an autoplay countdown, each choice repainting ground, panel, button, ink and shadow [site:slosh-seltzer] [verified at family level]; four named themes swapped per section [site:leo-parpeix] [recalled medium]; a theme per route tweened on `<html>` [site:floema-jewelry] [verified]; nav theme sampled from the section under the header [site:lando-norris] [verified]; a header contrast toggle that re-points the primary and shadow tokens [site:wodniack] [verified].
 - **Anatomy.** `data-theme` on `<html>` as the single source; N token sets; the switcher a radio group; the canvas clear colour read from the same tokens.
 - **Motion.** ≈ 1 s on `--ease-theme`, every slot and the clear colour in one tween, restarting from the current value; instant under reduced motion (`[pattern:color-and-material#colour-as-state]`).
 - **Accessibility.** Arrow keys move the selection; `aria-pressed` or checked state; the autoplay countdown pauses on hover, focus and reduced motion; contrast holds in every theme.
@@ -185,12 +185,21 @@ Why: a component earns its place by the job it does in the story, not by being s
 
 ### Ticker and marquee
 - **Role.** A live strip — clients, news, a slogan — that keeps moving without becoming the hero; the fastest B2B trust signal directly after the hero.
-- **Seen in.** A rAF translate with wraparound, mask-edge fade, pause on hover and clickable links [site:seasats] [clone-described]; `BrandMarquees` and `MarqueeBlock` [site:mindmarket] [verified component]; a social marquee [site:slosh-seltzer] [inferred].
+- **Seen in.** A rAF translate with wraparound, mask-edge fade, pause on hover and clickable links [site:seasats] [clone-described]; `BrandMarquees` and `MarqueeBlock` [site:mindmarket] [verified component]; a social marquee [site:slosh-seltzer] [inferred]; CSS-keyframe rows whose duration is derived from measured content width, `max((Σ widths + gaps) / 70, 12)` s, so every row runs at ≈ 70 px/s, the clone `aria-hidden` with `tabIndex -1` [site:boc] [verified].
 - **Anatomy.** Children duplicated once; one transform on the track; a CSS mask at the edges.
-- **Motion.** Speed from scroll velocity, never a CSS keyframe rate; pause on hover and focus; paused offscreen (audit M08).
+- **Motion.** Speed from scroll velocity, never a CSS keyframe rate; set a speed, not a duration, so bands of different lengths read as one system [site:boc]; pause on hover and focus; paused offscreen (audit M08).
 - **Accessibility.** The duplicate copy `aria-hidden`; static under reduced motion; links reachable by Tab.
 - **Recipe.** `[recipe:marquee-raf-mask]`.
 - **Refuse.** The marquee as the hero; a logo wall by reflex.
+
+### Filmstrip project rows
+- **Role.** The index as the portfolio: one self-moving strip per project replaces the case grid and the hero, and the page is only as long as the client list.
+- **Seen in.** One row per project, each a strip of its own stills and clips running sideways, captioned with a name, a one-line positioning and a view link, beside a fixed filter sidebar [site:boc] [verified].
+- **Anatomy.** A `<ul>` with one `<li>` per project; inside it one strip of stills duplicated once for the wrap and a caption; the filter as real buttons.
+- **Motion.** One px/s for every row (`[pattern:components-catalog#ticker-and-marquee]`); on hover the stills grow to 1.2× over .4 s on a late-overshoot `cubic-bezier(1, 0, .47, 1.25)` and a muted clip plays, mounted only on intersect for `(hover: hover)` without reduced motion [site:boc] [verified].
+- **Accessibility.** One link per project with the stills `aria-hidden` — the source makes each still its own stop, 203 for nine projects [site:boc] [verified]; the strip pauses on hover, focus and offscreen so a still can be read at rest; stopped under reduced motion; a still in place of the hover clip on touch.
+- **Recipe.** `[recipe:marquee-raf-mask]` for the strip; `[recipe:page-transitions]` for the exit into the case.
+- **Refuse.** The rows as drawn — every project's stills drifting under a name / line / view caption; a link per still; an index with no close.
 
 ### Wavy text and the second text system
 - **Role.** An accent text effect for a phrase or a label, kept separate from the heading system.
@@ -234,7 +243,7 @@ Why: a component earns its place by the job it does in the story, not by being s
 
 ### Designed 404
 - **Role.** Proof that every route is authored; a moment in the same world.
-- **Seen in.** An orbiting object in its own scene [site:lando-norris] [verified]; a 404 indexed as an inspiration entry in the series [site:shopify-editions-w26] [recalled high]; a custom 404 by tag [site:why-zero] [verified]; the plugin's own starting point in `assets/templates/404.html`.
+- **Seen in.** An orbiting object in its own scene [site:lando-norris] [verified]; a 404 indexed as an inspiration entry in the series [site:shopify-editions-w26] [recalled high]; a custom 404 by tag [site:why-zero] [verified]; a 404 with vertical and horizontal marquees and scattered words [site:boc] [verified class names; not observed]; the plugin's own starting point in `assets/templates/404.html`.
 - **Anatomy.** An `<h1>` that says the page is missing, one gesture from the world, three routes out, a search if the site has one.
 - **Motion.** One idle loop that pauses when hidden; nothing that delays the links.
 - **Accessibility.** Any scene `aria-hidden`; the links first in DOM order; the page lighter than the home page.
@@ -243,7 +252,7 @@ Why: a component earns its place by the job it does in the story, not by being s
 
 ### Easter eggs
 - **Role.** A reward for curiosity that signals confidence; never a dependency.
-- **Seen in.** Tardigrades that appear after dwelling in the zoom section [site:oryzo] [recalled high]; a hint that spawns 3D fruit with one of two sounds [site:leo-parpeix] [recalled medium]; a disco ball and an award-trophy model in the scene manifest, plus a `?debug` panel [site:lando-norris] [verified]; star confetti on click [site:animejs] [verified].
+- **Seen in.** Tardigrades that appear after dwelling in the zoom section [site:oryzo] [recalled high]; a hint that spawns 3D fruit with one of two sounds [site:leo-parpeix] [recalled medium]; a disco ball and an award-trophy model in the scene manifest, plus a `?debug` panel [site:lando-norris] [verified]; star confetti on click [site:animejs] [verified]; CSS-3D objects to grab and throw into a perspective catcher, and canvas-2D sprites that rain through the about section [site:wodniack] [verified].
 - **Anatomy.** One asset or one behaviour off the main path — dwell-gated, click-spawned or hidden in a scene.
 - **Motion.** Anything the world allows; it obeys the reduced tier like everything else.
 - **Accessibility.** Never required content; a click-triggered egg is keyboard-triggerable; a dwell-gated egg needs no gesture.
@@ -273,7 +282,7 @@ For relevant static image/text composition inspect `[recipe:editorial-image-text
 
 ## Refuse
 
-- Any component lifted with its card's values: the counter jumps, the badge set, the rotated index, the `00/24` leader, the clone-derived 48-country map, the seven-chapter rail, the flavour row.
+- Any component lifted with its card's values: the counter jumps, the badge set, the rotated index, the `00/24` leader, the clone-derived 48-country map, the seven-chapter rail, the flavour row, the filmstrip rows.
 - A component with no job in the story — a compare with one condition, a stack of unrelated cards, a marquee as a hero.
 - Hover-only previews, drag-only galleries, wheel-jacked rails, click walls, autoplaying sound.
 - `pin: true` where sticky works; a marquee on a CSS keyframe; count-up numbers.

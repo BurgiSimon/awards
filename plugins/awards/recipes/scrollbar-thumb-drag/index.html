@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>scrollbar-thumb-drag — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <!-- Pointer-only duplicate of the native scrollbar, which stays. aria-hidden: nothing inside is focusable, keys scroll the document. -->
+  <div class="scrollbar" data-track aria-hidden="true"><div class="scrollbar__thumb" data-thumb></div></div>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ scrollbar-thumb-drag</p></header>
+  <main id="main">
+    <section class="section wrap hero" aria-labelledby="t">
+      <p class="label">/ thumb</p>
+      <h1 class="display" id="t">A thumb you<br>can grab.</h1>
+      <p class="lede">The drawn thumb on the right mirrors how far down the page you are and can be dragged. The browser's own scrollbar stays, so keys, find-in-page and assistive tech scroll exactly as before. This page and its copy are a synthetic demo.</p>
+    </section>
+    <section class="section wrap chapter" aria-labelledby="c1"><p class="label">/ 01</p><h2 id="c1">Mirror, don't replace.</h2><p>The document scrolls natively. The thumb reads <code>scrollY / (scrollHeight − innerHeight)</code> once per frame and moves by transform; it never owns the scroll position.</p></section>
+    <section class="section wrap chapter" aria-labelledby="c2"><p class="label">/ 02</p><h2 id="c2">Drag writes the scroll.</h2><p>Pointer down on the thumb captures the pointer; every move maps the thumb's offset over its free travel to a scroll position. Press on the track and the thumb centres under the pointer, then drags from there.</p></section>
+    <section class="section wrap chapter" aria-labelledby="c3"><p class="label">/ 03</p><h2 id="c3">Keys still work.</h2><p>Space, Page Down, Home, End and the arrows move the page because nothing intercepts them. The thumb follows whatever moved the page, eased in the full tier.</p></section>
+    <section class="section wrap chapter" aria-labelledby="c4"><p class="label">/ 04</p><h2 id="c4">Reduced motion snaps.</h2><p>Under <code>prefers-reduced-motion</code> the page scrolls natively without Lenis and the thumb sits exactly on the scroll position every frame, with no easing.</p></section>
+    <section class="section wrap chapter" aria-labelledby="c5"><p class="label">/ 05</p><h2 id="c5">Touch gets the native bar.</h2><p>On coarse pointers the drawn track is hidden: a thumb too thin to hit is worse than the platform's own overlay scrollbar.</p></section>
+  </main>
+  <footer class="wrap foot"><a href="../index.html" class="label">All recipes</a><p class="label">awards · recipe · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

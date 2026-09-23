@@ -13,10 +13,10 @@ Any of these can still be right for a body role in a specific world, and IBM Ple
 | Class | Open-licence (verify the licence file) | Corpus faces, if you can license |
 |---|---|---|
 | Neutral grotesque (body / UI) | Mona Sans, Hubot Sans, Familjen Grotesk, Schibsted Grotesk, Archivo, Public Sans | Monument Grotesk `[site:leo-parpeix]`, Helvetica Now `[site:united-carriers]`, Suisse BP Int'l `[site:lama-lama]` `[site:floema-jewelry]`, KTF Metro Blueline `[site:son-daven]` |
-| Characterful grotesk at display scale | Mona Sans at heavy weights, Hubot Sans, Big Shoulders Display | Denim `[site:the-line]`, Suisse BP Int'l `[site:lama-lama]`, Avantt `[site:leo-parpeix]`, KTF Metro Roman `[site:son-daven]` |
-| Condensed display | Anton, Bebas Neue, Big Shoulders Display, Archivo Narrow | BT Steinhart `[site:united-carriers]`, Brier `[site:lando-norris]` |
+| Characterful grotesk at display scale | Mona Sans at heavy weights, Hubot Sans, Big Shoulders Display | Denim `[site:the-line]`, Suisse BP Int'l `[site:lama-lama]`, Avantt `[site:leo-parpeix]`, KTF Metro Roman `[site:son-daven]`, PP Mori `[site:boc]` |
+| Condensed display | Anton, Bebas Neue, Big Shoulders Display, Archivo Narrow | BT Steinhart `[site:united-carriers]`, Brier `[site:lando-norris]`, Bigger Display `[site:wodniack]` |
 | Geometric | Jost, Figtree, Red Hat Display, Albert Sans | Century Gothic + Josefin Sans `[site:mont-fort]` (Josefin is open) |
-| Serif display | Gloock, Bodoni Moda, Young Serif (Instrument Serif only when it is not the costume) | George X `[site:floema-jewelry]`; the display serif of `[site:shopify-editions-w26]` [unknown face] |
+| Serif display | Gloock, Bodoni Moda, Young Serif (Instrument Serif only when it is not the costume) | George X `[site:floema-jewelry]`; the display serif of `[site:shopify-editions-w26]` [unknown face]; PP Editorial New as a light text serif `[site:wodniack]` |
 | Monospace identity | JetBrains Mono, Commit Mono, Martian Mono, Azeret Mono | IoskeleyMono `[site:animejs]`, IBM Plex Mono as MSDF `[site:igloo]` |
 
 Choose by what the world needs (a voice and a silence, or one voice), then by character (round vs sharp, wide vs narrow, warm vs cold), then by licence. Google-served families are checked against the `google/fonts` repository when fonts.google.com is unreachable, and always self-hosted.
@@ -33,7 +33,7 @@ Instead: two to four tokens, a warm or cool near-black, one accent derived from 
 ## Effects to avoid by reflex
 Blob or mesh-gradient hero · particle network · floating 3D primitives · glassmorphism cards · typewriter hero · fade-and-rise on every section · parallax on everything · logo marquee as the hero · cursor trail glitter · 3D tilt cards · count-up statistics · scroll-jack per section with no exit · neon glow buttons · gradient text · bounce or elastic easing on UI · infinite auto-play carousels · confetti.
 
-Each has an earned version: a fluid wake as one global post-process `[site:leo-parpeix]`, particles pre-baked as geometry inside a spatial world `[site:igloo]`, a marquee driven by rAF with a mask and pause `[site:seasats]`, elastic easing on a logo that squashes because it is a character `[site:animejs]`. The difference is a concept that needs it.
+Each has an earned version: a fluid wake as one global post-process `[site:leo-parpeix]`, particles pre-baked as geometry inside a spatial world `[site:igloo]`, a marquee driven by rAF with a mask and pause `[site:seasats]`, marquee rows whose duration comes from their measured width so every row shares one speed `[site:boc]`, elastic easing on a logo that squashes because it is a character `[site:animejs]`. The difference is a concept that needs it.
 
 ## Copy to avoid
 "Get started", "Learn more", "Discover", "Elevate", "Seamless", "Cutting-edge", "World-class", "Unlock", "Empower", "Effortless", "Next-generation", "Immersive experience". Replace with a number, a verb chain, or the outcome of the action.

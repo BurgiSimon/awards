@@ -1,0 +1,36 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+.topbar { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); }
+.lede { max-width: 60ch; margin-top: calc(var(--unit) * 8); }
+.intro, .outro { min-height: 80svh; }
+
+/* Flat: the default, the reduced and static tiers, and no-JS. A heading and a plain list. */
+.tunnel { padding: calc(var(--unit) * 24) var(--gutter); }
+.title { font-family: var(--font-display); font-size: clamp(3rem, 10vw, 9rem); font-weight: 500; line-height: 1; letter-spacing: -.03em; text-transform: uppercase; margin: 0 0 calc(var(--unit) * 10); }
+.scene { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); gap: calc(var(--unit) * 8) var(--gutter); }
+.scene a { display: grid; gap: calc(var(--unit) * 2); text-decoration: none; }
+.art { aspect-ratio: 4 / 3; border-radius: 2px; background: linear-gradient(160deg, oklch(70% .13 calc(var(--h) * 1deg)), oklch(32% .08 calc((var(--h) + 40) * 1deg))); }
+.name { font-family: var(--font-display); font-size: 1.25rem; line-height: 1.1; }
+
+/* Deep: the full tier. The section's own height is the scroll the tunnel consumes. */
+.tunnel[data-mode="deep"] { height: 500svh; padding: 0; }
+[data-mode="deep"] .stage { position: sticky; top: 0; height: 100svh; overflow: clip; display: grid; place-items: center; container-type: size; }
+/* The doorway. overflow: clip (not hidden) so focusing a link cannot scroll the mask's content. */
+[data-mode="deep"] .mask { position: relative; width: min(56cqw, 52rem); height: clamp(6rem, 20cqh, 12rem); border-radius: 999px; overflow: clip; display: grid; place-items: center; background: var(--ink); color: var(--ground); }
+[data-mode="deep"] .title { position: relative; z-index: 1; margin: 0; font-size: clamp(3rem, 15cqh, 10rem); pointer-events: none; }
+/* Viewport-sized, centred on the doorway; main.js counter-scales it so the scene stays at 1:1 while the mask grows. */
+[data-mode="deep"] .inner { position: absolute; left: 50%; top: 50%; width: 100cqw; height: 100cqh; translate: -50% -50%; perspective: 900px; }
+[data-mode="deep"] .scene { position: absolute; inset: 0; display: block; transform-style: preserve-3d; }
+[data-mode="deep"] .scene li {
+  position: absolute; left: 50%; top: 50%; width: clamp(9rem, 22cqw, 22rem);
+  transform: translate(-50%, -50%) translate3d(calc(var(--x) * 24cqw), calc(var(--y) * 30cqh), calc(var(--i) * var(--gap, 700px) * -1));
+}
+[data-mode="deep"] .scene .label { color: color-mix(in oklab, var(--ground) 70%, var(--ink)); }
+[data-mode="deep"] .scene a:focus-visible { outline-color: var(--ground); }
+
+@media (max-width: 640px) {
+  [data-mode="deep"] .mask { width: 80cqw; height: 14cqh; }
+  [data-mode="deep"] .title { font-size: clamp(2.5rem, 10cqh, 5rem); }
+  [data-mode="deep"] .scene li { width: 46cqw; transform: translate(-50%, -50%) translate3d(calc(var(--x) * 20cqw), calc(var(--y) * 30cqh), calc(var(--i) * var(--gap, 700px) * -1)); }
+}

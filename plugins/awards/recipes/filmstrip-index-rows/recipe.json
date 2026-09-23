@@ -1,0 +1,24 @@
+{
+  "id": "filmstrip-index-rows",
+  "title": "Filmstrip project rows at one shared speed",
+  "tags": [
+    "marquee",
+    "index",
+    "css-keyframes",
+    "hover",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [],
+  "variants": [
+    "vanilla (CSS keyframes + IntersectionObserver)",
+    "GSAP 3.15 timeScale tween when the pause should ease"
+  ],
+  "seenIn": [
+    "boc"
+  ],
+  "verified": {
+    "date": "2026-09-23",
+    "chromium": "153.0.8010.12"
+  }
+}

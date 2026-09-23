@@ -7,6 +7,7 @@
 | Class | portfolio / campaign / B2B product / brand / studio / docs / e-commerce |
 | Visitor mode | persuade / experience / read |
 | Awards | awards, dates, scores D/U/C/Co, developer sub-scores — labelled |
+| Corpus rating | D x.x / U x.x / C x.x / Co x.x → weighted x.xx, YYYY-MM-DD [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
 | Studio / credits | — labelled |
 | Stack (evidence level) | framework · CMS · animation · 3D · other · hosting · fonts |
 | Palette | hexes with labels; strategy (ground + ink + accent / theme-per-section / …) |

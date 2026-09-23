@@ -1,0 +1,40 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+:root { --bar: 3.5rem; --slot-gap: calc(var(--unit) * 4); }
+
+/* The bar is fixed, so the slot under it is at the same viewport offset on every page and at any scroll. */
+.bar {
+  position: fixed; inset: 0 0 auto; z-index: 10; height: var(--bar);
+  display: flex; align-items: center; justify-content: space-between; gap: var(--gutter);
+  background: var(--ground); border-bottom: 1px solid var(--line);
+}
+.bar .label { margin: 0; }
+
+/* The slot: every view starts one bar plus one gap from the top. The exit reads this padding to aim the rise. */
+.view { padding-top: calc(var(--bar) + var(--slot-gap)); padding-bottom: calc(var(--unit) * 24); min-height: 100svh; }
+
+.intro { padding-block: calc(var(--unit) * 10) calc(var(--unit) * 12); }
+.title { font-family: var(--font-display); font-size: clamp(2.5rem, 8vw, 7rem); font-weight: 500; line-height: 0.9; letter-spacing: -0.03em; margin: calc(var(--unit) * 4) 0 0; }
+.lede { max-width: 56ch; margin-top: calc(var(--unit) * 6); }
+
+.rows { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--line); }
+.row {
+  display: grid; grid-template-columns: 3rem minmax(0, 1fr) auto; align-items: baseline; gap: var(--unit) calc(var(--unit) * 4);
+  padding-block: calc(var(--unit) * 5); border-top: 1px solid var(--line); text-decoration: none; color: var(--ink);
+}
+.row-n { margin: 0; }
+.row-name { font-family: var(--font-display); font-size: clamp(1.5rem, 3.4vw, 3.25rem); font-weight: 500; line-height: 1; letter-spacing: -0.02em; margin: 0; }
+.row-line { color: var(--muted); text-align: right; }
+.row:hover .row-name, .row:focus-visible .row-name { color: var(--accent); }
+.row .row-name { transition: color var(--dur-feedback) ease-out; }
+.row--head { border-top-color: var(--ink); }
+
+.case-body { padding-top: calc(var(--unit) * 10); }
+.cta { font-family: var(--font-display); font-size: 1.5rem; }
+
+@media (max-width: 48rem) {
+  .row { grid-template-columns: 2.25rem minmax(0, 1fr); }
+  .row-line { grid-column: 2; text-align: left; }
+  .bar .label:last-child { display: none; }
+}

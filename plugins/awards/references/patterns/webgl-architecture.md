@@ -26,7 +26,7 @@ Why: the corpus took Site of the Month with no canvas at all and Site of the Yea
 | 100 % canvas | the DOM is a shell; layout is camera framing | [site:igloo] [site:why-zero] | the winner's 6.6 accessibility and empty DOM live here [site:igloo] [recalled medium]; only with a full DOM mirror |
 | Canvas-first | one canvas behind or over DOM content: tethered planes, a hero object, or a scene per section | [site:leo-parpeix] [site:oryzo] [site:slosh-seltzer] [site:lando-norris] [site:shopify-editions-w26] [site:floema-jewelry] [site:mont-fort] [site:united-carriers] [site:usavionix] | the corpus median; text stays in the DOM |
 | Moments | flat planes or one demo, DOM-first | [site:the-line] [site:son-daven] [site:animejs] [site:lama-lama] | the scoping rule: pick one material behaviour and refuse every other 3D temptation [site:trevor-noah] [verified quote fragment — the studio's stated intent; the shipped site went canvas-first instead, see its card] |
-| None | 3D by pre-render, vector runtime or photography | [site:white-desert] [site:seasats] [site:mindmarket] | Seasats reads as 3D with no runtime GL [site:seasats] [inferred medium] |
+| None | 3D by pre-render, vector runtime or photography | [site:white-desert] [site:seasats] [site:mindmarket] [site:boc] [site:wodniack] | Seasats reads as 3D with no runtime GL [site:seasats] [inferred medium]; a developer showcase carried by SVG, canvas 2D and CSS 3D [site:wodniack] [verified] |
 
 Rules: pick the lowest rung the thesis survives; every rung up costs an asset pipeline, a tier system and a mirror. "Make it 3D" without a beat that needs depth is refused at the floor.
 
@@ -129,6 +129,7 @@ Every value below is a published or reconstructed number from one card. Take the
 | Depth-map parallax | JPG + greyscale depth; POM with forward and backward refinement | the recipe's own parameters — `[site:shopify-editions-w26]` does not use this technique [verified, live source 2026-09-18] | technique only |
 | Baked simulation | smoke, shatter and particle bursts as Draco geometry; 32³ / 64³ volumes as KTX2 atlases | [site:igloo] | [verified manifest] |
 | Polaroid curl | **not a shader.** Trevor Noah builds the curl and its shadow as generated SVG arc paths on a DOM wrapper, animated on their own rAF: fold 8° at rest, 55° on hover, 500 ms, one corner, with a scroll-driven mode | [site:trevor-noah] | [verified, live source 2026-09-18] — do not reach for geometry here |
+| Noise line field | **not a shader.** SVG points; angle `perlin2((x + t·.0125)·.002, (y + t·.005)·.0015)·12`, offset `cos·32`, `sin·16` px; pointer radius `max(175, speed)`; spring .005, damping .925 per frame | [site:wodniack] | [verified] — reach for SVG before a fragment shader here |
 | Hero inertia | drag momentum, motion-reactive lighting | [site:oryzo] | [recalled high]; damping, mass, light unknown |
 
 ## Post-processing

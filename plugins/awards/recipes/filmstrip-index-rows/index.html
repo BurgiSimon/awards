@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>filmstrip-index-rows — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ filmstrip-index-rows</p></header>
+  <main id="main">
+    <section class="wrap hero" aria-labelledby="t">
+      <h1 class="display" id="t">Every reel at<br>one speed.</h1>
+      <p class="lede">Each project runs as its own strip of frames. The duration comes from the measured strip width, so long and short reels travel at the same 70 px/s. A row stops on hover, on focus and off-screen; one link per project, the frames are decoration. Projects and frames are synthetic.</p>
+    </section>
+    <!-- data-frames: aspect ratio of each synthetic still; the reel is built and duplicated once by main.js. -->
+    <ol class="rows" data-rows data-speed="70" aria-label="Projects">
+      <li class="row" data-row data-frames="1.5 .8 1.78 1 1.33">
+        <div class="reel" aria-hidden="true"><div class="grow"><div class="track" data-track></div></div></div>
+        <p class="caption"><a href="#main" data-project><span class="name">Saltmarsh Ferry</span> <span class="line">Wayfinding for a tidal crossing</span> <span class="view">View project</span></a></p>
+      </li>
+      <li class="row" data-row data-frames="1.78 .75 1.33 1.5 .8 1.78 1 1.33 .75 1.5">
+        <div class="reel" aria-hidden="true"><div class="grow"><div class="track" data-track></div></div></div>
+        <p class="caption"><a href="#main" data-project><span class="name">Kiln Row Ceramics</span> <span class="line">Packaging for a shared studio</span> <span class="view">View project</span></a></p>
+      </li>
+      <li class="row" data-row data-frames="1 1.78 .8 1.5 1.33 .75">
+        <div class="reel" aria-hidden="true"><div class="grow"><div class="track" data-track></div></div></div>
+        <p class="caption"><a href="#main" data-project><span class="name">Northlight Observatory</span> <span class="line">A night-sky visitor guide</span> <span class="view">View project</span></a></p>
+      </li>
+      <li class="row" data-row data-frames="1.33 1.78 1 .8 1.5 1.78 .75 1.33">
+        <div class="reel" aria-hidden="true"><div class="grow"><div class="track" data-track></div></div></div>
+        <p class="caption"><a href="#main" data-project><span class="name">Ossa Running Club</span> <span class="line">Identity for a dawn league</span> <span class="view">View project</span></a></p>
+      </li>
+      <li class="row" data-row data-frames=".8 1.5 1.78 1">
+        <div class="reel" aria-hidden="true"><div class="grow"><div class="track" data-track></div></div></div>
+        <p class="caption"><a href="#main" data-project><span class="name">Pellmell Radio</span> <span class="line">Schedules for a pirate station</span> <span class="view">View project</span></a></p>
+      </li>
+      <li class="row" data-row data-frames="1.5 1 1.78 .75 1.33 1.5 .8">
+        <div class="reel" aria-hidden="true"><div class="grow"><div class="track" data-track></div></div></div>
+        <p class="caption"><a href="#main" data-project><span class="name">Verdigris Hotel</span> <span class="line">Signage for a copper-roofed inn</span> <span class="view">View project</span></a></p>
+      </li>
+    </ol>
+    <section class="wrap notes" aria-labelledby="r"><h2 id="r">Rules</h2><ul><li>Duration is measured width over one speed token: <code>copy width / 70 px/s</code>, recomputed on resize.</li><li>One link per project; the reel is <code>aria-hidden</code>, so Tab stops six times for six projects.</li><li>A row pauses on hover, on focus inside it and while off-screen.</li><li>The hover clip mounts only for <code>(hover: hover)</code>, full motion and an on-screen row; here it is a synthetic canvas stream.</li><li>Under reduced motion every reel is at rest and nothing grows.</li></ul></section>
+  </main>
+  <footer class="wrap foot"><a href="../index.html" class="label">All recipes</a><p class="label">awards · recipe · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

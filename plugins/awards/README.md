@@ -10,7 +10,7 @@ Install this whole folder; individual skills depend on its shared resources. Nod
 - `agents/awards-jury.md` — the fresh-context jury.
 - `hooks/hooks.json` — a quick craft-floor audit after Claude Code edits, active only in projects that have an `AWARDS.md`; Codex runs the audit explicitly.
 - `references/` — the corpus: 20 live-verified site case studies, the [visual composition guide](references/patterns/visual-composition.md), the wider pattern language, the jury rubric and stack notes.
-- `recipes/` — 35 focused recipes plus one complete composition (36 browser-verifiable entries); six visual examples carry reviewed desktop/mobile images of synthetic demonstration material. Generated and tested does not imply human preference. `recipes/README.md` is the catalogue by intent.
+- `recipes/` — 43 focused recipes plus one complete composition (44 browser-verifiable entries); six visual examples carry reviewed desktop/mobile images of synthetic demonstration material. Generated and tested does not imply human preference. `recipes/README.md` is the catalogue by intent.
 - `scripts/` — `doctor.mjs` (early environment check), `capture.mjs` (Playwright screenshots and [interactive states](references/capture-states.md)), `audit.mjs` (deterministic checks), `new-project.mjs`, `roll.mjs`, `verify-recipes.mjs`.
 - `assets/templates/` — `AWARDS.md`, `DESIGN.md`, jury and ship report templates, an authored 404; `assets/scaffold/vite-vanilla/` is what `new-project.mjs` copies.
 - `evals/` — the `claude plugin eval` suite (smoke and build tiers), `behavior.mjs` (live browser/tool regressions) and `codex-install.mjs` (installation and discovery); both run without model calls. See [verification commands](evals/README.md#behavior-regressions).

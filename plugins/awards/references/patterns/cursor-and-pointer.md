@@ -33,7 +33,7 @@ Rules:
 
 ## Hover previews and cursor-following reveals
 
-Why: on an index of work, a preview that follows the pointer keeps the list typographic and lets the image arrive only when asked for. One corpus variant survives verification: `[site:leo-parpeix]`'s archive is an **accordion** whose numbered rows expand in place, not a cursor-chasing preview [verified, live bundle 2026-09-18], so the technique below has no corpus exemplar; The Line's about and work lists reveal footage under the pointer through `Cursor`, `CursorPlane` and `HoverReveal` components — whether the plane is GL or CSS is unknown [site:the-line] [verified names].
+Why: on an index of work, a preview that follows the pointer keeps the list typographic and lets the image arrive only when asked for. One corpus variant survives verification: `[site:leo-parpeix]`'s archive is an **accordion** whose numbered rows expand in place, not a cursor-chasing preview [verified, live bundle 2026-09-18], so the technique below has no corpus exemplar; The Line's about and work lists reveal footage under the pointer through `Cursor`, `CursorPlane` and `HoverReveal` components — whether the plane is GL or CSS is unknown [site:the-line] [verified names]. Boc plays the preview inside the row itself: a muted clip per still, mounted on intersect with a horizontal `rootMargin` only for `(hover: hover)` without reduced motion, and started on `pointerenter` — with no touch equivalent [site:boc] [verified].
 
 Rules:
 - One preview element per list, repositioned by `damp()` in the loop; swap its source (or GL texture) on row enter and decode the first rows ahead (`img.decode()`).
@@ -62,6 +62,8 @@ Why: dragging is the one gesture that makes a gallery feel handled rather than p
 | Draggable project carousel | lazy WebP slides under a `drag` badge | [site:leo-parpeix] | [recalled medium] |
 | Hero object with momentum | drag inertia on one mesh; lighting answers the motion | [site:oryzo] | [recalled high], numbers unknown |
 | Auto-drifting carousel | auto-speed tweened to 0 on grab and back on release (500 ms each); wheel lerped at .2 into the same value; `releaseStiffness` default 80 | [site:animejs] | [verified] |
+| Grab-and-throw objects | CSS-3D objects with extruded sides (`--depth` 1rem), `cursor: grab`, thrown into a perspective catcher; pointer-only | [site:wodniack] | [verified] |
+| Draggable scrollbar thumb | native bar hidden; dragging the thumb writes `window.scrollTo(progress × max)`; pointer-only | [site:wodniack] | [verified] |
 
 Rules:
 - Inertia through the same damping as everything else; clamp velocity; `setPointerCapture` so a fast drag survives leaving the element.

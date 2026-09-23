@@ -141,11 +141,11 @@ Write one line per item with a pass, a fail or `[unknown]`, then the sentence th
 Why: the planning skills find neighbours through the index table, not by opening every card. Add one row with the index's columns:
 
 ```
-| `<slug>` | <site> | <class> | <visitor mode> | <narrative model> | <WebGL dosage> | <scroll model> | <palette strategy> | <type contract> | <awards / score> | <confidence> |
+| `<slug>` | <site> | <class> | <visitor mode> | <narrative model> | <WebGL dosage> | <scroll model> | <palette strategy> | <type contract> | <awards / score> | <confidence> | <last verified YYYY-MM-DD> |
 ```
 
 - Project destination: `.awards/sites/_index.md`. Create it when missing with a one-line heading, a note that these are project-local additions read alongside the plugin corpus, and the same table header as `${CLAUDE_PLUGIN_ROOT}/references/sites/_index.md`.
-- Plugin destination: append the row to `${CLAUDE_PLUGIN_ROOT}/references/sites/_index.md` and update the count in its title.
+- Plugin destination: append the row to `${CLAUDE_PLUGIN_ROOT}/references/sites/_index.md`.
 - The confidence cell is the card's overall label: high when sources were read verbatim, medium when captures and award pages carried it, low when recall did.
 
 ## Verify

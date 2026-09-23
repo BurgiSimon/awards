@@ -13,8 +13,9 @@ Use these exact versions in scaffolds, recipes and generated `package.json` file
 | postprocessing | 6.39.5 | pmndrs composer: bloom, SMAA |
 | ogl | 1.0.11 | minimal WebGL (Floema lineage) |
 | animejs | 4.5.0 | second motion grammar |
-| motion | 13.4.0 | React UI micro-interactions only; never scrub |
+| motion | 13.4.1 | React UI micro-interactions only; never scrub (re-checked 2026-09-23) |
 | split-type | 0.3.4 | legacy splitter; prefer SplitText |
+| smooothy | 0.0.35 | draggable / wheel slider with snap and lerp; pre-1.0, pin exactly (checked 2026-09-23) |
 | @unseenco/taxi | 1.9.1 | SPA page transitions (Lando) |
 | swup | 4.10.0 | alternative transition router |
 | @barba/core | 2.10.3 | alternative transition router |
@@ -49,6 +50,7 @@ Check Context7 before using an API you have not verified in this session, even f
 | Threlte | `/threlte/threlte` | |
 | Anime.js | `/websites/animejs`, `/juliangarnier/anime` | docs; repository (the source is the truth for 4.5) |
 | Motion | `/websites/motion_dev` | |
+| smooothy | `/vallafederico/smooothy` | README disagrees with the 0.0.35 source; trust the source |
 | @unseenco/taxi | `/craftedbygc/taxi` | |
 | Next.js | `/vercel/next.js` | App Router docs |
 | Nuxt | `/websites/nuxt_4_x` | 4.x docs |

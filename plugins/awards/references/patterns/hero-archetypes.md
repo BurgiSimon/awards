@@ -1,12 +1,12 @@
 # Hero archetypes
 
-What this file is for: the nine first viewports the corpus actually built — what each is made of, how it enters, what it does on a phone, what the DOM says underneath and which recipes build it. Read it after the narrative model is chosen and before the FIRST VIEWPORT line of the direction contract is written; cite it as `[pattern:hero-archetypes#archetype]`. An archetype is a structure with a card attached; the card's signature — its device, its object, its colour — is exactly what is not taken.
+What this file is for: the first viewports the corpus actually built — what each is made of, how it enters, what it does on a phone, what the DOM says underneath and which recipes build it. Read it after the narrative model is chosen and before the FIRST VIEWPORT line of the direction contract is written; cite it as `[pattern:hero-archetypes#archetype]`. An archetype is a structure with a card attached; the card's signature — its device, its object, its colour — is exactly what is not taken.
 
 ## Contents
 1. [Common rules](#common-rules)
 2. [Two-state typographic](#two-state-typographic) · [Role-casting boot sequence](#role-casting-boot-sequence) · [Poster or video hero](#poster-or-video-hero)
 3. [Single object with inertia](#single-object-with-inertia) · [Collage of flat planes](#collage-of-flat-planes) · [Spatial descent](#spatial-descent)
-4. [Print artefact with an acetate](#print-artefact-with-an-acetate) · [Headline as string](#headline-as-string) · [Palette field bound to the product](#palette-field-bound-to-the-product)
+4. [Print artefact with an acetate](#print-artefact-with-an-acetate) · [Headline as string](#headline-as-string) · [Palette field bound to the product](#palette-field-bound-to-the-product) · [Generative line field](#generative-line-field)
 5. [Choosing](#choosing) · [The first viewport test](#the-first-viewport-test) · [Verify](#verify) · [Refuse](#refuse)
 
 ## Common rules
@@ -114,6 +114,17 @@ One flat, unmodulated colour field bound to the current variant; one focal objec
 - **Recipes.** `[recipe:theme-swap-tokens]` `[recipe:gl-hero-object-inertia]` `[recipe:gl-rtt-composite-transition]` `[recipe:quality-tiers]`.
 - **Refuse.** The can, the six hexes, the edge-pinned layout as-is.
 
+## Generative line field
+
+A field of hairlines bent by noise and pushed by the pointer, drawn in on load, under a full-width condensed title; no WebGL — SVG paths redrawn on the ticker [site:wodniack] [verified].
+
+- **Anatomy.** A grid of points joined into SVG paths at one line weight; one condensed display line at poster scale; ticker rules and mono labels as texture; a thin frame around the viewport; two tokens [verified].
+- **Entrance.** The lines draw in from the edges (DrawSVG `"100% 100%"` → `"0% 100%"`, 3 s `expo.out`, stagger amount .5 `from: "edges"`); the frame collapses and re-opens and the title wipes in by a `clip-path` polygon, both 1 s `expo.inOut` [verified]. At rest each point's angle is one Perlin sample drifting with time; the pointer pushes within a speed-scaled radius and a spring returns it (`[pattern:motion-vocabulary#velocity-as-an-input]`).
+- **Mobile.** The title breaks to two lines and the composition holds [verified]; the plugin's version drops the pointer push on coarse pointers and redraws at a lower point density.
+- **DOM.** The `<h1>` is real text; the field is `aria-hidden` decoration. The source has no reduced-motion branch [verified]; the plugin freezes the field at its drawn state under reduced motion and skips the draw under static.
+- **Recipes.** `[recipe:scroll-drawn-svg-path]` for the dash draw; `[recipe:reduced-motion-switch]` for the freeze.
+- **Refuse.** The noise-bent vertical lines under a "CREATIVE ✦ DEVELOPER" title; the binary tickers.
+
 ## Choosing
 
 Why: the archetype follows the narrative model and the WebGL dosage the budget allows; dosage is a cost decision, not a quality signal — a Site of the Month was DOM-first [site:the-line], a Site of the Year was 100 % canvas [site:igloo], and a Developer Award went to 3D without WebGL [site:seasats].
@@ -129,6 +140,7 @@ Why: the archetype follows the narrative model and the WebGL dosage the budget a
 | Print artefact with an acetate | print artefact, gallery | none → moments | [site:the-line] |
 | Headline as string | chaptered journey, faceted world | one canvas-first island in a static page | [site:mont-fort] |
 | Palette field bound to the product | single-object launch | canvas-first with a static per-variant tier | [site:slosh-seltzer] |
+| Generative line field | gallery, collage index | none — SVG and canvas 2D | [site:wodniack] |
 
 Rules: decide what the first three seconds must say (who, what, why now), then take the lowest dosage that says it; never stack archetypes — a video under a two-state line under a scene is three heroes; a read-mode page (`[site:shopify-editions-w26]`, `[site:animejs]`) keeps the hero short and puts the index on screen one.
 
@@ -163,4 +175,4 @@ Write the result into `AWARDS.md ## Direction contract → FIRST VIEWPORT` as an
 - A boot sequence, intro interaction or preloader that gates the content or replays in full on every visit.
 - A video hero that autoplays with sound, or loads before its poster.
 - A WebGL headline or object with no DOM mirror and no poster.
-- Any card's signature as drawn: the identity-line device, the readouts, the coaster, the Polaroid curl, the igloo, the acetate hinge, the division string, the flavour can.
+- Any card's signature as drawn: the identity-line device, the readouts, the coaster, the Polaroid curl, the igloo, the acetate hinge, the division string, the flavour can, the noise-bent line field.

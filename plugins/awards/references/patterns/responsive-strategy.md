@@ -36,6 +36,7 @@ Why: hover, drag and a drawn cursor are fine-pointer ideas. The swap list is fix
 | Hover preview on a list row | thumbnail in the row, or tap opens | hover-native lists vanish on touch without a fallback [site:mindmarket] [inferred] |
 | Drag rail or arc | native `overflow-x: auto` with scroll snap; an edge peek shows there is more | rails fall back to native overflow on touch [site:son-daven] (skill); `[recipe:horizontal-rail]` |
 | Magnetic pull | off | `[recipe:magnetic-button]` |
+| Hover video in a row | a still, or the clip on tap | [site:boc] mounts clips only for `(hover: hover)` and offers touch nothing [verified] |
 | Hold gate | the same gate with a larger target; `touch-action: none` on the gate only | [site:why-zero] [inferred] |
 | Scroll-driven nav inversion | unchanged — it reads scroll, not hover | [site:lando-norris] samples the section under the header [verified] |
 
@@ -73,7 +74,7 @@ Rules: rebuild scenes on a debounced `ResizeObserver` and refresh triggers after
 
 ## Navigation and rails on small screens
 
-- A side index collapses under ≈ 900 px into a conventional, visible nav: Seasats hides its rotated scrollspy below that width [site:seasats] [clone-described]; Shopify's numbered sidebar is collapsible on mobile and its phone nav is a full-height overlay of stacked labels [site:shopify-editions-w26] [recalled medium-low]; Léo Parpeix's phone nav is a fullscreen overlay with numbered links [site:leo-parpeix] [recalled medium]. The same wayfinding must exist at both widths — a different nav model per device is the usability cost Seasats paid [site:seasats] [verified score].
+- A side index collapses under ≈ 900 px into a conventional, visible nav: Seasats hides its rotated scrollspy below that width [site:seasats] [clone-described]; Shopify's numbered sidebar is collapsible on mobile and its phone nav is a full-height overlay of stacked labels [site:shopify-editions-w26] [recalled medium-low]; Léo Parpeix's phone nav is a fullscreen overlay with numbered links [site:leo-parpeix] [recalled medium]. The same wayfinding must exist at both widths — a different nav model per device is the usability cost Seasats paid [site:seasats] [verified score]. Wodniack drops its section anchors on the phone, leaving only scroll [site:wodniack] [verified]; Boc folds its filter sidebar into an inline block above the rows [site:boc] [verified].
 - Horizontal rails become native overflow on touch (`[recipe:horizontal-rail]`); pinned chapters keep working because sticky stages need no pin (`[recipe:sticky-stages-rails]`).
 - The cursor-driven hero (fluid wake, magnetic pull, hover reveals) becomes a still or a tap-driven state; the theme swap and the preloader stay.
 

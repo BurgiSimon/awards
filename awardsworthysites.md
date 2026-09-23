@@ -18,11 +18,13 @@
 - https://thelinestudio.com/
 - https://www.igloo.inc/
 - https://sloshseltzer.com/
+- https://boc.studio/work
+- https://wodniack.dev/
+- https://smooothy.federic.ooo/
 
 # not reviewed
 - https://robbietilton.com/
 - https://pensatori-irrazionali.com/
-- https://boc.studio/work
 - https://www.warmnfuzzy.tv/
 - https://jesperlandberg.com/
 - https://zainabkabira.com/
@@ -48,9 +50,7 @@
 - https://grids.obys.agency/
 - https://www.bethebuzz.co/services
 - https://alectear.com/lettering
-- https://wodniack.dev/
 - https://www.spasoje.dev/
 - https://christoph-nagel.dev/
 
 # new stack
-- https://smooothy.federic.ooo/

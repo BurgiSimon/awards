@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>title-mask-tunnel — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ title-mask-tunnel</p></header>
+  <main id="main">
+    <section class="section wrap intro" aria-labelledby="t">
+      <h1 class="display" id="t">Walk through the title.</h1>
+      <p class="lede">The section heading sits in a capsule. Scroll, and the capsule grows until it is the whole screen; the projects wait inside it at depth and come towards you. Plain DOM in CSS 3D, no canvas.</p>
+    </section>
+
+    <!-- data-mode is set by main.js: "deep" for the full motion tier, "flat" (a plain list) otherwise and without JavaScript. -->
+    <section class="tunnel" data-tunnel data-mode="flat" aria-labelledby="work-title">
+      <div class="stage">
+        <div class="mask" data-mask>
+          <h2 id="work-title" class="title" data-title>Work</h2>
+          <div class="inner" data-inner>
+            <ol class="scene" data-scene>
+              <li style="--i:1; --x:-1;  --y:-.35; --h:18"><a href="#work-title"><span class="art" aria-hidden="true"></span><span class="name">Lumen Ferry</span><span class="label">2026 · Wayfinding</span></a></li>
+              <li style="--i:2; --x:1;   --y:.3;   --h:212"><a href="#work-title"><span class="art" aria-hidden="true"></span><span class="name">Salt Archive</span><span class="label">2025 · Identity</span></a></li>
+              <li style="--i:3; --x:-.9; --y:.4;   --h:96"><a href="#work-title"><span class="art" aria-hidden="true"></span><span class="name">Orchard Radio</span><span class="label">2025 · Web</span></a></li>
+              <li style="--i:4; --x:.95; --y:-.4;  --h:330"><a href="#work-title"><span class="art" aria-hidden="true"></span><span class="name">Kiln Weekly</span><span class="label">2024 · Editorial</span></a></li>
+              <li style="--i:5; --x:-1;  --y:-.2;  --h:44"><a href="#work-title"><span class="art" aria-hidden="true"></span><span class="name">North Pier Baths</span><span class="label">2024 · Campaign</span></a></li>
+              <li style="--i:6; --x:0;   --y:0;    --h:260"><a href="#work-title"><span class="art" aria-hidden="true"></span><span class="name">Tidewater Atlas</span><span class="label">2023 · Exhibition</span></a></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap outro"><h2>Out the other side.</h2><p class="lede">The section's own height is the scroll the tunnel consumes, so the scrollbar stays honest. Tab into the list and the page scrolls to bring the focused project to the front.</p></section>
+  </main>
+  <footer class="section wrap"><p class="label">awards · recipe · MIT · synthetic demo content</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
