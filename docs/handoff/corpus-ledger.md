@@ -7,8 +7,8 @@ Maintained by `/expand-corpus` (`.claude/skills/expand-corpus/SKILL.md`). Resume
 | Phase | Status | Note |
 |---|---|---|
 | setup | done | |
-| triage | open | |
-| synthesis | open | |
+| triage | done | closed by maintainer 2026-09-23 after the boc, wodniack pilot (testing); 29 rows stay queued for a later run |
+| synthesis | done | boc, wodniack synthesised |
 | recipes | open | |
 | stacks | open | |
 | upkeep | open | |
