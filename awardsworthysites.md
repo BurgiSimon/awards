@@ -38,12 +38,12 @@
 - https://www.nodeck.online/
 - https://www.primesec.ai/
 - https://haoqi.design/
+- https://serotoninn.com/
+- https://areebali.com/
+- https://www.noth.in/
 
 # not reviewed
 - https://www.oxigen.sa/
-- https://www.noth.in/
-- https://areebali.com/
-- https://serotoninn.com/
 - https://siena.film/
 - https://gehry.getty.edu/
 - https://the-boyd.com/
