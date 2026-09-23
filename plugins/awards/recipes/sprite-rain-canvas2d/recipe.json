@@ -1,0 +1,26 @@
+{
+  "id": "sprite-rain-canvas2d",
+  "title": "Canvas-2D sprite rain as an easter egg",
+  "tags": [
+    "canvas",
+    "particles",
+    "easter-egg",
+    "ticker",
+    "tiers",
+    "reduced-motion",
+    "toy"
+  ],
+  "tier": "P2",
+  "deps": [],
+  "variants": [
+    "button-triggered shower capped by the quality tier (full tier)",
+    "nothing spawns, the trigger says why (reduced / static)"
+  ],
+  "seenIn": [
+    "wodniack"
+  ],
+  "verified": {
+    "date": "2026-09-23",
+    "chromium": "153.0.8010.12"
+  }
+}
