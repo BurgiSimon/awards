@@ -1,0 +1,28 @@
+{
+  "id": "designed-footer",
+  "title": "Alder Workshop — designed close",
+  "tags": [
+    "footer",
+    "navigation",
+    "typography",
+    "responsive"
+  ],
+  "deps": [],
+  "tier": "P0",
+  "variants": [
+    "vanilla"
+  ],
+  "seenIn": [
+    "united-carriers",
+    "seasats"
+  ],
+  "verified": {
+    "date": "2026-09-22",
+    "chromium": "153.0.8010.12"
+  },
+  "visuals": {
+    "desktop": "visuals/desktop.png",
+    "mobile": "visuals/mobile.png",
+    "notes": "README.md#visual-notes"
+  }
+}

@@ -16,6 +16,10 @@ Exit **0** means required checks passed (inspect warnings); **2** means a prereq
 
 Playwright resolves from the working project, `AWARDS_PLAYWRIGHT` (a project directory containing `node_modules/playwright`), or global npm. `AWARDS_CHROMIUM` can select an existing executable; an invalid explicit path fails instead of silently falling back. The check does not change host permissions.
 
+## Immutable orchestrated passes
+
+For each Awards phase or recapture that produces evidence for another phase, allocate a **new** timestamp-plus-stage directory under `.awards/captures/` and pass it with `--out`. For example, run `capture_out=".awards/captures/$(date -u +%Y%m%dT%H%M%S)-static"` immediately before a static pass, then `--out "$capture_out"`; use `jury`, `ship`, `component`, `motion`, `stack`, `nogl`, or another stage for later passes. If that directory already exists, choose a fresh timestamp before capture. Allocate again for every fallback, verdict or component recapture. Record `$capture_out/manifest.json` in Page map Notes or the report and pass the exact directory (and any state plan) to the juror. Choose `--scroll` positions that cover each applicable Page map chapter at desktop and mobile widths, including middle and close; add `--reduced-motion` and `--states` for required sections/interactions. Record gaps as unmeasured and recapture into another fresh directory when needed. Compare only files listed by each recorded manifest. Standalone `capture.mjs` without `--out` keeps its existing `.awards/captures` default.
+
 ## Capture named states
 
 Keep a small JSON plan with the project, for example `.awards/capture-states.json`:
@@ -49,10 +53,10 @@ Keep a small JSON plan with the project, for example `.awards/capture-states.jso
 ]
 ```
 
-Replace selectors with the actual controls. Capture once after the edit batch:
+Replace selectors with the actual controls. For an orchestrated pass, allocate a fresh output directory as above and capture once after the edit batch:
 
 ```sh
-node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <dir|url> --states .awards/capture-states.json --reduced-motion --json
+node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <dir|url> --out "$capture_out" --states .awards/capture-states.json --reduced-motion --json
 ```
 
 Existing scroll/component frames and filenames stay intact. Additional files use `[prefix-]<viewport>-state-<name>.png`, including `desktop`, `mobile` and, with `--reduced-motion`, `desktop-rm`. `--only desktop` or `--only mobile` limits the regular viewports; reduced motion adds its desktop pass. Each state navigates to the original target and runs its actions in order. Cookies and storage persist within a viewport, so a theme selection can be tested through `reload`; viewports use separate contexts. States are independent interaction sequences, not continuations of the preceding state's DOM.

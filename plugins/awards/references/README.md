@@ -4,7 +4,7 @@ The corpus is the skill set's taste. Every planning skill reads `sites/_index.md
 
 ## Layout
 - `sites/` — one case study per analysed site (`_index.md` is the table of contents, `_TEMPLATE.md` the schema).
-- `patterns/` — the cross-site pattern language: narrative structures, hero archetypes, the component catalogue, motion vocabulary, preloaders and transitions, cursor and pointer, typography, colour and material, copy and content, WebGL architecture, asset pipeline, accessibility and reduced motion, responsive strategy, sound.
+- `patterns/` — the cross-site pattern language, including `visual-composition.md` for selecting and viewing the six synthetic examples: narrative structures, hero archetypes, the component catalogue, motion vocabulary, preloaders and transitions, cursor and pointer, typography, colour and material, copy and content, WebGL architecture, asset pipeline, accessibility and reduced motion, responsive strategy, sound.
 - `jury/` — the scoring rubric, the usability walk and the report template used by `awards:jury`.
 - `stacks/` — setup and adapter notes per framework and per library, with pinned versions.
 - `craft-floor.md` — the quality floor loaded before any UI edit; `anti-patterns.md` — the Awwwards-default slop families; `reflex-lists.md` — faces, palettes and effects to avoid, with verified alternatives.

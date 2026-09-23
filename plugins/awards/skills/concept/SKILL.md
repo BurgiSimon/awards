@@ -39,6 +39,7 @@ Why: this is the heaviest reading phase of the plugin; the corpus is the taste, 
 - `${CLAUDE_PLUGIN_ROOT}/references/anti-patterns.md` before naming the two ruts, and again before the naming test at the end.
 - `${CLAUDE_PLUGIN_ROOT}/references/patterns/narrative-structures.md` before writing STORY.
 - `${CLAUDE_PLUGIN_ROOT}/references/patterns/hero-archetypes.md` before writing FIRST VIEWPORT.
+- `${CLAUDE_PLUGIN_ROOT}/references/patterns/visual-composition.md`: for a read-heavy brief open the typography and editorial frames; for a product brief open hero and specifications. For an editorial/product/material-led complete page, also open the complete composition’s opening, middle and close frames. Select only fitting examples. Record one principle and what changes for this subject. These fictional examples do not replace the three real site-card DIVERGENCE entries.
 - `${CLAUDE_PLUGIN_ROOT}/references/patterns/copy-and-content.md` before writing the thesis sentence and the conversion.
 - `${CLAUDE_PLUGIN_ROOT}/assets/templates/AWARDS.md` for the exact block names and order of `## Direction contract` and the columns of `## Page map`.
 

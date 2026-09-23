@@ -34,14 +34,14 @@ One continuous world read in order; scroll depth is progress through a process, 
 
 ## Faceted world
 
-A brand with several selves or many catalogue entries, presented as a hub in front of authored routes rather than as one scroll. Seen in [site:lando-norris] (a persona fork, `/on-track` and `/off-track`, across seven routes plus a 404 [verified structure]) and [site:mindmarket] (a persuade homepage in front of a methodology × sector matrix of about 22 templated pages and a 48-country network map [verified data]). Trevor Noah's hub with per-entity pages sits on the boundary with the collage index [site:trevor-noah].
+A brand with several selves or many catalogue entries, presented as a hub in front of authored routes rather than as one scroll. Seen in [site:lando-norris] (a persona fork, `/on-track` and `/off-track`, across seven routes plus a 404 [verified structure]) and [site:mindmarket] (a persuade homepage in front of a 34-page methodology × sector × strategy matrix [verified routes]; `/network` exists, but its map rendering was not checked). The old 48-country dataset came from a clone [recalled low], not the live site. Trevor Noah's hub with per-entity pages sits on the boundary with the collage index [site:trevor-noah].
 
 - **Beats.** Entrance: the hub states the one idea and the choice — the nav dramatises the fork [site:lando-norris] [inferred]. Hold: each facet is its own route with its own hold. Exit: a choreographed route change — vector state, camera move and scene swap on one timeline [site:lando-norris] [verified] — or native cross-document morphs `[recipe:page-transitions]`.
-- **Interruption.** The one dataset that deserves geometry (a season calendar as a track [site:lando-norris] [verified]); a map that makes reach a felt claim [site:mindmarket]. Everything else stays text.
+- **Interruption.** The one dataset that deserves geometry (a season calendar as a track [site:lando-norris] [verified]); a map can make reach a felt claim, though MindMarket's `/network` map rendering was not checked [site:mindmarket] [unknown]. Everything else stays text.
 - **Rule of three.** The hub surfaces at most three facets; deeper catalogues run on a block kit of 12–15 named blocks and two hero variants [site:mindmarket] [verified structure].
 - **Close.** An authored 404 in the same world [site:lando-norris] [verified]; a closing CTA block on every templated route [site:mindmarket] [verified component].
 - **Register.** Label-like and low in word count, with rotating phrase loops carrying the voice [site:lando-norris] [inferred]; warm-professional for a services catalogue [site:mindmarket] [inferred medium].
-- **DOM.** Routes are real pages with their own `<h1>`; 3D-anchored labels are HTML positioned against projected coordinates so text stays text [site:lando-norris] [verified]; map pins are `<button>` or `<a>` elements with names [site:mindmarket]; the block kit reflows — no breakpoint reloads.
+- **DOM.** Routes are real pages with their own `<h1>`; 3D-anchored labels are HTML positioned against projected coordinates so text stays text [site:lando-norris] [verified]; map pins, when used, are `<button>` or `<a>` elements with names; the block kit reflows — no breakpoint reloads.
 - **Choose when.** The subject is plural — two personas, several ventures, a service × sector matrix — and every facet can be finished to the same standard.
 - **Risk.** Finish across N routes: Lando ships dead branches — a `window.ScrollTrigger` fallback that always runs, a helper that returns `"body"` on both sides of its own ternary, and a `localhost:6645` script tag [site:lando-norris] [verified, live source 2026-09-18]. The width-keyed texture tier and the 992 px reload that used to be listed here are not observable in the 2026-09-18 build [see the card's §8]. Programmatic pages go thin without a real block kit.
 
@@ -101,14 +101,14 @@ The work or the items are the argument, hung one per viewport. Seen in [site:flo
 
 The page behaves like a printed object about the subject — a call sheet, a poster, a spec sheet — and the interface speaks the industry's own paperwork. Seen in [site:the-line]: hero (the acetate hinges away) → the studio → work by client → clients and partners → news → contact → sticky red footer [verified order].
 
-- **Beats.** Entrance: the sheet hinges off the light table on a named corner [verified] `[recipe:sticky-stages-rails]`. Hold: sticky stages under invisible rails, never `pin: true` [verified]. Exit: the next stage; colour arrives only at the active nav state and on the last screen [verified].
-- **Interruption.** The arrival of colour is the event — one hue in exactly two places bookends the visit [verified]. The hinge is the only spatial move.
-- **Rule of three.** Not evidenced on the card; this artefact's rhythm is bookends, not triads.
+- **Beats.** Entrance: the sheet hinges off the light table on a named corner [verified] `[recipe:sticky-stages-rails]`. Hold: sticky stages under invisible rails, never `pin: true` [verified]. Exit: the next stage; flare red recurs in navigation, selection, loading placeholder and footer, while the work keeps its own colours [verified].
+- **Interruption.** A local red acetate marks selected moments over otherwise full-colour work [verified]. The hinge is the spatial move.
+- **Rule of three.** Not evidenced on the card; this artefact's rhythm comes from repeated print gestures, not triads.
 - **Close.** A sticky flare-red footer with a closing logo block, back-to-top and a Site Credits link [verified].
-- **Register.** Working-studio voice: status dots, slash-delimited labels, credit tables, a Roman-numeral year, a `00/24` frame counter, live open/closed timings [verified] (`[pattern:copy-and-content#telemetry-register]`).
-- **DOM.** The acetate is an `aria-hidden` div [verified] — the one decorative layer stays out of the tree; the slash is a CSS pseudo-element, not markup [verified]; native scroll stays under the custom scrollbar; hover reveals gain a focus equivalent.
+- **Register.** Working-studio voice: status dots, slash-delimited labels, credit tables, a numeric year, a `00/24` frame counter, live open/closed timings [verified] (`[pattern:copy-and-content#telemetry-register]`).
+- **DOM.** The acetate is an `aria-hidden` div [verified] — the decorative layer stays out of the tree; nav slashes are real `<i>` elements [verified]; native scroll stays under the custom scrollbar; hover reveals gain a focus equivalent.
 - **Choose when.** A DOM-first budget, heterogeneous imagery that one ink can unify, a studio whose craft is the product. Site of the Month without a scene [verified].
-- **Risk.** A hidden native scrollbar and hover-only reveals are keyboard hazards [unknown on the site]; live greyscale filters over video are compositing-heavy on low-end devices [inferred].
+- **Risk.** A hidden native scrollbar and hover-only reveals are keyboard hazards [unknown on the site]; local acetate over video should be checked on low-end devices [inferred].
 
 ## Specification
 
@@ -125,7 +125,7 @@ The subject is proven with its own numbers, scenarios and places: persuasion by 
 
 ## Pacing
 
-Why: a page that is loud everywhere has no loud moments. The corpus says so from four directions — the transitions are the hero and the sections are the rests [site:united-carriers] [verified concept]; the loud parts only work because everything around them stays quiet [site:oryzo] [recalled high]; spend the weirdness budget on one element and keep the body clean [site:seasats]; an accent used in two places frames the visit instead of decorating it [site:the-line] [verified].
+Why: a page that is loud everywhere has no loud moments. The corpus says so from four directions — the transitions are the hero and the sections are the rests [site:united-carriers] [verified concept]; the loud parts only work because everything around them stays quiet [site:oryzo] [recalled high]; spend the weirdness budget on one element and keep the body clean [site:seasats]; one accent can serve many interface roles while the work retains its colours [site:the-line] [verified].
 
 Rules:
 - One authored moment per chapter; hero scale (1.2–1.5 s) at most once per chapter (`[pattern:motion-vocabulary#durations]`). The rest of the chapter is typesetting.

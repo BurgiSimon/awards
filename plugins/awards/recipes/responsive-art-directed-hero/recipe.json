@@ -1,0 +1,27 @@
+{
+  "id": "responsive-art-directed-hero",
+  "title": "Alder Workshop — art-directed hero",
+  "tags": [
+    "art direction",
+    "responsive",
+    "images",
+    "layout"
+  ],
+  "deps": [],
+  "tier": "P0",
+  "variants": [
+    "vanilla"
+  ],
+  "seenIn": [
+    "the-line"
+  ],
+  "verified": {
+    "date": "2026-09-22",
+    "chromium": "153.0.8010.12"
+  },
+  "visuals": {
+    "desktop": "visuals/desktop.png",
+    "mobile": "visuals/mobile.png",
+    "notes": "README.md#visual-notes"
+  }
+}

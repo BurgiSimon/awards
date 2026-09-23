@@ -199,14 +199,14 @@ Run these before handing off; a boot that fails any of them makes every later ph
 - [ ] `npm install && npm run dev` boots; the wheel, arrow keys, Space, PageDown and the skip link all scroll the document; no console errors.
 - [ ] `npm run build` writes a separate `three-*.js` (or equivalent) chunk under `dist/assets/` that the entry does not import statically; `gzip -c dist/assets/index-*.js | wc -c` stays under 200 KB.
 - [ ] Emulate `prefers-reduced-motion: reduce` in DevTools: `window.__awards.state().motion` reports `reduced`, `<html data-motion-tier>` follows, Lenis scrolls instantly, nothing is hidden.
-- [ ] `node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" dist --out .awards/captures --scroll 0,50,100 --reduced-motion --json`: the manifest shows `awardsHook: true`, `awardsState.scroll` near `0.5` in `desktop-s50.png`, mobile and `desktop-rm` captures present, empty `consoleErrors` and `pageErrors`. Exit 3 means Playwright is missing: install it as the message says, or record that captures are pending.
+- [ ] Allocate a fresh stack `capture_out` per `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md`; run `node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" dist --out "$capture_out" --scroll 0,50,100 --reduced-motion --json`: the manifest shows `awardsHook: true`, `awardsState.scroll` near `0.5` in `desktop-s50.png`, mobile and `desktop-rm` captures present, empty `consoleErrors` and `pageErrors`. Exit 3 means Playwright is missing: install it as the message says, or record that captures are pending.
 - [ ] `node "${CLAUDE_PLUGIN_ROOT}/scripts/audit.mjs" . --json` reports no P0 or P1 finding, or each one has a reason under `AWARDS.md ## Exceptions`.
 - [ ] `.gitignore` covers `node_modules`, `dist`, `.awards/captures` and `.awards/audit.json`; fonts, decoders and `og.png` are real files, not placeholders.
 - [ ] `AWARDS.md ## Budgets & tiers` names the stack, the scroll model, the resize strategy, the transition mechanism and the budgets; `## Status` ticks "Stack booted".
 
 ## Hand-off
 
-Tick "Stack booted (stack)" in `AWARDS.md ## Status`, fill `## Budgets & tiers`, and note any decision the brief did not cover (scroll model, transition mechanism, CMS) under `## Exceptions` or the brief's constraints. Then: Invoke the `awards:motion` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. When the direction contract names a WebGL dose above "none", `awards:motion` hands on to `awards:webgl` after the score is written.
+Tick "Stack booted (stack)" in `AWARDS.md ## Status`, fill `## Budgets & tiers`, and note any decision the brief did not cover (scroll model, transition mechanism, CMS) under `## Exceptions` or the brief's constraints. Then, for a whole-site handoff after layout/media exist, complete or reuse the static checkpoint in `awards:craft` and record its manifest/result in Page map Notes (or `unmeasured` when capture is unavailable). Invoke the `awards:motion` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. When the direction contract names a WebGL dose above "none", `awards:motion` hands on to `awards:webgl` after the score is written.
 
 ## Refuse
 

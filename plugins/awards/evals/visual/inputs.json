@@ -1,0 +1,275 @@
+{
+  "schemaVersion": 1,
+  "frozenOn": "2026-09-22",
+  "archiveLocationHint": "/tmp/awards-visual.YU26DB",
+  "hashAlgorithm": "SHA-256",
+  "baseline": {
+    "revision": "4f348dc5ea850d9657af27ce28c17e11884f02d6",
+    "pluginPath": "baseline/plugins/awards",
+    "archive": {
+      "root": "archive",
+      "path": "baseline.tar",
+      "bytes": 2129920,
+      "sha256": "42b541972bc61a2b8093d332c7227c5ef66116e9aad4c3b6ad328c6f34dad89b"
+    }
+  },
+  "sharedFiles": [
+    {
+      "root": "archive",
+      "path": "common-starter/.gitignore",
+      "bytes": 57,
+      "sha256": "d21be8873bd580ec8ac5c8632565b135555d9b9310949c2e7007b5f948698172"
+    },
+    {
+      "root": "archive",
+      "path": "common-starter/AWARDS.md",
+      "bytes": 2972,
+      "sha256": "474fdd30a6841c648958f038fa6602bebdf51a61d4a99f7a34a9353c1b005e3f"
+    },
+    {
+      "root": "archive",
+      "path": "common-starter/DESIGN.md",
+      "bytes": 3230,
+      "sha256": "616d022f5dd7d4707c9d1ef74422bbc2a413d813e2d89b48ee9b98d0aa19807e"
+    },
+    {
+      "root": "archive",
+      "path": "common-starter/index.html",
+      "bytes": 1831,
+      "sha256": "cee68de9fad2497b65d8719eb05902007b6bfc2d3d0d1c8973d19e016ccc80a7"
+    },
+    {
+      "root": "archive",
+      "path": "common-starter/package-lock.json",
+      "bytes": 26647,
+      "sha256": "3509a6c065726d3772311a2c29643eb814fefd049ed207ee1fcce85392443494"
+    },
+    {
+      "root": "archive",
+      "path": "common-starter/package.json",
+      "bytes": 361,
+      "sha256": "038a4d8e4b716eb089d9c1392da9aea795b894a2d28ef1dfccb57087155ca7f5"
+    },
+    {
+      "root": "archive",
+      "path": "common-starter/public/favicon.svg",
+      "bytes": 158,
+      "sha256": "796d5550e59d040aeeb4b38ea20cfd39759cb34be8080628aadc29506582a26b"
+    },
+    {
+      "root": "archive",
+      "path": "common-starter/README.md",
+      "bytes": 705,
+      "sha256": "9381aa7c00042589e491074862bae5d1e78717b15ec6563b0df0c43649f3e1f9"
+    },
+    {
+      "root": "archive",
+      "path": "common-starter/src/lib/awards-hook.js",
+      "bytes": 1671,
+      "sha256": "26d043758ce789f29c41743915f15542e91eb28fdab5d80a15346cb28535f8f1"
+    },
+    {
+      "root": "archive",
+      "path": "common-starter/src/lib/motion.js",
+      "bytes": 936,
+      "sha256": "8c0e474876e977f45ed6c249299d4d20b3f34b07a6362e68f2450f3ff8532706"
+    },
+    {
+      "root": "archive",
+      "path": "common-starter/src/lib/quality-tiers.js",
+      "bytes": 2882,
+      "sha256": "6e6c27fadccd036b3e705427fab687cb04b058bd3bcab6a0144d29030fae9333"
+    },
+    {
+      "root": "archive",
+      "path": "common-starter/src/lib/raf.js",
+      "bytes": 1542,
+      "sha256": "c64ff2c6cf559b3405ed34def5669b50666ef3b6bc0b07fab35e6eab408ebde5"
+    },
+    {
+      "root": "archive",
+      "path": "common-starter/src/lib/reduced-motion.js",
+      "bytes": 1284,
+      "sha256": "f5668bdb6373978909a809d8352e26a49f7d602b61748e519d5a8563e2acee62"
+    },
+    {
+      "root": "archive",
+      "path": "common-starter/src/lib/scroll.js",
+      "bytes": 1168,
+      "sha256": "553ffdabac78a75a9e762cc4d12db0a077e66346f4e88492b105d3f9dcf4ef71"
+    },
+    {
+      "root": "archive",
+      "path": "common-starter/src/main.js",
+      "bytes": 2035,
+      "sha256": "d15c4aad23d081a261ae9be16f530885466f9b492ee8bbd605db732c2a74b55f"
+    },
+    {
+      "root": "archive",
+      "path": "common-starter/src/styles/base.css",
+      "bytes": 1921,
+      "sha256": "11af727e3bb19ab68cdcee1489c05cb110a51ee21bec7843481337e3ab7da24e"
+    },
+    {
+      "root": "archive",
+      "path": "common-starter/src/styles/fonts.css",
+      "bytes": 535,
+      "sha256": "c2da82ca3b282d18e62022a7f345444530d36e86340b0988e1e9caea713a0c22"
+    },
+    {
+      "root": "archive",
+      "path": "common-starter/src/styles/tokens.css",
+      "bytes": 934,
+      "sha256": "2c4b54c3b39cfeebef66f64d1cec696cb6a22ab70b6d99ea2e990d4dc187bef8"
+    },
+    {
+      "root": "archive",
+      "path": "common-starter/vite.config.js",
+      "bytes": 298,
+      "sha256": "0d556c0cb3826018c0abb6423ae8373f75b54dd028976cc60af8a7e6b6f03627"
+    },
+    {
+      "root": "repository",
+      "path": "plugins/awards/evals/visual/README.md",
+      "bytes": 6738,
+      "sha256": "c64a28e189cc4caba8c4cd7a85f9f955020ff90e0f3374a735a42fc935261fc6"
+    },
+    {
+      "root": "repository",
+      "path": "plugins/awards/evals/visual/review-template.md",
+      "bytes": 1772,
+      "sha256": "968b1b14a2cc955991b6d0b54f22902982fddce8fe06d4a7cba6a621c84bc66c"
+    }
+  ],
+  "cases": [
+    {
+      "id": "kiln-nine",
+      "visitorMode": "persuade",
+      "prompt": "plugins/awards/evals/visual/kiln-nine/prompt.md",
+      "content": "plugins/awards/evals/visual/kiln-nine/content.md",
+      "provenance": "plugins/awards/evals/visual/kiln-nine/ASSETS.md",
+      "assets": [
+        "plugins/awards/evals/visual/kiln-nine/assets/collection.webp",
+        "plugins/awards/evals/visual/kiln-nine/assets/glaze-detail.webp"
+      ],
+      "files": [
+        {
+          "root": "repository",
+          "path": "plugins/awards/evals/visual/kiln-nine/assets/collection.webp",
+          "bytes": 253660,
+          "sha256": "1bc8a0d5136fc24fba88fb8f6ab94b587a1289daff931ca8856277e3215fa9cb"
+        },
+        {
+          "root": "repository",
+          "path": "plugins/awards/evals/visual/kiln-nine/assets/glaze-detail.webp",
+          "bytes": 208438,
+          "sha256": "d857e6a9f5a4e194402c51695353cdd7f91b4c688b5434955636cbd76f6f2286"
+        },
+        {
+          "root": "repository",
+          "path": "plugins/awards/evals/visual/kiln-nine/ASSETS.md",
+          "bytes": 3398,
+          "sha256": "be356d429ff40362d91ce5801ce4d0ed49f815ba6c0b454a48d7416a12960fab"
+        },
+        {
+          "root": "repository",
+          "path": "plugins/awards/evals/visual/kiln-nine/content.md",
+          "bytes": 2977,
+          "sha256": "9a449dd42f0663ae520d6c64f9954a687efeadf176a925efec51f86da985122d"
+        },
+        {
+          "root": "repository",
+          "path": "plugins/awards/evals/visual/kiln-nine/prompt.md",
+          "bytes": 1390,
+          "sha256": "a7332559929a47435cbf24cb369bb0a18ecd4114f00ab044faf8e7800781ded5"
+        }
+      ]
+    },
+    {
+      "id": "tidal-notes",
+      "visitorMode": "read",
+      "prompt": "plugins/awards/evals/visual/tidal-notes/prompt.md",
+      "content": "plugins/awards/evals/visual/tidal-notes/content.md",
+      "provenance": "plugins/awards/evals/visual/tidal-notes/ASSETS.md",
+      "assets": [
+        "plugins/awards/evals/visual/tidal-notes/assets/coast.webp",
+        "plugins/awards/evals/visual/tidal-notes/assets/shore-detail.webp"
+      ],
+      "files": [
+        {
+          "root": "repository",
+          "path": "plugins/awards/evals/visual/tidal-notes/assets/coast.webp",
+          "bytes": 357276,
+          "sha256": "8fbcd4df4eae68ce6c6635d62bda44b7031768abd6d1b53342976605827878a2"
+        },
+        {
+          "root": "repository",
+          "path": "plugins/awards/evals/visual/tidal-notes/assets/shore-detail.webp",
+          "bytes": 481382,
+          "sha256": "83d3f5fb9de1ac244a231b75ec416b13b10ce95286398a0d390162515e6a1b70"
+        },
+        {
+          "root": "repository",
+          "path": "plugins/awards/evals/visual/tidal-notes/ASSETS.md",
+          "bytes": 3404,
+          "sha256": "7eee0e62408a073f8cf77e6c50224d33c74b8ab4f68a4fe57f3548cc18d18535"
+        },
+        {
+          "root": "repository",
+          "path": "plugins/awards/evals/visual/tidal-notes/content.md",
+          "bytes": 4794,
+          "sha256": "cb1b8d497df4f0f076f90ad3b37bc5da02c41a2e1f01daad96afce633a4ad0f9"
+        },
+        {
+          "root": "repository",
+          "path": "plugins/awards/evals/visual/tidal-notes/prompt.md",
+          "bytes": 1453,
+          "sha256": "331292baa7a858b7dec1b0fc77dcda1975371de72402dc0f101abf505a8a9df0"
+        }
+      ]
+    },
+    {
+      "id": "form-sound",
+      "visitorMode": "experience",
+      "prompt": "plugins/awards/evals/visual/form-sound/prompt.md",
+      "content": "plugins/awards/evals/visual/form-sound/content.md",
+      "provenance": "plugins/awards/evals/visual/form-sound/ASSETS.md",
+      "assets": [
+        "plugins/awards/evals/visual/form-sound/assets/mark.svg",
+        "plugins/awards/evals/visual/form-sound/assets/poster.svg"
+      ],
+      "files": [
+        {
+          "root": "repository",
+          "path": "plugins/awards/evals/visual/form-sound/assets/mark.svg",
+          "bytes": 571,
+          "sha256": "c7061befd72bd6ff300c63d7c556db06d53965f267227fe23670a8a1f3516bbd"
+        },
+        {
+          "root": "repository",
+          "path": "plugins/awards/evals/visual/form-sound/assets/poster.svg",
+          "bytes": 1493,
+          "sha256": "b1320e0c764a0f8557117001fe637aa95340e52f655bd4236722cf03d4a8e719"
+        },
+        {
+          "root": "repository",
+          "path": "plugins/awards/evals/visual/form-sound/ASSETS.md",
+          "bytes": 1068,
+          "sha256": "f257205a3e388b7961528f29ff023b9ac276dbf641b6d17d90d396a3fb9f5ff9"
+        },
+        {
+          "root": "repository",
+          "path": "plugins/awards/evals/visual/form-sound/content.md",
+          "bytes": 3792,
+          "sha256": "4d7c9f366cdde5f5e15490c71eb77293cf1eeb2c2929b354331f1e3da5992dc7"
+        },
+        {
+          "root": "repository",
+          "path": "plugins/awards/evals/visual/form-sound/prompt.md",
+          "bytes": 1390,
+          "sha256": "c3ca3d0d1c0f020e262cdd9f4004ba239c737aac6bf1b3b737b343ba67f96c84"
+        }
+      ]
+    }
+  ]
+}

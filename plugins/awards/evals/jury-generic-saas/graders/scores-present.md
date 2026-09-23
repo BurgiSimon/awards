@@ -1,10 +1,9 @@
 ---
 type: regex
-pattern: 'Design\s+\d(?:\.\d+)?\s*·\s*Usability\s+\d(?:\.\d+)?\s*·\s*Creativity\s+\d(?:\.\d+)?\s*·\s*Content\s+\d(?:\.\d+)?'
+pattern: '^(?:disposition: (?:ship|fix|rebuild)\r?\nDesign \d+(?:\.\d+)? · Usability \d+(?:\.\d+)? · Creativity \d+(?:\.\d+)? · Content \d+(?:\.\d+)? — weighted \d+(?:\.\d+)?|disposition: recapture\r?\nDesign unmeasured · Usability unmeasured · Creativity unmeasured · Content unmeasured — weighted unmeasured)$'
+flags: m
 target: last_message
 ---
 
-The format is the one the skill promises: `skills/jury/SKILL.md` requires the reply to end with the
-four axis scores "written out in full (`Design x.x · Usability x.x · Creativity x.x · Content x.x`)".
-The earlier pattern looked for `x/10` or a markdown table cell, a shape the skill never specifies,
-and failed the 2026-09-21 build run on a reply that met the contract exactly.
+The disposition and immediately following score line must agree. Rendered evidence has four numeric
+axes and a numeric weighted result; missing visual evidence has `recapture` and all values `unmeasured`.

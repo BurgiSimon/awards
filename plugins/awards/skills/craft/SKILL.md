@@ -55,7 +55,7 @@ Why: skills cannot call each other programmatically, so the routing is a written
 |---|---|---|
 | `brief <text>`, `site <target>`, or a description of a whole page or site | whole site | Run the workflow from the first unchecked phase in `## Status` (phase 0 when there is no `AWARDS.md`) |
 | `component <name, file or selector>`, or a request that names one element ("the hero", "this menu", "a cursor like…") | one component | Invoke the `awards:component` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. |
-| "is this award-worthy", "review", "score", "critique", "what is missing" | critique | Invoke the `awards:jury` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. |
+| "is this award-worthy", "review", "score", "critique", "what is missing" | critique | Invoke the `awards:jury` skill now with the Skill tool, passing the brief, AWARDS.md path, and exact recorded captures directory and manifest path when available; do not do its work inline. |
 | `resume` | continue | Print the next unchecked phase and its entry condition, confirm in one question, then run it |
 | `status` or no argument | orientation | The status menu below; never start a phase from it without an answer |
 | `jury`, `ship` | one phase | Invoke that skill with the routing line of its phase row |
@@ -105,10 +105,10 @@ Two rules apply to every phase: never write page code before `## Direction contr
 | 2 | System | Contract locked; no `DESIGN.md` or one that predates the contract | Invoke the `awards:system` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. | `DESIGN.md`, `src/styles/tokens.css`, audit clean on fonts, contrast, surfaces |
 | 3 | Structure | `DESIGN.md` exists | Invoke the `awards:structure` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. | `## Page map` filled per chapter, static semantic skeleton, responsive strategy, authored 404 |
 | 4 | Stack | Skeleton exists; no booted project (no `package.json`, or no Lenis + GSAP boot) | Invoke the `awards:stack` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. | Project boots on one ticker, `window.__awards` hook, `## Budgets & tiers` |
-| 5 | Motion | Stack booted | Invoke the `awards:motion` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. | `## Motion score` and the motion code, reduced-motion tiers wired |
+| 5 | Motion | Stack booted; static checkpoint recorded in Page map Notes | Invoke the `awards:motion` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. | `## Motion score` and the motion code, reduced-motion tiers wired |
 | 6 | WebGL | SIGNATURE or the motion score names a GL moment; otherwise tick "explicitly declined" and skip | Invoke the `awards:webgl` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. | GL layer in its own chunk, DOM mirror, no-GL fallback, budgets updated |
-| 7 | Jury | Phases 1–6 done or declined; the page renders | Invoke the `awards:jury` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. | `.awards/jury/<date>.md`, a line in `## Jury log`, a disposition |
-| 8 | Ship | Disposition is `fix` or `ship` | Invoke the `awards:ship` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. | `.awards/ship/<date>.md`, a line in `## Ship log`, "Shipped" ticked |
+| 7 | Jury | Phases 1–6 done or declined; the page renders | Invoke the `awards:jury` skill now with the Skill tool, passing the brief, AWARDS.md path, `--captures <recorded-directory>`, and that directory's exact `manifest.json` path; do not do its work inline. | `.awards/jury/<date>.md`, a line in `## Jury log`, a disposition |
+| 8 | Ship | Disposition is `fix` or `ship` | Invoke the `awards:ship` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. | `.awards/ship/<date>.md`, a line in `## Ship log`; "Shipped" ticked only after the ship gate passes |
 
 Resolution rules:
 - After every phase: tick its Status line, read the exit artefact yourself (not the skill's summary), and check it against the contract before invoking the next skill.
@@ -123,10 +123,10 @@ Why: a sub-skill reports what it did; this skill verifies what exists. Read the 
 - After concept: every contract block passes its "concrete when" test (table below); `Seed` holds the key `roll.mjs` printed; the `## Page map` skeleton has one row per chapter or route, including the 404 in a faceted world.
 - After system: the `DESIGN.md` frontmatter values and `src/styles/tokens.css` are identical; two to four colour tokens; the display face is not on the reflex list; `audit.mjs --scope fonts,contrast,surfaces` is clean.
 - After structure: one `<h1>`, landmarks, a skip link, the overlay slot and the preloader status region exist; a 404 page exists; the page reads top to bottom with CSS off; the responsive strategy is named in the page map notes.
-- After stack: the dev server boots; `window.__awards` answers `ready`, `scrollTo` and `state`; one ticker drives Lenis and ScrollTrigger; `## Budgets & tiers` is filled.
+- After stack: the dev server boots; `window.__awards` answers `ready`, `scrollTo` and `state`; one ticker drives Lenis and ScrollTrigger; `## Budgets & tiers` is filled. Before motion, inspect hero, a middle section and the close at desktop/mobile widths against the selected principles in `${CLAUDE_PLUGIN_ROOT}/references/patterns/visual-composition.md`; fix material defects in one batch and record the result plus manifest path in Page map Notes. If capture is unavailable, record `unmeasured` and continue independent work without a passed visual gate.
 - After motion: every `## Motion score` row has a reduced-motion tier and a recipe or "custom"; `audit.mjs --scope motion` is clean (scrubbed tweens on `ease: 'none'`, no global kill).
 - After webgl: the `--no-webgl` capture shows the same headings and images; the canvas is `aria-hidden`; the GL chunk is lazy and the DPR capped; `dispose` runs on route change.
-- After jury: the report starts with the disposition line, has four axis scores with reasons, a memory-test answer, at most eight ordered fixes and a Keep line.
+- After jury: the report starts with the disposition line and has at most eight ordered fixes and a Keep line. Valid rendered evidence gives four axis scores with reasons and a memory-test answer; `recapture` gives all-unmeasured scores, memory and visual fidelity plus located source findings where available. Component reports use D/U/C only.
 - After ship: the ship report lists the fix batch, the audit summary, the capture list and the performance table; `## Exceptions` explains every accepted finding.
 
 ## The direction contract
@@ -157,8 +157,8 @@ Why: the build order keeps every layer honest against the one below it, and the 
 - Content is authored at full fidelity from the first commit: real headings, real numbers with units, real alt text. Whatever is invented for the build is listed as synthetic under `## Brief`; never fabricate awards, press, testimonials or partner logos (`[pattern:copy-and-content#content-at-full-fidelity]`).
 - One artefact per phase, committed at the boundary when the user chose commits, with the phase in the message.
 - Recipes are adapted, never pasted: rename, re-token, re-time (`${CLAUDE_PLUGIN_ROOT}/recipes/README.md` lists the ids and the contract).
-- Bounded verification: one capture round per pass, fixes batched, at most two rounds before the jury. The commands are exact:
-  - `node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <dir|url> --scroll 0,50,100 --reduced-motion` writes `desktop-s00/s50/s100`, `mobile-s00`, `desktop-rm-s00` and `manifest.json` into `.awards/captures/`; add `--no-webgl` for the fallback capture. Use `--states .awards/capture-states.json` for the signature interaction and keyboard/open states, following `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md`; retain the plan path for jury/ship recaptures.
+- Bounded verification: one capture round per pass, fixes batched, at most two rounds before the jury. Allocate a fresh timestamp-plus-stage `capture_out` for this pass as in `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md`; record the resulting manifest path and pass that exact directory onward. The commands are exact:
+  - `node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <dir|url> --out "$capture_out" --scroll 0,50,100 --reduced-motion` writes frames and `manifest.json` into that pass directory; allocate a separate fresh directory when adding `--no-webgl` for the fallback capture. Use `--states .awards/capture-states.json` for the signature interaction and keyboard/open states, following `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md`; retain the plan path for jury/ship recaptures.
   - `node "${CLAUDE_PLUGIN_ROOT}/scripts/audit.mjs" <dir> --json` runs the whole floor; exit 2 means P0/P1 findings, each fixed or recorded under `## Exceptions` as `RULE — reason`.
 - The PostToolUse hook runs the quick audit after every edit once `AWARDS.md` exists; treat its findings as the floor speaking, not as noise.
 
@@ -179,12 +179,12 @@ Write one calibration line under `## Brief` after intake: the axis this build ca
 
 Why: the report is an ordered fix list under a disposition; this skill routes it and never re-judges it.
 
-- `recapture`: the evidence was invalid (a blank capture, a missing state). Rerun `capture.mjs` with the flags the report names, then phase 7 again. No code changes.
+- `recapture`: the evidence was invalid (a blank capture, a missing state). Read the unmeasured score line and any located source findings, allocate a fresh capture directory and rerun `capture.mjs` with the flags the report names, then phase 7 again. No visual score exists yet.
 - `rebuild`: a contract block failed fidelity. Return to phase 1 when THESIS, WORLD, SIGNATURE or DIVERGENCE failed, to phase 3 when STORY or FIRST VIEWPORT failed; never patch around it.
 - `fix`: phase 8 applies the ordered fixes in one batch. A fix classified conceptual (it changes a contract block) goes back to phase 1 instead of being applied.
 - `ship`: phase 8 runs the proof pass only.
 - The Keep line names what no fix may dilute; read it before routing anything.
-- A score without a reason, or a report written without captures, is not a jury round; run it again.
+- A measured score without a reason is not a jury round; run it again. A `recapture` report with unmeasured scores is a useful evidence diagnosis, but no visual verdict.
 
 ## Generalisation guardrails
 
@@ -220,14 +220,14 @@ Why: the two plugins share `DESIGN.md` and may be installed together; a build th
 Why: the last message of a build is what the user acts on; it has to carry the jury's own words and the proof, not a summary of effort.
 
 A build is finished only when all three hold:
-1. The jury's disposition line (`disposition: ship | fix | rebuild | recapture`) is reported verbatim, with the four axis scores, the weighted score and the developer sub-scores as the report gives them; the memory-test answer is quoted.
+1. The jury's disposition and immediately following score line are reported verbatim. Valid site evidence has four numeric axes, a weighted result, developer sub-scores and a quoted memory answer; missing evidence has `recapture` and `unmeasured` for all visual and developer scores, memory and visual fidelity. Component mode relays only D/U/C and their mean, numeric or all unmeasured as the report gives them.
 2. `.awards/ship/<date>.md` exists and `## Ship log` has its line: audit summary, capture list, performance numbers, exceptions with reasons.
 3. Every line of `## Status` is checked, including "WebGL layer built or explicitly declined" and "Jury disposition" with its value.
 
 The final message, in this order:
-- The disposition line and the scores table, quoted from the jury report.
-- The memory-test answer and the specificity verdict, quoted.
-- The paths: `AWARDS.md`, `DESIGN.md`, the jury report, the ship report, the captures directory.
+- The disposition and adjacent score line, quoted from the jury report; developer results only when measured.
+- The memory-test answer and specificity verdict when rendered evidence supports them; otherwise the missing evidence and located source findings.
+- The paths: `AWARDS.md`, `DESIGN.md`, the jury report, the ship report, the recorded captures directory and manifest.
 - Fixes the jury listed that ship did not resolve, with the reason.
 - What the sandbox could not prove and a real device must: frame rate on a phone, wide-gamut colour, sound, a slow network.
 
@@ -244,7 +244,7 @@ The final message, in this order:
 
 ## Hand-off
 
-Every phase hands off to the next skill in the table above with the same line and the same two inputs: the brief and the `AWARDS.md` path. Single elements go to `awards:component` at any time; a critique goes to `awards:jury`; a new reference site goes to `awards:research`, whose card feeds the next `awards:concept` round. When the user wants only part of the loop, run that phase and stop after ticking its Status line.
+Every phase hands off to the next skill in the table above with the brief and the `AWARDS.md` path; jury also receives the exact recorded captures directory and manifest path. Single elements go to `awards:component` at any time; a critique goes to `awards:jury`; a new reference site goes to `awards:research`, whose card feeds the next `awards:concept` round. When the user wants only part of the loop, run that phase and stop after ticking its Status line.
 
 ## Refuse
 

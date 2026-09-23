@@ -1,14 +1,15 @@
 # Ship report — <target> — <date>
 
 ## Fix batch (from jury <date>)
-| # | Fix | Class (token / one-off / conceptual / local) | Done |
-|---|---|---|---|
+| Location | Change | Expected visible result | Viewport/state | Before evidence | After evidence | Status (resolved/partial/unresolved) | Class |
+|---|---|---|---|---|---|---|---|
 
 ## Audit
 `audit.mjs` — P0 n · P1 n · P2 n · exceptions n (reasons in `AWARDS.md ## Exceptions`)
 
 ## Captures
-desktop-s00 / s50 / s100 · mobile-s00 · desktop-rm-s00 · component-* — all opened and valid
+Manifest: `<recorded-manifest-path>`
+Coverage: applicable Page map chapters at desktop/mobile (including mobile middle/close), reduced-motion sections and required named states — list inspected frames and any gap. Compare only current manifest entries.
 
 ## Performance
 | Metric | Value | Budget |
@@ -34,4 +35,4 @@ title · description · OG image · favicon · `theme-color` · 404 · robots / 
 debug flags off · no `console.log` · unused dependencies removed · `.awards/captures` ignored
 
 ## Status
-shipped / back to `awards:jury --verdict`
+shipped / back to `awards:jury --verdict` / unresolved contract block or evidence gap

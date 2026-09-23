@@ -1,0 +1,7 @@
+Use case: photorealistic-natural
+Asset type: joinery-detail editorial photograph for fictional Alder Workshop.
+Input image 1 is the exact bench reference; create one close-up photograph of its front-right seat/leg/rail junction, not a redesign.
+Subject invariants: pale white oak, softly eased rectangular solid seat about 3 cm thick, straight square-section leg, plain horizontal under-seat front rail terminating at the leg, two small round flush wooden pins vertically aligned in the leg's front face exactly as visible in the reference. Preserve joint proportions and matte hardwax-oil finish. No extra fasteners or new joinery.
+Composition: landscape 3:2, camera close at seat height and same three-quarter angle. Show crisp end-grain along the seat edge, leg grain and paired pins, rail extending left into frame; cropped bench intentionally, background warm plaster and limestone softly defocused. Photographic macro material study, natural tiny grain variations, believable depth of field.
+Lighting: broad left window daylight matching reference; quiet neutral warm shadows.
+Avoid: people, hands, branding, labels, typography, watermark, UI, exploded diagram, curved wood, nails, screws, glossy varnish, additional pins, rustic distressing.

@@ -17,7 +17,7 @@ claude plugin validate .                                  # manifest, skills, ag
 claude --plugin-dir plugins/awards                        # from the repo root: load the plugin locally
 
 cd recipes && npm install                                 # once; pinned deps for every recipe
-node ../scripts/verify-recipes.mjs                        # all 30 recipes: vite build, serve, headless Chromium + SwiftShader WebGL
+node ../scripts/verify-recipes.mjs                        # all 36 entries: vite build, serve, headless Chromium + SwiftShader WebGL
 node ../scripts/verify-recipes.mjs --only boot-lenis-gsap,marquee-raf-mask   # one or a few recipes
 node ../scripts/verify-recipes.mjs --no-build --json      # reuse recipes/dist, machine-readable report
 npm run dev                                               # from recipes/: Vite dev server with the recipe index page
@@ -45,7 +45,7 @@ Requirements: Node 20.19+ (20.x) or 22.12+, Playwright plus its Chromium browser
 
 **Skills route by written hand-off, not code.** Eleven skills in `skills/<name>/SKILL.md`: `craft` orchestrates (brief → concept → system → structure → stack → motion → webgl → jury → ship) and owns `AWARDS.md`; the ten others are independently triggerable. Skills cannot call each other, so every phase transition is a literal instruction line "Invoke the `awards:<name>` skill now with the Skill tool…". Skill descriptions are the trigger surface (1,536-char cap); the `no-trigger-*` evals guard against over-triggering.
 
-**Corpus lives at the plugin root, never inside skill folders.** Skills reference `${CLAUDE_PLUGIN_ROOT}/references/…`, `…/recipes/…`, `…/scripts/…`. Cross-references use `[site:slug]`, `[recipe:id]` and `[pattern:file#anchor]` forms that must resolve to real files (`references/sites/<slug>.md`, `recipes/<id>/`, `references/patterns/<file>.md`).
+**Corpus lives at the plugin root, never inside skill folders.** Skills reference `${CLAUDE_PLUGIN_ROOT}/references/…`, `…/recipes/…`, `…/scripts/…`. Cross-references use `[site:slug]`, `[recipe:id]` and `[pattern:file#anchor]` forms that must resolve to real files (`references/sites/<slug>.md`, `recipes/<id>/`, `references/patterns/<file>.md`). `references/patterns/visual-composition.md` selects the six visual examples and their reviewed desktop/mobile images.
 
 **Durable project files** in a user's project: `AWARDS.md` (brief, direction contract, page map, motion score, budgets, jury and ship logs, exceptions), `DESIGN.md` (tokens and rules), `.awards/` (captures, reports, audit JSON). Templates in `assets/templates/`, the Vite scaffold in `assets/scaffold/vite-vanilla/`.
 
@@ -53,7 +53,7 @@ Requirements: Node 20.19+ (20.x) or 22.12+, Playwright plus its Chromium browser
 
 **Hook.** `hooks/hooks.json` runs `audit.mjs --quick --changed-file -` on every `Edit|Write`; it is silent unless the project has an `AWARDS.md`, and `AWARDS_HOOK=0` disables it. No `Stop` hook by design.
 
-**Recipes are a contract.** Each `recipes/<id>/` holds `index.html`, `main.js`, `style.css`, `README.md`, `recipe.json` (`id, title, tags, deps, tier, variants, seenIn, verified`) and `verify.mjs` exporting `states`, `probe(), assert(results)`. `verify-recipes.mjs` builds all recipes with `recipes/vite.config.mjs`, serves `dist/`, drives each state (scroll fraction, viewport, reducedMotion, actions) and stamps `recipe.json.verified` on pass. Every page exposes `window.__awards = { ready, scrollTo, state }` via `_shared/awards-hook.js`, which is what `capture.mjs` and the jury use to drive pages. Shared modules: `_shared/raf.js` (single ticker), `reduced-motion.js` (full / reduced / static tiers), `quality-tiers.js` (device probe → DPR/pixel budgets), `tokens.css`, `base.css`.
+**Recipes are a contract.** The catalogue has 35 focused recipes and one complete composition, 36 verifiable entries. Each `recipes/<id>/` holds `index.html`, `main.js`, `style.css`, `README.md`, `recipe.json` (`id, title, tags, deps, tier, variants, seenIn, verified`) and `verify.mjs` exporting `states`, `probe(), assert(results)`. `verify-recipes.mjs` builds all entries with `recipes/vite.config.mjs`, serves `dist/`, drives each state (scroll fraction, viewport, reducedMotion, actions) and stamps `recipe.json.verified` on pass. Every page exposes `window.__awards = { ready, scrollTo, state }` via `_shared/awards-hook.js`, which is what `capture.mjs` and the jury use to drive pages. Shared modules: `_shared/raf.js` (single ticker), `reduced-motion.js` (full / reduced / static tiers), `quality-tiers.js` (device probe → DPR/pixel budgets), `tokens.css`, `base.css`, and the visual examples' `_shared/composition.css`.
 
 **Runtime checks.** `scripts/doctor.mjs` checks prerequisites without changing configuration. `scripts/lib/actions.mjs` drives both recipe verification and `capture.mjs --states`; external JSON uses selector waits, while trusted recipe states may use predicates. The schema and exit codes live in `references/capture-states.md`. `evals/behavior.mjs` tests real behavior (no model calls); never run it alongside recipe/browser verification.
 

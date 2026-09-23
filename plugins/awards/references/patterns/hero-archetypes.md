@@ -35,6 +35,8 @@ The visitor is cast as the operator: readouts flicker on before any image, then 
 - **Recipes.** `[recipe:preloader-counter-hold]` (boot variant) `[recipe:scramble-decode-text]` `[recipe:flicker-text]` `[recipe:sticky-stages-rails]` for the layers.
 - **Refuse.** The thermal, lidar and IR readouts; #000 + #fff by reflex; the scenario content.
 
+For an image-led static hero, inspect `[recipe:responsive-art-directed-hero]` through `[pattern:visual-composition]` to compare subject, text-safe area and mobile crop before adding entrance motion.
+
 ## Poster or video hero
 
 A full-bleed moving image sets the energy before any reading and the type arrives second [site:lama-lama] [recalled medium-high]. The cinematic hero of [site:white-desert] is inferred from its IA; [site:seasats] carries a hero video slot that is probed before display and faded in only when it loads [clone-described].
@@ -81,14 +83,14 @@ An establishing shot of a landscape with one structure; a HUD line invites the s
 
 ## Print artefact with an acetate
 
-A `00/24` frame counter, then the hero sheet: a flat red panel under `mix-blend-mode: multiply` over greyscaled footage, plus the logo layer; the sheet hinges away as you scroll [site:the-line] [verified].
+A `00/24` frame counter, then the hero sheet: a local red acetate under `mix-blend-mode: multiply` over full-colour footage, plus the logo layer; the sheet hinges away as you scroll [site:the-line] [verified]. Site-wide greyscale is not part of the pattern.
 
-- **Anatomy.** The display line at 12.15278vw (210 px on a 1728 artboard), weight 500, tracking −0.04em, leading .8–.95; ~9 px uppercase labels; slash nav; status dots; an 8 px page margin; a cool silver ground, deliberately not white [verified].
+- **Anatomy.** The display line at 12.15278vw (210 px on a 1728 artboard), weight 500, tracking −0.04em, h1 leading .8; 10 px micro type at the artboard with a full eight-step ladder between; slash nav; status dots; an 8 px mobile / 22 px desktop page margin; a cool silver ground, deliberately not white [verified]. Choose leading by inspecting the rendered glyphs.
 - **Entrance.** The frame counter, tied to a real load → the display line strikes on with a per-letter flicker → the hinge: `transform-origin: bottom left`, x 0 → −10 %, rotate 0 → −15° across the hero's scroll range, the child lagging the parent [verified].
-- **Mobile.** Fixed px below 768 (`text-[72px]` in the reconstruction [verified]); the hinge shrinks to a few degrees or becomes a cut; posters instead of live greyscale filters.
-- **DOM.** The acetate div is `aria-hidden` [verified]; the `<h1>` is real; the slash is a pseudo-element; native scroll stays under the custom scrollbar.
+- **Mobile.** Fixed type sizes below 1024 px, including the 72 px h1 [verified, live CSS]; the hinge shrinks to a few degrees or becomes a cut; the local acetate can retain full-colour imagery.
+- **DOM.** The acetate div is `aria-hidden` [verified]; the `<h1>` is real; nav slashes are `<i>` elements [verified]; native scroll stays under the custom scrollbar.
 - **Recipes.** `[recipe:sticky-stages-rails]` `[recipe:flicker-text]` `[recipe:preloader-counter-hold]` (frame-counter variant).
-- **Refuse.** Red over greyscale, the `00/24` leader, the hero hinge as drawn, Denim.
+- **Refuse.** The local red acetate as drawn, the `00/24` leader, the hero hinge as drawn, Denim.
 
 ## Headline as string
 

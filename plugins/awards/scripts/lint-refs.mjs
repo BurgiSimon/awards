@@ -30,6 +30,45 @@ const lineOf = (text, index) => text.slice(0, index).split('\n').length;
 for (const file of files) {
   const text = fs.readFileSync(file, 'utf8');
 
+  if (path.basename(file) === 'recipe.json') {
+    let meta;
+    try { meta = JSON.parse(text); } catch { miss(file, 1, 'recipe.json', 'invalid JSON'); continue; }
+    if (!meta || typeof meta !== 'object' || Array.isArray(meta)) {
+      miss(file, 1, 'recipe.json', 'must be a JSON object'); continue;
+    }
+    if (Object.hasOwn(meta, 'visuals')) {
+      const visuals = meta.visuals;
+      const line = lineOf(text, text.indexOf('"visuals"'));
+      const fail = (key, why) => miss(file, line, `visuals.${key}`, why);
+      if (!visuals || typeof visuals !== 'object' || Array.isArray(visuals)) {
+        fail('metadata', 'must be an object');
+      } else {
+        for (const key of ['desktop', 'mobile', 'notes']) {
+          if (!Object.hasOwn(visuals, key)) fail(key, 'required visual field is missing');
+        }
+        for (const [key, value] of Object.entries(visuals)) {
+          if (typeof value !== 'string' || !value.trim()) { fail(key, 'must be a nonempty relative path'); continue; }
+          const [relative, heading, ...extra] = value.split('#');
+          const dir = path.dirname(file);
+          if (path.isAbsolute(relative) || path.win32.isAbsolute(relative) || relative.includes('\\') || relative.split('/').includes('..') || /^[a-z]+:/i.test(relative)) {
+            fail(key, 'path must stay inside the recipe directory'); continue;
+          }
+          const target = path.resolve(dir, relative);
+          if (!fs.existsSync(target) || !fs.statSync(target).isFile()) { fail(key, 'file does not exist'); continue; }
+          if (!fs.realpathSync(target).startsWith(fs.realpathSync(dir) + path.sep)) { fail(key, 'resolved path escapes the recipe directory'); continue; }
+          if (key === 'notes') {
+            if (!relative.endsWith('.md') || !heading || extra.length) { fail(key, 'notes need a Markdown file and heading'); continue; }
+            const headings = [...fs.readFileSync(target, 'utf8').matchAll(/^#{1,6}\s+(.+)$/gm)]
+              .map(h => h[1].toLowerCase().replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-'));
+            if (!headings.includes(heading)) fail(key, `no heading matching #${heading}`);
+          } else if (heading !== undefined || !/\.(png|jpe?g|webp|gif|avif|svg)$/i.test(relative) || fs.statSync(target).size === 0) {
+            fail(key, 'must reference a nonempty supported image file');
+          }
+        }
+      }
+    }
+  }
+
   for (const m of text.matchAll(/\[site:([a-z0-9-]+)\]/g)) {
     if (PLACEHOLDERS.has(m[1])) continue;
     if (!fs.existsSync(path.join(root, 'references/sites', `${m[1]}.md`))) miss(file, lineOf(text, m.index), m[0], 'no references/sites/<slug>.md');

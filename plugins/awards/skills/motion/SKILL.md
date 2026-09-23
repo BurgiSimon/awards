@@ -235,7 +235,7 @@ Motion is judged at 60 fps on a mid-range phone, not on the machine that built i
 
 Evidence first, then the checklist; the jury reads the captures before it reads the code.
 
-- [ ] `node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <dir|url> --out .awards/captures --scroll 0,50,100 --reduced-motion --json`: `desktop-s00.png`, `desktop-s50.png` and `desktop-s100.png` differ where the score says they should; `desktop-rm-s*.png` shows every state (menu, theme, revealed text) with no residual transform; `consoleErrors` and `pageErrors` are empty.
+- [ ] Allocate a fresh motion `capture_out` per `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md`; run `node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <dir|url> --out "$capture_out" --scroll 0,50,100 --reduced-motion --json`: `desktop-s00.png`, `desktop-s50.png` and `desktop-s100.png` differ where the score says they should; `desktop-rm-s*.png` shows every state (menu, theme, revealed text) with no residual transform; `consoleErrors` and `pageErrors` are empty.
 - [ ] `node "${CLAUDE_PLUGIN_ROOT}/scripts/audit.mjs" <dir> --scope motion --json`: M01–M08 clean, or each finding carries a reason under `AWARDS.md ## Exceptions`.
 - [ ] One authored hero-scale moment per chapter; the hero's moment plays once and never re-runs on scroll.
 - [ ] Two or three named easing tokens in use; no default `ease`; `none` only under scrubs.

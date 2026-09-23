@@ -1,0 +1,7 @@
+Use case: photorealistic-natural
+Asset type: workshop editorial landscape photograph for fictional Alder Workshop.
+Input image 1 establishes exact white-oak material, bench design and soft left daylight. Create a photograph from its quiet furniture-making workshop, with no people.
+Scene/subject: a clean worn worktable holding one pale white-oak seat board with softly eased edges, matching square-section leg stock, a few small round wooden joint pins, one simple unbranded hand plane and fine oak shavings. Materials belong to the reference bench's plain construction: rectangular seat, straight square legs, plain under-seat rails, paired wooden joint pins, matte hardwax-oil finish. No different furniture design in view.
+Composition/framing: horizontal 3:2, close editorial camera looking slightly down across the worktable, substantial oak grain and tool detail in foreground, a restrained warm plaster wall and workshop window softly blurred behind. Useful quiet space, deliberately few tools.
+Lighting: broad natural daylight from left, matching neutral warm palette and soft dimensional shadows of the reference. Real tactile photography, not CGI.
+Avoid: people, hands, identifiable makers, signs, text, logos, labels, watermarks, UI, branded tools, conspicuous clutter, metal fasteners in the bench parts, dark stained or distressed product wood.

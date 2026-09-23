@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320" role="img" aria-labelledby="title desc">
+  <title id="title">Form and Sound — original demonstration mark</title>
+  <desc id="desc">Three dark open arcs meet a coral disc, joining a drawn form with a suggestion of a sound wave.</desc>
+  <g fill="none" stroke="#232823" stroke-width="16">
+    <path d="M28 212a116 116 0 0 1 232 0"/>
+    <path d="M68 212a76 76 0 0 1 152 0"/>
+    <path d="M108 212a36 36 0 0 1 72 0"/>
+  </g>
+  <circle cx="231" cy="187" r="55" fill="#dc5134"/>
+</svg>

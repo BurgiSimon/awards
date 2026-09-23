@@ -9,7 +9,7 @@ allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_P
 
 Codex: read [the runtime guidance](../../references/codex.md) before following this skill; it maps plugin paths, tool names and handoffs to Codex.
 
-The jury judges; this skill fixes and proves. A ship pass ends with evidence a stranger could check: an audit at zero, five valid captures, measured budgets and a report. It never redesigns, because a fix that needs a new idea is a concept problem and goes back to `awards:craft`.
+The jury judges; this skill fixes and proves. A ship pass ends with evidence a stranger could check: an audit at zero, manifest-derived valid captures, measured budgets and a report. It never redesigns, because a fix that needs a new idea is a concept problem and goes back to `awards:craft`.
 
 Arguments: `$ARGUMENTS`
 
@@ -22,7 +22,7 @@ Arguments: `$ARGUMENTS`
 
 Read `AWARDS.md` and `DESIGN.md` in the project root when they exist; `## Status` in `AWARDS.md` says which phases are done, so resume from there instead of restarting. Read impeccable's `PRODUCT.md` for product truth when it exists and never overwrite it. Detect the scope (a whole site, one component named by file or selector, or a critique of something that already exists) and the stack (framework, animation and 3D libraries, build tool) from `package.json`, lockfiles and the entry files. When the request is clearly a whole site and no direction contract exists yet, offer `/awards:craft` once, then proceed with this skill.
 
-Also read `${CLAUDE_PLUGIN_ROOT}/references/craft-floor.md` before touching any file: it is the list of what a Developer Award jury checks in the first minute, and every rule id below points into it. When the request is "ship" or "finalize" and no `.awards/jury/<date>.md` exists yet, the fix list is missing: invoke the `awards:jury` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. When the request is only the audit, run section 2 once and report findings without edits. When it is only screenshots, run section 3 and report the capture paths/errors without fixes or a jury round. Only a full ship/finalize request runs all sections.
+Also read `${CLAUDE_PLUGIN_ROOT}/references/craft-floor.md` before touching any file: it is the list of what a Developer Award jury checks in the first minute, and every rule id below points into it. When the request is "ship" or "finalize" and no `.awards/jury/<date>.md` exists yet, the fix list is missing: invoke the `awards:jury` skill now with the Skill tool, passing the brief, AWARDS.md path, and exact recorded captures directory and manifest path when available; do not do its work inline. When the request is only the audit, run section 2 once and report findings without edits. When it is only screenshots, run section 3 and report the capture paths/errors without fixes or a jury round. Only a full ship/finalize request runs all sections.
 
 Before a build or browser capture, run `node "${CLAUDE_PLUGIN_ROOT}/scripts/doctor.mjs" <project-dir> --json` if this environment has not been checked since setup changed. Follow `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md` for failures; a static-audit-only request needs no browser preflight.
 
@@ -53,7 +53,7 @@ Read `## Material fixes` and `## Keep` from the latest `.awards/jury/<date>.md`.
 - Keep each change as small as the fix demands; the jury named a location and a change, not a rewrite.
 - Recapture once after the batch (section 3), not after each fix.
 - A fix that turns out to need a decision the jury did not make (a new colour, a new moment) stops the batch for that item: reclassify it as conceptual and move on.
-- Log every fix in the report's table with its class and whether it is done.
+- Log every fix in the report’s table with its location, change, expected visible result, viewport/state, before/after evidence and `resolved | partial | unresolved`; retain its class. A failed contract block absent from the jury batch remains unresolved, so the site cannot be marked shipped.
 
 With `--report-only`, list the fixes and their classes in the report without applying them.
 
@@ -87,17 +87,18 @@ Why: the jury and the user judge from these frames, and a stale or broken captur
 
 ```
 npm run build
-node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" dist --out .awards/captures --scroll 0,50,100 --mobile --reduced-motion --json
+capture_out=".awards/captures/$(date -u +%Y%m%dT%H%M%S)-ship"
+node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" dist --out "$capture_out" --scroll 0,50,100 --mobile --reduced-motion --json
 ```
 
-For static HTML with no build script, capture the source directory directly. For a component, add `--selector "<selector>" --hover "<selector>"`. Add `--states <json-file>` for the recorded interaction plan; use `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md` to create one for required menu, focus, drag or persistence states. Inspect each named frame and its manifest entry; a failed action is missing evidence, even when baseline frames passed. When the target is a URL with no local source, capture the URL and use `audit.mjs <url> --render` for rendered checks. Mark the static-source audit and build budgets unmeasured unless the served assets were actually fetched and inspected.
+Use a fresh timestamp-plus-stage directory for every pass, including verdict/component/fallback recaptures, as in `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md`; if the name exists, allocate again. Add scroll positions for uncovered Page map chapters; gaps stay unmeasured until a fresh capture covers them. For static HTML with no build script, capture the source directory directly. For a component, add `--selector "<selector>" --hover "<selector>"`. Add `--states <json-file>` for the recorded interaction plan; use `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md` to create one for required menu, focus, drag or persistence states. Inspect each named frame and its manifest entry; a failed action is missing evidence, even when baseline frames passed. When the target is a URL with no local source, capture the URL and use `audit.mjs <url> --render` for rendered checks. Mark the static-source audit and build budgets unmeasured unless the served assets were actually fetched and inspected.
 
-Then open each file with the Read tool, once, and check:
+Then open each required manifest-listed image with an image-viewing tool and check:
 
-- `desktop-s00`, `desktop-s50`, `desktop-s100`, `mobile-s00`, `desktop-rm-s00` (and the component frames) exist and are not blank, not one flat colour, not a stuck preloader; the three scroll states differ.
-- `desktop-rm-s00` is fully readable at rest: no line left translated, masked or at opacity 0.
-- `mobile-s00` shows a designed phone layout with reachable navigation, not a shrunken desktop.
-- `manifest.json`: `consoleErrors`, `pageErrors` and `failedRequests` are empty; `metrics` carries the CLS number for section 4, says whether WebGL initialised, and reports `lcpColdSynthetic`, which is not a field LCP — see the performance table.
+- Every applicable Page map chapter has a manifest-listed frame at the relevant desktop/mobile positions, including mobile middle and close; reduced-motion sections and required named states are covered. Open each applicable frame; the familiar s00/s50/s100 names still count where present. None is blank, flat or stuck, and distinct scroll states differ.
+- Every required reduced-motion frame is fully readable at rest: no line left translated, masked or at opacity 0.
+- Mobile opening, middle and close show a designed phone layout with reachable navigation, not a shrunken desktop.
+- The recorded `$capture_out/manifest.json`: `consoleErrors`, `pageErrors` and `failedRequests` are empty; `metrics` carries the CLS number for section 4, says whether WebGL initialised, and reports `lcpColdSynthetic`, which is not a field LCP — see the performance table.
 
 An invalid capture is a bug to fix now, followed by a recapture; the report never lists a capture that was not opened.
 
@@ -190,21 +191,21 @@ Why: a single component ships inside a world that already shipped, so the pass n
 
 Why: `awards:craft` and the user need one document that says what changed, what was measured and what remains, so the state of the build is never in someone's memory.
 
-- Fill a copy of `${CLAUDE_PLUGIN_ROOT}/assets/templates/ship-report.md` and write it to `.awards/ship/<date>.md` (`date +%F`; suffix `-2` when taken): the fix table with classes, the audit counts and exceptions, the captures line, the performance table with measured values against budgets, the walk items, meta and chrome, browser surfaces, cleanup, and the status.
+- Fill a copy of `${CLAUDE_PLUGIN_ROOT}/assets/templates/ship-report.md` and write it to `.awards/ship/<date>.md` (`date +%F`; suffix `-2` when taken): the fix table with classes, the audit counts and exceptions, the exact manifest path and coverage line, the performance table with measured values against budgets, the walk items, meta and chrome, browser surfaces, cleanup, and the status.
 - Append one line under `AWARDS.md ## Ship log`:
 
 ```
-- <date> · audit P0 n / P1 n / P2 n / P3 n · exceptions n · captures 5 valid · entry x KB gz · GL y KB gz · LCP z s (throttled | unthrottled | not measured) · CLS c · .awards/ship/<date>.md
+- <date> · audit P0 n / P1 n / P2 n / P3 n · exceptions n · captures <n> valid from <manifest-path> · entry x KB gz · GL y KB gz · LCP z s (throttled | unthrottled | not measured) · CLS c · .awards/ship/<date>.md
 ```
 
 - A material fix is any change that alters what a capture shows: layout, motion, colour, type, copy, a state. Meta, cleanup, exceptions and gitignore changes are not material.
-- Set `## Status`: tick `Shipped (ship)` when no material fix was applied and the audit is clean; otherwise write `back to awards:jury --verdict` in the report's status line and leave the box unticked until the verdict comes back `ship`.
+- Set `## Status`: tick `Shipped (ship)` only when no material fix was applied, the audit is clean, every contract row is kept or resolved, no fix remains partial/unresolved, and the recorded manifest covers all required chapters, viewports and states with valid frames. Otherwise leave the box unticked; record unresolved contract/evidence gaps in the report, or `back to awards:jury --verdict` after a valid material fix batch until its verdict is `ship`.
 - Remind the user that headless captures prove correctness, not frame rate: WebGL work needs one pass on a real phone before launch.
 
 ## Verify
 
 - `.awards/audit.json` is fresh, exits 0, and every remaining finding has a reason under `## Exceptions` or inline.
-- Five captures (or the component set) were opened and are valid; the manifest shows zero console errors, page errors and failed requests.
+- All applicable manifest-listed frames (or the component set), including mobile middle/close, reduced-motion sections and named states, were opened and are valid; the manifest shows zero console errors, page errors and failed requests.
 - Every row of the performance table carries a measured value, gzipped where it is a size, with the throttled, unthrottled or not-measured label on LCP; the capture manifest's `lcpColdSynthetic` is never that value.
 - The keyboard walk and the reduced-motion check were done against the build, not assumed from the source.
 - Title, description, OG image, favicon, `theme-color`, `color-scheme`, 404, robots and sitemap exist and were authored, not generated.
@@ -212,7 +213,7 @@ Why: `awards:craft` and the user need one document that says what changed, what 
 
 ## Hand-off
 
-When any material fix was applied, invoke the `awards:jury` skill now with the Skill tool, passing the brief and the AWARDS.md path (with `--verdict` and the target); do not do its work inline. Deferred conceptual fixes go back to `awards:craft` with the report path. With no material fix and a clean audit, the build is shipped: return the report path and the performance line to the user or to `awards:craft`.
+When any material fix was applied and the recorded manifest has complete valid coverage, invoke the `awards:jury` skill now with the Skill tool, passing the brief, AWARDS.md path, `--verdict`, target, `--captures <recorded-directory>`, and that directory's exact `manifest.json` path; do not do its work inline. Missing or invalid evidence requires a fresh recapture before this handoff; if unavailable, return the unmeasured gap with the report. Deferred conceptual fixes go back to `awards:craft` with the report path. With no material fix, return a shipped result only when the audit is clean, every contract row is kept or resolved, no fix remains partial/unresolved, and the recorded manifest has complete valid coverage; otherwise return the report path and remaining blockers without a finished claim.
 
 ## Refuse
 

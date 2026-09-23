@@ -36,7 +36,7 @@ Why: a score is a feeling until it is attached to a reason and a fix, and praise
 
 Why: a jury looks at the site, not at code that promises a site. Without valid captures every sentence you write is an opinion, so the evidence is checked before anything is judged.
 
-Locate the captures directory (`--captures`, else `.awards/captures`) and its `manifest.json`. Each required capture is evidence for something specific:
+Locate the recorded manifest directory (`--captures`, else the latest handoff path; standalone default `.awards/captures`) and its `manifest.json`. Establish manifest validity first; complete Page map-derived coverage only after the first-viewport inventory in section 1. The baseline frame names below remain useful examples, not a complete checklist.
 
 | Capture | What it proves |
 |---|---|
@@ -47,20 +47,15 @@ Locate the captures directory (`--captures`, else `.awards/captures`) and its `m
 | `desktop-rm-s00.png` | the reduced-motion tier: readable at rest, nothing stuck at opacity 0 |
 | `manifest.json` | console and page errors, failed requests, CLS, DOM nodes, WebGL, `__awards` hook, `lcpColdSynthetic` |
 
-Open every capture with the Read tool and judge validity:
+Before the inventory, read the manifest to confirm it has no `pageErrors`, its `consoleErrors` did not prevent rendering, and no capture is older than the newest source file (`find <dir> -newer <capture>`). Do not open a frame other than `desktop-s00.png` until section 1 completes Page map coverage.
 
-- not blank, not one flat colour, not a stuck preloader (a frozen counter or an empty stage at s50 or s100)
-- s00, s50 and s100 actually differ; identical frames mean the scroll never moved. Identical frames, or `metrics.<label>.scrollMode` of `wheel` in the manifest with no change between states, mean the page drives a virtual scroll: rerun with `--wheel 12000 --wait 6000 --timeout 90000` and say in the report how the states were reached
-- `manifest.json` has no `pageErrors`, and its `consoleErrors` did not prevent rendering
-- no capture is older than the newest source file (`find <dir> -newer <capture>`); older is stale
-
-Missing, stale or invalid captures are recaptured, then re-checked. Before the first capture attempt in this environment, run `node "${CLAUDE_PLUGIN_ROOT}/scripts/doctor.mjs" <project-dir> --json`; use its actionable failures to explain unavailable browser evidence. Reuse a current successful preflight. Add `--states <json-file>` when a plan was supplied or recorded, following `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md`; require its named frames in addition to the baseline set:
+Missing, stale or invalid captures are recaptured, then re-checked. Before the first capture attempt in this environment, run `node "${CLAUDE_PLUGIN_ROOT}/scripts/doctor.mjs" <project-dir> --json`; use its actionable failures to explain unavailable browser evidence. Reuse a current successful preflight. Add `--states <json-file>` when a plan was supplied or recorded, following `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md`; require its named frames in addition to the applicable chapter/viewport coverage. Allocate a fresh timestamp-plus-stage `capture_out` for this pass as in `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md`; record the resulting manifest path and pass that exact directory onward. Recapture into a new directory:
 
 ```
-node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <target> --out .awards/captures --scroll 0,50,100 --mobile --reduced-motion --json
+node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <target> --out "$capture_out" --scroll 0,50,100 --mobile --reduced-motion --json
 ```
 
-Exit 2 means console, page or state-action errors: record them, and keep the frames when they rendered. Exit 3 (browser unavailable) and exit 4 (target unreachable) end the run with `disposition: recapture`, the exact command and the reason; nothing gets scored.
+Exit 2 means console, page or state-action errors: record them, and keep the frames when they rendered. Exit 3 (browser unavailable) and exit 4 (target unreachable) end the run with `disposition: recapture`, the exact command and the reason; visual and developer scores stay unmeasured. Record located source findings separately.
 
 Then locate `.awards/audit.json`. When it is missing or older than the sources, run the audit against the project directory; it is static and needs source, and it writes the file itself:
 
@@ -76,7 +71,8 @@ Why: a direction contract is persuasive prose written by the people who built th
 
 - From `desktop-s00.png` alone, write the first viewport in your own words: what is there, at what scale, where the primary action sits, what the type and colour system appear to be, and what moves (from the source when motion is not visible in a still).
 - Answer the memory test now: what would a visitor who left after this viewport describe an hour later? Name an object or a behaviour, never an atmosphere. Keep the exact sentence; it goes into the report unchanged.
-- Only then read `## Direction contract`, `## Page map`, `## Motion score` and `DESIGN.md`, and note the three `[site:slug]` cards in the DIVERGENCE block.
+- Only then read `## Page map` and complete coverage from its chapters, the current manifest, mobile middle/close, reduced-motion sections and named states. Add scroll positions for uncovered chapters using the shared capture reference and recapture any missing evidence before scoring. Open every required capture with an image-viewing tool: it must not be blank, a flat colour or a stuck preloader, and s00/s50/s100 must differ. Identical frames, or `metrics.<label>.scrollMode` of `wheel` with no state change, mean virtual scroll; rerun with `--wheel 12000 --wait 6000 --timeout 90000` and record how the states were reached.
+- With coverage complete, read `## Direction contract`, `## Motion score` and `DESIGN.md`, and note the three `[site:slug]` cards in the DIVERGENCE block.
 
 ## 2. Assessment A — the design director
 
@@ -104,10 +100,10 @@ Why: a Developer Award accompanies nearly every Site of the Day in the corpus, a
 
 ## 4. Assessment C — the usability walk
 
-Why: usability is the lowest axis on nineteen of the twenty verified corpus entries [verified, twenty Awwwards entries read 2026-09-18], which makes it the axis where a new build beats the reference set instead of copying it. Read `${CLAUDE_PLUGIN_ROOT}/references/jury/usability-walk.md` and run its eight steps against the captures, the DOM and the source. When a canvas exists, add the resilience capture for step 8:
+Why: usability is the lowest axis on nineteen of the twenty verified corpus entries [verified, twenty Awwwards entries read 2026-09-18], which makes it the axis where a new build beats the reference set instead of copying it. Read `${CLAUDE_PLUGIN_ROOT}/references/jury/usability-walk.md` and run its eight steps against the captures, the DOM and the source. When a canvas exists, allocate a separate fresh `capture_out` and add the resilience capture for step 8:
 
 ```
-node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <target> --out .awards/captures --only desktop --scroll 0 --no-webgl --name nogl
+node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <target> --out "$capture_out" --only desktop --scroll 0 --no-webgl --name nogl
 ```
 
 Record one line per step in the shape `walk n — pass | fail — note (file:line)`, and note the cap each failing step imposes on the Usability score.
@@ -135,12 +131,12 @@ Derive the disposition, in this order, and stop at the first match:
 
 Fill every section of the report:
 
-- Evidence: the captures used and their validity, the audit file with its counts, the error counts.
-- Scores: both tables, with a reason next to every number.
-- Memory test: the sentence from section 1.
+- Evidence: the exact manifest path, its applicable chapter/viewport/state coverage and validity, the audit file with its counts, the error counts.
+- Scores: with valid rendered evidence, both tables with a reason next to every number; otherwise every axis, weighted result and developer criterion is `unmeasured`.
+- Memory test: the sentence from section 1 when the first viewport rendered; otherwise `unmeasured`.
 - Specificity test: `no`, or `yes — <site> — <what to change>`.
-- Contract fidelity: one row per block, kept or not kept, with the capture name or `file:line`.
-- Material fixes: at most eight, ordered — fidelity first, then walk steps 1 and 3, then audit P0/P1, then design seams; each names a location and a change; no "consider" items.
+- Contract fidelity: one row per block, kept or not kept with rendered evidence; otherwise mark visual fidelity `unmeasured` and put any located source findings under `## Source findings`.
+- Material fixes: at most eight, ordered — fidelity first, then walk steps 1 and 3, then audit P0/P1, then design seams. Each row has `location | change | expected visible result | viewport/state | before evidence | after evidence | resolved/partial/unresolved`; the first report uses `unresolved` with `pending` after evidence. Every failed contract block enters the batch or remains explicitly unresolved; no "consider" items.
 - Keep: one line naming what must not be diluted while fixing.
 
 Write it to `.awards/jury/<date>.md` (`date +%F`; add `-2`, `-3` when the name is taken), creating the directory when needed. Then append two lines under `AWARDS.md ## Jury log`:
@@ -150,53 +146,67 @@ Write it to `.awards/jury/<date>.md` (`date +%F`; add `-2`, `-3` when the name i
   top fixes: 1) <fix> 2) <fix> 3) <fix>
 ```
 
+For `recapture` without valid rendered evidence, use `D unmeasured / U unmeasured / C unmeasured / Co unmeasured → unmeasured · dev unmeasured` in the first log line. Keep the second line for located source findings or the needed recapture, without invented visual fixes.
+
 In `## Status`, replace `Jury disposition: —` with the disposition and the date and tick the box. Touch nothing else in the file.
 
-**Your reply must carry exactly this block, verbatim from the report, unbroken.** Not a table, not a prose sentence, not a `## Scores` section — these lines, in this order, either opening the reply or closing it, never split apart and never reformatted:
+**Your reply must carry one of these blocks, verbatim from the report, unbroken.** Not a table or prose sentence. Use the measured block only with valid rendered evidence:
 
 ```
-disposition: <ship|fix|rebuild|recapture>
+disposition: <ship|fix|rebuild>
 Design x.x · Usability x.x · Creativity x.x · Content x.x — weighted w.ww
 1. <fix, with its location>
 2. <fix, with its location>
 3. <fix, with its location>
 ```
 
+Without valid rendered evidence, use:
+
+```
+disposition: recapture
+Design unmeasured · Usability unmeasured · Creativity unmeasured · Content unmeasured — weighted unmeasured
+1. <capture action, with command or missing file>
+2. <located source finding or another capture action, if present>
+3. <located source finding or another capture action, if present>
+```
+
+List only actions and findings that exist; the first two lines remain adjacent and exact. Developer scores, visual memory and visual fidelity remain `unmeasured` in the report. For component mode the measured line is `Design x.x · Usability x.x · Creativity x.x — mean x.xx`; the unmeasured line is `Design unmeasured · Usability unmeasured · Creativity unmeasured — mean unmeasured`. Component mode has no Content or developer scores.
+
 Then, wherever the block sits, one closing sentence: "Relay these lines to the user unchanged." Your reasoning, evidence and anything else you want to say goes outside the block, never inside it.
 
 Why this shape and not your own: the skill runs forked, so the conversation that invoked it sees only your reply, and `awards:craft` and `awards:ship` act on these lines without parsing prose. A `## Scores` table writes the same numbers in a form the caller cannot read. A jury run on 2026-09-21 ended with "**Disposition: recapture.**" and put its axes in a table; the disposition survived and the scores did not.
 
-When the environment cannot run the capture or audit commands at all (no shell tool, Playwright missing, a read-only session), do not stop at `recapture` in silence: say what could not run, judge from the source and the reference floor with lowered confidence, write the same report with `disposition: recapture` and an `Evidence` section that names the missing captures, and still deliver the scores, the memory test and the fix list. A source-only jury is a weaker jury, never a missing one.
+When the environment cannot run the capture or audit commands at all (no shell tool, Playwright missing, a read-only session), say what could not run and write the report with `disposition: recapture`. Name the missing captures in Evidence and put useful `file:line` observations under `## Source findings`. Do not infer numeric visual or developer scores, a visual memory answer, or visual contract fidelity from source alone.
 
 ## 7. Verdict mode (`--verdict`)
 
 Why: after `awards:ship` applies a batch, the question is no longer "how good is it" but "did each fix land, and did anything break".
 
 - Re-run the evidence gate; `awards:ship` should have recaptured, so recapture yourself only when the captures predate the last edit.
-- Take the fix list of the latest `.awards/jury/<date>.md` as the checklist. For each fix write `resolved | partial | unresolved` and what the recapture shows.
+- Take the fix list of the latest `.awards/jury/<date>.md` as the checklist. For each row compare the named viewport/state in before and after manifests, record `resolved | partial | unresolved` with both evidence paths, and check for new regressions, and carry the original `## Keep` line into the verdict. A failed contract block omitted from the batch stays unresolved.
 - List at most three regressions, write `## Remaining` as `clear` or the list, and recompute the disposition with the rules in section 6.
 - Write the verdict to `.awards/jury/<date>-verdict.md` so the original report stays intact for `awards:craft`, and append one log line: `- <date> · verdict · <disposition> · resolved n / partial n / unresolved n · regressions n`.
 
 ## 8. Component mode (`--component <selector>`)
 
-Why: one element inside an existing world is judged on whether it belongs and whether it is remembered, not on page-level narrative.
+Why: one element inside an existing world is judged on whether it belongs and whether it is remembered, not on page-level narrative. Allocate a fresh component `capture_out` per the shared capture reference.
 
 ```
-node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <target> --out .awards/captures --selector "<selector>" --hover "<selector>" --reduced-motion --json
+node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <target> --out "$capture_out" --selector "<selector>" --hover "<selector>" --reduced-motion --json
 ```
 
 This yields `desktop-component-<slug>.png`, its `-hover` frame, `mobile-component-<slug>.png` and `desktop-rm-component-<slug>.png`. For an open menu, focused control, drag or persisted setting, use `--states <json-file>` and the shared state-plan reference. Open and name those additional frames in Evidence; a missing or failed required state needs recapture. Source review can explain behavior but cannot substitute for an uncaptured required state.
 
 - Run the memory test at component scale, the specificity test in both directions, and a states inventory: rest, hover, focus-visible, active, open and closed, reduced motion, coarse pointer, keyboard.
-- Score Design, Usability and Creativity only; the mean of the three stands in for the weighted score in the disposition rules.
+- With valid component captures, score Design, Usability and Creativity only; their mean stands in for the weighted score in the disposition rules and uses the measured D/U/C reply line above. Without them, use `recapture` and the unmeasured D/U/C line above; no mean or visual fidelity is inferred.
 - Fill the fidelity table only for the rows the component owns: WORLD, and SIGNATURE when the component is the signature.
 - Keep the fixes inside the component and its tokens; a page-level problem noticed on the way is one line under Keep, not a fix.
 
 ## Verify
 
-- All five captures (or the component set) were opened and named in Evidence with their validity; the audit counts are in the report.
+- All applicable manifest-listed captures, including mobile middle/close, reduced-motion chapters and named states, were opened and named in Evidence with their validity; the audit counts are in the report.
 - The inventory and the memory sentence were written before the contract was read, and the sentence names an object or a behaviour.
-- Every score has a one-line reason; the weighted score is the arithmetic of the four axes; the caps were applied.
+- Every measured score has a one-line reason; the site weighted score is the arithmetic of the four axes and component mean of D/U/C; the caps were applied. Missing rendered evidence uses only the unmeasured branch.
 - The disposition follows the derivation order, not a feeling; the fix list is at most eight, ordered, each with a location.
 - `.awards/jury/<date>.md` exists, and `AWARDS.md` gained exactly the two log lines and the Status update; no other project file changed.
 

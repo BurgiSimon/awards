@@ -1,0 +1,9 @@
+[
+  {
+    "name": "care-open",
+    "actions": [
+      { "type": "focus", "selector": "#care-summary" },
+      { "type": "press", "key": "Enter" }
+    ]
+  }
+]

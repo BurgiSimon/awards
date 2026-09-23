@@ -209,12 +209,12 @@ Why: a component earns its place by the job it does in the story, not by being s
 - **Anatomy.** A `<dl>` of figure and unit pairs, or one figure at display scale with its unit at label scale; dual units side by side.
 - **Motion.** None on the numbers; the block enters with the chapter's masked reveal.
 - **Accessibility.** Units in the text, not in icons; figures readable in order with CSS off.
-- **Recipe.** None — copy work (`[pattern:copy-and-content#numbers-not-adjectives]`).
+- **Recipe.** `[recipe:product-specification]` for a product’s semantic facts and care disclosure; broader metrics remain copy work (`[pattern:copy-and-content#numbers-not-adjectives]`).
 - **Refuse.** The hero-metric row (audit X08); count-up animation; a figure without a unit.
 
 ### Interactive map cards
 - **Role.** Reach or place shown rather than claimed — offices, sites, a network, a route.
-- **Seen in.** An infrastructure map with interactive location cards [site:son-daven] [verified inventory]; 48 countries as `{ name, x, y }` on a flat projection [site:mindmarket] [verified data; rendering inferred]; a city map with game-style controls [site:why-zero] [verified]; a season calendar as a 3D track with DOM-anchored markers [site:lando-norris] [verified].
+- **Seen in.** An infrastructure map with interactive location cards [site:son-daven] [verified inventory]; a `/network` route and wide map asset on MindMarket's live site, whose rendered route was not checked [site:mindmarket] [verified route/token; rendering unknown]; a city map with game-style controls [site:why-zero] [verified]; a season calendar as a 3D track with DOM-anchored markers [site:lando-norris] [verified]. The 48-country `{ name, x, y }` dataset is clone-derived [recalled low], not live-site evidence.
 - **Anatomy.** An SVG or image map with pins positioned by percentage; a card per pin; if the map is 3D, HTML markers projected from scene coordinates.
 - **Motion.** Staggered pin entrance; a card on hover and focus on the feedback band.
 - **Accessibility.** Pins are `<button>` or `<a>` elements with names; a list alternative of the same places; arrow keys where the map is a control.
@@ -229,7 +229,7 @@ Why: a component earns its place by the job it does in the story, not by being s
 - **Anatomy.** A `<footer>` landmark: the CTA, the essential links, credits, the colophon; often the page's last theme or its bookend hue.
 - **Motion.** One moment at most — a reveal, a theme change, a magnetic CTA.
 - **Accessibility.** Links reachable beneath any particles; contrast in the footer theme; the credits link real.
-- **Recipe.** `[recipe:magnetic-button]` for the CTA; `[recipe:theme-swap-tokens]` when the footer is a theme.
+- **Recipe.** `[recipe:designed-footer]` for the static close; `[recipe:magnetic-button]` for a justified CTA interaction; `[recipe:theme-swap-tokens]` when the footer is a theme.
 - **Refuse.** A sitemap dump; a social-icon row as the ending; the sticky red footer as drawn.
 
 ### Designed 404
@@ -259,6 +259,8 @@ Why: a component earns its place by the job it does in the story, not by being s
 - **Recipe.** None.
 - **Refuse.** A feed or a shop bolted on without a reason [site:united-carriers]; a utility page that breaks the world's register.
 
+For relevant static image/text composition inspect `[recipe:editorial-image-text]`, and for whole-page pacing inspect `[recipe:complete-editorial-composition]`, using `[pattern:visual-composition]` to open the actual frames and notes.
+
 ## Verify
 
 - [ ] Every component in the page map has a role in the story, a recipe id or "none", and a reduced-motion line.
@@ -271,7 +273,7 @@ Why: a component earns its place by the job it does in the story, not by being s
 
 ## Refuse
 
-- Any component lifted with its card's values: the counter jumps, the badge set, the rotated index, the `00/24` leader, the 48-country map, the seven-chapter rail, the flavour row.
+- Any component lifted with its card's values: the counter jumps, the badge set, the rotated index, the `00/24` leader, the clone-derived 48-country map, the seven-chapter rail, the flavour row.
 - A component with no job in the story — a compare with one condition, a stack of unrelated cards, a marquee as a hero.
 - Hover-only previews, drag-only galleries, wheel-jacked rails, click walls, autoplaying sound.
 - `pin: true` where sticky works; a marquee on a CSS keyframe; count-up numbers.

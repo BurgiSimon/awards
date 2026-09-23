@@ -1,26 +1,164 @@
-# State of the awards plugin — 2026-09-21
+# State of the awards plugin — 2026-09-23
 
-Read this first, then `todo.md`. `plan-0.2.md` is the approved specification for the work in
-progress and `verification-log.md` is its evidence ledger — on a restart, the ledger says where to
-resume. `plan.md` is the 0.1.0 specification, kept for reference and no longer the current plan.
-`decisions.md` records choices already taken; do not re-litigate them.
+Read this first, then `todo.md`. The visual composition candidate's deterministic verification is
+recorded below in [Candidate verification record](#candidate-verification-record). `plan-0.2.md` and
+`verification-log.md` record the earlier 0.2.0 work. `plan.md` is the 0.1.0 specification, kept for
+reference. `decisions.md` records choices already taken.
 
-## Latest implementation — interactive capture, behavior checks and preflight
+## Current release — visual composition library
+
+Version **0.3.0** synchronizes the Claude, Codex and marketplace manifests. The
+[release notes](../../README.md#status) describe the implementation and measured limits; the
+frozen comparison below remains a failed acceptance result, with no claim of library causality.
+
+The catalogue has **35 focused recipes plus one complete composition, 36 verifiable entries**.
+Five native visual recipes, their composed page and the
+[visual composition guide](../../plugins/awards/references/patterns/visual-composition.md) are in
+the candidate. Alder Workshop, its specifications and imagery are synthetic demonstration material.
+The published images have been reviewed and browser-tested. Human preferences for the three paired
+builds are recorded below; preference for the library examples themselves has not been measured.
+The eleven skills and 23 existing eval cases (17 smoke, 6 build) remain in place. The three-brief
+manual visual benchmark is separate from those cases.
+
+The six new entries pass **6/6 across 38 states and 409 checks**. The compatibility pass in a
+temporary plugin copy covers **36/36 entries, 194 states and 931 checks** on headless Chromium
+153.0.8010.12, with a fresh browser for each entry and serial execution. Two attempts using one
+browser for all entries aborted during browser-context teardown; one also had a timing-sensitive
+`gl-virtual-scroll-camera` idle-snap assertion at 0.363. That recipe passed its eight states in an
+isolated fresh-browser run. This is complete isolated serial coverage, not a successful monolithic
+browser session. Headless SwiftShader says nothing about real-device performance.
+
+Behavior checks pass 11/11; jury-evidence self-check passes 5 assertions; the frozen candidate's
+visual-library self-check passed 15 fixtures; grader self-test has 14 file-target checks, zero defective
+and two known missing fixture skips; reference lint scans 380 files with zero dangling references. Both
+manifests validate.
+An isolated Codex installation discovers all eleven skills and builds both scaffold variants. Static
+audits of the six entries and shared composition assets have no P0/P1 findings; per-directory
+shared-import warnings and intentional demo exceptions are explained below. The controller froze candidate `ae29ca62b73b3a24ad0c246bdee6ee25687d6e48` for Task 12;
+its unchanged plugin archive is recorded in the comparison report below.
+
+## Post-pilot review corrections
+
+After the frozen `ae29ca62b73b3a24ad0c246bdee6ee25687d6e48` candidate, the current source received
+three locally verified review corrections: jury evidence reading order, a root-null recipe metadata
+diagnostic, and open care-disclosure spacing. The expanded current visual-library self-check passes
+16 fixtures. These later source changes were not used in the six frozen builds and add no paired-build
+evidence; the archive, raw trial outputs and negative pilot result remain unchanged.
+
+Post-review checks also pass the five jury-evidence assertions and reference lint (380 files,
+zero misses). In a temporary plugin copy, `node scripts/verify-recipes.mjs --only
+product-specification,complete-editorial-composition --out /tmp/awards-final-fix.CcrrLf/fresh-verify`
+passed both entries: 13 states and 165 checks in Chromium 153.0.8010.12. Four new desktop/mobile
+open-care focus frames were inspected. The fresh report is
+`/tmp/awards-final-fix.CcrrLf/fresh-verify/report.json`; earlier raw evidence is preserved, and the
+published closed-disclosure images remain valid and unchanged.
+
+Independent whole-branch review and the scoped fix review are complete. Plugin source through
+`d699771daf7c5a1bdbdd25c124bb0dd211f0c097` was copied into the original working tree on 2026-09-22,
+preserving the user's existing edits. The pre-existing audit parser/corpus follow-ups remain in
+`todo.md`; submitted human preferences are now recorded below.
+
+## Paired comparison execution
+
+Task 12 completed all six authorized frozen sessions and common evaluation using baseline
+`4f348dc5ea850d9657af27ce28c17e11884f02d6` and candidate
+`ae29ca62b73b3a24ad0c246bdee6ee25687d6e48`: USD 82.8435945, 224.67 paid-session minutes.
+The candidate Kiln Nine and Form & Sound outputs fail the existing accessible-primary-action gate
+because keyboard focus produces unreadable/insufficient-contrast labels. Secondary-copy C01 P1
+findings also remain in two baseline outputs and Form & Sound candidate. This pilot fails technical
+acceptance; it does not establish visual superiority. All six advertised Awards skills correctly
+but made zero Skill calls, so guide/recipe workflow effectiveness remains unmeasured.
+
+The [comparison record](visual-comparison-2026-09-22.md) records explicit gates, protocol deviations
+and the verified 216-image neutral gallery. Simon's 2026-09-23 review prefers the candidate overall
+for Tidal Notes and Form & Sound, ties Kiln Nine overall, and ties all three Mobile comparisons.
+Kiln Nine's imagery favors the baseline; Tidal Notes' composition favors the candidate. All other
+dimensions tie. These choices meet the visual preference thresholds, while technical acceptance
+still fails. Practical blinding is limited and all 18 requested reasons are blank; the original
+form, including technical checkboxes that disagree with measured failures, is preserved unchanged.
+Evidence delivery and preference recording are complete; human rationale remains incomplete.
+Generated source and frozen snapshots are preserved, with no additional paid run or application repair.
+
+## Release checks — 2026-09-23
+
+Fresh checks on the original working tree for 0.3.0:
+
+- Both `claude plugin validate` commands pass; all three release manifests agree on 0.3.0.
+  Root/plugin LICENSE and NOTICE copies match. Private scaffold/recipe package versions are unchanged.
+- `lint-refs.mjs`: 380 files, zero dangling references. Jury evidence: 5 assertions. Visual metadata:
+  16 fixtures. Shared layout assertions pass. File-target graders: 14 checks, zero defective,
+  2 explicitly skipped missing fixtures.
+- `npm --prefix plugins/awards/recipes run build` succeeds and emits all 36 entry pages. Vite retains
+  the existing warning for the shared Three.js chunk above 500 kB; this is not a build failure.
+- `evals/behavior.mjs`: 11/11 browser/tool checks pass, with the existing Playwright installation.
+  `evals/codex-install.mjs --build`: 11 skills discovered in an isolated temporary install and both
+  scaffold variants build; no user configuration or model calls are involved.
+- All 569 plugin files outside the two release manifests and plugin README match the reviewed
+  implementation byte-for-byte. The earlier 36-entry isolated browser coverage remains applicable;
+  it was not repeated or relabeled as a successful single-session run.
+
+The first metadata self-test attempt hit a sandbox `spawnSync ... EPERM` denial and returned no child
+JSON. A minimal subprocess probe identified that permission failure; the unchanged test passed with
+child-process permission. No source workaround was introduced. Release notes retain the failed
+paired-pilot acceptance and unmeasured workflow benefit.
+
+## Candidate verification record
+
+Verified 2026-09-22 from base `74ba7b2` plus the documentation candidate, using Node `v24.21.0`,
+npm `11.19.0`, Playwright and headless Chromium `153.0.8010.12`. Browser commands set
+`AWARDS_PLAYWRIGHT` to the installed Playwright project and ran serially with SwiftShader.
+
+| Command | Observed result |
+|---|---|
+| `node plugins/awards/scripts/verify-recipes.mjs --only complete-editorial-composition,designed-footer,editorial-image-text,product-specification,responsive-art-directed-hero,typography-specimen` | 6/6 entries, 38 states, 409 checks; exit 0. All 38 fresh frames inspected in six contact sheets; six mobile/action frames also opened at original resolution. No material overflow, crop, blank section or obscured action found. |
+| `node plugins/awards/scripts/verify-recipes.mjs --no-build --only <id> --out <entry-output>` for each of the 36 IDs in a temporary plugin copy, one fresh browser per ID | 36/36 entries, 194 states, 931 checks; every entry exit 0 and report pass. The copy kept plugin-relative scripts/references and linked existing dependencies; the original 30 stamps were untouched. |
+| `node plugins/awards/evals/behavior.mjs` | 11/11 browser/tool behavior checks; exit 0. |
+| `node plugins/awards/evals/jury-evidence-selftest.mjs`; `node plugins/awards/evals/visual-library-selftest.mjs` | 5 assertions and 15 fixtures passed; exit 0 each. |
+| `node plugins/awards/evals/selftest.mjs` | 14 file-target graders, 0 defective, 2 explicit missing-`index.html` fixture skips; exit 0. Skips are not passes. |
+| `node plugins/awards/scripts/lint-refs.mjs` | 380 files, 0 dangling references; exit 0. |
+| `claude plugin validate plugins/awards`; `claude plugin validate .claude-plugin/marketplace.json` | Both manifests valid; exit 0 each. |
+| `node plugins/awards/evals/codex-install.mjs --build` | Isolated install discovered 11 skills and built both scaffold variants; exit 0. |
+| `git diff --check` | Clean; exit 0. |
+
+The long-session verifier was also attempted twice in the same temporary copy. First attempt:
+12 entries printed PASS, then `browserContext.close` failed with `Target.disposeBrowserContext:
+Failed to find context with id …` at `verify-recipes.mjs:110`; exit 1, no final JSON. Second attempt:
+18 entries printed PASS, `gl-virtual-scroll-camera` failed its idle-snap assertion at `0.363`, then
+`browserContext.close` failed after `magnetic-button` because the page/context/browser had closed;
+exit 1, no final JSON. Browser diagnostics included readPixels stalls and repeated missing-mailbox
+messages from SwiftShader. The virtual-scroll recipe passed all eight states with a fresh browser.
+An initial fresh-browser runner later received exit 143 after twelve saved passes; its cause was not
+established, no browser process remained, and it resumed in short serial groups. These failures
+remain part of the record: 36/36 is **isolated serial coverage**, not a successful single-session run.
+
+Eight static `audit.mjs <target> --json --no-write` runs covered six new entry directories,
+`_shared/composition/` and `_shared/composition.css`. All 66 recorded source hashes matched the
+candidate; the audits exited 0 with **0 P0/P1**. Per-directory scans reported A06 ×5 (P2), and
+S01 ×6, S02 ×6, S04 ×6, S06 ×6, X07 ×3 (27 P3). A06/S01/S02/S04 arise because these scans do not
+follow `style.css` imports: all six entries import `_shared/base.css` and `_shared/composition.css`,
+which supply focus-visible, selection, scrollbar and color-scheme rules in the built pages. S06 is
+the documented demo exception for omitted Open Graph images; a real site needs one. X07 marks
+meaningful numbered study navigation, construction/process steps or compared type treatments in
+three demos. The binary asset directory contains no scannable source file. No finding was suppressed.
+The visual examples' imagery, brand and facts are synthetic demonstration material; browser checks
+do not establish human preference or real-device performance.
+
+## Earlier implementation — interactive capture, behavior checks and preflight
 
 The requested additions are implemented in the current workspace. The [implementation plan and verification record](../superpowers/plans/2026-09-21-capture-behavior-preflight.md) track this pass separately from the older 0.2.0 snapshots below. `capture.mjs --states <json-file>` replays named interactions; `doctor.mjs` checks prerequisites before implementation; `evals/behavior.mjs` tests actual browser/tool behavior without model calls. Shared action dispatch serves both captures and recipe verification. Usage and failure semantics: `plugins/awards/references/capture-states.md`.
 
-The behavior suite passes **11/11**, including the reviewed server, audit, ticker and starter fallback/motion defects. Codex discovers all eleven skills and builds both installed scaffold variants. Manifest checks, reference lint and grader self-test pass. The serial recipe compatibility pass is **30/30 recipes across 156 states**; doctor reports all eight checks passed against the installed recipe project. Paid build/routing evals and real-device GPU measurements remain outside this pass.
+That pass recorded **11/11** behavior checks, including the reviewed server, audit, ticker and starter fallback/motion defects. Codex discovered all eleven skills and built both installed scaffold variants. Manifest checks, reference lint and grader self-test passed. The then-current serial recipe compatibility pass was **30/30 recipes across 156 states**; doctor reported all eight checks passed against the installed recipe project. Paid build/routing evals and real-device GPU measurements remained outside that pass.
 
 ## Where things are
 
 | Item | Location |
 |---|---|
-| Repository | `github.com/BurgiSimon/awards`, branch `feat/live-verification-0.2`. Pull request #1 (0.1.0) and **#3** are both merged: `main` carries the branch through `c3b1740`, which is Phases 0–6. Everything from the cold-LCP fix onward — Phases 7 and 8, and the fixes they produced — is on the branch and not yet in `main`. Do not trust a "commits ahead" count in this file; it moved by 39 the moment #3 landed |
-| Plugin | `plugins/awards/` (manifest `plugins/awards/.claude-plugin/plugin.json`, version **0.2.0**); marketplace manifest `.claude-plugin/marketplace.json` at the repo root, also 0.2.0. Bump the two together; `recipes/package.json` and the scaffold's `package.json` are unrelated private versions and stay where they are |
+| Repository | `github.com/BurgiSimon/awards`, branch `main`. The 0.3.0 release is prepared locally from `b63ed1c`; remote `main` matched that base at the release preflight on 2026-09-23. Use `git status -sb` for the current push state. Earlier 0.2.0 branch notes below are historical. |
+| Plugin | `plugins/awards/`, version **0.3.0** in `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json` and the root `.claude-plugin/marketplace.json`. Bump all three together; `recipes/package.json` and the scaffold's `package.json` are unrelated private versions and stay where they are. |
 | Skills | `plugins/awards/skills/{craft,concept,system,structure,stack,motion,webgl,component,jury,ship,research}/SKILL.md` — eleven, each with `allowed-tools` for the plugin's own scripts |
 | Agent and hook | `plugins/awards/agents/awards-jury.md`, `plugins/awards/hooks/hooks.json` |
-| Reference corpus | `plugins/awards/references/` — 20 site cards + `_index.md` + `_TEMPLATE.md`, 14 pattern files, `jury/{rubric,usability-walk,report-template}.md`, `craft-floor.md`, `anti-patterns.md`, `reflex-lists.md`, 11 stack and library notes |
-| Recipes | `plugins/awards/recipes/` — 30 folders, `_shared/`, `README.md` catalogue, `package.json` (pinned deps), `vite.config.mjs`, `_verify/` (gitignored) |
+| Reference corpus | `plugins/awards/references/` — 20 site cards + `_index.md` + `_TEMPLATE.md`, 15 pattern files, `jury/{rubric,usability-walk,report-template}.md`, `craft-floor.md`, `anti-patterns.md`, `reflex-lists.md`, 11 stack and library notes |
+| Recipes | `plugins/awards/recipes/` — 36 entries (35 focused, one complete composition), `_shared/`, `README.md` catalogue, `package.json` (pinned deps), `vite.config.mjs`, `_verify/` (gitignored) |
 | Scripts | `plugins/awards/scripts/{doctor,capture,audit,new-project,roll,verify-recipes,lint-refs}.mjs`, `scripts/lib/*`, `scripts/data/{rules.json,reflex-fonts.json}` |
 | Templates and scaffold | `plugins/awards/assets/templates/`, `plugins/awards/assets/scaffold/vite-vanilla/` |
 | Evals | `plugins/awards/evals/` — 23 cases (17 smoke, 6 build), `behavior.mjs`, `selftest.mjs`, `README.md`; `results/` gitignored |
@@ -165,9 +303,9 @@ Stamped on 2026-09-18 and **not** re-run since:
 
 | | |
 |---|---|
-| Commits on the branch not yet in `main` | 11 as of 2026-09-21, and this number rots — `git log --oneline main..HEAD` is the answer |
-| Site cards / pattern files / stack notes | 20 / 14 / 11 |
-| Recipes verified | 30 |
+| Current branch | `main`; use `git status -sb` for the current push state |
+| Site cards / pattern files / stack notes | 20 / 15 / 11 |
+| Recipe entries verified | 36 in isolated serial browser runs; 35 focused plus one complete composition |
 | Audit rules | 55 (`T` fonts, `C` colour, `M` motion, `A` accessibility, `L` layout, `P` performance, `S` surfaces, `X` slop) |
 | Eval cases | 23 (17 smoke, 6 build) |
 | Site of the Day overalls across the 20 verified entries | 7.28 – 8.18, median 7.67 |

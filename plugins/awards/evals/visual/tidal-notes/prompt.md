@@ -1,0 +1,7 @@
+Build an award-worthy, complete responsive website for Tidal Notes, a fictional coastal field journal. The visitor mode is read: make its index easy to browse and its long article comfortable to read.
+
+Read the supplied `content.md`, `ASSETS.md`, and both images in `assets/` beside this prompt. Use all six entries, the Coast / Materials / People categories and reading times, a visible index, and the full supplied substantial article excerpt. The excerpt is the reading destination; entries without full articles may show their supplied summaries in the index. Preserve the facts and the synthetic demonstration disclosure.
+
+Work in the supplied common vanilla Vite starter with its pinned dependencies and lockfile. Make decisions without asking questions; record assumptions in `AWARDS.md`. Create a complete site, build it, inspect it at desktop and mobile widths, and capture the rendered result including a middle section, the close, reduced motion, and navigation from the visible index to the article. Record actual evidence paths and any failed or unavailable checks.
+
+Use only the supplied artwork and native HTML/CSS graphics. Do not generate new assets, browse external references, add remote imagery or fonts, fabricate endorsements, awards, press coverage or readership claims, or copy the plugin demo brand, its copy, imagery or layout. Do not add dependencies. Deliver the working site and a concise completion report, not a proposal.

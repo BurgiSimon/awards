@@ -32,7 +32,7 @@ Why: the corpus decides what "award-level" means for each component; guessing pr
 
 - `${CLAUDE_PLUGIN_ROOT}/references/craft-floor.md` before any edit: the floor the audit measures.
 - `${CLAUDE_PLUGIN_ROOT}/references/patterns/components-catalog.md`, the entry for the requested component: role, anatomy, motion, accessibility needs, recipe id, refuse notes.
-- `${CLAUDE_PLUGIN_ROOT}/recipes/README.md` to find the recipe, then the recipe folder's `README.md` and `main.js`. Recipes are adapted (renamed, re-tokened, re-timed), never pasted unchanged.
+- `${CLAUDE_PLUGIN_ROOT}/recipes/README.md` to find the recipe, then the recipe folder's `README.md` and `main.js`. For a static hero, editorial block, specification, typography or footer, use `${CLAUDE_PLUGIN_ROOT}/references/patterns/visual-composition.md` to open only that recipe’s declared desktop/mobile images and notes. Recipes are adapted (renamed, re-tokened, re-timed), never pasted unchanged.
 - `${CLAUDE_PLUGIN_ROOT}/references/patterns/hero-archetypes.md` when the component is a hero.
 - `${CLAUDE_PLUGIN_ROOT}/references/patterns/cursor-and-pointer.md` for cursors, magnetic targets, hover previews and drag surfaces.
 - `${CLAUDE_PLUGIN_ROOT}/references/patterns/preloaders-and-transitions.md` for preloaders, menus that wipe, theme swaps and route transitions.
@@ -116,7 +116,7 @@ Why: a component the jury sees in one state is a screenshot; a component that su
 
 Why: a component is proven by a capture and the audit, not by the diff.
 
-1. `node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <page> --out .awards/captures --selector "<selector>" --hover "<selector>" --mobile --reduced-motion --json` and open each image once: rest, hover, mobile, reduced motion. Add `--no-webgl` when the component uses GL. For open, focused, dragged or persisted states, write `.awards/capture-states.json` using `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md` and add `--states .awards/capture-states.json` to the same capture pass. Open every named frame, inspect its manifest errors/state, and carry the plan path into the jury handoff.
+1. Allocate a fresh timestamp-plus-stage `capture_out` as in `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md`; run `node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <page> --out "$capture_out" --selector "<selector>" --hover "<selector>" --mobile --reduced-motion --json` and open each image once: rest, hover, mobile, reduced motion. Add `--no-webgl` when the component uses GL. For open, focused, dragged or persisted states, write `.awards/capture-states.json` using `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md` and add `--states .awards/capture-states.json` to the same capture pass. Open every named frame, inspect its manifest errors/state, and carry the manifest path and plan path into the jury handoff.
 2. `node "${CLAUDE_PLUGIN_ROOT}/scripts/audit.mjs" <file or dir> --json`: no P0/P1 findings in the component's files; record any accepted P2/P3 under `AWARDS.md ## Exceptions` when the project has one.
 3. The removal test: delete the effect (not the element) and confirm the element still does its job; if not, the effect was carrying content.
 4. The specificity test: could a juror name the recipe's source site from this element? If yes, change the metaphor or the timing, not the copy.

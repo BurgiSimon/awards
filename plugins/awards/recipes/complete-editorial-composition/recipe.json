@@ -1,0 +1,31 @@
+{
+  "id": "complete-editorial-composition",
+  "title": "Alder Workshop — complete editorial composition",
+  "tags": [
+    "composition",
+    "editorial",
+    "responsive",
+    "static"
+  ],
+  "deps": [],
+  "tier": "P0",
+  "variants": [
+    "vanilla"
+  ],
+  "seenIn": [
+    "the-line"
+  ],
+  "verified": {
+    "date": "2026-09-22",
+    "chromium": "153.0.8010.12"
+  },
+  "visuals": {
+    "desktop": "visuals/desktop.png",
+    "mobile": "visuals/mobile.png",
+    "desktop-middle": "visuals/desktop-middle.png",
+    "mobile-middle": "visuals/mobile-middle.png",
+    "desktop-close": "visuals/desktop-close.png",
+    "mobile-close": "visuals/mobile-close.png",
+    "notes": "README.md#visual-notes"
+  }
+}

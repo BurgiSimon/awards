@@ -8,7 +8,7 @@ The installed plugin root is **two directories above the folder containing the a
 
 `${CLAUDE_PLUGIN_ROOT}` in the shared instructions means that resolved plugin root. Substitute the absolute root into each path and command before calling a tool; Codex need not provide this environment variable, and shell exports need not survive between calls. Quote paths that contain spaces. Run project commands from the user's project directory so `.awards/`, `AWARDS.md` and `DESIGN.md` are written there.
 
-`$ARGUMENTS` means the user's request and any supplied flags. Claude's `Read`, `Glob`, `Grep` and `Bash` names mean the available file-reading, search and shell tools. `AskUserQuestion` means an available user-input tool, or a concise question in the conversation when none is available; respect that tool's limits on option counts. Open screenshots with an image-viewing tool; reading PNG bytes is not visual inspection. If Context7 is unavailable, consult the library's official documentation using available web tools and state anything you could not verify.
+`$ARGUMENTS` means the user's request and any supplied flags. Claude's `Read`, `Glob`, `Grep` and `Bash` names mean the available file-reading, search and shell tools. `AskUserQuestion` means an available user-input tool, or a concise question in the conversation when none is available; respect that tool's limits on option counts. Open screenshots and declared `recipe.json.visuals` with an image-viewing tool; reading PNG bytes or Markdown alt text is not visual inspection. Select relevant examples through `references/patterns/visual-composition.md`. If Context7 is unavailable, consult the library's official documentation using available web tools and state anything you could not verify.
 
 ## Environment and captures
 
@@ -24,7 +24,7 @@ Keep the user's scope: a request for one component or one phase does not authori
 
 ## Jury isolation
 
-Claude's `context: fork` and `agent: awards-jury` frontmatter do not establish a fresh Codex context. When a jury is needed and fresh-agent delegation is available, dispatch a new agent without the build conversation. Give it the installed paths to `skills/jury/SKILL.md`, `agents/awards-jury.md` and this reference, plus the input packet from the agent file: target, captures, interaction-plan path, audit, AWARDS.md path, component selector and verdict flag. Include the project working directory, but no proposed scores or conclusions. Use an available agent type; do not assume `awards-jury` is registered in Codex.
+Claude's `context: fork` and `agent: awards-jury` frontmatter do not establish a fresh Codex context. When a jury is needed and fresh-agent delegation is available, dispatch a new agent without the build conversation. Give it the installed paths to `skills/jury/SKILL.md`, `agents/awards-jury.md` and this reference, plus the input packet from the agent file: target, exact recorded captures directory and manifest path, interaction-plan path, audit, AWARDS.md path, component selector and verdict flag. Include the project working directory, but no proposed scores or conclusions. Use an available agent type; do not assume `awards-jury` is registered in Codex.
 
 A delegated juror reads the skill and agent procedure and performs the review itself; it does not spawn another jury. It may write only the jury report and the specified AWARDS.md log/status entries. The caller relays the disposition and scores unchanged, then routes the next authorized phase. Keep the existing limit of two jury rounds unless the user requests more.
 

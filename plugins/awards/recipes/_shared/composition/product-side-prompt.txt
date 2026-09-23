@@ -1,0 +1,7 @@
+Use case: photorealistic-natural
+Asset type: product-side profile photograph for fictional Alder Workshop.
+Input image 1 is the exact bench to photograph. Create a new landscape 3:2 view, front elevation along its long side, nearly straight-on, camera at seat height and far enough back for the entire bench and every foot to fit.
+Subject invariants: exactly the reference white-oak bench, approximately 140 cm wide, 38 cm deep, 45 cm tall. Long rectangular seat with softly eased corners, four straight square-section legs, plain continuous under-seat front rail terminating between legs, and two round wooden pins vertically aligned near the top of each front leg. Pale natural oak grain, matte hardwax-oil finish. No lower stretchers, no metal, no taper, no changes in seat thickness or leg proportions.
+Composition: clean clear long-side silhouette, bench centered across about 80 percent of frame width with quiet warm wall above and limestone floor below. The rear legs may be mostly hidden naturally by front legs in this near elevation. A narrow top surface remains visible. This is a photographic profile, not a diagram.
+Scene and lighting: same restrained limestone-floor and warm-plaster interior, broad natural window daylight from left, gentle rightward shadows and neutral warm material color.
+Avoid: people, other furniture, decor, typography, labels, logos, watermark, UI, glossy CGI.

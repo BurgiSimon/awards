@@ -1,0 +1,256 @@
+{
+  "reviewer": "simon",
+  "date": "2026-09-23T05:38:31.461Z",
+  "technicalEligibility": [
+    {
+      "case": "kiln-nine",
+      "condition": "Build completes and page renders",
+      "A": "pass",
+      "B": "pass",
+      "evidence": ""
+    },
+    {
+      "case": "kiln-nine",
+      "condition": "All required content and both supplied assets present",
+      "A": "pass",
+      "B": "pass",
+      "evidence": ""
+    },
+    {
+      "case": "kiln-nine",
+      "condition": "Meaningful text remains unclipped",
+      "A": "pass",
+      "B": "pass",
+      "evidence": ""
+    },
+    {
+      "case": "kiln-nine",
+      "condition": "Primary action works with keyboard and accessible labels",
+      "A": "pass",
+      "B": "pass",
+      "evidence": ""
+    },
+    {
+      "case": "kiln-nine",
+      "condition": "Reduced-motion mode retains required content",
+      "A": "",
+      "B": "",
+      "evidence": ""
+    },
+    {
+      "case": "kiln-nine",
+      "condition": "Overall eligibility",
+      "A": "pass",
+      "B": "pass",
+      "evidence": ""
+    },
+    {
+      "case": "tidal-notes",
+      "condition": "Build completes and page renders",
+      "A": "pass",
+      "B": "pass",
+      "evidence": ""
+    },
+    {
+      "case": "tidal-notes",
+      "condition": "All required content and both supplied assets present",
+      "A": "pass",
+      "B": "pass",
+      "evidence": ""
+    },
+    {
+      "case": "tidal-notes",
+      "condition": "Meaningful text remains unclipped",
+      "A": "pass",
+      "B": "pass",
+      "evidence": ""
+    },
+    {
+      "case": "tidal-notes",
+      "condition": "Primary action works with keyboard and accessible labels",
+      "A": "pass",
+      "B": "pass",
+      "evidence": ""
+    },
+    {
+      "case": "tidal-notes",
+      "condition": "Reduced-motion mode retains required content",
+      "A": "pass",
+      "B": "pass",
+      "evidence": ""
+    },
+    {
+      "case": "tidal-notes",
+      "condition": "Overall eligibility",
+      "A": "pass",
+      "B": "pass",
+      "evidence": ""
+    },
+    {
+      "case": "form-sound",
+      "condition": "Build completes and page renders",
+      "A": "pass",
+      "B": "pass",
+      "evidence": ""
+    },
+    {
+      "case": "form-sound",
+      "condition": "All required content and both supplied assets present",
+      "A": "pass",
+      "B": "pass",
+      "evidence": ""
+    },
+    {
+      "case": "form-sound",
+      "condition": "Meaningful text remains unclipped",
+      "A": "pass",
+      "B": "pass",
+      "evidence": ""
+    },
+    {
+      "case": "form-sound",
+      "condition": "Primary action works with keyboard and accessible labels",
+      "A": "pass",
+      "B": "pass",
+      "evidence": ""
+    },
+    {
+      "case": "form-sound",
+      "condition": "Reduced-motion mode retains required content",
+      "A": "pass",
+      "B": "pass",
+      "evidence": ""
+    },
+    {
+      "case": "form-sound",
+      "condition": "Overall eligibility",
+      "A": "pass",
+      "B": "pass",
+      "evidence": ""
+    }
+  ],
+  "notes": [
+    {
+      "case": "kiln-nine",
+      "notes": ""
+    },
+    {
+      "case": "tidal-notes",
+      "notes": ""
+    },
+    {
+      "case": "form-sound",
+      "notes": ""
+    }
+  ],
+  "preferences": [
+    {
+      "case": "kiln-nine",
+      "dimension": "Composition",
+      "preference": "tie",
+      "reason": ""
+    },
+    {
+      "case": "kiln-nine",
+      "dimension": "Typography",
+      "preference": "tie",
+      "reason": ""
+    },
+    {
+      "case": "kiln-nine",
+      "dimension": "Imagery",
+      "preference": "B",
+      "reason": ""
+    },
+    {
+      "case": "kiln-nine",
+      "dimension": "Distinctiveness",
+      "preference": "tie",
+      "reason": ""
+    },
+    {
+      "case": "kiln-nine",
+      "dimension": "Mobile",
+      "preference": "tie",
+      "reason": ""
+    },
+    {
+      "case": "kiln-nine",
+      "dimension": "Overall",
+      "preference": "tie",
+      "reason": ""
+    },
+    {
+      "case": "tidal-notes",
+      "dimension": "Composition",
+      "preference": "B",
+      "reason": ""
+    },
+    {
+      "case": "tidal-notes",
+      "dimension": "Typography",
+      "preference": "tie",
+      "reason": ""
+    },
+    {
+      "case": "tidal-notes",
+      "dimension": "Imagery",
+      "preference": "tie",
+      "reason": ""
+    },
+    {
+      "case": "tidal-notes",
+      "dimension": "Distinctiveness",
+      "preference": "tie",
+      "reason": ""
+    },
+    {
+      "case": "tidal-notes",
+      "dimension": "Mobile",
+      "preference": "tie",
+      "reason": ""
+    },
+    {
+      "case": "tidal-notes",
+      "dimension": "Overall",
+      "preference": "B",
+      "reason": ""
+    },
+    {
+      "case": "form-sound",
+      "dimension": "Composition",
+      "preference": "tie",
+      "reason": ""
+    },
+    {
+      "case": "form-sound",
+      "dimension": "Typography",
+      "preference": "tie",
+      "reason": ""
+    },
+    {
+      "case": "form-sound",
+      "dimension": "Imagery",
+      "preference": "tie",
+      "reason": ""
+    },
+    {
+      "case": "form-sound",
+      "dimension": "Distinctiveness",
+      "preference": "tie",
+      "reason": ""
+    },
+    {
+      "case": "form-sound",
+      "dimension": "Mobile",
+      "preference": "tie",
+      "reason": ""
+    },
+    {
+      "case": "form-sound",
+      "dimension": "Overall",
+      "preference": "B",
+      "reason": ""
+    }
+  ]
+}

@@ -55,9 +55,9 @@ Why: the system is derived from the world's material and the use scene; both are
 Why: a site reads as one voice when the number of faces is a decision, and a scale locked to an artboard survives every width without a breakpoint per size (`[pattern:typography#fluid-scale]`).
 
 1. Contract: a voice and a silence (expressive display + neutral grotesque), or one voice (a characterful family at every size). A third layer only when more than a hundred discrete items need it. Record face, foundry and licence for each.
-2. Macro and micro: pick the display size and the label size first and put them far apart (about 20 : 1 at the artboard, 210 px against 11 px); body and button sizes are utility, never a heading ladder of five sizes (`[pattern:typography#macro-and-micro]`).
+2. Macro and micro: choose the display and label sizes for the composition; 20:1 is a poster-oriented example, not a required ratio. The Line uses 210 px against 10 px at its artboard with a full eight-step ladder. Add intermediate headings for reading or specifications (`[pattern:typography#macro-and-micro]`).
 3. Scale: every desktop measure is `px / artboard × 100` on a 1728 (or 1440) artboard, wrapped in `clamp()` so it neither collapses on a phone nor outgrows the artboard; the display token is `clamp(3rem, 12.1528vw, 13.125rem)` for 210 px at 1728, ceiling about 12–13 vw (T03); fixed pixels below 768 px; labels at `0.6875rem`.
-4. Display setting: tracking −0.03 to −0.04em by choice and never tighter than −0.06em (T04); leading .8–.95; the first glyph of a display line optically hung when the face needs it (`[pattern:typography#optical-hang]`); `font-feature-settings` in the token layer, not per component.
+4. Display setting: tracking −0.03 to −0.04em by choice and never tighter than −0.06em (T04); choose leading from the rendered glyphs; the first glyph of a display line optically hung when the face needs it (`[pattern:typography#optical-hang]`); `font-feature-settings` in the token layer, not per component.
 5. Labels as texture: the body face, uppercase, tracked about .08em, at least 11 px when they carry meaning; numerals only when they count something (`[pattern:typography#labels-as-texture]`).
 6. Loading: self-hosted woff2 in `public/fonts/`, at most four files and 400 KB (P05); `@font-face` with `font-display: swap` and a metric-matched fallback declared with `size-adjust`, `ascent-override`, `descent-override` and `line-gap-override` (T05, T06); preload the display face only; note in `DESIGN.md` that text is split only after `document.fonts.ready` (`[pattern:typography#loading]`).
 7. Face selection by character class (`[pattern:typography#choosing-by-character-class]`): the contract from the world, then the character the display voice needs (round or sharp, wide or narrow, warm or cold, condensed or extended), then the licence. Open-licence faces by default from the alternatives table in `reflex-lists.md`; the corpus's licensed faces named as "if you can license"; never the pairing a neighbour card already owns.
@@ -72,7 +72,7 @@ Why: an accent chosen from a trend deck says "website"; a ground and an accent t
 2. Tokens: `--ground`, `--ink`, at most one live `--accent` derived from the subject's environment with its job named (emphasis, bookend, state or surface) (`[pattern:color-and-material#accent-from-the-environment]`); `--muted` and `--line` are mixed from ground and ink with `color-mix()`, never new hues; at most six hues in the file (C03).
 3. Near-black: shift the darkest value toward the world's temperature (`[pattern:color-and-material#warm-near-blacks]`); the corpus's values are evidence of the direction, never values to reuse; pure #000 only when it is diegetic, recorded as a C02 exception.
 4. Ground: the use scene chooses. Light grounds are the corpus majority and are rarely white (bone, paper, silver, off-white); a dark ground is earned by a diegetic reason, a stage behind scenes, or one chapter's tempo change (`[pattern:color-and-material#light-grounds]`).
-5. Chroma policy: strong, coherent imagery gets a duotone UI; heterogeneous imagery is greyscaled and overprinted with one hue; no imagery means the accent and the material carry the world (`[pattern:color-and-material#chroma-outsourced-to-imagery]`).
+5. Chroma policy: choose a treatment from the subject and supplied images. Preserve useful color differences; selective desaturation or overprint is optional. The Line's acetate is local, not a site-wide greyscale policy. Without imagery, the accent and material carry the world (`[pattern:color-and-material#chroma-outsourced-to-imagery]`).
 6. Colour as state: `data-theme` on `<html>` is the single source for the tokens and for any renderer's clear colour; `[data-theme="…"]` blocks remap the same token names; swaps tween on `documentElement` with `--ease-theme`, instant or under 300 ms under reduced motion; `theme-color` follows the swap (`[pattern:color-and-material#colour-as-state]`).
 7. Wide gamut: duplicate the accent only, as `color(display-p3 …)` after the sRGB declaration; ink and ground stay sRGB so the contrast maths hold (`[pattern:color-and-material#wide-gamut]`).
 8. Contrast: body and labels at least 4.5:1, large text 3:1, the focus ring 3:1 against both grounds, on every theme separately (C01); compute the ratios and write them into `DESIGN.md ## Colors`. An accent that fails as body text is a surface and an ink, never a text colour (`[pattern:color-and-material#contrast]`).
@@ -112,13 +112,15 @@ Why: the frontmatter is the machine-readable layer other tools read, the CSS is 
 5. Fill `## Components` with the components the page map names once `awards:structure` has run; until then, the button and link entries from the template with every state.
 6. Tick "Visual system written (system → DESIGN.md, tokens.css)" in `AWARDS.md ## Status`. When no project exists yet, write the files at those paths anyway; `awards:stack` scaffolds around them and never overwrites them.
 
+When the brief needs editorial/product hierarchy, open `[recipe:typography-specimen]` desktop/mobile images and the complete composition’s asset/type notes through `${CLAUDE_PLUGIN_ROOT}/references/patterns/visual-composition.md`; select the project’s own type, colour and image direction.
+
 ## Verify
 
 Run `node "${CLAUDE_PLUGIN_ROOT}/scripts/audit.mjs" <dir> --scope fonts,contrast,surfaces` on the project directory; exit 0 or every finding recorded under `AWARDS.md ## Exceptions` with a reason. Then tick:
 
 - [ ] One type contract in `DESIGN.md` with face, foundry and licence; no second display face; no reflex face as the voice without an exception line (T01).
 - [ ] Fonts self-hosted as woff2, at most four files and 400 KB, `font-display` set, a metric-matched fallback declared; no CDN link (T02, T05, T06, P05).
-- [ ] The display token is a `clamp()` with one agreed floor and a ceiling at or under 13 vw; tracking no tighter than −0.06em; leading .8–.95 (T03, T04).
+- [ ] The display token is a `clamp()` with one agreed floor and a ceiling at or under 13 vw; tracking no tighter than −0.06em; leading checked against rendered glyphs (T03, T04).
 - [ ] Two to four live colour tokens under one named strategy; `--muted` and `--line` mixed, not added; at most six hues (C03); the darkest value temperature-shifted, or a C02 exception recorded.
 - [ ] Contrast ratios computed and written for every theme: body 4.5:1, large 3:1, focus ring 3:1 on both grounds (C01).
 - [ ] Every browser surface themed from the tokens (S01–S06); `theme-color` follows the theme swap.

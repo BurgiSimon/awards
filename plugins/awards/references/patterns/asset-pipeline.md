@@ -2,6 +2,10 @@
 
 What this file is for: how the corpus turns gigabytes of DCC output into single-digit megabytes on the wire — the formats, the encoders, the budgets and the loading order — so that a cinematic scene ships at the weight of a hero image. Numbers come from the cards that published or exposed them; where a card is silent on formats (Oryzo, Slosh Seltzer, Trevor Noah, Seasats, Son Daven) this file says so instead of guessing. Cite as `[pattern:asset-pipeline#section]`.
 
+## Image direction before export
+
+For each hero or editorial image, specify the subject, light, perspective, material, focal point, text-safe area and intended mobile crop before production. Check the crop with actual copy and action at both widths; use a distinct phone source when one crop cannot preserve the subject. `recipes/_shared/composition/ASSETS.md` documents these decisions for the synthetic Alder Workshop example. Adapt the questions, not its imagery or art direction. The delivery formats and budgets below still apply.
+
 ## The pipeline
 
 Why: a scene is cheap or expensive at export time, not at runtime. Every heavy winner with readable assets runs the same chain, and none of them feeds a PNG to a shader.
@@ -43,7 +47,7 @@ Why: two cards give the whole argument in numbers.
 ## Video and volumes
 
 - Cross-browser transparent video: stack RGB and alpha as two halves of one video and split them in a WebGL2 shader; volumetric light from video via KTX2 array textures rendered as ray-marched boxes; a custom point-cloud format with quantised positions and chroma subsampling — all from the Shopify sibling release [site:shopify-editions-w26] [recalled high for Spring '26; indicative only for Winter '26].
-- Hero video: the poster frame is the LCP, `muted playsinline`, streamed after first paint, paused off-screen [site:lama-lama] [take, inferred] [A10]. The Line greyscales footage with a CSS filter under its overprint [site:the-line] [inferred]; pre-grade the sources instead so the compositor does nothing per frame.
+- Hero video: the poster frame is the LCP, `muted playsinline`, streamed after first paint, paused off-screen [site:lama-lama] [take, inferred] [A10]. The Line places a local red multiply acetate over selected full-colour imagery [site:the-line] [verified]; if a project chooses desaturation, pre-grade sources when practical to avoid a live video filter.
 - Defer third-party players: Vimeo behind a lazy global, off the critical path [site:lando-norris] [verified].
 
 ## Sequences

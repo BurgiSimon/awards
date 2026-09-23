@@ -1,0 +1,40 @@
+@import '../_shared/base.css';
+@import '../_shared/composition.css';
+
+.art-hero { display: grid; grid-template-columns: 1fr 1.15fr; gap: var(--gutter); align-items: center; }
+.art-hero__copy { display: grid; justify-items: start; gap: clamp(1.5rem, 3vw, 2.75rem); }
+.art-hero__copy :is(h1, p) { margin: 0; }
+.art-hero__eyebrow { color: var(--accent); font-size: .8125rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.art-hero__copy h1 { max-width: 10ch; }
+.art-hero__copy .composition-copy { max-width: 32ch; }
+.art-hero__action { padding-block: .6rem; color: var(--accent); font-weight: 600; }
+.art-hero__action span { margin-left: .35em; }
+.art-hero picture { display: block; width: 100%; aspect-ratio: 8/5; }
+.art-hero img { width: 100%; height: 100%; object-fit: cover; }
+
+[data-demo] { max-width: 112rem; margin-inline: auto; padding: 1.5rem var(--gutter) 2rem; }
+[data-demo] .demo-skip { position: absolute; top: 0; left: var(--gutter); padding: .75rem; background: var(--ground); transform: translateY(-120%); }
+[data-demo] .demo-skip:focus { transform: none; }
+[data-demo] .demo-masthead { display: flex; justify-content: space-between; gap: 1rem; font-size: .875rem; }
+[data-demo] .demo-masthead a { text-decoration: none; }
+[data-demo] .art-hero { margin-top: clamp(2.5rem, 7vw, 7rem); }
+[data-demo] .demo-specification { display: grid; gap: 2rem; padding-block: clamp(5rem, 10vw, 10rem); scroll-margin-top: 2rem; }
+[data-demo] .demo-specification :is(h2, p, dl, dd) { margin: 0; }
+[data-demo] .demo-specification__index { border-top: 1px solid var(--line); padding-top: 1rem; color: var(--accent); font-size: .8125rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+[data-demo] .demo-specification h2 { max-width: 13ch; }
+[data-demo] .demo-specification .composition-copy { max-width: 43ch; margin-top: 1.5rem; }
+[data-demo] .demo-specification dl { align-self: start; border-top: 1px solid var(--line); }
+[data-demo] .demo-specification dl div { display: flex; justify-content: space-between; gap: 2rem; padding-block: .75rem; border-bottom: 1px solid var(--line); }
+[data-demo] .demo-specification dt { color: var(--muted); }
+[data-demo] .demo-specification dd { text-align: right; font-variant-numeric: tabular-nums; }
+[data-demo] .demo-footer { display: flex; justify-content: space-between; gap: 1rem; border-top: 1px solid var(--line); padding-top: 1.25rem; color: var(--muted); font-size: .8125rem; }
+[data-demo] .demo-footer p { max-width: 65ch; margin: 0; }
+
+@media (min-width: 48rem) {
+  [data-demo] .demo-specification { grid-template-columns: 1fr 2fr 1.3fr; gap: var(--gutter); }
+}
+@media (max-width: 47.999rem) {
+  .art-hero { grid-template-columns: 1fr; }
+  .art-hero picture { aspect-ratio: 4/5; }
+  [data-demo] .demo-footer { display: grid; }
+}

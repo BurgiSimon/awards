@@ -1,9 +1,29 @@
 # Open todos
 
-Rewritten 2026-09-21, after Phases 0–6 of `plan-0.2.md`. The plan is the specification, the
-ledger (`verification-log.md`) is the evidence. Nothing here blocks using the plugin as it is.
+Updated 2026-09-23 after the human visual review. The older 0.2.0 closeout record below is
+historical; `verification-log.md` remains its evidence ledger.
 
-## Before 0.2.0 ships
+## Visual comparison closeout
+
+1. Human choices are recorded: candidate Overall wins for Tidal Notes and Form & Sound, Kiln Nine
+   Overall tie, and three Mobile ties. See the [comparison record](visual-comparison-2026-09-22.md)
+   and unchanged submitted JSON. All 18 requested reasons remain blank, as do technical evidence,
+   case notes and both Kiln Nine reduced-motion checkboxes. Record any later rationale verbatim;
+   do not infer it or treat those blanks as ties. Practical blinding is limited.
+2. Preserve the failed technical acceptance result: candidate Kiln Nine and Form & Sound have
+   focused primary-action C01 P1 failures. Secondary-copy P1s also remain. No generated-site repair,
+   retry or extra paid judging is authorized. Human preference cannot clear these technical failures.
+3. In separately scoped work, investigate skill-routing non-use (all eleven skills advertised,
+   zero Skill calls in all six builds), rendered keyboard-focus/surface contrast verification and
+   audit exception parsing through EOF. Static checkpoint/guide wording effectiveness is unmeasured.
+   Keep current frozen snapshots and raw pilot evidence unchanged.
+4. In separately scoped corpus maintenance, correct or demote the pre-existing The Line narrative
+   sequence attribution and distinguish the reconstructed 768px typography breakpoint from the live
+   1024px card observation. Keep either correction outside the frozen visual-library candidate.
+5. A real phone and GPU pass remains necessary for WebGL performance claims. Headless captures do
+   not establish frame rate or device quality. Retain earlier aborted monolithic-browser evidence.
+
+## Earlier 0.2.0 closeout record
 
 1. **Phase 7 — close out the build tier's findings.** Both tiers have now run. Smoke meets every
    bar. The build tier ran on 2026-09-21 ($27.68, 33 min): 2/6 cases all-green, **36 of 41 graders

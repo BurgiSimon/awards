@@ -8,7 +8,7 @@ Why a floor exists: every Site of the Day in the corpus also carries a published
 
 **Type**
 - One type contract, held everywhere: expressive display + neutral grotesque, or one characterful face at display scale. No reflex face as the first family [T01]; no Google Fonts CDN link, fonts self-hosted as woff2 with `font-display` and a `size-adjust` fallback [T02, T05, T06]; at most four files.
-- Display type locked to the artboard with `clamp()`, ceiling ≈ 12–13 vw [T03]; tracking no tighter than −0.06em [T04]; display leading between .8 and 1.
+- Display type locked to the artboard with `clamp()`, ceiling ≈ 12–13 vw [T03]; tracking no tighter than −0.06em [T04]; choose leading from the rendered glyphs so accents and descenders remain clear.
 - Text split into lines only after `document.fonts.ready`; the first glyph of a display line optically hung when the face needs it.
 
 **Colour and material**
@@ -56,5 +56,5 @@ These are the moves that make a page look generated. They are refused even when 
 
 ## How the floor is enforced
 - `node ${CLAUDE_PLUGIN_ROOT}/scripts/audit.mjs <dir>` runs every rule; `--quick --changed-file` runs the fast subset from the PostToolUse hook when `AWARDS.md` exists.
-- `node ${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs <dir> --scroll 0,50,100 --reduced-motion` produces the evidence the jury needs.
+- `node ${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs <dir> --out "$capture_out" --scroll 0,50,100 --reduced-motion` produces the evidence the jury needs; allocate a fresh timestamp-plus-stage `capture_out` per orchestrated pass as in `capture-states.md`.
 - Exceptions live in `AWARDS.md ## Exceptions` as `RULE — reason`, or inline as `<!-- audit-ignore: RULE reason -->`.

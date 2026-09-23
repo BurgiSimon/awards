@@ -1,0 +1,7 @@
+Use case: photorealistic-natural
+Asset type: mobile portrait editorial product photograph for fictional Alder Workshop.
+Input image 1 is the approved product and material reference. Create a new portrait 2:3 photograph of exactly this same white-oak bench in the same quiet limestone-floor and warm-plaster interior with window on the left.
+Subject invariants: long rectangular solid seat with softly eased edges, four straight square-section legs, plain under-seat rails, paired round wooden pins vertically aligned near the top of each front leg, pale white-oak grain and matte hardwax-oil finish. Preserve the actual reference bench proportions, approximately 140 cm wide, 38 cm deep, 45 cm high. Do not shorten the bench to fit portrait.
+Composition/framing: step the camera back and toward the near end, looking along the full length from a three-quarter angle at seat height, so the entire unchanged bench fits a deliberate portrait composition. All four feet inside frame with breathing room; quiet wall above and stone floor below. Complete recognizable silhouette with foreground leg and pins crisp.
+Lighting: same broad natural left window daylight, soft dimensional shadows, neutral warm tone.
+Avoid: people, decoration, text, labels, logos, watermarks, website UI, glossy rendering, curved legs, metal fasteners, extra rails, altered geometry.

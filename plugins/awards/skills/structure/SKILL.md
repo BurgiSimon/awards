@@ -37,6 +37,7 @@ Why: the page map, the hero and the components are chosen from pattern files tha
 
 - The contract's STORY, FIRST VIEWPORT, SIGNATURE, SCROLL MODEL and LOAD & CLOSE blocks, and `DESIGN.md` for the tokens and the type contract (`--from AWARDS.md` is the default whenever the file exists).
 - `${CLAUDE_PLUGIN_ROOT}/references/patterns/narrative-structures.md` before the page map; `${CLAUDE_PLUGIN_ROOT}/references/patterns/hero-archetypes.md` before the hero; `${CLAUDE_PLUGIN_ROOT}/references/patterns/components-catalog.md` before the component column.
+- `${CLAUDE_PLUGIN_ROOT}/references/patterns/visual-composition.md`: open hero, editorial, specification and footer desktop/mobile frames only where those roles occur in this page map; record chosen mobile order and crop decisions in Notes.
 - `${CLAUDE_PLUGIN_ROOT}/references/patterns/responsive-strategy.md` and `${CLAUDE_PLUGIN_ROOT}/references/patterns/accessibility-and-reduced-motion.md` before the DOM plan.
 - `${CLAUDE_PLUGIN_ROOT}/references/craft-floor.md`, the Structure and accessibility and Layout and responsive sections, for the audit rule ids the skeleton is measured against.
 - `${CLAUDE_PLUGIN_ROOT}/recipes/_shared/base.css` as the base stylesheet the skeleton starts from, and the `index.html` of `${CLAUDE_PLUGIN_ROOT}/recipes/nav-overlay-fullscreen/`, `${CLAUDE_PLUGIN_ROOT}/recipes/marquee-raf-mask/`, `${CLAUDE_PLUGIN_ROOT}/recipes/sticky-stack-cards/` and `${CLAUDE_PLUGIN_ROOT}/recipes/hover-preview-list/` for their markup contracts; where a recipe folder does not exist yet, the catalogue entry is the contract.
@@ -88,7 +89,7 @@ For every chapter write the components into the `Components (recipe ids)` column
 | Arrival and chrome | authored preloader, fullscreen nav overlay, custom cursor, sound toggle, chapter jump rail, scrollspy index, theme switcher (`[pattern:components-catalog#arrival-and-chrome]`) | `preloader-counter-hold`, `nav-overlay-fullscreen`, `cursor-two-speed`, `sound-toggle-opt-in`, `theme-swap-tokens` |
 | Scroll set-pieces | scrubbed hero object or scene, pinned chapter, horizontal rail, sticky stack cards, scroll-drawn path, hold or drag to compare (`[pattern:components-catalog#scroll-set-pieces]`) | `scroll-pin-scrub`, `sticky-stages-rails`, `horizontal-rail`, `sticky-stack-cards`, `scroll-drawn-svg-path`, `compare-hold-drag`, `image-sequence-scrub` |
 | Galleries and lists | draggable plane or arc gallery, hover-preview archive list, poster-scale case blocks, metadata rows, ticker (`[pattern:components-catalog#galleries-and-lists]`) | `gl-dom-tethered-planes`, `hover-preview-list`, `marquee-raf-mask`, `split-text-masked-reveal` |
-| Evidence blocks | spec and metric blocks, map cards (`[pattern:components-catalog#evidence-blocks]`) | `custom` (numbers as copy in a `<dl>` or table, never a count-up) |
+| Evidence blocks | spec and metric blocks, map cards (`[pattern:components-catalog#evidence-blocks]`) | `product-specification` for product facts and care; otherwise `custom` (numbers as copy in a `<dl>` or table, never a count-up) |
 | The close | designed footer, designed 404, easter eggs, living-utility pages (`[pattern:components-catalog#the-close-and-beyond]`) | `magnetic-button` for the CTA, `theme-swap-tokens` when the footer is a theme, `page-transitions` for routes |
 
 Rules: every component has a job in a row or it is cut; the catalogue's refuse line for each entry is binding (no counter jumps, badge sets, rotated indexes or chapter rails lifted with their values); a marquee is never the hero; a compare needs two conditions; hover previews also appear on focus. Add one entry per chosen component to `DESIGN.md ## Components` with its tokens, states, motion hook and accessibility notes.
@@ -133,7 +134,7 @@ Why: the skeleton is the layer everything else must survive without; build it as
 
 Read the HTML top to bottom with styles disabled (or as source): it must read as an article with headings, real paragraphs, lists and links, in the page map's order. Then walk it with the keyboard: Tab from the top reaches the skip link, then the nav, then every control in reading order; the overlay toggle and the preloader skip are buttons in the tree. Then run:
 - `node "${CLAUDE_PLUGIN_ROOT}/scripts/audit.mjs" <dir> --scope a11y,layout,slop` — exit 0, or every finding recorded under `AWARDS.md ## Exceptions` with a reason.
-- `node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <dir> --scroll 0,50,100` — desktop and mobile captures show the same headings; open each once.
+- `node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <dir> --out "$capture_out" --scroll 0,50,100` (fresh `capture_out` per `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md`) — desktop and mobile captures show the same headings; open each once.
 
 - [ ] Readable with CSS off; keyboard navigation reaches every control in reading order.
 - [ ] Landmarks, one `<h1>`, unbroken heading order, skip link, `lang`, viewport meta; every chapter a `<section>` with a heading and real text.
@@ -147,7 +148,7 @@ Read the HTML top to bottom with styles disabled (or as source): it must read as
 
 ## Hand-off
 
-When no project boots yet (no `package.json`, or no Lenis + GSAP boot): Invoke the `awards:stack` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. When the stack is already booted: Invoke the `awards:motion` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. When the user asked only for structure, sections or a skeleton, stop after the verify step and offer the next step in one line. The artefacts the next skill needs are the filled `## Page map`, the skeleton files and `DESIGN.md ## Components`.
+When no project boots yet (no `package.json`, or no Lenis + GSAP boot): Invoke the `awards:stack` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. When the stack is already booted: complete or reuse the static checkpoint in `${CLAUDE_PLUGIN_ROOT}/references/patterns/visual-composition.md` and `awards:craft` after layout/media exist, recording its evidence or unmeasured result in Page map Notes; then invoke the `awards:motion` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. When the user asked only for structure, sections or a skeleton, stop after the verify step and offer the next step in one line. The artefacts the next skill needs are the filled `## Page map`, the skeleton files and `DESIGN.md ## Components`.
 
 ## Refuse
 

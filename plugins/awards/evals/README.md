@@ -128,11 +128,13 @@ These free checks run the shipped tools and real Chromium interactions. They com
 node ../evals/behavior.mjs
 node ../evals/behavior.mjs --only capture,doctor
 node ../evals/behavior.mjs --only server,audit,ticker  # browser-free subset
+node ../evals/jury-evidence-selftest.mjs       # immutable jury evidence contract
+node ../evals/visual-library-selftest.mjs      # visual references and recipe metadata
 ```
 
 For Playwright installed elsewhere, set `AWARDS_PLAYWRIGHT` to its parent project directory. The full suite uses the installed Vite dependencies in `recipes/node_modules` to build the starter and menu into temporary directories; it deletes its fixtures/builds and leaves recipe verification stamps untouched. Run it serially, never beside `verify-recipes.mjs` or another browser. Browser launch or localhost restrictions are prerequisite failures, not skipped passes.
 
-Groups cover static-server root containment, quick/URL audit semantics, ticker pause/resume and teardown, named captures (keyboard, pointer drag, reload persistence, cropping, invalid input and failure recovery), doctor failures and configuration preservation, starter readiness without WebGL and live reduced-motion changes, and the bundled menu's focus trap/Escape restoration. Exit 0 means all selected checks passed; exit 1 means a failure. Add a regression here when a tool can pass syntactically while its observable behavior is broken. Keep the existing 30-recipe verifier as the compatibility pass.
+Groups cover static-server root containment, quick/URL audit semantics, ticker pause/resume and teardown, named captures (keyboard, pointer drag, reload persistence, cropping, invalid input and failure recovery), doctor failures and configuration preservation, starter readiness without WebGL and live reduced-motion changes, and the bundled menu's focus trap/Escape restoration. Exit 0 means all selected checks passed; exit 1 means a failure. Add a regression here when a tool can pass syntactically while its observable behavior is broken. Run the 36-entry recipe verifier as the compatibility pass; use `--only` for the six visual examples. `jury-evidence-selftest.mjs` and `visual-library-selftest.mjs` cover the new evidence and visual-reference contracts without model calls. Historical smoke/build results above remain separate from that deterministic verification.
 
 ## Grader self-test
 ```bash

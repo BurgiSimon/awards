@@ -73,7 +73,7 @@ Why: an accent chosen from a trend deck says "website"; one taken from the subje
 | Pop pink #FF9BB4 on navy | [site:trevor-noah] | a refusal of the black-and-neon comedy register | [verified] |
 | Signal green #01C654 on white | [site:why-zero] | one signal in a CGI world that would otherwise read as a render demo | [verified] |
 | Orange #FF8539 | [site:oryzo] | the single hot value in a four-value set | [recalled high] |
-| Flare red #FF391E | [site:the-line] | the active nav state and the footer, nowhere else | [verified] |
+| Flare red #FF391E | [site:the-line] | active nav, selection, loading placeholder, footer and other interface roles | [verified] |
 | Rim blue #83A1C5 | [site:igloo] | one rim light in a near-monochrome | [verified] |
 | Slate #2D628C | [site:mont-fort] | the one ink over snow and rock | [verified] |
 
@@ -83,7 +83,7 @@ Rules: one accent live; name its job in `DESIGN.md` — emphasis, bookend, state
 
 Why: when photography is strong, UI colour competes with it. White Desert locks the interface to a ground and an ink and lets ice, dusk, penguins and jets carry every ounce of colour — Content was its highest axis at 7.74 [site:white-desert] [recalled medium]. Lama Lama runs people photography and a hero video on bone and near-black [site:lama-lama] [recalled medium]; Son Daven's renders across seasons carry the chroma over a duotone [site:son-daven]. The Line inverts the rule **locally, not globally**: `filter: grayscale()` sits on exactly two selectors, and the acetate is a hero-and-highlights device over otherwise full-colour work [verified, live source 2026-09-18]. What generalises is the ink, not the desaturation — its one red does ten jobs, from `::selection` to the loading placeholder to the sticky footer [site:the-line] [verified, live source 2026-09-18].
 
-Rules: strong, coherent imagery → duotone UI; heterogeneous imagery → greyscale it and overprint one hue; no imagery → the accent and the material carry the world (`[site:igloo]`, `[site:mont-fort]`).
+Rules: choose a treatment from the subject and the supplied images. Preserve useful color differences; selective desaturation or overprint is an optional unifying treatment. The Line's acetate is local, not a site-wide greyscale policy. With no imagery, let the accent and material carry the world (`[site:igloo]`, `[site:mont-fort]`).
 
 ## Colour as state
 
@@ -111,7 +111,7 @@ Why: material is what makes a colour read as a surface, and one policy per world
 | Policy | Card | Mechanism | Confidence |
 |---|---|---|---|
 | Sharp and shadowless; depth by luminance | [site:the-line] | radius 0, shadow 0; a luminance ladder near-white .973 → grey .871 → red .444 → near-black .043 | [verified] |
-| Multiply acetate over greyscaled footage | [site:the-line] | an `aria-hidden` flat #FF0000 div with `mix-blend-mode: multiply` over greyscaled video; pre-greyscale the sources so the filter is not live. Applied to the hero, the active work row, the reel frame, the mobile nav figure and the 404 — **not** to the site's imagery at large | [verified, live source 2026-09-18] |
+| Local multiply acetate | [site:the-line] | an `aria-hidden` flat red div with `mix-blend-mode: multiply` over selected full-colour work. Applied to the hero, the active work row, the reel frame, the mobile nav figure and the 404; grayscale filters occur on only two other selectors | [verified, live source 2026-09-18] |
 | Fog gradient + one rim accent + saturation ≈ 0 | [site:igloo] | cheap-ice optics in effort order: bevel every edge → light from inside or below → Fresnel rim → bloom with a high threshold → depth of field → fog → fine grain; transmission only on the one object that earns it; a 3D LUT grade | [recalled high; LUT verified] |
 | Glow on one hue | [site:united-carriers] | bloom in GL or a CSS glow around the ultramarine only, never on text | [inferred] |
 | Fixed bloom presets | [site:lando-norris] | 1.5 / .5 / .25 chosen per scene; PBR sets, matcaps and an HDRI | [verified] |
@@ -147,8 +147,8 @@ Why: the strategy is the sentence that explains every token; `DESIGN.md ## Overv
 
 | Strategy | Rule | Cards |
 |---|---|---|
-| Restrained duotone | ground + ink; chroma from imagery or from none; the accent, if any, is a surface or a bookend | [site:white-desert] [site:lama-lama] [site:son-daven] [site:usavionix] [site:mont-fort] [site:igloo] [site:the-line] |
-| Committed accent | one environment-derived hue does all emphasis on a near-black or a light ground | [site:united-carriers] [site:why-zero] [site:trevor-noah] [site:oryzo] [site:seasats] |
+| Restrained duotone | ground + ink; chroma from imagery or from none; the accent, if any, is a surface or a bookend | [site:white-desert] [site:lama-lama] [site:son-daven] [site:usavionix] [site:mont-fort] [site:igloo] |
+| Committed accent | one environment-derived hue does all emphasis on a near-black or a light ground | [site:united-carriers] [site:why-zero] [site:trevor-noah] [site:oryzo] [site:seasats] [site:the-line] |
 | Theme-per-section | token sets swapped per section or route as narrative rhythm; two values live at a time | [site:leo-parpeix] [site:floema-jewelry] [site:shopify-editions-w26] [site:lando-norris] |
 | Palette-as-navigation (the template's "drenched") | a hand-picked set of four to ten hues, one on screen at a time; the swap is the transition | [site:slosh-seltzer]; the ramp system of [site:animejs] as its dark-UI cousin |
 

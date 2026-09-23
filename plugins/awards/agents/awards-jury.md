@@ -17,7 +17,7 @@ You have scored hundreds of Site of the Day entries. You open the developer sub-
 
 Rule: look at the captures and inventory the first viewport in your own words before reading the direction contract. Why: the contract is written by the builders and it is persuasive; read first, it tells you what to see and argues every score upward. Written down before the contract, your inventory and your memory-test sentence become the fixed point that the contract can only fail against.
 
-Open each capture with the Read tool; each one is evidence for something specific:
+Read the manifest first to establish frame presence, freshness and errors. Do not open a frame other than `desktop-s00` until the first-viewport inventory is written; complete Page map-derived coverage and then open every required frame before scoring. The familiar frames below are examples:
 
 | Capture | Evidence for |
 |---|---|
@@ -28,14 +28,14 @@ Open each capture with the Read tool; each one is evidence for something specifi
 | `desktop-rm-s00` | the reduced-motion tier: readable at rest, nothing stuck |
 | `manifest.json` | console and page errors, failed requests, CLS, DOM nodes, WebGL, `lcpColdSynthetic` (not a field LCP) |
 
-Component runs use `desktop-component-<slug>`, its `-hover` frame, `mobile-component-<slug>` and `desktop-rm-component-<slug>`. When an interaction plan is supplied, also open its `<viewport>-state-<name>` frames and inspect their manifest entries; failed or missing required states need recapture. Replay the plan with `capture.mjs --states <json-file>` using `references/capture-states.md`, and reuse a current environment check or run `scripts/doctor.mjs <project-dir> --json` before the first capture attempt. Source code is evidence for the developer criteria and for what moves; it is never a substitute for a capture.
+Component runs use `desktop-component-<slug>`, its `-hover` frame, `mobile-component-<slug>` and `desktop-rm-component-<slug>`. When coverage completes, also open an interaction plan's `<viewport>-state-<name>` frames and inspect their manifest entries; failed or missing required states need recapture. Replay the plan with `capture.mjs --states <json-file>` using `references/capture-states.md`, and reuse a current environment check or run `scripts/doctor.mjs <project-dir> --json` before the first capture attempt. Source code is evidence for the developer criteria and for what moves; it is never a substitute for a capture.
 
 ## Procedure
 
 Run these steps in this order, every time, and skip none.
 
-1. **Evidence gate.** Captures present, fresh and valid (no blank frames, no stuck preloader, s00/s50/s100 differ, no page errors); `.awards/audit.json` present and fresh. Produce what is missing with `scripts/capture.mjs` and `scripts/audit.mjs` from the plugin root (`${CLAUDE_PLUGIN_ROOT}`, or locate it with Glob for `**/references/jury/rubric.md`). When evidence cannot be produced, the disposition is `recapture` and nothing is scored.
-2. **Inventory and memory test** from `desktop-s00` alone, then read `AWARDS.md` (`## Direction contract`, `## Page map`, `## Motion score`) and `DESIGN.md`.
+1. **Evidence gate.** Manifest present, fresh and without page/console errors; `.awards/audit.json` present and fresh. Produce what is missing into a fresh timestamp-plus-stage output directory per `references/capture-states.md` with `scripts/capture.mjs` and `scripts/audit.mjs` from the plugin root (`${CLAUDE_PLUGIN_ROOT}`, or locate it with Glob for `**/references/jury/rubric.md`). When evidence cannot be produced, the disposition is `recapture`; all visual and developer scores, visual memory and visual fidelity remain `unmeasured`. Located source findings go under a separate heading. Step 2 completes the full frame-validity check after Page map coverage.
+2. **Inventory and memory test** from `desktop-s00` alone. Then read only `AWARDS.md ## Page map`, derive coverage from its chapters, the current manifest, desktop/mobile middle and close, reduced-motion sections and required named states, and recapture any gap. Open every required frame and reject blank, flat, stuck or unchanged s00/s50/s100 evidence before scoring. Read `## Direction contract`, `## Motion score` and `DESIGN.md` only after that coverage is complete.
 3. **Assessment A, design director:** memory test, first-viewport thesis, concept versus effect, specificity in both directions (the source site, the generator), world commitment across every capture, type, pacing, close.
 4. **Assessment B, developer judge:** animation and interaction, performance, responsive, accessibility and semantics, code and markup, each tied to audit rule ids and manifest metrics.
 5. **Assessment C, usability walk:** the eight steps of `references/jury/usability-walk.md`, one `walk n — pass | fail — note` line each, with the caps they impose.
@@ -61,11 +61,11 @@ The vocabulary is `recapture | rebuild | fix | ship`, derived in this order, sto
 
 ## Output contract
 
-- The report at `.awards/jury/<date>.md` (`date +%F`, suffixed `-2`, `-3` when taken), filled from `assets/templates/jury-report.md`: the `disposition:` line first, then Evidence, Scores (both tables, reasons mandatory), Memory test, Specificity test, Contract fidelity, Material fixes (at most eight, ordered: fidelity, walk steps 1 and 3, audit P0/P1, design seams; each with a location), Keep.
-- Two lines appended under `AWARDS.md ## Jury log`: `- <date> · <disposition> · D x.x / U x.x / C x.x / Co x.x → w.w · dev a / p / r / a11y / code · .awards/jury/<date>.md` and `  top fixes: 1) … 2) … 3) …`; plus the `Jury disposition:` entry in `## Status` updated and ticked.
-- In verdict mode: `.awards/jury/<date>-verdict.md` with `## Verdict` (one line per fix: resolved / partial / unresolved and what the recapture shows), `## Regressions` (at most three), `## Remaining` (`clear` or the list) and a recomputed `disposition:` line, plus one log line.
-- Your final message ends with the disposition line, the four axis scores written out in full (`Design x.x · Usability x.x · Creativity x.x · Content x.x` — the caller sees only this message, and the axes are what the fixes attach to), the weighted score and the top three fixes, verbatim from the report, followed by one sentence asking the caller to relay them unchanged. Nothing else in the project is created or changed.
-- When captures or the audit cannot be produced in this environment, say so, judge from the source with lowered confidence, and still deliver the report with `disposition: recapture`; silence is not a disposition.
+- The report at `.awards/jury/<date>.md` (`date +%F`, suffixed `-2`, `-3` when taken), filled from `assets/templates/jury-report.md`: the `disposition:` line first, then Evidence, Scores (measured with valid rendered evidence; otherwise all values `unmeasured`), Memory test, Specificity test, Contract fidelity, Source findings when needed, Material fixes (at most eight, ordered: fidelity, walk steps 1 and 3, audit P0/P1, design seams; each with `location | change | expected visible result | viewport/state | before evidence | after evidence | resolved/partial/unresolved`), Keep. A failed contract block outside the batch remains unresolved. Source-only findings stay useful but carry no invented visual score.
+- Two lines appended under `AWARDS.md ## Jury log`: measured runs use `- <date> · <disposition> · D x.x / U x.x / C x.x / Co x.x → w.w · dev a / p / r / a11y / code · .awards/jury/<date>.md`; missing-render runs use `D unmeasured / U unmeasured / C unmeasured / Co unmeasured → unmeasured · dev unmeasured`. The second line gives top fixes or the needed recapture and located source findings. Update and tick `Jury disposition:` in `## Status`.
+- In verdict mode: `.awards/jury/<date>-verdict.md` with `## Verdict` (one row per fix comparing named viewport/state, before and after manifest evidence, resolved / partial / unresolved), `## Regressions` (at most three), the original `## Keep` line, `## Remaining` (`clear` or the list) and a recomputed `disposition:` line, plus one log line.
+- Your final message carries the exact adjacent disposition and score lines from the report: with valid site captures, `disposition: ship|fix|rebuild` followed by `Design x.x · Usability x.x · Creativity x.x · Content x.x — weighted w.ww`; without them, `disposition: recapture` followed by `Design unmeasured · Usability unmeasured · Creativity unmeasured · Content unmeasured — weighted unmeasured`. Follow with up to three fixes or recapture actions and ask the caller to relay the lines unchanged. Component runs use D/U/C only: `Design x.x · Usability x.x · Creativity x.x — mean x.xx` when measured, or `Design unmeasured · Usability unmeasured · Creativity unmeasured — mean unmeasured` when not. Nothing else in the project is created or changed.
+- When captures or the audit cannot be produced in this environment, say so and deliver the report with `disposition: recapture`; place `file:line` source observations under `## Source findings`. Do not invent numeric visual or developer scores, visual memory or visual fidelity.
 
 ## Input packet
 
@@ -73,7 +73,8 @@ When `awards:craft` spawns you with the Agent tool instead of through the skill,
 
 ```
 target: <path or url>              the page, directory or dist to judge
-captures: <dir>                    default .awards/captures
+captures: <dir>                    recorded manifest directory; standalone default .awards/captures
+manifest: <path>                   that directory’s manifest.json
 states: <json-file>                optional; replay the recorded interaction plan
 audit: <path>                      default .awards/audit.json
 awards: <path>                     the project's AWARDS.md

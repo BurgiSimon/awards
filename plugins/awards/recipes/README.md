@@ -15,10 +15,18 @@ node ../scripts/verify-recipes.mjs --only boot-lenis-gsap,marquee-raf-mask
 ```
 Screenshots land in `_verify/<id>/<state>.png`; `recipe.json.verified` is stamped on a pass. SwiftShader proves correctness, not frame rate: run a real-device pass before shipping anything GL.
 
+The six static visual examples declare their reviewed desktop/mobile image paths and notes in `recipe.json.visuals`. Select and open only relevant images through `references/patterns/visual-composition.md`. The catalogue now has 36 entries: 35 focused recipes and one complete composition.
+
 ## Catalogue by intent
 
 | Intent | Recipe | Tier | Demonstrates | Seen in |
 |---|---|---|---|---|
+| Typography hierarchy | `typography-specimen` | P0 | Same copy in poster, editorial and technical registers; measure and mobile reflow | synthetic example; `recipe.json.visuals` |
+| Responsive image hero | `responsive-art-directed-hero` | P0 | Separate wide/portrait composition, intact subject and action | synthetic example; `recipe.json.visuals` |
+| Editorial story | `editorial-image-text` | P0 | Figure, caption, asymmetric reading column and mobile order | synthetic example; `recipe.json.visuals` |
+| Product facts | `product-specification` | P0 | Semantic facts with units and native care disclosure | synthetic example; `recipe.json.visuals` |
+| Designed close | `designed-footer` | P0 | Statement, contact action, navigation and colophon | synthetic example; `recipe.json.visuals` |
+| Whole-page composition | `complete-editorial-composition` | P0 | The five components in one paced, coherent page | synthetic example; six frames in `recipe.json.visuals` |
 | Boot the page | `boot-lenis-gsap` | P0 | Lenis on the GSAP ticker, `lagSmoothing(0)`, fonts before splits, reduced-motion tier, `__awards` hook | leo-parpeix, lando-norris, mont-fort |
 | Scrubbed chapter | `scroll-pin-scrub` | P0 | Sticky stage in a tall section, linear scrub, quantised beats | son-daven, united-carriers, mont-fort |
 | Hold and hinge | `sticky-stages-rails` | P0 | Sticky stages on invisible rails, hero hinge (x −10 %, −15°, child lags), no `pin` | the-line, shopify-editions-w26 |

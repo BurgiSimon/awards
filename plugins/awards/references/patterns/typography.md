@@ -42,9 +42,9 @@ Rules:
 
 ## Macro and micro
 
-Why: two sizes with nothing between read as a system; five sizes read as a hierarchy someone had to manage. The Line sets 210 px display on a 1728 px artboard against ≈ 9 px uppercase micro-labels, with body at 16 px and buttons at 13 px doing plain work in between — the *design* has two tiers, the *stylesheet* has four [site:the-line] [verified]. Igloo goes further: one face, one weight, one size class per role [site:igloo] [verified].
+Why: a wide display-to-label contrast can give a poster its force while intermediate sizes keep longer reading and specifications clear. The Line sets 210 px display against 10 px micro type on a 1728 px artboard, with a full eight-step ladder between them [site:the-line] [verified, live CSS]. Igloo uses one face, one weight and one size class per role [site:igloo] [verified].
 
-Rules: pick a display size and a label size first and make them far apart (≈ 20 : 1 at the desktop artboard); body and button sizes are utility, not hierarchy; no "h2 / h3 / h4" ladder — a chapter title is display, a caption is label, and a paragraph is body.
+Rules: choose the display and label sizes for the composition; ≈ 20:1 is a poster-oriented example, not a required ratio. Add intermediate headings where reading or specifications need them. Check the hierarchy and leading with the rendered glyphs.
 
 ## Fluid scale
 
@@ -63,7 +63,7 @@ The plugin's token wraps the lock in `clamp()` so the display never outgrows the
 
 How to read it: `13.125rem` is 210 px, so the ceiling is the artboard value itself; the vw term reaches the 48 px floor at ≈ 395 px, which is where phones begin; above 1728 px the display stops growing and the gutters keep growing until 2880 px. `DESIGN.md`'s template floor is `2.75rem` (44 px) — pick one floor per project and keep the two files identical.
 
-Display setting [site:the-line] [verified]: tracking `-0.04em`, weight 500, line-height .8–.95. The audit's hard floor is −0.06em (T04) and the DESIGN template asks for ≥ −0.04em; treat −0.04em as the corpus value and −0.06em as the last resort. Negative tracking only at display size [site:shopify-editions-w26] [recalled medium-low]. Leading under 1 is why masked reveals travel `150 %` rather than `100 %` — descenders must clear the clip (`[pattern:motion-vocabulary#masked-line-reveals]`). Set `text-rendering: optimizeLegibility` and antialiasing once [site:the-line] [verified].
+Display setting [site:the-line] [verified]: tracking `-0.04em`, weight 500, line-height .8 on its h1. Choose leading from the rendered glyphs and reading task; inspect accents and descenders at every size. The audit's tracking floor is −0.06em (T04) and the DESIGN template asks for ≥ −0.04em. Negative tracking only at display size [site:shopify-editions-w26] [recalled medium-low]. Masked reveals must clear descenders (`[pattern:motion-vocabulary#masked-line-reveals]`). Set `text-rendering: optimizeLegibility` and antialiasing once [site:the-line] [verified].
 
 ## Optical hang
 
@@ -79,10 +79,10 @@ Why: small labels are the texture that makes a big-type page feel set rather tha
 |---|---|---|
 | Numerals 01 / 02 / 03 on nav links; a numbered label per item | [site:leo-parpeix]; [site:floema-jewelry] `${collection} ${index}` | [recalled medium]; [verified] |
 | Numbered chapters and numbered pillars | [site:mont-fort] | [verified] |
-| Roman numerals for the year and for sections | [site:the-line]; [site:shopify-editions-w26] | [verified]; [recalled medium-low] |
+| Roman numerals for sections | [site:shopify-editions-w26] | [recalled medium-low] |
 | Metadata quartet: name · discipline · year · team of N | [site:leo-parpeix] | [recalled medium] |
-| Telemetry slashes: `/ MICRO / LABELS /` as a CSS pseudo-element; `///////` heading rules; a `Sound: Off` state label | [site:the-line]; [site:igloo] | [verified]; [verified] |
-| ≈ 9 px uppercase at weight 440 | [site:the-line] | [verified] |
+| Telemetry slashes: `/ MICRO / LABELS /` as real elements; `///////` heading rules; a `Sound: Off` state label | [site:the-line]; [site:igloo] | [verified]; [verified] |
+| 10 px micro type at the 1728 px artboard | [site:the-line] | [verified, live CSS] |
 
 Rules: labels use the body face (or the one family), uppercase, tracked ≈ .08em, at `--label`; 11 px is the floor for a label that carries meaning, and 9 px is allowed only for decorative repeats; decorative marks (a slash, a rule) live in `::before`, and labels that carry meaning live in the DOM as text (`[pattern:components-catalog#metadata-labelled-project-rows]`); numerals are texture only when they also count something — a chapter, an item, a year (audit X07).
 
@@ -149,12 +149,14 @@ Why: the face follows the world, then the character, then the licence — never 
 | Library, research station, console | monospace identity | [site:animejs] [site:igloo]; readouts [site:usavionix] [inferred] |
 | Changelog with 150 items | serif display + grotesque + one accent layer | [site:shopify-editions-w26] |
 
+For a rendered comparison of poster, editorial and technical hierarchy using the same copy, open `[recipe:typography-specimen]` via `[pattern:visual-composition]`; choose the project’s own licensed typeface and measure.
+
 ## Verify
 
 - [ ] One contract, recorded in `DESIGN.md` with face, foundry and licence; no second display face.
-- [ ] Display and label sizes far apart; body and button sizes are utility, not a heading ladder.
+- [ ] Display, label and intermediate heading sizes serve the reading task; specifications have the hierarchy they need, checked on rendered glyphs.
 - [ ] Every desktop measure is `px / artboard × 100`; the display token is a `clamp()` with one agreed floor; fixed px below 768.
-- [ ] Tracking no tighter than −0.04em by choice and −0.06em by audit; display leading .8–.95; the first glyph hung at display scale.
+- [ ] Tracking no tighter than −0.04em by choice and −0.06em by audit; leading checked on rendered glyphs; the first glyph hung at display scale where the face needs it.
 - [ ] Labels at ≥ 11 px when they carry meaning, in the DOM as text; decorative slashes and rules in pseudo-elements.
 - [ ] Every GL headline has a DOM heading underneath and the canvas is `aria-hidden`; GL type at one or two moments only.
 - [ ] Self-hosted woff2, ≤ 4 files, ≤ 400 KB, `font-display` with a metric-matched fallback; splitting after `document.fonts.ready` and again on resize.
@@ -164,7 +166,7 @@ Why: the face follows the world, then the character, then the licence — never 
 - A reflex face as the voice (`reflex-lists.md`), or a system face as display.
 - Two display faces; a third layer without 100+ items to organise.
 - A Google Fonts or any CDN `<link>`; more than four files.
-- A heading ladder of five sizes; a display size above ≈ 13 vw or below the phone floor.
+- Heading sizes added by habit rather than a reading need; a display size above ≈ 13 vw or below the phone floor.
 - Tracking tighter than −0.06em; gradient text; monospace as a costume on a non-technical product.
 - GL or split text with no accessible copy; an atlas-only identity with an empty DOM.
 - The pairings as packages: Avantt + Monument Grotesk, George X + Suisse BP, KTF Metro, BT Steinhart + Helvetica Now, Mona Sans + Brier, Century Gothic + Josefin Sans, Denim with `ss03`, IoskeleyMono-only.

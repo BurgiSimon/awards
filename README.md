@@ -1,6 +1,6 @@
 # awards — award-worthy websites with Claude Code and Codex
 
-A plugin for Claude Code and Codex that teaches the agent to design and build websites and single components in the league of Site of the Day / Month / Year award winners: in that style, never as copies. It is built from twenty site case studies, the pattern language they share, thirty motion and WebGL recipes verified in a headless browser, a deterministic craft-floor audit, and a fresh-context jury that scores the way the real one does.
+A plugin for Claude Code and Codex that teaches the agent to design and build websites and single components in the league of Site of the Day / Month / Year award winners: in that style, never as copies. It is built from twenty site case studies, the pattern language they share, 35 focused recipes and one complete composition (36 browser-verifiable entries), a deterministic craft-floor audit, and a fresh-context jury that scores the way the real one does.
 
 ## Install
 
@@ -13,7 +13,7 @@ codex plugin marketplace add /absolute/path/to/awards
 codex plugin add awards@awards
 ```
 
-Or install the published repository (after these changes are pushed to the chosen branch):
+Or install the published repository:
 
 ```bash
 codex plugin marketplace add burgisimon/awards
@@ -103,16 +103,16 @@ Every skill also triggers on its own request ("add a custom cursor", "judge this
 
 1. **Brief.** `craft` copies `AWARDS.md` into the project, asks at most three questions, records the visitor mode and every synthetic asset.
 2. **Concept.** `concept` reads the corpus index, picks the three nearest case studies, deals three directions with a seeded roll, and writes the direction contract: THESIS, WORLD, STORY, FIRST VIEWPORT, SIGNATURE, SCROLL MODEL, LOAD & CLOSE, DIVERGENCE.
-3. **System, structure, stack.** `DESIGN.md` and `tokens.css`; the page map and a semantic skeleton; a project booted on one ticker with the `window.__awards` hook the tools use.
+3. **System, structure, stack.** Read selected desktop/mobile examples from the visual composition guide; write `DESIGN.md`, `tokens.css` and the page map; boot the project on one ticker with the `window.__awards` hook. Review the static hero, middle and close on desktop/mobile before the motion handoff.
 4. **Motion and WebGL.** A motion score per chapter, recipes adapted rather than pasted, a DOM mirror and a no-GL path for every canvas.
-5. **Jury and ship.** Playwright captures at three scroll positions, on a phone and under reduced motion; the audit; a forked jury that scores Design / Usability / Creativity / Content and the developer criteria and returns `ship`, `fix`, `rebuild` or `recapture`; a ship pass that applies the fix batch and writes the report.
+5. **Jury and ship.** Capture coverage follows the page map and capture manifest, including desktop/mobile chapters, reduced motion and required interaction states. The audit and forked jury produce Design / Usability / Creativity / Content and developer scores, or `recapture` when visual evidence is missing. The jury returns `ship`, `fix`, `rebuild` or `recapture`; ship applies the fix batch and verifies the expected changes in before/after captures.
 
 Durable files: `AWARDS.md` (brief, contract, page map, motion score, budgets, jury and ship logs, exceptions), `DESIGN.md` (tokens and rules), `.awards/` (captures, reports, audit output; gitignored). In Claude Code, a `PostToolUse` hook runs a sub-second audit after each edit, only in projects that carry an `AWARDS.md`; set `AWARDS_HOOK=0` to silence it. Codex runs the same audit explicitly after edit batches.
 
 ## What is inside
 
-- `plugins/awards/references/` — twenty site case studies, each checked against the live site and its live award entry on 2026-09-18 and carrying confidence labels, the pattern language (narrative, heroes, components, motion, preloaders, cursor, typography, colour, copy, WebGL, assets, accessibility, responsive, sound), the jury rubric and usability walk, the craft floor, anti-pattern and reflex lists, per-stack and per-library notes with pinned versions.
-- `plugins/awards/recipes/` — thirty recipes (Lenis + GSAP boot, scrubbed chapters, sticky stages, text reveals, cursor, magnetic CTA, marquee, menu overlay, preloader, theme swap, page transitions, quality tiers, DOM-tethered WebGL planes, fluid wake, depth-map parallax, render-to-texture transitions, virtual scroll camera, an opt-in sound toggle and runtime-atlas MSDF text), each with a browser-verified test.
+- `plugins/awards/references/` — twenty site case studies, each checked against the live site and its live award entry on 2026-09-18 and carrying confidence labels, the [visual composition guide](plugins/awards/references/patterns/visual-composition.md) and broader pattern language, the jury rubric and usability walk, the craft floor, anti-pattern and reflex lists, per-stack and per-library notes with pinned versions.
+- `plugins/awards/recipes/` — 35 focused recipes plus one complete editorial composition, 36 verifiable entries in all. The six new visual examples include reviewed desktop/mobile images and synthetic demonstration content; each entry has a browser verifier. These images are generated and tested examples, not evidence of human preference.
 - `plugins/awards/scripts/` — `doctor.mjs`, `capture.mjs`, `audit.mjs`, `new-project.mjs`, `roll.mjs`, `verify-recipes.mjs`, `lint-refs.mjs`.
 - `plugins/awards/evals/` — a `claude plugin eval` suite: seventeen routing cases (eleven that must fire a skill, six that must not) and six build cases with fixtures, plus `selftest.mjs` for grader checks and `behavior.mjs` for actual browser, audit, capture, server and ticker regressions without model calls.
 
@@ -135,9 +135,11 @@ npm install --no-save --package-lock=false playwright  # verification tool only
 npx playwright install chromium
 node ../scripts/doctor.mjs .                 # early prerequisite check; no installs
 node ../evals/behavior.mjs                   # live behavior regressions, no model calls
-node ../scripts/verify-recipes.mjs            # all 30 recipes, headless Chromium with WebGL
+node ../scripts/verify-recipes.mjs            # all 36 entries, headless Chromium with WebGL
 node ../scripts/audit.mjs .                   # the craft floor: must stay free of P0-P2
 node ../scripts/lint-refs.mjs                 # every [site:]/[recipe:]/[pattern:] reference resolves
+node ../evals/jury-evidence-selftest.mjs      # jury evidence contract, no model calls
+node ../evals/visual-library-selftest.mjs     # visual guide/recipe metadata, no model calls
 node ../evals/selftest.mjs                    # every file-target grader fails on untouched input
 node ../evals/codex-install.mjs --build       # installed scaffolds, with and without WebGL
 cd ..
@@ -149,7 +151,33 @@ SwiftShader verification is not safe beside another browser. See [behavior check
 
 ## Status
 
-Version 0.2.0.
+Version 0.3.0.
+
+### 0.3.0 — 2026-09-23
+
+- **Visual composition library.** Five new recipes cover editorial image/text composition,
+  responsive art-directed heroes, product specifications, typography specimens and designed
+  footers. One complete furniture/materials page combines them with coherent synthetic imagery,
+  shared styles and annotated desktop/mobile captures. The catalogue has 35 focused recipes and
+  one complete composition.
+- **Visual evidence in planning.** A composition guide connects real rendered examples to concept,
+  system and structure decisions. A static desktop/mobile review precedes motion. Jury and ship
+  derive coverage from the page map and capture manifest, and verify named fixes before/after.
+- **More consistent guidance.** Corrected contradictory palette, type hierarchy and case-study
+  confidence rules. Missing visual evidence produces an unmeasured `recapture` result instead of
+  a numeric score. Metadata validation handles malformed recipe roots; shared specification styles
+  keep disclosure text clear of the keyboard-focus outline.
+- **Runtime and installation support since 0.2.0.** Both Claude Code and Codex manifests ship with
+  isolated install/discovery checks. Interactive capture state plans, the non-installing `doctor`
+  preflight and browser/tool regression checks support the complete workflow.
+
+**Verification and limits.** All 36 entries passed in isolated serial browser runs; a single-session
+full run remains unproven. Headless checks do not establish real-device GPU performance. In the
+[three-pair pilot](docs/handoff/visual-comparison-2026-09-22.md), the candidate was preferred overall
+twice, tied once, and tied on mobile throughout. Two candidate builds failed keyboard-focus contrast,
+so the pilot did not meet acceptance. None of the six builds invoked the advertised skills;
+the library's effect on generated sites remains unmeasured. The release includes the implementation
+and evidence, with those follow-ups still open.
 
 ### 0.2.0 — 2026-09-21
 

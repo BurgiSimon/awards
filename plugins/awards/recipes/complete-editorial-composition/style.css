@@ -1,0 +1,18 @@
+@import '../_shared/base.css';
+@import '../_shared/composition.css';
+@import '../responsive-art-directed-hero/style.css';
+@import '../editorial-image-text/style.css';
+@import '../product-specification/style.css';
+@import '../typography-specimen/style.css';
+@import '../designed-footer/style.css';
+
+/* Page frame and pacing only; component layout belongs to the imported recipes. */
+.composition-skip { position: absolute; z-index: 2; top: 0; left: var(--gutter); padding: .75rem; background: var(--ground); transform: translateY(-125%); }
+.composition-skip:focus { transform: none; }
+.composition-masthead { display: flex; justify-content: space-between; align-items: center; gap: 1rem; max-width: 112rem; margin-inline: auto; padding: 1.5rem var(--gutter); border-bottom: 1px solid var(--line); font-size: .875rem; }
+.composition-wordmark { text-decoration: none; font-weight: 700; letter-spacing: -.02em; }
+.composition-wordmark span { display: block; font-weight: 400; }
+.composition-masthead nav { display: flex; gap: clamp(1rem, 4vw, 4rem); }
+.composition-masthead nav a { display: inline-flex; align-items: center; gap: .4rem; min-height: 44px; }
+.composition-sequence { display: grid; gap: clamp(5rem, 12vw, 12rem); max-width: 112rem; margin-inline: auto; padding: clamp(3rem, 7vw, 7rem) var(--gutter) clamp(5rem, 9vw, 9rem); }
+.composition-sequence > section { scroll-margin-top: 2rem; }

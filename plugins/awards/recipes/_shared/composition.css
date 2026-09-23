@@ -1,0 +1,28 @@
+/* Alder Workshop example tokens; import after base.css. Original global tokens stay unchanged. */
+:root {
+  --ground: #f3eee5;
+  --ink: #32291f;
+  --accent: #985038;
+  --muted: #6e6256;
+  --line: #c9bfb1;
+  --font-display: Georgia, "Times New Roman", serif;
+  --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --display: clamp(3rem, 6.5vw, 6rem);
+  --heading: clamp(1.75rem, 3vw, 3rem);
+  --measure: 64ch;
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+}
+
+html { color-scheme: light; }
+body { font-size: 1rem; }
+.composition-title {
+  margin: 0;
+  font: 400 var(--display)/1.05 var(--font-display);
+  letter-spacing: -.025em;
+}
+.composition-heading { font: 400 var(--heading)/1.12 var(--font-display); }
+.composition-copy { max-width: var(--measure); line-height: 1.6; }
+
+@media (min-width: 48rem) {
+  body { font-size: 1.125rem; }
+}
