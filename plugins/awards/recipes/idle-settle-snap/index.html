@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>idle-settle-snap — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ idle-settle-snap</p></header>
+  <main id="main">
+    <!-- The settle zone: a wheel that comes to rest inside it, away from its ends, eases to the nearer end
+         once the scroll has been quiet for 160 ms. The gauge on the right is a demo readout of that position. -->
+    <section class="cover wrap" data-settle-zone aria-labelledby="t">
+      <p class="label">/ settle-snap · synthetic demo</p>
+      <h1 id="t" class="cover__title">Stop halfway and the page finishes the move.</h1>
+      <p class="cover__lede">Scroll a little and let go. Before the middle, the cover comes back; past it, the first chapter arrives. Hold the mouse button, use the keys or search the page and it stays where you left it.</p>
+      <div class="gauge" aria-hidden="true">
+        <span class="gauge__mark gauge__mark--top label">cover</span>
+        <span class="gauge__mark gauge__mark--mid label">½</span>
+        <span class="gauge__mark gauge__mark--end label">page</span>
+        <span class="gauge__dot" data-dot></span>
+      </div>
+    </section>
+
+    <section class="section wrap chapter" id="chapter" aria-labelledby="c1">
+      <p class="label">/ 01 · Tidewater survey</p>
+      <h2 id="c1">Four stations, one shoreline, read at low water.</h2>
+      <div class="chapter__grid">
+        <p>The Tidewater survey logs the same four stations every spring tide. Each visit records the waterline, the shell count in a one-metre square and the colour of the sand at a hand's depth.</p>
+        <dl class="facts">
+          <div><dt class="label">Stations</dt><dd>4</dd></div>
+          <div><dt class="label">Visits</dt><dd>118</dd></div>
+          <div><dt class="label">Since</dt><dd>2014</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="section wrap notes" aria-labelledby="n">
+      <h2 id="n">Rules</h2>
+      <ul>
+        <li>Only a wheel arms the settle. A resting position is judged after <code>160 ms</code> without movement, counted on the shared ticker.</li>
+        <li>Within <code>6 %</code> of either end of the zone nothing happens; otherwise the page eases to the nearer end over <code>.7 s</code>, ease-out cubic.</li>
+        <li>A <code>900 ms</code> guard, longer than the tween, stops the settle from re-arming on its own motion.</li>
+        <li>A pressed pointer holds everything and stops a settle in place. Keys, find-in-page, focus scrolls and touch never arm it.</li>
+        <li>Off on coarse pointers and under reduced motion, where the wheel is also instant.</li>
+      </ul>
+    </section>
+  </main>
+  <footer class="section wrap foot"><p class="label">awards · recipe · MIT · synthetic demo content</p></footer>
+  <p class="status label" data-status aria-hidden="true">000 · idle</p>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
