@@ -33,6 +33,15 @@ Use these exact versions in scaffolds, recipes and generated `package.json` file
 | @threlte/core / @threlte/extras | 8.6.0 / 9.21.1 | Svelte renderer for three |
 | @bsmnt/scrollytelling | 0.3.3 | basement.studio's ScrollTrigger abstraction (React) |
 | @gltf-transform/cli | 4.5.0 | glTF optimisation (Draco, KTX2, resize) |
+| next-view-transitions | 0.3.5 | View Transitions for Next 14/15 App Router; `stacks/next-view-transitions-0.3.md` (checked 2026-09-24) |
+| lottie-web | 5.13.0 | Lottie player for frame-scrubbed stickers; prefer dotlottie for plain playback; `stacks/lottie-web-5.13.md` (checked 2026-09-24) |
+| locomotive-scroll | 5.0.1 | reading only: v4/v5 sites in the corpus; build on lenis instead; `stacks/locomotive-scroll-5.0.md` (checked 2026-09-24) |
+| camera-controls | 3.1.2 | clamped, damped orbit for an explorable model; `stacks/camera-controls-3.1.md` (checked 2026-09-24) |
+| @splinetool/viewer | 2.0.56 | Spline scene embed; one import, guarded define; `stacks/spline-viewer-2.0.md` (checked 2026-09-24) |
+| html2canvas | 1.4.1 | DOM snapshot to a canvas texture; `stacks/html2canvas-1.4.md` (checked 2026-09-24) |
+| virtual-scroll | 2.2.1 | reading only: wheel/touch delta emitter in inherited code; `stacks/virtual-scroll-2.2.md` (checked 2026-09-24) |
+| three-custom-shader-material | 6.4.0 | extend a built-in three material with custom shader code (WebGL only); `stacks/three-custom-shader-material-6.4.md` (checked 2026-09-24) |
+| @dogstudio/highway | 2.2.1 | reading only: unmaintained transition router, port to taxi; `stacks/highway-2.2.md` (checked 2026-09-24) |
 
 ## The rule
 Check Context7 before using an API you have not verified in this session, even for libraries you know well: `mcp__Context7__resolve-library-id`, then `mcp__Context7__query-docs` with one concept per query. If a claim cannot be verified, write `[unverified]` next to it instead of asserting it.
