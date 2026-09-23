@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>throw-objects-css3d — awards recipe</title>
+  <meta name="description" content="Grab extruded CSS-3D objects and throw them into a perspective catcher: release velocity carries them, a button per object does the same from the keyboard.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ throw-objects-css3d</p></header>
+  <main id="main">
+    <section class="section wrap hero" aria-labelledby="t">
+      <p class="label">/ toy</p>
+      <h1 class="display" id="t">Pick it up.<br>Let it fly.</h1>
+      <p class="lede">Three extruded blocks sit on a shelf. Drag one and let go mid-swing: it keeps the speed of your hand, tilts into the direction it travels, and drops into the tray if it gets there. Every block has a button that throws it for you.</p>
+    </section>
+
+    <section class="wrap play" aria-labelledby="play-title">
+      <h2 class="label" id="play-title">/ shelf and tray</h2>
+      <div class="stage" data-stage>
+        <ul class="shelf" aria-label="Shelf">
+          <li><div class="obj" data-obj data-name="cube" style="--w: 96px; --h: 96px; --d: 96px" role="img" aria-label="Block 01, a cube">
+            <div class="obj__body" data-body aria-hidden="true"><span class="face f-front">01</span><span class="face f-back"></span><span class="face f-right"></span><span class="face f-left"></span><span class="face f-top"></span><span class="face f-bottom"></span></div>
+          </div></li>
+          <li><div class="obj" data-obj data-name="slab" style="--w: 128px; --h: 72px; --d: 36px" role="img" aria-label="Block 02, a flat slab">
+            <div class="obj__body" data-body aria-hidden="true"><span class="face f-front">02</span><span class="face f-back"></span><span class="face f-right"></span><span class="face f-left"></span><span class="face f-top"></span><span class="face f-bottom"></span></div>
+          </div></li>
+          <li><div class="obj" data-obj data-name="pillar" style="--w: 56px; --h: 112px; --d: 56px" role="img" aria-label="Block 03, a pillar">
+            <div class="obj__body" data-body aria-hidden="true"><span class="face f-front">03</span><span class="face f-back"></span><span class="face f-right"></span><span class="face f-left"></span><span class="face f-top"></span><span class="face f-bottom"></span></div>
+          </div></li>
+        </ul>
+        <div class="catcher" data-catcher aria-hidden="true">
+          <div class="catcher__floor"></div>
+          <ol class="catcher__slots"><li class="slot" data-slot></li><li class="slot" data-slot></li><li class="slot" data-slot></li></ol>
+          <p class="catcher__label label">tray</p>
+        </div>
+      </div>
+      <div class="controls">
+        <button type="button" data-throw="0">Throw 01 · cube</button>
+        <button type="button" data-throw="1">Throw 02 · slab</button>
+        <button type="button" data-throw="2">Throw 03 · pillar</button>
+        <button type="button" class="ghost" data-reset>Back on the shelf</button>
+        <p class="label status" data-status aria-live="polite">0 of 3 in the tray</p>
+      </div>
+    </section>
+
+    <section class="section wrap notes"><h2>Rules</h2><ul>
+      <li>Draggable <code>type: "x,y"</code> with <code>inertia: true</code>, bounded by the stage: the release velocity keeps the block moving after the pointer lets go.</li>
+      <li>A <code>snap.points</code> function reads the landing point; a block landing in the tray is pulled to its slot, anywhere else it stays where it stops.</li>
+      <li>Tilt follows <code>InertiaPlugin.getVelocity</code> on an inner body, so the drag transform and the tilt never fight.</li>
+      <li>Each block has a real button that throws it to the same slot. Under reduced motion a drop lands where it is released and the buttons place blocks instantly.</li>
+    </ul></section>
+  </main>
+  <footer class="wrap footer"><p class="label">awards · recipe · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
