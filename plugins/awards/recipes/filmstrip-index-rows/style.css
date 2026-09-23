@@ -1,0 +1,54 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+:root {
+  --still-h: clamp(84px, 8.6806vw, 150px); /* 150px on the 1728 artboard */
+  --still-gap: 15px;
+  --ease-grow: cubic-bezier(1, 0, .47, 1.25); /* late, overshooting grow; used once */
+}
+
+.topbar { display: flex; justify-content: space-between; align-items: baseline; padding-block: calc(var(--unit) * 5); }
+.topbar p, .foot p { margin: 0; }
+.hero { min-height: 45svh; padding-block: calc(var(--unit) * 10); }
+.lede { max-width: 60ch; margin-top: calc(var(--unit) * 8); }
+
+.rows { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.row { padding-block: calc(var(--unit) * 6) calc(var(--unit) * 4); border-bottom: 1px solid var(--line); }
+
+/* Clip sideways only, so the grow can spill into the row's padding without a layout shift. */
+.reel { overflow-x: clip; }
+.grow { position: relative; transform-origin: 0 50%; transition: transform .4s var(--ease-grow); }
+.track { display: flex; width: max-content; animation: film var(--dur, 60s) linear infinite; }
+.row[data-paused] .track { animation-play-state: paused; }
+@keyframes film { to { transform: translate3d(-50%, 0, 0); } }
+
+/* margin, not gap: two copies are then exactly twice one copy, so -50 % wraps seamlessly. */
+.still {
+  flex: none; height: var(--still-h); aspect-ratio: var(--r); margin-inline-end: var(--still-gap);
+  background: color-mix(in oklab, var(--accent) calc(var(--m) * 1%), var(--ink));
+  color: var(--ground); font-family: var(--font-mono); font-size: var(--label); padding: calc(var(--unit) * 2);
+}
+.grow video {
+  position: absolute; left: 0; top: 0; height: var(--still-h); aspect-ratio: 16 / 9; object-fit: cover;
+  opacity: 0; transition: opacity var(--dur-feedback); pointer-events: none;
+}
+
+@media (hover: hover) {
+  .row:hover .grow { transform: scale(1.2); }
+  .row:hover video { opacity: 1; }
+}
+.row:focus-within .grow { transform: scale(1.2); }
+
+.caption { margin: calc(var(--still-h) * .1 + var(--unit) * 4) 0 0; /* room for the grow's lower 10 % */ padding-inline: var(--gutter); }
+.caption a { display: flex; flex-wrap: wrap; align-items: baseline; gap: calc(var(--unit) * 1) calc(var(--unit) * 4); text-decoration: none; }
+.name { font-family: var(--font-display); font-size: clamp(1.25rem, 2.3148vw, 2.5rem); letter-spacing: -.02em; line-height: 1.1; }
+.line { color: var(--muted); }
+.view { margin-inline-start: auto; font-family: var(--font-mono); font-size: var(--label); letter-spacing: .08em; text-transform: uppercase; }
+.caption a:hover .view, .caption a:focus-visible .view { color: var(--accent); }
+
+.notes { padding-block: calc(var(--unit) * 20); }
+.notes ul { max-width: 60ch; padding-left: 1.2em; }
+.foot { display: flex; justify-content: space-between; align-items: baseline; padding-block: calc(var(--unit) * 8); border-top: 1px solid var(--line); }
+
+/* Reduced motion and the static tier: every reel at rest, nothing grows. */
+:is(html[data-motion-tier="reduced"], html[data-motion-tier="static"], html[data-motion="reduced"], html[data-motion="static"]) :is(.track, .grow) { animation: none !important; transform: none !important; }
