@@ -27,11 +27,11 @@
 - https://wearedirect.co/
 - https://zainabkabira.com/
 - https://jesperlandberg.com/
+- https://goats.com.pl/
+- https://www.runrobrun.com/
 
 # not reviewed
 - https://www.oxigen.sa/
-- https://www.runrobrun.com/
-- https://goats.com.pl/
 - https://okaydev.co/
 - https://likova.space/
 - https://www.mensch.club/
