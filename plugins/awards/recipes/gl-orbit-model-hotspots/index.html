@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#1a1c1c">
+  <title>gl-orbit-model-hotspots — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ gl-orbit-model-hotspots · <span data-gl-readout>dom</span></p></header>
+  <main id="main">
+    <section class="section wrap hero" aria-labelledby="t">
+      <p class="label">/ master plan</p>
+      <h1 class="display" id="t">Walk the site<br>before it exists.</h1>
+      <p class="lede">A site model you can turn, inside a dialog. The orbit is clamped to a narrow band of composed views, the camera eases with framerate-independent damping, and every named zone is a real button that flies the camera to it.</p>
+      <button type="button" class="cta" data-open aria-haspopup="dialog" aria-controls="viewer">Explore the site model</button>
+    </section>
+    <section class="section wrap" aria-labelledby="z">
+      <h2 id="z">Four zones, 3.2 ha.</h2>
+      <p class="lede">Offices, a tower, a courtyard and parking. The same list lives in the dialog as the hotspot labels, so a keyboard or screen-reader visitor reaches every zone without touching the canvas.</p>
+    </section>
+  </main>
+  <footer class="wrap footer"><p class="label">awards · recipe · MIT · demo site and figures are synthetic</p></footer>
+
+  <dialog class="viewer" id="viewer" data-viewer data-lenis-prevent aria-labelledby="viewer-title">
+    <div class="viewer__head">
+      <h2 class="viewer__title label" id="viewer-title">Site model</h2>
+      <button type="button" class="chip" data-reset>Reset view</button>
+      <button type="button" class="chip" data-close autofocus>Close</button>
+    </div>
+    <div class="viewer__stage" data-stage tabindex="0" aria-label="Site model" aria-describedby="viewer-hint">
+      <canvas class="viewer__gl" data-gl aria-hidden="true"></canvas>
+      <img class="viewer__poster" data-poster width="1200" height="800" alt="Site plan from above: offices on the west, the tower north-east, the courtyard in the middle, parking to the south-east" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800'%3E%3Crect width='1200' height='800' fill='%231a1c1c'/%3E%3Crect x='150' y='120' width='900' height='560' fill='%23262828'/%3E%3Crect x='230' y='220' width='130' height='180' fill='%23a8a49c'/%3E%3Crect x='380' y='220' width='130' height='120' fill='%23a8a49c'/%3E%3Crect x='230' y='420' width='130' height='110' fill='%23a8a49c'/%3E%3Ccircle cx='800' cy='270' r='80' fill='%23d9d5cc'/%3E%3Crect x='470' y='430' width='280' height='170' fill='%23556b4a'/%3E%3Crect x='820' y='450' width='60' height='150' fill='%23605c56'/%3E%3Crect x='900' y='450' width='60' height='150' fill='%23605c56'/%3E%3C/svg%3E">
+      <ul class="zones" role="list">
+        <li><button type="button" class="hotspot" data-zone="offices" aria-pressed="false"><span class="hotspot__dot" aria-hidden="true"></span>Offices</button></li>
+        <li><button type="button" class="hotspot" data-zone="tower" aria-pressed="false"><span class="hotspot__dot" aria-hidden="true"></span>Tower</button></li>
+        <li><button type="button" class="hotspot" data-zone="courtyard" aria-pressed="false"><span class="hotspot__dot" aria-hidden="true"></span>Courtyard</button></li>
+        <li><button type="button" class="hotspot" data-zone="parking" aria-pressed="false"><span class="hotspot__dot" aria-hidden="true"></span>Parking</button></li>
+      </ul>
+    </div>
+    <div class="viewer__detail" aria-live="polite">
+      <p class="label" data-detail-name>Whole site</p>
+      <p class="viewer__figure" data-detail-figure>3.2 ha</p>
+      <p data-detail-text>Choose a zone, or drag to turn the model.</p>
+      <p class="label viewer__hint" id="viewer-hint">Drag or arrow keys to orbit · wheel or + / − to zoom · Home resets</p>
+    </div>
+  </dialog>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

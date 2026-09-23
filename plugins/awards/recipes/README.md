@@ -58,6 +58,7 @@ The six static visual examples declare their reviewed desktop/mobile image paths
 | Scene switch | `gl-rtt-composite-transition` | P1 | Two scenes to render targets, blended by a shader | slosh-seltzer |
 | Spatial scroll | `gl-virtual-scroll-camera` | P1 | Wheel / touch → eased float → camera spline, snap, keyboard | igloo, why-zero |
 | Hero object | `gl-hero-object-inertia` | P1 | One object with pointer inertia and scroll rotation | oryzo, lando-norris |
+| Explorable model | `gl-orbit-model-hotspots` | P1 | Model in a native `<dialog>` on a spherical goal / current camera damped by `1 − k^dt` (drag `.0004`, fly `.02`), polar clamped to `0.85–1.3` rad and distance to `7–15`, zones as real `aria-pressed` buttons pinned to projected targets that fly the camera there, arrow / `+` / `−` / Home keys on the focused stage; instant fly-tos under reduced motion, poster plus the same list in the static tier | likova, gehry-getty |
 | Post presets | `gl-postprocessing-presets` | P1 | Fixed bloom presets, grain, SMAA, half-float on mobile | lando-norris, igloo |
 | Frame scrub | `image-sequence-scrub` | P1 | Pre-rendered frames scrubbed on scroll | seasats |
 | Project index as reels | `filmstrip-index-rows` | P1 | CSS-keyframe rows at one px/s from measured width, one link per project, pause on hover / focus / off-screen, late-overshoot grow, hover clip gated on `(hover: hover)` | boc |

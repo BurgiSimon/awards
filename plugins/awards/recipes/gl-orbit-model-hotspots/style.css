@@ -1,0 +1,51 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) { .hotspot, .chip, .cta { transition: none; } }
+
+.topbar { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); }
+.hero { display: grid; align-content: end; gap: calc(var(--unit) * 8); min-height: 88svh; }
+.lede { max-width: 56ch; margin: 0; }
+h2 { font-size: clamp(1.75rem, 3.5vw, 3.5rem); font-weight: 500; letter-spacing: -.02em; line-height: 1; margin: 0 0 calc(var(--unit) * 6); }
+.footer { padding-block: calc(var(--unit) * 12); }
+
+.cta, .chip { min-height: 44px; padding: 0 calc(var(--unit) * 5); border: 1px solid currentColor; border-radius: 999px; background: transparent; font-family: var(--font-mono); font-size: var(--label); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: background-color var(--dur-feedback) var(--ease-out-expo), color var(--dur-feedback) var(--ease-out-expo); }
+.cta { justify-self: start; background: var(--accent); color: var(--ground); border-color: var(--accent); }
+.cta:hover, .chip:hover { background: var(--ink); color: var(--ground); border-color: var(--ink); }
+
+/* The dialog is the whole viewport: head, stage, detail. Desktop puts the detail in a side column. */
+.viewer { width: 100vw; max-width: none; height: 100dvh; max-height: none; margin: 0; padding: 0; border: 0; background: var(--ground); color: var(--ink); overflow: clip; }
+.viewer[open] { display: grid; grid-template: "head head" auto "stage detail" 1fr / 1fr 22rem; }
+.viewer::backdrop { background: var(--ground); }
+.viewer__head { grid-area: head; display: flex; align-items: center; gap: calc(var(--unit) * 3); padding: calc(var(--unit) * 3) var(--gutter); border-bottom: 1px solid var(--line); }
+.viewer__title { margin: 0 auto 0 0; }
+/* clip, not hidden: a hidden overflow box can still be scrolled by focus, which slid the whole stage sideways. */
+.viewer__stage { grid-area: stage; position: relative; overflow: clip; min-height: 0; }
+.viewer__gl { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+.viewer__gl:active { cursor: grabbing; }
+.viewer__poster { display: none; width: 100%; height: 100%; object-fit: contain; }
+.viewer__detail { grid-area: detail; padding: calc(var(--unit) * 8) var(--gutter) calc(var(--unit) * 8) calc(var(--unit) * 8); border-left: 1px solid var(--line); display: flex; flex-direction: column; gap: calc(var(--unit) * 3); }
+.viewer__detail p { margin: 0; max-width: 34ch; }
+.viewer__figure { font-family: var(--font-display); font-size: clamp(2.5rem, 4vw, 4rem); font-weight: 500; letter-spacing: -.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+.viewer__hint { margin-top: auto !important; }
+
+/* Hotspots: real buttons pinned over the canvas by main.js; a 44 px hit area around a small chip. */
+.zones { list-style: none; margin: 0; padding: 0; }
+.viewer[data-mode="gl"] .hotspot { position: absolute; left: 0; top: 0; will-change: transform; }
+.hotspot { display: inline-flex; align-items: center; gap: calc(var(--unit) * 2); min-height: 44px; padding: 0 calc(var(--unit) * 3) 0 0; border: 0; background: none; font-family: var(--font-mono); font-size: var(--label); letter-spacing: .08em; text-transform: uppercase; color: var(--ink); cursor: pointer; white-space: nowrap; text-shadow: 0 0 6px var(--ground); }
+.hotspot__dot { width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--ink); background: color-mix(in oklab, var(--ground) 60%, transparent); transition: background-color var(--dur-feedback) var(--ease-out-expo); }
+.hotspot[aria-pressed="true"] .hotspot__dot, .hotspot:hover .hotspot__dot { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 2px var(--ground); }
+
+/* Static tier or no WebGL: the poster, with the same buttons as a plain list below it. */
+.viewer[data-mode="poster"] .viewer__gl, .viewer[data-mode="poster"] .viewer__hint { display: none; }
+.viewer[data-mode="poster"] .viewer__stage { display: grid; grid-template-rows: 1fr auto; }
+.viewer[data-mode="poster"] .viewer__poster { display: block; min-height: 0; }
+.viewer[data-mode="poster"] .zones { display: flex; flex-wrap: wrap; gap: 0 calc(var(--unit) * 6); padding: calc(var(--unit) * 4) var(--gutter); }
+
+@media (max-width: 767px) {
+  .viewer[open] { grid-template: "head" auto "stage" 1fr "detail" auto / 1fr; }
+  .viewer__detail { padding: calc(var(--unit) * 5) var(--gutter); border-left: 0; border-top: 1px solid var(--line); gap: calc(var(--unit) * 2); }
+  .viewer__figure { font-size: 2rem; }
+  .viewer__hint { display: none; }
+}
