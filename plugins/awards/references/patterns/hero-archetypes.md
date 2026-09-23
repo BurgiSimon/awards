@@ -7,7 +7,8 @@ What this file is for: the first viewports the corpus actually built — what ea
 2. [Two-state typographic](#two-state-typographic) · [Role-casting boot sequence](#role-casting-boot-sequence) · [Poster or video hero](#poster-or-video-hero)
 3. [Single object with inertia](#single-object-with-inertia) · [Collage of flat planes](#collage-of-flat-planes) · [Spatial descent](#spatial-descent)
 4. [Print artefact with an acetate](#print-artefact-with-an-acetate) · [Headline as string](#headline-as-string) · [Palette field bound to the product](#palette-field-bound-to-the-product) · [Generative line field](#generative-line-field)
-5. [Choosing](#choosing) · [The first viewport test](#the-first-viewport-test) · [Verify](#verify) · [Refuse](#refuse)
+5. [Wordmark as a window](#wordmark-as-a-window) · [Operable object](#operable-object) · [The work on screen one](#the-work-on-screen-one)
+6. [Choosing](#choosing) · [The first viewport test](#the-first-viewport-test) · [Verify](#verify) · [Refuse](#refuse)
 
 ## Common rules
 
@@ -15,7 +16,7 @@ Why: the hero is the entrance beat of chapter one (`[pattern:narrative-structure
 
 ## Two-state typographic
 
-One display line names the subject, then mutates into a second claim: the type is the hero. Seen in [site:leo-parpeix], where a three-word identity line resolves into a second claim after the preloader's reveal [recalled medium]; the big-type register without the mutation is [site:lama-lama] [recalled medium].
+One display line names the subject, then mutates into a second claim: the type is the hero. Seen in [site:leo-parpeix], where a three-word identity line resolves into a second claim after the preloader's reveal [recalled medium]; the big-type register without the mutation is [site:lama-lama] [recalled medium]. Other mutations: one word of a fixed headline rolling through four verbs like a slot, ≈ 900 ms rest and 560 ms roll [site:zainabkabira] [verified]; the hero word swapped in place by the first two wheel steps before the first chapter change [site:christoph-nagel] [verified]; a title typed and erased after a fixed first word [site:mensch] [verified]; a full-width logotype scrubbed down into the nav slot, so the mark is the hero's exit [site:911rennsport] [verified].
 
 - **Anatomy.** A display line at the `--display` clamp (≈ 12 vw); one or two small labels as texture (a metadata quartet, a location, a year); the ground in the page's first theme; minimal nav; optionally a scene behind the DOM [site:leo-parpeix] is canvas-first.
 - **Entrance.** Masked line reveal — `y: 150%` → 0 on expo-out over 1.2–1.5 s, stagger .1, split only after `document.fonts.ready` — then the mutation: a scramble decode or a second masked swap. One hero-scale moment, never re-run on scroll (`[pattern:motion-vocabulary#masked-line-reveals]`).
@@ -39,7 +40,7 @@ For an image-led static hero, inspect `[recipe:responsive-art-directed-hero]` th
 
 ## Poster or video hero
 
-A full-bleed moving image sets the energy before any reading and the type arrives second [site:lama-lama] [recalled medium-high]. The cinematic hero of [site:white-desert] is inferred from its IA; [site:seasats] carries a hero video slot that is probed before display and faded in only when it loads [clone-described].
+A full-bleed moving image sets the energy before any reading and the type arrives second [site:lama-lama] [recalled medium-high]. The cinematic hero of [site:white-desert] is inferred from its IA; [site:seasats] carries a hero video slot that is probed before display and faded in only when it loads [clone-described]. Newer cases: the reel's glitch look baked into the footage, so the reduced tier gets a clean poster for free [site:warmnfuzzy] [verified]; one subject walking straight at the camera on a pale sweep [site:goats] [verified]; one image in two states, colour over its greyscale twin along a torn edge, cycled every 5 s [site:serotoninn] [verified].
 
 - **Anatomy.** A muted loop with a poster frame; one big grotesque line over or under it; minimal chrome; on a bone-ground site the dark hero is the first tempo change [site:lama-lama] [recalled medium].
 - **Entrance.** The poster paints first and is the LCP; the video streams after first paint; the title masked-reveals second. Never a fade-in of the whole viewport.
@@ -50,7 +51,7 @@ A full-bleed moving image sets the energy before any reading and the type arrive
 
 ## Single object with inertia
 
-One object with real weight and lighting that answers its motion, and no scene around it [site:oryzo] [recalled high].
+One object with real weight and lighting that answers its motion, and no scene around it [site:oryzo] [recalled high]. The object can also be a mascot carrying the brand colour only on its props, dissolved away to change the subject [site:primesec] [verified]; a mark cycled between two materials, bare and overgrown, as a 120-frame sequence [site:mensch] [verified]; or a goo that answers music from an in-page player [site:runrobrun] [verified].
 
 - **Anatomy.** One mesh with physical materials on a quiet ground; the display line beside or through it; tiny chrome; a four-value palette; the canvas DOM-tethered — `position: absolute`, re-offset every frame to the scroll position, ≈ 25 % over-render against clipping [verified technique, use on the site inferred].
 - **Entrance.** An intro interaction with a skip and a keyboard trigger; the object settles with momentum; scroll later scrubs its rotation (a plain multiplier, as in `rotation.y = scrollY × 0.00015` [site:leo-parpeix] [recalled medium]); reduced motion completes the intro instantly.
@@ -61,7 +62,7 @@ One object with real weight and lighting that answers its motion, and no scene a
 
 ## Collage of flat planes
 
-Photographs treated as physical objects — a corner that lifts — scattered, then resolving into an index [site:trevor-noah] [verified concept [verified, live source 2026-09-18]; the cards are DOM and the lift is an SVG path, not a plane]. The drag-driven cousin is Floema's drifting field of translucent planes [site:floema-jewelry] [verified, clone].
+Photographs treated as physical objects — a corner that lifts — scattered, then resolving into an index [site:trevor-noah] [verified concept [verified, live source 2026-09-18]; the cards are DOM and the lift is an SVG path, not a plane]. The drag-driven cousin is Floema's drifting field of translucent planes [site:floema-jewelry] [verified, clone]; a DOM cousin scatters fifteen members' projects around the headline, each tilting with shine toward the pointer [site:okaydev] [verified].
 
 - **Anatomy.** Five to nine image planes over a two-token ground; one line of type; a featured rail for what is current; the planes are the imagery, so no other 3D exists.
 - **Entrance.** Planes settle with a .06–.1 s stagger from slight offsets; sub-degree to few-degree rotations read as hand-placed (`Math.PI * 0.01`, `mapRange(-0.2, 0.2)` [site:floema-jewelry] [verified]); the material answers pointer proximity or scroll; nothing else parallaxes.
@@ -72,7 +73,7 @@ Photographs treated as physical objects — a corner that lifts — scattered, t
 
 ## Spatial descent
 
-An establishing shot of a landscape with one structure; a HUD line invites the scroll; the camera orbits, approaches and flies inside [site:igloo] [recalled high]. 100 % canvas.
+An establishing shot of a landscape with one structure; a HUD line invites the scroll; the camera orbits, approaches and flies inside [site:igloo] [recalled high]. 100 % canvas. A no-GL cousin cuts a photograph into six planes that a scrub pulls apart at rising `yPercent` while the claim lifts [site:to-top] [verified].
 
 - **Anatomy.** A landscape and one structure; in-canvas MSDF type; a HUD scroll prompt; a `Sound: Off` control that states its value; a pure-CSS loader from a 16 KB entry [verified]; a fog gradient with one rim accent [verified hexes].
 - **Entrance.** CSS loader → the 3D app streams (≈ 420 KB gz for the scene [verified]) → the camera settles on the shot → the prompt. Scroll is a damped, snapping scalar (`[pattern:motion-vocabulary#scroll-philosophies]`, model d).
@@ -125,6 +126,39 @@ A field of hairlines bent by noise and pushed by the pointer, drawn in on load, 
 - **Recipes.** `[recipe:scroll-drawn-svg-path]` for the dash draw; `[recipe:reduced-motion-switch]` for the freeze.
 - **Refuse.** The noise-bent vertical lines under a "CREATIVE ✦ DEVELOPER" title; the binary tickers.
 
+## Wordmark as a window
+
+The biggest type on the page is a hole: the letters show a moving layer behind an opaque ground, so the brand's texture sits inside its name [site:bethebuzz] [verified]; or the pointer wipes the wordmark away with fluid dye to show film behind it, acting out a name that means "nothing" [site:noth] [verified].
+
+- **Anatomy.** An opaque ground (white panel, rasterised SVG); the letters as a mask; one moving layer behind (a GL surface, a looping video); one short claim and one action beside it.
+- **Entrance.** Letters rise once, in shuffled order rather than left to right [site:noth] [verified]; the moving layer is already running; the pointer is the only other input.
+- **Mobile.** A tap or a slow automatic wipe instead of the pointer; neither card built one [verified].
+- **DOM.** The word as real text or an SVG with `<title>` — the knockout shipped unnamed [site:bethebuzz] [verified]; the canvas `aria-hidden`.
+- **Recipes.** `[recipe:gl-fluid-wake-post]` for the dye field, used as a mask rather than a distortion; `[recipe:reduced-motion-switch]` shows word and film side by side.
+- **Refuse.** The cloth inside the letters, the NOTHIN' wipe, a mask with no touch path.
+
+## Operable object
+
+The first viewport is a device the visitor switches on and works: a handheld with a click wheel whose directions are the site's sections [site:areebali] [verified]; a dot-matrix panel whose glyphs re-roll when tapped, with a knob that restores the word [site:spasoje] [verified]; a pitch deck with a slide counter and presenter controls [site:nodeck] [verified].
+
+- **Anatomy.** One borrowed object with a known grammar; every control a native `<button>`; a legend or hint that states the live keys and retires once used.
+- **Entrance.** The object is on screen at first paint; a power-on or a first tap is the moment; never a timed intro in front of it.
+- **Mobile.** The object fills the viewport with touch copy [site:areebali] [verified].
+- **DOM.** A polite live region mirrors the object's state; a word spelled in glyph buttons carries a word-level label [site:spasoje] [inferred gap].
+- **Recipes.** `[recipe:sound-toggle-opt-in]` for its clicks; `[recipe:reduced-motion-switch]`.
+- **Refuse.** The click-wheel handheld, the dot-matrix letter toy, the deck chrome; a power-on gate in front of the contact.
+
+## The work on screen one
+
+No statement and no headline: the first viewport is already the index, and the chrome sits small in the corners. Seen as an endless belt of bending project sheets [site:jesperlandberg] [verified], a vertical film strip of posters with reviews on each frame [site:siena] [verified], a career row whose first card is the hero [site:robbietilton] [verified] and a masonry wall of lettering tiles [site:alectear] [verified].
+
+- **Anatomy.** Items at a size that reads as work, not thumbnails; four corner labels or a small pill nav; a current-item label or count.
+- **Entrance.** Items enter in one short stagger (≤ 50 ms per item on walls of thirty or more [site:alectear] [verified]) or the reel spins in once.
+- **Mobile.** A vertical stack of full-width items [site:jesperlandberg] [site:siena] [verified].
+- **DOM.** Each item a real link with its name; images behind any GL plane.
+- **Recipes.** `[recipe:gl-dom-tethered-planes]` `[recipe:gl-virtual-scroll-camera]` `[recipe:horizontal-rail]`.
+- **Refuse.** A loop with no position ("n of 8"), labels under 12 px, click-only `<article>` cards.
+
 ## Choosing
 
 Why: the archetype follows the narrative model and the WebGL dosage the budget allows; dosage is a cost decision, not a quality signal — a Site of the Month was DOM-first [site:the-line], a Site of the Year was 100 % canvas [site:igloo], and a Developer Award went to 3D without WebGL [site:seasats].
@@ -141,6 +175,9 @@ Why: the archetype follows the narrative model and the WebGL dosage the budget a
 | Headline as string | chaptered journey, faceted world | one canvas-first island in a static page | [site:mont-fort] |
 | Palette field bound to the product | single-object launch | canvas-first with a static per-variant tier | [site:slosh-seltzer] |
 | Generative line field | gallery, collage index | none — SVG and canvas 2D | [site:wodniack] |
+| Wordmark as a window | gallery, specification | moments → canvas-first ground | [site:bethebuzz] [site:noth] |
+| Operable object | faceted world, print artefact | none → moments | [site:areebali] [site:spasoje] [site:nodeck] |
+| The work on screen one | gallery | none → 100 % canvas | [site:jesperlandberg] [site:siena] [site:robbietilton] [site:alectear] |
 
 Rules: decide what the first three seconds must say (who, what, why now), then take the lowest dosage that says it; never stack archetypes — a video under a two-state line under a scene is three heroes; a read-mode page (`[site:shopify-editions-w26]`, `[site:animejs]`) keeps the hero short and puts the index on screen one.
 
@@ -170,9 +207,9 @@ Write the result into `AWARDS.md ## Direction contract → FIRST VIEWPORT` as an
 
 ## Refuse
 
-- Two archetypes stacked; a hero that needs the paragraph to make sense.
+- Two archetypes stacked; a hero that needs the paragraph to make sense; a first viewport with only a mark and a scroll prompt [site:mensch] [verified].
 - A blob, a mesh gradient, a particle field or floating primitives as the hero.
-- A boot sequence, intro interaction or preloader that gates the content or replays in full on every visit.
+- A boot sequence, intro interaction or preloader that gates the content or replays in full on every visit; a rotate-your-device gate instead of a portrait layout [site:grids-obys] [verified].
 - A video hero that autoplays with sound, or loads before its poster.
 - A WebGL headline or object with no DOM mirror and no poster.
 - Any card's signature as drawn: the identity-line device, the readouts, the coaster, the Polaroid curl, the igloo, the acetate hinge, the division string, the flavour can, the noise-bent line field.

@@ -18,7 +18,7 @@ Blender / Cinema 4D / Houdini
   → workers       — Draco, Basis, EXR, audio and MSDF decoded off the main thread
 ```
 
-Evidence: Draco geometry, KTX2/ETC1S textures and atlases out of Blender is the Why Zero recipe [site:why-zero] [verified, Codrops]; Igloo's manifest holds 19 Draco `.drc` files and 36 KTX2 textures and nothing else but a favicon [site:igloo] [verified]; Léo Parpeix exports Blender to Draco-compressed glTF [site:leo-parpeix] [verified tags + clone]; Lando registers DRACO, GLTF, RGBE and KTX2/Basis loaders, though its shipped textures are all WebP [site:lando-norris] [verified, live source 2026-09-18]; Mont-fort ships a KTX2 loader in its own chunk beside `.glb` models and an EXR HDRI [site:mont-fort] [verified]. UASTC for data maps is the plugin's rule, not a card's — the cards name ETC1S only [inferred: ETC1S's block quantisation is visible on normal maps]. Meshopt appears on no card; the audit accepts either compressor [P03].
+Evidence: Draco geometry, KTX2/ETC1S textures and atlases out of Blender is the Why Zero recipe [site:why-zero] [verified, Codrops]; Igloo's manifest holds 19 Draco `.drc` files and 36 KTX2 textures and nothing else but a favicon [site:igloo] [verified]; Léo Parpeix exports Blender to Draco-compressed glTF [site:leo-parpeix] [verified tags + clone]; Lando registers DRACO, GLTF, RGBE and KTX2/Basis loaders, though its shipped textures are all WebP [site:lando-norris] [verified, live source 2026-09-18]; Mont-fort ships a KTX2 loader in its own chunk beside `.glb` models and an EXR HDRI [site:mont-fort] [verified]. UASTC for data maps is the plugin's rule, not a card's — the cards name ETC1S only [inferred: ETC1S's block quantisation is visible on normal maps]. Meshopt appears on no card as used (one bundle carries the decoder [site:primesec] [verified]); the audit accepts either compressor [P03]. Later cards run the same chain [verified on each]: six baked states packed as one KTX2 array texture with a self-hosted Basis transcoder [site:pensatori-irrazionali]; KTX2 and Basis in its own chunk [site:jesperlandberg]; a Draco site model with KTX2 support in a lazy chunk [site:likova]; glTF, Draco and KTX2 under R3F [site:haoqi]; a Draco scene in two weights by viewport [site:primesec].
 
 ## Budget stories
 
@@ -26,6 +26,7 @@ Why: two cards give the whole argument in numbers.
 
 - Why Zero: more than 1 GB of source assets shipped as under 10 MB, in a four-month build whose case study counts the budget as craft [site:why-zero] [verified].
 - Igloo: entry bundle 16 KB (≈ 6 KB gzipped); the 3D app 1.45 MB (≈ 420 KB gzipped); the full landscape texture set 625 KB; the music bed ≈ 1.5 MB; a pure-CSS loader that paints before any framework; four workers (`audio`, `bitmap`, `exr`, `msdf`) decoding off-thread [site:igloo] [verified sizes and files]. Site of the Year at a scene cost under half a megabyte gzipped is the calibration point for every budget below.
+- The 2026-09-23 wave, both ways [verified, fetched sizes on each card]: about 92 KB of CSS and JS for a whole SvelteKit route [site:alectear]; ≈ 165 KB of text for a five-panel site with a WAAPI fallback [site:christoph-nagel]; the renderer and a rasteriser (≈ 935 KB raw) loaded only when the one transition that needs them first runs [site:nodeck]. Against them: Three.js inside a 1.1 MB entry module [site:jesperlandberg] and a 903 KB chunk loaded up front [site:haoqi]; a 2.39 MB desktop model [site:primesec]; one 1.44 MB stylesheet for every route [site:okaydev]; a 928 KB HTML document with the whole catalogue inlined as JSON [site:serotoninn]; a 1.07 MB document preloading six srcsets, two KTX2 sequences and a wasm transcoder at high priority [site:pensatori-irrazionali].
 
 ## Geometry
 
@@ -50,6 +51,7 @@ Why: two cards give the whole argument in numbers.
 - Hero video: the poster frame is the LCP, `muted playsinline`, streamed after first paint, paused off-screen [site:lama-lama] [take, inferred] [A10]. The Line places a local red multiply acetate over selected full-colour imagery [site:the-line] [verified]; if a project chooses desaturation, pre-grade sources when practical to avoid a live video filter.
 - Defer third-party players: Vimeo behind a lazy global, off the critical path [site:lando-norris] [verified].
 - Gate video on capability and visibility: a 480p MP4 per still, mounted by `IntersectionObserver` with `rootMargin: "0px 150px"` only for `(hover: hover)` without reduced motion [site:boc] [verified]; 34 muted looping 1082 × 636 MP4s held in `data-src` until the reel approaches [site:wodniack] [verified].
+- Newer video handling [verified on each card]: separate scrub encodes for desktop and mobile rather than one file scaled down [site:gehry-getty]; two `<video>` buffers with only the active clip loaded and the next on `preload="none"` [site:christoph-nagel]; HLS through hls.js with an eager poster `<img>` [site:warmnfuzzy]; loops with posters and `preload="none"` that play on hover or in view [site:mensch]; a `currentTime` scrub whose last frame is `duration − .05` [site:goats]; a reflection clip re-synced to its master when drift passes .08 s [site:noth]; video played only on the active carousel card and GIFs swapped to stills elsewhere [site:robbietilton]. Misses: a dozen category MP4s requested at boot [site:serotoninn]; every catalogue image on a third-party host that stopped resolving [site:the-boyd].
 
 ## Sequences
 
@@ -57,10 +59,14 @@ Why: a pre-rendered frame sequence buys the "3D site" read with no runtime GL. S
 
 Rules (`[recipe:image-sequence-scrub]`): encode with `ffmpeg` to WebP or AVIF frames at display size (one set for desktop, a smaller set for phones); 60–120 frames per beat; preload the first beat and stream the rest; draw from decoded `ImageBitmap`s to a 2D canvas; a poster `<img>` under the canvas is the static tier. Seasats' frame counts and sizes are unknown.
 
+Past ≈ 30 frames, keep a rolling window of decoded `ImageBitmap`s that follows the playhead and `close()`s what falls behind — 20 of 120 frames held, 45 MB instead of 273 MB — and gate the loader on that same window [site:mensch] [verified]. A sequence can also be N baked states in one KTX2 array, chosen per pixel by a shader instead of by time [site:pensatori-irrazionali] [verified].
+
 ## Images
 
 - AVIF or WebP; rasters under 1 MB [P02]; `width` and `height`, `sizes`, `loading="lazy"` below the fold and `fetchpriority="high"` on the LCP image [P01]. Léo Parpeix lazy-loads WebP in its carousel [site:leo-parpeix] [recalled medium]; Mont-fort's textures are WebP with KTX2 beside them [site:mont-fort] [verified].
 - Placeholders under GL planes are real images with `alt` (`[pattern:webgl-architecture#html-lays-out-webgl-renders]`); a probe-then-reveal slot fades media in only when it loads [site:seasats] [clone-described].
+- Hold each slot with its own low-resolution colour field: a 32 × 32 blurhash decoded to a canvas, the image lazy-loaded at a .05 threshold and faded in over .5 s [site:alectear] [verified]. Ask for `img.decode()` before a reveal, and reserve section heights in the critical CSS so scripts cannot shift the layout [site:okaydev] [verified]. A separate `-mobile` source per card through `<picture>` [site:robbietilton] [verified].
+- Misses on record [verified on each card]: zero `loading="lazy"` across 186 images [site:likova]; 83 `fetchpriority="high"` hints [site:spasoje]; the same greyscale image repeated in every cell of a pixel reveal, 285 duplicates [site:runrobrun].
 
 ## Fonts
 
@@ -105,6 +111,8 @@ Why: the preloader needs a real signal, and the signal is only honest when the s
 
 Repeat visits skip the sequence (`sessionStorage`); a timeout shows the page with the static tier; failures isolate to one scene.
 
+Stage 4 in practice [verified on each card]: a 3D viewer mounted once inside a `rootMargin: '1000px 0px'` observer, a still in the layout until then [site:to-top]; a GL plate mounted within 300 px of the viewport and asleep on `visibilitychange` [site:pensatori-irrazionali]; the smooth-scroll library itself lazy-injected, and only for fine pointers [site:mensch]; scene modules loaded on demand outside the bundle [site:runrobrun].
+
 ## Verify
 
 - [ ] Every mesh Draco or meshopt; every sampled texture KTX2 with the right encoder per map type; decoders self-hosted.
@@ -122,5 +130,6 @@ Repeat visits skip the sequence (`sessionStorage`); a timeout shows the page wit
 - Width-keyed texture formats; a decoder pulled from a CDN at runtime.
 - Loading every route's assets before the first frame; a preloader gated on a timer.
 - Google Fonts or a foundry `@import`; more than four font files.
-- A music bed fetched before consent.
+- A music bed fetched before consent [site:the-boyd] [verified].
+- Media on a host the site does not control [site:the-boyd]; libraries loaded unpinned as `@latest` [site:wearedirect]; one library at two versions on one page [site:to-top] [site:primesec] [verified].
 - Igloo's asset names, Why Zero's atlases or Mont-fort's texture set as a starting kit.

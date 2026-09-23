@@ -21,10 +21,10 @@ Why: the template order (hero → logos → features → testimonials → pricin
 
 ## Chaptered journey
 
-One continuous world read in order; scroll depth is progress through a process, a place or an argument. Seen in [site:united-carriers] (one shipment across warehouse, road, sea and air [verified concept]), [site:son-daven] (prologue → seasons → programme → typologies → location → economics → progress [verified]), [site:mont-fort] (identity → capability → four divisions → footprint → ESG, with a chapter rail [verified]) and, as a spatial descent that wraps, [site:igloo] [recalled high]. Shopify's chapter walk belongs to the gallery model below.
+One continuous world read in order; scroll depth is progress through a process, a place or an argument. Seen in [site:united-carriers] (one shipment across warehouse, road, sea and air [verified concept]), [site:son-daven] (prologue → seasons → programme → typologies → location → economics → progress [verified]), [site:mont-fort] (identity → capability → four divisions → footprint → ESG, with a chapter rail [verified]) and, as a spatial descent that wraps, [site:igloo] [recalled high]. Shopify's chapter walk belongs to the gallery model below. Newer journeys [verified on each card]: the medium retracing how the subject was made — a line sketch, then a cardboard model, then film of the finished steel, one recording per chapter [site:gehry-getty]; scroll as an ascent, from a trailhead through numbered concerns to a forest and a contact [site:to-top]; four trades as four full-bleed video chapters after a word-cycling intro [site:christoph-nagel].
 
 - **Beats.** Entrance: the mode change or camera move is the designed moment [site:united-carriers]. Hold: an informational block at rest — real heading, real paragraph, one spec or one image. Exit: the next transition, scrubbed, never a hard cut. Four to six chapters is the corpus range [site:united-carriers]; Igloo adds a modulo wrap so the descent never ends [site:igloo] [verified tag].
-- **Interruption.** A device that changes the input: a drag-to-compare between two seasons and a horizontal rail inside the vertical page [site:son-daven] [verified, live source 2026-09-18]; a jump rail that lets the visitor leave the sequence [site:mont-fort] [verified].
+- **Interruption.** A device that changes the input: a drag-to-compare between two seasons and a horizontal rail inside the vertical page [site:son-daven] [verified, live source 2026-09-18]; a jump rail that lets the visitor leave the sequence [site:mont-fort] [verified]; an explorable model as one beat inside a chapter, not the whole site [site:gehry-getty] [verified].
 - **Rule of three.** Inside a hold, three support points at most; three transport modes carry United Carriers' whole story. Plugin guidance, not a card measurement.
 - **Close.** A footer strong enough to be selected on its own [site:united-carriers] [verified]; a progress log or a news route that gives the story a future [site:son-daven] [site:mont-fort]; or the loop [site:igloo].
 - **Register.** Confident operator, service-promise led [site:united-carriers]; poetic then numeric by chapter [site:son-daven] (`[pattern:copy-and-content#two-registers]`); boardroom copy under an extravagant camera [site:mont-fort] [inferred]; expedition telemetry [site:igloo] [verified].
@@ -34,7 +34,7 @@ One continuous world read in order; scroll depth is progress through a process, 
 
 ## Faceted world
 
-A brand with several selves or many catalogue entries, presented as a hub in front of authored routes rather than as one scroll. Seen in [site:lando-norris] (a persona fork, `/on-track` and `/off-track`, across seven routes plus a 404 [verified structure]) and [site:mindmarket] (a persuade homepage in front of a 34-page methodology × sector × strategy matrix [verified routes]; `/network` exists, but its map rendering was not checked). The old 48-country dataset came from a clone [recalled low], not the live site. Trevor Noah's hub with per-entity pages sits on the boundary with the collage index [site:trevor-noah].
+A brand with several selves or many catalogue entries, presented as a hub in front of authored routes rather than as one scroll. Seen in [site:lando-norris] (a persona fork, `/on-track` and `/off-track`, across seven routes plus a 404 [verified structure]) and [site:mindmarket] (a persuade homepage in front of a 34-page methodology × sector × strategy matrix [verified routes]; `/network` exists, but its map rendering was not checked). The old 48-country dataset came from a clone [recalled low], not the live site. Trevor Noah's hub with per-entity pages sits on the boundary with the collage index [site:trevor-noah]. The hub can be one object: four channels on a click wheel, the directions of the wheel being the sections [site:areebali] [verified]; or one question: a portfolio split into two disciplines as sibling routes, with a persistent switch that becomes the close [site:alectear] [verified].
 
 - **Beats.** Entrance: the hub states the one idea and the choice — the nav dramatises the fork [site:lando-norris] [inferred]. Hold: each facet is its own route with its own hold. Exit: a choreographed route change — vector state, camera move and scene swap on one timeline [site:lando-norris] [verified] — or native cross-document morphs `[recipe:page-transitions]`.
 - **Interruption.** The one dataset that deserves geometry (a season calendar as a track [site:lando-norris] [verified]); a map can make reach a felt claim, though MindMarket's `/network` map rendering was not checked [site:mindmarket] [unknown]. Everything else stays text.
@@ -88,23 +88,25 @@ A collage (a manifesto, scattered snapshots) that resolves into an index (an arc
 
 The work or the items are the argument, hung one per viewport. Seen in [site:floema-jewelry] (drifting image field → arced collections rail → one piece → editorial about, the theme swapped per route [verified, clone]), [site:lama-lama] (video hero → poster-scale case blocks → studio and people → contact [recalled low-medium]) and [site:shopify-editions-w26] (150+ updates as wall labels beside their own paintings in about seven chapters, with an edition switcher and local search [recalled high for the concept, medium for the chapters]). The same model runs as a single self-moving index — one filmstrip row per project, the page ending after the last row [site:boc] [verified] — and as a developer's one-pager whose work reel plays inside its own section title [site:wodniack] [verified].
 
+Newer runs [verified on each card]: career rows, newest first, where down is time and sideways is the work of one period [site:robbietilton]; an endless belt [site:jesperlandberg] or film strip [site:siena] with no chapters at all; one masonry wall that stops into an empty stage [site:alectear]; strata of one painted scene, sky to soil, so the close is where the ground is [site:zainabkabira]; a round trip that leaves one world for a contrasting one mid-page and returns to it to close [site:haoqi]; a run of flat colour grounds with the work as texture [site:warmnfuzzy]; the classic studio order of reel, work rail, logo grid and footer [site:goats] [site:wearedirect] [site:noth] [site:runrobrun] [site:spasoje].
+
 - **Beats.** Entrance: the poster or plane owns the viewport and arrives with mass — the plugin's default is a scale from ≈ .94 or a clip wipe on `--ease-out-expo` over 1.2–1.5 s; Lama Lama's own numbers are unknown. Hold: the label reads — title, client, year. Exit: the next poster, or a shared-element flight into the detail [site:floema-jewelry] [verified].
-- **Interruption.** A tempo change: a near-black full-bleed section [site:lama-lama] [recalled medium]; a torn paper edge between chapters [site:shopify-editions-w26] [verified, live source 2026-09-18]; the flight from field to piece [site:floema-jewelry]; a grab-and-throw toy after the reel [site:wodniack] [verified].
+- **Interruption.** A tempo change: a near-black full-bleed section [site:lama-lama] [recalled medium]; a torn paper edge between chapters [site:shopify-editions-w26] [verified, live source 2026-09-18]; the flight from field to piece [site:floema-jewelry]; a grab-and-throw toy after the reel [site:wodniack] [verified]; a manifesto paragraph at display size with media chips set between its words [site:warmnfuzzy] [verified]; a manifesto film that shrinks into a photographed museum frame [site:noth] [verified]; a hyperspace chapter of principles between two sky chapters [site:haoqi] [verified].
 - **Rule of three.** Cluster the run in threes and change tempo between clusters; twelve identical posters are a grid on its side. Plugin guidance.
 - **Close.** Contact [site:lama-lama]; the editorial about page [site:floema-jewelry]; a designed 404 in the same world [site:shopify-editions-w26] [recalled high].
 - **Register.** Numbered label plus title, almost no prose [site:floema-jewelry] [verified]; warm value-led copy against loud visuals [site:lama-lama] [recalled medium-high]; grand visuals over plain, scannable update copy [site:shopify-editions-w26].
 - **DOM.** Every block is a real `<a>` inside a list; every plane sits over an `<img alt>` [site:floema-jewelry] [verified]; every update card is real content under an `aria-hidden` canvas, in one document with native anchors — never an iframe shell [site:shopify-editions-w26]; a content schema (`Section { id, navLabel, title, summary, items }`) precedes the scenes [recalled medium-low].
 - **Choose when.** Studios, product lines and changelogs; past ≈ 100 items add the switcher and a local search.
-- **Risk.** Unusual navigation costs usability (7.53 with that tag [site:floema-jewelry] [recalled medium-high]); drag-only galleries with no focusable stops [site:floema-jewelry] [verified absence]; a preloader that waits for every texture on the site [site:floema-jewelry] [verified]; an index that never stops moving and ends with no footer [site:boc] [verified].
+- **Risk.** Unusual navigation costs usability (7.53 with that tag [site:floema-jewelry] [recalled medium-high]); drag-only galleries with no focusable stops [site:floema-jewelry] [verified absence]; a preloader that waits for every texture on the site [site:floema-jewelry] [verified]; an index that never stops moving and ends with no footer [site:boc] [verified]; looks, rails and films in a row with no argument between them [site:serotoninn] [site:the-boyd] [verified]; an endless loop with no count [site:jesperlandberg] [site:siena] [verified].
 
 ## Print artefact
 
-The page behaves like a printed object about the subject — a call sheet, a poster, a spec sheet — and the interface speaks the industry's own paperwork. Seen in [site:the-line]: hero (the acetate hinges away) → the studio → work by client → clients and partners → news → contact → sticky red footer [verified order].
+The page behaves like a printed object about the subject — a call sheet, a poster, a spec sheet — and the interface speaks the industry's own paperwork. Seen in [site:the-line]: hero (the acetate hinges away) → the studio → work by client → clients and partners → news → contact → sticky red footer [verified order]. Two newer artefacts [verified on each card]: a numbered ten-slide deck with a counter, presenter notes and a thumbnail sorter, used to argue against decks, which breaks its own format once and ends by crumpling itself into a bin [site:nodeck]; an illustrated grid handbook — cover, chapter opener, worked examples with spec tables, margin notes, a bibliography drawn as book spines and a colophon — that lets the reader switch the grid on over the page [site:grids-obys].
 
 - **Beats.** Entrance: the sheet hinges off the light table on a named corner [verified] `[recipe:sticky-stages-rails]`. Hold: sticky stages under invisible rails, never `pin: true` [verified]. Exit: the next stage; flare red recurs in navigation, selection, loading placeholder and footer, while the work keeps its own colours [verified].
-- **Interruption.** A local red acetate marks selected moments over otherwise full-colour work [verified]. The hinge is the spatial move.
+- **Interruption.** A local red acetate marks selected moments over otherwise full-colour work [verified]. The hinge is the spatial move. One slide in a foreign register, a boot-screen crash with a real way back [site:nodeck] [verified]; one opt-in alternate mode that floods the sober system [site:grids-obys] [verified].
 - **Rule of three.** Not evidenced on the card; this artefact's rhythm comes from repeated print gestures, not triads.
-- **Close.** A sticky flare-red footer with a closing logo block, back-to-top and a Site Credits link [verified].
+- **Close.** A sticky flare-red footer with a closing logo block, back-to-top and a Site Credits link [verified]; an action on the artefact itself — the deck crumpled and binned [site:nodeck] [verified]; a colophon with links to the series' earlier issues [site:grids-obys] [verified].
 - **Register.** Working-studio voice: status dots, slash-delimited labels, credit tables, a numeric year, a `00/24` frame counter, live open/closed timings [verified] (`[pattern:copy-and-content#telemetry-register]`).
 - **DOM.** The acetate is an `aria-hidden` div [verified] — the decorative layer stays out of the tree; nav slashes are real `<i>` elements [verified]; native scroll stays under the custom scrollbar; hover reveals gain a focus equivalent.
 - **Choose when.** A DOM-first budget, heterogeneous imagery that one ink can unify, a studio whose craft is the product. Site of the Month without a scene [verified].
@@ -112,7 +114,7 @@ The page behaves like a printed object about the subject — a call sheet, a pos
 
 ## Specification
 
-The subject is proven with its own numbers, scenarios and places: persuasion by evidence blocks. Seen in [site:seasats] (scale escalation — one vessel → a team → an ocean-wide network; specs as headlines; spec-sheet PDFs as the conversion [verified]), [site:white-desert] (place-led: Explore · Stay · Learn · About, each camp its own character, dual units throughout [verified]), [site:usavionix] (role-casting: boot sequence → capability claim → scenario triptych → platform pages [verified]) and [site:animejs] (docs as a playground; the identity built with the product [verified artefact]).
+The subject is proven with its own numbers, scenarios and places: persuasion by evidence blocks. Seen in [site:seasats] (scale escalation — one vessel → a team → an ocean-wide network; specs as headlines; spec-sheet PDFs as the conversion [verified]), [site:white-desert] (place-led: Explore · Stay · Learn · About, each camp its own character, dual units throughout [verified]), [site:usavionix] (role-casting: boot sequence → capability claim → scenario triptych → platform pages [verified]) and [site:animejs] (docs as a playground; the identity built with the product [verified artefact]). Newer sheets [verified on each card]: a numbered capability sheet, each discipline with a script numeral, a service table, a sample rail and its own coloured marquee [site:pensatori-irrazionali]; nine numbered, place-led chapters with areas, counts and minutes at display scale [site:likova]; five capabilities carried by one recurring mascot across two acts of one sticky stage [site:primesec]; feature chapters with the members' own work as the hero, then pricing [site:okaydev]; craft pillars, an explore index and testimonials signed with build numbers [site:911rennsport]; a typed statement over soil, four service cards, testimonials [site:mensch]; three services on a cloth ground and one pinned stairs chapter [site:bethebuzz]; an instrument panel of benefit tabs, numbered solutions, platform modules and sectors [site:siteassist].
 
 - **Beats.** Entrance: a number or a claim lands as the headline. Hold: the evidence — a spec block, a scenario, a live demo. Exit: the scale step (vessel → team → network) or the next place.
 - **Interruption.** Exactly three concrete scenarios, image + problem beat + solution beat [site:usavionix] [verified]; a "how this is even possible" operations chapter that de-risks the price [site:white-desert]; a public stress test [site:animejs] [verified].
@@ -121,7 +123,7 @@ The subject is proven with its own numbers, scenarios and places: persuasion by 
 - **Register.** Engineering-declarative, capability as a constraint removed, four-beat stabs [site:seasats]; coordinates, dual units and scarcity as numbers [site:white-desert]; verb chains and agent framing [site:usavionix]; terse and API-flavoured [site:animejs] [recalled medium].
 - **DOM.** The most DOM-native model: specs are text in `<dl>` and tables; the scrollspy index is a `<nav>` with a visible equivalent under ≈ 900 px [site:seasats]; the boot sequence is an `aria-live` status that never gates content [site:usavionix]; demos stay keyboard-operable with an accessible copy of any split text [site:animejs].
 - **Choose when.** Persuade mode with a technical or high-ticket buyer, and assets that are photography, renders, PDFs or live code. Two of the four won with no WebGL at all [site:seasats] [site:white-desert].
-- **Risk.** Unusual navigation cost Seasats its lowest axis (usability 7.17 [verified]); a boot intro is a reduced-motion hazard [site:usavionix]; the category rut (hero → features → pricing) is one careless page map away (`anti-patterns.md`).
+- **Risk.** Unusual navigation cost Seasats its lowest axis (usability 7.17 [verified]); a boot intro is a reduced-motion hazard [site:usavionix]; the category rut (hero → features → pricing) is one careless page map away (`anti-patterns.md`) — benefit tabs → solutions → platform → sectors → case → contact is that rut in instrument dress [site:siteassist] [verified order].
 
 ## Pacing
 
@@ -132,6 +134,7 @@ Rules:
 - Alternate spectacle and rest: after a scrubbed scene, a block that only reads; after a near-black full-bleed section, the bone ground again [site:lama-lama].
 - Dense earns quiet: a chapter carrying a spec table or a triptych is followed by a single line at display scale.
 - Write the tempo into `AWARDS.md ## Page map` as entrance · hold · exit per row; a page with more than one signature is cut to one (`anti-patterns.md`, effect inflation).
+- Give each axis one meaning: when down is time and sideways is depth within one period, the first row teaches the navigation [site:robbietilton] [verified].
 
 ## Emotion before economics
 
@@ -154,6 +157,11 @@ Why: a page that runs at one input speed becomes wallpaper by the third chapter;
 | A dwell-gated close-up | the zoom section | [site:oryzo] [recalled high] |
 | A section title that scales until the visitor is inside it | the work chapter | [site:wodniack] [verified] |
 | A theme swap that repaints the page | at a section or route boundary | [site:leo-parpeix] [site:floema-jewelry] [site:slosh-seltzer] |
+| A slide in a foreign register, with a way back | mid-deck | [site:nodeck] [verified] |
+| A contrasting world between two visits to the same one | mid-page | [site:haoqi] [verified] |
+| A film framed as an exhibit | after the work | [site:noth] [verified] |
+| A display paragraph with media inline | after the work | [site:warmnfuzzy] [verified] |
+| An explorable model inside a chapter | one chapter | [site:gehry-getty] [verified chunk names] |
 
 Rules: one interruption per page; it comes after the first content beat, never before; it has a keyboard equivalent and a skip (`[pattern:accessibility-and-reduced-motion]`); under reduced motion it becomes a cut or a static state that still shows both sides.
 
@@ -169,6 +177,12 @@ Why: the last screen is the last thing a juror scores, and the corpus tags foote
 | Designed 404 in the same world | [site:lando-norris] [verified] · [site:shopify-editions-w26] [recalled high] · [site:why-zero] [verified tag] | a route, authored like the others |
 | The loop | [site:igloo] [verified tag] · [site:slosh-seltzer] [recalled medium] | only when the story is a loop; a document must end |
 | A living page after the story | construction progress [site:son-daven] · a regional news feed and merch [site:united-carriers] · news with read state [site:mont-fort], all [verified] | a reason to return, never bolted on without one |
+| The opening world again | [site:haoqi] [verified] | leaving and returning makes the close an arrival |
+| The navigation question at full scale | [site:alectear] [verified] | "the other half?" instead of a footer of links |
+| An action on the artefact | [site:nodeck] [verified] | the thing looked at is closed, filed or destroyed |
+| A credits list for every recording and image | [site:gehry-getty] [verified] | `[pattern:copy-and-content#credits-pages]` |
+| A live readout beside the contact | a local clock [site:spasoje] [site:the-boyd] [verified] | gives the action a human scale |
+| Scrubbed footage behind the contact | [site:goats] [verified] | fine pointers only; a loop on touch |
 
 Rules: the close matches the conversion (enquire, spec sheet, ticket hand-off, waitlist) and speaks the page's register; the 404 ships with the first release (`assets/templates/404.html`); no sitemap dumps and no social-icon row as the ending.
 
@@ -189,6 +203,13 @@ Why: the model follows the class, the visitor mode and the assets that actually 
 | Brand monument | experience | a full bake pipeline | Chaptered journey as spatial descent | [site:igloo] |
 | Changelog, docs, OSS | read | 100+ items, live demos | Gallery with switcher and search; Specification as playground | [site:shopify-editions-w26] [site:animejs] |
 | Fashion, jewellery | experience | product photography | Gallery with a theme per route | [site:floema-jewelry] |
+| Museum, online exhibition | read, experience-led | archive stills, film, recordings | Chaptered journey whose medium retraces the making | [site:gehry-getty] |
+| Method explainer | read | the studio's own work | Print artefact (a handbook) | [site:grids-obys] |
+| Satire, a critique of a format | experience | photographed props | Print artefact in the format it critiques | [site:nodeck] |
+| Designer or developer, text-led | experience | case text, few images | Faceted world on one object | [site:areebali] |
+| Community or marketplace | persuade | members' work | Specification with the users as the hero | [site:okaydev] |
+| Leasing, property | persuade | renders, maps, figures | Specification, place-led | [site:likova] |
+| Shop, gallery shop | persuade | products, campaign film | Gallery with an argument between the looks | [site:serotoninn] [site:the-boyd] as what to beat |
 
 Rules: read mode beats spectacle — the model must stay scannable under every effect [site:shopify-editions-w26] [site:animejs]; photography-only assets point to Specification or Gallery, never to a world you cannot render; when two models fit, take the one whose interruption you can build with a keyboard path.
 
@@ -211,4 +232,4 @@ Rules: read mode beats spectacle — the model must stay scannable under every e
 - Economics before emotion on a big-ticket subject; a register switch inside a chapter.
 - An empty DOM behind a canvas story; a rail of numbered markers that navigates nowhere.
 - A sitemap dump or social-icon row as the ending; a host-default 404.
-- Any card's section order reproduced: the freight sequence, the prologue-to-progress order, the six stages, the coaster's beat order, three-break-three with the same break, the call-sheet order, the vessel-to-network escalation.
+- Any card's section order reproduced: the freight sequence, the prologue-to-progress order, the six stages, the coaster's beat order, three-break-three with the same break, the call-sheet order, the vessel-to-network escalation, the ten-slide deck with its crash and bin, the handbook order, sketch → model → steel, trailhead → summit, sky → soil.
