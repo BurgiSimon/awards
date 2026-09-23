@@ -29,15 +29,15 @@
 - https://jesperlandberg.com/
 - https://goats.com.pl/
 - https://www.runrobrun.com/
+- https://www.mensch.club/
+- https://www.911rennsport.co.uk/
+- https://okaydev.co/
+- https://likova.space/
 
 # not reviewed
 - https://www.oxigen.sa/
-- https://okaydev.co/
-- https://likova.space/
-- https://www.mensch.club/
 - https://www.to-top.ch/en
 - https://www.siteassist.com/
-- https://www.911rennsport.co.uk/
 - https://www.primesec.ai/
 - https://www.nodeck.online/
 - https://haoqi.design/
