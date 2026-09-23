@@ -1,0 +1,51 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) { .works button { transition: none; } }
+
+.topbar { display: flex; justify-content: space-between; gap: calc(var(--unit) * 4); padding-block: calc(var(--unit) * 5); position: relative; z-index: 3; }
+.topbar > * { margin: 0; }
+.topbar a { white-space: nowrap; }
+.reel__intro { padding-block: calc(var(--unit) * 16) calc(var(--unit) * 8); }
+.reel__title { font-family: var(--font-display); font-size: clamp(2.5rem, 7vw, 7rem); font-weight: 500; line-height: .95; letter-spacing: -.03em; margin: 0 0 calc(var(--unit) * 6); max-width: 14ch; }
+.lede { max-width: 56ch; margin: 0; }
+.reel__counter { display: none; margin: 0; padding-inline: var(--gutter); font-variant-numeric: tabular-nums; color: var(--ink); }
+.reel__gl { display: none; }
+.footer { padding-block: calc(var(--unit) * 12); }
+
+/* The index: every work is a real button with a visible ring. Without the reel it is the page's list of works. */
+.works { list-style: none; margin: 0; padding: calc(var(--unit) * 6) 0 0; display: grid; gap: calc(var(--unit) * 2); }
+.works button { display: flex; align-items: baseline; gap: calc(var(--unit) * 3); width: 100%; min-height: 44px; padding: calc(var(--unit) * 2) 0; border: 0; border-bottom: 1px solid var(--line); background: none; color: var(--muted); text-align: left; cursor: pointer; transition: color var(--dur-feedback) var(--ease-out-expo); }
+.works button:hover, .works button[aria-current="true"] { color: var(--ink); }
+.works__n, .works__m { font-family: var(--font-mono); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; font-variant-numeric: tabular-nums; }
+.works__t { font-family: var(--font-display); font-size: clamp(1.25rem, 2.2vw, 2rem); letter-spacing: -.01em; }
+.works__m { margin-left: auto; }
+.works button:disabled { cursor: default; color: var(--ink); }
+
+/* Reel mode (set by main.js): the document never scrolls; one canvas fills the viewport. */
+html.reel-gl, html.reel-gl body { height: 100%; overflow: clip; overscroll-behavior: none; }
+html.reel-gl .topbar { position: fixed; inset: 0 0 auto; background: var(--ground); }
+html.reel-gl .reel { position: fixed; inset: 0; touch-action: none; }
+html.reel-gl .reel__gl { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
+html.reel-gl .reel__intro { position: absolute; top: calc(var(--unit) * 16); left: 0; padding-block: 0; z-index: 2; pointer-events: none; }
+html.reel-gl .reel__title { font-size: 1rem; letter-spacing: 0; margin: 0 0 calc(var(--unit) * 2); }
+html.reel-gl .lede { max-width: 44ch; font-size: .8125rem; color: var(--muted); }
+html.reel-gl .reel__counter { display: block; position: absolute; left: 0; bottom: calc(var(--unit) * 22); z-index: 2; font-size: .75rem; }
+html.reel-gl .reel__index { position: absolute; inset: auto 0 0; z-index: 2; background: var(--ground); padding-block: calc(var(--unit) * 3); }
+html.reel-gl .works { grid-template-columns: repeat(8, 1fr); gap: calc(var(--unit) * 3); padding: 0; }
+html.reel-gl .works button { flex-direction: column; align-items: flex-start; gap: 2px; border-bottom: 0; border-top: 1px solid var(--line); }
+html.reel-gl .works button[aria-current="true"] { border-top-color: var(--ink); }
+html.reel-gl .works__t { font-size: .8125rem; font-family: var(--font-body); }
+html.reel-gl .works__m { display: none; }
+html.reel-gl .footer { position: absolute; width: 1px; height: 1px; overflow: clip; clip-path: inset(50%); white-space: nowrap; }
+
+@media (max-width: 767px) {
+  .works__m { display: none; }
+  /* Phone reel: full-width cards stack vertically; the index keeps only the numbers (titles stay as accessible names). */
+  html.reel-gl .reel__intro { position: absolute; width: 1px; height: 1px; overflow: clip; clip-path: inset(50%); white-space: nowrap; }
+  html.reel-gl .reel__counter { bottom: calc(var(--unit) * 18); right: 0; background: var(--ground); padding-block: calc(var(--unit) * 2); }
+  html.reel-gl .works { gap: 0; }
+  html.reel-gl .works button { align-items: center; }
+  html.reel-gl .works__t { position: absolute; width: 1px; height: 1px; overflow: clip; clip-path: inset(50%); white-space: nowrap; }
+}
