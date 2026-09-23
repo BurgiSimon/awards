@@ -11,7 +11,7 @@ Maintained by `/expand-corpus` (`.claude/skills/expand-corpus/SKILL.md`). Resume
 | synthesis | done | boc, wodniack synthesised |
 | recipes | done | 8 built: transition-promote-chosen, filmstrip-index-rows, svg-noise-line-field, title-mask-tunnel, dialog-nested-lenis-sheet, throw-objects-css3d, scrollbar-thumb-drag, sprite-rain-canvas2d; catalogue 44/44 |
 | stacks | done | motion-13.4.md (boc stack hit), smooothy-0.0.md (new-stack queue); versions.md motion bumped to 13.4.1 |
-| upkeep | done | grader slugs regenerated (21); validate passes; lint 0 dangling; count greps clean; smoke evals pending maintainer |
+| upkeep | done | grader slugs regenerated (21); validate passes; lint 0 dangling; count greps clean; smoke evals skipped by maintainer 2026-09-23 |
 
 ### Sites
 
