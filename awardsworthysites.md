@@ -20,6 +20,7 @@
 - https://sloshseltzer.com/
 - https://boc.studio/work
 - https://wodniack.dev/
+- https://smooothy.federic.ooo/
 
 # not reviewed
 - https://robbietilton.com/
@@ -53,4 +54,3 @@
 - https://christoph-nagel.dev/
 
 # new stack
-- https://smooothy.federic.ooo/

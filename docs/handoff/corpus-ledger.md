@@ -10,7 +10,7 @@ Maintained by `/expand-corpus` (`.claude/skills/expand-corpus/SKILL.md`). Resume
 | triage | done | closed by maintainer 2026-09-23 after the boc, wodniack pilot (testing); 29 rows stay queued for a later run |
 | synthesis | done | boc, wodniack synthesised |
 | recipes | done | 8 built: transition-promote-chosen, filmstrip-index-rows, svg-noise-line-field, title-mask-tunnel, dialog-nested-lenis-sheet, throw-objects-css3d, scrollbar-thumb-drag, sprite-rain-canvas2d; catalogue 44/44 |
-| stacks | open | |
+| stacks | done | motion-13.4.md (boc stack hit), smooothy-0.0.md (new-stack queue); versions.md motion bumped to 13.4.1 |
 | upkeep | open | |
 
 ### Sites

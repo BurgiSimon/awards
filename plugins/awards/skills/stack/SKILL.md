@@ -32,7 +32,7 @@ Before implementation, run `node "${CLAUDE_PLUGIN_ROOT}/scripts/doctor.mjs" <pro
 
 ## The stack is a decision, the architecture is the constant
 
-The analysed sites run Vite + vanilla, Svelte, Nuxt, Astro, Webflow and Next, and Framer Motion appears on none of them; what they share is not a framework but a shape. Every choice below preserves that shape, and the stack notes exist so the shape survives each framework's opinions. Read `${CLAUDE_PLUGIN_ROOT}/references/stacks/versions.md` before installing anything, and the "When to choose it" section of the two candidate notes before deciding.
+The analysed sites run Vite + vanilla, Svelte, Nuxt, Astro, Webflow and Next, and Motion (formerly Framer Motion) appears on one of them, for dialogs only `[site:boc]`; what they share is not a framework but a shape. Every choice below preserves that shape, and the stack notes exist so the shape survives each framework's opinions. Read `${CLAUDE_PLUGIN_ROOT}/references/stacks/versions.md` before installing anything, and the "When to choose it" section of the two candidate notes before deciding. For React component-state animation (enter/exit, layout, drag-to-dismiss) read `stacks/motion-13.4.md`; for a draggable, snapping slider library read `stacks/smooothy-0.0.md` before hand-rolling one.
 
 - HTML lays out, WebGL renders: text and images live in the DOM, the canvas draws over them `[pattern:webgl-architecture#html-lays-out-webgl-renders]`.
 - One canvas, one ticker: GSAP's ticker drives Lenis, Lenis feeds ScrollTrigger, the render loop reads the same clock `[recipe:boot-lenis-gsap]`.
@@ -214,7 +214,7 @@ Tick "Stack booted (stack)" in `AWARDS.md ## Status`, fill `## Budgets & tiers`,
 - CSS `scroll-behavior: smooth` beside Lenis: `scrollTo` fights the browser and the audit flags it [M05].
 - A Google Fonts CDN link or a foundry `@import`: a third-party request before first paint and an audit failure [T02].
 - A `position: fixed` canvas whose planes drift against their placeholders: fix the clock (absolute re-offset or a scroll uniform), never the scroll.
-- Framer Motion or `motion` for scroll scrub: no winner shipped it; scrubbed timelines are ScrollTrigger with `ease: 'none'`.
+- Framer Motion or `motion` for scroll scrub: no winner shipped it; scrubbed timelines are ScrollTrigger with `ease: 'none'` (`stacks/motion-13.4.md` names what Motion is for).
 - A canvas per page, or two WebGL contexts on one page: resources cannot be shared and the second context is the one that gets lost.
 - `location.reload()` at a breakpoint, or two scores toggled with `display: none`: focus, scroll position and every live region are lost mid-visit.
 - `ssr: false`, `client:only` or an empty shell to dodge `window` errors: it deletes the DOM mirror the accessibility score is made of.
