@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>dialog-nested-lenis-sheet — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar">
+    <a href="../index.html" class="label">← recipes</a>
+    <button type="button" class="info-btn label" data-dialog-open aria-haspopup="dialog" aria-controls="info">Info</button>
+  </header>
+  <main id="main">
+    <section class="section wrap hero" aria-labelledby="t">
+      <p class="label">/ dialog</p>
+      <h1 class="display" id="t">A long read<br>that scrolls itself.</h1>
+      <p class="lede">The studio information lives in a native <code>&lt;dialog&gt;</code> with its own smooth scroll. The wheel moves the dialog, never the page behind it; an inner pane keeps native scrolling. Under 768 px the same markup becomes a bottom sheet you can drag away.</p>
+    </section>
+    <section class="section wrap">
+      <h2>Below the fold</h2>
+      <p class="lede">Scroll down here first, then open Info: the page keeps its place underneath, and closing hands focus back to the button that opened it.</p>
+    </section>
+  </main>
+  <footer class="section wrap"><p class="label">awards · recipe · MIT · demo copy is synthetic</p></footer>
+
+  <!-- Server-rendered: every word below ships in the HTML, so crawlers and no-JS readers get it too. -->
+  <dialog class="info" id="info" data-dialog data-lenis-prevent aria-labelledby="info-title">
+    <div class="info__scrim" data-scrim></div>
+    <div class="info__panel" data-panel data-theme="dark">
+      <div class="info__head" data-handle>
+        <span class="info__grip" aria-hidden="true"></span>
+        <h2 class="info__title" id="info-title">Harbour Lane Studio</h2>
+        <button type="button" class="info__close label" data-dialog-close autofocus>Close</button>
+      </div>
+      <div class="info__scroller" data-scroller tabindex="0" role="region" aria-labelledby="info-title">
+        <div class="info__content" data-content>
+          <section aria-labelledby="i-about">
+            <h3 id="i-about">About</h3>
+            <p>Harbour Lane is a six-person design and engineering studio working from a converted net loft. We make identities, websites and printed matter for organisations that would rather be understood than admired.</p>
+            <p>Most projects start with a week of reading: annual reports, complaint letters, old brochures, the way reception answers the phone. The visual work follows from what that reading turns up, which is why no two of our sites share a template.</p>
+            <p>We build what we design. The same people who draw the type scale write the scroll code, so a transition is never a line in a hand-off document that nobody owns.</p>
+          </section>
+          <section aria-labelledby="i-clients">
+            <h3 id="i-clients">Selected clients</h3>
+            <p>A regional ferry operator, two independent publishers, a seed library, a lighthouse trust, a cooperative of glassblowers, a night-bus campaign and a museum of weather instruments.</p>
+          </section>
+          <section aria-labelledby="i-services">
+            <h3 id="i-services">Services</h3>
+            <p>The full list scrolls on its own inside this pane, with the browser's native scrolling rather than the dialog's.</p>
+            <ul class="info__pane" data-pane data-lenis-prevent tabindex="0" aria-label="Services, full list">
+              <li>Brand strategy and naming</li>
+              <li>Visual identity systems</li>
+              <li>Custom lettering and wordmarks</li>
+              <li>Type scales and grids</li>
+              <li>Editorial and annual-report design</li>
+              <li>Exhibition graphics and wayfinding</li>
+              <li>Website design and front-end build</li>
+              <li>Motion systems and page transitions</li>
+              <li>WebGL studies and prototypes</li>
+              <li>Accessibility reviews</li>
+              <li>Content design and copy editing</li>
+              <li>Photography art direction</li>
+              <li>Print production and paper sourcing</li>
+              <li>Packaging</li>
+              <li>Design-system documentation</li>
+              <li>Workshops for in-house teams</li>
+            </ul>
+          </section>
+          <section aria-labelledby="i-method">
+            <h3 id="i-method">How we work</h3>
+            <p>Fixed fees, agreed in writing before any drawing starts. One weekly call, one shared document of decisions, and a working prototype by the third week so opinions are formed on the real thing.</p>
+            <p>We keep projects small enough that the founders stay on them from first meeting to launch, and we say no to work we cannot staff that way.</p>
+            <p>Every site we ship passes a keyboard walk, a reduced-motion walk and a phone walk before the client sees it, and again the day it goes live.</p>
+          </section>
+          <section aria-labelledby="i-recognition">
+            <h3 id="i-recognition">Recognition</h3>
+            <p>Our work has been shortlisted by a handful of design annuals. We mention it here because clients ask, not because it changes the fee.</p>
+          </section>
+          <section aria-labelledby="i-contact">
+            <h3 id="i-contact">Get in touch</h3>
+            <p>Write to <a href="mailto:hello@example.com">hello@example.com</a> with a paragraph about what you are making and when it needs to exist. We answer every message within two working days.</p>
+            <p>The loft is open for visits on Thursdays. Bring boots; the lane floods at spring tides.</p>
+          </section>
+        </div>
+      </div>
+    </div>
+  </dialog>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

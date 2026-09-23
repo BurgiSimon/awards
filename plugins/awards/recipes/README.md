@@ -59,6 +59,7 @@ The six static visual examples declare their reviewed desktop/mobile image paths
 | Chosen-item exit | `transition-promote-chosen` | P1 | Clicked row rises to the header slot, siblings fade by `.09 s × distance`, route pushed after the rise, phone timing set | boc |
 | Living line field | `svg-noise-line-field` | P1 | Hairline SVG field, one Perlin angle per point drifting in time, pointer push with a framerate-independent spring (.005 / .925), edge-first draw-in, still under reduced motion | wodniack |
 | Title as a doorway | `title-mask-tunnel` | P1 | Capsule title mask scrubbed to a computed cover scale (exponential zoom, linear scrub), counter-scaled CSS-3D scene moved on one layer, focus flies a work to the front, plain list under reduced motion | wodniack |
+| Long-read dialog | `dialog-nested-lenis-sheet` | P2 | Native `<dialog>` + `showModal()`, nested Lenis on the shared ticker, `data-lenis-prevent` on dialog and inner pane, server-rendered content, drag-to-dismiss bottom sheet under 768 px, instant under reduced motion | boc |
 | Sound | `sound-toggle-opt-in` | P2 | Opt-in ambient + SFX, persisted | igloo, mont-fort |
 | GL text | `gl-msdf-text` | P2 | MSDF text with a DOM mirror | igloo, lando-norris |
 
