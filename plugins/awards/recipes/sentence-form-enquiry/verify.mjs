@@ -1,11 +1,8 @@
 // Two layers. The harness states check what renders: which errors are visible, where focus lands, whether the
 // sentence stacks on the phone and whether any line box crosses the viewport edge, sampled over 600 ms from the
-// moment of submit so the entrance tier is judged from what actually moved. assert() then opens the built page once
-// more in its own browser and reads the accessibility tree itself (getByRole names, the form's ARIA snapshot and the
-// focused node's name / description / invalid through CDP), because the harness probe only runs inside the page.
-import { fileURLToPath } from 'node:url';
-import { resolvePlaywright, launchChromium } from '../../scripts/lib/playwright.mjs';
-import { serveDirectory } from '../../scripts/lib/server.mjs';
+// moment of submit so the entrance tier is judged from what actually moved. inspect() then reads the accessibility
+// tree of the same page from Node (getByRole names, the form's ARIA snapshot and the focused node's name /
+// description / invalid through CDP), because the in-page probe cannot see what a screen reader is given.
 
 const type = (text) => [...text].map((key) => ({ type: 'press', key }));
 const fill = ({ name = 'Ada', role = 'artist', topic = 'loans', email = 'ada@example.com' } = {}) => [
@@ -87,39 +84,24 @@ const MSG = {
   email: 'That address needs an @ and a domain.',
 };
 
-async function readAccessibilityTree() {
-  const found = resolvePlaywright();
-  if (!found) return { error: 'Playwright not found' };
-  const server = await serveDirectory(fileURLToPath(new URL('../dist/', import.meta.url)));
-  const browser = await launchChromium(found.module, { webgl: false });
-  try {
-    const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
-    await page.goto(`${server.url}sentence-form-enquiry/index.html`, { waitUntil: 'load' });
-    await page.evaluate(() => window.__awards.ready);
+// Node-side, per state, on the page the harness already drove: the tree as the browser exposes it.
+export async function inspect(page, st) {
+  const cdp = await page.context().newCDPSession(page);
+  const node = async (pick) => {
+    const { nodes } = await cdp.send('Accessibility.getFullAXTree');
+    const n = nodes.find(pick);
+    const prop = (k) => n?.properties?.find((p) => p.name === k)?.value?.value;
+    return n && { role: n.role?.value, name: n.name?.value, description: n.description?.value, invalid: prop('invalid') };
+  };
+  const focused = (n) => n.role?.value !== 'RootWebArea' && n.properties?.some((p) => p.name === 'focused' && p.value?.value);
+  if (st.name === 'desktop') {
     const counts = [];
     for (const [role, name] of NAMED) counts.push({ role, name, count: await page.getByRole(role, { name, exact: true }).count() });
-    const snapshot = await page.locator('form').ariaSnapshot();
-    const cdp = await page.context().newCDPSession(page);
-    const node = async (pick) => {
-      const { nodes } = await cdp.send('Accessibility.getFullAXTree');
-      const n = nodes.find(pick);
-      const prop = (k) => n?.properties?.find((p) => p.name === k)?.value?.value;
-      return n && { role: n.role?.value, name: n.name?.value, description: n.description?.value, invalid: prop('invalid') };
-    };
-    const focused = (n) => n.role?.value !== 'RootWebArea' && n.properties?.some((p) => p.name === 'focused' && p.value?.value);
-    await page.click('.send');
-    const afterEmpty = await node(focused);
-    await page.fill('#f-name', 'Ada');
-    await page.click('.send');
-    const afterName = await node(focused);
-    const group = await node((n) => n.role?.value === 'radiogroup');
-    return { counts, snapshot, afterEmpty, afterName, group };
-  } catch (e) {
-    return { error: String(e) };
-  } finally {
-    await browser.close();
-    await server.close();
+    return { counts, snapshot: await page.locator('form').ariaSnapshot() };
   }
+  if (st.name === 'empty-submit') return { focused: await node(focused) };
+  if (st.name === 'partial') return { focused: await node(focused), group: await node((n) => n.role?.value === 'radiogroup') };
+  return null;
 }
 
 export async function assert(r) {
@@ -165,8 +147,10 @@ export async function assert(r) {
   }
 
   // Accessibility tree, read by the browser rather than from attributes.
-  const ax = await readAccessibilityTree();
-  out.push({ ok: !ax.error, message: `accessibility tree read${ax.error ? `: ${ax.error}` : ''}` });
+  const I = (k) => r[k]?.inspect || {};
+  const ax = { counts: I('desktop').counts, snapshot: I('desktop').snapshot, afterEmpty: I('empty-submit').focused, afterName: I('partial').focused, group: I('partial').group };
+  const axError = ['desktop', 'empty-submit', 'partial'].map((k) => I(k).inspectError).find(Boolean);
+  out.push({ ok: !axError && !!ax.counts, message: `accessibility tree read${axError ? `: ${axError}` : ''}` });
   for (const c of ax.counts || []) out.push({ ok: c.count === 1, message: `a11y: exactly one ${c.role} named "${c.name}" (${c.count})` });
   out.push({ ok: !!ax.snapshot && !/- (textbox|radio|radiogroup|button)\s*(\[|$)/m.test(ax.snapshot), message: 'a11y: no unnamed control in the form snapshot' });
   const e = ax.afterEmpty || {}, n = ax.afterName || {}, g = ax.group || {};

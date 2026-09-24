@@ -101,11 +101,13 @@ for (const id of ids) {
       if (st.hover) await page.waitForTimeout(400);
       const state = await page.evaluate(() => { try { return window.__awards?.state?.() ?? null; } catch (e) { return { error: String(e) }; } });
       const probe = verify.probe ? await page.evaluate(verify.probe).catch((e) => ({ probeError: String(e) })) : null;
+      // Optional Node-side look at the same page (accessibility tree, ARIA snapshot, CDP), after the in-page probe.
+      const inspect = verify.inspect ? await verify.inspect(page, st).catch((e) => ({ inspectError: String(e) })) : null;
       const shot = path.join(rdir, `${st.name}.png`);
       await page.screenshot({ path: shot });
-      results[st.name] = { state, probe, errors, screenshot: shot, hook: !!(await page.evaluate(() => !!window.__awards)) };
+      results[st.name] = { state, probe, inspect, errors, screenshot: shot, hook: !!(await page.evaluate(() => !!window.__awards)) };
     } catch (e) {
-      results[st.name] = { state: null, probe: null, errors: [...errors, `state failed: ${e.message}`], screenshot: null, hook: false };
+      results[st.name] = { state: null, probe: null, inspect: null, errors: [...errors, `state failed: ${e.message}`], screenshot: null, hook: false };
     } finally {
       await context.close();
     }
@@ -125,7 +127,7 @@ for (const id of ids) {
   }
   const pass = checks.every((c) => c.ok);
   if (!pass) failed++;
-  report.recipes[id] = { pass, checks, states: Object.fromEntries(Object.entries(results).map(([k, v]) => [k, { state: v.state, probe: v.probe, errors: v.errors, screenshot: v.screenshot }])) };
+  report.recipes[id] = { pass, checks, states: Object.fromEntries(Object.entries(results).map(([k, v]) => [k, { state: v.state, probe: v.probe, inspect: v.inspect, errors: v.errors, screenshot: v.screenshot }])) };
   if (pass) {
     const metaPath = path.join(dir, 'recipe.json');
     const meta = safeJson(metaPath) || { id };
