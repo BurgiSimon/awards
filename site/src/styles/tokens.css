@@ -1,0 +1,26 @@
+/* Generated from DESIGN.md by /awards:system — keep both in sync. Values below are placeholders for the scaffold. */
+:root {
+  --ground: #f4f2ee;
+  --ink: #1a1c1c;
+  --accent: #0016cb;
+  --muted: color-mix(in oklab, var(--ink) 55%, var(--ground));
+  --line: color-mix(in oklab, var(--ink) 14%, var(--ground));
+
+  --font-display: "DisplayFace", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "BodyFace", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, Menlo, monospace;
+
+  --artboard: 1728;
+  --display: clamp(3rem, 12.1528vw, 13.125rem);
+  --label: 0.6875rem;
+  --gutter: clamp(20px, 4.1667vw, 120px);
+  --unit: 4px;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+  --ease-theme: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --dur-feedback: 160ms;
+  --dur-routine: 400ms;
+  --dur-hero: 1400ms;
+}
+[data-theme="dark"] { --ground: #1a1c1c; --ink: #f4f2ee; }

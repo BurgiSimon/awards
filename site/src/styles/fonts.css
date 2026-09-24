@@ -1,0 +1,6 @@
+/* Self-host every face as woff2. Never load from a fonts CDN. Replace the placeholders with your licensed or open faces. */
+/*
+@font-face { font-family: "DisplayFace"; src: url("/fonts/display.woff2") format("woff2"); font-weight: 400 700; font-display: swap; }
+@font-face { font-family: "BodyFace";    src: url("/fonts/body.woff2")    format("woff2"); font-weight: 400 600; font-display: swap; }
+@font-face { font-family: "BodyFace Fallback"; src: local("Arial"); size-adjust: 104%; ascent-override: 92%; descent-override: 22%; }
+*/

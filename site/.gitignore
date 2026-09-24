@@ -1,0 +1,4 @@
+node_modules/
+dist/
+.awards/captures/
+.awards/audit.json
