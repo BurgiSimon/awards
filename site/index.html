@@ -19,7 +19,7 @@
       <div class="tunnel-copy wrap">
         <h1 id="tunnel-title">
           <span class="wordmark" data-obstacle>awards</span>
-          <span class="claim">Put the website in the wind tunnel before anyone sees it.</span>
+          <span class="claim" data-split>Put the website in the wind tunnel before anyone sees it.</span>
         </h1>
         <p class="lede">A plugin for Claude Code and Codex. It designs and builds a site from a written contract, then tests it the way a design-award jury would: %%rules%% audit rules, captures from a real browser, and a juror in a fresh context who scores what it sees.</p>
         <div class="actions">
@@ -40,7 +40,7 @@
 
     <section class="run wrap" id="run" aria-labelledby="run-title">
       <header class="chapter-head">
-        <h2 id="run-title">Nine stations, one file that remembers them</h2>
+        <h2 id="run-title" data-split>Nine stations, one file that remembers them</h2>
         <p>Every build runs the same course. Each station leaves a file on disk; the next station reads that file, not a summary of it. <code>AWARDS.md</code> carries every decision from one session to the next.</p>
       </header>
       <ol class="stations" role="list">
@@ -58,7 +58,7 @@
 
     <section class="readout" id="readout" data-theme="readout" aria-labelledby="readout-title">
       <div class="wrap">
-        <h2 id="readout-title">This page, measured</h2>
+        <h2 id="readout-title" data-split>This page, measured</h2>
         <p class="readout-intro">The jury weighs four axes the way award entries are weighed. These are the scores it gave the page you are reading, copied from its report on %%jury-date%%.</p>
         <table class="weights">
           <caption class="sr-only">Jury scores for this page, by axis and weight</caption>
@@ -81,7 +81,7 @@
 
     <section class="instruments wrap" id="instruments" aria-labelledby="instruments-title">
       <header class="chapter-head">
-        <h2 id="instruments-title">%%rules%% rules, run after every edit</h2>
+        <h2 id="instruments-title" data-split>%%rules%% rules, run after every edit</h2>
         <p>The audit is deterministic: no model in the loop. In Claude Code it runs after every edit in a project that has an <code>AWARDS.md</code>, and stays silent everywhere else.</p>
       </header>
       <table class="families">
@@ -95,7 +95,7 @@
     </section>
 
     <section class="corpus wrap" id="corpus" aria-labelledby="corpus-title">
-      <h2 id="corpus-title">Taste you can cite</h2>
+      <h2 id="corpus-title" data-split>Taste you can cite</h2>
       <ul class="corpus-rows" role="list">
         <li>
           <p class="corpus-count"><span class="num">%%sites%%</span> site cards</p>
@@ -114,16 +114,16 @@
 
     <section class="install-plate" id="install" aria-labelledby="install-title" data-flow="close">
       <div class="wrap">
-        <h2 id="install-title">Two commands</h2>
+        <h2 id="install-title" data-split data-obstacle>Two commands</h2>
         <div class="clients">
-          <div class="client">
+          <div class="client" data-obstacle>
             <h3>Claude Code</h3>
             <ol class="commands" role="list">
               <li><code>/plugin marketplace add burgisimon/awards</code></li>
               <li><code>/plugin install awards@awards</code></li>
             </ol>
           </div>
-          <div class="client">
+          <div class="client" data-obstacle>
             <h3>Codex</h3>
             <ol class="commands" role="list">
               <li><code>codex plugin marketplace add burgisimon/awards</code></li>

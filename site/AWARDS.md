@@ -7,7 +7,7 @@
 - [x] Direction contract locked (concept)
 - [x] Visual system written (system → DESIGN.md, tokens.css)
 - [x] Page map and skeleton built (structure)
-- [ ] Stack booted (stack)
+- [x] Stack booted (stack)
 - [ ] Motion score authored and built (motion)
 - [ ] WebGL layer built or explicitly declined (webgl)
 - [ ] Jury disposition: —
@@ -58,9 +58,20 @@ Notes: responsive strategy is a fluid clamp scale on a 1728 artboard, single col
 ## Motion score
 | Moment | Trigger | Vocabulary (ease · duration · stagger) | Reduced-motion tier | Recipe |
 |---|---|---|---|---|
+| Load | no preloader; `awards.ready()` after `document.fonts.ready`; the GL chunk loads after ready and never gates text | — | same | `boot-lenis-gsap` |
+| Hero entrance (the one hero-scale moment) | fonts ready + flow mounted | streamlines grow in from the left edge · expo-out · 1.2 s · once | reduced: settled frame drawn at once; static: same | custom `flow` |
+| Hero claim | fonts ready | masked line reveal · expo-out · 0.9 s · stagger .08 | reduced: opacity .3 s; static: none | `split-text-masked-reveal` |
+| SIGNATURE: airflow | always while the tunnel is on screen | airspeed = damped Lenis velocity (k ≈ 6), turbulence behind the letters scales with it; pointer is a probe the lines bend around (fine pointer); streak pulses travel along lines at airspeed | reduced: one settled frame, no probe, no pulses; static: same; `Airflow off` button freezes it for everyone | custom `flow` |
+| Chapter headings (run, instruments, corpus, install) | `top 80%`, once | masked line reveal · expo-out · 0.9 s · stagger .08 | reduced: opacity .3 s; static: none | `split-text-masked-reveal` |
+| Readout (interruption) | section enters | the section is a cut to the ink theme (no tween); weight bars scrub 0 → weight · `ease: 'none'` · scrub .5 | reduced + static: bars at full weight | `theme-swap-tokens` (section theme), custom |
+| Close | install plate enters | flow mounts calm (low airspeed, no wake) around the heading and the command plates | reduced: settled frame | custom `flow` |
+| Hover | pointer / focus | button accent bar scaleX · expo-out · 400 ms; copy button border 160 ms | same (feedback kept) | — |
+| Routes | same-origin navigation | cross-document view transition, root cross-fade 400 ms | none | `page-transitions` (native variant) |
+| Budget | — | ≤ 10 tweens, 1 ticker (GSAP) drives Lenis, ScrollTrigger and the flow; flow pauses off-screen, on hidden tabs and when Airflow is off; no CSS infinite loops | — | — |
 
 ## Budgets & tiers
-- Entry JS (gz): · GL chunk (gz): · Textures per scene: · Fonts (files / KB): · LCP target: · Tiers: high / mid / low →
+- Stack: Vite 8 vanilla MPA (4 HTML entries), GSAP 3.15 + Lenis 1.3.26 on the GSAP ticker, three 0.186 in a lazy chunk; build-time facts plugin; no CMS. Scroll model: native + Lenis. Resize: the flow rebuilds its obstacle field on resize, never a reload. Transitions: native cross-document view transitions (`@view-transition`), none under reduced motion.
+- Entry JS (gz): ≤ 60 KB (GSAP + Lenis + boot) · GL chunk (gz): ≤ 160 KB (three core + flow, lazy) · Textures per scene: 0 (obstacle field rasterised at runtime from DOM text, ≤ 256 × 256) · Fonts (files / KB): 2 / 112 KB · LCP target: ≤ 2.5 s from the DOM wordmark · Tiers: high → full flow (≈ 160 lines, DPR ≤ 2) / mid → ≈ 90 lines, DPR ≤ 1.5 / low or no GL → one frozen frame drawn to canvas 2D; reduced motion → settled frame, static → same frame, no transitions.
 
 ## Jury log
 <!-- appended by awards:jury — date · disposition · D/U/C/Co · dev sub-scores · top fixes -->

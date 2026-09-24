@@ -85,14 +85,17 @@ export default function facts() {
     name: 'awards-facts',
     transformIndexHtml: {
       order: 'pre',
-      handler(html) {
+      handler(html, ctx) {
         values ??= render(collectFacts());
+        const page = (ctx.filename.split('/').pop() || 'index.html').replace('index.html', '');
         return html
           .replace(/<!-- @(\w+) -->/g, (_, name) => readFileSync(resolve(here, 'partials', `${name}.html`), 'utf8'))
           .replace(/%%([\w-]+)%%/g, (m, key) => {
             if (!(key in values)) throw new Error(`facts: unknown placeholder ${m}`);
             return values[key];
-          });
+          })
+          // Mark the current route in the shared header.
+          .replace(`<li><a href="./${page}">`, `<li><a href="./${page}" aria-current="page">`);
       },
     },
   };

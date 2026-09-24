@@ -25,6 +25,13 @@ a:hover { text-decoration-color: var(--accent); }
 .button:active { transform: translateY(1px); }
 .text-link { font-weight: 600; text-decoration-thickness: 1px; }
 
+/* ---------- routes: native cross-document transitions, off under reduced motion ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: var(--dur-routine); animation-timing-function: var(--ease-theme); }
+}
+[data-split] .line { padding-bottom: 0.06em; }
+
 /* ---------- header ---------- */
 .site-header {
   position: relative; z-index: 3; display: flex; align-items: center; justify-content: space-between;
@@ -35,6 +42,7 @@ a:hover { text-decoration-color: var(--accent); }
 .site-header ul { display: flex; gap: clamp(1rem, 2.3vw, 2.5rem); }
 .site-header nav a { display: inline-block; padding-block: 12px; text-decoration: none; font-weight: 500; }
 .site-header nav a:hover { text-decoration: underline; text-decoration-color: var(--accent); }
+.site-header nav a[aria-current="page"] { text-decoration: underline; text-decoration-thickness: 2px; text-decoration-color: var(--accent); }
 
 /* ---------- home: tunnel ---------- */
 .tunnel { position: relative; min-height: 100svh; display: grid; grid-template-rows: 1fr auto; margin-top: -64px; padding-top: 64px; isolation: isolate; }
@@ -92,7 +100,7 @@ a:hover { text-decoration-color: var(--accent); }
 .weights thead th:last-child, .weights td.num { text-align: right; }
 .weights tbody tr { border-top: 1px solid var(--line); }
 .weights tbody th { text-align: left; font-size: var(--h3); font-weight: 650; padding-block: calc(var(--unit) * 5); width: 50%; }
-.weights tbody th::after { content: ""; display: block; height: 6px; margin-top: calc(var(--unit) * 3); width: calc(var(--w) * 2.5%); background: currentColor; }
+.weights tbody th::after { content: ""; display: block; height: 6px; margin-top: calc(var(--unit) * 3); width: calc(var(--w) * 2.5%); background: currentColor; transform: scaleX(var(--grow, 1)); transform-origin: left; }
 .weights tbody tr:first-child th::after { background: var(--accent); }
 .weights td { font-family: var(--font-mono); font-size: var(--label); color: var(--muted); vertical-align: middle; }
 .weights td.num { font-family: var(--font-body); font-size: clamp(1.5rem, 3.4722vw, 3.75rem); font-weight: 700; font-stretch: 112%; color: var(--ink); letter-spacing: -0.02em; }
