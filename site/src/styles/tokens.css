@@ -1,20 +1,27 @@
-/* Generated from DESIGN.md by /awards:system — keep both in sync. Values below are placeholders for the scaffold. */
+/* Generated from DESIGN.md by awards:system — keep both in sync. */
 :root {
-  --ground: #f4f2ee;
-  --ink: #1a1c1c;
-  --accent: #0016cb;
-  --muted: color-mix(in oklab, var(--ink) 55%, var(--ground));
-  --line: color-mix(in oklab, var(--ink) 14%, var(--ground));
+  /* Committed accent: a daylight test lab. Graphite on a cool lab ground; one warning orange. */
+  --ground: #e8ebe9;
+  --ink: #15181b;
+  --accent: #d9480f;
+  --muted: color-mix(in oklab, var(--ink) 68%, var(--ground));
+  --line: color-mix(in oklab, var(--ink) 16%, var(--ground));
 
-  --font-display: "DisplayFace", "Helvetica Neue", Arial, sans-serif;
-  --font-body: "BodyFace", "Helvetica Neue", Arial, sans-serif;
-  --font-mono: ui-monospace, Menlo, monospace;
+  --font-display: "Archivo", "Archivo Fallback", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "Archivo", "Archivo Fallback", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Martian Mono", "Martian Mono Fallback", ui-monospace, Menlo, monospace;
+  --display-stretch: 125%;
+  --display-weight: 850;
 
   --artboard: 1728;
-  --display: clamp(3rem, 12.1528vw, 13.125rem);
+  --display: clamp(3.5rem, 12vw, 13rem);
+  --h2: clamp(2.25rem, 5.0926vw, 5.5rem);
+  --h3: clamp(1.25rem, 1.6204vw, 1.75rem);
+  --lede: clamp(1.125rem, 1.3889vw, 1.5rem);
   --label: 0.6875rem;
   --gutter: clamp(20px, 4.1667vw, 120px);
   --unit: 4px;
+  --measure: 64ch;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
@@ -23,4 +30,8 @@
   --dur-routine: 400ms;
   --dur-hero: 1400ms;
 }
-[data-theme="dark"] { --ground: #1a1c1c; --ink: #f4f2ee; }
+@supports (color: color(display-p3 1 1 1)) {
+  :root { --accent: color(display-p3 0.82 0.3 0.1); }
+}
+/* The readout chapter: the rig's instrument panel, ink ground. Only ground and ink trade places. */
+[data-theme="readout"] { --ground: #15181b; --ink: #e8ebe9; color-scheme: dark; }
