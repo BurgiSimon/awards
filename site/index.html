@@ -3,47 +3,141 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#e8ebe9">
-  <title>Site</title>
-  <meta name="description" content="">
-  <meta property="og:title" content="Site">
-  <meta property="og:image" content="/og.png">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <!-- <link rel="preload" href="/fonts/display.woff2" as="font" type="font/woff2" crossorigin> -->
+<!-- @head -->
+  <title>awards — websites tested before anyone sees them</title>
+  <meta name="description" content="A Claude Code and Codex plugin that designs and builds a website from a written contract, then tests it: %%rules%% audit rules, headless captures and a fresh-context jury.">
+  <meta property="og:title" content="awards — websites tested before anyone sees them">
+  <meta property="og:description" content="Put the website in the wind tunnel before anyone sees it. A plugin for Claude Code and Codex.">
+  <link rel="stylesheet" href="./src/styles/site.css">
 </head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="wrap" id="top">
-    <nav aria-label="Primary">
-      <a href="/" aria-label="Site home">Site</a>
-    </nav>
-  </header>
+<body class="page-home">
+  <div id="page">
+<!-- @header -->
 
   <main id="main">
-    <section class="section hero wrap" aria-labelledby="hero-title">
-      <p class="label">/ 01</p>
-      <h1 class="display" id="hero-title">
-        <span class="line">Replace this</span>
-        <span class="line">with the thesis.</span>
-      </h1>
+    <section class="tunnel" id="tunnel" aria-labelledby="tunnel-title" data-flow="hero">
+      <div class="tunnel-copy wrap">
+        <h1 id="tunnel-title">
+          <span class="wordmark" data-obstacle>awards</span>
+          <span class="claim">Put the website in the wind tunnel before anyone sees it.</span>
+        </h1>
+        <p class="lede">A plugin for Claude Code and Codex. It designs and builds a site from a written contract, then tests it the way a design-award jury would: %%rules%% audit rules, captures from a real browser, and a juror in a fresh context who scores what it sees.</p>
+        <div class="actions">
+          <a class="button" href="./install.html">Install the plugin</a>
+          <a class="text-link" href="./docs.html">Read the docs</a>
+        </div>
+      </div>
+      <div class="readout-strip wrap">
+        <dl>
+          <div><dt>Airspeed</dt><dd><output id="airspeed" aria-live="off">0</output> <span class="unit">px/s</span></dd></div>
+          <div><dt>Skills</dt><dd>%%skills%%</dd></div>
+          <div><dt>Audit rules</dt><dd>%%rules%%</dd></div>
+          <div><dt>Recipes verified</dt><dd>%%recipes-verified%% / %%recipes%%</dd></div>
+        </dl>
+        <button class="airflow" type="button" aria-pressed="true" data-airflow hidden>Airflow <span data-airflow-state>on</span></button>
+      </div>
     </section>
 
-    <section class="section wrap" data-reveal aria-labelledby="chapter-1">
-      <h2 id="chapter-1">Chapter one</h2>
-      <p>Authored content goes here. Label synthetic material until the real copy lands.</p>
+    <section class="run wrap" id="run" aria-labelledby="run-title">
+      <header class="chapter-head">
+        <h2 id="run-title">Nine stations, one file that remembers them</h2>
+        <p>Every build runs the same course. Each station leaves a file on disk; the next station reads that file, not a summary of it. <code>AWARDS.md</code> carries every decision from one session to the next.</p>
+      </header>
+      <ol class="stations" role="list">
+        <li><h3>Brief</h3><p>Seven facts: what only this subject can prove, who reads it and where, the stakes, the assets, the constraints, the routes, the sound.</p><p class="artefact"><code>AWARDS.md</code> brief</p></li>
+        <li><h3>Concept</h3><p>Seven candidate worlds; a seeded roll deals three; one question locks the direction.</p><p class="artefact">direction contract</p></li>
+        <li><h3>System</h3><p>Two to four colour tokens, one type contract, self-hosted fonts, every browser surface themed.</p><p class="artefact"><code>DESIGN.md</code>, <code>tokens.css</code></p></li>
+        <li><h3>Structure</h3><p>Chapters with beats, one interruption, a designed close and a 404, written as semantic HTML first.</p><p class="artefact">page map, skeleton</p></li>
+        <li><h3>Stack</h3><p>Vite by default. Lenis and GSAP on one ticker, and a hook that lets captures drive the page.</p><p class="artefact"><code>window.__awards</code></p></li>
+        <li><h3>Motion</h3><p>One authored moment per chapter, each with a reduced-motion tier. Never a global animation kill.</p><p class="artefact">motion score</p></li>
+        <li><h3>WebGL</h3><p>Taken only when a beat needs depth, in its own lazy chunk, with a DOM mirror and a fallback without it.</p><p class="artefact">GL chunk, or a written decline</p></li>
+        <li><h3>Jury</h3><p>A juror in a fresh context reads the captures before the contract and ends on one word.</p><p class="artefact"><code>.awards/jury/</code></p></li>
+        <li><h3>Ship</h3><p>The fixes in one batch, the audit clean or every exception explained, the numbers measured.</p><p class="artefact"><code>.awards/ship/</code></p></li>
+      </ol>
     </section>
 
-    <section class="section wrap" data-reveal data-scene aria-labelledby="chapter-2" style="position: relative">
-      <h2 id="chapter-2">Chapter two</h2>
-      <p>This section mounts the optional WebGL island.</p>
+    <section class="readout" id="readout" data-theme="readout" aria-labelledby="readout-title">
+      <div class="wrap">
+        <h2 id="readout-title">This page, measured</h2>
+        <p class="readout-intro">The jury weighs four axes the way award entries are weighed. These are the scores it gave the page you are reading, copied from its report on %%jury-date%%.</p>
+        <table class="weights">
+          <caption class="sr-only">Jury scores for this page, by axis and weight</caption>
+          <thead><tr><th scope="col">Axis</th><th scope="col">Weight</th><th scope="col">Score</th></tr></thead>
+          <tbody>
+            <tr style="--w: 40"><th scope="row">Design</th><td>40%</td><td class="num">%%jury-design%%</td></tr>
+            <tr style="--w: 30"><th scope="row">Usability</th><td>30%</td><td class="num">%%jury-usability%%</td></tr>
+            <tr style="--w: 20"><th scope="row">Creativity</th><td>20%</td><td class="num">%%jury-creativity%%</td></tr>
+            <tr style="--w: 10"><th scope="row">Content</th><td>10%</td><td class="num">%%jury-content%%</td></tr>
+          </tbody>
+        </table>
+        <dl class="verdict">
+          <div><dt>Weighted</dt><dd class="num">%%jury-weighted%%</dd></div>
+          <div><dt>Disposition</dt><dd class="mono">%%jury-disposition%%</dd></div>
+        </dl>
+        <blockquote class="memory"><p>%%jury-memory%%</p><footer>the jury's memory test</footer></blockquote>
+        <p class="readout-note">This juror scores about 0.7 below the published award on the same sites, by design. A <code>ship</code> here means the page cleared that stricter floor, not that it would win.</p>
+      </div>
+    </section>
+
+    <section class="instruments wrap" id="instruments" aria-labelledby="instruments-title">
+      <header class="chapter-head">
+        <h2 id="instruments-title">%%rules%% rules, run after every edit</h2>
+        <p>The audit is deterministic: no model in the loop. In Claude Code it runs after every edit in a project that has an <code>AWARDS.md</code>, and stays silent everywhere else.</p>
+      </header>
+      <table class="families">
+        <caption class="sr-only">Audit rule families</caption>
+        <thead><tr><th scope="col">Family</th><th scope="col">Rules</th><th scope="col">What it catches</th></tr></thead>
+        <tbody>
+%%families%%
+        </tbody>
+      </table>
+      <p class="slop-note">%%rules-slop%% of the rules look for the habits a generator falls into when nobody made a decision. When two or more of those families remain on a page, the jury caps Creativity at 6.</p>
+    </section>
+
+    <section class="corpus wrap" id="corpus" aria-labelledby="corpus-title">
+      <h2 id="corpus-title">Taste you can cite</h2>
+      <ul class="corpus-rows" role="list">
+        <li>
+          <p class="corpus-count"><span class="num">%%sites%%</span> site cards</p>
+          <p>Sites read closely, from Site of the Day winners to honourable mentions: palette, type, motion parameters, stack and weaknesses. Every fact is tagged verified, recalled, inferred or unknown.</p>
+        </li>
+        <li>
+          <p class="corpus-count"><span class="num">%%patterns%%</span> pattern files</p>
+          <p>Narrative models, hero archetypes, motion vocabulary, WebGL dosage and the accessibility paths the winners skipped, each citing the cards it came from.</p>
+        </li>
+        <li>
+          <p class="corpus-count"><span class="num">%%recipes%%</span> recipes</p>
+          <p>%%recipes-focused%% focused components and one complete page. Each is built with Vite and checked in headless Chromium by its own verifier. <a href="./docs.html#recipes">See the list</a>.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="install-plate" id="install" aria-labelledby="install-title" data-flow="close">
+      <div class="wrap">
+        <h2 id="install-title">Two commands</h2>
+        <div class="clients">
+          <div class="client">
+            <h3>Claude Code</h3>
+            <ol class="commands" role="list">
+              <li><code>/plugin marketplace add burgisimon/awards</code></li>
+              <li><code>/plugin install awards@awards</code></li>
+            </ol>
+          </div>
+          <div class="client">
+            <h3>Codex</h3>
+            <ol class="commands" role="list">
+              <li><code>codex plugin marketplace add burgisimon/awards</code></li>
+              <li><code>codex plugin add awards@awards</code></li>
+            </ol>
+          </div>
+        </div>
+        <p class="then">Then ask for a site with <code>/awards:craft</code> in Claude Code or <code>$awards:craft</code> in Codex. Captures need Node 20.19 or later and Playwright with Chromium; <a href="./install.html#requirements">the full requirements</a> are one page away.</p>
+      </div>
     </section>
   </main>
 
-  <footer class="section wrap">
-    <p class="label">© <span id="year"></span> Site</p>
-  </footer>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-  <script type="module" src="/src/main.js"></script>
+<!-- @footer -->
+  </div>
+  <script type="module" src="./src/main.js"></script>
 </body>
 </html>

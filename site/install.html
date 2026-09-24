@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- @head -->
+  <title>Install awards — Claude Code and Codex</title>
+  <meta name="description" content="Install the awards plugin in Claude Code or Codex with two commands, then check the environment for captures.">
+  <meta property="og:title" content="Install awards">
+  <meta property="og:description" content="Two commands in either client, then one check for captures.">
+  <link rel="stylesheet" href="./src/styles/site.css">
+</head>
+<body class="page-install">
+  <div id="page">
+<!-- @header -->
+
+  <main id="main" class="doc wrap">
+    <header class="doc-head">
+      <h1>Install</h1>
+      <p class="lede">Two commands in either client. The plugin installs as one folder: %%skills%% skills, the jury agent, the audit hook, the corpus, %%recipes%% recipes and the scripts they share.</p>
+    </header>
+
+    <section id="claude-code" aria-labelledby="claude-code-title">
+      <h2 id="claude-code-title">Claude Code</h2>
+      <ol class="commands" role="list">
+        <li><code>/plugin marketplace add burgisimon/awards</code></li>
+        <li><code>/plugin install awards@awards</code></li>
+      </ol>
+      <p>Start a whole site with <code>/awards:craft</code>, or one element with <code>/awards:component</code>. Every other skill also answers its own kind of request: ask for a critique and the jury runs.</p>
+    </section>
+
+    <section id="codex" aria-labelledby="codex-title">
+      <h2 id="codex-title">Codex</h2>
+      <ol class="commands" role="list">
+        <li><code>codex plugin marketplace add burgisimon/awards</code></li>
+        <li><code>codex plugin add awards@awards</code></li>
+      </ol>
+      <p>Codex names skills with a dollar sign. Three prompts to begin with:</p>
+      <ul class="prompts" role="list">
+        <li><code>$awards:craft Build an award-worthy website.</code></li>
+        <li><code>$awards:component Improve this component.</code></li>
+        <li><code>$awards:jury Review this page.</code></li>
+      </ul>
+      <p>Codex has no edit hook, so the audit runs when a skill calls it.</p>
+    </section>
+
+    <section id="requirements" aria-labelledby="requirements-title">
+      <h2 id="requirements-title">Requirements</h2>
+      <dl class="spec">
+        <div><dt>Node</dt><dd>20.19 or later on the 20 line, or 22.12 or later, for Vite builds.</dd></div>
+        <div><dt>Playwright and Chromium</dt><dd>For captures, the rendered audit and jury evidence. Install them in the website project. The static audit and the scaffold run without them.</dd></div>
+      </dl>
+      <ol class="commands" role="list">
+        <li><code>npm install --save-dev playwright</code></li>
+        <li><code>npx playwright install chromium</code></li>
+      </ol>
+      <p>The craft skill checks the environment once before it builds anything. The check reports what is missing; it installs nothing and changes no configuration.</p>
+    </section>
+
+    <section id="project-files" aria-labelledby="project-files-title">
+      <h2 id="project-files-title">What it writes in your project</h2>
+      <dl class="spec">
+        <div><dt><code>AWARDS.md</code></dt><dd>The brief, the direction contract, the page map, the motion score, budgets, the jury and ship logs, and every accepted exception.</dd></div>
+        <div><dt><code>DESIGN.md</code></dt><dd>The visual system: tokens and the rules for using them, kept identical to <code>src/styles/tokens.css</code>.</dd></div>
+        <div><dt><code>.awards/</code></dt><dd>Captures, jury reports, ship reports and the audit's JSON. Keep the captures out of version control.</dd></div>
+      </dl>
+    </section>
+
+    <section id="local" aria-labelledby="local-title">
+      <h2 id="local-title">From a local copy</h2>
+      <p>To try a checkout without the marketplace, load the plugin folder for one session:</p>
+      <ol class="commands" role="list">
+        <li><code>git clone %%repo%%</code></li>
+        <li><code>claude --plugin-dir awards/plugins/awards</code></li>
+      </ol>
+    </section>
+
+    <p class="doc-next"><a class="button" href="./docs.html">Read the docs</a></p>
+  </main>
+
+<!-- @footer -->
+  </div>
+  <script type="module" src="./src/pages.js"></script>
+</body>
+</html>

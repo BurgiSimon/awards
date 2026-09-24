@@ -4,8 +4,6 @@
   --ground: #e8ebe9;
   --ink: #15181b;
   --accent: #d9480f;
-  --muted: color-mix(in oklab, var(--ink) 68%, var(--ground));
-  --line: color-mix(in oklab, var(--ink) 16%, var(--ground));
 
   --font-display: "Archivo", "Archivo Fallback", "Helvetica Neue", Arial, sans-serif;
   --font-body: "Archivo", "Archivo Fallback", "Helvetica Neue", Arial, sans-serif;
@@ -32,6 +30,11 @@
 }
 @supports (color: color(display-p3 1 1 1)) {
   :root { --accent: color(display-p3 0.82 0.3 0.1); }
+}
+/* Derived tokens are re-declared on every theme root so they mix that theme's ground and ink, not the page's. */
+:root, [data-theme] {
+  --muted: color-mix(in oklab, var(--ink) 68%, var(--ground));
+  --line: color-mix(in oklab, var(--ink) 16%, var(--ground));
 }
 /* The readout chapter: the rig's instrument panel, ink ground. Only ground and ink trade places. */
 [data-theme="readout"] { --ground: #15181b; --ink: #e8ebe9; color-scheme: dark; }

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- audit-ignore: X02, X07 — this page quotes the audit's own rule messages, and recipe verification dates read as numbered markers -->
+<!-- @head -->
+  <title>awards docs — skills, jury, audit, recipes</title>
+  <meta name="description" content="Reference for the awards plugin: %%skills%% skills, the jury rubric, %%rules%% audit rules, %%recipes%% recipes and the scripts behind them.">
+  <meta property="og:title" content="awards docs">
+  <meta property="og:description" content="Skills, jury rubric, audit rules, recipes and scripts.">
+  <link rel="stylesheet" href="./src/styles/site.css">
+</head>
+<body class="page-docs">
+  <div id="page">
+<!-- @header -->
+
+  <main id="main" class="doc doc--index wrap">
+    <header class="doc-head">
+      <h1>Docs</h1>
+      <p class="lede">Everything below is read from the plugin at build time, version %%version%%.</p>
+    </header>
+
+    <nav class="doc-index" aria-label="On this page">
+      <ol role="list">
+        <li><a href="#skills">Skills <span class="mono">%%skills%%</span></a></li>
+        <li><a href="#flow">The craft flow</a></li>
+        <li><a href="#jury">Jury</a></li>
+        <li><a href="#audit">Audit <span class="mono">%%rules%%</span></a></li>
+        <li><a href="#recipes">Recipes <span class="mono">%%recipes%%</span></a></li>
+        <li><a href="#corpus">Corpus <span class="mono">%%sites%%</span></a></li>
+        <li><a href="#scripts">Scripts</a></li>
+      </ol>
+    </nav>
+
+    <div class="doc-body">
+      <section id="skills" aria-labelledby="skills-title">
+        <h2 id="skills-title">Skills</h2>
+        <p>Skills cannot call each other, so each phase ends with a written hand-off to the next. Every skill can also be asked for on its own.</p>
+        <dl class="spec skills">
+          <div><dt><code>craft</code></dt><dd>Builds a whole site end to end and owns <code>AWARDS.md</code>. The entry point when you are unsure which skill applies.</dd></div>
+          <div><dt><code>concept</code></dt><dd>Finds the one idea, the story and the signature interaction; deals three directions with a seeded roll and writes the direction contract.</dd></div>
+          <div><dt><code>system</code></dt><dd>Type contract, colour strategy, tokens and themed browser surfaces; writes <code>DESIGN.md</code> and <code>tokens.css</code>.</dd></div>
+          <div><dt><code>structure</code></dt><dd>Page map, hero archetype, components, semantic skeleton, responsive strategy and the 404.</dd></div>
+          <div><dt><code>stack</code></dt><dd>Scaffolds Vite (default), Next, Nuxt, Astro, SvelteKit or Webflow with Lenis, GSAP and Three on one ticker.</dd></div>
+          <div><dt><code>motion</code></dt><dd>Preloader, reveals, scrubs, cursor, transitions and the reduced-motion tiers.</dd></div>
+          <div><dt><code>webgl</code></dt><dd>The GL layer with Three.js, OGL, React Three Fiber or Threlte: shaders, asset pipeline, quality tiers and fallbacks.</dd></div>
+          <div><dt><code>component</code></dt><dd>One award-level component inside an existing site, inheriting its world.</dd></div>
+          <div><dt><code>jury</code></dt><dd>Scores work like a design-award jury in a fresh context and returns ordered fixes and a disposition.</dd></div>
+          <div><dt><code>ship</code></dt><dd>Applies the fixes in one batch, then runs the audit, captures, performance, accessibility and meta checks and writes the ship report.</dd></div>
+          <div><dt><code>research</code></dt><dd>Turns a reference site into a case-study card in the corpus format.</dd></div>
+        </dl>
+      </section>
+
+      <section id="flow" aria-labelledby="flow-title">
+        <h2 id="flow-title">The craft flow</h2>
+        <p>Brief, concept, system, structure, stack, motion, WebGL, jury, ship. Two rules hold throughout: no page code before the direction contract is locked, and no stack chosen before the concept. A phase runs only when its entry condition holds, and its exit artefact is what the next phase reads.</p>
+        <p>The direction contract has ten blocks: <span class="mono">THESIS</span>, <span class="mono">WORLD</span>, <span class="mono">STORY</span>, <span class="mono">FIRST VIEWPORT</span>, <span class="mono">SIGNATURE</span>, <span class="mono">SCROLL MODEL</span>, <span class="mono">LOAD &amp; CLOSE</span>, <span class="mono">DIVERGENCE</span>, <span class="mono">FINISH</span> and the seed. A mood word in any of them (premium, immersive, cinematic) sends it back to concept.</p>
+      </section>
+
+      <section id="jury" aria-labelledby="jury-title">
+        <h2 id="jury-title">Jury</h2>
+        <p>The juror runs in a forked context so the build conversation cannot anchor it. It inventories the first viewport in its own words before it reads the contract, then scores four axes on anchored scales plus five developer criteria.</p>
+        <table class="data">
+          <caption class="sr-only">Jury axes and weights</caption>
+          <thead><tr><th scope="col">Axis</th><th scope="col">Weight</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Design</th><td class="num">40%</td></tr>
+            <tr><th scope="row">Usability</th><td class="num">30%</td></tr>
+            <tr><th scope="row">Creativity</th><td class="num">20%</td></tr>
+            <tr><th scope="row">Content</th><td class="num">10%</td></tr>
+          </tbody>
+        </table>
+        <dl class="spec">
+          <div><dt><span class="mono">recapture</span></dt><dd>The evidence is missing, blank, stale or broken. No score exists yet.</dd></div>
+          <div><dt><span class="mono">rebuild</span></dt><dd>Weighted score under 6.8, a juror could name the source site, the memory test returns only a mood, or the thesis is not visible.</dd></div>
+          <div><dt><span class="mono">fix</span></dt><dd>Score from 6.8 to 7.19, any axis under 6.8, P0 or P1 audit findings, or a broken contract row.</dd></div>
+          <div><dt><span class="mono">ship</span></dt><dd>7.2 or more, no axis under 6.8, no P0 or P1 findings, and the usability walk passed.</dd></div>
+        </dl>
+      </section>
+
+      <section id="audit" aria-labelledby="audit-title">
+        <h2 id="audit-title">Audit</h2>
+        <p>%%rules%% rules in eight families, %%rules-p0p1%% of them at P0 or P1. Static by default; <code>--render</code> adds the checks that need a browser. Exit code 2 means P0 or P1 findings.</p>
+%%rule-table%%
+      </section>
+
+      <section id="recipes" aria-labelledby="recipes-title">
+        <h2 id="recipes-title">Recipes</h2>
+        <p>%%recipes-focused%% focused recipes and one complete composition. Each folder holds the page, its script and styles, a README, a manifest and a verifier that drives it in headless Chromium. Skills adapt them; they are never pasted.</p>
+        <ul class="recipe-list" role="list">
+%%recipe-list%%
+        </ul>
+      </section>
+
+      <section id="corpus" aria-labelledby="corpus-title">
+        <h2 id="corpus-title">Corpus</h2>
+        <p>%%sites%% site cards and %%patterns%% pattern files. Cards are read for their principles and their take and don't-take lists; the rest is evidence, never a plan. Every direction contract names three neighbouring cards, the principle taken from each and the literal move refused.</p>
+      </section>
+
+      <section id="scripts" aria-labelledby="scripts-title">
+        <h2 id="scripts-title">Scripts</h2>
+        <p>Paths are relative to the plugin folder. The skills call these for you; they also run on their own.</p>
+        <dl class="spec scripts">
+          <div><dt><code>scripts/doctor.mjs &lt;project&gt;</code></dt><dd>Checks Node, dependencies, Playwright and a real browser launch. Installs nothing.</dd></div>
+          <div><dt><code>scripts/audit.mjs &lt;dir|file|url&gt; [--render] [--json]</code></dt><dd>The craft-floor audit.</dd></div>
+          <div><dt><code>scripts/capture.mjs &lt;url|dir&gt; [--reduced-motion] [--no-webgl]</code></dt><dd>Jury evidence: three scroll positions, a phone, reduced motion and scripted states.</dd></div>
+          <div><dt><code>scripts/new-project.mjs --stack vite --name &lt;dir&gt; [--webgl]</code></dt><dd>Copies the Vite scaffold with one ticker and the capture hook already wired.</dd></div>
+          <div><dt><code>scripts/roll.mjs --deal 3 --of 7</code></dt><dd>The seeded direction roll used by the concept skill.</dd></div>
+          <div><dt><code>scripts/verify-recipes.mjs</code></dt><dd>Builds every recipe and runs its verifier in headless Chromium.</dd></div>
+        </dl>
+      </section>
+    </div>
+  </main>
+
+<!-- @footer -->
+  </div>
+  <script type="module" src="./src/pages.js"></script>
+</body>
+</html>

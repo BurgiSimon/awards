@@ -6,7 +6,7 @@
 - [x] Brief captured
 - [x] Direction contract locked (concept)
 - [x] Visual system written (system → DESIGN.md, tokens.css)
-- [ ] Page map and skeleton built (structure)
+- [x] Page map and skeleton built (structure)
 - [ ] Stack booted (stack)
 - [ ] Motion score authored and built (motion)
 - [ ] WebGL layer built or explicitly declined (webgl)
@@ -43,15 +43,17 @@
 ## Page map
 | # | Chapter / route | Beat (entrance · hold · exit) | Components (recipe ids) | Notes |
 |---|---|---|---|---|
-| 1 | Home · Tunnel | flow reaches the name · claim + install · airspeed rises | | |
-| 2 | Home · The run | nine stations appear · phases and their artefacts · hand to the gauges | | |
-| 3 | Home · Readout (interruption) | weighted bar fills · this page's own jury scores · cut to the instruments | | |
-| 4 | Home · Instruments | gauge panel lands · 8 rule families, slop scan · hand to the corpus | | |
-| 5 | Home · Corpus | index rows arrive · cards, patterns, recipes · link to docs | | |
-| 6 | Home · Close | flow turns laminar · install plate + footer · end | | |
-| 7 | /install | commands first · Claude Code, Codex, requirements, first prompt · back home or docs | | |
-| 8 | /docs | index on screen one · skills, jury, audit, recipes, scripts · install | | |
-| 9 | /404 | lines detach · "Flow separated", ways out · home | | |
+| 1 | Home · Tunnel | flow reaches the name · claim + install · airspeed rises | custom `flow` (SIGNATURE, GL moment 1), readout strip, `reduced-motion-switch` (airflow button), `split-text-masked-reveal` | Archetype: wordmark as obstacle (generative line field, GL). Left stack: wordmark 12 vw, claim, lede, actions; right half open for the flow. Phone: same stack, flow at phone aspect behind the wordmark. A11y: canvas aria-hidden, airflow `aria-pressed` button, airspeed `<output>` not live. Still: one settled flow frame. Register: declarative. |
+| 2 | Home · The run | nine stations appear · phases and their artefacts · hand to the gauges | `split-text-masked-reveal` (h2), custom station list (`<ol>`) | The sequence is real, so the list numbers mean something. Phone: one column per station. Still: final layout. |
+| 3 | Home · Readout (interruption) | weighted bar fills · this page's own jury scores · cut to the instruments | `theme-swap-tokens` (section theme `readout`), custom weight bars | INTERRUPTION: register switches to the instrument panel on an ink ground. Scores come from `jury.json`, copied verbatim from the jury report. Table semantics kept. Still: bars at full width. |
+| 4 | Home · Instruments | gauge panel lands · 8 rule families, slop scan · hand to the corpus | custom families table | Numbers read from `rules.json` at build time. Phone: description column narrows, no content dropped. Register: numeric. |
+| 5 | Home · Corpus | index rows arrive · cards, patterns, recipes · link to docs | custom rows | Rule of three. Counts read from the plugin at build time. Numbers inside rows, not a metric band. |
+| 6 | Home · Close | flow turns laminar · install plate + footer · end | custom `flow` (GL moment 2, calm), copy buttons, designed footer | Conversion: copy two commands. Copy buttons are enhancement; commands stay selectable text. `role=status` announces copy. |
+| 7 | /install | commands first · Claude Code, Codex, requirements, first prompt · back home or docs | copy buttons, spec `<dl>` | Read mode. No scene. |
+| 8 | /docs | index on screen one · skills, jury, audit, recipes, scripts · install | sticky index `<nav>`, `<details>` rule families, recipe rows | Read mode, index on screen one; everything generated from the plugin at build time. Phone: index inline at top. |
+| 9 | /404 | lines detach · "Flow separated", ways out · home | static SVG echo of the flow | Three routes out, links first; `<base>` set from `SITE_ROOT` so assets resolve at any depth. |
+
+Notes: responsive strategy is a fluid clamp scale on a 1728 artboard, single column under 768 px, graceful degrade (the phone keeps every heading, number and command). Static checkpoint 2026-09-24: `.awards/captures/20260924-161247-static2/manifest.json` (desktop) and `.awards/captures/20260924-161202-static/manifest.json` (desktop + mobile). Found and fixed: derived tokens resolved at `:root`, so the readout theme inherited the light muted colour; claim competed with the wordmark. Checked against visual-composition: one dominant object per viewport, open field on the right reserved for the flow.
 
 ## Motion score
 | Moment | Trigger | Vocabulary (ease · duration · stagger) | Reduced-motion tier | Recipe |

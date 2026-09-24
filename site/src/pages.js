@@ -1,17 +1,14 @@
-// Home: boot only. Motion and the flow land in their own phases.
+// Install and docs: read mode. One ticker, the capture hook, copy buttons; no scene.
 import './styles/site.css';
 import { awards } from './lib/awards-hook.js';
 import { createScroll } from './lib/scroll.js';
 import { syncMotionTierAttribute, motionTier } from './lib/reduced-motion.js';
-import { detectQualityTier } from './lib/quality-tiers.js';
 import { mountCopyButtons } from './copy.js';
 
 syncMotionTierAttribute();
-const scroll = createScroll();
+createScroll();
 mountCopyButtons();
-const quality = await detectQualityTier({ sampleMs: 300 });
 await document.fonts.ready;
-awards.addState(() => ({ motion: motionTier(), quality: quality.tier }));
+awards.addState(() => ({ motion: motionTier(), page: document.body.className }));
 document.documentElement.classList.add('is-ready');
 awards.ready();
-export { scroll, quality };
