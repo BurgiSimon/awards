@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>persistent-mode-switch — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <!-- Restore the stored modes before first paint, so a reload never flashes the default and never tweens into the stored one. -->
+  <script>
+    try {
+      var t = localStorage.getItem('psm:theme'), g = localStorage.getItem('psm:grid');
+      if (t === 'dark' || t === 'default') document.documentElement.setAttribute('data-theme', t);
+      if (g === 'on') document.documentElement.setAttribute('data-grid', 'on');
+    } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar">
+    <a href="../index.html" class="label">← recipes</a>
+    <p class="label topbar__id">/ persistent-mode-switch</p>
+    <button type="button" class="pill" aria-pressed="false" aria-keyshortcuts="G" data-grid-toggle>Grid <span class="pill__state" data-grid-state>[off]</span></button>
+  </header>
+
+  <main id="main">
+    <section class="wrap cols hero" aria-labelledby="t">
+      <h1 class="display hero__title" id="t">Held by the visitor.</h1>
+      <p class="lede">A mode the visitor chooses, not one the scroll imposes. The docked switch re-skins the page, the Grid pill lays the page's own twelve columns over it, and both remember the choice across reloads. Keys: <kbd>L</kbd> light, <kbd>D</kbd> dark, <kbd>G</kbd> grid. The copy and tiles are a synthetic demo.</p>
+    </section>
+
+    <section class="wrap cols wall" aria-labelledby="w">
+      <h2 class="wall__title" id="w">Twelve tiles on twelve columns</h2>
+      <article class="tile tile--a"><p class="label">01</p><h3>Stored</h3><p>The choice is written to <code>localStorage</code> and read back in the head, before first paint.</p></article>
+      <article class="tile tile--b"><p class="label">02</p><h3>Shown</h3><p>Each control prints its state in brackets, so the label is the readout.</p></article>
+      <article class="tile tile--c"><p class="label">03</p><h3>Guarded</h3><p>Single-key hotkeys ignore text fields and any Ctrl, Alt or Meta chord.</p></article>
+      <article class="tile tile--d"><p class="label">04</p><h3>Constant</h3><p>The chrome stays put while the ground and ink change beneath it.</p></article>
+      <article class="tile tile--e"><p class="label">05</p><h3>Honest</h3><p>Grid on shows the real columns these tiles sit in, not a decoration.</p></article>
+      <article class="tile tile--f"><p class="label">06</p><h3>Calm</h3><p>Under reduced motion the switch changes state with no tween at all.</p></article>
+    </section>
+
+    <section class="wrap cols guard" aria-labelledby="g">
+      <h2 class="guard__title" id="g">Type here: the hotkeys stand down.</h2>
+      <form class="guard__form" role="search" data-guard-form>
+        <label class="label" for="q">Search the notes</label>
+        <input id="q" name="q" type="search" autocomplete="off" placeholder="try d, g or l">
+      </form>
+    </section>
+
+    <section class="wrap close" aria-labelledby="c" data-close>
+      <h2 class="label close__title" id="c">End of the notes. Which ground next?</h2>
+      <fieldset class="switch switch--large" data-switch="close" inert>
+        <legend class="sr-only">Theme</legend>
+        <span class="switch__ind" aria-hidden="true"></span>
+        <label class="switch__opt"><input type="radio" name="theme-close" value="default" aria-keyshortcuts="L"><span>Light</span></label>
+        <label class="switch__opt"><input type="radio" name="theme-close" value="dark" aria-keyshortcuts="D"><span>Dark</span></label>
+      </fieldset>
+    </section>
+  </main>
+
+  <!-- The docked switch. At the close it cross-scales out while the large copy arrives; only one copy is ever reachable. -->
+  <div class="dock" data-dock>
+    <fieldset class="switch" data-switch="dock">
+      <legend class="sr-only">Theme</legend>
+      <span class="switch__ind" aria-hidden="true"></span>
+      <label class="switch__opt"><input type="radio" name="theme-dock" value="default" aria-keyshortcuts="L"><span>Light</span></label>
+      <label class="switch__opt"><input type="radio" name="theme-dock" value="dark" aria-keyshortcuts="D"><span>Dark</span></label>
+    </fieldset>
+    <p class="label dock__state" aria-hidden="true">Theme <span data-theme-state>[L]</span></p>
+  </div>
+
+  <div class="grid-overlay wrap" aria-hidden="true" data-grid-overlay>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <p class="sr-only" aria-live="polite" data-live></p>
+  <footer class="wrap footer"><p class="label">awards · recipe · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

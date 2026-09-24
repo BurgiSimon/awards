@@ -16,7 +16,11 @@
     "gsap.matchMedia branches",
     "anime.js createScope({ mediaQueries })"
   ],
-  "seenIn": [],
+  "seenIn": [
+    "nodeck",
+    "christoph-nagel",
+    "mensch"
+  ],
   "verified": {
     "date": "2026-09-23",
     "chromium": "153.0.8010.12"

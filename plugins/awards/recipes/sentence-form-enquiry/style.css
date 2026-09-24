@@ -1,0 +1,82 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+/* A warm paper world for the demo; the ink and accent both hold 4.5:1 on the ground. */
+:root {
+  --ground: #efe9df;
+  --ink: #2b2118;
+  --accent: #9a3b1c;
+  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --sentence: clamp(1.625rem, 3.2vw, 3.25rem);
+}
+[hidden] { display: none !important; }
+a:focus-visible, button:focus-visible, input:focus-visible, .sent:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.topbar { display: flex; justify-content: space-between; gap: calc(var(--unit) * 4); padding-block: calc(var(--unit) * 4); }
+.topbar > * { margin: 0; }
+
+.enquiry { max-width: 72rem; padding-block: clamp(4rem, 10vw, 9rem) clamp(4rem, 8vw, 7rem); }
+.enquiry__title { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(2.25rem, 6vw, 5.5rem); line-height: .95; letter-spacing: -.03em; max-width: 14ch; }
+.enquiry__note { margin: calc(var(--unit) * 6) 0 clamp(3rem, 6vw, 5rem); max-width: 44ch; color: var(--muted); }
+
+/* The sentence: reading serif at display size, the blanks sit on the baseline and grow with what is typed. */
+.sentence__text { margin: 0; font-family: var(--font-serif); font-size: var(--sentence); line-height: 1.55; max-width: 30em; overflow-wrap: anywhere; }
+.frag { cursor: default; }
+label.frag { cursor: text; }
+.blank {
+  field-sizing: content; /* native auto-width; older engines keep the min/max below */
+  min-inline-size: 6ch; max-inline-size: 100%;
+  margin: 0 .1em; padding: 0 .1em;
+  border: 0; border-bottom: 1px solid var(--ink); border-radius: 0;
+  background: transparent; color: var(--accent);
+  font-family: inherit; font-size: inherit; line-height: 1.2;
+  transition: border-color var(--dur-feedback) var(--ease-out-expo);
+}
+.blank::placeholder { color: color-mix(in oklab, var(--ink) 62%, var(--ground)); font-style: italic; }
+.blank:focus { border-bottom-color: var(--accent); }
+.blank[aria-invalid="true"], [aria-invalid="true"] .choice { border-bottom: 2px solid var(--accent); }
+
+.choices { display: inline; }
+.punct { margin-inline-start: -.15em; }
+.choice { position: relative; display: inline-block; margin: 0 .05em; padding: 0 .25em; border-bottom: 1px solid var(--ink); cursor: pointer; font-style: italic; color: color-mix(in oklab, var(--ink) 72%, var(--ground)); }
+.choice input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.choice:has(input:checked) { color: var(--ground); background: var(--ink); font-style: normal; }
+.choice:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.errors { list-style: none; margin: calc(var(--unit) * 6) 0 0; padding: 0; display: grid; gap: calc(var(--unit) * 1); }
+.error { color: var(--accent); font-weight: 600; }
+.error::before { content: "— " / ""; } /* empty alt: the dash stays out of the accessible description */
+
+.sentence__send { display: flex; flex-wrap: wrap; align-items: center; gap: calc(var(--unit) * 4) calc(var(--unit) * 6); margin-top: calc(var(--unit) * 10); }
+.sentence__send .label { margin: 0; }
+.send { min-height: 48px; padding: 0 calc(var(--unit) * 6); border: 0; border-radius: 999px; background: var(--ink); color: var(--ground); font-weight: 600; cursor: pointer; transition: background-color var(--dur-feedback) var(--ease-out-expo); }
+.send:hover { background: var(--accent); }
+
+.sent { margin: calc(var(--unit) * 10) 0 0; max-width: 40ch; font-family: var(--font-serif); font-size: clamp(1.25rem, 2vw, 1.75rem); line-height: 1.4; }
+
+.footer { padding-block: calc(var(--unit) * 8); }
+.footer p { margin: 0; }
+
+/* Entrances. Full: a short rise. Reduced: opacity only. Static: none. */
+@keyframes rise { from { opacity: 0; transform: translateY(.4em); } }
+@keyframes fade { from { opacity: 0; } }
+.error, .sent { animation: rise .5s var(--ease-out-expo) both; }
+@media (prefers-reduced-motion: reduce) {
+  .error, .sent { animation-name: fade; }
+  .blank, .send { transition: none; }
+}
+html[data-motion="reduced"] :is(.error, .sent) { animation-name: fade; }
+html[data-motion="static"] :is(.error, .sent) { animation: none; }
+html:is([data-motion="reduced"], [data-motion="static"]) :is(.blank, .send) { transition: none; }
+
+/* Phone: the sentence stacks. Each fragment is a line, each blank a full-width field below it; the choices wrap as pills. */
+@media (max-width: 767px) {
+  .sentence__text { font-size: 1.5rem; line-height: 1.35; }
+  .frag { display: block; margin-top: calc(var(--unit) * 5); }
+  .frag:first-child { margin-top: 0; }
+  .punct { display: none; }
+  .blank { display: block; width: 100%; margin: calc(var(--unit) * 2) 0 0; min-height: 48px; }
+  .choices { display: flex; flex-wrap: wrap; gap: calc(var(--unit) * 2); margin-top: calc(var(--unit) * 2); }
+  .choice { display: inline-flex; align-items: center; min-height: 44px; padding: 0 .5em; border: 1px solid var(--ink); border-radius: 999px; }
+  [aria-invalid="true"] .choice { border: 2px solid var(--accent); }
+}

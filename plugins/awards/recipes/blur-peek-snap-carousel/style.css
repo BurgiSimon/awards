@@ -1,0 +1,54 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.topbar { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); }
+.topbar > * { margin: 0; }
+.hero { padding-block: calc(var(--unit) * 6) calc(var(--unit) * 10); }
+.hero h1 { max-width: 24ch; margin: calc(var(--unit) * 3) 0 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(2.25rem, 4.6vw, 5rem); line-height: .95; letter-spacing: -.03em; }
+.notes h2 { margin: 0 0 calc(var(--unit) * 6); font-family: var(--font-display); font-weight: 500; font-size: clamp(1.75rem, 3vw, 3rem); letter-spacing: -.02em; }
+.notes ul { max-width: 62ch; padding-left: 1.2em; }
+.foot { min-height: auto; }
+
+.carousel__head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--gutter); margin-bottom: calc(var(--unit) * 5); }
+.carousel__title { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(1.25rem, 1.8vw, 1.75rem); letter-spacing: -.01em; }
+.carousel__title .label { margin-left: .6em; }
+.carousel__count { margin: 0; font-variant-numeric: tabular-nums; color: var(--ink); }
+
+/* The viewport clips (clip, not hidden, so focus cannot scroll it); the track moves by transform only.
+   pan-y leaves vertical page scroll to the browser and hands horizontal drags to the pointer handlers. */
+.carousel__viewport { overflow: clip; touch-action: pan-y; cursor: grab; }
+.carousel__viewport:active { cursor: grabbing; }
+.carousel__track { display: flex; width: max-content; margin: 0; padding: 0; list-style: none; user-select: none; -webkit-user-select: none; will-change: transform; }
+
+/* Focus by subtraction: every card the same size, the neighbours dimmed and blurred, the centred one sharp.
+   One duration for both properties (robbietilton: .5 s ease-in-out). */
+/* The svh cap keeps the art (16:10) short enough that title, meta and Previous / Next sit in the first viewport. */
+.item { flex: 0 0 min(62vw, 880px, 66svh); opacity: .2; filter: blur(6px); transition: opacity .5s var(--ease-theme), filter .5s var(--ease-theme); }
+.item.is-active { opacity: 1; filter: none; }
+/* Narrow screens drop the blur (costly on phones) and dim harder. */
+@media (max-width: 920px) {
+  .item { flex-basis: 60vw; filter: none; opacity: .1; transition-property: opacity; }
+  .item.is-active { opacity: 1; }
+}
+
+.card { display: grid; grid-template-rows: 1fr auto auto; gap: calc(var(--unit) * 2); color: inherit; text-decoration: none; -webkit-user-drag: none; }
+.card__art { display: block; aspect-ratio: 16 / 10; border-radius: clamp(14px, 1.6vw, 28px); background: #d0d0d0; }
+.card__title { margin-top: calc(var(--unit) * 2); font-family: var(--font-display); font-weight: 500; font-size: clamp(1.5rem, 2.4vw, 2.5rem); line-height: 1; letter-spacing: -.02em; }
+.card__meta { color: var(--muted); }
+
+/* Card art drawn in CSS (synthetic demo content, no image files). */
+.art--1 { background: radial-gradient(circle at 50% 58%, #1a1c1c 0 11%, transparent 11.5%), radial-gradient(60% 46% at 50% 58%, #e8e3d8 0 60%, transparent 61%), linear-gradient(160deg, #c9c3b6, #a39d90); }
+.art--2 { background: radial-gradient(38% 30% at 42% 52%, #f4f2ee 0 55%, transparent 57%), radial-gradient(circle at 60% 44%, #ff5a36 0 4%, transparent 4.5%), linear-gradient(200deg, #25303a, #0e1318); }
+.art--3 { background: linear-gradient(90deg, transparent 0 22%, rgb(244 242 238 / .9) 22% 78%, transparent 78%) center / 100% 52% no-repeat, repeating-linear-gradient(0deg, #1c5660 0 6px, #184c55 6px 12px); }
+.art--4 { background: repeating-linear-gradient(90deg, #1a1c1c 0 3px, transparent 3px 9px) 22% 50% / 34% 40% no-repeat, radial-gradient(circle at 72% 50%, #1a1c1c 0 12%, #c2542d 12.5% 18%, transparent 18.5%), linear-gradient(#e8b04a, #c98c2c); }
+.art--5 { background: conic-gradient(from 90deg at 50% 50%, #0b0c24 0 25%, #1f2a6b 0 50%, #0b0c24 0 75%, #1f2a6b 0) center / 30% 48% no-repeat, radial-gradient(circle, #f4f2ee 0 30%, #dcd7ce 31%); }
+.art--6 { background: radial-gradient(28% 40% at 50% 40%, #ffe9b8 0 40%, rgb(255 233 184 / 0) 100%), linear-gradient(#2a2420 0 70%, #3b312a 70%); }
+
+.carousel__nav { display: flex; gap: calc(var(--unit) * 2); margin-top: calc(var(--unit) * 6); }
+.carousel__btn { min-height: 44px; padding: 0 calc(var(--unit) * 5); border: 1px solid var(--ink); border-radius: 999px; background: transparent; cursor: pointer; }
+
+/* Reduced and static tiers keep the focus state but change it instantly: no blur or opacity transition. */
+@media (prefers-reduced-motion: reduce) { .item { transition: none; } }
+html[data-motion="reduced"] .item, html[data-motion="static"] .item { transition: none; }

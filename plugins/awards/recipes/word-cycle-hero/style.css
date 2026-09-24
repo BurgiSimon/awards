@@ -1,0 +1,33 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+[hidden] { display: none !important; } /* the fieldset and note set display; hidden must still win */
+.topbar { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); }
+.hero { min-height: 100svh; display: grid; align-content: end; gap: calc(var(--unit) * 8); padding-block: calc(var(--unit) * 16); }
+.lede { max-width: 60ch; margin: 0; }
+a:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.headline { margin: 0; max-width: 13ch; font-family: var(--font-display); font-weight: 500; font-size: clamp(2.5rem, 7.2vw, 8.5rem); line-height: 0.95; letter-spacing: -0.03em; }
+
+/* Every word sits in the same grid cell, so the slot is as wide as the widest word without measuring:
+   the line never reflows when the word changes. Clipped on the vertical axis only, so the roll hides
+   above and below while the caret may overhang the widest word. The padding just clears ascenders and descenders
+   at this line-height; more would let a rolling word show over the next line. */
+.slot { display: inline-grid; overflow: visible clip; padding-block: 0.04em; margin-block: -0.04em; color: var(--accent); }
+.slot__word, .slot__type { grid-area: 1 / 1; white-space: pre; }
+/* Before main.js, and under reduced / static motion: the first word, nothing else. */
+.slot__word:not(:first-child), .slot__type { visibility: hidden; }
+.slot__type::after { content: ""; display: inline-block; width: 0.05em; height: 0.72em; margin-right: -0.05em; background: currentColor; animation: caret 1s steps(1) infinite; }
+@keyframes caret { 50% { opacity: 0; } }
+
+.drivers { display: flex; flex-wrap: wrap; gap: calc(var(--unit) * 2) calc(var(--unit) * 6); margin: 0; padding: 0; border: 0; }
+.drivers legend { padding: 0; margin-bottom: calc(var(--unit) * 2); }
+.drivers label { display: inline-flex; align-items: center; gap: 0.5em; min-height: 44px; cursor: pointer; }
+.drivers input { width: 1.1em; height: 1.1em; margin: 0; accent-color: var(--accent); }
+
+.outro p { max-width: 50ch; }
+.foot { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 12); }
+
+@media (prefers-reduced-motion: reduce) {
+  .slot__type::after { animation: none; }
+}

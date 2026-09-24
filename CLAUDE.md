@@ -17,7 +17,7 @@ claude plugin validate .                                  # manifest, skills, ag
 claude --plugin-dir plugins/awards                        # from the repo root: load the plugin locally
 
 cd recipes && npm install                                 # once; pinned deps for every recipe
-node ../scripts/verify-recipes.mjs                        # all 44 entries: vite build, serve, headless Chromium + SwiftShader WebGL
+node ../scripts/verify-recipes.mjs                        # all 60 entries: vite build, serve, headless Chromium + SwiftShader WebGL
 node ../scripts/verify-recipes.mjs --only boot-lenis-gsap,marquee-raf-mask   # one or a few recipes
 node ../scripts/verify-recipes.mjs --no-build --json      # reuse recipes/dist, machine-readable report
 npm run dev                                               # from recipes/: Vite dev server with the recipe index page
@@ -53,7 +53,7 @@ Requirements: Node 20.19+ (20.x) or 22.12+, Playwright plus its Chromium browser
 
 **Hook.** `hooks/hooks.json` runs `audit.mjs --quick --changed-file -` on every `Edit|Write`; it is silent unless the project has an `AWARDS.md`, and `AWARDS_HOOK=0` disables it. No `Stop` hook by design.
 
-**Recipes are a contract.** The catalogue has 43 focused recipes and one complete composition, 44 verifiable entries. Each `recipes/<id>/` holds `index.html`, `main.js`, `style.css`, `README.md`, `recipe.json` (`id, title, tags, deps, tier, variants, seenIn, verified`) and `verify.mjs` exporting `states`, `probe(), assert(results)`. `verify-recipes.mjs` builds all entries with `recipes/vite.config.mjs`, serves `dist/`, drives each state (scroll fraction, viewport, reducedMotion, actions) and stamps `recipe.json.verified` on pass. Every page exposes `window.__awards = { ready, scrollTo, state }` via `_shared/awards-hook.js`, which is what `capture.mjs` and the jury use to drive pages. Shared modules: `_shared/raf.js` (single ticker), `reduced-motion.js` (full / reduced / static tiers), `quality-tiers.js` (device probe → DPR/pixel budgets), `tokens.css`, `base.css`, and the visual examples' `_shared/composition.css`.
+**Recipes are a contract.** The catalogue has 59 focused recipes and one complete composition, 60 verifiable entries. Each `recipes/<id>/` holds `index.html`, `main.js`, `style.css`, `README.md`, `recipe.json` (`id, title, tags, deps, tier, variants, seenIn, verified`) and `verify.mjs` exporting `states`, `probe(), assert(results)`. `verify-recipes.mjs` builds all entries with `recipes/vite.config.mjs`, serves `dist/`, drives each state (scroll fraction, viewport, reducedMotion, actions) and stamps `recipe.json.verified` on pass. Every page exposes `window.__awards = { ready, scrollTo, state }` via `_shared/awards-hook.js`, which is what `capture.mjs` and the jury use to drive pages. Shared modules: `_shared/raf.js` (single ticker), `reduced-motion.js` (full / reduced / static tiers), `quality-tiers.js` (device probe → DPR/pixel budgets), `tokens.css`, `base.css`, and the visual examples' `_shared/composition.css`.
 
 **Runtime checks.** `scripts/doctor.mjs` checks prerequisites without changing configuration. `scripts/lib/actions.mjs` drives both recipe verification and `capture.mjs --states`; external JSON uses selector waits, while trusted recipe states may use predicates. The schema and exit codes live in `references/capture-states.md`. `evals/behavior.mjs` tests real behavior (no model calls); never run it alongside recipe/browser verification.
 

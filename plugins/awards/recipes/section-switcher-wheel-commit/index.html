@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>section-switcher-wheel-commit — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ section-switcher-wheel-commit</p></header>
+  <!-- Without JS the panels are ordinary sections on a scrolling page. main.js adds html.deck, which stops the
+       document scrolling and stacks them; inactive panels are then inert. -->
+  <main id="main" class="deck-stage" data-deck>
+    <section class="panel wrap" data-theme="default" aria-labelledby="p1">
+      <h1 class="display panel__title" id="p1" data-rise>Five panels, one gesture.</h1>
+      <p class="lede" data-rise>The page never scrolls. Wheel input fills the ring at the bottom; at full it commits one step and the next panel slides in. Stop short and the ring drains back after a second. The deck and its copy are a synthetic demo.</p>
+    </section>
+    <section class="panel wrap" data-theme="dark" aria-labelledby="p2">
+      <h2 class="display panel__title" id="p2" data-rise>Accumulate.</h2>
+      <p class="lede" data-rise>Every wheel delta adds its magnitude to a running sum toward 500. The ring shows the sum, so an invisible cost becomes a visible, reversible commitment.</p>
+    </section>
+    <section class="panel wrap" data-theme="default" aria-labelledby="p3">
+      <h2 class="display panel__title" id="p3" data-rise>Commit once.</h2>
+      <p class="lede" data-rise>At the threshold the ring completes, the index moves by exactly one and the wheel is locked while the panel travels, so trackpad inertia cannot spend a second step.</p>
+    </section>
+    <section class="panel wrap" data-theme="accent" aria-labelledby="p4">
+      <h2 class="display panel__title" id="p4" data-rise>Roll back.</h2>
+      <p class="lede" data-rise>A second without wheel input drains the ring to zero. Reversing direction starts a fresh sum the other way. At the first and last panel the blocked direction never fills.</p>
+    </section>
+    <section class="panel wrap" data-theme="dark" aria-labelledby="p5">
+      <h2 class="display panel__title" id="p5" data-rise>Every road in.</h2>
+      <p class="lede" data-rise>Arrow and Page keys, Home and End, a swipe past 55 px, the Prev and Next buttons and the wheel all reach every panel. Each change is announced once. Under reduced motion panels swap in place and the wheel still works.</p>
+    </section>
+  </main>
+  <nav class="wrap controls" aria-label="Panels" data-controls hidden>
+    <button type="button" class="key" data-prev>← Prev</button>
+    <div class="ring" role="progressbar" aria-label="Wheel toward next panel" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-ring>
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle class="ring__track" cx="20" cy="20" r="17" pathLength="1"/><circle class="ring__arc" cx="20" cy="20" r="17" pathLength="1" data-arc/></svg>
+      <span class="label ring__hint"><span class="hint-fine">Wheel to commit · ← → keys</span><span class="hint-touch">Swipe or tap Next</span></span>
+    </div>
+    <p class="label counter" aria-hidden="true" data-counter>01 / 05</p>
+    <button type="button" class="key" data-next>Next →</button>
+  </nav>
+  <p class="sr-only" aria-live="polite" data-live></p>
+  <footer class="sr-only"><p>awards · recipe · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{
+  "id": "gl-endless-reel-sheets",
+  "title": "Endless reel of deformable GL sheets",
+  "tags": [
+    "webgl",
+    "three",
+    "virtual-scroll",
+    "infinite",
+    "wheel",
+    "velocity",
+    "keyboard",
+    "dom-mirror"
+  ],
+  "tier": "P2",
+  "deps": [
+    "three@0.186.0"
+  ],
+  "variants": [
+    "Three.js segmented planes with a pixel-unit camera and canvas-drawn card art (this, default)",
+    "Horizontal belt on landscape, vertical stack of full-width cards on portrait (same engine, uVertical swizzle)",
+    "OGL: Plane({ widthSegments: 48, heightSegments: 24 }) + Program with the same vertex shader",
+    "Real project screenshots: KTX2 textures in place of the canvas art, one per work, the button list unchanged"
+  ],
+  "seenIn": [
+    "jesperlandberg",
+    "siena"
+  ],
+  "verified": {
+    "date": "2026-09-23",
+    "chromium": "153.0.8010.12"
+  }
+}

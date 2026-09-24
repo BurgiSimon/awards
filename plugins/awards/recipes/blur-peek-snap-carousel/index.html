@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>blur-peek-snap-carousel — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ blur-peek-snap-carousel</p></header>
+  <main id="main">
+    <section class="wrap hero" aria-labelledby="t">
+      <p class="label">/ carousel · synthetic demo</p>
+      <h1 id="t">One card in focus, the next one a blur at the edge.</h1>
+    </section>
+
+    <!-- A centred carousel: the viewport clips, the track moves by transform. Each card is a real link in a list;
+         only the active one is in the Tab order (roving tabindex) and the arrow keys step one card.
+         The card faces are drawn in CSS; no image ships. -->
+    <section class="carousel" data-carousel aria-roledescription="carousel" aria-labelledby="ct">
+      <div class="wrap carousel__head">
+        <h2 id="ct" class="carousel__title">Hand-held prototypes <span class="label">2021–2026</span></h2>
+        <p class="carousel__count label" data-count aria-live="polite">1 of 6</p>
+      </div>
+      <div class="carousel__viewport" data-viewport>
+        <ul class="carousel__track" data-track role="list">
+          <li class="item"><a class="card" href="#notes" draggable="false"><span class="card__art art--1" aria-hidden="true"></span><span class="card__title">Pocket Loom</span><span class="card__meta label">Wearable · 2026</span></a></li>
+          <li class="item"><a class="card" href="#notes" draggable="false"><span class="card__art art--2" aria-hidden="true"></span><span class="card__title">Signal Pebble</span><span class="card__meta label">Sensor · 2025</span></a></li>
+          <li class="item"><a class="card" href="#notes" draggable="false"><span class="card__art art--3" aria-hidden="true"></span><span class="card__title">Glass Deck</span><span class="card__meta label">Display · 2024</span></a></li>
+          <li class="item"><a class="card" href="#notes" draggable="false"><span class="card__art art--4" aria-hidden="true"></span><span class="card__title">Field Radio</span><span class="card__meta label">Audio · 2023</span></a></li>
+          <li class="item"><a class="card" href="#notes" draggable="false"><span class="card__art art--5" aria-hidden="true"></span><span class="card__title">Thread Dial</span><span class="card__meta label">Input · 2022</span></a></li>
+          <li class="item"><a class="card" href="#notes" draggable="false"><span class="card__art art--6" aria-hidden="true"></span><span class="card__title">Low Lantern</span><span class="card__meta label">Light · 2021</span></a></li>
+        </ul>
+      </div>
+      <div class="wrap carousel__nav">
+        <button type="button" class="carousel__btn" data-prev>Previous</button>
+        <button type="button" class="carousel__btn" data-next>Next</button>
+      </div>
+    </section>
+
+    <section class="section wrap notes" id="notes" aria-labelledby="n">
+      <h2 id="n">Rules</h2>
+      <ul>
+        <li>Neighbours dim to <code>.2</code> and blur <code>6px</code>; the centred card is sharp. Below <code>920px</code> there is no blur and neighbours sit at <code>.1</code>.</li>
+        <li>The gap is computed so a fixed slice of each neighbour shows: 10&nbsp;% of the width on desktop, 14&nbsp;% on a phone.</li>
+        <li>The release speed picks the snap: a fast flick lands in <code>320 ms</code> on a crisp curve, a slow drag in <code>450–600 ms</code> on a softer one.</li>
+        <li>Past either end the drag resists, and a critically damped spring on the shared ticker brings it back.</li>
+        <li>Arrow keys, Home and End step the carousel; reduced motion keeps the blur but snaps instantly.</li>
+      </ul>
+    </section>
+  </main>
+  <footer class="section wrap foot"><p class="label">awards · recipe · MIT · synthetic demo content</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

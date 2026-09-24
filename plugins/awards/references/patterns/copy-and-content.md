@@ -16,12 +16,17 @@ Why: an adjective is a claim the visitor must trust; a number is a claim the vis
 | Footprint and people counted | over 15 global offices; almost 38 nationalities; over 35 % female workforce | [site:mont-fort] | [verified] |
 | Real statistics as the argument's evidence | unemployment figures scattered across the shattered glass | [site:why-zero] | [verified] |
 | A mission in one counted sentence | a 19-word manifesto line | [site:igloo] | [verified] |
+| Area, counts and minutes as the leasing argument | 53 300 m²; 266 underground and 254 ground spaces; a 12 m lobby ceiling; minutes / by bus | [site:likova] | [verified] |
+| A design decision quantified | each grid's margins, power lines and paddings in a hairline table | [site:grids-obys] | [verified] |
+| Evidence laid on each item | star ratings with outlet names, festival laurels and running times on every film frame | [site:siena] | [verified] |
 
 Rules: every superlative becomes a figure with a unit; dual units whenever the audience spans systems; ranges stay ranges; a number that cannot be sourced is either cut or labelled synthetic (`#content-at-full-fidelity`); numbers are set as copy, never as a count-up (`[pattern:components-catalog#spec-and-metric-blocks]`).
 
 ## Verb chains
 
 Why: a mission is a sequence of actions, and a sentence built from verbs compresses a timeline into one breath. USAvionix chains detect → suppress → secure → keep open → contain and frames the hardware as an agent that acts [site:usavionix] [verified fragments]; Montfort's capability line is four verbs in a row — trade, refine, store, transport [site:mont-fort] [verified]; Seasats closes a chapter with four one-word stabs [site:seasats] [verified fragment].
+
+One slot can hold the chain: a fixed headline whose last word rolls through four verbs states a range of skills without a list [site:zainabkabira] [verified]; three trades as three single words swapped in place [site:christoph-nagel] [verified].
 
 Rules: one verb per beat, no adjective between verbs; arrows or full stops, not commas and "and"; the subject is the product or the visitor, never "we believe"; a stab rhythm once per page, in a hold, not in a hero.
 
@@ -52,6 +57,13 @@ Why: the action must cost as much as the decision — a cart on a five-figure tr
 | A sponsorship or fandom | A partnership inventory; fan capture injected at runtime | [site:lando-norris] | [verified] |
 | Adopting a library | Install, then sponsor tiers | [site:animejs] | [verified] |
 | A satire | The world's own conversions — a repository, a launch listing | [site:oryzo] | [verified repository] |
+| A satire with no exit | the one order button is the joke and the author's contact hides in the Legal dialog — what to beat | [site:nodeck] | [verified] |
+| Office leasing | Select office space and Contact us pinned in the header on every frame | [site:likova] | [verified] |
+| A bespoke car commission | a brochure PDF in the close; the enquiry sits behind the burger with no persistent action | [site:911rennsport] | [verified] |
+| A community subscription | three priced plans in plain numbers, sign-up in the header | [site:okaydev] | [verified] |
+| Art bought from a gallery | prices or "price by enquiry" on each card, and an enquiry written as a sentence the visitor completes | [site:the-boyd] | [verified] |
+| A safety-compliance platform | Request demo, persistent in the nav | [site:siteassist] | [verified] |
+| A studio brief | the e-mail copied to the clipboard in one click | [site:warmnfuzzy] [site:wearedirect] | [verified] |
 
 Rules: never "Get started" or "Learn more" (audit X01); the label is the outcome (download the spec sheet, book a call, join the waitlist); the primary action appears in the first viewport and again at the close (`[pattern:narrative-structures#the-close]`); one primary action per page.
 
@@ -70,24 +82,30 @@ Why: chrome written in the audience's own dialect turns navigation into evidence
 | Thermal, lidar and IR readouts as the loader | [site:usavionix] | [verified description] |
 | A live local clock and an ONLINE/OFFLINE studio status in the brand bar | [site:boc] | [verified] |
 | A typed status line cycling developer jokes; mono serials per work; binary ticker rules | [site:wodniack] | [verified] |
+| The pointer printed as latitude and longitude to four decimals | [site:siteassist] | [verified] |
+| A HUD of local clock, temperature and pointer x / y over a visible construction grid with crosshairs | [site:haoqi] | [verified] |
+| Registration crosshairs at the corners and mid-edges of every frame | [site:runrobrun] | [verified] |
+| `SLIDE n/10`, presenter notes and PREV / NEXT keys | [site:nodeck] | [verified] |
+| A dated changelog of commit subjects with shas | [site:areebali] | [verified] |
+| Ticket metadata: year, minutes, a stub numbered 004 | [site:siena] | [verified] |
 
 Rules: pick the audience's real paperwork — a call sheet for film, a console for defence, a research station for a monument, a catalogue for jewellery — and render the chrome in it; every state control names its current state; the dialect is decoration only where it is not also information (a slash in `::before`, a status in the DOM); a monospace or HUD register on a product that is not technical is a costume (`craft-floor.md`).
 
 ## Metadata as boast
 
-Why: adjectives about craft are unverifiable; a team size, a year and an award count are not. Every project on Léo Parpeix's page carries a quartet — name · discipline · year · team of N at a studio — plus an award tally, and the About page is a tabular CV with an awards count [site:leo-parpeix] [recalled medium]. The Line credits directors, composers and years in tables [site:the-line] [verified]; Floema labels each piece with a number and a collection [site:floema-jewelry] [verified]. Wodniack sets its awards as a built stack of ruled, hatched boxes down a drawn corridor, so the tally reads as structure rather than a logo row [site:wodniack] [verified].
+Why: adjectives about craft are unverifiable; a team size, a year and an award count are not. Every project on Léo Parpeix's page carries a quartet — name · discipline · year · team of N at a studio — plus an award tally, and the About page is a tabular CV with an awards count [site:leo-parpeix] [recalled medium]. The Line credits directors, composers and years in tables [site:the-line] [verified]; Floema labels each piece with a number and a collection [site:floema-jewelry] [verified]. Wodniack sets its awards as a built stack of ruled, hatched boxes down a drawn corridor, so the tally reads as structure rather than a logo row [site:wodniack] [verified]. A testimonial signed with the build's project number, colour, model and donor chassis is worth more than the adjectives above it [site:911rennsport] [verified]; a difficulty score out of 10 per project [site:spasoje] [verified] and an awards tally in the bio [site:jesperlandberg] [verified] run the same move.
 
 Rules: credibility travels as structured data in a `<dl>` or a table; count what can be counted (people, years, awards, offices) and name what can be named (roles, studios); leave out the adjective the number replaces.
 
 ## The named villain
 
-Why: a campaign needs something to push against, and a page that only affirms has no tension. Why Zero names the traditional promise, shatters it, devalues the diploma and buries the argument in real statistics before offering its alternative [site:why-zero] [verified]. Seasats' anti-hype claim positions the whole category's vapourware as the implicit villain [site:seasats] [verified fragment].
+Why: a campaign needs something to push against, and a page that only affirms has no tension. Why Zero names the traditional promise, shatters it, devalues the diploma and buries the argument in real statistics before offering its alternative [site:why-zero] [verified]. Seasats' anti-hype claim positions the whole category's vapourware as the implicit villain [site:seasats] [verified fragment]. Nodeck makes the villain a format — the pitch-deck habit — and argues against it in that format's own chrome [site:nodeck] [verified].
 
 Rules: the villain is a condition or an incumbent category, never a competitor by name; it is destroyed with a fact, not an insult; it appears once, early, and the alternative gets the longer half of the page.
 
 ## Total sincerity
 
-Why: a joke that winks once is a joke; a joke that never winks is a world. Oryzo presents a cork coaster with keynote sincerity — the studio's own line is that the object was so mundane that treating it seriously was already funny [site:oryzo] [recalled high] — and extends the world off-site: a repository with six geometry checkpoints named like model releases, a fabricated benchmark, a limitations list, a paper and an open licence [verified], plus a launch listing, a founder video, a launch film awarded on its own and a multi-part making-of series [recalled high]. Lando ships an award-trophy model inside its own scene [site:lando-norris] [verified]; Anime.js builds its identity with the library it sells and publishes the animation as an example [site:animejs] [verified].
+Why: a joke that winks once is a joke; a joke that never winks is a world. Oryzo presents a cork coaster with keynote sincerity — the studio's own line is that the object was so mundane that treating it seriously was already funny [site:oryzo] [recalled high] — and extends the world off-site: a repository with six geometry checkpoints named like model releases, a fabricated benchmark, a limitations list, a paper and an open licence [verified], plus a launch listing, a founder video, a launch film awarded on its own and a multi-part making-of series [recalled high]. Lando ships an award-trophy model inside its own scene [site:lando-norris] [verified]; Anime.js builds its identity with the library it sells and publishes the animation as an example [site:animejs] [verified]. A fictional consultancy sold with a deadpan sales register, declared fictional only in its credits and legal dialogs [site:nodeck] [verified]; a loader labelled "fake loading" is the wink this rule refuses [site:spasoje] [verified].
 
 Rules: adopt a genre's complete conventions — the launch keynote, the model card, the changelog — and apply them with zero tonal breaks; extend the world into at least one artefact off the page (a repository, a film, a listing); the making-of is distribution, not an afterthought.
 
@@ -95,7 +113,7 @@ Rules: adopt a genre's complete conventions — the launch keynote, the model ca
 
 Why: credits prove the work was made by people, and they are where provenance becomes legible — Son Daven's type from a Ukrainian foundry for a Ukrainian project is a credit line that does design work [site:son-daven] [verified].
 
-Seen: a Site Credits link in the footer [site:the-line] [verified link; contents unknown]; launch credits by role — direction, front-end, 3D, sound, copy [site:leo-parpeix] [verified]; designer-developer and producer named [site:son-daven] [verified]; author, licence and sponsors in the README [site:animejs] [verified]; a making-of split by discipline [site:oryzo] [recalled high].
+Seen: a Site Credits link in the footer [site:the-line] [verified link; contents unknown]; launch credits by role — direction, front-end, 3D, sound, copy [site:leo-parpeix] [verified]; designer-developer and producer named [site:son-daven] [verified]; author, licence and sponsors in the README [site:animejs] [verified]; a making-of split by discipline [site:oryzo] [recalled high]; a mono credits list for every chapter's recording and every photographer as the page's close [site:gehry-getty] [verified]; a credits dialog naming each stock asset and sound source [site:nodeck] [verified]; a colophon linking the series' earlier issues [site:grids-obys] [verified].
 
 Rules: a credits route or footer block naming roles; faces with their foundries, libraries with their versions, open assets with their licences; the plugin and the reference corpus are not credited as authors.
 
@@ -103,7 +121,7 @@ Rules: a credits route or footer block naming roles; faces with their foundries,
 
 Why: placeholder content hides layout faults and reads as generated; invented content presented as real is a lie the jury may catch. Shopify's artwork carried an AI substrate under human finish and the brief labels such assets synthetic [site:shopify-editions-w26] [recalled high]; Why Zero's own tags admit some generated content [site:why-zero] [verified tags]; Oryzo let generation into parts of the pipeline and kept it out of the final look [site:oryzo] [recalled high].
 
-Rules: no lorem (audit X02), no emoji icons (audit X03); every image has alt text written as content; when a figure, a quote, a client or an image is invented for the build, it is written at full fidelity — plausible precision, a real unit, a real-sounding source — and listed as synthetic under `AWARDS.md ## Brief → Assets on hand`; never fabricate awards, press, testimonials or partner logos, even as placeholders.
+Rules: no lorem (audit X02), no emoji icons (audit X03); every image has alt text written as content; when a figure, a quote, a client or an image is invented for the build, it is written at full fidelity — plausible precision, a real unit, a real-sounding source — and listed as synthetic under `AWARDS.md ## Brief → Assets on hand`; never fabricate awards, press, testimonials or partner logos, even as placeholders. The misses this rule catches [verified on each card]: a platform's default "This is some text inside of a div block." inside a loader [site:noth]; a placeholder sentence and one headline repeated across eight cases [site:siena]; `<meta name="title" content="Title">` and a consent line naming another business, over a catalogue whose image host no longer resolves [site:the-boyd]; every client logo's alt reading one client's name [site:primesec]; alt text copied between rows [site:robbietilton].
 
 ## Copy audit
 

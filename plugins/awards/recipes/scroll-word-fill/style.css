@@ -1,0 +1,22 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+.topbar { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); }
+.hero { display: grid; align-content: end; gap: calc(var(--unit) * 8); }
+.hero .display { max-width: 12ch; }
+.lede { max-width: 60ch; margin: 0; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+/* The scroll consumes the section's own height; the stage inside it is sticky, so no pin spacer is injected. */
+.fill { height: 300svh; position: relative; }
+.fill__stage { position: sticky; top: 0; height: 100svh; display: grid; align-content: center; gap: calc(var(--unit) * 8); }
+.fill__stage h2 { margin: 0; }
+.statement { margin: 0; max-width: 24ch; font-family: var(--font-display); font-weight: 500; font-size: clamp(1.75rem, 4.2vw, 4.25rem); line-height: 1.05; letter-spacing: -0.02em; }
+
+.outro p { max-width: 50ch; }
+.foot { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 12); }
+
+/* No fill under reduced motion, even before main.js runs: every word rests at full ink. */
+@media (prefers-reduced-motion: reduce) {
+  .statement .word { opacity: 1 !important; }
+}

@@ -1,0 +1,51 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+[hidden] { display: none !important; } /* the cue sets display; an author display value beats the UA's [hidden] rule */
+
+.topbar { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); }
+.topbar > * { margin: 0; }
+.hero { display: grid; align-content: center; gap: calc(var(--unit) * 8); }
+.hero > * { margin: 0; }
+.hero .display { max-width: 12ch; }
+.lede { max-width: 56ch; margin-top: calc(var(--unit) * 8); }
+.hero .lede { margin-top: 0; }
+.work h2, .outro h2 { max-width: 18ch; margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(2rem, 5vw, 4.5rem); line-height: 1; letter-spacing: -.02em; }
+
+/* The section owns the reel's final box: viewport height, gutter all round. Its height is explicit so taking the reel
+   out of flow while it is docked never moves anything below. */
+.reel-section { position: relative; height: 100svh; padding: var(--gutter); }
+.reel { position: relative; width: 100%; height: 100%; overflow: clip; border-radius: calc(var(--unit) * 6); background: #1a1c1c; color: #f4f2ee; }
+
+/* Docked: the same box, fixed to the viewport at the same inset, scaled down around its bottom-right corner, so the
+   bottom-right corner sits at the gutter corner at every scale. main.js adds the class and owns the scale. */
+.reel.is-docked { position: fixed; inset: var(--gutter); width: auto; height: auto; z-index: 5; transform-origin: 100% 100%; will-change: transform; }
+
+/* The placeholder film: a 200 %-wide layer of colour bands whose pattern repeats every reel width, drifted by one
+   period, so the loop is seamless. A real reel is a muted, playsinline <video> in the same slot. */
+.reel__film {
+  position: absolute; inset: 0 -100% 0 0;
+  background:
+    radial-gradient(40% 60% at 30% 40%, rgba(255, 255, 255, .28), transparent),
+    repeating-linear-gradient(90deg, #0016cb 0 12.5%, #ff5a36 12.5% 25%, #ffc800 25% 37.5%, #1a1c1c 37.5% 50%);
+  animation: reel-drift 18s linear infinite;
+}
+@keyframes reel-drift { to { transform: translateX(-50%); } }
+.reel__title { position: absolute; left: 4%; top: 5%; margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(3rem, 12vw, 14rem); line-height: .85; letter-spacing: -.04em; }
+.reel__meta { position: absolute; left: 4%; bottom: 6%; margin: 0; color: inherit; }
+
+/* The cue sits over the docked card's lower edge; it fades as the grow begins (main.js). */
+.dock-cue {
+  position: fixed; right: calc(var(--gutter) + var(--unit) * 4); bottom: calc(var(--gutter) + var(--unit) * 4); z-index: 6;
+  display: inline-block; padding: calc(var(--unit) * 2) calc(var(--unit) * 3); border-radius: 999px;
+  background: #f4f2ee; color: #1a1c1c; text-decoration: none;
+}
+
+.foot { min-height: auto; }
+
+/* Reduced and static tiers: no dock (main.js never adds it) and a still film. */
+@media (prefers-reduced-motion: reduce) {
+  .reel__film { animation: none; }
+}
+html[data-motion="reduced"] .reel__film, html[data-motion="static"] .reel__film { animation: none; }

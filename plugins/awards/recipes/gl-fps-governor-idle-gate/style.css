@@ -1,0 +1,30 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+
+/* The field sits behind everything; the page scrolls over it. */
+.field { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; }
+.topbar, main, .footer { position: relative; z-index: 1; }
+.topbar { display: flex; justify-content: space-between; gap: calc(var(--unit) * 4); padding-block: calc(var(--unit) * 5); }
+.topbar > * { margin: 0; }
+
+.hero { min-height: 100svh; padding-block: calc(var(--unit) * 16) calc(var(--unit) * 12); display: grid; align-content: end; gap: calc(var(--unit) * 8); }
+.hero > * { margin: 0; }
+.lede { max-width: 58ch; }
+
+/* Live readout of the governor and the gate. Numbers are tabular so the row does not jitter. */
+.gov { display: flex; flex-wrap: wrap; gap: calc(var(--unit) * 3) calc(var(--unit) * 10); margin: 0; font-variant-numeric: tabular-nums; }
+.gov div { display: grid; gap: calc(var(--unit) * 1); }
+.gov dd { margin: 0; color: var(--ink); font-size: .8125rem; letter-spacing: .02em; text-transform: none; }
+
+.actions { display: flex; flex-wrap: wrap; gap: calc(var(--unit) * 3); }
+.btn { min-height: 44px; padding: calc(var(--unit) * 2) calc(var(--unit) * 5); border: 1px solid var(--ink); border-radius: 0; background: var(--ground); color: var(--ink); font-family: var(--font-mono); font-size: var(--label); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: background-color var(--dur-feedback) var(--ease-out-expo), color var(--dur-feedback) var(--ease-out-expo); }
+.btn:hover, .btn[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+.btn:disabled { opacity: .5; cursor: default; }
+
+.notes { padding-block: calc(var(--unit) * 24); max-width: calc(62ch + 2 * var(--gutter)); }
+.notes h2 { font-family: var(--font-display); font-weight: 500; font-size: clamp(1.75rem, 3.5vw, 3rem); letter-spacing: -.02em; line-height: 1; margin: 0 0 calc(var(--unit) * 8); }
+.notes p { margin: 0 0 calc(var(--unit) * 5); padding: calc(var(--unit) * 1) 0; background: color-mix(in oklab, var(--ground) 82%, transparent); }
+.footer { padding-block: calc(var(--unit) * 12); }

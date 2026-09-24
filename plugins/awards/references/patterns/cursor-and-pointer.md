@@ -21,6 +21,8 @@ Rules:
 
 `[recipe:cursor-two-speed]` ships exactly this: the two rates, the hover scales, `data-cursor` badges, hidden on coarse pointers and on window leave.
 
+The 2026-09-23 cards ship single-rate cursors [verified on each]: a follower at .28 per frame, not created on coarse pointers [site:runrobrun]; a glass `Scroll` roundel at lerp .2 that snaps to the pointer under reduced motion [site:christoph-nagel]; a project-name pill at .3 [site:alectear]. Their misses: position written to `left` / `top` with no lerp [site:robbietilton]; a new `gsap.to` every frame instead of one `quickTo` [site:the-boyd]; one rAF loop per hover area that never stops [site:to-top].
+
 ## Contextual badges
 
 Why: a cursor that names the gesture replaces a layer of tooltips and lets media stay clean. Léo Parpeix swaps a pill with an SVG icon into the ring over each kind of target — drag on the carousel, play on the reel, view on projects, copy on the email — alternating two accent colours [site:leo-parpeix] [recalled medium]; a fifth badge belongs to its easter egg and is not a pattern [inferred].
@@ -30,6 +32,7 @@ Rules:
 - The badge is a hint, not the label: the target keeps its own accessible name, because the cursor is invisible to assistive tech and absent on touch.
 - Swap badges with an opacity or scale step within `--dur-feedback`; never re-animate the ring's position for a badge change.
 - Four or five verbs at most; a cursor vocabulary larger than the site's gesture set is decoration.
+- Seen since [verified on each card]: a ring reading `SCROLL` that becomes an up or down arrow over invisible prev / next halves of the screen, a click stepping the reel [site:siena]; a `Scroll` badge that relabels itself `Scroll zurück` on the last panel, with legal iframes posting pointer coordinates back so one cursor survives inside them [site:christoph-nagel]; a label whose characters roll every 2 s, hidden over iframes and embeds [site:serotoninn]; a *showreel* label in `mix-blend-mode: difference` [site:warmnfuzzy].
 
 ## Hover previews and cursor-following reveals
 
@@ -40,10 +43,11 @@ Rules:
 - The preview is `aria-hidden`; the row is a real `<a>` whose text names the work. On `:focus-visible` the same preview appears, anchored to the row instead of the pointer (`[recipe:hover-preview-list]`).
 - Coarse pointer: a static thumbnail in the row, or the row opens on tap — never a hover-only reveal; hover-native lists vanish on touch without such a fallback [site:mindmarket] [inferred].
 - Reduced tier: the preview appears in place with an opacity step, no chase.
+- The preview can be the item itself: at rest every tile wears the house ink and hover swaps in the real colourway [site:alectear] [verified] — which then needs the same swap on `:focus-visible` and as a tap state, missing there. A service loop that plays on hover for fine pointers and while 55 % in view on touch is the coarse-pointer answer [site:mensch] [verified].
 
 ## Magnetic targets
 
-Why: a button that leans toward the hand confirms it is a target before the click. No card documents a magnetic button — the move is genre-typical rather than a corpus finding [inferred] — so the plugin ships it small and opt-in.
+Why: a button that leans toward the hand confirms it is a target before the click. One card documents the pull: captions lean toward the pointer by up to ± 12 px through custom properties, footer links by ± 4 px [site:robbietilton] [verified]. The inverse is a repulsion field — objects within 460 px pushed along the pointer angle with falloff `((R − d) / R)^1.6` and an `elastic.out(1, .35)` return over 1.2 s, halved on small screens [site:noth] [verified]; and an in-world button with a resting 15° tilt that relaxes to 8° on hover [site:to-top] [verified]. The plugin ships the pull small and opt-in.
 
 Rules (`[recipe:magnetic-button]`):
 - Drive `x`/`y` with `gsap.quickTo()` on the button and a weaker `quickTo` on its label, so ring and label split slightly; fall off with distance (`pull × (1 − d / radius)`, radius ≈ 1.5 × the button's size); return to zero on leave on the house expo-out.
@@ -64,6 +68,12 @@ Why: dragging is the one gesture that makes a gallery feel handled rather than p
 | Auto-drifting carousel | auto-speed tweened to 0 on grab and back on release (500 ms each); wheel lerped at .2 into the same value; `releaseStiffness` default 80 | [site:animejs] | [verified] |
 | Grab-and-throw objects | CSS-3D objects with extruded sides (`--depth` 1rem), `cursor: grab`, thrown into a perspective catcher; pointer-only | [site:wodniack] | [verified] |
 | Draggable scrollbar thumb | native bar hidden; dragging the thumb writes `window.scrollTo(progress × max)`; pointer-only | [site:wodniack] | [verified] |
+| Drag the page itself | on fine pointers a drag outside the rows scrolls the document after an 8 px threshold; release velocity from the last 150 ms, friction .95; a rubber-band stretch at the ends returns on a critically damped spring | [site:robbietilton] | [verified] |
+| Coverflow ring | drag axis-locked, wheel and arrow keys rotate; only the centred clip plays | [site:zainabkabira] | [verified] |
+| Auto-drifting drag rail | drifts at .5 until grabbed; slides stretch with velocity; stops when the next chapter reaches centre | [site:the-boyd] | [verified] |
+| Marquee with a throw | rAF at .6 px per frame; a drag imparts velocity decaying × .95 per frame | [site:wearedirect] | [verified] |
+| Carousel with roles | Draggable with Inertia, `role=group`, `aria-roledescription=carousel`, arrow keys | [site:okaydev] | [verified] |
+| Drawn thumb on a smooth scroller | an SVG track whose thumb calls `lenisScrollTo` with `immediate` | [site:haoqi] | [verified] |
 
 Rules:
 - Inertia through the same damping as everything else; clamp velocity; `setPointerCapture` so a fast drag survives leaving the element.
@@ -80,6 +90,7 @@ Rules:
 - Pointer capture again, and `touch-action: none` on the gate only.
 - A skip control sits beside every gate; a gate that blocks content with no second path is the click-to-enter wall in another costume (`[pattern:preloaders-and-transitions#the-load-contract]`).
 - `[recipe:compare-hold-drag]` covers the two-condition reveal with pointer capture and arrow keys.
+- A wheel can be a hold: `|deltaY|` summed to ≈ 500 fills an SVG ring with `role="progressbar"`; it commits at full, rolls back after ≈ 1 s of idle or on a change of direction, and is blocked while a dialog is open [site:nodeck] [verified]. Under reduced motion keep the input and drop the travel — the source disconnects the wheel altogether [site:nodeck] [verified].
 
 ## Coarse-pointer policy
 
@@ -87,10 +98,11 @@ Why: there is no hover on a phone, and a cursor drawn under a thumb is a bug. L�
 
 - Cursor off; hover previews become thumbnails or taps; magnetic pull off; drag rails become native overflow; hold gates keep working with a larger target.
 - Test by emulation and on a device. `pointer: coarse` also matches touch laptops, so keep the fine state reachable when a mouse is present (`any-pointer: fine`).
+- Swap the mechanism, keep the content: a scrubbed footer clip unlocked by a play-then-pause on the first touch, a sideways rail turned into native snap [site:goats] [verified]; a sticker that finishes on hover plays straight through on touch [site:serotoninn] [verified]; a runaway button replaced by an honest line on phones [site:nodeck] [verified]. The miss: a pointer-only fluid mask and repulsion field with no touch variant [site:noth] [verified].
 
 ## Keyboard equivalents
 
-Why: none of the affordances above has keyboard evidence anywhere in the corpus, and the audit fails a pointer-only handler [A11]. This is where new work beats the reference set.
+Why: the audit fails a pointer-only handler [A11], and the first reference set had no keyboard evidence at all. Newer cards show paths worth copying [verified on each]: ↑ / ↓ between rows and ← / → within the nearest row, Space to open its caption [site:robbietilton]; a full device key map printed beside the interface and changing with state [site:areebali]; arrows, Page keys and Space on a looping reel [site:jesperlandberg] [site:siena]; single-key theme and sound toggles guarded against inputs and modifiers [site:haoqi]. Most still leave the visible items unfocusable, so keys work but Tab does not.
 
 | Pointer gesture | Keyboard path |
 |---|---|
@@ -122,3 +134,4 @@ Real controls only — `<a>` and `<button>`, never a `div` with a click handler 
 - Badges that stand in for accessible names.
 - A hold gate with no skip; a drawn gesture as the only way in.
 - Léo Parpeix's dashed orbit, badge set and colours, or Floema's recycling field and arc as drawn.
+- A system cursor hidden everywhere behind a frosted disc [site:robbietilton] or a fifteen-image trail [site:mensch] [verified]; hover reveals that answer only `pointerType === 'mouse'` [site:okaydev] [verified]; a runaway button or a repulsion toy as a signature [site:nodeck] [site:noth].

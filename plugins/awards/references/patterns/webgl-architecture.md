@@ -23,10 +23,10 @@ Why: the corpus took Site of the Month with no canvas at all and Site of the Yea
 
 | Rung | What it means | Sites | Notes |
 |---|---|---|---|
-| 100 % canvas | the DOM is a shell; layout is camera framing | [site:igloo] [site:why-zero] | the winner's 6.6 accessibility and empty DOM live here [site:igloo] [recalled medium]; only with a full DOM mirror |
-| Canvas-first | one canvas behind or over DOM content: tethered planes, a hero object, or a scene per section | [site:leo-parpeix] [site:oryzo] [site:slosh-seltzer] [site:lando-norris] [site:shopify-editions-w26] [site:floema-jewelry] [site:mont-fort] [site:united-carriers] [site:usavionix] | the corpus median; text stays in the DOM |
-| Moments | flat planes or one demo, DOM-first | [site:the-line] [site:son-daven] [site:animejs] [site:lama-lama] | the scoping rule: pick one material behaviour and refuse every other 3D temptation [site:trevor-noah] [verified quote fragment — the studio's stated intent; the shipped site went canvas-first instead, see its card] |
-| None | 3D by pre-render, vector runtime or photography | [site:white-desert] [site:seasats] [site:mindmarket] [site:boc] [site:wodniack] | Seasats reads as 3D with no runtime GL [site:seasats] [inferred medium]; a developer showcase carried by SVG, canvas 2D and CSS 3D [site:wodniack] [verified] |
+| 100 % canvas | the DOM is a shell; layout is camera framing | [site:igloo] [site:why-zero] [site:jesperlandberg] | the winner's 6.6 accessibility and empty DOM live here [site:igloo] [recalled medium]; only with a full DOM mirror |
+| Canvas-first | one canvas behind or over DOM content: tethered planes, a hero object, or a scene per section | [site:leo-parpeix] [site:oryzo] [site:slosh-seltzer] [site:lando-norris] [site:shopify-editions-w26] [site:floema-jewelry] [site:mont-fort] [site:united-carriers] [site:usavionix] [site:haoqi] [site:bethebuzz] [site:siena] | the corpus median; text stays in the DOM |
+| Moments | flat planes or one demo, DOM-first | [site:the-line] [site:son-daven] [site:animejs] [site:lama-lama] [site:pensatori-irrazionali] [site:warmnfuzzy] [site:runrobrun] [site:mensch] [site:likova] [site:primesec] [site:noth] [site:to-top] [site:nodeck] [site:gehry-getty] | the scoping rule: pick one material behaviour and refuse every other 3D temptation [site:trevor-noah] [verified quote fragment — the studio's stated intent; the shipped site went canvas-first instead, see its card] |
+| None | 3D by pre-render, vector runtime or photography | [site:white-desert] [site:seasats] [site:mindmarket] [site:boc] [site:wodniack] [site:robbietilton] [site:zainabkabira] [site:wearedirect] [site:goats] [site:okaydev] [site:911rennsport] [site:siteassist] [site:serotoninn] [site:areebali] [site:grids-obys] [site:alectear] [site:christoph-nagel] [site:spasoje] [site:the-boyd] | Seasats reads as 3D with no runtime GL [site:seasats] [inferred medium]; a developer showcase carried by SVG, canvas 2D and CSS 3D [site:wodniack] [verified]; a hero "shader" shipped as a baked WebP [site:zainabkabira] [verified]; 3D signage as pre-rendered video [site:wearedirect] [verified] |
 
 Rules: pick the lowest rung the thesis survives; every rung up costs an asset pipeline, a tier system and a mirror. "Make it 3D" without a beat that needs depth is refused at the floor.
 
@@ -40,6 +40,7 @@ Rules:
 - The placeholder keeps `alt`, dimensions and `loading`; the plane hides it with opacity or a `data-gl` class, never `display: none`, so a failed context leaves an image [A02] [A04].
 - Anything the canvas draws that reads as content — headings, labels, captions — exists in the DOM first.
 - One `Media` class per element; the scene is a list of tethers, not a hand-placed composition.
+- The tether works at 100 % canvas too: every card, label and paragraph is a measured DOM element redrawn in GL, so the CMS, the breakpoints and the accessibility tree stay in one place [site:jesperlandberg] [verified]. The failure case is an empty DOM box with the image only in GL, no `<img>` and no alt [site:haoqi] [verified].
 
 ## Canvas positioning
 
@@ -50,9 +51,10 @@ Why: native scrolling and `requestAnimationFrame` do not share a clock, so a `po
 | Absolute, re-offset each rAF | the canvas is `position: absolute` and translated to the current scroll every frame, so it physically moves with the page; ≈ 25 % vertical over-render (or a framebuffer with edge fade) covers a fast scroll | extra pixels; the studio judged clipping worse than the render cost | Lusion's `WebGL-Scroll-Sync` README [verified]. **Not what `[site:oryzo]` ships** — its canvas is `position: fixed` and never repositioned; it tethers by mapping DOM rects into the scroll timeline instead [verified, live source 2026-09-18] |
 | Fixed canvas + scroll uniform | canvas fixed; the smoothed scroll goes in as a uniform and every plane offsets itself | a frame of lag unless the scroll value is the same smoothed one the DOM moved with | [site:floema-jewelry] wrapper `translateY` from one lerp [verified]; [site:shopify-editions-w26] sibling [recalled high] |
 | Sticky scene layer per section | a full-viewport sticky layer per chapter with static media beneath | one canvas re-targeted per section, never one context per section | [site:shopify-editions-w26] [recalled medium-low] |
+| Fixed ambient ground | one fixed full-viewport canvas under every section and route; DOM panels float on it and their gutters show it | no tether needed; the ground must stay quiet enough to read over | [site:bethebuzz] [verified] |
 
 Rules:
-- One canvas per page: contexts cannot share resources and a page cannot open them without limit [site:oryzo] [verified README].
+- One canvas per page: contexts cannot share resources and a page cannot open them without limit [site:oryzo] [verified README]. Where several canvases sample one surface anyway, give them one clock origin and one pointer simulation stepped once per frame, so their edges meet without a seam [site:mensch] [verified].
 - Under Lenis on the document, a fixed canvas plus the tether above is stable, because DOM and planes read the same smoothed value on the same ticker.
 - Never scroll-jack to cure drift; fix the clock.
 
@@ -64,6 +66,7 @@ Why: a framework render per scroll event is the slowest possible path into a sha
 - The cheapest scrub is a multiplier: `rotation.y = scrollY × 0.00015` [site:leo-parpeix] [recalled medium]; Mont-fort maps scroll to a 0–1 progress per chapter that drives a camera path [site:mont-fort] [inferred high].
 - Velocity is derived per frame from the smoothed value and lerped back to zero [site:floema-jewelry] [verified]; the pointer goes through `gsap.quickTo` or `damp()` into a vector uniform, never from raw events.
 - The time uniform comes from the shared ticker's clamped `dt`, so a hidden tab does not jump.
+- Or clock the shader by scroll: time clamped to a scroll duration makes a procedural chapter scrubbable backwards and stageable [site:haoqi] [verified]; one stage progress sets a glTF clip's mixer time [site:primesec] [verified].
 
 ## Scene windows and disposal
 
@@ -74,6 +77,9 @@ Why: a page with a scene per chapter cannot keep every scene alive, and a route 
 - One shared ticker for scroll, tweens and render (`_shared/raf.js` or `gsap.ticker`); pause it when hidden or off-screen [M08].
 - DPR capped by tier and by an absolute pixel budget (`applyRendererBudget` in `_shared/quality-tiers.js`) [P06]. The only published cap is a third party's account of Shopify's tiers, DPR ≤ 2 at high [site:shopify-editions-w26] [recalled medium-low]; Igloo's policy is unknown [site:igloo]. The cap is plugin policy.
 - Isolate failures per scene: one broken texture blanks one section, not the page [site:shopify-editions-w26] [recalled medium-low].
+- Newer cards publish their budgets: tier objects of DPR range, render-pixel cap, trail size, point count and target fps chosen by a scored probe (network, screen pixels, motion preference, WebGPU) [site:pensatori-irrazionali] [verified]; a frame-rate governor stepping DPR by .25 every .5 s between 45 and 57 fps [site:primesec] [verified]; a GPU-tier gate with a CSS gradient in its place [site:bethebuzz] [verified]; `min(2, devicePixelRatio)` [site:jesperlandberg] [site:noth] [site:siena] [verified].
+- Stop drawing when nothing moves: skip the render 1.5 s after the last scroll or pointer input unless a transition runs [site:primesec] [verified]; mount within a margin of the viewport and sleep on `visibilitychange` [site:pensatori-irrazionali] [verified].
+- Keep the GL chunk out of the entry: a lazy `threejs` chunk [site:likova] [verified]; the renderer and a rasteriser loaded together on first use [site:nodeck] [verified]. Three.js in the entry module is the thing to beat [site:jesperlandberg] [site:haoqi] [verified].
 
 ## Colour parity
 
@@ -90,8 +96,8 @@ Why: shaders do two different jobs, and mixing them is how a page turns into a d
 
 | Kind | What it does | Sites |
 |---|---|---|
-| Unifier | one global pass every pixel goes through, so DOM and scene share a physics: a fluid wake read as a velocity-driven hash blur [site:leo-parpeix] [verified, live bundle 2026-09-18] (no chromatic aberration — that was a clone's invention); a shared fluid field across scenes [site:shopify-editions-w26] sibling [recalled high]; a grade + grain stack [site:igloo] [recalled high] | one per site |
-| Narrative | a shader that enacts a beat once: frost unlock, burning money, shredded certificates, tunnel pulse [site:why-zero] [verified, live bundle 2026-09-18] — the "hexagonal text blur" once listed here is not in the served build, which uses a `lensBlur` pass and a KTX2 sprite atlas for narrative type; a scanline over a wireframe helmet [site:lando-norris] [verified]; chapter wipes on a torn, deckled paper edge with fibrous tendrils — not the painted brushstroke this file used to claim; there is no brush, wipe or stroke-mask signature in the served source [site:shopify-editions-w26] [verified, live source 2026-09-18] | one per chapter, each tied to a sentence of the thesis |
+| Unifier | one global pass every pixel goes through, so DOM and scene share a physics: one fragment pass that masks, warms and vignettes every still so unrelated films read as one reel [site:siena] [verified]; a cloth ground under every route [site:bethebuzz] [verified]; one soil field shared by several canvases [site:mensch] [verified]; a fluid wake read as a velocity-driven hash blur [site:leo-parpeix] [verified, live bundle 2026-09-18] (no chromatic aberration — that was a clone's invention); a shared fluid field across scenes [site:shopify-editions-w26] sibling [recalled high]; a grade + grain stack [site:igloo] [recalled high] | one per site |
+| Narrative | a shader that enacts a beat once: frost unlock, burning money, shredded certificates, tunnel pulse [site:why-zero] [verified, live bundle 2026-09-18] — the "hexagonal text blur" once listed here is not in the served build, which uses a `lensBlur` pass and a KTX2 sprite atlas for narrative type; a scanline over a wireframe helmet [site:lando-norris] [verified]; chapter wipes on a torn, deckled paper edge with fibrous tendrils — not the painted brushstroke this file used to claim; there is no brush, wipe or stroke-mask signature in the served source [site:shopify-editions-w26] [verified, live source 2026-09-18]; a mascot eroded away to change the subject [site:primesec] [verified]; the leaving slide crumpled into a ball [site:nodeck] [verified]; a wordmark wiped open by fluid dye [site:noth] [verified]; a hyperspace chapter clocked by scroll [site:haoqi] [verified] | one per chapter, each tied to a sentence of the thesis |
 
 Rules: one unifier, named in the direction contract; narrative shaders only where the story turns; an idle noise displacement that keeps a hero alive between beats [site:lando-norris] [verified] is seasoning, not a third kind.
 
@@ -131,6 +137,17 @@ Every value below is a published or reconstructed number from one card. Take the
 | Polaroid curl | **not a shader.** Trevor Noah builds the curl and its shadow as generated SVG arc paths on a DOM wrapper, animated on their own rAF: fold 8° at rest, 55° on hover, 500 ms, one corner, with a scroll-driven mode | [site:trevor-noah] | [verified, live source 2026-09-18] — do not reach for geometry here |
 | Noise line field | **not a shader.** SVG points; angle `perlin2((x + t·.0125)·.002, (y + t·.005)·.0015)·12`, offset `cos·32`, `sin·16` px; pointer radius `max(175, speed)`; spring .005, damping .925 per frame | [site:wodniack] | [verified] — reach for SVG before a fragment shader here |
 | Hero inertia | drag momentum, motion-reactive lighting | [site:oryzo] | [recalled high]; damping, mass, light unknown |
+| Trail over baked frames | six pre-rendered states in one KTX2 array texture; a low-res pointer trail picks the frame per pixel; tiers from trail 216 px / 200 points / 44 fps down to 72 px / 96 points / 30 fps | [site:pensatori-irrazionali] | [verified] |
+| Silhouette mask without a scene | a mesh drawn solid white into an offscreen WebGPU canvas; a 2D canvas draws it, switches to `source-in` and draws a cover-fitted video frame | [site:warmnfuzzy] | [verified] |
+| Bending sheets | planes of 48 × 24 segments; named twist, tunnel, lean and wave uniforms, the wave peaking mid-transit as `sin(π · p)` | [site:jesperlandberg] | [verified] |
+| Mesh erosion | a value-noise edge (× 10, amplitude .09) plus a hashed feather over .08 units discards fragments along the model's height | [site:primesec] | [verified] |
+| Fluid used as a mask | sim 256², dye 512², dissipation .962 / .988, 20 pressure iterations, curl 0; `smoothstep(soft, soft + width, dye × size)` opens a rasterised wordmark onto video | [site:noth] | [verified] |
+| Cloth ground | a 128 × 128 plane at 1.1 × the viewport; value-noise folds on rotated UVs; a 256 px pointer trail pushes vertices, displacement .1 clamped ± .6; light and shadow by elevation | [site:bethebuzz] | [verified] |
+| Film-gate grade | a mask texture cuts the frame; corner `smoothstep(.1, .4)` blends toward a colour-dodge at 20 %; a vertical vignette | [site:siena] | [verified] |
+| Procedural soil | fbm of four octaves in layers drifting at .013–.05 per second; `uScroll = scrollY / vh × .5`; one static frame under reduced motion | [site:mensch] | [verified] |
+| DOM to paper | html2canvas at DPR ≤ 2 → a texture on a 48 × 36 plane → a ball of radius `min(vw, vh) × .2` displaced by three sine octaves; any error falls through to the plain transition | [site:nodeck] | [verified] |
+| Clamped orbit | camera-controls, smoothing .2 and .6, polar angle ≈ 1.1–1.5 rad, distance 40–53.5, fly-tos to named zones | [site:likova] | [verified] |
+| Scroll-clocked tunnel | a full-screen fragment with time clamped to scroll; 100 angular cells of HSV streaks in four named stages | [site:haoqi] | [verified] |
 
 ## Post-processing
 
@@ -140,6 +157,7 @@ Why: a post stack is the fastest way to make six scenes read as one site, and th
 - The plugin's composer is pmndrs `postprocessing` 6.39.5 with half-float buffers, an `EffectPass` merging bloom and SMAA, and `antialias: false` on the renderer (`stacks/three-0.186.md`); Lando's own chain is Three's `EffectComposer` [site:lando-norris] [verified]. Use one pipeline, never both. `[recipe:gl-postprocessing-presets]`.
 - The step-down order differs by source: Why Zero's manager steps pixel ratio, then blur samples, then geometry detail from measured frame time [site:why-zero] [verified]; the Shopify reconstruction drops particles and post first and targets 30 fps at low [site:shopify-editions-w26] [recalled medium-low]; `_shared/quality-tiers.js` does both per tier.
 - Bloom on a near-white scene needs a high threshold; a low one smears the frame [site:igloo] [recalled high].
+- pmndrs `postprocessing` with bloom and SMAA under R3F [site:haoqi] [verified]; a measured-frame-rate DPR governor on top of a one-time probe [site:primesec] [verified].
 
 ## Text in WebGL
 
@@ -147,6 +165,7 @@ Why: type in the scene gets depth, parallax and the post stack; it also disappea
 
 - MSDF glyphs from a pre-built atlas: IBM Plex Mono as a KTX2 data texture with a JSON layout, decoded in a worker [site:igloo] [verified]; `three-msdf-text-utils` 1.5.0 with a word wrapper for headline type [site:lando-norris] [verified]. Scramble reveals offset glyphs inside the atlas so nothing reflows [site:igloo] [recalled high].
 - Hexagonal text blur: type drawn through a shader at key moments [site:why-zero] [verified].
+- DOM text rasterised per element: each line and character is measured in the DOM and drawn with `fillText` into a Canvas-2D texture, the DOM glyphs made transparent rather than removed, so the mirror cannot drift from what is drawn [site:jesperlandberg] [verified].
 - Always mirrored: the same string in the DOM, visible or `.sr-only`, and the canvas `aria-hidden` [A04]. Whether Lando mirrors its MSDF headlines is unknown [site:lando-norris]; Igloo does not [site:igloo] [verified: empty DOM] — that is the 6.6.
 - Reduced tier: the DOM string shows and the GL string sits still; static tier: DOM only. `[recipe:gl-msdf-text]` builds the field at runtime, so it ships no font file.
 
@@ -160,7 +179,7 @@ Why: WebGL fails — blocked contexts, lost contexts, old GPUs, a texture that 4
 | Static media | a poster still or muted video per section — the DOM placeholders Floema and Trevor Noah already carry [site:floema-jewelry] [site:trevor-noah] | no context, low tier, `webglcontextlost`, a failed asset in that scene, or reduced motion |
 | Text | headings, copy, links and cards alone | media failed too; always the base layer |
 
-The three tiers with per-scene isolation are documented for Shopify by a third party [site:shopify-editions-w26] [recalled medium-low]; Seasats probes each media slot and reveals only what loads [site:seasats] [clone-described]. Rules: reduced motion renders one settled frame (the still, or the scene drawn once on demand); the canvas is `aria-hidden` with its content mirrored [A04]; the load gate waits only for the first scene's assets (`[pattern:preloaders-and-transitions#the-load-contract]`); a WebGL1-only device gets the still, since a WebGL2-only build like Igloo's would show it nothing [site:igloo] [verified WebGL2-only; consequence inferred].
+The three tiers with per-scene isolation are documented for Shopify by a third party [site:shopify-editions-w26] [recalled medium-low]; Seasats probes each media slot and reveals only what loads [site:seasats] [clone-described]. Rules: reduced motion renders one settled frame (the still, or the scene drawn once on demand); the canvas is `aria-hidden` with its content mirrored [A04]; a still sits in the layout and the 3D viewer mounts only inside a viewport-sized observer margin [site:to-top] [verified]; a preferred WebGPU path and a WebGL fallback behind one init signature [site:runrobrun] [verified]; a GPU-tier gate that keeps a CSS echo of the same surface [site:bethebuzz] [verified]; the load gate waits only for the first scene's assets (`[pattern:preloaders-and-transitions#the-load-contract]`); a WebGL1-only device gets the still, since a WebGL2-only build like Igloo's would show it nothing [site:igloo] [verified WebGL2-only; consequence inferred].
 
 ## Verify
 
@@ -177,7 +196,8 @@ The three tiers with per-scene isolation are documented for Shopify by a third p
 ## Refuse
 
 - A blob, particle field or floating shapes with no beat behind them; "make it 3D" as a brief.
-- Text or images that exist only in the canvas.
+- Text or images that exist only in the canvas [site:haoqi] [verified].
+- GL chapters that render unchanged under reduced motion [site:haoqi] [verified]; one 3D viewer imported at two versions [site:to-top] [verified].
 - Two contexts on one page, or a canvas per section.
 - Scroll written to framework state; raw wheel deltas as uniforms.
 - Per-scene bloom values chosen by eye; both post pipelines at once.

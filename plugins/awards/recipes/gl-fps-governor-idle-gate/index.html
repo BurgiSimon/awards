@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#1a1c1c">
+  <title>gl-fps-governor-idle-gate — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <!-- One fixed canvas behind the page. It draws only while something moves: input, a transition, or a lens still settling. -->
+  <canvas class="field" data-gl aria-hidden="true"></canvas>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ gl-fps-governor-idle-gate</p></header>
+  <main id="main">
+    <section class="wrap hero" aria-labelledby="t">
+      <p class="label">/ measure every half second, draw only when asked</p>
+      <h1 class="display" id="t">Spend frames<br>on change.</h1>
+      <p class="lede">The field behind this text is a synthetic demo. A governor samples the frame rate every half second and steps the pixel ratio down or up by a quarter, inside the range the device probe allowed. An idle gate stops drawing a moment and a half after your last scroll, pointer or key, unless a transition is still running.</p>
+      <dl class="gov label" data-readout>
+        <div><dt>tier</dt><dd data-r="tier">…</dd></div>
+        <div><dt>pixel ratio</dt><dd data-r="dpr">…</dd></div>
+        <div><dt>fps</dt><dd data-r="fps">…</dd></div>
+        <div><dt>frames drawn</dt><dd data-r="renders">0</dd></div>
+        <div><dt>loop</dt><dd data-r="loop">…</dd></div>
+      </dl>
+      <div class="actions">
+        <button type="button" class="btn" data-pulse>Run a 3 s transition</button>
+        <button type="button" class="btn" data-simulate aria-pressed="false">Simulate 25 fps</button>
+      </div>
+    </section>
+    <section class="wrap notes" aria-labelledby="n">
+      <h2 id="n">What the loop does</h2>
+      <p>Every frame adds its time to a half-second window. When the window closes, the average frame rate decides: under 45 the pixel ratio drops a step, over 57 it climbs one, and in between it holds. The steps never leave the range the one-time probe set.</p>
+      <p>Scroll, pointer, wheel, touch and key input wake the loop. When a moment and a half passes with no input, no running transition and no easing left to finish, the loop leaves the ticker and the canvas keeps its last frame. A hidden tab stops the ticker.</p>
+      <p>Scroll this page, or rest the pointer and watch the frame counter stop.</p>
+    </section>
+  </main>
+  <footer class="wrap footer"><p class="label">awards · recipe · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

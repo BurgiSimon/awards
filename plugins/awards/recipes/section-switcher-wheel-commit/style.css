@@ -1,0 +1,49 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+[hidden] { display: none !important; } /* the control bar sets display; hidden must still win before JS */
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.topbar { display: flex; justify-content: space-between; align-items: baseline; padding-block: calc(var(--unit) * 5); position: relative; z-index: 5; }
+.topbar > * { margin: 0; }
+.panel { min-height: 100svh; display: grid; align-content: center; gap: calc(var(--unit) * 8); padding-block: calc(var(--unit) * 28); background: var(--ground); color: var(--ink); }
+.panel__title { max-width: 12ch; }
+.lede { max-width: 58ch; margin: 0; }
+
+/* Deck mode (set by main.js): the document never scrolls; panels share one fixed stage. */
+html.deck, html.deck body { height: 100%; overflow: hidden; overscroll-behavior: none; }
+html.deck .topbar { position: fixed; inset: 0 0 auto; }
+html.deck .deck-stage { position: fixed; inset: 0; overflow: hidden; touch-action: pinch-zoom; }
+html.deck .panel { position: absolute; inset: 0; visibility: hidden; }
+html.deck .panel.is-active { visibility: visible; z-index: 2; }
+html.deck .panel.is-leaving { visibility: visible; z-index: 1; }
+
+.controls { position: fixed; inset: auto 0 0; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: calc(var(--unit) * 4); padding-block: calc(var(--unit) * 5); }
+.key { min-height: 44px; min-width: 44px; padding: calc(var(--unit) * 2) calc(var(--unit) * 4); border: 1px solid currentColor; background: transparent; font-family: var(--font-mono); font-size: var(--label); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+.key[aria-disabled="true"] { opacity: .35; cursor: default; }
+.counter { margin: 0 0 0 auto; font-variant-numeric: tabular-nums; }
+
+/* The commit ring: pathLength 1, so stroke-dashoffset 1 is empty and 0 is full. */
+.ring { display: flex; align-items: center; gap: calc(var(--unit) * 3); }
+.ring svg { width: 40px; height: 40px; transform: rotate(-90deg); }
+.ring circle { fill: none; stroke-width: 3; }
+.ring__track { stroke: color-mix(in oklab, currentColor 20%, transparent); }
+.ring__arc { stroke: var(--accent); stroke-dasharray: 1; stroke-dashoffset: 1; }
+.ring__hint { color: inherit; }
+.hint-touch { display: none; }
+@media (hover: none) {
+  .ring svg, .hint-fine { display: none; }
+  .hint-touch { display: inline; }
+}
+
+@media (max-width: 767px) {
+  .panel { align-content: start; padding-block: calc(var(--unit) * 24) calc(var(--unit) * 36); }
+  .controls { flex-wrap: wrap; }
+  .ring { order: -1; flex-basis: 100%; }
+  .counter { margin-inline: auto; }
+}
+
+/* Reduced motion: panels swap in place (main.js skips the travel); nothing here moves on its own. */
+@media (prefers-reduced-motion: reduce) {
+  .panel, .panel [data-rise] { transform: none !important; }
+}

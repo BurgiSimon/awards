@@ -9,7 +9,8 @@ Why: a scaling system chosen after the components exist means every measure is r
 | System | How it scales | Best for | Sites |
 |---|---|---|---|
 | vw-lock | every desktop measure is a fraction of one artboard; the page scales like a poster | print-like sites, one display face, few components | [site:the-line] [verified] |
-| Fluid `clamp()` from a baseline | one custom property anchored to the comp width, every size derived, floors and ceilings in rem | product-like sites with many components and long copy | [site:lando-norris] [verified]; [site:leo-parpeix] [verified] |
+| Fluid `clamp()` from a baseline | one custom property anchored to the comp width, every size derived, floors and ceilings in rem | product-like sites with many components and long copy | [site:lando-norris] [verified]; [site:leo-parpeix] [verified]; one artboard per breakpoint with sizes growing at a fifth of the viewport rate above it, never below [site:warmnfuzzy] [verified] |
+| Stepped px tokens per breakpoint | fixed sizes re-declared at each breakpoint, no `clamp()` in type | builder-made sites; the weakest of the three | [site:wearedirect] [site:911rennsport] [site:siteassist] [verified] |
 
 Whichever is chosen, display type stays under ≈ 12–13 vw at its ceiling [T03] and no fixed width exceeds 600 px [L01].
 
@@ -21,6 +22,7 @@ Rules:
 - Pick your artboard (1728 or 1440) and your handoff width (≈ 768); publish both as tokens (`--artboard` and the `clamp()` on `--display` in `_shared/tokens.css`, which caps at 13.125 rem).
 - Wrap display sizes in `clamp()` even under a lock, so a 4K window does not set 400 px type.
 - Never lock line-height or letter-spacing to vw; they are ratios of the font size already.
+- Hold a px floor for meaning under a lock: a root `clamp(5px, 20px, 10 × 100vw / var(--size))` with a 1500 artboard lands corner labels at 9.6 px on a 1440 screen [site:jesperlandberg] [verified]. Scale-to-fit a composed hero between two widths, then reflow to a column, rather than shrinking it forever [site:zainabkabira] [verified].
 
 ## Fluid clamp from a baseline
 
@@ -39,6 +41,12 @@ Why: hover, drag and a drawn cursor are fine-pointer ideas. The swap list is fix
 | Hover video in a row | a still, or the clip on tap | [site:boc] mounts clips only for `(hover: hover)` and offers touch nothing [verified] |
 | Hold gate | the same gate with a larger target; `touch-action: none` on the gate only | [site:why-zero] [inferred] |
 | Scroll-driven nav inversion | unchanged — it reads scroll, not hover | [site:lando-norris] samples the section under the header [verified] |
+| Scrubbed video | a loop, unlocked by a play-then-pause on the first touch | [site:goats] [verified] |
+| Hover loop on a card | plays while ≈ 55 % in view | [site:mensch] [verified] |
+| Hover-progress vector animation | plays through | [site:serotoninn] [verified] |
+| A pointer joke | replaced by an honest line | [site:nodeck] [verified] |
+| Smooth scroll | native; Lenis created for fine pointers only | [site:mensch] [site:goats] [site:spasoje] [verified]; smooth mode forced on phones [site:likova] is the miss |
+| Pointer-driven signature | a tap or an automatic path | none in this wave: a fluid mask with no touch variant [site:noth] and a music player hidden under 1000 px [site:runrobrun] [verified] |
 
 Test with `any-pointer` as well as `pointer`: a touch laptop with a mouse attached must keep the fine state available.
 
@@ -48,7 +56,8 @@ Why: a heavy canvas site has two honest options on a phone, and the corpus took 
 
 - **Dedicated**: Oryzo's mobile treatment is indexed on Awwwards as its own inspiration entry [site:oryzo] [recalled high]; Slosh is cited twice as proof that heavy WebGL runs on the mobile web — an engineered path, not a still [site:slosh-seltzer] [recalled medium]; Trevor Noah designed the tour flow for each device with full attention rather than reducing desktop [site:trevor-noah] [verified intent]. Floema branches its markup on the server by device class through a UA parser [site:floema-jewelry] [verified] — a third route, with the fragility UA sniffing carries.
 - **Degrade**: Shopify built for 70 % mobile sessions and a 60 fps target, with three content tiers — scene, static media, text — chosen from capability and measured frame rate [site:shopify-editions-w26] [recalled high for the numbers; medium-low for the tiers].
-- **The anti-model**: Lando shows a rotate-your-device prompt in phone landscape instead of a landscape layout [site:lando-norris] [verified].
+- **The anti-model**: Lando shows a rotate-your-device prompt in phone landscape instead of a landscape layout [site:lando-norris] [verified]; Grids refuses portrait altogether and asks the reader to rotate and wait [site:grids-obys] [verified]; rotate notices also sit in the markup of [site:likova] [site:siena] [verified].
+- Dedicated phones in this wave [verified on each card]: the device fills the viewport with touch copy [site:areebali]; the reel becomes a vertical stack that still wraps [site:jesperlandberg]; the GL roll becomes DOM poster cards [site:siena]; the scattered hero becomes a five-tile cluster that cycles media [site:okaydev]; a separate hero clip framed in a card [site:goats]; separate mobile film encodes [site:gehry-getty]; a lighter model below 992 px [site:primesec].
 
 Rule: dedicated when the phone is the revenue surface or the loud moment can be rebuilt smaller; degrade when the page is a document under an experience layer. Either way the phone gets the same content, headings and links, and a designed still where the scene would be.
 
@@ -64,7 +73,10 @@ Why: mobile GPUs fail on pixel count and bandwidth, not on triangle count. The r
 | Anti-aliasing | SMAA in the composer, renderer `antialias: false` | [site:slosh-seltzer] [inferred] |
 | Assets | low-detail variants per tier; texture format by capability | [site:slosh-seltzer] [inferred]; [site:lando-norris] [contradicted by the live build, 2026-09-18: every texture path in the shipped GL manifest is /webp/ and the only KTX2 code is GLTFLoader's inert Basis extension — recorded from a rebuild document, not observable on the site today] |
 | Loop | paused off-screen and when the tab is hidden | [site:slosh-seltzer] [inferred] [M08] |
-| Adaptive | step DPR, blur samples and geometry detail from measured frame time | [site:why-zero] [verified]; 30 fps target at low [site:shopify-editions-w26] [recalled medium-low] |
+| Adaptive | step DPR, blur samples and geometry detail from measured frame time | [site:why-zero] [verified]; 30 fps target at low [site:shopify-editions-w26] [recalled medium-low]; DPR stepped by .25 between 45 and 57 fps, capped at 1.5 on phones [site:primesec] [verified] |
+| Model variant | a separate, lighter glb below the breakpoint (1.31 MB against 2.39 MB) | [site:primesec] [verified] |
+| Tier object | DPR range, render-pixel cap, trail size, point count and target fps per tier from a scored probe | [site:pensatori-irrazionali] [verified] |
+| GPU gate | canvas only at a detected GPU tier ≥ 1, a CSS echo otherwise | [site:bethebuzz] [verified] |
 
 ## Never reload at a breakpoint
 
@@ -77,6 +89,7 @@ Rules: rebuild scenes on a debounced `ResizeObserver` and refresh triggers after
 - A side index collapses under ≈ 900 px into a conventional, visible nav: Seasats hides its rotated scrollspy below that width [site:seasats] [clone-described]; Shopify's numbered sidebar is collapsible on mobile and its phone nav is a full-height overlay of stacked labels [site:shopify-editions-w26] [recalled medium-low]; Léo Parpeix's phone nav is a fullscreen overlay with numbered links [site:leo-parpeix] [recalled medium]. The same wayfinding must exist at both widths — a different nav model per device is the usability cost Seasats paid [site:seasats] [verified score]. Wodniack drops its section anchors on the phone, leaving only scroll [site:wodniack] [verified]; Boc folds its filter sidebar into an inline block above the rows [site:boc] [verified].
 - Horizontal rails become native overflow on touch (`[recipe:horizontal-rail]`); pinned chapters keep working because sticky stages need no pin (`[recipe:sticky-stages-rails]`).
 - The cursor-driven hero (fluid wake, magnetic pull, hover reveals) becomes a still or a tap-driven state; the theme swap and the preloader stay.
+- Re-lay the controls for thumbs rather than shrinking them: a presenter bar restacked into two rows with larger keys [site:nodeck]; the chapter label shortened in the header [site:gehry-getty] [verified].
 
 ## Checks
 
@@ -86,6 +99,7 @@ Plugin rules; no card documents any of them:
 - Touch targets ≥ 44 × 44 CSS px for every control and list row; 24 px is WCAG's AA minimum, 44 the AAA size and the comfortable one.
 - Phone landscape gets a layout, not a prompt.
 - `capture.mjs` runs desktop 1440 × 900 and mobile 390 × 844 at every scroll state; both must show the same headings.
+- Third-party chrome stays out of the reading column: consent panels over 80 % [site:to-top], half [site:goats] [site:serotoninn] or a third [site:siteassist] of the phone frame, and a voice-agent card over a fifth of it [site:wearedirect], are all on record [verified].
 
 ## Verify
 
@@ -101,7 +115,7 @@ Plugin rules; no card documents any of them:
 
 - Two scaling systems on one page; a vw value with no `clamp()` ceiling on display type.
 - Hover-only, drag-only or cursor-only affordances on coarse pointers.
-- A rotate-your-device prompt; a breakpoint reload; texture tiers keyed on `innerWidth`.
+- A rotate-your-device prompt [site:grids-obys]; a breakpoint reload; texture tiers keyed on `innerWidth`.
 - An uncapped DPR on a phone; MSAA plus a post stack on mobile; loops that run off-screen.
 - A different nav model per device with no shared wayfinding.
 - A mobile "experience" that drops headings, copy or links the desktop has.

@@ -1,0 +1,29 @@
+{
+  "id": "pointer-tilt-shine",
+  "title": "Cards that tilt toward the pointer with a moving shine",
+  "tags": [
+    "pointer",
+    "hover",
+    "tilt",
+    "3d",
+    "gsap",
+    "quickTo",
+    "card"
+  ],
+  "tier": "P1",
+  "deps": [
+    "gsap@3.15.0"
+  ],
+  "variants": [
+    "field of cards that turn toward a mouse pointer with shine and shade layers, locked while scrolling (this, default)",
+    "single control capped at ±5° with a .985 press scale, a fast follow (.12 s) and a slow settle (.5 s)"
+  ],
+  "seenIn": [
+    "okaydev",
+    "areebali"
+  ],
+  "verified": {
+    "date": "2026-09-23",
+    "chromium": "153.0.8010.12"
+  }
+}

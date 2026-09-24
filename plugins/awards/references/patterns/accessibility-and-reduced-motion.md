@@ -1,6 +1,6 @@
 # Accessibility and reduced motion
 
-What this file is for: the part of the plugin that is deliberately better than its references. `[site:igloo]` scored 6.60 on Accessibility and 6.40 on Markup / Meta-data behind a 27-node DOM [verified, twenty Awwwards entries read 2026-09-18]; usability is the lowest axis on nineteen of the twenty verified entries, and Accessibility is the lowest-ceilinged developer criterion of the six, topping out at 7.60 across the whole corpus; and one card documents a reduced-motion path — Boc stops its rows, skips its case-open timeline and never mounts hover video, though it also ships a global `.01ms` duration clamp [site:boc] [verified]; Floema, the Anime.js source and Wodniack verifiably have none [site:floema-jewelry] [site:animejs] [site:wodniack], Léo Parpeix appears to have none [site:leo-parpeix], the rest are unknown. Everything below is therefore plugin policy, checked by the audit rules in brackets, and it is where new work beats the corpus instead of copying it. Cite as `[pattern:accessibility-and-reduced-motion#section]`.
+What this file is for: the part of the plugin that is deliberately better than its references. `[site:igloo]` scored 6.60 on Accessibility and 6.40 on Markup / Meta-data behind a 27-node DOM [verified, twenty Awwwards entries read 2026-09-18]; usability is the lowest axis on nineteen of the twenty verified entries, and Accessibility is the lowest-ceilinged developer criterion of the six, topping out at 7.60 across the whole corpus; and one card documents a reduced-motion path — Boc stops its rows, skips its case-open timeline and never mounts hover video, though it also ships a global `.01ms` duration clamp [site:boc] [verified]; Floema, the Anime.js source and Wodniack verifiably have none [site:floema-jewelry] [site:animejs] [site:wodniack], Léo Parpeix appears to have none [site:leo-parpeix], the rest are unknown. The 2026-09-23 wave raises the floor [verified on each card]: reduced tiers that pass — each scroll effect jumped to its final state [site:mensch], every duration to .01 s with videos parked on posters [site:christoph-nagel], modules gated in code with 30 CSS blocks [site:okaydev], 57 branches [site:zainabkabira], WebGPU never created and grain frozen [site:warmnfuzzy] — against fifteen cards with no branch at all [site:robbietilton] [site:jesperlandberg] [site:wearedirect] [site:likova] [site:911rennsport] [site:siteassist] [site:to-top] [site:noth] [site:gehry-getty] [site:grids-obys] [site:serotoninn] [site:bethebuzz] [site:alectear] [site:siena] [site:the-boyd] and one that declares the query and never reads it [site:spasoje]. Everything below is therefore plugin policy, checked by the audit rules in brackets, and it is where new work beats the corpus instead of copying it. Cite as `[pattern:accessibility-and-reduced-motion#section]`.
 
 ## The improvement over the corpus
 
@@ -40,10 +40,11 @@ Rules [A04]:
 - The canvas is `aria-hidden="true"`; if it is interactive (a map, a gallery), the interaction has DOM controls — `<button>`s or `<a>`s — and the canvas is decoration over them [A05].
 - MSDF or shader text carries a visible or `.sr-only` twin (`[pattern:webgl-architecture#text-in-webgl]`); split spans are not readable text and need an `aria-label` or a hidden original (`[pattern:motion-vocabulary#masked-line-reveals]`).
 - Rive and Lottie canvases carry an accessible name or hidden text [site:mindmarket] [inferred].
+- Newer mirrors [verified on each card]: a complete `.sr-only` block with an `h1`, a bio, an `h2` list of project links and an `llms.txt` link under a 100 % canvas [site:jesperlandberg]; a polite live region announcing an operable device's current screen [site:areebali]; a `<noscript>` rule that unstacks a fixed panel stage back into a document [site:christoph-nagel]; a parallel accessible route fed by the same CMS, linked first in the header [site:gehry-getty] — make that link visible to sighted keyboard users too. Misses: thumbnails that exist only as GL textures over empty boxes [site:haoqi]; a display word as unnamed SVG path data [site:bethebuzz]; a word spelled as one button per glyph with no word-level label [site:spasoje] [inferred].
 
 ## Keyboard paths for gates
 
-Why: drag, hold and draw gestures have no keyboard evidence anywhere in the corpus, and Why Zero's five gates plus game-style map controls are the clearest case of a story a keyboard user cannot finish [site:why-zero] [inferred high]. The audit fails a pointer-only handler [A11].
+Why: drag, hold and draw gestures had no keyboard evidence in the first reference set, and Why Zero's five gates plus game-style map controls are the clearest case of a story a keyboard user cannot finish [site:why-zero] [inferred high]. Newer cards give keys to reels and devices but rarely give Tab a stop on what is visible (`[pattern:cursor-and-pointer#keyboard-equivalents]`). The audit fails a pointer-only handler [A11].
 
 | Gesture | Keyboard path | Also |
 |---|---|---|
@@ -54,6 +55,11 @@ Why: drag, hold and draw gestures have no keyboard evidence anywhere in the corp
 | Intro interaction | Enter/Space triggers it; the reduced tier completes it instantly | [site:oryzo] (skill) |
 | Scrollspy or chapter rail | a real `<nav>` of links with `aria-current` | [site:mont-fort] (skill); [site:seasats] |
 | Self-moving index rows | one link per item, the stills `aria-hidden`; the strip pauses on focus | [site:boc] ships a stop per still — 203 for nine projects [verified] |
+| Wheel accumulator between slides | prev / next buttons and arrow keys; the ring is a `role="progressbar"`; under reduced motion the wheel still advances, instantly | [site:nodeck] disconnects the wheel under reduced motion [verified] |
+| Power-on device | P, Enter or Space; a legend printing only the live keys | [site:areebali] [verified]; no visible focus ring yet |
+| Click-to-enter gate | a focusable enter button with an Enter path; nothing behind it reachable while it is up | [site:the-boyd] lets Tab reach the menu behind a pointer-only gate [verified] |
+| Reel of GL cards | cards as focusable links in a list, arrow keys stepping one | [site:jesperlandberg] [site:robbietilton] key the reel but leave the cards unfocusable [verified] |
+| Scroll-driven or autoplay tabs | `<button role="tab">` with `aria-selected` and arrow keys; autoplay pauses on focus | [site:primesec] `div` tabs, [site:siteassist] `href="#"` tabs [verified] |
 
 Every control is a `<button>` or `<a>`; a `div` with a click handler is refused [A05].
 
@@ -67,23 +73,25 @@ Rules (`[recipe:nav-overlay-fullscreen]`):
 - On close: `inert` removed, focus returned to the toggle, Lenis started.
 - A dialog with long content can own a nested Lenis instead: Boc gives each dialog its own (`duration 1.2`, expo easing) with `data-lenis-prevent` on scroll panes, closes on Escape, turns into a drag-to-dismiss bottom sheet on the phone, and server-renders the dialog's text so nothing hides from crawlers or no-JS readers [site:boc] [verified].
 - An age gate is a dialog under the same contract, and its answer is remembered [site:slosh-seltzer] (skill).
+- Seen since [verified on each card]: a `role="dialog"` menu with `aria-modal`, Escape, a Tab trap, `inert` behind and Lenis stopped [site:goats]; a collapsed nav kept `inert`, Escape closing every layer [site:mensch]; legal iframe dialogs with a focus trap [site:christoph-nagel]; native `<dialog>` everywhere [site:nodeck]; a layer stack where Escape closes the topmost [site:jesperlandberg]. Misses: a menu with no Escape, no `aria-expanded` and no focus move [site:wearedirect]; a panel driven by unlabelled checkboxes [site:siena].
 - After a route change, focus moves to the new `<main>` or `<h1>` (`[pattern:preloaders-and-transitions#route-transition-mechanics]`).
 
 ## Preloader and live regions
 
 - The loader announces progress in a `role="status"` (`aria-live="polite"`) region — a number every 25 %, not every tick — and leaves the accessibility tree once gone; a visible skip control is focusable from the first frame; repeat visits skip it (`[recipe:preloader-counter-hold]`).
-- Other live regions: the sound state on toggle, the chapter name under a virtual scroll, a "copied" confirmation after a copy badge, form errors. One polite region per page; assertive only for errors.
+- Other live regions: the sound state on toggle, the chapter name under a virtual scroll (a polite announcer naming each panel [site:christoph-nagel] [verified]), a "copied" confirmation after a copy badge, form errors and results (`role="status"` on a newsletter [site:jesperlandberg], `aria-live` on an analyser's result [site:christoph-nagel], both [verified]). One polite region per page; assertive only for errors.
 
 ## Skip link, landmarks and focus styles
 
 - A skip link as the first focusable element, visible on focus, targeting `<main>`; Lenis `anchors: true` keeps it working.
 - One `<main>`, one `<h1>`, `<nav>`, `<header>`, `<footer>`, an unbroken heading order, `lang` on `<html>` [A01] [A03] [A09]. Mont-fort's Astro build keeps every division and paragraph in static HTML under its island — the cheapest mirror there is [site:mont-fort] [verified].
-- `:focus-visible` styled from the tokens — `outline: 2px solid var(--accent); outline-offset: 4px` in `_shared/base.css` — and never `outline: none` without a replacement [A06] [A07]. The ring belongs to the world the way `::selection` does (The Line's selection is its flare red [site:the-line] [verified]) [S01]: the accent colour, the same offset everywhere, visible on both grounds of a theme swap. Boc's focus outline and skip-link ground are its accent [site:boc] [verified]; Wodniack's `*{outline:none}` with no `:focus` rule is the counter-example, and Accessibility 6.20 was its lowest developer score [site:wodniack] [verified].
+- `:focus-visible` styled from the tokens — `outline: 2px solid var(--accent); outline-offset: 4px` in `_shared/base.css` — and never `outline: none` without a replacement [A06] [A07]. The ring belongs to the world the way `::selection` does (The Line's selection is its flare red [site:the-line] [verified]) [S01]: the accent colour, the same offset everywhere, visible on both grounds of a theme swap. Boc's focus outline and skip-link ground are its accent [site:boc] [verified]; Wodniack's `*{outline:none}` with no `:focus` rule is the counter-example, and Accessibility 6.20 was its lowest developer score [site:wodniack] [verified]. Newer rings that belong to their world: the orange mark colour at 2 px [site:mensch]; 3 px black at a 6 px offset [site:nodeck] [verified]. Newer counter-examples: a 2 px white ring on a light-grey page [site:goats]; `outline: none` with no replacement [site:serotoninn] [site:siena] [site:bethebuzz] [site:spasoje] [site:the-boyd] [site:areebali] [verified].
 - Every hover state is also a focus-visible state (`[pattern:cursor-and-pointer#keyboard-equivalents]`).
+- Heading misses this wave [verified on each card]: links and card titles set as `<h1>`s [site:911rennsport] [site:bethebuzz] [site:to-top]; one `h1` per chapter [site:gehry-getty]; no heading at all in the served HTML [site:haoqi]; no `h1` [site:robbietilton] [site:siena] [site:noth] [site:alectear].
 
 ## Contrast
 
-Why: warm near-blacks are the corpus norm and they pass. Son Daven's brass-and-near-black duotone on a light ground is documented at ≈ 5.0:1 by three token extractors [site:son-daven] [verified], though the card does not say which pair was measured — measure your own pairs [C01]. Risks the corpus carries: white at .8 opacity over snow [site:mont-fort] [unknown]; mid-tone HUD labels on a fog gradient [site:igloo] [unknown]; 9 px micro-labels at weight 440 [site:the-line] [verified size] — a label that small needs ≥ 4.5:1 and a real weight.
+Why: warm near-blacks are the corpus norm and they pass. Son Daven's brass-and-near-black duotone on a light ground is documented at ≈ 5.0:1 by three token extractors [site:son-daven] [verified], though the card does not say which pair was measured — measure your own pairs [C01]. Risks the corpus carries: white at .8 opacity over snow [site:mont-fort] [unknown]; mid-tone HUD labels on a fog gradient [site:igloo] [unknown]; 9 px micro-labels at weight 440 [site:the-line] [verified size] — a label that small needs ≥ 4.5:1 and a real weight. New failures on record: a statement resting at ≈ 1.2:1 before its scroll fill and a 12 %-white heading [site:goats]; 9 px grey chrome on a grey device [site:areebali]; 9.6 px corner labels under a vw-lock [site:jesperlandberg] [verified].
 
 Rules: body and labels ≥ 4.5:1, display ≥ 3:1, on every theme of a swap and at both ends of a tweened repaint; the focus ring ≥ 3:1 against both grounds; `scripts/audit.mjs` measures the token pairs, and the photographic pairs are checked by hand.
 
@@ -96,6 +104,7 @@ Why: a virtual scroll (models c and d in `[pattern:motion-vocabulary#scroll-phil
 - Restoration and deep links: the float reads `location.hash` and `history.state` on load and writes them on settle.
 - Reduced tier: stepped sections, no eased float; static: native scroll.
 - Under Lenis on the document none of this is needed, which is why it is the default (`[recipe:boot-lenis-gsap]`); a custom scrollbar drawn beside a working native scroll is fine, a native one removed is not [site:the-line] [verified pattern, behaviour unknown]. Wodniack hides the native bar (`scrollbar-width: none`) and draws a thumb only a pointer can drag [site:wodniack] [verified] — keys still scroll under Lenis, but the bar's affordance is gone.
+- A section switcher taxes every read: 500 px of wheel per slide [site:nodeck]; a wheel lock over panels whose copy must be scrolled inside a box, with Space captured on every target so a focused button cannot be pressed [site:christoph-nagel] [verified]. A snap deck that keeps native scroll in sync so the scrollbar still drags is the lighter form [site:zainabkabira] [verified].
 
 ## Sound and breakpoints
 
@@ -122,3 +131,4 @@ Sound is opt-in behind a visible, keyboard-operable switch (`[pattern:sound#opt-
 - `outline: none`; a focus ring only on the light theme; tiny labels below 4.5:1.
 - Virtual scroll that ignores PageDown, Space or Home/End, or hides its progress.
 - A breakpoint reload; a sound-on gate; a boot sequence with no static variant.
+- `user-select: none` on the body [site:robbietilton] [verified]; reveals that stay invisible until observed, so an anchor jump lands on an empty screen [site:zainabkabira] [verified].

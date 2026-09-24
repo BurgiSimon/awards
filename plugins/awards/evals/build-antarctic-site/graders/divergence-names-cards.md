@@ -1,6 +1,6 @@
 ---
 type: regex
-pattern: '\[site:(animejs|boc|floema|igloo|lama-lama|lando-norris|leo-parpeix|mindmarket|mont-fort|oryzo|seasats|shopify-editions-w26|slosh-seltzer|son-daven|the-line|trevor-noah|united-carriers|usavionix|white-desert|why-zero|wodniack)\]'
+pattern: '\[site:(911rennsport|alectear|animejs|areebali|bethebuzz|boc|christoph-nagel|floema|gehry-getty|goats|grids-obys|haoqi|igloo|jesperlandberg|lama-lama|lando-norris|leo-parpeix|likova|mensch|mindmarket|mont-fort|nodeck|noth|okaydev|oryzo|pensatori-irrazionali|primesec|robbietilton|runrobrun|seasats|serotoninn|shopify-editions-w26|siena|siteassist|slosh-seltzer|son-daven|spasoje|the-boyd|the-line|to-top|trevor-noah|united-carriers|usavionix|warmnfuzzy|wearedirect|white-desert|why-zero|wodniack|zainabkabira)\]'
 target: { source: file, path: AWARDS.md }
 ---
 

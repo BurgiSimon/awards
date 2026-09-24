@@ -1,0 +1,44 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+[hidden] { display: none !important; } /* the control bar sets display; hidden must still win before JS */
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.topbar { display: flex; justify-content: space-between; align-items: baseline; padding-block: calc(var(--unit) * 5); position: relative; z-index: 5; }
+.topbar > * { margin: 0; }
+.panel { min-height: 100svh; display: grid; align-content: end; gap: calc(var(--unit) * 5); padding-block: calc(var(--unit) * 28) calc(var(--unit) * 32); background: #101010; color: var(--ink); }
+.panel__title { max-width: 11ch; font-size: clamp(3rem, 8.5vw, 9rem); }
+.lede { max-width: 46ch; margin: 0; }
+
+/* The media stage: two layers standing in for two <video> elements, the seam and a legibility shade. */
+.media-stage { display: none; }
+html.deck .media-stage { display: block; position: fixed; inset: 0; overflow: clip; background: #101010; }
+.media { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; visibility: hidden; }
+.media.is-front { visibility: visible; z-index: 1; }
+.media.is-incoming { visibility: visible; z-index: 2; }
+/* The seam is a full-width box translated by its own width × progress; its left edge is the 1 px light line. */
+.seam { position: absolute; inset: 0; z-index: 3; opacity: 0; pointer-events: none; }
+.seam::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 1px; background: #fff; box-shadow: 0 0 32px 7px rgb(255 255 255 / .45); }
+.shade { position: absolute; inset: 0; z-index: 4; pointer-events: none; background: linear-gradient(90deg, rgb(0 0 0 / .78), rgb(0 0 0 / 0) 72%), linear-gradient(0deg, rgb(0 0 0 / .5), rgb(0 0 0 / 0) 40%); }
+
+/* Deck mode (set by main.js): the document never scrolls; panels share one fixed stage over the media. */
+html.deck, html.deck body { height: 100%; overflow: hidden; overscroll-behavior: none; }
+html.deck .topbar { position: fixed; inset: 0 0 auto; }
+html.deck .deck-stage { position: fixed; inset: 0; z-index: 2; overflow: clip; touch-action: pinch-zoom; }
+html.deck .panel { position: absolute; inset: 0; visibility: hidden; background: none; }
+html.deck .panel.is-active, html.deck .panel.is-leaving { visibility: visible; }
+
+.controls { position: fixed; inset: auto 0 0; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: calc(var(--unit) * 4); padding-block: calc(var(--unit) * 5); }
+.key { min-height: 44px; min-width: 44px; padding: calc(var(--unit) * 2) calc(var(--unit) * 4); border: 1px solid currentColor; background: transparent; font-family: var(--font-mono); font-size: var(--label); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+.key[aria-disabled="true"] { opacity: .35; cursor: default; }
+.counter { margin: 0 auto; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 767px) {
+  .panel { padding-block: calc(var(--unit) * 24) calc(var(--unit) * 30); }
+}
+
+/* Reduced motion: main.js swaps the wipe for a .2 s cross-fade and parks the clips on their first frame. */
+@media (prefers-reduced-motion: reduce) {
+  .seam { display: none; }
+  .panel [data-rise] { transform: none !important; }
+}

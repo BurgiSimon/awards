@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>pointer-tilt-shine — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ pointer-tilt-shine</p></header>
+  <main id="main">
+    <section class="wrap hero" aria-labelledby="t">
+      <p class="label">/ tilt · synthetic demo</p>
+      <h1 id="t">Cards that lean into the pointer.</h1>
+    </section>
+    <!-- Each card: an untransformed link (the hit box that is measured) around a face that rotates, with a shine and a
+         shade layer that track the pointer. The faces are drawn in CSS; no image ships. -->
+    <ul class="wrap field" role="list">
+      <li>
+        <a class="card" data-tilt href="#notes">
+          <span class="card__face card__face--tide" data-tilt-face>
+            <span class="card__idx label">01</span>
+            <span class="card__title">Tidewater</span>
+            <span class="card__meta label">Identity · 2026</span>
+            <span class="card__shade" data-tilt-shade aria-hidden="true"></span>
+            <span class="card__shine" data-tilt-shine aria-hidden="true"></span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="card" data-tilt href="#notes">
+          <span class="card__face card__face--orbit" data-tilt-face>
+            <span class="card__idx label">02</span>
+            <span class="card__title">Low Orbit</span>
+            <span class="card__meta label">Campaign · 2025</span>
+            <span class="card__shade" data-tilt-shade aria-hidden="true"></span>
+            <span class="card__shine" data-tilt-shine aria-hidden="true"></span>
+          </span>
+        </a>
+      </li>
+      <li>
+        <a class="card" data-tilt href="#notes">
+          <span class="card__face card__face--kiln" data-tilt-face>
+            <span class="card__idx label">03</span>
+            <span class="card__title">Paper Kiln</span>
+            <span class="card__meta label">Editorial · 2025</span>
+            <span class="card__shade" data-tilt-shade aria-hidden="true"></span>
+            <span class="card__shine" data-tilt-shine aria-hidden="true"></span>
+          </span>
+        </a>
+      </li>
+    </ul>
+    <section class="section wrap notes" id="notes" aria-labelledby="n">
+      <h2 id="n">Rules</h2>
+      <ul>
+        <li>The face turns toward the pointer: the corner under it sinks, at most <code>7°</code> on each axis, through <code>gsap.quickTo</code>.</li>
+        <li>A shine follows the pointer across the face and a shade gathers on the far side, both in step with the tilt.</li>
+        <li>Scrolling locks every card where it is; the next pointer move after a <code>140 ms</code> quiet period unlocks them.</li>
+        <li>Mouse pointers only. Touch, pen, keyboard and reduced motion get a flat card with no layers.</li>
+      </ul>
+    </section>
+  </main>
+  <footer class="section wrap foot"><p class="label">awards · recipe · MIT · synthetic demo content</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

@@ -32,7 +32,7 @@ Before implementation, run `node "${CLAUDE_PLUGIN_ROOT}/scripts/doctor.mjs" <pro
 
 ## The stack is a decision, the architecture is the constant
 
-The analysed sites run Vite + vanilla, Svelte, Nuxt, Astro, Webflow and Next, and Motion (formerly Framer Motion) appears on one of them, for dialogs only `[site:boc]`; what they share is not a framework but a shape. Every choice below preserves that shape, and the stack notes exist so the shape survives each framework's opinions. Read `${CLAUDE_PLUGIN_ROOT}/references/stacks/versions.md` before installing anything, and the "When to choose it" section of the two candidate notes before deciding. For React component-state animation (enter/exit, layout, drag-to-dismiss) read `stacks/motion-13.4.md`; for a draggable, snapping slider library read `stacks/smooothy-0.0.md` before hand-rolling one.
+The analysed sites run Vite + vanilla, Svelte, Nuxt, Astro, Webflow, Next, WordPress themes and one Readymag page, and Motion (formerly Framer Motion) appears on four of them, for component state (dialogs, presence, layout) where its use is visible and never for scroll `[site:boc]` `[site:warmnfuzzy]` `[site:haoqi]`, and only as a bundled runtime on `[site:likova]`; what they share is not a framework but a shape. Every choice below preserves that shape, and the stack notes exist so the shape survives each framework's opinions. Read `${CLAUDE_PLUGIN_ROOT}/references/stacks/versions.md` before installing anything, and the "When to choose it" section of the two candidate notes before deciding. For React component-state animation (enter/exit, layout, drag-to-dismiss) read `stacks/motion-13.4.md`; for a draggable, snapping slider library read `stacks/smooothy-0.0.md` before hand-rolling one.
 
 - HTML lays out, WebGL renders: text and images live in the DOM, the canvas draws over them `[pattern:webgl-architecture#html-lays-out-webgl-renders]`.
 - One canvas, one ticker: GSAP's ticker drives Lenis, Lenis feeds ScrollTrigger, the render loop reads the same clock `[recipe:boot-lenis-gsap]`.
@@ -52,8 +52,10 @@ Each row is a question the brief already answers; write the answers into `AWARDS
 | Svelte team, engine-first site with a component model | SvelteKit + Threlte; keep SSR on for the DOM mirror `[site:igloo]` (framework at medium confidence) | `stacks/sveltekit.md` |
 | The client edits and hosts in Webflow | Webflow shell + an injected ESM engine from your own origin; the ceiling is Site of the Month `[site:lando-norris]` `[site:son-daven]` | `stacks/webflow-export.md` |
 | Is a shared-element or overlay transition the money moment? | Yes: SPA navigation (taxi on Vite and Webflow, the framework router elsewhere). No: MPA with cross-document View Transitions | `[pattern:preloaders-and-transitions#route-transition-mechanics]` |
-| WebGL dose from the direction contract | Any dose above "none" means a lazy chunk, a quality tier and a mirror; OGL for planes-only sites `[site:floema-jewelry]`, Three otherwise, R3F or Threlte only inside their frameworks | `[pattern:webgl-architecture#dosage-ladder]` |
+| WebGL dose from the direction contract | Any dose above "none" means a lazy chunk, a quality tier and a mirror; OGL for planes-only sites `[site:floema-jewelry]` `[site:siena]`, Three otherwise, R3F or Threlte only inside their frameworks | `[pattern:webgl-architecture#dosage-ladder]`, `stacks/ogl-1.0.md`, `stacks/three-0.186.md` |
 | `--cms <name>` given | The framework the CMS SDK serves best; content routes stay static HTML and the engine hydrates by attribute | the framework note |
+
+One-off library notes, read only when the direction needs that exact piece: `stacks/camera-controls-3.1.md` (a visitor-held orbit over a model), `stacks/three-custom-shader-material-6.4.md` (extending a built-in three material), `stacks/lottie-web-5.13.md` (a frame-scrubbed Lottie), `stacks/spline-viewer-2.0.md` (a Spline scene the client authors), `stacks/html2canvas-1.4.md` (a DOM snapshot as a texture). Reading-only notes for inherited or analysed code: `stacks/locomotive-scroll-5.0.md`, `stacks/virtual-scroll-2.2.md`, `stacks/highway-2.2.md`.
 
 Choose for the team and the content, never for the motion: the motion is identical on every row.
 
@@ -172,8 +174,10 @@ One transition vocabulary per site, chosen with the stack so the router and the 
 | Stack | Mechanism | Note |
 |---|---|---|
 | Vite MPA (default) | Cross-document View Transitions, `@view-transition { navigation: auto; }`, shared elements by `view-transition-name` | `stacks/vite-vanilla.md` |
-| Vite SPA, Webflow shell | `@unseenco/taxi` 1.9.1: a `Renderer` per view whose `onEnter` opens a `gsap.context` and whose `onLeave` reverts it; a `Transition` that resets Lenis and refreshes before `done()` | `[recipe:page-transitions]` |
-| Next.js | `template.tsx` remounts client components per navigation; React's `<ViewTransition>` for morphs; intercept the `<Link>` click, play the exit, then `router.push` for authored exits | `stacks/next.md` |
+| Vite SPA, Webflow shell | `@unseenco/taxi` 1.9.1: a `Renderer` per view whose `onEnter` opens a `gsap.context` and whose `onLeave` reverts it; a `Transition` that resets Lenis and refreshes before `done()` | `[recipe:page-transitions]`, `stacks/taxi-1.9.md` |
+| Vite SPA or Webflow shell that already runs Barba | `@barba/core` 2.10.3 with `preventRunning: true`; one Lenis for the visit, stopped in `beforeLeave`, resized and reset in `beforeEnter`, started in `after`; both containers are live until `after` | `stacks/barba-2.10.md` |
+| Inherited Highway (Dogstudio) site | Port to taxi, which is its maintained drop-in; keep Highway only for a hotfix | `stacks/highway-2.2.md` |
+| Next.js | `template.tsx` remounts client components per navigation; React's `<ViewTransition>` for morphs; intercept the `<Link>` click, play the exit, then `router.push` for authored exits; `next-view-transitions` on Next 14/15 | `stacks/next.md`, `stacks/next-view-transitions-0.3.md` |
 | Nuxt | `definePageMeta({ pageTransition: { css: false, onLeave, onEnter } })` with GSAP owning the callbacks; `experimental.viewTransition` for the native path; no taxi or Barba | `stacks/nuxt.md` |
 | Astro | `<ClientRouter />`; revert in `astro:before-swap`, mount and refresh in `astro:page-load`; `transition:name` pairs elements | `stacks/astro.md` |
 | SvelteKit | `onNavigate` + `document.startViewTransition`; `afterNavigate` resets scroll and refreshes; `beforeNavigate` cancels for an authored exit | `stacks/sveltekit.md` |
@@ -210,7 +214,7 @@ Tick "Stack booted (stack)" in `AWARDS.md ## Status`, fill `## Budgets & tiers`,
 
 ## Refuse
 
-- Two smooth-scroll libraries (Lenis beside ScrollSmoother, Locomotive or `ScrollTrigger.normalizeScroll(true)`): two scroll positions that disagree every frame.
+- Two smooth-scroll libraries (Lenis beside ScrollSmoother, Locomotive or `ScrollTrigger.normalizeScroll(true)`): two scroll positions that disagree every frame. Locomotive 5 also bundles its own older Lenis (`stacks/locomotive-scroll-5.0.md`).
 - CSS `scroll-behavior: smooth` beside Lenis: `scrollTo` fights the browser and the audit flags it [M05].
 - A Google Fonts CDN link or a foundry `@import`: a third-party request before first paint and an audit failure [T02].
 - A `position: fixed` canvas whose planes drift against their placeholders: fix the clock (absolute re-offset or a scroll uniform), never the scroll.

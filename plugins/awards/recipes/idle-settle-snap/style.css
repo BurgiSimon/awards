@@ -1,0 +1,43 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.topbar { position: absolute; inset: 0 0 auto; z-index: 2; display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); }
+.topbar > * { margin: 0; }
+
+/* The settle zone is exactly the first viewport, starting at the top of the document. */
+.cover { position: relative; height: 100svh; display: grid; align-content: end; gap: calc(var(--unit) * 6); padding-block: calc(var(--unit) * 24) calc(var(--unit) * 14); padding-right: calc(var(--gutter) + 72px); border-bottom: 1px solid var(--line); }
+.cover > .label { margin: 0; }
+.cover__title { max-width: 16ch; margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(2.75rem, 8.2vw, 9rem); line-height: .9; letter-spacing: -.035em; text-wrap: balance; }
+.cover__lede { max-width: 46ch; margin: 0; }
+
+/* Demo readout: a rail for the zone, the midpoint that decides the direction, a dot at the resting position. */
+.gauge { position: absolute; top: 18svh; bottom: 18svh; right: var(--gutter); width: 1px; background: var(--ink); container-type: size; }
+.gauge__mark { position: absolute; right: 14px; transform: translateY(-50%); white-space: nowrap; }
+.gauge__mark--top { top: 0; }
+.gauge__mark--mid { top: 50%; color: var(--ink); }
+.gauge__mark--end { top: 100%; }
+.gauge__dot { position: absolute; top: -5px; left: -5px; width: 11px; height: 11px; border-radius: 50%; background: var(--accent); will-change: transform; }
+
+.chapter h2, .notes h2 { max-width: 20ch; margin: calc(var(--unit) * 3) 0 calc(var(--unit) * 10); font-family: var(--font-display); font-weight: 500; font-size: clamp(2rem, 4.4vw, 4.5rem); line-height: .95; letter-spacing: -.025em; }
+.chapter__grid { display: grid; grid-template-columns: minmax(0, 55ch) auto; gap: calc(var(--unit) * 16); align-items: start; }
+.chapter__grid > p { margin: 0; }
+.facts { display: grid; gap: calc(var(--unit) * 5); margin: 0; }
+.facts dt { margin: 0; }
+.facts dd { margin: 0; font-family: var(--font-display); font-size: clamp(2rem, 3.4vw, 3.5rem); line-height: 1; font-variant-numeric: tabular-nums; }
+.notes ul { max-width: 62ch; padding-left: 1.2em; }
+.notes li + li { margin-top: calc(var(--unit) * 3); }
+.foot { min-height: auto; }
+
+.status { position: fixed; left: var(--gutter); bottom: calc(var(--unit) * 4); z-index: 3; margin: 0; padding: 2px 6px; background: var(--ground); color: var(--ink); font-variant-numeric: tabular-nums; }
+
+@media (max-width: 720px) {
+  .cover { padding-right: calc(var(--gutter) + 40px); }
+  .gauge__mark--top, .gauge__mark--end { display: none; }
+  .chapter__grid { grid-template-columns: 1fr; gap: calc(var(--unit) * 10); }
+  .facts { grid-template-columns: repeat(3, auto); justify-content: start; gap: calc(var(--unit) * 8); }
+}
+
+/* Reduced and static tiers: no settle runs (main.js), and the readout dot is not animated either. */
+@media (prefers-reduced-motion: reduce) { .gauge__dot { will-change: auto; } }

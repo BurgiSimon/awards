@@ -1,0 +1,30 @@
+{
+  "id": "persistent-mode-switch",
+  "title": "Persistent mode switch that re-skins the page",
+  "tags": [
+    "theme",
+    "toggle",
+    "hotkeys",
+    "localStorage",
+    "gsap",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [
+    "gsap@3.15.0"
+  ],
+  "variants": [
+    "segmented theme switch + grid overlay pill + L / D / G hotkeys, docked switch handing off to a large centred copy at the close (this, default)",
+    "three-way light / dark / system: store 'system' and follow prefers-color-scheme while it is chosen",
+    "alternate-world mode: the same stored root attribute swaps a whole second register (ground, display face, decorative layer)"
+  ],
+  "seenIn": [
+    "alectear",
+    "grids-obys",
+    "haoqi"
+  ],
+  "verified": {
+    "date": "2026-09-23",
+    "chromium": "153.0.8010.12"
+  }
+}

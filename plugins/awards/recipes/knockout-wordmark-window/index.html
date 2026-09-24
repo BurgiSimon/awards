@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>knockout-wordmark-window — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ knockout-wordmark-window</p></header>
+
+  <!-- The ground: one fixed canvas behind the whole page. It shows only where the page leaves a hole.
+       Its CSS background is the no-JS still; main.js paints over it. -->
+  <canvas class="ground" data-ground aria-hidden="true"></canvas>
+
+  <main id="main">
+    <section class="hero" data-hero aria-labelledby="mark">
+      <p class="hero__kicker">Grounds for screens, stages and print. We make the surface; you put the work on it.</p>
+      <!-- The wordmark is a hole. The SVG box is the word's box (viewBox 0 0 1000 240); the masked rect overflows it
+           to paint the whole hero solid, and the hero clips it. The heading's name is the visually hidden text. -->
+      <h1 class="hero__mark" id="mark">
+        <span class="sr-only">Field</span>
+        <svg viewBox="0 0 1000 240" aria-hidden="true" focusable="false" data-mark>
+          <defs>
+            <mask id="knockout" maskUnits="userSpaceOnUse" x="-5000" y="-5000" width="11000" height="11000">
+              <rect x="-5000" y="-5000" width="11000" height="11000" fill="#fff"/>
+              <g fill="#000" data-glyphs>
+                <path d="M0 0h180v56H56v36h94v56H56v92H0z"/>
+                <path d="M205 0h180v56h-62v128h62v56H205v-56h62V56h-62z"/>
+                <path d="M410 0h180v56H466v36h114v56H466v36h124v56H410z"/>
+                <path d="M615 0h56v184h124v56H615z"/>
+                <path fill-rule="evenodd" d="M820 0h60a120 120 0 0 1 0 240h-60zM876 56v128h4a64 64 0 0 0 0-128z"/>
+              </g>
+            </mask>
+          </defs>
+          <rect class="hero__solid" x="-5000" y="-5000" width="11000" height="11000" mask="url(#knockout)" data-solid/>
+        </svg>
+      </h1>
+      <div class="hero__foot">
+        <p class="hero__lede">The name is a window. The ground behind it moves; the page around it holds still.</p>
+        <p class="label">Scroll</p>
+      </div>
+    </section>
+
+    <section class="section wrap after" aria-labelledby="after-title">
+      <h2 id="after-title">Out of sight, the ground stops.</h2>
+      <p class="lede">Every section below the hero is painted solid, so the fixed canvas shows only through the letters. Once the hero leaves the viewport the loop stops drawing. Under reduced motion the ground is one still frame.</p>
+    </section>
+  </main>
+  <footer class="section wrap foot"><p class="label">awards · recipe · MIT · synthetic demo content</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
