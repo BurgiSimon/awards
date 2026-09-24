@@ -85,7 +85,7 @@ wodniack: lenis@1.1.13 — hoisted.js (window.lenisVersion)
 | synthesis | done | 28 cards folded into all 13 pattern files, reflex-lists, anti-patterns and 21 recipe seenIn arrays |
 | recipes | done | 16 built (all selected): autoplay-tabs-progress, scroll-word-fill, word-cycle-hero, section-switcher-wheel-commit, persistent-mode-switch, gl-orbit-model-hotspots, sentence-form-enquiry, knockout-wordmark-window, docked-media-grow, preloader-aperture-handoff, gl-endless-reel-sheets, pointer-tilt-shine, blur-peek-snap-carousel, idle-settle-snap, video-clip-wipe-panels, gl-fps-governor-idle-gate; catalogue 60/60 pass 2026-09-24 (no re-stamp diff); audit P0–P2 clean; no new pins |
 | stacks | done | 12 notes: next-view-transitions-0.3, barba-2.10, lottie-web-5.13, locomotive-scroll-5.0, camera-controls-3.1, spline-viewer-2.0, html2canvas-1.4, ogl-1.0, taxi-1.9, virtual-scroll-2.2, three-custom-shader-material-6.4, highway-2.2; 9 new versions.md rows (checked 2026-09-24), no package.json change (no recipe depends on them); linked from skills/stack/SKILL.md; # new stack queue was empty; Readymag (grids-obys) skipped as a hosted platform with no package |
-| upkeep | open | |
+| upkeep | done | grader slugs regenerated (49); stack sentence adds WordPress themes and Readymag and corrects the Motion claim (boc, warmnfuzzy, haoqi; likova bundled only); validate passes; lint 0 dangling; count greps clean; smoke evals skipped by maintainer 2026-09-24 |
 
 ### Sites
 
