@@ -152,7 +152,7 @@ When no project boots yet (no `package.json`, or no Lenis + GSAP boot): Invoke t
 
 ## Refuse
 
-- The hero-metric template, eyebrow labels, meaningless section numbering, identical card grids: the slop families the audit catches and a juror recognises first.
+- The hero-metric template, eyebrow labels and pills over headings, meaningless section numbering, identical card grids and icon tiles, cards inside cards, repeated "Not X. A Y." slogans, promise words and a dash in every sentence: the slop families the audit catches (L04, L05, X07, X08, X16–X18, X20) and a juror recognises first. The rest of the scan is in `${CLAUDE_PLUGIN_ROOT}/references/anti-patterns.md#the-slop-scan`.
 - The features → testimonials → pricing order unless the story earned it; a chapter that exists because the category always has one.
 - A modal by reflex; an overlay hidden with opacity that stays focusable; a menu with no `inert`, trap or Escape.
 - Two hero archetypes stacked; a hero that needs the paragraph to make sense; a card's signature as drawn.

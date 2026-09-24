@@ -30,17 +30,114 @@ Each class has its own rut. Concept work names both ruts (category and Awwwards)
 | Docs / OSS | Sidebar, code blocks, hero with install command | The library animating its own identity and docs as a playground `[site:animejs]`; a method explainer that lets the reader switch the method on over the page `[site:grids-obys]` |
 | E-commerce | Hero banner, product grid, "Shop now", newsletter | One image in two states split along a torn edge `[site:serotoninn]`; an enquiry written as a sentence the buyer completes `[site:the-boyd]` — both still hang their looks in a row with no argument between them |
 
-## Slop families the audit catches
-- **Template order**: hero → logos → features → testimonials → pricing → FAQ → CTA. Rewrite as chapters with beats and one interruption `[pattern:narrative-structures]`.
-- **Identical card grids** [L04], **eyebrow labels** [L05], **numbered markers by habit** [X07], **hero-metric rows** [X08].
-- **Reflex faces** [T01]: Inter, Space Grotesk, DM Sans, Manrope, Outfit, Plus Jakarta as display; Fraunces, Playfair, Cormorant, Syne, Instrument Serif as the "premium" costume; IBM Plex or Space Mono as the "technical" costume. See `reflex-lists.md`.
-- **Generated palettes** [C03]: six evenly spaced hues, purple-to-pink gradients, the indigo-violet "AI" pair, teal + orange startup, pastel rainbow.
-- **Generic CTA copy** [X01], lorem [X02], emoji icons [X03].
-- **Glass by default** [X04], hard offset shadows [X05] (`[site:nodeck]` builds a whole kit on them), side-stripe borders [X06].
+## The slop scan
+These are the habits a generator falls into when nobody made a decision, grouped in the order a reviewer walks a page. **Caught by** names the audit rule that flags the habit. Rules marked *render* need `audit.mjs --render`. `judge` means only someone looking at the captures can tell. **Earned when** describes the version the corpus ships on purpose, and a dash means there is none.
+
+**Deciding each hit:**
+- An earned use is recorded under `AWARDS.md ## Exceptions` with its reason.
+- A habit is removed.
+
+**Running the scan:**
+1. Read the audit output first.
+2. Walk the `judge` rows against the captures.
+3. Give every family present one line of evidence: a capture name or a `file:line`.
+
+**Verdict:** two or more families present means a juror can name the generator. That is the second direction of the specificity test below.
+
+### Surface and detail
+| Tell | Caught by | Earned when |
+|---|---|---|
+| Glass panels as the default surface | X04 (more than three selectors); judge below that | One pane with a job, such as a bar over moving imagery `[pattern:color-and-material#material-policies]` |
+| Hard offset shadows and the sticker kit | X05 | The world really is neo-brutalist `[site:nodeck]` |
+| A thick coloured stripe down one side of a card, or across the top of a rounded box | X06 | — |
+| Graph-paper lines or pinstripes painted in as texture | X09 | The lines are information: a tilted floor that shows its plane `[recipe:throw-objects-css3d]`, a grid the content actually sits on |
+| A hairline border and a wide soft shadow on the same box | X19 | — |
+| Coloured glow on buttons, cards or type | X11 | The light belongs to the scene `[site:usavionix]` |
+| Corners so round they crop the content inside | judge | — |
+| Wobbly SVG mascots, blobs and "abstract shapes" standing in for illustration | judge | The drawing is commissioned, or drawn in the world's own hand |
+| Boxes inside boxes | X20 *render* | — |
+
+### Type
+| Tell | Caught by | Earned when |
+|---|---|---|
+| A reflex face as the first family | T01 | A deliberate pick, with the reason recorded |
+| A small uppercase label or pill over every heading | L05 | Labels are the texture of a metadata world `[pattern:typography#labels-as-texture]` |
+| A rounded icon tile stacked over each heading | L04 | — |
+| A sentence-long headline at display size filling the first screen | judge | The headline is the hero archetype and says one thing in few words `[pattern:hero-archetypes]` |
+| Italic serif display as the "premium" costume | judge (T01 catches the usual faces) | The serif is the brand's voice across the whole system `[pattern:typography#contracts]` |
+| One family for everything | judge | One characterful grotesque at display scale, held as a contract `[pattern:typography#contracts]` |
+| Display tracking crushed below -0.06em | T04 | — |
+| Headings barely larger than the body | T08 *render* | — |
+| Paragraphs that are justified, in capitals, tightly led, widely tracked or under 14px | T07 | — (capitals and tracking belong to short labels) |
+
+### Colour
+| Tell | Caught by | Earned when |
+|---|---|---|
+| Framework purple, violet or cyan; purple-to-pink gradients | X12 | — |
+| Gradient text | C04 | — |
+| A coloured halo or spotlight behind the hero | X10 | The light source is in the image or the scene |
+| Dark ground and a neon accent as the default register | judge (X11 and X12 help) | Ground and accent are derived from the subject `[pattern:color-and-material#colour-strategies]` |
+| More than six hues | C03 | — |
+| Cream or beige standing in for a palette | judge | Paper is the material of the world `[site:the-line]`. Light grounds are the corpus majority `[pattern:color-and-material#light-grounds]`, so ask whether the ground was derived or defaulted |
+| Pure black or white grounds | C02 | The black is diegetic |
+| Grey text washed out on a coloured field | C01 | — |
+
+### Layout
+| Tell | Caught by | Earned when |
+|---|---|---|
+| Template order: hero, logos, features, testimonials, pricing, FAQ, CTA | judge | Chapters with beats and one interruption `[pattern:narrative-structures]` |
+| Identical icon-heading-text card grid | L04 | — |
+| A hero-metric row | X08 | Numbers carried inside sentences `[pattern:copy-and-content#numbers-not-adjectives]` |
+| 01 / 02 / 03 section markers by habit | X07 | The sequence means something to the reader |
+| The same gap everywhere, so nothing groups | judge | — |
+| Opening columns of very different heights; a heading nearer the previous block than its own | judge | — |
+| Text under an opaque layer, or menus and popovers clipped by overflow | judge (L02 catches sideways overflow) | — |
+| Lines beyond about 90 characters | L07 *render* | — |
+| Paragraphs touching the edge of a phone screen | L08 *render* | — |
+| Text pressed against the edge of its button or card | judge | — |
+
+### Motion
+| Tell | Caught by | Earned when |
+|---|---|---|
+| Fade-and-rise on every section | judge | One authored moment per chapter `[pattern:motion-vocabulary#masked-line-reveals]` |
+| Bounce, elastic or overshoot easing | X13 | The moving thing is a character `[site:animejs]`, or one overshoot is the signature `[recipe:word-cycle-hero]` |
+| Pulsing dots, blinking carets, floating blobs on a loop | X14 | The state is live: a recording light, a field being typed |
+| Every image zooms or turns on hover | X15 | The hover carries information `[pattern:motion-vocabulary#hover-shifts]` |
+| A marquee scrolling on its own | judge | rAF-driven, masked and pausable `[recipe:marquee-raf-mask]` `[site:seasats]` |
+| Animating width, height, top or left | M07 | — |
+| Content that stays invisible when an entrance fails | L06 *render* | — |
+
+### Copy
+| Tell | Caught by | Earned when |
+|---|---|---|
+| "Get started", "Learn more" and their cousins | X01 | — |
+| Lorem ipsum | X02 | — |
+| Emoji as icons | X03 | — |
+| Slogan antithesis, "Not X. A Y.", more than once | X16 | — |
+| Promise words ("seamless", "supercharge", "elevate"), or calling a rival practice "theater" | X17 | — |
+| A dash in every other sentence | X18 | — |
+| The same label repeated in one card | judge | — |
+
+### Imagery
+| Tell | Caught by | Earned when |
+|---|---|---|
+| Placeholder hosts or an empty `src` | X02 | — |
+| Flat circles and blocks where a picture should be | judge | — |
+| Torn or jagged image masks | judge | The edge is the concept `[site:serotoninn]` |
+| Images buried under a near-opaque overlay | judge | — |
+
+### Quality
+| Tell | Caught by | Earned when |
+|---|---|---|
+| Page errors on load | ERR *render*, capture manifest | — |
+| Skipped heading levels | A03 | — |
+| Body text below 4.5:1 | C01 | — |
+
+Reflex faces, generated palettes and copy are listed in `reflex-lists.md`; `scripts/data/reflex-fonts.json` and `scripts/data/reflex-copy.json` are what the audit reads.
 
 ## The specificity test (both directions)
 1. Look at the first viewport alone. Could a juror name the source site? If yes, the DIVERGENCE block failed: change the hero archetype, the palette strategy or the signature, not the copy.
-2. Could a juror name the generator? If yes, at least two families above are present. Remove them before adding anything.
+2. Could a juror name the generator? Run the slop scan above; two or more families present means yes. Remove them before adding anything.
 3. Strip the copy. Does the skeleton still say what the page is and why it matters? If it only works once the words return, the design is in the font size.
 
 ## Concept-as-pun

@@ -10,6 +10,7 @@ Why a floor exists: every Site of the Day in the corpus also carries a published
 - One type contract, held everywhere: expressive display + neutral grotesque, or one characterful face at display scale. No reflex face as the first family [T01]; no Google Fonts CDN link, fonts self-hosted as woff2 with `font-display` and a `size-adjust` fallback [T02, T05, T06]; at most four files.
 - Display type locked to the artboard with `clamp()`, ceiling ≈ 12–13 vw [T03]; tracking no tighter than −0.06em [T04]; choose leading from the rendered glyphs so accents and descenders remain clear.
 - Text split into lines only after `document.fonts.ready`; the first glyph of a display line optically hung when the face needs it.
+- Running text is ragged-right, sentence case, led 1.4–1.6, normally tracked and at least 16 px [T07]; the display step stands well clear of body size [T08 with `--render`].
 
 **Colour and material**
 - Two to four tokens under a named strategy; body contrast ≥ 4.5:1 [C01]; a warm or cool near-black rather than pure #000 unless the black is diegetic and recorded as an exception [C02]; no more than six hues in the tokens [C03]; no gradient text [C04].
@@ -31,22 +32,24 @@ Why a floor exists: every Site of the Day in the corpus also carries a published
 
 **Layout and responsive**
 - The responsive strategy is decided before build (vw-lock or breakpoints), no fixed widths above 600 px, no `100vw` overflow, no full reload at a breakpoint [L01, L02].
-- No identical icon-heading-text card grid, no eyebrow labels, no hero-metric row, no numbered section markers by habit [L04, L05, X07, X08].
+- No identical icon-heading-text card grid, no eyebrow labels or pills over headings, no hero-metric row, no numbered section markers by habit, no cards nested in cards [L04, L05, X07, X08, X20].
+- Nothing stuck invisible after load, running text at 60–75ch, a gutter on both sides of every paragraph on a phone [L06, L07, L08 with `--render`].
 
 **Performance**
 - Entry JS ≤ 200 KB gz (audit fails at 300) with WebGL in its own lazy chunk [P04]; rasters under 1 MB, ideally AVIF/WebP [P02]; meshes Draco or Meshopt compressed, textures KTX2 where the scene is large [P03]; renderer DPR capped and disposed on route change [P06, P07].
 - Fonts ≤ 4 files and ≤ 400 KB [P05]; no console errors; debug flags off.
 
 **Copy**
-- No "Get started" / "Learn more" [X01]; no lorem [X02]; no emoji icons [X03]; synthetic content labelled in `AWARDS.md`.
+- No "Get started" / "Learn more" [X01]; no lorem or placeholder images [X02]; no emoji icons [X03]; no repeated "Not X. A Y." slogans, promise words or dash habit [X16, X17, X18]; synthetic content labelled in `AWARDS.md`.
+- The full slop scan, with what the audit catches and what only a look can, is in `anti-patterns.md#the-slop-scan`.
 
 ## Refuse
 
 These are the moves that make a page look generated. They are refused even when asked casually; if the user insists, record the exception and its reason.
 
-- Fade-and-rise on every section, parallax on everything, bounce or elastic easing by reflex.
+- Fade-and-rise on every section, parallax on everything, bounce or elastic easing by reflex [X13], pulsing or blinking idle loops [X14], every image zooming on hover [X15].
 - A blob, mesh-gradient or particle-network hero; floating 3D shapes with no concept; "make it 3D" without a thesis.
-- Dark + neon + glow as a default register; gradient text; glass panels by default [X04]; hard offset shadows outside a deliberate neobrutalist world [X05]; thick coloured side stripes on cards [X06].
+- Dark + neon + glow as a default register [X11]; framework purple, violet or cyan and purple-to-pink gradients [X12]; gradient text [C04]; coloured halos behind the hero [X10]; glass panels by default [X04]; hard offset shadows outside a deliberate neobrutalist world [X05]; thick coloured side stripes on cards [X06]; graph-paper texture [X09]; a hairline border plus a wide shadow on one box [X19].
 - A second display font, a generated six-hue palette, theme-by-habit dark mode.
 - A blocking preloader with no concept, or one that plays in full on every visit.
 - Scroll-jacking with no keyboard exit; hover-only affordances; drag-only galleries.

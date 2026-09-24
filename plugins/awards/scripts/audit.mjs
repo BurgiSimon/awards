@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-// Deterministic craft-floor audit for award-level front-ends. Static by default; --render adds in-page checks.
+// Deterministic craft-floor audit for award-level front-ends, including the slop habits in references/anti-patterns.md.
+// Static by default; --render adds in-page checks (contrast, overflow, rendered fonts, stuck content, measure, edges, hierarchy, nested cards).
 // Usage: node audit.mjs <dir|file|url> [--json] [--quick] [--changed-file <path|->] [--render]
 //   [--scope fonts,contrast,motion,a11y,layout,perf,surfaces,slop] [--ignore T01,…] [--config .awards/audit.json] [--no-write]
 // Exit: 0 clean (no P0/P1) · 2 P0/P1 findings · 3 missing browser · 1 error. Quick mode exits 0 and prints hook JSON.
@@ -10,11 +11,12 @@ import { fileURLToPath } from 'node:url';
 import { parseArgs, fmtTable, now } from './lib/report.mjs';
 import { contrastRatio, parseColor, hueOf } from './lib/contrast.mjs';
 import { tags, attr, hasAttr, headings, stripTags, classNames, lineOf } from './lib/html.mjs';
-import { stripComments, declarations, customProperties, blocks, firstFamily } from './lib/css.mjs';
+import { stripComments, declarations, customProperties, blocks, ruleBlocks, firstFamily } from './lib/css.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const RULES = JSON.parse(fs.readFileSync(path.join(here, 'data/rules.json'), 'utf8'));
 const REFLEX = JSON.parse(fs.readFileSync(path.join(here, 'data/reflex-fonts.json'), 'utf8'));
+const COPY = JSON.parse(fs.readFileSync(path.join(here, 'data/reflex-copy.json'), 'utf8'));
 const args = parseArgs(process.argv.slice(2), { json: 'boolean', quick: 'boolean', render: 'boolean', write: 'boolean' });
 
 const SCAN_EXT = new Set(['.html', '.htm', '.css', '.scss', '.js', '.mjs', '.ts', '.jsx', '.tsx', '.vue', '.svelte', '.astro']);
@@ -152,6 +154,23 @@ function eachJs(fn) {
   }
 }
 
+// ---------- slop helpers ----------
+// Tailwind's indigo/violet/purple/fuchsia/cyan 400–600: the palette a generator reaches for when nobody chose one.
+const FRAMEWORK_HUES = ['#818cf8', '#6366f1', '#4f46e5', '#a78bfa', '#8b5cf6', '#7c3aed', '#c084fc', '#a855f7', '#9333ea', '#d946ef', '#22d3ee', '#06b6d4'];
+// cubic-bezier with a y control point outside 0..1 overshoots, which is bounce by another name.
+const BEZIER = /cubic-bezier\(\s*([-\d.]+)\s*,\s*([-\d.]+)\s*,\s*([-\d.]+)\s*,\s*([-\d.]+)\s*\)/gi;
+const overshoots = (text) => [...text.matchAll(BEZIER)].filter((m) => [m[2], m[4]].some((y) => Number(y) > 1 || Number(y) < 0));
+let tokenProps = null;
+function colorsIn(value) {
+  tokenProps ??= customProperties(cssText);
+  const out = [];
+  for (const m of String(value).matchAll(/#[0-9a-f]{3,8}\b|rgba?\([^)]*\)|hsla?\([^)]*\)|var\(--([\w-]+)\)/gi)) {
+    const c = parseColor(m[1] ? tokenProps[m[1]] : m[0]);
+    if (c) out.push(hueOf(c));
+  }
+  return out;
+}
+
 // ---------- rules: fonts ----------
 const reflex = new Set(REFLEX.display.map((f) => f.toLowerCase()));
 eachCss((file, css, off = 0) => {
@@ -201,6 +220,47 @@ eachCss((file, css, off = 0) => {
   for (const d of declarations(css, 'border-left|border-right')) {
     const m = d.value.match(/^(\d+)px/);
     if (m && Number(m[1]) >= 3) add('X06', file, lineOf(css, d.index) + off, d.value.slice(0, 30));
+  }
+  for (const m of css.matchAll(new RegExp(`(${FRAMEWORK_HUES.join('|')})\\b`, 'gi'))) {
+    add('X12', file, lineOf(css, m.index) + off, m[1]);
+    break;
+  }
+  for (const m of overshoots(css)) add('X13', file, lineOf(css, m.index) + off, m[0]);
+  for (const r of ruleBlocks(css)) {
+    const line = lineOf(css, r.index) + off;
+    const bg = declarations(r.body, 'background|background-image').map((d) => d.value).join(' ');
+    // Hairlines (1–2px stops) tiled by a repeat or a background-size: graph paper as texture. Wider bands are drawn art.
+    const hairlines = [...bg.matchAll(/(repeating-)?linear-gradient\((?:[^()]|\([^()]*\))*\)/gi)].some((g) => /[\s(,][12]px\b/.test(g[0]) && (g[1] || /background-size\s*:/i.test(r.body)));
+    if (hairlines) add('X09', file, line);
+    const ground = /(^|[\s,>])(html|body|main|section|header|\.hero[\w-]*)\s*$|::?(before|after)\s*$/i.test(r.selector);
+    if (ground && /radial-gradient/i.test(bg) && colorsIn(bg).some((c) => c.sat > 0.4)) add('X10', file, line);
+    for (const g of bg.matchAll(/(linear|radial|conic)-gradient\((?:[^()]|\([^()]*\))*\)/gi)) {
+      const hues = colorsIn(g[0]).filter((c) => c.sat > 0.4 && c.hue >= 230 && c.hue <= 330).map((c) => c.hue);
+      if (hues.length >= 2 && Math.max(...hues) - Math.min(...hues) >= 20) add('X12', file, line, 'purple/violet/pink gradient');
+    }
+    for (const d of declarations(r.body, 'box-shadow|text-shadow')) {
+      for (const s of d.value.matchAll(/(?:^|,)\s*0(?:px)?\s+0(?:px)?\s+(\d+)px(?:\s+-?\d+px)?\s+(#[0-9a-f]{3,8}|rgba?\([^)]*\)|hsla?\([^)]*\)|var\(--[\w-]+\))/gi)) {
+        if (Number(s[1]) >= 12 && colorsIn(s[2]).some((c) => c.sat > 0.4)) add('X11', file, line, d.value.slice(0, 40));
+      }
+    }
+    if (/\binfinite\b/.test(r.body) && /animation(-name)?\s*:[^;]*\b[\w-]*(pulse|ping|blink|caret|glow|float|bob|breathe)[\w-]*/i.test(r.body)) add('X14', file, line, r.selector.slice(0, 40));
+    if (/:hover[^,]*\b(img|picture|video)\b|\b(img|picture)\b[^,]*:hover/i.test(r.selector) && /(^|[;\s])(transform\s*:[^;]*(scale|rotate)|scale\s*:|rotate\s*:)/i.test(r.body)) add('X15', file, line, r.selector.slice(0, 40));
+    const wide = [...r.body.matchAll(/box-shadow\s*:[^;]*?-?\d+(?:px)?\s+-?\d+(?:px)?\s+(\d+)px/gi)].some((s) => Number(s[1]) >= 24);
+    if (/(^|[;\s])border\s*:\s*1px\b/i.test(r.body) && wide) add('X19', file, line, r.selector.slice(0, 40));
+    const topBottom = declarations(r.body, 'border-top|border-bottom').find((d) => Number((d.value.match(/^(\d+)px/) || [])[1]) >= 3);
+    if (topBottom && declarations(r.body, 'border-radius').some((d) => !/^0(px)?$/.test(d.value))) add('X06', file, line, `${topBottom.prop}: ${topBottom.value.slice(0, 24)} on a rounded box`);
+    if (r.selector.split(',').some((s) => /(^|[\s>])(body|p|li)$/i.test(s.trim()))) {
+      const why = [];
+      if (/text-align\s*:\s*justify/i.test(r.body)) why.push('justified');
+      if (/text-transform\s*:\s*uppercase/i.test(r.body)) why.push('capitals');
+      const lh = declarations(r.body, 'line-height').map((d) => d.value.match(/^([\d.]+)(em)?$/)).find(Boolean);
+      if (lh && Number(lh[1]) < 1.3) why.push(`line-height ${lh[0]}`);
+      const ls = declarations(r.body, 'letter-spacing').map((d) => d.value.match(/^([\d.]+)em$/)).find(Boolean);
+      if (ls && Number(ls[1]) > 0.05) why.push(`letter-spacing ${ls[0]}`);
+      const size = declarations(r.body, 'font-size').map((d) => d.value.match(/^([\d.]+)(px|rem)$/)).find(Boolean);
+      if (size && Number(size[1]) < (size[2] === 'px' ? 14 : 0.875)) why.push(`font-size ${size[0]}`);
+      if (why.length) add('T07', file, line, `${r.selector.slice(0, 30)}: ${why.join(', ')}`);
+    }
   }
 });
 
@@ -253,6 +313,8 @@ eachCss((file, css, off = 0) => {
       if (/[{,]\s*(width|height|top|left|marginTop|marginLeft|margin)\s*:/.test(m[2])) add('M07', file, lineOf(js, m.index) + off, 'tween on a layout property');
     }
     if (/repeat\s*:\s*-1/.test(js) && !/visibilitychange|IntersectionObserver|onEnter|onLeave|pause\(/.test(js)) add('M08', file, lineOf(js, js.search(/repeat\s*:\s*-1/)) + off);
+    for (const m of js.matchAll(/\b(?:ease|easing)\s*:\s*['"`]([^'"`]*(?:elastic|bounce|back|spring)[^'"`]*)['"`]/gi)) add('X13', file, lineOf(js, m.index) + off, m[1]);
+    for (const m of overshoots(js)) add('X13', file, lineOf(js, m.index) + off, m[0]);
     if (/pin\s*:\s*true/.test(js) && /position\s*:\s*sticky/i.test(cssText)) add('M06', file, lineOf(js, js.search(/pin\s*:\s*true/)) + off);
     if (/setPixelRatio\(\s*(window\.)?devicePixelRatio\s*\)/.test(js)) add('P06', file, lineOf(js, js.search(/setPixelRatio/)) + off);
     if (/new\s+(THREE\.)?WebGLRenderer|new\s+Renderer\(/.test(js) && !/\.dispose\(/.test(jsText)) add('P07', file, lineOf(js, js.search(/WebGLRenderer|new\s+Renderer\(/)) + off);
@@ -301,15 +363,37 @@ for (const s of htmlSources) {
   for (const m of t.matchAll(/<(div|span)\b[^>]*\bonclick=/gi)) add('A05', file, lineOf(t, m.index));
   const cls = classNames(t);
   for (const c of cls) if (c.classes.some((k) => /^(eyebrow|kicker|overline|pre-?heading)$/i.test(k))) add('L05', file, c.line);
+  for (const m of t.matchAll(/<(\w+)\b[^>]*class(?:Name)?=["'][^"']*\b(badge|pill|chip)\b[^"']*["'][^>]*>[^<]{0,80}<\/\1>\s*<h[12]\b/gi)) add('L05', file, lineOf(t, m.index), `.${m[2]} above a headline`);
   const cardCount = cls.filter((c) => c.classes.some((k) => /^card$/i.test(k))).length;
   if (cardCount >= 4 && (t.match(/<h3\b/gi) || []).length >= 4) add('L04', file, null, `${cardCount} .card blocks`);
+  const iconTiles = [...t.matchAll(/<(div|span|i|figure)\b[^>]*class(?:Name)?=["'][^"']*\bicon[\w-]*[^"']*["'][^>]*>[\s\S]{0,400}?<\/\1>\s*<h[23]\b/gi)];
+  if (iconTiles.length >= 3) add('L04', file, lineOf(t, iconTiles[0].index), `${iconTiles.length} icon tiles above headings`);
+  // Copy checks read visible text only: no comments, and in JSX/Astro no script either.
+  let copy = t.replace(/<!--[\s\S]*?-->/g, ' ');
+  if (['.jsx', '.tsx', '.astro'].includes(s.ext)) copy = copy.replace(/\/\*[\s\S]*?\*\/|(^|[^:])\/\/[^\n]*/g, '$1');
   const text = stripTags(t);
+  const prose = stripTags(copy).replace(/\s+/g, ' ');
   if (/lorem ipsum/i.test(text)) add('X02', file, lineOf(t, t.search(/lorem ipsum/i)));
-  for (const m of t.matchAll(/>\s*(Get started|Learn more)\s*</gi)) add('X01', file, lineOf(t, m.index), m[1]);
+  for (const img of imgs) {
+    const src = attr(img.attrs, 'src');
+    if (src === '' || /placehold|picsum\.photos|dummyimage|source\.unsplash\.com|placekitten|fakeimg/i.test(src ?? '')) add('X02', file, img.line, src ? src.slice(0, 40) : 'empty src');
+  }
+  const cta = new RegExp(`>\\s*(${COPY.cta.join('|')})\\b[^<]{0,24}<`, 'gi');
+  for (const m of t.matchAll(cta)) add('X01', file, lineOf(t, m.index), m[1]);
+  const slogans = (prose.match(/\bNot (?:just |only |merely )?[^.!?]{1,40}[.!?] (?:An?|The|It's|Just) [^.!?]{1,40}[.!?]/g) || []).concat(prose.match(/\bit'?s not [^.,;]{1,40}, it'?s\b/gi) || []);
+  if (slogans.length >= 2) add('X16', file, null, `${slogans.length}×, e.g. “${slogans[0].slice(0, 50)}”`);
+  const claims = prose.match(new RegExp(`\\b(${COPY.claims.join('|')})\\b`, 'gi')) || [];
+  if (claims.length >= 2) add('X17', file, null, [...new Set(claims.map((c) => c.toLowerCase()))].slice(0, 5).join(', '));
+  const dashes = (prose.match(/—/g) || []).length;
+  const sentences = (prose.match(/[.!?](\s|$)/g) || []).length + 1;
+  if (dashes >= 6 && sentences >= 6 && dashes / sentences > 0.3) add('X18', file, null, `${dashes} em dashes in ${sentences} sentences`);
   const emoji = text.match(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu);
   if (emoji && emoji.length >= 3) add('X03', file, null, `${emoji.length} emoji`);
   if ((text.match(/\b0[1-9]\s*[\/·—-]/g) || []).length >= 3) add('X07', file, null);
-  if (cls.filter((c) => c.classes.some((k) => /^(stat|metric|counter|kpi)s?$/i.test(k))).length >= 3) add('X08', file, null);
+  const statEls = cls.filter((c) => c.classes.some((k) => /^(stat|metric|counter|kpi)s?$/i.test(k)));
+  const statRow = cls.find((c) => c.classes.some((k) => /^(stats|metrics|numbers|kpis|stat-row|stats-row)$/i.test(k)));
+  if (statEls.length >= 3) add('X08', file, null);
+  else if (statRow) add('X08', file, statRow.line, `.${statRow.classes.join('.')}`);
   if (isPage && /<(button|a)\b/i.test(t) && !/:focus-visible/.test(cssText)) add('A06', file, null);
   if (isPage && !/::selection/.test(cssText)) add('S01', file, null);
   if (isPage && !/scrollbar/.test(cssText)) add('S02', file, null);
@@ -363,18 +447,59 @@ if (args.render) {
         const errors = [];
         page.on('pageerror', (e) => errors.push(e.message));
         await page.goto(url, { waitUntil: 'load', timeout: 30000 }).catch((e) => errors.push(e.message));
-        await page.waitForTimeout(800);
+        // Give entrances a fair chance: the page's own ready signal (capped), then two seconds.
+        await page.evaluate(() => Promise.race([window.__awards?.ready, new Promise((res) => setTimeout(res, 8000))])).catch(() => {});
+        await page.waitForTimeout(2000);
         const r = await page.evaluate(() => {
           const cs = getComputedStyle(document.body);
           const fams = new Set();
           for (const el of document.querySelectorAll('h1,h2,h3,p,a,button,li,span')) fams.add(getComputedStyle(el).fontFamily.split(',')[0].replace(/["']/g, '').trim());
-          return { bg: cs.backgroundColor, fg: cs.color, families: [...fams], overflow: document.documentElement.scrollWidth > window.innerWidth + 1, title: document.title, lang: document.documentElement.lang };
+          const tucked = (el) => el.closest('[hidden],[inert],[aria-hidden="true"],dialog:not([open]),template');
+          const say = (el) => `<${el.tagName.toLowerCase()}> “${el.textContent.trim().replace(/\s+/g, ' ').slice(0, 40)}”`;
+          const px = (el) => parseFloat(getComputedStyle(el).fontSize);
+          const stuck = [], long = [], edge = [], nested = [];
+          // Text under a canvas is usually a WebGL mirror, hidden on purpose while the GL copy is drawn
+          // (references/patterns/webgl-architecture.md); a stuck entrance under a full-page canvas goes unseen.
+          const canvases = [...document.querySelectorAll('canvas')].map((c) => c.getBoundingClientRect()).filter((c) => c.width && c.height);
+          const underCanvas = (b) => canvases.some((c) => b.left + b.width / 2 >= c.left && b.left + b.width / 2 <= c.right && b.top + b.height / 2 >= c.top && b.top + b.height / 2 <= c.bottom);
+          const textBox = (el) => { const r = document.createRange(); r.selectNodeContents(el); return r.getBoundingClientRect(); };
+          for (const el of document.querySelectorAll('h1,h2,h3,p')) {
+            if (!el.textContent.trim() || tucked(el)) continue;
+            const b = el.getBoundingClientRect();
+            if (b.width === 0 || b.bottom <= 0 || b.top >= innerHeight || underCanvas(b)) continue;
+            let opacity = 1;
+            for (let n = el; n && n !== document.documentElement; n = n.parentElement) opacity *= Number(getComputedStyle(n).opacity);
+            if (opacity < 0.05 || getComputedStyle(el).visibility === 'hidden') stuck.push(say(el));
+          }
+          for (const el of document.querySelectorAll('p')) {
+            if (tucked(el)) continue;
+            const b = el.getBoundingClientRect();
+            if (b.width === 0 || getComputedStyle(el).visibility === 'hidden') continue;
+            if (el.textContent.trim().length >= 200 && b.width / (px(el) * 0.5) > 90) long.push(`${say(el)} ≈ ${Math.round(b.width / (px(el) * 0.5))}ch`);
+            const tb = textBox(el);
+            if (el.textContent.trim().length >= 40 && tb.width && (tb.left < 12 || innerWidth - tb.right < 12)) edge.push(say(el));
+          }
+          const boxed = (el) => { const s = getComputedStyle(el); return (parseFloat(s.borderTopWidth) > 0 && s.borderTopStyle !== 'none') || s.boxShadow !== 'none'; };
+          for (const el of document.querySelectorAll('[class*="card"]')) {
+            const outer = el.parentElement?.closest('[class*="card"]');
+            if (outer && boxed(el) && boxed(outer)) nested.push(`.${[...el.classList].join('.')} inside .${[...outer.classList].join('.')}`);
+          }
+          const h1 = [...document.querySelectorAll('h1')].find((el) => !tucked(el) && !el.querySelector('svg,img,picture,canvas'));
+          const body = [...document.querySelectorAll('p')].find((el) => !tucked(el) && el.textContent.trim().length >= 40);
+          const ratioH1 = h1 && body ? px(h1) / px(body) : null;
+          return { bg: cs.backgroundColor, fg: cs.color, families: [...fams], overflow: document.documentElement.scrollWidth > window.innerWidth + 1, title: document.title, lang: document.documentElement.lang, stuck, long, edge, nested, ratioH1 };
         }).catch(() => null);
         if (r) {
+          const where = `${label} (rendered)`;
           const ratio = contrastRatio(r.bg, r.fg);
-          if (ratio !== null && ratio < 4.5) add('C01', `${label} (rendered)`, null, `${r.fg} on ${r.bg} = ${ratio}:1`);
-          if (r.overflow) add('L02', `${label} (rendered)`, null, 'horizontal overflow');
-          for (const f of r.families) if (reflex.has(f.toLowerCase())) add('T01', `${label} (rendered)`, null, f);
+          if (ratio !== null && ratio < 4.5) add('C01', where, null, `${r.fg} on ${r.bg} = ${ratio}:1`);
+          if (r.overflow) add('L02', where, null, 'horizontal overflow');
+          for (const f of r.families) if (reflex.has(f.toLowerCase())) add('T01', where, null, f);
+          for (const s of r.stuck.slice(0, 3)) add('L06', where, null, s);
+          if (r.long.length) add('L07', where, null, r.long[0]);
+          if (label === 'mobile') for (const s of r.edge.slice(0, 3)) add('L08', where, null, s);
+          if (label === 'desktop' && r.ratioH1 !== null && r.ratioH1 < 1.5) add('T08', where, null, `h1 is ${r.ratioH1.toFixed(2)}× the body size`);
+          for (const s of r.nested.slice(0, 3)) add('X20', where, null, s);
         }
         for (const e of errors) findings.push({ rule: 'ERR', severity: 'P1', scope: 'render', file: label, line: null, message: `page error: ${e.slice(0, 120)}`, fix: 'Fix runtime errors before review' });
         await page.close();

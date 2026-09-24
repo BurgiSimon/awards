@@ -1,0 +1,11 @@
+{
+  "_note": "Copy the audit treats as generated. Mirrors references/reflex-lists.md 'Copy to avoid'. cta: button or link text that starts with one of these (X01). claims: case-insensitive patterns counted in page text (X17 fires at two or more).",
+  "cta": ["Get started", "Learn more", "Discover more", "Explore now", "Book a demo", "Start your journey"],
+  "claims": [
+    "elevate", "seamless(ly)?", "supercharge", "unlock", "unleash", "empower", "effortless(ly)?",
+    "cutting-edge", "world-class", "next-gen(eration)?", "next-level", "revolutioni[sz]e",
+    "game-chang(er|ing)", "reimagine(d)?", "transform your", "to the next level",
+    "immersive experience", "unparalleled", "state-of-the-art", "best-in-class", "all-in-one", "harness the power",
+    "fast-paced world", "at the intersection of", "\\w+ theat(er|re)"
+  ]
+}

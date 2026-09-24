@@ -18,6 +18,7 @@ a:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline
 /* Before main.js, and under reduced / static motion: the first word, nothing else. */
 .slot__word:not(:first-child), .slot__type { visibility: hidden; }
 .slot__type::after { content: ""; display: inline-block; width: 0.05em; height: 0.72em; margin-right: -0.05em; background: currentColor; animation: caret 1s steps(1) infinite; }
+/* audit-ignore: X14 the caret blinks only while the typed variant is visible; hidden under reduced and static motion */
 @keyframes caret { 50% { opacity: 0; } }
 
 .drivers { display: flex; flex-wrap: wrap; gap: calc(var(--unit) * 2) calc(var(--unit) * 6); margin: 0; padding: 0; border: 0; }

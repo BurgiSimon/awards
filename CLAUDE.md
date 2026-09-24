@@ -57,7 +57,7 @@ Requirements: Node 20.19+ (20.x) or 22.12+, Playwright plus its Chromium browser
 
 **Runtime checks.** `scripts/doctor.mjs` checks prerequisites without changing configuration. `scripts/lib/actions.mjs` drives both recipe verification and `capture.mjs --states`; external JSON uses selector waits, while trusted recipe states may use predicates. The schema and exit codes live in `references/capture-states.md`. `evals/behavior.mjs` tests real behavior (no model calls); never run it alongside recipe/browser verification.
 
-**Audit** (`scripts/audit.mjs`) is rule-driven from `scripts/data/rules.json` (55 rules, prefixes T fonts, C colour, M motion, A accessibility, L layout, P performance, S surfaces, X slop) with helpers in `scripts/lib/`. Rule M03 judges only the tween or trigger that owns a `scrub`.
+**Audit** (`scripts/audit.mjs`) is rule-driven from `scripts/data/rules.json` (72 rules, prefixes T fonts, C colour, M motion, A accessibility, L layout, P performance, S surfaces, X slop) with helpers in `scripts/lib/`. Rule M03 judges only the tween or trigger that owns a `scrub`. The X rules and T07/T08, L04–L08 are the slop scan's deterministic half; `references/anti-patterns.md#the-slop-scan` maps every habit to its rule or to `judge`, and `scripts/data/reflex-copy.json` holds the copy lists. L06–L08, T08 and X20 run only under `--render`.
 
 **Evals** follow the `claude plugin eval` layout: `evals/<case>/{prompt.md,case.yaml,graders/*.md}`, optional `fixture/` + `fixture.sh` (needs `--scaffold`). Prefer `regex`, `tool_used`, `file_exists` graders; one `llm` grader only where judgement is unavoidable. `prompt.md` must not name skills.
 

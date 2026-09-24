@@ -31,7 +31,8 @@
 .f-top { transform: rotateX(90deg) translateZ(calc(var(--h) / 2)); }
 .f-bottom { transform: rotateX(-90deg) translateZ(calc(var(--h) / 2)); }
 
-/* The tray: a floor tipped back in its own perspective, with flat slots laid over it so measuring a slot is a plain rect. */
+/* The tray: a floor tipped back in its own perspective, with flat slots laid over it so measuring a slot is a plain rect.
+   audit-ignore: X09 the floor grid is the only cue that shows the plane is tilted */
 .catcher { position: relative; perspective: 900px; border-left: 1px solid var(--line); overflow: hidden; }
 .catcher__floor {
   position: absolute; inset: 12% 6% 4%;

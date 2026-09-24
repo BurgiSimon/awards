@@ -116,7 +116,7 @@ When the brief needs editorial/product hierarchy, open `[recipe:typography-speci
 
 ## Verify
 
-Run `node "${CLAUDE_PLUGIN_ROOT}/scripts/audit.mjs" <dir> --scope fonts,contrast,surfaces` on the project directory; exit 0 or every finding recorded under `AWARDS.md ## Exceptions` with a reason. Then tick:
+Run `node "${CLAUDE_PLUGIN_ROOT}/scripts/audit.mjs" <dir> --scope fonts,contrast,surfaces,slop` on the project directory. It also catches a generated palette (X12), coloured glow and halos (X10, X11) and running text set against reading (T07). The result must be exit 0 or every finding recorded under `AWARDS.md ## Exceptions` with a reason. Then tick:
 
 - [ ] One type contract in `DESIGN.md` with face, foundry and licence; no second display face; no reflex face as the voice without an exception line (T01).
 - [ ] Fonts self-hosted as woff2, at most four files and 400 KB, `font-display` set, a metric-matched fallback declared; no CDN link (T02, T05, T06, P05).

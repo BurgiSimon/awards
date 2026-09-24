@@ -82,7 +82,7 @@ Why: Design carries 40 percent of the weight, and it is where a page either owns
 - First-viewport thesis: is the THESIS block visible at s00 with the copy ignored? If it needs a scroll, name the capture where it first appears.
 - Concept versus effect: list the effects found in the source and ask which one enacts the thesis. More than one signature dilutes; effects with no concept cap Creativity at 6.
 - Specificity, first direction: compare s00 with the three DIVERGENCE cards (`${CLAUDE_PLUGIN_ROOT}/references/sites/<slug>.md`, the table and §8 of each) and with the palette and type columns of `${CLAUDE_PLUGIN_ROOT}/references/sites/_index.md`. Could a juror name the source site?
-- Specificity, second direction: read `${CLAUDE_PLUGIN_ROOT}/references/anti-patterns.md` and ask whether a juror could name the generator instead; two or more families present means yes.
+- Specificity, second direction (the slop scan): read `## The slop scan` in `${CLAUDE_PLUGIN_ROOT}/references/anti-patterns.md`. Take the audit's slop, layout and type findings from `.awards/audit.json` first, then walk every `judge` row against the captures. List each family present with its evidence: a capture name, a `file:line` or a rule id. A use recorded under `AWARDS.md ## Exceptions` with a reason a juror would accept is earned and does not count. Two or more families mean a juror could name the generator.
 - World commitment: do s50, s100, the mobile frame, the menu and the 404 belong to the same world as s00, or does a section opt out (a stock component, a second accent, browser-default chrome)?
 - Type: one contract held everywhere, display locked to the artboard, hierarchy readable at phone width, no reflex face as the first family.
 - Pacing: across s00 → s50 → s100, are there rests between moments, or does every section shout? Does the scroll model serve the story?
@@ -114,7 +114,7 @@ Why: anchored scores mean the same thing on every run, and the weighted arithmet
 
 - Four axes, 0–10, one-line reason each: Design (40), Usability (30), Creativity (20), Content (10). Weighted = D × 0.4 + U × 0.3 + C × 0.2 + Co × 0.1.
 - Five developer criteria, 0–10, with a note each: animation and interaction, performance, responsive, accessibility and semantics, code quality.
-- Apply the caps: a failed specificity test caps Creativity at 6, effects without a concept cap Creativity at 6, and each failed walk step caps Usability as the walk states.
+- Apply the caps: a failed specificity test in either direction (a nameable source site, or a nameable generator from the slop scan) caps Creativity at 6, effects without a concept cap Creativity at 6, and each failed walk step caps Usability as the walk states.
 - Site of the Day territory is a weighted 7.2 or higher with no axis below 6.8. When you give a Design 9, name the corpus site it would beat.
 - The contract can lower a score (a block not kept) but never raise one; the inventory and the memory sentence from section 1 stay as written.
 
@@ -125,7 +125,7 @@ Why: the disposition is derived mechanically so it cannot be softened, and the r
 Derive the disposition, in this order, and stop at the first match:
 
 1. `recapture` — the evidence was invalid or could not be produced.
-2. `rebuild` — weighted below 6.8, or the specificity test fails, or the memory test yields a mood, or the THESIS is not visible in the first viewport.
+2. `rebuild` — weighted below 6.8, or a juror could name the source site, or the memory test yields a mood, or the THESIS is not visible in the first viewport.
 3. `fix` — weighted 6.8 to 7.19, or any axis below 6.8, or the audit has P0/P1 findings, or a contract block is not kept.
 4. `ship` — weighted 7.2 or higher, no axis below 6.8, no P0/P1, every contract row kept, walk steps 1 and 3 passed.
 
@@ -135,6 +135,7 @@ Fill every section of the report:
 - Scores: with valid rendered evidence, both tables with a reason next to every number; otherwise every axis, weighted result and developer criterion is `unmeasured`.
 - Memory test: the sentence from section 1 when the first viewport rendered; otherwise `unmeasured`.
 - Specificity test: `no`, or `yes — <site> — <what to change>`.
+- Slop scan: `families present: n`, one `<family> — <evidence>` line for each, then `generator nameable: yes | no`. The families present enter Material fixes as design seams.
 - Contract fidelity: one row per block, kept or not kept with rendered evidence; otherwise mark visual fidelity `unmeasured` and put any located source findings under `## Source findings`.
 - Material fixes: at most eight, ordered — fidelity first, then walk steps 1 and 3, then audit P0/P1, then design seams. Each row has `location | change | expected visible result | viewport/state | before evidence | after evidence | resolved/partial/unresolved`; the first report uses `unresolved` with `pending` after evidence. Every failed contract block enters the batch or remains explicitly unresolved; no "consider" items.
 - Keep: one line naming what must not be diluted while fixing.
