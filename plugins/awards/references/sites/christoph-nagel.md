@@ -97,7 +97,7 @@ What the awards skills do differently: evidence before biography (at least one p
     - `#101010` [verified, styles.css]
     - `#ff4b3e` [verified, styles.css]
   - The three-word cycling slogan, the chapter list and titles, any of the copy, the VU meter with its red zone as drawn, the double-exposure portrait and the self-shot footage.
-  - Anton as the display face: it is a reflex condensed display `[pattern:typography#choosing-by-character-class]`.
+  - Anton with Manrope as a ready-made pair: Anton is an open condensed display worth choosing on its own merits, but Manrope is a reflex face, and lifting the pairing copies this site's voice instead of choosing one `[pattern:typography#choosing-by-character-class]`.
   - A wheel lock over panels whose copy must be scrolled inside a box, a loader on every visit, and Space captured globally: these are the parts to improve on.
 
 ## 9. Confidence and sources
