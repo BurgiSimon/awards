@@ -24,7 +24,7 @@ Design: `docs/superpowers/specs/2026-09-23-expand-corpus-design.md`. This skill 
 
 ## Resume
 
-Read `docs/handoff/corpus-ledger.md`. If it does not exist, run Setup. Otherwise take its last `## Wave` section and continue at the first row of its phase table not marked `done`. When every phase of the last wave is `done` and `awardsworthysites.md` holds URLs under `# not reviewed` or `# new stack` that the ledger does not list, run Setup again for a new wave.
+Read `docs/handoff/corpus-ledger.md`. If it does not exist, run Setup. Otherwise take its last `## Wave` section and continue at the first row of its phase table not marked `done`. When every phase of the last wave is `done` and `awardsworthysites.md` holds URLs under `# not reviewed` or `# new stack` that the ledger does not list, or the last wave's Sites table still has rows marked `queued` (a triage closed early, for example after a pilot), run Setup again for a new wave. Rows left `blocked` alone never open a wave; they get their retry in the next wave opened for any other reason.
 
 - `--phase <name>` runs that phase only.
 - `--only slug,…` or `--limit N` narrows triage. **A narrowed run does triage and synthesis for its sites only, then stops with the report in "Narrowed-run report" and leaves both phases `open`.** The pilot is the first narrowed run of a wave.
@@ -70,7 +70,7 @@ Read `docs/handoff/corpus-ledger.md`. If it does not exist, run Setup. Otherwise
 ## Phase: triage
 
 1. **Doctor.** Re-run the Setup doctor command; a `FAIL` stops the run.
-2. **Queue.** Read `awardsworthysites.md`. Sites are the bullets under `# not reviewed`; the stack queue is the bullets under `# new stack` (handled in the stacks phase). Every site URL not yet in the current wave's Sites table gets a row with status `queued`. A URL already in an earlier wave keeps its slug: carry it into the new wave's table only if its last status was `blocked`; a `failed` URL is not re-queued until the maintainer corrects it in `awardsworthysites.md` (a corrected URL is a new URL).
+2. **Queue.** Read `awardsworthysites.md`. Sites are the bullets under `# not reviewed`; the stack queue is the bullets under `# new stack` (handled in the stacks phase). Every site URL not yet in the current wave's Sites table gets a row with status `queued`. A URL already in an earlier wave keeps its slug: carry it into the new wave's table only if its last status was `queued` or `blocked`; a `failed` URL is not re-queued until the maintainer corrects it in `awardsworthysites.md` (a corrected URL is a new URL).
 3. **Slug.** Host name without `www.` and without the public suffix (`co.uk` counts as one suffix), remaining dots to hyphens, lower-case kebab-case: `why.zero.university` → `why-zero`, `911rennsport.co.uk` → `911rennsport`, `boc.studio` → `boc`. This collision rule applies only to new URLs: if the slug is already a file in `PLUGIN/references/sites/` or a row in any wave, append the next host label to the left; if none is left to append, append `-2`.
 4. **Selection.** Rows with status `queued` or `blocked`, narrowed by `--only` (slugs) or `--limit N` (`queued` rows first in table order, then `blocked`). `blocked` rows get one retry per run.
 5. **Orphans.** A selected slug whose card file already exists while its row is `queued` or `blocked` is left over from a killed run; the subagent overwrites it. If that re-run returns `skipped`, `blocked` or `failed`, the main session deletes the orphan card.
