@@ -151,14 +151,48 @@ SwiftShader verification is not safe beside another browser. See [behavior check
 
 ## Status
 
-Version 0.3.0.
+Version 0.4.0.
+
+### 0.4.0 — 2026-09-24
+
+- **Thirty new site cards.** The corpus index grows from 20 to 50 rows over two waves. Every card
+  was captured live and its source read; none is written from memory. Each carries a corpus rating
+  (Design / Usability / Creativity / Content, labelled `[inferred]`) next to any published award
+  score, and a card is added for what it teaches the corpus, never for its rating. New ground
+  includes e-commerce, docs and B2B-service classes, section-switcher decks, operable-object
+  portfolios and chaptered campaigns. One site (oxigen) stays blocked: headless capture cannot
+  render its scene.
+- **The pattern language absorbs them.** All thirteen pattern files, the reflex and anti-pattern
+  lists and the recipe `seenIn` arrays cite the new cards. New hero archetypes ("wordmark as a
+  window", "operable object", "the work on screen one"), components (persistent mode switch,
+  auto-advancing tabs with a visible clock, sentence-form enquiry, docked media that grows into its
+  section) and an e-commerce row in the category defaults.
+- **Twenty-four new recipes**, for 59 focused recipes plus one complete composition. Among them:
+  scroll-filled words, a hero word cycle, a wheel-committed panel deck, a clamped orbit over a
+  model with DOM hotspots, a knockout wordmark over a moving ground, a preloader that opens into
+  the hero, an endless GL reel, a blur-peek snapping carousel, a video clip-wipe and a runtime
+  DPR governor with an idle render gate. Each ships its own browser check, and none ships a media
+  or font file.
+- **Fourteen library notes**, among them Barba, Taxi, Highway, next-view-transitions, OGL,
+  Locomotive Scroll, camera-controls, lottie-web, the Spline viewer and html2canvas, each checked
+  against published source and linked from the stack skill, with pins in `versions.md`.
+- **`inspect(page, state)`** in `verify.mjs` lets a recipe check the accessibility tree or an ARIA
+  snapshot from Node on the page the harness already drove; `sentence-form-enquiry` uses it.
+- **A maintainer workflow for growing the corpus** (`.claude/skills/expand-corpus/`, not shipped
+  with the plugin): triage in batches, synthesis, recipe proposals behind a maintainer gate, stack
+  notes and upkeep, with a ledger in `docs/handoff/corpus-ledger.md`.
+
+**Verification and limits.** All 60 entries passed in one serial browser run on 2026-09-24, and the
+recipe audit is free of P0–P2 findings. Headless checks do not establish real-device GPU
+performance or real touch feel. The routing smoke evals were not re-run for this release, so the
+skills' triggering is measured only as of 0.3.0.
 
 ### 0.3.0 — 2026-09-23
 
 - **Visual composition library.** Five new recipes cover editorial image/text composition,
   responsive art-directed heroes, product specifications, typography specimens and designed
   footers. One complete furniture/materials page combines them with coherent synthetic imagery,
-  shared styles and annotated desktop/mobile captures. The catalogue has 59 focused recipes and
+  shared styles and annotated desktop/mobile captures. The catalogue has 35 focused recipes and
   one complete composition.
 - **Visual evidence in planning.** A composition guide connects real rendered examples to concept,
   system and structure decisions. A static desktop/mobile review precedes motion. Jury and ship
@@ -171,8 +205,8 @@ Version 0.3.0.
   isolated install/discovery checks. Interactive capture state plans, the non-installing `doctor`
   preflight and browser/tool regression checks support the complete workflow.
 
-**Verification and limits.** All 60 entries passed in one serial browser run on 2026-09-24 and in isolated
-per-recipe runs. Headless checks do not establish real-device GPU performance. In the
+**Verification and limits.** All 36 entries passed in isolated serial browser runs; a single-session
+full run remains unproven. Headless checks do not establish real-device GPU performance. In the
 [three-pair pilot](docs/handoff/visual-comparison-2026-09-22.md), the candidate was preferred overall
 twice, tied once, and tied on mobile throughout. Two candidate builds failed keyboard-focus contrast,
 so the pilot did not meet acceptance. None of the six builds invoked the advertised skills;
