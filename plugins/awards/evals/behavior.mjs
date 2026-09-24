@@ -70,6 +70,67 @@ test('audit', 'URL and missing-browser audits cannot report a clean unmeasured r
   const missing = await run('scripts/audit.mjs', [project, '--render', '--no-write'], { PATH: '', AWARDS_PLAYWRIGHT: '' });
   assert.equal(missing.code, 3, 'requested rendered checks must fail when Playwright is missing');
 });
+const auditIds = async (dir, argv = []) => {
+  const result = await run('scripts/audit.mjs', [dir, '--json', '--no-write', ...argv]);
+  return new Set(JSON.parse(result.stdout).findings.map((f) => f.rule));
+};
+const SLOP_IDS = ['T07', 'X01', 'X02', 'X06', 'X08', 'X09', 'X10', 'X11', 'X12', 'X13', 'X14', 'X15', 'X16', 'X17', 'X18', 'X19', 'L04', 'L05'];
+test('audit', 'slop rules fire on generated habits and stay quiet on a considered page', async () => {
+  const slop = path.join(tmp, 'slop');
+  const clean = path.join(tmp, 'clean');
+  fs.mkdirSync(slop);
+  fs.mkdirSync(clean);
+  const tile = (n) => `<div class="feature"><div class="feature-icon"><svg></svg></div><h3>Feature ${n}</h3><p>Copy.</p></div>`;
+  fs.writeFileSync(path.join(slop, 'index.html'), `<html lang="en"><head><meta name="viewport" content="width=device-width"><link rel="stylesheet" href="s.css"></head><body><main>
+<span class="badge">New</span><h1>Supercharge your workflow</h1>
+<p>Not a tool. A platform. Not a feature. A promise. Seamless sync — elevate your team — unlock insight — every day — no setup — no limits — anywhere. It works. It ships. It scales. It lasts.</p>
+<a href="#">Get started free</a><img src="https://placehold.co/600x400" alt="" width="600" height="400">
+<div class="metrics"><div>10k</div><div>99%</div><div>24/7</div></div>${tile(1)}${tile(2)}${tile(3)}
+<script>gsap.to('.x', { y: 10, ease: 'elastic.out(1, 0.3)' })</script></main></body></html>`);
+  fs.writeFileSync(path.join(slop, 's.css'), `body { background: repeating-linear-gradient(90deg, #222 0 1px, transparent 1px 40px); }
+.hero::before { background: radial-gradient(circle, #7c3aed, transparent 60%); }
+.btn { background: linear-gradient(90deg, #8b5cf6, #ec4899); box-shadow: 0 0 24px #a855f7; transition: transform .3s cubic-bezier(.34, 1.56, .64, 1); }
+.dot { animation: pulse 2s infinite; }
+.card:hover img { transform: scale(1.08); }
+.panel { border: 1px solid #eee; box-shadow: 0 20px 60px rgba(0,0,0,.12); }
+.note { border-top: 4px solid #0a0; border-radius: 16px; }
+p { text-align: justify; line-height: 1.1; }`);
+  fs.writeFileSync(path.join(clean, 'index.html'), `<html lang="en"><head><meta name="viewport" content="width=device-width"><link rel="stylesheet" href="s.css"></head><body><main>
+<h1>Tide tables for the Menai Strait</h1><p>High water at Caernarfon falls 38 minutes after Holyhead. The table below lists both, in local time.</p>
+<a href="/tables">Read the September tables</a><img src="/strait.avif" alt="The strait at low water" width="600" height="400">
+<script>gsap.to('.x', { y: 10, ease: 'expo.out' })</script></main></body></html>`);
+  fs.writeFileSync(path.join(clean, 's.css'), `body { background: #f4f2ee; color: #1a1c1c; }
+.btn { transition: transform .3s cubic-bezier(.16, 1, .3, 1); box-shadow: 0 1px 2px rgba(0,0,0,.2); }
+p { line-height: 1.5; max-width: 65ch; }`);
+  const hit = await auditIds(slop);
+  const missed = SLOP_IDS.filter((id) => !hit.has(id));
+  assert.deepEqual(missed, [], 'slop fixture must trip every rule');
+  const quiet = await auditIds(clean);
+  assert.deepEqual(SLOP_IDS.filter((id) => quiet.has(id)), [], 'a considered page must not trip slop rules');
+});
+test('audit', 'rendered checks see stuck content, long lines, edges, flat hierarchy and nested cards', async () => {
+  const dir = path.join(tmp, 'rendered');
+  fs.mkdirSync(dir);
+  const long = 'The paragraph runs the full width of a desktop window so its lines are far longer than anyone can track back across. '.repeat(3);
+  fs.writeFileSync(path.join(dir, 'index.html'), `<html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+body { margin: 0; font: 16px/1.5 sans-serif; } h1 { font-size: 18px; } p { margin: 0; }
+.card { border: 1px solid #ccc; padding: 8px; }</style></head><body><main>
+<h1>Almost body sized</h1><p>${long}</p><p style="opacity:0">This entrance never ran, so the paragraph stays invisible.</p>
+<div class="card"><div class="card">A card inside a card, both boxed.</div></div></main></body></html>`);
+  const hit = await auditIds(dir, ['--render']);
+  for (const id of ['L06', 'L07', 'L08', 'T08', 'X20']) assert.ok(hit.has(id), `rendered audit must report ${id}`);
+  // Earned shapes stay quiet: a GL mirror under its canvas, an SVG wordmark as the h1, a padded caption.
+  const quiet = path.join(tmp, 'rendered-quiet');
+  fs.mkdirSync(quiet);
+  fs.writeFileSync(path.join(quiet, 'index.html'), `<html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+body { margin: 0; font: 16px/1.5 sans-serif; } canvas { position: fixed; inset: 0; width: 100%; height: 100%; }
+.mirror { visibility: hidden; font-size: 64px; } .caption { margin: 0; padding: 0 20px; max-width: 60ch; }</style></head><body><main>
+<canvas aria-hidden="true"></canvas><h1><span style="position:absolute;clip:rect(0 0 0 0)">Field</span><svg viewBox="0 0 10 2" width="300" aria-hidden="true"><rect width="10" height="2"/></svg></h1>
+<h2 class="mirror">The whole page ripples in your wake.</h2>
+<p class="caption">Saltmarsh Ferry, wayfinding for a tidal crossing that keeps its text inset from both edges of a phone screen.</p></main></body></html>`);
+  const calm = await auditIds(quiet, ['--render']);
+  assert.deepEqual(['L06', 'L08', 'T08'].filter((id) => calm.has(id)), [], 'earned shapes must not trip rendered rules');
+});
 
 test('ticker', 'pause/resume never duplicates callbacks and teardown stops scheduling', () => {
   for (const file of ['recipes/_shared/raf.js', 'assets/scaffold/vite-vanilla/src/lib/raf.js']) {

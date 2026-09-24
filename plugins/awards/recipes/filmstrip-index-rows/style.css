@@ -4,7 +4,7 @@
 :root {
   --still-h: clamp(84px, 8.6806vw, 150px); /* 150px on the 1728 artboard */
   --still-gap: 15px;
-  --ease-grow: cubic-bezier(1, 0, .47, 1.25); /* late, overshooting grow; used once */
+  --ease-grow: cubic-bezier(1, 0, .47, 1.25); /* late, overshooting grow; used once. audit-ignore: X13 the one overshoot is the still landing in its slot */
 }
 
 .topbar { display: flex; justify-content: space-between; align-items: baseline; padding-block: calc(var(--unit) * 5); }

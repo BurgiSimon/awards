@@ -40,6 +40,11 @@ What a visitor who left after one viewport describes an hour later — an object
 ## Specificity test
 Could a juror name a source site from the first viewport? no / yes — which, and what to change:
 
+## Slop scan
+families present: n
+<!-- one line per family: <family> — <capture, file:line or rule id>; earned uses recorded under ## Exceptions do not count -->
+generator nameable: no / yes (two or more families)
+
 ## Contract fidelity
 | Block | Kept? | Evidence (capture, file:line) |
 |---|---|---|

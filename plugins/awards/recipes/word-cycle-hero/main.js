@@ -30,6 +30,7 @@ function own(t) { loop = t; if (!onScreen) t.pause(); return t; }
 
 // One reel: the next word up from below and the current word out the top on the same ease, so they move as
 // neighbours with one shared overshoot. dir -1 reverses (wheel back). OFF clears the descenders.
+// audit-ignore: X13 the overshoot is the reel settling, the one signature this recipe demonstrates
 const OFF = 130;
 function roll(to, dir = 1) {
   if (to === idx) return;

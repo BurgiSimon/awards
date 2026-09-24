@@ -11,6 +11,15 @@ Decisions taken during the build, with the reason, so a future session does not 
 | Research gaps | Proceed with a confidence-labelled corpus; `awards:research` re-verifies sites when a session has network and search access | Waiting for network access |
 | Layout | `plugins/awards/` plus `.claude-plugin/marketplace.json` at the repo root (`/plugin marketplace add burgisimon/awards`, `/plugin install awards@awards`; local `claude --plugin-dir plugins/awards`) | The plugin at the repo root |
 
+## Taken with the user (2026-09-24, slop scan)
+
+| Decision | Choice | Alternatives declined |
+|---|---|---|
+| Where slop detection lives | Extend the existing skills: one catalogue (`references/anti-patterns.md#the-slop-scan`), more audit rules, an explicit slop pass in craft and component, a scored Slop scan section in the jury report, ship naming the rules | A twelfth `awards:slop` skill |
+| Award staples (marquee, one family, cream or paper grounds, huge display headlines, italic serif display) | Judged, never audited: they are `judge` rows whose earned version the corpus ships | Advisory P3 rules; leaving them out |
+| Detectors | Static source rules and `--render` checks (L06–L08, T08, X20) | Rules for colours, fonts or radii outside DESIGN.md |
+| Consequence in the jury | Two or more families present caps Creativity at 6 (the rubric's category-default anchor); it does not force `rebuild` on its own | Treating a nameable generator like a nameable source site |
+
 ## Architectural
 
 - **Corpus at the plugin root**, addressed as `${CLAUDE_PLUGIN_ROOT}/references/…`, `…/recipes/…`, `…/scripts/…`; skill folders hold no private copies. Copying a single skill folder elsewhere is unsupported.

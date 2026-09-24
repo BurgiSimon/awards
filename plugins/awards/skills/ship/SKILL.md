@@ -65,7 +65,8 @@ Why: the audit measures the part of the craft floor that a script can measure, s
 node "${CLAUDE_PLUGIN_ROOT}/scripts/audit.mjs" <dir> --json
 ```
 
-- Run it against the project directory: it is static and needs source; add `--render` for the in-page checks when Playwright is available. Exit 2 means P0 or P1 findings remain; exit 0 means none. The findings land in `.awards/audit.json` with `rule`, `severity`, `file`, `line`, `message` and `fix`.
+- Run it against the project directory. It is static and needs source; add `--render` whenever Playwright is available, because stuck entrances (L06), line length (L07), text touching the phone edge (L08), flat hierarchy (T08) and nested cards (X20) exist only in a rendered page. Without a browser, write `rendered checks: unmeasured` in the report.
+- The slop rules (X01–X20, with L04, L05, T07 and C04) have earned versions, listed in `## The slop scan` of `${CLAUDE_PLUGIN_ROOT}/references/anti-patterns.md`. A finding that matches its earned version is excepted with that reason, such as `X13 — the logo squashes because it is a character`. A habit is fixed. Exit 2 means P0 or P1 findings remain; exit 0 means none. The findings land in `.awards/audit.json` with `rule`, `severity`, `file`, `line`, `message` and `fix`.
 - Every finding is either fixed or recorded. A recorded finding is one line under `AWARDS.md ## Exceptions`, or an inline comment next to the code when it concerns one file:
 
 ```

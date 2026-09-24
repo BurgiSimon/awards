@@ -21,6 +21,9 @@ One paragraph in the voice of a visitor an hour later. It must name an object or
 ## Specificity test
 `no` or `yes — <site> — <what to change>`. Compare the first viewport against the three DIVERGENCE cards and the wider index.
 
+## Slop scan
+The second direction of the specificity test. It uses the tables in `references/anti-patterns.md#the-slop-scan`: first the audit rules, then the `judge` rows read off the captures. Write `families present: n`, then one line per family naming it and its evidence (capture, `file:line` or rule id), then `generator nameable: yes | no`. Two or more families is a yes, and it caps Creativity at 6. An earned use recorded under `## Exceptions` with its reason is not counted.
+
 ## Contract fidelity
 One row per direction-contract block with kept / not kept and the rendered evidence (capture name, `file:line`). Missing rendered evidence makes visual fidelity `unmeasured`. Component reports include only WORLD and, for a signature component, SIGNATURE. Fidelity failures are listed before craft failures in the fix list.
 

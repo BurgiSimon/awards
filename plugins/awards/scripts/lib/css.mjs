@@ -42,6 +42,13 @@ export function blocks(css, atRuleRe) {
   return out;
 }
 
+export function ruleBlocks(css) {
+  // Innermost `selector { body }` pairs, so rules nested in @media still come out with their own selector.
+  const out = [];
+  for (const m of css.matchAll(/([^{};]+)\{([^{}]*)\}/g)) out.push({ selector: m[1].trim(), body: m[2], index: m.index + m[1].length - m[1].trimStart().length });
+  return out;
+}
+
 export function firstFamily(value) {
   const first = value.split(',')[0].trim().replace(/^["']|["']$/g, '');
   return first;

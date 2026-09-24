@@ -5,6 +5,31 @@ recorded below in [Candidate verification record](#candidate-verification-record
 `verification-log.md` record the earlier 0.2.0 work. `plan.md` is the 0.1.0 specification, kept for
 reference. `decisions.md` records choices already taken.
 
+## Unreleased — slop scan (branch `feat/no-slop`)
+
+- **Catalogue.** `references/anti-patterns.md` has a new section, `## The slop scan`. It groups the habits a generator falls into under eight headings, and each row names the audit rule that catches the habit, or `judge`, plus the earned version. impeccable's public slop catalogue was the checklist for which categories to cover; the prose and detectors are original.
+- **Audit.** It grew from 55 to 72 rules.
+  - Static rules: X09–X19 and T07.
+  - Render-only rules: L06–L08, T08 and X20.
+  - Widened rules: X01, X02, X06, X08, L04 and L05. The copy lists they read are in `scripts/data/reflex-copy.json`.
+  - Helper: `lib/css.mjs` has a new `ruleBlocks()`.
+- **Recipes.** They stay at P0 0 · P1 0 · P2 0 · P3 68. Four earned uses carry inline `audit-ignore` lines with their reasons:
+  - `filmstrip-index-rows` X13
+  - `word-cycle-hero` X13 and X14
+  - `throw-objects-css3d` X09
+- **Workflow.**
+  - The jury writes a `## Slop scan` section and caps Creativity at 6 at two families.
+  - craft runs a slop pass before the jury, and component runs one as Verify step 3.
+  - ship requires `--render` when a browser exists.
+  - system, motion and structure widen their audit scopes.
+- **Tests.** `evals/behavior.mjs --only audit` covers every new static rule on a slop fixture, a clean control page and the five rendered rules. A negative render fixture keeps the earned shapes quiet.
+- **Rendered rules against the built recipes.** An `audit.mjs --render` sweep of all 60 built recipes (`recipes/dist`, served by URL) is clean except for `gl-endless-reel-sheets` T08. That one is earned: when GL is on, the h1 is deliberately shrunk to a label.
+  - Three false positives were fixed in the detectors:
+    - L06 skips text under a canvas (the GL mirror).
+    - L08 measures the text rather than the padded box.
+    - T08 skips an h1 whose visual is an svg or img.
+  - A render sweep must run the audit asynchronously. `execFileSync` blocks the process that serves the pages, and every audit hangs.
+
 ## Current release — visual composition library
 
 Version **0.3.0** synchronizes the Claude, Codex and marketplace manifests. The

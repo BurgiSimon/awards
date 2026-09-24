@@ -117,12 +117,13 @@ Why: a component the jury sees in one state is a screenshot; a component that su
 Why: a component is proven by a capture and the audit, not by the diff.
 
 1. Allocate a fresh timestamp-plus-stage `capture_out` as in `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md`; run `node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <page> --out "$capture_out" --selector "<selector>" --hover "<selector>" --mobile --reduced-motion --json` and open each image once: rest, hover, mobile, reduced motion. Add `--no-webgl` when the component uses GL. For open, focused, dragged or persisted states, write `.awards/capture-states.json` using `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md` and add `--states .awards/capture-states.json` to the same capture pass. Open every named frame, inspect its manifest errors/state, and carry the manifest path and plan path into the jury handoff.
-2. `node "${CLAUDE_PLUGIN_ROOT}/scripts/audit.mjs" <file or dir> --json`: no P0/P1 findings in the component's files; record any accepted P2/P3 under `AWARDS.md ## Exceptions` when the project has one.
-3. The removal test: delete the effect (not the element) and confirm the element still does its job; if not, the effect was carrying content.
-4. The specificity test: could a juror name the recipe's source site from this element? If yes, change the metaphor or the timing, not the copy.
-5. The scope test: `git diff --stat` touches the component's files and shared tokens only; no other section changed.
-6. Keyboard walk: Tab to the element, operate it fully, leave it; nothing traps, nothing is unreachable.
-7. When `AWARDS.md` exists, note the component on its `## Page map` row with the recipe id and the reduced-motion tier.
+2. `node "${CLAUDE_PLUGIN_ROOT}/scripts/audit.mjs" <file or dir> --json`: no P0/P1 findings in the component's files; record any accepted P2/P3 under `AWARDS.md ## Exceptions` when the project has one. Add `--render` when Playwright is available, so stuck entrances (L06) and nested cards (X20) show up.
+3. The slop pass: walk the rows of `## The slop scan` in `${CLAUDE_PLUGIN_ROOT}/references/anti-patterns.md` that apply to this element (a card: surface and layout; a hero: type, colour and motion; a CTA: copy) against the captures. Fix every family present, or record it as earned with its reason.
+4. The removal test: delete the effect (not the element) and confirm the element still does its job; if not, the effect was carrying content.
+5. The specificity test: could a juror name the recipe's source site from this element? If yes, change the metaphor or the timing, not the copy.
+6. The scope test: `git diff --stat` touches the component's files and shared tokens only; no other section changed.
+7. Keyboard walk: Tab to the element, operate it fully, leave it; nothing traps, nothing is unreachable.
+8. When `AWARDS.md` exists, note the component on its `## Page map` row with the recipe id and the reduced-motion tier.
 
 ## Hand-off
 
