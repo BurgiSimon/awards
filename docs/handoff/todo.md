@@ -2,7 +2,7 @@
 
 ## Deep modes (0.5.0) follow-ups
 
-1. Run the paid deep-mode routing evals (`cd plugins/awards && claude plugin eval . --tag deep --runs 3 --ablation none`) and the trigger-motion / trigger-webgl-hero regression; record results in `evals/README.md`. Watch whether the official GSAP skills out-route `awards:motion`.
+1. Done 2026-10-05: deep evals 3/3 each after the component hand-off fix; trigger-motion, trigger-webgl-hero and trigger-component-nav 3/3 (`evals/README.md`). Still open: a full `--tag smoke` run with the no-plugin baseline.
 2. Real-GPU capture for the blocked lens sites: santionispirits (blocklists SwiftShader; card held back, techniques in the wave 4 ledger) and guillaumecolombel (WebGPU scene stalls headless). oxigen was dropped by the maintainer.
 3. Shader playbook evidence is thin: three of its recipes rest on one site (cyphercapital). A future WebGL lens queue should widen it.
 

@@ -64,6 +64,8 @@ COST       bytes added, dependencies added (should be none), and the budget it m
 
 When the user wants to choose between directions, invoke the `awards:concept` skill now with the Skill tool, passing the brief and the AWARDS.md path with `--component`; do not do its work inline. It returns a six-line contract in this shape.
 
+When MATERIAL is WebGL, invoke the `awards:webgl` skill now with the Skill tool, passing the brief, the mini contract and the AWARDS.md path, even for a plan-only request; its deep modes (`--shader`, `--3d`) own the GL architecture, and this skill keeps the job, states and paths.
+
 The signature must be one move. A menu that wipes, staggers, flips the theme and spawns particles has no signature; pick the wipe and the numbered stagger and let the rest be craft (`[pattern:motion-vocabulary#staggers]`).
 
 ## Catalogue lookup, then adapt

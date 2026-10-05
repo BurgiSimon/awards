@@ -34,6 +34,8 @@ The build cases run inside the eval sandbox, where `npm install` and Playwright 
 | smoke | `--tag smoke --runs 1 --ablation none -j 3 --threshold 0.67` | 2026-09-18 | 2.1.51 | 15 / 17 | $9.20 |
 | smoke | `--tag smoke --runs 3 --threshold 0.67` (both arms, 102 runs, 49 min) | 2026-09-18 | 2.1.276 | **13 / 17**, overall score 0.86, mean delta over baseline **+0.48** | $36.22 |
 | smoke | `--case <name> --runs 3 --ablation none --scaffold` on the three unverified cases | 2026-09-21 | 2.1.278 | **3 / 3 each, every grader green** | $6.64 |
+| deep | `--tag deep --runs 3 --ablation none` | 2026-10-05 | 2.1.289 | first pass gsap and 3d 3/3, shader 0/3 (routed to `awards:component`, which handed off to webgl only at build); after the component hand-off fix **3 / 3 each** | $5.32 |
+| smoke | `--case` trigger-motion, trigger-webgl-hero, trigger-component-nav `--runs 3 --ablation none --scaffold` (0.5.0 regression) | 2026-10-05 | 2.1.289 | **3 / 3 each** | $3.21 |
 | build | `--tag build --scaffold --runs 1 --ablation none -j 2 --keep-temp` + the documented `--allow-tools` set | 2026-09-21 | 2.1.278 | **2 / 6 cases all-green; 36 of 41 graders passed**, overall score 0.86 | $27.68 |
 | build | same, re-run with `--allow-tools … Bash` working and four graders repaired | 2026-09-21 | 2.1.278 | **4 / 6 cases all-green; 39 of 41 graders passed**, overall score **0.95** | $41.43 |
 | build | third run, after the `scope-respected` swap and the `motion-score-written` loosening | 2026-09-21 | 2.1.278 | **4 / 6 cases all-green; 40 of 42 graders passed**, overall score **0.96** | $44.37 |
