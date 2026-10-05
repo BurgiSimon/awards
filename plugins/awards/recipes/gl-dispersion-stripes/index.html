@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#1a1c1c">
+  <title>gl-dispersion-stripes — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ gl-dispersion-stripes · <span data-gl-readout>dom</span></p></header>
+  <main id="main">
+    <section class="wrap hero" aria-labelledby="t">
+      <p class="label">/ synthetic demo</p>
+      <h1 class="title" id="t">One stripe,<br>three phases.</h1>
+      <p class="lede">A single procedural stripe is computed three times, once per colour channel, each with its phase nudged a little. Where the channels agree the metal reads grey; at every edge they part, and the fringe is the dispersion.</p>
+    </section>
+    <section class="stage" aria-label="Stripe field">
+      <canvas class="gl" aria-hidden="true"></canvas>
+    </section>
+    <section class="section wrap notes"><h2>Rules</h2><ul>
+      <li>The stripe phase is a rotated ramp, bent by a radial bump and 2D simplex noise, and drifted by time.</li>
+      <li>Red and blue read the same stripe at a shifted phase; green reads it unshifted.</li>
+      <li>Each edge is anti-aliased from the phase, not the colour: coverage is re-thresholded by <code>fwidth</code>, guarded against zero.</li>
+      <li>Tone mapping, gamma and an interleaved-gradient-noise dither run inline: no render target.</li>
+      <li>Reduced motion and static: one still frame, no drift.</li>
+    </ul></section>
+  </main>
+  <footer class="wrap footer"><p class="label">awards · recipe · synthetic demo · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

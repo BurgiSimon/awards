@@ -1,0 +1,24 @@
+{
+  "id": "gl-dispersion-stripes",
+  "title": "Dispersion stripes",
+  "tags": [
+    "webgl",
+    "shader",
+    "procedural",
+    "dispersion"
+  ],
+  "tier": "P2",
+  "deps": [],
+  "variants": [
+    "raw WebGL2, one fullscreen triangle (this)",
+    "three.js ShaderMaterial on a fullscreen triangle",
+    "stripes masked by a runtime shape texture instead of the slab distance"
+  ],
+  "seenIn": [
+    "cyphercapital"
+  ],
+  "verified": {
+    "date": "2026-10-05",
+    "chromium": "153.0.8010.12"
+  }
+}
