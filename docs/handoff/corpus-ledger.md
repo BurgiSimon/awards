@@ -540,7 +540,7 @@ the-boyd: pinia — DHmUQlsp.js
 | setup | done | first lens wave (GSAP, WebGL, 3D) on branch feat/deep-modes; 17 rows from the three lens headings |
 | triage | done | 13 added (12 new cards + why-zero lens update), 2 skipped by owner policy (ruitat, nyphil), 2 blocked by headless GPU (santionispirits blocklists SwiftShader; guillaumecolombel WebGPU scene stalls) — both read from source, retry needs a real GPU; captures serialised behind a lock after the pilot |
 | synthesis | done | 13 cards folded into the three lens playbooks (every content section filled), webgl-architecture (13 effect rows), 16 other pattern files, reflex-lists, anti-patterns and 33 recipe seenIn additions |
-| recipes | open | |
+| recipes | done | 16 built (all selected): custom-ease-house-defaults, gl-uniform-tween-targets, clip-path-scrub-door, scrub-threshold-timelines, gl-built-studio-environment, gl-material-patch-reveal, gl-one-context-many-canvases, gl-lathe-turned-object, gl-ping-pong-grain-field, gl-arc-length-mask-reveal, gl-dispersion-stripes, gl-sdf-extruded-symbol, gl-spring-stepped-gallery, gl-progress-scene-windows, two-phase-interruptible-timeline, offscreen-canvas-worker; catalogue 76/76 pass 2026-10-05; audit P0–P2 clean; no new pins |
 | stacks | open | |
 | upkeep | open | |
 

@@ -1,6 +1,6 @@
 # awards — award-worthy websites with Claude Code and Codex
 
-A plugin for Claude Code and Codex that teaches the agent to design and build websites and single components in the league of award winners. It is built from a reference corpus of analysed award-winning sites, the pattern language they share, 59 focused recipes and one complete composition (60 browser-verifiable entries), a deterministic craft-floor audit, and a fresh-context jury that scores the way the real one does.
+A plugin for Claude Code and Codex that teaches the agent to design and build websites and single components in the league of award winners. It is built from a reference corpus of analysed award-winning sites, the pattern language they share, 75 focused recipes and one complete composition (76 browser-verifiable entries), a deterministic craft-floor audit, and a fresh-context jury that scores the way the real one does.
 
 ## Install
 
@@ -112,7 +112,7 @@ Durable files: `AWARDS.md` (brief, contract, page map, motion score, budgets, ju
 ## What is inside
 
 - `plugins/awards/references/` — the site case studies, each checked against the live site and its live award entry (the original set on 2026-09-18, later cards on the date each one records) and carrying confidence labels, the [visual composition guide](plugins/awards/references/patterns/visual-composition.md) and broader pattern language, the jury rubric and usability walk, the craft floor, anti-pattern and reflex lists, per-stack and per-library notes with pinned versions.
-- `plugins/awards/recipes/` — 59 focused recipes plus one complete editorial composition, 60 verifiable entries in all. The six new visual examples include reviewed desktop/mobile images and synthetic demonstration content; each entry has a browser verifier. These images are generated and tested examples, not evidence of human preference.
+- `plugins/awards/recipes/` — 75 focused recipes plus one complete editorial composition, 76 verifiable entries in all. The six new visual examples include reviewed desktop/mobile images and synthetic demonstration content; each entry has a browser verifier. These images are generated and tested examples, not evidence of human preference.
 - `plugins/awards/scripts/` — `doctor.mjs`, `capture.mjs`, `audit.mjs`, `new-project.mjs`, `roll.mjs`, `verify-recipes.mjs`, `lint-refs.mjs`.
 - `plugins/awards/evals/` — a `claude plugin eval` suite: seventeen routing cases (eleven that must fire a skill, six that must not) and six build cases with fixtures, plus `selftest.mjs` for grader checks and `behavior.mjs` for actual browser, audit, capture, server and ticker regressions without model calls.
 
@@ -135,7 +135,7 @@ npm install --no-save --package-lock=false playwright  # verification tool only
 npx playwright install chromium
 node ../scripts/doctor.mjs .                 # early prerequisite check; no installs
 node ../evals/behavior.mjs                   # live behavior regressions, no model calls
-node ../scripts/verify-recipes.mjs            # all 60 entries, headless Chromium with WebGL
+node ../scripts/verify-recipes.mjs            # all 76 entries, headless Chromium with WebGL
 node ../scripts/audit.mjs .                   # the craft floor: must stay free of P0-P2
 node ../scripts/lint-refs.mjs                 # every [site:]/[recipe:]/[pattern:] reference resolves
 node ../evals/jury-evidence-selftest.mjs      # jury evidence contract, no model calls
