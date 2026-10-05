@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>gl-material-patch-reveal — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ gl-material-patch-reveal · <span data-gl-readout>dom</span></p></header>
+  <main id="main">
+    <section class="section wrap hero" aria-labelledby="t">
+      <p class="label">/ patched material</p>
+      <h1 class="display" id="t">Grey first. Colour from the dial.</h1>
+      <p class="lede">Scroll on. One generated surface wears a stock material patched twice: a luma mix turns its map grey, and a grained circle, centred on the dial in the corner, opens the coloured copy as you scroll. The surface, its pattern and this copy are a synthetic demo.</p>
+    </section>
+
+    <section class="scene" data-scene aria-labelledby="scene-title">
+      <div class="scene__stage">
+        <h2 id="scene-title" class="sr-only">A grey surface that turns to colour from the dial outwards</h2>
+        <canvas class="gl" data-gl aria-hidden="true"></canvas>
+        <p class="label scene__label">grey → colour</p>
+        <div class="dial" data-anchor role="img" aria-label="Reveal progress"><span data-dial>00</span></div>
+      </div>
+    </section>
+
+    <section class="section wrap outro" aria-labelledby="o">
+      <h2 id="o">One scene, one material, two patches.</h2>
+      <p class="lede">Scroll back: the circle closes onto the dial and the surface returns to grey.</p>
+    </section>
+  </main>
+  <footer class="section wrap foot"><p class="label">awards · recipe · MIT · synthetic demo content</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

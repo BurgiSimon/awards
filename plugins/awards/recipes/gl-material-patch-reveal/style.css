@@ -1,0 +1,31 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.topbar { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); }
+.topbar > * { margin: 0; }
+.hero { display: grid; align-content: center; gap: calc(var(--unit) * 8); }
+.hero > * { margin: 0; }
+.hero .display { max-width: 14ch; }
+.lede { max-width: 56ch; }
+.outro h2 { max-width: 18ch; margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(2rem, 5vw, 4.5rem); line-height: 1; letter-spacing: -.02em; }
+.foot { min-height: auto; }
+
+/* 300svh of scroll under a sticky stage: ScrollTrigger reads progress, nothing is pinned. */
+.scene { position: relative; height: 300svh; }
+.scene__stage { position: sticky; top: 0; height: 100svh; overflow: clip; background: linear-gradient(135deg, #6c6c6c, #3a3a3a); }
+.scene__stage .gl { position: absolute; inset: 0; width: 100%; height: 100%; display: none; }
+html.gl-active .scene__stage .gl { display: block; }
+
+/* The DOM anchor: the circle's centre and starting radius are read from this element's rect every frame. */
+.dial {
+  position: absolute; left: var(--gutter); bottom: var(--gutter); width: 72px; aspect-ratio: 1; border-radius: 50%;
+  border: 1px solid #fff; display: grid; place-items: center; color: #fff; font-family: var(--font-mono); font-size: var(--label);
+  font-variant-numeric: tabular-nums; background: rgb(0 0 0 / .35);
+}
+.scene__label { position: absolute; top: var(--gutter); left: var(--gutter); margin: 0; padding: calc(var(--unit) * 2) calc(var(--unit) * 3); background: rgb(0 0 0 / .55); color: #fff; }
+
+/* main.js drops the circle under reduced motion (the colour mixes evenly); the label says so. */
+@media (prefers-reduced-motion: reduce) {
+  .scene__label::after { content: " · even"; }
+}

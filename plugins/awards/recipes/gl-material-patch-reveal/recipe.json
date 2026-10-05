@@ -1,0 +1,33 @@
+{
+  "id": "gl-material-patch-reveal",
+  "title": "Patched stock material: grey-to-colour hand-off through a DOM-anchored circle",
+  "tags": [
+    "3d",
+    "webgl",
+    "three",
+    "shader",
+    "onbeforecompile",
+    "scroll",
+    "reveal"
+  ],
+  "tier": "P1",
+  "deps": [
+    "three@0.186.0",
+    "gsap@3.15.0",
+    "lenis@1.3.26"
+  ],
+  "variants": [
+    "luma mix + grained circular discard (this)",
+    "normal wobble chunk at <normal_fragment_begin> (?wobble)",
+    "R3F: the same onBeforeCompile on <meshStandardMaterial>, uniforms in a ref"
+  ],
+  "seenIn": [
+    "eugeniagrab",
+    "ascension-pegassi",
+    "agrumeafarm"
+  ],
+  "verified": {
+    "date": "2026-10-05",
+    "chromium": "153.0.8010.12"
+  }
+}
