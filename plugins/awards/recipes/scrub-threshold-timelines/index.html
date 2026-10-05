@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>scrub-threshold-timelines — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ scrub-threshold-timelines</p></header>
+  <main id="main">
+    <section class="section wrap hero" aria-labelledby="t">
+      <p class="label">/ copy on thresholds</p>
+      <h1 class="display" id="t">The picture scrubs. The words do not.</h1>
+      <p class="lede">Scroll on. A generated bloom opens with the scroll, frame by frame. Its copy is never scrubbed: it plays in once a threshold is crossed and leaves, faster, at the next one or when you scroll back. The bloom and its copy are a synthetic demo.</p>
+    </section>
+
+    <!-- A tall section with a sticky stage. One scrubbed timeline drives the bloom and the frame counter; two paused
+         timelines carry the copy and are only played or reversed when the scrub's progress crosses a threshold. -->
+    <section class="scene" data-scene aria-labelledby="scene-title">
+      <div class="scene__stage" data-stage>
+        <h2 id="scene-title" class="sr-only">A bloom that opens with the scroll</h2>
+        <p class="label scene__hud"><span>frame <span data-frame>001</span> / 120</span><span class="scene__step"><span data-step="closed">closed</span><span data-step="open">open</span></span></p>
+        <div class="bloom" data-bloom aria-hidden="true"></div>
+        <div class="scene__copy">
+          <p class="copy" data-copy><span class="copy__line">It opens slowly,</span><span class="copy__line">one frame at a time.</span></p>
+          <p class="copy copy--final" data-final><span class="copy__line">Then it holds.</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap outro" aria-labelledby="o">
+      <h2 id="o">After the scene, the page resumes.</h2>
+      <p class="lede">Scroll back up through the scene: each line leaves at its threshold, quicker than it came, and returns when you cross it again.</p>
+    </section>
+  </main>
+  <footer class="section wrap foot"><p class="label">awards · recipe · MIT · synthetic demo content</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
