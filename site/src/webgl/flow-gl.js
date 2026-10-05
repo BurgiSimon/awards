@@ -4,11 +4,11 @@ import { applyRendererBudget } from '../lib/quality-tiers.js';
 
 const vertexShader = /* glsl */ `
   attribute float aSep;
-  varying float vS;
+  varying float vA;
   varying float vSep;
   varying float vX;
   void main() {
-    vS = position.z; // arc length rides in z so the positions buffer is the tracer's own array
+    vA = position.z; // the tracer's opacity rides in z so the positions buffer is its own array
     vSep = aSep;
     vX = position.x;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position.xy, 0.0, 1.0);
@@ -19,21 +19,15 @@ const fragmentShader = /* glsl */ `
   uniform vec3 uInk;
   uniform vec3 uAccent;
   uniform float uAlpha;
-  uniform float uPhase;
-  uniform float uPulse;
   uniform float uReveal;
-  varying float vS;
+  varying float vA;
   varying float vSep;
   varying float vX;
   void main() {
-    if (vX > uReveal) discard;
-    // A smoke streak travelling downstream: a short rise, a longer tail, one per 260 px of line.
-    float p = fract((vS - uPhase) / 260.0);
-    float streak = smoothstep(0.0, 0.06, p) * (1.0 - smoothstep(0.06, 0.4, p));
-    float sep = smoothstep(0.3, 0.8, vSep);
+    if (vX > uReveal || vA < 0.004) discard;
+    float sep = smoothstep(0.15, 0.7, vSep);
     vec3 color = mix(uInk, uAccent, sep);
-    float alpha = uAlpha * (0.6 + 0.4 * uPulse * streak) + sep * 0.25;
-    gl_FragColor = vec4(color, min(alpha, 1.0));
+    gl_FragColor = vec4(color, min(1.0, uAlpha * vA * (1.0 + 0.6 * sep)));
     #include <colorspace_fragment>
   }
 `;
@@ -53,8 +47,6 @@ export function createGL(canvas, quality) {
       uInk: { value: new Color() },
       uAccent: { value: new Color() },
       uAlpha: { value: 0.5 },
-      uPhase: { value: 0 },
-      uPulse: { value: 1 },
       uReveal: { value: 1e6 },
     },
   });
@@ -65,14 +57,14 @@ export function createGL(canvas, quality) {
 
   return {
     kind: 'webgl',
-    // pos (xyz per point) and sep (per point) are the tracer's arrays; the GPU buffers alias them.
+    // pos (x, y, opacity per point) and sep (per point) are the tracer's arrays; the GPU buffers alias them.
     resize(width, height, pos, sep, lineCount, maxPts) {
       applyRendererBudget(renderer, quality, width, height);
       camera.right = width;
       camera.bottom = height;
       camera.updateProjectionMatrix();
       // A device pixel is the hairline; on dense screens it needs more ink to read at the same weight.
-      material.uniforms.uAlpha.value = renderer.getPixelRatio() > 1.4 ? 0.72 : 0.5;
+      material.uniforms.uAlpha.value = renderer.getPixelRatio() > 1.4 ? 0.85 : 0.62;
       if (lines) { scene.remove(lines); geometry.dispose(); }
       geometry = new BufferGeometry();
       posAttr = new BufferAttribute(pos, 3);
@@ -95,9 +87,7 @@ export function createGL(canvas, quality) {
     },
     // Called after the tracer rewrote the arrays.
     upload() { posAttr.needsUpdate = true; sepAttr.needsUpdate = true; },
-    draw({ phase, pulse, reveal }) {
-      material.uniforms.uPhase.value = phase;
-      material.uniforms.uPulse.value = pulse;
+    draw({ reveal }) {
       material.uniforms.uReveal.value = reveal;
       renderer.render(scene, camera);
     },

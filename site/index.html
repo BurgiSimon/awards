@@ -19,22 +19,22 @@
       <div class="tunnel-copy wrap">
         <h1 id="tunnel-title">
           <span class="wordmark" data-obstacle>awards</span>
-          <span class="claim" data-split>Put the website in the wind tunnel before anyone sees it.</span>
+          <span class="claim" data-split data-veil>Put the website in the wind tunnel before anyone sees it.</span>
         </h1>
-        <p class="lede">A plugin for Claude Code and Codex. It designs and builds a site from a written contract, then tests it the way a design-award jury would: %%rules%% audit rules, captures from a real browser, and a juror in a fresh context who scores what it sees.</p>
-        <div class="actions">
+        <p class="lede" data-veil>A plugin for Claude Code and Codex. It designs and builds a site from a written contract, then tests it the way a design-award jury would: %%rules%% audit rules, captures from a real browser, and a juror in a fresh context who scores what it sees.</p>
+        <div class="actions" data-veil>
           <a class="button" href="./install.html">Install the plugin</a>
           <a class="text-link" href="./docs.html">Read the docs</a>
         </div>
       </div>
       <div class="readout-strip wrap">
-        <dl>
+        <dl data-veil>
           <div><dt>Airspeed</dt><dd><output id="airspeed" aria-live="off">0</output> <span class="unit">px/s</span></dd></div>
           <div><dt>Skills</dt><dd>%%skills%%</dd></div>
           <div><dt>Audit rules</dt><dd>%%rules%%</dd></div>
           <div><dt>Recipes verified</dt><dd>%%recipes-verified%% / %%recipes%%</dd></div>
         </dl>
-        <button class="airflow" type="button" aria-pressed="true" data-airflow hidden>Airflow <span data-airflow-state>on</span></button>
+        <button class="airflow" type="button" aria-pressed="true" data-airflow data-veil hidden>Airflow <span data-airflow-state>on</span></button>
       </div>
     </section>
 
@@ -131,7 +131,7 @@
             </ol>
           </div>
         </div>
-        <p class="then">Then ask for a site with <code>/awards:craft</code> in Claude Code or <code>$awards:craft</code> in Codex. Captures need Node 20.19 or later and Playwright with Chromium; <a href="./install.html#requirements">the full requirements</a> are one page away.</p>
+        <p class="then" data-veil>Then ask for a site with <code>/awards:craft</code> in Claude Code or <code>$awards:craft</code> in Codex. Captures need Node 20.19 or later and Playwright with Chromium; <a href="./install.html#requirements">the full requirements</a> are one page away.</p>
       </div>
     </section>
   </main>

@@ -1,14 +1,14 @@
-// The wind tunnel: streamlines that treat the section's real layout as the obstacle.
-// Full tier: three.js hairlines, live airspeed, wake, pointer probe. Otherwise: one settled frame in canvas 2D.
+// The wind tunnel: smoke streaklines in a real (coarse) airflow that treats the section's layout as the obstacle.
+// Full tier: three.js hairlines, live air, wake, pointer probe. Otherwise: one settled frame in canvas 2D.
+// The physics runs in a worker (worker.js); this side measures the layout, feeds it airspeed and draws its frames.
 import gsap from 'gsap';
-import { buildField, trace, seedsFor } from './field.js';
 import { rasterise, cssColor } from './obstacles.js';
 import { createCanvas2D } from './canvas2d.js';
 import { damp, clamp } from '../lib/raf.js';
 
-const STEP = 8; // px between traced points
 const ARRIVAL = 1.2; // s, the hero's one hero-scale moment
-const IDLE_AIR = 40; // px/s: the streaks still drift when nothing scrolls
+const IDLE = { hero: 150, close: 110 }; // px/s: the tunnel still blows when nothing scrolls
+const EPS = 3; // 1/s, vorticity confinement at full turbulence: how hard the wake rolls up
 
 export async function mountFlow(section, { mode = 'hero', quality = { tier: 'mid', dpr: 1 }, tier = 'full', getVelocity = () => 0 } = {}) {
   await document.fonts.ready;
@@ -32,64 +32,91 @@ export async function mountFlow(section, { mode = 'hero', quality = { tier: 'mid
     renderer = createCanvas2D(canvas);
   }
   const animated = renderer.kind === 'webgl';
+  const idle = IDLE[mode] ?? IDLE.hero;
 
   const probeEnabled = animated && matchMedia('(pointer: fine)').matches;
-  let field = null, seeds = null, pos = null, sep = null, width = 0, height = 0, maxPts = 0;
-  let air = 0, t = 0, phase = 0, born = animated && mode === 'hero' ? 0 : ARRIVAL;
-  let on = true, visible = true, dirty = true;
-  const probe = { x: 0, y: 0, r: 0, tx: 0, ty: 0, inside: false, moved: false };
+  let pos = null, sep = null, width = 0, height = 0;
+  let air = 0, born = animated && mode === 'hero' ? 0 : ARRIVAL;
+  let on = true, visible = true;
+  const probe = { x: 0, y: 0, r: 0, tx: 0, ty: 0, vx: 0, vy: 0, inside: false };
+
+  const worker = new Worker(new URL('./worker.js', import.meta.url), { type: 'module' });
+  // gen drops replies from before the last layout; busy keeps one step in flight; owed is sim time not yet sent.
+  let gen = 0, busy = false, owed = 0, spare = null, arrived = null;
+  worker.onmessage = ({ data }) => {
+    if (data.gen !== gen) return;
+    busy = false;
+    if (!pos || pos.length !== data.pos.length) {
+      pos = new Float32Array(data.pos.length);
+      sep = new Float32Array(data.sep.length);
+      renderer.resize(width, height, pos, sep, data.lines, data.cap);
+    }
+    pos.set(data.pos);
+    sep.set(data.sep);
+    spare = data; // lend the buffers back with the next step
+    renderer.upload();
+    draw();
+    arrived?.();
+    arrived = null;
+  };
 
   function layout() {
     const rect = section.getBoundingClientRect();
     width = rect.width;
     height = rect.height;
-    if (!width || !height) return;
-    const cell = Math.max(3, Math.round(width / 360));
-    const r = rasterise(section, cell);
-    field = buildField(r.mask, r.w, r.h, cell, { reach: r.reach, wakeLength: width * 0.3 });
-    let count = quality.tier === 'high' ? 160 : 90;
-    if (width < 768) count *= 0.55;
-    if (mode === 'close') count *= 0.7;
-    seeds = seedsFor(Math.round(count), height);
-    maxPts = Math.ceil((width / STEP) * 1.5) + 4;
-    pos = new Float32Array(seeds.length * maxPts * 3);
-    sep = new Float32Array(seeds.length * maxPts);
-    renderer.resize(width, height, pos, sep, seeds.length, maxPts);
+    if (!width || !height) return Promise.resolve();
+    // The smoke collides with a fine raster of the layout (≈ 4 px); the air runs on ≈ 10k cells at any aspect.
+    const fine = Math.max(3, Math.round(width / 360));
+    const airCell = Math.sqrt((width * height) / (quality.tier === 'high' ? 12000 : 9000));
+    const scale = Math.max(1, Math.round(airCell / fine));
+    const r = rasterise(section, fine);
+    let gap = quality.tier === 'high' ? 9 : 11;
+    if (width < 768) gap = 9;
+    if (mode === 'close') gap *= 1.25;
     renderer.colors(cssColor(section, '--ink'), cssColor(section, '--accent'));
-    dirty = true;
-    render(0);
+    gen++;
+    busy = true;
+    pos = null;
+    spare = null;
+    const config = { ...r, scale, width, height, gap, spacing: 6, life: (width / idle) * 1.4 };
+    worker.postMessage({ type: 'init', gen, idle, config }, [r.mask.buffer, r.veil.buffer]);
+    return new Promise((resolve) => { arrived = resolve; });
   }
 
-  function render(dt) {
-    if (!field) return;
-    const turb = mode === 'close' ? 0 : clamp((air - 150) / 2200, 0, 1);
-    const probing = probe.r > 0.5;
-    if (dirty || turb > 0.001 || (probing && probe.moved)) {
-      t += dt * (0.6 + turb * 1.4);
-      trace(field, seeds, width, height, { t, turb, probe: probing ? probe : null }, STEP, maxPts, pos, sep);
-      renderer.upload();
-      dirty = false;
-      probe.moved = false;
-    }
+  function draw() {
     const k = Math.min(1, born / ARRIVAL);
-    renderer.draw({ phase, pulse: animated ? 1 : 0, reveal: (1 - Math.pow(2, -10 * k)) * (width + STEP * 2) - STEP });
+    renderer.draw({ reveal: (1 - Math.pow(2, -10 * k)) * (width + 16) - 8 });
   }
 
   // One clock: the page's GSAP ticker already drives Lenis and ScrollTrigger.
   const tick = (_time, deltaMs) => {
     const dt = Math.min(0.1, deltaMs / 1000);
     air = damp(air, Math.abs(getVelocity() || 0), 6, dt);
-    if (!animated || !on || !visible || document.hidden) return;
+    if (!animated || !on || !visible || document.hidden || !pos) return;
     born += dt;
-    phase += dt * (IDLE_AIR + air * 0.25);
+    owed += dt;
+    if (born < ARRIVAL + dt) draw(); // the reveal advances every frame, new smoke or not
+    if (busy) return;
+    // Airspeed is the Reynolds number: slow air stays laminar (viscous), fast scrolling separates it into a wake.
+    const turb = mode === 'close' ? 0 : clamp((air - 150) / 1800, 0, 1);
+    const U = idle + (mode === 'close' ? Math.min(120, air * 0.08) : Math.min(650, air * 0.3));
     if (probeEnabled) {
-      const before = probe.x + probe.y + probe.r;
-      probe.x = damp(probe.x, probe.tx, 12, dt);
-      probe.y = damp(probe.y, probe.ty, 12, dt);
-      probe.r = damp(probe.r, probe.inside ? Math.min(44, width * 0.03) : 0, 8, dt);
-      if (Math.abs(probe.x + probe.y + probe.r - before) > 0.05) probe.moved = true;
+      const x = probe.x, y = probe.y;
+      probe.x = damp(probe.x, probe.tx, 14, dt);
+      probe.y = damp(probe.y, probe.ty, 14, dt);
+      probe.vx = clamp((probe.x - x) / dt, -1500, 1500);
+      probe.vy = clamp((probe.y - y) / dt, -1500, 1500);
+      probe.r = damp(probe.r, probe.inside ? Math.min(40, width * 0.028) : 0, 8, dt);
     }
-    render(dt);
+    const params = {
+      U, eps: turb * EPS, visc: 0.12 + 0.33 * (1 - turb), turb,
+      probe: probe.r > 2 ? { x: probe.x, y: probe.y, r: probe.r, vx: probe.vx, vy: probe.vy } : null,
+    };
+    const lend = spare ? [spare.pos.buffer, spare.sep.buffer] : [];
+    worker.postMessage({ type: 'step', gen, dt: Math.min(owed, 0.1), params, pos: spare?.pos, sep: spare?.sep }, lend);
+    busy = true;
+    owed = 0;
+    spare = null;
   };
   gsap.ticker.add(tick);
 
@@ -109,19 +136,28 @@ export async function mountFlow(section, { mode = 'hero', quality = { tier: 'mid
 
   const io = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; });
   io.observe(section);
+  // The field is stale when the section resizes or anything inside it moves the obstacles (a control appearing,
+  // a line re-wrapping). Children are observed too: their resizes are what move the obstacles.
+  const signature = () => {
+    const o = section.getBoundingClientRect();
+    return [o.width, o.height, ...[...section.querySelectorAll('[data-obstacle]')].flatMap((el) => {
+      const r = el.getBoundingClientRect();
+      return [r.left - o.left, r.top - o.top, r.width];
+    })].map(Math.round).join();
+  };
   let resizeTimer = 0;
-  let lastSize = '';
+  let lastSig = '';
   const ro = new ResizeObserver(() => {
-    const r = section.getBoundingClientRect();
-    const size = `${Math.round(r.width)}x${Math.round(r.height)}`;
-    if (size === lastSize) return;
-    lastSize = size;
+    const sig = signature();
+    if (sig === lastSig) return;
+    lastSig = sig;
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(layout, 150); // rebuild the obstacle field, never reload
   });
-  layout();
-  lastSize = `${Math.round(width)}x${Math.round(height)}`;
+  lastSig = signature();
+  await layout();
   ro.observe(section);
+  for (const child of section.children) ro.observe(child);
 
   return {
     renderer: renderer.kind,
@@ -137,6 +173,7 @@ export async function mountFlow(section, { mode = 'hero', quality = { tier: 'mid
       ro.disconnect();
       removeEventListener('pointermove', onPointer);
       document.documentElement.removeEventListener('pointerleave', onLeave);
+      worker.terminate();
       renderer.dispose();
       canvas.remove();
     },
