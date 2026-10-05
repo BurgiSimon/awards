@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>offscreen-canvas-worker — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar">
+    <a href="../index.html" class="label">← recipes</a>
+    <p class="label">drawing on: <output data-mode aria-live="polite">…</output></p>
+  </header>
+  <main id="main">
+    <section class="section wrap demo" aria-label="Demonstration">
+      <figure class="stage" data-stage>
+        <canvas data-loader width="960" height="540" aria-hidden="true"></canvas>
+        <figcaption class="label">Synthetic loader: generated ticks and a Lissajous pen, no media files.</figcaption>
+      </figure>
+      <div class="controls">
+        <button type="button" data-block>Block the main thread for 0.8 s</button>
+        <p class="label">In a Worker the pen keeps moving; on the fallback it freezes.</p>
+      </div>
+    </section>
+    <section class="section wrap hero" aria-labelledby="t">
+      <p class="label">/ draw where the main thread cannot reach</p>
+      <h1 class="display" id="t">Off the<br>main thread.</h1>
+      <p class="lede">The loader canvas is handed to a Worker through an OffscreenCanvas, so shader compilation, parsing and layout on the main thread never stall it. The Worker gets one second to answer a hello; if it stays silent, the very same draw code runs here instead.</p>
+    </section>
+  </main>
+  <footer class="section wrap"><p class="label">awards · recipe · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

@@ -94,6 +94,7 @@ The six static visual examples declare their reviewed desktop/mobile image paths
 | Throw toy | `throw-objects-css3d` | P2 | Draggable + InertiaPlugin throw of extruded CSS-3D blocks, `snap.points` on the clamped landing point into a perspective tray, velocity tilt on an inner body, a throw button per block, drop-in-place under reduced motion | wodniack |
 | Drawn scrollbar | `scrollbar-thumb-drag` | P2 | Themed thumb mirroring `scrollY` on the shared ticker, drag and track-press write the scroll, native bar and keys kept, `aria-hidden` pointer duplicate, snaps under reduced motion, hidden on coarse pointers | wodniack |
 | Easter-egg rain | `sprite-rain-canvas2d` | P2 | Button-triggered canvas-2D sprite shower from one pre-rendered bitmap, gravity `.45` / spin `±10°` per 60 fps frame scaled by `dt`, live count capped by the quality tier, sprites dropped off-screen and the ticker released, nothing spawns under reduced motion | wodniack |
+| Loader off the main thread | `offscreen-canvas-worker` | P2 | `transferControlToOffscreen` after a 1 s hello handshake, one draw module run by the Worker's rAF or the shared ticker, timed main-thread fallback on a cloned canvas, paused off-screen, one settled frame under reduced motion | cyphercapital, cutobot-byholm |
 | Sound | `sound-toggle-opt-in` | P2 | Opt-in ambient + SFX, persisted | igloo, mont-fort |
 | GL text | `gl-msdf-text` | P2 | MSDF text with a DOM mirror | igloo, lando-norris |
 

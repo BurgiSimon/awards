@@ -1,0 +1,26 @@
+{
+  "id": "offscreen-canvas-worker",
+  "title": "OffscreenCanvas in a Worker with a timed main-thread fallback",
+  "tags": [
+    "performance",
+    "canvas",
+    "worker",
+    "offscreencanvas",
+    "preloader",
+    "fallback"
+  ],
+  "tier": "P2",
+  "deps": [],
+  "variants": [
+    "canvas 2D loader (vanilla, this demo)",
+    "WebGL2 field: getContext('webgl2') on the OffscreenCanvas inside the same handler"
+  ],
+  "seenIn": [
+    "cyphercapital",
+    "cutobot-byholm"
+  ],
+  "verified": {
+    "date": "2026-10-05",
+    "chromium": "153.0.8010.12"
+  }
+}
