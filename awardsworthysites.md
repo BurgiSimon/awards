@@ -58,6 +58,8 @@
 - https://www.agrumeafarm.it/en
 - https://www.aardvarkbookclub.com/
 - https://bleibtgleich.dev/
+- https://stanzza.design/awards
+- https://www.cyphercapital.com/
 
 # Reviewed, not added
 - https://www.ruitat.info/ — owner policy forbids automated extraction (ai-usage.txt, robots.txt Disallow for ClaudeBot); nothing captured or kept
@@ -72,10 +74,8 @@
 # not reviewed 3D
 
 # not reviewed GSAP
-- https://stanzza.design/awards
 
 # not reviewed WebGL
-- https://www.cyphercapital.com/
 - https://santionispirits.com/
 - https://aqualoqa.com/
 - https://guillaumecolombel.fr/

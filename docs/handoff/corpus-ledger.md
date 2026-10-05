@@ -560,14 +560,51 @@ the-boyd: pinia — DHmUQlsp.js
 | aardvarkbookclub | https://www.aardvarkbookclub.com/ | GSAP | added | D 7.0 / U 6.2 / C 6.8 / Co 7.0 → 6.72; official: SOTD 7.2 | model; technique ×3; lens ×5 | |  | 2026-10-05 |
 | nyphil | https://www.nyphil.org/discover/gustavo | GSAP | skipped | none | none | | owner policy: robots.txt disallows all agents except named search crawlers; nothing captured or kept | 2026-10-05 |
 | bleibtgleich | https://bleibtgleich.dev/ | GSAP | added | D 7.5 / U 6.4 / C 7.4 / Co 6.9 → 7.09 | technique ×2; lens ×3 | |  | 2026-10-05 |
-| stanzza | https://stanzza.design/awards | GSAP | queued | | | | | |
-| cyphercapital | https://www.cyphercapital.com/ | WebGL | queued | | | | | |
-| santionispirits | https://santionispirits.com/ | WebGL | queued | | | | | |
+| stanzza | https://stanzza.design/awards | GSAP | added | D 7.2 / U 6.4 / C 6.7 / Co 7.0 → 6.84 | stack (Swiper 11); lens ×3 | |  | 2026-10-05 |
+| cyphercapital | https://www.cyphercapital.com/ | WebGL | added | D 7.4 / U 7.3 / C 7.0 / Co 6.8 → 7.23 | model; technique ×2; lens ×5 | | robots.txt allows; Content-Signal ai-input=yes, ai-train=no | 2026-10-05 |
+| santionispirits | https://santionispirits.com/ | WebGL | blocked | D 7.5 / U 5.5 / C 7.5 / Co 6.5 → 6.80 (from source only) | stack (Hydra 1.1.20); technique (hatched NPR, 8 fps boil); model; lens ×5 — pending a real-GPU capture | | site GPU blocklist (incl. swiftshader) redirects every headless frame to unsupported.html; source fully read; card held out per the no-render precedent (oxigen); retry needs a real GPU | 2026-10-05 |
 | aqualoqa | https://aqualoqa.com/ | WebGL | queued | | | | | |
 | guillaumecolombel | https://guillaumecolombel.fr/ | WebGL | queued | | | | | |
 
 ### Techniques and stacks
 
+santionispirits: Hatched two-terminator lighting — shaders.vs — aastep(uThreshold.x/.y) on light + lines − ao; uThreshold [.4,.7], uLinesTile 10 [lens:webgl]
+santionispirits: Stepped boil clock — shaders.vs — floor(time×8)/8 on line UVs, frame-edge noise and grain [lens:webgl]
+santionispirits: Pointer fluid as shared screen mask — uil.json — mouse sim 128, dye 512, curl 18, density .97, velocity .95, iterations 3 [lens:webgl]
+santionispirits: Composite pass — shaders.vs — fluid contour → blue-noise grain multiply .1 dragged by scroll → FXAA when MSAA off [lens:webgl]
+santionispirits: AA + DPR tiers — app.js — MSAA 4 at tier ≥4, 2 at tier 3; DPR ladders per tier; GPU blocklist → unsupported.html [lens:webgl]
+santionispirits: Tuned-parameter store — uil.json — 3,612 keys Shader@…@uniform, shipped static [lens:webgl]
+santionispirits: Hydra@1.1.20 — index.html
+cyphercapital: trim-path reveal on a baked branch mask — src/36q7q1rqyugz1.js — u_branchReveal[4], arc length 16-bit in G/B, feather .2, stagger .13 s, 2.5 s cubic in-out [lens:webgl]
+cyphercapital: liquid-metal dispersion stripes — src/36q7q1rqyugz1.js — repetition 1.79, softness 1, shiftRed .61, shiftBlue .33, distortion .07, contour .97, speed .48; 2D simplex [lens:webgl]
+cyphercapital: runtime mask in a Worker — src/36q7q1rqyugz1.js — mask from bezier branches, 2048/1024 wide; R16F edge field read with 4-tap bicubic B-spline [lens:webgl]
+cyphercapital: fwidth-gated stripe AA + coverage re-threshold — src/36q7q1rqyugz1.js — fwCap .2 × blur; opacity = (g − .5) / fwidth(g) + .5 [lens:webgl]
+cyphercapital: raymarched extruded SDF chrome symbol — src/3dd6fkxzk3diu.js — field 384 px/unit; depth .09, bevel .032; 96 steps, hit 2e-4; 4-tap AO; Schlick tint; Narkowicz ACES exposure 1.05; intro .8 s depth, 1.5 s blend [lens:webgl]
+cyphercapital: OffscreenCanvas worker with timed fallback — src/36q7q1rqyugz1.js — transferControlToOffscreen, 1,200 ms hello timeout → main thread [lens:webgl]
+cyphercapital: metallic swirl by gradient advection — src/017nsmwnqk5nu.js — 2 iterations, tangent .83, 5 beams, twist −.19, vortex −.55, stripe repetition 3; DPR ≤ 1.5 [lens:webgl]
+cyphercapital: shared-context word sheen — src/0o58vscpmto9m.js — one detached WebGL2 canvas drawImage'd into per-word 2D canvases; 3-octave simplex fbm warp, speed .75, warp .1 [lens:webgl]
+cyphercapital: pixel budget — src/36q7q1rqyugz1.js — DPR ≤ 2 and ≤ 12.5 MP total [lens:webgl]
+cyphercapital: interleaved gradient noise dither — src/*.js — fract(52.9829189 × fract(dot(xy, (.06711056, .00583715)))) / 255 [lens:webgl]
+cyphercapital: scroll theme flip — src/017nsmwnqk5nu.js — IntersectionObserver rootMargin 0 0 −50% 0 sets data-theme dark
+cyphercapital: reduced-motion / failure fallback — src/017nsmwnqk5nu.js — three static SVG strokes, symbol skipped
+cyphercapital: next@16.3.4 — src/2yvvgf40x1m_z.js
+cyphercapital: react@19.3.0-canary — src/1x-ns8xgajh0k.js
+cyphercapital: raw webgl2 (no library) — src/*.js
+stanzza: IX3 scroll interactions with serialised ScrollTrigger config — webflow.f9c49967.js — 18 scroll interactions; clamp:true ×18; scrub .8 ×15, 1 ×2; enter "play", others "none"; ease codes 5 ×56, 0 ×14 [lens:gsap]
+stanzza: IX3 reduced-motion opt-out — webflow.f9c49967.js — conditionalPlayback prefers-reduced-motion "dont-animate" on 10/18; custom code has no reduced branch [lens:gsap]
+stanzza: Delayed-start sticky scrubs — webflow.f9c49967.js — 8 windows start "top -20%" to "top -35%", end "bottom bottom"; x → -145.5vw / -56vw / -95.5vw [lens:gsap]
+stanzza: Scrub-progress-gated carousel — index.html inline — top -50% → bottom bottom, scrub .8; unlock at progress 1.5/3.12 desktop, 1/2.5 phone; Swiper autoplay 5000 ms; reverse → slideToLoop(0) + destroy [lens:gsap]
+stanzza: Step changes inside a scrub — index.html inline — opacity tweens of duration .001 at positions 1 and 1.5; backs scale .65→1.5 / .65→1.25 over 3 units [lens:gsap]
+stanzza: Preloader fan + hero frame grow — index.html inline — 14 mirrored items ±30.8svw→±4.4svw, stagger .02, .52 s power2.out; frame 4svw → 42×28svw → 100svw×100svh; exit stagger each .03 from end; phone timeline < 768 [lens:gsap]
+stanzza: SplitText reveals after fonts — index.html inline — chars/words from opacity 0 yPercent 20, 1.5 s, stagger .03, power2.out, IntersectionObserver [lens:gsap]
+stanzza: Undefined ease keys — index.html inline — seven tweens pass undefined eases, fall back to default (inferred) [lens:gsap]
+stanzza: Pointer-follow lerp — index.html inline — lerp .12, hover+fine pointer only
+stanzza: Gesture-started video autoplay with codec probe — index.html inline — starts on first gesture, pauses off-screen, skips unsupported HEVC/alpha
+stanzza: Count-up figures — index.html inline — 1 s ease-out quad, threshold .2
+stanzza: gsap@3.15.0 (+ SplitText, Flip, ScrollTrigger) — index.html
+stanzza: @studio-freight/lenis@1.0.33 — index.html
+stanzza: swiper@11 — index.html
+stanzza: webflow (IX3) — index.html
 bleibtgleich: per-line SVG goo text reveal — main.js animateTextReveal — SplitText lines; one filter per line; stdDeviation 50→0 over 1.2 s "Out", stagger .1; feColorMatrix alpha amp 20→1, off −8→0 over .42 s at ">-.42"; hide .4 s "In" stagger .05; filter cleared onComplete [lens:gsap]
 bleibtgleich: CustomEase token set — main.js — InOut 0.76,0,0.24,1 · Out 0.25,1,0.5,1 · In 0.5,0,0.75,0 · Write 0.333,0,0.667,1 · osmo 0.625,0.05,0,1; durXS .2 / durS .4 / durM .8 / durL 1.2, stagger .1 [lens:gsap]
 bleibtgleich: orbit tiles via progress proxies — main.js initOrbitTiles — each proxy +1 over 2.5 s osmo, stagger .075; x = sin·w, y = cos·.04w, scale .2→1, blur 1→0 px; list rotates 360°/24 s, items counter-rotated; onToggle play/pause [lens:gsap]
