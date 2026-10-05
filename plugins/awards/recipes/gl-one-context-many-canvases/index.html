@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>gl-one-context-many-canvases — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ gl-one-context-many-canvases · <span data-gl-readout>dom</span></p></header>
+  <main id="main">
+    <section class="section wrap hero" aria-labelledby="t">
+      <p class="label">/ one renderer, six canvases</p>
+      <h1 class="title" id="t">One context.<br>Six small canvases.</h1>
+      <p class="lede">Each specimen below is its own button with its own 2D canvas, laid out by the grid. A single offscreen WebGL renderer draws them one at a time and copies each frame into its canvas, only when that specimen changed and sits near the viewport. Hover or press one to turn it.</p>
+    </section>
+    <section class="section wrap" aria-label="Specimens">
+      <ul class="items" role="list">
+        <li><button type="button" class="item" data-item="knot"><canvas aria-hidden="true"></canvas><span class="cap"><span class="label">01</span> Knot</span></button></li>
+        <li><button type="button" class="item" data-item="ring"><canvas aria-hidden="true"></canvas><span class="cap"><span class="label">02</span> Ring</span></button></li>
+        <li><button type="button" class="item" data-item="facet"><canvas aria-hidden="true"></canvas><span class="cap"><span class="label">03</span> Facet</span></button></li>
+        <li><button type="button" class="item" data-item="spindle"><canvas aria-hidden="true"></canvas><span class="cap"><span class="label">04</span> Spindle</span></button></li>
+        <li><button type="button" class="item" data-item="drum"><canvas aria-hidden="true"></canvas><span class="cap"><span class="label">05</span> Drum</span></button></li>
+        <li><button type="button" class="item" data-item="prism"><canvas aria-hidden="true"></canvas><span class="cap"><span class="label">06</span> Prism</span></button></li>
+      </ul>
+    </section>
+    <section class="section wrap notes"><h2>Rules</h2><ul>
+      <li>One <code>WebGLRenderer</code> on a detached canvas. Each item gets a viewport-sized slice of its drawing buffer, a render, and a <code>drawImage</code> into the item's own 2D canvas in the same task.</li>
+      <li>An item re-renders only when it is dirty (its turn moved, a resize, a theme change) and an <code>IntersectionObserver</code> says it is within half a viewport of the screen.</li>
+      <li>One pixel budget for the set: pixel ratio = <code>min(tier DPR, √(budget / (item area × count)))</code>.</li>
+      <li>Teardown disposes every geometry and material, then <code>renderer.dispose()</code> and <code>forceContextLoss()</code>. The 2D canvases keep their last frame.</li>
+    </ul></section>
+  </main>
+  <footer class="wrap footer"><p class="label">awards · recipe · synthetic demo · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

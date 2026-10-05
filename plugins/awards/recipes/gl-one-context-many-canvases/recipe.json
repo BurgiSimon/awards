@@ -1,0 +1,31 @@
+{
+  "id": "gl-one-context-many-canvases",
+  "title": "One WebGL renderer drawn into many 2D canvases",
+  "tags": [
+    "3d",
+    "webgl",
+    "three",
+    "canvas",
+    "budget",
+    "render-on-change",
+    "disposal"
+  ],
+  "tier": "P1",
+  "deps": [
+    "three@0.186.0"
+  ],
+  "variants": [
+    "Three.js renderer on a detached canvas, sliced viewport + drawImage (this)",
+    "raw WebGL2: one detached context, one program, per-item uniforms, then drawImage",
+    "one shared render target sized per item, read back with readPixels into ImageData (no drawImage of a GL canvas)"
+  ],
+  "seenIn": [
+    "agrumeafarm",
+    "cyphercapital",
+    "a24-raviklaassens"
+  ],
+  "verified": {
+    "date": "2026-10-05",
+    "chromium": "153.0.8010.12"
+  }
+}
