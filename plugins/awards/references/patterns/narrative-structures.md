@@ -47,7 +47,7 @@ A brand with several selves or many catalogue entries, presented as a hub in fro
 
 ## Manifesto with gates
 
-One thesis argued as physics: stages joined by gates that ask for a small physical commitment before the next stage. Seen only in [site:why-zero]: six stages and five gates (draw, hold to shatter, hold to launch), promise → shatter → devalue → tunnel → alternative → enlist, on a virtual float with no page grid [verified].
+One thesis argued as physics: stages joined by gates that ask for a small physical commitment before the next stage. Seen only in [site:why-zero]: five stages and four gates (draw, hold to shatter, hold to launch), promise → shatter → devalue → tunnel → alternative → enlist, on a virtual float with no page grid [verified].
 
 - **Beats.** Entrance: the camera arrives at the stage. Hold: the claim is enacted rather than stated — cash burns, certificates shred [verified]. Exit: the gate; a persistent XP counter makes progress felt [verified].
 - **Interruption.** The gates are the interruptions — N stages need N−1 gates, each a different gesture, none a plain click.
