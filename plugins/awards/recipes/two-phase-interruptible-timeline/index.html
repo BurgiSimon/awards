@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>two-phase-interruptible-timeline — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar">
+    <a href="../index.html" class="label">← recipes</a>
+    <div class="nav">
+      <button type="button" class="nav__toggle" data-nav-toggle aria-expanded="false" aria-controls="nav-panel">
+        <span class="nav__bars" aria-hidden="true"><i data-bar></i><i data-bar></i></span>
+        <span class="label nav__label">Menu</span>
+      </button>
+      <nav class="nav__panel" id="nav-panel" data-nav-panel data-theme="dark" aria-label="Primary">
+        <ol class="nav__list">
+          <li><a href="#main" data-nav-link><span class="label">01</span><span class="nav__word">Index</span></a></li>
+          <li><a href="#main" data-nav-link><span class="label">02</span><span class="nav__word">Projects</span></a></li>
+          <li><a href="#main" data-nav-link><span class="label">03</span><span class="nav__word">Notes</span></a></li>
+          <li><a href="#main" data-nav-link><span class="label">04</span><span class="nav__word">About</span></a></li>
+          <li><a href="#main" data-nav-link><span class="label">05</span><span class="nav__word">Write to us</span></a></li>
+        </ol>
+        <p class="label nav__meta">Synthetic demo links</p>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="section wrap hero" aria-labelledby="t">
+      <p class="label">/ one timeline, two directions</p>
+      <h1 class="display" id="t">Close it<br>halfway open.</h1>
+      <p class="lede">Open and close live in one paused timeline split by a pause at the hinge. Press the menu button twice quickly: the close rewinds what has already played instead of jumping to a separate exit, so the panel never lands half-built.</p>
+    </section>
+    <section class="section wrap"><h2>How to try it</h2><p class="lede">Click the menu button, then click it again before the links settle. Once the links have settled, a close plays the second half forward. Escape closes and returns focus to the button.</p></section>
+  </main>
+  <footer class="section wrap"><p class="label">awards · recipe · MIT · demo content is synthetic</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

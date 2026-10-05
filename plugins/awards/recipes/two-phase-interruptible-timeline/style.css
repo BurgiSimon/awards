@@ -1,0 +1,29 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+.topbar { display: flex; justify-content: space-between; align-items: center; padding-block: calc(var(--unit) * 5); position: sticky; top: 0; z-index: 20; }
+.lede { max-width: 60ch; margin-top: calc(var(--unit) * 8); }
+.nav { position: relative; }
+.nav__toggle { display: inline-flex; align-items: center; gap: calc(var(--unit) * 3); background: none; border: 0; padding: calc(var(--unit) * 2); min-height: 44px; cursor: pointer; position: relative; z-index: 2; color: var(--ink); }
+.nav__bars { width: 26px; height: 10px; position: relative; display: block; }
+.nav__bars i { position: absolute; left: 0; right: 0; height: 1.5px; background: currentColor; }
+.nav__bars i:first-child { top: 0; } .nav__bars i:last-child { bottom: 0; }
+.nav__label { color: inherit; }
+/* Closed is the stylesheet's state, so nothing flashes before the script runs; the timeline owns everything after. */
+.nav__panel {
+  position: absolute; top: calc(100% + var(--unit) * 2); right: 0;
+  width: min(22rem, calc(100vw - var(--gutter) * 2));
+  padding: calc(var(--unit) * 6);
+  background: var(--ground); color: var(--ink);
+  border-radius: calc(var(--unit) * 5);
+  clip-path: inset(0% 0% 100% 0% round 20px);
+  visibility: hidden;
+}
+.nav__list { list-style: none; margin: 0; padding: 0; display: grid; gap: calc(var(--unit) * 1); }
+.nav__list li { overflow: hidden; }
+.nav__list a { display: flex; align-items: baseline; gap: calc(var(--unit) * 4); text-decoration: none; min-height: 44px; padding-block: calc(var(--unit) * 1); will-change: transform; }
+.nav__word { font-family: var(--font-display); font-size: clamp(1.75rem, 4vw, 2.5rem); line-height: 1.1; letter-spacing: -.03em; transition: color var(--dur-feedback); }
+.nav__list a:hover .nav__word, .nav__list a:focus-visible .nav__word { color: var(--accent); }
+.nav__meta { margin: calc(var(--unit) * 6) 0 0; }
+/* Reduced tier in CSS too: the timeline already drops every translate; the hover colour stays. */
+@media (prefers-reduced-motion: reduce) { .nav__list a { will-change: auto; } }

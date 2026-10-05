@@ -1,0 +1,26 @@
+{
+  "id": "two-phase-interruptible-timeline",
+  "title": "Two-phase interruptible timeline: open, addPause() hinge, close",
+  "tags": [
+    "gsap",
+    "timeline",
+    "navigation",
+    "interruption",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [
+    "gsap@3.15.0"
+  ],
+  "variants": [
+    "disclosure menu panel (vanilla)",
+    "any open/close pair: sheet, drawer, modal, accordion"
+  ],
+  "seenIn": [
+    "why-zero"
+  ],
+  "verified": {
+    "date": "2026-10-05",
+    "chromium": "153.0.8010.12"
+  }
+}
