@@ -1,0 +1,17 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+.topbar { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); }
+.hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--gutter); align-items: center; min-height: 80svh; }
+.title { font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 6rem); line-height: .95; letter-spacing: -.02em; margin: calc(var(--unit) * 4) 0 0; }
+.lede { max-width: 60ch; margin-top: calc(var(--unit) * 6); }
+.object { position: relative; margin: 0; aspect-ratio: 1; width: 100%; }
+.object canvas, .object img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.object canvas { display: none; }
+html.gl-active .object canvas { display: block; }
+html.gl-active .object img { visibility: hidden; }
+.object figcaption { position: absolute; left: 0; bottom: 0; }
+.notes ul { max-width: 60ch; padding-left: 1.2em; }
+.footer { padding-block: calc(var(--unit) * 12); }
+@media (max-width: 767px) { .hero { grid-template-columns: 1fr; min-height: 0; } }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }

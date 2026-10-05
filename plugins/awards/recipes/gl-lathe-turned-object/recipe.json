@@ -1,0 +1,31 @@
+{
+  "id": "gl-lathe-turned-object",
+  "title": "Procedural turned object from a lathe profile",
+  "tags": [
+    "webgl",
+    "three",
+    "3d",
+    "procedural",
+    "lathe",
+    "worker",
+    "hover"
+  ],
+  "tier": "P1",
+  "deps": [
+    "three@0.186.0"
+  ],
+  "variants": [
+    "Spool: rippled waist profile, ring faces, bore (this)",
+    "Disc: very short profile, wide RingGeometry faces, a hub lathe",
+    "Label band: a straight lathe cylinder over a product photograph",
+    "Maps on the main thread only: ?worker=0"
+  ],
+  "seenIn": [
+    "agrumeafarm",
+    "a24-raviklaassens"
+  ],
+  "verified": {
+    "date": "2026-10-05",
+    "chromium": "153.0.8010.12"
+  }
+}

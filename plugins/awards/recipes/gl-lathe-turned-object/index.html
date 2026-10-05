@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>gl-lathe-turned-object — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ gl-lathe-turned-object · <span data-gl-readout>dom</span></p></header>
+  <main id="main">
+    <section class="section wrap hero" aria-labelledby="t">
+      <div>
+        <p class="label">/ turned, not downloaded</p>
+        <h1 class="title" id="t">A spool,<br>turned in code.</h1>
+        <p class="lede">The object is a profile of points spun into a lathe, closed by two ring faces and bored through. Its groove and roughness maps are computed in a worker built from a Blob. Rest a mouse on it for one full turn.</p>
+      </div>
+      <figure class="object" data-turn>
+        <img data-fallback width="800" height="800" alt="A still of the turned spool: a pale waisted form with flat ring faces" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800'%3E%3Cpath d='M230 200h340q-110 200 0 400H230q110-200 0-400z' fill='%23ffc800'/%3E%3Cellipse cx='400' cy='200' rx='170' ry='40' fill='%23f4f2ee'/%3E%3Cellipse cx='400' cy='200' rx='50' ry='12' fill='%231a1c1c'/%3E%3C/svg%3E">
+        <canvas aria-hidden="true"></canvas>
+        <figcaption class="label">Synthetic demo object · profile, lathe, ring faces</figcaption>
+      </figure>
+    </section>
+    <section class="section wrap notes"><h2>Rules</h2><ul>
+      <li>A profile of 48 points, a waist plus a cosine ripple that fades at both ends, goes through <code>LatheGeometry</code>. Two <code>RingGeometry</code> faces and a bore close it.</li>
+      <li>Normal and roughness maps come from one builder function. It runs in a Blob worker and falls back to the main thread when the worker fails or is slow.</li>
+      <li>After a 250 ms dwell, a fine pointer gets one quantised revolution. The turn always ends on a whole turn, and touch input does not start it.</li>
+      <li>Frames render only while the object is turning or after a resize.</li>
+    </ul></section>
+  </main>
+  <footer class="wrap footer"><p class="label">awards · recipe · synthetic demo · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
