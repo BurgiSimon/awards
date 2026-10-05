@@ -550,13 +550,13 @@ the-boyd: pinia — DHmUQlsp.js
 |---|---|---|---|---|---|---|---|---|
 | cutobot-byholm | https://cutobot.byholm.co/ | 3D | queued | | | | | |
 | ascension-pegassi | https://ascension.pegassi.be/ | 3D | queued | | | | | |
-| edolus | https://edolus.com/ | 3D, WebGL | added | D 7.5 / U 4.8 / C 7.5 / Co 6.0 → 6.54 | model; stack (PlayCanvas 2.21.4); technique ×2; lens ×4 | | captures reach 2 of 7 scenes past the click gate; source and scene config fully read | 2026-10-05 |
+| edolus | https://edolus.com/ | 3D, WebGL | added | D 7.5 / U 4.8 / C 7.5 / Co 6.0 → 6.54 | model; stack (PlayCanvas 2.21.4); technique ×2; lens ×4 | yes | captures reach 2 of 7 scenes past the click gate; source and scene config fully read | 2026-10-05 |
 | eugeniagrab | https://www.eugeniagrab.com/en | 3D | queued | | | | | |
 | agrumeafarm | https://www.agrumeafarm.it/en | 3D | queued | | | | | |
 | ruitat | https://www.ruitat.info/ | 3D | queued | | | | | |
 | a24-raviklaassens | https://a24.raviklaassens.com/ | 3D | queued | | | | | |
-| why-zero | https://why.zero.university/ | GSAP | added | D 7.6 / U 5.5 / C 9.0 / Co 7.5 → 7.24; official 7.73 | lens ×5 | | existing card; lens-only update, SplitText added to Stack row | 2026-10-05 |
-| abatable | https://abatable.com/ | GSAP | added | D 7.0 / U 6.4 / C 6.6 / Co 7.2 → 6.76 | technique ×2; lens ×4 | |  | 2026-10-05 |
+| why-zero | https://why.zero.university/ | GSAP | added | D 7.6 / U 5.5 / C 9.0 / Co 7.5 → 7.24; official 7.73 | lens ×5 | yes | existing card; lens-only update, SplitText added to Stack row | 2026-10-05 |
+| abatable | https://abatable.com/ | GSAP | added | D 7.0 / U 6.4 / C 6.6 / Co 7.2 → 6.76 | technique ×2; lens ×4 | yes |  | 2026-10-05 |
 | aardvarkbookclub | https://www.aardvarkbookclub.com/ | GSAP | queued | | | | | |
 | nyphil | https://www.nyphil.org/discover/gustavo | GSAP | queued | | | | | |
 | bleibtgleich | https://bleibtgleich.dev/ | GSAP | queued | | | | | |
@@ -618,3 +618,5 @@ edolus: basis-transcoder (wasm) — __settings__.js
 
 ### Notes
 - oxigen: dropped from the queue by the maintainer 2026-10-05; its wave 3 row stays blocked.
+- 2026-10-05 pilot synthesis (edolus, abatable, why-zero): duplicates none. Partial overlaps: abatable `osmo` and why-zero `osmoNav` share control points 0.625,0.05,0,1 (one borrowed curve); abatable initGlobalParallax matches siteassist line for line. Open conflict: narrative-structures.md "Manifesto with gates" and cursor-and-pointer.md hold-gates paragraph still say why-zero has six stages / five gates; the updated card says five / four. Reconcile by hand.
+- 2026-10-05 pilot: parallel captures (three subagents at once) caused screenshot timeouts on all three sites; lens evidence came from source, which the lens rule allows, but captures were partial.

@@ -73,14 +73,14 @@ Photographs treated as physical objects — a corner that lifts — scattered, t
 
 ## Spatial descent
 
-An establishing shot of a landscape with one structure; a HUD line invites the scroll; the camera orbits, approaches and flies inside [site:igloo] [recalled high]. 100 % canvas. A no-GL cousin cuts a photograph into six planes that a scrub pulls apart at rising `yPercent` while the claim lifts [site:to-top] [verified].
+An establishing shot of a landscape with one structure; a HUD line invites the scroll; the camera orbits, approaches and flies inside [site:igloo] [recalled high]. 100 % canvas. An orbital establishing shot that descends through seven chapters on one progress value, with the timeline held at 0 while the first 1,200 px of scroll flies the opening object in [site:edolus] [verified]. A no-GL cousin cuts a photograph into six planes that a scrub pulls apart at rising `yPercent` while the claim lifts [site:to-top] [verified].
 
 - **Anatomy.** A landscape and one structure; in-canvas MSDF type; a HUD scroll prompt; a `Sound: Off` control that states its value; a pure-CSS loader from a 16 KB entry [verified]; a fog gradient with one rim accent [verified hexes].
 - **Entrance.** CSS loader → the 3D app streams (≈ 420 KB gz for the scene [verified]) → the camera settles on the shot → the prompt. Scroll is a damped, snapping scalar (`[pattern:motion-vocabulary#scroll-philosophies]`, model d).
 - **Mobile.** An engineered path — responsive scored 8.40 [recalled medium]; ≤ ~625 KB of textures per scene; DPR cap; a still per chapter on the low tier.
 - **DOM.** The empty DOM scored 6.6 [recalled medium]: ship a visually hidden mirror with landmarks, the `<h1>`, the manifesto sentence and real links; keys advance the scalar; the sound toggle is focusable with its state in its name.
 - **Recipes.** `[recipe:gl-virtual-scroll-camera]` `[recipe:gl-msdf-text]` `[recipe:gl-postprocessing-presets]` `[recipe:quality-tiers]`.
-- **Refuse.** The arctic world, the igloo, the descent-then-wrap order, the blue-grey monochrome.
+- **Refuse.** The arctic world, the igloo, the descent-then-wrap order, the blue-grey monochrome; the orbit → map → chip → car order and a click-only gate [site:edolus].
 
 ## Print artefact with an acetate
 
@@ -124,7 +124,8 @@ A field of hairlines bent by noise and pushed by the pointer, drawn in on load, 
 - **Mobile.** The title breaks to two lines and the composition holds [verified]; the plugin's version drops the pointer push on coarse pointers and redraws at a lower point density.
 - **DOM.** The `<h1>` is real text; the field is `aria-hidden` decoration. The source has no reduced-motion branch [verified]; the plugin freezes the field at its drawn state under reduced motion and skips the draw under static.
 - **Recipes.** `[recipe:scroll-drawn-svg-path]` for the dash draw; `[recipe:reduced-motion-switch]` for the freeze.
-- **Refuse.** The noise-bent vertical lines under a "CREATIVE ✦ DEVELOPER" title; the binary tickers.
+- **Still variant.** A contour field drawn in by DrawSVG over 5 s `power3.out`, a second set drawn by the hero scrub, in a quadrant grid on hairlines with a crosshair at the centre and the `<h1>` bottom-left [site:abatable] [verified]. The lines are the domain's own drawing (terrain), not texture.
+- **Refuse.** The noise-bent vertical lines under a "CREATIVE ✦ DEVELOPER" title; the binary tickers; the contour quadrants and orange crosshair [site:abatable].
 
 ## Wordmark as a window
 
@@ -170,11 +171,11 @@ Why: the archetype follows the narrative model and the WebGL dosage the budget a
 | Poster or video hero | gallery, specification (place-led), chaptered journey | none → moments | [site:lama-lama] [site:white-desert] [site:seasats] |
 | Single object with inertia | single-object launch, a faceted hub | canvas-first | [site:oryzo] |
 | Collage of flat planes | collage index, gallery | moments → canvas-first, planes only | [site:trevor-noah] [site:floema-jewelry] |
-| Spatial descent | chaptered journey as a world, manifesto with gates | 100 % canvas | [site:igloo]; gesture entry [site:why-zero] |
+| Spatial descent | chaptered journey as a world, manifesto with gates | 100 % canvas | [site:igloo] [site:edolus]; gesture entry [site:why-zero] |
 | Print artefact with an acetate | print artefact, gallery | none → moments | [site:the-line] |
 | Headline as string | chaptered journey, faceted world | one canvas-first island in a static page | [site:mont-fort] |
 | Palette field bound to the product | single-object launch | canvas-first with a static per-variant tier | [site:slosh-seltzer] |
-| Generative line field | gallery, collage index | none — SVG and canvas 2D | [site:wodniack] |
+| Generative line field | gallery, collage index, specification | none — SVG and canvas 2D | [site:wodniack]; drawn still [site:abatable] |
 | Wordmark as a window | gallery, specification | moments → canvas-first ground | [site:bethebuzz] [site:noth] |
 | Operable object | faceted world, print artefact | none → moments | [site:areebali] [site:spasoje] [site:nodeck] |
 | The work on screen one | gallery | none → 100 % canvas | [site:jesperlandberg] [site:siena] [site:robbietilton] [site:alectear] |

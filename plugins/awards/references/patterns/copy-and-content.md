@@ -64,6 +64,8 @@ Why: the action must cost as much as the decision — a cart on a five-figure tr
 | Art bought from a gallery | prices or "price by enquiry" on each card, and an enquiry written as a sentence the visitor completes | [site:the-boyd] | [verified] |
 | A safety-compliance platform | Request demo, persistent in the nav | [site:siteassist] | [verified] |
 | A studio brief | the e-mail copied to the clipboard in one click | [site:warmnfuzzy] [site:wearedirect] | [verified] |
+| A studio showcase | an e-mail in the credits after ≈ 32,000 px of scroll, nothing earlier — what to beat | [site:edolus] | [verified] |
+| Environmental-asset procurement | Talk to us in orange in the nav, Contact us again in the footer | [site:abatable] | [verified] |
 
 Rules: never "Get started" or "Learn more" (audit X01); the label is the outcome (download the spec sheet, book a call, join the waitlist); the primary action appears in the first viewport and again at the close (`[pattern:narrative-structures#the-close]`); one primary action per page.
 
@@ -84,7 +86,8 @@ Why: chrome written in the audience's own dialect turns navigation into evidence
 | A typed status line cycling developer jokes; mono serials per work; binary ticker rules | [site:wodniack] | [verified] |
 | The pointer printed as latitude and longitude to four decimals | [site:siteassist] | [verified] |
 | A HUD of local clock, temperature and pointer x / y over a visible construction grid with crosshairs | [site:haoqi] | [verified] |
-| Registration crosshairs at the corners and mid-edges of every frame | [site:runrobrun] | [verified] |
+| Registration crosshairs at the corners and mid-edges of every frame | [site:runrobrun]; survey crosses and corner ticks on every panel, a crosshair at the hero's centre [site:abatable] | [verified] |
+| HUD brackets per beat, tracked mono captions, a scrambled `SCROLL TO BEGIN ↓` hint, claims in heavy caps | [site:edolus] | [verified] |
 | `SLIDE n/10`, presenter notes and PREV / NEXT keys | [site:nodeck] | [verified] |
 | A dated changelog of commit subjects with shas | [site:areebali] | [verified] |
 | Ticket metadata: year, minutes, a stub numbered 004 | [site:siena] | [verified] |

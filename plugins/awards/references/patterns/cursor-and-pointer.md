@@ -32,7 +32,7 @@ Rules:
 - The badge is a hint, not the label: the target keeps its own accessible name, because the cursor is invisible to assistive tech and absent on touch.
 - Swap badges with an opacity or scale step within `--dur-feedback`; never re-animate the ring's position for a badge change.
 - Four or five verbs at most; a cursor vocabulary larger than the site's gesture set is decoration.
-- Seen since [verified on each card]: a ring reading `SCROLL` that becomes an up or down arrow over invisible prev / next halves of the screen, a click stepping the reel [site:siena]; a `Scroll` badge that relabels itself `Scroll zurück` on the last panel, with legal iframes posting pointer coordinates back so one cursor survives inside them [site:christoph-nagel]; a label whose characters roll every 2 s, hidden over iframes and embeds [site:serotoninn]; a *showreel* label in `mix-blend-mode: difference` [site:warmnfuzzy].
+- Seen since [verified on each card]: a ring reading `SCROLL` that becomes an up or down arrow over invisible prev / next halves of the screen, a click stepping the reel [site:siena]; a `Scroll` badge that relabels itself `Scroll zurück` on the last panel, with legal iframes posting pointer coordinates back so one cursor survives inside them [site:christoph-nagel]; a label whose characters roll every 2 s, hidden over iframes and embeds [site:serotoninn]; a *showreel* label in `mix-blend-mode: difference` [site:warmnfuzzy]; a scrambled scroll hint beside the pointer at the start, then an orbit ring with a drag label shown only for progress .44–.466, where the object can be turned [site:edolus].
 
 ## Hover previews and cursor-following reveals
 
@@ -47,7 +47,7 @@ Rules:
 
 ## Magnetic targets
 
-Why: a button that leans toward the hand confirms it is a target before the click. One card documents the pull: captions lean toward the pointer by up to ± 12 px through custom properties, footer links by ± 4 px [site:robbietilton] [verified]. The inverse is a repulsion field — objects within 460 px pushed along the pointer angle with falloff `((R − d) / R)^1.6` and an `elastic.out(1, .35)` return over 1.2 s, halved on small screens [site:noth] [verified]; and an in-world button with a resting 15° tilt that relaxes to 8° on hover [site:to-top] [verified]. The plugin ships the pull small and opt-in.
+Why: a button that leans toward the hand confirms it is a target before the click. One card documents the pull: captions lean toward the pointer by up to ± 12 px through custom properties, footer links by ± 4 px [site:robbietilton] [verified]. The inverse is a repulsion field — objects within 460 px pushed along the pointer angle with falloff `((R − d) / R)^1.6` and an `elastic.out(1, .35)` return over 1.2 s, halved on small screens [site:noth] [verified]; and an in-world button with a resting 15° tilt that relaxes to 8° on hover [site:to-top] [verified]; a whole-layer drift by `quickTo` on x and y over 2 s `power3`, up to 10 rem × a per-element strength, skipped on touch [site:abatable] [verified]. The plugin ships the pull small and opt-in.
 
 Rules (`[recipe:magnetic-button]`):
 - Drive `x`/`y` with `gsap.quickTo()` on the button and a weaker `quickTo` on its label, so ring and label split slightly; fall off with distance (`pull × (1 − d / radius)`, radius ≈ 1.5 × the button's size); return to zero on leave on the house expo-out.
@@ -74,6 +74,7 @@ Why: dragging is the one gesture that makes a gallery feel handled rather than p
 | Marquee with a throw | rAF at .6 px per frame; a drag imparts velocity decaying × .95 per frame | [site:wearedirect] | [verified] |
 | Carousel with roles | Draggable with Inertia, `role=group`, `aria-roledescription=carousel`, arrow keys | [site:okaydev] | [verified] |
 | Drawn thumb on a smooth scroller | an SVG track whose thumb calls `lenisScrollTo` with `immediate` | [site:haoqi] | [verified] |
+| Object turned by hand | drag to rotate with sensitivity .3, friction .95 and weight 6; mouse and touch, no keys | [site:edolus] | [verified] |
 
 Rules:
 - Inertia through the same damping as everything else; clamp velocity; `setPointerCapture` so a fast drag survives leaving the element.
@@ -102,7 +103,7 @@ Why: there is no hover on a phone, and a cursor drawn under a thumb is a bug. L�
 
 ## Keyboard equivalents
 
-Why: the audit fails a pointer-only handler [A11], and the first reference set had no keyboard evidence at all. Newer cards show paths worth copying [verified on each]: ↑ / ↓ between rows and ← / → within the nearest row, Space to open its caption [site:robbietilton]; a full device key map printed beside the interface and changing with state [site:areebali]; arrows, Page keys and Space on a looping reel [site:jesperlandberg] [site:siena]; single-key theme and sound toggles guarded against inputs and modifiers [site:haoqi]. Most still leave the visible items unfocusable, so keys work but Tab does not.
+Why: the audit fails a pointer-only handler [A11], and the first reference set had no keyboard evidence at all. Newer cards show paths worth copying [verified on each]: ↑ / ↓ between rows and ← / → within the nearest row, Space to open its caption [site:robbietilton]; a full device key map printed beside the interface and changing with state [site:areebali]; arrows, Page keys and Space on a looping reel [site:jesperlandberg] [site:siena]; single-key theme and sound toggles guarded against inputs and modifiers [site:haoqi]. Most still leave the visible items unfocusable, so keys work but Tab does not. Misses [verified on each card]: arrow and Page keys drive a virtual descent while its gate, its audio toggle and its drag object stay pointer-only `div`s [site:edolus]; slider arrows bound on `window` with `preventDefault`, which steals ← / → from the whole page [site:abatable].
 
 | Pointer gesture | Keyboard path |
 |---|---|

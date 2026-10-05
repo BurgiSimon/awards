@@ -10,7 +10,7 @@ Rules:
 - Gate on `Promise.all([document.fonts.ready, firstSceneAssets])` — the first viewport's assets, not the site's. Stream the rest by `IntersectionObserver` or by scene window (`[pattern:webgl-architecture#scene-windows-and-disposal]`).
 - Add what the corpus lacks: a timeout that shows the page anyway with a degraded scene, and a visible skip control.
 - Never a timer alone. A counter that finishes at the same second on every connection is a tell.
-- Repeat visits: remember in `sessionStorage`; cut the sequence to ≤ 2.5 s or skip it entirely — the session skip of [site:serotoninn] [site:noth] [site:the-boyd], the once-per-visitor boot with click-to-skip of [site:mensch], the per-tab header intro skipped before first paint of [site:okaydev] [verified]. Every-visit intros of 4.4–14.6 s [site:areebali] and ≥ 1.2 s [site:zainabkabira] are what to beat [verified].
+- Repeat visits: remember in `sessionStorage`; cut the sequence to ≤ 2.5 s or skip it entirely — the session skip of [site:serotoninn] [site:noth] [site:the-boyd], the once-per-visitor boot with click-to-skip of [site:mensch], the per-tab header intro skipped before first paint of [site:okaydev] [verified]. Every-visit intros of 4.4–14.6 s [site:areebali], ≥ 1.2 s [site:zainabkabira] and ≈ 3.25 s with no storage check [site:abatable], and a warm-up plus a click on every visit [site:edolus], are what to beat [verified; the 3.25 s inferred from timeline positions].
 - Announce progress in an `aria-live="polite"` status; remove the loader from the accessibility tree once it is gone.
 - Keep the loader's own cost near zero: Igloo paints a pure-CSS loader from a 16 KB entry before any framework arrives [site:igloo] [verified]. Or ship no loader: pre-JS CSS hides only what will animate in and shows only the active section, so nothing flashes [site:nodeck] [verified].
 
@@ -36,6 +36,8 @@ Rules:
 | Boot screen, once | a CRT wordmark, a percentage held until the first 20 sequence frames decode, click anywhere to skip, stored per visitor | [site:mensch] | [verified] |
 | Countdown | a three-digit counter running from 100 to 000 for a brand named after nothing | [site:noth] | [verified] |
 | Cell grid | a 10 × 8 grid of cells that also builds the menu, the section wipes and the image reveals | [site:runrobrun] | [verified]; the 1.4 s timer is the thing to beat |
+| Warm-up walk as the bar | before the CTA appears, the scene manager emits progress at 25 % and 75 % of each of seven chapter windows, holding each 3 frames with frustum culling off after a 5-frame delay, then settles 2.5 s; the walk fills 70 % of the bar, the settle 30 % | [site:edolus] | [verified]; that it compiles shaders and uploads textures before they are seen [inferred] |
+| Polygon wipe handoff | panels and logo leave by `clip-path` polygons (1.5 / 1.25 `expo.out` / 1.5 / 1.5 s) while the hero image scales from 1.125 over 3 s, contours draw over 5 s `power3.out`, the nav drops from `yPercent −125` over 1.5 s `expo.out` and the h1 fades in per character at .03 s | [site:abatable] | [verified]; runs on every full load |
 
 What carries over: the loader speaks the site's register (a frame counter for a film studio, readouts for a defence console, a drawn gesture for a manifesto) and it costs nothing before first paint. What does not: any of these devices as drawn `[recipe:preloader-counter-hold]`.
 
@@ -65,6 +67,8 @@ Rule: the gesture may enable sound, but content never waits for it. Either offer
 | DOM to GL, once | the leaving section rasterised with html2canvas, crumpled on a segmented plane and dropped into a bin; any failure falls through to the plain transition | [site:nodeck] | [verified] |
 | Cell wipe | a full-screen grid of cells switching on per-cell delays radiating from one side, 20 ms each | [site:runrobrun] | [verified] |
 | Discipline slide | the incoming route slides from ± 10 % in the direction of the switch, .8 s | [site:alectear] | [verified] |
+| Page under a veil | `sync: true`; the old page rises 25vh under a dark veil going 0 → .8 while the new one rises from 100vh, 1.2 s on a custom in-out; reduced motion gets an `autoAlpha` swap only | [site:abatable] | [verified] |
+| Chromatic cut between chapters | inside one canvas the chapter change runs through a chromatic pass with a dip to white | [site:edolus] | [verified]; values in `[pattern:webgl-architecture#effect-parameters]` |
 
 Rules: make the transition the hero and the sections the rests — United Carriers stages its mode changes (road → sea → air) as the designed moments [site:united-carriers] [verified concept]. One transition vocabulary per site: a shared-element flight and a wipe on the same route are two ideas.
 
@@ -85,7 +89,7 @@ Rule: `data-theme` on `<html>` is the single source for the CSS tokens *and* the
 - **taxi** [site:lando-norris] [verified]: link interception, prefetch, DOM teardown and page-init callbacks. Pair it with a Lenis reset and `gsap.context()` cleanup so no ticker or trigger outlives the swap `[recipe:page-transitions]`.
 - **View Transitions (MPA)** [site:mont-fort] [verified]: the cinematic site without a SPA; content stays static HTML and only the island re-hydrates. In a Next.js app the same API through `next-view-transitions`, with Lenis read in the router hook [site:pensatori-irrazionali] [verified]; natively for a tile → hero morph in a hand-written site [site:zainabkabira] [verified].
 - **taxi on a Webflow shell** [site:noth] [site:siena] [verified]: an injected bundle owns routing; `NAVIGATE_END` runs a full teardown and re-init list [site:noth].
-- **Barba** [site:wearedirect] [site:likova] [verified]: Lenis destroyed and recreated around every swap; saved scroll restored on back navigation [site:wearedirect].
+- **Barba** [site:wearedirect] [site:likova] [verified]: Lenis destroyed and recreated around every swap; saved scroll restored on back navigation [site:wearedirect]. A label pair on the enter timeline (`startEnter`, `pageReady`) resolves the router's promise; `debug: true` shipped to production is the miss [site:abatable] [verified].
 - **A curtain before a full reload** [site:serotoninn] [verified]: every internal link intercepted for a 1.6 s curtain, then `location.assign` — the cost of a transition without the benefit of a router.
 - Whatever the router: reset scroll (`lenis.scrollTo(0, { immediate: true })`), move focus to the new `<main>` or `<h1>`, and refresh ScrollTrigger once the new fonts and images have landed.
 

@@ -46,6 +46,9 @@ Why: hover, drag and a drawn cursor are fine-pointer ideas. The swap list is fix
 | Hover-progress vector animation | plays through | [site:serotoninn] [verified] |
 | A pointer joke | replaced by an honest line | [site:nodeck] [verified] |
 | Smooth scroll | native; Lenis created for fine pointers only | [site:mensch] [site:goats] [site:spasoje] [verified]; smooth mode forced on phones [site:likova] is the miss |
+| Pinned card fan | an ordinary vertical stack below 768 px | [site:abatable] [verified] |
+| Pointer drift on a layer | skipped on touch | [site:abatable] [verified] |
+| Virtual run measured in wheel pixels | a shorter travel for the finger: 4,000 px of touch against 32,000 px of wheel | [site:edolus] [verified] |
 | Pointer-driven signature | a tap or an automatic path | none in this wave: a fluid mask with no touch variant [site:noth] and a music player hidden under 1000 px [site:runrobrun] [verified] |
 
 Test with `any-pointer` as well as `pointer`: a touch laptop with a mouse attached must keep the fine state available.
@@ -73,7 +76,7 @@ Why: mobile GPUs fail on pixel count and bandwidth, not on triangle count. The r
 | Anti-aliasing | SMAA in the composer, renderer `antialias: false` | [site:slosh-seltzer] [inferred] |
 | Assets | low-detail variants per tier; texture format by capability | [site:slosh-seltzer] [inferred]; [site:lando-norris] [contradicted by the live build, 2026-09-18: every texture path in the shipped GL manifest is /webp/ and the only KTX2 code is GLTFLoader's inert Basis extension — recorded from a rebuild document, not observable on the site today] |
 | Loop | paused off-screen and when the tab is hidden | [site:slosh-seltzer] [inferred] [M08] |
-| Adaptive | step DPR, blur samples and geometry detail from measured frame time | [site:why-zero] [verified]; 30 fps target at low [site:shopify-editions-w26] [recalled medium-low]; DPR stepped by .25 between 45 and 57 fps, capped at 1.5 on phones [site:primesec] [verified] |
+| Adaptive | step DPR, blur samples and geometry detail from measured frame time | [site:why-zero] [verified]; 30 fps target at low [site:shopify-editions-w26] [recalled medium-low]; DPR stepped by .25 between 45 and 57 fps, capped at 1.5 on phones [site:primesec] [verified]; a median-of-90-frames governor under a 3 MP mobile budget, its ceiling remembered for 24 h [site:edolus] [verified] (`[pattern:webgl-architecture#scene-windows-and-disposal]`) |
 | Model variant | a separate, lighter glb below the breakpoint (1.31 MB against 2.39 MB) | [site:primesec] [verified] |
 | Tier object | DPR range, render-pixel cap, trail size, point count and target fps per tier from a scored probe | [site:pensatori-irrazionali] [verified] |
 | GPU gate | canvas only at a detected GPU tier ≥ 1, a CSS echo otherwise | [site:bethebuzz] [verified] |

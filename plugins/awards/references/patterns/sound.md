@@ -28,10 +28,11 @@ Rules:
 | UI cues | .5 | four hover and menu cues | [site:siena] | [verified]; no mute |
 | Background loop | .35 | on by default | [site:haoqi] | [verified]; the default is the miss |
 | Easter-egg cue | .15 | plays only when sound is already on | [site:pensatori-irrazionali] | [verified] |
+| Stems mixed by chapter | per band | three music stems (melody, bass, instruments) gain-mixed by nine progress bands, e.g. .8 / 0 / .2 through the datacenter; stem fade-in 2 s, band fade 1.2 s, cross-fade 1.5 s; fourteen named one-shots per beat | [site:edolus] | [verified] |
 
 Rules:
 - Ambient sits under the SFX and both sit well under full scale; .375 / .35 are the only published levels and make a sensible ceiling [site:leo-parpeix]. Normalise the files themselves rather than mixing with gain alone.
-- Sound is state, not wallpaper [site:igloo]: bind the bed's mix to the chapter (wind up, music down) and give each interaction its own named one-shot. Crossfade over the hero unit (≈ 1.2–1.5 s) — a plugin default; no card publishes a crossfade time.
+- Sound is state, not wallpaper [site:igloo]: bind the bed's mix to the chapter (wind up, music down) and give each interaction its own named one-shot. Crossfade over the hero unit (≈ 1.2–1.5 s): band fades of 1.2 s and a 1.5 s cross-fade are the one published pair [site:edolus] [verified]. Score the chapters rather than loop one bed: stems mixed per chapter change the music's register with the picture [site:edolus].
 - Rate-limit repeats per name (one per ≈ 150 ms, plugin default) so a hovered list does not machine-gun; Igloo rate-limits but publishes no interval [site:igloo].
 - Decode off the main thread where the engine allows it; Igloo runs a dedicated audio worker [site:igloo] [verified].
 - Give sound a visible job: an analyser (`fftSize 256`, three bands, onset pulses) driving the hero object turns the play button into an interaction with a payoff [site:runrobrun] [verified] — but the player is hidden below 1000 px, so phones lose the signature.
