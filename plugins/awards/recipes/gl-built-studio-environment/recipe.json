@@ -1,0 +1,31 @@
+{
+  "id": "gl-built-studio-environment",
+  "title": "Studio environment built at runtime, no HDR file",
+  "tags": [
+    "3d",
+    "webgl",
+    "three",
+    "pmrem",
+    "environment",
+    "materials"
+  ],
+  "tier": "P1",
+  "deps": [
+    "three@0.186.0"
+  ],
+  "variants": [
+    "panels: emissive planes baked through PMREMGenerator.fromScene (this, default)",
+    "painted: a 1024 × 512 canvas gradient with light bands through PMREMGenerator.fromEquirectangular (this, toggle)",
+    "R3F: drei <Environment> with <Lightformer> children is the same panel bake"
+  ],
+  "seenIn": [
+    "ascension-pegassi",
+    "a24-raviklaassens",
+    "eugeniagrab",
+    "cutobot-byholm"
+  ],
+  "verified": {
+    "date": "2026-10-05",
+    "chromium": "153.0.8010.12"
+  }
+}

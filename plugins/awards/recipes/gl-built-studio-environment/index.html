@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#1a1c1c">
+  <title>gl-built-studio-environment — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ gl-built-studio-environment · <span data-gl-readout>dom</span></p></header>
+  <main id="main">
+    <section class="stage wrap" aria-labelledby="t">
+      <div class="copy">
+        <p class="label">/ a studio made of code</p>
+        <h1 class="display" id="t">Light it with<br>a room you built.</h1>
+        <p class="lede">Neither object has a lamp. Each one reflects an environment baked once at load, either from a scene of glowing panels or from a gradient painted on a canvas. No HDR file is downloaded, and the highlights land where the panels were placed.</p>
+        <div class="switch" role="group" aria-label="Environment source">
+          <button type="button" data-variant="panels" aria-pressed="true">panels</button>
+          <button type="button" data-variant="painted" aria-pressed="false">painted</button>
+        </div>
+      </div>
+      <figure class="figure">
+        <div class="frame"><canvas class="gl" data-gl aria-hidden="true"></canvas></div>
+        <figcaption class="label">Synthetic demo: a chrome knot and a clearcoat sphere, both generated in code.</figcaption>
+      </figure>
+    </section>
+  </main>
+  <footer class="wrap footer"><p class="label">awards · recipe · synthetic demo · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
