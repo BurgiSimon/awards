@@ -51,6 +51,30 @@
 - https://the-boyd.com/
 
 # not reviewed
-- https://www.oxigen.sa/
 
 # new stack
+
+
+# not reviewed 3D
+- https://cutobot.byholm.co/
+- https://ascension.pegassi.be/
+- https://edolus.com/
+- https://www.eugeniagrab.com/en
+- https://www.agrumeafarm.it/en
+- https://www.ruitat.info/
+- https://a24.raviklaassens.com/
+
+# not reviewed GSAP
+- https://why.zero.university/
+- https://abatable.com/
+- https://www.aardvarkbookclub.com/
+- https://www.nyphil.org/discover/gustavo
+- https://bleibtgleich.dev/
+- https://stanzza.design/awards
+
+# not reviewed WebGL
+- https://edolus.com/
+- https://www.cyphercapital.com/
+- https://santionispirits.com/
+- https://aqualoqa.com/
+- https://guillaumecolombel.fr/
