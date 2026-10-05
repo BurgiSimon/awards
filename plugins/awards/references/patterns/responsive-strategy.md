@@ -49,6 +49,10 @@ Why: hover, drag and a drawn cursor are fine-pointer ideas. The swap list is fix
 | Pinned card fan | an ordinary vertical stack below 768 px | [site:abatable] [verified] |
 | Pointer drift on a layer | skipped on touch | [site:abatable] [verified] |
 | Virtual run measured in wheel pixels | a shorter travel for the finger: 4,000 px of touch against 32,000 px of wheel | [site:edolus] [verified] |
+| Smooth scroll on a phone | Lenis off at ≤ 767 px with an inner scroller [site:eugeniagrab]; `lerp 1` on coarse pointers [site:a24-raviklaassens] | [verified] |
+| Scrub smoothing | 1.2 on desktop, .2 on the phone | [site:eugeniagrab] [verified] |
+| Pointer springs and hover spin | fine pointers only; drag is the touch path, and speed blur halves | [site:agrumeafarm] [verified] |
+| A pointer brush on a ground | the finger brushes, with `touch-action: none` on the page | [site:aqualoqa] [verified] |
 | Pointer-driven signature | a tap or an automatic path | none in this wave: a fluid mask with no touch variant [site:noth] and a music player hidden under 1000 px [site:runrobrun] [verified] |
 
 Test with `any-pointer` as well as `pointer`: a touch laptop with a mouse attached must keep the fine state available.
@@ -60,7 +64,7 @@ Why: a heavy canvas site has two honest options on a phone, and the corpus took 
 - **Dedicated**: Oryzo's mobile treatment is indexed on Awwwards as its own inspiration entry [site:oryzo] [recalled high]; Slosh is cited twice as proof that heavy WebGL runs on the mobile web — an engineered path, not a still [site:slosh-seltzer] [recalled medium]; Trevor Noah designed the tour flow for each device with full attention rather than reducing desktop [site:trevor-noah] [verified intent]. Floema branches its markup on the server by device class through a UA parser [site:floema-jewelry] [verified] — a third route, with the fragility UA sniffing carries.
 - **Degrade**: Shopify built for 70 % mobile sessions and a 60 fps target, with three content tiers — scene, static media, text — chosen from capability and measured frame rate [site:shopify-editions-w26] [recalled high for the numbers; medium-low for the tiers].
 - **The anti-model**: Lando shows a rotate-your-device prompt in phone landscape instead of a landscape layout [site:lando-norris] [verified]; Grids refuses portrait altogether and asks the reader to rotate and wait [site:grids-obys] [verified]; rotate notices also sit in the markup of [site:likova] [site:siena] [verified].
-- Dedicated phones in this wave [verified on each card]: the device fills the viewport with touch copy [site:areebali]; the reel becomes a vertical stack that still wraps [site:jesperlandberg]; the GL roll becomes DOM poster cards [site:siena]; the scattered hero becomes a five-tile cluster that cycles media [site:okaydev]; a separate hero clip framed in a card [site:goats]; separate mobile film encodes [site:gehry-getty]; a lighter model below 992 px [site:primesec].
+- Dedicated phones in this wave [verified on each card]: the device fills the viewport with touch copy [site:areebali]; the reel becomes a vertical stack that still wraps [site:jesperlandberg]; the GL roll becomes DOM poster cards [site:siena]; the scattered hero becomes a five-tile cluster that cycles media [site:okaydev]; a separate hero clip framed in a card [site:goats]; separate mobile film encodes [site:gehry-getty]; a lighter model below 992 px [site:primesec]. The 2026-10-05 wave [verified on each card]: no canvas on the phone, a baked wordmark image and a bottom bar holding player and menu within thumb reach [site:ascension-pegassi]; the television fitted to 94 % of the width with mirrored bands of sand filling the rest [site:aqualoqa]; a bottom nav bar and a touch layout set [site:a24-raviklaassens]; its own preloader and projects timelines [site:stanzza]. The anti-model again: a portrait phone met by a rotate dialog [site:cutobot-byholm].
 
 Rule: dedicated when the phone is the revenue surface or the loud moment can be rebuilt smaller; degrade when the page is a document under an experience layer. Either way the phone gets the same content, headings and links, and a designed still where the scene would be.
 
@@ -80,12 +84,15 @@ Why: mobile GPUs fail on pixel count and bandwidth, not on triangle count. The r
 | Model variant | a separate, lighter glb below the breakpoint (1.31 MB against 2.39 MB) | [site:primesec] [verified] |
 | Tier object | DPR range, render-pixel cap, trail size, point count and target fps per tier from a scored probe | [site:pensatori-irrazionali] [verified] |
 | GPU gate | canvas only at a detected GPU tier ≥ 1, a CSS echo otherwise | [site:bethebuzz] [verified] |
+| Phone or coarse-pointer tier | DPR 1.4 against 1.75, no MSAA, bloom at .3 scale, mirror at .25, shadows off, exposure raised, sky fbm at two octaves, grass at 45 %; then a one-way governor | [site:cutobot-byholm] [verified] (`[pattern:webgl-architecture#scene-windows-and-disposal]`) |
+| One budget for many canvases | pixel ratio `min(3, √(12,000,000 / total area))` shared by every item | [site:agrumeafarm] [verified] |
+| No tier at all | a 1102² point grid on every device, DPR capped at 2 and nothing else | [site:aqualoqa] [verified] — the miss |
 
 ## Never reload at a breakpoint
 
 Why: Lando forces a full page reload when the viewport crosses 992 px because its six scenes cannot resize [site:lando-norris] [verified]. Zoom users, split-screen users and anyone dragging a window edge trip it, and every transition, scroll position and form field is lost.
 
-Rules: rebuild scenes on a debounced `ResizeObserver` and refresh triggers afterwards; breakpoint-specific choreography lives in `gsap.matchMedia()` blocks that revert themselves, or in Anime's `createScope({ mediaQueries })`, which re-runs per query with cleanup [site:animejs] [verified]; never two scores toggled by `display: none`; `ScrollTrigger.config({ ignoreMobileResize: true })` so the address bar does not trigger rebuilds (`stacks/vite-vanilla.md`).
+Rules: rebuild scenes on a debounced `ResizeObserver` and refresh triggers afterwards; breakpoint-specific choreography lives in `gsap.matchMedia()` blocks that revert themselves, or in Anime's `createScope({ mediaQueries })`, which re-runs per query with cleanup [site:animejs] [verified]; never two scores toggled by `display: none`; `ScrollTrigger.config({ ignoreMobileResize: true })` so the address bar does not trigger rebuilds (`stacks/vite-vanilla.md`). A breakpoint read once at init, which a resize across it never rebuilds, is the quiet version of the same fault [site:stanzza] [verified].
 
 ## Navigation and rails on small screens
 

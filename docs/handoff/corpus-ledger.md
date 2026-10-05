@@ -539,7 +539,7 @@ the-boyd: pinia — DHmUQlsp.js
 |---|---|---|
 | setup | done | first lens wave (GSAP, WebGL, 3D) on branch feat/deep-modes; 17 rows from the three lens headings |
 | triage | done | 13 added (12 new cards + why-zero lens update), 2 skipped by owner policy (ruitat, nyphil), 2 blocked by headless GPU (santionispirits blocklists SwiftShader; guillaumecolombel WebGPU scene stalls) — both read from source, retry needs a real GPU; captures serialised behind a lock after the pilot |
-| synthesis | open | |
+| synthesis | done | 13 cards folded into the three lens playbooks (every content section filled), webgl-architecture (13 effect rows), 16 other pattern files, reflex-lists, anti-patterns and 33 recipe seenIn additions |
 | recipes | open | |
 | stacks | open | |
 | upkeep | open | |
@@ -548,22 +548,22 @@ the-boyd: pinia — DHmUQlsp.js
 
 | Slug | URL | Lens | Status | Rating | Novelty | Synthesised | Reason | Date |
 |---|---|---|---|---|---|---|---|---|
-| cutobot-byholm | https://cutobot.byholm.co/ | 3D | added | D 7.8 / U 5.6 / C 8.0 / Co 7.4 → 7.14 | model; technique ×3; lens ×4 | | no film frame captured (canvas intercepted ENTER click); film read from source | 2026-10-05 |
-| ascension-pegassi | https://ascension.pegassi.be/ | 3D | added | D 7.6 / U 6.8 / C 7.6 / Co 7.4 → 7.34 | technique ×3; lens ×3 | | click gate; second capture with --states exit 0 | 2026-10-05 |
+| cutobot-byholm | https://cutobot.byholm.co/ | 3D | added | D 7.8 / U 5.6 / C 8.0 / Co 7.4 → 7.14 | model; technique ×3; lens ×4 | yes | no film frame captured (canvas intercepted ENTER click); film read from source | 2026-10-05 |
+| ascension-pegassi | https://ascension.pegassi.be/ | 3D | added | D 7.6 / U 6.8 / C 7.6 / Co 7.4 → 7.34 | technique ×3; lens ×3 | yes | click gate; second capture with --states exit 0 | 2026-10-05 |
 | edolus | https://edolus.com/ | 3D, WebGL | added | D 7.5 / U 4.8 / C 7.5 / Co 6.0 → 6.54 | model; stack (PlayCanvas 2.21.4); technique ×2; lens ×4 | yes | captures reach 2 of 7 scenes past the click gate; source and scene config fully read | 2026-10-05 |
-| eugeniagrab | https://www.eugeniagrab.com/en | 3D | added | D 7.6 / U 6.6 / C 7.6 / Co 7.2 → 7.26 | technique ×2; stack (R3F note); world; lens ×6 | | capture exit 0, five screenshots timed out; mobile states stayed on the hero | 2026-10-05 |
-| agrumeafarm | https://www.agrumeafarm.it/en | 3D | added | D 7.4 / U 6.6 / C 7.3 / Co 6.8 → 7.08; official: Awwwards Nominee, no scores | model; technique ×2; stack (matter-js note); lens ×2 | | home capture exit 0; entry capture behind cookie wall | 2026-10-05 |
+| eugeniagrab | https://www.eugeniagrab.com/en | 3D | added | D 7.6 / U 6.6 / C 7.6 / Co 7.2 → 7.26 | technique ×2; stack (R3F note); world; lens ×6 | yes | capture exit 0, five screenshots timed out; mobile states stayed on the hero | 2026-10-05 |
+| agrumeafarm | https://www.agrumeafarm.it/en | 3D | added | D 7.4 / U 6.6 / C 7.3 / Co 6.8 → 7.08; official: Awwwards Nominee, no scores | model; technique ×2; stack (matter-js note); lens ×2 | yes | home capture exit 0; entry capture behind cookie wall | 2026-10-05 |
 | ruitat | https://www.ruitat.info/ | 3D | skipped | none | none | | owner policy forbids automated extraction (ai-usage.txt, robots.txt Disallow for ClaudeBot); nothing captured or kept | 2026-10-05 |
-| a24-raviklaassens | https://a24.raviklaassens.com/ | 3D | added | D 7.6 / U 7.2 / C 7.8 / Co 7.0 → 7.46; official: Awwwards Nominee, no scores | model; technique ×3; lens ×4 | | full capture set (15, exit 0) | 2026-10-05 |
+| a24-raviklaassens | https://a24.raviklaassens.com/ | 3D | added | D 7.6 / U 7.2 / C 7.8 / Co 7.0 → 7.46; official: Awwwards Nominee, no scores | model; technique ×3; lens ×4 | yes | full capture set (15, exit 0) | 2026-10-05 |
 | why-zero | https://why.zero.university/ | GSAP | added | D 7.6 / U 5.5 / C 9.0 / Co 7.5 → 7.24; official 7.73 | lens ×5 | yes | existing card; lens-only update, SplitText added to Stack row | 2026-10-05 |
 | abatable | https://abatable.com/ | GSAP | added | D 7.0 / U 6.4 / C 6.6 / Co 7.2 → 6.76 | technique ×2; lens ×4 | yes |  | 2026-10-05 |
-| aardvarkbookclub | https://www.aardvarkbookclub.com/ | GSAP | added | D 7.0 / U 6.2 / C 6.8 / Co 7.0 → 6.72; official: SOTD 7.2 | model; technique ×3; lens ×5 | |  | 2026-10-05 |
+| aardvarkbookclub | https://www.aardvarkbookclub.com/ | GSAP | added | D 7.0 / U 6.2 / C 6.8 / Co 7.0 → 6.72; official: SOTD 7.2 | model; technique ×3; lens ×5 | yes |  | 2026-10-05 |
 | nyphil | https://www.nyphil.org/discover/gustavo | GSAP | skipped | none | none | | owner policy: robots.txt disallows all agents except named search crawlers; nothing captured or kept | 2026-10-05 |
-| bleibtgleich | https://bleibtgleich.dev/ | GSAP | added | D 7.5 / U 6.4 / C 7.4 / Co 6.9 → 7.09 | technique ×2; lens ×3 | |  | 2026-10-05 |
-| stanzza | https://stanzza.design/awards | GSAP | added | D 7.2 / U 6.4 / C 6.7 / Co 7.0 → 6.84 | stack (Swiper 11); lens ×3 | |  | 2026-10-05 |
-| cyphercapital | https://www.cyphercapital.com/ | WebGL | added | D 7.4 / U 7.3 / C 7.0 / Co 6.8 → 7.23 | model; technique ×2; lens ×5 | | robots.txt allows; Content-Signal ai-input=yes, ai-train=no | 2026-10-05 |
+| bleibtgleich | https://bleibtgleich.dev/ | GSAP | added | D 7.5 / U 6.4 / C 7.4 / Co 6.9 → 7.09 | technique ×2; lens ×3 | yes |  | 2026-10-05 |
+| stanzza | https://stanzza.design/awards | GSAP | added | D 7.2 / U 6.4 / C 6.7 / Co 7.0 → 6.84 | stack (Swiper 11); lens ×3 | yes |  | 2026-10-05 |
+| cyphercapital | https://www.cyphercapital.com/ | WebGL | added | D 7.4 / U 7.3 / C 7.0 / Co 6.8 → 7.23 | model; technique ×2; lens ×5 | yes | robots.txt allows; Content-Signal ai-input=yes, ai-train=no | 2026-10-05 |
 | santionispirits | https://santionispirits.com/ | WebGL | blocked | D 7.5 / U 5.5 / C 7.5 / Co 6.5 → 6.80 (from source only) | stack (Hydra 1.1.20); technique (hatched NPR, 8 fps boil); model; lens ×5 — pending a real-GPU capture | | site GPU blocklist (incl. swiftshader) redirects every headless frame to unsupported.html; source fully read; card held out per the no-render precedent (oxigen); retry needs a real GPU | 2026-10-05 |
-| aqualoqa | https://aqualoqa.com/ | WebGL | added | D 7.4 / U 5.6 / C 7.4 / Co 5.0 → 6.62 | model; technique; lens ×4 | | retry with --timeout 90000 --scroll 0,100 produced all six frames | 2026-10-05 |
+| aqualoqa | https://aqualoqa.com/ | WebGL | added | D 7.4 / U 5.6 / C 7.4 / Co 5.0 → 6.62 | model; technique; lens ×4 | yes | retry with --timeout 90000 --scroll 0,100 produced all six frames | 2026-10-05 |
 | guillaumecolombel | https://guillaumecolombel.fr/ | WebGL | blocked | none | likely model, stack (howler), lens ×4 from source — pending a real-GPU capture | | both captures timed out (WebGPU/TSL scene stalls SwiftShader), no PNGs; source read; retry needs a real GPU | 2026-10-05 |
 
 ### Techniques and stacks
@@ -790,3 +790,4 @@ edolus: basis-transcoder (wasm) — __settings__.js
 - oxigen: dropped from the queue by the maintainer 2026-10-05; its wave 3 row stays blocked.
 - 2026-10-05 pilot synthesis (edolus, abatable, why-zero): duplicates none. Partial overlaps: abatable `osmo` and why-zero `osmoNav` share control points 0.625,0.05,0,1 (one borrowed curve); abatable initGlobalParallax matches siteassist line for line. Open conflict: narrative-structures.md "Manifesto with gates" and cursor-and-pointer.md hold-gates paragraph still say why-zero has six stages / five gates; the updated card says five / four. Reconcile by hand.
 - 2026-10-05 pilot: parallel captures (three subagents at once) caused screenshot timeouts on all three sites; lens evidence came from source, which the lens rule allows, but captures were partial.
+- 2026-10-05 synthesis (10 cards): duplicates none. Closest pair a24-raviklaassens / agrumeafarm (one repeated lathe object as the home gallery, wheel captured, spring per item; differ in render model and keyboard support). Shared snippets: osmo 0.625,0.05,0,1 on abatable, aardvarkbookclub, a24-raviklaassens, bleibtgleich, why-zero; energy = discGlide 0.32,0.72,0,1 (aardvarkbookclub, a24-raviklaassens). Partial overlap ascension-pegassi / cyphercapital (chrome logo lit without an HDR; mesh + PMREM studio vs raymarched SDF).

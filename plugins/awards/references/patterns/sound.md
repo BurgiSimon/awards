@@ -4,7 +4,7 @@ What this file is for: when a site may make sound, at what levels, bound to whic
 
 ## Opt-in only
 
-Why: browsers refuse to start audio without a gesture, and a jury refuses a site that starts talking; both side with the visitor. Every sounded site in the corpus is opt-in — a toggle in the chrome [site:leo-parpeix] [recalled medium], a control whose label states its current value [site:igloo] [verified], a switch that defaults to off [site:mont-fort] [verified control, default inferred]. The newer cards split [verified on each]: a Howler bank muted by default with the choice remembered [site:nodeck]; synthesised clicks behind a toggle that starts muted [site:areebali]; a recorded track with `preload="none"`, started only by its own control [site:zainabkabira]; consent taken on the preloader's first click [site:gehry-getty] — against sound on by default, stored as on unless "false" was saved [site:pensatori-irrazionali], a loop that tries `play()` at once and again on the first tap [site:haoqi], and hover and click audio with no control at all [site:spasoje] [site:siena].
+Why: browsers refuse to start audio without a gesture, and a jury refuses a site that starts talking; both side with the visitor. Every sounded site in the corpus is opt-in — a toggle in the chrome [site:leo-parpeix] [recalled medium], a control whose label states its current value [site:igloo] [verified], a switch that defaults to off [site:mont-fort] [verified control, default inferred]. The newer cards split [verified on each]: a Howler bank muted by default with the choice remembered [site:nodeck]; synthesised clicks behind a toggle that starts muted [site:areebali]; a recorded track with `preload="none"`, started only by its own control [site:zainabkabira]; consent taken on the preloader's first click [site:gehry-getty] — against sound on by default, stored as on unless "false" was saved [site:pensatori-irrazionali], a loop that tries `play()` at once and again on the first tap [site:haoqi], and hover and click audio with no control at all [site:spasoje] [site:siena]. The 2026-10-05 wave [verified on each card]: SOUND ON / OFF asked in a setup dialog before the film, off until chosen [site:cutobot-byholm] — against a reel that tries to start unmuted and unmutes on the first input [site:aqualoqa], and four ≈ 6 MB tracks requested at load [site:ascension-pegassi].
 
 Rules:
 - Never autoplay, never fade in "quietly" before consent, never resume on a route change without a stored yes.
@@ -29,6 +29,7 @@ Rules:
 | Background loop | .35 | on by default | [site:haoqi] | [verified]; the default is the miss |
 | Easter-egg cue | .15 | plays only when sound is already on | [site:pensatori-irrazionali] | [verified] |
 | Stems mixed by chapter | per band | three music stems (melody, bass, instruments) gain-mixed by nine progress bands, e.g. .8 / 0 / .2 through the datacenter; stem fade-in 2 s, band fade 1.2 s, cross-fade 1.5 s; fourteen named one-shots per beat | [site:edolus] | [verified] |
+| Music and effects under a stated switch | music .5, effects .32 | switching off ramps to 0 over .5 s; WebAudio plus one `<audio>` loop | [site:cutobot-byholm] | [verified] |
 
 Rules:
 - Ambient sits under the SFX and both sit well under full scale; .375 / .35 are the only published levels and make a sensible ceiling [site:leo-parpeix]. Normalise the files themselves rather than mixing with gain alone.
@@ -40,7 +41,7 @@ Rules:
 
 ## The control
 
-Why: the switch is the one piece of chrome that must be honest about what it is doing. Mont-fort's is a 24 × 24 canvas drawing the live signal, so the control is its own visualiser [site:mont-fort] [verified element; behaviour inferred high]; Léo Parpeix animates equaliser bars in the nav [site:leo-parpeix] [recalled medium]; Igloo's lives in the scene with its state in the label [site:igloo] [verified]; Getty spells `SOUND ○ OFF / ● ON` in the header [site:gehry-getty] [verified]; Haoqi prints the state as a glyph in brackets and binds it to one key [site:haoqi] [verified]. A named toggle without `aria-pressed` is the common gap [site:runrobrun] [verified].
+Why: the switch is the one piece of chrome that must be honest about what it is doing. Mont-fort's is a 24 × 24 canvas drawing the live signal, so the control is its own visualiser [site:mont-fort] [verified element; behaviour inferred high]; Léo Parpeix animates equaliser bars in the nav [site:leo-parpeix] [recalled medium]; Igloo's lives in the scene with its state in the label [site:igloo] [verified]; Getty spells `SOUND ○ OFF / ● ON` in the header [site:gehry-getty] [verified]; Haoqi prints the state as a glyph in brackets and binds it to one key [site:haoqi] [verified]. A named toggle without `aria-pressed` is the common gap [site:runrobrun] [verified]. Text buttons reading SOUND ON / OFF in a film's HUD [site:cutobot-byholm] and a fixed player pill with a level glyph [site:ascension-pegassi] [verified] keep the state in words.
 
 Rules:
 - The visual (bars, waveform) is decoration over a real button; the state lives in `aria-pressed` and the name, never in the animation alone.
@@ -62,9 +63,9 @@ Howler is the corpus's named engine [site:why-zero] [verified] and the pinned on
 
 ## Refuse
 
-- Autoplay, muted-then-unmuted tricks, or sound tied to scroll position without a stored yes.
+- Autoplay, muted-then-unmuted tricks [site:aqualoqa] [verified], or sound tied to scroll position without a stored yes.
 - A toggle only inside a hamburger menu, a `div` toggle, or an icon with no state in its name.
 - A sound-on gate as the only entrance.
-- A multi-megabyte bed fetched before consent [site:the-boyd] [verified].
+- A multi-megabyte bed fetched before consent [site:the-boyd] [site:ascension-pegassi] [verified].
 - A sound note that sits over the content until clicked [site:gehry-getty] [verified]; sound on by default [site:pensatori-irrazionali] [site:haoqi]; hover and click audio with no toggle [site:spasoje] [site:siena].
 - Léo Parpeix's equaliser bars, Igloo's in-scene label or Mont-fort's icon as assets.

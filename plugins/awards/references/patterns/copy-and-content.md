@@ -19,6 +19,7 @@ Why: an adjective is a claim the visitor must trust; a number is a claim the vis
 | Area, counts and minutes as the leasing argument | 53 300 m²; 266 underground and 254 ground spaces; a 12 m lobby ceiling; minutes / by bus | [site:likova] | [verified] |
 | A design decision quantified | each grid's margins, power lines and paddings in a hairline table | [site:grids-obys] | [verified] |
 | Evidence laid on each item | star ratings with outlet names, festival laurels and running times on every film frame | [site:siena] | [verified] |
+| Notes per item instead of adjectives | track-by-track liner notes in the first person, side letters and durations, a spec block of sides, date and producer | [site:ascension-pegassi] | [verified] |
 
 Rules: every superlative becomes a figure with a unit; dual units whenever the audience spans systems; ranges stay ranges; a number that cannot be sourced is either cut or labelled synthetic (`#content-at-full-fidelity`); numbers are set as copy, never as a count-up (`[pattern:components-catalog#spec-and-metric-blocks]`).
 
@@ -66,6 +67,12 @@ Why: the action must cost as much as the decision — a cart on a five-figure tr
 | A studio brief | the e-mail copied to the clipboard in one click | [site:warmnfuzzy] [site:wearedirect] | [verified] |
 | A studio showcase | an e-mail in the credits after ≈ 32,000 px of scroll, nothing earlier — what to beat | [site:edolus] | [verified] |
 | Environmental-asset procurement | Talk to us in orange in the nav, Contact us again in the footer | [site:abatable] | [verified] |
+| A record release | Listen, Buy and a fixed player pill on every frame | [site:ascension-pegassi] | [verified] |
+| A studio's showcase | BOOK A CALL from the first frame of the opening | [site:cutobot-byholm] | [verified] |
+| A book subscription | log in / sign up in the nav and hero, an add-to-box action on every book | [site:aardvarkbookclub] | [verified] |
+| An interiors commission | a call button in every frame that hides on scroll down, then a meetings embed | [site:stanzza] | [verified] |
+| An institutional mandate | contact only in the menu and the footer | [site:cyphercapital] | [verified] — partial |
+| A pre-launch brand | social links only, no sign-up | [site:aqualoqa] | [verified] — what to beat |
 
 Rules: never "Get started" or "Learn more" (audit X01); the label is the outcome (download the spec sheet, book a call, join the waitlist); the primary action appears in the first viewport and again at the close (`[pattern:narrative-structures#the-close]`); one primary action per page.
 
@@ -91,12 +98,14 @@ Why: chrome written in the audience's own dialect turns navigation into evidence
 | `SLIDE n/10`, presenter notes and PREV / NEXT keys | [site:nodeck] | [verified] |
 | A dated changelog of commit subjects with shas | [site:areebali] | [verified] |
 | Ticket metadata: year, minutes, a stub numbered 004 | [site:siena] | [verified] |
+| A back-of-box credit table per item, review outlets in spaced caps | [site:a24-raviklaassens] | [verified] |
+| A spaced three-digit counter and 11 px tracked mono for every HUD control | [site:cutobot-byholm] | [verified] |
 
 Rules: pick the audience's real paperwork — a call sheet for film, a console for defence, a research station for a monument, a catalogue for jewellery — and render the chrome in it; every state control names its current state; the dialect is decoration only where it is not also information (a slash in `::before`, a status in the DOM); a monospace or HUD register on a product that is not technical is a costume (`craft-floor.md`).
 
 ## Metadata as boast
 
-Why: adjectives about craft are unverifiable; a team size, a year and an award count are not. Every project on Léo Parpeix's page carries a quartet — name · discipline · year · team of N at a studio — plus an award tally, and the About page is a tabular CV with an awards count [site:leo-parpeix] [recalled medium]. The Line credits directors, composers and years in tables [site:the-line] [verified]; Floema labels each piece with a number and a collection [site:floema-jewelry] [verified]. Wodniack sets its awards as a built stack of ruled, hatched boxes down a drawn corridor, so the tally reads as structure rather than a logo row [site:wodniack] [verified]. A testimonial signed with the build's project number, colour, model and donor chassis is worth more than the adjectives above it [site:911rennsport] [verified]; a difficulty score out of 10 per project [site:spasoje] [verified] and an awards tally in the bio [site:jesperlandberg] [verified] run the same move.
+Why: adjectives about craft are unverifiable; a team size, a year and an award count are not. Every project on Léo Parpeix's page carries a quartet — name · discipline · year · team of N at a studio — plus an award tally, and the About page is a tabular CV with an awards count [site:leo-parpeix] [recalled medium]. The Line credits directors, composers and years in tables [site:the-line] [verified]; Floema labels each piece with a number and a collection [site:floema-jewelry] [verified]. Wodniack sets its awards as a built stack of ruled, hatched boxes down a drawn corridor, so the tally reads as structure rather than a logo row [site:wodniack] [verified]. A testimonial signed with the build's project number, colour, model and donor chassis is worth more than the adjectives above it [site:911rennsport] [verified]; a difficulty score out of 10 per project [site:spasoje] [verified] and an awards tally in the bio [site:jesperlandberg] [verified] run the same move; so does an awards ledger whose certificates open on hover [site:bleibtgleich] [verified] — though its award list is self-declared in JSON-LD [verified].
 
 Rules: credibility travels as structured data in a `<dl>` or a table; count what can be counted (people, years, awards, offices) and name what can be named (roles, studios); leave out the adjective the number replaces.
 
@@ -116,7 +125,7 @@ Rules: adopt a genre's complete conventions — the launch keynote, the model ca
 
 Why: credits prove the work was made by people, and they are where provenance becomes legible — Son Daven's type from a Ukrainian foundry for a Ukrainian project is a credit line that does design work [site:son-daven] [verified].
 
-Seen: a Site Credits link in the footer [site:the-line] [verified link; contents unknown]; launch credits by role — direction, front-end, 3D, sound, copy [site:leo-parpeix] [verified]; designer-developer and producer named [site:son-daven] [verified]; author, licence and sponsors in the README [site:animejs] [verified]; a making-of split by discipline [site:oryzo] [recalled high]; a mono credits list for every chapter's recording and every photographer as the page's close [site:gehry-getty] [verified]; a credits dialog naming each stock asset and sound source [site:nodeck] [verified]; a colophon linking the series' earlier issues [site:grids-obys] [verified].
+Seen: a Site Credits link in the footer [site:the-line] [verified link; contents unknown]; launch credits by role — direction, front-end, 3D, sound, copy [site:leo-parpeix] [verified]; designer-developer and producer named [site:son-daven] [verified]; author, licence and sponsors in the README [site:animejs] [verified]; a making-of split by discipline [site:oryzo] [recalled high]; a mono credits list for every chapter's recording and every photographer as the page's close [site:gehry-getty] [verified]; a credits dialog naming each stock asset and sound source [site:nodeck] [verified]; a colophon linking the series' earlier issues [site:grids-obys] [verified]; a Site Credits link beside two credit audio files [site:ascension-pegassi] [verified]; a sand engine credited in the source as a port of an open-source toy [site:aqualoqa] [verified]; opening copy saying one person models, shades and ships the work [site:cutobot-byholm] [verified].
 
 Rules: a credits route or footer block naming roles; faces with their foundries, libraries with their versions, open assets with their licences; the plugin and the reference corpus are not credited as authors.
 
@@ -124,7 +133,7 @@ Rules: a credits route or footer block naming roles; faces with their foundries,
 
 Why: placeholder content hides layout faults and reads as generated; invented content presented as real is a lie the jury may catch. Shopify's artwork carried an AI substrate under human finish and the brief labels such assets synthetic [site:shopify-editions-w26] [recalled high]; Why Zero's own tags admit some generated content [site:why-zero] [verified tags]; Oryzo let generation into parts of the pipeline and kept it out of the final look [site:oryzo] [recalled high].
 
-Rules: no lorem (audit X02), no emoji icons (audit X03); every image has alt text written as content; when a figure, a quote, a client or an image is invented for the build, it is written at full fidelity — plausible precision, a real unit, a real-sounding source — and listed as synthetic under `AWARDS.md ## Brief → Assets on hand`; never fabricate awards, press, testimonials or partner logos, even as placeholders. The misses this rule catches [verified on each card]: a platform's default "This is some text inside of a div block." inside a loader [site:noth]; a placeholder sentence and one headline repeated across eight cases [site:siena]; `<meta name="title" content="Title">` and a consent line naming another business, over a catalogue whose image host no longer resolves [site:the-boyd]; every client logo's alt reading one client's name [site:primesec]; alt text copied between rows [site:robbietilton].
+Rules: no lorem (audit X02), no emoji icons (audit X03); every image has alt text written as content; when a figure, a quote, a client or an image is invented for the build, it is written at full fidelity — plausible precision, a real unit, a real-sounding source — and listed as synthetic under `AWARDS.md ## Brief → Assets on hand`; never fabricate awards, press, testimonials or partner logos, even as placeholders. The misses this rule catches [verified on each card]: a platform's default "This is some text inside of a div block." inside a loader [site:noth]; a placeholder sentence and one headline repeated across eight cases [site:siena]; `<meta name="title" content="Title">` and a consent line naming another business, over a catalogue whose image host no longer resolves [site:the-boyd]; every client logo's alt reading one client's name [site:primesec]; alt text copied between rows [site:robbietilton]; an `og:url` on a placeholder domain [site:bleibtgleich]; a script for a password panel that is not in the markup, throwing on every load [site:aqualoqa].
 
 ## Copy audit
 
