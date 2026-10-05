@@ -1,0 +1,59 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+/* The house tokens: the only place a curve or a duration is written. main.js reads these and registers them with GSAP. */
+:root {
+  --ease-house: cubic-bezier(0.6, 0.04, 0.1, 1);
+  --ease-out: cubic-bezier(0.2, 0.9, 0.3, 1);
+  --ease-in: cubic-bezier(0.55, 0, 0.8, 0.15);
+  --ease-in-out: cubic-bezier(0.72, 0, 0.22, 1);
+  --ease-write: cubic-bezier(0.4, 0, 0.6, 1);
+  --dur-xs: 0.15s;
+  --dur-s: 0.3s;
+  --dur-m: 0.55s;
+  --dur-l: 1.1s;
+  --dur-fade: 0.2s; /* opacity / colour only: survives the reduced tier */
+  --stagger: 0.04s;
+}
+/* Reduced and static: every movement duration is zero; the fade token stays in reduced so state changes still read. */
+:root[data-motion-tier="reduced"], :root[data-motion-tier="static"] { --dur-xs: 0s; --dur-s: 0s; --dur-m: 0s; --dur-l: 0s; --stagger: 0s; }
+:root[data-motion-tier="static"] { --dur-fade: 0s; }
+/* Same answer before main.js has set the tier attribute, so the first paint already obeys the OS setting. */
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion-tier]) { --dur-xs: 0s; --dur-s: 0s; --dur-m: 0s; --dur-l: 0s; --stagger: 0s; }
+}
+
+.topbar { display: flex; justify-content: space-between; align-items: center; gap: var(--gutter); padding-block: calc(var(--unit) * 5); }
+.hero { min-height: 70svh; }
+.lede { max-width: 60ch; margin-top: calc(var(--unit) * 8); }
+.demo { display: grid; gap: calc(var(--unit) * 10); align-content: start; }
+.demo-head { display: flex; justify-content: space-between; align-items: center; gap: var(--gutter); flex-wrap: wrap; }
+.demo-head h2 { margin: 0; }
+.play { border: 1px solid var(--ink); background: transparent; min-height: 44px; padding: calc(var(--unit) * 2) calc(var(--unit) * 5); font-family: var(--font-mono); font-size: var(--label); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: background-color var(--dur-fade) var(--ease-out), color var(--dur-fade) var(--ease-out); }
+.play:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.play:hover, .play[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+
+.lanes { list-style: none; margin: 0; padding: 0; display: grid; }
+.lane { display: grid; grid-template-columns: minmax(12rem, 18rem) 3.5rem 1fr; align-items: center; gap: var(--gutter); padding-block: calc(var(--unit) * 4); border-top: 1px solid var(--line); }
+.lane-name { font-family: var(--font-display); font-size: clamp(1.25rem, 2vw, 1.75rem); letter-spacing: -.02em; }
+.lane-name small { display: block; font-family: var(--font-mono); font-size: var(--label); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.plot { width: 3.5rem; height: 3.5rem; overflow: visible; }
+.plot path { fill: none; stroke: var(--ink); stroke-width: .03; }
+.track { position: relative; height: 1.5rem; border-bottom: 1px solid var(--line); }
+.dot { position: absolute; left: 0; top: 0; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--ink); will-change: transform; }
+.lane[data-lane="house"] .dot, .lane-css .dot { background: var(--accent); }
+/* The CSS lane: the same token pair, no JavaScript in the motion. */
+.lane-css .dot { transition: transform var(--dur-m) var(--ease-house); }
+.lanes.is-on .lane-css .dot { transform: translateX(var(--travel, 0px)); }
+
+.durations { display: grid; grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr)); gap: var(--gutter); margin: 0; }
+.durations div { border-top: 1px solid var(--ink); padding-top: calc(var(--unit) * 3); }
+.durations dt { font-family: var(--font-mono); font-size: var(--label); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.durations dd { margin: 0; font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.5rem); letter-spacing: -.02em; }
+.foot { padding-block: calc(var(--unit) * 12); }
+
+@media (max-width: 767px) {
+  .lane { grid-template-columns: 1fr 3rem; row-gap: calc(var(--unit) * 3); }
+  .plot { width: 3rem; height: 3rem; }
+  .track { grid-column: 1 / -1; }
+}

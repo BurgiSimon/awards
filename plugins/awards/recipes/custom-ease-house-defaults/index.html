@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>custom-ease-house-defaults — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">tier: <output data-tier-readout>full</output></p></header>
+  <main id="main">
+    <section class="section wrap hero" aria-labelledby="t">
+      <p class="label">/ house easing</p>
+      <h1 class="display" id="t">One curve,<br>every hand.</h1>
+      <p class="lede">The curves and durations are written once, as CSS custom properties. On boot each curve is registered as a GSAP <code>CustomEase</code> and the house curve becomes <code>gsap.defaults()</code>, so a tween that names no ease, a CSS transition and a named tween all move the same way.</p>
+    </section>
+    <section class="section wrap demo" aria-labelledby="d">
+      <div class="demo-head">
+        <h2 id="d" class="label">The set, side by side</h2>
+        <button type="button" class="play" data-play aria-pressed="false">Play the set</button>
+      </div>
+      <ol class="lanes" data-lanes>
+        <li class="lane" data-lane="house"><span class="lane-name">house <small>default, unannotated</small></span><svg class="plot" viewBox="-.05 -.05 1.1 1.1" aria-hidden="true"><path data-plot="house"/></svg><span class="track"><span class="dot" data-probe></span></span></li>
+        <li class="lane lane-css" data-lane="css"><span class="lane-name">house <small>CSS transition</small></span><svg class="plot" viewBox="-.05 -.05 1.1 1.1" aria-hidden="true"><path data-plot="house"/></svg><span class="track"><span class="dot" data-css-dot></span></span></li>
+        <li class="lane" data-lane="out"><span class="lane-name">out <small>arrivals</small></span><svg class="plot" viewBox="-.05 -.05 1.1 1.1" aria-hidden="true"><path data-plot="out"/></svg><span class="track"><span class="dot"></span></span></li>
+        <li class="lane" data-lane="in"><span class="lane-name">in <small>exits</small></span><svg class="plot" viewBox="-.05 -.05 1.1 1.1" aria-hidden="true"><path data-plot="in"/></svg><span class="track"><span class="dot"></span></span></li>
+        <li class="lane" data-lane="in-out"><span class="lane-name">in-out <small>travel between two states</small></span><svg class="plot" viewBox="-.05 -.05 1.1 1.1" aria-hidden="true"><path data-plot="in-out"/></svg><span class="track"><span class="dot"></span></span></li>
+        <li class="lane" data-lane="write"><span class="lane-name">write <small>strokes, counters</small></span><svg class="plot" viewBox="-.05 -.05 1.1 1.1" aria-hidden="true"><path data-plot="write"/></svg><span class="track"><span class="dot"></span></span></li>
+      </ol>
+      <dl class="durations" data-durations></dl>
+    </section>
+  </main>
+  <footer class="wrap foot"><p class="label">awards · custom-ease-house-defaults · synthetic demo · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

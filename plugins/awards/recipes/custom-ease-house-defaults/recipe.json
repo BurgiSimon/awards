@@ -1,0 +1,33 @@
+{
+  "id": "custom-ease-house-defaults",
+  "title": "House easing: CustomEase tokens as GSAP defaults",
+  "tags": [
+    "gsap",
+    "easing",
+    "customease",
+    "tokens",
+    "css",
+    "reduced-motion"
+  ],
+  "tier": "P0",
+  "deps": [
+    "gsap@3.15.0"
+  ],
+  "variants": [
+    "CSS tokens read into CustomEase (single source in CSS)",
+    "JS token module written to CSS custom properties",
+    "CSS linear() mirror for curves cubic-bezier cannot hold"
+  ],
+  "seenIn": [
+    "abatable",
+    "aardvarkbookclub",
+    "a24-raviklaassens",
+    "bleibtgleich",
+    "why-zero",
+    "agrumeafarm"
+  ],
+  "verified": {
+    "date": "2026-10-05",
+    "chromium": "153.0.8010.12"
+  }
+}
