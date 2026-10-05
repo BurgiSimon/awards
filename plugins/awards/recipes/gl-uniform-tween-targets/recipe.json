@@ -1,0 +1,30 @@
+{
+  "id": "gl-uniform-tween-targets",
+  "title": "Shader uniforms and post presets as GSAP tween targets",
+  "tags": [
+    "gsap",
+    "webgl",
+    "three",
+    "shader",
+    "uniforms",
+    "hover"
+  ],
+  "tier": "P1",
+  "deps": [
+    "gsap@3.15.0",
+    "three@0.186.0"
+  ],
+  "variants": [
+    "uniform { value } objects as targets (this)",
+    "a plain preset proxy tweened, copied into uniforms in onUpdate (postprocessing effect properties)",
+    "colour uniforms: tween the THREE.Color's r / g / b"
+  ],
+  "seenIn": [
+    "why-zero",
+    "edolus"
+  ],
+  "verified": {
+    "date": "2026-10-05",
+    "chromium": "153.0.8010.12"
+  }
+}

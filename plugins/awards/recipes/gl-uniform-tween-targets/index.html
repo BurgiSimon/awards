@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#1a1c1c">
+  <title>gl-uniform-tween-targets — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ gl-uniform-tween-targets · <span data-gl-readout>dom</span></p></header>
+  <main id="main">
+    <section class="stage" aria-labelledby="t">
+      <canvas class="gl" data-gl aria-hidden="true"></canvas>
+      <div class="wrap copy">
+        <p class="label">/ uniforms on the house clock</p>
+        <h1 class="display" id="t">Tween the<br>shader, not a loop.</h1>
+        <p class="lede">Every shader value here is a GSAP tween target: the charge under the pointer, the swell of the rings and the scene's post look. Each retarget kills the running tween first and starts from where the value is, so a half-finished hover turns around without a jump.</p>
+        <button type="button" class="charge" data-charge>Hover or focus to charge</button>
+        <div class="switch" role="group" aria-label="Scene look"><button type="button" data-preset="calm" aria-pressed="true">calm</button><button type="button" data-preset="charged" aria-pressed="false">charged</button></div>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap footer"><p class="label">awards · recipe · synthetic demo · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
