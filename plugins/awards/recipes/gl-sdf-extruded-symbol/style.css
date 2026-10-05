@@ -1,0 +1,19 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+.topbar { display: flex; flex-wrap: wrap; gap: calc(var(--unit) * 2) calc(var(--unit) * 6); justify-content: space-between; padding-block: calc(var(--unit) * 5); }
+.hero { padding-block: calc(var(--unit) * 10) calc(var(--unit) * 12); }
+.title { font-family: var(--font-display); font-size: clamp(2.25rem, 6vw, 5.5rem); line-height: .95; letter-spacing: -.02em; margin: calc(var(--unit) * 4) 0 0; }
+.lede { max-width: 56ch; margin-top: calc(var(--unit) * 6); }
+/* The SVG still is the default; the canvas replaces it only once a context exists and has drawn. */
+.stage { position: relative; height: 80svh; min-height: 22rem; border-block: 1px solid var(--line); }
+.gl, .fallback { position: absolute; inset: 0; width: 100%; height: 100%; }
+.gl { display: none; }
+.fallback { padding: 12%; }
+.fb-edge { stroke: var(--muted); }
+.fb-face { stroke: var(--ink); }
+html.gl-active .gl { display: block; }
+html.gl-active .fallback { display: none; }
+.notes ul { max-width: 60ch; padding-left: 1.2em; }
+.footer { padding-block: calc(var(--unit) * 12); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }

@@ -1,0 +1,25 @@
+{
+  "id": "gl-sdf-extruded-symbol",
+  "title": "Raymarched extruded SDF symbol",
+  "tags": [
+    "webgl",
+    "shader",
+    "raymarch",
+    "sdf",
+    "procedural"
+  ],
+  "tier": "P2",
+  "deps": [],
+  "variants": [
+    "raw WebGL2, analytic 2D SDF, one fullscreen triangle (this)",
+    "2D SDF baked at runtime from an SVG path into an R16F texture and sampled in mark()",
+    "three.js ShaderMaterial on a fullscreen triangle"
+  ],
+  "seenIn": [
+    "cyphercapital"
+  ],
+  "verified": {
+    "date": "2026-10-05",
+    "chromium": "153.0.8010.12"
+  }
+}
