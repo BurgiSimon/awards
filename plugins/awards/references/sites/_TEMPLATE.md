@@ -30,6 +30,7 @@ Smooth-scroll approach, scroll choreography, transitions, text animation, pointe
 
 ## 5. Tech and pipeline
 Stack with evidence, asset pipeline, budgets, performance strategy, resize strategy.
+Corpus lens waves only: close this section with `### Tech lens: GSAP|WebGL|3D`, at most 50 lines each, every fact labelled.
 
 ## 6. Weaknesses
 What the jury docked or what the sources show missing (usability, reduced motion, keyboard, empty DOM, load gates) — and what the awards skills do differently.
