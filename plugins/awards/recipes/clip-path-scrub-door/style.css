@@ -1,0 +1,52 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.topbar { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); }
+.topbar > * { margin: 0; }
+.hero { display: grid; align-content: center; gap: calc(var(--unit) * 8); }
+.hero > * { margin: 0; }
+.hero .display { max-width: 12ch; }
+.lede { max-width: 56ch; margin-top: calc(var(--unit) * 8); }
+.hero .lede { margin-top: 0; }
+.mid h2 { max-width: 18ch; margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(2rem, 5vw, 4.5rem); line-height: 1; letter-spacing: -.02em; }
+
+/* The door: 200svh of scroll, a sticky stage of one viewport. No pin, so no spacer and no reflow. */
+.door { position: relative; height: 200svh; }
+.door__stage { position: sticky; top: 0; height: 100svh; overflow: clip; }
+.door__room {
+  position: absolute; inset: 0; display: grid; align-content: end; gap: calc(var(--unit) * 4); padding: var(--gutter);
+  color: #f6f1e8;
+  background:
+    radial-gradient(60% 50% at 70% 30%, rgba(255, 214, 140, .55), transparent),
+    linear-gradient(160deg, #2b3a2f, #6f4a2a 60%, #c2703d);
+}
+.door__title { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(3rem, 11vw, 12rem); line-height: .9; letter-spacing: -.04em; }
+.door__meta { margin: 0; color: inherit; }
+
+/* The veil is the page's ground. Its clip-path is the outer frame followed by the hole, one polygon, even-odd, so the
+   inner ring is subtracted. The default (no JavaScript, reduced, static) is no clip at all: the door stands open. */
+.door__veil {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 22vw;
+  background: var(--ground); color: var(--ink); pointer-events: none;
+}
+.door__veil.is-closed {
+  clip-path: polygon(evenodd, 0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 40% 38%, 60% 38%, 60% 62%, 40% 62%, 40% 38%);
+}
+html:not(.has-door) .door__veil { visibility: hidden; }
+.door__label { font-family: var(--font-display); font-weight: 500; font-size: clamp(2rem, 7vw, 7rem); letter-spacing: -.03em; }
+
+/* The statement: clip-path circle centred below the box (50% 120%); main.js scrubs the radius. */
+.statement-section { display: grid; align-content: center; }
+.statement {
+  margin: 0; max-width: 16ch; font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(2.5rem, 8vw, 8rem); line-height: .95; letter-spacing: -.03em;
+}
+.foot { min-height: auto; }
+
+/* Belt and braces for the reduced tier: main.js never closes the door there, and CSS agrees even before it runs. */
+@media (prefers-reduced-motion: reduce) {
+  .door__veil { visibility: hidden; }
+}
+html[data-motion="reduced"] .door__veil, html[data-motion="static"] .door__veil { visibility: hidden; }

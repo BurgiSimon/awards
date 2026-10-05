@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>clip-path-scrub-door — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ clip-path-scrub-door</p></header>
+  <main id="main">
+    <section class="section wrap hero" aria-labelledby="t">
+      <p class="label">/ scrubbed clip-path</p>
+      <h1 class="display" id="t">A door in the page.</h1>
+      <p class="lede">Scroll on. A veil over the next section opens through a hole that grows with the scroll, while its two labels part to the edges. Further down, a statement rises through a circle drawn from below. The studio and its copy are a synthetic demo.</p>
+    </section>
+
+    <!-- The door: a tall section with a sticky stage. The room is the content; the veil sits over it and is cut by an
+         even-odd polygon whose inner ring is the hole. main.js scrubs the hole; the labels part as it opens. -->
+    <section class="door" data-door aria-labelledby="door-title">
+      <div class="door__stage">
+        <div class="door__room">
+          <h2 id="door-title" class="door__title">Index of work</h2>
+          <p class="door__meta label">Twelve projects · 2019 – 2026 · synthetic</p>
+        </div>
+        <div class="door__veil" data-veil aria-hidden="true">
+          <span class="door__label door__label--l" data-label-l>Selected</span>
+          <span class="door__label door__label--r" data-label-r>Work</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap mid" aria-labelledby="m">
+      <h2 id="m">Then a statement.</h2>
+      <p class="lede">The second variant is a circle whose centre sits below the box. Its radius grows with progress, so the copy surfaces from the bottom edge like a rising sun rather than wiping from a side.</p>
+    </section>
+
+    <section class="section wrap statement-section" aria-label="Statement">
+      <p class="statement" data-circle>We draw slowly so the work can move fast.</p>
+    </section>
+  </main>
+  <footer class="section wrap foot"><p class="label">awards · recipe · MIT · synthetic demo content</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
