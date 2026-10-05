@@ -56,9 +56,12 @@
 - https://a24.raviklaassens.com/
 - https://www.eugeniagrab.com/en
 - https://www.agrumeafarm.it/en
+- https://www.aardvarkbookclub.com/
+- https://bleibtgleich.dev/
 
 # Reviewed, not added
 - https://www.ruitat.info/ — owner policy forbids automated extraction (ai-usage.txt, robots.txt Disallow for ClaudeBot); nothing captured or kept
+- https://www.nyphil.org/discover/gustavo — owner policy: robots.txt disallows all agents except named search crawlers; nothing captured or kept
 
 
 # not reviewed
@@ -69,9 +72,6 @@
 # not reviewed 3D
 
 # not reviewed GSAP
-- https://www.aardvarkbookclub.com/
-- https://www.nyphil.org/discover/gustavo
-- https://bleibtgleich.dev/
 - https://stanzza.design/awards
 
 # not reviewed WebGL

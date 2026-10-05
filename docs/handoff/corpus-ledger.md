@@ -557,9 +557,9 @@ the-boyd: pinia — DHmUQlsp.js
 | a24-raviklaassens | https://a24.raviklaassens.com/ | 3D | added | D 7.6 / U 7.2 / C 7.8 / Co 7.0 → 7.46; official: Awwwards Nominee, no scores | model; technique ×3; lens ×4 | | full capture set (15, exit 0) | 2026-10-05 |
 | why-zero | https://why.zero.university/ | GSAP | added | D 7.6 / U 5.5 / C 9.0 / Co 7.5 → 7.24; official 7.73 | lens ×5 | yes | existing card; lens-only update, SplitText added to Stack row | 2026-10-05 |
 | abatable | https://abatable.com/ | GSAP | added | D 7.0 / U 6.4 / C 6.6 / Co 7.2 → 6.76 | technique ×2; lens ×4 | yes |  | 2026-10-05 |
-| aardvarkbookclub | https://www.aardvarkbookclub.com/ | GSAP | queued | | | | | |
-| nyphil | https://www.nyphil.org/discover/gustavo | GSAP | queued | | | | | |
-| bleibtgleich | https://bleibtgleich.dev/ | GSAP | queued | | | | | |
+| aardvarkbookclub | https://www.aardvarkbookclub.com/ | GSAP | added | D 7.0 / U 6.2 / C 6.8 / Co 7.0 → 6.72; official: SOTD 7.2 | model; technique ×3; lens ×5 | |  | 2026-10-05 |
+| nyphil | https://www.nyphil.org/discover/gustavo | GSAP | skipped | none | none | | owner policy: robots.txt disallows all agents except named search crawlers; nothing captured or kept | 2026-10-05 |
+| bleibtgleich | https://bleibtgleich.dev/ | GSAP | added | D 7.5 / U 6.4 / C 7.4 / Co 6.9 → 7.09 | technique ×2; lens ×3 | |  | 2026-10-05 |
 | stanzza | https://stanzza.design/awards | GSAP | queued | | | | | |
 | cyphercapital | https://www.cyphercapital.com/ | WebGL | queued | | | | | |
 | santionispirits | https://santionispirits.com/ | WebGL | queued | | | | | |
@@ -568,6 +568,38 @@ the-boyd: pinia — DHmUQlsp.js
 
 ### Techniques and stacks
 
+bleibtgleich: per-line SVG goo text reveal — main.js animateTextReveal — SplitText lines; one filter per line; stdDeviation 50→0 over 1.2 s "Out", stagger .1; feColorMatrix alpha amp 20→1, off −8→0 over .42 s at ">-.42"; hide .4 s "In" stagger .05; filter cleared onComplete [lens:gsap]
+bleibtgleich: CustomEase token set — main.js — InOut 0.76,0,0.24,1 · Out 0.25,1,0.5,1 · In 0.5,0,0.75,0 · Write 0.333,0,0.667,1 · osmo 0.625,0.05,0,1; durXS .2 / durS .4 / durM .8 / durL 1.2, stagger .1 [lens:gsap]
+bleibtgleich: orbit tiles via progress proxies — main.js initOrbitTiles — each proxy +1 over 2.5 s osmo, stagger .075; x = sin·w, y = cos·.04w, scale .2→1, blur 1→0 px; list rotates 360°/24 s, items counter-rotated; onToggle play/pause [lens:gsap]
+bleibtgleich: MorphSVG logo build — main.js initLogoMorph — rectangle path; clip inset(0 0 100% 0)→0 .8 s Out, then morphSVG 1.2 s Out [lens:gsap]
+bleibtgleich: Draggable rotation dial — main.js initContactDial — type rotation, bounded, release springs to 0 .8 s Out; inertia false; matchMedia ≥992px [lens:gsap]
+bleibtgleich: scrubbed polygon-hole section door — main.js initWorksIntroMask — clip-path polygon(evenodd) hole, center center → top top, scrub true; labels ±50 vw [lens:gsap]
+bleibtgleich: Barba blur cross-fade — main.js — sync; blur 0→24 px + fade .8 s InOut; cut under reduced motion [lens:gsap]
+bleibtgleich: Lenis on the GSAP ticker — main.js — duration 1.2, touchMultiplier 2, easing 1.001−2^(−10t), lagSmoothing(0), rebuilt per Barba entry [lens:gsap]
+bleibtgleich: live shared cursors + chat — main.js — socket.io, remote cursor SVG + message bubble
+bleibtgleich: liquid theme wipe — main.js — ortho quad, uProgress/uCenter/uColor, hash-noise edge, DPR ≤ 2; five themes in sessionStorage
+bleibtgleich: gsap@3.15.0 (MorphSVG, ScrollTrigger, SplitText, CustomEase, Draggable, Inertia) — index.html
+bleibtgleich: lenis@1.3.21 — index.html
+bleibtgleich: @barba/core — index.html
+bleibtgleich: three@0.128.0 — index.html
+bleibtgleich: socket.io@4.5.4 — index.html
+bleibtgleich: webflow — index.html
+aardvarkbookclub: Coarse-to-fine bisection sequence loading — slater.js — frame 0, last, then midpoints one request at a time; nearest loaded within ±10; createImageBitmap; closed at teardown [lens:gsap]
+aardvarkbookclub: Scrubbed 120-frame unboxing sequence — slater.js — top 85% → bottom 80%, scrub true, frame = round(p × 119); canvas yPercent −25 → 0 first quarter; phone frames ≤767px; DPR uncapped [lens:gsap]
+aardvarkbookclub: Thresholded copy timelines inside a scrub — slater.js — paused tl plays at ≥ .3 timeScale 1.5, reverses at ≥ .6 or < .3 timeScale 3.5; final at ≥ .81 ×1.25 [lens:gsap]
+aardvarkbookclub: Stroke-flood route curtain — slater.js — drawSVG 0%→100% by 90%, strokeWidth 8%→70%, 1.25 s; logo scale 0→1 rotate −64→0 .65 s elastic.out(1,.72); reduced motion autoAlpha [lens:gsap]
+aardvarkbookclub: Squash-in headline words — slater.js — SplitText words from scaleY .1, xPercent 40, rotate 8; opacity 1 at 10%; elastic.out(1,.72) at 100%; .875 s stagger .088 [lens:gsap]
+aardvarkbookclub: Momentum hover — slater.js — velocity ×25 clamped ±1080, torque ×15 clamped ±60°, inertia resistance 160, fine pointer only [lens:gsap]
+aardvarkbookclub: Curved promo band — slater.js — textPath startOffset −40% → 60%, scrub .5 [lens:gsap]
+aardvarkbookclub: Breathing blob ground — slater.js — stroke-width 0→60, rotate 2, 3 s sine.inOut yoyo, ScrollTrigger play/pause [lens:gsap]
+aardvarkbookclub: House eases — slater.js — osmo 0.625,0.05,0,1 (defaults .6, stagger .05); path-ease 0.78,0.18,0.18,1; energy M0,0 C0.32,0.72 0,1 1,1 (37 uses); 42 elastics [lens:gsap]
+aardvarkbookclub: Genre wall hover — slater.css/js — hovered item swaps to handwritten face; :has() neighbour shift; covers by pointer
+aardvarkbookclub: Hero 24 fps loop — slater.js — 120 frames, repeat −1 on playhead.frame, play/pause on enter/leave
+aardvarkbookclub: gsap@3.15 (+ScrollTrigger, SplitText, CustomEase, InertiaPlugin, DrawSVGPlugin) — index.html
+aardvarkbookclub: lenis@1.3.17 — index.html
+aardvarkbookclub: @barba/core@2.10.3 + @barba/prefetch@2.2.0 — index.html
+aardvarkbookclub: smooothy@0.0.35 — index.html
+aardvarkbookclub: webflow — index.html
 agrumeafarm: Label-only 3D over a product photo — C2lrDrZj.js — LatheGeometry 17 points × 128 radial, height .6, tilted 3°; MeshStandardMaterial roughness .72; onBeforeCompile uGap .09 discards seam band, uOffset rotates label [lens:3d]
 agrumeafarm: One renderer, many 2D canvases — C2lrDrZj.js — one WebGLRenderer renders each jar in turn then drawImage into its canvas; DPR = min(3, √(12e6 / (w·1.35·h·1.35·count))); re-render only on change and in view; dispose + forceContextLoss [lens:3d]
 agrumeafarm: Label rig — C2lrDrZj.js — OrthographicCamera framed to 630×1013; Ambient .89; Spot .58×5, angle π/4, penumbra .7, decay 1.2; no env map, no shadows [lens:3d]
