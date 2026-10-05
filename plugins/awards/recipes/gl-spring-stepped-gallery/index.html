@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>gl-spring-stepped-gallery — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ gl-spring-stepped-gallery · <span data-gl-readout>dom</span></p></header>
+  <main id="main">
+    <section class="wrap hero" aria-labelledby="t">
+      <p class="label">/ stepped gallery · synthetic demo</p>
+      <h1 id="t">One flick, one plate.</h1>
+    </section>
+
+    <!-- The canvas only paints. The carousel is this section: a focusable stage for the arrow keys, a list of the items
+         for assistive technology, a visible caption with the position, Previous / Next, and a polite announcer. -->
+    <section class="gallery" data-gallery aria-roledescription="carousel" aria-label="Glaze test plates">
+      <div class="stage" data-stage tabindex="0" aria-label="Glaze test plates. Arrow keys move one plate; Home and End jump to the ends.">
+        <canvas aria-hidden="true"></canvas>
+        <div class="stage__fallback" data-fallback aria-hidden="true"></div>
+      </div>
+      <ol class="sr-only" data-items>
+        <li aria-roledescription="slide" data-hue="#c8bfae"><span data-title>Ash Glaze</span>, <span data-meta>wood ash · cone 10</span></li>
+        <li aria-roledescription="slide" data-hue="#a8402c"><span data-title>Iron Red</span>, <span data-meta>iron saturate · cone 10</span></li>
+        <li aria-roledescription="slide" data-hue="#8fa89a"><span data-title>Pale Celadon</span>, <span data-meta>reduction · cone 10</span></li>
+        <li aria-roledescription="slide" data-hue="#3a2a22"><span data-title>Hare's Fur</span>, <span data-meta>tenmoku · cone 9</span></li>
+        <li aria-roledescription="slide" data-hue="#e6d6c4"><span data-title>Carbon Trap</span>, <span data-meta>shino · cone 10</span></li>
+        <li aria-roledescription="slide" data-hue="#4f6b3a"><span data-title>Copper Green</span>, <span data-meta>oxidation · cone 6</span></li>
+        <li aria-roledescription="slide" data-hue="#9a5a2e"><span data-title>Persimmon</span>, <span data-meta>kaki · cone 10</span></li>
+        <li aria-roledescription="slide" data-hue="#d9d2c0"><span data-title>Rice Husk</span>, <span data-meta>nuka · cone 9</span></li>
+      </ol>
+      <div class="wrap caption">
+        <p class="caption__count label" data-count>01 / 08</p>
+        <p class="caption__title" data-caption-title>Ash Glaze</p>
+        <p class="caption__meta label" data-caption-meta>wood ash · cone 10</p>
+        <div class="caption__nav">
+          <button type="button" class="btn" data-prev>Previous</button>
+          <button type="button" class="btn" data-next>Next</button>
+        </div>
+      </div>
+      <p class="sr-only" data-live aria-live="polite" aria-atomic="true"></p>
+    </section>
+
+    <section class="section wrap notes" aria-labelledby="n">
+      <h2 id="n">Rules</h2>
+      <ul>
+        <li>The row is a float index. A spring (frequency <code>9.5</code>, damping <code>12</code>) pulls it to the nearest whole plate; depth, scale and yaw are read from each plate's distance to it.</li>
+        <li>A wheel gesture becomes one step: deltas under a noise floor are dropped, each is capped, and a threshold fires once. A quiet gap re-arms it; a held, non-decaying gesture repeats after <code>480 ms</code>.</li>
+        <li>At either end the wheel is released to the page, so the gallery never traps a trackpad.</li>
+        <li>A drag moves the index directly, coasts with friction on release, then hands over to the spring.</li>
+        <li>Arrow keys, Home, End and the buttons step it; an announcer reads the position. Reduced motion snaps directly.</li>
+      </ul>
+    </section>
+  </main>
+  <footer class="wrap foot"><p class="label">awards · recipe · MIT · synthetic demo content</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

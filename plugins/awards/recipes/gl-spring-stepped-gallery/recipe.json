@@ -1,0 +1,32 @@
+{
+  "id": "gl-spring-stepped-gallery",
+  "title": "WebGL gallery on a spring-snapped float index with a wheel step detector",
+  "tags": [
+    "webgl",
+    "three",
+    "3d",
+    "carousel",
+    "spring",
+    "wheel",
+    "drag",
+    "keyboard",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [
+    "three@0.186.0"
+  ],
+  "variants": [
+    "tilted row: depth, scale and yaw read from each plate's distance to the float index (this, default)",
+    "ring: angle = (i − index) · 2π / N on a cylinder, the same spring and step detector",
+    "stack: z only, items behind the active one scale down and fade, for a deck of cards"
+  ],
+  "seenIn": [
+    "a24-raviklaassens",
+    "agrumeafarm"
+  ],
+  "verified": {
+    "date": "2026-10-05",
+    "chromium": "153.0.8010.12"
+  }
+}
