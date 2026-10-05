@@ -1,7 +1,7 @@
 ---
 name: webgl
-description: "Build the WebGL layer of an award-level site with Three.js 0.186, OGL, React Three Fiber or Threlte: DOM-tethered image planes with velocity distortion, a fluid-wake post-process, depth-map 2.5D parallax, scroll-driven camera rigs on a virtual scroll, render-to-texture section transitions, procedural landscapes, one hero object with inertia, particles, bloom and grain post-processing, plus the Blender to glTF + Draco + KTX2 pipeline, adaptive quality tiers, disposal, a semantic DOM mirror and a no-GL, reduced-motion fallback. Use when asked for 3D, WebGL, shaders, GLSL, Three.js, R3F, OGL, particles, liquid, fluid or distortion effects, image hover distortion, a 3D hero, scroll-scrubbed models or any canvas effect beyond CSS, and when a canvas site is slow, drifts against the DOM or renders dark. Not for DOM-only motion (awards:motion), charts, or 'make it 3D' with no concept behind it."
-argument-hint: "[effect or scene] [--lib three|ogl|r3f] [--tier low|mid|high]"
+description: "Build the WebGL layer of an award-level site with Three.js 0.186, OGL, React Three Fiber or Threlte: DOM-tethered image planes with velocity distortion, a fluid-wake post-process, depth-map 2.5D parallax, scroll-driven camera rigs on a virtual scroll, render-to-texture section transitions, one hero object with inertia, particles, bloom and grain post-processing, plus the Blender to glTF + Draco + KTX2 pipeline, adaptive quality tiers, disposal, a semantic DOM mirror and a no-GL, reduced-motion fallback. Use when asked for 3D, WebGL, a Three.js scene, shaders, GLSL, Three.js, R3F, OGL, particles, liquid, fluid or distortion effects, image hover distortion, a 3D hero, scroll-scrubbed models or any canvas effect beyond CSS, and when a canvas site is slow, drifts against the DOM or renders dark. Not for DOM-only motion (awards:motion), charts, or 'make it 3D' with no concept behind it."
+argument-hint: "[effect or scene] [--lib three|ogl|r3f] [--tier low|mid|high] [--shader] [--3d]"
 allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
 ---
 
@@ -27,8 +27,8 @@ The corpus published real numbers for its shaders and real weights for its asset
 - `${CLAUDE_PLUGIN_ROOT}/references/patterns/webgl-architecture.md` end to end before any `gl-*` work; `${CLAUDE_PLUGIN_ROOT}/references/patterns/asset-pipeline.md` before the first asset is imported.
 - `${CLAUDE_PLUGIN_ROOT}/references/stacks/three-0.186.md` for the API surface (renderer, loaders, render targets, disposal, the composer, R3F and Threlte props); `stacks/versions.md` for pins and Context7 ids. Verify any API you have not used this session on Context7, one concept per query.
 - The cards, §7 Principles and §8 Take / Don't take only: `${CLAUDE_PLUGIN_ROOT}/references/sites/leo-parpeix.md`, `floema.md`, `igloo.md`, `slosh-seltzer.md`, `shopify-editions-w26.md`, `oryzo.md`. Take the architecture, refuse the signature.
-- The two verified GL recipes, `${CLAUDE_PLUGIN_ROOT}/recipes/gl-dom-tethered-planes/` and `recipes/gl-fluid-wake-post/` (`main.js` and README): they carry the shipped conventions this skill assumes. The other `gl-*` rows in `recipes/README.md` are planned; a folder exists only once verified, so build those from the pattern file and the row's parameters.
-- Arguments: `[effect or scene]` names the beat; `--lib three|ogl|r3f` overrides the default (Three; Threlte inside SvelteKit); `--tier low|mid|high` pins a quality profile for the build session by handing the effects a hand-made profile object, and never ships pinned.
+- Every `gl-*` folder under `${CLAUDE_PLUGIN_ROOT}/recipes/` is verified. Read `recipes/gl-dom-tethered-planes/` and `recipes/gl-fluid-wake-post/` (`main.js` and README) first: they carry the shipped conventions this skill assumes.
+- Arguments: `[effect or scene]` names the beat; `--lib three|ogl|r3f` overrides the default (Three; Threlte inside SvelteKit); `--tier low|mid|high` pins a quality profile for the build session by handing the effects a hand-made profile object, and never ships pinned; `--shader` and `--3d` force a deep mode (below), and both may be given.
 
 ## Dosage first
 
@@ -54,6 +54,19 @@ Depth is bought by the rung, and each rung up costs an order of magnitude in ass
 | 3 | Pre-rendered sequence scrubbed on scroll, drawn to a 2D canvas | the frames' weight; no runtime GL | `image-sequence-scrub` |
 | 4 | One hero object with inertia: a Draco glb, physical or matcap material, drag momentum | one glb ≤ 300 KB plus an HDRI or matcap | `gl-hero-object-inertia` |
 | 5 | Full scene with a camera rig: a spline the scroll drives, per-chapter scenes, a post stack | the whole pipeline and a mirror for everything; `quality-tiers` first | `gl-virtual-scroll-camera` |
+
+## Deep modes
+
+Two kinds of GL site need more than this file: one where shaders carry the signature, one where a modelled scene does. Each has a playbook built from teardowns of shipped sites.
+
+| Mode | Enter when | Read | Adds |
+|---|---|---|---|
+| `shader` | depth rung 1–3 and (dosage canvas-first or 100 %, or the unifier or a narrative shader is SIGNATURE); or the request names a shader, distortion, fluid, noise, a render-target transition or GL text; or `--shader` | `${CLAUDE_PLUGIN_ROOT}/references/patterns/webgl-shaders.md`, then the `### Tech lens: WebGL` of the two nearest cards in its Teardowns | the uniform contract with rest values, render-target sizes, the post chain order `[pattern:webgl-shaders#post-chains]` |
+| `3d` | depth rung 4–5; or the request names a model, glTF, lighting, a camera rig or physics; or `--3d` | `${CLAUDE_PLUGIN_ROOT}/references/patterns/webgl-3d-scenes.md`, then the `### Tech lens: 3D` of the two nearest cards | the light rig, the camera rig with its keyboard path, scene windows `[pattern:webgl-3d-scenes#camera-rigs]` |
+
+- `moments` with no shader signature stays on the standard path; so does a pass that only fixes drift, colour or disposal.
+- With both modes, 3D leads and only the post-chain section of the shader playbook is read.
+- Record the webgl half of `Deep modes:` in `AWARDS.md ## Budgets & tiers` (`webgl shader`, `webgl 3d`, `webgl shader + 3d` or `webgl none`, with the reason), and open the reply with `Deep mode: <mode>` or `Deep mode: none`.
 
 ## Architecture
 
@@ -212,6 +225,7 @@ SwiftShader proves correctness, not frame rate: the captures below prove the pag
 - [ ] Disposal: after three route changes `renderer.info.memory.geometries` and `.textures` are flat and no ticker subscriber survives the leave hook.
 - [ ] Budgets: gzipped sizes of the entry and the GL chunk, texture bytes per scene, the largest glb, all inside the table above and written into `AWARDS.md ## Budgets & tiers`.
 - [ ] Real device: a frame-time sample on a mid-range phone (≥ 55 fps high, ≥ 30 fps low); no shader compile warnings in the console; `data-quality` reports the tier you expected.
+- [ ] `Deep modes:` names the webgl mode or `none`. Shader mode: every custom material includes `colorspace_fragment`, every uniform is fed from the ticker, and the post order is written down. 3D mode: header-measured glb and KTX2 sizes are in the budget table, decoders are served from the site, and the camera rig answers the keys.
 - [ ] Contract: the dosage rung, the unifier, the canvas model and the fallback tiers are written where the contract says.
 
 ## Hand-off
