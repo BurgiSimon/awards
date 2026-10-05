@@ -542,7 +542,7 @@ the-boyd: pinia — DHmUQlsp.js
 | synthesis | done | 13 cards folded into the three lens playbooks (every content section filled), webgl-architecture (13 effect rows), 16 other pattern files, reflex-lists, anti-patterns and 33 recipe seenIn additions |
 | recipes | done | 16 built (all selected): custom-ease-house-defaults, gl-uniform-tween-targets, clip-path-scrub-door, scrub-threshold-timelines, gl-built-studio-environment, gl-material-patch-reveal, gl-one-context-many-canvases, gl-lathe-turned-object, gl-ping-pong-grain-field, gl-arc-length-mask-reveal, gl-dispersion-stripes, gl-sdf-extruded-symbol, gl-spring-stepped-gallery, gl-progress-scene-windows, two-phase-interruptible-timeline, offscreen-canvas-worker; catalogue 76/76 pass 2026-10-05; audit P0–P2 clean; no new pins |
 | stacks | done | 4 notes: playcanvas-2.23 (reading only), matter-js-0.20, react-three-fiber-9.7, swiper-14.3; 2 new versions.md rows (playcanvas, swiper); no package.json change (no recipe depends on them); linked from skills/stack/SKILL.md; # new stack queue was empty; Hydra (santionispirits, blocked) not noted |
-| upkeep | open | |
+| upkeep | done | grader slugs regenerated (61); stack sentence adds React (CRA), a Shopify theme and a PlayCanvas Editor export; lens recipe rows in the three playbooks and the motion / webgl recipe tables; validate passes; lint 0 dangling; count greps clean; smoke evals pending the maintainer (see todo) |
 
 ### Sites
 

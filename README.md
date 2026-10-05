@@ -90,8 +90,8 @@ The table uses Claude Code's `/awards:<name>` notation; use `$awards:<name>` in 
 | `/awards:system` | Type contract, colour strategy, tokens, `DESIGN.md` |
 | `/awards:structure` | Page map, hero archetype, components, semantic skeleton, responsive strategy |
 | `/awards:stack` | Scaffold Vite (default), Next, Nuxt, Astro, SvelteKit or a Webflow shell with Lenis + GSAP (+ Three) on one ticker |
-| `/awards:motion` | The motion score: preloader, reveals, scrub, cursor, transitions, reduced-motion tiers |
-| `/awards:webgl` | Three.js / OGL / R3F layer, shaders, asset pipeline, quality tiers, fallbacks |
+| `/awards:motion` | The motion score: preloader, reveals, scrub, cursor, transitions, reduced-motion tiers; `--gsap` deep mode for timeline-led sites |
+| `/awards:webgl` | Three.js / OGL / R3F layer, shaders, asset pipeline, quality tiers, fallbacks; `--shader` and `--3d` deep modes |
 | `/awards:component` | One award-worthy component inside an existing site |
 | `/awards:jury` | Score like a design-award jury in a fresh context; ordered fixes; a disposition |
 | `/awards:ship` | Fix batch, audit, captures, performance, accessibility, meta; the ship report |
@@ -114,7 +114,7 @@ Durable files: `AWARDS.md` (brief, contract, page map, motion score, budgets, ju
 - `plugins/awards/references/` — the site case studies, each checked against the live site and its live award entry (the original set on 2026-09-18, later cards on the date each one records) and carrying confidence labels, the [visual composition guide](plugins/awards/references/patterns/visual-composition.md) and broader pattern language, the jury rubric and usability walk, the craft floor, anti-pattern and reflex lists, per-stack and per-library notes with pinned versions.
 - `plugins/awards/recipes/` — 75 focused recipes plus one complete editorial composition, 76 verifiable entries in all. The six new visual examples include reviewed desktop/mobile images and synthetic demonstration content; each entry has a browser verifier. These images are generated and tested examples, not evidence of human preference.
 - `plugins/awards/scripts/` — `doctor.mjs`, `capture.mjs`, `audit.mjs`, `new-project.mjs`, `roll.mjs`, `verify-recipes.mjs`, `lint-refs.mjs`.
-- `plugins/awards/evals/` — a `claude plugin eval` suite: seventeen routing cases (eleven that must fire a skill, six that must not) and six build cases with fixtures, plus `selftest.mjs` for grader checks and `behavior.mjs` for actual browser, audit, capture, server and ticker regressions without model calls.
+- `plugins/awards/evals/` — a `claude plugin eval` suite: twenty routing cases (eleven that must fire a skill, three that must take a deep mode, six that must not) and six build cases with fixtures, plus `selftest.mjs` for grader checks and `behavior.mjs` for actual browser, audit, capture, server and ticker regressions without model calls.
 
 ## Verify
 
@@ -152,6 +152,25 @@ SwiftShader verification is not safe beside another browser. See [behavior check
 ## Status
 
 Version 0.4.0.
+
+### 0.5.0 — 2026-10-05
+
+- **Deep modes.** `awards:motion --gsap`, `awards:webgl --shader` and `awards:webgl --3d` are modes of
+  the existing skills, not new skills. They switch on from the direction contract, the WebGL dosage
+  and depth rung, or the motion score, or by flag, and record themselves on one `Deep modes:` line in
+  `AWARDS.md`. Each loads a playbook: `gsap-choreography.md`, `webgl-shaders.md`, `webgl-3d-scenes.md`.
+- **Corpus wave 4 with a tech lens.** Seventeen queued sites (GSAP, WebGL and 3D queues): twelve new
+  cards plus a GSAP teardown on `why-zero`, each with a `### Tech lens:` subsection read from live
+  source; two skipped because their owners forbid automated extraction; two blocked because their
+  scenes do not render headless (retry needs a real GPU). The index grows from 50 to 62 rows.
+- **Sixteen new recipes**, for 75 focused recipes plus one complete composition: house easing tokens,
+  uniforms as tween targets, a scrubbed clip-path door, scrub-threshold timelines, a studio environment
+  built at runtime, a patched-material reveal, one context feeding many canvases, a lathe-turned object,
+  a GPU grain field, an arc-length stroke reveal, dispersion stripes, an extruded SDF symbol, a
+  spring-stepped gallery, progress-line scene windows, a two-phase interruptible timeline and an
+  OffscreenCanvas worker. All 76 entries passed one serial browser run on 2026-10-05.
+- **Expand-corpus.** Lens queues, an existing-card path, captures serialised behind a lock, and an
+  owner-policy check before any capture.
 
 ### 0.4.0 — 2026-09-24
 

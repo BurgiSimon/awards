@@ -1,11 +1,18 @@
-# State of the awards plugin — 2026-09-23
+# State of the awards plugin — 2026-10-05
 
 Read this first, then `todo.md`. The visual composition candidate's deterministic verification is
 recorded below in [Candidate verification record](#candidate-verification-record). `plan-0.2.md` and
 `verification-log.md` record the earlier 0.2.0 work. `plan.md` is the 0.1.0 specification, kept for
 reference. `decisions.md` records choices already taken.
 
-## Unreleased — slop scan (branch `feat/no-slop`)
+## 0.5.0 — deep modes (branch `feat/deep-modes`)
+
+- Deep modes of existing skills: `motion --gsap`, `webgl --shader`, `webgl --3d`, recorded on the `Deep modes:` line of `AWARDS.md`, each loading a playbook in `references/patterns/` (`gsap-choreography`, `webgl-shaders`, `webgl-3d-scenes`). Skill count stays eleven. Spec: `docs/superpowers/specs/2026-10-05-deep-modes-design.md`; plan: `docs/superpowers/plans/2026-10-05-deep-modes.md`.
+- Corpus wave 4 with a tech lens (`docs/handoff/corpus-ledger.md`): 13 added (12 new cards + the why-zero lens), 2 skipped by owner policy (ruitat, nyphil), 2 blocked by headless GPU (santionispirits, guillaumecolombel). Index 62 rows.
+- 16 new recipes; catalogue 76/76 pass 2026-10-05; audit P0–P2 clean. Stack notes: playcanvas-2.23, matter-js-0.20, react-three-fiber-9.7, swiper-14.3.
+- Three fixture-free `[smoke, deep]` eval cases; free checks green (validate, lint-refs, selftest). Paid evals: see todo.
+
+## Previously unreleased — slop scan (branch `feat/no-slop`, shipped in 0.4.0)
 
 - **Catalogue.** `references/anti-patterns.md` has a new section, `## The slop scan`. It groups the habits a generator falls into under eight headings, and each row names the audit rule that catches the habit, or `judge`, plus the earned version. impeccable's public slop catalogue was the checklist for which categories to cover; the prose and detectors are original.
 - **Audit.** It grew from 55 to 72 rules.

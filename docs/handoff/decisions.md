@@ -20,6 +20,18 @@ Decisions taken during the build, with the reason, so a future session does not 
 | Detectors | Static source rules and `--render` checks (L06–L08, T08, X20) | Rules for colours, fonts or radii outside DESIGN.md |
 | Consequence in the jury | Two or more families present caps Creativity at 6 (the rubric's category-default anchor); it does not force `rebuild` on its own | Treating a nameable generator like a nameable source site |
 
+## Taken with the user (2026-10-05, deep modes)
+
+| Decision | Choice | Alternatives declined |
+|---|---|---|
+| Shape | Deep modes of `motion` (`--gsap`) and `webgl` (`--shader`, `--3d`) | Three new triggerable skills: routing competition with motion and webgl, broken trigger evals, a reopened eleven-skill decision |
+| Activation | Automatic from the contract, dosage or score, plus a flag; recorded on the `Deep modes:` line of `AWARDS.md ## Budgets & tiers` | Flag only; automatic only |
+| Analysis | Corpus wave 4 with a tech lens; the teardown is `### Tech lens:` at the end of card §5 | A separate tech study; teardown files beside cards; a §10 |
+| Playbooks | `references/patterns/gsap-choreography.md`, `webgl-shaders.md`, `webgl-3d-scenes.md` | A new `references/playbooks/` folder (no lint form) |
+| Captures in parallel triage | Serialised behind `flock .awards/capture.lock` | Overlapping captures (the pilot's timed out) |
+| Owner policy | A site whose robots.txt or AI-usage policy forbids automated extraction is `skipped`, never retried | Treating it as `blocked` |
+| oxigen.sa | Dropped from the queue | A real-GPU retry |
+
 ## Architectural
 
 - **Corpus at the plugin root**, addressed as `${CLAUDE_PLUGIN_ROOT}/references/…`, `…/recipes/…`, `…/scripts/…`; skill folders hold no private copies. Copying a single skill folder elsewhere is unsupported.
