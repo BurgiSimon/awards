@@ -20,11 +20,12 @@ Design: `docs/superpowers/specs/2026-09-23-expand-corpus-design.md`. This skill 
 - **Novelty decides inclusion. The rating is recorded, never a gate.**
 - **Single writer.** Subagents write only the files their prompt names. Only this session edits `PLUGIN/references/sites/_index.md`, `docs/handoff/corpus-ledger.md` and `awardsworthysites.md`, so parallel subagents never race on a shared file.
 - **Browsers.** Every command that drives a browser runs with `export AWARDS_PLAYWRIGHT="$HOME/.npm/_npx/e41f203b7505f1fb"` in the same shell call. Never run `verify-recipes.mjs` beside a capture, nor `evals/behavior.mjs` beside either. While a triage batch runs, start no browser here.
-- **Git.** Work on branch `feat/corpus-wave-<n>`; create it from `main` if it is absent. Commit after every triage batch and every phase. Commit messages name no model and end with the session's attribution footer.
+- **Git.** Work on branch `feat/corpus-wave-<n>`, or on the current branch when it is not `main` and the maintainer opened it for this wave; create `feat/corpus-wave-<n>` from `main` otherwise. Commit after every triage batch and every phase. Commit messages name no model and end with the session's attribution footer.
+- **Lens.** A site queued under `# not reviewed <Lens>` (`GSAP`, `WebGL` or `3D`) also gets that category's teardown, written as `### Tech lens: <Lens>` at the end of its card's §5, and its synthesis lands in the lens playbook: `GSAP` → `PLUGIN/references/patterns/gsap-choreography.md`, `WebGL` → `webgl-shaders.md`, `3D` → `webgl-3d-scenes.md`. A lens never licenses recall: a blocked site gets no lens.
 
 ## Resume
 
-Read `docs/handoff/corpus-ledger.md`. If it does not exist, run Setup. Otherwise take its last `## Wave` section and continue at the first row of its phase table not marked `done`. When every phase of the last wave is `done` and `awardsworthysites.md` holds URLs under `# not reviewed` or `# new stack` that the ledger does not list, or the last wave's Sites table still has rows marked `queued` (a triage closed early, for example after a pilot), run Setup again for a new wave. Rows left `blocked` alone never open a wave; they get their retry in the next wave opened for any other reason.
+Read `docs/handoff/corpus-ledger.md`. If it does not exist, run Setup. Otherwise take its last `## Wave` section and continue at the first row of its phase table not marked `done`. When every phase of the last wave is `done` and `awardsworthysites.md` holds URLs under any heading that starts with `# not reviewed`, or under `# new stack`, that the ledger does not list, or the last wave's Sites table still has rows marked `queued` (a triage closed early, for example after a pilot), run Setup again for a new wave. Rows left `blocked` alone never open a wave; they get their retry in the next wave opened for any other reason.
 
 - `--phase <name>` runs that phase only.
 - `--only slug,…` or `--limit N` narrows triage. **A narrowed run does triage and synthesis for its sites only, then stops with the report in "Narrowed-run report" and leaves both phases `open`.** The pilot is the first narrowed run of a wave.
@@ -57,32 +58,33 @@ Read `docs/handoff/corpus-ledger.md`. If it does not exist, run Setup. Otherwise
 
    ### Sites
 
-   | Slug | URL | Status | Rating | Novelty | Synthesised | Reason | Date |
-   |---|---|---|---|---|---|---|---|
+   | Slug | URL | Lens | Status | Rating | Novelty | Synthesised | Reason | Date |
+   |---|---|---|---|---|---|---|---|---|
 
    ### Techniques and stacks
 
    ### Notes
    ```
+   Waves opened before wave 4 keep their eight-column table.
 3. Commit: `docs(corpus): open wave <n> ledger`.
 4. Then continue with triage.
 
 ## Phase: triage
 
 1. **Doctor.** Re-run the Setup doctor command; a `FAIL` stops the run.
-2. **Queue.** Read `awardsworthysites.md`. Sites are the bullets under `# not reviewed`; the stack queue is the bullets under `# new stack` (handled in the stacks phase). Every site URL not yet in the current wave's Sites table gets a row with status `queued`. A URL already in an earlier wave keeps its slug: carry it into the new wave's table only if its last status was `queued` or `blocked`; a `failed` URL is not re-queued until the maintainer corrects it in `awardsworthysites.md` (a corrected URL is a new URL).
-3. **Slug.** Host name without `www.` and without the public suffix (`co.uk` counts as one suffix), remaining dots to hyphens, lower-case kebab-case: `why.zero.university` → `why-zero`, `911rennsport.co.uk` → `911rennsport`, `boc.studio` → `boc`. This collision rule applies only to new URLs: if the slug is already a file in `PLUGIN/references/sites/` or a row in any wave, append the next host label to the left; if none is left to append, append `-2`.
+2. **Queue.** Read `awardsworthysites.md`. Sites are the bullets under every heading that starts with `# not reviewed`; the text after `not reviewed` names the lens (`GSAP`, `WebGL`, `3D`), no suffix means no lens. One URL is one row: a URL under several headings gets the lenses joined with `, ` (`3D, WebGL`). The stack queue is the bullets under `# new stack` (handled in the stacks phase). Before slugging, look the URL up under `# Reviewed and in Skill` and in the first line of every `PLUGIN/references/sites/*.md`: a match reuses that card's slug, its row gets Reason `existing card`, and its subagent only adds the lens. Every site URL not yet in the current wave's Sites table gets a row with status `queued`. A URL already in an earlier wave keeps its slug: carry it into the new wave's table only if its last status was `queued` or `blocked`; a `failed` URL is not re-queued until the maintainer corrects it in `awardsworthysites.md` (a corrected URL is a new URL).
+3. **Slug.** Host name without `www.` and without the public suffix (`co.uk` counts as one suffix), remaining dots to hyphens, lower-case kebab-case: `why.zero.university` → `why-zero`, `911rennsport.co.uk` → `911rennsport`, `boc.studio` → `boc`. This collision rule applies only to new URLs: if the slug is already a file in `PLUGIN/references/sites/` or a row in any wave, append the next host label to the left; if none is left to append, append `-2`. A URL matched to an existing card in step 2 keeps that card's slug; the collision rule never applies to it.
 4. **Selection.** Rows with status `queued` or `blocked`, narrowed by `--only` (slugs) or `--limit N` (`queued` rows first in table order, then `blocked`). `blocked` rows get one retry per run.
 5. **Orphans.** A selected slug whose card file already exists while its row is `queued` or `blocked` is left over from a killed run; the subagent overwrites it. If that re-run returns `skipped`, `blocked` or `failed`, the main session deletes the orphan card.
 6. **Batches of three.** Spawn up to three `general-purpose` Agent calls in one message, one site each, with the prompt in "Subagent prompt: site". Wait for all of them before the next batch.
 7. **Per output block:**
    - `added`: run "Card checks". A failing check goes back to the same subagent once through SendMessage with the failing lines; if it still fails, delete the card and record `blocked`, reason `card failed checks: <which>`.
-   - `added`: append `index_row` as the last row of the table in `PLUGIN/references/sites/_index.md` (the table ends before `## Picking neighbours`). It must have the table's twelve cells. If `_index.md` already has a row for the slug, replace it instead of appending.
+   - `added`: append `index_row` as the last row of the table in `PLUGIN/references/sites/_index.md` (the table ends before `## Picking neighbours`). It must have the table's twelve cells. If `_index.md` already has a row for the slug, replace it instead of appending. An existing-card row replaces its index row; it never appends one.
    - Every status: update the Sites row (status, rating, novelty hits separated by `; `, reason, date; `Synthesised` stays empty). Append each `techniques` and `stack_signatures` line to `### Techniques and stacks` prefixed with `<slug>: `.
    - `blocked` with a reason starting `environment:`: reset the row to `queued` instead of `blocked`, and stop the run after this batch; report the reason to the maintainer.
-   - `awardsworthysites.md`: move the bullet from `# not reviewed` to `# Reviewed and in Skill` (added) or to `# Reviewed, not added` (skipped; create that section after `# Reviewed and in Skill` if absent, bullet suffixed ` — <reason>`). A `failed` bullet stays and gets ` (host does not resolve)`. A `blocked` bullet stays unchanged.
+   - `awardsworthysites.md`: remove the bullet from every `# not reviewed…` heading it sits under and add it once to `# Reviewed and in Skill` (added; skip if already there) or to `# Reviewed, not added` (skipped; create that section after `# Reviewed and in Skill` if absent, bullet suffixed ` — <reason>`). A `failed` bullet stays and gets ` (host does not resolve)`. A `blocked` bullet stays unchanged. Empty lens headings stay as queue slots.
 8. **After each batch:** `node PLUGIN/scripts/lint-refs.mjs` must end with `0 dangling reference(s)`. Commit `docs(corpus): wave <n> triage — <slugs>`.
-9. **Done** when no selected row is `queued`. For an un-narrowed run, when no row at all is `queued`: mark `triage` `done` (blocked rows keep their reason). Also check: index rows equal `added` rows (count backticked slugs in `_index.md` table vs ledger `added` rows, plus the 20 pre-existing incl. `floema-jewelry`) and ledger Sites rows equal queue size.
+9. **Done** when no selected row is `queued`. For an un-narrowed run, when no row at all is `queued`: mark `triage` `done` (blocked rows keep their reason). Also check: index rows equal `added` rows (count backticked slugs in `_index.md` table vs ledger `added` rows, plus the 20 pre-existing incl. `floema-jewelry`; existing-card rows add none) and ledger Sites rows equal queue size.
 
 ### Subagent prompt: site
 
@@ -97,6 +99,9 @@ Date: {YYYY-MM-DD}
 REPO: {repo}
 PLUGIN: {repo}/plugins/awards  (the value of ${CLAUDE_PLUGIN_ROOT} in every path the research skill names)
 Slugs already added this wave (they count as corpus): {comma-separated or "none"}
+Lens: {GSAP | WebGL | 3D, comma list, or none}
+Existing card: {PLUGIN/references/sites/<slug>.md | none}
+Lens file(s): {PLUGIN/references/patterns/gsap-choreography.md | webgl-shaders.md | webgl-3d-scenes.md, one per lens, or none}
 
 Every shell call that drives a browser starts with:
 export AWARDS_PLAYWRIGHT="$HOME/.npm/_npx/e41f203b7505f1fb";
@@ -106,6 +111,10 @@ export AWARDS_PLAYWRIGHT="$HOME/.npm/_npx/e41f203b7505f1fb";
    - First check the host resolves: `getent hosts <host>` (non-zero exit = does not resolve) → status failed, stop.
    - capture.mjs exit 3 → status blocked, reason `environment: browser unavailable`, and tell the main session; do not retry.
    - Resolves but exit 4, 403, or a timeout after research's one wheel/wait retry → status blocked. Never write a card from memory.
+2b. Lens evidence (only when Lens is not none). Grep the HTML and the first-party JS and CSS research §4 already fetched (at most 2 MB each). For asset sizes use `curl -sI <url>` and read content-length; never fetch a model, texture or decoder body. A literal value read from source is [verified, <file>]; structure reconstructed from minified code is [inferred]; never upgrade an inferred structure.
+   GSAP: registerPlugin arguments and the version banner; timeline count and nesting, addLabel, position parameters; up to 8 ScrollTrigger configs (trigger, start, end, scrub, pin, snap, toggleActions); eases, including CustomEase.create strings; SplitText options (type, mask, autoSplit); Flip and Observer parameters; smooth-scroll library and whether it shares gsap.ticker; whether a matchMedia or reduced-motion branch exists.
+   WebGL: library and version; canvas model and count; per program: kind (fullscreen, plane, points), uniform names, noise family, notable constants; render targets (count, size, type, ping-pong); the post chain in order with values; text in GL; DPR cap and quality tiers; fallback.
+   3D: model formats and compression (.glb, .gltf, .drc, .ktx2, .hdr, .exr; Draco, meshopt, Basis) with header sizes; scene windows; lighting (environment type, lights, baked maps, shadows); materials; camera rig (type, constraints, damping, scroll mapping); animation clips and baked simulations; raycast and physics; disposal evidence.
 3. Rate. Read PLUGIN/references/jury/rubric.md. Score Design, Usability, Creativity and Content on its anchors, from the captures and research §6's walk. Weighted = D×0.4 + U×0.3 + C×0.2 + Co×0.1, two decimals, label [inferred]. Finding the award entry is optional: if its URL is known or turns up from one search, capture it with `--out REPO/.awards/research/{slug}/entry --only desktop` so the site's own captures are not overwritten, and record its published scores as [verified, entry page]. Otherwise official is none. The rating never decides inclusion.
 4. Novelty. Read PLUGIN/references/sites/_index.md, the title and tags of every PLUGIN/recipes/*/recipe.json, the file names in PLUGIN/references/stacks/, and the headings of PLUGIN/references/patterns/*.md. Record each hit as `<type>: <what> — checked against <nearest card, recipe, stack or pattern>`:
    class — the site's class has at most one card in the index
@@ -113,17 +122,22 @@ export AWARDS_PLAYWRIGHT="$HOME/.npm/_npx/e41f203b7505f1fb";
    technique — an effect or interaction the site has is covered by no recipe and no pattern section
    stack — a library or framework it uses has no stack note
    world — its type contract or palette strategy appears in no index row
+   lens — a <Lens> technique, configuration or parameter set absent from the lens file, from [pattern:webgl-architecture#effect-parameters] (WebGL, 3D) or [pattern:motion-vocabulary] (GSAP), and from every recipe tagged for it
+   Judge `lens` per category only: a GSAP site's shader is never a GSAP lens hit. On an Existing card only `lens` hits count; with none, status skipped and leave the card untouched.
    Judge `class` and `world` against the fixed vocabularies in `_TEMPLATE.md` (class, narrative model, scroll model, WebGL dosage) and the palette-strategy and type-contract families already used in the index, not raw free-text differences. `stack` counts only frameworks and rendering, motion, scroll, page-transition or 3D libraries, never a CMS, analytics, hosting or fonts.
 5. At least one hit: write PLUGIN/references/sites/{slug}.md from _TEMPLATE.md per research §5 and §6, including the Corpus rating row, overwriting any file already there. Every hex in the card, including the §8 "Don't take" list, carries a label on its own line. Run research's Verify list on it and fix what fails. No hit: write no card; status skipped.
+   With a Lens, close §5 with one `### Tech lens: <Lens>` subsection per lens from step 2b: at most 50 lines, at most 30 each with two lenses, every fact labelled, the card still under 200 lines. With an Existing card, keep every other section and only re-verify what the lens touches (research §1, update in place).
+5b. If the Write of the card is refused, put the full card text between a line `===CARD START===` and a line `===CARD END===` after the reply block; the main session writes it.
 6. Reply with exactly this block and nothing else:
 
 slug: {slug}
 status: added | skipped | blocked | failed
 rating: D x.x / U x.x / C x.x / Co x.x → w x.xx [inferred]; official: <scores [verified, entry page]> | none
 novelty: <hit>; <hit> | none
+lens: <Lens, comma list> | none
 index_row: | `{slug}` | … |   (added only: the twelve columns of _index.md, in order; the 12th (Last verified) is {YYYY-MM-DD})
 techniques:
-<name> — <evidence file> — <parameters>
+<name> — <evidence file> — <parameters>   (a lens technique ends with [lens:gsap|webgl|3d])
 stack_signatures:
 <library@version> — <evidence file>
 reason: <one line>   (skipped, blocked, failed)
@@ -139,9 +153,10 @@ f=PLUGIN/references/sites/<slug>.md
 for n in 1 2 3 4 5 6 7 8 9; do grep -q "^## $n\. " "$f" || echo "missing section $n"; done
 grep -q "^| Corpus rating |" "$f" || echo "missing Corpus rating row"
 grep -nE '#[0-9a-fA-F]{3,8}\b' "$f" | grep -vE '\[(verified|recalled|inferred|unknown)'
+for L in <each lens of the row>; do grep -q "^### Tech lens: $L" "$f" || echo "missing lens $L"; done
 ```
 
-The last line prints hex values with no label on their line. After the index row is appended, `grep -c '^| `<slug>` |' PLUGIN/references/sites/_index.md` must print `1`. Then read the card once for quotes over 25 words; the slug must be identical in the file name, the index row and every `[site:<slug>]` in the card.
+The last line prints hex values with no label on their line. After the index row is appended, `grep -c '^| `<slug>` |' PLUGIN/references/sites/_index.md` must print `1`; for an existing-card row the count stays 1. Then read the card once for quotes over 25 words; the slug must be identical in the file name, the index row and every `[site:<slug>]` in the card.
 
 ## Phase: synthesis
 
@@ -171,6 +186,7 @@ Technique and stack lines for them (from the ledger):
 1. Read PLUGIN/references/README.md for the citation and label rules, then every new card in full.
 2. Read the headings of PLUGIN/references/patterns/*.md, PLUGIN/references/reflex-lists.md and PLUGIN/references/anti-patterns.md, and the whole file wherever a card adds something.
 3. Where a new card adds a component, hero archetype, narrative structure, motion parameter, WebGL technique, colour or type strategy, face or cliché that the file lacks, add it in that file's register: one entry or table row, citing [site:<slug>], with the card's confidence label. Extend an existing entry with the new citation instead of duplicating it. No site copy beyond 25-word fragments, no hexes that are not in the card.
+3b. Fold every `### Tech lens: <Lens>` subsection into its lens file (GSAP → PLUGIN/references/patterns/gsap-choreography.md, WebGL → webgl-shaders.md, 3D → webgl-3d-scenes.md) in that file's register, citing [site:<slug>], and add the site to its `## Teardowns` table. One fact lives in one place: an effect parameter row belongs in [pattern:webgl-architecture#effect-parameters] and the lens file links to it.
 4. For each PLUGIN/recipes/*/recipe.json whose technique a new card shows with evidence, add the slug to `seenIn`. Touch nothing else in recipe.json.
 5. Edit only files under PLUGIN/references/patterns/, PLUGIN/references/reflex-lists.md, PLUGIN/references/anti-patterns.md and recipe.json seenIn arrays.
 6. Reply with: one line per edit (`file — what — [site:<slug>]`), then `duplicates:` followed by any two new cards (or a new card and an existing one) that turned out to cover the same ground, with the reason, or `none`.
@@ -187,9 +203,10 @@ Technique and stack lines for them (from the ledger):
    - Tier: P0 | P1 | P2 · Deps: <pinned packages from PLUGIN/recipes/package.json, or a new pin with its reason>
    - Overlap: <nearest existing recipe and what this adds>
    - Verify idea: <the state and the assertion that fail when the technique breaks>
+   - Lens: gsap | shader | 3d | none
    ```
    Commit `docs(corpus): wave <n> recipe proposals`.
-4. **Maintainer gate.** Ask with AskUserQuestion, `multiSelect: true`, four candidates per question, at most four questions, in rank order; each option label is the recipe id and its description the title plus `Seen in`. Candidates beyond sixteen stay in the file unselected. Nothing selected: mark the phase `done`.
+4. **Maintainer gate.** Ask with AskUserQuestion, `multiSelect: true`, four candidates per question, at most four questions, in rank order; each option label is the recipe id and its description the title plus `Seen in`. Ask lens candidates first, one question per lens, then the rest. Candidates beyond sixteen stay in the file unselected. Nothing selected: mark the phase `done`.
 5. **Build, one recipe at a time, never in parallel** (each build runs a browser). Per selected id, spawn one `general-purpose` subagent with the prompt in "Subagent prompt: recipe", wait, then commit `feat(recipes): add <id>` with its files, plus `PLUGIN/recipes/package.json`, `PLUGIN/recipes/package-lock.json` and `PLUGIN/references/stacks/versions.md` when the subagent added a pin.
 6. **After the last build**, with nothing else driving a browser:
    ```bash
@@ -247,6 +264,7 @@ Cards to read for the technique: {PLUGIN/references/sites/<slug>.md, …}
    ```
    The `pattern:` line becomes `pattern: '\[site:(<that output>)\]'`.
 2. **Stack list.** If the wave's `stack_signatures` add a framework, add it to the list in `PLUGIN/skills/stack/SKILL.md` ("The analysed sites run Vite + vanilla, …"). Re-check that file's "Framer Motion appears on none of them" claim against the wave's `stack_signatures`; correct the sentence if one of them now does.
+2b. **Lens maps.** Each recipe of this wave with a lens gets a row in its lens file's `## Recipe map` and in the skill's recipe table (`PLUGIN/skills/motion/SKILL.md` "Recipe map by intent" for gsap, `PLUGIN/skills/webgl/SKILL.md` "Effect recipes" for shader and 3d).
 3. **Checks:**
    ```bash
    claude plugin validate PLUGIN
@@ -256,7 +274,7 @@ Cards to read for the technique: {PLUGIN/references/sites/<slug>.md, …}
    ```
    Validate passes, lint ends `0 dangling reference(s)`, both greps print nothing.
 4. Commit `chore(corpus): wave <n> upkeep`.
-5. **Maintainer gate.** Ask whether to run the smoke evals (`cd PLUGIN && claude plugin eval . --tag smoke`, eleven routing cases with a no-plugin baseline; it costs money). Run them only on a yes and report the pass counts. Mark the phase `done`.
+5. **Maintainer gate.** Ask whether to run the smoke evals (`cd PLUGIN && claude plugin eval . --tag smoke`, fourteen routing cases with a no-plugin baseline; it costs money). Run them only on a yes and report the pass counts. Mark the phase `done`.
 
 ## Narrowed-run report
 
@@ -264,6 +282,7 @@ After the synthesis of a narrowed run, stop and report to the maintainer, then w
 
 - per site: slug, status, rating, novelty hits, card path or reason;
 - the synthesis edits, one line each, and any duplicates;
+- per lens: whether the lens gate admitted or skipped well, and the teardown line counts;
 - anything in the gate wording that decided a case badly: a site skipped that obviously adds something, or added on a thin hit.
 
 The maintainer approves, or edits this skill's novelty wording and asks for a re-run of the same sites. To re-run the same sites, first `git revert --no-edit` the narrowed run's triage and synthesis commits (newest first), which restores the index, the queue bullets, the patterns and the ledger rows; then re-run.

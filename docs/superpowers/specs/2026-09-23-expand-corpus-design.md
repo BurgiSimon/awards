@@ -165,3 +165,7 @@ Every queued URL is `added`, `skipped` or `failed`, and any `blocked` row carrie
 ## Size
 
 `SKILL.md` of about 150 lines, including the ledger header and the subagent prompt; one row added to `_TEMPLATE.md`. No other new files beyond what the phases produce.
+
+## Addendum 2026-10-05: tech lens (wave 4)
+
+Queue headings may carry a lens suffix (`# not reviewed GSAP|WebGL|3D`). A lens adds a teardown as `### Tech lens: <Lens>` at the end of the card's §5 and a sixth novelty type, `lens`, judged per category; synthesis folds teardowns into `patterns/gsap-choreography.md`, `webgl-shaders.md` and `webgl-3d-scenes.md`. A URL that already has a card keeps its slug and gets a lens-only update. Design: `docs/superpowers/specs/2026-10-05-deep-modes-design.md`.
