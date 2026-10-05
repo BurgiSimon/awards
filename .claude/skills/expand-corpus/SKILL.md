@@ -111,6 +111,7 @@ mkdir -p {repo}/.awards && flock {repo}/.awards/capture.lock node ...
 1. Read PLUGIN/skills/research/SKILL.md and PLUGIN/references/README.md in full. You follow research §2, §4, §5 and §6 with destination `--to plugin`. Return research §7's index row instead of writing it, and skip its Hand-off.
 2. Capture per research §2 into REPO/.awards/research/{slug}/ and inspect the source per §4.
    - First check the host resolves: `getent hosts <host>` (non-zero exit = does not resolve) → status failed, stop.
+   - Then read the site's `robots.txt` and any AI-usage policy it names (for example `/ai-usage.txt` or a meta agent-policy tag). If either forbids automated extraction or agents like this one → status skipped, reason `owner policy: <file>`, delete anything fetched, stop.
    - capture.mjs exit 3 → status blocked, reason `environment: browser unavailable`, and tell the main session; do not retry.
    - Resolves but exit 4, 403, or a timeout after research's one wheel/wait retry → status blocked. Never write a card from memory.
 2b. Lens evidence (only when Lens is not none). Grep the HTML and the first-party JS and CSS research §4 already fetched (at most 2 MB each). For asset sizes use `curl -sI <url>` and read content-length; never fetch a model, texture or decoder body. A literal value read from source is [verified, <file>]; structure reconstructed from minified code is [inferred]; never upgrade an inferred structure.
