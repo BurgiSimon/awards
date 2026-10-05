@@ -46,6 +46,7 @@
 
 ## Budgets & tiers
 - Entry JS (gz): · GL chunk (gz): · Textures per scene: · Fonts (files / KB): · LCP target: · Tiers: high / mid / low →
+- Deep modes: motion gsap|none · webgl shader|3d|none — because …
 
 ## Jury log
 <!-- appended by awards:jury — date · disposition · D/U/C/Co · dev sub-scores · top fixes -->
