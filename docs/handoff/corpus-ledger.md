@@ -538,7 +538,7 @@ the-boyd: pinia — DHmUQlsp.js
 | Phase | Status | Note |
 |---|---|---|
 | setup | done | first lens wave (GSAP, WebGL, 3D) on branch feat/deep-modes; 17 rows from the three lens headings |
-| triage | open | |
+| triage | done | 13 added (12 new cards + why-zero lens update), 2 skipped by owner policy (ruitat, nyphil), 2 blocked by headless GPU (santionispirits blocklists SwiftShader; guillaumecolombel WebGPU scene stalls) — both read from source, retry needs a real GPU; captures serialised behind a lock after the pilot |
 | synthesis | open | |
 | recipes | open | |
 | stacks | open | |
@@ -563,11 +563,34 @@ the-boyd: pinia — DHmUQlsp.js
 | stanzza | https://stanzza.design/awards | GSAP | added | D 7.2 / U 6.4 / C 6.7 / Co 7.0 → 6.84 | stack (Swiper 11); lens ×3 | |  | 2026-10-05 |
 | cyphercapital | https://www.cyphercapital.com/ | WebGL | added | D 7.4 / U 7.3 / C 7.0 / Co 6.8 → 7.23 | model; technique ×2; lens ×5 | | robots.txt allows; Content-Signal ai-input=yes, ai-train=no | 2026-10-05 |
 | santionispirits | https://santionispirits.com/ | WebGL | blocked | D 7.5 / U 5.5 / C 7.5 / Co 6.5 → 6.80 (from source only) | stack (Hydra 1.1.20); technique (hatched NPR, 8 fps boil); model; lens ×5 — pending a real-GPU capture | | site GPU blocklist (incl. swiftshader) redirects every headless frame to unsupported.html; source fully read; card held out per the no-render precedent (oxigen); retry needs a real GPU | 2026-10-05 |
-| aqualoqa | https://aqualoqa.com/ | WebGL | queued | | | | | |
-| guillaumecolombel | https://guillaumecolombel.fr/ | WebGL | queued | | | | | |
+| aqualoqa | https://aqualoqa.com/ | WebGL | added | D 7.4 / U 5.6 / C 7.4 / Co 5.0 → 6.62 | model; technique; lens ×4 | | retry with --timeout 90000 --scroll 0,100 produced all six frames | 2026-10-05 |
+| guillaumecolombel | https://guillaumecolombel.fr/ | WebGL | blocked | none | likely model, stack (howler), lens ×4 from source — pending a real-GPU capture | | both captures timed out (WebGPU/TSL scene stalls SwiftShader), no PNGs; source read; retry needs a real GPU | 2026-10-05 |
 
 ### Techniques and stacks
 
+guillaumecolombel: Stone fracture — Cd_dFser.js — power-diagram Voronoi of 28 cells on a superellipsoid (exponent 2.45), seed 157 [lens:webgl]
+guillaumecolombel: Volume transmission — Cd_dFser.js — compute-baked 3D density 96×154×64, 8-step history ping-pong accumulation [lens:webgl]
+guillaumecolombel: Post chain — Cd_dFser.js — bloom 3 mips (threshold 1.15, knee .25, mix .12) → 28-sample god rays (decay .93) → frost/fluid warp → AgX → grain .01 at 15 Hz [lens:webgl]
+guillaumecolombel: Pointer fluid — Cd_dFser.js — 128² velocity/pressure, 256² dye, 3 iterations, dissipation .98/.96, off on coarse pointers [lens:webgl]
+guillaumecolombel: MSDF title wheel — Cd_dFser.js — atlas on a cylinder, crumble/meniscus uniforms, band render target [lens:webgl]
+guillaumecolombel: Quality tiers — Cd_dFser.js — 5 tiers (DPR 2→1, MSAA 4→0, renderScale 1→.7) by GPU timestamps, 7 days in localStorage; device-lost → one re-init [lens:webgl]
+guillaumecolombel: three@r185 (WebGPURenderer + TSL) — Cd_dFser.js
+guillaumecolombel: gsap@3.15.0 + SplitText — DECYU8Im.js
+guillaumecolombel: nuxt@3.21.11 — DECYU8Im.js
+guillaumecolombel: howler — ZcAlFalt.js
+aqualoqa: GPU particle sand brush — index.html MOTION_FS — GRID 1102, RADIUS 40 px, force 1 − r³, NOISE_AMT 4, MAX_DELTA 26 px/frame, DAMPING .13, sand persists [lens:webgl]
+aqualoqa: Float ping-pong state pairs — index.html — 2 pairs at 1102², RGBA32F (WebGL2 + EXT_color_buffer_float) or WebGL1 + OES_texture_float; disp RG, vel BA [lens:webgl]
+aqualoqa: Terrain slope physics — index.html MOTION_FS — height map gradient, vel −= slope × 1.1, per-grain jittered settle threshold [lens:webgl]
+aqualoqa: Protect mask on the brush force — index.html — mask PNG smoothstep(.25,.75) zeroes the force over the TV [lens:webgl]
+aqualoqa: Hole pass revealing an under-image — index.html HOLE_FS — points at home position, MIN_DISP .75, alpha smoothstep(.45, 2.5, disp) [lens:webgl]
+aqualoqa: Photo-sampled round grains — index.html DRAW_FS — gl_PointCoord circle discard, colour from cover-cropped photo [lens:webgl]
+aqualoqa: Reset glide — index.html — displacement × .86 per frame for 2.6 s, then cleared [lens:webgl]
+aqualoqa: Zoom out of the screen reveal — index.html — scale cover × 1.12, 1.8 s cubic-bezier(0.22,1,0.36,1); skipped under reduced motion
+aqualoqa: Real-signal loader counter — index.html — 25 % images + 75 % video buffer, MIN 1400 ms, MAX 6000 ms
+aqualoqa: Canvas film grain — index.html — 8 tiles 192 px, half-res, overlay .07, every 3rd frame
+aqualoqa: raw WebGL (no library) — index.html
+aqualoqa: Shopify Horizon@4.1.5 — index.html
+aqualoqa: sandtoy port (credited) — index.html
 santionispirits: Hatched two-terminator lighting — shaders.vs — aastep(uThreshold.x/.y) on light + lines − ao; uThreshold [.4,.7], uLinesTile 10 [lens:webgl]
 santionispirits: Stepped boil clock — shaders.vs — floor(time×8)/8 on line UVs, frame-edge noise and grain [lens:webgl]
 santionispirits: Pointer fluid as shared screen mask — uil.json — mouse sim 128, dye 512, curl 18, density .97, velocity .95, iterations 3 [lens:webgl]
