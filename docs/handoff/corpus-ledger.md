@@ -550,13 +550,13 @@ the-boyd: pinia — DHmUQlsp.js
 |---|---|---|---|---|---|---|---|---|
 | cutobot-byholm | https://cutobot.byholm.co/ | 3D | queued | | | | | |
 | ascension-pegassi | https://ascension.pegassi.be/ | 3D | queued | | | | | |
-| edolus | https://edolus.com/ | 3D, WebGL | queued | | | | | |
+| edolus | https://edolus.com/ | 3D, WebGL | added | D 7.5 / U 4.8 / C 7.5 / Co 6.0 → 6.54 | model; stack (PlayCanvas 2.21.4); technique ×2; lens ×4 | | captures reach 2 of 7 scenes past the click gate; source and scene config fully read | 2026-10-05 |
 | eugeniagrab | https://www.eugeniagrab.com/en | 3D | queued | | | | | |
 | agrumeafarm | https://www.agrumeafarm.it/en | 3D | queued | | | | | |
 | ruitat | https://www.ruitat.info/ | 3D | queued | | | | | |
 | a24-raviklaassens | https://a24.raviklaassens.com/ | 3D | queued | | | | | |
-| why-zero | https://why.zero.university/ | GSAP | queued | | | | existing card | |
-| abatable | https://abatable.com/ | GSAP | queued | | | | | |
+| why-zero | https://why.zero.university/ | GSAP | added | D 7.6 / U 5.5 / C 9.0 / Co 7.5 → 7.24; official 7.73 | lens ×5 | | existing card; lens-only update, SplitText added to Stack row | 2026-10-05 |
+| abatable | https://abatable.com/ | GSAP | added | D 7.0 / U 6.4 / C 6.6 / Co 7.2 → 6.76 | technique ×2; lens ×4 | |  | 2026-10-05 |
 | aardvarkbookclub | https://www.aardvarkbookclub.com/ | GSAP | queued | | | | | |
 | nyphil | https://www.nyphil.org/discover/gustavo | GSAP | queued | | | | | |
 | bleibtgleich | https://bleibtgleich.dev/ | GSAP | queued | | | | | |
@@ -567,6 +567,54 @@ the-boyd: pinia — DHmUQlsp.js
 | guillaumecolombel | https://guillaumecolombel.fr/ | WebGL | queued | | | | | |
 
 ### Techniques and stacks
+
+abatable: house CustomEase as global default — bundle.js — CustomEase.create("osmo","0.625, 0.05, 0, 1"); gsap.defaults({ease:"osmo",duration:0.6}); route ease "parallax" 0.7,0.05,0.13,1; "pop" M0,0 C0.17,0.67 0.3,1.33 1,1 [lens:gsap]
+abatable: pinned card fan — bundle.js initTiltCards — pin on .tilt-cards_contain, top top→bottom bottom, anticipatePin 1, scrub true; per card start "top top-="+distPerCard*i, end "+="+distPerCard, spread 4°, power1.out; ≥768px only [lens:gsap]
+abatable: scroll-scrubbed Flip path — bundle.js initFlipOnScroll — Flip.fit(target,nextWrapper,{duration:pixelOffset,ease:"none",simple:true}) chained, scrub 0.8, borderRadius 100vw→0vw in parallel [lens:gsap]
+abatable: scrubbed hero timeline with SplitText onSplit — bundle.js initHomeHeroScroll — clamp(top top)→bottom top, scrub true, linear; bg scale 1.125; DrawSVG 0→100%; SplitText words autoSplit, onSplit returns tl.from(words,{opacity:0,stagger:{amount:.5}}); empty tweens toggle chapter dots [lens:gsap]
+abatable: clip-path polygon preloader handoff — bundle.js runPageOnceAnimation — wipes 1.5/1.25 expo.out/1.5/1.5 s, bg scale 1.125 over 3 s, contours drawSVG 5 s power3.out, nav yPercent −125 1.5 s expo.out, h1 chars stagger .03; ≈3.25 s gate, no repeat-visit skip [lens:gsap]
+abatable: circle-mask text reveal — bundle.js initCircleMaskHero — clip-path circle(progress×150% at 50% 120%), scrub 1, top 70%→center center (mobile top 95%→bottom 90%)
+abatable: line-masked testimonial slider — bundle.js initLineRevealTestimonials — SplitText lines mask autoSplit; out yPercent −110 .6 s power4.inOut stagger amount .25; in .7 s amount .4; image inset(50%)→inset(0) .75 s; ←/→ keys [lens:gsap]
+abatable: once-only reveals — bundle.js initRevealAnimations — top 80%, once, refreshPriority −1; chars stagger .03; paragraphs scale .9→1 .8 s at +.4; buttons at +.8 [lens:gsap]
+abatable: Barba route slide — bundle.js — sync true, leave y 0→−25vh + veil 0→.8, enter y 100vh→0, 1.2 s "parallax"; labels startEnter/pageReady; reduced-motion branch autoAlpha only [lens:gsap]
+abatable: Lenis on GSAP ticker — bundle.js initLenis — lerp .1, lenis.on("scroll",ScrollTrigger.update), lenis.raf(time*1000), lagSmoothing(0) [lens:gsap]
+abatable: pointer drift — bundle.js initMouseMove — quickTo x/y 2 s power3, max 10rem × strength, skipped on touch
+abatable: webflow — index.html
+abatable: gsap@3.15 (+ ScrollTrigger, SplitText, CustomEase, Flip, DrawSVGPlugin) — index.html
+abatable: lenis@1.3.17 — index.html
+abatable: @barba/core@2.10.3 — index.html
+abatable: swiper@8 — index.html
+abatable: hls.js@1.6.11 — index.html
+abatable: @finsweet/attributes@2 — index.html
+abatable: jquery@3.5.1 — index.html
+why-zero: two-phase interruptible menu timeline — main.js — paused timeline; open nav .65 s, bars back.out(2) .4 s at .05, items stagger .03 at .1; addPause() at I; close items .25 s stagger each .01 from end, shell power3.inOut .45 s at '<'; close = time()<I ? reverse() : play() [lens:gsap]
+why-zero: CustomEase osmoNav — main.js — 'M0,0 C0.625,0.05 0,1 1,1', 4 uses, .65 s nav morph [lens:gsap]
+why-zero: SplitText sheet reveal — main.js — lines,words, mask lines; words yPercent 110 .7 s stagger .045 power3.out at .35; proxy p 0→1 .65 s writes translateY; close .45 s power3.in + revert(); no autoSplit, no fonts wait [lens:gsap]
+why-zero: uniforms as tween targets — main.js — uMelt 0→1.2 3.5 s power2.inOut; uCenterWhite 0→1.8 1.4 s; uHoverIntensity →1 .6 s / →0 .4 s; uProgress →1 1 s; charge timeline 1.2 s at +=1.1, burst 1.4 s on uTime ease none [lens:gsap]
+why-zero: ease inventory — main.js — power2.out 28, power2.inOut 11, power2.in 10, power3.inOut 5, power3.in 4, osmoNav 4; durations .3–.65 s, 3.5 s for world reveals [lens:gsap]
+why-zero: hand-rolled virtual float, no ScrollTrigger — main.js — SCROLL_LERP .075 as rate −ln(1−.075)×60; gsap.ticker used once; 8 timelines, 63 to, 0 addLabel, no master [lens:gsap]
+why-zero: manual teardown, no reduced branch — main.js — 48 killTweensOf, no gsap.context/matchMedia [lens:gsap]
+why-zero: gsap@3.15.0 + CustomEase + SplitText — main.js
+edolus: scroll-stretch bands — scene.json scrollManager + __game-scripts.js ScrollManager — satellite .06–.085 ×1.5, map .205–.28 ×1.6, chip .545–.57 ×2.5, UI .57–.705 ×1.5, car .715–.84 ×1.5; totalScrollPx 32000, touchScrollPx 4000, lerp .1 frame-corrected, keyStep .12
+edolus: idle snap to hero points — scene.json scrollManager — points [.44,.52,.145,.205,.06,.61,1], range ±.014, delay 1 s
+edolus: intro gate hold — scene.json scrollManager — timeline held at 0 while 1,200 px of scroll flies the satellite in
+edolus: stem mix by progress band — scene.json audioManager — 3 stems, 9 bands e.g. datacenter .28–.54 = .8/0/.2, stemFadeIn 2 s, stemFadeDur 1.2 s, crossFade 1.5 s
+edolus: TextScramble — __game-scripts.js prelude — per-glyph start 0–30 frames, end +0–40, glyph swap p .28
+edolus: warm-up walk — __game-scripts.js SceneManager — progress at 25 %/75 % of 7 windows, 3 frames each, culling off, 5-frame delay, 2.5 s settle, loader bar 70/30 [lens:webgl]
+edolus: scroll-banded DOF focus pull — scene.json bokehFocusRange — ramp .40→.46, hold to .50, out by .556, focus 20, maxBlur .01, falloff 4, target switch at .468 over .0054 [lens:webgl]
+edolus: DPR governor with persisted ceiling — __game-scripts.js OptimizeRetina — median of 90 frames, down >21 ms (cooldown 1.2 s), up ≤17 ms (6 s, 1.5 s after scroll idle), step .25, DPR 1–2, budget 4.6 MP desktop / 3 MP mobile, ceiling in localStorage per screen@dpr for 24 h [lens:webgl]
+edolus: post chain — scene.json Camera scripts — grain .02 @24 fps → bokeh maxBlur .02 → bloom (disabled) → chromaticTransition disp −.025, distort 2, pulse .15, dip .15 white, 4 s → satelliteFeed; per-scene bloom/vignette presets tweened .9 s power2.inOut [lens:webgl]
+edolus: ping-pong sim targets — __game-scripts.js — 4 pairs RGBA16F (RGBA8 fallback): pointerRipple & revealLightTrail 512², mapClouds & spacecloud 256²; ripple brush .0515, decay .999, distortion .0442, chromatic .1 [lens:webgl]
+edolus: shared pointer-push uniform family — __game-scripts.js matrix/dustLight/plexus — uMousePush .6, uMouseRadius 1.5, pushAlong 1, pushOut .25, pushSwirl .4, trail .9 s [lens:webgl]
+edolus: scene windows with preload/drop thresholds — __game-scripts.js SceneManager.SEGMENTS — 7 segments, neighbour enabled at .5, preloadNextAt/dropPrevAt overrides, entities toggled not destroyed [lens:3d]
+edolus: progress-windowed pointer look — scene.json cameraController — .26–.40 pitch 5°/yaw 6°/roll .8°, .71–1 pitch 4°/yaw 3°/roll 1°, smoothing .04, edge fades .05/.01; camera keyframes on progress, fov 45 [lens:3d]
+edolus: model and texture intake — config.json + __settings__.js — 12 GLB (23.5 MB; tray 7.5 MB, car 7.3 MB, satellite 3.7 MB), no Draco/meshopt, 17 textures with Basis variants, RGBM PNG reflection maps [lens:3d]
+edolus: trueGlass material — __game-scripts.js — refraction on, IOR 1.5, thickness 1, roughness .35, surfaceOpacity .6 [lens:3d]
+edolus: drag-to-rotate object — __game-scripts.js rotateObject — sensitivity .3, friction .95, weight 6, mouse/touch only [lens:3d]
+edolus: playcanvas@2.21.4 — playcanvas-stable.min.js (license banner)
+edolus: playcanvas-editor-export — index.html, __settings__.js, config.json, __game-scripts.js
+edolus: gsap@3.12.5 (core only, cdnjs) — __loading__.js
+edolus: basis-transcoder (wasm) — __settings__.js
 
 ### Notes
 - oxigen: dropped from the queue by the maintainer 2026-10-05; its wave 3 row stays blocked.
