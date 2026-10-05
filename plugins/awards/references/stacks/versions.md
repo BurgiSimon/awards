@@ -42,6 +42,8 @@ Use these exact versions in scaffolds, recipes and generated `package.json` file
 | virtual-scroll | 2.2.1 | reading only: wheel/touch delta emitter in inherited code; `stacks/virtual-scroll-2.2.md` (checked 2026-09-24) |
 | three-custom-shader-material | 6.4.0 | extend a built-in three material with custom shader code (WebGL only); `stacks/three-custom-shader-material-6.4.md` (checked 2026-09-24) |
 | @dogstudio/highway | 2.2.1 | reading only: unmaintained transition router, port to taxi; `stacks/highway-2.2.md` (checked 2026-09-24) |
+| playcanvas | 2.23.0 | engine of PlayCanvas Editor exports (reading only; checked 2026-10-05) |
+| swiper | 14.3.0 | client-maintained sliders (checked 2026-10-05) |
 
 ## The rule
 Check Context7 before using an API you have not verified in this session, even for libraries you know well: `mcp__Context7__resolve-library-id`, then `mcp__Context7__query-docs` with one concept per query. If a claim cannot be verified, write `[unverified]` next to it instead of asserting it.
