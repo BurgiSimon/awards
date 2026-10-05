@@ -19,7 +19,7 @@ Design: `docs/superpowers/specs/2026-09-23-expand-corpus-design.md`. This skill 
 - **No card from recall.** A site that resolves but cannot be captured waits in the queue as `blocked`. This departs from research §3 on purpose: every recall-based card of wave 1 needed a live re-verification pass.
 - **Novelty decides inclusion. The rating is recorded, never a gate.**
 - **Single writer.** Subagents write only the files their prompt names. Only this session edits `PLUGIN/references/sites/_index.md`, `docs/handoff/corpus-ledger.md` and `awardsworthysites.md`, so parallel subagents never race on a shared file.
-- **Browsers.** Every command that drives a browser runs with `export AWARDS_PLAYWRIGHT="$HOME/.npm/_npx/e41f203b7505f1fb"` in the same shell call. Never run `verify-recipes.mjs` beside a capture, nor `evals/behavior.mjs` beside either. While a triage batch runs, start no browser here.
+- **Browsers.** Every command that drives a browser runs with `export AWARDS_PLAYWRIGHT="$HOME/.npm/_npx/e41f203b7505f1fb"` in the same shell call, and subagent captures run under `flock REPO/.awards/capture.lock` so parallel triage never overlaps two captures (wave 4 pilot: overlapping captures timed out). Never run `verify-recipes.mjs` beside a capture, nor `evals/behavior.mjs` beside either. While a triage batch runs, start no browser here.
 - **Git.** Work on branch `feat/corpus-wave-<n>`, or on the current branch when it is not `main` and the maintainer opened it for this wave; create `feat/corpus-wave-<n>` from `main` otherwise. Commit after every triage batch and every phase. Commit messages name no model and end with the session's attribution footer.
 - **Lens.** A site queued under `# not reviewed <Lens>` (`GSAP`, `WebGL` or `3D`) also gets that category's teardown, written as `### Tech lens: <Lens>` at the end of its card's §5, and its synthesis lands in the lens playbook: `GSAP` → `PLUGIN/references/patterns/gsap-choreography.md`, `WebGL` → `webgl-shaders.md`, `3D` → `webgl-3d-scenes.md`. A lens never licenses recall: a blocked site gets no lens.
 
@@ -105,6 +105,8 @@ Lens file(s): {PLUGIN/references/patterns/gsap-choreography.md | webgl-shaders.m
 
 Every shell call that drives a browser starts with:
 export AWARDS_PLAYWRIGHT="$HOME/.npm/_npx/e41f203b7505f1fb";
+and runs the browser command under the shared lock, so captures of parallel subagents never overlap (overlapping captures time out):
+mkdir -p {repo}/.awards && flock {repo}/.awards/capture.lock node ...
 
 1. Read PLUGIN/skills/research/SKILL.md and PLUGIN/references/README.md in full. You follow research §2, §4, §5 and §6 with destination `--to plugin`. Return research §7's index row instead of writing it, and skip its Hand-off.
 2. Capture per research §2 into REPO/.awards/research/{slug}/ and inspect the source per §4.
