@@ -151,7 +151,7 @@ SwiftShader verification is not safe beside another browser. See [behavior check
 
 ## Status
 
-Version 0.4.0.
+Version 0.5.0.
 
 ### 0.5.0 — 2026-10-05
 
