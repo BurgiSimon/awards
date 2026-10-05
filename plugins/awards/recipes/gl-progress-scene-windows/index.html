@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#1a1c1c">
+  <title>gl-progress-scene-windows — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ gl-progress-scene-windows · <span data-gl-readout>dom</span></p></header>
+  <main id="main">
+    <!-- One tall track; the stage sticks inside it. Scroll position → raw (0..1) → stretch map → target → speed-capped clock. -->
+    <section class="film" data-film aria-labelledby="t">
+      <div class="stage">
+        <canvas class="gl" data-gl aria-hidden="true"></canvas>
+        <div class="hud wrap">
+          <p class="label">/ one progress line · synthetic demo</p>
+          <h1 id="t" class="title">Five scenes,<br>one line.</h1>
+          <p class="lede">Scroll drives one value. Two bands cost more scroll, so their beats get time; each scene is switched on half-way through the one before and switched off behind; the clock that follows the scroll has a speed limit, so a flick cannot skip a beat.</p>
+          <p class="label"><a href="#beats">Skip the film, read the beats</a></p>
+        </div>
+        <div class="rail wrap" aria-hidden="true">
+          <p class="label"><span data-beat>01 · Orbit</span> · <span data-progress>000</span></p>
+          <div class="rail__track" data-rail><span class="rail__fill" data-fill></span></div>
+        </div>
+      </div>
+    </section>
+    <section class="wrap beats" id="beats" aria-labelledby="bt">
+      <h2 id="bt" class="label">The beats</h2>
+      <ol class="beat-list" data-beats>
+        <li><h3>Orbit</h3><p>A ring and a moon, seen from far out.</p></li>
+        <li><h3>Lattice</h3><p>A field of blocks; this beat sits in a stretch band and costs twice the scroll.</p></li>
+        <li><h3>Core</h3><p>One faceted body at the centre of the line.</p></li>
+        <li><h3>Fold</h3><p>A creased sheet; the band here costs one and a half times the scroll.</p></li>
+        <li><h3>Arrival</h3><p>A knot to close on.</p></li>
+      </ol>
+    </section>
+  </main>
+  <footer class="wrap footer"><p class="label">awards · recipe · MIT · synthetic demo content</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
