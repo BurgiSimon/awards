@@ -532,3 +532,41 @@ the-boyd: pinia — DHmUQlsp.js
 - 2026-09-23 synthesis (28 wave-3 cards): duplicates — areebali / spasoje (portfolio staged as an operable device: moulded controls, press states, UI sound, a gate; both under the new "Operable object" hero archetype); jesperlandberg / siena (work on screen one as an endless modulo-wrapped virtual reel of GL frames under DOM labels, key and wheel steering, no count, vertical stack on phones). Partial overlaps: warmnfuzzy / okaydev / gehry-getty (theme-per-section flat saturated grounds); goats / wearedirect (name-taken-literally studio in the standard studio order); siteassist / haoqi (pointer coordinate readout in the chrome).
 - 2026-09-23 synthesis: open conflict — the christoph-nagel card calls Anton a reflex face, while reflex-lists.md lists Anton as an open alternative and the audit's scripts/data/reflex-fonts.json sits outside the synthesis scope; reconcile by hand.
 - 2026-09-23 synthesis: color-and-material.md "Any card's set as a package" refusal line was extended with wave-3 hexes and stays unlabelled, as it was before the wave; pattern table rows follow their files' existing unlabelled register.
+
+## Wave 4 — opened 2026-10-05
+
+| Phase | Status | Note |
+|---|---|---|
+| setup | done | first lens wave (GSAP, WebGL, 3D) on branch feat/deep-modes; 17 rows from the three lens headings |
+| triage | open | |
+| synthesis | open | |
+| recipes | open | |
+| stacks | open | |
+| upkeep | open | |
+
+### Sites
+
+| Slug | URL | Lens | Status | Rating | Novelty | Synthesised | Reason | Date |
+|---|---|---|---|---|---|---|---|---|
+| cutobot-byholm | https://cutobot.byholm.co/ | 3D | queued | | | | | |
+| ascension-pegassi | https://ascension.pegassi.be/ | 3D | queued | | | | | |
+| edolus | https://edolus.com/ | 3D, WebGL | queued | | | | | |
+| eugeniagrab | https://www.eugeniagrab.com/en | 3D | queued | | | | | |
+| agrumeafarm | https://www.agrumeafarm.it/en | 3D | queued | | | | | |
+| ruitat | https://www.ruitat.info/ | 3D | queued | | | | | |
+| a24-raviklaassens | https://a24.raviklaassens.com/ | 3D | queued | | | | | |
+| why-zero | https://why.zero.university/ | GSAP | queued | | | | existing card | |
+| abatable | https://abatable.com/ | GSAP | queued | | | | | |
+| aardvarkbookclub | https://www.aardvarkbookclub.com/ | GSAP | queued | | | | | |
+| nyphil | https://www.nyphil.org/discover/gustavo | GSAP | queued | | | | | |
+| bleibtgleich | https://bleibtgleich.dev/ | GSAP | queued | | | | | |
+| stanzza | https://stanzza.design/awards | GSAP | queued | | | | | |
+| cyphercapital | https://www.cyphercapital.com/ | WebGL | queued | | | | | |
+| santionispirits | https://santionispirits.com/ | WebGL | queued | | | | | |
+| aqualoqa | https://aqualoqa.com/ | WebGL | queued | | | | | |
+| guillaumecolombel | https://guillaumecolombel.fr/ | WebGL | queued | | | | | |
+
+### Techniques and stacks
+
+### Notes
+- oxigen: dropped from the queue by the maintainer 2026-10-05; its wave 3 row stays blocked.
