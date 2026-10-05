@@ -153,6 +153,11 @@ Read the recipe's README and `main.js` under `${CLAUDE_PLUGIN_ROOT}/recipes/<id>
 | Flicker accent | `flicker-text` | ladder, glyph stagger |
 | Decode accent | `scramble-decode-text` | charset, reveal and settle rates |
 | Frame scrub | `image-sequence-scrub` | frame count, poster |
+| House easing written once, read by GSAP and CSS | `custom-ease-house-defaults` | the curves and the duration ladder; never a corpus string |
+| Scrubbed doorway into a chapter | `clip-path-scrub-door` | the hole shape, the window, what the door reveals |
+| Copy that plays when a scrub crosses a point | `scrub-threshold-timelines` | the thresholds, play and reverse rates, the reduced tier |
+| Menu or panel that rewinds when closed mid-open | `two-phase-interruptible-timeline` | the hinge, the two halves, focus and Escape |
+| Shader values driven by timelines | `gl-uniform-tween-targets` | which uniforms move, eases, the interrupt rule |
 
 ## Build order
 

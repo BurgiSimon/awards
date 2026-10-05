@@ -143,6 +143,17 @@ Every parameter below is published or reconstructed from one card and lives, wit
 | Procedural landscape | none (pattern) | Perlin and Voronoi noise, a rock diffuse and normal, a mix mask, a baked lightmap, one HDRI, KTX2 textures | the terrain and its ink `[site:mont-fort]` |
 | Frame sequence | `image-sequence-scrub` | pre-rendered frames decoded to `ImageBitmap`, drawn to a 2D canvas, a poster underneath | the render and the frame count `[site:seasats]` |
 | Text in the scene | `gl-msdf-text` | MSDF glyphs, atlas built at runtime or pre-built, with a DOM twin | the scramble or blur it earns `[site:igloo]` `[site:why-zero]` |
+| Studio light with no HDR file | `gl-built-studio-environment` | emissive panels or a painted canvas baked once through PMREM; no lights | the panel layout and the material world `[site:ascension-pegassi]` `[site:a24-raviklaassens]` |
+| Grey-to-colour hand-off on a model | `gl-material-patch-reveal` | `onBeforeCompile` chunk patches on a stock material, a circle anchored to a DOM element | the anchor, the grain, the pacing `[site:eugeniagrab]` |
+| Many small 3D items, one context | `gl-one-context-many-canvases` | one renderer drawn into per-item 2D canvases under a shared pixel budget | the item set and the redraw policy `[site:agrumeafarm]` `[site:cyphercapital]` |
+| A turned object with no model file | `gl-lathe-turned-object` | `LatheGeometry` from a profile, generated maps, a worker for the maps | the profile and the material `[site:a24-raviklaassens]` `[site:agrumeafarm]` |
+| Canvas gallery stepped by wheel and keys | `gl-spring-stepped-gallery` | a spring-snapped index, a wheel step detector that lets the page scroll on at the ends | the layout and the step feel `[site:a24-raviklaassens]` |
+| One progress line through many scenes | `gl-progress-scene-windows` | stretch bands, scene windows toggled not destroyed, a speed-capped clock | the chapters and their dwell `[site:edolus]` `[site:cutobot-byholm]` |
+| A field the pointer pushes and that stays pushed | `gl-ping-pong-grain-field` | float ping-pong state, a brush with a protect mask, format fallbacks | the field and what it uncovers `[site:aqualoqa]` |
+| Strokes revealed in order | `gl-arc-length-mask-reveal` | a mask that stores arc length per branch, a feathered front | the paths and the stagger `[site:cyphercapital]` |
+| Metallic stripes with colour dispersion | `gl-dispersion-stripes` | per-channel phase offsets, fwidth-gated anti-aliasing, a dither | the field and its palette `[site:cyphercapital]` |
+| A logo as an extruded chrome object, no mesh | `gl-sdf-extruded-symbol` | a raymarched 2D SDF with bevel, a static SVG fallback | the mark and the light `[site:cyphercapital]` |
+| Heavy drawing off the main thread | `offscreen-canvas-worker` | `OffscreenCanvas` in a worker with a timed main-thread fallback | what moves off the thread |
 
 Library choice: Three by default; OGL for a planes-only page where the smaller bundle matters `[site:floema-jewelry]`; R3F only inside a React app with a component-shaped scene (`<Canvas dpr={[1, 2]} frameloop="always" flat gl={{ antialias: false, powerPreference: 'high-performance' }}>`, `useFrame((state, delta) => …)`); Threlte inside SvelteKit (`useTask`, `useThrelte()` for `renderer`, `dpr`, `renderMode`, `invalidate`). Whatever the wrapper, the rect loop, the uniforms and the disposal rules above are unchanged.
 

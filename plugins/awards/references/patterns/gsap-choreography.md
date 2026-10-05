@@ -130,6 +130,11 @@ Why: when GSAP owns the clock, uniforms are tweened values on the same ticker, n
 | Chosen item promoted across a route | [recipe:transition-promote-chosen] |
 | Route transitions | [recipe:page-transitions] |
 | Frame sequence on a scrub | [recipe:image-sequence-scrub] |
+| House easing tokens as GSAP defaults | [recipe:custom-ease-house-defaults] |
+| Uniforms and post presets as tween targets | [recipe:gl-uniform-tween-targets] |
+| Scrubbed clip-path door into a section | [recipe:clip-path-scrub-door] |
+| Paused timelines fired at scrub thresholds | [recipe:scrub-threshold-timelines] |
+| Two-phase interruptible open/close timeline | [recipe:two-phase-interruptible-timeline] |
 
 ## Verify
 

@@ -105,6 +105,12 @@ Render policy for these cards — one renderer feeding many canvases, a renderer
 | Camera on a virtual scroll | [recipe:gl-virtual-scroll-camera] |
 | Quality tiers | [recipe:quality-tiers] |
 | Frame-rate governor and idle gate | [recipe:gl-fps-governor-idle-gate] |
+| Studio environment built at runtime | [recipe:gl-built-studio-environment] |
+| Patched stock material, grey-to-colour hand-off | [recipe:gl-material-patch-reveal] |
+| One renderer into many 2D canvases | [recipe:gl-one-context-many-canvases] |
+| Lathe-turned procedural object | [recipe:gl-lathe-turned-object] |
+| Spring-stepped canvas gallery with keys | [recipe:gl-spring-stepped-gallery] |
+| One progress line, scene windows, capped clock | [recipe:gl-progress-scene-windows] |
 
 ## Verify
 

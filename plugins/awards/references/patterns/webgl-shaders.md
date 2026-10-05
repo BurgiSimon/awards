@@ -101,6 +101,11 @@ Why: GL text must keep a DOM twin; this section records how the corpus distorts 
 | Bloom and grain presets | [recipe:gl-postprocessing-presets] |
 | MSDF text | [recipe:gl-msdf-text] |
 | Endless reel of sheets | [recipe:gl-endless-reel-sheets] |
+| GPU point field with float ping-pong state | [recipe:gl-ping-pong-grain-field] |
+| Ordered stroke reveal from an arc-length mask | [recipe:gl-arc-length-mask-reveal] |
+| Dispersion stripes with fwidth anti-aliasing | [recipe:gl-dispersion-stripes] |
+| Raymarched extruded SDF symbol | [recipe:gl-sdf-extruded-symbol] |
+| Rendering off the main thread | [recipe:offscreen-canvas-worker] |
 
 ## Verify
 
