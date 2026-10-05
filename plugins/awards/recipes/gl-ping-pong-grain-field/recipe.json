@@ -1,0 +1,30 @@
+{
+  "id": "gl-ping-pong-grain-field",
+  "title": "GPU grain field on float ping-pong state",
+  "tags": [
+    "webgl",
+    "three",
+    "shader",
+    "gpgpu",
+    "particles",
+    "pointer"
+  ],
+  "tier": "P1",
+  "deps": [
+    "three@0.186.0"
+  ],
+  "variants": [
+    "Grains over a generated surface, under-layer reveal (this)",
+    "Storage forced down the chain: ?format=half or ?format=byte",
+    "Photograph field: swap surfaceImage() for a cover-cropped image texture",
+    "Terrain: add a height map's slope to the velocity before damping"
+  ],
+  "seenIn": [
+    "aqualoqa",
+    "edolus"
+  ],
+  "verified": {
+    "date": "2026-10-05",
+    "chromium": "153.0.8010.12"
+  }
+}

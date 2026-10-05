@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#1a1c1c">
+  <title>gl-ping-pong-grain-field — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ gl-ping-pong-grain-field · <span data-gl-readout>dom</span></p></header>
+  <main id="main">
+    <section class="hero" data-field aria-labelledby="t">
+      <canvas class="gl" aria-hidden="true"></canvas>
+      <div class="hero__copy wrap">
+        <div class="protect" data-protect>
+          <p class="label">/ synthetic demo field</p>
+          <h1 class="title" id="t">Brush the grains.<br>The words stay put.</h1>
+          <p class="lede">Every grain keeps its own displacement and velocity in a float texture that is read and rewritten each frame. The block you are reading is drawn into a protect mask, so the brush has no force here.</p>
+        </div>
+      </div>
+      <div class="controls wrap"><button type="button" class="reset" data-reset>Reset the field</button></div>
+    </section>
+    <section class="section wrap notes"><h2>Rules</h2><ul>
+      <li>State lives in a ping-pong pair: displacement in RG, velocity in BA, in CSS pixels. Targets try RGBA32F, then RGBA16F, then RGBA8 with 16-bit packed displacement and no inertia.</li>
+      <li>The brush is a capsule from the last pointer position to the current one, with a <code>1 − r³</code> falloff. The pointer delta is clamped to 24 px per frame, and a per-grain hash scatters it.</li>
+      <li>The protect mask is drawn from this copy block's rectangle and scales the force to zero inside it.</li>
+      <li>Grains are coloured from the generated surface at their home. A second points pass paints the under-layer at the home of every grain that has moved.</li>
+      <li>Reset glides every grain home over 1.6 s, then clears both targets. The loop stops once the field is at rest.</li>
+      <li>Reduced motion: no grain flies; the brush only reveals the under-layer in place. Static: the surface is drawn once.</li>
+    </ul></section>
+  </main>
+  <footer class="wrap footer"><p class="label">awards · recipe · synthetic demo · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
