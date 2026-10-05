@@ -1,0 +1,24 @@
+{
+  "id": "gl-arc-length-mask-reveal",
+  "title": "Arc-length mask reveal",
+  "tags": [
+    "webgl",
+    "shader",
+    "scroll",
+    "mask"
+  ],
+  "tier": "P1",
+  "deps": [],
+  "variants": [
+    "raw WebGL2, mask built on the main thread (this)",
+    "mask built in a Worker on an OffscreenCanvas",
+    "three.js ShaderMaterial on a fullscreen triangle"
+  ],
+  "seenIn": [
+    "cyphercapital"
+  ],
+  "verified": {
+    "date": "2026-10-05",
+    "chromium": "153.0.8010.12"
+  }
+}
