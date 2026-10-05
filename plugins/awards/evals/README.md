@@ -2,7 +2,7 @@
 
 Cases for `claude plugin eval`, in the `prompt.md` + `graders/*.md` layout. Two tiers:
 
-- **smoke** (17 cases, read-only, cheap): eleven requests that must route to the right skill — one per skill — and six that must not touch any awards skill. Graded with `tool_used: Skill` matchers; the jury case also checks for a disposition line and the usability axis. Five of them ship a `fixture/` site staged by `fixture.sh`, so the tier needs `--scaffold`.
+- **smoke** (20 cases, read-only, cheap): eleven requests that must route to the right skill — one per skill —, three that must take a deep mode (`--tag deep`), and six that must not touch any awards skill. Graded with `tool_used: Skill` matchers; the jury case also checks for a disposition line and the usability axis. Five of them ship a `fixture/` site staged by `fixture.sh`, so the tier needs `--scaffold`.
 - **build** (6 cases, expensive): the full site loop, a component pass, a WebGL hero, a jury run, a motion pass and an unreachable-site research run. Fixture sites are seeded into the empty workspace by each case's `fixture.sh` (needs `--scaffold`). Graded with regexes over the produced files and the transcript plus one `llm` rubric where judgement is unavoidable.
 
 ## Run
