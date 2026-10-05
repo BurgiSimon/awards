@@ -548,13 +548,13 @@ the-boyd: pinia — DHmUQlsp.js
 
 | Slug | URL | Lens | Status | Rating | Novelty | Synthesised | Reason | Date |
 |---|---|---|---|---|---|---|---|---|
-| cutobot-byholm | https://cutobot.byholm.co/ | 3D | queued | | | | | |
-| ascension-pegassi | https://ascension.pegassi.be/ | 3D | queued | | | | | |
+| cutobot-byholm | https://cutobot.byholm.co/ | 3D | added | D 7.8 / U 5.6 / C 8.0 / Co 7.4 → 7.14 | model; technique ×3; lens ×4 | | no film frame captured (canvas intercepted ENTER click); film read from source | 2026-10-05 |
+| ascension-pegassi | https://ascension.pegassi.be/ | 3D | added | D 7.6 / U 6.8 / C 7.6 / Co 7.4 → 7.34 | technique ×3; lens ×3 | | click gate; second capture with --states exit 0 | 2026-10-05 |
 | edolus | https://edolus.com/ | 3D, WebGL | added | D 7.5 / U 4.8 / C 7.5 / Co 6.0 → 6.54 | model; stack (PlayCanvas 2.21.4); technique ×2; lens ×4 | yes | captures reach 2 of 7 scenes past the click gate; source and scene config fully read | 2026-10-05 |
 | eugeniagrab | https://www.eugeniagrab.com/en | 3D | queued | | | | | |
 | agrumeafarm | https://www.agrumeafarm.it/en | 3D | queued | | | | | |
 | ruitat | https://www.ruitat.info/ | 3D | queued | | | | | |
-| a24-raviklaassens | https://a24.raviklaassens.com/ | 3D | queued | | | | | |
+| a24-raviklaassens | https://a24.raviklaassens.com/ | 3D | added | D 7.6 / U 7.2 / C 7.8 / Co 7.0 → 7.46; official: Awwwards Nominee, no scores | model; technique ×3; lens ×4 | | full capture set (15, exit 0) | 2026-10-05 |
 | why-zero | https://why.zero.university/ | GSAP | added | D 7.6 / U 5.5 / C 9.0 / Co 7.5 → 7.24; official 7.73 | lens ×5 | yes | existing card; lens-only update, SplitText added to Stack row | 2026-10-05 |
 | abatable | https://abatable.com/ | GSAP | added | D 7.0 / U 6.4 / C 6.6 / Co 7.2 → 6.76 | technique ×2; lens ×4 | yes |  | 2026-10-05 |
 | aardvarkbookclub | https://www.aardvarkbookclub.com/ | GSAP | queued | | | | | |
@@ -568,6 +568,52 @@ the-boyd: pinia — DHmUQlsp.js
 
 ### Techniques and stacks
 
+a24-raviklaassens: Procedural disc geometry — main.qdXy8l6N.js — LatheGeometry edge ring 256 seg, hub/matrix profiles rippled by .6+.4·cos(3πt), RingGeometry faces 220 seg, thickness .01, hole .14, hub .24 [lens:3d]
+a24-raviklaassens: Worker-built material maps — main.qdXy8l6N.js — inline Blob Worker builders frontNormal/backNormal/frontRough/backRough, same-thread fallback, cached per size [lens:3d]
+a24-raviklaassens: Physical disc materials — main.qdXy8l6N.js — front clearcoat .8 rough .42 metal .48; back metal 1 rough .23 iridescence 1 IOR 1.86 thickness 140–900; hub transmission .68 IOR 2 thickness .6; edge rough .04 metal .55; transmissionResolutionScale .5 [lens:3d]
+a24-raviklaassens: Painted environment + strip light — main.qdXy8l6N.js — 1024×512 canvas gradient + 4 white bands → PMREM; ambient .25, key .75, fill .3, rim .75, RectAreaLight 6×.4 @1.9; ACES, exposure .86, fog 7–14 [lens:3d]
+a24-raviklaassens: Gallery camera/rig — main.qdXy8l6N.js — fov 40, z 4.4, group rotated −30°/−30°, scale 1.08, hGap 2.3, depthGap 1, inactive scale .8, render radius 5 [lens:3d]
+a24-raviklaassens: Renderer pool + idle prewarm — main.qdXy8l6N.js — max 2 pooled WebGLRenderers across routes, others dispose + forceContextLoss; requestIdleCallback builds renderer, PMREM, compileAsync; contextlost/restored handled [lens:3d]
+a24-raviklaassens: Spring snap + drag — main.qdXy8l6N.js — snapFreq 9.5, snapDamping 12, drag sensitivity .95, friction .89, velocity smoothing .32 max .5, hover tilt .21; reduced motion snaps directly
+a24-raviklaassens: Wheel step detector — main.qdXy8l6N.js — noise floor .3, event cap 24, envelope 550 ms, tick gap 34 / pause 130 ms, threshold 6, sustain 480 ms
+a24-raviklaassens: Scribble ring — main.qdXy8l6N.js — ribbon BufferGeometry, 24 points, jitter .028, 2 loops gap .045, width .012, sweep .68, 10 fps
+a24-raviklaassens: Accessible canvas carousel — main.qdXy8l6N.js — aria-roledescription carousel, aria-live polite announcer, ArrowLeft/Right, Home, End, Enter, Space
+a24-raviklaassens: Global eases — main.qdXy8l6N.js — CustomEase main 0.625,0.05,0,1 (gsap.defaults, .6 s, stagger .05); discGlide 0.32,0.72,0,1
+a24-raviklaassens: gsap@3.15.0 (ScrollTrigger, SplitText, CustomEase, Observer, Flip) — bootstrap.js
+a24-raviklaassens: lenis@1.3.26 — bootstrap.js
+a24-raviklaassens: @barba/core@2.10.3 — bootstrap.js
+a24-raviklaassens: three@r178 (+ RectAreaLightUniformsLib) — three.module.js
+a24-raviklaassens: astro (Webflow export) — index.html
+cutobot-byholm: Film-clock speed cap and forward ratchet — main.js — Lenis duration .62; Δprogress ≤ 3.8 × dt / filmSeconds; floor set on entering the grey world; body (100 + n × 170) vh
+cutobot-byholm: AUTO drive with manual takeover — main.js — rate 1.75; any wheel or touchmove turns AUTO off; setup SOUND ON/OFF, SCROLL MANUAL/AUTO, BEGIN
+cutobot-byholm: Worker loader on OffscreenCanvas — index.html inline worker — pen floor .16, ceiling .22, min 1,100 ms, exit 1,900 ms, tear exponent 4.5
+cutobot-byholm: Opening rail with per-word masked reveal — main.js — arrows 120, PageDown/Space 380; reveal .55 s cubic-bezier(.16,1,.3,1), stagger .022 s
+cutobot-byholm: Procedural quadruped gait — main.js — wave {LB 0, LF .25, RB .5, RF .75} cycle .75; trot {LF 0, RB 0, RF .5, LB .5} cycle .6; hip/knee/ankle bones [lens:3d]
+cutobot-byholm: One-way frame-time governor — main.js — median 22 frames, 20 ms ceiling, 1.5 s cooldown, 3 s warm-up; DPR 1.45 → grass 55 % → DPR 1.2 → grass 30 % → DPR 1.0 painterly off; never steps up [lens:3d]
+cutobot-byholm: Post chain — main.js composer — Render → GTAO (half res, off) → bloom (.4 scale, .55/.4/.85) → DoF (off) → Output → painterly quadrant (radius 6, step 2, sharpness 18) → contour from GTAO depth+normals (threshold .1, thickness 1.4) → grade → transition → grain .045 → dither → portal lens (refraction .1, chroma .006) [lens:3d]
+cutobot-byholm: Lighting and sky — main.js — PCF-soft shadows 2048² (4096² world two); PMREM fromScene of procedural sky; NeutralToneMapping exposure 1.05; 4 sky presets fbm clouds 2/4 octaves [lens:3d]
+cutobot-byholm: Instanced grass — main.js — 380,000 blades, radius 58, 2,600 clusters, wind .32 speed 1.15, gust .6, translucency .68; 45 % on phones [lens:3d]
+cutobot-byholm: Aspect-preserving fov — main.js — fov widened below 16:9 design ratio [lens:3d]
+cutobot-byholm: Quality tier for phone and coarse pointer — main.js — DPR cap 1.4 (desktop 1.75), MSAA 0 (desktop 2/4), bloom scale .3, mirror scale .25, shadows off [lens:3d]
+cutobot-byholm: three@r180 — main.js
+cutobot-byholm: lenis@1.3.26 — main.js
+cutobot-byholm: vite — index.html
+cutobot-byholm: draco decoder (self-hosted) — main.js
+ascension-pegassi: Emissive-panel studio bake — src/CKimS5rj.js — 12 panels (face 8.2×5.2 at .95, crests 5–6, sparkles 5–9, dark .06–.1), PMREMGenerator.fromScene size 1024 [lens:3d]
+ascension-pegassi: Chrome physical material with normal wobble — src/CKimS5rj.js — metalness 1, roughness .11, clearcoat .25/.3, envMapIntensity 1.15; two-sine wobble amount .03, scale .09 via onBeforeCompile [lens:3d]
+ascension-pegassi: Draco GLB wordmark intake — src/CKimS5rj.js + curl -sI — 151,636 B GLB; self-hosted decoder WASM 192,420 B, disposed after load; meshes merged, unit-width normalised [lens:3d]
+ascension-pegassi: Offscreen MSAA wordmark composited to a DOM plane — src/CKimS5rj.js — RT 8 samples sized to DOM box × DPR, fov 32 distance solved to fill box; r/b split composite (u_split); redraws only on change [lens:3d]
+ascension-pegassi: Tilt-lit glint sprites — src/CKimS5rj.js — Gaussian ring .5 width .14; attack .45, decay .08, stretch .9; additive [lens:3d]
+ascension-pegassi: Pointer tilt and flip-in arrival — src/CKimS5rj.js — tilt lerp .08/frame@60, lean .15 rad; scroll turn .08π; intro 1.5 s expo.out from π flip [lens:3d]
+ascension-pegassi: Record sleeve with disc slide-out — src/9Gf3pYfE.js + src/Dv6o1hQR.js — disc smoothstep 0–.58, roll −120°, sleeve turn π; 1024² procedural groove normal map (80 grooves, .35); scissor viewport; RoomEnvironment [lens:3d]
+ascension-pegassi: GL text from Bézier curves — src/CKimS5rj.js — glyph curves in 1024-wide float texture, ray-crossing coverage in x and y
+ascension-pegassi: Backlight lamp ray-march — src/CKimS5rj.js — 28 steps, weight ×.93, first 4 skipped; glow in .35 s / out .6 s power2.out
+ascension-pegassi: Budgeted texture upload queue and gate hold — src/CZEyUk1w.js — 8 ms/frame budget, 192 MB LRU, KTX2 variants ≥1200 px; gate waits fonts + 4 settled checks, cap 3 s
+ascension-pegassi: Lenis reduced-motion branch — src/CKimS5rj.js — lerp .125 → 1, autoSleep 0, lagSmoothing(0), one rAF loop
+ascension-pegassi: three@r185 — src/CZEyUk1w.js
+ascension-pegassi: gsap@3.15.0 (+ScrollTrigger) — src/CKimS5rj.js
+ascension-pegassi: lenis@1.3.x — src/CKimS5rj.js
+ascension-pegassi: nuxt — index.html
 abatable: house CustomEase as global default — bundle.js — CustomEase.create("osmo","0.625, 0.05, 0, 1"); gsap.defaults({ease:"osmo",duration:0.6}); route ease "parallax" 0.7,0.05,0.13,1; "pop" M0,0 C0.17,0.67 0.3,1.33 1,1 [lens:gsap]
 abatable: pinned card fan — bundle.js initTiltCards — pin on .tilt-cards_contain, top top→bottom bottom, anticipatePin 1, scrub true; per card start "top top-="+distPerCard*i, end "+="+distPerCard, spread 4°, power1.out; ≥768px only [lens:gsap]
 abatable: scroll-scrubbed Flip path — bundle.js initFlipOnScroll — Flip.fit(target,nextWrapper,{duration:pixelOffset,ease:"none",simple:true}) chained, scrub 0.8, borderRadius 100vw→0vw in parallel [lens:gsap]

@@ -51,6 +51,9 @@
 - https://the-boyd.com/
 - https://edolus.com/
 - https://abatable.com/
+- https://ascension.pegassi.be/
+- https://cutobot.byholm.co/
+- https://a24.raviklaassens.com/
 
 # not reviewed
 
@@ -58,12 +61,9 @@
 
 
 # not reviewed 3D
-- https://cutobot.byholm.co/
-- https://ascension.pegassi.be/
 - https://www.eugeniagrab.com/en
 - https://www.agrumeafarm.it/en
 - https://www.ruitat.info/
-- https://a24.raviklaassens.com/
 
 # not reviewed GSAP
 - https://www.aardvarkbookclub.com/
