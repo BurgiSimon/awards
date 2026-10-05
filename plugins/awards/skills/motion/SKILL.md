@@ -1,7 +1,7 @@
 ---
 name: motion
-description: "Author the motion of an award-level site or component with GSAP 3.15 (ScrollTrigger, SplitText, Flip, Observer), Lenis, anime.js 4 or CSS: a preloader that holds at 100 on a real load signal, masked line reveals, scroll-scrubbed pins and sticky stages, velocity-driven effects, a two-speed contextual cursor, magnetic targets, rAF marquees, flicker and scramble text, theme swaps, page and shared-element transitions, all on one expo-out vocabulary with framerate-independent damping and three reduced-motion tiers. Use when asked to animate, add motion or smooth scroll, build scroll-triggered or scrollytelling effects, text reveals, transitions, micro-interactions or cursor effects, make a page feel alive, premium or cinematic, or fix animation that feels generic, janky or fade-up-everything. Not for chart or dashboard animation, and not for the WebGL layer itself (awards:webgl)."
-argument-hint: "[target or feature] [--lib gsap|anime|css] [--score-only]"
+description: "Author the motion of an award-level site or component with GSAP 3.15 (ScrollTrigger, SplitText, Flip, Observer), Lenis, anime.js 4 or CSS: a preloader that holds at 100 on a real load signal, masked line reveals, scroll-scrubbed pins and sticky stages, velocity-driven effects, a two-speed cursor, magnetic targets, rAF marquees, flicker and scramble text, theme swaps, page and shared-element transitions, all on one expo-out vocabulary with framerate-independent damping and three reduced-motion tiers. Use when asked to animate, add motion or smooth scroll, build GSAP timelines, scroll-triggered or scrollytelling effects, text reveals, transitions, micro-interactions or cursor effects, make a page feel alive, premium or cinematic, or fix animation that feels generic, janky or fade-up-everything. Not for chart or dashboard animation, and not for the WebGL layer itself (awards:webgl)."
+argument-hint: "[target or feature] [--lib gsap|anime|css] [--gsap] [--score-only]"
 allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
 ---
 
@@ -34,7 +34,7 @@ GSAP runs the motion on every stack the corpus could read, and none of those sit
 - From `AWARDS.md ## Direction contract`: SIGNATURE, SCROLL MODEL, LOAD & CLOSE and the STORY beats; from `## Page map`: the chapters and the components each one names.
 - From `DESIGN.md ## Motion` and `src/styles/tokens.css`: the easing tokens, the duration bands, the stagger step. When DESIGN.md has no `## Motion`, write it from the vocabulary below before coding.
 - From the stack: which grammar is present (`gsap`, `animejs`, neither), whether Lenis is booted (`window.lenis`), the framework's cleanup idiom, and whether `window.__awards` exists. When the boot is missing: Invoke the `awards:stack` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline.
-- Arguments: `[target or feature]` narrows the pass to one element or one moment; `--lib gsap|anime|css` overrides the detected grammar (CSS only for a site with no JS motion at all); `--score-only` writes the score and stops before code.
+- Arguments: `[target or feature]` narrows the pass to one element or one moment; `--lib gsap|anime|css` overrides the detected grammar (CSS only for a site with no JS motion at all); `--gsap` forces the deep GSAP path below and `--lib anime|css` rules it out; `--score-only` writes the score and stops before code.
 - A request for one element that must become award-worthy as a whole (a menu, a hero, a footer) belongs to `awards:component`; a request for one moment on an element that already works (magnetic pull on this button, a reveal on this heading) stays here as a one-row score.
 
 ## Diagnosing generic motion
@@ -67,6 +67,21 @@ Rows every site has:
 8. Budget: total tweens, loops, the one ticker, the pause policy.
 
 Rules: at most one hero-scale moment per chapter; one signature and everything else supporting; a component-scale request gets a single row in the same table; a velocity-driven effect names its input and its rest value. With `--score-only`, stop here and return the table.
+
+## Deep mode: GSAP
+
+Some sites are carried by their choreography: no canvas, or a canvas that only follows, and one GSAP architecture that holds every chapter. For those the score is not enough; the timelines themselves are designed `[pattern:gsap-choreography#timeline-architecture]`.
+
+- **Enter** when the grammar is GSAP and any of these holds:
+  - the dosage is `none` or `moments` and SIGNATURE is DOM motion, so motion carries Creativity;
+  - the score needs one timeline across two or more scrubbed chapters, a Flip shared-element signature, an Observer section switcher, or SplitText beyond heading reveals;
+  - the request asks for GSAP timeline or ScrollTrigger choreography, or passes `--gsap`;
+  - `AWARDS.md ## Budgets & tiers` already reads `Deep modes: motion gsap`.
+- **Stay standard** for a one-row component score, a motion pass that only removes generic motion, or `--lib anime|css`.
+- **Record** the choice on the motion half of the `Deep modes:` line in `AWARDS.md ## Budgets & tiers` (`motion gsap` or `motion none`, with the reason), and open the reply with `Deep mode: gsap — <reason>` or `Deep mode: none`.
+- **Read** `${CLAUDE_PLUGIN_ROOT}/references/patterns/gsap-choreography.md` in full, then the `### Tech lens: GSAP` subsection of the two nearest cards in its `## Teardowns` table.
+- **Add to the score:** every row names its timeline and label (`master@ch2`); one master timeline per scroll model; ScrollTrigger rows record start, end, scrub, pin or sticky and snap `[pattern:gsap-choreography#scrolltrigger-configurations]`.
+- **Build** the chapter beats (step 4 of the build order) on that timeline architecture. API questions still go to the official GSAP skills; nothing from them is copied here.
 
 ## Vocabulary
 
@@ -245,6 +260,7 @@ Evidence first, then the checklist; the jury reads the captures before it reads 
 - [ ] Cursor, magnetic pull and hover previews are off or replaced on a coarse pointer; every hover is a focus-visible state.
 - [ ] On a motion pass: the before and after counts (section fades, eased scrubs, loops without a pause) are in the reply, and the section fades dropped by more than half.
 - [ ] `AWARDS.md ## Motion score` has every row above with a reduced-motion tier and a recipe id (or "none").
+- [ ] `Deep modes:` names `motion gsap` or `motion none`; in gsap mode every score row names a timeline and label, and every timeline lives in one `gsap.context()` or `gsap.matchMedia()` scope.
 
 ## Hand-off
 
