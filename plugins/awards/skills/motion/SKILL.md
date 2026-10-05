@@ -77,7 +77,7 @@ Some sites are carried by their choreography: no canvas, or a canvas that only f
   - the score needs one timeline across two or more scrubbed chapters, a Flip shared-element signature, an Observer section switcher, or SplitText beyond heading reveals;
   - the request asks for GSAP timeline or ScrollTrigger choreography, or passes `--gsap`;
   - `AWARDS.md ## Budgets & tiers` already reads `Deep modes: motion gsap`.
-- **Stay standard** for a one-row component score, a motion pass that only removes generic motion, or `--lib anime|css`.
+- **Stay standard** for a one-row component score, a motion pass that only removes generic motion, or `--lib anime|css`. Stay-standard rules override every Enter criterion except an explicit `--gsap` or a recorded `Deep modes: motion gsap`.
 - **Record** the choice on the motion half of the `Deep modes:` line in `AWARDS.md ## Budgets & tiers` (`motion gsap` or `motion none`, with the reason), and open the reply with `Deep mode: gsap — <reason>` or `Deep mode: none`.
 - **Read** `${CLAUDE_PLUGIN_ROOT}/references/patterns/gsap-choreography.md` in full, then the `### Tech lens: GSAP` subsection of the two nearest cards in its `## Teardowns` table.
 - **Add to the score:** every row names its timeline and label (`master@ch2`); one master timeline per scroll model; ScrollTrigger rows record start, end, scrub, pin or sticky and snap `[pattern:gsap-choreography#scrolltrigger-configurations]`.

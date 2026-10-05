@@ -61,10 +61,10 @@ Two kinds of GL site need more than this file: one where shaders carry the signa
 
 | Mode | Enter when | Read | Adds |
 |---|---|---|---|
-| `shader` | depth rung 1–3 and (dosage canvas-first or 100 %, or the unifier or a narrative shader is SIGNATURE); or the request names a shader, distortion, fluid, noise, a render-target transition or GL text; or `--shader` | `${CLAUDE_PLUGIN_ROOT}/references/patterns/webgl-shaders.md`, then the `### Tech lens: WebGL` of the two nearest cards in its Teardowns | the uniform contract with rest values, render-target sizes, the post chain order `[pattern:webgl-shaders#post-chains]` |
-| `3d` | depth rung 4–5; or the request names a model, glTF, lighting, a camera rig or physics; or `--3d` | `${CLAUDE_PLUGIN_ROOT}/references/patterns/webgl-3d-scenes.md`, then the `### Tech lens: 3D` of the two nearest cards | the light rig, the camera rig with its keyboard path, scene windows `[pattern:webgl-3d-scenes#camera-rigs]` |
+| `shader` | depth rung 1–3 and (dosage canvas-first or 100 %, or the unifier or a narrative shader is SIGNATURE); or the request names a shader, distortion, fluid, noise, a render-target transition or GL text and the dosage fixed above is not `moments`; or `--shader`; or `AWARDS.md ## Budgets & tiers` already reads `webgl shader` | `${CLAUDE_PLUGIN_ROOT}/references/patterns/webgl-shaders.md`, then the `### Tech lens: WebGL` of the two nearest cards in its Teardowns | the uniform contract with rest values, render-target sizes, the post chain order `[pattern:webgl-shaders#post-chains]` |
+| `3d` | depth rung 4–5; or the request names a model, glTF, lighting, a camera rig or physics; or `--3d`; or `AWARDS.md ## Budgets & tiers` already reads `webgl 3d` | `${CLAUDE_PLUGIN_ROOT}/references/patterns/webgl-3d-scenes.md`, then the `### Tech lens: 3D` of the two nearest cards | the light rig, the camera rig with its keyboard path, scene windows `[pattern:webgl-3d-scenes#camera-rigs]` |
 
-- `moments` with no shader signature stays on the standard path; so does a pass that only fixes drift, colour or disposal.
+- `moments` with no shader signature stays on the standard path; so does a pass that only fixes drift, colour or disposal. Stay-standard rules override every Enter criterion except an explicit flag or a recorded `Deep modes:` value.
 - With both modes, 3D leads and only the post-chain section of the shader playbook is read.
 - Record the webgl half of `Deep modes:` in `AWARDS.md ## Budgets & tiers` (`webgl shader`, `webgl 3d`, `webgl shader + 3d` or `webgl none`, with the reason), and open the reply with `Deep mode: <mode>` or `Deep mode: none`.
 
