@@ -54,6 +54,12 @@
 - https://ascension.pegassi.be/
 - https://cutobot.byholm.co/
 - https://a24.raviklaassens.com/
+- https://www.eugeniagrab.com/en
+- https://www.agrumeafarm.it/en
+
+# Reviewed, not added
+- https://www.ruitat.info/ — owner policy forbids automated extraction (ai-usage.txt, robots.txt Disallow for ClaudeBot); nothing captured or kept
+
 
 # not reviewed
 
@@ -61,9 +67,6 @@
 
 
 # not reviewed 3D
-- https://www.eugeniagrab.com/en
-- https://www.agrumeafarm.it/en
-- https://www.ruitat.info/
 
 # not reviewed GSAP
 - https://www.aardvarkbookclub.com/

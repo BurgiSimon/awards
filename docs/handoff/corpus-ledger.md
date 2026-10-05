@@ -551,9 +551,9 @@ the-boyd: pinia — DHmUQlsp.js
 | cutobot-byholm | https://cutobot.byholm.co/ | 3D | added | D 7.8 / U 5.6 / C 8.0 / Co 7.4 → 7.14 | model; technique ×3; lens ×4 | | no film frame captured (canvas intercepted ENTER click); film read from source | 2026-10-05 |
 | ascension-pegassi | https://ascension.pegassi.be/ | 3D | added | D 7.6 / U 6.8 / C 7.6 / Co 7.4 → 7.34 | technique ×3; lens ×3 | | click gate; second capture with --states exit 0 | 2026-10-05 |
 | edolus | https://edolus.com/ | 3D, WebGL | added | D 7.5 / U 4.8 / C 7.5 / Co 6.0 → 6.54 | model; stack (PlayCanvas 2.21.4); technique ×2; lens ×4 | yes | captures reach 2 of 7 scenes past the click gate; source and scene config fully read | 2026-10-05 |
-| eugeniagrab | https://www.eugeniagrab.com/en | 3D | queued | | | | | |
-| agrumeafarm | https://www.agrumeafarm.it/en | 3D | queued | | | | | |
-| ruitat | https://www.ruitat.info/ | 3D | queued | | | | | |
+| eugeniagrab | https://www.eugeniagrab.com/en | 3D | added | D 7.6 / U 6.6 / C 7.6 / Co 7.2 → 7.26 | technique ×2; stack (R3F note); world; lens ×6 | | capture exit 0, five screenshots timed out; mobile states stayed on the hero | 2026-10-05 |
+| agrumeafarm | https://www.agrumeafarm.it/en | 3D | added | D 7.4 / U 6.6 / C 7.3 / Co 6.8 → 7.08; official: Awwwards Nominee, no scores | model; technique ×2; stack (matter-js note); lens ×2 | | home capture exit 0; entry capture behind cookie wall | 2026-10-05 |
+| ruitat | https://www.ruitat.info/ | 3D | skipped | none | none | | owner policy forbids automated extraction (ai-usage.txt, robots.txt Disallow for ClaudeBot); nothing captured or kept | 2026-10-05 |
 | a24-raviklaassens | https://a24.raviklaassens.com/ | 3D | added | D 7.6 / U 7.2 / C 7.8 / Co 7.0 → 7.46; official: Awwwards Nominee, no scores | model; technique ×3; lens ×4 | | full capture set (15, exit 0) | 2026-10-05 |
 | why-zero | https://why.zero.university/ | GSAP | added | D 7.6 / U 5.5 / C 9.0 / Co 7.5 → 7.24; official 7.73 | lens ×5 | yes | existing card; lens-only update, SplitText added to Stack row | 2026-10-05 |
 | abatable | https://abatable.com/ | GSAP | added | D 7.0 / U 6.4 / C 6.6 / Co 7.2 → 6.76 | technique ×2; lens ×4 | yes |  | 2026-10-05 |
@@ -568,6 +568,38 @@ the-boyd: pinia — DHmUQlsp.js
 
 ### Techniques and stacks
 
+agrumeafarm: Label-only 3D over a product photo — C2lrDrZj.js — LatheGeometry 17 points × 128 radial, height .6, tilted 3°; MeshStandardMaterial roughness .72; onBeforeCompile uGap .09 discards seam band, uOffset rotates label [lens:3d]
+agrumeafarm: One renderer, many 2D canvases — C2lrDrZj.js — one WebGLRenderer renders each jar in turn then drawImage into its canvas; DPR = min(3, √(12e6 / (w·1.35·h·1.35·count))); re-render only on change and in view; dispose + forceContextLoss [lens:3d]
+agrumeafarm: Label rig — C2lrDrZj.js — OrthographicCamera framed to 630×1013; Ambient .89; Spot .58×5, angle π/4, penumbra .7, decay 1.2; no env map, no shadows [lens:3d]
+agrumeafarm: Hover spin cycle — C2lrDrZj.js — fine pointer only; 260 ms dwell; one revolution quantised to 1/2000 rev; three lazy-imported after 1 s, photos fallback [lens:3d]
+agrumeafarm: Wheel/drag carousel with depth from position — C2lrDrZj.js — wheel ×1.15, drag ×1.5 after 6 px, release velocity clamped ±3.5; follow 2.3/s (11/s dragging); tanh x-warp; scale .55→1.35 by sin(πq); blur ≤4 px + speed blur ≤3.2 px; row rotated 10°
+agrumeafarm: Per-item pointer springs — C2lrDrZj.js — v += ((t−x)·k − 9v)·dt, k = 70 ±15% golden-ratio hash; Gaussian radius 1.6 item widths; turn ≤30°, lean 5°
+agrumeafarm: Physics fruit loader — 5uUeoJaR.js — matter-js gravity 3.35, 22 SVG fruits as hull bodies, restitution .03, friction .82; counter 1700 ms cubic-out; static ring under reduced motion
+agrumeafarm: Masked text reveal + CustomEase set — 5uUeoJaR.js — lines .55 s stagger .08 112%; chars .95 s .02 108%; textveil .165,1,.32,1; pagein .645,.045,.355,1; linedraw .65,.05,.36,1
+agrumeafarm: nuxt — index.html
+agrumeafarm: gsap@3.15.0 (ScrollTrigger, Observer, CustomEase) — 5uUeoJaR.js
+agrumeafarm: lenis@1.3.23 — 5uUeoJaR.js
+agrumeafarm: three@r160 — DoMZv-wV.js
+agrumeafarm: matter-js@0.20.0 — 5uUeoJaR.js
+agrumeafarm: prismic — index.html
+eugeniagrab: Scroll-scrubbed baked growth clips — main.js — mixer.setTime over merged *-growth clips; slots 0/2/4/6 of 8-unit timeline; hand-off 1 unit power1.inOut, growth .88, colour .8; scrub 1.2 desktop / .2 phone [lens:3d]
+eugeniagrab: Grained circular discard hand-off — main.js — centre = DOM progress dial rect, radius to farthest corner + 2 px, softness clamp(.028·min(w,h), 15, 36), hash grain [lens:3d]
+eugeniagrab: Monochrome→colour material patch — main.js — luma mix at map_fragment; dandelion sat 1.65 gain .44, echinacea 1.2 / 1.06 [lens:3d]
+eugeniagrab: Screen-space stem fade — main.js — smoothstep alpha+rgb from gl_FragCoord.y band, discard < .005 [lens:3d]
+eugeniagrab: Petal translucency — main.js — back-scatter pow(.,1.7)×.13 + edge pow(.,2.2)×.025, ×.55 [lens:3d]
+eugeniagrab: Organic matte rig — main.js — PMREM fromScene sigma .04; ambient .04; key 1.4, 512² shadow, bias −3e-4, normalBias .025; rim .28; exposure .92 [lens:3d]
+eugeniagrab: Render policy — main.js — frameloop always while story intersects else demand + invalidate on ScrollTrigger update; DPR [1,1.35]; gl.compile warm-up; uncacheRoot + dispose [lens:3d]
+eugeniagrab: Wind gust spring — main.js — gusts every 2.4–5.5 s, spring k 12 damping 3.8, 1.15°; idle sway × .68° [lens:3d]
+eugeniagrab: Mist/feather photo-shader hero — main.js raw WebGL1 — 5-octave Perlin fbm + 6-octave rotated mist fbm, 9-tap blur, pointer trail
+eugeniagrab: Bending image sheet — main.js — gaussian travelling wave σ .26, z × .42 bend, ≥ 1101 px only
+eugeniagrab: Word-search preloader — main.js — 5 × 15 grid, brand letters darken, fonts.ready gate, reduced motion shows name at once
+eugeniagrab: Magnetic circle button — main.js — offset × .16, scale 1.04, .45 s power2.out; return .8 s power3.out
+eugeniagrab: Viewport-artboard rem — main.css — html font-size .0592415vw (1 rem = 1/1688 vw)
+eugeniagrab: react@18.2.0 — main.js
+eugeniagrab: @react-three/fiber — main.js
+eugeniagrab: three@r148 — main.js
+eugeniagrab: gsap@3.15.0 + ScrollTrigger — main.js
+eugeniagrab: lenis@1.3.25 — main.js
 a24-raviklaassens: Procedural disc geometry — main.qdXy8l6N.js — LatheGeometry edge ring 256 seg, hub/matrix profiles rippled by .6+.4·cos(3πt), RingGeometry faces 220 seg, thickness .01, hole .14, hub .24 [lens:3d]
 a24-raviklaassens: Worker-built material maps — main.qdXy8l6N.js — inline Blob Worker builders frontNormal/backNormal/frontRough/backRough, same-thread fallback, cached per size [lens:3d]
 a24-raviklaassens: Physical disc materials — main.qdXy8l6N.js — front clearcoat .8 rough .42 metal .48; back metal 1 rough .23 iridescence 1 IOR 1.86 thickness 140–900; hub transmission .68 IOR 2 thickness .6; edge rough .04 metal .55; transmissionResolutionScale .5 [lens:3d]
