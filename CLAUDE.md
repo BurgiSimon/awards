@@ -36,6 +36,7 @@ node evals/codex-install.mjs --build                       # isolated install, d
 
 claude plugin eval . --tag smoke                          # 14 routing cases (3 deep-mode) + 6 negatives, no-plugin baseline (model calls, costs money)
 claude plugin eval . --tag deep --runs 3 --ablation none     # the 3 deep-mode routing cases only
+claude plugin eval . --tag route --runs 3 --ablation none --allow-tools Write Edit WebFetch Bash   # unled long brief, full tools: does it reach craft
 claude plugin eval . --case trigger-jury --runs 1 --ablation none   # one case, cheapest iteration
 claude plugin eval . --tag build --scaffold --runs 1 --ablation none --allow-tools Write Edit WebFetch Bash   # 20–30 min per case; Bash whole, not Bash(node *): those match a command prefix and deny everything the skills actually run
 ```
@@ -54,7 +55,7 @@ Requirements: Node 20.19+ (20.x) or 22.12+, Playwright plus its Chromium browser
 
 **Jury is forked and evidence-first.** `skills/jury` runs with `context: fork` and `agent: awards-jury` (`agents/awards-jury.md`) so the build conversation cannot anchor it. It scores Design 40 / Usability 30 / Creativity 20 / Content 10 plus developer criteria, must end with a literal `disposition: ship|fix|rebuild|recapture` line, and never edits the build. `craft` relays that reply unchanged.
 
-**Hook.** `hooks/hooks.json` runs `audit.mjs --quick --changed-file -` on every `Edit|Write`; it is silent unless the project has an `AWARDS.md`, and `AWARDS_HOOK=0` disables it. No `Stop` hook by design.
+**Hooks.** `hooks/hooks.json` runs `audit.mjs --quick --changed-file -` on every `Edit|Write`, silent unless the project has an `AWARDS.md`. On `UserPromptSubmit` it runs `scripts/route-hint.mjs`, which adds one routing line (craft by default; jury, webgl, motion, component or concept when the prompt says so) only when the prompt carries explicit award framing; a hint, not a gate (`node scripts/route-hint.mjs --selftest` checks it against the eval prompts). `AWARDS_HOOK=0` disables both. No `Stop` hook by design.
 
 **Recipes are a contract.** The catalogue has 75 focused recipes and one complete composition, 76 verifiable entries. Each `recipes/<id>/` holds `index.html`, `main.js`, `style.css`, `README.md`, `recipe.json` (`id, title, tags, deps, tier, variants, seenIn, verified`) and `verify.mjs` exporting `states`, `probe(), assert(results)` and optionally `inspect(page, state)`, which runs in Node on the same page after the probe (accessibility tree, ARIA snapshot, CDP) and lands in `results[state].inspect`. `verify-recipes.mjs` builds all entries with `recipes/vite.config.mjs`, serves `dist/`, drives each state (scroll fraction, viewport, reducedMotion, actions) and stamps `recipe.json.verified` on pass. Every page exposes `window.__awards = { ready, scrollTo, state }` via `_shared/awards-hook.js`, which is what `capture.mjs` and the jury use to drive pages. Shared modules: `_shared/raf.js` (single ticker), `reduced-motion.js` (full / reduced / static tiers), `quality-tiers.js` (device probe → DPR/pixel budgets), `tokens.css`, `base.css`, and the visual examples' `_shared/composition.css`.
 

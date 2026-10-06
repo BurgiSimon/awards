@@ -67,7 +67,7 @@ The scaffold ships the boot, the shared modules and the two contract files, so a
 node "${CLAUDE_PLUGIN_ROOT}/scripts/new-project.mjs" --stack vite --name <dir> [--webgl] [--dry-run]
 ```
 
-- `--stack vite` copies `${CLAUDE_PLUGIN_ROOT}/assets/scaffold/vite-vanilla/`: `index.html`, `src/main.js`, `src/lib/{scroll,motion,raf,reduced-motion,quality-tiers,awards-hook}.js`, `src/styles/{tokens,fonts,base}.css`, `src/webgl/scene.js` (only with `--webgl`), `AWARDS.md`, `DESIGN.md`, a `.gitignore` and pinned dependencies. Run `--dry-run` first when the directory already holds files.
+- `--stack vite` copies `${CLAUDE_PLUGIN_ROOT}/assets/scaffold/vite-vanilla/`: `index.html`, `src/main.js`, `src/lib/{scroll,motion,raf,reduced-motion,quality-tiers,awards-hook}.js`, `src/styles/{tokens,fonts,base}.css`, `src/webgl/scene.js` (only with `--webgl`), a `.gitignore` and pinned dependencies, then adds `AWARDS.md` and `DESIGN.md` from `${CLAUDE_PLUGIN_ROOT}/assets/templates/`. Run `--dry-run` first when the directory already holds files.
 - Any other `--stack` prints the path of its note and exits: follow that note's "Scaffold" section, then copy `src/lib/{awards-hook,reduced-motion,quality-tiers,raf}.js` from the vite scaffold into the client-only location the note names.
 - Existing app: install `gsap@3.15.0`, `lenis@1.3.26` and, with WebGL, `three@0.186.0 postprocessing@6.39.5` at the pinned versions, then port the boot into the framework's client-only entry exactly as the note shows.
 - Replace every placeholder before anyone sees it: the hero copy, the icosahedron in `src/webgl/scene.js` (a placeholder, never a hero), the commented `@font-face` rules in `fonts.css`, the empty `og:image` and `meta description`.

@@ -5,6 +5,16 @@ recorded below in [Candidate verification record](#candidate-verification-record
 `verification-log.md` record the earlier 0.2.0 work. `plan.md` is the 0.1.0 specification, kept for
 reference. `decisions.md` records choices already taken.
 
+## Now items (branch `feat/now-items`, 2026-10-06)
+
+- Source: `analysis-2026-10-06.md`; plan: `docs/superpowers/plans/2026-10-06-now-items.md`.
+- House style removed: scaffold `/ 01`, unconditional labels, fixed motion literals and display clamp (now derived from WORLD); scaffold copies `AWARDS.md`/`DESIGN.md` from `assets/templates/`; `--h2`/`--h3`/`--body` required.
+- Structure offers all 13 archetypes; staple kit capped at two at recipe-default shape. `roll.mjs` picks LEAD at random among the dealt; no undealt fourth.
+- Audit: L05 BEM-aware, X07 catches `/ 0N` and `No. 0N` (P2 under `recipes/`), Exceptions parse stops at the next `##`. 14 recipes cleaned and re-verified; audit `recipes` P0–P2 clean.
+- `UserPromptSubmit` route hint (`scripts/route-hint.mjs`); new `route-full-tools-brief` eval and `jury-generic-saas/not-shipped` grader, both unpaid so far.
+- Checks green: validate, lint-refs (620 files), selftest, behavior 15/15 (needs `AWARDS_PLAYWRIGHT`), verify-recipes 14/14, codex-install `--build`.
+- Open: re-capture the six visual-example screenshots (`visuals/`), then drop their stale-screenshot notes; run the paid `--tag route` eval.
+
 ## 0.5.0 — deep modes (branch `feat/deep-modes`)
 
 - Deep modes of existing skills: `motion --gsap`, `webgl --shader`, `webgl --3d`, recorded on the `Deep modes:` line of `AWARDS.md`, each loading a playbook in `references/patterns/` (`gsap-choreography`, `webgl-shaders`, `webgl-3d-scenes`). Skill count stays eleven. Spec: `docs/superpowers/specs/2026-10-05-deep-modes-design.md`; plan: `docs/superpowers/plans/2026-10-05-deep-modes.md`.

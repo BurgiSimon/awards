@@ -1,21 +1,26 @@
-/* Generated from DESIGN.md by /awards:system — keep both in sync. Values below are placeholders for the scaffold. */
+/* Generated from DESIGN.md by /awards:system — keep both in sync. Every value is a scaffold placeholder, replaced by awards:system; the names are the recipe contract. */
 :root {
-  --ground: #f4f2ee;
-  --ink: #1a1c1c;
-  --accent: #0016cb;
+  --ground: #f4f2ee; /* replaced by awards:system */
+  --ink: #1a1c1c; /* replaced by awards:system */
+  --accent: #0016cb; /* replaced by awards:system */
   --muted: color-mix(in oklab, var(--ink) 55%, var(--ground));
   --line: color-mix(in oklab, var(--ink) 14%, var(--ground));
 
-  --font-display: "DisplayFace", "Helvetica Neue", Arial, sans-serif;
-  --font-body: "BodyFace", "Helvetica Neue", Arial, sans-serif;
-  --font-mono: ui-monospace, Menlo, monospace;
+  --font-display: "DisplayFace", "Helvetica Neue", Arial, sans-serif; /* replaced by awards:system */
+  --font-body: "BodyFace", "Helvetica Neue", Arial, sans-serif; /* replaced by awards:system */
+  --font-mono: ui-monospace, Menlo, monospace; /* replaced by awards:system */
 
+  /* Type scale: replaced by awards:system */
   --artboard: 1728;
-  --display: clamp(3rem, 12.1528vw, 13.125rem);
-  --label: 0.6875rem;
-  --gutter: clamp(20px, 4.1667vw, 120px);
-  --unit: 4px;
+  --display: clamp(3rem, 10vw, 10rem);
+  --h2: clamp(2rem, 4vw, 4rem);
+  --h3: clamp(1.25rem, 2vw, 2rem);
+  --body: 1rem;
+  --label: 0.75rem;
+  --gutter: clamp(20px, 4vw, 96px); /* replaced by awards:system */
+  --unit: 4px; /* replaced by awards:system */
 
+  /* Motion: names fixed, values replaced by awards:system from WORLD */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
   --ease-theme: cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -23,4 +28,4 @@
   --dur-routine: 400ms;
   --dur-hero: 1400ms;
 }
-[data-theme="dark"] { --ground: #1a1c1c; --ink: #f4f2ee; }
+[data-theme="dark"] { --ground: #1a1c1c; --ink: #f4f2ee; } /* replaced by awards:system */

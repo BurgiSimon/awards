@@ -20,7 +20,7 @@ Alder Workshop, the bench, dimensions, construction claims and imagery are synth
 
 ## Visual notes
 
-Captured 2026-09-22 from the built page in headless Chromium 153.0.8010.12 on Linux, device scale 1, system fonts, normal motion. Desktop is 1440×900 CSS px; mobile is 390×844 CSS px with touch/mobile emulation. All published PNGs are unedited browser screenshots under 1 MiB. Reviewed for hierarchy, aligned edges, crop, whitespace and responsive order; no material defect was found in these frames.
+The PNGs below predate the 2026-10-06 removal of eyebrow labels and numbered markers; re-capture them before relying on the frames. Captured 2026-09-22 from the built page in headless Chromium 153.0.8010.12 on Linux, device scale 1, system fonts, normal motion. Desktop is 1440×900 CSS px; mobile is 390×844 CSS px with touch/mobile emulation. All published PNGs are unedited browser screenshots under 1 MiB. Reviewed for hierarchy, aligned edges, crop, whitespace and responsive order; no material defect was found in these frames.
 
 ### Desktop
 
@@ -31,7 +31,7 @@ Feature view; scroll 60% of the scrollable document.
 - Hierarchy: the enlarged joint at left is the first evidence; the intermediate serif heading introduces the explanation at right.
 - Alignment: the image top and the copy’s thin top rule align; the caption stays on the image’s left edge.
 - Crop: the original 3:2 detail intentionally excludes the full bench but retains the paired pins, rail and seat junction.
-- Measure and whitespace: the two paragraphs stay in a roughly 58ch column; the italic note has a separate clay rule and breathing room.
+- Measure and whitespace: the two paragraphs stay in a roughly 58ch column; the italic note is set apart by type and space alone, without an accent rule.
 - Recomposition: the unequal columns collapse to figure, caption and prose on mobile; the process section only starts at this frame’s lower edge.
 
 ### Mobile
@@ -40,7 +40,7 @@ Feature view; scroll 60% of the scrollable document.
 
 Feature view; scroll 50%. The note and process link continue below this frame.
 
-- Hierarchy: the image establishes the subject before the construction label and two-line heading explain it.
+- Hierarchy: the image establishes the subject before the two-line heading explains it.
 - Alignment: figure, caption, rule and text share a 20px left inset; the caption is visibly attached to its figure.
 - Crop: the natural 3:2 image preserves the same junction and pins without a new phone crop.
 - Measure and whitespace: full-width 16px paragraphs keep comfortable leading and a clear paragraph gap.

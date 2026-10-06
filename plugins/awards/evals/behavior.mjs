@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Real tool/browser regressions; no model calls. Run serially, never beside verify-recipes.
-// Usage: node evals/behavior.mjs [--only server,audit,ticker,capture,doctor,starter,menu]
+// Usage: node evals/behavior.mjs [--only server,audit,tools,ticker,capture,doctor,starter,menu]
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
@@ -108,6 +108,32 @@ p { line-height: 1.5; max-width: 65ch; }`);
   const quiet = await auditIds(clean);
   assert.deepEqual(SLOP_IDS.filter((id) => quiet.has(id)), [], 'a considered page must not trip slop rules');
 });
+test('audit', 'BEM eyebrows, micro-meta and a bounded Exceptions section', async () => {
+  const dir = path.join(tmp, 'holes');
+  const recipe = path.join(tmp, 'catalogue', 'recipes', 'demo');
+  fs.mkdirSync(dir);
+  fs.mkdirSync(recipe, { recursive: true });
+  const page = (body) => `<html lang="en"><head><meta name="viewport" content="width=device-width"></head><body><main>${body}</main></body></html>`;
+  // The scaffold hero as it shipped through 0.5.0: one `/ 01` label above the thesis.
+  fs.writeFileSync(path.join(dir, 'scaffold.html'), page('<header><nav><a href="/">__PROJECT_NAME__</a></nav></header><section class="section hero wrap"><p class="label">/ 01</p><h1 class="display">Replace this with the thesis.</h1></section>'));
+  fs.writeFileSync(path.join(dir, 'bem.html'), page('<p class="hero__eyebrow">Field notes</p><h1>Tides</h1>\n<p class="card-kicker">Vol. 2</p><h2>Ebb</h2>'));
+  fs.writeFileSync(path.join(dir, 'issue.html'), page('<p>Field notes No. 01</p><h1>Tides</h1>'));
+  fs.writeFileSync(path.join(dir, 'quiet.html'), page('<h1>Tides</h1><p>High water 12/03 at 06:10, slide 01 / 08, ratio 3 / 4.</p>'));
+  const report = async (target, argv = []) => JSON.parse((await run('scripts/audit.mjs', [target, '--json', '--no-write', ...argv])).stdout).findings;
+  const where = (findings, rule) => findings.filter((f) => f.rule === rule).map((f) => path.basename(f.file)).sort();
+  let found = await report(dir);
+  assert.deepEqual(where(found, 'L05'), ['bem.html', 'bem.html'], 'hero__eyebrow and card-kicker are eyebrows');
+  assert.deepEqual(where(found, 'X07'), ['issue.html', 'scaffold.html'], 'the old scaffold hero and No. 01 flag; dates and counters do not');
+  assert.ok(found.filter((f) => f.rule === 'X07').every((f) => f.severity === 'P3'), 'X07 stays P3 in a user build');
+  fs.writeFileSync(path.join(recipe, 'index.html'), page('<p class="label">/ 01</p><h1>Demo</h1>'));
+  found = await report(recipe);
+  assert.equal(found.find((f) => f.rule === 'X07')?.severity, 'P2', 'X07 is P2 inside recipes/');
+  // Exceptions stop at the next level-2 heading: X07 listed there is waived, L05 under ## Log is not.
+  fs.writeFileSync(path.join(dir, 'AWARDS.md'), '# Awards\n\n## Exceptions\n\n- X07: issue numbers are the archive\n\n## Log\n\n- L05 removed from the hero\n');
+  found = await report(dir);
+  assert.deepEqual(where(found, 'X07'), [], 'X07 is excepted');
+  assert.equal(where(found, 'L05').length, 2, 'a rule id after the Exceptions section is not an exception');
+});
 test('audit', 'rendered checks see stuck content, long lines, edges, flat hierarchy and nested cards', async () => {
   const dir = path.join(tmp, 'rendered');
   fs.mkdirSync(dir);
@@ -130,6 +156,23 @@ body { margin: 0; font: 16px/1.5 sans-serif; } canvas { position: fixed; inset: 
 <p class="caption">Saltmarsh Ferry, wayfinding for a tidal crossing that keeps its text inset from both edges of a phone screen.</p></main></body></html>`);
   const calm = await auditIds(quiet, ['--render']);
   assert.deepEqual(['L06', 'L08', 'T08'].filter((id) => calm.has(id)), [], 'earned shapes must not trip rendered rules');
+});
+
+test('tools', 'the deal leads with a seeded dealt card and the route hint matches every eval grader', async () => {
+  const roll = await run('scripts/roll.mjs', ['--deal', '3', '--of', '7', '--seed', 'a']);
+  assert.match(roll.stdout, /^DEALT 1 2 7 of 7$/m, 'existing seeds keep their deal');
+  assert.match(roll.stdout, /^LEAD 7$/m);
+  const leads = new Set();
+  for (const seed of 'abcdefghij') {
+    const out = (await run('scripts/roll.mjs', ['--seed', seed])).stdout;
+    const dealt = out.match(/^DEALT ([\d ]+) of/m)[1].split(' ').map(Number);
+    const lead = Number(out.match(/^LEAD (\d+)$/m)[1]);
+    assert.ok(dealt.includes(lead), `seed ${seed}: LEAD ${lead} is one of DEALT ${dealt}`);
+    leads.add(lead === Math.min(...dealt));
+  }
+  assert.ok(leads.has(false), 'LEAD is not always the lowest dealt index');
+  const hint = await run('scripts/route-hint.mjs', ['--selftest']);
+  assert.equal(hint.code, 0, hint.stdout + hint.stderr);
 });
 
 test('ticker', 'pause/resume never duplicates callbacks and teardown stops scheduling', () => {

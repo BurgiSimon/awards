@@ -115,6 +115,7 @@ Resolution rules:
 - A phase that finds a broken earlier artefact (a page map that contradicts STORY) stops and returns to that phase; it does not patch around it.
 - Phase 6 is skipped, not forgotten: the Status line reads "explicitly declined" with the dosage rung the contract chose.
 - When ship applied material fixes, phase 7 runs once more as a verdict pass (`awards:jury --verdict`); at most two jury rounds per build unless the user asks for more.
+- No forked jury (no Skill tool, the skill read as a file, an unattended run): never score the build yourself. Append `scores unmeasured — run /awards:jury <dir> --captures <recorded-directory>` with the real paths to `## Jury log`, leave "Jury disposition" unchecked, and never call the build finished.
 
 ### What to check at each hand-back
 

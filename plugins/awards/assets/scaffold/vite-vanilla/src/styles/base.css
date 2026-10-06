@@ -5,7 +5,7 @@
 html { color-scheme: light dark; -webkit-text-size-adjust: 100%; }
 body {
   margin: 0; background: var(--ground); color: var(--ink);
-  font-family: var(--font-body); font-size: 1rem; line-height: 1.5;
+  font-family: var(--font-body); font-size: var(--body); line-height: 1.5;
   -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
   transition: background-color var(--dur-hero) var(--ease-theme), color var(--dur-hero) var(--ease-theme);
 }
@@ -19,6 +19,8 @@ html { scrollbar-color: var(--ink) transparent; scrollbar-width: thin; }
 .skip-link { position: absolute; left: var(--gutter); top: -100%; background: var(--ink); color: var(--ground); padding: .5rem 1rem; z-index: 100; }
 .skip-link:focus { top: 1rem; }
 .display { font-family: var(--font-display); font-size: var(--display); font-weight: 500; line-height: .9; letter-spacing: -.03em; margin: 0; }
+h2 { font-family: var(--font-display); font-size: var(--h2); line-height: 1; margin: 0 0 .5em; }
+h3 { font-family: var(--font-display); font-size: var(--h3); line-height: 1.1; margin: 0 0 .5em; }
 .label { font-family: var(--font-mono); font-size: var(--label); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .wrap { padding-inline: var(--gutter); }

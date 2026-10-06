@@ -1,9 +1,10 @@
 # awards evals
 
-Cases for `claude plugin eval`, in the `prompt.md` + `graders/*.md` layout. Two tiers:
+Cases for `claude plugin eval`, in the `prompt.md` + `graders/*.md` layout. Three tiers:
 
 - **smoke** (20 cases, read-only, cheap): eleven requests that must route to the right skill — one per skill —, three that must take a deep mode (`--tag deep`), and six that must not touch any awards skill. Graded with `tool_used: Skill` matchers; the jury case also checks for a disposition line and the usability axis. Five of them ship a `fixture/` site staged by `fixture.sh`, so the tier needs `--scaffold`.
-- **build** (6 cases, expensive): the full site loop, a component pass, a WebGL hero, a jury run, a motion pass and an unreachable-site research run. Fixture sites are seeded into the empty workspace by each case's `fixture.sh` (needs `--scaffold`). Graded with regexes over the produced files and the transcript plus one `llm` rubric where judgement is unavoidable.
+- **build** (6 cases, expensive): the full site loop, a component pass, a WebGL hero, a jury run, a motion pass and an unreachable-site research run. Fixture sites are seeded into the empty workspace by each case's `fixture.sh` (needs `--scaffold`). Graded with regexes over the produced files and the transcript plus one `llm` rubric where judgement is unavoidable. `jury-generic-saas/not-shipped` fails a jury that lets the template page through with `ship`.
+- **route** (1 case, full tools, 30 turns): `route-full-tools-brief`, a long whole-site brief that names no process, graded only on whether `awards:craft` fires. The smoke prompts are one line with read-only tools; this is the case the `UserPromptSubmit` route hint (`scripts/route-hint.mjs`) is meant to lift to at least 2 / 3 (unled builds called no skill before it), with every `no-trigger-*` case still at 0.
 
 ## Run
 ```bash
@@ -15,6 +16,7 @@ claude plugin eval . --tag smoke --scaffold --runs 3 --threshold 0.67   # trigge
 # of whether it routes. One run per case also cannot apply a threshold: routing is sampled, so the
 # tier runs three times and 0.67 means two of three.
 claude plugin eval . --tag smoke --runs 1 --ablation none          # cheap iteration on descriptions
+claude plugin eval . --tag route --runs 3 --ablation none --allow-tools Write Edit WebFetch Bash   # unled brief: does it reach craft
 claude plugin eval . --tag build --scaffold --runs 1 --ablation none \
   --allow-tools Write Edit WebFetch Bash
 # Bash is granted whole, not as Bash(node *) and siblings. Those patterns match the command prefix,
@@ -129,7 +131,7 @@ These free checks run the shipped tools and real Chromium interactions. They com
 # From plugins/awards/recipes, after npm ci and Playwright/Chromium setup:
 node ../evals/behavior.mjs
 node ../evals/behavior.mjs --only capture,doctor
-node ../evals/behavior.mjs --only server,audit,ticker  # browser-free subset
+node ../evals/behavior.mjs --only server,audit,tools,ticker  # browser-free subset
 node ../evals/jury-evidence-selftest.mjs       # immutable jury evidence contract
 node ../evals/visual-library-selftest.mjs      # visual references and recipe metadata
 ```
@@ -147,6 +149,10 @@ Every regex grader with a file target is run against the untouched fixture (or, 
 agent has done anything measures nothing. The exceptions are named in the script's `GUARDS` set —
 graders whose job is to fail when something is *removed* (`pin-kept`, `images-remain`,
 `contract-blocks`, `no-eased-scrub-after`); those must pass on untouched input instead.
+A `last_message` grader listed in the script's `REPLIES` table is checked against written sample
+replies instead: `jury-generic-saas/not-shipped` must fail a `ship` reply and pass `fix` and `rebuild`.
+`node scripts/route-hint.mjs --selftest` does the same for the route hint: silent on every
+`no-trigger-*` prompt, and on every award-framed prompt it names a skill that case's own Skill grader accepts.
 
 ## Adding a case
 Copy a sibling directory, edit `prompt.md` (the body is exactly what Claude receives; no skill names), keep `case.yaml` for fixtures and tags, and prefer `regex`, `tool_used` and `file_exists` graders over `llm` ones. A prompt that names a path must have a `fixture.sh` that copies the fixture to that path: `context.add_dirs` only grants a read on a directory inside the case, it puts nothing in the working directory, and a case whose files never arrive silently measures the wrong thing. Trigger regexes accept both `craft` and `awards:craft` forms.

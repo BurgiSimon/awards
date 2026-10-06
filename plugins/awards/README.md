@@ -8,7 +8,7 @@ Install this whole folder; individual skills depend on its shared resources. Nod
 
 - `skills/` — the eleven skills (`craft`, `concept`, `system`, `structure`, `stack`, `motion`, `webgl`, `component`, `jury`, `ship`, `research`).
 - `agents/awards-jury.md` — the fresh-context jury.
-- `hooks/hooks.json` — a quick craft-floor audit after Claude Code edits, active only in projects that have an `AWARDS.md`; Codex runs the audit explicitly.
+- `hooks/hooks.json` — a quick craft-floor audit after Claude Code edits, active only in projects that have an `AWARDS.md`, and a one-line route hint on prompts that name award framing; `AWARDS_HOOK=0` silences both. Codex runs neither and runs the audit explicitly.
 - `references/` — the corpus: 20 live-verified site case studies, the [visual composition guide](references/patterns/visual-composition.md), the wider pattern language, the jury rubric and stack notes.
 - `recipes/` — 75 focused recipes plus one complete composition (76 browser-verifiable entries); six visual examples carry reviewed desktop/mobile images of synthetic demonstration material. Generated and tested does not imply human preference. `recipes/README.md` is the catalogue by intent.
 - `scripts/` — `doctor.mjs` (early environment check), `capture.mjs` (Playwright screenshots and [interactive states](references/capture-states.md)), `audit.mjs` (deterministic checks), `new-project.mjs`, `roll.mjs`, `verify-recipes.mjs`.

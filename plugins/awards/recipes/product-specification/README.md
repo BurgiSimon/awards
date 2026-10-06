@@ -20,13 +20,13 @@ Alder Workshop, the bench, specifications, construction and care claims, availab
 
 ## Visual notes
 
-Captured 2026-09-22 from the built page in headless Chromium 153.0.8010.12 on Linux, device scale 1, system fonts, normal motion. Desktop is 1440×900 CSS px; mobile is 390×844 CSS px with touch/mobile emulation. All published PNGs are unedited browser screenshots under 1 MiB. Reviewed for hierarchy, aligned edges, crop, whitespace and responsive order; no material defect was found in these frames.
+The PNGs below predate the 2026-10-06 removal of eyebrow labels and numbered markers; re-capture them before relying on the frames. Captured 2026-09-22 from the built page in headless Chromium 153.0.8010.12 on Linux, device scale 1, system fonts, normal motion. Desktop is 1440×900 CSS px; mobile is 390×844 CSS px with touch/mobile emulation. All published PNGs are unedited browser screenshots under 1 MiB. Reviewed for hierarchy, aligned edges, crop, whitespace and responsive order; no material defect was found in these frames.
 
 ### Desktop
 
 ![product-specification — desktop](visuals/desktop.png)
 
-Specification view; scroll 25%. The opening eyebrow is above the frame.
+Specification view; scroll 25%. The opening title is above the frame.
 
 - Hierarchy: the large product name precedes the profile and the quieter “The particulars” register.
 - Alignment: profile top meets the facts’ top rule; the image caption stays with the left column while values form a separate right column.

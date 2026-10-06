@@ -24,7 +24,7 @@ Headless Chromium evidence establishes rendering and behavior at these sizes. It
 
 ## Visual notes
 
-Captured 2026-09-22 from the built page in headless Chromium 153.0.8010.12 on Linux, device scale 1 and system fonts, with normal motion. Desktop is 1440×900 CSS px; mobile is 390×844 CSS px with touch/mobile emulation. These six unedited PNGs are below 1 MiB each. The standard capture positions are 0%, 50% and 100% of the scrollable document, so middle frames are evidence of the specification and close frames show the footer. Reviewed: no material overflow, crop or hierarchy defect in these frames.
+The PNGs below predate the 2026-10-06 removal of eyebrow labels and numbered markers; re-capture them before relying on the frames. Captured 2026-09-22 from the built page in headless Chromium 153.0.8010.12 on Linux, device scale 1 and system fonts, with normal motion. Desktop is 1440×900 CSS px; mobile is 390×844 CSS px with touch/mobile emulation. These six unedited PNGs are below 1 MiB each. The standard capture positions are 0%, 50% and 100% of the scrollable document, so middle frames are evidence of the specification and close frames show the footer. Reviewed: no material overflow, crop or hierarchy defect in these frames.
 
 ### Desktop opening
 
@@ -81,7 +81,7 @@ Middle, scroll 50%. The preceding story link is at the upper edge; joinery, fini
 Final viewport, scroll 100%.
 
 - Hierarchy: a large reversed invitation resolves the story, with one clay enquiry action on its right.
-- Alignment: the overline, message, signature and provenance share the opening page’s gutter; lower navigation uses its own aligned columns.
+- Alignment: the message, signature and provenance share the opening page’s gutter; lower navigation uses its own aligned columns.
 - Crop: this is an intentionally image-free conclusion; the earlier product views have already established the object.
 - Measure and whitespace: the two-line statement and broad space before the lower rule create a slower ending without hiding the contact route.
 - Recomposition: the side-by-side heading and action become a vertical pair on mobile; the three lower columns condense into signature plus two navigation columns.
@@ -94,10 +94,10 @@ Final viewport, scroll 100%; the whole footer fits at 390×844.
 
 - Hierarchy: the two-line invitation leads directly to the clay action, followed by a smaller workshop signature.
 - Alignment: title, action, signature and colophon share the left edge; study navigation and return link occupy separate columns.
-- Crop: there is no photograph to distract from the closing action; both the first overline and final demo colophon are visible.
+- Crop: there is no photograph to distract from the closing action; both the opening statement and final demo colophon are visible.
 - Measure and whitespace: the heading stays readable at 48px, rules divide the closing roles, and short text blocks keep the ending compact.
 - Recomposition: the contact action moves below the title, the signature spans both lower columns, and section links become a vertical list.
 
-Additional 320×844 and 768×1024 browser frames were inspected at top, middle and end. At 320px the footer is naturally taller than one viewport, so its overline begins above the final frame; the contact action and navigation remain readable and reachable. At 768px the wide layouts start, the product retains its complete silhouette, long specification values wrap, and care/close retain distinct columns. Material-story and care-passage captures at all four widths confirmed their order, readable wraps and intact resting text. These additional raw captures remain in the ignored verification output or OS temporary capture directories.
+Additional 320×844 and 768×1024 browser frames were inspected at top, middle and end. At 320px the footer is naturally taller than one viewport, so its statement begins above the final frame; the contact action and navigation remain readable and reachable. At 768px the wide layouts start, the product retains its complete silhouette, long specification values wrap, and care/close retain distinct columns. Material-story and care-passage captures at all four widths confirmed their order, readable wraps and intact resting text. These additional raw captures remain in the ignored verification output or OS temporary capture directories.
 
 An unsuccessful alternative would give every section the same two-column photograph-and-heading template, or mask a component’s bad wrap with a page-only override. When adapting, choose a coherent subject and image family, vary density according to the content, replace the synthetic facts and contact route, and inspect opening, material story, specifications, care and close together. The component sources own their responsive layouts; the complete page owns only sequencing and pace.

@@ -39,6 +39,8 @@ const copies = [];
     else copies.push([from, to]);
   }
 })(src);
+// The contract and system templates are the single source; the scaffold carries no copies.
+for (const f of ['AWARDS.md', 'DESIGN.md']) copies.push([path.join(plugin, 'assets/templates', f), path.join(dest, f)]);
 for (const [from, to] of copies) {
   if (!args.webgl && /src[\\/]webgl[\\/]/.test(from)) continue;
   const relTo = path.relative(process.cwd(), to);

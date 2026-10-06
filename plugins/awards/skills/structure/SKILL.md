@@ -72,7 +72,7 @@ Why: `AWARDS.md ## Page map` is the one table every later skill reads: motion au
 
 Why: the hero is the entrance beat of chapter one and the screen the naming test runs on; the archetype follows the narrative model and the dosage the budget allows, never the other way round (`[pattern:hero-archetypes#choosing]`).
 
-Choose one of the nine: two-state typographic, role-casting boot sequence, poster or video hero, single object with inertia, collage of flat planes, spatial descent, print artefact with an acetate, headline as string, palette field bound to the product. Then:
+Choose one of the thirteen in `[pattern:hero-archetypes#choosing]`: two-state typographic, role-casting boot sequence, poster or video hero, single object with inertia, collage of flat planes, spatial descent, print artefact with an acetate, headline as string, palette field bound to the product, generative line field, wordmark as a window, operable object, the work on screen one. Then:
 - Decide what the first three seconds must say (who, what, why now) and take the lowest dosage that says it; never stack archetypes.
 - Write the composition into row 1's Notes as the archetype's anatomy line describes it: what is where, at what scale, where the primary action sits, what moves once and for how long.
 - Run the six checks in `[pattern:hero-archetypes#the-first-viewport-test]`, the phone test included; a failing naming test goes back to `awards:concept`, not to the copy.
@@ -82,7 +82,7 @@ Choose one of the nine: two-state typographic, role-casting boot sequence, poste
 
 Why: a component earns its place by the job it does in the story, not by having been seen on a winning site; the catalogue lists role, anatomy, motion, accessibility, recipe and the literal version refused for each (`[pattern:components-catalog#how-to-read-an-entry]`).
 
-For every chapter write the components into the `Components (recipe ids)` column with an id from `${CLAUDE_PLUGIN_ROOT}/recipes/README.md` or the word `custom`, and the accessibility need in Notes. The usual picks by role:
+For every chapter write the components into the `Components (recipe ids)` column with an id from `${CLAUDE_PLUGIN_ROOT}/recipes/README.md` or the word `custom`, and the accessibility need in Notes. Available recipes by role:
 
 | Role in the story | Catalogue entries | Recipe ids |
 |---|---|---|
@@ -92,7 +92,7 @@ For every chapter write the components into the `Components (recipe ids)` column
 | Evidence blocks | spec and metric blocks, map cards (`[pattern:components-catalog#evidence-blocks]`) | `product-specification` for product facts and care; otherwise `custom` (numbers as copy in a `<dl>` or table, never a count-up) |
 | The close | designed footer, designed 404, easter eggs, living-utility pages (`[pattern:components-catalog#the-close-and-beyond]`) | `magnetic-button` for the CTA, `theme-swap-tokens` when the footer is a theme, `page-transitions` for routes |
 
-Rules: every component has a job in a row or it is cut; the catalogue's refuse line for each entry is binding (no counter jumps, badge sets, rotated indexes or chapter rails lifted with their values); a marquee is never the hero; a compare needs two conditions; hover previews also appear on focus. Add one entry per chosen component to `DESIGN.md ## Components` with its tokens, states, motion hook and accessibility notes.
+Rules: every component has a job in a row or it is cut; at most two of the six staples (`preloader-counter-hold`, `nav-overlay-fullscreen`, `cursor-two-speed`, `magnetic-button`, `marquee-raf-mask`, `split-text-masked-reveal`) ship at their recipe-default shape, and any further one is reshaped to the world and the change noted in its `DESIGN.md ## Components` entry, since the full kit is what a juror names first; the catalogue's refuse line for each entry is binding (no counter jumps, badge sets, rotated indexes or chapter rails lifted with their values); a marquee is never the hero; a compare needs two conditions; hover previews also appear on focus. Add one entry per chosen component to `DESIGN.md ## Components` with its tokens, states, motion hook and accessibility notes.
 
 ## Step 5 — the semantic DOM plan
 

@@ -55,10 +55,10 @@ Why: the system is derived from the world's material and the use scene; both are
 Why: a site reads as one voice when the number of faces is a decision, and a scale locked to an artboard survives every width without a breakpoint per size (`[pattern:typography#fluid-scale]`).
 
 1. Contract: a voice and a silence (expressive display + neutral grotesque), or one voice (a characterful family at every size). A third layer only when more than a hundred discrete items need it. Record face, foundry and licence for each.
-2. Macro and micro: choose the display and label sizes for the composition; 20:1 is a poster-oriented example, not a required ratio. The Line uses 210 px against 10 px at its artboard with a full eight-step ladder. Add intermediate headings for reading or specifications (`[pattern:typography#macro-and-micro]`).
-3. Scale: every desktop measure is `px / artboard × 100` on a 1728 (or 1440) artboard, wrapped in `clamp()` so it neither collapses on a phone nor outgrows the artboard; the display token is `clamp(3rem, 12.1528vw, 13.125rem)` for 210 px at 1728, ceiling about 12–13 vw (T03); fixed pixels below 768 px; labels at `0.6875rem`.
+2. Macro and micro: choose the display and label sizes for the composition; 20:1 is a poster-oriented example, not a required ratio. The Line uses 210 px against 10 px at its artboard with a full eight-step ladder. Between them the scale always carries `--h2`, `--h3` and `--body`; add further steps for reading or specifications (`[pattern:typography#macro-and-micro]`).
+3. Scale: every desktop measure is `px / artboard × 100` on a 1728 (or 1440) artboard, wrapped in `clamp()` so it neither collapses on a phone nor outgrows the artboard; derive the display px from the composition (how many lines, how wide the longest word, what shares the viewport), then convert; The Line's `clamp(3rem, 12.1528vw, 13.125rem)` (210 px at 1728) is one example, not the rule; ceiling at or under 13 vw (T03); fixed pixels below 768 px; labels at least 11 px.
 4. Display setting: tracking −0.03 to −0.04em by choice and never tighter than −0.06em (T04); choose leading from the rendered glyphs; the first glyph of a display line optically hung when the face needs it (`[pattern:typography#optical-hang]`); `font-feature-settings` in the token layer, not per component.
-5. Labels as texture: the body face, uppercase, tracked about .08em, at least 11 px when they carry meaning; numerals only when they count something (`[pattern:typography#labels-as-texture]`).
+5. Labels as texture only when WORLD names a metadata world (catalogue, archive, spec sheet, call sheet, timetable): then the body face, uppercase, tracked about .08em, at least 11 px when they carry meaning; numerals only when they count something (`[pattern:typography#labels-as-texture]`). Otherwise headings carry the hierarchy and no label sits above them.
 6. Loading: self-hosted woff2 in `public/fonts/`, at most four files and 400 KB (P05); `@font-face` with `font-display: swap` and a metric-matched fallback declared with `size-adjust`, `ascent-override`, `descent-override` and `line-gap-override` (T05, T06); preload the display face only; note in `DESIGN.md` that text is split only after `document.fonts.ready` (`[pattern:typography#loading]`).
 7. Face selection by character class (`[pattern:typography#choosing-by-character-class]`): the contract from the world, then the character the display voice needs (round or sharp, wide or narrow, warm or cold, condensed or extended), then the licence. Open-licence faces by default from the alternatives table in `reflex-lists.md`; the corpus's licensed faces named as "if you can license"; never the pairing a neighbour card already owns.
 8. Google-served families: check the licence file in the `google/fonts` repository (`ofl/<family>/OFL.txt` or the `apache/` and `ufl/` folders) because fonts.google.com may be unreachable from the sandbox; download the files once and self-host them; never the CDN `<link>` (T02).
@@ -81,17 +81,21 @@ Why: an accent chosen from a trend deck says "website"; a ground and an accent t
 
 Why: a spacing base makes rhythm a multiplication instead of a choice, and one material policy is what keeps a page from looking assembled from parts.
 
-- `--unit: 4px` (or 8) as the base; every spacing step a multiple; `--gutter: clamp(20px, 4.1667vw, 120px)` covers the corpus's 40–120 px desktop gutters and 20 px phone gutters; `--artboard` records the comp width.
+- `--unit: 4px` (or 8) as the base; every spacing step a multiple; `--gutter` derived from the grid, with `clamp(20px, 4.1667vw, 120px)` as the default that covers the corpus's 40–120 px desktop gutters and 20 px phone gutters; `--artboard` records the comp width.
 - Grid and measure: columns, the maximum measure for prose (about 60–70 characters), section padding on the same scale as type; write them under `## Layout` together with the scaling system the contract chose (vw-lock or fluid clamp) and the coarse-pointer swaps (`[pattern:responsive-strategy#decide-before-build]`).
 - Material policy, one per world, named under `## Elevation & Depth` (`[pattern:color-and-material#material-policies]`): sharp and shadowless with depth by luminance is the default when nothing argues otherwise; soft, optical, glow, glass or grain only as a policy the world chose, and grain last, never over text.
 - Shapes under `## Shapes`: one radius value (often 0), the corner language, masks and clipping, the icon stroke.
 
 ## Motion tokens
 
-Why: the motion skill reads the curve and the durations from the token layer; one house curve and three duration bands are what make a page feel like one hand set it (`[pattern:motion-vocabulary#easing]`).
+Why: the motion skill reads the curve and the durations from the token layer; one house curve and three duration bands are what make a page feel like one hand set it, and the world decides which curve (`[pattern:motion-vocabulary#easing]`).
 
-- Easing: `--ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1)` for arrivals, `--ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1)` for travel, `--ease-theme: cubic-bezier(0.645, 0.045, 0.355, 1)` for repaints.
-- Durations: `--dur-feedback: 160ms` (band up to 300 ms), `--dur-routine: 400ms` (300–500 ms), `--dur-hero: 1400ms` (1.2–1.5 s, once per chapter); stagger .06–.1 s, recorded under `## Motion` (`[pattern:motion-vocabulary#durations]`).
+- Names are fixed (the recipes read them): `--ease-out-expo` for arrivals, `--ease-in-out-expo` for travel, `--ease-theme` for repaints, `--dur-feedback`, `--dur-routine`, `--dur-hero`. Values come from WORLD; record the register chosen and why under `DESIGN.md ## Motion`.
+  - Editorial (default): out `cubic-bezier(0.16, 1, 0.3, 1)`, in-out `cubic-bezier(0.87, 0, 0.13, 1)`, hero 1.2–1.5 s.
+  - Mechanical (instruments, industry, software): short, firm out `cubic-bezier(0.25, 1, 0.5, 1)`, in-out `cubic-bezier(0.65, 0, 0.35, 1)`, hero 0.6–0.9 s, steps allowed.
+  - Organic (food, craft, nature): soft out `cubic-bezier(0.33, 1, 0.68, 1)`, in-out `cubic-bezier(0.45, 0, 0.55, 1)`, hero 1.0–1.4 s.
+  - Cinematic (film, fashion, launches): long held out `cubic-bezier(0.19, 1, 0.22, 1)`, in-out `cubic-bezier(0.76, 0, 0.24, 1)`, hero 1.6–2.2 s.
+- Durations: `--dur-feedback` up to 300 ms, `--dur-routine` 300–500 ms, `--dur-hero` once per chapter in the register's band; stagger .06–.1 s, recorded under `## Motion` (`[pattern:motion-vocabulary#durations]`).
 - Reduced motion: under `prefers-reduced-motion: reduce` the duration tokens shorten (feedback 0, routine 120 ms, hero 200 ms) the way `recipes/_shared/base.css` does, and the three tiers (full / reduced / static) are named; never a global animation kill (M01, M02).
 
 ## Browser surfaces
@@ -105,8 +109,8 @@ Why: the surfaces the browser paints are part of the first viewport a juror sees
 
 Why: the frontmatter is the machine-readable layer other tools read, the CSS is what the page runs on, and the two drift apart within a day unless they are written together and checked together.
 
-1. Write `DESIGN.md` at the project root from `${CLAUDE_PLUGIN_ROOT}/assets/templates/DESIGN.md`: the frontmatter (`name`, `description`, `colors`, `typography.display`, `typography.body`, `typography.label`, `rounded`, `spacing`, `components`) and the sections `## Overview`, `## Colors` (with the theme table and the contrast ratios), `## Typography`, `## Layout`, `## Elevation & Depth`, `## Shapes`, `## Components`, `## Motion`, `## Browser surfaces`, `## Do's and Don'ts`. When impeccable wrote a `DESIGN.md` first, extend it: keep its frontmatter keys and values, add the missing sections, and say what changed.
-2. Write `src/styles/tokens.css` with exactly these names, because the recipes and the scaffold read them: `--ground`, `--ink`, `--accent`, `--muted`, `--line`, `--font-display`, `--font-body`, `--font-mono`, `--artboard`, `--display`, `--label`, `--gutter`, `--unit`, `--ease-out-expo`, `--ease-in-out-expo`, `--ease-theme`, `--dur-feedback`, `--dur-routine`, `--dur-hero`; then one `[data-theme="…"]` block per theme that remaps only `--ground`, `--ink` and `--accent` (the derived tokens follow).
+1. Write `DESIGN.md` at the project root from `${CLAUDE_PLUGIN_ROOT}/assets/templates/DESIGN.md`: the frontmatter (`name`, `description`, `colors`, `typography.display`, `typography.h2`, `typography.h3`, `typography.body`, `typography.label`, `rounded`, `spacing`, `components`) and the sections `## Overview`, `## Colors` (with the theme table and the contrast ratios), `## Typography`, `## Layout`, `## Elevation & Depth`, `## Shapes`, `## Components`, `## Motion`, `## Browser surfaces`, `## Do's and Don'ts`. When impeccable wrote a `DESIGN.md` first, extend it: keep its frontmatter keys and values, add the missing sections, and say what changed.
+2. Write `src/styles/tokens.css` with exactly these names, because the recipes and the scaffold read them: `--ground`, `--ink`, `--accent`, `--muted`, `--line`, `--font-display`, `--font-body`, `--font-mono`, `--artboard`, `--display`, `--h2`, `--h3`, `--body`, `--label`, `--gutter`, `--unit`, `--ease-out-expo`, `--ease-in-out-expo`, `--ease-theme`, `--dur-feedback`, `--dur-routine`, `--dur-hero`; then one `[data-theme="…"]` block per theme that remaps only `--ground`, `--ink` and `--accent` (the derived tokens follow).
 3. Write `src/styles/fonts.css` with the `@font-face` rules and the metric-matched fallbacks; put the files in `public/fonts/`.
 4. Keep every value identical in the frontmatter, the prose and the CSS; when one changes, change the other in the same edit.
 5. Fill `## Components` with the components the page map names once `awards:structure` has run; until then, the button and link entries from the template with every state.
@@ -124,8 +128,9 @@ Run `node "${CLAUDE_PLUGIN_ROOT}/scripts/audit.mjs" <dir> --scope fonts,contrast
 - [ ] Two to four live colour tokens under one named strategy; `--muted` and `--line` mixed, not added; at most six hues (C03); the darkest value temperature-shifted, or a C02 exception recorded.
 - [ ] Contrast ratios computed and written for every theme: body 4.5:1, large 3:1, focus ring 3:1 on both grounds (C01).
 - [ ] Every browser surface themed from the tokens (S01–S06); `theme-color` follows the theme swap.
-- [ ] Motion tokens present with the house curves and three duration bands; reduced-motion shortening in place, no global kill.
-- [ ] `DESIGN.md` frontmatter, prose and `tokens.css` carry identical values; the token names match `recipes/_shared/tokens.css`.
+- [ ] Type scale carries `--display`, `--h2`, `--h3`, `--body` and `--label`; no label above a heading unless WORLD names a metadata world.
+- [ ] Motion tokens present with values chosen from WORLD and the register recorded under `## Motion`; three duration bands; reduced-motion shortening in place, no global kill.
+- [ ] `DESIGN.md` frontmatter, prose and `tokens.css` carry identical values; every token name in `recipes/_shared/tokens.css` is present unchanged.
 - [ ] No hex, pairing or set from any corpus card reused as a package.
 
 ## Hand-off

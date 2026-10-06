@@ -85,9 +85,9 @@ Why: the first three ideas any model produces are the ruts in different clothes;
 
 Why: a scripted deal stops the round from converging on the presenter's favourite, and the seed makes the round auditable and repeatable in a later session.
 
-Run `node "${CLAUDE_PLUGIN_ROOT}/scripts/roll.mjs" --deal 3 --of 7`. It prints `SEED <key>`, `DEALT a b c of 7` and `LEAD a`. Record the `SEED` line; it goes into the contract's `Seed` field.
+Run `node "${CLAUDE_PLUGIN_ROOT}/scripts/roll.mjs" --deal 3 --of 7`. It prints `SEED <key>`, `DEALT a b c of 7` and `LEAD x`, where the lead is a seeded pick among the three, not the lowest index. Record the `SEED` line; it goes into the contract's `Seed` field.
 
-Write the three dealt worlds as full cards of equal weight, lead first. Each card carries, in this order:
+Write the three dealt worlds as full cards of equal weight, in `DEALT` order, the lead marked. Each card carries, in this order:
 - Thesis: the object or behaviour and the two ruts it refuses.
 - World: colour strategy, temperature, light or dark and why, the character of the type voice, the material policy (names, not hexes or faces; `awards:system` chooses those).
 - First viewport: the composition in one sentence, with the primary action's position.
@@ -96,11 +96,11 @@ Write the three dealt worlds as full cards of equal weight, lead first. Each car
 - Honest risk: what this direction costs in build time, assets, usability or budget.
 - Nearest card and the difference: the `[site:slug]` a juror might think of, and the move that keeps this from being it.
 
-Then add two more options and present everything in one AskUserQuestion round:
-- Your own pick: one of the three, or a fourth from the undealt pool when the deal missed the strongest world, labelled as your pick with one sentence of reason.
+Then add your pick and the exit, and present everything in one AskUserQuestion round:
+- Your own pick: one of the three, labelled as your pick with one sentence of reason. A deal that missed the strongest world goes to the plain re-roll, never to an undealt world.
 - The conventional exit: the competent, conventional site for this category, described honestly with its ceiling (Design around 7, Creativity around 6) and its advantages (speed, safety, no pipeline).
 
-Options in the question: each dealt card by name, your pick when it differs, the conventional exit, and "re-roll". One round; the answer locks the direction. Rewriting a card after the answer to "improve" it is a second round in disguise and is not done.
+Options in the question: each dealt card by name with your pick marked, the conventional exit, and "re-roll". One round; the answer locks the direction. Rewriting a card after the answer to "improve" it is a second round in disguise and is not done. Unattended, with no user to answer, lock your pick among the dealt three and state why in one sentence in the reply.
 
 ### Re-roll registers
 
@@ -177,7 +177,7 @@ When the user wants options for a component, run Steps 3 and 4 with three worlds
 - [ ] The concept survives with WebGL removed; the page still argues the thesis in the DOM.
 - [ ] DIVERGENCE names three real `[site:slug]` entries from the index or `.awards/sites/`, each with a take and a refuse line; no card's signature, section order, copy, hexes or pairing appears anywhere in the contract.
 - [ ] `roll.mjs` was actually run; the `SEED` line is in the `Seed` field; re-rolls used the same seed.
-- [ ] The conventional exit was offered and its ceiling stated; the user locked the direction in one round.
+- [ ] The conventional exit was offered and its ceiling stated; the user locked the direction in one round, or, unattended, your pick among the dealt three was locked with its reason stated.
 - [ ] The visitor mode (from the brief or `--mode`) is honoured: no gate before content in persuade, a rail out in experience, the index on screen one in read.
 - [ ] `## Status` shows "Direction contract locked (concept)" ticked and nothing else changed.
 
@@ -192,6 +192,6 @@ The next phase belongs to `awards:system`, which needs the WORLD block and the b
 - The category rut and the Awwwards rut, however the user phrases the request; both are named in THESIS as refusals.
 - Any card's signature, section order, copy, palette, type pairing or asset, including when the user asks for "something like" a named site; the card's principle is offered instead.
 - A direction that needs assets the user cannot supply (a commissioned object per variant, drone footage, a full bake pipeline) unless the brief labels them synthetic and they can be authored for the build.
-- A deal without the script, three variants of one idea presented as three worlds, a fourth or fifth option beyond your pick and the exit, more than two re-rolls, a second question round.
+- A deal without the script, an undealt world locked or offered, three variants of one idea presented as three worlds, any option beyond the dealt cards, the exit and re-roll, more than two re-rolls, a second question round.
 - A gate in front of the content, two interruptions, two signatures, or a scroll model chosen for spectacle rather than for the story.
 - Faces, hexes or effect parameters written into WORLD: that is `awards:system` and `awards:motion` work, done with the reference files they own.

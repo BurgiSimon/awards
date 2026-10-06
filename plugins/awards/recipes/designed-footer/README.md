@@ -16,7 +16,7 @@ The verifier captures top, preceding context, final viewport and keyboard-focus 
 
 ## Visual notes
 
-Captured 2026-09-22 from the built page in headless Chromium 153.0.8010.12 on Linux, device scale 1, system fonts, normal motion. Desktop is 1440×900 CSS px; mobile is 390×844 CSS px with touch/mobile emulation. All published PNGs are unedited browser screenshots under 1 MiB. Reviewed for hierarchy, aligned edges, crop, whitespace and responsive order; no material defect was found in these frames.
+The PNGs below predate the 2026-10-06 removal of eyebrow labels and numbered markers; re-capture them before relying on the frames. Captured 2026-09-22 from the built page in headless Chromium 153.0.8010.12 on Linux, device scale 1, system fonts, normal motion. Desktop is 1440×900 CSS px; mobile is 390×844 CSS px with touch/mobile emulation. All published PNGs are unedited browser screenshots under 1 MiB. Reviewed for hierarchy, aligned edges, crop, whitespace and responsive order; no material defect was found in these frames.
 
 ### Desktop
 
@@ -25,7 +25,7 @@ Captured 2026-09-22 from the built page in headless Chromium 153.0.8010.12 on Li
 Final viewport; scroll 100%.
 
 - Hierarchy: the large reversed statement dominates the dark field; a clay contact action balances its right side.
-- Alignment: overline, heading, signature and colophon repeat the left gutter; the action aligns with the statement’s lower edge.
+- Alignment: heading, signature and colophon repeat the left gutter; the action aligns with the statement’s lower edge.
 - Crop: this ending deliberately contains no image, allowing the product photography earlier in the document to resolve into a direct invitation.
 - Measure and whitespace: two statement lines and broad space above the lower rule create a slower final beat without burying navigation.
 - Recomposition: the desktop message/action row becomes a vertical stack on mobile, while the complete close remains within its final viewport.

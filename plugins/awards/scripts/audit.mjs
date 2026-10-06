@@ -33,7 +33,9 @@ function add(rule, file, line, detail) {
   const r = RULES[rule];
   if (!r) return;
   if (scopes && !scopes.has(r.scope)) return;
-  findings.push({ rule, severity: r.severity, scope: r.scope, file, line: line ?? null, message: detail ? `${r.message}: ${detail}` : r.message, fix: r.fix });
+  // A rule may judge the shipped catalogue harder than a user build: recipes are what gets copied.
+  const severity = r.recipeSeverity && /(^|[\\/])recipes[\\/]/.test(file) ? r.recipeSeverity : r.severity;
+  findings.push({ rule, severity, scope: r.scope, file, line: line ?? null, message: detail ? `${r.message}: ${detail}` : r.message, fix: r.fix });
 }
 
 // ---------- target resolution ----------
@@ -109,7 +111,7 @@ const awardsMd = [path.join(projectDir, 'AWARDS.md'), !isUrl && fs.statSync(path
 for (const p of awardsMd) {
   if (!fs.existsSync(p)) continue;
   const md = fs.readFileSync(p, 'utf8');
-  const sec = md.split(/^## Exceptions/m)[1];
+  const sec = md.split(/^## Exceptions/m)[1]?.split(/^## /m)[0];
   if (!sec) continue;
   for (const m of sec.matchAll(/\b([A-Z]\d{2})\b/g)) exceptions.add(m[1]);
 }
@@ -362,7 +364,7 @@ for (const s of htmlSources) {
   }
   for (const m of t.matchAll(/<(div|span)\b[^>]*\bonclick=/gi)) add('A05', file, lineOf(t, m.index));
   const cls = classNames(t);
-  for (const c of cls) if (c.classes.some((k) => /^(eyebrow|kicker|overline|pre-?heading)$/i.test(k))) add('L05', file, c.line);
+  for (const c of cls) if (c.classes.some((k) => /(^|__|-)(eyebrow|kicker|overline|pre-?heading)$/i.test(k))) add('L05', file, c.line);
   for (const m of t.matchAll(/<(\w+)\b[^>]*class(?:Name)?=["'][^"']*\b(badge|pill|chip)\b[^"']*["'][^>]*>[^<]{0,80}<\/\1>\s*<h[12]\b/gi)) add('L05', file, lineOf(t, m.index), `.${m[2]} above a headline`);
   const cardCount = cls.filter((c) => c.classes.some((k) => /^card$/i.test(k))).length;
   if (cardCount >= 4 && (t.match(/<h3\b/gi) || []).length >= 4) add('L04', file, null, `${cardCount} .card blocks`);
@@ -389,7 +391,13 @@ for (const s of htmlSources) {
   if (dashes >= 6 && sentences >= 6 && dashes / sentences > 0.3) add('X18', file, null, `${dashes} em dashes in ${sentences} sentences`);
   const emoji = text.match(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/gu);
   if (emoji && emoji.length >= 3) add('X03', file, null, `${emoji.length} emoji`);
-  if ((text.match(/\b0[1-9]\s*[\/·—-]/g) || []).length >= 3) add('X07', file, null);
+  // Micro-meta (`/ 01`, `No. 01`) is the habit even once; a bare `01 /` only as a run of three.
+  // Tags become \u0001 so a word in the previous element (a nav link) does not read as `12/03` or `01 / 08`.
+  const nodes = copy.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>|<[^>]+>/gi, '\u0001');
+  const meta = nodes.match(/(?<!\w\s*)\/\s*0[1-9]\b|\bNo\.\s*0[1-9]\b/);
+  const at = meta ? t.indexOf(meta[0].trim()) : -1;
+  if (meta) add('X07', file, at >= 0 ? lineOf(t, at) : null, meta[0].trim());
+  else if ((text.match(/\b0[1-9]\s*[\/·—-]/g) || []).length >= 3) add('X07', file, null);
   const statEls = cls.filter((c) => c.classes.some((k) => /^(stat|metric|counter|kpi)s?$/i.test(k)));
   const statRow = cls.find((c) => c.classes.some((k) => /^(stats|metrics|numbers|kpis|stat-row|stats-row)$/i.test(k)));
   if (statEls.length >= 3) add('X08', file, null);

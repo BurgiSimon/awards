@@ -133,7 +133,7 @@ Why: a component earns its place by the job it does in the story, not by being s
 - **Anatomy.** One `<video>` with a poster; a fixed dock state and an in-flow state; a click on the dock scrolls to the section.
 - **Motion.** Scrubbed with no easing; animate `transform: scale` rather than width and height.
 - **Accessibility.** The dock is a labelled button; the clip pauses under reduced motion and sits in the flow on phones.
-- **Recipe.** `[recipe:scroll-pin-scrub]`.
+- **Recipe.** `[recipe:docked-media-grow]`; `[recipe:scroll-pin-scrub]` when the media holds a stage instead.
 - **Refuse.** Tweening width and height on scroll [site:noth] [verified]; a dock over the phone's reading column.
 
 ### Horizontal rail inside a vertical page
@@ -225,7 +225,7 @@ Why: a component earns its place by the job it does in the story, not by being s
 - **Anatomy.** A `<ul>` with one `<li>` per project; inside it one strip of stills duplicated once for the wrap and a caption; the filter as real buttons.
 - **Motion.** One px/s for every row (`[pattern:components-catalog#ticker-and-marquee]`); on hover the stills grow to 1.2× over .4 s on a late-overshoot `cubic-bezier(1, 0, .47, 1.25)` and a muted clip plays, mounted only on intersect for `(hover: hover)` without reduced motion [site:boc] [verified].
 - **Accessibility.** One link per project with the stills `aria-hidden` — the source makes each still its own stop, 203 for nine projects [site:boc] [verified]; the strip pauses on hover, focus and offscreen so a still can be read at rest; stopped under reduced motion; a still in place of the hover clip on touch.
-- **Recipe.** `[recipe:marquee-raf-mask]` for the strip; `[recipe:page-transitions]` for the exit into the case.
+- **Recipe.** `[recipe:filmstrip-index-rows]`; `[recipe:page-transitions]` for the exit into the case.
 - **Refuse.** The rows as drawn — every project's stills drifting under a name / line / view caption; a link per still; an index with no close.
 
 ### Wavy text and the second text system
@@ -283,7 +283,7 @@ Why: a component earns its place by the job it does in the story, not by being s
 - **Anatomy.** One `<form>`; every fragment a real `<label>`; placeholders as the blanks; a plain submit.
 - **Motion.** None beyond focus states.
 - **Accessibility.** Each field has its fragment as its name; errors in a live region; works as one column on phones.
-- **Recipe.** None.
+- **Recipe.** `[recipe:sentence-form-enquiry]`.
 - **Refuse.** Fragments drawn as pseudo-content; the gallery's lines.
 
 ### Designed 404

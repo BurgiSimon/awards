@@ -61,7 +61,7 @@ These are the habits a generator falls into when nobody made a decision, grouped
 | Tell | Caught by | Earned when |
 |---|---|---|
 | A reflex face as the first family | T01 | A deliberate pick, with the reason recorded |
-| A small uppercase label or pill over every heading | L05 | Labels are the texture of a metadata world `[pattern:typography#labels-as-texture]` |
+| A small uppercase label or pill over every heading, or its cousins: middle-dot strips, No./Vol. micro-meta, locale and time strips, version footers | L05 | Labels are the texture of a metadata world the WORLD names (catalogue, archive, spec sheet, call sheet, timetable) `[pattern:typography#labels-as-texture]` |
 | A rounded icon tile stacked over each heading | L04 | — |
 | A sentence-long headline at display size filling the first screen | judge | The headline is the hero archetype and says one thing in few words `[pattern:hero-archetypes]` |
 | Italic serif display as the "premium" costume | judge (T01 catches the usual faces) | The serif is the brand's voice across the whole system `[pattern:typography#contracts]` |
@@ -82,13 +82,15 @@ These are the habits a generator falls into when nobody made a decision, grouped
 | Pure black or white grounds | C02 | The black is diegetic |
 | Grey text washed out on a coloured field | C01 | — |
 
+Paper ground, tracked mono labels and hairlines together count as one register, not three choices: the editorial-print default. When all three are present, judge them as the cream row above.
+
 ### Layout
 | Tell | Caught by | Earned when |
 |---|---|---|
 | Template order: hero, logos, features, testimonials, pricing, FAQ, CTA | judge | Chapters with beats and one interruption `[pattern:narrative-structures]` |
 | Identical icon-heading-text card grid | L04 | — |
 | A hero-metric row | X08 | Numbers carried inside sentences `[pattern:copy-and-content#numbers-not-adjectives]` |
-| 01 / 02 / 03 section markers by habit | X07 | The sequence means something to the reader |
+| 01 / 02 / 03 section markers by habit, `/ 01` and `No. 01` included | X07 | The sequence means something to the reader; a middle-dot strip, No./Vol. issue line, locale or time strip, or version footer carries a fact of the world, not issue-number costume |
 | The same gap everywhere, so nothing groups | judge | — |
 | Opening columns of very different heights; a heading nearer the previous block than its own | judge | — |
 | Text under an opaque layer, or menus and popovers clipped by overflow | judge (L02 catches sideways overflow) | — |
@@ -104,6 +106,7 @@ These are the habits a generator falls into when nobody made a decision, grouped
 | Pulsing dots, blinking carets, floating blobs on a loop | X14 | The state is live: a recording light, a field being typed |
 | Every image zooms or turns on hover | X15 | The hover carries information `[pattern:motion-vocabulary#hover-shifts]` |
 | A marquee scrolling on its own | judge | rAF-driven, masked and pausable `[recipe:marquee-raf-mask]` `[site:seasats]` |
+| The staple kit: preloader counter, fullscreen nav overlay, two-speed cursor, magnetic button, marquee and masked split-text reveal, three or more at recipe-default shape | judge | Each beyond two is reshaped to the world and noted in `DESIGN.md ## Components` |
 | Animating width, height, top or left | M07 | — |
 | Content that stays invisible when an entrance fails | L06 *render* | — |
 

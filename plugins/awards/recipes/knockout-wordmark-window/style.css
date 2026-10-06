@@ -26,8 +26,8 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .hero__mark svg { width: 100%; height: auto; overflow: visible; }
 .hero__solid { fill: var(--ground); }
 /* Text sits above the solid rect: positioned with a higher z-index than the mark. */
-.hero__kicker, .hero__foot { position: relative; z-index: 1; margin: 0; }
-.hero__kicker { align-self: center; max-width: 24ch; font-family: var(--font-display); font-size: clamp(1.5rem, 3.2vw, 3.25rem); line-height: 1.05; letter-spacing: -.02em; }
+.hero__lede, .hero__foot { position: relative; z-index: 1; margin: 0; }
+.hero__lede { align-self: center; max-width: 24ch; font-family: var(--font-display); font-size: clamp(1.5rem, 3.2vw, 3.25rem); line-height: 1.05; letter-spacing: -.02em; }
 .hero__foot { display: flex; justify-content: space-between; align-items: end; gap: calc(var(--unit) * 6); }
 .hero__foot > * { margin: 0; }
 .hero__lede { max-width: 44ch; }

@@ -44,5 +44,7 @@ for (let i = pool.length - 1; i > 0; i--) {
 const dealt = pool.slice(0, deal).sort((a, b) => a - b);
 console.log(`SEED ${seed}${reroll ? ` (reroll ${reroll})` : ''}`);
 console.log(`DEALT ${dealt.join(' ')} of ${of}`);
-console.log(`LEAD ${dealt[0]}`);
-console.log('Present the dealt candidates as full cards of equal weight, lead first; keep the others in the re-roll pool.');
+// Drawn after the shuffle, so DEALT stays what earlier versions printed for the same seed.
+const lead = dealt[Math.floor(rand() * deal)];
+console.log(`LEAD ${lead}`);
+console.log('Present the dealt candidates as full cards of equal weight in DEALT order, the lead marked; keep the others in the re-roll pool.');
