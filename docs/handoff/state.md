@@ -22,7 +22,7 @@ reference. `decisions.md` records choices already taken.
 - Audit: L05 BEM-aware, X07 catches `/ 0N` and `No. 0N` (P2 under `recipes/`), Exceptions parse stops at the next `##`. 14 recipes cleaned and re-verified; audit `recipes` P0–P2 clean.
 - `UserPromptSubmit` route hint (`scripts/route-hint.mjs`); new `route-full-tools-brief` eval and `jury-generic-saas/not-shipped` grader, both unpaid so far.
 - Checks green: validate, lint-refs (620 files), selftest, behavior 15/15 (needs `AWARDS_PLAYWRIGHT`), verify-recipes 14/14, codex-install `--build`.
-- Open: run the paid `--tag route` eval.
+- Paid `--tag route` eval 2026-10-06 against `250e141`: 3 / 3 reached `awards:craft`, $6.23. No hint-off arm, so the hint's share of the lift is not isolated.
 
 ## 0.5.0 — deep modes (branch `feat/deep-modes`)
 
