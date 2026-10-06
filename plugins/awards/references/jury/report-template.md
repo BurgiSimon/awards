@@ -19,7 +19,7 @@ With valid rendered evidence, use the two tables from `rubric.md`: four axes wit
 One paragraph in the voice of a visitor an hour later. It must name an object or a behaviour ("the helmet that turned into a wireframe as I scrolled"), never an atmosphere ("dark and premium").
 
 ## Specificity test
-`no` or `yes — <site> — <what to change>`. Compare the first viewport against the three DIVERGENCE cards and the wider index.
+`no` or `yes — <site> — <what to change>`. Compare the first viewport against the three DIVERGENCE cards and the wider index. Then one finish-bar line per card: `<slug> — <finish gap> — <build capture> vs <neighbour capture>`, or `<slug> — neighbour frame unavailable`.
 
 ## Slop scan
 The second direction of the specificity test. It uses the tables in `references/anti-patterns.md#the-slop-scan`: first the audit rules, then the `judge` rows read off the captures. Write `families present: n`, then one line per family naming it and its evidence (capture, `file:line` or rule id), then `generator nameable: yes | no`. Two or more families is a yes, and it caps Creativity at 6. An earned use recorded under `## Exceptions` with its reason is not counted.

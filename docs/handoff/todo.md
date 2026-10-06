@@ -1,5 +1,11 @@
 # Open todos
 
+## Ceiling (feat/ceiling) follow-ups
+
+1. Hand-fix §8 Take on `boc`, `eugeniagrab` and `aqualoqa` so each names a compositional, typographic or structural move, not only technique (analysis P03).
+2. Measure, paid: A/B `--tag build` for Design score, finish-type fixes and clone rate (P02); spread of `Calibration:` values across 3–4 briefs (P03); distinct Layout values and adjacent repeats per page (P04). Run the paid `--tag route` eval against `250e141`.
+3. Undecided: drop the demo mastheads' numbered markers (`04 — Typography`, `05 — Art direction`, `07 —`, `09 —`) and typography's `Study 01.` captions; if dropped, re-capture hero and typography `visuals/`.
+
 ## Deep modes (0.5.0) follow-ups
 
 1. Done 2026-10-05: deep evals 3/3 each after the component hand-off fix; trigger-motion, trigger-webgl-hero and trigger-component-nav 3/3 (`evals/README.md`). Still open: a full `--tag smoke` run with the no-plugin baseline.

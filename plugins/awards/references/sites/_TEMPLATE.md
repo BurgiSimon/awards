@@ -39,7 +39,7 @@ What the jury docked or what the sources show missing (usability, reduced motion
 Stated so they apply to any subject.
 
 ## 8. Take / Don't take
-- **Take:** the transferable moves (parameters, structures, decisions).
+- **Take:** the transferable moves (parameters, structures, decisions); at least one compositional, typographic or structural, not only technique.
 - **Don't take:** the literal moves that would make new work a copy (section order, copy lines, palette hexes, assets, the signature as-is).
 
 ## 9. Confidence and sources

@@ -118,7 +118,7 @@ Why: one schema across the corpus lets the planning skills compare cards by the 
 - §5 Tech and pipeline: the stack table with evidence, asset weights from the manifest and the fetched sizes, the resize and quality strategy where visible.
 - §6 Weaknesses: what a jury would dock (section 6 below), then what the awards skills do differently.
 - §7 Principles: three to six, stated so they apply to any subject, none of them naming the site's own content.
-- §8 Take / Don't take: the transferable decisions and parameters, then the literal moves that would make new work a copy (section order, copy lines, palette hexes, assets, the signature as-is).
+- §8 Take / Don't take: the transferable decisions and parameters, at least one of them compositional, typographic or structural rather than technique, then the literal moves that would make new work a copy (section order, copy lines, palette hexes, assets, the signature as-is).
 - §9 Confidence and sources: one line per section and the sources actually used, with the capture date and the reachability.
 
 Before writing §7 and §8, read the two nearest existing cards from `${CLAUDE_PLUGIN_ROOT}/references/sites/_index.md` for the register and the depth the corpus expects. Keep the card under 200 lines.

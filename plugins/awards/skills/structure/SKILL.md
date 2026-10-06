@@ -60,7 +60,8 @@ List from `## Brief` and the project: headings and paragraphs that exist; number
 
 Why: `AWARDS.md ## Page map` is the one table every later skill reads: motion authors a moment per row, WebGL builds a scene per row that names one, ship checks every row rendered.
 
-- One row per chapter or route with the template's columns: `#`, `Chapter / route`, `Beat (entrance · hold · exit)`, `Components (recipe ids)`, `Notes`. The beat column comes from STORY; the concept phase may have left the skeleton rows.
+- One row per chapter or route with the template's columns: `#`, `Chapter / route`, `Beat (entrance · hold · exit)`, `Layout`, `Components (recipe ids)`, `Notes`. The beat column comes from STORY; the concept phase may have left the skeleton rows.
+- Layout in the world's words ("ruled columns of a call sheet", not "two-column"): no layout in two adjacent chapters; at least four distinct layouts on a page of six or more chapters; a split header (wordmark left, links right) only when the thesis needs one.
 - Rule of three inside a hold: three support points at most.
 - Place the signature in exactly one chapter and the interruption in exactly one, after the first content beat; write which row carries each.
 - Pacing: alternate spectacle and rest; after a scrubbed scene a block that only reads; at most one hero-scale moment per chapter and never in two adjacent chapters; a dense chapter (a spec table, a triptych) is followed by a single line at display scale.
@@ -143,7 +144,7 @@ Read the HTML top to bottom with styles disabled (or as source): it must read as
 - [ ] No identical card grid, eyebrow labels, hero-metric row or numbered markers by habit (L04, L05, X07, X08); no template order.
 - [ ] The footer is designed with the conversion in the page's register; the 404 exists, reads in the world and has three routes out.
 - [ ] The responsive strategy is named; 320 px shows no horizontal scroll; the coarse-pointer swaps are planned per component.
-- [ ] Every page map row has a beat, at least one component id or `custom`, an accessibility need and a static-tier still; the signature and the interruption each live in exactly one row.
+- [ ] Every page map row has a beat, a Layout no adjacent row repeats (four or more distinct from six chapters), at least one component id or `custom`, an accessibility need and a static-tier still; the signature and the interruption each live in exactly one row.
 - [ ] `DESIGN.md ## Components` has an entry per chosen component.
 
 ## Hand-off

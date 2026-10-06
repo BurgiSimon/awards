@@ -40,7 +40,7 @@ Why: the type and colour rules live in two pattern files with the corpus evidenc
 - `${CLAUDE_PLUGIN_ROOT}/references/reflex-lists.md` before naming any face or palette; its alternatives table is the shortlist.
 - `${CLAUDE_PLUGIN_ROOT}/references/craft-floor.md`, the Type and Colour and material sections, for the audit rule ids the result is measured against.
 - `${CLAUDE_PLUGIN_ROOT}/assets/templates/DESIGN.md` for the frontmatter schema and the section names; `${CLAUDE_PLUGIN_ROOT}/recipes/_shared/tokens.css` for the token names every recipe expects.
-- One or two cards by contract type, §3 Visual language and §8 Take / Don't take only: `[site:the-line]` for one variable grotesk with a vw-lock, `[site:leo-parpeix]` for a two-family contract with a theme per section, `[site:slosh-seltzer]` for a palette as navigation. Their hexes and pairings are evidence, never values.
+- §3 Visual language and §8 Take / Don't take of the three DIVERGENCE cards (`${CLAUDE_PLUGIN_ROOT}/references/sites/<slug>.md`, or `.awards/sites/<slug>.md`). With no contract, one or two by contract type instead: `[site:the-line]` for one variable grotesk with a vw-lock, `[site:leo-parpeix]` for a two-family contract with a theme per section, `[site:slosh-seltzer]` for a palette as navigation. Their hexes and pairings are evidence, never values; what transfers is a relationship (display-to-body ratio, clamp vw, columns, ground lightness, accent share). Write one `Calibration:` line per card read into `DESIGN.md ## Overview`: the `[site:slug]`, the relationship, and this world's value with its WORLD reason.
 
 ## Inputs
 
@@ -131,7 +131,7 @@ Run `node "${CLAUDE_PLUGIN_ROOT}/scripts/audit.mjs" <dir> --scope fonts,contrast
 - [ ] Type scale carries `--display`, `--h2`, `--h3`, `--body` and `--label`; no label above a heading unless WORLD names a metadata world.
 - [ ] Motion tokens present with values chosen from WORLD and the register recorded under `## Motion`; three duration bands; reduced-motion shortening in place, no global kill.
 - [ ] `DESIGN.md` frontmatter, prose and `tokens.css` carry identical values; every token name in `recipes/_shared/tokens.css` is present unchanged.
-- [ ] No hex, pairing or set from any corpus card reused as a package.
+- [ ] No hex, pairing or set from any corpus card reused as a package; one `Calibration:` line per card read, each citing its `[site:slug]`.
 
 ## Hand-off
 

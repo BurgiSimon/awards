@@ -181,7 +181,7 @@ Why: a shipped debug panel or a console full of logs costs the code-quality sub-
 - Debug flags off: query-string switches, `stats.js`, GUI panels, `ScrollTrigger` markers, wireframe toggles.
 - No `console.log` in the shipped bundle; no `console.error` from the page in a clean profile (the manifest shows zero).
 - Unused dependencies removed from `package.json` (`npx depcheck` when available, otherwise grep the imports); lockfile updated.
-- `.awards/captures/`, `.awards/research/` and `.awards/audit.json` in `.gitignore`; reports under `.awards/jury/` and `.awards/ship/` stay tracked.
+- `.awards/captures/`, `.awards/research/`, `.awards/neighbours/`, `.awards/capture.lock` and `.awards/audit.json` in `.gitignore`; reports under `.awards/jury/` and `.awards/ship/` stay tracked.
 - Synthetic content labels in `AWARDS.md ## Brief` still true; no lorem or placeholder images (X02).
 
 ## Component mode

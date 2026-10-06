@@ -39,6 +39,7 @@ What a visitor who left after one viewport describes an hour later — an object
 
 ## Specificity test
 Could a juror name a source site from the first viewport? no / yes — which, and what to change:
+<!-- finish bar, one line per DIVERGENCE card: <slug> — <finish gap> — <build capture> vs <neighbour capture>, or <slug> — neighbour frame unavailable -->
 
 ## Slop scan
 families present: n

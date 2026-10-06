@@ -54,6 +54,7 @@ The frontmatter is the machine-readable layer (DESIGN.md spec: tokens are normat
 - **Creative north star:** one named metaphor for the whole world.
 - **Colour strategy:** restrained / committed / drenched / theme-per-section — and why the use scene forces light or dark.
 - **What this world refuses:** the category default and the Awwwards default it will not ship.
+- **Calibration:** [site:slug] — one relationship from its §3 → this world's value and the WORLD reason (one line per DIVERGENCE card).
 
 ## Colors
 Roles (ground, ink, accent, surfaces), contrast pairs with ratios (body ≥ 4.5:1, large ≥ 3:1), the theme table (`data-theme` values and the tokens each remaps), wide-gamut duplicates (`color(display-p3 …)`), where chroma comes from (tokens vs imagery).

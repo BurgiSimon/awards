@@ -25,7 +25,7 @@
 - **Visitor mode:** persuade / experience / read
 
 ## Direction contract
-- **THESIS:** the one idea this surface owns; the category default it refuses and the Awwwards default it refuses.
+- **THESIS:** the one idea this surface owns; the category default, the Awwwards default and the template skeleton it refuses.
 - **WORLD:** colour strategy and tokens, type contract, materials — recognisable with every word removed.
 - **STORY:** the narrative model, the chapter beats (entrance · hold · exit), the interruption, the close.
 - **FIRST VIEWPORT:** the exact composition — what is where, at what scale, and where the primary action sits.
@@ -37,8 +37,8 @@
 - **Seed:** (printed by `roll.mjs`)
 
 ## Page map
-| # | Chapter / route | Beat (entrance · hold · exit) | Components (recipe ids) | Notes |
-|---|---|---|---|---|
+| # | Chapter / route | Beat (entrance · hold · exit) | Layout | Components (recipe ids) | Notes |
+|---|---|---|---|---|---|
 
 ## Motion score
 | Moment | Trigger | Vocabulary (ease · duration · stagger) | Reduced-motion tier | Recipe |

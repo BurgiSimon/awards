@@ -17,7 +17,7 @@ The register every model reaches for when asked for "an award-winning site": nea
 | Sound on by default, or UI sound with no switch | The visitor is ambushed; jurors browse muted | Opt-in behind a stated toggle `[pattern:sound#opt-in-only]`; `[site:pensatori-irrazionali]` `[site:haoqi]` `[site:spasoje]` `[site:siena]` `[site:aqualoqa]` are what to beat |
 
 ## The category defaults
-Each class has its own rut. Concept work names both ruts (category and Awwwards) before dealing directions.
+Each class has its own rut. Concept work names three ruts (category, Awwwards, template skeleton) before dealing directions.
 
 | Class | What every model ships | What the corpus did instead |
 |---|---|---|

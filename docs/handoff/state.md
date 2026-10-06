@@ -5,6 +5,15 @@ recorded below in [Candidate verification record](#candidate-verification-record
 `verification-log.md` record the earlier 0.2.0 work. `plan.md` is the 0.1.0 specification, kept for
 reference. `decisions.md` records choices already taken.
 
+## Ceiling (branch `feat/ceiling`, 2026-10-06)
+
+- Source: `analysis-2026-10-06.md` P02, P03, P04; plan: `docs/superpowers/plans/2026-10-06-ceiling.md`.
+- Layout (P04): concept names a third rut, the template skeleton; FIRST VIEWPORT takes copy, nav and action form from WORLD. Page map gains a `Layout` column; structure fills it (no adjacent repeat, four distinct on six or more chapters, split header only when the thesis needs it).
+- Neighbours (P03, P02): system calibrates against the three DIVERGENCE cards' §3 and writes one `Calibration:` line per card in `DESIGN.md ## Overview`. §8 Take and concept takes need one compositional, typographic or structural move. The jury reuses or captures each neighbour into `.awards/neighbours/<slug>/` behind the capture lock and names one finish gap per card; ship never ships that folder.
+- The six visual examples re-captured 2026-10-06; stale-screenshot notes removed.
+- New graders `layout-column`, `calibration-cites-neighbour`. Checks green: validate, lint-refs (622 files), selftest 17/0 defective, visual-library 16, jury-evidence 5, audit `recipes` P0–P2 clean, verify-recipes 6/6, behavior 15/15.
+- Open: see `todo.md` Ceiling follow-ups (card §8 hand-fixes, paid measures, demo masthead numbers).
+
 ## Now items (branch `feat/now-items`, 2026-10-06)
 
 - Source: `analysis-2026-10-06.md`; plan: `docs/superpowers/plans/2026-10-06-now-items.md`.
@@ -13,7 +22,7 @@ reference. `decisions.md` records choices already taken.
 - Audit: L05 BEM-aware, X07 catches `/ 0N` and `No. 0N` (P2 under `recipes/`), Exceptions parse stops at the next `##`. 14 recipes cleaned and re-verified; audit `recipes` P0–P2 clean.
 - `UserPromptSubmit` route hint (`scripts/route-hint.mjs`); new `route-full-tools-brief` eval and `jury-generic-saas/not-shipped` grader, both unpaid so far.
 - Checks green: validate, lint-refs (620 files), selftest, behavior 15/15 (needs `AWARDS_PLAYWRIGHT`), verify-recipes 14/14, codex-install `--build`.
-- Open: re-capture the six visual-example screenshots (`visuals/`), then drop their stale-screenshot notes; run the paid `--tag route` eval.
+- Open: run the paid `--tag route` eval.
 
 ## 0.5.0 — deep modes (branch `feat/deep-modes`)
 

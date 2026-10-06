@@ -37,14 +37,14 @@
 - **Seed:** ferro-2026-02
 
 ## Page map
-| # | Chapter / route | Beat (entrance · hold · exit) | Components (recipe ids) | Notes |
-|---|---|---|---|---|
-| 0 | Preloader | hold on the counter | `[recipe:preloader-counter-hold]` | real signal: two decoded photographs |
-| 1 | Hero | entrance | `[recipe:split-text-masked-reveal]` | headline reveals once, never on re-entry |
-| 2 | Measure · Braze · Paint | hold | `[recipe:sticky-stack-cards]` | three chapters, one rhythm |
-| 3 | The build | hold | `[recipe:scroll-pin-scrub]` | the signature, one pin only |
-| 4 | Waiting list | exit | `[recipe:marquee-raf-mask]` | the interruption, slot years scrolling |
-| 5 | Book a fitting | exit | — | form, then footer |
+| # | Chapter / route | Beat (entrance · hold · exit) | Layout | Components (recipe ids) | Notes |
+|---|---|---|---|---|---|
+| 0 | Preloader | hold on the counter | counter alone on paper | `[recipe:preloader-counter-hold]` | real signal: two decoded photographs |
+| 1 | Hero | entrance | headline on the left third, photograph bled right | `[recipe:split-text-masked-reveal]` | headline reveals once, never on re-entry |
+| 2 | Measure · Braze · Paint | hold | stacked job cards | `[recipe:sticky-stack-cards]` | three chapters, one rhythm |
+| 3 | The build | hold | pinned frame on a jig, stage list beside | `[recipe:scroll-pin-scrub]` | the signature, one pin only |
+| 4 | Waiting list | exit | one ruled band of slot years | `[recipe:marquee-raf-mask]` | the interruption, slot years scrolling |
+| 5 | Book a fitting | exit | fitting form as a measurement sheet | — | form, then footer |
 
 ## Motion score
 | Moment | Trigger | Vocabulary (ease · duration · stagger) | Reduced-motion tier | Recipe |

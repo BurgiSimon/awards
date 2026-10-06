@@ -82,6 +82,13 @@ Why: Design carries 40 percent of the weight, and it is where a page either owns
 - First-viewport thesis: is the THESIS block visible at s00 with the copy ignored? If it needs a scroll, name the capture where it first appears.
 - Concept versus effect: list the effects found in the source and ask which one enacts the thesis. More than one signature dilutes; effects with no concept cap Creativity at 6.
 - Specificity, first direction: compare s00 with the three DIVERGENCE cards (`${CLAUDE_PLUGIN_ROOT}/references/sites/<slug>.md`, the table and §8 of each) and with the palette and type columns of `${CLAUDE_PLUGIN_ROOT}/references/sites/_index.md`. Could a juror name the source site?
+- Finish bar: per DIVERGENCE card, reuse a current `desktop-s00.png` from `.awards/research/<slug>/` or `.awards/neighbours/<slug>/`; otherwise capture the URL on the card's first line, all three in one shell call, one at a time (without `flock`, still never beside another capture):
+
+  ```
+  mkdir -p .awards && flock .awards/capture.lock node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <card url> --out .awards/neighbours/<slug> --scroll 0,50 --json
+  ```
+
+  Open its `desktop-s00`, `desktop-s50` and `mobile-s00` beside the build's and name one concrete finish gap per neighbour (edges, image quality, type detail, states) with both capture names, under Specificity test; a gap may enter Material fixes as a design seam. Missing or blank frames (an unreachable site exits 2 with none): write "neighbour frame unavailable" and use the card's §3; this never makes the disposition `recapture`. The neighbour is a finish bar, not a layout to match: a different composition never lowers a score.
 - Specificity, second direction (the slop scan): read `## The slop scan` in `${CLAUDE_PLUGIN_ROOT}/references/anti-patterns.md`. Take the audit's slop, layout and type findings from `.awards/audit.json` first, then walk every `judge` row against the captures. List each family present with its evidence: a capture name, a `file:line` or a rule id. A use recorded under `AWARDS.md ## Exceptions` with a reason a juror would accept is earned and does not count. Two or more families mean a juror could name the generator.
 - World commitment: do s50, s100, the mobile frame, the menu and the 404 belong to the same world as s00, or does a section opt out (a stock component, a second accent, browser-default chrome)?
 - Type: one contract held everywhere, display locked to the artboard, hierarchy readable at phone width, no reflex face as the first family.
@@ -134,7 +141,7 @@ Fill every section of the report:
 - Evidence: the exact manifest path, its applicable chapter/viewport/state coverage and validity, the audit file with its counts, the error counts.
 - Scores: with valid rendered evidence, both tables with a reason next to every number; otherwise every axis, weighted result and developer criterion is `unmeasured`.
 - Memory test: the sentence from section 1 when the first viewport rendered; otherwise `unmeasured`.
-- Specificity test: `no`, or `yes — <site> — <what to change>`.
+- Specificity test: `no`, or `yes — <site> — <what to change>`; then one finish-bar line per neighbour.
 - Slop scan: `families present: n`, one `<family> — <evidence>` line for each, then `generator nameable: yes | no`. The families present enter Material fixes as design seams.
 - Contract fidelity: one row per block, kept or not kept with rendered evidence; otherwise mark visual fidelity `unmeasured` and put any located source findings under `## Source findings`.
 - Material fixes: at most eight, ordered — fidelity first, then walk steps 1 and 3, then audit P0/P1, then design seams. Each row has `location | change | expected visible result | viewport/state | before evidence | after evidence | resolved/partial/unresolved`; the first report uses `unresolved` with `pending` after evidence. Every failed contract block enters the batch or remains explicitly unresolved; no "consider" items.
@@ -207,6 +214,7 @@ This yields `desktop-component-<slug>.png`, its `-hover` frame, `mobile-componen
 
 - All applicable manifest-listed captures, including mobile middle/close, reduced-motion chapters and named states, were opened and named in Evidence with their validity; the audit counts are in the report.
 - The inventory and the memory sentence were written before the contract was read, and the sentence names an object or a behaviour.
+- Each DIVERGENCE neighbour has one finish gap with capture names, or "neighbour frame unavailable".
 - Every measured score has a one-line reason; the site weighted score is the arithmetic of the four axes and component mean of D/U/C; the caps were applied. Missing rendered evidence uses only the unmeasured branch.
 - The disposition follows the derivation order, not a feeling; the fix list is at most eight, ordered, each with a location.
 - `.awards/jury/<date>.md` exists, and `AWARDS.md` gained exactly the two log lines and the Status update; no other project file changed.

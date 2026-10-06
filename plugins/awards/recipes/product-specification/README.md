@@ -20,13 +20,13 @@ Alder Workshop, the bench, specifications, construction and care claims, availab
 
 ## Visual notes
 
-The PNGs below predate the 2026-10-06 removal of eyebrow labels and numbered markers; re-capture them before relying on the frames. Captured 2026-09-22 from the built page in headless Chromium 153.0.8010.12 on Linux, device scale 1, system fonts, normal motion. Desktop is 1440×900 CSS px; mobile is 390×844 CSS px with touch/mobile emulation. All published PNGs are unedited browser screenshots under 1 MiB. Reviewed for hierarchy, aligned edges, crop, whitespace and responsive order; no material defect was found in these frames.
+Captured 2026-10-06 from the built page in headless Chromium 153.0.8010.12 on Linux, device scale 1, system fonts, normal motion. Desktop is 1440×900 CSS px; mobile is 390×844 CSS px with touch/mobile emulation. All published PNGs are unedited browser screenshots under 1 MiB. Reviewed for hierarchy, aligned edges, crop, whitespace and responsive order; no material defect was found in these frames.
 
 ### Desktop
 
 ![product-specification — desktop](visuals/desktop.png)
 
-Specification view; scroll 25%. The opening title is above the frame.
+Specification view; scroll 25%. The opening title meets the top edge.
 
 - Hierarchy: the large product name precedes the profile and the quieter “The particulars” register.
 - Alignment: profile top meets the facts’ top rule; the image caption stays with the left column while values form a separate right column.
@@ -38,12 +38,12 @@ Specification view; scroll 25%. The opening title is above the frame.
 
 ![product-specification — mobile](visuals/mobile.png)
 
-Specification view; scroll 35%. Joinery starts at the lower edge; finish and the care summary follow below.
+Specification view; scroll 35%. Joinery ends at the lower edge; finish and the care summary follow below.
 
-- Hierarchy: the complete profile leads into the label and serif section heading before the fact list.
+- Hierarchy: the complete profile leads into the serif section heading before the fact list.
 - Alignment: image, caption, heading and register share the 20px gutter; each value aligns beneath its label.
 - Crop: the bench remains complete in its natural 3:2 frame, with ample pale wall and floor.
 - Measure and whitespace: separated label/value pairs avoid squeezing “Repairable mechanical joints” into a narrow second column.
-- Recomposition: the image and facts become one reading sequence; this viewport shows width, depth, height and material, with more facts below.
+- Recomposition: the image and facts become one reading sequence; this viewport shows five facts, with finish below.
 
 An unsuccessful alternative would replace units and labels with decorative counters. For another product, use verified facts, truthful care instructions and a matching profile; retest the longest label/value and the open disclosure.
