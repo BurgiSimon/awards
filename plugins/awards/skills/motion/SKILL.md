@@ -80,7 +80,7 @@ Some sites are carried by their choreography: no canvas, or a canvas that only f
 - **Stay standard** for a one-row component score, a motion pass that only removes generic motion, or `--lib anime|css`. Stay-standard rules override every Enter criterion except an explicit `--gsap` or a recorded `Deep modes: motion gsap`.
 - **Record** the choice on the motion half of the `Deep modes:` line in `AWARDS.md ## Budgets & tiers` (`motion gsap` or `motion none`, with the reason), and open the reply with `Deep mode: gsap — <reason>` or `Deep mode: none`.
 - **Read** `${CLAUDE_PLUGIN_ROOT}/references/patterns/gsap-choreography.md` in full, then the `### Tech lens: GSAP` subsection of the two nearest cards in its `## Teardowns` table.
-- **Add to the score:** every row names its timeline and label (`master@ch2`); one master timeline per scroll model; ScrollTrigger rows record start, end, scrub, pin or sticky and snap `[pattern:gsap-choreography#scrolltrigger-configurations]`.
+- **Add to the score:** every scrubbed or sequenced row names its timeline and label (`master@ch2`); a row on no timeline (cursor, magnetic pull, `quickTo` followers, hover feedback) records `—` or `quickTo`. One master timeline per scroll model is this skill set's house rule, not corpus practice: the analysed GSAP sites show no master timeline and almost no chapter labels `[pattern:gsap-choreography#timeline-architecture]`. ScrollTrigger rows record start, end, scrub, pin or sticky and snap `[pattern:gsap-choreography#scrolltrigger-configurations]`.
 - **Build** the chapter beats (step 4 of the build order) on that timeline architecture. API questions still go to the official GSAP skills; nothing from them is copied here.
 
 ## Vocabulary
@@ -265,7 +265,7 @@ Evidence first, then the checklist; the jury reads the captures before it reads 
 - [ ] Cursor, magnetic pull and hover previews are off or replaced on a coarse pointer; every hover is a focus-visible state.
 - [ ] On a motion pass: the before and after counts (section fades, eased scrubs, loops without a pause) are in the reply, and the section fades dropped by more than half.
 - [ ] `AWARDS.md ## Motion score` has every row above with a reduced-motion tier and a recipe id (or "none").
-- [ ] `Deep modes:` names `motion gsap` or `motion none`; in gsap mode every score row names a timeline and label, and every timeline lives in one `gsap.context()` or `gsap.matchMedia()` scope.
+- [ ] `Deep modes:` names `motion gsap` or `motion none`; in gsap mode every scrubbed or sequenced score row names a timeline and label (others record `—` or `quickTo`), and every timeline lives in one `gsap.context()` or `gsap.matchMedia()` scope.
 
 ## Hand-off
 

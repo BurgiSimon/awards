@@ -16,7 +16,7 @@ What this file is for: the deep GSAP path of `awards:motion` (`--gsap`). How the
 
 ## Timeline architecture
 
-Why: a page whose moments are separate tweens cannot be scored, paused or reduced as one; the deep path names one master timeline per scroll model and a label per chapter.
+Why: a page whose moments are separate tweens cannot be scored, paused or reduced as one; the deep path names one master timeline per scroll model and a label per chapter. That is this skill set's house rule, not corpus practice: none of the GSAP cards below shows a master timeline [inferred, every card], why-zero, aardvarkbookclub and bleibtgleich call `addLabel` zero times [verified], and abatable's one label pair gates its router, not its chapters [verified].
 
 - **Flat timelines, no master.** Eighteen `gsap.timeline` calls whose children are tweens, `Flip.fit` results and empty callback tweens that move the hero's current-chapter dot; one label pair, `startEnter` / `pageReady`, gates the router's enter promise [site:abatable] [verified count and labels; no nesting inferred]. Eight timelines local to one moment each (loader hand-off, sheet, nav, a morph, a scene reveal), 63 `to`, 0 `addLabel` [site:why-zero] [verified counts; no master inferred]. Neither has a master to score, pause or reduce — the Refuse line below, shipped twice. Fourteen timelines and no `addLabel` on both 2026-10-05 GSAP cards: load and route timelines position on implicit string labels (`"start"`, `"start+=1.1"`, `"startLeave"`) [site:aardvarkbookclub] [verified]; 77 `gsap.set`, 25 `killTweensOf`, 3 `quickTo` and no `gsap.context` beside them [site:bleibtgleich] [verified counts; no master inferred on both].
 - **GSAP beside a clock it does not own.** The narrative float is hand-rolled (`SCROLL_LERP .075`, gate auto-scroll on a written smoothstep `n²(3 − 2n)`), `gsap.ticker` is used once, and GSAP only animates what happens at the float's thresholds and in the HUD; no ScrollTrigger is registered [site:why-zero] [verified]. Where Lenis runs, it rides the GSAP ticker: `lenis.on('scroll', ScrollTrigger.update)`, `lenis.raf(time * 1000)`, `lagSmoothing(0)` [site:abatable] [verified] `[recipe:boot-lenis-gsap]`. Lenis 1.3.21 on the ticker with `lagSmoothing(0)`, rebuilt on each Barba entry [site:bleibtgleich] [verified]. The misses: Lenis on `autoRaf` with `ScrollTrigger.update` on its scroll event and the ticker hookup commented out [site:aardvarkbookclub] [verified]; Lenis 1.0.33 on a bare rAF that never feeds ScrollTrigger, which gets one `refresh()` on `load` [site:stanzza] [verified].
@@ -138,7 +138,7 @@ Why: when GSAP owns the clock, uniforms are tweened values on the same ticker, n
 
 ## Verify
 
-- [ ] Every motion score row names its timeline and label (`master@ch2`).
+- [ ] Every scrubbed or sequenced score row names its timeline and label (`master@ch2`); rows on no timeline (cursor, magnetic pull, `quickTo` followers, hover feedback) record `—` or `quickTo`.
 - [ ] Every timeline is created inside one `gsap.context()` or `gsap.matchMedia()` scope and reverted on teardown.
 - [ ] Every scrubbed tween runs on `ease: 'none'` [M03].
 - [ ] The reduced tier is a `matchMedia` branch, not a global kill [M01] [M02].

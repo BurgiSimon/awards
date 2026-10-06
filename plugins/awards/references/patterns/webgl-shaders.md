@@ -55,7 +55,7 @@ Why: the noise family and its octave count set the texture of the whole site.
 
 Why: section transitions and feedback effects live in render targets; their size and type decide the frame budget.
 
-- **Ping-pong pairs by job.** Four pairs at RGBA16F with an RGBA8 fallback: pointer ripple and a light trail at 512², two cloud sims at 256² [site:edolus] [verified]. Size by what the eye reads — a trail that is looked at gets 512², a backdrop drift gets 256². Ripple values in `[pattern:webgl-architecture#effect-parameters]`.
+- **Ping-pong pairs by job.** Four pairs, all RGBA16F with an RGBA8 fallback: the pointer ripple, a light trail at 512², two cloud sims at 256² [site:edolus] [verified]. Size by what the eye reads — a trail that is looked at gets 512², a backdrop drift gets 256². Ripple size, format and values in `[pattern:webgl-architecture#effect-parameters]`.
 - **A scene drawn into a mesh.** A screen render target with depth draws one scene into a monitor model inside another [site:edolus] [verified].
 - **The scene cut as a pass.** Chapter changes run through a chromatic transition in the post queue with a dip to white, not through a second composited scene [site:edolus] [verified]; values in `[pattern:webgl-architecture#effect-parameters]`.
 - **Float state for a point field.** Two ping-pong pairs at 1102²: a wake timer, and motion with displacement in RG and velocity in BA; RGBA32F under WebGL2 with `EXT_color_buffer_float`, else WebGL1 with `OES_texture_float`, else the effect is skipped and the photograph and video stay; nearest filtering, swapped every frame [site:aqualoqa] [verified].
