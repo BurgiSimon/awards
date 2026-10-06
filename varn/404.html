@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f2eee3">
+  <meta name="robots" content="noindex">
+  <title>No record at this hour · Varn glassworks</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/src/styles/base.css">
+  <style>
+    /* The 404 is the record with no trace: same tokens, same two voices, the axes and nothing drawn. */
+    body { min-height: 100svh; display: grid; grid-template-rows: auto 1fr; }
+    .stamp { display: flex; gap: calc(var(--unit) * 3); padding: calc(var(--unit) * 5) var(--gutter); border-bottom: var(--hairline) solid var(--line); }
+    main { position: relative; display: grid; align-content: end; gap: calc(var(--unit) * 6); padding: calc(var(--unit) * 12) var(--gutter) calc(var(--unit) * 16) calc(var(--gutter) + 3.5rem); }
+    main > * { position: relative; }
+    .routes { display: grid; gap: calc(var(--unit) * 2); padding: 0; list-style: none; }
+    .routes a { display: inline-flex; align-items: center; min-height: 44px; }
+    .axes { position: absolute; inset: calc(var(--unit) * 8) var(--gutter) calc(var(--unit) * 8) calc(var(--gutter) + 3.5rem); width: auto; height: auto; }
+    .axes path { fill: none; stroke-width: var(--hairline); vector-effect: non-scaling-stroke; }
+    .axes .grid { stroke: var(--line); }
+    .axes .frame { stroke: var(--ink); }
+    h1 { max-width: 18ch; text-wrap: balance; }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to the page</a>
+  <header class="stamp t-label"><span>Varn glassworks</span> <span>Run —</span> <span>Hour unknown</span></header>
+  <main id="main">
+    <svg class="axes" viewBox="0 0 1400 1200" preserveAspectRatio="none" aria-hidden="true">
+      <path class="grid" d="M100 0V1200M200 0V1200M300 0V1200M400 0V1200M500 0V1200M600 0V1200M700 0V1200M800 0V1200M900 0V1200M1000 0V1200M1100 0V1200M1200 0V1200M1300 0V1200M0 100H1400M0 200H1400M0 300H1400M0 400H1400M0 500H1400M0 600H1400M0 700H1400M0 800H1400M0 900H1400M0 1000H1400M0 1100H1400"/>
+      <path class="frame" d="M0 0V1200H1400"/>
+    </svg>
+    <h1 class="t-display">No record at this hour.</h1>
+    <p class="t-note">The oven kept no trace at this address. The page may have moved, or the link was mistyped.</p>
+    <ul class="routes t-label">
+      <li><a href="/">Back to hour 0 of run 0417</a></li>
+      <li><a href="/#record-table">Read the annealing record as a table</a></li>
+      <li><a href="/#reserve">Reserve a firing slot</a></li>
+    </ul>
+  </main>
+</body>
+</html>
