@@ -46,8 +46,12 @@ export function createHandler(clock) {
     if (msg.type === 'init') {
       ctx = msg.canvas.getContext('2d');
       colors = msg.colors;
+      t = msg.animate ? 0 : STILL_T;
+    }
+    if ('animate' in msg) {
       animate = msg.animate;
-      t = animate ? 0 : STILL_T;
+      // A live switch to reduced settles on the still frame; init paints on its own size message.
+      if (!animate && msg.type !== 'init') { t = STILL_T; paint(); }
     }
     if (msg.width) { ctx.canvas.width = msg.width; ctx.canvas.height = msg.height; paint(); }
     if ('run' in msg) {

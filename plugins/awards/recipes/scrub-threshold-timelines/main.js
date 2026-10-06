@@ -34,11 +34,12 @@ const BEATS = [
   { key: 'copy', lines: copyLines, from: 0.3, to: 0.6, inSpeed: 1.5, outSpeed: 3.5 },
   { key: 'final', lines: finalLines, from: 0.81, to: Infinity, inSpeed: 1.25, outSpeed: 3.5 },
 ];
-const state = { window: null, progress: 0, frame: 1 };
+const state = { window: null, progress: 0, frame: 1, builds: 0 };
 let mm = null;
 let live = []; // the current tier's copy timelines, read by the verifier hook
 
 function build(tier) {
+  state.builds++;
   const spatial = tier === 'full';
 
   // The copy: paused timelines, never attached to the scroll. Reduced keeps the fade and drops the rise.
@@ -99,10 +100,15 @@ function build(tier) {
 
 // Full: bloom opens and turns, copy rises in. Reduced: no spatial movement (the bloom stays closed, the counter and
 // the step label still follow the scroll), copy fades. Static: copy snaps to its state at each threshold.
+// Two triggers, two disjoint paths: the shared callback hears the media query, the observer hears data-motion.
+// Either can fire without the resolved tier changing (the query flips under a forced tier), so compare first.
+let built = null;
 function applyTier() {
+  const tier = motionTier();
+  if (tier === built) return;
+  built = tier;
   mm?.revert();
   mm = gsap.matchMedia();
-  const tier = motionTier();
   mm.add('all', () => build(tier));
   ScrollTrigger.refresh();
 }
@@ -118,6 +124,7 @@ awards.addState(() => ({
   window: state.window,
   scrubP: Number(state.progress.toFixed(3)),
   frame: state.frame,
+  builds: state.builds,
   copyP: tlP(0),
   finalP: tlP(1),
   open: Number(gsap.getProperty(bloom, '--open')) || 0,

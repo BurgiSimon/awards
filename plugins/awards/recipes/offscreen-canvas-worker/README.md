@@ -4,7 +4,7 @@ Hand an animated canvas (a loader, a generative field) to a Worker with `transfe
 
 ## Why
 - **The loader is the one thing that must not freeze.** A loader drawn in a worker on an OffscreenCanvas keeps its pen moving while shaders compile on the main thread `[site:cutobot-byholm]`; a logo intro renders in a Worker and falls back to the main thread after a timed hello `[site:cyphercapital]` (`[pattern:webgl-architecture]`).
-- **Handshake before transfer.** The canvas is transferred only after the Worker has answered. A transferred canvas can never give a context on the main thread again, so transferring first would leave the fallback without a surface (the recipe still swaps in a cloned canvas if the Worker dies later).
+- **Handshake before transfer.** The canvas is transferred only after the Worker has answered. A transferred canvas can never give a context on the main thread again, so transferring first would leave the fallback without a surface (the recipe still swaps in a cloned canvas if the Worker dies later; `awards.ready()` fires only on the first decision, not again on that late fallback).
 - **One draw module, two clocks.** `draw.js` holds `drawFrame` and a message handler with no DOM access. The Worker drives it from its own `requestAnimationFrame`; the fallback drives it from `_shared/raf.js`. Nothing forks, so the fallback is never a stale copy.
 - **Off-screen means stopped.** An `IntersectionObserver` on the stage posts `{ run }` to whichever thread draws.
 
@@ -12,7 +12,7 @@ Hand an animated canvas (a loader, a generative field) to a Worker with `transfe
 Hello timeout `1000 ms` (`HELLO_TIMEOUT`) · DPR cap `2` · pen trail `1.6 s` over `120` samples · `72` ripple ticks. Colours are read from the CSS tokens once and posted to the Worker (it cannot read CSS).
 
 ## Motion tiers
-`full` animates. `reduced` and `static` post `animate: false`: the Worker (or the fallback) draws one settled frame (`STILL_T`) and starts no loop.
+`full` animates. `reduced` and `static` post `animate: false`: the Worker (or the fallback) draws one settled frame (`STILL_T`) and starts no loop. A live change of the media query (`onMotionTierChange`) posts `{ animate, run }` to whichever thread draws: switching to reduced stops the loop on the settled frame, switching back resumes it. A `data-motion` attribute set at runtime takes the same path through a MutationObserver; `applyTier` returns early when the tier did not change.
 
 ## Accessibility
 The canvas is decorative (`aria-hidden`) with a visible caption; the drawing thread is announced in an `aria-live` output. The "block the main thread" button is a demo control only.

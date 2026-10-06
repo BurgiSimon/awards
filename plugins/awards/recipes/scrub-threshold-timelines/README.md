@@ -16,6 +16,8 @@ Scene `400svh`, `top top` → `bottom bottom`, `scrub: true`, `ease: 'none'` · 
 - **Reduced:** the bloom stays closed; the counter and the step label still follow the scroll; copy fades only (no `yPercent`), on the same thresholds.
 - **Static** (`data-motion="static"`): the scrub still counts; copy is set with `progress(0|1)` at each crossing, no tween.
 
+A live tier change rebuilds once: `onMotionTierChange` hears the media query, a `MutationObserver` hears `data-motion`, and `applyTier` skips the rebuild when the resolved tier is unchanged (the query flipping under a forced `data-motion`).
+
 ## Accessibility
 The copy is real text in the DOM and readable without JavaScript. The scene has a heading. Nothing hijacks the scroll; keyboard scrolling is untouched. The bloom is `aria-hidden`.
 

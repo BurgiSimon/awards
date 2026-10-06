@@ -1,5 +1,5 @@
 import { awards } from '../_shared/awards-hook.js';
-import { motionTier, syncMotionTierAttribute } from '../_shared/reduced-motion.js';
+import { motionTier, onMotionTierChange, syncMotionTierAttribute } from '../_shared/reduced-motion.js';
 import { ticker } from '../_shared/raf.js';
 import { createHandler } from './draw.js';
 
@@ -11,8 +11,8 @@ const out = document.querySelector('[data-mode]');
 let canvas = document.querySelector('[data-loader]');
 const css = getComputedStyle(html);
 const colors = Object.fromEntries(['ground', 'ink', 'accent'].map((k) => [k, css.getPropertyValue(`--${k}`).trim()]));
-const animate = motionTier() === 'full';
-const state = { mode: 'pending', reason: null, decidedMs: null, running: false, blocked: 0 };
+let animate = motionTier() === 'full';
+const state = { mode: 'pending', reason: null, decidedMs: null, running: false, blocked: 0, readyCalls: 0 };
 const t0 = performance.now();
 let worker = null;
 let send = () => {};
@@ -23,6 +23,8 @@ const size = () => {
 };
 
 function start(mode, reason) {
+  // A Worker that errors after the hand-off restarts here on the main thread; the page was already ready.
+  const first = state.mode === 'pending';
   state.mode = mode;
   state.reason = reason;
   state.decidedMs = Math.round(performance.now() - t0);
@@ -31,7 +33,7 @@ function start(mode, reason) {
   send({ type: 'init', colors, animate, ...size() });
   send({ run: visible });
   state.running = visible && animate;
-  awards.ready();
+  if (first) { state.readyCalls++; awards.ready(); }
 }
 
 function runOnMain(reason) {
@@ -61,6 +63,18 @@ new IntersectionObserver(([entry]) => {
   send({ run: visible });
   state.running = visible && animate && state.mode !== 'pending';
 }).observe(stage);
+// A live tier change reaches whichever thread draws: reduced/static settle on the still frame, full resumes the loop.
+// Two triggers, as in scrub-threshold-timelines: the shared callback hears the media query, the observer hears data-motion.
+function applyTier() {
+  const next = motionTier() === 'full';
+  if (next === animate) return;
+  animate = next;
+  if (state.mode === 'pending') return; // init will carry it
+  send({ animate, run: visible });
+  state.running = visible && animate;
+}
+onMotionTierChange(applyTier);
+new MutationObserver(applyTier).observe(document.documentElement, { attributes: true, attributeFilter: ['data-motion'] });
 new ResizeObserver(() => state.mode !== 'pending' && send(size())).observe(stage);
 
 if (!('transferControlToOffscreen' in canvas) || typeof Worker === 'undefined') {

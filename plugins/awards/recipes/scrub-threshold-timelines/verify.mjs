@@ -16,7 +16,32 @@ export const states = [
   { name: 'rm', reducedMotion: true, settle: 300, actions: go(0.45) },
   { name: 'static', settle: 0, actions: [staticTier, { type: 'wait', ms: 300 }, ...go(0.45, 60)] },
   { name: 'mobile', viewport: 'mobile', settle: 300, actions: go(0.45) },
+  // One tier change, one rebuild: the attribute path and the media-query path, each measured in inspect().
+  { name: 'retier', settle: 300, actions: go(0.45) },
 ];
+
+const builds = (page) => page.evaluate(() => window.__awards.state().builds);
+export async function inspect(page, st) {
+  if (st.name !== 'retier') return null;
+  const b0 = await builds(page);
+  await page.evaluate(() => { document.documentElement.dataset.motion = 'reduced'; });
+  await page.waitForTimeout(300);
+  const b1 = await builds(page);
+  await page.evaluate(() => { delete document.documentElement.dataset.motion; });
+  await page.waitForTimeout(300);
+  const b2 = await builds(page);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.waitForTimeout(300);
+  const b3 = await builds(page);
+  // A forced tier outranks the media query: flipping the query under it changes nothing, so nothing rebuilds.
+  await page.evaluate(() => { document.documentElement.dataset.motion = 'static'; });
+  await page.waitForTimeout(300);
+  const b4 = await builds(page);
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.waitForTimeout(300);
+  const b5 = await builds(page);
+  return { attr: b1 - b0, attrBack: b2 - b1, media: b3 - b2, forced: b4 - b3, mediaUnderForced: b5 - b4, motion: await page.evaluate(() => window.__awards.state().motion) };
+}
 
 export function probe() {
   const op = (sel) => Number(getComputedStyle(document.querySelector(sel)).opacity);
@@ -51,5 +76,7 @@ export function assert(r) {
   out.push({ ok: S('rm').motion === 'reduced' && S('rm').copyP === 1 && S('rm').open === 0 && ['none', 'matrix(1, 0, 0, 1, 0, 0)'].includes(P('rm').copyTransform) && P('rm').open === 0, message: `rm: copy fades in (${S('rm').copyP}, transform ${P('rm').copyTransform}), bloom still (${S('rm').open}), step closed` });
   out.push({ ok: S('static').motion === 'static' && S('static').copyP === 1, message: `static: copy snapped to ${S('static').copyP} within 60 ms` });
   out.push({ ok: S('mobile').copyP === 1 && P('mobile').copyOpacity === 1 && P('mobile').overflowX <= 0 && P('a').overflowX <= 0, message: `mobile: copy ${S('mobile').copyP}, overflow ${P('mobile').overflowX}px` });
+  const t = r.retier?.inspect || {};
+  out.push({ ok: t.attr === 1 && t.attrBack === 1 && t.media === 1 && t.forced === 1 && t.mediaUnderForced === 0 && t.motion === 'static', message: `retier: one rebuild per tier change (attribute ${t.attr}, back ${t.attrBack}, media query ${t.media}, forced ${t.forced}; want 1 each), none when the query flips under a forced tier (${t.mediaUnderForced}, want 0; tier ${t.motion})` });
   return out;
 }
