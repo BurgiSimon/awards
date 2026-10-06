@@ -1,0 +1,53 @@
+/* Varn — self-hosted faces. Files copied from @fontsource-variable/martian-mono@5.3.0 and
+   @fontsource-variable/source-serif-4@5.3.0 (latin subset, SIL OFL 1.1, licences beside the files).
+   3 woff2 files, 140,832 bytes. Preload the instrument face only. */
+
+/* Instrument voice. The descriptor pins wdth to 75: every use renders condensed with no per-component setting. */
+@font-face {
+  font-family: "Martian Mono";
+  src: url("/fonts/martian-mono-latin-standard-normal.woff2") format("woff2");
+  font-weight: 100 800;
+  font-stretch: 75%;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Book voice for the log notes. */
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("/fonts/source-serif-4-latin-wght-normal.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("/fonts/source-serif-4-latin-wght-italic.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Metric-matched fallbacks, measured in Chromium 2026-10-06:
+   Martian Mono at wdth 75 advances 0.600em, Courier New 0.600em → size-adjust 100%;
+   Martian ascent 1000 / descent 200 / gap 0 per 1000 upm.
+   Source Serif 4 runs 1.148× the width of Times New Roman on a mixed sample → size-adjust 114.8%;
+   ascent 1036 / descent 335 / gap 0, divided by the size-adjust. */
+@font-face {
+  font-family: "Martian Mono Fallback";
+  src: local("Courier New"), local("CourierNewPSMT"), local("Liberation Mono");
+  size-adjust: 100%;
+  ascent-override: 100%;
+  descent-override: 20%;
+  line-gap-override: 0%;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Source Serif 4 Fallback";
+  src: local("Times New Roman"), local("TimesNewRomanPSMT"), local("Liberation Serif");
+  size-adjust: 114.8%;
+  ascent-override: 90.2%;
+  descent-override: 29.2%;
+  line-gap-override: 0%;
+  font-display: swap;
+}

@@ -5,7 +5,7 @@
 ## Status
 - [x] Brief captured
 - [x] Direction contract locked (concept)
-- [ ] Visual system written (system → DESIGN.md, tokens.css)
+- [x] Visual system written (system → DESIGN.md, tokens.css)
 - [ ] Page map and skeleton built (structure)
 - [ ] Stack booted (stack)
 - [ ] Motion score authored and built (motion)
@@ -54,7 +54,7 @@
 |---|---|---|---|---|
 
 ## Budgets & tiers
-- Entry JS (gz): · GL chunk (gz): · Textures per scene: · Fonts (files / KB): · LCP target: · Tiers: high / mid / low →
+- Entry JS (gz): · GL chunk (gz): · Textures per scene: · Fonts (files / KB): 3 woff2 / 138 KB (Martian Mono, Source Serif 4 roman + italic) · LCP target: · Tiers: high / mid / low →
 - Deep modes: motion gsap · webgl shader + 3d — because the brief asks for the full deep stack: one timeline carries the cooling story, a temperature shader draws the glow, a lathe-turned vessel is the object (concept, motion and webgl confirm or narrow this)
 
 ## Jury log
@@ -65,3 +65,4 @@
 
 ## Exceptions
 <!-- audit rule ids deliberately accepted, one per line: `C02 — pure black is diegetic (night-vision console)` -->
+T01 — Martian Mono as the instrument voice (display, readout, headings, labels) is deliberate: it is on the reflex lists' monospace row, but its `wdth` axis goes down to 75, and the condensed cut reads as a strip-chart recorder's stamp, not a code editor

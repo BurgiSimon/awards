@@ -1,0 +1,105 @@
+/* Varn — visual system tokens. Source of truth: DESIGN.md (values identical). Written by awards:system.
+   Strategy: committed accent. Paper, ink, one recorder-ink hue, one port dark. */
+@import "./fonts.css";
+
+:root {
+  /* Colour: four tokens. --muted and --line are mixed, never new hues. */
+  --ground: #f2eee3; /* chart paper */
+  --ink: #211d19; /* soot-warm near-black */
+  --accent: #2b3f9e; /* recorder ink: the trace, the action, the focus ring */
+  --port: #15100c; /* the oven port, the one dark field */
+  --muted: color-mix(in oklab, var(--ink) 62%, var(--ground));
+  --line: color-mix(in oklab, var(--ink) 14%, var(--ground));
+
+  /* Type contract: instrument voice + book voice. */
+  --font-display: "Martian Mono", "Martian Mono Fallback", "Courier New", monospace;
+  --font-body: "Source Serif 4", "Source Serif 4 Fallback", "Times New Roman", serif;
+  --font-mono: var(--font-display);
+
+  /* vw-lock on a 1728 artboard: px / 1728 × 100. */
+  --artboard: 1728;
+  --display: clamp(2.25rem, 5.5556vw, 6rem); /* 96px at 1728 */
+  --text-readout: clamp(2rem, 3.7037vw, 4rem); /* 64px: the live °C / hour readout */
+  --text-heading: clamp(1.5rem, 1.8519vw, 2rem); /* 32px: chapter titles on the hours index */
+  --text-body: 1.125rem; /* 18px: log notes */
+  --label: 0.6875rem; /* 11px: axes, stamps, annotations */
+  --gutter: clamp(20px, 4.1667vw, 120px);
+  --unit: 4px;
+  --hairline: 1px;
+  --measure: 62ch;
+
+  /* Motion: one house curve family, three duration bands. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+  --ease-theme: cubic-bezier(0.645, 0.045, 0.355, 1);
+  --dur-feedback: 160ms;
+  --dur-routine: 400ms;
+  --dur-hero: 1400ms;
+  --stagger: 0.08s;
+
+  color-scheme: light;
+  accent-color: var(--accent);
+  caret-color: var(--accent);
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--ink) 45%, var(--ground)) transparent;
+}
+
+@supports (color: color(display-p3 0 0 0)) {
+  :root { --accent: color(display-p3 0.17 0.24 0.64); }
+}
+
+@media (max-width: 767px) {
+  :root { --display: 2.25rem; --text-readout: 2rem; --text-heading: 1.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-feedback: 0ms; --dur-routine: 120ms; --dur-hero: 200ms; --stagger: 0s; }
+}
+
+/* The oven port: the single dark field. Local scope, remaps only ground, ink and accent. */
+[data-theme="port"] {
+  --ground: var(--port);
+  --ink: #f2eee3;
+  --accent: #f2eee3;
+  color-scheme: dark;
+}
+
+/* Roles held in the token layer, not per component. */
+:root {
+  font-family: var(--font-body);
+  font-size: 100%;
+  background: var(--ground);
+  color: var(--ink);
+}
+.t-display {
+  font: 500 var(--display) / 1 var(--font-display);
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums slashed-zero;
+}
+.t-readout {
+  font: 400 var(--text-readout) / 1 var(--font-display);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums slashed-zero;
+}
+.t-heading {
+  font: 500 var(--text-heading) / 1.15 var(--font-display);
+  letter-spacing: -0.01em;
+}
+.t-note {
+  font: 400 var(--text-body) / 1.55 var(--font-body);
+  max-width: var(--measure);
+  text-wrap: pretty;
+}
+.t-label {
+  font: 500 var(--label) / 1.2 var(--font-display);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums slashed-zero;
+}
+
+/* Browser surfaces. */
+::selection { background: var(--accent); color: var(--ground); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 0; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: color-mix(in oklab, var(--ink) 45%, var(--ground)); }
+::-webkit-scrollbar-track { background: transparent; }
