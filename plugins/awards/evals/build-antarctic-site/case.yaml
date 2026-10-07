@@ -1,3 +1,5 @@
 schema_version: "1.1"
 name: build-antarctic-site
 tags: [build]
+context:
+  scaffold_script: fixture.sh

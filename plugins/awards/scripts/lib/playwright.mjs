@@ -55,10 +55,24 @@ export const GL_ARGS = [
   '--ignore-gpu-blocklist',
 ];
 
+// A browser staged inside the project (`.awards/browsers/<playwright browser dir>`), for sandboxes
+// that hide the user's Playwright cache; `evals/stage-browser.sh` puts one there.
+function localChromium(cwd = process.cwd()) {
+  const root = path.join(cwd, '.awards', 'browsers');
+  if (!fs.existsSync(root)) return null;
+  for (const dir of fs.readdirSync(root).sort().reverse()) {
+    for (const rel of ['chrome-headless-shell-linux64/chrome-headless-shell', 'chrome-linux64/chrome', 'chrome-linux/chrome']) {
+      const exe = path.join(root, dir, rel);
+      if (fs.existsSync(exe)) return exe;
+    }
+  }
+  return null;
+}
+
 export async function launchChromium(pw, { webgl = true } = {}) {
   const launchOptions = { headless: true, args: webgl ? GL_ARGS : ['--disable-gpu'] };
   // A pinned Playwright without downloaded browsers can still use a system Chromium.
-  const exe = process.env.AWARDS_CHROMIUM || process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH;
+  const exe = process.env.AWARDS_CHROMIUM || process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || localChromium();
   if (exe) {
     if (!fs.existsSync(exe)) throw new Error('Chromium executable not found: ' + exe);
     launchOptions.executablePath = exe;
