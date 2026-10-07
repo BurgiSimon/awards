@@ -102,19 +102,19 @@ Every skill also triggers on its own request ("add a custom cursor", "judge this
 ## How a build runs
 
 1. **Brief.** `craft` copies `AWARDS.md` into the project, asks at most three questions, records the visitor mode and every synthetic asset.
-2. **Concept.** `concept` reads the corpus index, picks the three nearest case studies, deals three directions with a seeded roll, and writes the direction contract: THESIS, WORLD, STORY, FIRST VIEWPORT, SIGNATURE, SCROLL MODEL, LOAD & CLOSE, DIVERGENCE.
-3. **System, structure, stack.** Read selected desktop/mobile examples from the visual composition guide; write `DESIGN.md`, `tokens.css` and the page map; boot the project on one ticker with the `window.__awards` hook. Review the static hero, middle and close on desktop/mobile before the motion handoff.
+2. **Concept.** `concept` reads the corpus index, picks the three nearest case studies, deals three directions with a seeded roll, and writes the direction contract: THESIS, WORLD, STORY, FIRST VIEWPORT, SIGNATURE, SCROLL MODEL, LOAD & CLOSE, DIVERGENCE. The thesis refuses three ruts by name: the category's, the Awwwards register and the template hero.
+3. **System, structure, stack.** Read selected desktop/mobile examples from the visual composition guide; write `DESIGN.md` (calibrated against the three chosen neighbours), `tokens.css` and the page map with a layout per chapter; build the hero first and judge its capture; boot the project on one ticker with the `window.__awards` hook. Review the static hero, middle and close on desktop/mobile, then run a forked component jury on the first viewport before the motion handoff.
 4. **Motion and WebGL.** A motion score per chapter, recipes adapted rather than pasted, a DOM mirror and a no-GL path for every canvas.
 5. **Jury and ship.** Capture coverage follows the page map and capture manifest, including desktop/mobile chapters, reduced motion and required interaction states. The audit and forked jury produce Design / Usability / Creativity / Content and developer scores, or `recapture` when visual evidence is missing. The jury returns `ship`, `fix`, `rebuild` or `recapture`; ship applies the fix batch and verifies the expected changes in before/after captures.
 
-Durable files: `AWARDS.md` (brief, contract, page map, motion score, budgets, jury and ship logs, exceptions), `DESIGN.md` (tokens and rules), `.awards/` (captures, reports, audit output; gitignored). In Claude Code, a `PostToolUse` hook runs a sub-second audit after each edit, only in projects that carry an `AWARDS.md`; set `AWARDS_HOOK=0` to silence it. Codex runs the same audit explicitly after edit batches.
+Durable files: `AWARDS.md` (brief, contract, page map, motion score, budgets, jury and ship logs, exceptions), `DESIGN.md` (tokens and rules), `.awards/` (captures, reports, audit output; gitignored). In Claude Code, a `PostToolUse` hook runs a sub-second audit after each edit, only in projects that carry an `AWARDS.md`, and a `UserPromptSubmit` hook adds one routing line when a prompt asks for award-level work; set `AWARDS_HOOK=0` to silence both. Codex runs the same audit explicitly after edit batches.
 
 ## What is inside
 
 - `plugins/awards/references/` — the site case studies, each checked against the live site and its live award entry (the original set on 2026-09-18, later cards on the date each one records) and carrying confidence labels, the [visual composition guide](plugins/awards/references/patterns/visual-composition.md) and broader pattern language, the jury rubric and usability walk, the craft floor, anti-pattern and reflex lists, per-stack and per-library notes with pinned versions.
 - `plugins/awards/recipes/` — 75 focused recipes plus one complete editorial composition, 76 verifiable entries in all. The six new visual examples include reviewed desktop/mobile images and synthetic demonstration content; each entry has a browser verifier. These images are generated and tested examples, not evidence of human preference.
 - `plugins/awards/scripts/` — `doctor.mjs`, `capture.mjs`, `audit.mjs`, `new-project.mjs`, `roll.mjs`, `verify-recipes.mjs`, `lint-refs.mjs`.
-- `plugins/awards/evals/` — a `claude plugin eval` suite: twenty routing cases (eleven that must fire a skill, three that must take a deep mode, six that must not) and six build cases with fixtures, plus `selftest.mjs` for grader checks and `behavior.mjs` for actual browser, audit, capture, server and ticker regressions without model calls.
+- `plugins/awards/evals/` — a `claude plugin eval` suite: twenty routing cases (eleven that must fire a skill, three that must take a deep mode, six that must not), one full-tools routing case for an unled brief and six build cases with fixtures, plus `selftest.mjs` for grader checks and `behavior.mjs` for actual browser, audit, capture, server and ticker regressions without model calls.
 
 ## Verify
 
@@ -151,7 +151,35 @@ SwiftShader verification is not safe beside another browser. See [behavior check
 
 ## Status
 
-Version 0.5.0.
+Version 0.6.0.
+
+### 0.6.0 — 2026-10-07
+
+From a whole-plugin analysis of why generated sites fall short of the corpus
+([`docs/handoff/analysis-2026-10-06.md`](docs/handoff/analysis-2026-10-06.md)). The changes move effort from
+detecting slop to generating less of it.
+
+- **No house style.** The scaffold hero lost its `/ 01` label; labels as texture, motion values and the
+  display clamp are now derived from the world instead of fixed; the staple kit (counter preloader,
+  overlay nav, cursor, magnetic button, marquee, split reveal) is capped at two at recipe-default shape;
+  structure offers all thirteen hero archetypes. Fourteen recipes lost their eyebrow micro-meta and the
+  six visual examples were re-captured.
+- **Composition, not only costume.** The template hero is a named rut, the page map carries a Layout
+  column (no layout in two adjacent chapters, four or more on long pages), and the seeded roll picks its
+  lead at random among the dealt directions.
+- **Calibrated against real neighbours.** `system` derives its relationships from the three chosen corpus
+  cards; the jury opens a frame of each neighbour and names one finish gap per card.
+- **Judgement moves forward.** The hero is captured and judged on the image right after the system; a
+  forked component jury looks at the first viewport before motion (and again after WebGL when the
+  signature is a canvas). The jury splits its fixes into an uncapped floor list and up to five craft
+  fixes, and adds a reported-only `Ceiling:` line.
+- **Tooling.** `capture.mjs` records hover and focus-visible frames by default; audit rule C05 (render)
+  compares the page ground with the DESIGN.md token, L05 catches BEM eyebrow names, X07 catches `/ 01`;
+  a `UserPromptSubmit` route hint. New evals: an unled full-tools brief (3 / 3 reached `craft`) and graders
+  for the Layout column, calibration and a lenient jury. `evals/stage-browser.sh` stages Playwright and
+  Chromium into the eval sandbox, which no longer sees the user's home.
+- **Not yet measured.** The full build case was interrupted, skipped and not scored; the effect on jury
+  scores is open (see `docs/handoff/todo.md`).
 
 ### 0.5.0 — 2026-10-05
 

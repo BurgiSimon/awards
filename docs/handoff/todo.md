@@ -1,5 +1,10 @@
 # Open todos
 
+## Release 0.6.0 follow-ups
+
+1. `gl-ping-pong-grain-field` reset assertion is timing-flaky under SwiftShader on `main` too (glide end 1–10 px over a < 1 px bound). Make the glide end frame-rate independent, or measure after the glide settles.
+2. Re-run `build-antarctic-site` uninterrupted for a scored measure of 0.6.0.
+
 ## Finish gates (feat/finish-gates) follow-ups
 
 1. Measure, paid: `--tag build` with vs without the hero probe and component jury: final Design and Creativity, late `rebuild` verdicts on the first viewport, slop families present (P07, P12); craft-list seam fixes resolved per round, target two or more (P13).

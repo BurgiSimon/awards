@@ -1,9 +1,15 @@
-# State of the awards plugin — 2026-10-05
+# State of the awards plugin — 2026-10-07
 
 Read this first, then `todo.md`. The visual composition candidate's deterministic verification is
 recorded below in [Candidate verification record](#candidate-verification-record). `plan-0.2.md` and
 `verification-log.md` record the earlier 0.2.0 work. `plan.md` is the 0.1.0 specification, kept for
 reference. `decisions.md` records choices already taken.
+
+## Release 0.6.0 (2026-10-07)
+
+The Now items, Ceiling and Finish gates below ship together as 0.6.0; all three manifests agree. Release notes in `README.md#status`.
+
+Release checks, 2026-10-07, serial: both `claude plugin validate` pass; lint-refs, selftest, jury-evidence, visual-library and route-hint self-checks pass; `audit.mjs recipes` has no P0–P2; `behavior.mjs` passes; `codex-install.mjs --build` finds 11 skills and builds both scaffolds. `verify-recipes` passed 73/76 in one run. `gl-lathe-turned-object` and `gl-virtual-scroll-camera` passed when re-run alone. `gl-ping-pong-grain-field` is timing-flaky on this branch and on `main` alike: its reset glide sometimes ends 1–10 px short under SwiftShader (main 6/8, this branch 4/11 over interleaved runs). Its source is unchanged since 0.5.0.
 
 ## Finish gates (branch `feat/finish-gates`, 2026-10-07)
 
