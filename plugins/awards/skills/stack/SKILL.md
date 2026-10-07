@@ -210,7 +210,7 @@ Run these before handing off; a boot that fails any of them makes every later ph
 
 ## Hand-off
 
-Tick "Stack booted (stack)" in `AWARDS.md ## Status`, fill `## Budgets & tiers`, and note any decision the brief did not cover (scroll model, transition mechanism, CMS) under `## Exceptions` or the brief's constraints. Then, for a whole-site handoff after layout/media exist, complete or reuse the static checkpoint in `awards:craft` and record its manifest/result in Page map Notes (or `unmeasured` when capture is unavailable). Invoke the `awards:motion` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. When the direction contract names a WebGL dose above "none", `awards:motion` hands on to `awards:webgl` after the score is written.
+Tick "Stack booted (stack)" in `AWARDS.md ## Status`, fill `## Budgets & tiers`, and note any decision the brief did not cover (scroll model, transition mechanism, CMS) under `## Exceptions` or the brief's constraints. Then, for a whole-site handoff after layout/media exist, complete or reuse the static checkpoint in `awards:craft` and its first-viewport component jury (`awards:jury <dir> --component <first-viewport selector>`), and record the manifest, result and disposition in Page map Notes (or `unmeasured` when capture is unavailable). Invoke the `awards:motion` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. When the direction contract names a WebGL dose above "none", `awards:motion` hands on to `awards:webgl` after the score is written.
 
 ## Refuse
 

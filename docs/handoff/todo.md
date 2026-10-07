@@ -1,5 +1,11 @@
 # Open todos
 
+## Finish gates (feat/finish-gates) follow-ups
+
+1. Measure, paid: `--tag build` with vs without the hero probe and component jury: final Design and Creativity, late `rebuild` verdicts on the first viewport, slop families present (P07, P12); craft-list seam fixes resolved per round, target two or more (P13).
+2. Check that a build reaches `.awards/captures/hero-probe/manifest.json` before the skeleton tick, and how often the two-round cap leaves the verdict pass to the user.
+3. C05 reports a ground painted only by a fixed full-screen canvas as unpainted; the floor expects a body fallback, so it stays unless builds trip it.
+
 ## Ceiling (feat/ceiling) follow-ups
 
 1. Hand-fix §8 Take on `boc`, `eugeniagrab` and `aqualoqa` so each names a compositional, typographic or structural move, not only technique (analysis P03).
@@ -25,9 +31,10 @@ historical; `verification-log.md` remains its evidence ledger.
 2. Preserve the failed technical acceptance result: candidate Kiln Nine and Form & Sound have
    focused primary-action C01 P1 failures. Secondary-copy P1s also remain. No generated-site repair,
    retry or extra paid judging is authorized. Human preference cannot clear these technical failures.
-3. In separately scoped work, investigate skill-routing non-use (all eleven skills advertised,
-   zero Skill calls in all six builds), rendered keyboard-focus/surface contrast verification and
-   audit exception parsing through EOF. Static checkpoint/guide wording effectiveness is unmeasured.
+3. In separately scoped work: skill-routing non-use done (route hint, `--tag route` 3 / 3 to craft,
+   2026-10-06); audit exception parsing done (stops at the next heading). Still open: rendered
+   keyboard-focus/surface contrast verification (capture now records focus-visible frames, but no
+   check measures their contrast). Static checkpoint/guide wording effectiveness is unmeasured.
    Keep current frozen snapshots and raw pilot evidence unchanged.
 4. In separately scoped corpus maintenance, correct or demote the pre-existing The Line narrative
    sequence attribution and distinguish the reconstructed 768px typography breakpoint from the live

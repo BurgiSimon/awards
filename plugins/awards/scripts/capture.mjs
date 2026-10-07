@@ -4,6 +4,7 @@
 //   [--only desktop|mobile] [--scroll 0,50,100] [--reduced-motion] [--full-page] [--selector <css>] [--hover <css>]
 //   [--wait <ms>] [--wait-for <css>] [--no-webgl] [--json] [--name <prefix>] [--timeout <ms>] [--wheel <px>]
 //   [--states <json-file>] — additional named checkpoints: [{ name, actions, selector? }]
+// Without --hover or --states, desktop also records hover and focus-visible frames for the first three visible links and buttons.
 // Exit codes: 0 ok · 2 page/action errors · 3 browser unavailable · 4 target unreachable · 1 usage.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -141,6 +142,49 @@ async function scrollTo(page, percent, previous) {
   return mode;
 }
 
+// Hover and focus-visible evidence for the first three visible controls (inside --selector when given).
+// Best effort: a page without controls, or a control that will not take the state, records nothing.
+async function interactionFrames(page) {
+  const scope = args.selector ? page.locator(String(args.selector)).first() : page.locator(':root');
+  const controls = scope.locator('a[href], button:not([disabled]), [role="button"]');
+  const picked = [];
+  for (let i = 0, n = await controls.count().catch(() => 0); i < n && picked.length < 3; i++) {
+    // Visible, opaque, at least 4 px and inside the document: sr-only, unrevealed and off-canvas controls are not the ones on show.
+    const shown = await controls.nth(i).evaluate((el) => {
+      const r = el.getBoundingClientRect();
+      return el.checkVisibility({ visibilityProperty: true, opacityProperty: true }) && r.width >= 4 && r.height >= 4 && r.right + scrollX > 0 && r.bottom + scrollY > 0 && r.left + scrollX < document.documentElement.scrollWidth;
+    }).catch(() => false);
+    if (shown) picked.push(controls.nth(i));
+  }
+  for (const [i, control] of picked.entries()) {
+    for (const kind of ['hover', 'focus-visible']) {
+      try {
+        if (kind === 'hover') {
+          await page.evaluate(() => document.activeElement?.blur()); // the previous control's focus ring stays out of this frame
+          await control.hover({ timeout: 2000 });
+        }
+        else {
+          await page.mouse.move(0, 0);
+          await page.keyboard.press('Shift'); // keyboard modality, so programmatic focus shows :focus-visible
+          await control.focus({ timeout: 2000 });
+        }
+        await page.waitForTimeout(settle);
+        const box = await control.boundingBox();
+        const vp = page.viewportSize() ?? desktop;
+        if (!box) continue;
+        const x = Math.max(0, box.x - 24), y = Math.max(0, box.y - 24);
+        const clip = { x, y, width: Math.min(vp.width, box.x + box.width + 24) - x, height: Math.min(vp.height, box.y + box.height + 24) - y };
+        if (clip.width <= 0 || clip.height <= 0) continue;
+        const file = path.join(outDir, `${name}desktop-${kind === 'hover' ? 'hover' : 'focus'}-${i + 1}.png`);
+        await page.screenshot({ path: file, clip, timeout });
+        const element = await control.evaluate((el, k) => ({ tag: el.tagName.toLowerCase(), text: el.textContent.trim().replace(/\s+/g, ' ').slice(0, 40), matched: el.matches(k === 'hover' ? ':hover' : ':focus-visible') }), kind);
+        manifest.captures.push({ label: 'desktop', kind, index: i + 1, element, file });
+      } catch {}
+    }
+  }
+  await page.mouse.move(0, 0).catch(() => {});
+}
+
 let browser;
 let exitCode = 0;
 try {
@@ -234,6 +278,7 @@ try {
       };
     });
     manifest.metrics[label].scrollMode = scrollMode;
+    if (label === 'desktop' && !args.hover && !args.states) await interactionFrames(page);
     // Each checkpoint starts at the requested URL; storage persists within this viewport.
     // A failed action cannot contaminate the next checkpoint or erase earlier evidence.
     for (const state of interactiveStates) {

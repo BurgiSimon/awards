@@ -5,6 +5,16 @@ recorded below in [Candidate verification record](#candidate-verification-record
 `verification-log.md` record the earlier 0.2.0 work. `plan.md` is the 0.1.0 specification, kept for
 reference. `decisions.md` records choices already taken.
 
+## Finish gates (branch `feat/finish-gates`, 2026-10-07)
+
+- Source: `analysis-2026-10-06.md` P07, P12, P13; plan: `docs/superpowers/plans/2026-10-07-finish-gates.md`.
+- Hero probe (P07): structure builds the hero first on real tokens, captures s00 into `.awards/captures/hero-probe/` and judges it against the six first-viewport checks, the first-screen slop `judge` rows and the visual-composition frame; one fix batch; naming or memory failure returns to concept. Manifest path in Page map row 1; craft's after-structure check requires it.
+- Early component jury (P12): after the static checkpoint craft runs `awards:jury <dir> --component <first-viewport selector>`, and once more after webgl when SIGNATURE is canvas or GL; stack and webgl hand-offs name it. Component passes count toward the two jury rounds; phase 7 always runs, so the verdict pass needs the user's request once the cap is used.
+- Jury judges finish (P13): `## Material fixes` splits into floor (uncapped, mechanical) and craft (at most five, inside the contract); ship applies floor then craft and still never redesigns. Component mode names one scale, density or finish delta per DIVERGENCE card from §8. One `Ceiling:` line, reported only. Disposition and reply lines unchanged.
+- Tooling: `capture.mjs` without `--hover`/`--states` adds desktop hover and focus-visible frames for the first three visible controls (`kind` `hover`/`focus-visible`, `element.matched`). Audit has 73 rules: render-only C05 (P2) compares body/html and a filled `main` with the DESIGN.md ground token, silent without one.
+- Checks green: validate, lint-refs (622 files), selftest 17/0 defective, jury-evidence 5, visual-library 16, audit `recipes` P0–P2 clean (P3 79), `--render` on two built recipes C05-quiet, behavior 17/17, capture of `autoplay-tabs-progress` from the dist root: six control frames, all matched.
+- Open: paid measures in `todo.md`.
+
 ## Ceiling (branch `feat/ceiling`, 2026-10-06)
 
 - Source: `analysis-2026-10-06.md` P02, P03, P04; plan: `docs/superpowers/plans/2026-10-06-ceiling.md`.

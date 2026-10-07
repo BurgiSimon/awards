@@ -13,7 +13,7 @@ Why a floor exists: every Site of the Day in the corpus also carries a published
 - Running text is ragged-right, sentence case, led 1.4–1.6, normally tracked and at least 16 px [T07]; the display step stands well clear of body size [T08 with `--render`].
 
 **Colour and material**
-- Two to four tokens under a named strategy; body contrast ≥ 4.5:1 [C01]; a warm or cool near-black rather than pure #000 unless the black is diegetic and recorded as an exception [C02]; no more than six hues in the tokens [C03]; no gradient text [C04].
+- Two to four tokens under a named strategy; body contrast ≥ 4.5:1 [C01]; a warm or cool near-black rather than pure #000 unless the black is diegetic and recorded as an exception [C02]; no more than six hues in the tokens [C03]; no gradient text [C04]; the rendered ground matches the DESIGN.md ground token [C05].
 - Browser surfaces themed from the tokens: `::selection`, scrollbar, `theme-color`, `color-scheme`, favicon, focus ring, Open Graph image [S01–S06].
 
 **Motion**

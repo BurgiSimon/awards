@@ -76,7 +76,7 @@ Why: the hero is the entrance beat of chapter one and the screen the naming test
 Choose one of the thirteen in `[pattern:hero-archetypes#choosing]`: two-state typographic, role-casting boot sequence, poster or video hero, single object with inertia, collage of flat planes, spatial descent, print artefact with an acetate, headline as string, palette field bound to the product, generative line field, wordmark as a window, operable object, the work on screen one. Then:
 - Decide what the first three seconds must say (who, what, why now) and take the lowest dosage that says it; never stack archetypes.
 - Write the composition into row 1's Notes as the archetype's anatomy line describes it: what is where, at what scale, where the primary action sits, what moves once and for how long.
-- Run the six checks in `[pattern:hero-archetypes#the-first-viewport-test]`, the phone test included; a failing naming test goes back to `awards:concept`, not to the copy.
+- The six checks in `[pattern:hero-archetypes#the-first-viewport-test]` run on the rendered hero in Step 7's probe, not on this line.
 - Name the archetype's mobile line and its reduced-motion line in the same row; the archetype's own card signature (its device, object or colour) is the one thing not taken.
 
 ## Step 4 — component selection
@@ -128,7 +128,8 @@ Why: the skeleton is the layer everything else must survive without; build it as
 - Content at full fidelity: real headings, numbers with units, alt text written as content; every invented figure, quote or image labelled synthetic in `## Brief`; no lorem, no emoji icons, no "Get started" (X01–X03).
 - No JavaScript in this phase beyond the hooks the motion score will read (`data-reveal`, `data-theme`, `data-cursor`, `data-motion`): the overlay ships closed, the preloader ships hidden, and what renders is the static tier.
 - Component markup adapted from the recipes' `index.html` (rename, re-token, drop the demo content) with their accessibility attributes kept; class names by role; every value through `var()` from the tokens; layout by grid and flow; no fixed width above 600 px, no `100vw` (L01, L02).
-- Order of work: landmarks and headings → chapters with their holds → the hero composition → components → footer → 404.
+- Hero probe first: build the hero on the real tokens and base stylesheet, then `node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <dir> --out .awards/captures/hero-probe --scroll 0` (a re-probe takes a fresh `hero-probe-2`, never overwrites). Open desktop and mobile `s00` and judge the image against the six first-viewport checks, the `judge` rows of `${CLAUDE_PLUGIN_ROOT}/references/anti-patterns.md#the-slop-scan` a first screen can show, and the selected visual-composition hero frame; then answer the memory test (an object or a behaviour, never an atmosphere). At most one fix batch, recaptured once. A failing naming or memory test goes back to `awards:concept` (a same-seed re-roll is allowed), never to the copy. Record the manifest path in Page map row 1 Notes; with no browser, `hero probe unmeasured` and the reason.
+- Then: landmarks and headings → chapters with their holds → components → footer → 404.
 - Tick "Page map and skeleton built (structure)" in `AWARDS.md ## Status`.
 
 ## Verify
@@ -144,12 +145,13 @@ Read the HTML top to bottom with styles disabled (or as source): it must read as
 - [ ] No identical card grid, eyebrow labels, hero-metric row or numbered markers by habit (L04, L05, X07, X08); no template order.
 - [ ] The footer is designed with the conversion in the page's register; the 404 exists, reads in the world and has three routes out.
 - [ ] The responsive strategy is named; 320 px shows no horizontal scroll; the coarse-pointer swaps are planned per component.
+- [ ] Page map row 1 Notes name the hero-probe manifest (or `hero probe unmeasured`) and the probe's fix batch is in.
 - [ ] Every page map row has a beat, a Layout no adjacent row repeats (four or more distinct from six chapters), at least one component id or `custom`, an accessibility need and a static-tier still; the signature and the interruption each live in exactly one row.
 - [ ] `DESIGN.md ## Components` has an entry per chosen component.
 
 ## Hand-off
 
-When no project boots yet (no `package.json`, or no Lenis + GSAP boot): Invoke the `awards:stack` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. When the stack is already booted: complete or reuse the static checkpoint in `${CLAUDE_PLUGIN_ROOT}/references/patterns/visual-composition.md` and `awards:craft` after layout/media exist, recording its evidence or unmeasured result in Page map Notes; then invoke the `awards:motion` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. When the user asked only for structure, sections or a skeleton, stop after the verify step and offer the next step in one line. The artefacts the next skill needs are the filled `## Page map`, the skeleton files and `DESIGN.md ## Components`.
+When no project boots yet (no `package.json`, or no Lenis + GSAP boot): Invoke the `awards:stack` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. When the stack is already booted: complete or reuse the static checkpoint in `${CLAUDE_PLUGIN_ROOT}/references/patterns/visual-composition.md` and `awards:craft`, with its first-viewport component jury, after layout/media exist, recording its evidence or unmeasured result in Page map Notes; then invoke the `awards:motion` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. When the user asked only for structure, sections or a skeleton, stop after the verify step and offer the next step in one line. The artefacts the next skill needs are the filled `## Page map`, the skeleton files and `DESIGN.md ## Components`.
 
 ## Refuse
 

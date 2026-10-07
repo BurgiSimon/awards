@@ -145,6 +145,7 @@ body { margin: 0; font: 16px/1.5 sans-serif; } h1 { font-size: 18px; } p { margi
 <div class="card"><div class="card">A card inside a card, both boxed.</div></div></main></body></html>`);
   const hit = await auditIds(dir, ['--render']);
   for (const id of ['L06', 'L07', 'L08', 'T08', 'X20']) assert.ok(hit.has(id), `rendered audit must report ${id}`);
+  assert.equal(hit.has('C05'), false, 'no DESIGN.md, no ground check');
   // Earned shapes stay quiet: a GL mirror under its canvas, an SVG wordmark as the h1, a padded caption.
   const quiet = path.join(tmp, 'rendered-quiet');
   fs.mkdirSync(quiet);
@@ -156,6 +157,22 @@ body { margin: 0; font: 16px/1.5 sans-serif; } canvas { position: fixed; inset: 
 <p class="caption">Saltmarsh Ferry, wayfinding for a tidal crossing that keeps its text inset from both edges of a phone screen.</p></main></body></html>`);
   const calm = await auditIds(quiet, ['--render']);
   assert.deepEqual(['L06', 'L08', 'T08'].filter((id) => calm.has(id)), [], 'earned shapes must not trip rendered rules');
+});
+test('audit', 'rendered ground must match the DESIGN.md ground token', async () => {
+  const dir = path.join(tmp, 'ground');
+  fs.mkdirSync(dir);
+  const page = (css) => fs.writeFileSync(path.join(dir, 'index.html'), `<html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"><style>${css}</style></head><body><main><h1>Tides</h1></main></body></html>`);
+  fs.writeFileSync(path.join(dir, 'DESIGN.md'), '---\nname: tides\ncolors:\n  ground: "oklch(0.96 0.01 80)"\n  ink: "#1a1c1c"\n---\n');
+  page('html { background: oklch(0.96 0.01 80); }');
+  assert.equal((await auditIds(dir, ['--render'])).has('C05'), false, 'html fill carries the ground, in any colour syntax');
+  page('body { background: #ffffff; }');
+  assert.ok((await auditIds(dir, ['--render'])).has('C05'), 'a body fill off the token is reported');
+  page('body { background: oklch(0.96 0.01 80); } main { background: #202020; }');
+  assert.ok((await auditIds(dir, ['--render'])).has('C05'), 'a main fill off the token is reported');
+  page('');
+  assert.ok((await auditIds(dir, ['--render'])).has('C05'), 'an unpainted ground is reported');
+  fs.writeFileSync(path.join(dir, 'DESIGN.md'), '---\ncolors:\n  ground: "<derive: from the use scene>"\n---\n');
+  assert.equal((await auditIds(dir, ['--render'])).has('C05'), false, 'an unfilled template token is silent');
 });
 
 test('tools', 'the deal leads with a seeded dealt card and the route hint matches every eval grader', async () => {
@@ -260,6 +277,27 @@ test('capture', 'named states perform clicks, keyboard input, drag and reload; f
     assert.equal(fs.readFileSync(state('menu-open').file).subarray(1, 4).toString(), 'PNG');
     assert.ok(fs.readFileSync(state('menu-open').file).readUInt32BE(16) < 1440, 'selector capture crops the dialog');
   }
+  assert.equal(manifest.captures.some((shot) => shot.kind === 'hover'), false, 'a state plan replaces the default control frames');
+});
+test('capture', 'default hover and focus-visible frames for the first three visible controls', async () => {
+  const dir = path.join(tmp, 'controls');
+  fs.mkdirSync(dir);
+  fs.writeFileSync(path.join(dir, 'index.html'), `<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width"><link rel="icon" href="data:,"><style>
+a, button { display: block; margin: 8px; } a:hover, button:hover { background: #c00; } :focus-visible { outline: 3px solid #00c; } .low { margin-top: 1400px; }</style></head><body>
+<a href="#hidden" style="display:none">Hidden</a><a href="#one">One</a><button>Two</button><button disabled>Off</button><a href="#three" class="low">Three</a><a href="#four">Four</a></body></html>`);
+  const out = path.join(tmp, 'controls-out');
+  const result = await run('scripts/capture.mjs', [dir, '--out', out, '--scroll', '0', '--wait', '20']);
+  assert.equal(result.code, 0, result.stderr || result.stdout);
+  const shots = JSON.parse(fs.readFileSync(path.join(out, 'manifest.json'))).captures.filter((shot) => ['hover', 'focus-visible'].includes(shot.kind));
+  for (const kind of ['hover', 'focus-visible']) {
+    const frames = shots.filter((shot) => shot.kind === kind);
+    assert.deepEqual(frames.map((shot) => shot.element.text), ['One', 'Two', 'Three'], kind + ': first three visible, enabled controls');
+    assert.ok(frames.every((shot) => shot.label === 'desktop' && shot.element.matched), kind + ': the control really took the state');
+    assert.ok(frames.every((shot) => fs.readFileSync(shot.file).subarray(1, 4).toString() === 'PNG'));
+  }
+  fs.writeFileSync(path.join(dir, 'index.html'), '<!doctype html><html lang="en"><head><link rel="icon" href="data:,"></head><body><p>No controls.</p></body></html>');
+  const bare = await run('scripts/capture.mjs', [dir, '--out', path.join(tmp, 'controls-bare'), '--scroll', '0', '--wait', '20']);
+  assert.equal(bare.code, 0, 'a page without controls still captures cleanly');
 });
 
 test('doctor', 'reports real capabilities and leaves project configuration untouched', async () => {

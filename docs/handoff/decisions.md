@@ -17,7 +17,7 @@ Decisions taken during the build, with the reason, so a future session does not 
 |---|---|---|
 | Where slop detection lives | Extend the existing skills: one catalogue (`references/anti-patterns.md#the-slop-scan`), more audit rules, an explicit slop pass in craft and component, a scored Slop scan section in the jury report, ship naming the rules | A twelfth `awards:slop` skill |
 | Award staples (marquee, one family, cream or paper grounds, huge display headlines, italic serif display) | Judged, never audited: they are `judge` rows whose earned version the corpus ships | Advisory P3 rules; leaving them out |
-| Detectors | Static source rules and `--render` checks (L06–L08, T08, X20) | Rules for colours, fonts or radii outside DESIGN.md |
+| Detectors | Static source rules and `--render` checks (L06–L08, T08, X20); C05 (rendered ground vs the DESIGN.md ground token) added by the 2026-10-07 finish-gates plan as the one colour check, since it enforces DESIGN.md rather than a taste outside it | Rules for colours, fonts or radii outside DESIGN.md |
 | Consequence in the jury | Two or more families present caps Creativity at 6 (the rubric's category-default anchor); it does not force `rebuild` on its own | Treating a nameable generator like a nameable source site |
 
 ## Taken with the user (2026-10-05, deep modes)

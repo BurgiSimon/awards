@@ -40,7 +40,7 @@ Before a build or browser capture, run `node "${CLAUDE_PLUGIN_ROOT}/scripts/doct
 
 Why: fixes applied one at a time, each followed by a capture, turn a ship pass into a week; fixes invented here, outside the jury list, drift the build away from its contract. The batch comes strictly from the latest jury report, is classified so each fix lands at the right level, and is applied once before a single recapture.
 
-Read `## Material fixes` and `## Keep` from the latest `.awards/jury/<date>.md`. The Keep line is a constraint on every fix: nothing in the batch may dilute what it names. Classify each fix before touching code:
+Read both lists under `## Material fixes` (floor and craft) and `## Keep` from the latest `.awards/jury/<date>.md`. The Keep line is a constraint on every fix: nothing in the batch may dilute what it names. Classify each fix before touching code:
 
 | Class | What it means | Where the fix goes |
 |---|---|---|
@@ -49,7 +49,7 @@ Read `## Material fixes` and `## Keep` from the latest `.awards/jury/<date>.md`.
 | conceptual | resolving it would change the THESIS, the SIGNATURE or the WORLD | not a ship fix; record it as `deferred — conceptual` and hand it back through `awards:craft` |
 | local | a component's internal states or motion: a focus trap, arrow keys on a rail, the reduced-motion tier of one moment | inside the component and its tokens |
 
-- Apply every token, one-off and local fix in one batch, in the jury's order: fidelity first, then walk steps 1 and 3, then audit P0/P1, then seams.
+- Apply every token, one-off and local fix in one batch, floor list first, then the craft list, each in the jury's order. A craft fix stays inside the contract; one that needs a new idea is conceptual.
 - Keep each change as small as the fix demands; the jury named a location and a change, not a rewrite.
 - Recapture once after the batch (section 3), not after each fix.
 - A fix that turns out to need a decision the jury did not make (a new colour, a new moment) stops the batch for that item: reclassify it as conceptual and move on.

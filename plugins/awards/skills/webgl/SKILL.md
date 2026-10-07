@@ -241,7 +241,7 @@ SwiftShader proves correctness, not frame rate: the captures below prove the pag
 
 ## Hand-off
 
-Tick "WebGL layer built or explicitly declined (webgl)" in `AWARDS.md ## Status` and fill the GL lines of `## Budgets & tiers`. Then: Invoke the `awards:jury` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. When this skill ran standalone on a component, hand back to `awards:component` for its own verification instead.
+Tick "WebGL layer built or explicitly declined (webgl)" in `AWARDS.md ## Status` and fill the GL lines of `## Budgets & tiers`. When SIGNATURE is canvas or GL, run the first-viewport component pass once first (`awards:jury <dir> --component <first-viewport selector>`, as in `awards:craft` After webgl) and apply its fix list. Then: Invoke the `awards:jury` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. When this skill ran standalone on a component, hand back to `awards:component` for its own verification instead.
 
 ## Refuse
 

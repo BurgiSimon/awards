@@ -11,6 +11,7 @@
   "C02": { "severity": "P2", "scope": "contrast", "message": "Pure #000 or #fff ground", "fix": "Use a warm or cool near-black/off-white unless pure black is diegetic; record diegetic use under AWARDS.md ## Exceptions" },
   "C03": { "severity": "P2", "scope": "contrast", "message": "More than 6 distinct hues in the tokens", "fix": "Winners run 2–4 tokens; variety comes from change over time, not simultaneity" },
   "C04": { "severity": "P1", "scope": "contrast", "message": "Gradient text", "fix": "Emphasis comes from weight, size or a colour field, not background-clip: text" },
+  "C05": { "severity": "P2", "scope": "contrast", "message": "Ground differs from the DESIGN.md ground token (rendered)", "fix": "Paint body (and main, when it has a fill) with the ground token, or correct DESIGN.md to the ground the world actually uses" },
   "M01": { "severity": "P0", "scope": "motion", "message": "No prefers-reduced-motion branch anywhere", "fix": "Add a reduced tier (no spatial movement; keep opacity/colour/state) via CSS media query and gsap.matchMedia / matchMedia in JS" },
   "M02": { "severity": "P1", "scope": "motion", "message": "Global 0.01ms animation kill under reduced motion", "fix": "Reduced motion is a tier, not a kill switch: keep feedback and state transitions" },
   "M03": { "severity": "P1", "scope": "motion", "message": "Scrubbed tween with an ease other than none", "fix": "Scroll-linked tweens must use ease: 'none'; the scrub value supplies the smoothing" },

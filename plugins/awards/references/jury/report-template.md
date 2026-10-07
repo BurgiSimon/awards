@@ -25,16 +25,19 @@ One paragraph in the voice of a visitor an hour later. It must name an object or
 The second direction of the specificity test. It uses the tables in `references/anti-patterns.md#the-slop-scan`: first the audit rules, then the `judge` rows read off the captures. Write `families present: n`, then one line per family naming it and its evidence (capture, `file:line` or rule id), then `generator nameable: yes | no`. Two or more families is a yes, and it caps Creativity at 6. An earned use recorded under `## Exceptions` with its reason is not counted.
 
 ## Contract fidelity
-One row per direction-contract block with kept / not kept and the rendered evidence (capture name, `file:line`). Missing rendered evidence makes visual fidelity `unmeasured`. Component reports include only WORLD and, for a signature component, SIGNATURE. Fidelity failures are listed before craft failures in the fix list.
+One row per direction-contract block with kept / not kept and the rendered evidence (capture name, `file:line`). Missing rendered evidence makes visual fidelity `unmeasured`. Component reports include only WORLD and, for a signature component, SIGNATURE, and under Specificity one scale, density or finish delta per DIVERGENCE card from its §8. Fidelity failures are listed before craft failures in the fix list.
 
 ## Source findings
 For a `recapture` report, list useful located `file:line` observations here without treating them as visual memory, fidelity or numeric scores. Name the capture action separately under Material fixes.
 
 ## Material fixes
-At most eight, ordered: contract fidelity first, then usability walk failures from steps 1 and 3, then audit P0/P1, then design seams. Each fix supplies `location | change | expected visible result | viewport/state | before evidence | after evidence | resolved/partial/unresolved`; the first report uses `unresolved` with `pending` after evidence. A failed contract block omitted from the batch remains unresolved. No "consider" items: if it is not worth fixing, it is not on the list.
+Two lists. **Floor**: uncapped and mechanical: contract fidelity, then usability walk failures from steps 1 and 3, then audit P0/P1. **Craft**: at most five design seams inside the contract (slop families, finish gaps, unauthored hover or focus states), most visible first; none may need a new idea. Each fix supplies `location | change | expected visible result | viewport/state | before evidence | after evidence | resolved/partial/unresolved`; the first report uses `unresolved` with `pending` after evidence. A failed contract block omitted from the batch remains unresolved. No "consider" items: if it is not worth fixing, it is not on the list.
 
 ## Keep
 One line naming what must not be diluted while fixing, so the ship pass does not sand off the signature.
+
+## Ceiling
+`Ceiling:` one sentence naming the world-native device the build never uses. Reported only: never a fix, never a score change.
 
 ## Verdict pass
 When `awards:ship` has applied the fixes, the jury runs again in verdict mode and replaces the body with:

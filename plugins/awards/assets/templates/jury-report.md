@@ -39,6 +39,7 @@ What a visitor who left after one viewport describes an hour later — an object
 
 ## Specificity test
 Could a juror name a source site from the first viewport? no / yes — which, and what to change:
+<!-- component: one scale, density or finish delta per DIVERGENCE card, from its §8 -->
 <!-- finish bar, one line per DIVERGENCE card: <slug> — <finish gap> — <build capture> vs <neighbour capture>, or <slug> — neighbour frame unavailable -->
 
 ## Slop scan
@@ -62,13 +63,22 @@ generator nameable: no / yes (two or more families)
 ## Source findings
 <!-- On recapture, put located file:line source observations here. Never infer a visual score from them. -->
 
-## Material fixes (ordered, at most 8; fidelity before craft)
+## Material fixes
+### Floor (uncapped: fidelity, walk 1 and 3, audit P0/P1)
+| Location | Change | Expected visible result | Viewport/state | Before evidence | After evidence | Status |
+|---|---|---|---|---|---|---|
+| | | | | manifest + frame | pending | unresolved |
+
+### Craft (at most 5, inside the contract)
 | Location | Change | Expected visible result | Viewport/state | Before evidence | After evidence | Status |
 |---|---|---|---|---|---|---|
 | | | | | manifest + frame | pending | unresolved |
 
 ## Keep
 One line naming what must not be diluted while fixing.
+
+## Ceiling
+Ceiling: <one sentence: the world-native device the build never uses; never a fix or a score change>
 
 <!-- Verdict pass (after ship applies fixes): replace the sections above with
 ## Verdict

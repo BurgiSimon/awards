@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Deterministic craft-floor audit for award-level front-ends, including the slop habits in references/anti-patterns.md.
-// Static by default; --render adds in-page checks (contrast, overflow, rendered fonts, stuck content, measure, edges, hierarchy, nested cards).
+// Static by default; --render adds in-page checks (contrast, overflow, rendered fonts, stuck content, measure, edges, hierarchy, nested cards, ground vs DESIGN.md).
 // Usage: node audit.mjs <dir|file|url> [--json] [--quick] [--changed-file <path|->] [--render]
 //   [--scope fonts,contrast,motion,a11y,layout,perf,surfaces,slop] [--ignore T01,…] [--config .awards/audit.json] [--no-write]
 // Exit: 0 clean (no P0/P1) · 2 P0/P1 findings · 3 missing browser · 1 error. Quick mode exits 0 and prints hook JSON.
@@ -448,6 +448,10 @@ if (args.render) {
       server = await serveDirectory(dir);
       url = server.url + (fs.statSync(abs).isDirectory() ? '' : path.basename(abs));
     }
+    // C05: the DESIGN.md frontmatter ground token, when one is declared; the page resolves and compares it.
+    const designMd = [projectDir, targetDir].filter(Boolean).map((d) => path.join(d, 'DESIGN.md')).find((p) => fs.existsSync(p));
+    const colorsBlock = designMd && fs.readFileSync(designMd, 'utf8').split(/^---\s*$/m)[1]?.match(/^colors:\s*\n((?:[ \t]+.*\n?)*)/m)?.[1];
+    const groundToken = colorsBlock?.match(/^[ \t]+(?:ground|background|bg)[ \t]*:[ \t]*["']?([^"'\n]+?)["']?[ \t]*$/m)?.[1] ?? null;
     const browser = await launchChromium(found.module);
     try {
       for (const [label, width] of [['desktop', 1440], ['mobile', 390]]) {
@@ -458,7 +462,7 @@ if (args.render) {
         // Give entrances a fair chance: the page's own ready signal (capped), then two seconds.
         await page.evaluate(() => Promise.race([window.__awards?.ready, new Promise((res) => setTimeout(res, 8000))])).catch(() => {});
         await page.waitForTimeout(2000);
-        const r = await page.evaluate(() => {
+        const r = await page.evaluate((groundToken) => {
           const cs = getComputedStyle(document.body);
           const fams = new Set();
           for (const el of document.querySelectorAll('h1,h2,h3,p,a,button,li,span')) fams.add(getComputedStyle(el).fontFamily.split(',')[0].replace(/["']/g, '').trim());
@@ -495,8 +499,22 @@ if (args.render) {
           const h1 = [...document.querySelectorAll('h1')].find((el) => !tucked(el) && !el.querySelector('svg,img,picture,canvas'));
           const body = [...document.querySelectorAll('p')].find((el) => !tucked(el) && el.textContent.trim().length >= 40);
           const ratioH1 = h1 && body ? px(h1) / px(body) : null;
-          return { bg: cs.backgroundColor, fg: cs.color, families: [...fams], overflow: document.documentElement.scrollWidth > window.innerWidth + 1, title: document.title, lang: document.documentElement.lang, stuck, long, edge, nested, ratioH1 };
-        }).catch(() => null);
+          // Canvas resolves any CSS colour (hex, oklch, color-mix) to sRGB bytes, so token and computed value compare alike.
+          const rgba = (c) => { const x = document.createElement('canvas').getContext('2d'); x.fillStyle = c; x.fillRect(0, 0, 1, 1); return [...x.getImageData(0, 0, 1, 1).data]; };
+          const grounds = [];
+          if (groundToken && CSS.supports('color', groundToken)) {
+            const want = rgba(groundToken);
+            const html = getComputedStyle(document.documentElement).backgroundColor;
+            const painted = [['body', rgba(cs.backgroundColor)[3] ? cs.backgroundColor : rgba(html)[3] ? html : null]];
+            const main = document.querySelector('main');
+            if (main && rgba(getComputedStyle(main).backgroundColor)[3]) painted.push(['main', getComputedStyle(main).backgroundColor]);
+            for (const [el, c] of painted) {
+              if (!c) grounds.push(`${el} unpainted (browser default) vs ground ${groundToken}`);
+              else if (rgba(c).slice(0, 3).some((v, i) => Math.abs(v - want[i]) > 3)) grounds.push(`${el} ${c} vs ground ${groundToken}`);
+            }
+          }
+          return { bg: cs.backgroundColor, fg: cs.color, families: [...fams], overflow: document.documentElement.scrollWidth > window.innerWidth + 1, title: document.title, lang: document.documentElement.lang, stuck, long, edge, nested, ratioH1, grounds };
+        }, groundToken).catch(() => null);
         if (r) {
           const where = `${label} (rendered)`;
           const ratio = contrastRatio(r.bg, r.fg);
@@ -508,6 +526,7 @@ if (args.render) {
           if (label === 'mobile') for (const s of r.edge.slice(0, 3)) add('L08', where, null, s);
           if (label === 'desktop' && r.ratioH1 !== null && r.ratioH1 < 1.5) add('T08', where, null, `h1 is ${r.ratioH1.toFixed(2)}× the body size`);
           for (const s of r.nested.slice(0, 3)) add('X20', where, null, s);
+          if (label === 'desktop') for (const s of r.grounds) add('C05', where, null, s);
         }
         for (const e of errors) findings.push({ rule: 'ERR', severity: 'P1', scope: 'render', file: label, line: null, message: `page error: ${e.slice(0, 120)}`, fix: 'Fix runtime errors before review' });
         await page.close();

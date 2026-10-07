@@ -30,7 +30,7 @@ Forked, you cannot hold a conversation: an offer is one line at the top of the r
 
 ## What this pass produces
 
-Why: a score is a feeling until it is attached to a reason and a fix, and praise has never changed a build. The output of a jury run is a disposition and at most eight material fixes; the scores are the instrument that gets there. Never edit project files other than the report and the log lines in `AWARDS.md`.
+Why: a score is a feeling until it is attached to a reason and a fix, and praise has never changed a build. The output of a jury run is a disposition, the floor fixes and at most five craft fixes; the scores are the instrument that gets there. Never edit project files other than the report and the log lines in `AWARDS.md`.
 
 ## 0. Evidence gate
 
@@ -71,7 +71,7 @@ Why: a direction contract is persuasive prose written by the people who built th
 
 - From `desktop-s00.png` alone, write the first viewport in your own words: what is there, at what scale, where the primary action sits, what the type and colour system appear to be, and what moves (from the source when motion is not visible in a still).
 - Answer the memory test now: what would a visitor who left after this viewport describe an hour later? Name an object or a behaviour, never an atmosphere. Keep the exact sentence; it goes into the report unchanged.
-- Only then read `## Page map` and complete coverage from its chapters, the current manifest, mobile middle/close, reduced-motion sections and named states. Add scroll positions for uncovered chapters using the shared capture reference and recapture any missing evidence before scoring. Open every required capture with an image-viewing tool: it must not be blank, a flat colour or a stuck preloader, and s00/s50/s100 must differ. Identical frames, or `metrics.<label>.scrollMode` of `wheel` with no state change, mean virtual scroll; rerun with `--wheel 12000 --wait 6000 --timeout 90000` and record how the states were reached.
+- Only then read `## Page map` and complete coverage from its chapters, the current manifest, mobile middle/close, reduced-motion sections and named states. Add scroll positions for uncovered chapters using the shared capture reference and recapture any missing evidence before scoring. Open every required capture with an image-viewing tool: it must not be blank, a flat colour or a stuck preloader, and s00/s50/s100 must differ. Open the hover and focus-visible frames when the manifest lists them (`kind` `hover` or `focus-visible`): an unauthored state is a craft seam. Identical frames, or `metrics.<label>.scrollMode` of `wheel` with no state change, mean virtual scroll; rerun with `--wheel 12000 --wait 6000 --timeout 90000` and record how the states were reached.
 - With coverage complete, read `## Direction contract`, `## Motion score` and `DESIGN.md`, and note the three `[site:slug]` cards in the DIVERGENCE block.
 
 ## 2. Assessment A — the design director
@@ -94,6 +94,7 @@ Why: Design carries 40 percent of the weight, and it is where a page either owns
 - Type: one contract held everywhere, display locked to the artboard, hierarchy readable at phone width, no reflex face as the first family.
 - Pacing: across s00 → s50 → s100, are there rests between moments, or does every section shout? Does the scroll model serve the story?
 - Close: is s100 an authored last screen (footer, final action, an echo of the signature) or a dead end?
+- Ceiling: one sentence naming the world-native device the build never uses. Reported only: never a fix, never a score change.
 
 ## 3. Assessment B — the developer judge
 
@@ -142,10 +143,11 @@ Fill every section of the report:
 - Scores: with valid rendered evidence, both tables with a reason next to every number; otherwise every axis, weighted result and developer criterion is `unmeasured`.
 - Memory test: the sentence from section 1 when the first viewport rendered; otherwise `unmeasured`.
 - Specificity test: `no`, or `yes — <site> — <what to change>`; then one finish-bar line per neighbour.
-- Slop scan: `families present: n`, one `<family> — <evidence>` line for each, then `generator nameable: yes | no`. The families present enter Material fixes as design seams.
+- Slop scan: `families present: n`, one `<family> — <evidence>` line for each, then `generator nameable: yes | no`. The families present enter the craft list.
 - Contract fidelity: one row per block, kept or not kept with rendered evidence; otherwise mark visual fidelity `unmeasured` and put any located source findings under `## Source findings`.
-- Material fixes: at most eight, ordered — fidelity first, then walk steps 1 and 3, then audit P0/P1, then design seams. Each row has `location | change | expected visible result | viewport/state | before evidence | after evidence | resolved/partial/unresolved`; the first report uses `unresolved` with `pending` after evidence. Every failed contract block enters the batch or remains explicitly unresolved; no "consider" items.
+- Material fixes, in two lists. Floor: uncapped and mechanical, ordered fidelity, walk steps 1 and 3, audit P0/P1. Craft: at most five design seams inside the contract (slop families, finish gaps, unauthored states), most visible first. Each row has `location | change | expected visible result | viewport/state | before evidence | after evidence | resolved/partial/unresolved`; the first report uses `unresolved` with `pending` after evidence. Every failed contract block enters the batch or remains explicitly unresolved; no "consider" items.
 - Keep: one line naming what must not be diluted while fixing.
+- Ceiling: the sentence from Assessment A.
 
 Write it to `.awards/jury/<date>.md` (`date +%F`; add `-2`, `-3` when the name is taken), creating the directory when needed. Then append two lines under `AWARDS.md ## Jury log`:
 
@@ -205,7 +207,7 @@ node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <target> --out "$capture_out" -
 
 This yields `desktop-component-<slug>.png`, its `-hover` frame, `mobile-component-<slug>.png` and `desktop-rm-component-<slug>.png`. For an open menu, focused control, drag or persisted setting, use `--states <json-file>` and the shared state-plan reference. Open and name those additional frames in Evidence; a missing or failed required state needs recapture. Source review can explain behavior but cannot substitute for an uncaptured required state.
 
-- Run the memory test at component scale, the specificity test in both directions, and a states inventory: rest, hover, focus-visible, active, open and closed, reduced motion, coarse pointer, keyboard.
+- Run the memory test at component scale, the specificity test in both directions, one concrete scale, density or finish delta per DIVERGENCE card taken from its §8, and a states inventory: rest, hover, focus-visible, active, open and closed, reduced motion, coarse pointer, keyboard.
 - With valid component captures, score Design, Usability and Creativity only; their mean stands in for the weighted score in the disposition rules and uses the measured D/U/C reply line above. Without them, use `recapture` and the unmeasured D/U/C line above; no mean or visual fidelity is inferred.
 - Fill the fidelity table only for the rows the component owns: WORLD, and SIGNATURE when the component is the signature.
 - Keep the fixes inside the component and its tokens; a page-level problem noticed on the way is one line under Keep, not a fix.
@@ -216,7 +218,7 @@ This yields `desktop-component-<slug>.png`, its `-hover` frame, `mobile-componen
 - The inventory and the memory sentence were written before the contract was read, and the sentence names an object or a behaviour.
 - Each DIVERGENCE neighbour has one finish gap with capture names, or "neighbour frame unavailable".
 - Every measured score has a one-line reason; the site weighted score is the arithmetic of the four axes and component mean of D/U/C; the caps were applied. Missing rendered evidence uses only the unmeasured branch.
-- The disposition follows the derivation order, not a feeling; the fix list is at most eight, ordered, each with a location.
+- The disposition follows the derivation order, not a feeling; floor fixes are mechanical, craft fixes at most five, each with a location; the Ceiling line is one sentence and moved nothing.
 - `.awards/jury/<date>.md` exists, and `AWARDS.md` gained exactly the two log lines and the Status update; no other project file changed.
 
 ## Hand-off
