@@ -14,6 +14,7 @@ reference. `decisions.md` records choices already taken.
 - Tooling: `capture.mjs` without `--hover`/`--states` adds desktop hover and focus-visible frames for the first three visible controls (`kind` `hover`/`focus-visible`, `element.matched`). Audit has 73 rules: render-only C05 (P2) compares body/html and a filled `main` with the DESIGN.md ground token, silent without one.
 - Checks green: validate, lint-refs (622 files), selftest 17/0 defective, jury-evidence 5, visual-library 16, audit `recipes` P0–P2 clean (P3 79), `--render` on two built recipes C05-quiet, behavior 17/17, capture of `autoplay-tabs-progress` from the dist root: six control frames, all matched.
 - Open: paid measures in `todo.md`.
+- Eval sandbox, 2026-10-07: it now hides the user's home, npm and the network, so `evals/stage-browser.sh` stages `recipes/node_modules`, Playwright and its headless Chromium into the workspace (found by `scripts/lib/playwright.mjs` under `.awards/browsers/`). With it, `jury-generic-saas` scored 1.00 on real captures. `build-antarctic-site` was interrupted, skipped and not scored ($7.97); its partial build is in the untracked `site/demo/`.
 
 ## Ceiling (branch `feat/ceiling`, 2026-10-06)
 
