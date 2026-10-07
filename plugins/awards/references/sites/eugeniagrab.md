@@ -107,6 +107,7 @@ What the awards skills do differently: budget the plants to a scene window each 
 
 ## 8. Take / Don't take
 - **Take:**
+  - A fixed chapter frame repeated per object: oversized outline numeral, caps serif title and one attributed quote in small grotesque beside the subject, with the subject the only saturated colour on a quiet paper or grey ground; same frame, new object, so the sequence reads as rhythm [verified, desktop-rm-s50.png; main.css].
   - Scroll-scrubbed `AnimationMixer.setTime` over merged baked clips, one integer slot per object with hand-off, grow and colour sub-tweens.
   - A grained circular `discard` hand-off whose centre is a DOM element's measured rect.
   - The luma ↔ colour `onBeforeCompile` patch, with per-object gain and saturation.

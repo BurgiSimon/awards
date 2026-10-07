@@ -99,6 +99,7 @@ Weights from response headers: reel MP4 15,133,172 B, sand photograph 572,439 B,
 
 ## 8. Take / Don't take
 - **Take:**
+  - Composition: refit the one object for portrait instead of cropping it: width-fill on desktop, the hero object fitted to almost the full width on portrait or narrow screens, the exposed bands filled with mirrored strips of the ground so the frame stays one surface [verified, index.html `layout`, `drawFullBackground`; mobile-s00.png].
   - Float ping-pong state (displacement + velocity in one RGBA texel) for a photo-sampled point field.
   - A 1 − r³ brush falloff fed by clamped pointer delta plus per-grain noise.
   - Height-map slope forces with a slope-dependent, per-grain-jittered settle threshold.

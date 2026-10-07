@@ -83,6 +83,7 @@ What the awards skills do differently: one link per project with the stills as `
 
 ## 8. Take / Don't take
 - **Take:**
+  - The index as the whole portfolio: one row per project, captioned by name plus a single positioning line; filters and the page's only `<h1>` held in a fixed rail one grid column wide, the rows filling the remaining columns; chrome held to one ground and one accent so the work supplies every other hue [verified, desktop-s00 to s100.png; index.html `aside`; style.css `--boc-sidebar-w`].
   - Width-derived duration for any CSS marquee: `max((content width + gaps) / speed, floor)`, one speed token for all rows.
   - The distance-staggered exit: `stagger × |i − chosen|`, the chosen item rising on an in-out ease, the push scheduled after the rise, all bypassed under reduced motion.
   - A late-overshoot grow ease for hover expansion, used once and named as a token.

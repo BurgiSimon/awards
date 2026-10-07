@@ -8,7 +8,7 @@
 
 ## Ceiling (feat/ceiling) follow-ups
 
-1. Hand-fix §8 Take on `boc`, `eugeniagrab` and `aqualoqa` so each names a compositional, typographic or structural move, not only technique (analysis P03).
+1. Done 2026-10-07: §8 Take on `boc`, `eugeniagrab` and `aqualoqa` now leads with a compositional or structural move from the card's own evidence.
 2. Measure, paid: A/B `--tag build` for Design score, finish-type fixes and clone rate (P02); spread of `Calibration:` values across 3–4 briefs (P03); distinct Layout values and adjacent repeats per page (P04). Optional: a hint-off arm of `--tag route` (`AWARDS_HOOK=0`) to isolate the hint.
 3. Undecided: drop the demo mastheads' numbered markers (`04 — Typography`, `05 — Art direction`, `07 —`, `09 —`) and typography's `Study 01.` captions; if dropped, re-capture hero and typography `visuals/`.
 
