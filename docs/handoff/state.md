@@ -5,6 +5,14 @@ recorded below in [Candidate verification record](#candidate-verification-record
 `verification-log.md` record the earlier 0.2.0 work. `plan.md` is the 0.1.0 specification, kept for
 reference. `decisions.md` records choices already taken.
 
+## Evidence phase, first batch (branch `claude/relaxed-heisenberg-rszyzq`, 2026-10-22, unreleased)
+
+- Contrast (A4, B6): rendered C01 measures every visible text against what is behind it (paint stack under its centre, or ancestors off screen, composited, colours through a canvas); imagery is unmeasured, blurred or ghosted (opacity < .25) and clipped text skipped, large text 3:1. A desktop Tab pass measures focused labels (C01, focus) and rings (A12, 3:1). The JSON reports texts measured, texts over imagery and focus stops per viewport.
+- Developer criteria (C3, C4): the jury scores Awwwards' six criteria by name and their mean. New rules S07–S10 (title, description, OG text, canonical), A13 skip link, A14 targets (render, phone), A15 duplicate ids, A16 axe-core WCAG 2.2 A/AA (render; axe-core 4.14.0 pinned in recipes). 82 rules.
+- Fixed on the way: a piped `--json` report over 64 KB was truncated (process.exit before stdout drained).
+- Shared `--muted` lifted from a 55 % to a 62 % ink mix: the URL sweep found recipe labels at 4.25:1 on the ground; 62 % gives 5.24 (light), 5.99 (dark), 4.67 (accent). The six visual examples' labels are a shade darker than their reviewed captures.
+- A first render sweep served each recipe folder alone, so `/assets/` 404'd and pages rendered unstyled; sweeps must serve `recipes/dist` once and audit by URL.
+
 ## Release 0.7.0 (2026-10-22)
 
 The quick wins and the second finish batch below ship together as 0.7.0; all three manifests agree. Release notes in `README.md#status`. Released without the paid gate run, by the maintainer's decision: `build-antarctic-site` has not run against 0.7.0.

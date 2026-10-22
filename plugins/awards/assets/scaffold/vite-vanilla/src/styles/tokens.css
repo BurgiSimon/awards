@@ -3,7 +3,7 @@
   --ground: #f4f2ee; /* replaced by awards:system */
   --ink: #1a1c1c; /* replaced by awards:system */
   --accent: #0016cb; /* replaced by awards:system */
-  --muted: color-mix(in oklab, var(--ink) 55%, var(--ground));
+  --muted: color-mix(in oklab, var(--ink) 62%, var(--ground));
   --line: color-mix(in oklab, var(--ink) 14%, var(--ground));
 
   --font-display: "DisplayFace", "Helvetica Neue", Arial, sans-serif; /* replaced by awards:system */
