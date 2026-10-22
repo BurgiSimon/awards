@@ -1,0 +1,110 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+.skip-link { position: absolute; z-index: 10; top: 0; left: var(--gutter); padding: .75rem 1rem; background: var(--ground); }
+.skip-link:not(:focus) { width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.topbar { display: flex; justify-content: space-between; align-items: center; padding-block: calc(var(--unit) * 5); }
+.topbar p { margin: 0; }
+.hero { display: grid; align-content: end; gap: calc(var(--unit) * 8); }
+.hero .display { max-width: 11ch; }
+.lede { max-width: 60ch; margin: 0; }
+
+.drawer { padding-block: calc(var(--unit) * 16); }
+.drawer h2 { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 4.5rem); font-weight: 500; line-height: .95; letter-spacing: -.02em; margin: 0 0 calc(var(--unit) * 8); }
+.hint { max-width: 60ch; margin: calc(var(--unit) * 4) 0 0; color: var(--muted); }
+
+/* The box. --pad is the wall inset main.js reads, so a body (and its focus ring) never touches the clip edge. */
+.pile {
+  --pad: 10px;
+  --h: clamp(420px, 62svh, 600px);
+  position: relative;
+  min-height: var(--h);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: color-mix(in oklab, var(--ink) 5%, var(--ground));
+  overflow: clip;
+}
+/* At rest without a simulation (reduced, static, no script): the words wrap upwards from the floor, so the first
+   row is the bottom one and a short row sits on top, the way a pile settles. Source order is untouched. */
+.pile__list {
+  list-style: none;
+  margin: 0;
+  padding: var(--pad);
+  min-height: var(--h);
+  display: flex;
+  flex-wrap: wrap-reverse;
+  align-content: flex-start;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4px 6px;
+}
+
+/* A piece. Shape, tone and size come from data attributes; main.js builds the matching body from the measured box. */
+.pile__list > li {
+  --tilt: 0deg;
+  --pp: .32em .95em .38em;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.9vw, 2rem);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -.01em;
+  padding: var(--pp);
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--ground);
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  transform: rotate(var(--tilt));
+}
+.pile__list > li:nth-child(4n + 1) { --tilt: -3deg; }
+.pile__list > li:nth-child(4n + 2) { --tilt: 2deg; }
+.pile__list > li:nth-child(4n + 3) { --tilt: -1deg; }
+.pile__list > li[data-size="l"] { font-size: clamp(1.375rem, 3.4vw, 3.5rem); }
+.pile__list > li[data-shape="block"] { border-radius: 6px; }
+.pile__list > li[data-shape="circle"] { display: grid; place-items: center; aspect-ratio: 1; --pp: .6em; border-radius: 50%; }
+.pile__list > li[data-tone="accent"] { background: var(--accent); }
+.pile__list > li[data-tone="paper"] { background: var(--ground); color: var(--ink); border-color: var(--ink); }
+
+/* With the toy built, the button inside carries the padding, in the arrangement and in the simulation alike. */
+.pile__list > li:has(> button) { padding: 0; }
+
+/* Simulation on: every piece is absolutely placed at the box origin and moved by the transform main.js writes. */
+.pile[data-sim] { height: var(--h); }
+.pile[data-sim] .pile__list { position: absolute; inset: 0; min-height: 0; padding: 0; display: block; }
+.pile[data-sim] .pile__list > li { position: absolute; left: 0; top: 0; padding: 0; max-width: calc(100% - 2 * var(--pad) - 4px); transform: translate(0, -200%); }
+.pile[data-sim] .pile__list > li[data-shape="circle"] { display: block; }
+/* The button is the piece's content box, so its focus ring follows the shape. */
+.pile__list button {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: var(--pp);
+  border: 0;
+  border-radius: inherit;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: center;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.pile__list > li[data-shape="circle"] button { display: grid; place-items: center; height: 100%; }
+/* Pieces touch, so a ring outside the piece would land on whichever neighbour is there. The ring is drawn inside
+   the piece instead, on its own fill: ground on ink and accent pieces, accent on paper ones. */
+.pile__list button:focus-visible { outline: 2px solid var(--ground); outline-offset: -5px; }
+.pile__list > li[data-tone="paper"] button:focus-visible { outline-color: var(--accent); }
+.pile__list > li:has(> button:focus-visible) { z-index: 2; }
+@media (pointer: fine) {
+  .pile[data-drag] .pile__list button { cursor: grab; }
+  .pile[data-holding] .pile__list button { cursor: grabbing; user-select: none; }
+}
+
+.notes ul { max-width: 62ch; padding-left: 1.2em; }
+.notes li + li { margin-top: calc(var(--unit) * 2); }
+.foot { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 12); }
+
+@media (max-width: 767.98px) {
+  .pile { --h: clamp(420px, 62svh, 560px); }
+}

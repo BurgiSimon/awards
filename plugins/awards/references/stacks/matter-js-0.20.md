@@ -49,14 +49,14 @@ Pointer [verified: source core/Mouse.js, constraint/MouseConstraint.js]: `Mouse.
 const engine = Engine.create({ gravity: { y: 3.35 }, enableSleeping: true });
 const step = 1000 / 60;
 let acc = 0;
-ticker.add((_, dtMs) => {                       // shared ticker (recipes/_shared/raf.js); no catalogue recipe yet
-  acc = Math.min(acc + dtMs, step * 4);         // cap after a hidden tab
+ticker.add((dt) => {                            // shared ticker (recipes/_shared/raf.js) passes (dt in seconds, rAF timestamp)
+  acc = Math.min(acc + dt * 1000, step * 4);    // cap after a hidden tab
   while (acc >= step) { Engine.update(engine, step); acc -= step; }
   for (const b of bodies) b.el.style.transform =
     `translate(${b.body.position.x - b.w / 2}px, ${b.body.position.y - b.h / 2}px) rotate(${b.body.angle}rad)`;
 });
 ```
-The fixed step and the accumulator are this skill set's pattern, not library API [recalled]; `Engine.update` with a variable delta works but warns above 16.7 ms and changes the outcome per device [verified: Engine.js warning].
+The fixed step and the accumulator are this skill set's pattern, not library API, and `[recipe:physics-pile-matter]` runs exactly this loop with sleeping and a DOM render; `Engine.update` with a variable delta works but warns above 16.7 ms and changes the outcome per device [verified: Engine.js warning].
 - Three / OGL: copy `position` and `angle` into instance matrices in the same callback; Matter's y grows downward, so flip once at the boundary.
 - Lenis: the physics canvas does not scroll; keep `MouseConstraint` off any element Lenis smooths (see below).
 
