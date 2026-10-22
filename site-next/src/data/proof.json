@@ -1,0 +1,35 @@
+{
+  "schema": 1,
+  "generator": "scripts/proof.mjs",
+  "project": "site-next",
+  "publicBase": "paths are relative to public/",
+  "state": "c",
+  "strip": false,
+  "why": "no page-round report and no valid routes.json capture run",
+  "report": null,
+  "verdict": null,
+  "captures": [],
+  "routes": [],
+  "metrics": null,
+  "audit": {
+    "file": ".awards/audit.json",
+    "date": "2026-10-22T12:54:58.438Z",
+    "target": ".",
+    "scannedFiles": 12,
+    "summary": {
+      "P0": 0,
+      "P1": 0,
+      "P2": 0,
+      "P3": 0
+    },
+    "exceptions": 3,
+    "rendered": null
+  },
+  "summary": null,
+  "skipped": [
+    {
+      "file": ".awards/jury/2026-10-22-baseline.md",
+      "reason": "baseline (never a page round)"
+    }
+  ]
+}
