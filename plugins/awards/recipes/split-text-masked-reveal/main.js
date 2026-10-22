@@ -24,11 +24,24 @@ await document.fonts.ready;
 const mm = gsap.matchMedia();
 
 mm.add('(prefers-reduced-motion: no-preference)', () => {
+  const copies = [];
   document.querySelectorAll('[data-split]').forEach((el) => {
+    // A heading may carry the aria-label SplitText adds; ARIA forbids naming a paragraph, so a split
+    // paragraph is hidden from assistive tech and a visually hidden copy carries it instead.
+    const named = /^H[1-6]$/.test(el.tagName);
+    if (!named) {
+      const copy = el.cloneNode(true);
+      copy.className = 'sr-only';
+      copy.removeAttribute('id');
+      for (const key of Object.keys(copy.dataset)) delete copy.dataset[key];
+      el.before(copy);
+      copies.push(copy);
+    }
     const type = el.dataset.split === 'words' ? 'words' : 'lines';
     const delay = Number(el.dataset.splitDelay || 0);
     const below = el.hasAttribute('data-reveal');
     const split = SplitText.create(el, {
+      aria: named ? 'auto' : 'hidden',
       type: type === 'lines' ? 'lines' : 'words,lines',
       mask: type === 'lines' ? 'lines' : 'words',   // an overflow:hidden wrapper per unit
       autoSplit: true,                              // re-split when the width changes
@@ -53,7 +66,7 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
     splits.push(split);
     state.splitCount++;
   });
-  return () => { splits.splice(0).forEach((s) => s.revert()); };
+  return () => { splits.splice(0).forEach((s) => s.revert()); copies.forEach((c) => c.remove()); };
 });
 
 mm.add('(prefers-reduced-motion: reduce)', () => {

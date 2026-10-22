@@ -12,6 +12,7 @@ reference. `decisions.md` records choices already taken.
 - Fixed on the way: a piped `--json` report over 64 KB was truncated (process.exit before stdout drained).
 - Shared `--muted` lifted from a 55 % to a 62 % ink mix: the URL sweep found recipe labels at 4.25:1 on the ground; 62 % gives 5.24 (light), 5.99 (dark), 4.67 (accent). The six visual examples' labels are a shade darker than their reviewed captures.
 - A first render sweep served each recipe folder alone, so `/assets/` 404'd and pages rendered unstyled; sweeps must serve `recipes/dist` once and audit by URL.
+- URL sweep of all 76 built recipes, 2026-10-22 (1,222 texts measured on desktop): after the `--muted` fix it found the sticky-stack-cards numbers on the darker cards and the accent card (now each card's own ink), SplitText's `aria-label` on paragraphs in scroll-word-fill and split-text-masked-reveal (axe aria-prohibited-attr; now `aria: 'hidden'` plus a screen-reader-only copy, headings keep `auto`), and the gallery stage's unnamed-role label (now `role="group"`). Three audit refinements came from it: `aria-disabled` controls are exempt, a ring is judged against the paint stack where it is drawn, and clipped screen-reader copies count as hidden. Re-swept clean except gl-endless-reel-sheets T08, earned as before. verify-recipes passes the seven touched recipes.
 
 ## Release 0.7.0 (2026-10-22)
 

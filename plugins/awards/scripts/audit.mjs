@@ -536,6 +536,19 @@ function installContrast() {
     }
     return composite(fills);
   }
+  // What a ring is drawn over: the paint stack at a point on the ring, minus the control itself, so a
+  // header floating over a dark hero is judged against the hero, not the page ground under both.
+  function ringGround(el, x, y) {
+    if (x < 0 || y < 0 || x >= innerWidth || y >= innerHeight) return behind(el, false);
+    const fills = [];
+    for (const n of document.elementsFromPoint(x, y)) {
+      if (n === el || el.contains(n)) continue;
+      if (imagery(n)) return null;
+      const c = rgba(getComputedStyle(n).backgroundColor);
+      if (c[3]) { fills.push(c); if (c[3] === 255) break; }
+    }
+    return composite(fills);
+  }
   // One element's own text: its colour times the opacity it inherits, over what is behind it.
   function measure(el) {
     const s = getComputedStyle(el);
@@ -568,7 +581,7 @@ function installContrast() {
       const el = t.parentElement;
       if (!t.nodeValue.trim() || !el || seen.has(el)) continue;
       seen.add(el);
-      if (el.closest('script,style,noscript,template,option,svg,[hidden],[inert],[aria-hidden="true"],dialog:not([open]),:disabled')) continue;
+      if (el.closest('script,style,noscript,template,option,svg,[hidden],[inert],[aria-hidden="true"],[aria-disabled="true"],dialog:not([open]),:disabled')) continue;
       const m = measure(el);
       if (!m) continue;
       if (m.unmeasured) { unmeasured++; continue; }
@@ -582,6 +595,7 @@ function installContrast() {
   function focused() {
     const el = document.activeElement;
     if (!el || el === document.body || el === document.documentElement) return null;
+    if (el.closest('[aria-disabled="true"]')) return { key: `${el.tagName}|${el.id}|disabled`, say: say(el) };
     const out = { key: `${el.tagName}|${el.id}|${el.getAttribute('href') ?? ''}|${el.textContent.trim().slice(0, 30)}`, say: say(el) };
     const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
     for (let t = walker.nextNode(); t; t = walker.nextNode()) {
@@ -590,7 +604,9 @@ function installContrast() {
     const s = getComputedStyle(el);
     if (s.outlineStyle !== 'none' && parseFloat(s.outlineWidth) > 0) {
       const ring = rgba(s.outlineColor);
-      const around = parseFloat(s.outlineOffset) < 0 ? behind(el) : behind(el, false);
+      const offset = parseFloat(s.outlineOffset) || 0, width = parseFloat(s.outlineWidth);
+      const b = el.getBoundingClientRect();
+      const around = offset < 0 ? behind(el) : ringGround(el, b.left - offset - width / 2, b.top + b.height / 2);
       if (around && ring[3]) out.ring = { color: css(ring), bg: css(around), ratio: ratio(over(ring, around), around) };
     }
     return out;
@@ -645,7 +661,9 @@ if (args.render) {
           const cs = getComputedStyle(document.body);
           const fams = new Set();
           for (const el of document.querySelectorAll('h1,h2,h3,p,a,button,li,span')) fams.add(getComputedStyle(el).fontFamily.split(',')[0].replace(/["']/g, '').trim());
-          const tucked = (el) => el.closest('[hidden],[inert],[aria-hidden="true"],dialog:not([open]),template');
+          // Hidden, inert, or clipped to nothing (a screen-reader-only copy): not text anyone sees.
+          const clipped = (el) => { for (let n = el; n && n !== document.body; n = n.parentElement) { const s = getComputedStyle(n); if ((s.clip && s.clip !== 'auto') || /inset\(50%/.test(s.clipPath || '')) return true; } return false; };
+          const tucked = (el) => el.closest('[hidden],[inert],[aria-hidden="true"],dialog:not([open]),template') || clipped(el);
           const say = (el) => `<${el.tagName.toLowerCase()}> “${el.textContent.trim().replace(/\s+/g, ' ').slice(0, 40)}”`;
           const px = (el) => parseFloat(getComputedStyle(el).fontSize);
           const stuck = [], long = [], edge = [], nested = [];

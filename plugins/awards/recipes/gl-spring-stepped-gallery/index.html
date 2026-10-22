@@ -21,7 +21,7 @@
     <!-- The canvas only paints. The carousel is this section: a focusable stage for the arrow keys, a list of the items
          for assistive technology, a visible caption with the position, Previous / Next, and a polite announcer. -->
     <section class="gallery" data-gallery aria-roledescription="carousel" aria-label="Glaze test plates">
-      <div class="stage" data-stage tabindex="0" aria-label="Glaze test plates. Arrow keys move one plate; Home and End jump to the ends.">
+      <div class="stage" data-stage tabindex="0" role="group" aria-label="Glaze test plates. Arrow keys move one plate; Home and End jump to the ends.">
         <canvas aria-hidden="true"></canvas>
         <div class="stage__fallback" data-fallback aria-hidden="true"></div>
       </div>

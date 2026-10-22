@@ -15,6 +15,7 @@ const FLOOR = Number(section.dataset.floor ?? 0.5);
 
 let split = null;
 let tl = null;
+let copy = null;
 
 // Word boundaries depend on the real face, so split after the fonts land.
 await document.fonts.ready;
@@ -23,11 +24,19 @@ function build(tier) {
   tl?.scrollTrigger?.kill();
   tl?.kill();
   split?.revert(); // restores the original sentence, so a tier change leaves no word spans behind
-  split = tl = null;
+  copy?.remove();
+  split = tl = copy = null;
   section.dataset.fillTier = tier;
   // Reduced and static: no split, no fill. The statement rests at full ink as one sentence.
   if (tier !== 'full') return;
+  // ARIA forbids naming a paragraph, so the split words are hidden from assistive tech and a visually
+  // hidden copy carries the sentence (GSAP's own pattern for text it cannot label).
+  copy = text.cloneNode(true);
+  copy.className = 'sr-only';
+  copy.removeAttribute('data-fill-text');
+  text.before(copy);
   split = SplitText.create(text, {
+    aria: 'hidden',
     type: 'words',
     wordsClass: 'word',
     autoSplit: true, // re-split on width change; the returned timeline is rebuilt at the same progress
