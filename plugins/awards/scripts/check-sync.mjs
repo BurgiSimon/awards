@@ -29,6 +29,11 @@ const manifests = {
 const codexHooks = json(path.join(plugin, '.codex-plugin/plugin.json')).hooks;
 check('Codex manifest ships no hooks', codexHooks && typeof codexHooks === 'object' && !Array.isArray(codexHooks) && !Object.keys(codexHooks).length, `hooks is ${JSON.stringify(codexHooks)}, expected {}`);
 check('manifest versions agree', new Set(Object.values(manifests)).size === 1, Object.entries(manifests).map(([f, v]) => `${f} ${v}`).join(', '));
+const version = Object.values(manifests)[0];
+for (const [file, pattern] of [['README.md', /^Version ([\d.]+)\.$/m], ['plugins/awards/README.md', /^Version \*\*([\d.]+)\*\*/m]]) {
+  const quoted = read(path.join(repo, file)).match(pattern)?.[1];
+  check(`${file} names version ${version}`, quoted === version, `it says ${quoted ?? 'no version'}`);
+}
 
 // ---------- pins ----------
 const pins = {};

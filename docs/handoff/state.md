@@ -5,6 +5,12 @@ recorded below in [Candidate verification record](#candidate-verification-record
 `verification-log.md` record the earlier 0.2.0 work. `plan.md` is the 0.1.0 specification, kept for
 reference. `decisions.md` records choices already taken.
 
+## Release 0.7.0 (2026-10-22)
+
+The quick wins and the second finish batch below ship together as 0.7.0; all three manifests agree. Release notes in `README.md#status`. Released without the paid gate run, by the maintainer's decision: `build-antarctic-site` has not run against 0.7.0.
+
+Release checks, 2026-10-22, serial: both `claude plugin validate` pass; check-sync, lint-refs, grader selftest, route-hint, jury-evidence and visual-library self-checks pass; `audit.mjs recipes` has no P0–P2; `behavior.mjs` 20/20; `codex-install.mjs --build` (Codex CLI 0.163.0) finds 11 skills and no hooks and builds both scaffolds; the recipes build. Full `verify-recipes` not re-run for the release (the three changed recipes passed on 2026-10-22).
+
 ## Finish phase, second batch (branch `claude/relaxed-heisenberg-rszyzq`, 2026-10-22)
 
 - Claims (D1, D2): every igloo, the-line and son-daven award statement now matches its card (Site of the Day, with scores); the Tailwind rule names the two winners that use it as a token layer.
