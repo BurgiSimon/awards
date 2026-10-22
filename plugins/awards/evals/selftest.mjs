@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 
 const evalsDir = path.dirname(fileURLToPath(import.meta.url));
 const templates = path.join(evalsDir, '..', 'assets', 'templates');
-const GUARDS = new Set(['pin-kept', 'no-eased-scrub-after', 'contract-blocks', 'images-remain', 'hero-and-work-kept', 'footer-kept']);
+const GUARDS = new Set(['pin-kept', 'no-eased-scrub-after', 'contract-blocks', 'images-remain', 'hero-and-work-kept', 'footer-kept', 'contract-seed-kept']);
 
 // last_message graders have no untouched file, so they are checked against written replies instead:
 // each sample must make the grader fail (bad) or pass (good).
@@ -18,6 +18,27 @@ const REPLIES = {
   'jury-generic-saas/not-shipped': {
     bad: ['disposition: ship\nDesign 7.4 · Usability 7.1 · Creativity 6.9 · Content 6.8 — weighted 7.2', 'The page could ship.\ndisposition: fix later'],
     good: ['Top fixes below.\ndisposition: fix\nDesign 5.1 · Usability 6.0 · Creativity 4.2 · Content 4.8 — weighted 5.2', 'disposition: rebuild'],
+  },
+  'concept-deal-distinct/seed-reported': {
+    bad: ['Three directions below; the seed for this round is recorded.', 'Seed: deterministic per session'],
+    good: ['Dealt with SEED 93bt8q12fgai (cards 2, 5, 7; lead 7).', 'Seed: `x7f3k9q2m1ab`'],
+  },
+  'jury-bland-clean/not-shipped': {
+    bad: ['disposition: ship\nDesign 7.3 · Usability 7.6 · Creativity 6.0 · Content 7.0 — weighted 7.2'],
+    good: ['disposition: fix\nDesign 6.4 · Usability 7.4 · Creativity 5.0 · Content 6.6 — weighted 6.5'],
+  },
+  'jury-bland-clean/creativity-held': {
+    bad: [
+      'disposition: fix\nDesign 6.8 · Usability 7.4 · Creativity 6.5 · Content 6.6 — weighted 6.9',
+      'disposition: ship\nDesign 7.3 · Usability 7.6 · Creativity 5.5 · Content 7.0 — weighted 7.1',
+      'disposition: recapture\nDesign unmeasured · Usability unmeasured · Creativity unmeasured · Content unmeasured — weighted unmeasured',
+      'disposition: fix\nDesign 6.4 · Usability 7.4 · Creativity 6.05 · Content 6.6 — weighted 6.5',
+    ],
+    good: [
+      'disposition: fix\nDesign 6.4 · Usability 7.4 · Creativity 5.0 · Content 6.6 — weighted 6.5',
+      'Fixes first.\ndisposition: rebuild\nDesign 5.8 · Usability 7.2 · Creativity 6 · Content 6.0 — weighted 6.2',
+      'disposition: fix\nDesign 6.6 · Usability 7.5 · Creativity 6.0 · Content 6.8 — weighted 6.7',
+    ],
   },
 };
 

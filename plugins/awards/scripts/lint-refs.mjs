@@ -11,7 +11,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const json = process.argv.includes('--json');
 // The forms that are written as examples of the syntax rather than as citations.
 const PLACEHOLDERS = new Set(['slug', 'id', 'name', 'file', 'x', 'section', 'component', 'archetype', 'model']);
-const SKIP_DIRS = new Set(['node_modules', 'dist', '_verify', '.git', '.awards', 'results']);
+const SKIP_DIRS = new Set(['node_modules', 'dist', '_verify', '.git', '.awards', 'results', '_vendor']); // _vendor: third-party plugins fetched for the coexist evals
 
 const files = [];
 (function walk(dir) {

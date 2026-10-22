@@ -60,7 +60,8 @@ function selftest() {
     const gdir = path.join(evals, c, 'graders');
     for (const g of fs.existsSync(gdir) ? fs.readdirSync(gdir) : []) {
       const src = fs.readFileSync(path.join(gdir, g), 'utf8');
-      const pat = /^tool: Skill$/m.test(src) && !/^match: not_contains$/m.test(src) && src.match(/^input_match: '(.+)'$/m)?.[1];
+      // A grader that forbids a skill (max: 0) names what must not fire, so it is not checked against the hint.
+      const pat = /^tool: Skill$/m.test(src) && !/^match: not_contains$/m.test(src) && !/^max: 0$/m.test(src) && src.match(/^input_match: '(.+)'$/m)?.[1];
       if (pat) assert(new RegExp(pat).test(`"skill": "${named}"`), `${c} -> ${named}, grader ${g} wants another skill`);
     }
   }
