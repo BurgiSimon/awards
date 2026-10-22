@@ -141,6 +141,8 @@
 ## Jury log
 <!-- appended by awards:jury — date · disposition · D/U/C/Co · dev sub-scores · top fixes; component passes are marked `component` and a redesign's first score `baseline`; neither counts as a page round -->
 - 2026-10-22 · baseline · fix · D 7.5 / U 7.0 / C 8.0 / Co 7.4 → 7.44 · .awards/jury/2026-10-22-baseline.md (the old site, page mode on its pre-jury captures)
+- 2026-10-22 · component #sheet · fix · D 7.9 / U 8.0 / C 8.0 → mean 7.97 · .awards/jury/2026-10-22-component.md
+  top fixes: 1) strip caption build id must differ from the footer's when frames show an earlier layout (facts/collect.js:42–50) 2) author a pointer hover on strip frames (src/styles/site.css:128–132) 3) show a refused clipboard on the ticket, not only in the sr-only status (src/ui/copy.js:27–29)
 
 ## Ship log
 <!-- appended by awards:ship — date · audit summary · captures · performance numbers -->
