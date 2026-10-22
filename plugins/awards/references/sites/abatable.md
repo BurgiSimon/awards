@@ -7,6 +7,7 @@
 | Field | Value |
 |---|---|
 | Class | B2B product (environmental-asset procurement platform with an advisory service) |
+| Industry | climate |
 | Visitor mode | persuade — one conversion, "Talk to us", orange in the nav bar, repeated as "Contact us" in the footer [verified, `retry/desktop-s00.png`, `retry/desktop-s100.png`] |
 | Awards | none looked up [unknown] |
 | Corpus rating | D 7.0 / U 6.4 / C 6.6 / Co 7.2 → weighted 6.76, 2026-10-05 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -33,6 +34,11 @@
 | WebGL dosage | none — 0 canvases; the manifest's `webgl:true` is browser capability only [verified, `manifest.json`]. The map visuals are looping MP4s [verified, index.html] |
 | Scroll model | native + smooth library: Lenis `lerp:.1` on `gsap.ticker`, `lagSmoothing(0)`, `scrollMode:"native"` [verified, bundle.js, `manifest.json`]; one ScrollTrigger pin (card fan) |
 | Narrative model | specification — claim, logos, a masked thesis, four capability steps, the platform, why-trust cards, proof, insights, CTA |
+| Palette strategy | warm off-white #f5f6f3 ground + navy #002642 ink and dark chapters + one flame orange #ff5c29 CTA; lime #c3ff44 only as map glow, grove/millpond/moana hues only on the fan cards |
+| Type contract | one grotesque (PP Mori, Webflow-hosted), fluid clamp() display 2.5→12 rem |
+| Awards / score | none looked up |
+| Confidence | high (live source + captures; no award entry read) |
+| Last verified | 2026-10-05 |
 
 ## 1. Concept and narrative
 The one idea is *terrain as data*: topographic contour lines are the brand material, drawn on screen as the visitor scrolls, and the same contours reappear inside the dark map panels. The first viewport splits into four quadrants on hairlines with an orange crosshair at their meeting point [verified, `retry/desktop-s00.png`]. Top-left holds a field of contours with two heavy green strokes. Bottom-left holds the h1 in large PP Mori. The right column holds three chapter dots, and the hero's supporting sentence fills in word by word as you scroll [verified, bundle.js `initHomeHeroScroll`, `retry/desktop-s00.png`]. Beats seen across the states:

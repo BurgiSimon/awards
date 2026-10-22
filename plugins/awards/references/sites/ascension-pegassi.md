@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | campaign (release site for a four-track debut EP by a Belgian electronic artist; routes `/`, `/about`, a sequencer route, legal pages) [verified, index.html JSON-LD `MusicAlbum` + nav] |
+| Industry | film-music |
 | Visitor mode | experience, with a persuade tail: listen, read the track notes, then Spotify or Buy [verified, index.html + captures] |
 | Awards | none found [unknown]; no award entry was looked up |
 | Corpus rating | D 7.6 / U 6.8 / C 7.6 / Co 7.4 → weighted 7.34, 2026-10-05 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -15,6 +16,11 @@
 | WebGL dosage | canvas-first: one fixed canvas draws the chrome wordmark, the record sleeve, every image and video plane, and GL text layers for links and lit lines, over SSR DOM on desktop; the phone gets no canvas and a baked wordmark [verified, CKimS5rj.js plane manager; gated/manifest.json `canvases` 1 desktop, 0 mobile] |
 | Scroll model | native + Lenis (lerp .125, lerp 1 under reduced motion, own rAF loop) feeding `ScrollTrigger.update()`; two scrubbed triggers, no pin [verified, CKimS5rj.js `scroll` plugin, dgVLAbKl.js] |
 | Narrative model | single-object launch: the record is the object — sleeve at the gate, chrome title over a doorway, liner notes, tracklist, a festival clip, the artist, the credits [verified, gated/desktop-state-*.png + index.html] |
+| Palette strategy | near-black ground + one mid-grey ink (#7d7d7d), white for lit words; chroma only from a chrome wordmark and film grain |
+| Type contract | one grotesque in four weights + its mono (PP Neue Montreal) |
+| Awards / score | none found |
+| Confidence | high |
+| Last verified | 2026-10-05 |
 
 ## 1. Concept and narrative
 An EP release built as the record itself. The visitor meets the sleeve, alone on a grained black field, and clicks to enter; the sleeve is thrown aside and the title arrives as a chrome, inflated wordmark that flips up out of depth above a photographed doorway at the top of a staircase, with star glints on its facets that brighten as the pointer tilts it [verified, mobile-s00.png, gated/desktop-state-entered.png, CKimS5rj.js `appear`]. The rest is liner notes in the artist's first person, set huge, with side letters (A1, A2, B1, B2) and footnote numerals, then the tracklist with durations, a festival clip, a biography and a sparse footer [verified, gated/desktop-state-w15/w35/w60.png]. The register is conversational and specific: track-by-track notes rather than adjectives [verified, index.html].

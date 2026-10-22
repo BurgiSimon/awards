@@ -1,6 +1,9 @@
 {
   "id": "nav-overlay-fullscreen",
   "title": "Fullscreen navigation overlay with focus trap",
+  "intent": "Menu",
+  "group": "arrival-and-chrome",
+  "summary": "Clip-path wipe, display-scale links (numbered only as a variant), `inert`, focus trap, Escape, Lenis stop",
   "tags": [
     "navigation",
     "overlay",
@@ -15,7 +18,8 @@
   ],
   "variants": [
     "vanilla",
-    "<dialog> element variant"
+    "<dialog> element variant",
+    "numbered links (01–04) for an index or catalogue world"
   ],
   "seenIn": [
     "son-daven",

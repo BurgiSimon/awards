@@ -1,6 +1,9 @@
 {
   "id": "scroll-drawn-svg-path",
   "title": "Scroll-drawn SVG path",
+  "intent": "Drawn path",
+  "group": "scroll-set-pieces",
+  "summary": "Dash-offset path on scroll",
   "tags": [
     "scroll",
     "svg",

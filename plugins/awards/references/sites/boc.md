@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | studio — a brand, motion and AI-production studio; this card reads the `/work` index route [verified, index.html `<title>` and meta description; en / ca / es `hreflang` alternates] |
+| Industry | agency-studio |
 | Visitor mode | persuade — the work is the argument, the contact sits one tap away under INFO [verified, desktop-s00.png] |
 | Awards | Awwwards **Site of the Day, 7.23 / 10** [verified, entry page, `entry/desktop-s00.png`]; axis and developer sub-scores not read (the entry's cookie wall covered them) [unknown]; dated 20 Sep 2026 with a Developer Award [inferred, from a search-result summary 2026-09-23, not seen on the captured entry frame] |
 | Corpus rating | D 7.0 / U 7.2 / C 6.8 / Co 7.2 → weighted 7.04, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -19,6 +20,11 @@
 | WebGL dosage | none [verified, manifest.json `canvases: 0` on all three viewports] |
 | Scroll model | native + Lenis smooth scroll; motion lives in horizontal CSS-keyframe rows, not in the vertical scroll [verified, manifest.json `scrollMode: native`, style.css `boc-marquee`] |
 | Narrative model | gallery — a filterable index where every project is one self-moving filmstrip row [verified, desktop-s00 to s100.png] |
+| Palette strategy | slate near-black #181d21 ground + one signal-orange #ff4421 brand bar, chroma outsourced to the work |
+| Type contract | one grotesque (PP Mori) |
+| Awards / score | SOTD 7.23 (Dev Award reported, sub-scores unread) |
+| Confidence | high |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 **One idea:** the portfolio index is a stack of film reels. Each project is a single horizontal strip of its own stills and clips running sideways at a constant speed, captioned with name, a one-line positioning and "View project"; the page is only as long as the client list [verified, desktop-s00/s50/s100.png].

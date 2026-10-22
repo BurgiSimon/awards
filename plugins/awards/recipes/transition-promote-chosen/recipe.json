@@ -1,8 +1,11 @@
 {
   "id": "transition-promote-chosen",
   "title": "Route exit that promotes the chosen item",
+  "intent": "Chosen-item exit",
+  "group": "arrival-and-chrome",
+  "summary": "Clicked row rises to the header slot, siblings fade by `.09 s × distance`, route pushed after the rise, phone timing set",
   "tags": [
-    "transitions",
+    "transition",
     "router",
     "taxi",
     "gsap",

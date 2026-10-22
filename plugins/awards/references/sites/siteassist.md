@@ -7,6 +7,7 @@
 | Field | Value |
 |---|---|
 | Class | B2B product (safety-compliance SaaS) |
+| Industry | software-saas |
 | Visitor mode | persuade — one conversion, "Request demo", in the nav bar on every frame [verified, `desktop-s00…s100.png`] |
 | Awards | Awwwards **Honorable Mention, 17 Aug 2026**; no jury axis scores and no developer panel published on the entry [verified, entry page https://www.awwwards.com/sites/siteassist read 2026-09-23]. Five community votes shown, overalls 6.50–7.50 [verified, entry page]; they are not jury scores. Entry tags: Business & Corporate, Clean, Scrolling, Photo & Video, UI design, Webflow [verified, entry page] |
 | Corpus rating | D 6.4 / U 6.5 / C 5.8 / Co 6.8 → weighted 6.35, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -23,6 +24,11 @@
 | WebGL dosage | none — 0 canvases on every run; the manifest's `webgl:true` is browser capability only [verified, `manifest.json`] |
 | Scroll model | native + smooth library: Lenis `autoRaf:true`, `lerp:.6` (close to native), not synced to ScrollTrigger [verified, index.html; no `ScrollTrigger.update` / `lenis.on`]; `scrollMode:"native"` [verified, `manifest.json`] |
 | Narrative model | specification — claim, benefits, a numbered solutions list, the platform's modules, sectors, proof, contact |
+| Palette strategy | green-tinted neutral ramp #f9faf9 → #19191a + one electric violet #6100fe spent only on CTAs; chroma from site photography |
+| Type contract | grotesque + mono pair (Geist + Geist Mono, Google Fonts); uppercase mono h1, nav and labels, one tight sentence-case sans title per chapter |
+| Awards / score | Awwwards Honorable Mention 17 Aug 2026 (Signifly), no jury axis scores published |
+| Confidence | high (live source + captures + entry) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 The one idea is *field control*: the site speaks like a site-safety instrument panel. The first viewport is a drone shot of a viaduct under construction, playing as a looping muted video, with a single uppercase mono claim, "Total Control of High-Risk Work", ruled underneath [verified, `desktop-s00.png`, index.html h1]. Beside the positioning line sits a live coordinate readout, and it moves with the pointer: mouse position is mapped onto a latitude/longitude box west of London [verified, index.html `initCursorCoordinates`]. A client-logo row closes the hero. Seen across the scroll states:

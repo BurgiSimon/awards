@@ -1,6 +1,9 @@
 {
   "id": "gl-sdf-extruded-symbol",
   "title": "Raymarched extruded SDF symbol",
+  "intent": "Logo with a body",
+  "group": "webgl-surfaces",
+  "summary": "A 2D signed-distance mark (ring + capsule, or a field baked from an SVG path) extruded with `min(max(w.x, w.y), 0) + length(max(w, 0)) − bevel` after shrinking profile and depth by the bevel, raymarched in raw WebGL2 inside a ray–box clip with an `80`-step budget; four-tap normals and AO, a studio ring environment so the bevel outshines the face, Schlick tint, inline ACES and gamma; depth-and-yaw intro then a slow sway on the shared ticker; an SVG stroke still under reduced motion, static, no WebGL2 or context loss",
   "tags": [
     "webgl",
     "shader",

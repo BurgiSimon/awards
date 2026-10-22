@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | brand — a Cotswolds workshop building bespoke Porsche 911 restomods to commission [verified, index.html `<title>` and meta description] |
+| Industry | automotive |
 | Visitor mode | persuade — the enquiry lives behind the burger, the explore index and the footer's phone and email; a PDF brochure download in the close [verified, desktop-s50.png, desktop-s100.png] |
 | Awards | none found — one search on 2026-09-23 returned no award entry [verified, search]; no ribbon or award link in the served page [verified, index.html] |
 | Corpus rating | D 6.6 / U 5.8 / C 6.0 / Co 6.8 → weighted 6.26, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -35,6 +36,11 @@
 | WebGL dosage | none — `canvases: 0`; `webgl: true` is context availability only [verified, manifest.json] |
 | Scroll model | native + Lenis 1.0.23 (`lerp .1`, `wheelMultiplier .7`, `smoothTouch false`) on its own rAF loop; GSAP ScrollTrigger scrubs and Webflow IX2 scroll actions read the same native scroll [verified, index.html; manifest.json `scrollMode: native`] |
 | Narrative model | specification — studio-lit car hero, a welcome statement, craft pillars (engine, sourcing, bodyshell), an explore index, owner testimonials tied to build numbers, a model-range tab set, a newsletter close [verified, desktop-s00 to s100.png; index.html] |
+| Palette strategy | black photographic grounds cut against white body sections, no chrome accent; chroma only from the cars, paint-named tokens held for build pages |
+| Type contract | expressive wide display + light neutral grotesque + SVG logotype (PP Formula + TWK Lausanne 300) |
+| Awards / score | none found (one search, 2026-09-23) |
+| Confidence | high (live source + captures; no award entry found) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 **One idea:** the car as the only image, the name as the only graphic. The first viewport is a black 911 photographed in a dark studio with a headlight beam cutting left and a red haze behind, a two-line claim at left and the RENNSPORT logotype stretched across the full width at the bottom [verified, desktop-s00.png]. On scroll the logotype shrinks into the nav, so the brand mark literally leaves the stage and parks top left [verified, index.html inline script; desktop-s25.png].

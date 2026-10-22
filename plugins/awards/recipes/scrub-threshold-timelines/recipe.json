@@ -1,13 +1,16 @@
 {
   "id": "scrub-threshold-timelines",
   "title": "Paused timelines fired at scrub-progress thresholds",
+  "intent": "Copy on scrub thresholds",
+  "group": "scroll-set-pieces",
+  "summary": "Paused copy timelines ride a `top top` → `bottom bottom` linear scrub without being scrubbed: a gate that remembers its side plays one at progress `≥ .3` (`timeScale 1.5`) and reverses it at `≥ .6` or back below `.3` (`3.5`), a final line plays at `≥ .81` (`1.25`); a step label flipped by two `.001 s` tweens at `.5` inside the scrub; refresh snaps each timeline with `progress(0|1)`; fade-only copy and a still bloom under reduced motion, no tween in the static tier",
   "tags": [
     "scroll",
     "gsap",
     "scrolltrigger",
     "scrub",
     "timeline",
-    "copy",
+    "text",
     "reduced-motion"
   ],
   "tier": "P1",

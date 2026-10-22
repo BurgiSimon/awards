@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | studio — a creative house covering branding, websites, content production, gaming and 3D; the home route is the one read here [verified, index.html meta `category` "Creative studio" + desktop captures] |
+| Industry | agency-studio |
 | Visitor mode | persuade — clients, disciplines and the contact footer are the argument; the world is dressing on top of them [verified, wait/desktop-s00 to desktop-s100.png] |
 | Awards | Awwwards **Site of the Day, 7.23 / 10** [verified, entry page, `entry/desktop-s00.png`]; axis and developer sub-scores not read, a cookie wall covered the score panel [unknown]; dated 20 Sep 2026 with a Developer Award [inferred, from a search-result summary 2026-09-23, not seen on the captured entry frame] |
 | Corpus rating | D 7.2 / U 6.6 / C 7.2 / Co 6.9 → weighted 6.99, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -21,6 +22,11 @@
 | WebGL dosage | moments — engraved illustration plates rendered through one pointer-trail shader; the rest is DOM, video and images [verified, 08~kpwfcf6e70.js; manifest.json `canvases: 4` desktop, 1 mobile] |
 | Scroll model | native + Lenis 1.3.17; section reveals on ScrollTrigger [verified, manifest.json `scrollMode: native`, 068fq8h1ymnjo.js] |
 | Narrative model | specification — the home page is a numbered capability sheet: each discipline gets a script numeral, a service table, a sample rail and its own marquee, framed by a client hero and a manifesto [verified, desktop-rm-s25/s50.png, mobile-s50/s75.png] |
+| Palette strategy | achromatic grey ground #f5f5f5 + ink #434343, tricolore rule as brand mark, one colour-coded accent per discipline |
+| Type contract | script display + neutral grotesque + editorial serif wordmark + mono (Ballet + Helvetica Now Var + Novela / PP Editorial Old + Sometype Mono) |
+| Awards / score | SOTD 7.23 (Dev Award reported, date and sub-scores unread) |
+| Confidence | high |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 **One idea:** an Italian heraldic house selling digital craft. Renaissance engravings (trumpeting angels, a lion crest), copperplate script and tricolore rules dress a very contemporary client roster, and the contrast is the joke the name makes: "irrational thinkers" [verified, captures + index.html `<h1>`].

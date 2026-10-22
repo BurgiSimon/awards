@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | B2B product: leasing site for a Class A business centre under construction on the south-west edge of Moscow (office, retail and parking space) [verified, index.html `<title>` "Class A Business Center" + JSON-LD Organization + copy]; Awwwards tags Business & Corporate, Real Estate, Luxury [verified, Awwwards entry read 2026-09-23] |
+| Industry | property-hospitality |
 | Visitor mode | persuade: two conversion paths, "Select office space" and "Contact us", are pinned in the header on every frame [verified, desktop-s00.png … desktop-s100.png] |
 | Awards | **Awwwards Site of the Day, 19 Aug 2026, SOTD 7.33**: Design 7.49 · Usability 7.13 · Creativity 7.28 · Content 7.44 [verified, Awwwards entry read 2026-09-23]. **DEV AWARD 7.41**: Semantics/SEO 7.20 · Animations/Transitions 8.20 · Accessibility 6.60 · WPO 7.60 · Responsive 7.40 · Markup/Meta 7.20 [verified, same]. Entry palette: two colours, #070B20 + #E3E6EB [verified, same]. Communication Arts Webpick listing exists [verified, search result title only; page not read] |
 | Corpus rating | D 7.3 / U 6.4 / C 7.0 / Co 7.2 → weighted 6.96, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -23,6 +24,11 @@
 | WebGL dosage | moments: one canvas on the page [verified, manifest.json `canvases: 1`, `webgl: true`] serving two scenes, a glass lattice object (`webglDark`, `/assets/webgl-dark/white.glb`) behind the key-figures stage and an orbitable site model (`webglWhite`) inside the master-plan modal [verified, index.html + webgl-club.js] |
 | Scroll model | virtual float: Locomotive Scroll 4 in smooth (transformed-container) mode on desktop **and** phones, lerp .1 [verified, shared.js], with `data-scroll-sticky` layers and a site-written snap-point engine on top [verified, shared.js + index.html]; capture `scrollMode: wheel` on desktop and mobile [verified, manifest.json] |
 | Narrative model | specification, place-led: nine numbered chapters (about, location, master plan, architecture, lobby, offices, technology, infrastructure, team), each a figure-and-fact block, then a contact close [verified, index.html + menu links] |
+| Palette strategy | blue-black #070b20 ground + white ink + cool greys (#e3e6eb), no accent; chroma only from dusk renders |
+| Type contract | one geometric grotesque, two weights (TT Norms Pro 400/450), uppercase body |
+| Awards / score | SOTD 19 Aug 2026, 7.33 (dev 7.41, a11y 6.60) |
+| Confidence | high (live source + captures + entry) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 The one idea is the building's own massing turned into interface grammar: the stepped, notched silhouette of the glass volumes is the shape of the preloader card, the hero wordmark panel, the cookie box, the numeral panels and 18 "bitten-corner" buttons [verified, desktop-s00.png, desktop-rm-s00.png, mobile-s100.png, index.html `btn--bitten-corner`]. The load holds on that stepped white block counting to 100 % over a dimmed glass lattice [verified, desktop-rm-s00.png, mobile-s00.png]. The hero then plays as one long scrubbed stage: white panel with the wordmark over a dusk render (s00), the panel retracts upward (s25), a hairline "Class A" card and a short positioning line appear (s50), the card fades as the render pulls back to reveal street, plaza and people (s75, s100) [verified, wheel/desktop-s00 … s100.png]. After it, the page reads as a specification sheet with numbered chapters, big numerals and dual labels ("minutes / by bus") [verified, index.html + wheel/mobile-s100.png]. Register: aspirational property copy ("Where future gains momentum" [verified, index.html]) carrying real figures: 53 300 m², 266 underground and 254 ground spaces, a 12 m lobby ceiling [verified, index.html].

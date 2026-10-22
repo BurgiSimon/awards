@@ -3,6 +3,7 @@
 | Field | Value |
 |---|---|
 | Class | brand — a multi-flavour (multi-SKU) DTC hard-seltzer experience, not a storefront-first site [verified, index.html og:description + `uil.json` scene names] |
+| Industry | food-drink |
 | Visitor mode | experience |
 | Awards | Awwwards **Site of the Day, 5 Jun 2024**, overall **7.69** — Design 7.60 · Usability 7.34 · Creativity 8.30 · Content 7.87 [verified, Awwwards entry read 2026-09-18]. **DEV AWARD score 7.45** (a published score, not a badge) over six criteria: Semantics/SEO 6.80 · Animations/Transitions 8.60 · Accessibility 6.80 · WPO 7.60 · Responsive Design 7.60 · Markup/Meta-data 7.20 [verified, same]. The entry shows **no Site of the Month**, no honourable mention and no CSSDA row [verified, same]. CSSDA WOTY-2024 nominee and the 8.99 figure: **unverified this pass**, previously sourced only to AI-compiled repos — treat as unproven [unknown] |
 | Studio / credits | Awwwards credits the entry to **Active Theory** [verified, Awwwards entry read 2026-09-18]. The site's own `<title>`, `og:title` and `og:description` brand it **Buttermax** — "Buttermax's newest brainchild Slosh Seltzer, an in-house maximalist design exploration" [verified, index.html]. The bundle boots Active Theory's **Hydra** framework (`hydra_*` events, `#Stage`, `HydraCSS`) [verified, app.js]. Both names are real and not in conflict: submitted by Active Theory, published under the Buttermax brand. Individual credits [unknown] |
@@ -12,6 +13,11 @@
 | WebGL dosage | **100 % canvas.** `html, body, #Stage { overflow: hidden; touch-action: none }`; the whole page is one GL stage, the served CSS is 2.6 KB of stage plumbing with no design tokens at all [verified, style.css] |
 | Scroll model | section switcher on a **virtual scroll** — no document scroll exists; `virtualScroll` / `smoothScroll: true` drive a `ScrollController` + `ScrollRenderManager` [verified, app.js]. Confirmed live: capture reported `scrollMode: wheel` on desktop, `native` on mobile [verified, manifest.json] |
 | Narrative model | single-object launch — a short loop of seven named scenes around one can [verified, app.js `GLA11y.registerPage` calls] |
+| Palette strategy | six flat hues, one on screen at a time, light ground |
+| Type contract | Steelfish EB + FK Grotesk Mono, MSDF in GL |
+| Awards / score | SOTD 5 Jun 2024, 7.69 (dev 7.45, a11y 6.80) |
+| Confidence | medium-high (source + entry read, render gated) |
+| Last verified | 2026-09-18 |
 
 > Upgraded from the corpus's weakest card by a live pass on 2026-09-18. The site is reachable and its bundle was read, but **the render was never seen**: the site gates on its own WebGL check and served the unsupported wall to headless Chromium. Everything below is from source, headers, the award entry and the gate — never from a screenshot of the site.
 

@@ -1,6 +1,9 @@
 {
   "id": "sticky-stack-cards",
   "title": "Sticky stack cards",
+  "intent": "Stacked cards",
+  "group": "scroll-set-pieces",
+  "summary": "Sticky cards scaling the previous one",
   "tags": [
     "scroll",
     "gsap",

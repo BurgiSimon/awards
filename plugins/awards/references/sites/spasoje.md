@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | portfolio (independent creative developer, one page) [verified, index.html `<title>` and description] |
+| Industry | creative-practice |
 | Visitor mode | persuade, experience-led: the email pill sits in the header at every width and again in the close [verified, desktop-s00.png, mobile-s00.png, desktop-s100.png] |
 | Awards | Awwwards **Honorable Mention, 3 Mar 2025**; no axis scores visible on the entry [verified, entry/desktop-s00.png]. The site's own project data lists per-project Awwwards marks such as "10 / 10" [verified, index.html `__NEXT_DATA__`; underlying awards not checked] |
 | Corpus rating | D 7.6 / U 6.4 / C 7.4 / Co 7.2 → weighted 7.16, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -15,6 +16,11 @@
 | WebGL dosage | none — one canvas-2D analogue clock [verified, index-….js] |
 | Scroll model | native + smooth library: GSAP ScrollSmoother `smooth: 1.2`, created only when `ScrollTrigger.isTouch !== 1`, paused until the loader ends; manifest `scrollMode: native` [verified, 896-….js, manifest.json] |
 | Narrative model | gallery — letter-toy hero → two featured case cards → a WRK statement → a grid/list project index → B&W portrait about → local-time clock close [verified, captures] |
+| Palette strategy | achromatic grey ground #f5f5f5 + graphite ink #1a1a1a / #404040 + one signal orange #ff611b for LEDs, actions, selection and the second hand; greyscale scanlined photography, white moulded-plastic knobs |
+| Type contract | dot-matrix display + grotesque mono, all uppercase, no proportional face (next/font locals `terminal` + `akkuratMMono`) |
+| Awards / score | Awwwards Honorable Mention 3 Mar 2025, no axis scores published |
+| Confidence | high (live source + captures + entry) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 The developer's site as a piece of hardware: a display panel of dot-matrix characters, white push-knobs with LED dots, a toggle switch, a wall clock, and clicks for every control. The idea is that the visitor operates the page rather than reads it; the hero invites it with a blinking hint to tap a letter [verified, desktop-s00.png `hero__hint`].

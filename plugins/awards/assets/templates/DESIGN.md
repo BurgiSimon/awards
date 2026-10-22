@@ -29,7 +29,7 @@ typography:
     fontSize: "<derive: at least 11px>"
     fontWeight: 500
     lineHeight: 1.2
-    letterSpacing: "0.08em"
+    letterSpacing: "<derive: 0 unless WORLD sets labels as tracked caps>"
 rounded:
   none: "0"
 spacing:
@@ -60,7 +60,7 @@ The frontmatter is the machine-readable layer (DESIGN.md spec: tokens are normat
 Roles (ground, ink, accent, surfaces), contrast pairs with ratios (body ≥ 4.5:1, large ≥ 3:1), the theme table (`data-theme` values and the tokens each remaps), wide-gamut duplicates (`color(display-p3 …)`), where chroma comes from (tokens vs imagery).
 
 ## Typography
-The contract (expressive display + neutral grotesque, or one characterful family at display scale); the scale (artboard width, vw-lock values, `clamp()` bounds); tracking floor (≥ −0.04em), display leading (0.8–0.95), optical hang; the `--h2`, `--h3`, `--body` steps; labels only when the world is a metadata world (size, tracking, case), otherwise none; loading (`@font-face` self-hosted woff2, `font-display`, `size-adjust` fallback); text splitting only after `document.fonts.ready`.
+Voice: one sentence from WORLD. Candidates: the ids `fonts.mjs search` pulled and the specimen they were judged on (`.awards/type/specimen.png`); chosen: face, foundry, licence, and why; rejected: one line per candidate. The contract (expressive display + neutral grotesque, or one characterful family at display scale); the scale (artboard width, vw-lock values, `clamp()` bounds); tracking floor (≥ −0.04em), display leading (0.8–0.95), optical hang; the `--h2`, `--h3`, `--body` steps; labels only when the world is a metadata world (size, tracking, case), otherwise none; loading (`@font-face` self-hosted woff2, `font-display`, `size-adjust` fallback); text splitting only after `document.fonts.ready`.
 
 ## Layout
 Artboard and grid, gutters, breakpoints or vw-lock policy, coarse-pointer swaps, resize strategy (never a full reload at a breakpoint), max measure for prose.

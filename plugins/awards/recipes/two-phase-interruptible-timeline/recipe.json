@@ -1,6 +1,9 @@
 {
   "id": "two-phase-interruptible-timeline",
   "title": "Two-phase interruptible timeline: open, addPause() hinge, close",
+  "intent": "Interruptible open / close",
+  "group": "arrival-and-chrome",
+  "summary": "One paused timeline: open half, `addPause()` at its duration `I`, close half; close calls `tl.time() < I ? tl.reverse() : tl.play()`, so a close mid-open rewinds from where it is and a close after the hinge plays the authored exit; reopen during the exit reverses back onto the pause; `pause(0)` on complete; the panel's visibility set at `.001` so `pause(0)` hides it; disclosure with `aria-expanded`, `inert` on close, Escape; opacity-only under reduced motion, `pause(I)` / `pause(0)` in the static tier",
   "tags": [
     "gsap",
     "timeline",

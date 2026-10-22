@@ -3,6 +3,7 @@
 | Field | Value |
 |---|---|
 | Class | B2B product (uncrewed surface vessels; defence, science, commercial buyers) |
+| Industry | defence-aerospace |
 | Visitor mode | persuade |
 | Awards | Awwwards SOTD 8 Sep 2026 + Developer Award; SOTD 7.44 = Design 7.61 / Usability 7.17 / Creativity 7.38 / Content 7.65; DEV 7.22 = Semantics-SEO 7.00 / Animations 8.00 / Accessibility 6.60 / WPO 7.00 / Responsive 7.40 / Markup-Meta 7.20 [all verified, Awwwards entry read 2026-09-18]; tags Business & Corporate, Institutions, Startups, Clean, Infinite Scroll, Unusual Navigation, Menu – Vertical, 3D, Footer Design, Javascript, Cinema 4D [verified, same]; jury-highlighted elements Retractable Menu, Globe + Case Studies, Intro story, Vessels Pages, Footer [verified, same] |
 | Studio / credits | Raw Materials, sole credit on the entry [verified, Awwwards entry read 2026-09-18]; individual designers, developers, 3D artists [unknown] |
@@ -12,6 +13,11 @@
 | WebGL dosage | moments — one interactive R3F globe in the missions archive, plus four 2D-canvas frame players [verified, index.html: 1 R3F canvas + 4 `AnimateFrames_canvas`; `manifest.json` `webgl:true, canvases:5`] |
 | Scroll model | native, Lenis-smoothed, with long sticky frame tracks per stage [verified, `manifest.json` `scrollMode:"native"`; `AnimateFrames_track` / `_loadTrigger` markup] |
 | Narrative model | specification: scale escalation (one vessel → team → ocean-wide network) |
+| Palette strategy | 3 named gradient themes cross-faded on scroll (aura / oxidised / copper) |
+| Type contract | serif display + grotesque body + techno mono (seasonMix / seasonSans / supplyMono), 1440-artboard vw root |
+| Awards / score | SOTD Sep 8 2026, 7.44 (U 7.17) + Dev 7.22 |
+| Confidence | high |
+| Last verified | 2026-09-18 |
 
 ## 1. Concept and narrative
 "Ocean Autonomy That Works" is an anti-hype claim in a category full of vapourware, and the product is reframed as "Satellites at sea" [verified fragments, index.html `<h1>`, `ProductIntro_heading`]. The spine is scale escalation: vessels "designed to work independently, team up for coordinated maneuvers, and form vast networks for ocean-wide intelligence" [verified fragment ≤ 25 words, `ProductIntro_copy`] — so scroll depth equals scope. The second beat inverts the sell: a six-item flythrough lists what the ocean hides rather than what the boat does — "The coordinates of the ghost fleet.", "The path of hurricanes.", "The signals of submarines." [verified fragments, `FlythroughPoints_pointText`]. Only after that does the page name a product. Specs are rhetoric, not tables: "Sprints 35+ knots. Cruise 400+ nm.", "Resilient to GPS jamming and spoofing, with anti-tamper capabilities available." [verified fragments, `desktop-s75.png`]. The recurring formula is capability stated as a constraint removed — no crew, no crane, no specialist training.

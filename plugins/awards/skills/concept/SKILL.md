@@ -37,7 +37,9 @@ Why: this is the heaviest reading phase of the plugin; the corpus is the taste, 
 
 - `${CLAUDE_PLUGIN_ROOT}/references/sites/_index.md` first: the table and its neighbour-picking rules. Project-local cards in `.awards/sites/` (written by `awards:research`) count as neighbours too.
 - The three nearest cards in `${CLAUDE_PLUGIN_ROOT}/references/sites/<slug>.md`, sections §7 Principles and §8 Take / Don't take only; §1–§4 are evidence, never a plan.
+- Each of those cards' composition skeleton, `${CLAUDE_PLUGIN_ROOT}/references/sites/skeletons/<slug>.png` (block maps of where headings, text and media sit at the top, middle and close, and on a phone), and its row in `_fingerprints.md`. This is the visual bar the deal has to clear: a dealt FIRST VIEWPORT that reproduces a neighbour's block map is that neighbour, whatever its colours.
 - `${CLAUDE_PLUGIN_ROOT}/references/anti-patterns.md` before naming the three ruts, and again before the naming test at the end.
+- `${CLAUDE_PLUGIN_ROOT}/references/patterns/negative-exemplars.md` and its six frames in `negative/`: the house style, the template product page and the clean, forgettable page. No dealt card may reduce to one of them with new colours.
 - `${CLAUDE_PLUGIN_ROOT}/references/patterns/narrative-structures.md` before writing STORY.
 - `${CLAUDE_PLUGIN_ROOT}/references/patterns/hero-archetypes.md` before writing FIRST VIEWPORT.
 - `${CLAUDE_PLUGIN_ROOT}/references/patterns/visual-composition.md`: for a read-heavy brief open the typography and editorial frames; for a product brief open hero and specifications. For an editorial/product/material-led complete page, also open the complete composition’s opening, middle and close frames. Select only fitting examples. Record one principle and what changes for this subject. These fictional examples do not replace the three real site-card DIVERGENCE entries.
@@ -69,10 +71,11 @@ The thesis must refuse all three by name; a thesis that refuses one lands in ano
 
 Why: three cards give a principle; one card gives a signature, and a signature is exactly what may not be taken.
 
+0. When `## Brief` lists references the user likes, each needs a card first: a corpus card when its slug exists, otherwise Invoke the `awards:research` skill now with the Skill tool for that URL (two at most), then continue here. A user reference may fill one DIVERGENCE slot, never more, with the same take and refuse lines as any card: liking a site is a reason to learn its principle, never to copy its signature.
 1. Pick the three nearest cards in the index's order of matching: class first, then visitor mode, then the WebGL dosage the budget affords, then the scroll model. Widen by mode when fewer than three fit; never fill a slot with an unrelated card.
 2. Read their §7 and §8. For each card write one principle taken (a rule that would hold for any site) and one literal move refused (the device, object, colour set, order or line that is that site's own). At least one take is compositional, typographic or structural, not technique; when a card's §8 has none, take it from §7.
 3. Note what all three share (masked reveals, a designed footer, numbers as copy): shared moves are the genre's craft and may be used. Anything only one card does is its signature and is refused.
-4. This becomes the DIVERGENCE block, verbatim in shape: three `[site:slug]` entries, each with a take and a refuse line.
+4. This becomes the DIVERGENCE block, verbatim in shape: three `[site:slug]` entries, each with a take and a refuse line (a `[clone:slug]` card is a technique reference, never one of the three).
 
 ## Step 3 — seven candidate worlds
 
@@ -91,7 +94,7 @@ Run `node "${CLAUDE_PLUGIN_ROOT}/scripts/roll.mjs" --deal 3 --of 7`. It prints `
 
 Write the three dealt worlds as full cards of equal weight, in `DEALT` order, the lead marked. Each card carries, in this order:
 - Thesis: the object or behaviour and the three ruts it refuses.
-- World: colour strategy, temperature, light or dark and why, the character of the type voice, the material policy (names, not hexes or faces; `awards:system` chooses those).
+- World: colour strategy, temperature, light or dark and why, the character of the type voice, the material policy, and the imagery strategy with what supplies it (names, not hexes or faces; `awards:system` chooses those; `${CLAUDE_PLUGIN_ROOT}/references/patterns/imagery-and-assets.md` lists the strategies, and "none, flat grounds" is not one).
 - First viewport: the composition in one sentence; copy placement, nav form and action form come from the world.
 - Signature interaction and its technique tier: DOM-only · moments · canvas-first · 100 % canvas (the rungs of `[pattern:webgl-architecture#dosage-ladder]`).
 - Scroll model: native + Lenis / sticky stages + invisible rails / virtual float / section switcher.
@@ -152,7 +155,7 @@ Why: the contract is only usable when the first screen, the world, the scroll mo
 Why: the block names are read by every other skill, the hook and the evals; a paraphrased name is an invisible block.
 
 1. Open `AWARDS.md` (create it from `${CLAUDE_PLUGIN_ROOT}/assets/templates/AWARDS.md` when absent) and write `## Direction contract` with the blocks in the template's order and exact names: THESIS, WORLD, STORY, FIRST VIEWPORT, SIGNATURE, SCROLL MODEL, LOAD & CLOSE, DIVERGENCE, FINISH, Seed.
-2. Write the `## Page map` skeleton: one row per chapter or route with `#`, `Chapter / route` and `Beat (entrance · hold · exit)` filled from STORY; leave `Layout`, `Components (recipe ids)` and `Notes` for `awards:structure`. A faceted world lists every route, the 404 included.
+2. Write the `## Page map` skeleton: one row per chapter or route with `#`, `Chapter / route` and `Beat (entrance · hold · exit)` filled from STORY; leave `Layout`, `Components (recipe id: keep · change · pair)` and `Notes` for `awards:structure`. A faceted world lists every route, the 404 included.
 3. Tick "Direction contract locked (concept)" in `## Status`. Touch no other section.
 4. Keep the seven worlds and the dealt cards in the reply, not in the file; the file carries the decision and the seed.
 

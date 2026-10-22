@@ -1,14 +1,17 @@
 {
   "id": "pointer-tilt-shine",
   "title": "Cards that tilt toward the pointer with a moving shine",
+  "intent": "Tilting cards",
+  "group": "galleries-and-lists",
+  "summary": "Face turns toward a mouse pointer (`rotateY 7° × nx`, `rotateX −7° × ny`, the corner under the pointer recedes) through `quickTo`, measured on an untransformed link that carries the `perspective`; a shine layer follows the pointer and a shade gathers opposite, moved by translate only; any scroll locks the field until the first pointer move after a `140 ms` quiet period; mouse pointers only, flat with no layers under reduced motion",
   "tags": [
     "pointer",
     "hover",
     "tilt",
     "3d",
     "gsap",
-    "quickTo",
-    "card"
+    "quickto",
+    "cards"
   ],
   "tier": "P1",
   "deps": [

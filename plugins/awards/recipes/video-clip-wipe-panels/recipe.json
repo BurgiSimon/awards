@@ -1,6 +1,9 @@
 {
   "id": "video-clip-wipe-panels",
   "title": "Panels changed by a clip-path wipe between two video buffers",
+  "intent": "Video panel wipe",
+  "group": "scroll-set-pieces",
+  "summary": "Two double-buffered media layers (canvases standing in for `<video>`): the hidden one holds the next clip, then opens over the visible one from `clip-path: inset()` in `1 s expo.inOut` (reversed going back) with a 1 px glowing seam written by the same tween; copy out `.34 s power2.in` before the gate, in `.72 s power3.out`; stepped wheel, swipe, keys and buttons from the section switcher; `.2 s` cross-fade and parked first frames under reduced motion; README shows the `<video>` swap and preload",
   "tags": [
     "sections",
     "video",

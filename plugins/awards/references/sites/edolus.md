@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | campaign — a studio showcase dressed as the launch of an AI-infrastructure brand. The closing credits link to vertex3d.asia under the line "Now imagine your own." [verified, __game-scripts.js `endingCredits`]; that EDOLUS is a fictional client is [inferred] from that line |
+| Industry | fictional |
 | Visitor mode | experience |
 | Awards | none looked up this pass [unknown] |
 | Corpus rating | D 7.5 / U 4.8 / C 7.5 / Co 6.0 → weighted 6.54, 2026-10-05 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -15,6 +16,11 @@
 | WebGL dosage | 100 % canvas: one `#application-canvas`, 250 DOM nodes, every chapter drawn in GL. The DOM carries only the gate, the logo, the audio control, the cursor hint and the ending credits [verified, manifest.json; __game-scripts.js] |
 | Scroll model | virtual float: `overflow: hidden` body; the wheel, touch and arrow / PageUp / PageDown keys drive a 0–1 progress with lerp .1, frame-rate corrected; 32,000 px of wheel per full run, 4,000 px of finger travel on touch; idle snap to seven points [verified, styles.css; scene.json `scrollManager`] |
 | Narrative model | chaptered journey — seven scene windows on one progress line: satellite → diamond map → datacenter → chip → UI cards → car → ending [verified, __game-scripts.js `SceneManager.SEGMENTS`] |
+| Palette strategy | material world per scene (blue orbital night → sand-gold map → gold-on-black cards → light late scenes) on near-black #1E1E1E / #1d292c, white + grey #C4C7C7 type, no accent token |
+| Type contract | grotesque display + mono HUD (General Sans 200–700 via Fontshare + JetBrains Mono), GL text as canvas-2D textures |
+| Awards / score | none looked up |
+| Confidence | medium-high (live source + scene config read; captures reach two of seven scenes past the click gate; no award entry) |
+| Last verified | 2026-10-05 |
 
 ## 1. Concept and narrative
 One continuous camera descent tells where "planetary intelligence" lives: from orbit, down to a city grid, into a server corridor, onto a chip, out through product UI and into an autonomous car, then a credits roll. Each chapter is a scene window on one progress value, not a page section. The register is aerospace keynote: big claims in caps, telemetry in mono, "Experience with headphones" on the gate [verified, desktop-s50.png]. The copy is category-generic ("Orchestrating the foundation of artificial intelligence…" [verified, desktop-s50.png]). It sells the studio's craft more than any product.

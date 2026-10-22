@@ -1,14 +1,15 @@
 {
   "id": "gl-one-context-many-canvases",
   "title": "One WebGL renderer drawn into many 2D canvases",
+  "intent": "Many GL items, one context",
+  "group": "webgl-surfaces",
+  "summary": "One `WebGLRenderer` on a detached canvas renders each item into the top-left slice of its buffer (`setViewport(0, H − h, w, h)`) and `drawImage`s it into that item's own 2D canvas in the same task; an item re-renders only when dirty and within a `50%` root margin; one `2,000,000` px budget sets the pixel ratio for the set (`min(tier DPR, √(budget / Σ area))`); teardown disposes, then `forceContextLoss()`, and the 2D canvases keep their frame; hover / press turns one item, a tint under reduced motion, drawn once in the static tier",
   "tags": [
     "3d",
     "webgl",
     "three",
     "canvas",
-    "budget",
-    "render-on-change",
-    "disposal"
+    "performance"
   ],
   "tier": "P1",
   "deps": [

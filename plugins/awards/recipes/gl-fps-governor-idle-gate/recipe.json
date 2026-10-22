@@ -1,14 +1,14 @@
 {
   "id": "gl-fps-governor-idle-gate",
   "title": "Frame-rate DPR governor and an idle render gate",
+  "intent": "Runtime GL budget",
+  "group": "foundations",
+  "summary": "Half-second fps windows step `setPixelRatio` by `.25` (down under 45, up over 57, hold between) inside the probe's clamp (ceiling = probe DPR and pixel budget, floor `max(.5, cap / 2)`); the loop leaves the shared ticker `1.5 s` after the last scroll, pointer, wheel, touch or key input unless a transition or easing is busy, and stops on hidden tabs; `__governor.simulate(ms)` injects frame times; still field under reduced motion with the same governor and gate, one frame in the static tier",
   "tags": [
     "webgl",
     "three",
     "performance",
-    "dpr",
-    "adaptive-quality",
-    "idle",
-    "render-loop"
+    "idle"
   ],
   "tier": "P1",
   "deps": [

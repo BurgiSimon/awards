@@ -1,12 +1,14 @@
 {
   "id": "boot-lenis-gsap",
   "title": "Boot: Lenis + GSAP on one ticker",
+  "intent": "Boot the page",
+  "group": "foundations",
+  "summary": "Lenis on the GSAP ticker, `lagSmoothing(0)`, fonts before splits, reduced-motion tier, `__awards` hook",
   "tags": [
     "scroll",
     "gsap",
     "lenis",
-    "reduced-motion",
-    "hook"
+    "reduced-motion"
   ],
   "tier": "P0",
   "deps": [

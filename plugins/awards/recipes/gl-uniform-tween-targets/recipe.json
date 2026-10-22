@@ -1,6 +1,9 @@
 {
   "id": "gl-uniform-tween-targets",
   "title": "Shader uniforms and post presets as GSAP tween targets",
+  "intent": "Shader states on the house clock",
+  "group": "webgl-surfaces",
+  "summary": "Uniform `{ value }` objects and post-look values as GSAP tween targets through one `retarget()` (`killTweensOf` first, then `to` from the current value): charge `.9 s power2.out`, release `.45 s power2.in`, so a half-finished hover turns around without a jump; `calm` / `charged` vignette, grain and density tweened together `.9 s power2.inOut`; renders only on a dirty frame from `gsap.ticker`; colour-only charge under reduced motion, instant in the static tier",
   "tags": [
     "gsap",
     "webgl",

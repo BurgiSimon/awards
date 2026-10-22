@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | studio — a Paris creative studio for fashion and luxury: branding, editorial, art direction, AI [verified, index.html meta description; desktop-s00.png "Creative studio in Paris"] |
+| Industry | agency-studio |
 | Visitor mode | persuade — a Calendly "book a call" pill in the first viewport and again at the close, plus a mailto [verified, index.html `calendly.com/sara-noth/30min`, `mailto:`; retry/desktop-s00.png, desktop-s100.png] |
 | Awards | Awwwards **Site of the Day, 10 Aug 2026, 7.45**: Design 7.58 / Usability 7.24 / Creativity 7.60 / Content 7.23. **Developer 7.24**: Semantics 6.80, Animations 8.00, Accessibility 6.80, WPO 7.20, Responsive 7.40, Markup 7.20 [verified, entry page, `entry/entry.html`] |
 | Corpus rating | D 7.4 / U 6.4 / C 7.2 / Co 6.8 → weighted 7.00, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -18,6 +19,11 @@
 | WebGL dosage | moments — one Three.js canvas, the hero's fluid-dye reveal mask; the "3D" objects are pre-rendered images [verified, manifest.json `canvases: 1`; main.js `mask-reveal-canvas`; index.html `.formes-w` `<img>`] |
 | Scroll model | native + Lenis 1.2.3 (duration 1.2, expo-out, `smoothTouch: false`) on its own rAF, not the GSAP ticker; ScrollTrigger pins one chapter and scrubs the rest [verified, main.js; manifest.json `scrollMode: native`] |
 | Narrative model | gallery — wordmark hero → one-line thesis → five featured works with "view all (08)" → framed manifesto film → studio statement → services over an object toy → people → marquee → contact close [verified, index.html text order; desktop and retry captures] |
+| Palette strategy | pure black #000 / white #fff with one inversion (white hero → black body), no accent; chroma only from renders and client work |
+| Type contract | grotesque + mono labels + path-per-letter SVG wordmark (PP Neue Montreal + IBM Plex Mono) |
+| Awards / score | Awwwards SOTD 10 Aug 2026, 7.45 (dev 7.24) |
+| Confidence | high (live source + captures + entry) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 **One idea:** the name as a paradox, "nothing" as an empty space that can become anything [verified, index.html studio paragraph]. The page acts it out: a blank white page holding only a giant black wordmark, which the pointer wipes away to show moving film behind it (§4).

@@ -1,6 +1,9 @@
 {
   "id": "theme-swap-tokens",
   "title": "Theme swap by scroll: tokens and canvas in one tween",
+  "intent": "Colour as state",
+  "group": "foundations",
+  "summary": "Tokens tweened on `<html>` per chapter, canvas clear colour in the same tween, `theme-color`",
   "tags": [
     "colour",
     "theme",

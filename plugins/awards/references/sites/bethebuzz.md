@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | B2B service: a go-to-market marketing agency for B2B SaaS, e-commerce and cybersecurity companies [verified, index.html `<title>` and meta description] |
+| Industry | agency-studio |
 | Visitor mode | persuade: a violet LEARN MORE per service, EXPLORE OUR SOLUTIONS, a BOOK A SESSION box and the address as a display line in the close [verified, desktop-s25/s75/s100.png] |
 | Awards | Site of the Day, 4 Aug 2024, 7.19: Design 7.16 / Usability 7.18 / Creativity 7.24 / Content 7.24; Developer 7.35: Semantics 6.80, Animations 7.60, Accessibility 6.40, WPO 8.00, Responsive 7.80, Markup 7.00 [verified, entry page awwwards.com/sites/be-the-buzz, `entry/be-the-buzz.html`] |
 | Corpus rating | D 6.8 / U 6.2 / C 6.6 / Co 6.0 → weighted 6.50, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -28,6 +29,11 @@
 | WebGL dosage | canvas-first, ambient: one fixed R3F canvas draws a cloth plane under every section and route; the DOM reads as panels floating on it; gated on GPU tier ≥ 1 with a CSS gradient-blob fallback [verified, `layout-….js`; manifest.json `canvases: 1`, `webgl: true`] |
 | Scroll model | native + Lenis 1.0.35 (react-lenis wrapper, own rAF; options [unknown]); one ScrollTrigger pin at `scrub: 1` for desktop ≥ 1025 px [verified, `7227-….js`, `2135-….js`; manifest.json `scrollMode: native`] |
 | Narrative model | specification: services hero → three-service accordion → a pinned "solutions" chapter → contact close [verified, desktop-s00 to s100.png] |
+| Palette strategy | theme-per-route cloth ground (violet here; orange / red / pink named) under white and flat panels, dark-blue ink #010561 + one violet accent #5e29f9, orange #fe9421 interruption panel |
+| Type contract | condensed display caps + ultralight editorial serif + neutral grotesque (Lemon-Bold + PP Editorial Old Ultralight + PP Neue Montreal) |
+| Awards / score | SOTD 4 Aug 2024, 7.19 (dev 7.35) |
+| Confidence | high |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 **One idea:** the agency's world is a moving fabric, and the page is laid over it like cards on a table. The first viewport is white: a two-line ultralight serif kicker at the top, a cut-corner photo of a woman shouting through a megaphone, and a single display word across the full width whose letters are holes, so the violet cloth moves inside them [verified, desktop-s00.png; index.html `mask id="hole"`]. A small drawn arrow and "SCROLL" sit bottom left [verified, desktop-s00.png].

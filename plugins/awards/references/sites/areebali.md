@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | portfolio: a product designer and design engineer's case studies, AI films and experiments [verified, index.html `meta[name=description]`] |
+| Industry | creative-practice |
 | Visitor mode | persuade (experience-led). The portfolio is a device you switch on and operate, and a *Book a call* link sits in the contact channel [verified, 0-l9aqkh94542.js contact list; states/desktop-state-power-nav.png] |
 | Awards | Awwwards Honorable Mention, 10 Aug 2026, listed as "ree\|b. handheld portfolio"; no axis scores visible behind the consent panel [verified, entry/desktop-s00.png; entry URL linked from the site's own ribbon in 0-l9aqkh94542.js] |
 | Corpus rating | D 7.6 / U 6.8 / C 8.0 / Co 7.4 → weighted 7.42, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -27,6 +28,11 @@
 | WebGL dosage | none. No renderer signature in any fetched chunk; the manifest counts one canvas on desktop and none on the phone, purpose unread [verified, chunks + manifest.json; canvas role unknown] |
 | Scroll model | section switcher. The document never scrolls (all five wheel states show the same composition); the screen swaps channels and items via wheel, keys and taps [verified, desktop-s50/s75/s100.png identical; 0-l9aqkh94542.js key map] |
 | Narrative model | faceted world on one object: four channels on a click wheel (work up, about right, contact down, chat left), work split into Work / AI Films / Playground [verified, mobile-state-power-on.png; icon roles inferred from the glyphs and `WORK` / `CHAT` / `AI` / `PLAY` keys in 0-l9aqkh94542.js] |
+| Palette strategy | the object's materials as palette: cool-grey stage #c9ced5, brushed-aluminium greys, black glass screen #0a0b0d, one orange control accent #e8461c |
+| Type contract | neutral grotesque chrome + system monospace screen + serif guestbook accent (Inter + ui-monospace stack + Libre Baskerville; League Spartan preloaded for the wordmark) |
+| Awards / score | Awwwards Honorable Mention 10 Aug 2026, no axis scores read |
+| Confidence | high (live source + captures + keyboard states + entry) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 **One idea:** the portfolio is a handheld product the visitor switches on. A product designer shows his work through a product. The lineage (a Braun radio, then the click-wheel music player) is stated in the site's own chat replies [verified, 0-l9aqkh94542.js reply strings]. The case studies sit inside the device's screen as text, not as a page of image tiles.

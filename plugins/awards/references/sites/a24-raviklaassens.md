@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | brand: an unofficial, non-commercial reimagining of a film distributor's catalogue; Films (home), Television and `/production/<slug>` routes, 12 films listed on the home route [verified, index.html JSON-LD `numberOfItems: 12`; search result snippet "experimental, non-commercial"] |
+| Industry | film-music |
 | Visitor mode | experience: the home route is one disc gallery to browse; each film opens a production route with credits, reviews and a trailer lightbox [verified, desktop-s00.png; index.html `data-trailer-*`, `data-barba-prevent` links] |
 | Awards | Awwwards **Nominee, 21 Sep 2026**, credited "A24 by Ravi Klaassens"; no jury scores visible in the captured entry frames (a cookie wall covers part of them) [verified, entry page, `entry/desktop-s00.png`, `entry/desktop-s50.png`]. An FWA case with 83 points is reported by a search snippet only [unknown, not read] |
 | Corpus rating | D 7.6 / U 7.2 / C 7.8 / Co 7.0 → weighted 7.46, 2026-10-05 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -15,6 +16,11 @@
 | WebGL dosage | canvas-first: one Three.js canvas draws the disc gallery; title, credit table, reviews and nav are DOM, and the 12 films exist as a DOM list [verified, manifest `canvases: 1`, index.html `data-disc-canvas`, 12 `data-film-item`] |
 | Scroll model | section switcher: the home route does not scroll; wheel, drag, touch and arrow keys step a spring-snapped float index one disc at a time [verified, manifest `scrollMode: wheel`; main.qdXy8l6N.js wheel step detector, `snapFreq`, `ArrowRight`] |
 | Narrative model | gallery: twelve films as twelve physical discs on one tilted row, the active disc's credits top left and two reviews below [verified, desktop-s00…s100.png] |
+| Palette strategy | achromatic grained paper #f2f2f2 + black ink + grey rules #d6d3d1, declared oxblood #891a20 unseen; all chroma from poster art printed on the 3D objects |
+| Type contract | display serif caps + grotesque values + wide-tracked small-caps labels (PP Eiko + PP Neue Montreal + PP Museum) |
+| Awards / score | Awwwards Nominee 21 Sep 2026, no scores shown |
+| Confidence | high |
+| Last verified | 2026-10-05 |
 
 ## 1. Concept and narrative
 The catalogue is a stack of optical discs. Each film is pressed onto a disc whose label is its poster, with credits set around the rim, and the discs float in a tilted row on grained paper. One wheel notch slides the row one disc along; the active disc sits centre-right, slightly raised, and a hand-drawn loop scribbles around it while its credit table and two starred reviews swap in [verified, desktop-s00/s25/s50/s100.png].

@@ -23,10 +23,11 @@
 - **Routes:** single page / n routes
 - **Sound:** none / opt-in
 - **Visitor mode:** persuade / experience / read
+- **References the user likes:** none / up to two URLs, each researched into a card before concept
 
 ## Direction contract
 - **THESIS:** the one idea this surface owns; the category default, the Awwwards default and the template skeleton it refuses.
-- **WORLD:** colour strategy and tokens, type contract, materials — recognisable with every word removed.
+- **WORLD:** colour strategy and tokens, type contract, materials, and one imagery strategy with what supplies it (owned photographs, a named open collection, a generation tool, a drawn language, code) — recognisable with every word removed. "None, flat grounds" is not a strategy.
 - **STORY:** the narrative model, the chapter beats (entrance · hold · exit), the interruption, the close.
 - **FIRST VIEWPORT:** the exact composition — what is where, at what scale, and where the primary action sits.
 - **SIGNATURE:** the one interaction, the physical metaphor it enacts and the jobs it does, its technique tier, its behaviour on touch, keyboard and reduced motion, its fallback.
@@ -37,7 +38,7 @@
 - **Seed:** (printed by `roll.mjs`)
 
 ## Page map
-| # | Chapter / route | Beat (entrance · hold · exit) | Layout | Components (recipe ids) | Notes |
+| # | Chapter / route | Beat (entrance · hold · exit) | Layout | Components (recipe id: keep · change · pair) | Notes |
 |---|---|---|---|---|---|
 
 ## Motion score

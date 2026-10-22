@@ -7,10 +7,10 @@ Use these exact versions in scaffolds, recipes and generated `package.json` file
 | gsap | 3.15.0 | motion engine; all plugins free |
 | @gsap/react | 2.1.2 | `useGSAP` for React / Next |
 | lenis | 1.3.26 | smooth scroll on native scroll |
-| three | 0.186.0 | WebGL |
+| three | 0.186.0 | WebGL; the WebGPU renderer and TSL ship in the same package (`three/webgpu`, `stacks/webgpu-tsl.md`) |
 | @react-three/fiber | 9.7.0 | React renderer for three |
 | @react-three/drei | 10.7.8 | R3F helpers |
-| postprocessing | 6.39.5 | pmndrs composer: bloom, SMAA |
+| postprocessing | 6.39.5 | pmndrs composer: bloom, SMAA; WebGL only, no WebGPU path |
 | ogl | 1.0.11 | minimal WebGL (Floema lineage) |
 | animejs | 4.5.0 | second motion grammar |
 | motion | 13.4.1 | React UI micro-interactions only; never scrub (re-checked 2026-09-23) |
@@ -19,7 +19,7 @@ Use these exact versions in scaffolds, recipes and generated `package.json` file
 | @unseenco/taxi | 1.9.1 | SPA page transitions (Lando); 2.0.0 is out with breaking changes, the recipes run on both, see `stacks/taxi-2.0.md` (checked 2026-10-22) |
 | swup | 4.10.0 | alternative transition router |
 | @barba/core | 2.10.3 | alternative transition router |
-| @rive-app/canvas | 2.42.2 | authored 2D vector states |
+| @rive-app/canvas | 2.42.2 | authored 2D vector states; 2.45.0 is out with no breaking change and a larger runtime, see `stacks/rive-2.42.md` (checked 2026-10-22) |
 | @lottiefiles/dotlottie-web | 0.80.0 | Lottie playback |
 | howler | 2.2.4 | sound |
 | matter-js | 0.20.0 | 2D physics |
@@ -81,4 +81,4 @@ Check Context7 before using an API you have not verified in this session, even f
 | Astro | `/withastro/docs` | |
 | SvelteKit | `/websites/svelte_dev_kit` | |
 | Vite | `/vitejs/vite` | Vite 8 / Rolldown options |
-| Webflow | `/websites/developers_webflow` | Data and Browser APIs only; no runtime (`webflow.js`) documentation |
+| Webflow | `/websites/developers_webflow` | Data and Browser APIs and code components; no runtime (`webflow.js`) documentation; see `stacks/host-platforms.md` |

@@ -1,9 +1,11 @@
 {
   "id": "typography-specimen",
   "title": "In good order — three typographic voices",
+  "intent": "Typography hierarchy",
+  "group": "heroes-and-type",
+  "summary": "Same copy in poster, editorial and technical registers; measure and mobile reflow",
   "tags": [
     "typography",
-    "hierarchy",
     "layout",
     "static"
   ],

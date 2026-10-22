@@ -1,6 +1,9 @@
 {
   "id": "word-cycle-hero",
   "title": "Hero word cycle: slot roll, typed, wheel-stepped",
+  "intent": "Turning hero word",
+  "group": "heroes-and-type",
+  "summary": "One slot in a fixed headline cycles a word list three ways: timed reel roll (`back.out` overshoot, 900 ms rest), typed and erased per character, or stepped by the first wheel inputs at `scrollY 0` before the page moves; width held by one grid cell so the line never reflows, `aria-hidden` slot with an `aria-live=\"off\"` label, first word still under reduced motion",
   "tags": [
     "text",
     "hero",

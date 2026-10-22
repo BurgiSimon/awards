@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | portfolio — an independent designer and lettering artist; this route is the lettering half of a two-discipline portfolio [verified, index.html meta description; desktop-s00.png] |
+| Industry | creative-practice |
 | Visitor mode | persuade — the work is the argument, and a contact pill in the header opens an in-page enquiry form [verified, index.html `contact` pill + `.contact` form CSS; desktop-s00.png] |
 | Awards | Awwwards **Site of the Day, 7.19**; date, axis scores and developer scores unread (cookie wall over the score panel) [verified, entry page, `entry/desktop-s00.png`] |
 | Corpus rating | D 7.3 / U 6.8 / C 6.9 / Co 7.2 → weighted 7.06, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -22,6 +23,11 @@
 | WebGL dosage | none — the 36 canvases are blurhash placeholders drawn with `getContext("2d")` [verified, manifest.json `canvases: 36`; Blurhash.C0Hu4wWR.js; live DOM `canvas.blurhash-src` width 32] |
 | Scroll model | native, no smoothing library; a fixed two-segment switch listens to `scrollY` against measured bounds [verified, manifest.json `scrollMode: native`; 0.BQ4Kx_FL.js `scrollAtBottom`] |
 | Narrative model | gallery — one masonry wall of 36 logo and lettering tiles, then an empty stage where the discipline switch becomes the close, then a footer line [verified, desktop-s00 to s100.png; 3.DM_-IHou.css `grid--masonry`] |
+| Palette strategy | house duotone imposed on the work: electric blue #0000DC ink on lilac #D6D0FF tiles over white; each piece's own colourway only on hover |
+| Type contract | wide grotesque + mono UI, the lettering is the only display type (Halvar Breitschrift + Vulf Mono) |
+| Awards / score | Awwwards SOTD 7.19 (date and axis scores unread) |
+| Confidence | high (live source + captures + entry) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 One person, two disciplines, one switch. The site is split into a design portfolio and a lettering portfolio as sibling routes, and a pill with two segments — design | lettering — sits over the page the whole time, saying which half you are in [verified, desktop-s00.png; live DOM `.part-link` → `/design`, `/lettering`]. The lettering route has no hero and no statement: the first viewport is already the wall, wordmarks and badges at poster weight inside rounded lilac tiles [verified, desktop-s00.png]. Everything is re-inked in one blue, so thirty-six clients read as one hand; the variety lives in letterforms (script, blackletter-adjacent ornament, condensed caps, a mascot badge), not colour [verified, desktop-s25/s50/s75.png]. At the end the wall stops, the page opens into white space, and the small switch is replaced by a large one centred in the viewport — the last question the page asks is which half you want next [verified, desktop-s100.png].

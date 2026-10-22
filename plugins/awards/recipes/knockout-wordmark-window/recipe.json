@@ -1,6 +1,9 @@
 {
   "id": "knockout-wordmark-window",
   "title": "Knockout wordmark as a window onto a moving ground",
+  "intent": "Name as a window",
+  "group": "heroes-and-type",
+  "summary": "SVG `<mask>` subtracting the wordmark's paths from a solid `--ground` rect that overflows the word's box and is clipped by the hero, over a fixed canvas-2D ground (four Lissajous blobs + light / shade folds at 1/6 resolution) on the shared ticker, stopped off-screen; `h1` with a hidden text twin, no media files, one still frame under reduced motion",
   "tags": [
     "svg",
     "mask",

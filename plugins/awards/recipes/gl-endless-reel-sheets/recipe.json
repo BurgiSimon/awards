@@ -1,11 +1,13 @@
 {
   "id": "gl-endless-reel-sheets",
   "title": "Endless reel of deformable GL sheets",
+  "intent": "Endless work reel",
+  "group": "galleries-and-lists",
+  "summary": "Virtual offset in items on a modulo-wrapped belt (`mod(i − offset + N/2, N) − N/2`, the first work follows the last going forward), wheel-burst detector (≥ 40 px after a 30 ms gap, 500 ms cooldown, doubled and released at `1 − (1 − .22)^frames`), snap after 200 ms idle, segmented sheets twisted and folded by one `uBend` = velocity · `sin(π·p)` that is exactly 0 at rest, canvas-drawn card art, horizontal belt on landscape and vertical stack on portrait; a button index with `aria-current` and a live \"n / 8\" counter; flat sheets and one step per input under reduced motion, plain list in the static tier",
   "tags": [
     "webgl",
     "three",
     "virtual-scroll",
-    "infinite",
     "wheel",
     "velocity",
     "keyboard",

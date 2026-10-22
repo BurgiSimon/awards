@@ -1,6 +1,9 @@
 {
   "id": "sentence-form-enquiry",
   "title": "Enquiry form written as a sentence",
+  "intent": "Enquiry as prose",
+  "group": "the-close-and-beyond",
+  "summary": "One sentence the visitor completes: each prose fragment is the `<label>` of its blank (a `span` + `aria-labelledby` names the `radiogroup`), native `required` / `type=\"email\"` validity with the page's own messages tied by `aria-describedby`, `aria-invalid` and focus on the first invalid in sentence order, submit prevented with a focused local confirmation, `field-sizing: content` blanks, fragment-over-field rows on the phone; rise / fade / none entrance tiers",
   "tags": [
     "form",
     "enquiry",

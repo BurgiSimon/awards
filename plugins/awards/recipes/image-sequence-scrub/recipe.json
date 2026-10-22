@@ -1,6 +1,9 @@
 {
   "id": "image-sequence-scrub",
   "title": "Pre-rendered image sequence scrubbed on scroll",
+  "intent": "Frame scrub",
+  "group": "scroll-set-pieces",
+  "summary": "Pre-rendered frames scrubbed on scroll",
   "tags": [
     "scroll",
     "canvas",

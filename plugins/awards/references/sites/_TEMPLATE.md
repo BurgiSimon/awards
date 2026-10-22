@@ -4,7 +4,8 @@
 
 | Field | Value |
 |---|---|
-| Class | portfolio / campaign / B2B product / brand / studio / docs / e-commerce |
+| Class | portfolio / studio / campaign / brand / docs / e-commerce / B2B product / B2B service, first, then a dash and what it sells |
+| Industry | one id from `scripts/data/corpus-vocab.json` (creative-practice, agency-studio, film-music, …) |
 | Visitor mode | persuade / experience / read |
 | Awards | awards, dates, scores D/U/C/Co, developer sub-scores — labelled |
 | Corpus rating | D x.x / U x.x / C x.x / Co x.x → weighted x.xx, YYYY-MM-DD [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -15,6 +16,12 @@
 | WebGL dosage | none / moments / canvas-first / 100 % canvas |
 | Scroll model | native + smooth library / sticky stages + rails / virtual float / section switcher / none |
 | Narrative model | chaptered journey / faceted world / manifesto with gates / single-object launch / collage → index / gallery / print artefact / specification |
+| Routes read | the routes this card analysed, by kind: `home`, then any of `case /work/x`, `product /p/x`, `article /journal/x`, `pricing /pricing`, `about`, `contact`, `index /work` (omit when only the URL on the first line was read) |
+| Palette strategy | one line for the index: the strategy, at most two hexes |
+| Type contract | one line for the index: the contract and the faces |
+| Awards / score | one line for the index, e.g. `SOTD 14 Sep 2026, 7.69 + Dev 7.47` |
+| Confidence | high / medium / low (what backs it), or clone-level |
+| Last verified | YYYY-MM-DD of the live pass |
 
 ## 1. Concept and narrative
 The one idea, how the page unfolds (beats), the tone and the copy register.

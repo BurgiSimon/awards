@@ -1,6 +1,9 @@
 {
   "id": "gl-fluid-wake-post",
   "title": "Fluid wake as one global post-process",
+  "intent": "Global wake",
+  "group": "webgl-surfaces",
+  "summary": "128² ping-pong velocity field, splat, advect, dissipate, distortion + chroma composite",
   "tags": [
     "webgl",
     "three",

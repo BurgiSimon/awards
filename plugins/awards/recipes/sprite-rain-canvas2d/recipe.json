@@ -1,12 +1,15 @@
 {
   "id": "sprite-rain-canvas2d",
   "title": "Canvas-2D sprite rain as an easter egg",
+  "intent": "Easter-egg rain",
+  "group": "the-close-and-beyond",
+  "summary": "Button-triggered canvas-2D sprite shower from one pre-rendered bitmap, gravity `.45` / spin `±10°` per 60 fps frame scaled by `dt`, live count capped by the quality tier, sprites dropped off-screen and the ticker released, nothing spawns under reduced motion",
   "tags": [
     "canvas",
     "particles",
     "easter-egg",
     "ticker",
-    "tiers",
+    "quality-tiers",
     "reduced-motion",
     "toy"
   ],

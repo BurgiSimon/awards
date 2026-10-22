@@ -3,6 +3,7 @@
 | Field | Value |
 |---|---|
 | Class | portfolio (one designer-developer, Kyiv) |
+| Industry | creative-practice |
 | Visitor mode | experience |
 | Awards | Self-declared in the page's JSON-LD: Awwwards SOTD, Developer Award and Portfolio Honors 2025, CSSDA WOTD 2025, CSS Winner SOTD 2025, GSAP SOTD 2025, Awwwards Typography Honor 2024 [verified, index.html JSON-LD — self-declared, no entry page read]. No published axis scores read [unknown] |
 | Corpus rating | D 7.5 / U 6.4 / C 7.4 / Co 6.9 → weighted 7.09, 2026-10-05 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -13,6 +14,11 @@
 | WebGL dosage | moments — 3 canvases on desktop: a fixed theme-wipe quad, a three.js image globe, a raw-WebGL fluid reveal (off below 992 px); 2 on mobile [verified, manifest.json + main.js] |
 | Scroll model | native + Lenis 1.3.21 on the GSAP ticker (`duration 1.2`, expo-out, `touchMultiplier 2`, `lagSmoothing(0)`); no pins [verified, main.js; manifest scrollMode native] |
 | Narrative model | gallery — hero → statement → work globe → awards table → manifesto → contact clock and footer wordmark |
+| Palette strategy | achromatic white + black ink, five visitor-chosen theme grounds swapped by a liquid WebGL wipe |
+| Type contract | one grotesque, two weights (Akzidenz Grotesk Pro 400/500), 80–88 % leading |
+| Awards / score | self-declared JSON-LD: Awwwards SOTD + Dev + Portfolio Honors 2025, CSSDA WOTD, CSS Winner SOTD, GSAP SOTD 2025; no scores read |
+| Confidence | medium |
+| Last verified | 2026-10-05 |
 
 ## 1. Concept and narrative
 The site argues that type is a material that has to condense before it can be read. Every headline arrives as an ink blob that tightens into letters, so the whole page reads as a sequence of things setting rather than sliding in [verified, desktop-s25.png, desktop-s100.png, main.js]. The beats across the five states: a Swiss poster hero with the name set large against a hairline column rule; a three-line statement about execution; a work section where project tiles hang on a dome above two flanking labels; a blurred-in awards ledger; a closing sentence-length manifesto and a contact block above a giant split wordmark [verified, desktop-s00 … s100.png]. Register: terse, deadpan, a little hostile — the footer signs off "made w/ hate" [verified, mobile-s100.png].

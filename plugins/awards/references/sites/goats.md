@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | studio — a Polish branding and web-development studio [verified, index.html `<title>` and meta description] |
+| Industry | agency-studio |
 | Visitor mode | persuade — a *Skontaktuj się* (contact) pill in the header, email and phone at display size in the close [verified, desktop-s00.png, desktop-s100.png] |
 | Awards | Awwwards **Honorable Mention, 21 Aug 2026**; no axis or developer scores captured (cookie wall over the score panel; only individual juror rows visible) [verified, entry page, `entry/desktop-s00.png`, `entry/desktop-s100.png`]. The site links its own ribbon to the entry [verified, index.html `#awwwards`] |
 | Corpus rating | D 6.6 / U 6.4 / C 6.6 / Co 6.3 → weighted 6.51, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -26,6 +27,11 @@
 | WebGL dosage | none — `canvases: 0`; the world is three webm videos and stills [verified, manifest.json; index.html `<video>`] |
 | Scroll model | native + Lenis 1.3.25 (`lerp: .1`) on the GSAP ticker; one desktop rail done by counter-translation, no `pin:`; a scrubbed video footer [verified, js_index.js; manifest.json `scrollMode: native`] |
 | Narrative model | gallery — goat hero, a word-fill statement, a sideways case rail, a client logo grid, a herd-video close [verified, desktop-s00 to s100.png] |
+| Palette strategy | light-grey ground #ebebeb + near-black ink #111 + one hot pink #ff005c; monochrome goat footage carries the world, colour only from client work |
+| Type contract | one geometric sans, three weights (Poppins 400/500/600, self-hosted) |
+| Awards / score | Awwwards Honorable Mention 21 Aug 2026, no axis scores captured |
+| Confidence | high (live source + captures + entry) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 **One idea:** the name taken literally. Goats (and the GOAT boast underneath) are the only motif: a black goat walks straight at the camera on a pale grey sweep in the hero, a suited reader behind a newspaper headed *WHAT WE DO* opens the work chapter, and a dark herd fills the footer, one black goat among grey ones [verified, desktop-s00.png, mobile-s50.png, desktop-s100.png]. The footage is monochrome, so the pink wordmark is the one saturated thing on the first screen [verified, desktop-s00.png].

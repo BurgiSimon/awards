@@ -1,6 +1,9 @@
 {
   "id": "gl-progress-scene-windows",
   "title": "One progress line: stretch bands, scene windows and a speed-capped clock",
+  "intent": "One value owns the film",
+  "group": "scroll-set-pieces",
+  "summary": "Scroll inside a `900svh` sticky track (Lenis on the shared ticker) is a raw 0–1 folded through a piecewise-linear map where two stretch bands cost more scroll (`.24–.36 × 2`, `.62–.72 × 1.5`, overlapping bands discarded); a clock follows that target at most `K × dt / FILM_SECONDS` per frame (`4`, `14 s`) so a flick cannot skip a beat; five scene windows of generated three.js geometry switched on half-way into the window before and off half-way into the next (`visible` toggled, never disposed), with a per-window `dropPrevAt` override; a rail drawn from the same tables; one settled frame per beat under reduced motion and static",
   "tags": [
     "webgl",
     "three",

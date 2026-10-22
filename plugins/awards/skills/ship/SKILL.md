@@ -66,7 +66,7 @@ node "${CLAUDE_PLUGIN_ROOT}/scripts/audit.mjs" <dir> --json
 ```
 
 - Run it against the project directory. It is static and needs source; add `--render` whenever Playwright is available, because stuck entrances (L06), line length (L07), text touching the phone edge (L08), blank viewports (L09), lopsided tablet and phone sections (L10), flat hierarchy (T08), nested cards (X20) and layout shift during load (P08) exist only in a rendered page; with a build output present it renders that, not the source. Without a browser, write `rendered checks: unmeasured` in the report.
-- The slop rules (X01–X20, with L04, L05, T07 and C04) have earned versions, listed in `## The slop scan` of `${CLAUDE_PLUGIN_ROOT}/references/anti-patterns.md`. A finding that matches its earned version is excepted with that reason, such as `X13 — the logo squashes because it is a character`. A habit is fixed. Exit 2 means P0 or P1 findings remain; exit 0 means none. The findings land in `.awards/audit.json` with `rule`, `severity`, `file`, `line`, `message` and `fix`.
+- The slop rules (X01–X21, with L04, L05, T07 and C04) have earned versions, listed in `## The slop scan` of `${CLAUDE_PLUGIN_ROOT}/references/anti-patterns.md`. A finding that matches its earned version is excepted with that reason, such as `X13 — the logo squashes because it is a character`. A habit is fixed. Exit 2 means P0 or P1 findings remain; exit 0 means none. The findings land in `.awards/audit.json` with `rule`, `severity`, `file`, `line`, `message` and `fix`.
 - Every finding is either fixed or recorded. A recorded finding is one line under `AWARDS.md ## Exceptions`, scoped to where it is earned (`RULE@path` or `RULE@viewport` matches findings whose file or viewport label contains it; a bare id accepts the rule everywhere, so scope C01, A16 and L06 always), or an inline comment next to the code: `audit-ignore-next-line` for one line, `audit-ignore` for the whole file:
 
 ```
@@ -80,6 +80,7 @@ L10@mobile — the specimen column keeps to the left edge on a phone, as the pri
 
 - The reason is one a juror would accept; `C02 — looks better` is not a reason.
 - P0 findings (M01, no reduced-motion branch; L03, no viewport meta) are never excepted. P3 surface findings (S01–S06) are fixed rather than excepted, because they are cheap and jurors notice them.
+- Run `node "${CLAUDE_PLUGIN_ROOT}/scripts/assets.mjs" check dist` (or the project when there is no build): every shipped image, video and mesh has an entry in `.awards/assets.json` with its source and licence or its generation record, and no placeholder ships unlabelled (`references/patterns/imagery-and-assets.md`). Licences that ask for credit get a visible credit (`assets.mjs credits`).
 - Re-run until the exit code is 0 and every remaining P2 or P3 is fixed or excepted. Name the rules by id in the report, with counts per severity and the exception count.
 - The PostToolUse hook already reported quick findings while files were edited; this full run is the one that counts, because it sees the whole project and the build output.
 
@@ -107,7 +108,7 @@ An invalid capture is a bug to fix now, followed by a recapture; the report neve
 
 ## 4. Performance budgets
 
-Why: a 100 % canvas Site of the Day shipped its whole 3D app at under half a megabyte gzipped `[site:igloo]`, and the developer jury docks every heavy asset it can see in the network panel. Budgets are measured from the build output, gzipped, never from source sizes; the full table with its sources is in `${CLAUDE_PLUGIN_ROOT}/references/patterns/asset-pipeline.md#budgets`, to read when a number is disputed.
+Why: a 100 % canvas Site of the Day shipped its whole 3D app at under half a megabyte gzipped `[site:igloo]`, and the developer jury docks every heavy asset it can see in the network panel. INP and CLS, the two field metrics the motion layer decides, have their causes and fixes in `${CLAUDE_PLUGIN_ROOT}/references/patterns/performance-cwv.md`. Budgets are measured from the build output, gzipped, never from source sizes; the full table with its sources is in `${CLAUDE_PLUGIN_ROOT}/references/patterns/asset-pipeline.md#budgets`, to read when a number is disputed.
 
 | Check | Budget | How to measure or fix |
 |---|---|---|
@@ -154,7 +155,7 @@ Why: usability is the lowest axis on 27 of the 31 corpus entries awarded since 2
 
 ## 6. Meta and chrome
 
-Why: the tab, the link preview and the error page are the first and last things a juror sees, and they are the cheapest places to look unfinished. Every value below comes from the tokens and the type contract, so the chrome belongs to the world.
+Why: the tab, the link preview and the error page are the first and last things a juror sees, and they are the cheapest places to look unfinished. The head per route, structured data, robots, the outline and the text behind a canvas are in `${CLAUDE_PLUGIN_ROOT}/references/patterns/seo-and-semantics.md`; a consent banner's placement, keyboard path and cost in `${CLAUDE_PLUGIN_ROOT}/references/patterns/consent-and-banners.md`. Every value below comes from the tokens and the type contract, so the chrome belongs to the world.
 
 | Item | Ships when |
 |---|---|

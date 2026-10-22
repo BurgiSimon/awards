@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | B2B product — an agentic product-security platform (design reviews, code reviews, guardrails for coding agents) [verified, index.html `<title>` and meta description] |
+| Industry | software-saas |
 | Visitor mode | persuade — *Book a demo* in the nav, the hero, every capability tab and the close [verified, desktop-s00.png; index.html] |
 | Awards | none found — one search on 2026-09-23 returned no Awwwards, CSSDA or FWA entry [verified, search 2026-09-23]; official scores none |
 | Corpus rating | D 7.4 / U 6.5 / C 7.2 / Co 6.8 → weighted 7.03, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -25,6 +26,11 @@
 | WebGL dosage | moments — one canvas, one Three.js scene living on a 1480vh sticky stage; everything after the stage is DOM [verified, index.html `.stage-scroll{height:1480vh}`; manifest.json `canvases: 1`] |
 | Scroll model | native + smooth library in name only: the stage's Lenis runs at `lerp: 1` with `smoothWheel: false` unless `?smooth` is in the URL; a second, page-level Lenis runs at `lerp: .15`; the 1480vh CSS-sticky stage feeds one progress value to a hand-written state machine [verified, main.js; index.html inline script; manifest.json `scrollMode: native`] |
 | Narrative model | specification — an animated mascot introduces the claim, then five capabilities, proof and a numbered rationale [verified, captures] |
+| Palette strategy | near-black #1a1a1a ground + bone #f5f5f0 ink + one acid yellow #f9fe2e worn as props; photoreal marble as the second material |
+| Type contract | one grotesque + its mono sibling (TT Interphases Pro + TT Interphases Pro Mono, trial cuts) |
+| Awards / score | none found (one search, 2026-09-23) |
+| Confidence | high (live source + captures; no award entry found; consent panel over every frame) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 The idea is a pun on the name: a classical marble philosopher, in his prime, fitted with one acid-yellow piece of present-day kit. The first viewport is the bust in yellow smart glasses between a two-part headline split left and right [verified, desktop-s00.png]. Scrolling drives the stage: the headline halves slide apart and the hero copy fades, three counted-up stats take over (a 15-minute review, 100 % coverage, 90 % fewer false positives), the statue dissolves away, and three lines about *before*, *in* and *after* the code fill in one after another, the last closing on a carved stone prompt tile [verified, main.js stage functions; index.html `data-stage` markup]. A second act turns the stage into five capability tabs, each with its own statue and prop; for coding agents the figure wears headphones and holds a yellow game controller [verified, desktop-s50.png]. The page closes on a reclining philosopher with sunglasses, a laptop and a cocktail on a column capital, above an outsized wordmark [verified, desktop-s100.png]. Copy register is short-sentence B2B: "You don't trigger reviews. Prime does." [verified, index.html].

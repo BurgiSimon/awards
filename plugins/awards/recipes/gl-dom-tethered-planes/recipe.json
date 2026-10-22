@@ -1,6 +1,9 @@
 {
   "id": "gl-dom-tethered-planes",
   "title": "DOM-tethered WebGL planes with a velocity bulge",
+  "intent": "Images in GL",
+  "group": "webgl-surfaces",
+  "summary": "Absolute canvas re-offset per frame, rect → plane mapping, velocity bulge, colour-space parity, DOM mirror",
   "tags": [
     "webgl",
     "three",

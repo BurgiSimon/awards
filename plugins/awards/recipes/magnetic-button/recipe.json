@@ -1,10 +1,13 @@
 {
   "id": "magnetic-button",
   "title": "Magnetic button with distance falloff",
+  "intent": "Magnetic CTA",
+  "group": "arrival-and-chrome",
+  "summary": "`quickTo` pull with smoothstep falloff, label parallax, fine pointers only",
   "tags": [
     "pointer",
     "gsap",
-    "quickTo",
+    "quickto",
     "hover",
     "button"
   ],

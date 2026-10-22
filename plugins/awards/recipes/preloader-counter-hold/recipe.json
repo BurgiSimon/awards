@@ -1,12 +1,15 @@
 {
   "id": "preloader-counter-hold",
   "title": "Preloader: real-signal counter that holds at 100",
+  "intent": "Loading",
+  "group": "arrival-and-chrome",
+  "summary": "Real-signal counter, uneven jumps, hold at 100, exit by lines, sessionStorage skip",
   "tags": [
     "preloader",
     "loading",
     "gsap",
     "accessibility",
-    "sessionStorage"
+    "storage"
   ],
   "tier": "P0",
   "deps": [

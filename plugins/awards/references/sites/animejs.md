@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | docs (documentation + marketing for an open-source animation engine) |
+| Industry | dev-tools |
 | Visitor mode | read, with experience set-pieces |
 | Awards | Awwwards **Site of the Day, 6 May 2025**, overall **7.62** / 10 — Design 7.63, Usability 7.51, Creativity 7.75, Content 7.63; **DEV AWARD 7.84** / 10 — Semantics/SEO 7.40, Animations/Transitions **9.00**, Accessibility 7.40, WPO 7.80, Responsive Design 8.00, Markup/Meta-data 7.40; entry tags Technology, Web & Interactive, Animation, Scrolling, 3D [verified, Awwwards entry read 2026-09-18] |
 | Studio / credits | Julian Garnier, sole credit on the award entry [verified, Awwwards entry read 2026-09-18]; `© 2026 Julian Garnier` in the footer, linking juliangarnier.com [verified, index.html]; repo `juliangarnier/anime`, `"author": "Julian Garnier <julian@animejs.com>"` [verified, repo]; sponsor slots are fetched at runtime from `/sponsors/platinum-sponsors` and `/sponsors/silver-sponsors` [verified, index.html] — named sponsors seen in the repo README are repo facts, not site facts |
@@ -14,6 +15,11 @@
 | WebGL dosage | **canvas-first** [verified, home.js + manifest.json]: one persistent Three.js scene behind the whole page (`<div id="engine">`, empty in the served HTML, 6 canvases at runtime, `webgl: true`), 22 Draco-compressed glTF modules, an EffectComposer chain and a custom outline/contour `ShaderMaterial` whose uniforms are tweened, plus CSS2D/CSS3D renderers layered over it for DOM labels and leader lines |
 | Scroll model | native + anime.js `onScroll({ enter, leave, sync: .9 })` [verified, home.js]; no Lenis, no smooth-scroll library, no wheel hijack (`scrollMode: native` on desktop, mobile and reduced motion) [verified, manifest.json]. Enter/leave offsets are authored in the markup as `data-enter-offset="-=100lvh"` / `data-leave-offset="-=75lvh"` [verified, index.html] |
 | Narrative model | specification — the library rendered as a machine, disassembled and reassembled down the scroll |
+| Palette strategy | 18 hue ramps × 8 steps on warm near-black, plus a separate 3D-world palette |
+| Type contract | wide condensed DIN + Berkeley Mono (+ Digital-7 readouts) |
+| Awards / score | SOTD 6 May 2025, 7.62 (dev 7.84) |
+| Confidence | high (live + entry) |
+| Last verified | 2026-09-18 |
 
 ## 1. Concept and narrative
 - The idea [verified, desktop-s00/25/50/75/100.png + home.js]: the animation *engine* is a literal engine. A lens-and-motor assembly is modelled in 3D, and its parts are named after the library's own modules — `module-timer-01…05`, `module-animate-01`, `module-timeline-01/02`, `module-scroll-01`, `module-svg-01`, `module-stagger-01/02`, `module-spring-01`, `module-scope-01`, `module-draggable-01/02`, `module-easing-01`, `module-waapi-01`, `module-engine-01`, `module-renderer-01`, `module-shield-01/02`. Scrolling drives one master timeline that explodes the machine, inspects a part, and closes on a grid of links to the very modules just shown.

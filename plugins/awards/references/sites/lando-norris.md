@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | brand (athlete personal brand, multi-route world) |
+| Industry | personal-talent |
 | Visitor mode | experience |
 | Awards | **Awwwards Site of the Day, Nov 17 2025, overall 8.18/10** — Design 8.12, Usability 7.90, Creativity 8.71, Content 8.18 [verified, Awwwards entry read 2026-09-18]. **Developer Award 7.58/10** across Awwwards' six developer criteria: Semantics/SEO 7.40, Animations/Transitions 8.60, Accessibility 7.00, WPO 7.60, Responsive Design 7.40, Markup/Meta-data 7.40 [verified, same]. (The corpus rubric names five; Awwwards scores six — all six recorded.) SOTM / SOTY / FWA / CSSDA / Godly [unknown] |
 | Studio / credits | **OFF+BRAND** — sole byline, "Lando Norris by OFF+BRAND." [verified, Awwwards entry read 2026-09-18]; corroborated by the engine bundle, Rive files, GL models and textures served from `lando.itsoffbrand.io` and `assets.itsoffbrand.io/lando/` [verified, index.html]. Studio city, individual designers, developers, 3D artists [unknown] |
@@ -14,6 +15,11 @@
 | WebGL dosage | canvas-first — exactly six scenes, by their own ids: `head`, `tracks`, `background`, `carousel`, `helmet-scroll`, `not-found` [verified, engine-main.js `this.id="…"`]. 21 canvases on the homepage (GL + Rive) [verified, manifest.json] |
 | Scroll model | native + Lenis 1.1.20, `scrollMode: "native"` under capture [verified, manifest.json]; a CSS-**sticky** hero (`[data-sticky-hero]`) scrubbed by ScrollTrigger, plus a desktop-only horizontal rail (`[data-horizontal-section]` with `containerAnimation`). ScrollTrigger `pin:` is used **nowhere** in the bundle [verified, engine-main.js] |
 | Narrative model | faceted world — a persona fork (`/on-track` vs `/off-track`) across seven authored routes plus a 404 [verified, index.html hrefs] |
+| Palette strategy | acid lime #d2ff00 + near-black #111112 on warm cream/olive; nav theme sampled per section |
+| Type contract | variable grotesque + display serif (Mona Sans + Brier), MSDF atlases for both in GL |
+| Awards / score | SOTD 17 Nov 2025 · 8.18 · dev 7.58 |
+| Confidence | high (live source + captures + entry) |
+| Last verified | 2026-09-18 |
 
 ## 1. Concept and narrative
 - The one idea [inferred from verified mechanism]: you meet the driver through the visor. The hero is a depth-mapped portrait plane with a wireframe helmet over it running a scanline shader, and a fluid-simulation cursor smears across both [verified, engine-main.js]. The metaphor is executed in GLSL, never captioned.

@@ -1,11 +1,13 @@
 {
   "id": "cursor-two-speed",
   "title": "Two-speed contextual cursor",
+  "intent": "Custom cursor",
+  "group": "arrival-and-chrome",
+  "summary": "Dot `.75` / ring `.22`, hover scale, contextual badges, off on coarse pointers",
   "tags": [
     "pointer",
     "cursor",
-    "damping",
-    "badges"
+    "inertia"
   ],
   "tier": "P0",
   "deps": [],

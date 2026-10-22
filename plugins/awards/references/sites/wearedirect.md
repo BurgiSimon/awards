@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | studio — a brand and design agency for B2B clients (strategy, design, development, marketing) [verified, index.html meta description; desktop-s50.png] |
+| Industry | agency-studio |
 | Visitor mode | persuade — a yellow *Contact Us* pill in the header, a copy-email tile and a voice-agent widget on every scroll state [verified, desktop-s00/s25/s100.png] |
 | Awards | Awwwards **Honorable Mention, 25 Aug 2026**; no jury axis or developer scores are published on the entry, only 15 of 25 community votes listed individually [verified, entry page, `entry/entry.html` + `entry/desktop-s00.png`] |
 | Corpus rating | D 6.8 / U 6.3 / C 6.8 / Co 7.0 → weighted 6.67, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -23,6 +24,11 @@
 | WebGL dosage | none — no canvas on any profile; the 3D signage is pre-rendered video and stills [verified, manifest.json `canvases: 0`; index.html `<video autoplay muted loop>`] |
 | Scroll model | native + Lenis on the GSAP ticker, `lagSmoothing(0)`; Barba curtain between routes [verified, inline.js #23; manifest.json `scrollMode: native`] |
 | Narrative model | gallery — hero, a work grid, a statement, services, impact, principles cards, client stories, a contact close [verified, desktop-s00 to s100.png, mobile-s00 to s100.png] |
+| Palette strategy | white ground + black ink + five flat named accents rotated across buttons, cards and per-route loaders (yellow #fed76a leads) |
+| Type contract | neutral grotesque + mono labels (Helvetica Neue LT Pro + Chivo Mono) |
+| Awards / score | Awwwards Honorable Mention 25 Aug 2026, no axis scores published |
+| Confidence | high (live source + captures + entry) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 **One idea:** the agency's name read as road directions. Signage carries the whole world: a traffic light, a direction diamond, street-name plates, a lit box sign reading *go the Direct way*, all as glossy 3D renders on soft gradient cards [verified, desktop-s00.png, desktop-s50.png, desktop-s75.png]. The hero light shows a red lamp with a question mark on desktop and a green smiling lamp on the phone, so the clip plays the change from doubt to go [verified, desktop-s00.png, mobile-s00.png].

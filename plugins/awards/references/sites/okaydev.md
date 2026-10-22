@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | B2B product — the marketing home of a paid community platform (social feed, portfolios, directory, jobs, articles) sold to individual creative developers and to studios through a Business tier [verified, index.html meta description; desktop-s00/s75.png; mobile-s50.png] |
+| Industry | dev-tools |
 | Visitor mode | persuade — a black *Create a profile* pill under the headline, *Sign up* in the header, three priced plans at the close [verified, desktop-s00/s75.png] |
 | Awards | none found on the page: no award ribbon or badge in the served HTML [verified, grep of index.html]; no entry was looked up [unknown] |
 | Corpus rating | D 7.1 / U 7.2 / C 6.6 / Co 7.4 → weighted 7.06, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -29,6 +30,11 @@
 | WebGL dosage | none — no canvas on any profile [verified, manifest.json `canvases: 0`] |
 | Scroll model | native, no smoothing library; ScrollTrigger scrubs (`scrub: 1`, `scrub: .5`) and a damped scroll-driven curl [verified, manifest.json `scrollMode: native`; home-renderer-DnS0bFuM.js] |
 | Narrative model | specification — feature chapters in turn (profile, social, articles and jobs, studio accounts), then pricing and a wordmark close [verified, desktop-s00 to s100.png; mobile-s25/s50.png] |
+| Palette strategy | theme-per-section: five flat brand hues built from two channel values (violet #6d42ed leads, green #42ed91, yellow #eee642) on near-black #0c0c0c |
+| Type contract | variable grotesque + mono labels + chunky novelty display for wordmark and marquee only (Aeonik Pro VF + Aeonik Mono + Megazoid) |
+| Awards / score | none found (no ribbon on the page; entry not looked up) |
+| Confidence | high (live source + captures; no entry) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 **One idea:** the members' work is the hero. The first viewport scatters about fifteen thumbnails of community projects and portraits around a three-line headline, so the product is shown as its people before it is explained [verified, desktop-s00.png]. The headline stacks three nouns and puts the last one, *Builders*, in white on a black slab [verified, desktop-s00.png]. A loud grey marquee of the member types in the chunky display face closes the viewport [verified, desktop-s00.png].

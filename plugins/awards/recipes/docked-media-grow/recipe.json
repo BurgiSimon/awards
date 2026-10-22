@@ -1,6 +1,9 @@
 {
   "id": "docked-media-grow",
   "title": "Docked media card that grows into its section",
+  "intent": "Reel from the corner",
+  "group": "scroll-set-pieces",
+  "summary": "A fixed card docked bottom right, scaled (transform only, `transform-origin` bottom right) from `300 px` to the viewport minus the gutter between `top 85%` and `top top` of its section, linear `scrub: true`, then swapped from `position: fixed` to the section's flow where the two boxes coincide; unscaled cue link fades out, desktop only (≥ 1024 px), CSS placeholder film so no media ships, full-size in its section under reduced motion",
   "tags": [
     "scroll",
     "gsap",

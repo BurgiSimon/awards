@@ -1,6 +1,9 @@
 {
   "id": "scrollbar-thumb-drag",
   "title": "Drawn scrollbar thumb beside a working native scroll",
+  "intent": "Drawn scrollbar",
+  "group": "arrival-and-chrome",
+  "summary": "Themed thumb mirroring `scrollY` on the shared ticker, drag and track-press write the scroll, native bar and keys kept, `aria-hidden` pointer duplicate, snaps under reduced motion, hidden on coarse pointers",
   "tags": [
     "scroll",
     "scrollbar",

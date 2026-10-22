@@ -1,12 +1,13 @@
 {
   "id": "sticky-stages-rails",
   "title": "Sticky stages on invisible rails, with a hero hinge",
+  "intent": "Hold and hinge",
+  "group": "scroll-set-pieces",
+  "summary": "Sticky stages on invisible rails, hero hinge (x −10 %, −15°, child lags), no `pin`",
   "tags": [
     "scroll",
     "gsap",
-    "sticky",
-    "hinge",
-    "no-pin"
+    "sticky"
   ],
   "tier": "P0",
   "deps": [

@@ -1,6 +1,9 @@
 {
   "id": "split-text-masked-reveal",
   "title": "Masked line reveal with SplitText, after fonts",
+  "intent": "Text reveal",
+  "group": "heroes-and-type",
+  "summary": "`SplitText.create` lines with masks, `autoSplit` + `onSplit`, `y 120 % → 0`, expo-out",
   "tags": [
     "text",
     "gsap",

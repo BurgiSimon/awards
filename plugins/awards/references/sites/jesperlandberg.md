@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | portfolio (freelance design engineer; home reel plus a `/full` index route and `/projects/<slug>` pages) [verified, index.html sr-only list] |
+| Industry | creative-practice |
 | Visitor mode | persuade (experience-led): the reel is the pitch, the contact is an e-mail link inside the Profile panel [verified, index.html] |
 | Awards | Awwwards **Honorable Mention, 26 Aug 2026**, entry `/sites/jesper-landberg-4`; the entry publishes **no jury axis scores and no developer score**, only community votes; tags Animation, Infinite Scroll, GSAP, Three.js, Nuxt.js; entry palette `#000000` + `#fff` [verified, entry page read and captured 2026-09-23]. The owner's two Awwwards Independent of the Year titles (2022, 2024) are personal, not this site's [verified, index.html meta description] |
 | Corpus rating | D 7.4 / U 6.3 / C 7.4 / Co 6.9 → weighted 7.02, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -15,6 +16,11 @@
 | WebGL dosage | 100 % canvas: one fixed canvas draws cards, floor grid, chrome labels and body text; the DOM glyphs are made transparent and a `.sr-only` block carries the content [verified, index.html `data-gl`, manifest.json `canvases: 1`] |
 | Scroll model | virtual float, modulo-wrapped: `html, body` fixed with `overflow: hidden` and `touch-action: none`; a custom engine feeds one looping reel [verified, index.html CSS, DZyj3ghP.js; manifest `scrollMode: wheel`] |
 | Narrative model | gallery: eight featured projects on one endless reel, no chapters; Profile and Newsletter as overlays [verified, index.html + captures] |
+| Palette strategy | pure black #000 ground + white #fff ink, no accent; chroma only from the work |
+| Type contract | one variable grotesque (ABC Diatype Plus Variable), 1500 / 390 artboard vw root, redrawn in GL |
+| Awards / score | Honorable Mention 26 Aug 2026 (no jury scores published) |
+| Confidence | high (live source + captures + entry) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 The portfolio as a physical object: each project's site appears as a screenshot printed on a flexible sheet, and the sheets run past on an endless belt above a dark floor grid. Scrolling does more than move the belt: the sheets bend, twist and lean as they travel, so the visitor feels the momentum they put in. There is no hero statement and no headline. The first viewport is already the work, with the name, "Profile", a "Featured / Full" switch and "Newsletter" in the four corners as tiny uppercase labels [verified, desktop-s00.png]. The copy lives in the Profile overlay and the sr-only mirror: a short third-person bio and a numeric boast, "77 awards — 30× Awwwards, 40× FWA, 3× Webby, 2× Lovie" [verified, index.html].

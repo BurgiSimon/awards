@@ -1,8 +1,11 @@
 {
   "id": "responsive-art-directed-hero",
   "title": "Alder Workshop — art-directed hero",
+  "intent": "Responsive image hero",
+  "group": "heroes-and-type",
+  "summary": "Separate wide/portrait composition, intact subject and action",
   "tags": [
-    "art direction",
+    "art-direction",
     "responsive",
     "images",
     "layout"

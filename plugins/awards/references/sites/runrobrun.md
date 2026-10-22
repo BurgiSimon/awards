@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | portfolio — a freelance creative developer's one-page site [verified, index.html `<title>` + meta description] |
+| Industry | creative-practice |
 | Visitor mode | persuade (experience-led): a mailto "Let's create" sits in the header and the footer, and the email field is in the footer [verified, index.html; desktop-s100.png] |
 | Awards | Awwwards **Honorable Mention, 21 Aug 2026**. The entry lists no jury axis scores, only community votes (15/17) [verified, entry page `entry/entry.html`]. A CSS Design Awards listing exists [verified, web search result title only]; its scores [unknown] |
 | Corpus rating | D 7.2 / U 6.3 / C 6.9 / Co 6.2 → weighted 6.77, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -23,6 +24,11 @@
 | WebGL dosage | moments — one hero canvas (WebGPU when `navigator.gpu` exists, else WebGL), music-reactive and scroll-morphed; the rest is DOM, CSS and a canvas-2D grain [verified, 1tg1lcs-yq9vy.js loader; morph-react-scene.js; manifest.json `canvases: 2`] |
 | Scroll model | native + Lenis (lerp .1, own rAF loop, not created under reduced motion); GSAP ScrollTrigger scrubs on top; manifest `scrollMode: native` [verified, 0_v9-tbxy4h9g.js; manifest.json] |
 | Narrative model | gallery — morph hero → two-column statement → portrait pixel reveal + five numbered skills → tools video rail → work cycle → quote → footer with wordmark [verified, index.html section order; desktop-s25…s100.png] |
+| Palette strategy | one hot orange #ff641c flooding whole sections, alternating with warm grey #dbdbda, near-black #050505 ink at stepped alphas; pixel-cell grid as the second material |
+| Type contract | extended display caps + grotesque subheads + uppercase mono body (next/font locals monumentHeading / neueHeading / neueralMono; retail faces unknown) |
+| Awards / score | Awwwards Honorable Mention 21 Aug 2026, no jury axis scores published |
+| Confidence | high (live source + captures + entry; desktop hero frame not captured) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 **One idea:** the maker as a runner and a DJ. The name is a pun, a pixel running man recurs from the loader to the footer, and the hero object answers music from a small in-page player [verified, index.html; mobile-s00.png; desktop-s100.png]. The entry describes the goo turning from an organic blob into a cube as the page scrolls [verified, entry page]. The page's other thread is the pixel grid: loader, menu, section wipes and image reveals are all built from square cells [verified, index.html class names].

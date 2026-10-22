@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | brand — the site of a single psychoanalytic psychotherapist practising in the UK and Ukraine, in-person and online [verified, index.html `description`] |
+| Industry | health-care |
 | Visitor mode | persuade, wrapped in a slow experience layer |
 | Awards | none looked up this pass [unknown] |
 | Corpus rating | D 7.6 / U 6.6 / C 7.6 / Co 7.2 → weighted 7.26, 2026-10-05 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -15,6 +16,11 @@
 | WebGL dosage | moments — 5 canvases on desktop: one hand-written WebGL1 photo shader hero, an R3F story canvas with five glTF plants, an R3F single-flower canvas, an R3F image-sheet canvas (≥ 1101 px only) [verified, manifest.json `canvases: 5`; main.js] |
 | Scroll model | native + Lenis (desktop only; disabled ≤ 767 px, where an `.app` element becomes the ScrollTrigger scroller) [verified, main.js] |
 | Narrative model | chaptered journey — word-search preloader → manifesto over a photo-shader flower → five numbered "life situation" chapters, each a 3D plant → services → about → contact [verified, captures; main.js] |
+| Palette strategy | warm paper #faf5ee + teal-black ink #142022 + one dusty-rose accent #936e6c; 3D plants are the only saturated colour |
+| Type contract | humanist display serif + grotesque UI (Cormorant caps/mixed + Inter) |
+| Awards / score | none looked up |
+| Confidence | high (render + source; no award entry) |
+| Last verified | 2026-10-05 |
 
 ## 1. Concept and narrative
 The practice is told as a garden: each reason to start therapy is one plant, grown, coloured and handed to the next by scroll. The load opens on a grid of random capitals in which the therapist's name is found, like a word search. Then comes a misted photograph of a calla-like flower behind a four-line manifesto ("Sometimes what we need isn't a solution." [verified, desktop-rm-s00.png]). The story follows: a dandelion whose five seeds drift away, then a globe thistle, hydrangea, echinacea and artichoke. Each grows from a monochrome sculpture into natural colour beside a big outline numeral, a chapter title in caps and a quotation [verified, desktop-rm-s50.png; main.js `vn` map]. The register is clinical-calm: few words, attributed quotes (Frankl), no sales voice.

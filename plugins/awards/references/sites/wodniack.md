@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | portfolio (freelance creative developer, single page) [verified, index.html `<title>` and description] |
+| Industry | creative-practice |
 | Visitor mode | persuade, experience-led: a "Hire me" action sits in the header at every width [verified, desktop-s00.png, mobile-s00.png] |
 | Awards | Awwwards **Site of the Day, 12 Dec 2024**, **7.56** — Design 7.53 · Usability 7.30 · Creativity 7.96 · Content 7.69; **DEV AWARD 7.58** — Semantics/SEO 7.20 · Animations/Transitions 8.40 · Accessibility 6.20 · WPO 7.80 · Responsive Design 7.80 · Markup/Meta-data 7.60 [verified, entry page awwwards.com/sites/aw-portfolio, captured 2026-09-23]. The site's own awards block claims CSSDA WOTD × 18, WOTM × 1 and GSAP SOTM Oct and Nov 2024 [verified, extra/desktop-s12.png; the underlying awards not checked] |
 | Corpus rating | D 7.9 / U 6.3 / C 7.6 / Co 7.4 → weighted 7.31, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -15,6 +16,11 @@
 | WebGL dosage | none — SVG line fields, two canvas-2D layers and CSS 3D (`preserve-3d`, `translate3d` to `--z:-1000vw`) [verified, index.css + hoisted.js] |
 | Scroll model | native + smooth library (Lenis 1.1.13 on the GSAP ticker), one long scrubbed section; manifest `scrollMode: native` [verified] |
 | Narrative model | gallery — one page: hero → about with an awards stack → a 34-project video reel inside the WORK title → a throwable-object toy → CTA [verified, captures + index.html sections] |
+| Palette strategy | two tokens inverted by section: red #f40c3f ground / oxblood #160000 ink, off-white contrast toggle |
+| Type contract | condensed poster display + light editorial serif text + mono labels, no grotesque (Bigger Display + PP Editorial New + PP Fraktion Mono) |
+| Awards / score | SOTD 12 Dec 2024, 7.56 (dev 7.58, a11y 6.20) |
+| Confidence | high (live source + captures + entry) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 The developer's own site as a poster that keeps moving: every section is one heading made spatial, and the work is shown as motion, not described. The register is dry and self-deprecating — the header status line cycles through loading jokes such as "Compiling designer dreams…into developer nightmares" [verified, hoisted.js `messages`].

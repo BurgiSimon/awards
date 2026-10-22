@@ -90,7 +90,9 @@ Why: the recipes are verified in a real browser with keyboard, touch and reduced
 | Hero | the archetype's recipes in `hero-archetypes.md` | The first-viewport test applies |
 | Footer, 404 | `${CLAUDE_PLUGIN_ROOT}/assets/templates/404.html` and the catalogue entries | Authored copy, a way out |
 
-Adapting means: rename classes to the project's convention, replace the recipe's demo tokens with the project's, re-time to the project's motion tokens (`--dur-hero`, `--ease-out-expo` or their equivalents), and delete every demo line that does not serve the job. Keep the recipe's accessibility scaffolding intact; it is the part most often lost.
+Before adapting, write one line per recipe used, beside its id in the Page map or Motion score: `keep:` the mechanism you need (the physics, the state machine, the accessibility scaffold), `change:` at least one of metaphor, material, trigger or spatial arrangement so the silhouette is the world's and not the recipe's, `pair:` what it answers in the page (the chapter beat or the other component it plays against). Renaming, re-tokening and re-timing alone ship the recipe's look; a jury that has seen the recipe sees it again.
+
+Then adapting means: rename classes to the project's convention, replace the recipe's demo tokens with the project's, re-time to the project's motion tokens (`--dur-hero`, `--ease-out-expo` or their equivalents), and delete every demo line that does not serve the job. Keep the recipe's accessibility scaffolding intact; it is the part most often lost.
 
 ## Build
 

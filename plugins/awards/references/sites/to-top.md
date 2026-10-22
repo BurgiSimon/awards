@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | B2B service — a Swiss organisational-development consultancy (strategy, culture, leadership, sustainability; coaching, workshops, moderation) [verified, index.html headings; `<title>`] |
+| Industry | consulting-research |
 | Visitor mode | persuade — a gold CONTACT US pill in the nav, a contact form with a SEND disc in the close [verified, clean/desktop-state-reject.png; desktop-s100.png] |
 | Awards | none found — one search on 2026-09-23 returned no award entry [verified, search]; no ribbon or award link in the served page [verified, index.html] |
 | Corpus rating | D 6.8 / U 5.8 / C 6.6 / Co 6.3 → weighted 6.41, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -29,6 +30,11 @@
 | WebGL dosage | moments — one Spline scene (a signpost) mounted lazily on desktop, a second `<spline-viewer>` eager in the mobile block, an AVIF signpost still beside it [verified, index.html]. `canvases: 0` in the manifest because the viewer draws inside its shadow root [inferred, manifest.json]; whether it rendered in a frame is [unknown] |
 | Scroll model | native + Lenis 0.2.28 (`duration 2.3`, expo-out) on its own rAF loop calling `ScrollTrigger.update()`, desktop ≥ 990 px only; ScrollTrigger scrubs at `scrub: 1.2` [verified, index.html; manifest.json `scrollMode: native`] |
 | Narrative model | chaptered journey — scroll is the climb: a trailhead hero, numbered concerns on a summit trail, offers laid on a map, a forest chapter about the firm, a contact close [verified, desktop-s00 to s100.png; index.html] |
+| Palette strategy | forest-green ground #0d352e + white ink + one gold accent #efb300, cream paper #e5d5a3 for warm beats; other colour from photographic landscape cut-outs |
+| Type contract | high-contrast display serif + geometric grotesque + handwritten script accent (Bon Vivant Serif + Montserrat + Nothing You Could Do) |
+| Awards / score | none found (one search, 2026-09-23) |
+| Confidence | high (live source + captures; consent panel over scroll frames, one clean hero frame; no award entry found) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 **One idea:** organisational change as an ascent. The first viewport is a two-line serif claim over a dark green sky, a gold script line beneath it, and a layered mountain range rising from the bottom edge with a lone hiker raising an arm; a gold disc sits on the horizon like a sun and doubles as the first button, *where do you want to go?* [verified, clean/desktop-state-reject.png]. On scroll the claim rises and the mountain planes sink at different rates, so the range opens like a valley [verified, index.html inline script; clean/desktop-state-w2500.png].

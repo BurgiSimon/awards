@@ -3,6 +3,7 @@
 | Field | Value |
 |---|---|
 | Class | B2B service (institutional asset manager and proprietary investor, Zurich / Dubai) |
+| Industry | finance |
 | Visitor mode | persuade |
 | Awards | none found; no award entry searched beyond the page itself [unknown] |
 | Corpus rating | D 7.4 / U 7.3 / C 7.0 / Co 6.8 → weighted 7.23, 2026-10-05 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -13,6 +14,11 @@
 | WebGL dosage | moments — chrome-symbol intro, liquid-metal hero pipes, a metallic swirl behind the dark chapters; one shared offscreen context for word sheens [verified, src/*.js; manifest.json 2 canvases at load] |
 | Scroll model | native, no smoothing library; one IntersectionObserver flips `data-theme="dark"` at the 50 % line [verified, 017nsmwnqk5nu.js `ThemeScroll`; manifest scrollMode native] |
 | Narrative model | specification — symbol intro → claim hero over chrome pipes → capabilities (asset management, proprietary, venture) → infrastructure on a dark swirl → values → link-heavy footer + wordmark |
+| Palette strategy | two tokens inverted by scroll theme (#181818 / #fff), chroma only from iridescent chrome shaders |
+| Type contract | one grotesque (Instrument Sans), display 80 / 64 / 48 / 40 px at −.016 to −.03 em |
+| Awards / score | none found; no scores |
+| Confidence | medium (live source + captures; no award entry) |
+| Last verified | 2026-10-05 |
 
 Ink and ground hexes, for the record only:
 `#181818` ink / dark ground [verified, 1p0sg1zbyknre.css `--base-color-ink`]

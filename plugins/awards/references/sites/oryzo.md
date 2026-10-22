@@ -7,6 +7,7 @@
 | Field | Value |
 |---|---|
 | Class | campaign — a satirical product-launch site for a fictional AI-era product, a cork coaster; a self-initiated Lusion Labs project, doubling as comedy, capability showcase and a complete fake go-to-market campaign [recalled high — Lusion BTS / Codrops via search; the satire itself verified from the footer disclaimer] |
+| Industry | fictional |
 | Visitor mode | experience (a deadpan parody of persuade) |
 | Awards | Awwwards **Site of the Day, Apr 13 2026 — 7.86**: Design 7.90 · Usability 7.51 · Creativity 8.35 · **Content 7.76**; **Developer Award 7.87**: Semantics/SEO 7.60 · Animations/Transitions 8.60 · Accessibility 7.00 · WPO 8.60 · Responsive Design 7.80 · Markup/Meta-data 7.20 [verified, Awwwards entry read 2026-09-18] · tags Art & Illustration, Design Agencies, Web & Interactive, Transitions, Storytelling, 3D, Filters and Effects; declared technologies WebGL, GSAP, Three.js [verified, same] · **nine** standalone inspiration entries (intro-interaction, intro-transition, reveal-transition, gallery-transition, 3d-2d-3d-transition, webgl-sketches-interaction, footer-interactive-particles, desktop, mobile) [verified, same] · CSS Design Awards (49111) and CSS Winner (19168) [recalled high] · Motion Design Awards, "Oryzo Main Promo" [recalled high] |
 | Studio / credits | Lusion — digital production studio, Bristol, UK, founded 2017 by Edan Kwan [recalled high — Codrops / lusion.co via search]; `<meta name="author" content="Lusion">` [verified, index.html]; the entry credits the studio account only, no per-person credits [verified, Awwwards entry] |
@@ -16,6 +17,11 @@
 | WebGL dosage | canvas-first — **one** Three.js WebGL context (`#canvas`) with seven named scenes (Hero, Hand, Wearable, Table, Sustainability, Stack, Footer) plus `coaster`, `sketches`, `gobo`, `bg`, `lightField`, `coffeeParticles`; beside it three canvas-2D layers (preloader, wearable, features curve) and two Rive canvases [verified, hoisted.CRsATKbF.js + index.html: 6 `<canvas>`, `getContext("2d")` ×14, `"webgl"` ×3, `"webgl2"` ×2] |
 | Scroll model | native document scroll driven by a custom inertia engine. `#canvas` is **`position: fixed`** [verified, index.TL6TuoJb.css]; a `ScrollDomRange` map ties GL objects to DOM rects instead. The engine integrates wheel/touch/drag with friction (`frictionCoeffFrom = 2.1`) into a `scrollPixel` and writes it back with `window.scrollTo({top, behavior:"instant"})`, listening to native `scroll` (passive) to adopt scrollbar, anchor and keyboard moves; `html` hides its scrollbar and `body` sets `touch-action: none; overscroll-behavior: none` [verified, hoisted.CRsATKbF.js + CSS]. Playwright therefore reads `scrollMode: native` [verified, manifest.json] |
 | Narrative model | single-object launch [verified — fourteen sections, one product] |
+| Palette strategy | 9 warm tokens: cream #ffedd7 on near-black #100904, olive mid-tones, one orange #dc5000 |
+| Type contract | Halyard Display + Halyard Text (Adobe Fonts) + Literata + DM Mono, Inter MSDF in GL |
+| Awards / score | SOTD Apr 13 2026, 7.86 (C 8.35) + Dev 7.87 |
+| Confidence | high (live source + captures + entry) |
+| Last verified | 2026-09-18 |
 
 ## 1. Concept and narrative
 - **The one idea:** take a deliberately ridiculous object and present it with keynote sincerity. Lusion's own framing: the product was "so mundane that treating it seriously was already funny" [recalled high — BTS part 1 via search]. The comedy lives in the gap between what the thing is and how seriously it is presented; the site never winks until the last screen.

@@ -7,6 +7,7 @@
 | Field | Value |
 |---|---|
 | Class | brand + catalogue e-commerce — Floema®, a Portuguese manufacturer of sustainable outdoor signage, furniture and equipment; five collections with live counts (Urban 54, Nature 41, RePlastic 73, Golf 62, Details 00), wishlist and quote/personalisation modals, no checkout in the served markup [verified, index.html headings + modal components]. Four locales with translated path segments (`/products` → `/produits` `/produtos` `/productos`; `/journal` → `/jornal` `/periodico`) [verified, `window.__NUXT__.config.public.i18nPages`]. Awwwards tags: Business & Corporate, E-Commerce, Promotional, Photographic, Storytelling, 3D, Header Design, WebGL, GSAP, Nuxt.js [verified, Awwwards entry read 2026-09-18] |
+| Industry | manufacturing |
 | Visitor mode | experience → persuade (catalogue download and quote request are the conversions) |
 | Awards | **Awwwards Site of the Day, 13 May 2026**, entry submitted by **Bürocratik (PRO)** [verified, Awwwards entry read 2026-09-18]. SOTD SCORE **7.65** — Design 7.77 · Usability 7.38 · Creativity 7.82 · Content 7.64, weighted 40/30/20/10 [verified, same]. **DEV AWARD is a published score, 7.67**, over the six criteria Awwwards actually publishes: Semantics/SEO 7.80 · Animations/Transitions 8.20 · Accessibility 7.00 · WPO 7.60 · Responsive Design 7.60 · Markup/Meta-data 7.60 [verified, same]. Awwwards colour tags #E9E778 and #241F21, both exact site tokens [verified, same]. Entry "Elements": *Scroll video zooming*, *Sustainability Material 3D* [verified, same]. **The "SOTD 30 Jul 2021 · 7.53 · Bizarro / Empi" record previously in this row is not this site's** — see the appendix [recalled medium] |
 | Studio / credits | **Bürocratik** (Coimbra, PT), credited on the site itself: "Made by Büro" in the footer and a `BÜRO … ♥ BY BÜRO: BUROCRATIK.COM` ASCII block above the doctype [verified, desktop-s100.png + index.html]. Individual designer/developer names: none on the entry, none in the served source [verified absence, both] |
@@ -16,6 +17,11 @@
 | WebGL dosage | moments — `webgl: true`, **3 canvases** on desktop, mobile and reduced motion, inside a DOM-led page whose 57 images are real `<img>` with 57 `alt`s [verified, manifest.json + index.html]. The bundle carries an explicit degrade path: `console.log("No WebGL support. Image mesh will not be drawn.")` [verified, DKtYPyz8.js] |
 | Scroll model | native + **Lenis 1.3.8 on the GSAP ticker** — `gsap.ticker.add(…)`, `gsap.ticker.lagSmoothing(0)`, `lenis.on('scroll', ScrollTrigger.update)`; `scrollMode: native` on all three capture runs [verified, CegNqfpt.js + manifest.json]. Long chapter stage is a **900vh section on `position: fixed`** — 15 `position:fixed` declarations against 1 `position:sticky`, **zero ScrollTrigger `pin`**, exactly one `scrub: true` [verified, index.html, *.css, *.js] |
 | Narrative model | chaptered journey — drifting product field → a numbered five-chapter photographic stage → product close-ups → the collections index as oversized headings → a flour-yellow footer [verified, desktop-s00/25/50/75/100.png] |
+| Palette strategy | ivory #ebe7df + stoneBrown800 #241f21, theme per section, one accent per collection |
+| Type contract | one variable family (Zimula, shipped .ttf) |
+| Awards / score | SOTD 13 May 2026, 7.65 + Dev 7.67 |
+| Confidence | high (live source + captures + entry) |
+| Last verified | 2026-09-18 |
 
 ## 1. Concept and narrative
 - **The one idea:** sell outdoor furniture by showing the outdoors first. The hero is not a product shot but a loose field of cut-out products drifting over warm ivory, and the long middle of the page is site photography — moorland, a boardwalk, a golf clubhouse, a planted path — with the objects almost incidental in it [verified, desktop-s00/25/50.png].
@@ -100,5 +106,5 @@
 
 Everything this card said before 2026-09-18 described **Floema Jewelry**, an Awwwards Academy
 capstone read from GitHub clones — a different company from Floema®. That material now lives at
-`[site:floema-jewelry]`, clearly marked as clone-level evidence, and every citation the corpus had
+`[clone:floema-jewelry]`, clearly marked as clone-level evidence, and every citation the corpus had
 written under this slug was re-pointed there, because all of them predate this pass.

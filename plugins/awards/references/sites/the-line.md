@@ -3,6 +3,7 @@
 | Field | Value |
 |---|---|
 | Class | studio — an animation studio in London; work-first portfolio + studio identity + news + shop + podcast [verified, index.html: `<title>Animation Studio London \| THE LINE Studio`, nav `/work /entertainment /about /blog /podcast /contact /shop`] |
+| Industry | film-music |
 | Visitor mode | persuade |
 | Awards | Awwwards **Site of the Day, 5 Nov 2024** — **7.76 / 10** (Design 8.02 · Usability 7.40 · Creativity 7.78 · Content 7.77) [verified, Awwwards entry read 2026-09-18]. Six developer criteria: Semantics/SEO 7.40 · Animations/Transitions 9.00 · Accessibility 7.00 · WPO 8.00 · Responsive Design 7.60 · Markup/Meta-data 7.40 [verified, same]. **No Site of the Month**, and the "DEV AWARD" heading prints the same `→ 7.76` overall figure — a score, not a second badge [verified, same]. CSSDA, FWA, Godly [unknown] |
 | Studio / credits | The Line Studio (PRO), Isaac Powell (`/IJPowell/`, PRO), Thomas Aufresne (`/thomasaufresne/`) [verified, Awwwards entry read 2026-09-18]. Site Credits is an in-footer expandable panel, not a page [verified, index.html `.footer--credits-open`; desktop-s100.png] |
@@ -12,6 +13,11 @@
 | WebGL dosage | **none** — DOM, CSS and SVG only [verified, manifest.json `canvases: 0`] |
 | Scroll model | native scroll + Lenis 1.1.13 under a custom-drawn scrollbar; **sticky stages on invisible rails, never `pin`** [verified — `pin:` appears 0 times as a call-site option across the entry and page chunks] |
 | Narrative model | print artefact — a call sheet about film; conventional studio IA elevated by treatment [verified structure; framing recalled high] |
+| Palette strategy | one hot red working everywhere over cool-grey/near-white grounds (#FF391E, #FF0000 multiply) |
+| Type contract | single variable grotesk, full 8-step ladder 210→10 px on 1728 (Denim) |
+| Awards / score | SOTD 5 Nov 2024, 7.76 (dev sub-scores 7.00–9.00) |
+| Confidence | very high (live-verified) |
+| Last verified | 2026-09-18 |
 
 ## 1. Concept and narrative
 **One idea:** the studio shows its craft in the interface. Every surface is a sheet that hinges, blinks or strikes into place, and the one saturated red is the studio's ink rather than a highlight colour.

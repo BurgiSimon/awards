@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | e-commerce — the shop of an independent Ukrainian womenswear label. Products, prices, sizes, a bag, favourites and search sit on the home page [verified, index.html `#all-products-data`; retry/desktop-s25.png "(UA)"; entry page "young womenswear brand"] |
+| Industry | fashion-beauty |
 | Visitor mode | persuade — the bag, SHOP ALL and a "see collection" call on every hero look, plus a footer discount sticker [verified, mobile-s25.png, mobile-s100.png] |
 | Awards | Awwwards **Site of the Day, 4 Aug 2026, 7.37**: D 7.29 / U 7.24 / C 7.76 / Co 7.30. **Developer Award 7.32**: Semantics/SEO 7.40, Animations 7.60, Accessibility 6.60, WPO 7.40, Responsive 7.40, Markup 7.20 [verified, entry page, `entry/entry.html`, `entry/desktop-s00.png`] |
 | Corpus rating | D 7.0 / U 5.8 / C 7.0 / Co 6.6 → weighted 6.60, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -23,6 +24,11 @@
 | WebGL dosage | none — 0 canvases at the top; the one canvas at the close is the Lottie sticker [verified, manifest.json, retry/manifest.json; footer-anim.js `renderer:"canvas"`] |
 | Scroll model | native + smooth library — Lenis `lerp .1` on its own rAF, `ScrollTrigger.update` on each Lenis scroll, not on the GSAP ticker [verified, loader.js] |
 | Narrative model | gallery — looks, rails and films in a row, with no argument between them [verified, index.html section order] |
+| Palette strategy | warm off-white ground #fff9f7 + black ink + one red #ed3833 for numbers and keywords; colour-against-greyscale photography as the second axis; torn paper and brush strokes as material |
+| Type contract | condensed display + mono + grotesque (Thunder + PP Fraktion Mono + Inter), body in uppercase Inter 600 |
+| Awards / score | SOTD 4 Aug 2026, 7.37 (dev 7.32, a11y 6.60) |
+| Confidence | high (live source + captures + entry; desktop first viewport not captured) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 The name is a mood-chemistry pun, and the site plays it as a switch between flat and alive. Each hero look is split down a torn-paper edge: one half is in full colour, the other in greyscale, and the torn line is where the mood changes [verified, mobile-s25.png; main.css]. A small `[ 5-HT ]` tag, the chemical shorthand for serotonin, stays in the header [verified, desktop-s50.png; index.html]. The copy has one register, uppercase and adjective-led, with red keywords picked out inside the sentences [verified, desktop-s75.png].

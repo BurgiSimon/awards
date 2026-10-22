@@ -1,0 +1,493 @@
+{
+  "checked": "2026-10-22",
+  "sites": {
+    "goats": {
+      "url": "https://goats.com.pl/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 33,
+      "hash": "d238663b296d8bbd"
+    },
+    "leo-parpeix": {
+      "url": "https://www.leoparpeix.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 3,
+      "hash": "4a4509247fd8d888"
+    },
+    "the-boyd": {
+      "url": "https://the-boyd.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 36,
+      "hash": "0d0f406dee6fb25e"
+    },
+    "the-line": {
+      "url": "https://thelinestudio.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 36,
+      "hash": "581dbc371a390610"
+    },
+    "911rennsport": {
+      "url": "https://www.911rennsport.co.uk/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 8,
+      "hash": "240084a14f498d08"
+    },
+    "a24-raviklaassens": {
+      "url": "https://a24.raviklaassens.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 2,
+      "hash": "ff662ced95a665b9"
+    },
+    "aardvarkbookclub": {
+      "url": "https://www.aardvarkbookclub.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 15,
+      "hash": "e4604162d591ff8e"
+    },
+    "abatable": {
+      "url": "https://abatable.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 29,
+      "hash": "0d4a4b1c3b4aa214"
+    },
+    "agrumeafarm": {
+      "url": "https://www.agrumeafarm.it/en",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 14,
+      "hash": "b929a245d61f441f"
+    },
+    "alectear": {
+      "url": "https://alectear.com/lettering",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 25,
+      "hash": "34a45911775eeac1"
+    },
+    "animejs": {
+      "url": "https://animejs.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 4,
+      "hash": "62c22d881435b363"
+    },
+    "aqualoqa": {
+      "url": "https://aqualoqa.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 6,
+      "hash": "910eb19bdecbea2d"
+    },
+    "areebali": {
+      "url": "https://areebali.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 14,
+      "hash": "1b23cc85bda25fbb"
+    },
+    "ascension-pegassi": {
+      "url": "https://ascension.pegassi.be/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 34,
+      "hash": "9886d03cbe62b920"
+    },
+    "bethebuzz": {
+      "url": "https://www.bethebuzz.co/services",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 37,
+      "hash": "6fe4a7a2fddc76ed"
+    },
+    "bleibtgleich": {
+      "url": "https://bleibtgleich.dev/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 12,
+      "hash": "82ca257209fdc33a"
+    },
+    "boc": {
+      "url": "https://boc.studio/work",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 21,
+      "hash": "85ccf3a8ea63e365"
+    },
+    "christoph-nagel": {
+      "url": "https://christoph-nagel.dev/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 9,
+      "hash": "3781d8ea50606824"
+    },
+    "cutobot-byholm": {
+      "url": "https://cutobot.byholm.co/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 2,
+      "hash": "efad3d06d79b51c8"
+    },
+    "cyphercapital": {
+      "url": "https://www.cyphercapital.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 18,
+      "hash": "59b77a05e21d2a27"
+    },
+    "edolus": {
+      "url": "https://edolus.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 6,
+      "hash": "25dd86bbdf64ed81"
+    },
+    "eugeniagrab": {
+      "url": "https://www.eugeniagrab.com/en",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 2,
+      "hash": "30ede9db0c53aead"
+    },
+    "floema": {
+      "url": "https://floema.com/en",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 27,
+      "hash": "7becf61cecb9d333"
+    },
+    "gehry-getty": {
+      "url": "https://gehry.getty.edu/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 90,
+      "hash": "4e1f797b4f744e76"
+    },
+    "grids-obys": {
+      "url": "https://grids.obys.agency/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 230,
+      "hash": "602d1a4cf0f8425b"
+    },
+    "haoqi": {
+      "url": "https://haoqi.design/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 15,
+      "hash": "2310c4ed97b05e2e"
+    },
+    "igloo": {
+      "url": "https://www.igloo.inc/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 1,
+      "hash": "5302baa5dd7e3a78"
+    },
+    "jesperlandberg": {
+      "url": "https://jesperlandberg.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 9,
+      "hash": "44d099e162364e5c"
+    },
+    "lama-lama": {
+      "url": "https://lamalama.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 4,
+      "hash": "10eb63652b190361"
+    },
+    "lando-norris": {
+      "url": "https://landonorris.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 8,
+      "hash": "c315ffb645bf0535"
+    },
+    "likova": {
+      "url": "https://likova.space/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 5,
+      "hash": "2f05b607855cad9a"
+    },
+    "mensch": {
+      "url": "https://www.mensch.club/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 13,
+      "hash": "af718d6902fd7d1e"
+    },
+    "mindmarket": {
+      "url": "https://mindmarket.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 11,
+      "hash": "ad05c6d3eb98240e"
+    },
+    "mont-fort": {
+      "url": "https://mont-fort.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 8,
+      "hash": "ec4eed37d7c4fde7"
+    },
+    "nodeck": {
+      "url": "https://www.nodeck.online/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 6,
+      "hash": "24dd7767785d7f96"
+    },
+    "noth": {
+      "url": "https://www.noth.in/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 7,
+      "hash": "f0e4e3f5ddf121e1"
+    },
+    "okaydev": {
+      "url": "https://okaydev.co/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 17,
+      "hash": "906f3217189d32e2"
+    },
+    "oryzo": {
+      "url": "https://oryzo.ai/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 3,
+      "hash": "1194d8742f094fbc"
+    },
+    "pensatori-irrazionali": {
+      "url": "https://pensatori-irrazionali.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 21,
+      "hash": "b014e736f9b82e99"
+    },
+    "primesec": {
+      "url": "https://www.primesec.ai/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 11,
+      "hash": "e47c7d18f4be2aa5"
+    },
+    "robbietilton": {
+      "url": "https://robbietilton.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 1,
+      "hash": "8940b19c3aec3368"
+    },
+    "runrobrun": {
+      "url": "https://www.runrobrun.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 10,
+      "hash": "fc44dfec6c281215"
+    },
+    "seasats": {
+      "url": "https://www.seasats.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 28,
+      "hash": "61a98b60e4cbf144"
+    },
+    "serotoninn": {
+      "url": "https://serotoninn.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 18,
+      "hash": "f12d0c6761d62e79"
+    },
+    "shopify-editions-w26": {
+      "url": "https://www.shopify.com/editions/winter2026",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 14,
+      "hash": "902c656f10f888c5"
+    },
+    "siena": {
+      "url": "https://siena.film/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 3,
+      "hash": "66af6d7137de40e0"
+    },
+    "siteassist": {
+      "url": "https://www.siteassist.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 16,
+      "hash": "9f6ab519df65e72f"
+    },
+    "slosh-seltzer": {
+      "url": "https://sloshseltzer.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 0,
+      "hash": "e3b0c44298fc1c14"
+    },
+    "son-daven": {
+      "url": "https://sondaven.com/en",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 12,
+      "hash": "f662274c26af8e4b"
+    },
+    "spasoje": {
+      "url": "https://www.spasoje.dev/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 18,
+      "hash": "091cf6b62b41d44c"
+    },
+    "stanzza": {
+      "url": "https://stanzza.design/awards",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 11,
+      "hash": "6bd6d0d6c400fc8d"
+    },
+    "to-top": {
+      "url": "https://www.to-top.ch/en",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 12,
+      "hash": "380a88693add43f1"
+    },
+    "trevor-noah": {
+      "url": "https://www.trevornoah.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 3,
+      "hash": "3eb6b8ad8d6ada41"
+    },
+    "united-carriers": {
+      "url": "https://unitedcarriers.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 6,
+      "hash": "c7be4e56509c3e5d"
+    },
+    "usavionix": {
+      "url": "https://www.usavionix.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 34,
+      "hash": "a55acd13e0ccbed1"
+    },
+    "warmnfuzzy": {
+      "url": "https://www.warmnfuzzy.tv/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 43,
+      "hash": "86c893bafdb389ef"
+    },
+    "wearedirect": {
+      "url": "https://wearedirect.co/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 10,
+      "hash": "08e25e70d4599143"
+    },
+    "white-desert": {
+      "url": "https://white-desert.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 31,
+      "hash": "e5a0dd544e31f6d8"
+    },
+    "why-zero": {
+      "url": "https://why.zero.university/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 2,
+      "hash": "b183dedbd52eaa0b"
+    },
+    "wodniack": {
+      "url": "https://wodniack.dev/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 3,
+      "hash": "3f79ea8d63537a23"
+    },
+    "zainabkabira": {
+      "url": "https://zainabkabira.com/",
+      "at": "2026-10-22",
+      "dns": "ok",
+      "http": 200,
+      "assets": 2,
+      "hash": "33f1e31bf933a0bf"
+    }
+  }
+}

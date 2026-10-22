@@ -1,13 +1,16 @@
 {
   "id": "preloader-aperture-handoff",
   "title": "Preloader that hands off to the hero through an opening aperture",
+  "intent": "Loader into hero",
+  "group": "arrival-and-chrome",
+  "summary": "Curtain gated on fonts + the hero's first frame (4 s ceiling, no floor, head-script `is-gated` so neither the hero nor the curtain flashes), lifted `yPercent −100` while the hero opens from `clip-path: inset(30% round 12px)` to `inset(0% round 0px)` and its media scales `.6 → 1` (1.4 s `expo.inOut`); root `overflow: hidden` + `inert` until open, `__awards.ready` after the hand-off, `sessionStorage` repeat-visit skip, Skip button; a curtain fade only under reduced motion, a cut in the static tier",
   "tags": [
     "preloader",
     "loading",
     "clip-path",
     "gsap",
     "hero",
-    "sessionStorage",
+    "storage",
     "reduced-motion"
   ],
   "tier": "P1",

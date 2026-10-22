@@ -1,6 +1,9 @@
 {
   "id": "editorial-image-text",
   "title": "Alder Workshop — editorial image and text",
+  "intent": "Editorial story",
+  "group": "compositions",
+  "summary": "Figure, caption, asymmetric reading column and mobile order",
   "tags": [
     "editorial",
     "images",

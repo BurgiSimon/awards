@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | e-commerce — a monthly hardcover subscription (pick up to three new releases, shipped to the USA and Canada), with gifting, merch and an app [verified, index.html meta description; desktop-s00.png] |
+| Industry | publishing |
 | Visitor mode | persuade — a log-in / sign-up action in the nav and the hero, "Add to box!" on every book card, a promo-code band [verified, desktop-s00.png, desktop-s75.png, desktop-s100.png] |
 | Awards | Awwwards **Site of the Day, 30 Aug 2026, 7.2**: D 7.13 / U 7.16 / C 7.38 / Co 7.26. **DEV 6.82**: Semantics/SEO 6.80, Animations 7.20, Accessibility 6.80, WPO 6.60, Responsive 6.80, Markup 6.80 [verified, entry page, `entry/entry.html`] |
 | Corpus rating | D 7.0 / U 6.2 / C 6.8 / Co 7.0 → weighted 6.72, 2026-10-05 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -28,6 +29,11 @@
 | WebGL dosage | none — two canvases, both 2D frame-sequence players (`getContext('2d')`) [verified, slater.js; manifest.json `canvases: 2`]. The "custom 3D" the entry names is pre-rendered [inferred] |
 | Scroll model | native + Lenis 1.3.17 (`lerp .2`, `autoRaf: true`, `anchors: true`) on its own clock, `lenis.on('scroll', ScrollTrigger.update)`; the GSAP-ticker hookup is commented out [verified, slater.js] |
 | Narrative model | single-object launch — the subscription box recurs as the object: hero → monthly picks rail → how it works → scrubbed unboxing → genre wall → FAQ → gift box → exclusive → footer box [verified, index.html headings and section classes] |
+| Palette strategy | theme-per-section: flat candy grounds from a 24-token pale / soft / full ramp (yellow #ffd24a hero, pink #fd48f2, pale blue #a4f6f8, violet #3b308f footer), black ink, one magenta #ff008c action colour |
+| Type contract | chunky rounded display + geometric grotesque + handwritten marginalia (Champ + Degular + Hello Organichand), vw-locked root |
+| Awards / score | SOTD 30 Aug 2026, 7.2 (D 7.13 / U 7.16 / C 7.38 / Co 7.26), DEV 6.82 |
+| Confidence | high (live source + captures + entry) |
+| Last verified | 2026-10-05 |
 
 ## 1. Concept and narrative
 A book club that sells the unboxing. The page treats the shipping box as the product: it tumbles in the hero on phones, opens under scroll in a pale stage mid-page, drops in as the gift, and slides into the footer [verified, mobile-s00.png, desktop-s25.png, desktop-s75.png, desktop-s100.png]. Around it the tone is loud and chatty: candy grounds, a huge rounded headline, and handwritten asides in the margins ("Shipping to the USA & Canada") [verified, desktop-s00.png].

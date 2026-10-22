@@ -1,12 +1,12 @@
 # nav-overlay-fullscreen
 
-A menu that takes the whole screen on its own theme: a clip-path wipe, numbered links rising out of masks with a stagger, the page behind made `inert` and stopped, focus trapped, Escape closing, focus returning to the toggle. Under reduced motion it appears and disappears without choreography.
+A menu that takes the whole screen on its own theme: a clip-path wipe, links rising out of masks with a stagger, the page behind made `inert` and stopped, focus trapped, Escape closing, focus returning to the toggle. Under reduced motion it appears and disappears without choreography.
 
 ## Why
 - **Overlays are where keyboard users get lost.** `inert` on the page, a trap that includes the always-visible toggle, and restored focus are the difference between a menu and a wall (`[pattern:accessibility-and-reduced-motion]`).
 - **The theme swap is part of the move.** The overlay carries `data-theme="dark"`, so the tokens flip with it and the toggle recolours through a class on `<html>` (`[recipe:theme-swap-tokens]`).
 - **Scroll stops with Lenis, not with a hack.** `lenis.stop()` while open, `start()` on close; `overflow: hidden` on `<html>` backs it up for native scrolling.
-- **Numbered links as texture.** `01 – 04` labels beside display-scale words: the corpus's menu vocabulary `[site:son-daven]` `[site:leo-parpeix]`.
+- **Display-scale words, nothing else.** The links carry no numbers by default. `01 – 04` beside the words is the corpus's menu vocabulary `[site:son-daven]` `[site:leo-parpeix]`, and copied by default it became every build's menu; add it as the numbered variant only when WORLD is an index or a catalogue, the same test L05 applies to labels.
 
 ## Parameters
 Wipe `clip-path: inset(0 0 100% 0 → 0)`, `.9 s`, `expo.inOut` · words `yPercent 110 → 0`, `1 s`, `expo.out`, stagger `.07` · close: words `−110 %`, `.5 s`, `expo.in`, then wipe `.7 s`.

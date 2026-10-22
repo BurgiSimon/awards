@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | brand: a Sicilian producer of jams, pestos and preserves; routes Pantry (`/dispensa` + one route per product), Production, Experience, About, Contacts, and a Shop link [verified, index.html nav hrefs; meta description] |
+| Industry | food-drink |
 | Visitor mode | experience: the home route is one product carousel and nothing else; reading happens on the product and story routes [verified, desktop-s25…s100.png; index.html, 359 DOM nodes] |
 | Awards | Awwwards **Nominee, 1 Oct 2026**, public vote still open, no jury scores published; tagged Food & Drink, Promotional, Animation, 3D, GSAP, Three.js, Nuxt.js [verified, entry page `entry/entry.html`, `entry/desktop-s00.png`] |
 | Corpus rating | D 7.4 / U 6.6 / C 7.3 / Co 6.8 → weighted 7.08, 2026-10-05 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -15,6 +16,11 @@
 | WebGL dosage | moments: one offscreen Three.js renderer draws only the jar labels; each jar is a photo plus a 2D canvas the renderer blits into [verified, C2lrDrZj.js; manifest `canvases: 10`] |
 | Scroll model | virtual float: on the home route the wheel and drag are captured to move a tilted carousel; Lenis drives the other routes and is off under reduced motion [verified, C2lrDrZj.js `wheel` `preventDefault`; manifest `scrollMode: wheel`; 5uUeoJaR.js] |
 | Narrative model | gallery: the whole catalogue as a ring of jars over a stamp-like emblem, each jar a link to its product route [verified, desktop-s25…s100.png; index.html 10 `data-jar-slider-item`] |
+| Palette strategy | warm cream ground + oxblood ink + one orange accent (#fdf3eb / #762530 / #e94e1b); product labels carry all other chroma |
+| Type contract | high-contrast display serif + humanist sans (ivymode + ivystyle-sans, Adobe Fonts) |
+| Awards / score | Awwwards Nominee 1 Oct 2026, no scores published |
+| Confidence | high |
+| Last verified | 2026-10-05 |
 
 ## 1. Concept and narrative
 The home page is the pantry shelf, tipped on its side. Labelled jars ride a gently tilted curve across a cream ground, larger and sharper in the middle, smaller and blurred toward the edges, in front of a dark polygonal emblem whose circular motto turns as the row moves [verified, desktop-s25/s50/s75/s100.png]. There are no chapters: each frame shows a different set of jars, and the story lives on the product and production routes.

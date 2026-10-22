@@ -22,7 +22,7 @@ Why: a site reads as one voice when the number of faces is a decision. The corpu
 |---|---|---|---|
 | Expressive display + neutral grotesque | Avantt (variable display) + Monument Grotesk (UI, body) | [site:leo-parpeix] | [verified] |
 | Expressive display + neutral grotesque | BT Steinhart (condensed display) + Helvetica Now (body, UI) | [site:united-carriers] | [verified] |
-| Serif display + light grotesque | George X + Suisse BP Intl at ultralight, light and regular [site:floema-jewelry]; ivymode + ivystyle-sans at 400 / 600 [site:agrumeafarm]; Cormorant in caps and mixed case + Inter at small sizes [site:eugeniagrab] | [site:floema-jewelry] [site:agrumeafarm] [site:eugeniagrab] | [verified, clone fonts]; [verified]; [verified] |
+| Serif display + light grotesque | George X + Suisse BP Intl at ultralight, light and regular [clone:floema-jewelry]; ivymode + ivystyle-sans at 400 / 600 [site:agrumeafarm]; Cormorant in caps and mixed case + Inter at small sizes [site:eugeniagrab] | [clone:floema-jewelry] [site:agrumeafarm] [site:eugeniagrab] | [verified, clone fonts]; [verified]; [verified] |
 | One superfamily, two cuts | KTF Metro Roman (display) + KTF Metro Blueline (body) | [site:son-daven] | [verified] |
 | Variable grotesque + bold display, headlines also in GL | Mona Sans (several instances) + Brier Bold | [site:lando-norris] | [verified] |
 | One characterful grotesque at display scale | Suisse BP Int'l, set oversized | [site:lama-lama] | [recalled medium] |
@@ -93,7 +93,7 @@ Why: small labels are the texture that makes a big-type page feel set rather tha
 
 | Texture | Seen in | Confidence |
 |---|---|---|
-| Numerals 01 / 02 / 03 on nav links; a numbered label per item | [site:leo-parpeix]; [site:floema-jewelry] `${collection} ${index}` | [recalled medium]; [verified] |
+| Numerals 01 / 02 / 03 on nav links; a numbered label per item | [site:leo-parpeix]; [clone:floema-jewelry] `${collection} ${index}` | [recalled medium]; [verified] |
 | Numbered chapters and numbered pillars | [site:mont-fort] | [verified] |
 | Roman numerals for sections | [site:shopify-editions-w26] | [recalled medium-low] |
 | Metadata quartet: name · discipline · year · team of N | [site:leo-parpeix] | [recalled medium] |
@@ -126,7 +126,7 @@ Why: at a punctuation moment — the manifesto, the break between two clusters, 
 
 Why: a display face that swaps late shreds the lines already split, and a Google Fonts link is a third-party round trip the corpus does not make.
 
-- Self-hosted files, seen everywhere the sources show delivery: woff2 [site:lando-norris] [verified] [site:mont-fort] [verified] [site:animejs] [verified] [site:leo-parpeix] [clone, medium]; woff and woff2 across six files for two families [site:floema-jewelry] [verified]; a single variable `DenimVF.woff` [site:the-line] [verified]; five woff2 preloads across three families, one over the file budget [site:wodniack] [verified]; no web font at all, only an atlas [site:igloo] [verified]. Why Zero serves from the Google Fonts API [site:why-zero] [verified], and EDOLUS from Fontshare and Google Fonts [site:edolus] [verified] — the family may be right, the CDN link is refused (audit T02): self-host the same files.
+- Self-hosted files, seen everywhere the sources show delivery: woff2 [site:lando-norris] [verified] [site:mont-fort] [verified] [site:animejs] [verified] [site:leo-parpeix] [clone, medium]; woff and woff2 across six files for two families [clone:floema-jewelry] [verified]; a single variable `DenimVF.woff` [site:the-line] [verified]; five woff2 preloads across three families, one over the file budget [site:wodniack] [verified]; no web font at all, only an atlas [site:igloo] [verified]. Why Zero serves from the Google Fonts API [site:why-zero] [verified], and EDOLUS from Fontshare and Google Fonts [site:edolus] [verified] — the family may be right, the CDN link is refused (audit T02): self-host the same files.
 - Budget: ≤ 4 files and ≤ 400 KB (audit P05). A variable face covers many instances in one file [site:lando-norris] [site:the-line].
 - `@font-face` with `font-display: swap`, plus a fallback face declared with `size-adjust`, `ascent-override`, `descent-override` and `line-gap-override` so the swap does not move a line (audit T05, T06) — `next/font` generates one, as Boc's `ppMori Fallback` shows [site:boc] [verified]; preload the display face only.
 - Split text only after `document.fonts.ready`, and re-split on resize: Lando re-runs its splitter after font load so a fallback cannot shred the lines [site:lando-norris] [verified]; Anime's splitter re-applies effects after a re-split [site:animejs] [verified].
@@ -142,11 +142,11 @@ Why: naming the face with its licence turns "use something like this" into a dec
 |---|---|---|---|
 | Monument Grotesk | neutral body, UI | [site:leo-parpeix] | commercial, Dinamo [recalled high] |
 | Avantt | variable wide display | [site:leo-parpeix] | commercial, Displaay [recalled medium-high] |
-| Suisse BP Int'l | display grotesque; light body | [site:lama-lama] [site:floema-jewelry] | commercial, Swiss Typefaces [recalled medium, from the card] |
+| Suisse BP Int'l | display grotesque; light body | [site:lama-lama] [clone:floema-jewelry] | commercial, Swiss Typefaces [recalled medium, from the card] |
 | BT Steinhart | condensed display | [site:united-carriers] | commercial, Bitstream/Monotype [verified on the card] |
 | Helvetica Now | neutral body, UI | [site:united-carriers] | commercial, Monotype [recalled high] |
 | KTF Metro Roman / Blueline | superfamily, two cuts | [site:son-daven] | commercial, Kyiv Type Foundry [verified] |
-| George X | serif display | [site:floema-jewelry] | commercial; foundry [unknown] |
+| George X | serif display | [clone:floema-jewelry] | commercial; foundry [unknown] |
 | Denim | variable grotesk, `ss03` | [site:the-line] | commercial; foundry not on the card [unknown] |
 | Mona Sans | variable grotesque, UI and body | [site:lando-norris] | open, SIL OFL, GitHub [verified as open on the card] |
 | Brier | bold display | [site:lando-norris] | commercial [inferred]; foundry [unknown] |
@@ -181,16 +181,16 @@ Why: naming the face with its licence turns "use something like this" into a dec
 | TikTok Sans / Departure Mono | wide display caps / pixel mono HUD | [site:haoqi] | open, SIL OFL [recalled medium] |
 | Bon Vivant Serif / Nothing You Could Do | high-contrast display serif / script aside | [site:to-top] | [unknown] / open, SIL OFL [recalled medium] |
 
-Two notes on the evidence: IBM Plex Mono sits on the avoid list in `reflex-lists.md` and is also the display face of a Site of the Day `[site:igloo]` — the list is about reflex, not prohibition, and an on-purpose choice is recorded under `AWARDS.md ## Exceptions`. Suisse BP appears twice in the corpus five years apart [site:floema-jewelry] [site:lama-lama], which is exactly why a new build should not make it three.
+Two notes on the evidence: IBM Plex Mono sits on the avoid list in `reflex-lists.md` and is also the display face of a Site of the Day `[site:igloo]` — the list is about reflex, not prohibition, and an on-purpose choice is recorded under `AWARDS.md ## Exceptions`. Suisse BP appears twice in the corpus five years apart [clone:floema-jewelry] [site:lama-lama], which is exactly why a new build should not make it three.
 
 ## Choosing by character class
 
 Why: the face follows the world, then the character, then the licence — never the other way round (`reflex-lists.md`, alternatives by character class).
 
 1. Decide the contract from the world: a voice and a silence, or one voice (`#contracts`).
-2. Decide the character the display voice needs — round or sharp, wide or narrow, warm or cold, condensed or extended — from the direction contract's WORLD line, not from a trend.
-3. Take the class row in `reflex-lists.md`: open-licence faces first, the corpus's licensed faces only if the budget licenses them, and never the pairing a neighbour card already owns.
-4. Check the licence file and the web-embedding terms; record face, foundry and licence in `DESIGN.md`.
+2. Describe the character the display voice needs in one sentence — round or sharp, wide or narrow, warm or cold, condensed or extended — from the direction contract's WORLD line, not from a trend.
+3. Pull candidates from the whole open catalogue, not from a list: `scripts/fonts.mjs search --category <class> --seed <project>` draws five from Fontsource's roughly 2,100 families after the reflex list, and sorts the faces this plugin has already recommended often to the end. Render the real headline and a real paragraph in each (`fonts.mjs specimen`) and judge the sheet, not the names. The class rows in `reflex-lists.md` are the fallback when the catalogue is unreachable; the corpus's licensed faces only if the budget licenses them; never the pairing a neighbour card already owns.
+4. Record the chosen face and one line per reject in `DESIGN.md`, check the licence file and the web-embedding terms (`fonts.mjs fetch` prints the licence Fontsource records), and record face, foundry and licence.
 
 | World | Contract that fit it | Card |
 |---|---|---|
@@ -199,7 +199,7 @@ Why: the face follows the world, then the character, then the licence — never 
 | Creative developer's own site | condensed poster display + light text serif + mono labels | [site:wodniack] |
 | Freight, industry, hardware | condensed display + neutral body | [site:united-carriers] |
 | Heritage corporate group | two geometric sans, institutional | [site:mont-fort] |
-| Jewellery, fashion | serif display + light grotesque | [site:floema-jewelry] |
+| Jewellery, fashion | serif display + light grotesque | [clone:floema-jewelry] |
 | Property, hospitality with a place | one superfamily, two cuts, local foundry | [site:son-daven] |
 | Athlete, personal brand | variable grotesque + bold display | [site:lando-norris] |
 | Library, research station, console | monospace identity | [site:animejs] [site:igloo]; readouts [site:usavionix] [inferred] |

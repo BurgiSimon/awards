@@ -61,7 +61,7 @@ These are the habits a generator falls into when nobody made a decision, grouped
 | Tell | Caught by | Earned when |
 |---|---|---|
 | A reflex face as the first family | T01 | A deliberate pick, with the reason recorded |
-| A small uppercase label or pill over every heading, or its cousins: middle-dot strips, No./Vol. micro-meta, locale and time strips, version footers | L05 | Labels are the texture of a metadata world the WORLD names (catalogue, archive, spec sheet, call sheet, timetable) `[pattern:typography#labels-as-texture]` |
+| A small uppercase label or pill over every heading, or its cousins: middle-dot strips, No./Vol. micro-meta, locale and time strips, version footers | L05, X21 (rendered, by computed style) | Labels are the texture of a metadata world the WORLD names (catalogue, archive, spec sheet, call sheet, timetable) `[pattern:typography#labels-as-texture]` |
 | A rounded icon tile stacked over each heading | L04 | — |
 | A sentence-long headline at display size filling the first screen | judge | The headline is the hero archetype and says one thing in few words `[pattern:hero-archetypes]` |
 | Italic serif display as the "premium" costume | judge (T01 catches the usual faces) | The serif is the brand's voice across the whole system `[pattern:typography#contracts]` |

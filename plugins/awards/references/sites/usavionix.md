@@ -4,7 +4,8 @@
 
 | Field | Value |
 |---|---|
-| Class | B2B / defence-tech product and capability site |
+| Class | B2B product — a defence-tech product and capability site |
+| Industry | defence-aerospace |
 | Visitor mode | persuade |
 | Awards | Awwwards **Site of the Day, 9 Sep 2026** — the entry carries exactly one award badge, `SOTD` 7.41 [verified, Awwwards entry read 2026-09-18]. SOTD 7.41 = Design 7.38 / Usability 7.03 / Creativity 8.00 / Content 7.47; DEV AWARD 7.74 = Semantics-SEO 8.00 / Animations-Transitions 8.20 / Accessibility 7.00 / WPO 7.60 / Responsive Design 7.60 / Markup-Meta-data 7.80 [verified, same]. **No Honorable Mention and no Developer Award badge exist on the entry** — the word "Developer" appears nowhere on it, and `DEV AWARD` is the six-criterion score panel every entry carries [verified, same]. Tags: Technology, Startups, Storytelling, 3D, WebGL, Next.js; declared palette "2 colors" `#000` + `#fff` [verified, same]. Also listed on landing.love and UI UX Showcase [recalled medium] |
 | Studio / credits | **basement studio** (PRO), sole credit on the entry [verified, Awwwards entry read 2026-09-18]; individuals [unknown] |
@@ -14,6 +15,11 @@
 | WebGL dosage | canvas-first — 3 canvases desktop / 2 mobile, WebGL live in all three runs [verified, `manifest.json`]; the aircraft, the terrain plates and the tactical map are all rendered, and a `loading-delta.glb` is preloaded `fetchPriority="high"` before first paint [verified, index.html] |
 | Scroll model | native, Lenis-smoothed, with a long pinned cinematic sequence [verified, `manifest.json` `scrollMode:"native"` on all three runs; `--z-index-scroll-sequence:550` / `--z-index-over-scroll-sequence:575` tokens] |
 | Narrative model | specification with role-casting: load gate → flight → mission run-through → scenario triptych → team → contact, on one page |
+| Palette strategy | #0f0f0f ground + white, three HUD status accents |
+| Type contract | Geist + Geist Mono, two discrete ramps |
+| Awards / score | SOTD 9 Sep 2026, 7.41 |
+| Confidence | high |
+| Last verified | 2026-09-18 |
 
 ## 1. Concept and narrative
 The visitor is cast as an operator. The first viewport is an aerial terrain plate under a three-line display headline, "Securing the skies with autonomous intelligence", with the positioning line and a "Scroll To Explore" pill parked bottom-right [verified, `desktop-rm-s00.png`]. Scroll then runs a single live mission as a pinned sequence: boot readouts, a Delta flying a search pattern, an anomaly detection, a confirmation pass, then a tactical map that resolves the incident [verified, `desktop-s25/s50.png`, `desktop-rm-s75.png`]. Only after the mission does the page argue in words: "One platform, many missions." over three named scenarios — **Wildfire Cascade**, **Border Storm**, **Critical Infrastructure in Crisis** [verified, index.html SSR text]. Copy is verb-chain and agent-framed: the product is "The first agent in the air" and the wildfire beat compresses a timeline into one breath — "detect ignition points, suppress advancing fires, secure nearby neighborhoods, and keep evacuation routes open" [verified fragments ≤ 25 words, index.html]. Credibility is a single sentence: "Founded by leaders from SpaceX, Apple, Tesla, Palantir, JPL, and elite military units" [verified, same]. The ask is scarcity-framed — "Request Access", demo slots limited [verified, same].
@@ -59,7 +65,7 @@ See the header table. Weights as served: HTML 160 KB, one stylesheet 78 KB, 29 J
 
 ## 8. Take / Don't take
 - **Take:** the diegetic load gate with a polite live region `[recipe:preloader-counter-hold]` `[pattern:preloaders-and-transitions]`; role-casting the first viewport `[pattern:hero-archetypes]`; a three-token status palette carried in CSS custom properties `[pattern:color-and-material]`; the sans + mono two-register contract `[pattern:typography]`; the named z-index ladder as a layout contract; verb-chain and "agent" capability copy, and the scenario triptych after the demonstration `[pattern:copy-and-content]`; a chapter indicator over any pinned sequence `[pattern:components-catalog]`.
-- **Don't take:** the near-black `#0f0f0f` + cyan/amber/red HUD set as a default palette (it is diegetic here); the Wildfire/Border/Infrastructure triptych and its copy; the thermal/lidar/IR readout lines; the Delta and Phalanx names and renders; Geist + Geist Mono as a reflex pairing; and the one real mistake — shipping a scrubbed cinematic sequence with no `prefers-reduced-motion` branch.
+- **Don't take:** the near-black `#0f0f0f` + cyan/amber/red HUD set as a default palette [verified, as recorded under Palette] (it is diegetic here); the Wildfire/Border/Infrastructure triptych and its copy; the thermal/lidar/IR readout lines; the Delta and Phalanx names and renders; Geist + Geist Mono as a reflex pairing; and the one real mistake — shipping a scrubbed cinematic sequence with no `prefers-reduced-motion` branch.
 
 ## 9. Confidence and sources
 Awards, scores, credits and tags [verified, Awwwards entry read 2026-09-18] · palette, type contract and scale, easing tokens, z-index ladder and the reduced-motion absence [verified, `32d10e4cd8482b39.css`] · Next.js, Vercel, Tailwind v4, Radix, Lenis, Three.js, the glTF pipeline, the head, the component inventory, all copy and the SVG flight-path parameters [verified, `index.html`] · the Three.js signature and the GSAP absence [verified, the five largest chunks read, 1.2 MB of ≈ 2.9 MB] · composition, colour in use, wayfinding, mobile and reduced-motion frames [verified, captures 2026-09-18] · GSAP, R3F, `@bsmnt/scrollytelling`, `next-real-viewport`, three.js revision, keyboard paths, load-gate duration and scrub parameters [unknown].

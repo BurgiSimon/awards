@@ -1,6 +1,9 @@
 {
   "id": "sound-toggle-opt-in",
   "title": "Opt-in sound: a real toggle, a synthesised bed, a remembered yes",
+  "intent": "Sound",
+  "group": "arrival-and-chrome",
+  "summary": "Opt-in ambient + SFX, persisted",
   "tags": [
     "sound",
     "webaudio",

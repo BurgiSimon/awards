@@ -1,9 +1,11 @@
 {
   "id": "product-specification",
   "title": "Alder Workshop — product specification",
+  "intent": "Product facts",
+  "group": "evidence-blocks",
+  "summary": "Semantic facts with units and native care disclosure",
   "tags": [
     "product",
-    "specifications",
     "accessibility",
     "responsive"
   ],

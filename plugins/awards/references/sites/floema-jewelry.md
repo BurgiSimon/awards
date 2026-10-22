@@ -1,8 +1,23 @@
 # Floema Jewelry — a course capstone, not an award reference
 
+| Field | Value |
+|---|---|
+| Class | brand (jewellery) — **course capstone, not an award reference** |
+| Industry | fashion-beauty |
+| Visitor mode | experience |
+| WebGL dosage | canvas-first (OGL planes over `<img data-src>`) [verified — clone] |
+| Scroll model | virtual float, hand-rolled lerp .1 [verified — clone] |
+| Narrative model | gallery [verified — clone] |
+| Palette strategy | 5 warm tokens + one CTA accent, cross-faded per route |
+| Type contract | serif display + light grotesque (George X + Suisse BP Intl) |
+| Awards / score | claimed SOTD Jul 2021, 7.53 [recalled medium, unverified] |
+| Confidence | clone-level only |
+| Last verified | — (clone-level, never rendered) |
+
 **Read this first.** This card is not a live-verified award entry. Everything below was read from
 two course clones of an Awwwards Academy capstone, and no live render or award entry backs it. It
-exists because the corpus cited this material ninety-six times under the slug `floema`, which the
+exists because the corpus cited this material ninety-six times under the slug `floema` (cited since
+0.8 as `[clone:floema-jewelry]`, so the evidence level travels with every citation), which the
 2026-09-18 live pass showed belongs to a different company — Floema®, a Portuguese furniture maker
 (`[site:floema]`). Rather than delete the citations or leave them pointing at the wrong site, the
 two were split apart.

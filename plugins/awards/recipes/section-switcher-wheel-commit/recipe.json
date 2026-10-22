@@ -1,6 +1,9 @@
 {
   "id": "section-switcher-wheel-commit",
   "title": "Section switcher with a wheel commit ring",
+  "intent": "Deck of panels",
+  "group": "scroll-set-pieces",
+  "summary": "The document never scrolls: GSAP Observer sums wheel delta magnitudes into a `role=\"progressbar\"` ring that commits one step at 500, drains after 1 s idle, resets on reversal and locks 900 ms after a commit; swipe > 55 px, arrow / Page / Home / End keys and prev / next reach every panel, inactive panels `inert`, one live-region announcement per change, instant swap (wheel still live) under reduced motion, `__awards.scrollTo` routed to panels",
   "tags": [
     "sections",
     "wheel",
