@@ -4,6 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Script-only controls keep their place from the first paint (no shift when the module wires them up). -->
+  <script>(function(d){d.classList.add('js');if(navigator.clipboard&&window.isSecureContext)d.classList.add('can-copy');if(window.HTMLDialogElement)d.classList.add('can-dialog')})(document.documentElement)</script>
   <title>Docs · awards</title>
   <meta name="description" content="The awards plugin: its 11 skills, the craft flow and its modes, the jury, 89 audit rules in eight families, the corpus and the scripts, read from the plugin at build time." data-fact-attr="content:skills content:rules">
   <link rel="canonical" href="./docs.html">
@@ -11,6 +13,8 @@
   <meta name="theme-color" content="#131211">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="preload" href="./fonts/enriqueta-latin-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./fonts/enriqueta-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./fonts/saira-condensed-latin-400.woff2" as="font" type="font/woff2" crossorigin>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="awards">
   <meta property="og:title" content="Docs · awards">
@@ -29,6 +33,7 @@
   <div class="rebate" data-theme="rebate">
     <header class="rebate__head">
       <p class="rebate__mark"><a class="rebate__wordmark" href="./">awards</a> <span class="rebate__version edge" data-fact="version">0.7.0</span></p>
+      <!-- @proof:disclosure — phone, states capture and report: the Frames disclosure, this route's phone frames as links -->
       <nav class="rebate__nav" aria-label="Site">
         <ul role="list">
           <li><a class="rebate__install" href="./install.html">Install</a></li>
@@ -333,6 +338,7 @@
       <!-- @fact:build — the build being read: "This is build {version}+{hash}." -->
     </div>
     <ul class="colophon__links" role="list">
+      <!-- @proof:pages — states capture and report: Docs and Recipes, which the phone band gives up to the Frames disclosure -->
       <li><a href="https://github.com/burgisimon/awards" data-fact-attr="href:repo">Source on GitHub</a></li>
       <li><a href="https://github.com/burgisimon/awards/blob/main/CHANGELOG.md">Release notes</a></li>
       <li><a href="https://github.com/burgisimon/awards/blob/main/LICENSE">Licence</a></li>
@@ -345,12 +351,13 @@
           <tr><th scope="row">Enriqueta</th><td>FontFuror, SIL Open Font License 1.1</td></tr>
           <tr><th scope="row">Saira Condensed</th><td>Omnibus-Type, SIL Open Font License 1.1</td></tr>
           <tr><th scope="row">Commands and code</th><td>your system's monospace</td></tr>
-          <tr><th scope="row">Marks</th><td>drawn for this page</td></tr>
+          <tr><th scope="row">Marks</th><td>drawn for this page</td></tr><!-- @fact:libraries -->
         </tbody>
       </table>
     </div>
     <p class="colophon__note caption">Every picture on this site is a capture of this site or of the plugin's own recipes, made by the plugin's own scripts. Nothing here is a screenshot of anyone else's work.</p>
   </footer>
 </div>
+<script type="module" src="./src/main.js"></script>
 </body>
 </html>

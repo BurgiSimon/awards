@@ -6,10 +6,15 @@
   · data-fact-attr="{attr}:{name}" an attribute holds that literal (several pairs separated by spaces)
   · data-proof on {html}           none | capture | report: what `npm run proof` found on disk (contract LOAD & CLOSE)
   · {comment @proof:… } comments    slots the proof step fills with frames, marks and figures; empty means nothing renders
+  · {comment @fact:name}…{comment /@fact} regions the build regenerates from the plugin (rule tables, the catalogue, the recipe row)
+  · {comment @fact:build} and {comment @fact:libraries}  the build id and the library credits
+  The build (awards:stack) does all of this in facts/index.js; an unknown name or a missing literal stops it.
 -->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Script-only controls keep their place from the first paint (no shift when the module wires them up). -->
+  <script>(function(d){d.classList.add('js');if(navigator.clipboard&&window.isSecureContext)d.classList.add('can-copy');if(window.HTMLDialogElement)d.classList.add('can-dialog')})(document.documentElement)</script>
   <title>awards · your site, proofed before anyone sees it</title>
   <meta name="description" content="A plugin for Claude Code and Codex that builds a website to a written contract, runs 89 audit rules after every edit, captures the page at three widths and hands it to a juror in a fresh context." data-fact-attr="content:rules">
   <link rel="canonical" href="./">
@@ -17,6 +22,8 @@
   <meta name="theme-color" content="#131211">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="preload" href="./fonts/enriqueta-latin-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./fonts/enriqueta-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./fonts/saira-condensed-latin-400.woff2" as="font" type="font/woff2" crossorigin>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="awards">
   <meta property="og:title" content="awards · your site, proofed before anyone sees it">
@@ -35,6 +42,7 @@
   <div class="rebate" data-theme="rebate">
     <header class="rebate__head">
       <p class="rebate__mark"><a class="rebate__wordmark" href="./" aria-current="page">awards</a> <span class="rebate__version edge" data-fact="version">0.7.0</span></p>
+      <!-- @proof:disclosure — phone, states capture and report: the Frames disclosure, this route's phone frames as links -->
       <nav class="rebate__nav" aria-label="Site">
         <ul role="list">
           <li><a class="rebate__install" href="./install.html">Install</a></li>
@@ -70,15 +78,15 @@
         <div class="ticket__row">
           <h3 class="ticket__client">Claude Code</h3>
           <ol class="commands" role="list" data-fact="commands-claude-code">
-            <li><code>/plugin marketplace add burgisimon/awards</code><button class="copy" type="button" data-copy hidden>Copy</button></li>
-            <li><code>/plugin install awards@awards</code><button class="copy" type="button" data-copy hidden>Copy</button></li>
+            <li><code>/plugin marketplace add burgisimon/awards</code><button class="copy" type="button" data-copy>Copy</button></li>
+            <li><code>/plugin install awards@awards</code><button class="copy" type="button" data-copy>Copy</button></li>
           </ol>
         </div>
         <div class="ticket__row">
           <h3 class="ticket__client">Codex</h3>
           <ol class="commands" role="list" data-fact="commands-codex">
-            <li><code>codex plugin marketplace add burgisimon/awards</code><button class="copy" type="button" data-copy hidden>Copy</button></li>
-            <li><code>codex plugin add awards@awards</code><button class="copy" type="button" data-copy hidden>Copy</button></li>
+            <li><code>codex plugin marketplace add burgisimon/awards</code><button class="copy" type="button" data-copy>Copy</button></li>
+            <li><code>codex plugin add awards@awards</code><button class="copy" type="button" data-copy>Copy</button></li>
           </ol>
         </div>
       </div>
@@ -207,15 +215,15 @@
         <div class="ticket__row">
           <h3 class="ticket__client">Claude Code</h3>
           <ol class="commands" role="list" data-fact="commands-claude-code">
-            <li><code>/plugin marketplace add burgisimon/awards</code><button class="copy" type="button" data-copy hidden>Copy</button></li>
-            <li><code>/plugin install awards@awards</code><button class="copy" type="button" data-copy hidden>Copy</button></li>
+            <li><code>/plugin marketplace add burgisimon/awards</code><button class="copy" type="button" data-copy>Copy</button></li>
+            <li><code>/plugin install awards@awards</code><button class="copy" type="button" data-copy>Copy</button></li>
           </ol>
         </div>
         <div class="ticket__row">
           <h3 class="ticket__client">Codex</h3>
           <ol class="commands" role="list" data-fact="commands-codex">
-            <li><code>codex plugin marketplace add burgisimon/awards</code><button class="copy" type="button" data-copy hidden>Copy</button></li>
-            <li><code>codex plugin add awards@awards</code><button class="copy" type="button" data-copy hidden>Copy</button></li>
+            <li><code>codex plugin marketplace add burgisimon/awards</code><button class="copy" type="button" data-copy>Copy</button></li>
+            <li><code>codex plugin add awards@awards</code><button class="copy" type="button" data-copy>Copy</button></li>
           </ol>
         </div>
       </div>
@@ -233,6 +241,7 @@
       <!-- @fact:build — the build being read: "This is build {version}+{hash}." -->
     </div>
     <ul class="colophon__links" role="list">
+      <!-- @proof:pages — states capture and report: Docs and Recipes, which the phone band gives up to the Frames disclosure -->
       <li><a href="https://github.com/burgisimon/awards" data-fact-attr="href:repo">Source on GitHub</a></li>
       <li><a href="https://github.com/burgisimon/awards/blob/main/CHANGELOG.md">Release notes</a></li>
       <li><a href="https://github.com/burgisimon/awards/blob/main/LICENSE">Licence</a></li>
@@ -245,7 +254,7 @@
           <tr><th scope="row">Enriqueta</th><td>FontFuror, SIL Open Font License 1.1</td></tr>
           <tr><th scope="row">Saira Condensed</th><td>Omnibus-Type, SIL Open Font License 1.1</td></tr>
           <tr><th scope="row">Commands and code</th><td>your system's monospace</td></tr>
-          <tr><th scope="row">Marks</th><td>drawn for this page</td></tr>
+          <tr><th scope="row">Marks</th><td>drawn for this page</td></tr><!-- @fact:libraries -->
         </tbody>
       </table>
     </div>
@@ -253,5 +262,6 @@
   </footer>
 </div>
 <!-- @proof:loupe-dialog — {dialog class="loupe" data-theme="rebate" aria-labelledby="loupe-title"} with the frame at 1:1 and a Close button; Esc closes, focus returns -->
+<script type="module" src="./src/main.js"></script>
 </body>
 </html>

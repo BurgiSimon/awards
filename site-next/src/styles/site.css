@@ -5,6 +5,7 @@
      capture  frames of the newest capture run, unmarked; the rebate becomes the left column from 768 px.
      report   frames and the jury's marks; same layout as capture. */
 @import "./base.css";
+@import "lenis/dist/lenis.css"; /* html.lenis height and the stopped / prevent rules, in the stylesheet so they never wait on script */
 
 /* ---------- the sheet: page wrapper, rebate, paper ---------- */
 
@@ -111,24 +112,38 @@
 .prose > * + * { margin-block-start: 1em; }
 .lede { font-size: var(--lede); line-height: 1.45; }
 
-/* ---------- strip slot (states capture and report); the build writes .strip into .rebate ---------- */
+/* ---------- the evidence (states capture and report); the build writes it from src/data/proof.json ---------- */
+
+/* Each width class has its own frames; the reader sees their own: desktop ≥ 1024 px, tablet 768–1023, phone below.
+   :root raises these above any component's own display value. */
+@media (min-width: 1024px) { :root [data-class="tablet"], :root [data-class="mobile"] { display: none; } }
+@media (min-width: 768px) and (max-width: 1023px) { :root [data-class="desktop"], :root [data-class="mobile"] { display: none; } }
+@media (max-width: 767px) { :root [data-class="desktop"], :root [data-class="tablet"] { display: none; } }
 
 .strip { display: none; }
 .strip__list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.strip__item { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 12px; row-gap: 4px; }
+.strip__item > * { grid-column: 1 / -1; }
+.strip__item > .frame--beside { grid-column: auto; }
 .frame { position: relative; display: block; text-decoration: none; color: var(--ink); }
+.frame__plate { position: relative; display: block; }
 .frame__img { width: 100%; height: auto; background: var(--ground); }
 .frame[aria-current="true"] .frame__img { outline: var(--stroke) solid var(--ink); outline-offset: 0; }
+a.frame:focus-visible { outline-offset: 3px; }
 .frame__edge {
   display: flex;
   justify-content: space-between;
   gap: var(--space-1);
   padding-block: 4px 0;
 }
-.frame__marks { position: absolute; inset: -6px; overflow: visible; pointer-events: none; }
+.frame__edge > :last-child { text-align: end; overflow-wrap: anywhere; }
+.frame__marks { position: absolute; inset: -6px; width: calc(100% + 12px); height: calc(100% + 12px); max-width: none; overflow: visible; pointer-events: none; }
 .frame__marks path { fill: none; stroke: var(--mark-ink); stroke-width: var(--mark); stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-.frame__note { margin-block-start: var(--space-1); }
+.frame__note { margin-block-start: var(--space-1); max-width: none; }
+.frame__source { display: block; margin-block-start: 2px; }
 .strip__caption { padding: var(--space-1) 0 var(--space-2); }
-/* Inline frames at a chapter's head: the phone's (and the no-script) path to the same evidence. */
+
+/* Inline frames at a chapter's head: the phone's path to the same evidence (the strip does not follow on touch). */
 .chapter__frames { display: none; }
 .frames-disclosure { display: none; }
 
@@ -136,17 +151,78 @@
   display: flex;
   gap: 12px;
   overflow-x: auto;
+  overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
+  scroll-padding-inline: 12px;
   padding: 12px;
   margin-inline: calc(var(--gutter) * -1);
   background: var(--ground); /* the element carries data-theme="rebate" */
+  color: var(--ink);
   list-style: none;
 }
-:root:not([data-proof="none"]) .chapter__frames > * { flex: 0 0 72%; scroll-snap-align: start; }
+:root:not([data-proof="none"]) .chapter__frames > li { flex: 0 0 42%; scroll-snap-align: start; }
+.chapter__frames--row { margin-block-start: var(--space-2); }
+/* One frame at a chapter's head: the frame at a third of the band, its edge print and notes beside it. */
+:root:not([data-proof="none"]) figure.chapter__frames { display: grid; grid-template-columns: 38% minmax(0, 1fr); column-gap: var(--space-2); align-items: start; overflow: visible; margin-block-end: var(--space-2); }
+figure.chapter__frames .frame__edge { flex-direction: column; justify-content: flex-start; padding-block-start: 0; }
+figure.chapter__frames .frame__edge > :last-child { text-align: start; }
+figure.chapter__frames figcaption { grid-column: 1 / -1; }
 
+/* The phone band once frames exist: wordmark and version, the Frames disclosure, Install (AWARDS.md, FIRST
+   VIEWPORT · Phone). Docs, Recipes and Source move to the colophon's first lines, so every target stays 44 px. */
 @media (max-width: 767px) {
-  :root:not([data-proof="none"]) .frames-disclosure { display: block; }
+  :root:not([data-proof="none"]) .rebate__nav li:not(:first-child) { display: none; }
+  :root:not([data-proof="none"]) .rebate__head { flex-wrap: nowrap; column-gap: var(--space-1); }
+  :root:not([data-proof="none"]) .frames-disclosure { display: block; margin-inline-start: auto; }
 }
+.frames-disclosure summary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--target);
+  min-height: var(--target);
+  padding-inline: var(--space-1);
+  font-family: var(--font-edge);
+  font-size: var(--caption);
+  line-height: 1;
+  list-style: none;
+  cursor: pointer;
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: var(--stroke);
+  text-underline-offset: 0.45em;
+  transition: text-decoration-color var(--dur-feedback) var(--ease-out-expo);
+}
+.frames-disclosure summary::-webkit-details-marker { display: none; }
+.frames-disclosure summary:hover,
+.frames-disclosure summary:focus-visible,
+.frames-disclosure[open] summary { text-decoration-color: currentColor; }
+.frames-disclosure summary:focus-visible { outline-offset: -2px; }
+.frames-disclosure__panel {
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 100%;
+  max-height: calc(100svh - var(--rebate-band));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-1) var(--gutter) var(--space-2);
+  background: var(--ground);
+  color: var(--ink);
+}
+.frames-disclosure__list { list-style: none; display: grid; }
+.frames-disclosure__list a {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  min-height: var(--target);
+  padding-block: 12px;
+  text-decoration: none;
+  font-family: var(--font-edge);
+  font-size: var(--caption);
+}
+.frames-disclosure__list a:hover > :first-child,
+.frames-disclosure__list a:focus-visible > :first-child { text-decoration: underline var(--stroke); text-underline-offset: 0.3em; }
+.frames-disclosure .strip__caption { padding-block-end: 0; }
 
 @media (min-width: 768px) {
   :root:not([data-proof="none"]) .sheet {
@@ -171,24 +247,134 @@
     padding-inline: 30px;
   }
   :root:not([data-proof="none"]) .rebate__nav a:first-child { padding-inline-start: 0; }
+  :root:not([data-proof="none"]) .rebate__nav li:first-child a { padding-inline-start: 0; }
+  /* The column is the height of the glass: the frames are cut at its foot (the motion phase moves them by
+     --strip-y, a transform) and the caption stays printed over the foot of the rebate. */
   :root:not([data-proof="none"]) .strip {
-    display: flex;
-    flex-direction: column;
+    position: relative;
     flex: 1;
     min-height: 0;
-    padding-inline: 30px;
     overflow: hidden;
+    display: block;
+    padding: 6px 30px 0;
   }
   :root:not([data-proof="none"]) .strip__list { transform: translate3d(0, var(--strip-y, 0px), 0); }
+  /* Without script nothing moves the frames, so the column scrolls on its own and every frame stays reachable. */
+  :root:not(.js):not([data-proof="none"]) .strip { overflow-y: auto; overscroll-behavior: contain; scrollbar-color: var(--ink) var(--ground); padding-block-end: 0; }
+  :root:not(.js):not([data-proof="none"]) .strip__caption { position: sticky; margin-inline: -30px; }
+  :root:not([data-proof="none"]) .strip__caption {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 0;
+    padding: var(--space-1) 30px var(--space-2);
+    background: var(--ground);
+  }
   :root:not([data-proof="none"]) .paper,
   :root:not([data-proof="none"]) .colophon { grid-column: 2; padding-inline: 0 var(--gutter); }
-  :root:not([data-proof="none"]) .chapter__frames { display: none; }
+  :root:not([data-proof="none"]) .chapter__frames,
+  :root:not([data-proof="none"]) figure.chapter__frames { display: none; }
+  /* The job line keeps two lines beside the strip: it takes the paper's twelve columns (contract: 104 px at 1440). */
+  :root:not([data-proof="none"]) .open h1 { grid-column: 1 / -1; }
 }
 @media (min-width: 768px) and (max-width: 1023px) {
   :root:not([data-proof="none"]) { --strip: 22%; --strip-gap: 32px; }
   :root:not([data-proof="none"]) .rebate__head,
-  :root:not([data-proof="none"]) .strip { padding-inline: 16px; }
+  :root:not([data-proof="none"]) .strip,
+  :root:not([data-proof="none"]) .strip__caption { padding-inline: 16px; }
+  /* Four 44 px targets do not fit 150 px of rebate: two by two, under the wordmark. */
+  :root:not([data-proof="none"]) .rebate__nav ul { display: grid; grid-template-columns: repeat(2, auto); justify-content: start; column-gap: var(--space-1); }
+  :root:not([data-proof="none"]) .rebate__nav li a { padding-inline: 0 4px; }
 }
+
+/* Chapter 3's loupe: the frame at the paper's width, its figures beside it (the growth is the motion phase's). */
+.proof__loupe { position: relative; margin-block-start: var(--space-3); }
+.proof__skip {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target);
+  padding-inline: var(--space-2);
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-edge);
+  font-size: var(--caption);
+  transform: translateY(-120%);
+  opacity: 0;
+}
+.proof__skip:focus-visible { transform: none; opacity: 1; }
+.loupe-frame__plate { padding: 12px; background: var(--ground); color: var(--ink); }
+.loupe-frame__link { display: block; }
+.loupe-frame__link:focus-visible { outline-offset: -6px; }
+.loupe-frame__img { width: 100%; height: auto; }
+.loupe-frame figcaption { margin-block-start: var(--space-1); }
+.loupe__open { margin-block-start: var(--space-2); }
+.proof__figures { margin-block-start: var(--space-3); }
+.proof__figures:focus { outline: none; }
+.figures caption { padding-block-end: var(--space-1); }
+.figures tbody th { font-weight: 400; }
+/* Enriqueta's figures are old-style (a 0 reads as an o): measured values are set in the edge-print face, lining. */
+.figures td.num, .figures--audit th, .figures--audit td { font-family: var(--font-edge); font-size: var(--h3); line-height: 1.2; }
+.figures--audit th code { font-size: 1rem; }
+.figures--audit th, .figures--audit td { text-align: start; }
+.figures__source + .figures { margin-block-start: var(--space-3); }
+.figures__source { margin-block-start: var(--space-1); max-width: none; }
+.figures__source code { font-size: 0.875rem; overflow-wrap: anywhere; white-space: normal; }
+.figures__note { margin-block-start: var(--space-2); }
+.figures__disposition { margin-block-start: var(--space-2); display: flex; align-items: baseline; gap: var(--space-1); }
+.figures__disposition code { font-size: 1.25rem; }
+.figures__memory { margin-block-start: var(--space-2); font-size: var(--lede); line-height: 1.45; }
+@media (max-width: 1023px) {
+  .loupe-frame__img { width: auto; max-width: 100%; max-height: 80svh; margin-inline: auto; }
+}
+
+/* The 1:1 viewer: a modal surface of the rebate's black, the frame at its own pixels. */
+.loupe {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--ground);
+  color: var(--ink);
+}
+.loupe[open] { display: flex; flex-direction: column; }
+.loupe__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-height: var(--rebate-band);
+  padding-inline: var(--gutter);
+}
+.loupe__title { font-size: var(--body); line-height: 1.3; }
+.loupe__title .edge { margin-inline-start: var(--space-1); }
+.loupe__plate { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 0 var(--gutter) var(--gutter); }
+.loupe__img { max-width: none; width: auto; height: auto; margin-inline: auto; }
+
+/* Chapter 6: the strip's s100 frame, this close as it was shot, at the ticket's edge. */
+.select__frame { padding: 12px; background: var(--ground); color: var(--ink); align-self: start; margin-block-start: clamp(2.5rem, 3.8889vw, 3.5rem); }
+.select__frame .frame__edge { padding-block-start: var(--space-1); }
+@media (min-width: 1024px) {
+  .select__frame { grid-column: 11 / -1; grid-row: 2 / span 2; }
+  /* Beside the strip the paper is a quarter narrower: the close moves to the left edge so the heading keeps two lines. */
+  :root:not([data-proof="none"]) .select h2 { grid-column: 1 / span 10; }
+  :root:not([data-proof="none"]) .select .ticket { grid-column: 1 / span 9; }
+  :root:not([data-proof="none"]) .select__then { grid-column: 1 / span 8; }
+  :root:not([data-proof="none"]) .select__frame { grid-column: 10 / -1; }
+}
+@media (max-width: 1023px) { .select .select__frame { grid-column: 1 / span 3; margin-block-start: var(--space-3); } }
+@media (max-width: 599px) { .select .select__frame { grid-column: 1 / span 2; } }
+
+/* Chapter 4's audit sentence and the colophon's build and jury lines. */
+.marks-key__audit { max-width: var(--measure); }
+.colophon__build .edge, .colophon__jury code { font-size: 0.9375rem; }
 
 /* ---------- 1 · the sheet (job line, sentence, ticket) ---------- */
 
@@ -250,16 +436,17 @@
 }
 .ticket__client { font-size: var(--body); line-height: var(--target); white-space: nowrap; }
 .commands { list-style: none; display: grid; gap: 0; }
+/* Command and Copy share a row: the commands wrap in their own column, the buttons stand in one column at its edge. */
 .commands li {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  flex-wrap: wrap;
   column-gap: var(--space-2);
   min-height: var(--target);
 }
+:root:not(.can-copy) .commands li { grid-template-columns: minmax(0, 1fr); }
 .commands { row-gap: 4px; }
 .commands code {
-  flex: 0 1 auto;
   min-width: 0;
   font-size: 1rem;
   line-height: 1.4;
@@ -296,7 +483,9 @@
 .copy:hover, .copy:focus-visible { background: var(--ink); color: var(--ground); }
 .copy:active { background: var(--muted); border-color: var(--muted); color: var(--ground); }
 .copy[data-state="copied"] { background: var(--ink); color: var(--ground); }
-.copy[hidden] { display: none; }
+/* Script-only controls: the head script marks what this browser can do, so they keep their place from first paint. */
+:root:not(.can-copy) .copy[data-copy] { display: none; }
+:root:not(.can-dialog) .loupe__open { display: none; }
 .filter__button {
   display: inline-flex; align-items: center; min-height: var(--target); padding: 0 12px;
   border: var(--stroke) solid var(--ink); border-radius: 0; background: var(--ground); color: var(--ink);
@@ -482,7 +671,7 @@
 .colophon__edition { grid-column: 1 / span 4; }
 .colophon__edition p + p { margin-block-start: var(--space-1); }
 .colophon__links { grid-column: 5 / span 3; list-style: none; }
-.colophon__links a { display: inline-flex; align-items: center; min-height: var(--target); }
+.colophon__links a { display: inline-flex; align-items: center; min-width: var(--target); min-height: var(--target); }
 .colophon__credits { grid-column: 8 / -1; }
 .colophon__credits .data caption { font-size: var(--body); padding-block-end: var(--space-1); }
 .colophon__credits .data td, .colophon__credits .data th { font-size: 0.9375rem; padding-block: 4px; }
@@ -551,7 +740,26 @@
 .catalogue-index a { display: inline-flex; align-items: center; min-height: var(--target); font-size: var(--body); }
 .catalogue-index .edge { margin-inline-start: 4px; }
 .filter { grid-column: 1 / -1; }
-.filter[hidden] { display: none; }
+:root:not(.js) .filter { display: none; }
+.filter { display: flex; flex-wrap: wrap; align-items: center; column-gap: var(--space-2); row-gap: var(--space-1); margin-block-start: var(--space-2); }
+/* No box around the group buttons: the legend is edge print on the same line, like the tag's label. */
+.filter fieldset { flex: 1 1 100%; min-inline-size: 0; margin: 0; padding: 0; border: 0; }
+.filter legend, .filter label { font-family: var(--font-edge); font-size: var(--caption); line-height: var(--target); color: var(--muted); }
+.filter legend { float: left; padding: 0; margin-inline-end: var(--space-2); }
+.filter fieldset > .filter__button { margin: 0 var(--space-1) var(--space-1) 0; }
+.filter select {
+  min-height: var(--target);
+  min-width: 10rem;
+  padding: 0 12px;
+  border: var(--stroke) solid var(--ink);
+  border-radius: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-edge);
+  font-size: var(--caption);
+  cursor: pointer;
+}
+.filter select:hover { background: var(--line); }
 .catalogue-count { grid-column: 1 / -1; margin-block-start: var(--space-1); }
 .group { padding-block-start: var(--space-3); }
 .group h2 { grid-column: 1 / -1; font-size: var(--h2); }

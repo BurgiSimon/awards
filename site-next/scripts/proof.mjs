@@ -20,7 +20,8 @@ import { siteRoot, openBrowser, pngSize, encodeWebp, prune, posix } from './lib/
 
 const STOPS = [0, 25, 50, 75, 100];
 const CLASSES = ['desktop', 'tablet', 'mobile'];
-const STRIP_WIDTH = { desktop: 600, tablet: 600, mobile: 360 };
+// Strip files at about twice the width the page draws them: desktop 300 px, tablet and phone under 200 px.
+const STRIP_WIDTH = { desktop: 600, tablet: 360, mobile: 360 };
 const FULL_MAX = 1440;
 const QUALITY = { strip: 0.8, full: 0.82 };
 const DASH = '[—–]';
@@ -828,7 +829,16 @@ function routeOrder(manifests) {
   return order;
 }
 
-async function encodeAll(frames) {
+// Full-size files only where the page draws a frame large: chapter 3's loupe and its 1:1 viewer, which show home
+// at the memory sentence's source frame (state a) or s00 (state b), at every width class. Everywhere else a frame is
+// drawn at strip size or smaller, so its full-size file would ship and never be fetched.
+function loupeIds(frames, memoryIds = []) {
+  const source = frames.find((f) => memoryIds.includes(f.id));
+  const stop = source?.kind === 'scroll' ? source.stop : 0;
+  return new Set(frames.filter((f) => f.id === source?.id || (f.route === 'home' && f.kind === 'scroll' && !f.variants.length && !f.duplicateOf && f.stop === stop)).map((f) => f.id));
+}
+
+async function encodeAll(frames, full = new Set()) {
   const written = new Set();
   if (!frames.length) return written;
   if (args.check) {
@@ -851,7 +861,7 @@ async function encodeAll(frames) {
       const routeDir = path.join(proofDir, f.run, f.route);
       const stem = (f.capDir && f.capDir !== f.route ? `${f.capDir.replace(/\//g, '-')}-` : '') + f.base;
       const outputs = [{ ...stripSize, quality: QUALITY.strip, file: path.join(routeDir, `${stem}-${stripSize.width}.webp`) }];
-      if (fullSize.width !== stripSize.width) outputs.push({ ...fullSize, quality: QUALITY.full, file: path.join(routeDir, `${stem}-${fullSize.width}.webp`) });
+      if (fullSize.width !== stripSize.width && full.has(f.id)) outputs.push({ ...fullSize, quality: QUALITY.full, file: path.join(routeDir, `${stem}-${fullSize.width}.webp`) });
       const bufs = await encodeWebp(page, fs.readFileSync(f.png), outputs);
       fs.mkdirSync(routeDir, { recursive: true });
       const files = outputs.map((o, i) => {
@@ -1039,7 +1049,7 @@ async function main() {
       };
     }
     const frames = select(manifests, marks);
-    const written = await encodeAll(frames);
+    const written = await encodeAll(frames, loupeIds(frames, ex.summary.memory?.frames));
     const routes = routesOut(frames, manifests, report);
     const proof = {
       ...base,
@@ -1070,7 +1080,7 @@ async function main() {
   if (cap.run) {
     const manifests = cap.run.manifests;
     const frames = select(manifests, []);
-    const written = await encodeAll(frames);
+    const written = await encodeAll(frames, loupeIds(frames));
     const proof = {
       ...base,
       state: 'b',
