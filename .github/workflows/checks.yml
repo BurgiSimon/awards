@@ -88,10 +88,9 @@ jobs:
       - name: Install recipe dependencies
         working-directory: plugins/awards/recipes
         run: npm ci --no-audit --no-fund
-      - name: Install Playwright and Chromium
-        run: |
-          npm install --global --no-audit --no-fund playwright@1.64.1
-          playwright install --with-deps chromium
+      - name: Install the pinned Playwright's Chromium
+        working-directory: plugins/awards/recipes
+        run: npx playwright install --with-deps chromium
       - name: Behavior checks (serial, never beside verify-recipes)
         run: node evals/behavior.mjs
       - name: Verify every recipe in headless Chromium

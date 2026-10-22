@@ -44,6 +44,7 @@ Use these exact versions in scaffolds, recipes and generated `package.json` file
 | @dogstudio/highway | 2.2.1 | reading only: unmaintained transition router, port to taxi; `stacks/highway-2.2.md` (checked 2026-09-24) |
 | playcanvas | 2.23.0 | engine of PlayCanvas Editor exports (reading only; checked 2026-10-05) |
 | swiper | 14.3.0 | client-maintained sliders (checked 2026-10-05) |
+| playwright | 1.64.1 | captures, rendered audits and recipe verification; a devDependency of `recipes/`, installed once globally for website projects (checked 2026-10-22) |
 | axe-core | 4.14.0 | WCAG 2.2 A/AA scan inside `audit.mjs --render`; install it as a devDependency of the website project (checked 2026-10-22) |
 
 ## Node

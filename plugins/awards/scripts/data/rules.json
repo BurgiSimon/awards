@@ -2,7 +2,7 @@
   "T01": { "severity": "P1", "scope": "fonts", "message": "Reflex typeface used as the first family", "fix": "Pick a face by character class (references/reflex-lists.md); if this face is a deliberate choice, record it under AWARDS.md ## Exceptions" },
   "T02": { "severity": "P1", "scope": "fonts", "message": "Google Fonts CDN link", "fix": "Self-host the woff2 files with font-display and a size-adjusted fallback" },
   "T03": { "severity": "P2", "scope": "fonts", "message": "Display size above 12vw or unclamped vw", "fix": "Lock display type to the artboard with clamp(min, Xvw, max), max ≈ 12–13vw" },
-  "T04": { "severity": "P2", "scope": "fonts", "message": "Letter-spacing tighter than -0.06em", "fix": "Tracking floor is -0.04em; tighter values collide at display sizes" },
+  "T04": { "severity": "P2", "scope": "fonts", "message": "Letter-spacing tighter than -0.06em", "fix": "Set display tracking at -0.04em or looser by choice; past -0.06em the letters collide at display sizes" },
   "T05": { "severity": "P1", "scope": "fonts", "message": "@font-face without font-display", "fix": "Add font-display: swap (or optional for decorative faces) to avoid invisible text" },
   "T06": { "severity": "P3", "scope": "fonts", "message": "No size-adjust fallback face", "fix": "Declare a metric-compatible fallback with size-adjust/ascent-override to avoid reflow when the real face lands" },
   "T07": { "severity": "P2", "scope": "fonts", "message": "Body text set against reading (justified, capitals, tight leading, wide tracking or under 14px)", "fix": "Running text wants ragged-right, sentence case, leading 1.4–1.6, normal tracking and at least 16px; keep the effects for display lines" },

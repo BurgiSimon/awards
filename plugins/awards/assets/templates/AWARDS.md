@@ -55,4 +55,4 @@
 <!-- appended by awards:ship — date · audit summary · captures · performance numbers -->
 
 ## Exceptions
-<!-- audit rule ids deliberately accepted, one per line: `C02 — pure black is diegetic (night-vision console)` -->
+<!-- audit rule ids deliberately accepted, one per line, scoped to a path or viewport where you can: `C02 — pure black is diegetic (night-vision console)`, `C01@src/credits.html — read once over the film still` -->

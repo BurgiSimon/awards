@@ -26,6 +26,8 @@ const IMG_EXT = new Set(['.png', '.jpg', '.jpeg', '.webp', '.gif', '.avif']);
 const FONT_EXT = new Set(['.woff2', '.woff', '.ttf', '.otf']);
 
 const findings = [];
+// Only the plugin's own catalogue is judged at recipe severity, not any folder that happens to be called recipes.
+const PLUGIN_RECIPES = path.join(here, '..', 'recipes') + path.sep;
 const ignoredRules = new Set(String(args.ignore ?? '').split(',').map((s) => s.trim()).filter(Boolean));
 const scopes = args.scope ? new Set(String(args.scope).split(',').map((s) => s.trim())) : null;
 
@@ -36,7 +38,7 @@ function add(rule, file, line, detail, weight) {
   if (scopes && !scopes.has(r.scope)) return;
   // A rule may judge the shipped catalogue harder than a user build: recipes are what gets copied.
   // An explicit weight (axe-core's impact) overrides both.
-  const severity = weight ?? (r.recipeSeverity && /(^|[\\/])recipes[\\/]/.test(file) ? r.recipeSeverity : r.severity);
+  const severity = weight ?? (r.recipeSeverity && path.resolve(String(file)).startsWith(PLUGIN_RECIPES) ? r.recipeSeverity : r.severity);
   findings.push({ rule, severity, scope: r.scope, file, line: line ?? null, message: detail ? `${r.message}: ${detail}` : r.message, fix: r.fix });
 }
 
@@ -84,7 +86,8 @@ const within = (dir, root) => { const r = path.relative(root, dir); return !r.st
 const projectDir = (targetDir && ownerOf(targetDir, envProject && within(targetDir, envProject) ? envProject : null)) || envProject || process.cwd();
 if (args.quick) {
   // The hook is inert outside award-level projects and for non-UI files.
-  if (!fs.existsSync(path.join(projectDir, 'AWARDS.md')) || process.env.AWARDS_HOOK === '0') process.exit(0);
+  // AWARDS_HOOK=0 or the plugin's `hooks_enabled` setting turned off (CLAUDE_PLUGIN_OPTION_HOOKS_ENABLED) silences it.
+  if (!fs.existsSync(path.join(projectDir, 'AWARDS.md')) || process.env.AWARDS_HOOK === '0' || /^(false|0)$/.test(process.env.CLAUDE_PLUGIN_OPTION_HOOKS_ENABLED ?? '')) process.exit(0);
   const directory = !isUrl && fs.existsSync(target) && fs.statSync(target).isDirectory();
   if (!directory && !SCAN_EXT.has(path.extname(String(target)).toLowerCase())) process.exit(0);
 }
@@ -112,14 +115,20 @@ function walk(dir, out = files, depth = 0) {
 }
 
 // ---------- exceptions ----------
+// `C02 — reason` accepts a rule everywhere; `C01@src/night.html — reason` or `L10@mobile — reason` only where the
+// finding's file or viewport label contains that scope. The template's own comment example is not an exception.
 const exceptions = new Set();
-const awardsMd = [path.join(projectDir, 'AWARDS.md'), !isUrl && fs.statSync(path.resolve(String(target))).isDirectory() ? path.join(path.resolve(String(target)), 'AWARDS.md') : null].filter(Boolean);
+const scoped = [];
+const awardsMd = [...new Set([path.join(projectDir, 'AWARDS.md'), !isUrl && fs.statSync(path.resolve(String(target))).isDirectory() ? path.join(path.resolve(String(target)), 'AWARDS.md') : null].filter(Boolean))];
 for (const p of awardsMd) {
   if (!fs.existsSync(p)) continue;
   const md = fs.readFileSync(p, 'utf8');
-  const sec = md.split(/^## Exceptions/m)[1]?.split(/^## /m)[0];
+  const sec = md.split(/^## Exceptions/m)[1]?.split(/^## /m)[0]?.replace(/<!--[\s\S]*?-->/g, '');
   if (!sec) continue;
-  for (const m of sec.matchAll(/\b([A-Z]\d{2})\b/g)) exceptions.add(m[1]);
+  for (const m of sec.matchAll(/\b([A-Z]\d{2})(?:@([^\s—–,;]+))?/g)) {
+    if (m[2]) scoped.push({ rule: m[1], scope: m[2].replace(/^\.\//, '') });
+    else exceptions.add(m[1]);
+  }
 }
 if (args.config && fs.existsSync(String(args.config))) {
   try {
@@ -134,8 +143,10 @@ for (const f of files) {
   const ext = path.extname(f).toLowerCase();
   if (SCAN_EXT.has(ext)) {
     let text = fs.readFileSync(f, 'utf8');
-    for (const m of text.matchAll(/audit-ignore:\s*([A-Z]\d{2}(?:\s*,\s*[A-Z]\d{2})*)/g)) {
-      for (const id of m[1].split(',')) exceptions.add(`${id.trim()}@${f}`);
+    // `audit-ignore: T01` covers the file; `audit-ignore-next-line: T01` only the line below it.
+    for (const m of text.matchAll(/audit-ignore(-next-line)?:\s*([A-Z]\d{2}(?:\s*,\s*[A-Z]\d{2})*)/g)) {
+      const at = m[1] ? `:${lineOf(text, m.index) + 1}` : '';
+      for (const id of m[2].split(',')) exceptions.add(`${id.trim()}@${f}${at}`);
     }
     sources.push({ file: f, ext, text });
   }
@@ -312,8 +323,9 @@ eachCss((file, css, off = 0) => {
     const ratio = contrastRatio(props[g], props[i]);
     if (ratio !== null && ratio < 4.5) add('C01', 'tokens', null, `--${i} on --${g} = ${ratio}:1`);
   }
-  const bodyBg = cssText.match(/body\s*\{[^}]*background(?:-color)?\s*:\s*([^;}]+)/i);
-  const bodyFg = cssText.match(/body\s*\{[^}]*[^-]color\s*:\s*([^;}]+)/i);
+  // The body selector itself, not .body, tbody or #body.
+  const bodyBg = cssText.match(/(?:^|[\s,}])body\s*\{[^}]*background(?:-color)?\s*:\s*([^;}]+)/i);
+  const bodyFg = cssText.match(/(?:^|[\s,}])body\s*\{[^}]*[^-]color\s*:\s*([^;}]+)/i);
   if (bodyBg && bodyFg) {
     const ratio = contrastRatio(bodyBg[1].trim(), bodyFg[1].trim());
     if (ratio !== null && ratio < 4.5) add('C01', 'body', null, `${bodyFg[1].trim()} on ${bodyBg[1].trim()} = ${ratio}:1`);
@@ -335,7 +347,8 @@ eachCss((file, css, off = 0) => {
 // ---------- rules: motion (JS) ----------
 {
   const animates = /gsap\.|animate\(|createTimeline|@keyframes|transition\s*:|animation\s*:|new\s+Lenis|ScrollTrigger/i.test(allText);
-  const hasRM = /prefers-reduced-motion/i.test(projectAll);
+  // A comment that mentions the query is not a reduced-motion branch.
+  const hasRM = /prefers-reduced-motion/i.test(projectAll.replace(/\/\*[\s\S]*?\*\/|<!--[\s\S]*?-->/g, '').replace(/(^|[^:'"\\])\/\/.*$/gm, '$1'));
   if (animates && !hasRM) add('M01', 'project', null);
   eachJs((file, js, off = 0) => {
     for (const m of js.matchAll(/scrub\s*:/g)) {
@@ -795,7 +808,7 @@ if (args.render) {
     axeReport = axe ? `axe-core ${axe.version}` : 'unmeasured: axe-core not installed (npm i -D axe-core)';
     let browser;
     try {
-      browser = await launchChromium(found.module);
+      browser = await launchChromium(found.module, { sandbox: isUrl });
     } catch (e) {
       console.error(`browser launch failed: ${String(e.message ?? e).split('\n')[0]}`);
       if (server) await server.close();
@@ -977,7 +990,9 @@ if (args.render) {
 // ---------- apply exceptions, dedupe, output ----------
 const seen = new Set();
 const final = findings.filter((f) => {
-  if (exceptions.has(f.rule) || exceptions.has(`${f.rule}@${f.file}`)) return false;
+  if (exceptions.has(f.rule) || exceptions.has(`${f.rule}@${f.file}`) || exceptions.has(`${f.rule}@${f.file}:${f.line}`)) return false;
+  const where = rel(f.file).split(path.sep).join('/');
+  if (scoped.some((x) => x.rule === f.rule && where.includes(x.scope))) return false;
   const key = `${f.rule}|${f.file}|${f.line}|${f.message}`;
   if (seen.has(key)) return false;
   seen.add(key);
@@ -987,7 +1002,7 @@ const order = { P0: 0, P1: 1, P2: 2, P3: 3 };
 final.sort((a, b) => order[a.severity] - order[b.severity] || a.rule.localeCompare(b.rule));
 const summary = { P0: 0, P1: 0, P2: 0, P3: 0 };
 for (const f of final) summary[f.severity]++;
-const result = { target: String(target), scannedFiles: sources.length, at: now(), summary, exceptions: [...exceptions], ...(axeReport ? { axe: axeReport, rendered: renderedCoverage } : {}), ...(renderedFrom ? { renderedFrom: { ...renderedFrom, dir: rel(renderedFrom.dir) } } : {}), findings: final.map((f) => ({ ...f, file: rel(f.file) })) };
+const result = { target: String(target), scannedFiles: sources.length, at: now(), summary, exceptions: [...new Set([...exceptions, ...scoped.map((x) => `${x.rule}@${x.scope}`)])], ...(axeReport ? { axe: axeReport, rendered: renderedCoverage } : {}), ...(renderedFrom ? { renderedFrom: { ...renderedFrom, dir: rel(renderedFrom.dir) } } : {}), findings: final.map((f) => ({ ...f, file: rel(f.file) })) };
 
 if (args.quick) {
   const material = final.filter((f) => f.severity === 'P0' || f.severity === 'P1' || f.severity === 'P2').slice(0, 8);

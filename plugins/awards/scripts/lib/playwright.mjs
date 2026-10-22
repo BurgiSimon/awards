@@ -61,7 +61,13 @@ function localChromium(cwd = process.cwd()) {
   const root = path.join(cwd, '.awards', 'browsers');
   if (!fs.existsSync(root)) return null;
   for (const dir of fs.readdirSync(root).sort().reverse()) {
-    for (const rel of ['chrome-headless-shell-linux64/chrome-headless-shell', 'chrome-linux64/chrome', 'chrome-linux/chrome']) {
+    // Linux, then macOS and Windows layouts of Playwright's browser folders (headless shell first).
+    for (const rel of [
+      'chrome-headless-shell-linux64/chrome-headless-shell', 'chrome-linux64/chrome', 'chrome-linux/chrome',
+      'chrome-headless-shell-mac-arm64/chrome-headless-shell', 'chrome-headless-shell-mac-x64/chrome-headless-shell',
+      'chrome-mac/Chromium.app/Contents/MacOS/Chromium',
+      'chrome-headless-shell-win64/chrome-headless-shell.exe', 'chrome-win64/chrome.exe', 'chrome-win/chrome.exe',
+    ]) {
       const exe = path.join(root, dir, rel);
       if (fs.existsSync(exe)) return exe;
     }
@@ -80,7 +86,9 @@ export function gpuArgs(platform = process.platform) {
 
 export const isSoftwareRenderer = (renderer) => /swiftshader|llvmpipe|softpipe|software|basic render/i.test(String(renderer));
 
-export async function launchChromium(pw, { webgl = true, gpu = false, headed = false } = {}) {
+// sandbox: a third-party page (a research or neighbour capture) runs inside Chromium's sandbox when the host
+// allows one; as root, or where the host refuses it, the launch falls back unsandboxed with a warning on stderr.
+export async function launchChromium(pw, { webgl = true, gpu = false, headed = false, sandbox = false } = {}) {
   const launchOptions = { headless: !headed, args: gpu ? gpuArgs() : webgl ? GL_ARGS : ['--disable-gpu'] };
   // A pinned Playwright without downloaded browsers can still use a system Chromium.
   const exe = process.env.AWARDS_CHROMIUM || process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || localChromium();
@@ -88,15 +96,26 @@ export async function launchChromium(pw, { webgl = true, gpu = false, headed = f
     if (!fs.existsSync(exe)) throw new Error('Chromium executable not found: ' + exe);
     launchOptions.executablePath = exe;
   }
-  try {
-    return await pw.chromium.launch(launchOptions);
-  } catch (err) {
-    // Claude Code cloud containers preinstall one Chromium here (PLAYWRIGHT_BROWSERS_PATH); a project whose
-    // Playwright expects another build still launches it instead of failing. Tried only after a failed launch.
-    const fallback = path.join(process.env.PLAYWRIGHT_BROWSERS_PATH || '/opt/pw-browsers', 'chromium');
-    if (!launchOptions.executablePath && fs.existsSync(fallback)) {
-      return pw.chromium.launch({ ...launchOptions, executablePath: fallback });
+  // Claude Code cloud containers preinstall one Chromium here (PLAYWRIGHT_BROWSERS_PATH); a project whose
+  // Playwright expects another build still launches it instead of failing. Tried only after a failed launch.
+  const fallback = path.join(process.env.PLAYWRIGHT_BROWSERS_PATH || '/opt/pw-browsers', 'chromium');
+  const launch = async (options) => {
+    try {
+      return await pw.chromium.launch(options);
+    } catch (err) {
+      if (!options.executablePath && fs.existsSync(fallback)) return pw.chromium.launch({ ...options, executablePath: fallback });
+      throw err;
     }
-    throw err;
+  };
+  if (sandbox) {
+    if (process.getuid?.() === 0) console.error('warning: running as root, so the remote page loads without the Chromium sandbox');
+    else {
+      try {
+        return await launch({ ...launchOptions, chromiumSandbox: true });
+      } catch (err) {
+        console.error(`warning: the Chromium sandbox is unavailable here (${String(err.message).split('\n')[0].slice(0, 120)}); loading the remote page without it`);
+      }
+    }
   }
+  return launch(launchOptions);
 }

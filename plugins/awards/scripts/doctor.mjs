@@ -23,7 +23,8 @@ const supported = (major === 20 && minor >= 19) || (major === 22 && minor >= 12)
 // Node 20 left support on 2026-04-30 and odd majors never had LTS: they still run the scripts, so warn, not fail.
 const lts = major === 22 || (major >= 24 && major % 2 === 0);
 add('node', !supported ? 'fail' : lts ? 'pass' : 'warn', process.version, !supported ? 'Use Node 22 LTS (22.12+) or 24 LTS.' : lts ? null : `Node ${major} is past end of life or never LTS; current Astro, Nuxt and SvelteKit releases need 22 or later. Move to 22 LTS or 24 LTS.`);
-const npm = spawnSync(process.platform === 'win32' ? 'npm.cmd' : 'npm', ['--version'], { encoding: 'utf8', timeout: 5000 });
+// Windows runs npm through npm.cmd, which Node (since 20.12.2) only spawns through a shell.
+const npm = spawnSync(process.platform === 'win32' ? 'npm.cmd' : 'npm', ['--version'], { encoding: 'utf8', timeout: 5000, shell: process.platform === 'win32' });
 add('npm', !npm.error && npm.status === 0 ? 'pass' : 'fail', npm.stdout?.trim() || npm.error?.message || 'npm unavailable', !npm.error && npm.status === 0 ? null : 'Install npm with Node, or make it available on PATH.');
 
 const packageFile = path.join(project, 'package.json');

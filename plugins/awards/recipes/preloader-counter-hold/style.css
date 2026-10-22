@@ -4,7 +4,7 @@
 .topbar { display: flex; justify-content: space-between; gap: var(--gutter); padding-block: calc(var(--unit) * 5); }
 .linkish { background: none; border: 0; cursor: pointer; text-decoration: underline; text-underline-offset: .2em; }
 .lede { max-width: 60ch; margin-top: calc(var(--unit) * 8); }
-.hero__img { margin-top: calc(var(--unit) * 12); max-width: 60ch; }
+.hero__img { margin-top: calc(var(--unit) * 12); max-width: min(60ch, 100%); height: auto; } /* 60ch alone ran 627 px wide on a 390 px phone */
 .mask { display: block; overflow: hidden; }
 .line { display: block; will-change: transform; }
 .preloader { position: fixed; inset: 0; z-index: 50; background: var(--ink); color: var(--ground); display: grid; grid-template-rows: 1fr auto; padding: var(--gutter); }

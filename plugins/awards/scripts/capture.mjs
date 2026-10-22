@@ -8,6 +8,7 @@
 //   [--video] a webm of a real-time desktop scroll pass · [--throttle] phone pass at 4x CPU and slow 4G
 //   [--gpu [--headed]] a hardware-GPU run that refuses SwiftShader and records frame times
 //   [--baseline <earlier capture dir>] per-frame pixel difference against an earlier round
+//   [--lock <path>] wait for and hold a lock, so captures never run side by side (portable stand-in for flock)
 // Without --hover or --states, desktop also records hover and focus-visible frames for the first three visible links and buttons.
 // Every viewport also writes its accessibility tree as <viewport>-aria.yml. Tablet is skipped for --selector runs unless named.
 // Exit codes: 0 ok · 2 page/action errors · 3 browser unavailable · 4 target unreachable · 5 --gpu got a software renderer · 1 usage.
@@ -24,7 +25,18 @@ if (!target) {
   console.error('usage: node capture.mjs <url|file|dir> [options]');
   process.exit(1);
 }
-const outDir = path.resolve(args.out ?? '.awards/captures');
+// A relative --out belongs to the project (the nearest folder with AWARDS.md above the target, or above the shell
+// for a URL), not to wherever the shell stands: run from dist/ or public/, captures would otherwise ship with the site.
+const projectRoot = (() => {
+  const local = !/^https?:\/\//i.test(target) && fs.existsSync(path.resolve(target));
+  let d = local ? path.resolve(target) : process.cwd();
+  if (local && !fs.statSync(d).isDirectory()) d = path.dirname(d);
+  for (const start = d; ; d = path.dirname(d)) {
+    if (fs.existsSync(path.join(d, 'AWARDS.md'))) return d;
+    if (d === path.dirname(d)) return local ? process.cwd() : start;
+  }
+})();
+const outDir = path.resolve(projectRoot, args.out ?? '.awards/captures');
 const name = args.name ? String(args.name) + '-' : '';
 const parseVp = (s, d) => {
   const [w, h] = String(s ?? d).split('x').map(Number);
@@ -73,6 +85,27 @@ const found = resolvePlaywright();
 if (!found) {
   console.error(MISSING_MESSAGE);
   process.exit(3);
+}
+
+// One capture at a time per lock: mkdir is atomic on every platform, unlike flock (absent on macOS and Windows).
+// A lock older than fifteen minutes belongs to a run that died and is taken over; a plain file of that name is
+// what flock left behind and holds nothing.
+if (args.lock) {
+  const lock = path.resolve(projectRoot, String(args.lock));
+  fs.mkdirSync(path.dirname(lock), { recursive: true });
+  if (fs.existsSync(lock) && !fs.statSync(lock).isDirectory()) fs.rmSync(lock, { force: true });
+  for (let waited = 0; ; waited += 250) {
+    try {
+      fs.mkdirSync(lock);
+      break;
+    } catch (e) {
+      if (e.code !== 'EEXIST') throw e;
+      if (Date.now() - fs.statSync(lock).mtimeMs > 15 * 60 * 1000) { fs.rmSync(lock, { recursive: true, force: true }); continue; }
+      if (waited > 20 * 60 * 1000) { console.error(`capture lock still held after 20 minutes: ${lock}`); process.exit(1); }
+      await new Promise((r) => setTimeout(r, 250));
+    }
+  }
+  process.on('exit', () => { try { fs.rmSync(lock, { recursive: true, force: true }); } catch {} });
 }
 const pw = found.module;
 
@@ -331,7 +364,7 @@ async function contactSheet(browser, frames, out) {
 let browser;
 let exitCode = 0;
 try {
-  browser = await launchChromium(pw, { webgl, gpu: !!args.gpu, headed: !!args.headed });
+  browser = await launchChromium(pw, { webgl, gpu: !!args.gpu, headed: !!args.headed, sandbox: /^https?:\/\//i.test(target) });
   // The GPU lane exists to measure real frames; a software rasteriser would make every number in it fiction.
   if (args.gpu) {
     const probe = await browser.newPage();
