@@ -23,6 +23,13 @@ let pageCtx = null;
 // Renderer: everything a view needs is created inside a gsap.context on enter and reverted on leave,
 // so ScrollTriggers, tweens and listeners never leak from one page to the next.
 class PageRenderer extends Renderer {
+  // Taxi 1.x runs onEnter on the first load by itself; 2.0 does not. Saying it here keeps the first
+  // page set up on both majors.
+  initialLoad() {
+    this.onEnter();
+    this.onEnterCompleted();
+  }
+
   onEnter() {
     state.view = this.content.dataset.view;
     state.enters++;

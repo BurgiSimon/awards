@@ -30,6 +30,13 @@ const exit = { chosen: -1, timing: '', rise: 0, push: 0, startTop: null, tweened
 let tl = null;
 
 class PageRenderer extends Renderer {
+  // Taxi 1.x runs onEnter on the first load by itself; 2.0 does not. Saying it here keeps the first
+  // page set up on both majors.
+  initialLoad() {
+    this.onEnter();
+    this.onEnterCompleted();
+  }
+
   onEnter() {
     state.view = this.content.dataset.view;
     state.enters++;

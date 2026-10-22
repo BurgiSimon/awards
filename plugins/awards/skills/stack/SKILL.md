@@ -175,7 +175,7 @@ One transition vocabulary per site, chosen with the stack so the router and the 
 | Stack | Mechanism | Note |
 |---|---|---|
 | Vite MPA (default) | Cross-document View Transitions, `@view-transition { navigation: auto; }`, shared elements by `view-transition-name` | `stacks/vite-vanilla.md` |
-| Vite SPA, Webflow shell | `@unseenco/taxi` 1.9.1: a `Renderer` per view whose `onEnter` opens a `gsap.context` and whose `onLeave` reverts it; a `Transition` that resets Lenis and refreshes before `done()` | `[recipe:page-transitions]`, `stacks/taxi-1.9.md` |
+| Vite SPA, Webflow shell | `@unseenco/taxi` 1.9.1, pinned: a `Renderer` per view whose `onEnter` opens a `gsap.context` and whose `onLeave` reverts it, and which declares `initialLoad()` so 2.0 still enters the first page; a `Transition` that resets Lenis and refreshes before `done()` | `[recipe:page-transitions]`, `stacks/taxi-1.9.md`, `stacks/taxi-2.0.md` for an unpinned install |
 | Vite SPA or Webflow shell that already runs Barba | `@barba/core` 2.10.3 with `preventRunning: true`; one Lenis for the visit, stopped in `beforeLeave`, resized and reset in `beforeEnter`, started in `after`; both containers are live until `after` | `stacks/barba-2.10.md` |
 | Inherited Highway (Dogstudio) site | Port to taxi, which is its maintained drop-in; keep Highway only for a hotfix | `stacks/highway-2.2.md` |
 | Next.js | `template.tsx` remounts client components per navigation; React's `<ViewTransition>` for morphs; intercept the `<Link>` click, play the exit, then `router.push` for authored exits; `next-view-transitions` on Next 14/15 | `stacks/next.md`, `stacks/next-view-transitions-0.3.md` |
