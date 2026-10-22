@@ -15,14 +15,14 @@
   <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ theme-swap-tokens · <span data-theme-readout>default</span></p></header>
   <main id="main">
     <section class="section wrap chapter" data-swap="default" aria-labelledby="t">
-      <p class="label">/ 01 · default</p>
       <h1 class="display" id="t">Colour is<br>page state.</h1>
+      <p class="label">theme: default</p>
       <p class="lede">Each chapter names a theme. Crossing its midpoint tweens the tokens on <code>&lt;html&gt;</code> in one beat, and the canvas clear colour rides the same tween, so DOM and WebGL never disagree for a frame.</p>
       <canvas class="swatch" data-canvas width="480" height="200" aria-hidden="true"></canvas>
     </section>
-    <section class="section wrap chapter" data-swap="dark" aria-labelledby="c2"><p class="label">/ 02 · dark</p><h2 id="c2">Warm near-black,<br>bone ink.</h2><p>The dark theme is not an inversion: it has its own accent and its own near-black, and the tween crosses through mixed values rather than snapping.</p></section>
-    <section class="section wrap chapter" data-swap="accent" aria-labelledby="c3"><p class="label">/ 03 · accent</p><h2 id="c3">Drenched<br>in one hue.</h2><p>A full-bleed accent chapter is the loudest move available; it works because the page spends most of its length on the quiet grounds.</p></section>
-    <section class="section wrap chapter" data-swap="default" aria-labelledby="c4"><p class="label">/ 04 · default</p><h2 id="c4">And back.</h2><p>Scrolling up replays the swaps in reverse; nothing is left half-tweened because the tween is retargeted, not stacked.</p></section>
+    <section class="section wrap chapter" data-swap="dark" aria-labelledby="c2"><h2 id="c2">Warm near-black,<br>bone ink.</h2><p class="label">theme: dark</p><p>The dark theme is not an inversion: it has its own accent and its own near-black, and the tween crosses through mixed values rather than snapping.</p></section>
+    <section class="section wrap chapter" data-swap="accent" aria-labelledby="c3"><h2 id="c3">Drenched<br>in one hue.</h2><p class="label">theme: accent</p><p>A full-bleed accent chapter is the loudest move available; it works because the page spends most of its length on the quiet grounds.</p></section>
+    <section class="section wrap chapter" data-swap="default" aria-labelledby="c4"><h2 id="c4">And back.</h2><p class="label">theme: default</p><p>Scrolling up replays the swaps in reverse; nothing is left half-tweened because the tween is retargeted, not stacked.</p></section>
   </main>
   <footer class="wrap footer"><p class="label">awards · recipe 11 · MIT</p></footer>
   <script type="module" src="./main.js"></script>
