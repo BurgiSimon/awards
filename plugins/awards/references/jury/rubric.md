@@ -84,27 +84,20 @@ The naming test belongs here: if a juror could name the source site from the fir
 
 ## Developer criteria
 
-Awwwards publishes **six** developer criteria; this rubric anchors **five**, because Semantics / SEO and Accessibility are judged together here. The mapping [verified, entries read 2026-09-18]:
+Awwwards publishes **six** developer criteria, and this rubric scores all six under the same names, so a jury report reads like an entry page [verified, entries read 2026-09-18]. Until 0.7 it anchored five, judging Semantics / SEO and Accessibility together; that weighed them as one fifth instead of two sixths, and the two diverge by 0.6–1.0 on current entries.
 
-| Awwwards criterion | This rubric's criterion |
-|---|---|
-| Animations / Transitions | Animation and interaction |
-| WPO | Performance |
-| Responsive Design | Responsive |
-| Accessibility **and** Semantics / SEO | Accessibility and semantics |
-| Markup / Meta-data | Code and markup |
-
-The published **DEV AWARD** score is the mean of the six, to within 0.07 across every entry read — the displayed sub-scores are rounded to two places, the mean is not.
+The published **DEV AWARD** score is the mean of the six, to within 0.07 across every entry read — the displayed sub-scores are rounded to two places, the mean is not. The jury's developer score is the same mean, and a Developer Award needs it above 7.
 
 Corpus calibration, now read rather than recalled: `[site:igloo]` scored Semantics/SEO 6.60, Animations 9.60, Accessibility 6.60, WPO 8.00, Responsive 8.40, Markup/Meta 6.40 → 7.66. (The earlier `[recalled medium]` figures were right but collapsed two 6.60s into one "accessibility and semantics".) Across the twenty entries the criteria run: Semantics/SEO 6.60–8.20, Animations 7.40–9.60, Accessibility 6.60–7.60, WPO 6.80–8.60, Responsive 7.00–8.40, Markup/Meta 6.40–8.00. **Accessibility is the lowest-ceilinged of the six** — its maximum across the whole corpus is 7.60.
 
 | Criterion | 9–10 | 7 | ≤ 5 |
 |---|---|---|---|
-| Animation and interaction | One ticker, framerate-independent damping, scrubbed tweens with `ease:'none'`, velocity as input, every loop paused off-screen | Smooth but some jank on resize or route change | Layout-property animation, dropped frames, scroll-jack with no exit |
-| Performance | Entry JS ≤ 200 KB gz, GL in its own lazy chunk, compressed textures and meshes, LCP ≤ 2.5 s throttled | One heavy asset or an uncapped DPR | Multi-megabyte rasters, blocking fonts, no code splitting |
-| Responsive | Strategy decided (vw-lock or breakpoints), coarse-pointer swaps, no overflow, touch targets ≥ 44 px | Works with rough edges | Desktop only; a reload at a breakpoint |
-| Accessibility and semantics | Landmarks, one h1, alt, focus-visible, keyboard for every gesture, DOM mirror behind canvases, reduced-motion tiers | Partial: some labels, some focus styles | Empty DOM, `outline:none`, drag-only controls |
-| Code and markup | Valid, semantic, no console errors, disposal on route change, no debug flags shipped | Minor warnings, some dead code | Errors, duplicate tickers, leaked renderers |
+| Semantics / SEO | A descriptive title and meta description per page, canonical and Open Graph text, one h1 and an unbroken outline, landmarks, `lang`, and every word a canvas draws also present in the DOM | Present but generic: one title for every route, no description | No title, headings chosen by size, an empty DOM behind a canvas |
+| Animations / Transitions | One ticker, framerate-independent damping, scrubbed tweens with `ease:'none'`, velocity as input, every loop paused off-screen | Smooth but some jank on resize or route change | Layout-property animation, dropped frames, scroll-jack with no exit |
+| Accessibility | Every text at 4.5:1 (large 3:1) in every state including focus, a focus ring at 3:1, keyboard for every gesture, a skip link, targets ≥ 24 px (44 px for the top band), alt text, reduced-motion tiers, no axe-core violations | Partial: some labels, some focus styles, a contrast slip | `outline:none`, drag-only controls, unreadable focus states |
+| WPO | Entry JS ≤ 200 KB gz, GL in its own lazy chunk, compressed textures and meshes, LCP ≤ 2.5 s throttled | One heavy asset or an uncapped DPR | Multi-megabyte rasters, blocking fonts, no code splitting |
+| Responsive Design | Strategy decided (vw-lock or breakpoints), coarse-pointer swaps, no overflow, touch targets ≥ 44 px | Works with rough edges | Desktop only; a reload at a breakpoint |
+| Markup / Meta-data | Valid, semantic markup with unique ids, theme-color, colour-scheme, favicon and Open Graph image, no console errors, disposal on route change, no debug flags shipped | Minor warnings, some dead code | Errors, duplicate ids or tickers, leaked renderers |
 
 ## How to score honestly
 
