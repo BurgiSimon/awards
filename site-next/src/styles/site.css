@@ -58,8 +58,15 @@
   font-weight: 500;
   font-size: 1.25rem;
   letter-spacing: -0.01em;
-  text-decoration: none;
+  /* The rebate's link vocabulary: a 2 px paper underline that arrives on hover and keyboard focus. */
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: var(--stroke);
+  text-underline-offset: 0.3em;
+  transition: text-decoration-color var(--dur-feedback) var(--ease-out-expo);
 }
+@media (hover: hover) { .rebate__wordmark:hover { text-decoration-color: currentColor; } }
+.rebate__wordmark:focus-visible { text-decoration-color: currentColor; }
 .rebate__version { color: var(--muted); }
 .rebate__nav ul { display: flex; flex-wrap: wrap; list-style: none; }
 .rebate__nav a {
@@ -127,6 +134,10 @@
 .strip__item > .frame--beside { grid-column: auto; }
 .frame { position: relative; display: block; text-decoration: none; color: var(--ink); }
 .frame__plate { position: relative; display: block; }
+/* A hover or focus frame is a crop around one control, shot at 1x: drawn at its own pixels, never stretched to the
+   column (rendered audit P09), with its marks on the crop itself. */
+.frame--crop .frame__plate { width: fit-content; max-width: 100%; }
+.frame--crop .frame__img { width: auto; }
 /* A frame's states, all on its own outline (DESIGN.md Elevation; the rebate's ink is the paper): current, a 2 px ink
    outline that arrives over --dur-routine; hover, the second ink, with the edge print lifted to the ink; pressed, the
    outline steps 6 px inside the picture, like a thumb on the print. Hover only where a pointer can hover. */
@@ -157,6 +168,11 @@ a.frame:focus-visible { outline-offset: 3px; }
 .frame__marks { position: absolute; inset: -6px; width: calc(100% + 12px); height: calc(100% + 12px); max-width: none; overflow: visible; pointer-events: none; }
 .frame__marks path { fill: none; stroke: var(--mark-ink); stroke-width: var(--mark); stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .frame__note { margin-block-start: var(--space-1); max-width: none; }
+/* The report's lines quote its code (a selector list, a capture path): in a frame's narrow note it wraps at its
+   spaces, after an inner "/" and at its hyphens, and only a piece still wider than the note breaks inside, so nothing
+   runs past the rebate's edge or under the next frame. */
+.frame__note code { white-space: normal; overflow-wrap: anywhere; }
+.frame__note .nobr { white-space: normal; }
 .frame__source { display: block; margin-block-start: 2px; }
 .strip__caption { padding: var(--space-1) 0 var(--space-2); }
 
@@ -345,7 +361,7 @@ figure.chapter__frames figcaption { grid-column: 1 / -1; }
 .figures--audit th, .figures--audit td { text-align: start; }
 .figures__source + .figures { margin-block-start: var(--space-3); }
 .figures__source { margin-block-start: var(--space-1); max-width: none; }
-.figures__source code { font-size: 0.875rem; overflow-wrap: anywhere; white-space: normal; }
+.figures__source code { font-size: 0.875rem; white-space: normal; }
 .figures__note { margin-block-start: var(--space-2); }
 .figures__disposition { margin-block-start: var(--space-2); display: flex; align-items: baseline; gap: var(--space-1); }
 .figures__disposition code { font-size: 1.25rem; }
@@ -477,7 +493,6 @@ figure.chapter__frames figcaption { grid-column: 1 / -1; }
   min-width: 0;
   font-size: 1rem;
   line-height: 1.4;
-  overflow-wrap: anywhere;
   /* A wrapped command hangs its continuation, so two commands never read as four. */
   padding-inline-start: 2ch;
   text-indent: -2ch;
@@ -736,11 +751,13 @@ figure.chapter__frames figcaption { grid-column: 1 / -1; }
   .doc-section > .data, .doc-section > .spec, .doc-section > .rules, .doc-section > .command-list { grid-column: 1 / -1; }
 }
 
-/* Definition lists as spec sheets: term in the voice at weight 500, rows separated by space. */
+/* Definition lists as spec sheets: term in the voice at weight 500, rows separated by space. A term wider than its
+   column (a script with its arguments) stands above its description at the full width instead of breaking inside. */
 .spec { display: grid; row-gap: var(--space-2); }
-.spec > div { display: grid; grid-template-columns: minmax(10rem, 1fr) 3fr; column-gap: var(--gap); }
-.spec dt { font-weight: 500; }
-@media (max-width: 599px) { .spec > div { grid-template-columns: 1fr; } }
+.spec > div { display: flex; flex-wrap: wrap; column-gap: var(--gap); row-gap: 4px; }
+.spec dt { flex: 0 0 auto; width: max(10rem, calc((100% - var(--gap)) / 4)); min-width: fit-content; max-width: 100%; font-weight: 500; }
+.spec dd { flex: 1 1 0; min-width: calc(100% - var(--gap) - max(10rem, calc((100% - var(--gap)) / 4))); }
+@media (max-width: 599px) { .spec > div { display: grid; grid-template-columns: 1fr; } .spec dt, .spec dd { width: auto; min-width: 0; } }
 
 /* The docs index, on screen one: a run of links, not a sidebar. */
 .contents { grid-column: 1 / span 8; margin-block-start: var(--space-3); }
@@ -812,7 +829,7 @@ figure.chapter__frames figcaption { grid-column: 1 / -1; }
 .entry h3 a { display: inline-flex; align-items: center; min-height: var(--target); text-decoration-thickness: 1px; }
 .entry__id { font-family: var(--font-mono); font-size: 0.875rem; color: var(--muted); overflow-wrap: anywhere; }
 .entry__summary { font-size: 1rem; line-height: 1.5; }
-.entry__summary code { font-size: 0.875rem; overflow-wrap: anywhere; }
+.entry__summary code { font-size: 0.875rem; }
 .entry__meta { display: flex; flex-wrap: wrap; column-gap: var(--space-2); row-gap: 2px; }
 @media (max-width: 1023px) { .entries { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 599px) { .entries { grid-template-columns: 1fr; } .group__intro { grid-column: 1 / -1; } }

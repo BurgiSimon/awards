@@ -25,22 +25,25 @@
        so the arriving page knows it opts in; inside the motion query, so reduced motion gets a plain navigation. -->
   <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
   <title>awards · your site, proofed before anyone sees it</title>
-  <meta name="description" content="A plugin for Claude Code and Codex that builds a website to a written contract, runs 89 audit rules after every edit, captures the page at three widths and hands it to a juror in a fresh context." data-fact-attr="content:rules">
+  <meta name="description" content="A plugin for Claude Code and Codex that builds a website to a written contract, runs a quick audit as it edits and all 89 rules on the rendered page at three widths, and hands its captures to a juror in a fresh context." data-fact-attr="content:rules">
   <link rel="canonical" href="./">
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#131211">
+  <link rel="icon" href="./favicon-32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
   <link rel="preload" href="./fonts/enriqueta-latin-500.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="./fonts/enriqueta-latin-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="./fonts/saira-condensed-latin-400.woff2" as="font" type="font/woff2" crossorigin>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="awards">
   <meta property="og:title" content="awards · your site, proofed before anyone sees it">
-  <meta property="og:description" content="A plugin for Claude Code and Codex: a written contract, 89 audit rules after every edit, captures at three widths and a juror in a fresh context." data-fact-attr="content:rules">
+  <meta property="og:description" content="A plugin for Claude Code and Codex: a written contract, a quick audit as it edits, all 89 rules on the rendered page at three widths, and a juror in a fresh context." data-fact-attr="content:rules">
+  <meta property="og:url" content="./">
   <meta property="og:image" content="./og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="A black film rebate along the top of a white proof sheet, the line “Your site, proofed before anyone sees it.” and an install ticket ringed in red pencil.">
+  <meta property="og:image:alt" content="(written at build from src/data/proof.json)">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="./src/styles/site.css">
 </head>
@@ -77,7 +80,7 @@
 
     <section class="chapter open" id="sheet" aria-labelledby="sheet-title">
       <h1 id="sheet-title">Your site, proofed before anyone sees&nbsp;it.</h1>
-      <p class="lede">awards is a plugin for Claude Code and Codex that holds a website to a written contract, runs <span data-fact="rules">89</span> audit rules after every edit, captures the page at three widths and hands it to a juror in a fresh context who never saw it built.</p>
+      <p class="lede">awards is a plugin for Claude Code and Codex that holds a website to a written contract, runs a quick audit as it edits and all <span data-fact="rules">89</span> rules on the rendered page at three widths, and hands its captures to a juror in a fresh context who never saw it built.</p>
 
       <div class="ticket" id="select-open" role="group" aria-labelledby="ticket-title">
         <svg class="ticket__ring" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false" data-motion="select-ring">
@@ -156,11 +159,11 @@
 
       <div class="dispositions">
         <h3>The one word it ends on</h3>
-        <dl>
-          <div><dt><code>ship</code></dt><dd>Weighted 7.2 or higher, no axis under 6.8, no <code>P0</code> or <code>P1</code> audit finding, every contract row kept.</dd></div>
-          <div><dt><code>fix</code></dt><dd>Weighted 6.8 to 7.19, or one axis under 6.8, or a <code>P0</code> or <code>P1</code> finding, or a broken contract row.</dd></div>
-          <div><dt><code>rebuild</code></dt><dd>Weighted under 6.8, a source site a juror could name, a memory test that returns only a mood, or a thesis not visible on screen one.</dd></div>
-          <div><dt><code>recapture</code></dt><dd>The evidence is missing, blank or broken, so no score exists yet.</dd></div>
+        <dl data-fact="dispositions">
+          <div><dt><code>ship</code></dt><dd>Weighted 7.2 or higher, no axis below 6.8, no <code>P0</code>/<code>P1</code> findings, every contract row kept, usability walk steps 1 and 3 passed.</dd></div>
+          <div><dt><code>fix</code></dt><dd>The weighted score is 6.8 to 7.19, or any axis is below 6.8, or the audit has <code>P0</code>/<code>P1</code> findings, or a contract block is not kept.</dd></div>
+          <div><dt><code>rebuild</code></dt><dd>The weighted score is below 6.8, or a juror could name the source site from the first viewport, or the memory test yields a mood instead of an object or a behaviour, or the THESIS is not visible in the first viewport.</dd></div>
+          <div><dt><code>recapture</code></dt><dd>The evidence is invalid or could not be produced: a capture missing, blank, stale, showing a stuck preloader, or page errors that prevented rendering.</dd></div>
         </dl>
       </div>
 
@@ -170,9 +173,9 @@
     <section class="chapter marks-key" id="marks" aria-labelledby="marks-title">
       <!-- @proof:inline chapter="marks" stops="s50" -->
       <div class="marks-key__copy">
-        <h2 id="marks-title"><span data-fact="rules">89</span> rules, run after every edit</h2>
+        <h2 id="marks-title"><span data-fact="rules">89</span> rules, the fast ones as you edit</h2>
         <!-- @proof:audit — this page's newest audit result in one sentence, naming .awards/audit.json's copy in proof.json and its date -->
-        <p>The audit is deterministic, with no model in the loop. In Claude Code a hook runs its fast subset after every edit in a project that has an <code>AWARDS.md</code> and stays silent everywhere else; Codex runs it after each batch of edits. Add <code>--render</code> and it opens the page in Chromium at three widths to measure what only a browser can.</p>
+        <p>The audit is deterministic, with no model in the loop. In Claude Code a hook runs its fast subset, a static pass over the file just changed, after every edit in a project that has an <code>AWARDS.md</code>, and stays silent everywhere else; Codex runs that pass after each batch of edits. All <span data-fact="rules">89</span> run with <code>--render</code>, which opens the page in Chromium at three widths to measure what only a browser can.</p>
       </div>
 
       <table class="data families" data-fact="families">

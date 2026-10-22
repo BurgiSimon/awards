@@ -61,6 +61,13 @@ export function elementFacts(f) {
       }).join('');
       return inner.replace(/<tbody>[^]*?<\/tbody>/, `<tbody>${rows}\n        </tbody>`);
     },
+    // The dispositions, verbatim from the jury agent: the ship rule printed once, from the file the juror applies.
+    dispositions: () => f.dispositions.map(({ id, rule }) => {
+      const dd = inline(rule.charAt(0).toUpperCase() + rule.slice(1))
+        .replace(/\b(P[0-3])\/(P[0-3])\b/g, '<span class="nobr"><code>$1</code>/<code>$2</code></span>')
+        .replace(/\b(P[0-3])\b(?!<\/code>)/g, '<code>$1</code>');
+      return `\n          <div><dt><code>${esc(id)}</code></dt><dd>${dd}</dd></div>`;
+    }).join('') + '\n        ',
     // The skills: every skill directory once, in the page's order; a new skill gets its own description's first sentence.
     'skill-list'(inner) {
       const authored = [...inner.matchAll(/<div><dt><code>([a-z0-9-]+)<\/code><\/dt><dd>([^]*?)<\/dd><\/div>/g)].map((m) => [m[1], m[2]]);

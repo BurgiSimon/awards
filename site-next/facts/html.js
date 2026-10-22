@@ -63,5 +63,27 @@ export function replaceSlots(html, prefix, render) {
   });
 }
 
+// Commands and paths break only at their spaces and after an inner "/" (ship, jury 2026-10-22 craft 2): every <code>
+// that holds plain text gets a <wbr> after each "/" inside a word, and each piece that the browser could otherwise
+// split (at a hyphen or a dash, a "|", "?", "!" or "%") is kept whole in a span.nobr. The text a Copy button reads
+// is unchanged.
+const BREAKS_INSIDE = /[-\u2013\u2014|?!%]/;
+export function breakCode(html) {
+  const body = /<body\b[^>]*>/.exec(html);
+  if (!body) return html;
+  const from = body.index + body[0].length;
+  const head = html.slice(0, from);
+  const rest = html.slice(from).replace(/<code\b([^>]*)>([^<]+)<\/code>/g, (whole, attrs, text) => {
+    if (!/[\s/\u2013\u2014-]/.test(text)) return whole;
+    const words = text.split(/( +)/).map((part) => {
+      if (/^ +$/.test(part) || !part) return part;
+      const pieces = part.split(/(?<=[^/\s]\/)(?=[^/])/);
+      return pieces.map((p) => (BREAKS_INSIDE.test(p) ? `<span class="nobr">${p}</span>` : p)).join('<wbr>');
+    });
+    return `<code${attrs}>${words.join('')}</code>`;
+  });
+  return head + rest;
+}
+
 // The text of an element with its tags removed and entities decoded (enough for the pages' own markup).
 export const textOf = (s) => s.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&').trim();

@@ -121,6 +121,8 @@ const edgeHtml = (fr) => `<span class="frame__edge edge" aria-hidden="true"><spa
 
 function frameLink(fr, { sizes, sections, extra = '', eager }) {
   const at = fr.at ?? (fr.stop !== null ? fr.stop / 100 : null);
+  // A hover or focus frame is a crop around one control, not a page: it is drawn at its own pixels (site.css).
+  if (fr.kind === 'hover' || fr.kind === 'focus') extra += ' frame--crop';
   return `<a class="frame${extra}" href="${hrefFor(at, sections)}"${at !== null ? ` data-at="${at}"` : ''} data-frame="${esc(fr.id)}"${fr.marks?.length ? ' data-marked' : ''}>${plateHtml(fr, { sizes, eager })}${edgeHtml(fr)}</a>`;
 }
 
@@ -131,13 +133,18 @@ function stripItems(list, { sizes, sizesBeside, sections, eager = true }) {
   for (const fr of list) {
     if (isStop(fr) || !items.length) { items.push({ main: fr, beside: [] }); continue; }
     const near = fr.duplicateOf ? fr.stop : fr.near;
-    const host = items.find((it) => isStop(it.main) && it.main.stop === near);
+    // A crop with no recorded depth (capture.mjs takes its hover and focus frames of the first controls it finds,
+    // the rebate's) sits beside the first stop, so its marks draw with that frame's.
+    const host = items.find((it) => isStop(it.main) && it.main.stop === near)
+      ?? (near === null && fr.at === null ? items.find((it) => isStop(it.main)) : undefined);
     if (host) host.beside.push(fr);
     else items.push({ main: fr, beside: [] });
   }
   return items.map(({ main, beside }) => {
     const notes = [main, ...beside].map((fr) => notesHtml(fr.marks)).join('');
-    const besideHtml = beside.map((fr) => frameLink(fr, { sizes: sizesBeside, sections, extra: ' frame--beside', eager: false })).join('');
+    // A crop seated beside a stop takes that stop's depth, so it joins the strip's one tab stop and jumps there.
+    const seated = (fr) => (fr.at === null && fr.stop === null && main.stop !== null ? { ...fr, at: main.stop / 100 } : fr);
+    const besideHtml = beside.map((fr) => frameLink(seated(fr), { sizes: sizesBeside, sections, extra: ' frame--beside', eager: false })).join('');
     return `\n          <li class="strip__item${beside.length ? ' strip__item--pair' : ''}"${main.stop !== null ? ` data-stop="${main.stop}"` : ''}>${frameLink(main, { sizes, sections, eager: eager && main.eager })}${besideHtml}${notes}</li>`;
   }).join('');
 }

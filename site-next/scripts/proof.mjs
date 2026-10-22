@@ -6,6 +6,8 @@
 //   (a) the newest page-round jury report → the frames of the capture runs its Evidence names, and its marks
 //   (b) else the newest valid `capture.mjs --routes` run → dated, unmarked frames and what that capture measured
 //   (c) else no strip
+// In states (a) and (b) it also renders public/og.png, the Open Graph card: the home page's desktop s00 frame the strip
+// shows, in its rebate beside the job line (DESIGN.md ## Browser surfaces). State (c) leaves the drawn card alone.
 // Usage: node scripts/proof.mjs [--project <dir>] [--out <dir>] [--json] [--check] [--state b|c]
 //   --project  the site whose .awards/ is read (default: this site)
 //   --out      the root that receives src/data/proof.json and public/proof/ (default: the project)
@@ -1002,6 +1004,7 @@ function summarise(proof, removed) {
     const m = proof.summary.marks;
     lines.push(`  frames ${proof.summary.frames} · files ${proof.summary.files} (${(proof.summary.bytes / 1024).toFixed(0)} KB) · marks: ring ${m.ring} · cross ${m.cross} · arrow ${m.arrow}${proof.report ? ` · rows not drawn ${proof.report.undrawn.length}` : ''}`);
   }
+  if (proof.og) lines.push(`  og.png ${proof.og.width} × ${proof.og.height} (${(proof.og.bytes / 1024).toFixed(0)} KB) from ${proof.og.source}`);
   if (proof.audit) lines.push(`  audit ${proof.audit.file} (${proof.audit.date}) · P0 ${proof.audit.summary?.P0} · P1 ${proof.audit.summary?.P1} · P2 ${proof.audit.summary?.P2} · P3 ${proof.audit.summary?.P3}`);
   for (const s of proof.skipped ?? []) lines.push(`  skipped ${s.file}: ${s.reason}`);
   lines.push(args.check ? '  --check: nothing written' : `  wrote ${posix(path.relative(process.cwd(), dataFile)) || dataFile}${removed ? ` · removed ${removed} stale frame file(s)` : ''}`);
@@ -1069,6 +1072,7 @@ async function main() {
       metrics: metricsOut(manifests.filter((m) => m.inRoutes || !manifests.some((x) => x.inRoutes))),
       audit: auditOut(),
       summary: summaryOf(frames, marks),
+      og: args.check ? null : await renderOg(frames),
       skipped: picked.skipped,
     };
     return { proof, written };
@@ -1093,6 +1097,7 @@ async function main() {
       metrics: metricsOut(manifests),
       audit: auditOut(),
       summary: summaryOf(frames, []),
+      og: args.check ? null : await renderOg(frames),
       skipped,
     };
     return { proof, written };
@@ -1114,6 +1119,58 @@ async function main() {
     skipped,
   };
   return { proof, written: new Set() };
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// The Open Graph card: 1200 × 630, this page's own first screen as the strip shows it (home, desktop, s00) in the
+// black rebate with the wordmark, beside the job line on the paper, in the site's own faces and tokens. The job line
+// is read from index.html's h1 and the version from the plugin's manifest, so the card cannot drift from the page.
+
+const OG = { width: 1200, height: 630 };
+const OG_ALT = 'This page\u2019s own first screen as the capture shot it, in a black film rebate: the strip of its frames and the install ticket ringed in red pencil, beside the line \u201cYour site, proofed before anyone sees it.\u201d on white proof paper.';
+
+async function renderOg(frames) {
+  const f = frames.find((x) => x.route === 'home' && x.class === 'desktop' && x.kind === 'scroll' && x.stop === 0 && !x.variants.length && !x.duplicateOf);
+  if (!f) return null;
+  const decode = (t) => t.replace(/&nbsp;/g, '\u00a0').replace(/&amp;/g, '&').replace(/<[^>]+>/g, '').trim();
+  const h1 = /<h1 id="sheet-title">([^]*?)<\/h1>/.exec(fs.readFileSync(path.join(siteRoot, 'index.html'), 'utf8'));
+  if (!h1) throw new Error('index.html has no h1#sheet-title to set on the Open Graph card');
+  const version = readJson(path.join(siteRoot, '..', 'plugins', 'awards', '.claude-plugin', 'plugin.json')).version;
+  const font = (file) => `url(data:font/woff2;base64,${fs.readFileSync(path.join(siteRoot, 'public', 'fonts', file)).toString('base64')}) format('woff2')`;
+  const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+  const caption = `Frame: capture ${f.run}${f.build ? `, build ${f.build}` : ''}`;
+  const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><style>
+@font-face { font-family: Enriqueta; font-weight: 500; src: ${font('enriqueta-latin-500.woff2')}; }
+@font-face { font-family: Saira Condensed; font-weight: 400; src: ${font('saira-condensed-latin-400.woff2')}; }
+html, body { margin: 0; width: ${OG.width}px; height: ${OG.height}px; overflow: hidden; background: #fcfbf8; color: #131211; }
+.card { display: grid; grid-template-columns: 648px 1fr; height: 100%; }
+.rebate { display: flex; flex-direction: column; justify-content: space-between; padding: 26px 32px 28px; background: #131211; color: #fcfbf8; }
+.mark { display: flex; align-items: baseline; gap: 10px; }
+.word { font: 500 30px/1 Enriqueta, serif; letter-spacing: -0.01em; }
+.edge { font: 400 17px/1.2 'Saira Condensed', sans-serif; color: #a9a8a5; }
+.frame img { display: block; width: 584px; height: auto; }
+.stops { display: flex; justify-content: space-between; padding-top: 6px; }
+.paper { display: flex; flex-direction: column; justify-content: center; padding: 0 52px 0 56px; }
+h1 { margin: 0 0 0 -0.04em; font: 500 58px/1 Enriqueta, serif; letter-spacing: -0.03em; text-wrap: balance; }
+.caption { margin-top: 28px; font: 400 17px/1.35 'Saira Condensed', sans-serif; color: #545251; }
+</style></head><body><div class="card">
+<div class="rebate"><p class="mark" style="margin:0"><span class="word">awards</span><span class="edge">${esc(version)}</span></p>
+<div class="frame"><img alt="" src="data:image/png;base64,${fs.readFileSync(f.png).toString('base64')}"><p class="stops edge" style="margin:0"><span>s00</span><span>${esc(f.run)}</span></p></div></div>
+<div class="paper"><h1>${esc(decode(h1[1]))}</h1><p class="caption">${esc(caption)}</p></div>
+</div></body></html>`;
+  const out = path.join(publicDir, 'og.png');
+  const browser = await openBrowser({ webgl: false });
+  try {
+    const page = await browser.newPage({ viewport: OG, deviceScaleFactor: 1 });
+    await page.setContent(html, { waitUntil: 'load' });
+    await page.evaluate(async () => { await document.fonts.ready; await Promise.all([...document.images].map((i) => i.decode())); });
+    const missing = await page.evaluate(() => ['500 58px Enriqueta', "400 17px 'Saira Condensed'"].filter((q) => !document.fonts.check(q)));
+    if (missing.length) throw new Error(`Open Graph card: font(s) not loaded: ${missing.join(', ')}`);
+    await page.screenshot({ path: out, clip: { x: 0, y: 0, ...OG } });
+  } finally {
+    await browser.close();
+  }
+  return { src: 'og.png', ...OG, bytes: fs.statSync(out).size, frame: f.id, source: projRel(f.png), capture: f.run, build: f.build, alt: OG_ALT };
 }
 
 function summaryOf(frames, marks) {

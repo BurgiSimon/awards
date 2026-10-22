@@ -277,7 +277,7 @@ Filled from the page map by `awards:structure` (2026-10-22). Every control is a 
 - `:focus-visible`: `outline: 2px solid var(--ink); outline-offset: 4px`, the same shape everywhere; on the rebate the ink token is the paper, so the ring is paper on black (18.08:1 both ways). Not the accent, because the contract keeps the red to the select.
 - `color-scheme: light` on `:root`, `dark` on `[data-theme="rebate"]`; `<meta name="color-scheme" content="light">`.
 - `<meta name="theme-color" content="#131211">`: the rebate's black, which is the top edge on a phone. No theme swap exists, so it never changes.
-- Favicon: `public/favicon.svg`, drawn: a black rebate square holding one paper frame with a red ring offset off its corner, logged as drawn.
+- Favicon: `public/favicon.svg`, drawn: a black rebate square holding one paper frame with a black wax ring on it and three ticks of edge print, logged as drawn (the red stays on the select). Its raster fallbacks, `public/favicon-32.png` and the 180 px `public/apple-touch-icon.png`, are rendered from that SVG by `scripts/icons.mjs` (ship, 2026-10-22).
 - Open Graph image: `public/og.png`, 1200 × 630, to be produced by the proof step from the newest s00 frame in its rebate with the job line beside it in Enriqueta; until a capture exists, a drawn sheet (rebate, job line, ticket ring) rendered from the tokens. Listed now, produced in the stack phase.
 
 ## Do's and Don'ts

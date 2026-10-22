@@ -19,8 +19,11 @@ export function createLoupe({ strip }) {
 
   const visibleLink = () => [...box.querySelectorAll('.loupe-frame__link')].find((a) => a.getClientRects().length) ?? null;
 
-  // The windows in page pixels: grow while the plate's top travels from the viewport's foot to 15 % down, hold, and
-  // return while the plate leaves through the top (its top at the viewport's top → its foot at the viewport's top).
+  // The windows in page pixels. Grow while the plate's top travels up from the viewport's foot, done by the time the
+  // whole plate is on screen (its foot at the viewport's foot; never later than its top at 15 % down). Hold at the
+  // laid-out box, where the reduced tier places it, for as long as the figures beside it are read: until the figures
+  // column's foot reaches the viewport's top (ship, jury 2026-10-22 craft 1). Return as the plate leaves through the
+  // top; when the figures run longer than the plate, it has already scrolled away at full size by then.
   function measure() {
     plate = box.querySelector('.loupe-frame__plate');
     link = visibleLink();
@@ -29,7 +32,12 @@ export function createLoupe({ strip }) {
     const top = box.getBoundingClientRect().top + scrollY + plate.offsetTop;
     const h = plate.offsetHeight;
     const vh = innerHeight;
-    win = { in: top - vh, held: top - vh * 0.15, out: top, gone: top + h };
+    const enter = top - vh;
+    const held = Math.min(top - vh * 0.15, Math.max(top + h - vh, enter + vh * 0.25));
+    const figures = document.getElementById('proof-figures');
+    const read = figures?.getClientRects().length ? figures.getBoundingClientRect().bottom + scrollY : top;
+    const out = Math.max(top, held + 1, read);
+    win = { in: enter, held, out, gone: Math.max(top + h, out + 1) };
     return win;
   }
 

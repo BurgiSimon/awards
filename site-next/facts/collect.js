@@ -121,6 +121,19 @@ function pinnedVersion(pkg) {
   return v;
 }
 
+// The four dispositions as the juror applies them: `## Dispositions` of the jury agent, one line each. Home and /docs
+// print these lines and nothing else, so the ship rule is written once, where the jury reads it.
+const DISPOSITIONS = ['ship', 'fix', 'rebuild', 'recapture'];
+function dispositions() {
+  const text = read(fromPlugin('agents/awards-jury.md'));
+  const section = text.split(/^## /m).find((s) => s.startsWith('Dispositions'));
+  if (!section) fail('agents/awards-jury.md has no "## Dispositions" section');
+  const lines = new Map([...section.matchAll(/^- `([a-z]+)` — (.+)$/gm)].map((m) => [m[1], m[2].trim()]));
+  for (const d of DISPOSITIONS) if (!lines.has(d)) fail(`agents/awards-jury.md ## Dispositions has no line for \`${d}\``);
+  if (lines.size !== DISPOSITIONS.length) fail(`agents/awards-jury.md ## Dispositions lists ${lines.size} dispositions; the pages print ${DISPOSITIONS.length}`);
+  return DISPOSITIONS.map((id) => ({ id, rule: lines.get(id) }));
+}
+
 // A skill's first sentence, for a skill the docs have no authored line for yet.
 function skillDescription(dir) {
   const head = read(fromPlugin(`skills/${dir}/SKILL.md`)).split(/^---$/m)[1] ?? '';
@@ -171,6 +184,7 @@ export function collectFacts() {
     groups,
     tags: [...new Set(recipes.flatMap((r) => r.tags ?? []))].sort(),
     commands: installCommands(),
+    dispositions: dispositions(),
     playwright: pinnedVersion('playwright'),
     libraries,
   };

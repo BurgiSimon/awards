@@ -167,6 +167,7 @@
 
 ## Ship log
 <!-- appended by awards:ship — date · audit summary · captures · performance numbers -->
+- 2026-10-22 · audit P0 0 / P1 0 / P2 0 / P3 0 · exceptions 3 · captures 236 valid from .awards/captures/20261022T163356-ship/routes.json · entry 58.3 KB gz · GL none (DOM-only) · LCP 1.24 s (throttled capture) · CLS 0.0061 · .awards/ship/2026-10-22.md
 
 ## Exceptions
 <!-- audit rule ids deliberately accepted, one per line, scoped to a path or viewport where you can: `C02 — pure black is diegetic (night-vision console)`, `C01@src/credits.html — read once over the film still` -->

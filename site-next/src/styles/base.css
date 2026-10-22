@@ -60,9 +60,11 @@ code, kbd, samp {
   font-size: 0.9em;
   font-feature-settings: normal;
 }
-/* Short code in running text never breaks at its own hyphens; long commands and paths wrap where they live. */
+/* Short code in running text never breaks at its own hyphens. Long commands and paths wrap only at their spaces and
+   after an inner "/": the build writes a <wbr> there and keeps each piece that could split whole (span.nobr). */
 p code, li code, dd code, td code { white-space: nowrap; }
-dt code, .commands code, .entry__summary code, .entry__id { white-space: normal; overflow-wrap: anywhere; }
+dt code, .commands code, .entry__summary code, .entry__id { white-space: normal; overflow-wrap: normal; }
+.nobr { white-space: nowrap; }
 
 /* Selection inverts the two inks; focus is the ink's ring, which is the paper on the rebate. The red stays on the select. */
 ::selection { background: var(--ink); color: var(--ground); }

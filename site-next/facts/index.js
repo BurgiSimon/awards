@@ -7,9 +7,10 @@
 //   <!-- @proof:slot … -->           evidence from proof.json; empty in state c
 //   <html data-proof="none">         none | capture | report, from proof.json's state
 // Anything unknown, or a literal that cannot be found where the markup says it is, stops the build.
-import { basename } from 'node:path';
-import { collectFacts, fail } from './collect.js';
-import { elementsWith, splice, replaceRegions, replaceSlots, esc } from './html.js';
+import { basename, resolve } from 'node:path';
+import { existsSync } from 'node:fs';
+import { collectFacts, fail, siteRoot } from './collect.js';
+import { elementsWith, splice, replaceRegions, replaceSlots, esc, breakCode } from './html.js';
 import { simpleFacts, elementFacts, regions, assertWordedCounts, libraryRows, ENTRY_FACTS } from './render.js';
 import { loadProof, proofSlots, heroRingClasses, PROOF_ATTR } from './proof.js';
 
@@ -19,6 +20,60 @@ export function siteBase() {
   const root = process.env.SITE_ROOT || '/';
   if (!/^\/([\w.~-]+\/)*$/.test(root)) fail(`SITE_ROOT must be an absolute path ending in "/", e.g. /awards/ (got "${root}")`);
   return root;
+}
+
+// The deployed address, for what must be absolute: canonicals, og:url, og:image, robots.txt and sitemap.xml. The
+// build itself stays relative (base './'), so dist/ still serves from any folder. .github/workflows/site.yml passes
+// the Pages URL; a local build names the published site.
+export const DEFAULT_SITE_URL = 'https://burgisimon.github.io/awards/';
+export function siteUrl() {
+  const raw = process.env.SITE_URL || DEFAULT_SITE_URL;
+  let u;
+  try { u = new URL(raw); } catch { fail(`SITE_URL is not a URL: "${raw}"`); }
+  if (!/^https?:$/.test(u.protocol) || u.search || u.hash) fail(`SITE_URL must be an http(s) address with no query or fragment (got "${raw}")`);
+  if (!u.pathname.endsWith('/')) u.pathname += '/';
+  return u.href;
+}
+
+// The routes a search engine should list: every page but the 404, which carries noindex.
+export const INDEXED = ['index.html', 'install.html', 'docs.html', 'recipes.html'];
+const pageUrl = (page) => new URL(page === 'index.html' ? './' : `./${page}`, siteUrl()).href;
+
+// A page's own address in the head, made absolute: the canonical and og:url name the page, og:image the sheet.
+function absoluteHead(html, page) {
+  const base = siteUrl();
+  const abs = (v) => new URL(v, base).href;
+  let out = html;
+  const canonical = /<link rel="canonical" href="([^"]*)"/.exec(out);
+  if (!canonical) fail(`${page}: no <link rel="canonical"> in the head`);
+  if (abs(canonical[1]) !== pageUrl(page)) fail(`${page}: its canonical (${canonical[1]}) does not name this page`);
+  for (const prop of ['og:url', 'og:image']) {
+    const re = new RegExp(`(<meta property="${prop}" content=")([^"]*)(")`);
+    if (!re.test(out)) fail(`${page}: no <meta property="${prop}"> in the head`);
+    out = out.replace(re, (m, a, v, z) => `${a}${esc(abs(v))}${z}`);
+  }
+  if (!out.includes(`<meta property="og:url" content="${esc(pageUrl(page))}"`)) fail(`${page}: og:url does not name this page`);
+  return out.replace(/<link rel="canonical" href="[^"]*"/, `<link rel="canonical" href="${esc(pageUrl(page))}"`);
+}
+
+// The card's alt text follows the card: the proof step's screenshot card once a capture exists, else the drawing.
+const DRAWN_OG_ALT = 'A black film rebate along the top of a white proof sheet, the line \u201cYour site, proofed before anyone sees it.\u201d and an install ticket ringed in red pencil.';
+function ogAlt(html, page, proof) {
+  const re = /(<meta property="og:image:alt" content=")[^"]*(")/;
+  if (!re.test(html)) fail(`${page}: no <meta property="og:image:alt"> in the head`);
+  if (proof.og && !existsSync(resolve(siteRoot, 'public', proof.og.src))) fail(`proof.json names public/${proof.og.src}, which is not on disk; run npm run proof`);
+  return html.replace(re, (m, a, z) => `${a}${esc(proof.og?.alt ?? DRAWN_OG_ALT)}${z}`);
+}
+
+// Crawlers read robots.txt only at a host's root; under a project path it still says the same true thing.
+export function robotsTxt() {
+  const u = new URL(siteUrl());
+  return `User-agent: *\nAllow: ${u.pathname}\n\nSitemap: ${new URL('sitemap.xml', u).href}\n`;
+}
+
+export function sitemapXml() {
+  const urls = INDEXED.map((p) => `  <url><loc>${esc(pageUrl(p))}</loc></url>`).join('\n');
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
 }
 
 function bindElements(html, simple, complex) {
@@ -97,8 +152,11 @@ export function transformPage(html, filename) {
   out = out.replace(/(<html\b[^>]*\sdata-proof=")none(")/, `$1${PROOF_ATTR[proof.state]}$2`);
   const heroRing = routeName === 'home' ? heroRingClasses(proof) : [];
   if (heroRing.length) out = out.replace(/(<html\b[^>]*\sdata-proof="[a-z]+")/, `$1 data-hero-ring="${heroRing.join(' ')}"`);
-  // A canonical link names a page, not an asset: Vite would otherwise try to bundle "./" as a file.
+  out = absoluteHead(out, page);
+  out = ogAlt(out, page, proof);
+  // A canonical link names a page, not an asset: Vite would otherwise try to bundle it as a file.
   out = out.replace(/<link rel="canonical"(?![^>]*vite-ignore)/g, '<link rel="canonical" vite-ignore');
+  out = breakCode(out);
   if (/<!-- @(?:proof|fact):/.test(out.replace(/<!-- @fact:[a-z0-9-]+ -->[^]*?<!-- \/@fact -->/g, ''))) fail(`${page}: a slot was left unfilled`);
   return out;
 }
@@ -115,6 +173,11 @@ export default function facts() {
     transformIndexHtml: {
       order: 'pre',
       handler: (html, ctx) => transformPage(html, ctx.filename),
+    },
+    // robots.txt and sitemap.xml name the deployed address, so the build writes them rather than public/.
+    generateBundle() {
+      this.emitFile({ type: 'asset', fileName: 'robots.txt', source: robotsTxt() });
+      this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: sitemapXml() });
     },
   };
 }
