@@ -58,7 +58,7 @@ The score lives in `AWARDS.md ## Motion score`, one row per moment (Moment · Tr
 Rows every site has:
 
 1. Load: the preloader's signal, its hold and exit, the repeat-visit behaviour.
-2. Hero entrance: the one hero-scale moment (1.2–1.5 s), played once.
+2. Hero entrance: the one hero-scale moment, on `--dur-hero` from `DESIGN.md`, played once.
 3. One beat per chapter, entrance · hold · exit, tied to a sentence of the thesis; the rest of the chapter is craft, not motion `[pattern:narrative-structures#pacing]`.
 4. Signature: the interaction the contract names, the physical metaphor it enacts, its touch, keyboard and reduced-motion behaviour.
 5. Transitions: route, section or theme, one vocabulary.
@@ -89,13 +89,13 @@ Name the curves and bands once as tokens and use nothing else; a site reads as o
 
 | Role | Value | Notes |
 |---|---|---|
-| Entrances, hover, cursor | expo-out `cubic-bezier(.16,1,.3,1)`, GSAP `expo.out`, anime `'outExpo'` | the house curve; page and cursor share it `[site:leo-parpeix]` |
-| Travel between two known states (flights, camera moves) | expo-in-out `cubic-bezier(.87,0,.13,1)`, `expo.inOut` | symmetric because departure and arrival are both known `[site:floema-jewelry]` |
-| Theme swap, whole-page repaint | `cubic-bezier(.645,.045,.355,1)`, 1–1.5 s | symmetric on purpose: a repaint has no arrival |
+| Entrances, hover, cursor | `--ease-out-expo` as `system` set it from WORLD's register; mapped to the matching GSAP or anime curve | page and cursor share it `[site:leo-parpeix]`; the corpus runs from soft expo-outs to elastic house voices `[pattern:motion-vocabulary#easing]`, so the value is the world's, not this plugin's |
+| Travel between two known states (flights, camera moves) | `--ease-in-out-expo` from `DESIGN.md` | symmetric because departure and arrival are both known `[site:floema-jewelry]` |
+| Theme swap, whole-page repaint | `--ease-theme` from `DESIGN.md`, in the hero band | symmetric on purpose: a repaint has no arrival |
 | Anything scrubbed by scroll | `ease: 'none'` | the smoothing lives in Lenis or in `scrub: .4–.6` [M03] |
-| Feedback (hover, press, toggle) | ≤ .3 s; token 160 ms | slower reads as lag |
-| Routine (reveals, menu items, cards) | ≈ .4 s | |
-| Hero-scale (preloader exit, flight, chapter cut) | 1.2–1.5 s; token 1400 ms | one per chapter; never on a hover `[pattern:motion-vocabulary#durations]` |
+| Feedback (hover, press, toggle) | `--dur-feedback`, at most .3 s | slower reads as lag |
+| Routine (reveals, menu items, cards) | `--dur-routine` | |
+| Hero-scale (preloader exit, flight, chapter cut) | `--dur-hero`, in the band WORLD's register sets | one per chapter; never on a hover `[pattern:motion-vocabulary#durations]` |
 | Exits | shorter than the entrance | tighter travel and stagger on the way out |
 | Stagger, lines or words | .06–.1 s; `count × step` under ≈ .6 s | `from: 'center'` when the block has a focal glyph `[pattern:motion-vocabulary#staggers]` |
 | Stagger, flicker glyphs | ≈ .04 s | baked into the keyframe `times` |
@@ -129,7 +129,7 @@ Rules for every model:
 
 ## Recipe map by intent
 
-Read the recipe's README and `main.js` under `${CLAUDE_PLUGIN_ROOT}/recipes/<id>/`, then adapt: rename the classes and data attributes, re-token onto the site's tokens, re-time to the site's bands, drop the demo copy. Never paste a recipe unchanged. A P1 folder exists only once it is verified; when a row's folder is missing, build from the catalogue row's parameters and the pattern entry it cites.
+Read the recipe's README and `main.js` under `${CLAUDE_PLUGIN_ROOT}/recipes/<id>/`, write its `keep / change / pair` line in the Motion score's Recipe cell (keep the mechanism, change at least one of metaphor, material, trigger or spatial arrangement, pair it with the beat it serves), then adapt: rename the classes and data attributes, re-token onto the site's tokens, re-time to the site's bands, drop the demo copy. Never paste a recipe unchanged. A P1 folder exists only once it is verified; when a row's folder is missing, build from the catalogue row's parameters and the pattern entry it cites.
 
 | Intent | Recipe | What you re-decide |
 |---|---|---|
@@ -200,7 +200,7 @@ A line rising out of a clipped box reads as typesetting rather than a fade, whic
 
 The pointer is an affordance system, not decoration: a cursor with two rates carries mass, a badge names the gesture, a magnetic target confirms it is a target `[pattern:cursor-and-pointer#two-speed-cursor]`.
 
-- Two-speed cursor: dot at lerp .75 (k ≈ 83), ring at .22 (k ≈ 15), both through `damp()` on the shared ticker and on the house curve; the hover answer (ring 1.35×, dot .7×) inside the feedback band `[recipe:cursor-two-speed]`.
+- Two-speed cursor: dot at lerp .75 (k ≈ 83), ring at .22 (k ≈ 15), both through `damp()` on the shared ticker and on `--ease-out-expo`; the hover answer (ring 1.35×, dot .7×) inside the feedback band `[recipe:cursor-two-speed]`.
 - Cursor hygiene: transform only, `pointer-events: none`, hidden on window leave and `visibilitychange`, the native cursor back over inputs and text.
 - Badges declared on the target (`data-cursor="drag|play|view|copy"`), four or five verbs at most; the target keeps its own accessible name `[pattern:cursor-and-pointer#contextual-badges]`.
 - Off on coarse pointers, `(hover: none), (pointer: coarse)`, with the fine state kept reachable through `any-pointer: fine`; the audit fails a cursor without the guard [A08] `[pattern:cursor-and-pointer#coarse-pointer-policy]`.

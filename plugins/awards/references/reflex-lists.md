@@ -10,6 +10,8 @@ Any of these can still be right for a body role in a specific world, and IBM Ple
 
 ## Alternatives by character class
 
+This table is a floor for when the open catalogue cannot be searched, not a shortlist: three of five dogfood builds took their faces from it, which made it a second reflex. Pull candidates with `scripts/fonts.mjs search` first (`references/patterns/typography.md#choosing-by-character-class`).
+
 | Class | Open-licence (verify the licence file) | Corpus faces, if you can license |
 |---|---|---|
 | Neutral grotesque (body / UI) | Mona Sans, Hubot Sans, Familjen Grotesk, Schibsted Grotesk, Archivo, Public Sans | Monument Grotesk `[site:leo-parpeix]`, Helvetica Now `[site:united-carriers]`, Suisse BP Int'l `[site:lama-lama]` `[site:floema-jewelry]`, KTF Metro Blueline `[site:son-daven]`, TWK Lausanne `[site:911rennsport]`, NB International `[site:siena]`, PP Neue Montreal `[site:noth]` `[site:bethebuzz]`, Aeonik Pro `[site:okaydev]` |

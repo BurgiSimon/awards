@@ -188,9 +188,9 @@ Two notes on the evidence: IBM Plex Mono sits on the avoid list in `reflex-lists
 Why: the face follows the world, then the character, then the licence — never the other way round (`reflex-lists.md`, alternatives by character class).
 
 1. Decide the contract from the world: a voice and a silence, or one voice (`#contracts`).
-2. Decide the character the display voice needs — round or sharp, wide or narrow, warm or cold, condensed or extended — from the direction contract's WORLD line, not from a trend.
-3. Take the class row in `reflex-lists.md`: open-licence faces first, the corpus's licensed faces only if the budget licenses them, and never the pairing a neighbour card already owns.
-4. Check the licence file and the web-embedding terms; record face, foundry and licence in `DESIGN.md`.
+2. Describe the character the display voice needs in one sentence — round or sharp, wide or narrow, warm or cold, condensed or extended — from the direction contract's WORLD line, not from a trend.
+3. Pull candidates from the whole open catalogue, not from a list: `scripts/fonts.mjs search --category <class> --seed <project>` draws five from Fontsource's roughly 2,100 families after the reflex list, and sorts the faces this plugin has already recommended often to the end. Render the real headline and a real paragraph in each (`fonts.mjs specimen`) and judge the sheet, not the names. The class rows in `reflex-lists.md` are the fallback when the catalogue is unreachable; the corpus's licensed faces only if the budget licenses them; never the pairing a neighbour card already owns.
+4. Record the chosen face and one line per reject in `DESIGN.md`, check the licence file and the web-embedding terms (`fonts.mjs fetch` prints the licence Fontsource records), and record face, foundry and licence.
 
 | World | Contract that fit it | Card |
 |---|---|---|

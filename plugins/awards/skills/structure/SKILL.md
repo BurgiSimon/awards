@@ -60,7 +60,7 @@ List from `## Brief` and the project: headings and paragraphs that exist; number
 
 Why: `AWARDS.md ## Page map` is the one table every later skill reads: motion authors a moment per row, WebGL builds a scene per row that names one, ship checks every row rendered.
 
-- One row per chapter or route with the template's columns: `#`, `Chapter / route`, `Beat (entrance · hold · exit)`, `Layout`, `Components (recipe ids)`, `Notes`. The beat column comes from STORY; the concept phase may have left the skeleton rows.
+- One row per chapter or route with the template's columns: `#`, `Chapter / route`, `Beat (entrance · hold · exit)`, `Layout`, `Components (recipe id: keep · change · pair)`, `Notes`. The beat column comes from STORY; the concept phase may have left the skeleton rows.
 - Layout in the world's words ("ruled columns of a call sheet", not "two-column"): no layout in two adjacent chapters; at least four distinct layouts on a page of six or more chapters; a split header (wordmark left, links right) only when the thesis needs one.
 - Rule of three inside a hold: three support points at most.
 - Place the signature in exactly one chapter and the interruption in exactly one, after the first content beat; write which row carries each.
@@ -83,7 +83,7 @@ Choose one of the thirteen in `[pattern:hero-archetypes#choosing]`: two-state ty
 
 Why: a component earns its place by the job it does in the story, not by having been seen on a winning site; the catalogue lists role, anatomy, motion, accessibility, recipe and the literal version refused for each (`[pattern:components-catalog#how-to-read-an-entry]`).
 
-For every chapter write the components into the `Components (recipe ids)` column with an id from `${CLAUDE_PLUGIN_ROOT}/recipes/README.md` or the word `custom`, and the accessibility need in Notes. Available recipes by role:
+For every chapter write the components into the `Components (recipe id: keep · change · pair)` column with an id from `${CLAUDE_PLUGIN_ROOT}/recipes/README.md` or the word `custom`, and the accessibility need in Notes. Available recipes by role:
 
 | Role in the story | Catalogue entries | Recipe ids |
 |---|---|---|
@@ -125,9 +125,10 @@ Why: a scaling system chosen after the components exist means every measure is r
 Why: the skeleton is the layer everything else must survive without; build it as a document first, so the static tier, the crawler and the keyboard user all get the whole page before a single tween exists.
 
 - Files: one `index.html` per route (MPA routing unless the stack notes say otherwise); `src/styles/base.css` started from `${CLAUDE_PLUGIN_ROOT}/recipes/_shared/base.css` and importing `src/styles/tokens.css` from `awards:system`; `404.html` (or the stack's 404 route) started from `${CLAUDE_PLUGIN_ROOT}/assets/templates/404.html` and rewritten in the world: same tokens, same type contract, one small echo of the signature, three routes out, links first in DOM order, lighter than the home page.
+- Every image, video or mesh placed is logged the same minute with `node "${CLAUDE_PLUGIN_ROOT}/scripts/assets.mjs" add --file <path> --kind owned|licensed|generated|drawn|placeholder …` (`[pattern:imagery-and-assets#the-asset-log]`), and it follows WORLD's imagery strategy.
 - Content at full fidelity: real headings, numbers with units, alt text written as content; every invented figure, quote or image labelled synthetic in `## Brief`; no lorem, no emoji icons, no "Get started" (X01–X03).
 - No JavaScript in this phase beyond the hooks the motion score will read (`data-reveal`, `data-theme`, `data-cursor`, `data-motion`): the overlay ships closed, the preloader ships hidden, and what renders is the static tier.
-- Component markup adapted from the recipes' `index.html` (rename, re-token, drop the demo content) with their accessibility attributes kept; class names by role; every value through `var()` from the tokens; layout by grid and flow; no fixed width above 600 px, no `100vw` (L01, L02).
+- Component markup adapted from the recipes' `index.html`, each with its `keep / change / pair` line in the Page map's Components cell (rename, re-token, drop the demo content) with their accessibility attributes kept; class names by role; every value through `var()` from the tokens; layout by grid and flow; no fixed width above 600 px, no `100vw` (L01, L02).
 - Hero probe first: build the hero on the real tokens and base stylesheet, then `node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <dir> --out .awards/captures/hero-probe --scroll 0` (a re-probe takes a fresh `hero-probe-2`, never overwrites). Open desktop and mobile `s00` and judge the image against the six first-viewport checks, the `judge` rows of `${CLAUDE_PLUGIN_ROOT}/references/anti-patterns.md#the-slop-scan` a first screen can show, and the selected visual-composition hero frame; then answer the memory test (an object or a behaviour, never an atmosphere). At most one fix batch, recaptured once. A failing naming or memory test goes back to `awards:concept` (a same-seed re-roll is allowed), never to the copy. Record the manifest path in Page map row 1 Notes; with no browser, `hero probe unmeasured` and the reason.
 - Then: landmarks and headings → chapters with their holds → components → footer → 404.
 - Tick "Page map and skeleton built (structure)" in `AWARDS.md ## Status`.

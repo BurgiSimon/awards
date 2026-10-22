@@ -54,6 +54,7 @@
   "P06": { "severity": "P1", "scope": "perf", "message": "Uncapped devicePixelRatio for a WebGL renderer", "fix": "renderer.setPixelRatio(Math.min(devicePixelRatio, 2)) and cap the absolute pixel count on mobile" },
   "P07": { "severity": "P2", "scope": "perf", "message": "WebGL renderer created without any dispose()", "fix": "Dispose geometries, materials, textures and the renderer on route change" },
   "P08": { "severity": "P2", "scope": "perf", "message": "Layout shift above 0.1 during load (rendered)", "fix": "Reserve space for media, fonts and late content (width/height or aspect-ratio, size-adjust fallbacks, fixed slots); animate transform, never top, height or margin" },
+  "P09": { "severity": "P3", "scope": "perf", "message": "Image delivered below 1.5x the width it is drawn at (rendered)", "fix": "Serve srcset candidates at 1.5x and 2x the drawn width (sizes from the layout), compressed to budget; a soft hero reads as unfinished on every phone" },
   "S01": { "severity": "P3", "scope": "surfaces", "message": "No ::selection style", "fix": "Theme selection from the tokens" },
   "S02": { "severity": "P3", "scope": "surfaces", "message": "No scrollbar styling", "fix": "scrollbar-color / ::-webkit-scrollbar in the palette (optional)" },
   "S03": { "severity": "P3", "scope": "surfaces", "message": "No theme-color meta", "fix": "Add <meta name=\"theme-color\"> from the ground token" },
@@ -83,5 +84,6 @@
   "X17": { "severity": "P2", "scope": "slop", "message": "Generic marketing claims", "fix": "Replace each claim with the fact behind it: a number, a unit, a named feature, an outcome" },
   "X18": { "severity": "P3", "scope": "slop", "message": "Em-dash habit", "fix": "Most dashes want a full stop, a comma or a colon; keep the dash for a real interruption" },
   "X19": { "severity": "P3", "scope": "slop", "message": "Hairline border plus wide soft shadow on one box", "fix": "One edge per surface: a rule, a tone change or a shadow, not all at once" },
-  "X20": { "severity": "P2", "scope": "slop", "message": "Cards nested inside cards (rendered)", "fix": "Flatten the inner level into rows or type; one container per idea" }
+  "X20": { "severity": "P2", "scope": "slop", "message": "Cards nested inside cards (rendered)", "fix": "Flatten the inner level into rows or type; one container per idea" },
+  "X21": { "severity": "P2", "scope": "slop", "message": "Eyebrow labels above headings beyond one per three sections, by computed style (rendered)", "fix": "Delete the labels the headings do not need; keep a set only when WORLD is a catalogue, index or spec sheet, and record it under ## Exceptions" }
 }

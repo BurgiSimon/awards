@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Studio Name, a negative exemplar</title>
+  <meta name="description" content="A synthetic page built from the plugin's own defaults, kept as a negative exemplar.">
+  <style>
+    :root { --ground: #f2f0ea; --ink: #141414; --muted: #6b6a66; --gutter: clamp(20px, 4vw, 56px); font-family: system-ui, sans-serif; color: var(--ink); background: var(--ground); }
+    * { box-sizing: border-box; } body { margin: 0; }
+    .label { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 16px; }
+    header { display: flex; justify-content: space-between; padding: 24px var(--gutter); }
+    nav ol { display: flex; gap: 28px; list-style: none; margin: 0; padding: 0; font-size: 14px; }
+    nav span { color: var(--muted); margin-right: 6px; }
+    section { padding: 18vh var(--gutter); border-top: 1px solid #d8d6cf; }
+    h1 { font-size: clamp(56px, 9vw, 150px); line-height: .9; letter-spacing: -.04em; margin: 0; max-width: 11ch; font-weight: 600; }
+    h2 { font-size: clamp(36px, 5vw, 72px); line-height: .95; letter-spacing: -.03em; margin: 0 0 24px; font-weight: 600; }
+    .marquee { white-space: nowrap; overflow: hidden; font-size: 48px; padding: 32px 0; border-top: 1px solid #d8d6cf; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .card { background: #e6e3db; aspect-ratio: 4 / 5; padding: 24px; display: flex; flex-direction: column; justify-content: flex-end; }
+    footer { padding: 10vh var(--gutter) 4vh; } footer p { font-size: 19vw; line-height: .8; letter-spacing: -.06em; margin: 0; font-weight: 700; }
+    @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } nav ol { gap: 14px; } }
+  </style>
+</head>
+<body>
+  <header><a href="#">Studio Name</a><nav aria-label="Main"><ol><li><span>01</span>Work</li><li><span>02</span>About</li><li><span>03</span>Journal</li><li><span>04</span>Contact</li></ol></nav></header>
+  <main>
+    <section><p class="label">/ 01 — Introduction</p><h1>We craft digital experiences.</h1></section>
+    <div class="marquee" aria-hidden="true">Brand · Strategy · Design · Motion · Development · Brand · Strategy · Design ·</div>
+    <section><p class="label">/ 02 — Selected work</p><h2>Selected work</h2>
+      <div class="grid"><div class="card"><p class="label">Branding</p><h3>Project One</h3></div><div class="card"><p class="label">Web</p><h3>Project Two</h3></div><div class="card"><p class="label">Motion</p><h3>Project Three</h3></div></div></section>
+    <section><p class="label">/ 03 — Services</p><h2>What we do</h2><p>Strategy, design and technology for brands that want to stand out.</p></section>
+  </main>
+  <footer><p>Studio</p></footer>
+</body>
+</html>

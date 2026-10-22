@@ -20,7 +20,7 @@ Why a floor exists: every Site of the Day in the corpus also carries a published
 **Motion**
 - A real `prefers-reduced-motion` branch that keeps state changes and hierarchy; never a global 0.01 ms kill [M01, M02].
 - Scrubbed tweens use `ease: 'none'` [M03]; `will-change` only on the elements being animated and only while they animate [M04]; no `scroll-behavior: smooth` beside a smooth-scroll library [M05]; sticky stages instead of `pin: true` where sticky works [M06]; transforms and opacity, never layout properties [M07]; every infinite loop pauses when off-screen or hidden [M08].
-- One authored moment per chapter, on one shared ticker, with framerate-independent damping; hero-scale moments ≈ 1.2–1.5 s, feedback ≤ .3 s.
+- One authored moment per chapter, on one shared ticker, with framerate-independent damping; durations and curves come from the `DESIGN.md` motion tokens (`--dur-hero` in the register's band, feedback ≤ .3 s), never from a recipe's defaults.
 - Loading and the last screen are authored: a preloader tied to a real signal that holds at 100 and is skipped on repeat, a designed footer, a designed 404.
 
 **Structure and accessibility**
@@ -45,6 +45,19 @@ Why a floor exists: every Site of the Day in the corpus also carries a published
 **Copy**
 - No "Get started" / "Learn more" [X01]; no lorem or placeholder images [X02]; no emoji icons [X03]; no repeated "Not X. A Y." slogans, promise words or dash habit [X16, X17, X18]; synthetic content labelled in `AWARDS.md`.
 - The full slop scan, with what the audit catches and what only a look can, is in `anti-patterns.md#the-slop-scan`.
+
+## What finish looks like
+
+The list above is a floor of things not to get wrong; these are the things a juror sees done. Check them on the captures, not in the source.
+
+- Every control has an authored hover, focus-visible, active and disabled state in the world's own vocabulary (a fill, an underline that draws, a weight shift), and the focus state is as considered as the hover [A12 measures the ring; the hover and focus frames show the rest].
+- One radius set and one shadow policy, used everywhere: a card, a button and an input agree.
+- Spacing rests on the unit: every gap is a multiple of the spacing token, and the same relationship (heading to body, section to section) is the same distance on every page.
+- Optical alignment over box alignment: hanging punctuation and the first glyph of display lines hung, icons optically centred in their buttons, numerals tabular where they align in columns.
+- Images delivered at 1.5× to 2× the width they are drawn at, cropped on purpose, never stretched or letterboxed by accident [P09 with `--render`].
+- Empty, loading and error states exist for anything that fetches, submits or filters, and they belong to the world rather than to a component library.
+- Transitions between states of one element (open and closed, selected and not) move, at the feedback duration, instead of snapping; nothing moves that has no state to change.
+- Selection colour, scrollbar, favicon, theme-color and the 404 are styled [S01–S06], and the last screen of every page is authored.
 
 ## Refuse
 

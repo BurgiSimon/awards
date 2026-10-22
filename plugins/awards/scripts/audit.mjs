@@ -880,6 +880,26 @@ if (args.render) {
             const outer = el.parentElement?.closest('[class*="card"]');
             if (outer && boxed(el) && boxed(outer)) nested.push(`.${[...el.classList].join('.')} inside .${[...outer.classList].join('.')}`);
           }
+          // Eyebrows by computed style, whatever the class name: short, small, tracked caps right above a heading.
+          // One per three sections is a system; more is the template habit L05 catches lexically.
+          const eyebrows = [];
+          for (const el of document.querySelectorAll('p,span,div,small,strong,em,a')) {
+            const t = el.textContent.trim();
+            if (t.length < 2 || t.length > 40 || el.children.length || tucked(el)) continue;
+            const next = el.nextElementSibling ?? (el.parentElement?.children.length === 1 ? el.parentElement.nextElementSibling : null);
+            if (!next?.matches('h1,h2,h3')) continue;
+            const s = getComputedStyle(el), size = parseFloat(s.fontSize), track = parseFloat(s.letterSpacing) || 0;
+            const caps = s.textTransform === 'uppercase' || (/[A-Za-z]/.test(t) && t === t.toUpperCase());
+            if (size <= 15 && caps && track / size >= 0.05) eyebrows.push(say(el));
+          }
+          const sectionCount = Math.max(1, document.querySelectorAll('main > section, main > article, body > section').length);
+          // Images delivered below 1.5x the width they are drawn at go soft on every high-density screen.
+          const soft = [];
+          for (const img of document.querySelectorAll('img')) {
+            const b = img.getBoundingClientRect();
+            if (!img.complete || !img.naturalWidth || b.width < 200 || tucked(img) || /\.svg(\?|$)/i.test(img.currentSrc || img.src)) continue;
+            if (img.naturalWidth < b.width * 1.5) soft.push(`${(img.currentSrc || img.src).split('/').pop().slice(0, 40)} ${img.naturalWidth} px drawn at ${Math.round(b.width)} px`);
+          }
           const h1 = [...document.querySelectorAll('h1')].find((el) => !tucked(el) && !el.querySelector('svg,img,picture,canvas'));
           const body = [...document.querySelectorAll('p')].find((el) => !tucked(el) && el.textContent.trim().length >= 40);
           const ratioH1 = h1 && body ? px(h1) / px(body) : null;
@@ -897,7 +917,7 @@ if (args.render) {
               else if (rgba(c).slice(0, 3).some((v, i) => Math.abs(v - want[i]) > 3)) grounds.push(`${el} ${c} vs ground ${groundToken}`);
             }
           }
-          return { bg: cs.backgroundColor, fg: cs.color, families: [...fams], overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1 ? (() => { const cw = document.documentElement.clientWidth; const el = [...document.body.querySelectorAll('*')].filter((e) => e.getBoundingClientRect().right > cw + 1).sort((a, b) => b.getBoundingClientRect().right - a.getBoundingClientRect().right).find((e) => !e.parentElement || e.parentElement.getBoundingClientRect().right <= cw + 1) ?? null; return `page is ${document.documentElement.scrollWidth} px wide in a ${cw} px viewport${el ? `, from <${el.tagName.toLowerCase()}${el.classList[0] ? `.${el.classList[0]}` : ''}>` : ''}`; })() : null, title: document.title, lang: document.documentElement.lang, stuck, long, edge, nested, ratioH1, grounds };
+          return { bg: cs.backgroundColor, fg: cs.color, families: [...fams], overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1 ? (() => { const cw = document.documentElement.clientWidth; const el = [...document.body.querySelectorAll('*')].filter((e) => e.getBoundingClientRect().right > cw + 1).sort((a, b) => b.getBoundingClientRect().right - a.getBoundingClientRect().right).find((e) => !e.parentElement || e.parentElement.getBoundingClientRect().right <= cw + 1) ?? null; return `page is ${document.documentElement.scrollWidth} px wide in a ${cw} px viewport${el ? `, from <${el.tagName.toLowerCase()}${el.classList[0] ? `.${el.classList[0]}` : ''}>` : ''}`; })() : null, title: document.title, lang: document.documentElement.lang, stuck, long, edge, nested, ratioH1, grounds, eyebrows, sectionCount, soft };
         }, groundToken));
         // Layout shift during load (P08), read before any scroll: the sweep jumps between positions, and a
         // pinned element handing off between fixed and in-flow at a jump would count as a shift no reader sees.
@@ -914,6 +934,8 @@ if (args.render) {
           if (label === 'mobile') for (const s of r.edge.slice(0, 3)) add('L08', where, null, s);
           if (label === 'desktop' && r.ratioH1 !== null && r.ratioH1 < 1.5) add('T08', where, null, `h1 is ${r.ratioH1.toFixed(2)}× the body size`);
           for (const s of r.nested.slice(0, 3)) add('X20', where, null, s);
+          if (label === 'desktop' && r.eyebrows.length > Math.ceil(r.sectionCount / 3)) add('X21', where, null, `${r.eyebrows.length} across ${r.sectionCount} section(s), at most ${Math.ceil(r.sectionCount / 3)}: ${r.eyebrows.slice(0, 3).join(', ')}`);
+          if (label === 'desktop') for (const s of r.soft.slice(0, 3)) add('P09', where, null, s);
           if (label === 'desktop') for (const s of r.grounds) add('C05', where, null, s);
         }
         // Target size, phone: controls under 24 × 24 px whose 24 px circle meets another target's (WCAG 2.2,
