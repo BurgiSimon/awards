@@ -127,8 +127,25 @@
 .strip__item > .frame--beside { grid-column: auto; }
 .frame { position: relative; display: block; text-decoration: none; color: var(--ink); }
 .frame__plate { position: relative; display: block; }
-.frame__img { width: 100%; height: auto; background: var(--ground); }
-.frame[aria-current="true"] .frame__img { outline: var(--stroke) solid var(--ink); outline-offset: 0; }
+/* A frame's states, all on its own outline (DESIGN.md Elevation; the rebate's ink is the paper): current, a 2 px ink
+   outline that arrives over --dur-routine; hover, the second ink, with the edge print lifted to the ink; pressed, the
+   outline steps 6 px inside the picture, like a thumb on the print. Hover only where a pointer can hover. */
+.frame__img {
+  width: 100%;
+  height: auto;
+  background: var(--ground);
+  outline: var(--stroke) solid transparent;
+  outline-offset: 0;
+  transition: outline-color var(--dur-feedback) var(--ease-out-expo), outline-offset var(--dur-feedback) var(--ease-out-expo);
+}
+.frame[aria-current="true"] .frame__img { outline-color: var(--ink); transition-duration: var(--dur-routine); }
+.frame__edge { transition: color var(--dur-feedback) var(--ease-out-expo); }
+@media (hover: hover) {
+  a.frame:hover .frame__img { outline-color: var(--muted); }
+  a.frame[aria-current="true"]:hover .frame__img { outline-color: var(--ink); }
+  a.frame:hover .frame__edge { color: var(--ink); }
+}
+a.frame:active .frame__img { outline-color: var(--ink); outline-offset: -6px; }
 a.frame:focus-visible { outline-offset: 3px; }
 .frame__edge {
   display: flex;
@@ -209,6 +226,9 @@ figure.chapter__frames figcaption { grid-column: 1 / -1; }
   background: var(--ground);
   color: var(--ink);
 }
+/* Closed, the panel is not laid out at all: a closed <details> lays its content out in a zero-size box, so a
+   closed panel's caption measured as a 15 px column running into the glass's edge (rendered audit L08). */
+.frames-disclosure:not([open]) .frames-disclosure__panel { display: none; }
 .frames-disclosure__list { list-style: none; display: grid; }
 .frames-disclosure__list a {
   display: flex;
@@ -260,8 +280,9 @@ figure.chapter__frames figcaption { grid-column: 1 / -1; }
   }
   :root:not([data-proof="none"]) .strip__list { transform: translate3d(0, var(--strip-y, 0px), 0); }
   /* Without script nothing moves the frames, so the column scrolls on its own and every frame stays reachable. */
-  :root:not(.js):not([data-proof="none"]) .strip { overflow-y: auto; overscroll-behavior: contain; scrollbar-color: var(--ink) var(--ground); padding-block-end: 0; }
-  :root:not(.js):not([data-proof="none"]) .strip__caption { position: sticky; margin-inline: -30px; }
+  /* The static tier settles everything at load: the column stays where it is laid out and scrolls on its own. */
+  :root:is(:not(.js), [data-motion="static"]):not([data-proof="none"]) .strip { overflow-y: auto; overscroll-behavior: contain; scrollbar-color: var(--ink) var(--ground); padding-block-end: 0; }
+  :root:is(:not(.js), [data-motion="static"]):not([data-proof="none"]) .strip__caption { position: sticky; margin-inline: -30px; }
   :root:not([data-proof="none"]) .strip__caption {
     position: absolute;
     inset-inline: 0;
@@ -305,7 +326,10 @@ figure.chapter__frames figcaption { grid-column: 1 / -1; }
   opacity: 0;
 }
 .proof__skip:focus-visible { transform: none; opacity: 1; }
-.loupe-frame__plate { padding: 12px; background: var(--ground); color: var(--ink); }
+.loupe-frame__plate { position: relative; padding: 12px; background: var(--ground); color: var(--ink); transform-origin: 0 0; }
+/* In flight between the strip and the paper (src/motion/loupe.js): under the rebate (z-index 5), so it slides out
+   from beneath the strip column; never in the way of a click while it moves. */
+.loupe-frame__plate.is-flying { z-index: 4; pointer-events: none; will-change: transform; }
 .loupe-frame__link { display: block; }
 .loupe-frame__link:focus-visible { outline-offset: -6px; }
 .loupe-frame__img { width: 100%; height: auto; }
@@ -326,8 +350,11 @@ figure.chapter__frames figcaption { grid-column: 1 / -1; }
 .figures__disposition { margin-block-start: var(--space-2); display: flex; align-items: baseline; gap: var(--space-1); }
 .figures__disposition code { font-size: 1.25rem; }
 .figures__memory { margin-block-start: var(--space-2); font-size: var(--lede); line-height: 1.45; }
+/* Tablet and phone: the frame at the column's width, never taller than 80 % of the glass. The box keeps the
+   picture's own proportions from its width and height before it loads, so a lazy frame above the reader never
+   moves the page when it lands. */
 @media (max-width: 1023px) {
-  .loupe-frame__img { width: auto; max-width: 100%; max-height: 80svh; margin-inline: auto; }
+  .loupe-frame__img { width: 100%; max-height: 80svh; object-fit: contain; }
 }
 
 /* The 1:1 viewer: a modal surface of the rebate's black, the frame at its own pixels. */
@@ -480,9 +507,14 @@ figure.chapter__frames figcaption { grid-column: 1 / -1; }
   cursor: pointer;
   transition: background-color var(--dur-feedback) var(--ease-out-expo), color var(--dur-feedback) var(--ease-out-expo);
 }
-.copy:hover, .copy:focus-visible { background: var(--ink); color: var(--ground); }
+/* Hover fills only where a pointer hovers: on a phone a tap leaves no sticky fill behind "Copied". */
+.copy:focus-visible { background: var(--ink); color: var(--ground); }
+@media (hover: hover) { .copy:hover { background: var(--ink); color: var(--ground); } }
 .copy:active { background: var(--muted); border-color: var(--muted); color: var(--ground); }
 .copy[data-state="copied"] { background: var(--ink); color: var(--ground); }
+/* A refused clipboard: the command is selected, the button says so, and a line on the ticket says what to press. */
+.copy[data-state="refused"] { background: var(--ground); color: var(--ink); border-color: var(--muted); }
+.ticket__refused { max-width: 56ch; color: var(--ink); }
 /* Script-only controls: the head script marks what this browser can do, so they keep their place from first paint. */
 :root:not(.can-copy) .copy[data-copy] { display: none; }
 :root:not(.can-dialog) .loupe__open { display: none; }
@@ -492,7 +524,8 @@ figure.chapter__frames figcaption { grid-column: 1 / -1; }
   font-family: var(--font-edge); font-size: var(--caption); cursor: pointer;
   transition: background-color var(--dur-feedback) var(--ease-out-expo), color var(--dur-feedback) var(--ease-out-expo);
 }
-.filter__button:hover, .filter__button:focus-visible, .filter__button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+.filter__button:focus-visible, .filter__button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+@media (hover: hover) { .filter__button:hover { background: var(--ink); color: var(--ground); } }
 
 /* ---------- 2 · the shoot (three cut runs) ---------- */
 
@@ -759,7 +792,7 @@ figure.chapter__frames figcaption { grid-column: 1 / -1; }
   font-size: var(--caption);
   cursor: pointer;
 }
-.filter select:hover { background: var(--line); }
+@media (hover: hover) { .filter select:hover { background: var(--line); } }
 .catalogue-count { grid-column: 1 / -1; margin-block-start: var(--space-1); }
 .group { padding-block-start: var(--space-3); }
 .group h2 { grid-column: 1 / -1; font-size: var(--h2); }
@@ -796,3 +829,30 @@ figure.chapter__frames figcaption { grid-column: 1 / -1; }
 .ways h2 { font-size: var(--h3); }
 @media (max-width: 1023px) { .lost h1, .lost .lede, .ways { grid-column: 1 / -1; } }
 @media (max-width: 599px) { .ways li { grid-template-columns: 1fr; } }
+
+/* ---------- motion (awards:motion; AWARDS.md ## Motion score) ---------- */
+
+/* Pre-paint: what draws later is hidden from the first frame. The head script adds draw-hero / draw-marks only in the
+   full tier and only for what this session has not seen; src/motion/index.js hides exactly what is still pending
+   and removes both classes at once. Without script neither class exists; if the module never runs, the failsafe
+   shows everything after 4 s. */
+:root.draw-marks :is(.strip, .chapter__frames, .select__frame) .frame__marks path,
+:root.draw-marks :is(.strip, .chapter__frames) .frame__note { opacity: 0; animation: awards-failsafe 0s 4s forwards; }
+@media (min-width: 1024px) { :root.draw-hero:not([data-hero-ring~="desktop"]) #select-open .ticket__ring path { opacity: 0; animation: awards-failsafe 0s 4s forwards; } }
+@media (min-width: 768px) and (max-width: 1023px) { :root.draw-hero:not([data-hero-ring~="tablet"]) #select-open .ticket__ring path { opacity: 0; animation: awards-failsafe 0s 4s forwards; } }
+@media (max-width: 767px) { :root.draw-hero:not([data-hero-ring~="mobile"]) #select-open .ticket__ring path { opacity: 0; animation: awards-failsafe 0s 4s forwards; } }
+@keyframes awards-failsafe { to { opacity: 1; } }
+
+/* Cross-document View Transitions between the five routes. The rebate is the same object on every route, so it
+   holds its place while its frames dissolve into the next route's; the paper is the next sheet laid on: out over
+   --dur-feedback, in over --dur-routine on the house expo-out, 24 px along the reading direction. The opt-in is
+   inline in each head inside the same query, so under reduced motion no transition exists at all. */
+@media (prefers-reduced-motion: no-preference) {
+  .rebate { view-transition-name: rebate; }
+  ::view-transition-group(rebate) { animation-duration: var(--dur-routine); animation-timing-function: var(--ease-out-expo); }
+  ::view-transition-old(rebate), ::view-transition-new(rebate) { animation-duration: var(--dur-routine); }
+  ::view-transition-old(root) { animation: vt-paper-out var(--dur-feedback) var(--ease-out-expo) both; }
+  ::view-transition-new(root) { animation: vt-paper-in var(--dur-routine) var(--ease-out-expo) 80ms both; }
+}
+@keyframes vt-paper-out { to { opacity: 0; } }
+@keyframes vt-paper-in { from { opacity: 0; transform: translateX(var(--space-2)); } }

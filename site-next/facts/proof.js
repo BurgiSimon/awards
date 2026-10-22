@@ -82,7 +82,10 @@ function marksSvg(marks) {
   marks.forEach((m, order) => {
     const n = count[m.type]++;
     const d = m.type === 'ring' ? [RING[n % RING.length]] : m.type === 'cross' ? CROSS[n % CROSS.length] : ARROW(n % 3);
-    for (const p of d) paths.push(`<path d="${p}" pathLength="1" data-mark="${m.type}" data-mark-id="${esc(m.id)}" data-order="${order}"/>`);
+    // The stroke is measured on screen and drawn in pixels (src/lib/motion.js): with a non-scaling stroke on a
+    // stretched box, pathLength cannot normalise the dash. data-source names the report section ("memory" is the
+    // ring the first viewport draws).
+    for (const p of d) paths.push(`<path d="${p}" data-mark="${m.type}" data-mark-id="${esc(m.id)}" data-source="${esc(m.source ?? m.section ?? '')}" data-order="${order}"/>`);
   });
   return `<svg class="frame__marks" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false" data-motion="marks">${paths.join('')}</svg>`;
 }
@@ -206,7 +209,7 @@ export function proofSlots({ proof, routeName, html, facts }) {
     loupe() {
       const pick = loupeFrames(proof, home);
       if (!pick) return '';
-      const plates = CLASSES.map((cls) => pick[cls] && `<a class="loupe-frame__link" data-class="${cls}" href="${esc(url(pick[cls].full.src))}">${imgHtml(pick[cls], { sizes: cls === 'desktop' ? '50vw' : cls === 'tablet' ? '70vw' : '100vw', eager: false, cls: 'loupe-frame__img', useFull: true })}</a>`).filter(Boolean).join('');
+      const plates = CLASSES.map((cls) => pick[cls] && `<a class="loupe-frame__link" data-class="${cls}" data-frame="${esc(pick[cls].id)}" href="${esc(url(pick[cls].full.src))}">${imgHtml(pick[cls], { sizes: cls === 'desktop' ? '50vw' : cls === 'tablet' ? '70vw' : '100vw', eager: false, cls: 'loupe-frame__img', useFull: true })}</a>`).filter(Boolean).join('');
       const fr = pick.desktop ?? pick.tablet ?? pick.mobile;
       const what = state === 'a' && proof.report?.memory?.frames?.length ? `the frame the jury's memory sentence came from, ${esc(fr.label)}` : `${esc(fr.label)}, this page as the capture first shot it`;
       return `<div class="proof__loupe" data-motion="loupe">
@@ -277,6 +280,15 @@ export function proofSlots({ proof, routeName, html, facts }) {
     },
   };
   return slots;
+}
+
+// Width classes whose s00 frame on home carries the jury's memory ring (state a): there the first viewport's one
+// moment is that ring; elsewhere it is the grease ring around the first ticket (<html data-hero-ring>, read by CSS
+// before first paint and by src/motion/index.js).
+export function heroRingClasses(proof) {
+  if (proof.state !== 'a') return [];
+  const home = (proof.routes ?? []).find((r) => r.name === 'home');
+  return CLASSES.filter((cls) => (home?.frames?.[cls] ?? []).some((fr) => fr.kind === 'scroll' && fr.stop === 0 && !fr.variants?.length && !fr.duplicateOf && (fr.marks ?? []).some((m) => m.type === 'ring' && m.source === 'memory')));
 }
 
 // The loupe's frame per width class: the memory test's source frame (state a), else each class's s00 of home.

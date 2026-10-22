@@ -11,7 +11,7 @@ import { basename } from 'node:path';
 import { collectFacts, fail } from './collect.js';
 import { elementsWith, splice, replaceRegions, replaceSlots, esc } from './html.js';
 import { simpleFacts, elementFacts, regions, assertWordedCounts, libraryRows, ENTRY_FACTS } from './render.js';
-import { loadProof, proofSlots, PROOF_ATTR } from './proof.js';
+import { loadProof, proofSlots, heroRingClasses, PROOF_ATTR } from './proof.js';
 
 const ROUTES = { 'index.html': 'home', 'install.html': 'install', 'docs.html': 'docs', 'recipes.html': 'recipes', '404.html': '404' };
 
@@ -95,6 +95,8 @@ export function transformPage(html, filename) {
   out = bindAttributes(out, simple);
   if (!/<html\b[^>]*\sdata-proof="none"/.test(out)) fail(`${page}: <html> has no data-proof="none" for the build to set`);
   out = out.replace(/(<html\b[^>]*\sdata-proof=")none(")/, `$1${PROOF_ATTR[proof.state]}$2`);
+  const heroRing = routeName === 'home' ? heroRingClasses(proof) : [];
+  if (heroRing.length) out = out.replace(/(<html\b[^>]*\sdata-proof="[a-z]+")/, `$1 data-hero-ring="${heroRing.join(' ')}"`);
   // A canonical link names a page, not an asset: Vite would otherwise try to bundle "./" as a file.
   out = out.replace(/<link rel="canonical"(?![^>]*vite-ignore)/g, '<link rel="canonical" vite-ignore');
   if (/<!-- @(?:proof|fact):/.test(out.replace(/<!-- @fact:[a-z0-9-]+ -->[^]*?<!-- \/@fact -->/g, ''))) fail(`${page}: a slot was left unfilled`);

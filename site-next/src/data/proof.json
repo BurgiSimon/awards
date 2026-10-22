@@ -5,66 +5,66 @@
   "publicBase": "paths are relative to public/",
   "state": "b",
   "strip": true,
-  "why": "no page-round report; newest valid capture run .awards/captures/20261022T140258Z-stack/routes.json",
+  "why": "no page-round report; newest valid capture run .awards/captures/20261022T153422Z-prejury/routes.json",
   "report": null,
   "verdict": null,
   "captures": [
     {
-      "capture": "20261022T140258Z-stack",
-      "stage": "stack",
+      "capture": "20261022T153422Z-prejury",
+      "stage": "prejury",
       "route": "home",
-      "manifest": ".awards/captures/20261022T140258Z-stack/home/manifest.json",
-      "capturedAt": "2026-10-22T14:02:59.083Z",
+      "manifest": ".awards/captures/20261022T153422Z-prejury/home/manifest.json",
+      "capturedAt": "2026-10-22T15:34:22.978Z",
       "builds": [
-        "0.7.0+e11b790"
+        "0.7.0+6846b08.c57c915"
       ],
       "pageErrors": 0,
       "consoleErrors": 0
     },
     {
-      "capture": "20261022T140258Z-stack",
-      "stage": "stack",
+      "capture": "20261022T153422Z-prejury",
+      "stage": "prejury",
       "route": "install-html",
-      "manifest": ".awards/captures/20261022T140258Z-stack/install-html/manifest.json",
-      "capturedAt": "2026-10-22T14:03:23.066Z",
+      "manifest": ".awards/captures/20261022T153422Z-prejury/install-html/manifest.json",
+      "capturedAt": "2026-10-22T15:34:53.731Z",
       "builds": [
-        "0.7.0+e11b790"
+        "0.7.0+6846b08.c57c915"
       ],
       "pageErrors": 0,
       "consoleErrors": 0
     },
     {
-      "capture": "20261022T140258Z-stack",
-      "stage": "stack",
+      "capture": "20261022T153422Z-prejury",
+      "stage": "prejury",
       "route": "docs-html",
-      "manifest": ".awards/captures/20261022T140258Z-stack/docs-html/manifest.json",
-      "capturedAt": "2026-10-22T14:03:46.855Z",
+      "manifest": ".awards/captures/20261022T153422Z-prejury/docs-html/manifest.json",
+      "capturedAt": "2026-10-22T15:35:20.469Z",
       "builds": [
-        "0.7.0+e11b790"
+        "0.7.0+6846b08.c57c915"
       ],
       "pageErrors": 0,
       "consoleErrors": 0
     },
     {
-      "capture": "20261022T140258Z-stack",
-      "stage": "stack",
+      "capture": "20261022T153422Z-prejury",
+      "stage": "prejury",
       "route": "recipes-html",
-      "manifest": ".awards/captures/20261022T140258Z-stack/recipes-html/manifest.json",
-      "capturedAt": "2026-10-22T14:04:10.799Z",
+      "manifest": ".awards/captures/20261022T153422Z-prejury/recipes-html/manifest.json",
+      "capturedAt": "2026-10-22T15:35:47.271Z",
       "builds": [
-        "0.7.0+e11b790"
+        "0.7.0+6846b08.c57c915"
       ],
       "pageErrors": 0,
       "consoleErrors": 0
     },
     {
-      "capture": "20261022T140258Z-stack",
-      "stage": "stack",
+      "capture": "20261022T153422Z-prejury",
+      "stage": "prejury",
       "route": "404-html",
-      "manifest": ".awards/captures/20261022T140258Z-stack/404-html/manifest.json",
-      "capturedAt": "2026-10-22T14:04:35.281Z",
+      "manifest": ".awards/captures/20261022T153422Z-prejury/404-html/manifest.json",
+      "capturedAt": "2026-10-22T15:36:14.699Z",
       "builds": [
-        "0.7.0+e11b790"
+        "0.7.0+6846b08.c57c915"
       ],
       "pageErrors": 0,
       "consoleErrors": 0
@@ -76,16 +76,16 @@
       "name": "home",
       "path": "/",
       "captures": [
-        "20261022T140258Z-stack"
+        "20261022T153422Z-prejury"
       ],
       "builds": [
-        "0.7.0+e11b790"
+        "0.7.0+6846b08.c57c915"
       ],
-      "caption": "Frames: capture 20261022T140258Z-stack, build 0.7.0+e11b790",
+      "caption": "Frames: capture 20261022T153422Z-prejury, build 0.7.0+6846b08.c57c915",
       "frames": {
         "desktop": [
           {
-            "id": "20261022T140258Z-stack/home/desktop-s00",
+            "id": "20261022T153422Z-prejury/home/desktop-s00",
             "kind": "scroll",
             "stop": 0,
             "state": null,
@@ -93,33 +93,33 @@
             "near": null,
             "at": 0,
             "label": "s00",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:02:59.083Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/home/desktop-s00.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/home/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:22.978Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/home/desktop-s00.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/home/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/home/desktop-s00-600.webp",
+              "src": "proof/20261022T153422Z-prejury/home/desktop-s00-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 16676
+              "bytes": 22060
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/home/desktop-s00-1440.webp",
+              "src": "proof/20261022T153422Z-prejury/home/desktop-s00-1440.webp",
               "width": 1440,
               "height": 900,
-              "bytes": 52528
+              "bytes": 78100
             },
-            "alt": "Screenshot of the home page at desktop width (1440 × 900), at scroll stop s00, 0 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the home page at desktop width (1440 × 900), at scroll stop s00, 0 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/home/desktop-s25",
+            "id": "20261022T153422Z-prejury/home/desktop-s25",
             "kind": "scroll",
             "stop": 25,
             "state": null,
@@ -127,33 +127,33 @@
             "near": null,
             "at": 0.25,
             "label": "s25",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:02:59.083Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/home/desktop-s25.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/home/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:22.978Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/home/desktop-s25.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/home/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/home/desktop-s25-600.webp",
+              "src": "proof/20261022T153422Z-prejury/home/desktop-s25-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 15734
+              "bytes": 19574
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/home/desktop-s25-600.webp",
+              "src": "proof/20261022T153422Z-prejury/home/desktop-s25-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 15734
+              "bytes": 19574
             },
-            "alt": "Screenshot of the home page at desktop width (1440 × 900), at scroll stop s25, 25 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the home page at desktop width (1440 × 900), at scroll stop s25, 25 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/home/desktop-s50",
+            "id": "20261022T153422Z-prejury/home/desktop-s50",
             "kind": "scroll",
             "stop": 50,
             "state": null,
@@ -161,33 +161,33 @@
             "near": null,
             "at": 0.5,
             "label": "s50",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:02:59.083Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/home/desktop-s50.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/home/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:22.978Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/home/desktop-s50.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/home/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/home/desktop-s50-600.webp",
+              "src": "proof/20261022T153422Z-prejury/home/desktop-s50-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 15170
+              "bytes": 16132
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/home/desktop-s50-600.webp",
+              "src": "proof/20261022T153422Z-prejury/home/desktop-s50-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 15170
+              "bytes": 16132
             },
-            "alt": "Screenshot of the home page at desktop width (1440 × 900), at scroll stop s50, 50 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the home page at desktop width (1440 × 900), at scroll stop s50, 50 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/home/desktop-s75",
+            "id": "20261022T153422Z-prejury/home/desktop-s75",
             "kind": "scroll",
             "stop": 75,
             "state": null,
@@ -195,33 +195,33 @@
             "near": null,
             "at": 0.75,
             "label": "s75",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:02:59.083Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/home/desktop-s75.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/home/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:22.978Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/home/desktop-s75.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/home/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/home/desktop-s75-600.webp",
+              "src": "proof/20261022T153422Z-prejury/home/desktop-s75-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 16246
+              "bytes": 21324
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/home/desktop-s75-600.webp",
+              "src": "proof/20261022T153422Z-prejury/home/desktop-s75-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 16246
+              "bytes": 21324
             },
-            "alt": "Screenshot of the home page at desktop width (1440 × 900), at scroll stop s75, 75 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the home page at desktop width (1440 × 900), at scroll stop s75, 75 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/home/desktop-s100",
+            "id": "20261022T153422Z-prejury/home/desktop-s100",
             "kind": "scroll",
             "stop": 100,
             "state": null,
@@ -229,35 +229,35 @@
             "near": null,
             "at": 1,
             "label": "s100",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:02:59.083Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/home/desktop-s100.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/home/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:22.978Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/home/desktop-s100.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/home/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/home/desktop-s100-600.webp",
+              "src": "proof/20261022T153422Z-prejury/home/desktop-s100-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 9888
+              "bytes": 15174
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/home/desktop-s100-600.webp",
+              "src": "proof/20261022T153422Z-prejury/home/desktop-s100-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 9888
+              "bytes": 15174
             },
-            "alt": "Screenshot of the home page at desktop width (1440 × 900), at scroll stop s100, 100 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the home page at desktop width (1440 × 900), at scroll stop s100, 100 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           }
         ],
         "tablet": [
           {
-            "id": "20261022T140258Z-stack/home/tablet-s00",
+            "id": "20261022T153422Z-prejury/home/tablet-s00",
             "kind": "scroll",
             "stop": 0,
             "state": null,
@@ -265,33 +265,33 @@
             "near": null,
             "at": 0,
             "label": "s00",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:02:59.083Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/home/tablet-s00.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/home/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:22.978Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/home/tablet-s00.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/home/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/home/tablet-s00-360.webp",
+              "src": "proof/20261022T153422Z-prejury/home/tablet-s00-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 18066
+              "bytes": 24676
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/home/tablet-s00-834.webp",
+              "src": "proof/20261022T153422Z-prejury/home/tablet-s00-834.webp",
               "width": 834,
               "height": 1194,
-              "bytes": 64484
+              "bytes": 89794
             },
-            "alt": "Screenshot of the home page at tablet width (834 × 1194), at scroll stop s00, 0 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the home page at tablet width (834 × 1194), at scroll stop s00, 0 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/home/tablet-s25",
+            "id": "20261022T153422Z-prejury/home/tablet-s25",
             "kind": "scroll",
             "stop": 25,
             "state": null,
@@ -299,33 +299,33 @@
             "near": null,
             "at": 0.25,
             "label": "s25",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:02:59.083Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/home/tablet-s25.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/home/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:22.978Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/home/tablet-s25.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/home/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/home/tablet-s25-360.webp",
+              "src": "proof/20261022T153422Z-prejury/home/tablet-s25-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 17250
+              "bytes": 19724
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/home/tablet-s25-360.webp",
+              "src": "proof/20261022T153422Z-prejury/home/tablet-s25-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 17250
+              "bytes": 19724
             },
-            "alt": "Screenshot of the home page at tablet width (834 × 1194), at scroll stop s25, 25 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the home page at tablet width (834 × 1194), at scroll stop s25, 25 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/home/tablet-s50",
+            "id": "20261022T153422Z-prejury/home/tablet-s50",
             "kind": "scroll",
             "stop": 50,
             "state": null,
@@ -333,33 +333,33 @@
             "near": null,
             "at": 0.5,
             "label": "s50",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:02:59.083Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/home/tablet-s50.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/home/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:22.978Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/home/tablet-s50.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/home/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/home/tablet-s50-360.webp",
+              "src": "proof/20261022T153422Z-prejury/home/tablet-s50-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 18390
+              "bytes": 17430
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/home/tablet-s50-360.webp",
+              "src": "proof/20261022T153422Z-prejury/home/tablet-s50-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 18390
+              "bytes": 17430
             },
-            "alt": "Screenshot of the home page at tablet width (834 × 1194), at scroll stop s50, 50 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the home page at tablet width (834 × 1194), at scroll stop s50, 50 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/home/tablet-s75",
+            "id": "20261022T153422Z-prejury/home/tablet-s75",
             "kind": "scroll",
             "stop": 75,
             "state": null,
@@ -367,33 +367,33 @@
             "near": null,
             "at": 0.75,
             "label": "s75",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:02:59.083Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/home/tablet-s75.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/home/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:22.978Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/home/tablet-s75.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/home/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/home/tablet-s75-360.webp",
+              "src": "proof/20261022T153422Z-prejury/home/tablet-s75-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 16114
+              "bytes": 19448
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/home/tablet-s75-360.webp",
+              "src": "proof/20261022T153422Z-prejury/home/tablet-s75-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 16114
+              "bytes": 19448
             },
-            "alt": "Screenshot of the home page at tablet width (834 × 1194), at scroll stop s75, 75 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the home page at tablet width (834 × 1194), at scroll stop s75, 75 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/home/tablet-s100",
+            "id": "20261022T153422Z-prejury/home/tablet-s100",
             "kind": "scroll",
             "stop": 100,
             "state": null,
@@ -401,35 +401,35 @@
             "near": null,
             "at": 1,
             "label": "s100",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:02:59.083Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/home/tablet-s100.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/home/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:22.978Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/home/tablet-s100.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/home/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/home/tablet-s100-360.webp",
+              "src": "proof/20261022T153422Z-prejury/home/tablet-s100-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 12452
+              "bytes": 13588
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/home/tablet-s100-360.webp",
+              "src": "proof/20261022T153422Z-prejury/home/tablet-s100-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 12452
+              "bytes": 13588
             },
-            "alt": "Screenshot of the home page at tablet width (834 × 1194), at scroll stop s100, 100 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the home page at tablet width (834 × 1194), at scroll stop s100, 100 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           }
         ],
         "mobile": [
           {
-            "id": "20261022T140258Z-stack/home/mobile-s00",
+            "id": "20261022T153422Z-prejury/home/mobile-s00",
             "kind": "scroll",
             "stop": 0,
             "state": null,
@@ -437,33 +437,33 @@
             "near": null,
             "at": 0,
             "label": "s00",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:02:59.083Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/home/mobile-s00.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/home/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:22.978Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/home/mobile-s00.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/home/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/home/mobile-s00-360.webp",
+              "src": "proof/20261022T153422Z-prejury/home/mobile-s00-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 31474
+              "bytes": 31186
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/home/mobile-s00-780.webp",
+              "src": "proof/20261022T153422Z-prejury/home/mobile-s00-780.webp",
               "width": 780,
               "height": 1688,
-              "bytes": 84252
+              "bytes": 83158
             },
-            "alt": "Screenshot of the home page at phone width (390 × 844), at scroll stop s00, 0 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the home page at phone width (390 × 844), at scroll stop s00, 0 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/home/mobile-s25",
+            "id": "20261022T153422Z-prejury/home/mobile-s25",
             "kind": "scroll",
             "stop": 25,
             "state": null,
@@ -471,33 +471,33 @@
             "near": null,
             "at": 0.25,
             "label": "s25",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:02:59.083Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/home/mobile-s25.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/home/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:22.978Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/home/mobile-s25.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/home/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/home/mobile-s25-360.webp",
+              "src": "proof/20261022T153422Z-prejury/home/mobile-s25-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 25510
+              "bytes": 23912
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/home/mobile-s25-360.webp",
+              "src": "proof/20261022T153422Z-prejury/home/mobile-s25-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 25510
+              "bytes": 23912
             },
-            "alt": "Screenshot of the home page at phone width (390 × 844), at scroll stop s25, 25 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the home page at phone width (390 × 844), at scroll stop s25, 25 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/home/mobile-s50",
+            "id": "20261022T153422Z-prejury/home/mobile-s50",
             "kind": "scroll",
             "stop": 50,
             "state": null,
@@ -505,33 +505,33 @@
             "near": null,
             "at": 0.5,
             "label": "s50",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:02:59.083Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/home/mobile-s50.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/home/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:22.978Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/home/mobile-s50.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/home/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/home/mobile-s50-360.webp",
+              "src": "proof/20261022T153422Z-prejury/home/mobile-s50-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 26720
+              "bytes": 19114
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/home/mobile-s50-360.webp",
+              "src": "proof/20261022T153422Z-prejury/home/mobile-s50-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 26720
+              "bytes": 19114
             },
-            "alt": "Screenshot of the home page at phone width (390 × 844), at scroll stop s50, 50 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the home page at phone width (390 × 844), at scroll stop s50, 50 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/home/mobile-s75",
+            "id": "20261022T153422Z-prejury/home/mobile-s75",
             "kind": "scroll",
             "stop": 75,
             "state": null,
@@ -539,33 +539,33 @@
             "near": null,
             "at": 0.75,
             "label": "s75",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:02:59.083Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/home/mobile-s75.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/home/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:22.978Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/home/mobile-s75.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/home/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/home/mobile-s75-360.webp",
+              "src": "proof/20261022T153422Z-prejury/home/mobile-s75-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 31928
+              "bytes": 23044
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/home/mobile-s75-360.webp",
+              "src": "proof/20261022T153422Z-prejury/home/mobile-s75-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 31928
+              "bytes": 23044
             },
-            "alt": "Screenshot of the home page at phone width (390 × 844), at scroll stop s75, 75 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the home page at phone width (390 × 844), at scroll stop s75, 75 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/home/mobile-s100",
+            "id": "20261022T153422Z-prejury/home/mobile-s100",
             "kind": "scroll",
             "stop": 100,
             "state": null,
@@ -573,29 +573,29 @@
             "near": null,
             "at": 1,
             "label": "s100",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:02:59.083Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/home/mobile-s100.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/home/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:22.978Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/home/mobile-s100.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/home/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/home/mobile-s100-360.webp",
+              "src": "proof/20261022T153422Z-prejury/home/mobile-s100-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 21350
+              "bytes": 19924
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/home/mobile-s100-360.webp",
+              "src": "proof/20261022T153422Z-prejury/home/mobile-s100-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 21350
+              "bytes": 19924
             },
-            "alt": "Screenshot of the home page at phone width (390 × 844), at scroll stop s100, 100 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the home page at phone width (390 × 844), at scroll stop s100, 100 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           }
         ]
@@ -606,16 +606,16 @@
       "name": "install",
       "path": "/install.html",
       "captures": [
-        "20261022T140258Z-stack"
+        "20261022T153422Z-prejury"
       ],
       "builds": [
-        "0.7.0+e11b790"
+        "0.7.0+6846b08.c57c915"
       ],
-      "caption": "Frames: capture 20261022T140258Z-stack, build 0.7.0+e11b790",
+      "caption": "Frames: capture 20261022T153422Z-prejury, build 0.7.0+6846b08.c57c915",
       "frames": {
         "desktop": [
           {
-            "id": "20261022T140258Z-stack/install-html/desktop-s00",
+            "id": "20261022T153422Z-prejury/install-html/desktop-s00",
             "kind": "scroll",
             "stop": 0,
             "state": null,
@@ -623,33 +623,33 @@
             "near": null,
             "at": 0,
             "label": "s00",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:23.066Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/install-html/desktop-s00.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/install-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:53.731Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/install-html/desktop-s00.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/install-html/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/install-html/desktop-s00-600.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/desktop-s00-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 12956
+              "bytes": 15114
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/install-html/desktop-s00-600.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/desktop-s00-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 12956
+              "bytes": 15114
             },
-            "alt": "Screenshot of the /install.html page at desktop width (1440 × 900), at scroll stop s00, 0 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /install.html page at desktop width (1440 × 900), at scroll stop s00, 0 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/install-html/desktop-s25",
+            "id": "20261022T153422Z-prejury/install-html/desktop-s25",
             "kind": "scroll",
             "stop": 25,
             "state": null,
@@ -657,33 +657,33 @@
             "near": null,
             "at": 0.25,
             "label": "s25",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:23.066Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/install-html/desktop-s25.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/install-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:53.731Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/install-html/desktop-s25.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/install-html/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/install-html/desktop-s25-600.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/desktop-s25-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 16428
+              "bytes": 20330
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/install-html/desktop-s25-600.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/desktop-s25-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 16428
+              "bytes": 20330
             },
-            "alt": "Screenshot of the /install.html page at desktop width (1440 × 900), at scroll stop s25, 25 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /install.html page at desktop width (1440 × 900), at scroll stop s25, 25 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/install-html/desktop-s50",
+            "id": "20261022T153422Z-prejury/install-html/desktop-s50",
             "kind": "scroll",
             "stop": 50,
             "state": null,
@@ -691,33 +691,33 @@
             "near": null,
             "at": 0.5,
             "label": "s50",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:23.066Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/install-html/desktop-s50.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/install-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:53.731Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/install-html/desktop-s50.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/install-html/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/install-html/desktop-s50-600.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/desktop-s50-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 15950
+              "bytes": 19000
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/install-html/desktop-s50-600.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/desktop-s50-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 15950
+              "bytes": 19000
             },
-            "alt": "Screenshot of the /install.html page at desktop width (1440 × 900), at scroll stop s50, 50 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /install.html page at desktop width (1440 × 900), at scroll stop s50, 50 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/install-html/desktop-s75",
+            "id": "20261022T153422Z-prejury/install-html/desktop-s75",
             "kind": "scroll",
             "stop": 75,
             "state": null,
@@ -725,33 +725,33 @@
             "near": null,
             "at": 0.75,
             "label": "s75",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:23.066Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/install-html/desktop-s75.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/install-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:53.731Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/install-html/desktop-s75.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/install-html/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/install-html/desktop-s75-600.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/desktop-s75-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 15266
+              "bytes": 18032
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/install-html/desktop-s75-600.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/desktop-s75-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 15266
+              "bytes": 18032
             },
-            "alt": "Screenshot of the /install.html page at desktop width (1440 × 900), at scroll stop s75, 75 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /install.html page at desktop width (1440 × 900), at scroll stop s75, 75 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/install-html/desktop-s100",
+            "id": "20261022T153422Z-prejury/install-html/desktop-s100",
             "kind": "scroll",
             "stop": 100,
             "state": null,
@@ -759,35 +759,35 @@
             "near": null,
             "at": 1,
             "label": "s100",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:23.066Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/install-html/desktop-s100.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/install-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:53.731Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/install-html/desktop-s100.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/install-html/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/install-html/desktop-s100-600.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/desktop-s100-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 10380
+              "bytes": 15728
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/install-html/desktop-s100-600.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/desktop-s100-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 10380
+              "bytes": 15728
             },
-            "alt": "Screenshot of the /install.html page at desktop width (1440 × 900), at scroll stop s100, 100 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /install.html page at desktop width (1440 × 900), at scroll stop s100, 100 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           }
         ],
         "tablet": [
           {
-            "id": "20261022T140258Z-stack/install-html/tablet-s00",
+            "id": "20261022T153422Z-prejury/install-html/tablet-s00",
             "kind": "scroll",
             "stop": 0,
             "state": null,
@@ -795,33 +795,33 @@
             "near": null,
             "at": 0,
             "label": "s00",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:23.066Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/install-html/tablet-s00.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/install-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:53.731Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/install-html/tablet-s00.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/install-html/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/install-html/tablet-s00-360.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/tablet-s00-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 17580
+              "bytes": 22596
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/install-html/tablet-s00-360.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/tablet-s00-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 17580
+              "bytes": 22596
             },
-            "alt": "Screenshot of the /install.html page at tablet width (834 × 1194), at scroll stop s00, 0 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /install.html page at tablet width (834 × 1194), at scroll stop s00, 0 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/install-html/tablet-s25",
+            "id": "20261022T153422Z-prejury/install-html/tablet-s25",
             "kind": "scroll",
             "stop": 25,
             "state": null,
@@ -829,33 +829,33 @@
             "near": null,
             "at": 0.25,
             "label": "s25",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:23.066Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/install-html/tablet-s25.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/install-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:53.731Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/install-html/tablet-s25.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/install-html/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/install-html/tablet-s25-360.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/tablet-s25-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 21530
+              "bytes": 26528
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/install-html/tablet-s25-360.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/tablet-s25-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 21530
+              "bytes": 26528
             },
-            "alt": "Screenshot of the /install.html page at tablet width (834 × 1194), at scroll stop s25, 25 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /install.html page at tablet width (834 × 1194), at scroll stop s25, 25 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/install-html/tablet-s50",
+            "id": "20261022T153422Z-prejury/install-html/tablet-s50",
             "kind": "scroll",
             "stop": 50,
             "state": null,
@@ -863,33 +863,33 @@
             "near": null,
             "at": 0.5,
             "label": "s50",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:23.066Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/install-html/tablet-s50.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/install-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:53.731Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/install-html/tablet-s50.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/install-html/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/install-html/tablet-s50-360.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/tablet-s50-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 20638
+              "bytes": 25320
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/install-html/tablet-s50-360.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/tablet-s50-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 20638
+              "bytes": 25320
             },
-            "alt": "Screenshot of the /install.html page at tablet width (834 × 1194), at scroll stop s50, 50 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /install.html page at tablet width (834 × 1194), at scroll stop s50, 50 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/install-html/tablet-s75",
+            "id": "20261022T153422Z-prejury/install-html/tablet-s75",
             "kind": "scroll",
             "stop": 75,
             "state": null,
@@ -897,33 +897,33 @@
             "near": null,
             "at": 0.75,
             "label": "s75",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:23.066Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/install-html/tablet-s75.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/install-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:53.731Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/install-html/tablet-s75.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/install-html/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/install-html/tablet-s75-360.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/tablet-s75-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 18830
+              "bytes": 22802
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/install-html/tablet-s75-360.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/tablet-s75-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 18830
+              "bytes": 22802
             },
-            "alt": "Screenshot of the /install.html page at tablet width (834 × 1194), at scroll stop s75, 75 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /install.html page at tablet width (834 × 1194), at scroll stop s75, 75 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/install-html/tablet-s100",
+            "id": "20261022T153422Z-prejury/install-html/tablet-s100",
             "kind": "scroll",
             "stop": 100,
             "state": null,
@@ -931,35 +931,35 @@
             "near": null,
             "at": 1,
             "label": "s100",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:23.066Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/install-html/tablet-s100.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/install-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:53.731Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/install-html/tablet-s100.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/install-html/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/install-html/tablet-s100-360.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/tablet-s100-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 14750
+              "bytes": 18484
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/install-html/tablet-s100-360.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/tablet-s100-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 14750
+              "bytes": 18484
             },
-            "alt": "Screenshot of the /install.html page at tablet width (834 × 1194), at scroll stop s100, 100 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /install.html page at tablet width (834 × 1194), at scroll stop s100, 100 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           }
         ],
         "mobile": [
           {
-            "id": "20261022T140258Z-stack/install-html/mobile-s00",
+            "id": "20261022T153422Z-prejury/install-html/mobile-s00",
             "kind": "scroll",
             "stop": 0,
             "state": null,
@@ -967,33 +967,33 @@
             "near": null,
             "at": 0,
             "label": "s00",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:23.066Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/install-html/mobile-s00.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/install-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:53.731Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/install-html/mobile-s00.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/install-html/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/install-html/mobile-s00-360.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/mobile-s00-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 27878
+              "bytes": 27556
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/install-html/mobile-s00-360.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/mobile-s00-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 27878
+              "bytes": 27556
             },
-            "alt": "Screenshot of the /install.html page at phone width (390 × 844), at scroll stop s00, 0 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /install.html page at phone width (390 × 844), at scroll stop s00, 0 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/install-html/mobile-s25",
+            "id": "20261022T153422Z-prejury/install-html/mobile-s25",
             "kind": "scroll",
             "stop": 25,
             "state": null,
@@ -1001,33 +1001,33 @@
             "near": null,
             "at": 0.25,
             "label": "s25",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:23.066Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/install-html/mobile-s25.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/install-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:53.731Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/install-html/mobile-s25.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/install-html/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/install-html/mobile-s25-360.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/mobile-s25-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 32760
+              "bytes": 32012
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/install-html/mobile-s25-360.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/mobile-s25-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 32760
+              "bytes": 32012
             },
-            "alt": "Screenshot of the /install.html page at phone width (390 × 844), at scroll stop s25, 25 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /install.html page at phone width (390 × 844), at scroll stop s25, 25 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/install-html/mobile-s50",
+            "id": "20261022T153422Z-prejury/install-html/mobile-s50",
             "kind": "scroll",
             "stop": 50,
             "state": null,
@@ -1035,33 +1035,33 @@
             "near": null,
             "at": 0.5,
             "label": "s50",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:23.066Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/install-html/mobile-s50.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/install-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:53.731Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/install-html/mobile-s50.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/install-html/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/install-html/mobile-s50-360.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/mobile-s50-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 33928
+              "bytes": 32690
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/install-html/mobile-s50-360.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/mobile-s50-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 33928
+              "bytes": 32690
             },
-            "alt": "Screenshot of the /install.html page at phone width (390 × 844), at scroll stop s50, 50 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /install.html page at phone width (390 × 844), at scroll stop s50, 50 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/install-html/mobile-s75",
+            "id": "20261022T153422Z-prejury/install-html/mobile-s75",
             "kind": "scroll",
             "stop": 75,
             "state": null,
@@ -1069,33 +1069,33 @@
             "near": null,
             "at": 0.75,
             "label": "s75",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:23.066Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/install-html/mobile-s75.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/install-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:53.731Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/install-html/mobile-s75.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/install-html/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/install-html/mobile-s75-360.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/mobile-s75-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 31852
+              "bytes": 33392
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/install-html/mobile-s75-360.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/mobile-s75-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 31852
+              "bytes": 33392
             },
-            "alt": "Screenshot of the /install.html page at phone width (390 × 844), at scroll stop s75, 75 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /install.html page at phone width (390 × 844), at scroll stop s75, 75 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/install-html/mobile-s100",
+            "id": "20261022T153422Z-prejury/install-html/mobile-s100",
             "kind": "scroll",
             "stop": 100,
             "state": null,
@@ -1103,29 +1103,29 @@
             "near": null,
             "at": 1,
             "label": "s100",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:23.066Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/install-html/mobile-s100.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/install-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:34:53.731Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/install-html/mobile-s100.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/install-html/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/install-html/mobile-s100-360.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/mobile-s100-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 21340
+              "bytes": 19714
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/install-html/mobile-s100-360.webp",
+              "src": "proof/20261022T153422Z-prejury/install-html/mobile-s100-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 21340
+              "bytes": 19714
             },
-            "alt": "Screenshot of the /install.html page at phone width (390 × 844), at scroll stop s100, 100 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /install.html page at phone width (390 × 844), at scroll stop s100, 100 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           }
         ]
@@ -1136,16 +1136,16 @@
       "name": "docs",
       "path": "/docs.html",
       "captures": [
-        "20261022T140258Z-stack"
+        "20261022T153422Z-prejury"
       ],
       "builds": [
-        "0.7.0+e11b790"
+        "0.7.0+6846b08.c57c915"
       ],
-      "caption": "Frames: capture 20261022T140258Z-stack, build 0.7.0+e11b790",
+      "caption": "Frames: capture 20261022T153422Z-prejury, build 0.7.0+6846b08.c57c915",
       "frames": {
         "desktop": [
           {
-            "id": "20261022T140258Z-stack/docs-html/desktop-s00",
+            "id": "20261022T153422Z-prejury/docs-html/desktop-s00",
             "kind": "scroll",
             "stop": 0,
             "state": null,
@@ -1153,33 +1153,33 @@
             "near": null,
             "at": 0,
             "label": "s00",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:46.855Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/docs-html/desktop-s00.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/docs-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:20.469Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/docs-html/desktop-s00.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/docs-html/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/docs-html/desktop-s00-600.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/desktop-s00-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 10066
+              "bytes": 15052
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/docs-html/desktop-s00-600.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/desktop-s00-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 10066
+              "bytes": 15052
             },
-            "alt": "Screenshot of the /docs.html page at desktop width (1440 × 900), at scroll stop s00, 0 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /docs.html page at desktop width (1440 × 900), at scroll stop s00, 0 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/docs-html/desktop-s25",
+            "id": "20261022T153422Z-prejury/docs-html/desktop-s25",
             "kind": "scroll",
             "stop": 25,
             "state": null,
@@ -1187,33 +1187,33 @@
             "near": null,
             "at": 0.25,
             "label": "s25",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:46.855Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/docs-html/desktop-s25.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/docs-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:20.469Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/docs-html/desktop-s25.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/docs-html/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/docs-html/desktop-s25-600.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/desktop-s25-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 15496
+              "bytes": 19256
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/docs-html/desktop-s25-600.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/desktop-s25-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 15496
+              "bytes": 19256
             },
-            "alt": "Screenshot of the /docs.html page at desktop width (1440 × 900), at scroll stop s25, 25 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /docs.html page at desktop width (1440 × 900), at scroll stop s25, 25 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/docs-html/desktop-s50",
+            "id": "20261022T153422Z-prejury/docs-html/desktop-s50",
             "kind": "scroll",
             "stop": 50,
             "state": null,
@@ -1221,33 +1221,33 @@
             "near": null,
             "at": 0.5,
             "label": "s50",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:46.855Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/docs-html/desktop-s50.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/docs-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:20.469Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/docs-html/desktop-s50.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/docs-html/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/docs-html/desktop-s50-600.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/desktop-s50-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 13962
+              "bytes": 18480
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/docs-html/desktop-s50-600.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/desktop-s50-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 13962
+              "bytes": 18480
             },
-            "alt": "Screenshot of the /docs.html page at desktop width (1440 × 900), at scroll stop s50, 50 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /docs.html page at desktop width (1440 × 900), at scroll stop s50, 50 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/docs-html/desktop-s75",
+            "id": "20261022T153422Z-prejury/docs-html/desktop-s75",
             "kind": "scroll",
             "stop": 75,
             "state": null,
@@ -1255,33 +1255,33 @@
             "near": null,
             "at": 0.75,
             "label": "s75",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:46.855Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/docs-html/desktop-s75.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/docs-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:20.469Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/docs-html/desktop-s75.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/docs-html/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/docs-html/desktop-s75-600.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/desktop-s75-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 11620
+              "bytes": 16290
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/docs-html/desktop-s75-600.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/desktop-s75-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 11620
+              "bytes": 16290
             },
-            "alt": "Screenshot of the /docs.html page at desktop width (1440 × 900), at scroll stop s75, 75 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /docs.html page at desktop width (1440 × 900), at scroll stop s75, 75 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/docs-html/desktop-s100",
+            "id": "20261022T153422Z-prejury/docs-html/desktop-s100",
             "kind": "scroll",
             "stop": 100,
             "state": null,
@@ -1289,35 +1289,35 @@
             "near": null,
             "at": 1,
             "label": "s100",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:46.855Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/docs-html/desktop-s100.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/docs-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:20.469Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/docs-html/desktop-s100.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/docs-html/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/docs-html/desktop-s100-600.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/desktop-s100-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 11376
+              "bytes": 14982
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/docs-html/desktop-s100-600.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/desktop-s100-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 11376
+              "bytes": 14982
             },
-            "alt": "Screenshot of the /docs.html page at desktop width (1440 × 900), at scroll stop s100, 100 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /docs.html page at desktop width (1440 × 900), at scroll stop s100, 100 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           }
         ],
         "tablet": [
           {
-            "id": "20261022T140258Z-stack/docs-html/tablet-s00",
+            "id": "20261022T153422Z-prejury/docs-html/tablet-s00",
             "kind": "scroll",
             "stop": 0,
             "state": null,
@@ -1325,33 +1325,33 @@
             "near": null,
             "at": 0,
             "label": "s00",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:46.855Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/docs-html/tablet-s00.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/docs-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:20.469Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/docs-html/tablet-s00.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/docs-html/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/docs-html/tablet-s00-360.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/tablet-s00-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 17360
+              "bytes": 23412
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/docs-html/tablet-s00-360.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/tablet-s00-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 17360
+              "bytes": 23412
             },
-            "alt": "Screenshot of the /docs.html page at tablet width (834 × 1194), at scroll stop s00, 0 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /docs.html page at tablet width (834 × 1194), at scroll stop s00, 0 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/docs-html/tablet-s25",
+            "id": "20261022T153422Z-prejury/docs-html/tablet-s25",
             "kind": "scroll",
             "stop": 25,
             "state": null,
@@ -1359,33 +1359,33 @@
             "near": null,
             "at": 0.25,
             "label": "s25",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:46.855Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/docs-html/tablet-s25.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/docs-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:20.469Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/docs-html/tablet-s25.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/docs-html/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/docs-html/tablet-s25-360.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/tablet-s25-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 23432
+              "bytes": 26834
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/docs-html/tablet-s25-360.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/tablet-s25-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 23432
+              "bytes": 26834
             },
-            "alt": "Screenshot of the /docs.html page at tablet width (834 × 1194), at scroll stop s25, 25 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /docs.html page at tablet width (834 × 1194), at scroll stop s25, 25 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/docs-html/tablet-s50",
+            "id": "20261022T153422Z-prejury/docs-html/tablet-s50",
             "kind": "scroll",
             "stop": 50,
             "state": null,
@@ -1393,33 +1393,33 @@
             "near": null,
             "at": 0.5,
             "label": "s50",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:46.855Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/docs-html/tablet-s50.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/docs-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:20.469Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/docs-html/tablet-s50.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/docs-html/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/docs-html/tablet-s50-360.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/tablet-s50-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 17392
+              "bytes": 21690
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/docs-html/tablet-s50-360.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/tablet-s50-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 17392
+              "bytes": 21690
             },
-            "alt": "Screenshot of the /docs.html page at tablet width (834 × 1194), at scroll stop s50, 50 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /docs.html page at tablet width (834 × 1194), at scroll stop s50, 50 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/docs-html/tablet-s75",
+            "id": "20261022T153422Z-prejury/docs-html/tablet-s75",
             "kind": "scroll",
             "stop": 75,
             "state": null,
@@ -1427,33 +1427,33 @@
             "near": null,
             "at": 0.75,
             "label": "s75",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:46.855Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/docs-html/tablet-s75.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/docs-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:20.469Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/docs-html/tablet-s75.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/docs-html/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/docs-html/tablet-s75-360.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/tablet-s75-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 16668
+              "bytes": 21302
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/docs-html/tablet-s75-360.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/tablet-s75-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 16668
+              "bytes": 21302
             },
-            "alt": "Screenshot of the /docs.html page at tablet width (834 × 1194), at scroll stop s75, 75 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /docs.html page at tablet width (834 × 1194), at scroll stop s75, 75 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/docs-html/tablet-s100",
+            "id": "20261022T153422Z-prejury/docs-html/tablet-s100",
             "kind": "scroll",
             "stop": 100,
             "state": null,
@@ -1461,35 +1461,35 @@
             "near": null,
             "at": 1,
             "label": "s100",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:46.855Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/docs-html/tablet-s100.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/docs-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:20.469Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/docs-html/tablet-s100.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/docs-html/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/docs-html/tablet-s100-360.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/tablet-s100-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 13894
+              "bytes": 17776
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/docs-html/tablet-s100-360.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/tablet-s100-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 13894
+              "bytes": 17776
             },
-            "alt": "Screenshot of the /docs.html page at tablet width (834 × 1194), at scroll stop s100, 100 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /docs.html page at tablet width (834 × 1194), at scroll stop s100, 100 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           }
         ],
         "mobile": [
           {
-            "id": "20261022T140258Z-stack/docs-html/mobile-s00",
+            "id": "20261022T153422Z-prejury/docs-html/mobile-s00",
             "kind": "scroll",
             "stop": 0,
             "state": null,
@@ -1497,33 +1497,33 @@
             "near": null,
             "at": 0,
             "label": "s00",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:46.855Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/docs-html/mobile-s00.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/docs-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:20.469Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/docs-html/mobile-s00.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/docs-html/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/docs-html/mobile-s00-360.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/mobile-s00-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 26314
+              "bytes": 25946
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/docs-html/mobile-s00-360.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/mobile-s00-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 26314
+              "bytes": 25946
             },
-            "alt": "Screenshot of the /docs.html page at phone width (390 × 844), at scroll stop s00, 0 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /docs.html page at phone width (390 × 844), at scroll stop s00, 0 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/docs-html/mobile-s25",
+            "id": "20261022T153422Z-prejury/docs-html/mobile-s25",
             "kind": "scroll",
             "stop": 25,
             "state": null,
@@ -1531,33 +1531,33 @@
             "near": null,
             "at": 0.25,
             "label": "s25",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:46.855Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/docs-html/mobile-s25.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/docs-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:20.469Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/docs-html/mobile-s25.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/docs-html/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/docs-html/mobile-s25-360.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/mobile-s25-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 39666
+              "bytes": 38630
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/docs-html/mobile-s25-360.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/mobile-s25-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 39666
+              "bytes": 38630
             },
-            "alt": "Screenshot of the /docs.html page at phone width (390 × 844), at scroll stop s25, 25 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /docs.html page at phone width (390 × 844), at scroll stop s25, 25 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/docs-html/mobile-s50",
+            "id": "20261022T153422Z-prejury/docs-html/mobile-s50",
             "kind": "scroll",
             "stop": 50,
             "state": null,
@@ -1565,33 +1565,33 @@
             "near": null,
             "at": 0.5,
             "label": "s50",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:46.855Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/docs-html/mobile-s50.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/docs-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:20.469Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/docs-html/mobile-s50.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/docs-html/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/docs-html/mobile-s50-360.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/mobile-s50-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 29150
+              "bytes": 25468
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/docs-html/mobile-s50-360.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/mobile-s50-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 29150
+              "bytes": 25468
             },
-            "alt": "Screenshot of the /docs.html page at phone width (390 × 844), at scroll stop s50, 50 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /docs.html page at phone width (390 × 844), at scroll stop s50, 50 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/docs-html/mobile-s75",
+            "id": "20261022T153422Z-prejury/docs-html/mobile-s75",
             "kind": "scroll",
             "stop": 75,
             "state": null,
@@ -1599,33 +1599,33 @@
             "near": null,
             "at": 0.75,
             "label": "s75",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:46.855Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/docs-html/mobile-s75.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/docs-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:20.469Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/docs-html/mobile-s75.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/docs-html/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/docs-html/mobile-s75-360.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/mobile-s75-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 33408
+              "bytes": 32568
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/docs-html/mobile-s75-360.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/mobile-s75-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 33408
+              "bytes": 32568
             },
-            "alt": "Screenshot of the /docs.html page at phone width (390 × 844), at scroll stop s75, 75 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /docs.html page at phone width (390 × 844), at scroll stop s75, 75 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/docs-html/mobile-s100",
+            "id": "20261022T153422Z-prejury/docs-html/mobile-s100",
             "kind": "scroll",
             "stop": 100,
             "state": null,
@@ -1633,29 +1633,29 @@
             "near": null,
             "at": 1,
             "label": "s100",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:03:46.855Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/docs-html/mobile-s100.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/docs-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:20.469Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/docs-html/mobile-s100.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/docs-html/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/docs-html/mobile-s100-360.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/mobile-s100-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 21360
+              "bytes": 19714
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/docs-html/mobile-s100-360.webp",
+              "src": "proof/20261022T153422Z-prejury/docs-html/mobile-s100-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 21360
+              "bytes": 19714
             },
-            "alt": "Screenshot of the /docs.html page at phone width (390 × 844), at scroll stop s100, 100 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /docs.html page at phone width (390 × 844), at scroll stop s100, 100 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           }
         ]
@@ -1666,16 +1666,16 @@
       "name": "recipes",
       "path": "/recipes.html",
       "captures": [
-        "20261022T140258Z-stack"
+        "20261022T153422Z-prejury"
       ],
       "builds": [
-        "0.7.0+e11b790"
+        "0.7.0+6846b08.c57c915"
       ],
-      "caption": "Frames: capture 20261022T140258Z-stack, build 0.7.0+e11b790",
+      "caption": "Frames: capture 20261022T153422Z-prejury, build 0.7.0+6846b08.c57c915",
       "frames": {
         "desktop": [
           {
-            "id": "20261022T140258Z-stack/recipes-html/desktop-s00",
+            "id": "20261022T153422Z-prejury/recipes-html/desktop-s00",
             "kind": "scroll",
             "stop": 0,
             "state": null,
@@ -1683,33 +1683,33 @@
             "near": null,
             "at": 0,
             "label": "s00",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:10.799Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/recipes-html/desktop-s00.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/recipes-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:47.271Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/recipes-html/desktop-s00.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/recipes-html/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/desktop-s00-600.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/desktop-s00-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 13636
+              "bytes": 20912
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/desktop-s00-600.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/desktop-s00-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 13636
+              "bytes": 20912
             },
-            "alt": "Screenshot of the /recipes.html page at desktop width (1440 × 900), at scroll stop s00, 0 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /recipes.html page at desktop width (1440 × 900), at scroll stop s00, 0 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/recipes-html/desktop-s25",
+            "id": "20261022T153422Z-prejury/recipes-html/desktop-s25",
             "kind": "scroll",
             "stop": 25,
             "state": null,
@@ -1717,33 +1717,33 @@
             "near": null,
             "at": 0.25,
             "label": "s25",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:10.799Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/recipes-html/desktop-s25.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/recipes-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:47.271Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/recipes-html/desktop-s25.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/recipes-html/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/desktop-s25-600.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/desktop-s25-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 20184
+              "bytes": 30164
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/desktop-s25-600.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/desktop-s25-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 20184
+              "bytes": 30164
             },
-            "alt": "Screenshot of the /recipes.html page at desktop width (1440 × 900), at scroll stop s25, 25 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /recipes.html page at desktop width (1440 × 900), at scroll stop s25, 25 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/recipes-html/desktop-s50",
+            "id": "20261022T153422Z-prejury/recipes-html/desktop-s50",
             "kind": "scroll",
             "stop": 50,
             "state": null,
@@ -1751,33 +1751,33 @@
             "near": null,
             "at": 0.5,
             "label": "s50",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:10.799Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/recipes-html/desktop-s50.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/recipes-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:47.271Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/recipes-html/desktop-s50.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/recipes-html/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/desktop-s50-600.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/desktop-s50-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 24414
+              "bytes": 22672
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/desktop-s50-600.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/desktop-s50-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 24414
+              "bytes": 22672
             },
-            "alt": "Screenshot of the /recipes.html page at desktop width (1440 × 900), at scroll stop s50, 50 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /recipes.html page at desktop width (1440 × 900), at scroll stop s50, 50 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/recipes-html/desktop-s75",
+            "id": "20261022T153422Z-prejury/recipes-html/desktop-s75",
             "kind": "scroll",
             "stop": 75,
             "state": null,
@@ -1785,33 +1785,33 @@
             "near": null,
             "at": 0.75,
             "label": "s75",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:10.799Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/recipes-html/desktop-s75.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/recipes-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:47.271Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/recipes-html/desktop-s75.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/recipes-html/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/desktop-s75-600.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/desktop-s75-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 28324
+              "bytes": 29896
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/desktop-s75-600.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/desktop-s75-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 28324
+              "bytes": 29896
             },
-            "alt": "Screenshot of the /recipes.html page at desktop width (1440 × 900), at scroll stop s75, 75 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /recipes.html page at desktop width (1440 × 900), at scroll stop s75, 75 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/recipes-html/desktop-s100",
+            "id": "20261022T153422Z-prejury/recipes-html/desktop-s100",
             "kind": "scroll",
             "stop": 100,
             "state": null,
@@ -1819,35 +1819,35 @@
             "near": null,
             "at": 1,
             "label": "s100",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:10.799Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/recipes-html/desktop-s100.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/recipes-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:47.271Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/recipes-html/desktop-s100.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/recipes-html/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/desktop-s100-600.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/desktop-s100-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 12322
+              "bytes": 16826
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/desktop-s100-600.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/desktop-s100-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 12322
+              "bytes": 16826
             },
-            "alt": "Screenshot of the /recipes.html page at desktop width (1440 × 900), at scroll stop s100, 100 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /recipes.html page at desktop width (1440 × 900), at scroll stop s100, 100 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           }
         ],
         "tablet": [
           {
-            "id": "20261022T140258Z-stack/recipes-html/tablet-s00",
+            "id": "20261022T153422Z-prejury/recipes-html/tablet-s00",
             "kind": "scroll",
             "stop": 0,
             "state": null,
@@ -1855,33 +1855,33 @@
             "near": null,
             "at": 0,
             "label": "s00",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:10.799Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/recipes-html/tablet-s00.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/recipes-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:47.271Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/recipes-html/tablet-s00.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/recipes-html/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/tablet-s00-360.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/tablet-s00-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 16670
+              "bytes": 21502
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/tablet-s00-360.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/tablet-s00-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 16670
+              "bytes": 21502
             },
-            "alt": "Screenshot of the /recipes.html page at tablet width (834 × 1194), at scroll stop s00, 0 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /recipes.html page at tablet width (834 × 1194), at scroll stop s00, 0 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/recipes-html/tablet-s25",
+            "id": "20261022T153422Z-prejury/recipes-html/tablet-s25",
             "kind": "scroll",
             "stop": 25,
             "state": null,
@@ -1889,33 +1889,33 @@
             "near": null,
             "at": 0.25,
             "label": "s25",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:10.799Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/recipes-html/tablet-s25.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/recipes-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:47.271Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/recipes-html/tablet-s25.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/recipes-html/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/tablet-s25-360.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/tablet-s25-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 21078
+              "bytes": 25712
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/tablet-s25-360.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/tablet-s25-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 21078
+              "bytes": 25712
             },
-            "alt": "Screenshot of the /recipes.html page at tablet width (834 × 1194), at scroll stop s25, 25 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /recipes.html page at tablet width (834 × 1194), at scroll stop s25, 25 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/recipes-html/tablet-s50",
+            "id": "20261022T153422Z-prejury/recipes-html/tablet-s50",
             "kind": "scroll",
             "stop": 50,
             "state": null,
@@ -1923,33 +1923,33 @@
             "near": null,
             "at": 0.5,
             "label": "s50",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:10.799Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/recipes-html/tablet-s50.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/recipes-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:47.271Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/recipes-html/tablet-s50.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/recipes-html/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/tablet-s50-360.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/tablet-s50-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 21460
+              "bytes": 29032
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/tablet-s50-360.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/tablet-s50-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 21460
+              "bytes": 29032
             },
-            "alt": "Screenshot of the /recipes.html page at tablet width (834 × 1194), at scroll stop s50, 50 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /recipes.html page at tablet width (834 × 1194), at scroll stop s50, 50 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/recipes-html/tablet-s75",
+            "id": "20261022T153422Z-prejury/recipes-html/tablet-s75",
             "kind": "scroll",
             "stop": 75,
             "state": null,
@@ -1957,33 +1957,33 @@
             "near": null,
             "at": 0.75,
             "label": "s75",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:10.799Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/recipes-html/tablet-s75.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/recipes-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:47.271Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/recipes-html/tablet-s75.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/recipes-html/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/tablet-s75-360.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/tablet-s75-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 26020
+              "bytes": 31218
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/tablet-s75-360.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/tablet-s75-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 26020
+              "bytes": 31218
             },
-            "alt": "Screenshot of the /recipes.html page at tablet width (834 × 1194), at scroll stop s75, 75 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /recipes.html page at tablet width (834 × 1194), at scroll stop s75, 75 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/recipes-html/tablet-s100",
+            "id": "20261022T153422Z-prejury/recipes-html/tablet-s100",
             "kind": "scroll",
             "stop": 100,
             "state": null,
@@ -1991,35 +1991,35 @@
             "near": null,
             "at": 1,
             "label": "s100",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:10.799Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/recipes-html/tablet-s100.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/recipes-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:47.271Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/recipes-html/tablet-s100.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/recipes-html/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/tablet-s100-360.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/tablet-s100-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 11816
+              "bytes": 17056
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/tablet-s100-360.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/tablet-s100-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 11816
+              "bytes": 17056
             },
-            "alt": "Screenshot of the /recipes.html page at tablet width (834 × 1194), at scroll stop s100, 100 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /recipes.html page at tablet width (834 × 1194), at scroll stop s100, 100 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           }
         ],
         "mobile": [
           {
-            "id": "20261022T140258Z-stack/recipes-html/mobile-s00",
+            "id": "20261022T153422Z-prejury/recipes-html/mobile-s00",
             "kind": "scroll",
             "stop": 0,
             "state": null,
@@ -2027,33 +2027,33 @@
             "near": null,
             "at": 0,
             "label": "s00",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:10.799Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/recipes-html/mobile-s00.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/recipes-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:47.271Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/recipes-html/mobile-s00.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/recipes-html/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/mobile-s00-360.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/mobile-s00-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 28504
+              "bytes": 28154
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/mobile-s00-360.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/mobile-s00-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 28504
+              "bytes": 28154
             },
-            "alt": "Screenshot of the /recipes.html page at phone width (390 × 844), at scroll stop s00, 0 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /recipes.html page at phone width (390 × 844), at scroll stop s00, 0 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/recipes-html/mobile-s25",
+            "id": "20261022T153422Z-prejury/recipes-html/mobile-s25",
             "kind": "scroll",
             "stop": 25,
             "state": null,
@@ -2061,33 +2061,33 @@
             "near": null,
             "at": 0.25,
             "label": "s25",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:10.799Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/recipes-html/mobile-s25.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/recipes-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:47.271Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/recipes-html/mobile-s25.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/recipes-html/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/mobile-s25-360.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/mobile-s25-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 20508
+              "bytes": 19782
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/mobile-s25-360.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/mobile-s25-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 20508
+              "bytes": 19782
             },
-            "alt": "Screenshot of the /recipes.html page at phone width (390 × 844), at scroll stop s25, 25 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /recipes.html page at phone width (390 × 844), at scroll stop s25, 25 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/recipes-html/mobile-s50",
+            "id": "20261022T153422Z-prejury/recipes-html/mobile-s50",
             "kind": "scroll",
             "stop": 50,
             "state": null,
@@ -2095,33 +2095,33 @@
             "near": null,
             "at": 0.5,
             "label": "s50",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:10.799Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/recipes-html/mobile-s50.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/recipes-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:47.271Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/recipes-html/mobile-s50.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/recipes-html/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/mobile-s50-360.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/mobile-s50-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 32778
+              "bytes": 32192
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/mobile-s50-360.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/mobile-s50-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 32778
+              "bytes": 32192
             },
-            "alt": "Screenshot of the /recipes.html page at phone width (390 × 844), at scroll stop s50, 50 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /recipes.html page at phone width (390 × 844), at scroll stop s50, 50 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/recipes-html/mobile-s75",
+            "id": "20261022T153422Z-prejury/recipes-html/mobile-s75",
             "kind": "scroll",
             "stop": 75,
             "state": null,
@@ -2129,33 +2129,33 @@
             "near": null,
             "at": 0.75,
             "label": "s75",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:10.799Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/recipes-html/mobile-s75.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/recipes-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:47.271Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/recipes-html/mobile-s75.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/recipes-html/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/mobile-s75-360.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/mobile-s75-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 37508
+              "bytes": 39110
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/mobile-s75-360.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/mobile-s75-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 37508
+              "bytes": 39110
             },
-            "alt": "Screenshot of the /recipes.html page at phone width (390 × 844), at scroll stop s75, 75 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /recipes.html page at phone width (390 × 844), at scroll stop s75, 75 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/recipes-html/mobile-s100",
+            "id": "20261022T153422Z-prejury/recipes-html/mobile-s100",
             "kind": "scroll",
             "stop": 100,
             "state": null,
@@ -2163,29 +2163,29 @@
             "near": null,
             "at": 1,
             "label": "s100",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:10.799Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/recipes-html/mobile-s100.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/recipes-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:35:47.271Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/recipes-html/mobile-s100.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/recipes-html/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/mobile-s100-360.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/mobile-s100-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 21152
+              "bytes": 19514
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/recipes-html/mobile-s100-360.webp",
+              "src": "proof/20261022T153422Z-prejury/recipes-html/mobile-s100-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 21152
+              "bytes": 19514
             },
-            "alt": "Screenshot of the /recipes.html page at phone width (390 × 844), at scroll stop s100, 100 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /recipes.html page at phone width (390 × 844), at scroll stop s100, 100 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           }
         ]
@@ -2196,16 +2196,16 @@
       "name": "404",
       "path": "/404.html",
       "captures": [
-        "20261022T140258Z-stack"
+        "20261022T153422Z-prejury"
       ],
       "builds": [
-        "0.7.0+e11b790"
+        "0.7.0+6846b08.c57c915"
       ],
-      "caption": "Frames: capture 20261022T140258Z-stack, build 0.7.0+e11b790",
+      "caption": "Frames: capture 20261022T153422Z-prejury, build 0.7.0+6846b08.c57c915",
       "frames": {
         "desktop": [
           {
-            "id": "20261022T140258Z-stack/404-html/desktop-s00",
+            "id": "20261022T153422Z-prejury/404-html/desktop-s00",
             "kind": "scroll",
             "stop": 0,
             "state": null,
@@ -2213,33 +2213,33 @@
             "near": null,
             "at": 0,
             "label": "s00",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:35.281Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/404-html/desktop-s00.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/404-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:36:14.699Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/404-html/desktop-s00.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/404-html/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/404-html/desktop-s00-600.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/desktop-s00-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 11882
+              "bytes": 16384
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/404-html/desktop-s00-600.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/desktop-s00-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 11882
+              "bytes": 16384
             },
-            "alt": "Screenshot of the /404.html page at desktop width (1440 × 900), at scroll stop s00, 0 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /404.html page at desktop width (1440 × 900), at scroll stop s00, 0 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/404-html/desktop-s25",
+            "id": "20261022T153422Z-prejury/404-html/desktop-s25",
             "kind": "scroll",
             "stop": 25,
             "state": null,
@@ -2247,33 +2247,33 @@
             "near": null,
             "at": 0.25,
             "label": "s25",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:35.281Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/404-html/desktop-s25.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/404-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:36:14.699Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/404-html/desktop-s25.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/404-html/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/404-html/desktop-s25-600.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/desktop-s25-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 10654
+              "bytes": 15540
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/404-html/desktop-s25-600.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/desktop-s25-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 10654
+              "bytes": 15540
             },
-            "alt": "Screenshot of the /404.html page at desktop width (1440 × 900), at scroll stop s25, 25 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /404.html page at desktop width (1440 × 900), at scroll stop s25, 25 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/404-html/desktop-s50",
+            "id": "20261022T153422Z-prejury/404-html/desktop-s50",
             "kind": "scroll",
             "stop": 50,
             "state": null,
@@ -2281,33 +2281,33 @@
             "near": null,
             "at": 0.5,
             "label": "s50",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:35.281Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/404-html/desktop-s50.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/404-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:36:14.699Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/404-html/desktop-s50.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/404-html/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/404-html/desktop-s50-600.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/desktop-s50-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 9058
+              "bytes": 13784
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/404-html/desktop-s50-600.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/desktop-s50-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 9058
+              "bytes": 13784
             },
-            "alt": "Screenshot of the /404.html page at desktop width (1440 × 900), at scroll stop s50, 50 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /404.html page at desktop width (1440 × 900), at scroll stop s50, 50 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/404-html/desktop-s75",
+            "id": "20261022T153422Z-prejury/404-html/desktop-s75",
             "kind": "scroll",
             "stop": 75,
             "state": null,
@@ -2315,33 +2315,33 @@
             "near": null,
             "at": 0.75,
             "label": "s75",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:35.281Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/404-html/desktop-s75.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/404-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:36:14.699Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/404-html/desktop-s75.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/404-html/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/404-html/desktop-s75-600.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/desktop-s75-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 10766
+              "bytes": 14650
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/404-html/desktop-s75-600.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/desktop-s75-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 10766
+              "bytes": 14650
             },
-            "alt": "Screenshot of the /404.html page at desktop width (1440 × 900), at scroll stop s75, 75 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /404.html page at desktop width (1440 × 900), at scroll stop s75, 75 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/404-html/desktop-s100",
+            "id": "20261022T153422Z-prejury/404-html/desktop-s100",
             "kind": "scroll",
             "stop": 100,
             "state": null,
@@ -2349,35 +2349,35 @@
             "near": null,
             "at": 1,
             "label": "s100",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:35.281Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/404-html/desktop-s100.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/404-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:36:14.699Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/404-html/desktop-s100.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/404-html/manifest.json",
             "viewport": {
               "width": 1440,
               "height": 900
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/404-html/desktop-s100-600.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/desktop-s100-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 10038
+              "bytes": 14258
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/404-html/desktop-s100-600.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/desktop-s100-600.webp",
               "width": 600,
               "height": 375,
-              "bytes": 10038
+              "bytes": 14258
             },
-            "alt": "Screenshot of the /404.html page at desktop width (1440 × 900), at scroll stop s100, 100 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /404.html page at desktop width (1440 × 900), at scroll stop s100, 100 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           }
         ],
         "tablet": [
           {
-            "id": "20261022T140258Z-stack/404-html/tablet-s00",
+            "id": "20261022T153422Z-prejury/404-html/tablet-s00",
             "kind": "scroll",
             "stop": 0,
             "state": null,
@@ -2385,33 +2385,33 @@
             "near": null,
             "at": 0,
             "label": "s00",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:35.281Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/404-html/tablet-s00.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/404-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:36:14.699Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/404-html/tablet-s00.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/404-html/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/404-html/tablet-s00-360.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/tablet-s00-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 13496
+              "bytes": 17792
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/404-html/tablet-s00-360.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/tablet-s00-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 13496
+              "bytes": 17792
             },
-            "alt": "Screenshot of the /404.html page at tablet width (834 × 1194), at scroll stop s00, 0 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /404.html page at tablet width (834 × 1194), at scroll stop s00, 0 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/404-html/tablet-s25",
+            "id": "20261022T153422Z-prejury/404-html/tablet-s25",
             "kind": "scroll",
             "stop": 25,
             "state": null,
@@ -2419,33 +2419,33 @@
             "near": null,
             "at": 0.25,
             "label": "s25",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:35.281Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/404-html/tablet-s25.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/404-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:36:14.699Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/404-html/tablet-s25.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/404-html/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/404-html/tablet-s25-360.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/tablet-s25-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 13968
+              "bytes": 18068
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/404-html/tablet-s25-360.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/tablet-s25-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 13968
+              "bytes": 18068
             },
-            "alt": "Screenshot of the /404.html page at tablet width (834 × 1194), at scroll stop s25, 25 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /404.html page at tablet width (834 × 1194), at scroll stop s25, 25 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/404-html/tablet-s50",
+            "id": "20261022T153422Z-prejury/404-html/tablet-s50",
             "kind": "scroll",
             "stop": 50,
             "state": null,
@@ -2453,33 +2453,33 @@
             "near": null,
             "at": 0.5,
             "label": "s50",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:35.281Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/404-html/tablet-s50.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/404-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:36:14.699Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/404-html/tablet-s50.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/404-html/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/404-html/tablet-s50-360.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/tablet-s50-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 13720
+              "bytes": 17066
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/404-html/tablet-s50-360.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/tablet-s50-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 13720
+              "bytes": 17066
             },
-            "alt": "Screenshot of the /404.html page at tablet width (834 × 1194), at scroll stop s50, 50 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /404.html page at tablet width (834 × 1194), at scroll stop s50, 50 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/404-html/tablet-s75",
+            "id": "20261022T153422Z-prejury/404-html/tablet-s75",
             "kind": "scroll",
             "stop": 75,
             "state": null,
@@ -2487,33 +2487,33 @@
             "near": null,
             "at": 0.75,
             "label": "s75",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:35.281Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/404-html/tablet-s75.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/404-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:36:14.699Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/404-html/tablet-s75.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/404-html/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/404-html/tablet-s75-360.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/tablet-s75-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 13370
+              "bytes": 16138
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/404-html/tablet-s75-360.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/tablet-s75-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 13370
+              "bytes": 16138
             },
-            "alt": "Screenshot of the /404.html page at tablet width (834 × 1194), at scroll stop s75, 75 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /404.html page at tablet width (834 × 1194), at scroll stop s75, 75 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/404-html/tablet-s100",
+            "id": "20261022T153422Z-prejury/404-html/tablet-s100",
             "kind": "scroll",
             "stop": 100,
             "state": null,
@@ -2521,35 +2521,35 @@
             "near": null,
             "at": 1,
             "label": "s100",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:35.281Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/404-html/tablet-s100.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/404-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:36:14.699Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/404-html/tablet-s100.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/404-html/manifest.json",
             "viewport": {
               "width": 834,
               "height": 1194
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/404-html/tablet-s100-360.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/tablet-s100-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 12352
+              "bytes": 17036
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/404-html/tablet-s100-360.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/tablet-s100-360.webp",
               "width": 360,
               "height": 515,
-              "bytes": 12352
+              "bytes": 17036
             },
-            "alt": "Screenshot of the /404.html page at tablet width (834 × 1194), at scroll stop s100, 100 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /404.html page at tablet width (834 × 1194), at scroll stop s100, 100 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           }
         ],
         "mobile": [
           {
-            "id": "20261022T140258Z-stack/404-html/mobile-s00",
+            "id": "20261022T153422Z-prejury/404-html/mobile-s00",
             "kind": "scroll",
             "stop": 0,
             "state": null,
@@ -2557,33 +2557,33 @@
             "near": null,
             "at": 0,
             "label": "s00",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:35.281Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/404-html/mobile-s00.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/404-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:36:14.699Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/404-html/mobile-s00.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/404-html/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/404-html/mobile-s00-360.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/mobile-s00-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 23146
+              "bytes": 22852
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/404-html/mobile-s00-360.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/mobile-s00-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 23146
+              "bytes": 22852
             },
-            "alt": "Screenshot of the /404.html page at phone width (390 × 844), at scroll stop s00, 0 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /404.html page at phone width (390 × 844), at scroll stop s00, 0 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/404-html/mobile-s25",
+            "id": "20261022T153422Z-prejury/404-html/mobile-s25",
             "kind": "scroll",
             "stop": 25,
             "state": null,
@@ -2591,33 +2591,33 @@
             "near": null,
             "at": 0.25,
             "label": "s25",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:35.281Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/404-html/mobile-s25.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/404-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:36:14.699Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/404-html/mobile-s25.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/404-html/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": true,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/404-html/mobile-s25-360.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/mobile-s25-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 21706
+              "bytes": 20882
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/404-html/mobile-s25-360.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/mobile-s25-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 21706
+              "bytes": 20882
             },
-            "alt": "Screenshot of the /404.html page at phone width (390 × 844), at scroll stop s25, 25 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /404.html page at phone width (390 × 844), at scroll stop s25, 25 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/404-html/mobile-s50",
+            "id": "20261022T153422Z-prejury/404-html/mobile-s50",
             "kind": "scroll",
             "stop": 50,
             "state": null,
@@ -2625,33 +2625,33 @@
             "near": null,
             "at": 0.5,
             "label": "s50",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:35.281Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/404-html/mobile-s50.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/404-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:36:14.699Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/404-html/mobile-s50.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/404-html/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/404-html/mobile-s50-360.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/mobile-s50-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 19288
+              "bytes": 16626
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/404-html/mobile-s50-360.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/mobile-s50-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 19288
+              "bytes": 16626
             },
-            "alt": "Screenshot of the /404.html page at phone width (390 × 844), at scroll stop s50, 50 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /404.html page at phone width (390 × 844), at scroll stop s50, 50 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/404-html/mobile-s75",
+            "id": "20261022T153422Z-prejury/404-html/mobile-s75",
             "kind": "scroll",
             "stop": 75,
             "state": null,
@@ -2659,33 +2659,33 @@
             "near": null,
             "at": 0.75,
             "label": "s75",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:35.281Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/404-html/mobile-s75.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/404-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:36:14.699Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/404-html/mobile-s75.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/404-html/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/404-html/mobile-s75-360.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/mobile-s75-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 20122
+              "bytes": 17918
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/404-html/mobile-s75-360.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/mobile-s75-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 20122
+              "bytes": 17918
             },
-            "alt": "Screenshot of the /404.html page at phone width (390 × 844), at scroll stop s75, 75 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /404.html page at phone width (390 × 844), at scroll stop s75, 75 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           },
           {
-            "id": "20261022T140258Z-stack/404-html/mobile-s100",
+            "id": "20261022T153422Z-prejury/404-html/mobile-s100",
             "kind": "scroll",
             "stop": 100,
             "state": null,
@@ -2693,29 +2693,29 @@
             "near": null,
             "at": 1,
             "label": "s100",
-            "capture": "20261022T140258Z-stack",
-            "capturedAt": "2026-10-22T14:04:35.281Z",
-            "build": "0.7.0+e11b790",
-            "source": ".awards/captures/20261022T140258Z-stack/404-html/mobile-s100.png",
-            "manifest": ".awards/captures/20261022T140258Z-stack/404-html/manifest.json",
+            "capture": "20261022T153422Z-prejury",
+            "capturedAt": "2026-10-22T15:36:14.699Z",
+            "build": "0.7.0+6846b08.c57c915",
+            "source": ".awards/captures/20261022T153422Z-prejury/404-html/mobile-s100.png",
+            "manifest": ".awards/captures/20261022T153422Z-prejury/404-html/manifest.json",
             "viewport": {
               "width": 390,
               "height": 844
             },
             "eager": false,
             "strip": {
-              "src": "proof/20261022T140258Z-stack/404-html/mobile-s100-360.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/mobile-s100-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 21118
+              "bytes": 19514
             },
             "full": {
-              "src": "proof/20261022T140258Z-stack/404-html/mobile-s100-360.webp",
+              "src": "proof/20261022T153422Z-prejury/404-html/mobile-s100-360.webp",
               "width": 360,
               "height": 779,
-              "bytes": 21118
+              "bytes": 19514
             },
-            "alt": "Screenshot of the /404.html page at phone width (390 × 844), at scroll stop s100, 100 % down; capture 20261022T140258Z-stack.",
+            "alt": "Screenshot of the /404.html page at phone width (390 × 844), at scroll stop s100, 100 % down; capture 20261022T153422Z-prejury.",
             "marks": []
           }
         ]
@@ -2728,8 +2728,8 @@
       {
         "route": "home",
         "path": "/",
-        "manifest": ".awards/captures/20261022T140258Z-stack/home/manifest.json",
-        "capturedAt": "2026-10-22T14:02:59.083Z",
+        "manifest": ".awards/captures/20261022T153422Z-prejury/home/manifest.json",
+        "capturedAt": "2026-10-22T15:34:22.978Z",
         "pageErrors": 0,
         "consoleErrors": 0,
         "failedRequests": 0,
@@ -2759,8 +2759,8 @@
       {
         "route": "install-html",
         "path": "/install.html",
-        "manifest": ".awards/captures/20261022T140258Z-stack/install-html/manifest.json",
-        "capturedAt": "2026-10-22T14:03:23.066Z",
+        "manifest": ".awards/captures/20261022T153422Z-prejury/install-html/manifest.json",
+        "capturedAt": "2026-10-22T15:34:53.731Z",
         "pageErrors": 0,
         "consoleErrors": 0,
         "failedRequests": 0,
@@ -2790,8 +2790,8 @@
       {
         "route": "docs-html",
         "path": "/docs.html",
-        "manifest": ".awards/captures/20261022T140258Z-stack/docs-html/manifest.json",
-        "capturedAt": "2026-10-22T14:03:46.855Z",
+        "manifest": ".awards/captures/20261022T153422Z-prejury/docs-html/manifest.json",
+        "capturedAt": "2026-10-22T15:35:20.469Z",
         "pageErrors": 0,
         "consoleErrors": 0,
         "failedRequests": 0,
@@ -2821,8 +2821,8 @@
       {
         "route": "recipes-html",
         "path": "/recipes.html",
-        "manifest": ".awards/captures/20261022T140258Z-stack/recipes-html/manifest.json",
-        "capturedAt": "2026-10-22T14:04:10.799Z",
+        "manifest": ".awards/captures/20261022T153422Z-prejury/recipes-html/manifest.json",
+        "capturedAt": "2026-10-22T15:35:47.271Z",
         "pageErrors": 0,
         "consoleErrors": 0,
         "failedRequests": 0,
@@ -2839,8 +2839,8 @@
           },
           "mobile": {
             "cls": 0,
-            "blockingMs": 0,
-            "longTasks": 0
+            "blockingMs": 3,
+            "longTasks": 1
           },
           "desktop-rm": {
             "cls": 0,
@@ -2852,8 +2852,8 @@
       {
         "route": "404-html",
         "path": "/404.html",
-        "manifest": ".awards/captures/20261022T140258Z-stack/404-html/manifest.json",
-        "capturedAt": "2026-10-22T14:04:35.281Z",
+        "manifest": ".awards/captures/20261022T153422Z-prejury/404-html/manifest.json",
+        "capturedAt": "2026-10-22T15:36:14.699Z",
         "pageErrors": 0,
         "consoleErrors": 0,
         "failedRequests": 0,
@@ -2883,15 +2883,15 @@
     ],
     "max": {
       "cls": 0,
-      "blockingMs": 0
+      "blockingMs": 3
     },
     "pageErrors": 0
   },
   "audit": {
     "file": ".awards/audit.json",
-    "date": "2026-10-22T14:05:22.359Z",
+    "date": "2026-10-22T15:34:14.659Z",
     "target": ".",
-    "scannedFiles": 28,
+    "scannedFiles": 34,
     "summary": {
       "P0": 0,
       "P1": 0,
@@ -2903,23 +2903,23 @@
       "axe": "axe-core 4.14.0",
       "viewports": {
         "desktop": {
-          "textsMeasured": 186,
+          "textsMeasured": 218,
           "textsOverImagery": 0,
           "clsLoad": 0,
-          "focusStops": 7,
-          "sweepSteps": 14
+          "focusStops": 8,
+          "sweepSteps": 19
         },
         "tablet": {
-          "textsMeasured": 186,
+          "textsMeasured": 218,
           "textsOverImagery": 0,
           "clsLoad": 0,
-          "sweepSteps": 12
+          "sweepSteps": 15
         },
         "mobile": {
-          "textsMeasured": 183,
+          "textsMeasured": 212,
           "textsOverImagery": 0,
           "clsLoad": 0,
-          "sweepSteps": 20
+          "sweepSteps": 28
         }
       }
     }
@@ -2927,7 +2927,7 @@
   "summary": {
     "frames": 75,
     "files": 78,
-    "bytes": 1668520,
+    "bytes": 1886310,
     "marks": {
       "ring": 0,
       "cross": 0,

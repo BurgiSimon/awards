@@ -1,0 +1,114 @@
+[
+ {
+  "name": "frames-open",
+  "actions": [
+   {
+    "type": "click",
+    "selector": ".frames-disclosure summary"
+   },
+   {
+    "type": "waitFor",
+    "selector": ".frames-disclosure__panel"
+   },
+   {
+    "type": "wait",
+    "ms": 300
+   }
+  ]
+ },
+ {
+  "name": "frames-jump",
+  "actions": [
+   {
+    "type": "click",
+    "selector": ".frames-disclosure summary"
+   },
+   {
+    "type": "waitFor",
+    "selector": ".frames-disclosure__panel"
+   },
+   {
+    "type": "click",
+    "selector": ".frames-disclosure__list a[data-at=\"0.5\"]"
+   },
+   {
+    "type": "waitFor",
+    "selector": ".frames-disclosure__panel",
+    "state": "hidden"
+   },
+   {
+    "type": "wait",
+    "ms": 600
+   }
+  ]
+ },
+ {
+  "name": "frames-escape",
+  "actions": [
+   {
+    "type": "click",
+    "selector": ".frames-disclosure summary"
+   },
+   {
+    "type": "waitFor",
+    "selector": ".frames-disclosure__panel"
+   },
+   {
+    "type": "press",
+    "key": "Escape"
+   },
+   {
+    "type": "waitFor",
+    "selector": ".frames-disclosure__panel",
+    "state": "hidden"
+   },
+   {
+    "type": "waitFor",
+    "selector": ".frames-disclosure summary:focus"
+   },
+   {
+    "type": "wait",
+    "ms": 300
+   }
+  ]
+ },
+ {
+  "name": "copy-tap",
+  "actions": [
+   {
+    "type": "click",
+    "selector": "#select-open .ticket__row:first-of-type li:first-child button[data-copy]"
+   },
+   {
+    "type": "waitFor",
+    "selector": "#select-open .ticket__refused"
+   },
+   {
+    "type": "wait",
+    "ms": 300
+   }
+  ]
+ },
+ {
+  "name": "copy-tap-after",
+  "actions": [
+   {
+    "type": "click",
+    "selector": "#select-open .ticket__row:first-of-type li:first-child button[data-copy]"
+   },
+   {
+    "type": "waitFor",
+    "selector": "#select-open .ticket__row:first-of-type li:first-child button[data-copy][data-state]"
+   },
+   {
+    "type": "waitFor",
+    "selector": "#select-open .ticket__row:first-of-type li:first-child button[data-copy]:not([data-state])",
+    "timeout": 9000
+   },
+   {
+    "type": "wait",
+    "ms": 300
+   }
+  ]
+ }
+]

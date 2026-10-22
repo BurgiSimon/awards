@@ -14,7 +14,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Script-only controls keep their place from the first paint (no shift when the module wires them up). -->
-  <script>(function(d){d.classList.add('js');if(navigator.clipboard&&window.isSecureContext)d.classList.add('can-copy');if(window.HTMLDialogElement)d.classList.add('can-dialog')})(document.documentElement)</script>
+  <script>(function(d){d.classList.add('js');if(navigator.clipboard&&window.isSecureContext)d.classList.add('can-copy');if(window.HTMLDialogElement)d.classList.add('can-dialog');
+    var still=matchMedia('(prefers-reduced-motion: reduce)').matches||/^(reduced|static)$/.test(d.dataset.motion||'');
+    addEventListener('pagereveal',function(e){var t=e.viewTransition;window.__vt={ran:!!t,skipped:false,finished:false};if(!t)return;if(still){t.skipTransition();window.__vt.skipped=true}t.finished.then(function(){window.__vt.finished=true},function(){})});
+    /* The first viewport's moment and the jury's marks wait hidden from the first paint, in the full tier only and
+       only when this session has not seen them; src/motion/index.js takes over at once (AWARDS.md ## Motion score). */
+    try{if(!still&&!sessionStorage.getItem('awards:hero'))d.classList.add('draw-hero');if(!still&&d.dataset.proof==='report')d.classList.add('draw-marks')}catch(e){}
+  })(document.documentElement)</script>
+  <!-- Cross-document View Transitions (motion score: Transitions): the opt-in sits inline, ahead of every external file,
+       so the arriving page knows it opts in; inside the motion query, so reduced motion gets a plain navigation. -->
+  <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
   <title>awards · your site, proofed before anyone sees it</title>
   <meta name="description" content="A plugin for Claude Code and Codex that builds a website to a written contract, runs 89 audit rules after every edit, captures the page at three widths and hands it to a juror in a fresh context." data-fact-attr="content:rules">
   <link rel="canonical" href="./">

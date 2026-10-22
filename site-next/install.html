@@ -5,7 +5,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Script-only controls keep their place from the first paint (no shift when the module wires them up). -->
-  <script>(function(d){d.classList.add('js');if(navigator.clipboard&&window.isSecureContext)d.classList.add('can-copy');if(window.HTMLDialogElement)d.classList.add('can-dialog')})(document.documentElement)</script>
+  <script>(function(d){d.classList.add('js');if(navigator.clipboard&&window.isSecureContext)d.classList.add('can-copy');if(window.HTMLDialogElement)d.classList.add('can-dialog');
+    var still=matchMedia('(prefers-reduced-motion: reduce)').matches||/^(reduced|static)$/.test(d.dataset.motion||'');
+    addEventListener('pagereveal',function(e){var t=e.viewTransition;window.__vt={ran:!!t,skipped:false,finished:false};if(!t)return;if(still){t.skipTransition();window.__vt.skipped=true}t.finished.then(function(){window.__vt.finished=true},function(){})});
+  })(document.documentElement)</script>
+  <!-- Cross-document View Transitions (motion score: Transitions): the opt-in sits inline, ahead of every external file,
+       so the arriving page knows it opts in; inside the motion query, so reduced motion gets a plain navigation. -->
+  <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
   <title>Install · awards</title>
   <meta name="description" content="Install the awards plugin in Claude Code or Codex with two commands, then the requirements: Node 22.12 or 24 LTS, and Playwright with Chromium for captures.">
   <link rel="canonical" href="./install.html">

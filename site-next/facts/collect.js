@@ -1,6 +1,7 @@
 // Build-time facts: every count, list and command the site prints is read here from the plugin repository, so the
 // page cannot drift from it. Nothing is cached across builds; the dev server re-reads on every page request.
-import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { resolve, dirname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
@@ -35,19 +36,58 @@ const LIBRARIES = [
 class FactError extends Error {}
 export const fail = (message) => { throw new FactError(`facts: ${message}`); };
 
-// "version+hash": the plugin's manifest version and the repository's short commit, so every capture manifest
-// records which build it shot. The working tree's state rides beside it, never inside it.
-export function buildInfo(version) {
+// The site's own build inputs: the five pages, the sources, the facts plugin, the public files (frames included)
+// and the build config. dist/, node_modules/ and .awards/ are outputs or evidence, never inputs.
+const SOURCE_ROOTS = ['index.html', 'install.html', 'docs.html', 'recipes.html', '404.html', 'src', 'facts', 'public', 'vite.config.js', 'package.json', 'package-lock.json'];
+
+function sourceFiles() {
+  const out = [];
+  const walk = (rel) => {
+    const abs = resolve(siteRoot, rel);
+    if (!existsSync(abs)) return;
+    if (statSync(abs).isDirectory()) {
+      for (const name of readdirSync(abs).sort()) walk(`${rel}/${name}`);
+    } else out.push(rel);
+  };
+  for (const r of SOURCE_ROOTS) walk(r);
+  return out;
+}
+
+// Git's own blob id for a file's bytes, so the working tree can be compared with HEAD without trusting the index
+// (an assume-unchanged flag hides an edit from `git status`, never from this).
+const blobId = (buf) => createHash('sha1').update(`blob ${buf.length}\0`).update(buf).digest('hex');
+
+// "version+commit.sources": the plugin's manifest version, the repository's short commit, and a digest of the
+// site's own inputs plus every fact the page prints. Two builds that print anything different carry different ids,
+// committed or not, so a capture manifest names exactly the build it shot and the strip's caption can tell the
+// frames' build from the one being read (component jury, 2026-10-22). `dirty` compares the site's files with HEAD
+// byte for byte and adds the plugin's tracked changes.
+export function buildInfo(version, factsDigest = '') {
   let hash = null;
   let dirty = null;
+  const files = sourceFiles();
+  const digest = createHash('sha256');
+  const bytes = new Map();
+  for (const rel of files) {
+    const buf = readFileSync(resolve(siteRoot, rel));
+    bytes.set(rel, buf);
+    digest.update(`${rel}\0${buf.length}\0`).update(buf);
+  }
+  digest.update(`facts\0${factsDigest}`);
+  const sources = digest.digest('hex').slice(0, 7);
   try {
     hash = execFileSync('git', ['rev-parse', '--short', 'HEAD'], { cwd: repoRoot, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim();
-    // The page reads the plugin as well as its own sources, so the whole repository decides "dirty".
-    dirty = execFileSync('git', ['status', '--porcelain', '--untracked-files=no'], { cwd: repoRoot, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim().length > 0;
+    const site = relative(repoRoot, siteRoot).split('\\').join('/');
+    const head = new Map(execFileSync('git', ['ls-tree', '-r', 'HEAD', '--', site], { cwd: repoRoot, stdio: ['ignore', 'pipe', 'ignore'], maxBuffer: 64 * 1024 * 1024 }).toString()
+      .split('\n').filter(Boolean).map((l) => { const [meta, path] = l.split('\t'); return [path.slice(site.length + 1), meta.split(' ')[2]]; }));
+    const inSources = (rel) => SOURCE_ROOTS.some((r) => rel === r || rel.startsWith(`${r}/`));
+    const siteDirty = files.some((rel) => head.get(rel) !== blobId(bytes.get(rel))) || [...head.keys()].some((rel) => inSources(rel) && !bytes.has(rel));
+    const pluginDirty = execFileSync('git', ['status', '--porcelain', '--untracked-files=no', '--', 'plugins/awards', 'README.md'], { cwd: repoRoot, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim().length > 0;
+    dirty = siteDirty || pluginDirty;
   } catch {
     hash = process.env.GITHUB_SHA ? process.env.GITHUB_SHA.slice(0, 7) : null;
   }
-  return { id: `${version}+${hash ?? 'nogit'}`, version, hash, dirty };
+  return { id: `${version}+${hash ?? 'nogit'}.${sources}`, version, hash, sources, dirty };
 }
 
 // Fenced code blocks of one `### heading` inside `## Install` of the repository README.
@@ -114,12 +154,11 @@ export function collectFacts() {
   const repo = String(manifest.repository ?? '').replace(/\.git$/, '');
   if (!/^https:\/\/github\.com\//.test(repo)) fail(`plugin.json repository is not a GitHub URL: ${manifest.repository}`);
   const bySeverity = (...s) => rules.filter((r) => s.includes(r.severity)).length;
-  return {
+  const facts = {
     manifest,
     version: manifest.version,
     license: manifest.license,
     repo,
-    build: buildInfo(manifest.version),
     siteDir: relative(repoRoot, siteRoot).split('\\').join('/'),
     rules,
     families: FAMILIES.map(([scope, name]) => ({ scope, name, rules: rules.filter((r) => r.scope === scope) })),
@@ -135,4 +174,7 @@ export function collectFacts() {
     playwright: pinnedVersion('playwright'),
     libraries,
   };
+  // The build id digests everything the page prints from the plugin too, so a changed count is a different build.
+  facts.build = buildInfo(manifest.version, createHash('sha256').update(JSON.stringify(facts)).digest('hex'));
+  return facts;
 }

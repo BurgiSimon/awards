@@ -1,7 +1,8 @@
 // The strip as a jump rail (AWARDS.md, SIGNATURE · Jobs 2 and Keyboard): every frame is a link to its depth.
 // Without script a frame's link goes to the chapter at that depth; with script it lands on the exact depth the
 // frame was shot at, through window.__awards.scrollTo. The strip is one tab stop: arrows step through its frames,
-// Home and End go to the first and last, Enter jumps. Following the reader is the motion phase's work, not this.
+// Home and End go to the first and last, Enter jumps. Following the reader is src/motion/strip.js, which also keeps
+// the strip's one tab stop on the current frame while focus is elsewhere, so Tab enters the strip where it shows.
 const LINKS = 'a[data-at]';
 
 function jump(event, link) {
@@ -28,7 +29,8 @@ function roving(list) {
     const to = { ArrowDown: i + 1, ArrowRight: i + 1, ArrowUp: i - 1, ArrowLeft: i - 1, Home: 0, End: links.length - 1 }[e.key];
     if (to === undefined) return;
     e.preventDefault();
-    links[Math.max(0, Math.min(links.length - 1, to))].focus();
+    // The column is clipped and moved by a transform: focusing must never scroll it, or the page, on its own.
+    links[Math.max(0, Math.min(links.length - 1, to))].focus({ preventScroll: true });
   });
 }
 
