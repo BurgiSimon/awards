@@ -27,7 +27,7 @@ const NO_BROWSER = { PATH: '', AWARDS_PLAYWRIGHT: '', NODE_PATH: '' };
 const run = (script, argv = [], env = {}) => new Promise((resolve, reject) => {
   execFile(process.execPath, [path.join(plugin, script), ...argv], {
     cwd: project, env: { ...process.env, CLAUDE_PROJECT_DIR: '', AWARDS_HOOK: '', ...env },
-    timeout: 60000, maxBuffer: 2 * 1024 * 1024,
+    timeout: 180000, maxBuffer: 8 * 1024 * 1024,
   }, (error, stdout, stderr) => {
     if (error && (typeof error.code !== 'number' || error.killed)) return reject(error);
     resolve({ code: error?.code ?? 0, stdout, stderr });
@@ -58,6 +58,55 @@ test('server', 'blocks sibling-prefix traversal and escaping symlinks', async ()
   }
 });
 
+test('server', 'dot-paths are refused and no cross-origin header is sent', async () => {
+  const dir = path.join(tmp, 'dots');
+  fs.mkdirSync(path.join(dir, '.git'), { recursive: true });
+  fs.writeFileSync(path.join(dir, '.env'), 'SECRET=1');
+  fs.writeFileSync(path.join(dir, '.git', 'config'), '[core]');
+  fs.writeFileSync(path.join(dir, 'index.html'), 'ok');
+  const url = await serve(dir);
+  const page = await fetch(url);
+  assert.equal(page.status, 200);
+  assert.equal(page.headers.get('access-control-allow-origin'), null);
+  for (const route of ['.env', '.git/config', '%2eenv']) assert.equal((await fetch(url + route)).status, 403, 'must not serve ' + route);
+});
+test('audit', 'scoped exceptions, line ignores and comment-proof checks', async () => {
+  const dir = path.join(tmp, 'scoped');
+  fs.mkdirSync(path.join(dir, 'src'), { recursive: true });
+  fs.writeFileSync(path.join(dir, 'AWARDS.md'), '# A\n\n## Exceptions\n<!-- one per line: `C02 — pure black is diegetic` -->\n- T01@src/a.css — the wordmark face\n');
+  fs.writeFileSync(path.join(dir, 'src', 'a.css'), 'h1 { font-family: Inter, sans-serif; }\n');
+  fs.writeFileSync(path.join(dir, 'src', 'b.css'), 'h2 { font-family: Inter, sans-serif; color: #000; }\n/* prefers-reduced-motion is handled later */\n.x { transition: opacity .3s; }\n.tbody { background: #000; }\n');
+  const report = JSON.parse((await run('scripts/audit.mjs', [dir, '--json', '--no-write'])).stdout);
+  const t01 = report.findings.filter((f) => f.rule === 'T01').map((f) => path.basename(f.file));
+  assert.deepEqual(t01, ['b.css'], 'the scoped exception covers a.css only');
+  assert.equal(report.exceptions.includes('C02'), false, "the template's comment example is not an exception");
+  assert.ok(report.findings.some((f) => f.rule === 'M01'), 'a comment naming the query is not a reduced-motion branch');
+});
+test('tools', 'owner policy, the AWARDS.md log writer and the jury reply check', async () => {
+  const site = path.join(tmp, 'policy');
+  fs.mkdirSync(path.join(site, 'work'), { recursive: true });
+  fs.writeFileSync(path.join(site, 'robots.txt'), 'User-agent: *\nAllow: /\n\nUser-agent: ClaudeBot\nDisallow: /work/\n');
+  fs.writeFileSync(path.join(site, 'index.html'), '<html><head><meta name="robots" content="index, noai"></head><body>x</body></html>');
+  fs.writeFileSync(path.join(site, 'work', 'index.html'), 'w');
+  fs.mkdirSync(path.join(site, 'open'));
+  fs.writeFileSync(path.join(site, 'open', 'index.html'), '<html><head></head><body>open</body></html>');
+  const url = await serve(site);
+  const policy = async (route) => (await run('scripts/policy.mjs', [url + route])).code;
+  assert.deepEqual([await policy(''), await policy('work/'), await policy('open/')], [2, 2, 0], 'meta noai and a ClaudeBot disallow refuse; an open page passes');
+  const md = path.join(tmp, 'log-AWARDS.md');
+  fs.copyFileSync(path.join(plugin, 'assets/templates/AWARDS.md'), md);
+  await run('scripts/awards-log.mjs', [md, '--append', 'Jury log', '--line', '- 2026-10-22 · fix · test', '--line', '  top fixes: 1) a']);
+  await run('scripts/awards-log.mjs', [md, '--status', 'Jury disposition', '--value', 'fix · 2026-10-22', '--tick']);
+  const after = fs.readFileSync(md, 'utf8'), before = fs.readFileSync(path.join(plugin, 'assets/templates/AWARDS.md'), 'utf8');
+  assert.match(after, /^- \[x\] Jury disposition: fix · 2026-10-22$/m);
+  assert.match(after, /## Jury log\n<!--[^\n]*-->\n- 2026-10-22 · fix · test\n  top fixes: 1\) a\n/);
+  assert.equal(after.split('\n').length, before.split('\n').length + 2, 'nothing else in the file moved');
+  const { check } = await import(pathToFileURL(path.join(plugin, 'scripts/jury-reply-check.mjs')).href);
+  assert.equal(check({ agent_type: 'awards:awards-jury', last_assistant_message: 'Scores follow.' })?.decision, 'block');
+  assert.equal(check({ agent_type: 'awards:awards-jury', last_assistant_message: 'x\ndisposition: fix\nDesign 6' }), null);
+  assert.equal(check({ agent_type: 'awards:awards-jury', stop_hook_active: true, last_assistant_message: '' }), null, 'never loops');
+  assert.equal(check({ agent_type: 'Explore', last_assistant_message: '' }), null, 'other subagents pass');
+});
 test('audit', 'quick directory audit actually finds broken markup', async () => {
   fs.writeFileSync(path.join(project, 'index.html'), '<html><body><h1>Example</h1><script>gsap.to("h1", {x:20})</script></body></html>');
   const result = await run('scripts/audit.mjs', [project, '--quick']);
@@ -127,9 +176,17 @@ test('audit', 'BEM eyebrows, micro-meta and a bounded Exceptions section', async
   assert.deepEqual(where(found, 'L05'), ['bem.html', 'bem.html'], 'hero__eyebrow and card-kicker are eyebrows');
   assert.deepEqual(where(found, 'X07'), ['issue.html', 'scaffold.html'], 'the old scaffold hero and No. 01 flag; dates and counters do not');
   assert.ok(found.filter((f) => f.rule === 'X07').every((f) => f.severity === 'P3'), 'X07 stays P3 in a user build');
+  // Recipe severity is for the plugin's own catalogue, not for any folder a user happens to call recipes.
   fs.writeFileSync(path.join(recipe, 'index.html'), page('<p class="label">/ 01</p><h1>Demo</h1>'));
   found = await report(recipe);
-  assert.equal(found.find((f) => f.rule === 'X07')?.severity, 'P2', 'X07 is P2 inside recipes/');
+  assert.equal(found.find((f) => f.rule === 'X07')?.severity, 'P3', 'X07 stays P3 in a user folder named recipes/');
+  const own = path.join(plugin, 'recipes', `_behavior-${process.pid}`);
+  fs.mkdirSync(own);
+  try {
+    fs.writeFileSync(path.join(own, 'index.html'), page('<p class="label">/ 01</p><h1>Demo</h1>'));
+    found = await report(own);
+    assert.equal(found.find((f) => f.rule === 'X07')?.severity, 'P2', 'X07 is P2 inside the plugin catalogue');
+  } finally { fs.rmSync(own, { recursive: true, force: true }); }
   // Exceptions stop at the next level-2 heading: X07 listed there is waived, L05 under ## Log is not.
   fs.writeFileSync(path.join(dir, 'AWARDS.md'), '# Awards\n\n## Exceptions\n\n- X07: issue numbers are the archive\n\n## Log\n\n- L05 removed from the hero\n');
   found = await report(dir);
@@ -263,6 +320,68 @@ test('audit', 'rendered ground must match the DESIGN.md ground token', async () 
   assert.equal((await auditIds(dir, ['--render'])).has('C05'), false, 'an unfilled template token is silent');
 });
 
+test('audit', 'a rendered step that throws is an ERR finding, and a bundler project renders its build output', async () => {
+  const broken = path.join(tmp, 'rendered-broken');
+  fs.mkdirSync(broken);
+  fs.writeFileSync(path.join(broken, 'index.html'), `<html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><main><h1>Breaks its own styles</h1><p>The page replaces getComputedStyle once it has loaded.</p></main>
+<script>addEventListener('load', () => { window.getComputedStyle = () => { throw new Error('styles unavailable'); }; });</script></body></html>`);
+  const report = JSON.parse((await run('scripts/audit.mjs', [broken, '--render', '--json', '--no-write'])).stdout);
+  assert.ok(report.findings.some((f) => f.rule === 'ERR' && f.severity === 'P1' && /rendered check did not run/.test(f.message)), 'a thrown in-page check must surface, not read clean');
+  const app = path.join(tmp, 'bundled');
+  fs.mkdirSync(path.join(app, 'src'), { recursive: true });
+  json(path.join(app, 'package.json'), { name: 'bundled', type: 'module', scripts: { build: 'vite build' }, devDependencies: { vite: '8.3.0' } });
+  fs.writeFileSync(path.join(app, 'index.html'), '<html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><main><h1>Source</h1></main><script type="module" src="/src/main.js"></script></body></html>');
+  fs.writeFileSync(path.join(app, 'src', 'main.js'), "import gsap from 'gsap';\ngsap.to('h1', { x: 10 });\n");
+  const raw = JSON.parse((await run('scripts/audit.mjs', [app, '--render', '--json', '--no-write'])).stdout);
+  assert.equal(raw.renderedFrom.from, 'source');
+  assert.match(raw.renderedFrom.warning, /no build output/);
+  assert.ok(raw.findings.some((f) => f.rule === 'ERR' && /module specifier/i.test(f.message)), 'an unresolved bare import names itself');
+  fs.mkdirSync(path.join(app, 'dist'));
+  fs.writeFileSync(path.join(app, 'dist', 'index.html'), '<html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><main><h1>Built</h1><p>The build output resolves every import it needs.</p></main></body></html>');
+  const built = JSON.parse((await run('scripts/audit.mjs', [app, '--render', '--json', '--no-write'])).stdout);
+  assert.equal(built.renderedFrom.from, 'dist');
+  assert.equal(built.findings.some((f) => f.rule === 'ERR'), false, 'the built page renders without module errors');
+});
+test('audit', 'blank viewports, lopsided phone sections, phone overflow and load-time layout shift', async () => {
+  const dir = path.join(tmp, 'rendered-layout');
+  fs.mkdirSync(dir);
+  const words = 'A column of running text long enough to count as a section, set in one narrow strip on the left of a phone. ';
+  fs.writeFileSync(path.join(dir, 'index.html'), `<html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+body { margin: 0; font: 16px/1.5 sans-serif; } section { min-height: 60vh; padding: 20px; } .gap { height: 250vh; padding: 0; }
+.narrow p { width: 30%; } .wide { width: 1400px; height: 10px; background: #ddd; }</style></head><body><main>
+<section><h1>Top of the page</h1><p>${words}</p></section><section class="gap" aria-hidden="true"></section>
+<section class="narrow"><p>${words}</p><p>${words}</p></section><section><div class="wide"></div><p>${words}</p></section></main>
+<script>setTimeout(() => { const b = document.createElement('div'); b.style.height = '400px'; document.querySelector('main').prepend(b); }, 400);</script></body></html>`);
+  const hit = await auditIds(dir, ['--render']);
+  for (const id of ['L09', 'L10', 'L02', 'P08']) assert.ok(hit.has(id), `rendered audit must report ${id}`);
+  const quiet = await auditIds(path.join(tmp, 'rendered-quiet'), ['--render']);
+  assert.deepEqual(['L09', 'L10', 'L02', 'P08'].filter((id) => quiet.has(id)), [], 'a page with no gaps, no strip and no late block stays quiet');
+});
+test('tools', 'engine ranges, the calibration count and an offline regrade', async () => {
+  const { satisfies, drift } = await import(pathToFileURL(path.join(plugin, 'scripts/lib/semver.mjs')).href);
+  assert.equal(satisfies('22.22.0', '^22.22.3 || ^24.15.0 || >=26.0.0'), false);
+  assert.equal(satisfies('24.15.0', '^22.22.3 || ^24.15.0 || >=26.0.0'), true);
+  assert.equal(satisfies('20.19.0', '^20.19.0 || >=22.12.0'), true);
+  assert.deepEqual([drift('2.70.3', '3.1.0'), drift('0.0.35', '0.0.36'), drift('8.3.0', '8.3.5'), drift('1.9.1', '1.9.1')], ['major', 'major', 'patch', 'same']);
+  const proj = path.join(tmp, 'engines');
+  fs.mkdirSync(path.join(proj, 'node_modules', 'fakefw'), { recursive: true });
+  json(path.join(proj, 'package.json'), { name: 'engines', dependencies: { fakefw: '1.0.0' } });
+  json(path.join(proj, 'node_modules', 'fakefw', 'package.json'), { name: 'fakefw', version: '1.0.0', engines: { node: '>=99' } });
+  const doctor = JSON.parse((await run('scripts/doctor.mjs', [proj, '--json'])).stdout);
+  const engines = doctor.checks.find((c) => c.id === 'node-engines');
+  assert.equal(engines.status, 'fail');
+  assert.match(engines.detail, /fakefw 1\.0\.0 \(>=99\)/);
+  const cal = JSON.parse((await run('scripts/calibration.mjs', ['--json', '--since', '2021'])).stdout);
+  assert.ok(cal.entries.length >= 30 && cal.developer.accessibility.max <= 10, 'every scored card parses');
+  const ws = path.join(tmp, 'regrade');
+  fs.mkdirSync(ws);
+  fs.copyFileSync(path.join(plugin, 'evals/resume-after-system/fixture/AWARDS.md'), path.join(ws, 'AWARDS.md'));
+  fs.writeFileSync(path.join(ws, 'session.jsonl'), [{ type: 'assistant', message: { role: 'assistant', content: [{ type: 'tool_use', name: 'Skill', input: { skill: 'awards:craft' } }] } }].map((e) => JSON.stringify(e)).join('\n') + '\n');
+  const regrade = await run('evals/regrade.mjs', ['resume-after-system', ws, '--json']);
+  const verdicts = Object.fromEntries(JSON.parse(regrade.stdout).graders.map((g) => [g.grader, g.verdict]));
+  assert.deepEqual(verdicts, { 'contract-seed-kept': 'pass', 'no-second-deal': 'pass', 'page-map-filled': 'fail', 'resumed-through-craft': 'pass' });
+  assert.equal(regrade.code, 1, 'a failing judged grader fails the regrade');
+});
 test('tools', 'the deal leads with a seeded dealt card and the route hint matches every eval grader', async () => {
   const roll = await run('scripts/roll.mjs', ['--deal', '3', '--of', '7', '--seed', 'a']);
   assert.match(roll.stdout, /^DEALT 1 2 7 of 7$/m, 'existing seeds keep their deal');
@@ -428,6 +547,45 @@ a, button { display: block; margin: 8px; } a:hover, button:hover { background: #
   fs.writeFileSync(path.join(dir, 'index.html'), '<!doctype html><html lang="en"><head><link rel="icon" href="data:,"></head><body><p>No controls.</p></body></html>');
   const bare = await run('scripts/capture.mjs', [dir, '--out', path.join(tmp, 'controls-bare'), '--scroll', '0', '--wait', '20']);
   assert.equal(bare.code, 0, 'a page without controls still captures cleanly');
+});
+
+test('capture', 'tablet frames, accessibility trees, held-clock timeline frames and a per-frame baseline diff', async () => {
+  const dir = path.join(tmp, 'timeline');
+  fs.mkdirSync(dir);
+  fs.writeFileSync(path.join(dir, 'index.html'), `<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="data:,"><style>
+body { margin: 0; font: 20px sans-serif; } #bar { height: 40px; background: #234; width: 0; }</style></head><body><main><h1>A bar that grows with page time</h1><div id="bar"></div></main>
+<script>const t0 = performance.now(); const bar = document.getElementById('bar'); (function f(t) { bar.style.width = Math.min(100, (t - t0) / 20) + '%'; requestAnimationFrame(f); })(t0);</script></body></html>`);
+  const first = path.join(tmp, 'timeline-a'), second = path.join(tmp, 'timeline-b');
+  const a = await run('scripts/capture.mjs', [dir, '--out', first, '--scroll', '0', '--wait', '20', '--timeline', '0,600,1500']);
+  assert.equal(a.code, 0, a.stderr || a.stdout);
+  const m = JSON.parse(fs.readFileSync(path.join(first, 'manifest.json')));
+  for (const f of ['tablet-s00.png', 'desktop-aria.yml', 'mobile-aria.yml', 'desktop-t00600.png', 'desktop-timeline.png']) assert.ok(fs.existsSync(path.join(first, f)), f + ' written');
+  assert.match(fs.readFileSync(path.join(first, 'desktop-aria.yml'), 'utf8'), /heading "A bar that grows with page time" \[level=1\]/);
+  assert.ok(['longTasks', 'blockingMs', 'inpLab', 'cls'].every((k) => k in m.metrics.desktop), 'main-thread and interaction metrics recorded');
+  const b = await run('scripts/capture.mjs', [dir, '--out', second, '--scroll', '0', '--wait', '20', '--timeline', '0,600,1500', '--baseline', first]);
+  assert.equal(b.code, 0, b.stderr || b.stdout);
+  const diff = JSON.parse(fs.readFileSync(path.join(second, 'manifest.json'))).diff;
+  const frames = diff.filter((d) => /desktop-t\d+\.png$/.test(d.file));
+  assert.equal(frames.length, 3, 'every timeline frame compared');
+  assert.ok(frames.every((d) => d.changed === 0), 'page time held still: the same frames on every run');
+  const gpu = await run('scripts/capture.mjs', [dir, '--out', path.join(tmp, 'timeline-gpu'), '--scroll', '0', '--only', 'desktop', '--gpu']);
+  assert.ok(gpu.code === 5 || (gpu.code === 0 && JSON.parse(fs.readFileSync(path.join(tmp, 'timeline-gpu', 'manifest.json'))).frames), '--gpu measures a hardware renderer or refuses with exit 5');
+});
+
+test('capture', 'a held lock makes the next capture wait, and relative output lands in the project', async () => {
+  const proj = path.join(tmp, 'lockproj');
+  fs.mkdirSync(path.join(proj, 'public'), { recursive: true });
+  fs.writeFileSync(path.join(proj, 'AWARDS.md'), '# A\n');
+  fs.writeFileSync(path.join(proj, 'public', 'index.html'), '<!doctype html><html lang="en"><head><link rel="icon" href="data:,"></head><body><p>Locked.</p></body></html>');
+  fs.mkdirSync(path.join(proj, '.awards', 'capture.lock'), { recursive: true });
+  const started = Date.now();
+  setTimeout(() => fs.rmSync(path.join(proj, '.awards', 'capture.lock'), { recursive: true, force: true }), 1500);
+  const result = await new Promise((resolve) => execFile(process.execPath, [path.join(plugin, 'scripts/capture.mjs'), 'index.html', '--out', '.awards/captures/locked', '--lock', '.awards/capture.lock', '--scroll', '0', '--only', 'desktop', '--wait', '20'], { cwd: path.join(proj, 'public'), env: { ...process.env, CLAUDE_PROJECT_DIR: '' }, timeout: 120000 }, (e, so, se) => resolve({ code: e?.code ?? 0, out: so + se })));
+  assert.equal(result.code, 0, result.out);
+  assert.ok(Date.now() - started >= 1400, 'waited for the held lock');
+  assert.ok(fs.existsSync(path.join(proj, '.awards', 'captures', 'locked', 'manifest.json')), 'output beside AWARDS.md, not under public/');
+  assert.equal(fs.existsSync(path.join(proj, 'public', '.awards')), false, 'nothing written where the shell stood');
+  assert.equal(fs.existsSync(path.join(proj, '.awards', 'capture.lock')), false, 'the lock is released');
 });
 
 test('doctor', 'reports real capabilities and leaves project configuration untouched', async () => {
