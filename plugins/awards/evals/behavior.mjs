@@ -697,6 +697,75 @@ test('menu', 'the shipped overlay traps focus and Escape restores its trigger', 
   } finally { await context.close(); }
 });
 
+test('audit', 'rendered eyebrow counter and soft images (X21, P09)', async () => {
+  const dir = path.join(tmp, 'eyebrows');
+  fs.mkdirSync(dir);
+  const png = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==';
+  const sections = (labelled) => Array.from({ length: 6 }, (_, i) => `<section>${i < labelled ? '<p class="k">Chapter note</p>' : ''}<h2>Heading ${i + 1}</h2><p>Body copy for this chapter of the page.</p></section>`).join('');
+  const page = (labelled, img) => `<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+body { margin: 0; font: 16px/1.5 sans-serif; } section { min-height: 40vh; padding: 24px; } .k { font-size: 12px; text-transform: uppercase; letter-spacing: .12em; margin: 0; }
+img { width: 400px; height: 200px; display: block; }</style></head><body><main>${img ? `<img alt="A plate" src="data:image/png;base64,${png}">` : ''}${sections(labelled)}</main></body></html>`;
+  fs.writeFileSync(path.join(dir, 'index.html'), page(6, true));
+  const hit = await auditIds(dir, ['--render']);
+  assert.ok(hit.has('X21'), 'six eyebrows over six sections must report X21');
+  assert.ok(hit.has('P09'), 'a 1 px image drawn 400 px wide must report P09');
+  const quiet = path.join(tmp, 'eyebrows-quiet');
+  fs.mkdirSync(quiet);
+  fs.writeFileSync(path.join(quiet, 'index.html'), page(2, false));
+  const calm = await auditIds(quiet, ['--render']);
+  assert.deepEqual(['X21', 'P09'].filter((id) => calm.has(id)), [], 'one eyebrow per three sections and no upscaled image stay quiet');
+  const locked = path.join(tmp, 'zoom-locked');
+  fs.mkdirSync(locked);
+  fs.writeFileSync(path.join(locked, 'index.html'), '<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></head><body><main><h1>Locked</h1></main></body></html>');
+  assert.ok((await auditIds(locked)).has('A17'), 'a viewport meta with maximum-scale=1 must report A17');
+});
+
+test('tools', 'the asset log, card checks and the generated corpus index', async () => {
+  const proj = path.join(tmp, 'assets-proj');
+  fs.mkdirSync(path.join(proj, 'public'), { recursive: true });
+  fs.mkdirSync(path.join(proj, 'dist', 'assets'), { recursive: true });
+  fs.writeFileSync(path.join(proj, 'AWARDS.md'), '# A\n');
+  for (const f of ['public/hero.jpg', 'dist/assets/hero-AbC123xy.jpg', 'public/plate.png']) fs.writeFileSync(path.join(proj, f), 'x');
+  const assets = (argv) => run('scripts/assets.mjs', [...argv, '--project', proj]);
+  assert.equal((await assets(['add', '--file', path.join(proj, 'public/hero.jpg'), '--kind', 'licensed'])).code, 1, 'a licensed asset needs a source and a licence');
+  assert.equal((await assets(['add', '--file', path.join(proj, 'public/hero.jpg'), '--kind', 'licensed', '--source', 'https://example.org/item', '--licence', 'CC0', '--licence-url', 'https://creativecommons.org/publicdomain/zero/1.0/'])).code, 0);
+  assert.equal((await assets(['add', '--file', path.join(proj, 'public/plate.png'), '--kind', 'placeholder'])).code, 0);
+  const report = JSON.parse((await run('scripts/assets.mjs', ['check', proj, '--json'])).stdout);
+  assert.deepEqual(report.missing, [], 'the hashed build copy matches its logged source by stem');
+  assert.deepEqual(report.placeholders, ['public/plate.png']);
+  const log = JSON.parse(fs.readFileSync(path.join(proj, '.awards/assets.json'), 'utf8'));
+  assert.equal(log.assets.find((a) => a.file === 'public/plate.png').synthetic, true);
+
+  const sites = path.join(tmp, 'sites');
+  fs.mkdirSync(sites);
+  fs.copyFileSync(path.join(plugin, 'references/sites/leo-parpeix.md'), path.join(sites, 'leo-parpeix.md'));
+  fs.writeFileSync(path.join(sites, 'bare.md'), '# Bare — https://example.org/\n\n| Field | Value |\n|---|---|\n| Class | luxury travel |\n');
+  const bad = await run('scripts/check-card.mjs', [path.join(sites, 'bare.md')]);
+  assert.equal(bad.code, 1);
+  for (const want of ['missing header row: Industry', 'Class must start with', 'missing section ## 9.']) assert.ok(bad.stdout.includes(want), `check-card must say: ${want}`);
+  assert.equal((await run('scripts/check-card.mjs', [path.join(sites, 'leo-parpeix.md')])).code, 0);
+  fs.rmSync(path.join(sites, 'bare.md'));
+  assert.equal((await run('scripts/build-index.mjs', ['--dir', sites])).code, 0);
+  assert.match(fs.readFileSync(path.join(sites, '_index.md'), 'utf8'), /^\| `leo-parpeix` \| Léo Parpeix \| portfolio \| creative-practice \| home \|/m);
+  assert.equal((await run('scripts/build-index.mjs', ['--dir', sites, '--check'])).code, 0);
+});
+
+test('tools', 'a composition skeleton measures a local page without its pixels', async () => {
+  const dir = path.join(tmp, 'skeleton');
+  fs.mkdirSync(dir);
+  fs.writeFileSync(path.join(dir, 'index.html'), `<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+body { margin: 0; padding: 0 48px; font: 18px/1.5 sans-serif; } h1 { font-size: 64px; margin: 40px 0; } h2 { font-size: 32px; } .media { width: 600px; height: 300px; background: #888 url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==') }</style></head><body><main>
+<h1>Tidal crossing</h1><p>A ferry that only runs when the sand allows it, with a timetable printed on the slipway and nowhere else.</p><p>Second paragraph, set in the same column.</p><div class="media"></div><h2>Timetable</h2></main></body></html>`);
+  const out = path.join(tmp, 'skeleton.png');
+  const result = await run('scripts/skeleton.mjs', [dir, '--out', out]);
+  assert.equal(result.code, 0, result.stderr);
+  assert.ok(fs.statSync(out).size > 1000, 'the block map is written');
+  const fp = JSON.parse(result.stdout.trim().split('\n').pop());
+  assert.equal(fp.desktop.type.h1, 64);
+  assert.equal(fp.desktop.type.body, 18);
+  assert.ok(fp.desktop.mediaShareFirstViewport > 0, 'the media block counts toward the image share');
+});
+
 let failures = 0;
 try {
   assert.ok(tests.length, 'No matching behavior checks');

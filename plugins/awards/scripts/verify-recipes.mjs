@@ -2,7 +2,11 @@
 // Build the recipes (Vite MPA), serve dist/, drive every recipe through its declared states in headless Chromium
 // (WebGL via SwiftShader), run the recipe's probe/assert, capture screenshots and write a report; --stamp also
 // records the pass in each recipe.json (a release step: it rewrites tracked files).
-// Usage: node verify-recipes.mjs [--only id,id] [--out <dir>] [--no-build] [--json] [--stamp]
+// Usage: node verify-recipes.mjs [--only id,id] [--out <dir>] [--no-build] [--json] [--stamp] [--lock <path>] [--pseudo]
+// --only also builds only those entries (dist/ then holds just them); --lock serialises runs that share dist/.
+// --pseudo adds two phone passes per recipe: every text lengthened by about 40 % with accented letters, then the
+// same page right-to-left; each fails on horizontal overflow or a control whose label is cut off.
+import { acquireLock } from './lib/lock.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -14,7 +18,7 @@ import { runActions } from './lib/actions.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const recipesDir = path.resolve(here, '../recipes');
-const args = parseArgs(process.argv.slice(2), { build: 'boolean', json: 'boolean', stamp: 'boolean' });
+const args = parseArgs(process.argv.slice(2), { build: 'boolean', json: 'boolean', stamp: 'boolean', pseudo: 'boolean' });
 const only = args.only ? new Set(String(args.only).split(',').map((s) => s.trim())) : null;
 const outDir = path.resolve(args.out ?? path.join(recipesDir, '_verify'));
 const VIEWPORTS = { desktop: { width: 1440, height: 900 }, mobile: { width: 390, height: 844 } };
@@ -39,6 +43,8 @@ if (!ids.length) {
   fs.writeFileSync(path.join(recipesDir, 'index.html'), html);
 }
 
+if (args.lock) await acquireLock(String(args.lock), 'verify lock');
+
 // Windows runs npm and npx through .cmd shims, which Node (since 20.12.2) only spawns through a shell.
 const win = process.platform === 'win32';
 if (args.build !== false) {
@@ -47,7 +53,8 @@ if (args.build !== false) {
     const i = spawnSync(win ? 'npm.cmd' : 'npm', ['install', '--no-audit', '--no-fund'], { cwd: recipesDir, stdio: 'inherit', shell: win });
     if (i.status !== 0) process.exit(1);
   }
-  const b = spawnSync(win ? 'npx.cmd' : 'npx', ['vite', 'build'], { cwd: recipesDir, stdio: 'pipe', encoding: 'utf8', shell: win });
+  const env = only ? { ...process.env, AWARDS_RECIPES_ONLY: ids.join(',') } : process.env;
+  const b = spawnSync(win ? 'npx.cmd' : 'npx', ['vite', 'build'], { cwd: recipesDir, stdio: 'pipe', encoding: 'utf8', shell: win, env });
   if (b.status !== 0) {
     console.error(b.stdout, b.stderr);
     process.exit(1);
@@ -128,14 +135,40 @@ for (const id of ids) {
       await context.close().catch((e) => results[st.name]?.errors.push(`context close failed: ${e.message}`));
     }
   }
+  // Pseudo-locale stress: German-length strings and a right-to-left page, on a phone, where overflow shows first.
+  if (args.pseudo) {
+    for (const dir of ['ltr', 'rtl']) {
+      const name = `pseudo-${dir}`;
+      const context = await browser.newContext({ viewport: VIEWPORTS.mobile, isMobile: true, hasTouch: true, deviceScaleFactor: 1, reducedMotion: 'reduce' });
+      const page = await context.newPage();
+      const errors = [];
+      page.on('pageerror', (e) => errors.push(e.message));
+      try {
+        await page.goto(`${server.url}${id}/index.html`, { waitUntil: 'load', timeout: 30000 });
+        await page.evaluate(() => Promise.race([window.__awards?.ready, new Promise((r) => setTimeout(r, 8000))])).catch(() => {});
+        await page.waitForTimeout(500);
+        const probe = await within(page.evaluate(pseudoLocalise, dir), 30000, 'pseudo').catch((e) => ({ error: String(e) }));
+        await page.screenshot({ path: path.join(rdir, `${name}.png`) });
+        results[name] = { state: null, probe, inspect: null, errors, screenshot: path.join(rdir, `${name}.png`), hook: true, pseudo: true };
+      } catch (e) {
+        results[name] = { state: null, probe: null, inspect: null, errors: [...errors, `state failed: ${e.message}`], screenshot: null, hook: true, pseudo: true };
+      } finally { await context.close().catch(() => {}); }
+    }
+  }
   const checks = [];
-  for (const [name, r] of Object.entries(results)) {
+  for (const [name, r] of Object.entries(results).filter(([, r]) => r.pseudo)) {
+    const p = r.probe ?? {};
+    checks.push({ ok: !p.error && !r.errors.length, message: `${name}: page survives lengthened text${p.error || r.errors.length ? ` — ${(p.error ?? r.errors[0]).slice(0, 120)}` : ''}` });
+    checks.push({ ok: !p.overflow, message: `${name}: no horizontal overflow${p.overflow ? ` (${p.overflow} px wider than the viewport)` : ''}` });
+    checks.push({ ok: !p.clipped?.length, message: `${name}: no control label cut off${p.clipped?.length ? ` — ${p.clipped.join(', ')}` : ''}` });
+  }
+  for (const [name, r] of Object.entries(results).filter(([, r]) => !r.pseudo)) {
     checks.push({ ok: r.errors.length === 0, message: `${name}: no page/console errors${r.errors.length ? ` — ${r.errors[0].slice(0, 140)}` : ''}` });
     checks.push({ ok: r.hook, message: `${name}: window.__awards hook present` });
   }
   if (verify.assert) {
     try {
-      const extra = await verify.assert(results);
+      const extra = await verify.assert(Object.fromEntries(Object.entries(results).filter(([, r]) => !r.pseudo)));
       for (const c of extra || []) checks.push(c);
     } catch (e) {
       checks.push({ ok: false, message: `assert threw: ${e.message}` });
@@ -163,6 +196,26 @@ fs.writeFileSync(path.join(outDir, 'report.json'), JSON.stringify(report, null, 
 if (args.json) console.log(JSON.stringify(report, null, 2));
 else console.log(`\n${ids.length - failed}/${ids.length} recipes pass · report: ${path.join(outDir, 'report.json')}`);
 process.exit(failed ? 2 : 0);
+
+// Runs in the page: every text node lengthened by about 40 % with accented letters (words keep their breaks,
+// so wrapping still works), the direction set, then the overflow the result causes.
+function pseudoLocalise(dir) {
+  const map = { a: 'á', e: 'ë', i: 'ï', o: 'ö', u: 'ü', c: 'ç', n: 'ñ', A: 'Å', E: 'É', O: 'Ø', U: 'Û' };
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, { acceptNode: (n) => (n.parentElement?.closest('script,style,noscript,svg,canvas,[aria-hidden="true"] canvas') ? NodeFilter.FILTER_REJECT : n.textContent.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT) });
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  for (const n of nodes) n.textContent = n.textContent.replace(/[A-Za-z]{2,}/g, (w) => w.replace(/[aeioucnAEOU]/g, (c) => map[c] ?? c) + 'ẍ'.repeat(Math.ceil(w.length * 0.4)));
+  document.documentElement.dir = dir;
+  window.dispatchEvent(new Event('resize'));
+  return new Promise((resolve) => setTimeout(() => {
+    const doc = document.documentElement;
+    const overflow = Math.max(0, doc.scrollWidth - doc.clientWidth - 1);
+    const clipped = [...document.querySelectorAll('button, a, label, [role="tab"], summary')]
+      .filter((el) => { const s = getComputedStyle(el); const b = el.getBoundingClientRect(); return b.width > 2 && b.height > 2 && s.visibility !== 'hidden' && s.clip === 'auto' && s.clipPath === 'none' && (s.overflow !== 'visible' || s.textOverflow === 'ellipsis' || s.whiteSpace === 'nowrap') && el.scrollWidth > el.clientWidth + 1; })
+      .slice(0, 5).map((el) => `${el.tagName.toLowerCase()}${el.className && typeof el.className === 'string' ? '.' + el.className.split(/\s+/)[0] : ''}`);
+    resolve({ overflow, clipped, texts: nodes.length });
+  }, 800));
+}
 
 function safeJson(p) {
   try { return JSON.parse(fs.readFileSync(p, 'utf8')); } catch { return null; }

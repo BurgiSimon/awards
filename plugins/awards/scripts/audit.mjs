@@ -387,6 +387,12 @@ for (const s of htmlSources) {
     const html = tags(t, 'html')[0];
     if (html && !hasAttr(html.attrs, 'lang')) add('A09', file, html.line);
     if (!/<meta[^>]+name=["']viewport["']/i.test(t)) add('L03', file, null);
+    // Zoom locked by the viewport meta: user-scalable=no/0 or a maximum-scale under 2 (WCAG 1.4.4 asks for 200 %).
+    for (const m of t.matchAll(/<meta[^>]+name=["']viewport["'][^>]*>/gi)) {
+      const content = m[0].match(/content=["']([^"']*)["']/i)?.[1] ?? '';
+      const max = content.match(/maximum-scale\s*=\s*([\d.]+)/i);
+      if (/user-scalable\s*=\s*(no|0)\b/i.test(content) || (max && Number(max[1]) < 2)) add('A17', file, lineOf(t, m.index), content);
+    }
     if (!/<main\b/i.test(t)) add('A01', file, null);
     if (!/<meta[^>]+name=["']theme-color["']/i.test(t)) add('S03', file, null);
     if (!/<meta[^>]+name=["']color-scheme["']/i.test(t) && !/color-scheme\s*:/i.test(projectCss)) add('S04', file, null);

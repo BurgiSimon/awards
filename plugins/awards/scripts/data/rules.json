@@ -36,6 +36,7 @@
   "A14": { "severity": "P2", "scope": "a11y", "message": "Touch target under 24 px beside another target (rendered, phone)", "fix": "Give each control at least 24 × 24 px, or 24 px of clear space from its neighbours (WCAG 2.2 target size); aim for 44 px on the primary actions" },
   "A15": { "severity": "P2", "scope": "a11y", "message": "Duplicate id", "fix": "Make every id unique; labels, aria references and fragment links resolve to the first one only" },
   "A16": { "severity": "P1", "scope": "a11y", "message": "axe-core reports a WCAG 2.2 A/AA violation (rendered)", "fix": "Fix what axe names at the node it points to; serious and critical impacts block, moderate and minor are P2" },
+  "A17": { "severity": "P1", "scope": "a11y", "message": "Viewport meta stops pinch zoom (user-scalable=no or maximum-scale under 2)", "fix": "Drop user-scalable and maximum-scale from the viewport meta; a gesture the page needs is handled with touch-action on that element, never by locking zoom (WCAG 1.4.4)" },
   "L01": { "severity": "P2", "scope": "layout", "message": "Fixed width above 600px", "fix": "Use fluid widths, max-width or vw-locked values" },
   "L02": { "severity": "P2", "scope": "layout", "message": "100vw width can overflow with a vertical scrollbar", "fix": "Use 100% or inline-size with overflow-x: clip on the container" },
   "L03": { "severity": "P0", "scope": "layout", "message": "Missing viewport meta", "fix": "Add <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">" },

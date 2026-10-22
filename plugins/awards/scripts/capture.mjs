@@ -15,6 +15,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { parseArgs, now } from './lib/report.mjs';
+import { acquireLock } from './lib/lock.mjs';
 import { resolvePlaywright, launchChromium, isSoftwareRenderer, MISSING_MESSAGE } from './lib/playwright.mjs';
 import { serveDirectory } from './lib/server.mjs';
 import { validateActions, runActions } from './lib/actions.mjs';
@@ -87,26 +88,8 @@ if (!found) {
   process.exit(3);
 }
 
-// One capture at a time per lock: mkdir is atomic on every platform, unlike flock (absent on macOS and Windows).
-// A lock older than fifteen minutes belongs to a run that died and is taken over; a plain file of that name is
-// what flock left behind and holds nothing.
-if (args.lock) {
-  const lock = path.resolve(projectRoot, String(args.lock));
-  fs.mkdirSync(path.dirname(lock), { recursive: true });
-  if (fs.existsSync(lock) && !fs.statSync(lock).isDirectory()) fs.rmSync(lock, { force: true });
-  for (let waited = 0; ; waited += 250) {
-    try {
-      fs.mkdirSync(lock);
-      break;
-    } catch (e) {
-      if (e.code !== 'EEXIST') throw e;
-      if (Date.now() - fs.statSync(lock).mtimeMs > 15 * 60 * 1000) { fs.rmSync(lock, { recursive: true, force: true }); continue; }
-      if (waited > 20 * 60 * 1000) { console.error(`capture lock still held after 20 minutes: ${lock}`); process.exit(1); }
-      await new Promise((r) => setTimeout(r, 250));
-    }
-  }
-  process.on('exit', () => { try { fs.rmSync(lock, { recursive: true, force: true }); } catch {} });
-}
+// One capture at a time per lock (scripts/lib/lock.mjs).
+if (args.lock) await acquireLock(path.resolve(projectRoot, String(args.lock)), 'capture lock');
 const pw = found.module;
 
 let server = null;

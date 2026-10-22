@@ -5,9 +5,12 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
+// AWARDS_RECIPES_ONLY=id,id (set by verify-recipes --only) builds just those entries.
+const only = process.env.AWARDS_RECIPES_ONLY ? new Set(process.env.AWARDS_RECIPES_ONLY.split(',')) : null;
 const input = {};
 for (const dir of fs.readdirSync(root, { withFileTypes: true })) {
   if (!dir.isDirectory() || dir.name.startsWith('_') || dir.name === 'node_modules' || dir.name === 'dist') continue;
+  if (only && !only.has(dir.name)) continue;
   // Every top-level .html in a recipe folder is an entry (page-transition recipes ship several pages).
   for (const f of fs.readdirSync(path.join(root, dir.name))) {
     if (f.endsWith('.html')) input[`${dir.name}/${f.replace(/\.html$/, '')}`] = path.join(root, dir.name, f);

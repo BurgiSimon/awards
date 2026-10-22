@@ -29,6 +29,7 @@ Why a floor exists: every Site of the Day in the corpus also carries a published
 - Every canvas is `aria-hidden` with its text and images mirrored in the DOM, or carries an accessible name [A04].
 - Real controls: buttons and links, never click handlers on `div`/`span` [A05]; visible `:focus-visible` styles, never `outline: none` without a replacement [A06, A07]; a skip link first in the tab order wherever there is navigation [A13]; targets at least 24 × 24 px on a phone, 44 px for primary actions [A14 with `--render`].
 - No axe-core WCAG 2.2 A/AA violations; the rendered audit runs axe when the project installs `axe-core` [A16 with `--render`].
+- Pinch zoom stays on: no `user-scalable=no` and no `maximum-scale` under 2 in the viewport meta; a gesture the page needs is scoped with `touch-action` on its element [A17].
 - Every pointer-only gesture (drag, hold, draw) has a keyboard handler; the custom cursor is off on coarse pointers [A08, A11].
 - Overlays: `inert` on the page behind, focus trapped, Escape closes, focus returns.
 
