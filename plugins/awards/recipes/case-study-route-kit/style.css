@@ -1,0 +1,148 @@
+@import '../_shared/base.css';
+
+/* One studio world for both routes: warm ground, near-black ink, the market's iron green as the accent. */
+:root {
+  --ground: #f2efe8;
+  --ink: #1d1f1c;
+  --accent: #2e5a47;
+  --font-text: "Iowan Old Style", Charter, "Bitstream Charter", "Sitka Text", Cambria, serif;
+  --case-display: clamp(3rem, 9vw, 9.5rem);
+  --row-gap: clamp(5rem, 11vw, 11rem);
+  --reveal-dur: 0.9s;
+  --reveal-y: 32px;
+  scroll-padding-top: 5rem;
+}
+/* Reduced keeps the fade and drops the travel; main.js holds nothing back in the static tier. */
+@media (prefers-reduced-motion: reduce) {
+  :root { --reveal-dur: 0.35s; --reveal-y: 0px; }
+}
+
+.skip-link { position: absolute; z-index: 10; top: 0; left: var(--gutter); padding: 0.75rem 1rem; background: var(--ground); transform: translateY(-120%); }
+.skip-link:focus { transform: none; }
+
+.bar { display: flex; justify-content: space-between; align-items: center; gap: var(--gutter); padding: 1.25rem var(--gutter); border-bottom: 1px solid var(--line); font-family: var(--font-mono); font-size: 0.8125rem; }
+.bar a { display: inline-flex; align-items: center; min-height: 44px; }
+.bar__here { margin: 0; }
+.crumbs { display: flex; flex-wrap: wrap; gap: 0 0.6rem; margin: 0; padding: 0; list-style: none; }
+.crumbs li + li::before { content: "/"; margin-inline-end: 0.6rem; color: var(--muted); }
+.crumbs [aria-current] { display: inline-flex; align-items: center; min-height: 44px; color: var(--muted); }
+
+/* Placeholders: inline SVG in a box whose aspect ratio is set before anything loads, so nothing shifts. */
+.media { position: relative; overflow: hidden; }
+.media svg { display: block; width: 100%; height: 100%; }
+.media--open { aspect-ratio: 16 / 9; }
+.media--portrait { aspect-ratio: 4 / 5; }
+.media--square { aspect-ratio: 1 / 1; }
+.media--map { aspect-ratio: 3 / 2; }
+.media--wide { aspect-ratio: 21 / 9; background: #2e4b3f; }
+figure { margin: 0; }
+figcaption { margin-top: 0.875rem; max-width: 52ch; color: var(--muted); font-size: 0.875rem; line-height: 1.45; }
+
+/* Light motion: what starts below the fold rises and fades in once, through the shared tiers. */
+[data-reveal] { transition: opacity var(--reveal-dur) var(--ease-out-expo), transform var(--reveal-dur) var(--ease-out-expo); }
+[data-reveal].is-pending { opacity: 0; transform: translateY(var(--reveal-y)); }
+
+/* ---------- Case study ---------- */
+.case { display: grid; gap: var(--row-gap); padding-bottom: var(--row-gap); }
+
+/* Row 1: the title spans the measure; standfirst and facts share the line under it. */
+.case-head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: clamp(2rem, 4vw, 4rem); padding: clamp(3.5rem, 8vw, 8rem) var(--gutter) 0; }
+.case-title { grid-column: 1 / -1; margin: 0; font-family: var(--font-display); font-size: var(--case-display); font-weight: 500; line-height: 0.92; letter-spacing: -0.035em; overflow-wrap: anywhere; }
+.case-stand { grid-column: 1 / 6; margin: 0; max-width: 30ch; font-family: var(--font-text); font-size: clamp(1.25rem, 1.8vw, 1.625rem); line-height: 1.3; }
+.case-meta { grid-column: 7 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem var(--gutter); margin: 0; }
+.case-meta > div { padding-top: 0.75rem; border-top: 1px solid var(--ink); }
+.case-meta dt, .credits dt, .facts dt { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); }
+.case-meta dd { margin: 0.35rem 0 0; }
+.case-meta__credits { grid-column: 1 / -1; }
+.credits { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: 0.75rem var(--gutter); margin: 0.75rem 0 0; }
+.credits dd { margin: 0.15rem 0 0; }
+
+/* Rows 2 and 6: plates to the glass (100 % of a full-width parent, never 100vw); captions keep the margin. */
+.plate figcaption { margin-inline: var(--gutter); }
+
+/* Row 3: heading in the first quarter, prose from column 5 at a reading measure. */
+.case-text { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); padding-inline: var(--gutter); }
+.case-text h2, .facts h2 { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(1.5rem, 2.4vw, 2.25rem); line-height: 1.05; letter-spacing: -0.02em; }
+.case-text h2 { grid-column: 1 / 4; }
+.case-text__body { grid-column: 5 / 12; }
+.case-text__body p { max-width: 60ch; margin: 0; font-family: var(--font-text); font-size: clamp(1.0625rem, 1.25vw, 1.25rem); line-height: 1.6; }
+.case-text__body p + p { margin-top: 1.25em; }
+
+/* Row 4: an uneven pair, a large portrait and a smaller square dropped by one step. */
+.pair { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: start; padding-inline: var(--gutter); }
+.pair__a { grid-column: 1 / 7; }
+.pair__b { grid-column: 8 / 12; margin-top: clamp(6rem, 16vw, 16rem); }
+
+/* Row 5: the caption leads on the left; the figure runs off the right edge. */
+.lead { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-items: end; padding-inline-start: var(--gutter); }
+.lead__caption { grid-column: 1 / 5; grid-row: 1; margin: 0; max-width: 34ch; color: var(--ink); font-family: var(--font-text); font-size: 1.0625rem; line-height: 1.55; }
+.lead__title { display: block; margin-bottom: 0.75rem; font-family: var(--font-display); font-size: clamp(1.25rem, 1.8vw, 1.75rem); line-height: 1.1; letter-spacing: -0.015em; }
+.lead .media { grid-column: 5 / -1; grid-row: 1; }
+
+/* Row 7: the result as ruled rows, label left, value right. */
+.facts { padding-inline: var(--gutter); }
+.facts__list { margin: clamp(1.5rem, 3vw, 3rem) 0 0; border-bottom: 1px solid var(--line); }
+.facts__list div { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; gap: var(--gutter); padding-block: 1.1rem; border-top: 1px solid var(--line); }
+.facts__list dt { font-size: 0.875rem; }
+.facts__list dd { margin: 0; font-family: var(--font-display); font-size: clamp(1.75rem, 3.4vw, 3.25rem); line-height: 1; letter-spacing: -0.02em; text-align: end; }
+
+/* Row 8: the next project, one link, its own image and its title at the h1's scale. */
+.next { padding: 0 var(--gutter) clamp(3rem, 6vw, 6rem); }
+.next__link { display: grid; gap: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--ink); text-decoration: none; }
+.next__label { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); }
+.next__media { display: block; aspect-ratio: 21 / 9; overflow: hidden; background: #22364a; }
+.next__media svg { display: block; width: 100%; height: 100%; }
+.next__title { font-family: var(--font-display); font-size: var(--case-display); font-weight: 500; line-height: 0.92; letter-spacing: -0.035em; overflow-wrap: anywhere; transition: color var(--dur-feedback) ease-out; }
+.next__link:hover .next__title, .next__link:focus-visible .next__title { color: var(--accent); }
+
+.foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.5rem var(--gutter); padding: 1.5rem var(--gutter) 2rem; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.8125rem; }
+.foot p { max-width: 60ch; margin: 0; }
+.foot a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); }
+
+/* ---------- Index ---------- */
+.index-head { padding: clamp(3.5rem, 8vw, 8rem) var(--gutter) clamp(2.5rem, 5vw, 5rem); }
+.index-title { margin: 0; font-family: var(--font-display); font-size: var(--case-display); font-weight: 500; line-height: 0.92; letter-spacing: -0.035em; overflow-wrap: anywhere; }
+.index-lede { max-width: 56ch; margin: 2rem 0 0; font-family: var(--font-text); font-size: clamp(1.0625rem, 1.25vw, 1.25rem); line-height: 1.55; }
+.works { margin: 0 0 var(--row-gap); padding: 0 var(--gutter); list-style: none; }
+.work { scroll-margin-top: 2rem; border-top: 1px solid var(--line); }
+.works .work:last-child { border-bottom: 1px solid var(--line); }
+.work, .work__link { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 2fr) minmax(0, 5fr); column-gap: var(--gutter); align-items: baseline; padding-block: 1.5rem; }
+.work__link { grid-column: 1 / -1; grid-template-areas: "name meta thumb" ". . line"; padding-block: 0; text-decoration: none; }
+.work__link .work__name { grid-area: name; }
+.work__link .work__meta { grid-area: meta; }
+.work__link .work__line { grid-area: line; }
+/* The thumbnail is decoration (the link's text names the work), so on desktop it may sit in the row's third column. */
+.work__thumb { grid-area: thumb; align-self: start; display: block; width: min(100%, 26rem); aspect-ratio: 4 / 3; margin-bottom: 1.25rem; overflow: hidden; }
+.work__thumb svg { display: block; width: 100%; height: 100%; }
+.work__name { font-family: var(--font-display); font-size: clamp(1.5rem, 2.8vw, 2.75rem); line-height: 1.05; letter-spacing: -0.02em; overflow-wrap: anywhere; }
+.work__meta { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); }
+.work__line { max-width: 46ch; font-family: var(--font-text); }
+.work__go { display: block; margin-top: 0.5rem; font-family: var(--font-body); color: var(--accent); text-decoration: underline; text-underline-offset: 0.2em; }
+.work__link:hover .work__name, .work__link:focus-visible .work__name { color: var(--accent); }
+/* Arriving from a case study's closing link: the row it named is marked. */
+.work:target { margin-inline: -0.75rem; padding-inline: 0.75rem; background: color-mix(in oklab, var(--accent) 9%, var(--ground)); }
+
+/* ---------- Tablet and phone ---------- */
+@media (max-width: 63.999rem) {
+  .case-stand { grid-column: 1 / -1; }
+  .case-meta { grid-column: 1 / -1; }
+  .case-text h2 { grid-column: 1 / -1; margin-bottom: 1.5rem; }
+  .case-text__body { grid-column: 1 / -1; }
+  .pair__a { grid-column: 1 / 8; }
+  .pair__b { grid-column: 9 / -1; }
+}
+@media (max-width: 47.999rem) {
+  .media--open { aspect-ratio: 4 / 5; }
+  .media--wide { aspect-ratio: 3 / 2; }
+  .case-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Splits stack in reading order; the pair keeps one offset step. */
+  .pair { row-gap: 2.5rem; }
+  .pair__a { grid-column: 1 / -1; }
+  .pair__b { grid-column: 4 / -1; margin-top: 0; }
+  .lead { padding-inline-start: 0; row-gap: 1.5rem; }
+  .lead__caption { grid-column: 1 / -1; padding-inline: var(--gutter); max-width: none; }
+  .lead .media { grid-column: 1 / -1; grid-row: 2; }
+  .next__media { aspect-ratio: 3 / 2; }
+  .work, .work__link { grid-template-columns: minmax(0, 1fr); row-gap: 0.5rem; }
+  .work__link { grid-template-areas: "thumb" "name" "meta" "line"; }
+}

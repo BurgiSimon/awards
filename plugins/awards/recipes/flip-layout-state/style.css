@@ -1,0 +1,111 @@
+@import '../_shared/base.css';
+
+/* The motion tokens: main.js reads these once into every Flip call (and again if the motion tier changes). */
+:root {
+  --flip-ease: cubic-bezier(0.76, 0, 0.24, 1);
+  --flip-dur: 0.75s;
+  --flip-fade: 0.3s;
+  --flip-stagger: 0.025s;
+  /* The scrollbar keeps its gutter while the dialog locks the page, so nothing under it moves sideways. */
+  scrollbar-gutter: stable;
+}
+/* The reduced and static tiers have no travel time; main.js also skips the Flip there, so every change is one frame. */
+@media (prefers-reduced-motion: reduce) {
+  :root { --flip-dur: 0s; --flip-fade: 0s; --flip-stagger: 0s; }
+}
+:root[data-motion-tier="static"] { --flip-dur: 0s; --flip-fade: 0s; --flip-stagger: 0s; }
+html:has(.detail[open]) { overflow: hidden; }
+
+.topbar { display: flex; justify-content: space-between; align-items: baseline; gap: var(--gutter); padding-block: calc(var(--unit) * 5); }
+.topbar p { margin: 0; }
+.hero { padding-block: calc(var(--unit) * 16) calc(var(--unit) * 14); }
+.hero h1 { font-size: clamp(2.75rem, 8.5vw, 9rem); max-width: 11ch; overflow-wrap: anywhere; }
+.lede { max-width: 58ch; margin: calc(var(--unit) * 8) 0 0; }
+.footer { padding-block: calc(var(--unit) * 12); }
+.footer p { margin: 0; }
+
+/* Head of the index: the section heading on one side, the controls on the other. */
+.index { padding-bottom: calc(var(--unit) * 24); }
+.index__head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: calc(var(--unit) * 6) var(--gutter); padding-block: calc(var(--unit) * 6) calc(var(--unit) * 10); border-top: 1px solid var(--ink); }
+.index__head h2 { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(1.75rem, 3vw, 2.75rem); line-height: 1; letter-spacing: -0.02em; }
+.tools { display: flex; flex-wrap: wrap; align-items: center; gap: calc(var(--unit) * 4) calc(var(--unit) * 8); }
+.tools__group { display: flex; flex-wrap: wrap; align-items: center; gap: calc(var(--unit) * 2); }
+.tools__name { margin-inline-end: var(--unit); font-family: var(--font-mono); font-size: var(--label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.tools__status { flex-basis: 100%; margin: 0; font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); }
+
+.switch {
+  min-height: 44px; padding: calc(var(--unit) * 2) calc(var(--unit) * 4);
+  border: 1px solid var(--line); border-radius: 999px; background: transparent; cursor: pointer;
+  transition: background-color var(--dur-feedback) ease-out, color var(--dur-feedback) ease-out, border-color var(--dur-feedback) ease-out;
+}
+.switch:hover { border-color: var(--ink); }
+.switch[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--ground); }
+.switch__count { margin-inline-start: 0.3em; font-family: var(--font-mono); font-size: 0.8em; }
+
+/* One list, two layouts. The grid is the default; [data-view="list"] is the other arrangement of the same nodes. */
+.works { --cols: 3; position: relative; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); gap: calc(var(--unit) * 12) var(--gutter); }
+.work { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); align-content: start; gap: calc(var(--unit) * 3); border-top: 1px solid transparent; }
+.work[hidden] { display: none; }
+/* The frame keeps the slot when the plate leaves for the detail view; its tone shows where the plate will return. */
+.work__frame { position: relative; aspect-ratio: 4 / 3; background: var(--line); }
+.work__title { justify-self: start; margin: calc(var(--unit) * 2) 0 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(1.25rem, 1.8vw, 1.75rem); line-height: 1.1; letter-spacing: -0.015em; overflow-wrap: anywhere; }
+.work__open { padding: 0; border: 0; background: none; font: inherit; text-align: start; cursor: pointer; transition: color var(--dur-feedback) ease-out; }
+/* The whole item is the hit area; the button stays the one focus stop and the one name. */
+.work__open::after { content: ""; position: absolute; inset: 0; }
+.work:hover .work__open, .work__open:focus-visible { color: var(--accent); }
+.work__meta { justify-self: start; margin: 0; font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); }
+
+.works[data-view="list"] { grid-template-columns: minmax(0, 1fr); gap: 0; }
+.works[data-view="list"] .work { grid-template-columns: clamp(5rem, 9vw, 8rem) minmax(0, 1fr) auto; align-items: center; column-gap: var(--gutter); padding-block: calc(var(--unit) * 4); border-top-color: var(--line); }
+.works[data-view="list"] .work__title { margin: 0; }
+.works[data-view="list"] .work__meta { justify-self: end; }
+
+/* Plates: CSS-drawn stand-ins for project images (the recipes ship no media). Every figure is sized in %, so it holds its proportions at any scale. */
+.plate { position: absolute; inset: 0; overflow: hidden; }
+.plate::before { content: ""; position: absolute; background: var(--ground); }
+.tone-clay { background: #a4533a; }
+.tone-ochre { background: #c99b45; }
+.tone-slate { background: #3d4852; }
+.tone-moss { background: #5b6741; }
+.tone-bone { background: #ddd5c4; }
+.tone-ink { background: var(--ink); }
+.tone-blue { background: var(--accent); }
+.fig-arch::before { left: 34%; right: 34%; top: 24%; bottom: 0; border-radius: 999px 999px 0 0; }
+.fig-disc::before { left: 30%; top: 18%; width: 40%; aspect-ratio: 1; border-radius: 50%; }
+.fig-bar::before { left: 0; right: 0; top: 58%; height: 14%; }
+.fig-step::before { left: 18%; right: 18%; bottom: 0; height: 30%; }
+.fig-step::after { content: ""; position: absolute; left: 36%; right: 36%; bottom: 30%; height: 26%; background: var(--ground); }
+.fig-ring::before { left: 31%; top: 18%; width: 38%; aspect-ratio: 1; border-radius: 50%; background: var(--ink); }
+.tone-slate.fig-ring::before { background: var(--ground); }
+/* The ring's hole is the plate's own tone, centred in the 4:3 frame (top 18% + the 4% wall in height terms). */
+.fig-ring::after { content: ""; position: absolute; left: 35%; top: 23.33%; width: 30%; aspect-ratio: 1; border-radius: 50%; background: inherit; }
+.fig-quarter::before { right: 0; bottom: 0; width: 46%; aspect-ratio: 1; border-radius: 100% 0 0 0; }
+
+/* The detail view: a native modal dialog on the page ground. The plate is reparented into its frame. */
+.detail { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: transparent; color: var(--ink); overflow-y: auto; overscroll-behavior: contain; }
+.detail::backdrop { background: transparent; }
+.detail.is-flying { overflow: hidden; }
+.detail__ground { position: fixed; inset: 0; background: var(--ground); }
+.detail__bar { position: relative; display: flex; justify-content: space-between; align-items: center; gap: var(--gutter); padding: calc(var(--unit) * 4) var(--gutter); }
+.detail__where { margin: 0; font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); }
+.detail__body { position: relative; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: calc(var(--unit) * 6) var(--gutter); align-items: start; padding: calc(var(--unit) * 2) var(--gutter) calc(var(--unit) * 16); }
+.detail__frame { position: relative; aspect-ratio: 4 / 3; }
+.detail__title { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(2rem, 4.2vw, 4.25rem); line-height: 0.95; letter-spacing: -0.03em; overflow-wrap: anywhere; }
+.detail__facts { display: grid; gap: calc(var(--unit) * 3); margin: calc(var(--unit) * 8) 0 0; }
+.detail__facts div { display: grid; grid-template-columns: 6rem minmax(0, 1fr); gap: var(--gutter); padding-top: calc(var(--unit) * 3); border-top: 1px solid var(--line); }
+.detail__facts dt { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted); }
+.detail__facts dd { margin: 0; }
+.detail__text { max-width: 44ch; margin: calc(var(--unit) * 8) 0 0; }
+
+@media (max-width: 1023px) {
+  .works { --cols: 2; }
+}
+@media (max-width: 767px) {
+  .detail__body { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 559px) {
+  .works { --cols: 1; }
+  .works[data-view="list"] .work { grid-template-columns: 5rem minmax(0, 1fr); column-gap: calc(var(--unit) * 4); row-gap: var(--unit); }
+  .works[data-view="list"] .work__frame { grid-row: span 2; }
+  .works[data-view="list"] .work__meta { justify-self: start; }
+}

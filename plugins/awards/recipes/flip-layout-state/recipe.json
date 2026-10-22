@@ -1,0 +1,33 @@
+{
+  "id": "flip-layout-state",
+  "title": "Layout state with GSAP Flip: grid to list, filter, detail and back",
+  "intent": "Index that rearranges",
+  "group": "galleries-and-lists",
+  "summary": "`Flip.getState` → class or `hidden` change → `Flip.from` for three moves on one list of nine works: grid ↔ list with `nested: true` and `absolute: true` on the item and its parts, scale off so a card that becomes a row moves width / height and never squashes its text, the list's end height pinned while everything is absolute; a discipline filter at `scale: true` with `absoluteOnLeave`, leavers to `scale .85, opacity 0` in `onLeave` and arrivals back in `onEnter`; a work's plate reparented into a native `<dialog>` and flown there at `scale: true` (4:3 to 4:3, so uniform), home again after the copy and ground fade; `.75 s` on a CustomEase read from `--flip-ease`, stagger `--flip-stagger` (`.025 s`) per item so a card and its parts start together; `aria-pressed` view and filter buttons, a polite count, focus kept on the control, moved into the dialog and back to the work's button; every change settled on the next frame under reduced motion and static",
+  "tags": [
+    "gsap",
+    "customease",
+    "stagger",
+    "tokens",
+    "layout",
+    "list",
+    "toggle",
+    "dialog",
+    "keyboard",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [
+    "gsap@3.15.0"
+  ],
+  "variants": [
+    "vanilla + GSAP Flip (this)",
+    "Flip.batch() when the list and the controls re-render in separate components",
+    "View Transitions API: a view-transition-name per item, same-document startViewTransition()"
+  ],
+  "seenIn": [
+    "noth",
+    "abatable",
+    "son-daven"
+  ]
+}
