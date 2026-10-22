@@ -46,11 +46,13 @@ Excluded by that instruction (lower impact, larger effort): F5 jury panel, F6 mo
 
 **Batch 4 — recipes**
 - [ ] R1 view-transitions-mpa; R2 css-scroll-driven-timeline; R3 flip-layout-state; R4 case-study-route-kit
-- [ ] R5 drag-pan-infinite-grid; R6 image-trail-cursor; R8 pseudo-locale stress state; R9 physics-pile-matter
+- [ ] R5 drag-pan-infinite-grid; R6 image-trail-cursor; R9 physics-pile-matter
+- [x] R8 pseudo-locale stress (`verify-recipes --pseudo`)
 - [ ] R13 the four specced wave-4 recipes; R14 designed-404, cart-drawer-quick-add
 
 **Batch 5 — new modes and proof**
-- [ ] F2 quick mode; F1 redesign mode; F4 multi-route sites; F9 award program presets; F11 DESIGN.md interop; D8 framework adapters
+- [x] F2 quick mode; F1 redesign mode; F4 multi-route sites; F9 award program presets; F11 DESIGN.md interop
+- [ ] D8 framework adapters (`scripts/check-adapters.mjs` checks them)
 - [ ] G1 finish and ship the plugin's own site
 
 

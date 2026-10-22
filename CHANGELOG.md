@@ -4,7 +4,7 @@ Release notes for the awards plugin, newest first. The manifests carry the versi
 
 ## Unreleased
 
-From the 2026-10-22 review, batches 1 to 3 (everything except the large, lower-impact items).
+From the 2026-10-22 review, batches 1 to 5 (everything except the large, lower-impact items).
 
 - **Truthful rendered checks.** Every visible text is measured against what is actually behind it, focus states included (C01, A12); axe-core runs WCAG 2.2 A/AA (A16); new rules for titles, descriptions, canonical and Open Graph (S07–S10), skip links (A13), touch targets (A14) and duplicate ids (A15). A rendered step that fails is an `ERR` finding, never a clean read; a bundler project renders its build output. Rendered checks run at desktop, tablet and phone and add blank viewports (L09), lopsided tablet and phone sections (L10) and layout shift during load (P08). 85 rules.
 - **Evidence the jury can use.** Tablet frames, ARIA trees, held-clock timeline frames and a contact sheet, a video pass, a throttled phone pass, a GPU lane that refuses SwiftShader, per-frame diffs against the previous round, and Chrome UX Report field data (`scripts/crux.mjs`). The jury scores Awwwards' six developer criteria by name.
@@ -18,6 +18,9 @@ From the 2026-10-22 review, batches 1 to 3 (everything except the large, lower-i
 - **Composition you can measure.** `references/patterns/layout-and-composition.md` (grids, gutters, measure, image share, thirteen layout families and the adjacency rules the page map is checked against), and a block-map skeleton plus a measured fingerprint row (type ramp at 1440 and 390, margin, column edges, media share) for every card that allows it (`scripts/skeleton.mjs`, `references/sites/_fingerprints.md`).
 - **A corpus that keeps itself honest.** The index is generated from the card headers (`build-index.mjs`), every card is checked against a vocabulary (`check-card.mjs`), waves are opened against a gap report (`corpus-gaps.mjs`) after a model-free pre-pass (`corpus-prepass.mjs`), a quarterly health pass records which sites were rebuilt (`corpus-health.mjs`), research reads up to two named inner routes, and the clone-level card is cited as `[clone:floema-jewelry]`.
 - **Recipe catalogue from data.** `recipes/README.md` is generated from each `recipe.json` (intent, group, summary), grouped by the component catalogue, with tags from a controlled vocabulary.
+- **New modes.** `craft --quick` for one landing page (system and structure checked once, no component passes, one jury round); `craft redesign <url|dir>` (a branch, a baseline capture and a forked `jury --baseline`, a content inventory, two baseline faults as THESIS refusals); `capture.mjs --routes` captures every route of a site into one `routes.json` the jury reads; award program presets (`jury --program awwwards,cssda,fwa,webby`, `references/jury/programs.md`); DESIGN.md lint, export and per-round token diffs through Google's design.md CLI (`scripts/design-md.mjs`).
+- **Verification.** `verify-recipes --pseudo` (text 40 % longer, then right to left, on a phone); `--only` builds only those entries; audit rule A17 (viewport that locks zoom); four recipes lost the eyebrow labels the computed-style check found.
+- **The plugin's own site** moved onto `main` under `site/`.
 - **Not yet measured.** No paid eval has run against these changes; `node evals/pick.mjs` lists the cases they need.
 
 ## 0.7.0 — 2026-10-22

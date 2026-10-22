@@ -84,6 +84,17 @@ Decisions taken during the build, with the reason, so a future session does not 
 | Wave opening | A wave opens only when its queue fills two gaps `corpus-gaps.mjs` lists; the pre-pass settles DNS, policy, signatures and captures before any subagent | Quotas enforced by refusing sites (a strong site in a crowded class can still teach a technique) |
 | Skeletons | Block maps and measured fingerprints only, never frames of the sites, kept in git (about 20 KB each) | Storing captures in the repository; SVG maps (PNG renders identically everywhere the Read tool runs) |
 
+## Taken in the modes batch (2026-10-22)
+
+| Decision | Choice | Alternatives declined |
+|---|---|---|
+| Quick mode | Same skills and the same complete contract; system hands straight to structure, no component passes, one page jury round, one ship pass | A separate quick skill (a twelfth trigger surface to keep from over-firing); dropping the hero probe (the cheapest early catch) |
+| Redesign baseline | A forked `jury --baseline` logged as `baseline`, never a page round; its Keep line survives and two faults become THESIS refusals | Letting the first page round double as the baseline (it would spend a round and score the wrong site) |
+| Multi-route capture | `capture.mjs --routes` runs one full capture per route and writes `routes.json`; a local site is served once from its root | One capture with route states (absolute asset paths break when each route is served from its own folder) |
+| Program presets | Target lines after the scores, from each program's published bar; the mappings are marked inferred and never move a score | Re-weighting the rubric per program (the corpus calibration is Awwwards'; a second weighting would be invented) |
+| DESIGN.md CLI | `@google/design.md` 0.4.0 through npx, pinned, `unmeasured` offline; `missing-primary` read as information because the accent plays primary | Installing it in the scaffold (alpha); adding a `primary` alias token (it would have to be kept in step with tokens.css) |
+| Adapters | Code adapters checked by `check-adapters.mjs` (Oxc parse through the recipes' Vite, pinned imports, `useGSAP` with GSAP); a Webflow section in every P0 README | Adapters as README prose only (no check catches a broken one) |
+
 ## Architectural
 
 - **Corpus at the plugin root**, addressed as `${CLAUDE_PLUGIN_ROOT}/references/…`, `…/recipes/…`, `…/scripts/…`; skill folders hold no private copies. Copying a single skill folder elsewhere is unsupported.
