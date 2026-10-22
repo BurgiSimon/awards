@@ -5,7 +5,7 @@ Use this table to pick **neighbours** for a new brief: the three cards closest b
 Confidence is the card's overall label. Since the 0.2 pass it means: **high** = the live site was
 rendered and its source read, and its award entry was read from the entry page itself; **medium** =
 search extraction of award pages and galleries; **low** = model recall only. Rows still marked
-medium or low have not had their live pass yet — the ledger at `docs/handoff/verification-log.md`
+medium or low have not had their live pass yet — the repository's [verification log](https://github.com/burgisimon/awards/blob/main/docs/handoff/verification-log.md)
 says which.
 
 `floema-jewelry` is not an award reference and carries no verified score: it is the clone-level

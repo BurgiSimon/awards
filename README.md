@@ -35,16 +35,16 @@ For an unpublished local checkout, use `/plugin marketplace add /absolute/path/t
 
 ### Runtime requirements
 
-Use a current Claude Code or Codex CLI with plugin support. Installation checks were run with Claude Code 2.1.278 and Codex CLI 0.155.1. Builds require Node **20.19+ on the 20.x line, or 22.12+**, matching the bundled Vite version; Node 24 works. npm and network access are needed to install project dependencies. Context7 is optional; the skills can use official web documentation instead.
+Use a current Claude Code or Codex CLI with plugin support. Installation checks were run with Claude Code 2.1.278 and Codex CLI 0.155.1. Builds need Node **22 LTS (22.12+) or 24 LTS**. Node 20.19+ still runs the scripts and the Vite scaffold, but it reached end of life on 2026-04-30 and current Astro, Nuxt and SvelteKit releases refuse it; `scripts/doctor.mjs` checks the running Node against every installed package's `engines.node`. npm and network access are needed to install project dependencies. Context7 is optional; the skills can use official web documentation instead.
 
-For captures, rendered audits and jury evidence, install Playwright **and Chromium** in the website project:
+For captures, rendered audits and jury evidence, install Playwright **and Chromium** once, before the first build: the hero probe captures in phase 3, before the website project has a `package.json`.
 
 ```bash
-npm install --save-dev playwright
+npm install --global playwright@1.64.1
 npx playwright install chromium
 ```
 
-Run captures from that project directory. For an existing Playwright installation elsewhere, set `AWARDS_PLAYWRIGHT` to its parent project directory; `AWARDS_CHROMIUM` can point to an installed Chromium executable. Linux/cloud hosts may need `npx playwright install --with-deps chromium`. Static audits and scaffolding do not need a browser. If captures cannot be produced, the jury reports `recapture`.
+A project-local install (`npm install --save-dev playwright@1.64.1`) works too once the project exists. For an existing Playwright installation elsewhere, set `AWARDS_PLAYWRIGHT` to its parent project directory; `AWARDS_CHROMIUM` can point to an installed Chromium executable. Linux/cloud hosts may need `npx playwright install --with-deps chromium`. Static audits and scaffolding do not need a browser. If captures cannot be produced, the jury reports `recapture`.
 
 Before a build or capture, run the non-installing environment check from the website project:
 
@@ -79,6 +79,18 @@ git archive --format=zip --output=/tmp/awards.zip HEAD:plugins/awards
 
 This includes committed files only. Do not upload individual `skills/<name>` folders as standalone skills: their shared resources live at the plugin root. Their names and descriptions follow the [Agent Skills specification](https://agentskills.io/specification); the frontmatter also retains Claude-specific invocation and jury settings. Cowork/cloud availability and browser permissions depend on the host; those sessions have not been tested here.
 
+## Quick start
+
+1. Install the plugin and Playwright (above), open an empty folder, and start Claude Code there.
+2. Ask for the site in your own words, with the subject, the audience and what a visitor should do, for example: *"Build an award-worthy site for Saltglaze, a two-person stoneware studio. Collectors and restaurant buyers, often on a phone. The goal is enquiries for the next kiln opening."* `/awards:craft` is the explicit entry point; an award-framed request reaches it on its own.
+3. You will be asked at most three questions about the brief, then once to choose between three dealt directions and a conventional exit. Everything else is decided and recorded in `AWARDS.md` and `DESIGN.md`, where you can change it.
+4. A full build runs every phase, brief to ship, and takes long: the reference build took about 45 minutes and 150 turns, and roughly $27 of API usage at the eval runner's rates (`plugins/awards/evals/README.md`). Expect a long unattended run, not a chat.
+5. The first jury verdict is usually `fix`, not `ship`. The jury is calibrated about 0.7 below the real award on purpose (`references/jury/rubric.md`), so `fix` with a short, located list is the normal result; ship applies it and the jury re-checks once.
+
+What you get: the site in the folder, `AWARDS.md` (brief, direction contract, page map, motion score, budgets, jury and ship logs), `DESIGN.md` and `tokens.css`, and `.awards/` with captures, the audit and the jury and ship reports (gitignored).
+
+**Permissions.** A build runs `node` scripts, `npm install`, `npm run build` and captures many times. The skills pre-approve their own scripts and those build commands; for the rest, auto mode (Claude Code's default starting mode for interactive sessions since 2.1.283) keeps prompts rare while a classifier checks each action. `acceptEdits` also works, with more prompts. Use `bypassPermissions` only in a disposable container or VM.
+
 ## Skills
 
 The table uses Claude Code's `/awards:<name>` notation; use `$awards:<name>` in Codex.
@@ -107,14 +119,14 @@ Every skill also triggers on its own request ("add a custom cursor", "judge this
 4. **Motion and WebGL.** A motion score per chapter, recipes adapted rather than pasted, a DOM mirror and a no-GL path for every canvas.
 5. **Jury and ship.** Capture coverage follows the page map and capture manifest, including desktop/mobile chapters, reduced motion and required interaction states. The audit and forked jury produce Design / Usability / Creativity / Content and developer scores, or `recapture` when visual evidence is missing. The jury returns `ship`, `fix`, `rebuild` or `recapture`; ship applies the fix batch and verifies the expected changes in before/after captures.
 
-Durable files: `AWARDS.md` (brief, contract, page map, motion score, budgets, jury and ship logs, exceptions), `DESIGN.md` (tokens and rules), `.awards/` (captures, reports, audit output; gitignored). In Claude Code, a `PostToolUse` hook runs a sub-second audit after each edit, only in projects that carry an `AWARDS.md`, a `UserPromptSubmit` hook adds one routing line when a prompt asks for award-level work, and after a context compaction a `SessionStart` hook re-attaches a short state card from an unfinished build's `AWARDS.md`; set `AWARDS_HOOK=0` to silence all three. Codex runs the same audit explicitly after edit batches.
+Durable files: `AWARDS.md` (brief, contract, page map, motion score, budgets, jury and ship logs, exceptions), `DESIGN.md` (tokens and rules), `.awards/` (captures, reports, audit output; gitignored). In Claude Code, a `PostToolUse` hook runs a sub-second audit after each edit, only in projects that carry an `AWARDS.md`, a `UserPromptSubmit` hook adds one routing line when a prompt asks for award-level work, and after a context compaction a `SessionStart` hook re-attaches a short state card from an unfinished build's `AWARDS.md`, and a `SubagentStop` hook sends a jury reply that lost its `disposition:` line back once; set `AWARDS_HOOK=0`, or turn off the plugin's `hooks_enabled` setting, to silence all four. Codex runs the same audit explicitly after edit batches.
 
 ## What is inside
 
 - `plugins/awards/references/` — the site case studies, each checked against the live site and its live award entry (the original set on 2026-09-18, later cards on the date each one records) and carrying confidence labels, the [visual composition guide](plugins/awards/references/patterns/visual-composition.md) and broader pattern language, the jury rubric and usability walk, the craft floor, anti-pattern and reflex lists, per-stack and per-library notes with pinned versions.
 - `plugins/awards/recipes/` — 75 focused recipes plus one complete editorial composition, 76 verifiable entries in all. The six new visual examples include reviewed desktop/mobile images and synthetic demonstration content; each entry has a browser verifier. These images are generated and tested examples, not evidence of human preference.
-- `plugins/awards/scripts/` — `doctor.mjs`, `capture.mjs`, `audit.mjs`, `new-project.mjs`, `roll.mjs`, `verify-recipes.mjs`, `lint-refs.mjs`.
-- `plugins/awards/evals/` — a `claude plugin eval` suite: twenty routing cases (eleven that must fire a skill, three that must take a deep mode, six that must not), one full-tools routing case for an unled brief and six build cases with fixtures, plus `selftest.mjs` for grader checks and `behavior.mjs` for actual browser, audit, capture, server and ticker regressions without model calls.
+- `plugins/awards/scripts/` — `doctor.mjs`, `capture.mjs`, `audit.mjs`, `crux.mjs`, `new-project.mjs`, `roll.mjs`, `verify-recipes.mjs`, `lint-refs.mjs`, `check-sync.mjs`, `check-versions.mjs`, `calibration.mjs`.
+- `plugins/awards/evals/` — a `claude plugin eval` suite in six tiers: 25 routing cases (twelve that must fire a skill, three that must take a deep mode, ten that must not), a contract tier that stops after the visual system, a resume case, a full-tools routing case, two coexistence cases beside GreenSock's gsap-skills and seven build cases with fixtures; plus `selftest.mjs` for grader checks, `regrade.mjs` and `pick.mjs` to spend less, and `behavior.mjs` for real browser, audit, capture, server and ticker regressions without model calls.
 
 ## Verify
 
@@ -130,19 +142,21 @@ This installs into a temporary Codex home, checks actual skill discovery through
 claude plugin validate plugins/awards
 claude plugin validate .claude-plugin/marketplace.json
 cd plugins/awards/recipes
-npm ci
-npm install --no-save --package-lock=false playwright  # verification tool only
+npm ci                                       # includes the pinned Playwright (1.64.1)
 npx playwright install chromium
 node ../scripts/doctor.mjs .                 # early prerequisite check; no installs
 node ../evals/behavior.mjs                   # live behavior regressions, no model calls
 node ../scripts/verify-recipes.mjs            # all 76 entries, headless Chromium with WebGL
 node ../scripts/audit.mjs .                   # the craft floor: must stay free of P0-P2
 node ../scripts/lint-refs.mjs                 # every [site:]/[recipe:]/[pattern:] reference resolves
+node ../scripts/check-sync.mjs                # versions, pins, shared copies, licence files, quoted counts
+node ../scripts/check-versions.mjs            # pins against the npm registry's latest (network, no install)
 node ../evals/jury-evidence-selftest.mjs      # jury evidence contract, no model calls
 node ../evals/visual-library-selftest.mjs     # visual guide/recipe metadata, no model calls
 node ../evals/selftest.mjs                    # every file-target grader fails on untouched input
 node ../evals/codex-install.mjs --build       # installed scaffolds, with and without WebGL
 cd ..
+node evals/pick.mjs                           # which paid cases this branch needs (free)
 claude plugin eval . --tag smoke --scaffold --runs 3 --threshold 0.67   # routing (model calls)
 ```
 
@@ -153,178 +167,7 @@ SwiftShader verification is not safe beside another browser. See [behavior check
 
 Version 0.7.0.
 
-### 0.7.0 — 2026-10-22
-
-From the 2026-10-22 improvement review: a full build can now finish, and the tools it leans on tell the
-truth.
-
-- **Builds can finish.** The stack phase scaffolds into the project the earlier phases started
-  (`new-project.mjs --keep-existing`). A build gets two page jury rounds (phase 7 and one verdict pass)
-  plus up to two component passes, counted separately; verdict mode re-scores, so a `fix` can become
-  `ship`; a component pass no longer ticks the page-level jury box.
-- **An edit hook that tells the truth.** Line numbers are indexed, not rescanned (a 1.2 MB stylesheet went
-  from 64 s to 0.55 s against the hook's 5 s limit); "handled anywhere" checks read the whole project, so
-  ordinary edits no longer earn false P0/P1 findings; a build in a subfolder of the open project is audited.
-- **Survives compaction.** A `SessionStart` hook re-attaches a short state card from `AWARDS.md` after a
-  context compaction while a build is unfinished.
-- **Corrected facts and routing.** The igloo, the-line and son-daven award claims now match their cards
-  (Site of the Day, with scores); the Tailwind rule names the two winners that use it as a token layer; a
-  new-site brief that names WebGL or GSAP routes to `craft`.
-- **Taxi 2.0.** Both taxi recipes run on 1.9.1 and on 2.0.0; `references/stacks/taxi-2.0.md` lists the
-  breaking changes. The pin stays at 1.9.1.
-- **Codex.** The Codex manifest declares no hooks (`"hooks": {}`), which keeps the plugin eligible for
-  Codex's public plugin directory; Codex runs the audit explicitly, as before.
-- **CI and tests.** GitHub Actions runs the free checks on Node 22 and 24 for every push and pull request;
-  `scripts/check-sync.mjs` guards versions, pins, shared copies, licence files and quoted counts. The
-  grain-field reset is no longer timing-flaky, and `behavior.mjs` passes 20/20 without manual setup.
-- **Not yet measured.** No paid eval ran for this release: whether a full build now reaches Shipped awaits
-  one `build-antarctic-site` run (see `docs/handoff/todo.md`).
-
-### 0.6.0 — 2026-10-07
-
-From a whole-plugin analysis of why generated sites fall short of the corpus
-([`docs/handoff/analysis-2026-10-06.md`](docs/handoff/analysis-2026-10-06.md)). The changes move effort from
-detecting slop to generating less of it.
-
-- **No house style.** The scaffold hero lost its `/ 01` label; labels as texture, motion values and the
-  display clamp are now derived from the world instead of fixed; the staple kit (counter preloader,
-  overlay nav, cursor, magnetic button, marquee, split reveal) is capped at two at recipe-default shape;
-  structure offers all thirteen hero archetypes. Fourteen recipes lost their eyebrow micro-meta and the
-  six visual examples were re-captured.
-- **Composition, not only costume.** The template hero is a named rut, the page map carries a Layout
-  column (no layout in two adjacent chapters, four or more on long pages), and the seeded roll picks its
-  lead at random among the dealt directions.
-- **Calibrated against real neighbours.** `system` derives its relationships from the three chosen corpus
-  cards; the jury opens a frame of each neighbour and names one finish gap per card.
-- **Judgement moves forward.** The hero is captured and judged on the image right after the system; a
-  forked component jury looks at the first viewport before motion (and again after WebGL when the
-  signature is a canvas). The jury splits its fixes into an uncapped floor list and up to five craft
-  fixes, and adds a reported-only `Ceiling:` line.
-- **Tooling.** `capture.mjs` records hover and focus-visible frames by default; audit rule C05 (render)
-  compares the page ground with the DESIGN.md token, L05 catches BEM eyebrow names, X07 catches `/ 01`;
-  a `UserPromptSubmit` route hint. New evals: an unled full-tools brief (3 / 3 reached `craft`) and graders
-  for the Layout column, calibration and a lenient jury. `evals/stage-browser.sh` stages Playwright and
-  Chromium into the eval sandbox, which no longer sees the user's home.
-- **Not yet measured.** The full build case was interrupted, skipped and not scored; the effect on jury
-  scores is open (see `docs/handoff/todo.md`).
-
-### 0.5.0 — 2026-10-05
-
-- **Deep modes.** `awards:motion --gsap`, `awards:webgl --shader` and `awards:webgl --3d` are modes of
-  the existing skills, not new skills. They switch on from the direction contract, the WebGL dosage
-  and depth rung, or the motion score, or by flag, and record themselves on one `Deep modes:` line in
-  `AWARDS.md`. Each loads a playbook: `gsap-choreography.md`, `webgl-shaders.md`, `webgl-3d-scenes.md`.
-- **Corpus wave 4 with a tech lens.** Seventeen queued sites (GSAP, WebGL and 3D queues): twelve new
-  cards plus a GSAP teardown on `why-zero`, each with a `### Tech lens:` subsection read from live
-  source; two skipped because their owners forbid automated extraction; two blocked because their
-  scenes do not render headless (retry needs a real GPU). The index grows from 50 to 62 rows.
-- **Sixteen new recipes**, for 75 focused recipes plus one complete composition: house easing tokens,
-  uniforms as tween targets, a scrubbed clip-path door, scrub-threshold timelines, a studio environment
-  built at runtime, a patched-material reveal, one context feeding many canvases, a lathe-turned object,
-  a GPU grain field, an arc-length stroke reveal, dispersion stripes, an extruded SDF symbol, a
-  spring-stepped gallery, progress-line scene windows, a two-phase interruptible timeline and an
-  OffscreenCanvas worker. All 76 entries passed one serial browser run on 2026-10-05.
-- **Expand-corpus.** Lens queues, an existing-card path, captures serialised behind a lock, and an
-  owner-policy check before any capture.
-
-### 0.4.0 — 2026-09-24
-
-- **Thirty new site cards.** The corpus index grows from 20 to 50 rows over two waves. Every card
-  was captured live and its source read; none is written from memory. Each carries a corpus rating
-  (Design / Usability / Creativity / Content, labelled `[inferred]`) next to any published award
-  score, and a card is added for what it teaches the corpus, never for its rating. New ground
-  includes e-commerce, docs and B2B-service classes, section-switcher decks, operable-object
-  portfolios and chaptered campaigns. One site (oxigen) stays blocked: headless capture cannot
-  render its scene.
-- **The pattern language absorbs them.** All thirteen pattern files, the reflex and anti-pattern
-  lists and the recipe `seenIn` arrays cite the new cards. New hero archetypes ("wordmark as a
-  window", "operable object", "the work on screen one"), components (persistent mode switch,
-  auto-advancing tabs with a visible clock, sentence-form enquiry, docked media that grows into its
-  section) and an e-commerce row in the category defaults.
-- **Twenty-four new recipes**, for 59 focused recipes plus one complete composition. Among them:
-  scroll-filled words, a hero word cycle, a wheel-committed panel deck, a clamped orbit over a
-  model with DOM hotspots, a knockout wordmark over a moving ground, a preloader that opens into
-  the hero, an endless GL reel, a blur-peek snapping carousel, a video clip-wipe and a runtime
-  DPR governor with an idle render gate. Each ships its own browser check, and none ships a media
-  or font file.
-- **Fourteen library notes**, among them Barba, Taxi, Highway, next-view-transitions, OGL,
-  Locomotive Scroll, camera-controls, lottie-web, the Spline viewer and html2canvas, each checked
-  against published source and linked from the stack skill, with pins in `versions.md`.
-- **`inspect(page, state)`** in `verify.mjs` lets a recipe check the accessibility tree or an ARIA
-  snapshot from Node on the page the harness already drove; `sentence-form-enquiry` uses it.
-- **A maintainer workflow for growing the corpus** (`.claude/skills/expand-corpus/`, not shipped
-  with the plugin): triage in batches, synthesis, recipe proposals behind a maintainer gate, stack
-  notes and upkeep, with a ledger in `docs/handoff/corpus-ledger.md`.
-
-**Verification and limits.** All 60 entries passed in one serial browser run on 2026-09-24, and the
-recipe audit is free of P0–P2 findings. Headless checks do not establish real-device GPU
-performance or real touch feel. The routing smoke evals were not re-run for this release, so the
-skills' triggering is measured only as of 0.3.0.
-
-### 0.3.0 — 2026-09-23
-
-- **Visual composition library.** Five new recipes cover editorial image/text composition,
-  responsive art-directed heroes, product specifications, typography specimens and designed
-  footers. One complete furniture/materials page combines them with coherent synthetic imagery,
-  shared styles and annotated desktop/mobile captures. The catalogue has 35 focused recipes and
-  one complete composition.
-- **Visual evidence in planning.** A composition guide connects real rendered examples to concept,
-  system and structure decisions. A static desktop/mobile review precedes motion. Jury and ship
-  derive coverage from the page map and capture manifest, and verify named fixes before/after.
-- **More consistent guidance.** Corrected contradictory palette, type hierarchy and case-study
-  confidence rules. Missing visual evidence produces an unmeasured `recapture` result instead of
-  a numeric score. Metadata validation handles malformed recipe roots; shared specification styles
-  keep disclosure text clear of the keyboard-focus outline.
-- **Runtime and installation support since 0.2.0.** Both Claude Code and Codex manifests ship with
-  isolated install/discovery checks. Interactive capture state plans, the non-installing `doctor`
-  preflight and browser/tool regression checks support the complete workflow.
-
-**Verification and limits.** All 36 entries passed in isolated serial browser runs; a single-session
-full run remains unproven. Headless checks do not establish real-device GPU performance. In the
-[three-pair pilot](docs/handoff/visual-comparison-2026-09-22.md), the candidate was preferred overall
-twice, tied once, and tied on mobile throughout. Two candidate builds failed keyboard-focus contrast,
-so the pilot did not meet acceptance. None of the six builds invoked the advertised skills;
-the library's effect on generated sites remains unmeasured. The release includes the implementation
-and evidence, with those follow-ups still open.
-
-### 0.2.0 — 2026-09-21
-
-0.1.0 was built in a sandbox that could not reach a single one of the sites it described, and its
-eval suite had run once. This release closes both.
-
-- **The corpus saw the sites.** All nineteen entries were loaded in a real browser and read against
-  their live award entries. Facts changed: one card described a different company, one resolved to
-  the wrong award entry and split into two slugs, a shader that does not exist was removed, and a
-  site the corpus said never asserts a score turned out to hold the highest one in it. Every claim
-  still carries `[verified]`, `[recalled]`, `[inferred]` or `[unknown]`, and `_index.md` gained a
-  `Last verified` column.
-- **The jury rubric is derived rather than recalled.** The 40 / 30 / 20 / 10 weighting was read off
-  twenty live entries and reproduces their published overall to 0.01. Site of the Day runs 7.28 to
-  8.18 in this corpus, not the "7.2–7.9" the old notes claimed, and the six developer criteria
-  Awwwards publishes are now mapped to the five this rubric scores.
-- **Calibration, and how to read a verdict.** Seven blind jury runs scored about 0.7 below the
-  published overall and handed `fix` or `rebuild` to six sites that all won Site of the Day. That
-  gap is deliberate: `ship` means "clears this floor, which is stricter than the award's", not
-  "this would win".
-- **Two recipes finish the catalogue**, at thirty: an opt-in sound toggle that synthesises its own
-  audio, and MSDF text that builds its atlas at runtime, so neither ships an asset file.
-- **The eval suite runs.** Seventeen routing cases across both arms, and a build tier that had never
-  executed once. Running it found more defects in the graders than in the plugin, and one in the
-  jury skill's reply contract.
-- **`lint-refs.mjs`** checks that every `[site:]`, `[recipe:]`, `[pattern:]` and
-  `${CLAUDE_PLUGIN_ROOT}` path resolves. **`evals/selftest.mjs`** checks that every file-target
-  grader fails on untouched input, so a grader that measures nothing cannot pass quietly.
-- **Fixes worth naming**: capture manifests reported a headless cold-cache number as if it were a
-  field LCP, and the jury scored performance from it — the field is now `lcpColdSynthetic` and the
-  skills say what it is worth. `audit.mjs` resolved its project root from the shell's working
-  directory, so auditing from inside `public/` wrote its report there for the build to ship, and
-  silently dropped the project's signed-off exceptions.
-
-**What is not verified.** No recipe has run on a real GPU or a real phone: headless SwiftShader
-proves they are correct, not fast, so run a real-device pass before shipping anything WebGL. The
-quality-tier thresholds are unmeasured guesses. The build eval tier's last two fixes have not been
-re-measured. `docs/handoff/verification-log.md` is the evidence for all of it, including what went
-wrong on the way.
+Release notes are in [CHANGELOG.md](CHANGELOG.md); unreleased work is listed at its top.
 
 ## Provenance and licence
 

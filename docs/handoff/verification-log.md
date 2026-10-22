@@ -1,6 +1,6 @@
 # Verification log — 0.2.0 live corpus pass
 
-The ledger for `docs/handoff/plan-0.2.md`. On any restart read this file first and continue at
+The ledger for `docs/handoff/archive/plan-0.2.md`. On any restart read this file first and continue at
 the first row not marked `done`. Every number here is re-fetched from the live site or its live
 award entry during the pass; nothing is copied from the plan's planning notes.
 
@@ -538,7 +538,7 @@ the plugin and, in its own words, "ran the phase structure by hand instead", pro
 The skill name resolved rather than erroring as unknown, so `--plugin-dir` had loaded the plugin;
 the block was permission, not discovery. The fix is `--allowedTools Skill Bash Write Edit Read Glob
 Grep WebFetch` — the grant the case's own `prompt.md` frontmatter already declares. Corrected in
-`plan-0.2.md`.
+`archive/plan-0.2.md`.
 
 ### Attempt 2: the whole chain ran
 
@@ -560,7 +560,7 @@ decision the chain is supposed to be able to make.
 
 ### Risk 2 is resolved
 
-`plan.md` §14 risk 2 asked whether the forked jury's literal `disposition:` line survives the relay
+`archive/plan.md` §14 risk 2 asked whether the forked jury's literal `disposition:` line survives the relay
 back to the user. **It does.** The final message opens with it quoted verbatim:
 
 ```

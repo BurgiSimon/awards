@@ -33,8 +33,8 @@ developer average. Every one of those gaps came from a usability-walk cap for a 
 reduced-motion tier the winning site genuinely does not have. So `ship` here means *clears our
 floor, which is stricter than the award's*, and a `fix` or `rebuild` on work of real Site-of-the-Day
 quality is the expected result, not a contradiction. Do not re-scale to close the gap: it is the one
-axis on which new work can beat the reference set instead of copying it. Full table in
-`docs/handoff/verification-log.md`.
+axis on which new work can beat the reference set instead of copying it. Full table in the
+repository's [verification log](https://github.com/burgisimon/awards/blob/main/docs/handoff/verification-log.md) (not part of the installed plugin).
 
 ## Design anchors (40)
 

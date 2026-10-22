@@ -128,7 +128,7 @@ re-run against the fixes and pass 3 / 3**: `trigger-webgl-hero` on 2026-09-18, t
 2026-09-21 at CLI 2.1.278. `trigger-jury` passes all three graders in all three runs, including the
 `usability-axis` that missed 2 / 3 before.
 
-Every bar in `plan-0.2.md` Phase 7 is therefore met for the smoke tier. One honest caveat: the four
+Every bar in `docs/handoff/archive/plan-0.2.md` Phase 7 is therefore met for the smoke tier. One honest caveat: the four
 repairs were measured case by case on the plugin arm, not by re-running the whole tier in one pass.
 The other thirteen cases passed in the 2026-09-18 tier run and were not touched by either fix.
 
