@@ -25,8 +25,11 @@ Read the manifest first to establish frame presence, freshness and errors. Do no
 | `desktop-s50` | pacing, world commitment mid-page, the scroll model at work |
 | `desktop-s100` | the close: an authored last screen or a dead end |
 | `mobile-s00` | a designed phone layout or a shrunken desktop; touch navigation |
+| `tablet-s00`, `tablet-s50` | Responsive Design at the third width: a layout chosen for 834 px, or a stretched phone or squeezed desktop |
 | `desktop-rm-s00` | the reduced-motion tier: readable at rest, nothing stuck |
-| `manifest.json` | console and page errors, failed requests, CLS, DOM nodes, WebGL, `lcpColdSynthetic` (not a field LCP) |
+| `<viewport>-aria.yml` | Semantics / SEO: landmarks, heading levels, control names, and whether a canvas chapter's words exist in the DOM |
+| `desktop-timeline.png` | when listed: the intro or preloader at fixed moments of page time |
+| `manifest.json` | console and page errors, failed requests, CLS, long tasks and `blockingMs`, the lab `inpLab`, DOM nodes, WebGL, `lcpColdSynthetic` (not a field LCP), `throttle` and `frames` when that pass ran, and `diff[]` against the previous round when `--baseline` was given |
 
 Component runs use `desktop-component-<slug>`, its `-hover` frame, `mobile-component-<slug>` and `desktop-rm-component-<slug>`. When coverage completes, also open an interaction plan's `<viewport>-state-<name>` frames and inspect their manifest entries; failed or missing required states need recapture. Replay the plan with `capture.mjs --states <json-file>` using `references/capture-states.md`, and reuse a current environment check or run `scripts/doctor.mjs <project-dir> --json` before the first capture attempt. Source code is evidence for the developer criteria and for what moves; it is never a substitute for a capture.
 

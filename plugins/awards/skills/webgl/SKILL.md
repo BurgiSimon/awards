@@ -235,7 +235,7 @@ SwiftShader proves correctness, not frame rate: the captures below prove the pag
 - [ ] Drift test: a fast wheel scroll and a resize leave every plane on its placeholder; the address bar on a phone does not rebuild the scene.
 - [ ] Disposal: after three route changes `renderer.info.memory.geometries` and `.textures` are flat and no ticker subscriber survives the leave hook.
 - [ ] Budgets: gzipped sizes of the entry and the GL chunk, texture bytes per scene, the largest glb, all inside the table above and written into `AWARDS.md ## Budgets & tiers`.
-- [ ] Real device: a frame-time sample on a mid-range phone (≥ 55 fps high, ≥ 30 fps low); no shader compile warnings in the console; `data-quality` reports the tier you expected.
+- [ ] Real device: a frame-time sample on a mid-range phone (≥ 55 fps high, ≥ 30 fps low); no shader compile warnings in the console; `data-quality` reports the tier you expected. On a machine with a GPU, `capture.mjs <dir|url> --gpu --only desktop --scroll 0 --out "$capture_out-gpu"` records p50 and p95 frame times at rest and while scrolling and exits 5 rather than measure SwiftShader; in a sandbox, write the row as unmeasured.
 - [ ] `Deep modes:` names the webgl mode or `none`. Shader mode: every custom material includes `colorspace_fragment`, every uniform is fed from the ticker, and the post order is written down. 3D mode: header-measured glb and KTX2 sizes are in the budget table, decoders are served from the site, and the camera rig answers the keys.
 - [ ] Contract: the dosage rung, the unifier, the canvas model and the fallback tiers are written where the contract says.
 

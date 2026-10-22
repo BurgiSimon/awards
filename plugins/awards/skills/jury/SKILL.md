@@ -111,7 +111,7 @@ Score the six criteria Awwwards publishes, under its names:
 
 ## 4. Assessment C — the usability walk
 
-Why: usability is the lowest axis on nineteen of the twenty verified corpus entries [verified, twenty Awwwards entries read 2026-09-18], which makes it the axis where a new build beats the reference set instead of copying it. Read `${CLAUDE_PLUGIN_ROOT}/references/jury/usability-walk.md` and run its eight steps against the captures, the DOM and the source. When a canvas exists, allocate a separate fresh `capture_out` and add the resilience capture for step 8:
+Why: usability is the lowest axis on 27 of the 31 corpus entries awarded since 2021 [verified per card; counted by `scripts/calibration.mjs --since 2021`, 2026-10-22], which makes it the axis where a new build beats the reference set instead of copying it. Read `${CLAUDE_PLUGIN_ROOT}/references/jury/usability-walk.md` and run its eight steps against the captures, the DOM and the source. When a canvas exists, allocate a separate fresh `capture_out` and add the resilience capture for step 8:
 
 ```
 node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <target> --out "$capture_out" --only desktop --scroll 0 --no-webgl --name nogl
@@ -195,7 +195,7 @@ When the environment cannot run the capture or audit commands at all (no shell t
 
 Why: after `awards:ship` applies a batch, the question is no longer "how good is it" but "did each fix land, and did anything break".
 
-- Re-run the evidence gate; `awards:ship` should have recaptured, so recapture yourself only when the captures predate the last edit.
+- Re-run the evidence gate; `awards:ship` should have recaptured, so recapture yourself only when the captures predate the last edit. Recapture with `--baseline <the jury round's capture_out>` (same flags as that round) so the manifest's `diff[]` says which frames changed and where; open each `diff/` map whose frame no fix named. A change nobody asked for is a regression candidate, and an unchanged frame under a fix marked resolved needs a second look.
 - Take the fix list of the latest `.awards/jury/<date>.md` as the checklist. For each row compare the named viewport/state in before and after manifests, record `resolved | partial | unresolved` with both evidence paths, and check for new regressions, and carry the original `## Keep` line into the verdict. A failed contract block omitted from the batch stays unresolved.
 - Re-score the axes on the after captures with the same anchors, one reason each; a score moves only with a named before/after evidence pair, and an unchanged surface keeps its earlier score. A batch that resolved every seam of a `fix` can therefore reach `ship`, and a regression can lower it.
 - List at most three regressions, write `## Remaining` as `clear` or the list, and recompute the disposition from the new scores, the remaining fixes and the audit with the rules in section 6.

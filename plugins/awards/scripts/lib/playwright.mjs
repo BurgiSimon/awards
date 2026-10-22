@@ -69,8 +69,19 @@ function localChromium(cwd = process.cwd()) {
   return null;
 }
 
-export async function launchChromium(pw, { webgl = true } = {}) {
-  const launchOptions = { headless: true, args: webgl ? GL_ARGS : ['--disable-gpu'] };
+// A hardware-GPU launch: ANGLE on the platform's native backend instead of SwiftShader. These are the
+// usual flags, not ones verified on every machine, so AWARDS_GPU_ARGS replaces them (space-separated) and
+// capture.mjs --gpu refuses to measure when the renderer still turns out to be software.
+export function gpuArgs(platform = process.platform) {
+  if (process.env.AWARDS_GPU_ARGS) return process.env.AWARDS_GPU_ARGS.split(/\s+/).filter(Boolean);
+  const angle = { darwin: 'metal', win32: 'd3d11' }[platform] ?? 'vulkan';
+  return ['--enable-gpu', '--ignore-gpu-blocklist', '--use-gl=angle', `--use-angle=${angle}`, ...(angle === 'vulkan' ? ['--enable-features=Vulkan'] : [])];
+}
+
+export const isSoftwareRenderer = (renderer) => /swiftshader|llvmpipe|softpipe|software|basic render/i.test(String(renderer));
+
+export async function launchChromium(pw, { webgl = true, gpu = false, headed = false } = {}) {
+  const launchOptions = { headless: !headed, args: gpu ? gpuArgs() : webgl ? GL_ARGS : ['--disable-gpu'] };
   // A pinned Playwright without downloaded browsers can still use a system Chromium.
   const exe = process.env.AWARDS_CHROMIUM || process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || localChromium();
   if (exe) {
