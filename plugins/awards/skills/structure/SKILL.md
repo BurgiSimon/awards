@@ -18,7 +18,7 @@ Why: the order hero → logos → features → testimonials → pricing is the f
 - Every chapter has an entrance (the moment that arrives), a hold (the part that reads) and an exit (the hand-off).
 - Exactly one interruption per page, after the first content beat, and it changes the input, the scale or the register (`[pattern:narrative-structures#the-interruption]`).
 - The last screen is scored like the first: a designed footer, a conversion in the page's register, a 404 in the same world (`[pattern:narrative-structures#the-close]`).
-- The DOM is the story with CSS off; the Site of the Year's empty DOM cost it a 6.6 on accessibility and semantics `[site:igloo]`, a ceiling survived, not a licence.
+- The DOM is the story with CSS off; a Site of the Day's empty DOM cost it 6.60 on accessibility and 6.60 on semantics `[site:igloo]`, a ceiling survived, not a licence.
 
 ## Setup
 

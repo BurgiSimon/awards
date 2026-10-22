@@ -12,7 +12,7 @@ The surface, the under-layer and the mask are generated in code; the copy is syn
 - **Idle gate.** The loop leaves the shared ticker 150 frames after the last input; nothing renders while the field is at rest.
 
 ## Parameters
-Brush radius `56 px`, falloff `1 − r³` · pointer delta clamped to `24 px` per frame · per-grain hash scatter `.35 × |delta|` · impulse `.5`, velocity kept `.88` per frame, settles to zero under `.02 px` · reset glide `× .88` per frame for `1.6 s`, then both targets cleared · grains per tier: high `120,000`, mid `60,000`, low `30,000`, laid out on a grid that follows the canvas aspect. All per-frame values are at 60 fps and scaled by the ticker's `dt`. **These are this recipe's own values, not a site's.**
+Brush radius `56 px`, falloff `1 − r³` · pointer delta clamped to `24 px` per frame · per-grain hash scatter `.35 × |delta|` · impulse `.5`, velocity kept `.88` per frame, settles to zero under `.02 px` · reset glide `× .88` per 60 fps frame over `1.6 s`, timed by the clock rather than counted in frames so it lands on exactly zero at any frame rate, then both targets cleared · grains per tier: high `120,000`, mid `60,000`, low `30,000`, laid out on a grid that follows the canvas aspect. All per-frame values are at 60 fps and scaled by the ticker's `dt`. **These are this recipe's own values, not a site's.**
 
 `?format=half` and `?format=byte` start the storage chain lower, to test the fallbacks.
 

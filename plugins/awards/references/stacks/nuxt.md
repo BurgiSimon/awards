@@ -3,7 +3,7 @@
 <!-- Labels: [verified] = checked against Context7 docs, 2026-09 · [recalled] · [inferred] · [unverified]. Pinned versions: versions.md. -->
 
 ## When to choose it
-Vue teams with content pages and a DOM/CSS-first score: [site:the-line] (Nuxt, medium-high confidence; a canvas only for the cursor reveal, everything else CSS + GSAP with sticky stages and invisible rails; SOTM). [site:leo-parpeix] ran Vue 3 + Vite (medium) with Three + GSAP + Lenis: the same boot, without file routes. Choose Nuxt for file routes, `useHead`, a CMS module and SSR (the DOM mirror comes for free); choose Vite + Vue for one page and an engine.
+Vue teams with content pages and a DOM/CSS-first score: [site:the-line] (Nuxt, medium-high confidence; a canvas only for the cursor reveal, everything else CSS + GSAP with sticky stages and invisible rails; Site of the Day, 7.76). [site:leo-parpeix] ran Vue 3 + Vite (medium) with Three + GSAP + Lenis: the same boot, without file routes. Choose Nuxt for file routes, `useHead`, a CMS module and SSR (the DOM mirror comes for free); choose Vite + Vue for one page and an engine.
 
 ## Scaffold
 ```sh

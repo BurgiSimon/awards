@@ -16,7 +16,7 @@ Use these exact versions in scaffolds, recipes and generated `package.json` file
 | motion | 13.4.1 | React UI micro-interactions only; never scrub (re-checked 2026-09-23) |
 | split-type | 0.3.4 | legacy splitter; prefer SplitText |
 | smooothy | 0.0.35 | draggable / wheel slider with snap and lerp; pre-1.0, pin exactly (checked 2026-09-23) |
-| @unseenco/taxi | 1.9.1 | SPA page transitions (Lando) |
+| @unseenco/taxi | 1.9.1 | SPA page transitions (Lando); 2.0.0 is out with breaking changes, the recipes run on both, see `stacks/taxi-2.0.md` (checked 2026-10-22) |
 | swup | 4.10.0 | alternative transition router |
 | @barba/core | 2.10.3 | alternative transition router |
 | @rive-app/canvas | 2.42.2 | authored 2D vector states |
@@ -29,7 +29,7 @@ Use these exact versions in scaffolds, recipes and generated `package.json` file
 | astro | 7.3.3 | framework |
 | @sveltejs/kit | 2.70.3 | framework |
 | vite | 8.3.0 | build (Rolldown) |
-| tailwindcss | 4.3.3 | only when the project already uses it; no winner shipped it in production |
+| tailwindcss | 4.3.3 | only when the project already uses it, wired to the DESIGN.md tokens; winners use it as a token layer (usavionix, shopify-editions-w26), never the stock look |
 | @threlte/core / @threlte/extras | 8.6.0 / 9.21.1 | Svelte renderer for three |
 | @bsmnt/scrollytelling | 0.3.3 | basement.studio's ScrollTrigger abstraction (React) |
 | @gltf-transform/cli | 4.5.0 | glTF optimisation (Draco, KTX2, resize) |

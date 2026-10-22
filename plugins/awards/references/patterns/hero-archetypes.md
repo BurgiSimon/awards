@@ -162,7 +162,7 @@ No statement and no headline: the first viewport is already the index, and the c
 
 ## Choosing
 
-Why: the archetype follows the narrative model and the WebGL dosage the budget allows; dosage is a cost decision, not a quality signal — a Site of the Month was DOM-first [site:the-line], a Site of the Year was 100 % canvas [site:igloo], and a Developer Award went to 3D without WebGL [site:seasats].
+Why: the archetype follows the narrative model and the WebGL dosage the budget allows; dosage is a cost decision, not a quality signal — a Site of the Day at 7.76 was DOM-first [site:the-line], one at 7.92 was 100 % canvas [site:igloo], and a Developer Award went to 3D without WebGL [site:seasats].
 
 | Archetype | Fits these models | Dosage floor → ceiling | Cards |
 |---|---|---|---|

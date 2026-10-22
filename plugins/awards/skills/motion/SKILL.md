@@ -230,7 +230,7 @@ A loader is honest only when it waits for something real, and a jury notices a c
 
 ## Reduced-motion tiers
 
-No card in the corpus documents a reduced-motion path, and the Site of the Year scored 6.6 on accessibility; shipping three tiers is where new work beats the reference set instead of copying it `[pattern:accessibility-and-reduced-motion#motion-tiers]`.
+No card in the corpus documents a reduced-motion path, and even a 7.92 Site of the Day scored 6.60 on accessibility `[site:igloo]`; shipping three tiers is where new work beats the reference set instead of copying it `[pattern:accessibility-and-reduced-motion#motion-tiers]`.
 
 - Decide once: `motionTier()` from `src/lib/reduced-motion.js` (`full | reduced | static`, with a `data-motion` override on `<html>`), mirrored by `gsap.matchMedia().add({ full: '(prefers-reduced-motion: no-preference)', reduced: '(prefers-reduced-motion: reduce)' }, (ctx) => …)` with the breakpoint conditions in the same block, so the setup re-runs and reverts itself when the preference flips `[recipe:reduced-motion-switch]`.
 - Anime: `createScope({ mediaQueries: { reduced: '(prefers-reduced-motion: reduce)' } })`, whose constructors re-run when the query flips.

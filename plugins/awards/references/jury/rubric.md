@@ -40,7 +40,7 @@ axis on which new work can beat the reference set instead of copying it. Full ta
 
 | Score | Anchor |
 |---|---|
-| 9–10 | A world no other site owns. Every element belongs to it, including the scrollbar, the selection colour and the 404. The first viewport is an object or a behaviour a visitor can describe an hour later. Type and colour are a two-to-four token system with a macro/micro contrast. Nothing reads as borrowed. Corpus: `[site:igloo]` 7.92 overall as Site of the Year shows how rarely even winners reach here |
+| 9–10 | A world no other site owns. Every element belongs to it, including the scrollbar, the selection colour and the 404. The first viewport is an object or a behaviour a visitor can describe an hour later. Type and colour are a two-to-four token system with a macro/micro contrast. Nothing reads as borrowed. Corpus: `[site:igloo]` at 7.92 as a Site of the Day shows how rarely even winners reach here |
 | 8 | A committed world with one or two seams: a section that opts out of the system, a stock component, a second accent that crept in. `[site:oryzo]` 7.9 |
 | 7 | Competent and cohesive, but a juror has seen this register before. Typical SOTD floor: `[site:son-daven]` 7.70, `[site:seasats]` 7.61, `[site:trevor-noah]` 7.38, `[site:white-desert]` 7.28 |
 | 6 | The category default or the Awwwards default: dark + glow + big grotesque, hero-metric row, identical card grids, a reflex display face. Hierarchy works but nothing is authored |

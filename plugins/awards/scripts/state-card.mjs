@@ -49,5 +49,5 @@ function main() {
 }
 
 // Imported (e.g. by a test) it only exports card(); stdin is read only when run as the hook.
-const direct = process.argv[1] && fs.realpathSync(process.argv[1]) === fileURLToPath(import.meta.url);
+const direct = (() => { try { return fs.realpathSync(process.argv[1]) === fileURLToPath(import.meta.url); } catch { return false; } })();
 if (direct) try { main(); } catch { /* a hint never breaks the session */ }

@@ -109,7 +109,7 @@ The page behaves like a printed object about the subject — a call sheet, a pos
 - **Close.** A sticky flare-red footer with a closing logo block, back-to-top and a Site Credits link [verified]; an action on the artefact itself — the deck crumpled and binned [site:nodeck] [verified]; a colophon with links to the series' earlier issues [site:grids-obys] [verified].
 - **Register.** Working-studio voice: status dots, slash-delimited labels, credit tables, a numeric year, a `00/24` frame counter, live open/closed timings [verified] (`[pattern:copy-and-content#telemetry-register]`).
 - **DOM.** The acetate is an `aria-hidden` div [verified] — the decorative layer stays out of the tree; nav slashes are real `<i>` elements [verified]; native scroll stays under the custom scrollbar; hover reveals gain a focus equivalent.
-- **Choose when.** A DOM-first budget, heterogeneous imagery that one ink can unify, a studio whose craft is the product. Site of the Month without a scene [verified].
+- **Choose when.** A DOM-first budget, heterogeneous imagery that one ink can unify, a studio whose craft is the product. Site of the Day at 7.76 without a scene [verified].
 - **Risk.** A hidden native scrollbar and hover-only reveals are keyboard hazards [unknown on the site]; local acetate over video should be checked on low-end devices [inferred].
 
 ## Specification

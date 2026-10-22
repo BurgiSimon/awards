@@ -3,14 +3,15 @@
 ## Quick wins (2026-10-22) follow-ups
 
 1. Measure, paid: an uninterrupted `build-antarctic-site` should now reach `Shipped` or stop on a named blocker; record the page and component jury lines it writes.
-2. Watch the first CI runs on GitHub (`checks.yml`); the browser job is manual and inherits the `gl-ping-pong-grain-field` flake (Release 0.6.0 follow-ups, item 1) until it is fixed.
-3. Codex discovers `hooks/hooks.json` (now three hooks) and runs them once trusted, while `references/codex.md` still says they do not run and hooks bar the public Codex directory: decide the Codex hook policy (review item E2).
-4. `behavior.mjs`: clear `NODE_PATH` in the missing-Playwright checks, and drop the hard-coded `/opt/pw-browsers/chromium` fallback from `scripts/lib/playwright.mjs` (review items B23).
-5. Remaining top-15 review items, in order: correct the repeated award and Tailwind claims (D1, D2); per-element and focus-state contrast (A4, B6); six developer scores, SEO rules and axe-core (C3, C4); imagery strategy and an asset log (A3, F3); composition skeletons per card (A1); a layout and composition pattern file (A2); quick mode (F2); redesign mode (F1); the Codex hook policy (E2); finish and ship the plugin's own site (G1). Next five: route-hint order (B7), Taxi 2.0 note (B8), a version check (D3), cheaper eval tiers (C7), house-style remnants (A5).
+2. ~~Watch the first CI runs.~~ Done: `static` green on Node 22 and 24 for PR #9 (16 s each); the manual `browser` job has not been dispatched yet.
+3. ~~Codex hook policy.~~ Done 2026-10-22: `"hooks": {}` in the Codex manifest (decisions.md).
+4. ~~`behavior.mjs` NODE_PATH leak.~~ Done 2026-10-22. The `/opt/pw-browsers` fallback stays on purpose: it is the browser Claude Code cloud containers preinstall, tried only after a failed launch.
+5. Remaining top-15 review items, in order: per-element and focus-state contrast (A4, B6); six developer scores, SEO rules and axe-core (C3, C4); imagery strategy and an asset log (A3, F3); composition skeletons per card (A1); a layout and composition pattern file (A2); quick mode (F2); redesign mode (F1); finish and ship the plugin's own site (G1). Next: a version check (D3), cheaper eval tiers (C7), house-style remnants (A5). Done 2026-10-22: D1, D2, E2, B7, B8.
+6. Taxi: the pin stays at 1.9.1; moving it to 2.0 is the checklist at the end of `references/stacks/taxi-2.0.md` (the recipes already pass on 2.0.0).
 
 ## Release 0.6.0 follow-ups
 
-1. `gl-ping-pong-grain-field` reset assertion is timing-flaky under SwiftShader on `main` too (glide end 1–10 px over a < 1 px bound). Make the glide end frame-rate independent, or measure after the glide settles.
+1. ~~`gl-ping-pong-grain-field` reset assertion is timing-flaky.~~ Done 2026-10-22: the glide is timed by the clock and ends at 0 px (3 / 3 runs).
 2. Re-run `build-antarctic-site` uninterrupted for a scored measure of 0.6.0.
 
 ## Finish gates (feat/finish-gates) follow-ups

@@ -32,7 +32,7 @@ The corpus published real numbers for its shaders and real weights for its asset
 
 ## Dosage first
 
-The corpus took Site of the Month with no canvas at all and Site of the Year with nothing but a canvas, so dosage is a budget decision rather than a quality signal; it is fixed before a single mesh exists, because every rung changes the DOM, the load gate and the accessibility work `[pattern:webgl-architecture#dosage-ladder]`.
+The corpus holds a Site of the Day with no canvas at all and one with nothing but a canvas, so dosage is a budget decision rather than a quality signal; it is fixed before a single mesh exists, because every rung changes the DOM, the load gate and the accessibility work `[pattern:webgl-architecture#dosage-ladder]`.
 
 | Rung | Meaning | Cards | What it costs |
 |---|---|---|---|
@@ -208,7 +208,7 @@ Mobile GPUs fail on pixel count and bandwidth, and WebGL fails outright on block
 
 ## DOM mirror, reduced motion, keyboard
 
-A screen reader, a search crawler, find-in-page, translation and the `--no-webgl` capture all read the DOM; the Site of the Year's empty DOM is the whole story of its 6.6 `[pattern:accessibility-and-reduced-motion#the-dom-mirror]`.
+A screen reader, a search crawler, find-in-page, translation and the `--no-webgl` capture all read the DOM; igloo's empty DOM is the whole story of its 6.60 on accessibility `[pattern:accessibility-and-reduced-motion#the-dom-mirror]`.
 
 - The canvas is `aria-hidden="true"`; every string and image it draws exists in the DOM first, visible or `.sr-only` [A04] `[pattern:webgl-architecture#text-in-webgl]`.
 - An interactive canvas (a map, a gallery) has DOM controls, `<button>`s or `<a>`s, and the canvas is decoration over them [A05].

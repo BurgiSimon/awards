@@ -3,7 +3,7 @@
 One place that answers "how much motion may this page use?", and every effect built inside a function of that answer. Three tiers: **full** (the authored score), **reduced** (state changes and hierarchy stay, spatial movement goes), **static** (everything settled on load, nothing subscribed to a clock). A user override on `<html data-motion>` beats the OS setting and is persisted.
 
 ## Why
-- **No card in the corpus documents a reduced-motion path**, and the Site of the Year scored 6.6 on accessibility `[site:igloo]`. This is where new work beats the reference set (`[pattern:accessibility-and-reduced-motion]`).
+- **No card in the corpus documents a reduced-motion path**, and even a 7.92 Site of the Day scored 6.60 on accessibility `[site:igloo]`. This is where new work beats the reference set (`[pattern:accessibility-and-reduced-motion]`).
 - **Tier, not kill switch.** A global `animation: none !important` erases the feedback a visitor needs (a menu that opens, a theme that swaps). Reduced keeps those; it drops translation, rotation, loops and parallax.
 - **Torn down, then rebuilt.** `gsap.context().revert()` and the ticker unsubscribe run before the next tier applies, so tiers never stack; the OS setting can change while the page is open.
 - **Loops pause off-screen.** The orbit only plays while its trigger is active.

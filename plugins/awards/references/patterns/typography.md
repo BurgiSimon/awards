@@ -181,7 +181,7 @@ Why: naming the face with its licence turns "use something like this" into a dec
 | TikTok Sans / Departure Mono | wide display caps / pixel mono HUD | [site:haoqi] | open, SIL OFL [recalled medium] |
 | Bon Vivant Serif / Nothing You Could Do | high-contrast display serif / script aside | [site:to-top] | [unknown] / open, SIL OFL [recalled medium] |
 
-Two notes on the evidence: IBM Plex Mono sits on the avoid list in `reflex-lists.md` and is also the display face of a Site of the Year — the list is about reflex, not prohibition, and an on-purpose choice is recorded under `AWARDS.md ## Exceptions`. Suisse BP appears twice in the corpus five years apart [site:floema-jewelry] [site:lama-lama], which is exactly why a new build should not make it three.
+Two notes on the evidence: IBM Plex Mono sits on the avoid list in `reflex-lists.md` and is also the display face of a Site of the Day `[site:igloo]` — the list is about reflex, not prohibition, and an on-purpose choice is recorded under `AWARDS.md ## Exceptions`. Suisse BP appears twice in the corpus five years apart [site:floema-jewelry] [site:lama-lama], which is exactly why a new build should not make it three.
 
 ## Choosing by character class
 

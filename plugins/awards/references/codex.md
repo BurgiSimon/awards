@@ -30,8 +30,8 @@ A delegated juror reads the skill and agent procedure and performs the review it
 
 If fresh-agent delegation is unavailable, disclose that the review uses the current context and follow the same evidence-first procedure. Do not describe that review as independent. Missing captures still require `recapture`; do not invent visual evidence.
 
-## Audit hook
+## Hooks
 
-The bundled `hooks/hooks.json` is configured for Claude Code's `Edit|Write` events. Do not assume it runs after Codex edits. After an edit batch in a project with `AWARDS.md`, run the bundled `scripts/audit.mjs <project-dir> --quick` explicitly, substituting its absolute installed path. Keep the full audit and capture checks at the phase boundaries. No global hook or permission changes are needed.
+The bundled `hooks/hooks.json` holds Claude Code hooks: the edit audit, the route hint and the post-compaction state card. The Codex manifest declares `"hooks": {}`, so Codex loads none of them; that keeps the plugin eligible for Codex's public plugin directory, which excludes plugins with lifecycle hooks, and spares users a trust prompt for each. After an edit batch in a project with `AWARDS.md`, run the bundled `scripts/audit.mjs <project-dir> --quick` explicitly, substituting its absolute installed path. Keep the full audit and capture checks at the phase boundaries. No global hook or permission changes are needed.
 
-The `UserPromptSubmit` route hint does not run under Codex either, so an award-framed request reaches `craft` through its description alone.
+Without the route hint, an award-framed request reaches `craft` through its description alone. Without the state card, re-read `AWARDS.md ## Status` and continue from its first open line after a context compaction rather than from memory.

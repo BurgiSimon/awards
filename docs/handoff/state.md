@@ -5,6 +5,15 @@ recorded below in [Candidate verification record](#candidate-verification-record
 `verification-log.md` record the earlier 0.2.0 work. `plan.md` is the 0.1.0 specification, kept for
 reference. `decisions.md` records choices already taken.
 
+## Finish phase, second batch (branch `claude/relaxed-heisenberg-rszyzq`, 2026-10-22)
+
+- Claims (D1, D2): every igloo, the-line and son-daven award statement now matches its card (Site of the Day, with scores); the Tailwind rule names the two winners that use it as a token layer.
+- Route hint (B7): a build verb plus a new site routes to craft even when it names WebGL or GSAP; all eval prompts route as before.
+- Taxi 2.0 (B8): `references/stacks/taxi-2.0.md`; both taxi recipes declare `initialLoad()` and pass on 1.9.1 and on 2.0.0 (scratch install), and fail on 2.0.0 without it. The pin stays 1.9.1.
+- Tests: the grain-field glide is clock-timed (3 / 3 runs, glide end 0 px); `behavior.mjs` no-browser checks clear `NODE_PATH` (20/20 without manual env).
+- Codex (E2): `"hooks": {}` in `.codex-plugin/plugin.json`; Codex 0.163 lists no awards hook (it listed three before; `[]` still lists three). `codex-install.mjs --build` passes with the new `hooks/list` check; `check-sync.mjs` (114 checks) guards it.
+- Checks green: both validates, check-sync, lint-refs (625 files), route-hint selftest, behavior 20/20, audit `recipes` P0–P2 clean, verify-recipes for the three changed recipes, codex-install `--build` with Codex CLI 0.163.0. Paid evals not run.
+
 ## Quick wins (branch `claude/relaxed-heisenberg-rszyzq`, 2026-10-22)
 
 - Source: the 2026-10-22 improvement review (top-15 items 1–5); open items in `todo.md`.

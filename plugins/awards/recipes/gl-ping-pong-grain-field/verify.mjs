@@ -33,7 +33,7 @@ export function assert(r) {
   const b = r.byte.state || {};
   out.push({ ...brushed(b, 'byte fallback (RGBA8, 16-bit packed)'), ok: b.format === 'byte' && brushed(b, '').ok });
   const z = r.reset.state || {};
-  out.push({ ok: z.resets === 1 && z.gliding === false && z.glideFrames > 10 && z.glideEnd !== null && z.glideEnd < 1 && z.maxAll < 0.5, message: `reset: glided home over ${z.glideFrames} frames (max ${z.glideEnd} px at the end of the glide), field cleared (max ${z.maxAll} px)` });
+  out.push({ ok: z.resets === 1 && z.gliding === false && z.glideFrames >= 5 && z.glideEnd !== null && z.glideEnd < 1 && z.maxAll < 0.5, message: `reset: glided home over ${z.glideFrames} frames (max ${z.glideEnd} px at the end of the glide), field cleared (max ${z.maxAll} px)` });
   const rm = r.rm.state || {};
   out.push({ ok: rm.motion === 'reduced' && rm.grainsDrawn === false && brushed(rm, '').ok, message: `reduced motion: no grain pass, the brush reveals the under-layer in place (${rm.pathMoved}/${rm.pathFree})` });
   const m = r.mobile.state || {};

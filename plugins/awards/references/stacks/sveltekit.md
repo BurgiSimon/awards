@@ -3,7 +3,7 @@
 <!-- Labels: [verified] = checked against Context7 docs, 2026-09 · [recalled] · [inferred] · [unverified]. Pinned versions: versions.md. -->
 
 ## When to choose it
-Svelte 5 teams, and engine-first sites that want a component model without React's render cost: [site:igloo] (Vite build; Svelte/Threlte, medium confidence; SOTY 2024 + Developer SOTY; a 100 % canvas world with virtual scroll and four workers, and an accessibility sub-score of 6.6 because the DOM was empty). SvelteKit adds SSR for the DOM mirror, file routes, `onNavigate` view transitions and `adapter-static` for a fully static build. Choose it when the team writes Svelte; choose `vite-vanilla.md` when there is no team and one page.
+Svelte 5 teams, and engine-first sites that want a component model without React's render cost: [site:igloo] (Vite build; Svelte, with Threlte unconfirmed; Site of the Day 2024 at 7.92 with a developer score of 7.66; a 100 % canvas world with virtual scroll and four workers, and an accessibility sub-score of 6.6 because the DOM was empty). SvelteKit adds SSR for the DOM mirror, file routes, `onNavigate` view transitions and `adapter-static` for a fully static build. Choose it when the team writes Svelte; choose `vite-vanilla.md` when there is no team and one page.
 
 ## Scaffold
 ```sh
