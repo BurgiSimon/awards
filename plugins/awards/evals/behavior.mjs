@@ -22,6 +22,8 @@ fs.writeFileSync(path.join(project, 'AWARDS.md'), '# Awards\n');
 const tests = [];
 const test = (group, name, run) => { if (!only || only.has(group)) tests.push({ name: group + ': ' + name, run }); };
 const json = (file, value) => fs.writeFileSync(file, JSON.stringify(value));
+// A host without Playwright: an empty NODE_PATH too, or a global install would still resolve through it.
+const NO_BROWSER = { PATH: '', AWARDS_PLAYWRIGHT: '', NODE_PATH: '' };
 const run = (script, argv = [], env = {}) => new Promise((resolve, reject) => {
   execFile(process.execPath, [path.join(plugin, script), ...argv], {
     cwd: project, env: { ...process.env, CLAUDE_PROJECT_DIR: '', AWARDS_HOOK: '', ...env },
@@ -67,7 +69,7 @@ test('audit', 'URL and missing-browser audits cannot report a clean unmeasured r
   const result = await run('scripts/audit.mjs', ['http://127.0.0.1:1/unreachable', '--json']);
   assert.equal(result.code, 1, 'a URL requires rendered checks');
   assert.match(result.stderr, /--render/);
-  const missing = await run('scripts/audit.mjs', [project, '--render', '--no-write'], { PATH: '', AWARDS_PLAYWRIGHT: '' });
+  const missing = await run('scripts/audit.mjs', [project, '--render', '--no-write'], NO_BROWSER);
   assert.equal(missing.code, 3, 'requested rendered checks must fail when Playwright is missing');
 });
 const auditIds = async (dir, argv = []) => {
@@ -304,7 +306,7 @@ test('capture', 'invalid plans fail before browser discovery or output writes', 
   ];
   for (const states of invalid) {
     json(plan, states);
-    const result = await run('scripts/capture.mjs', [project, '--states', plan, '--out', out], { PATH: '', AWARDS_PLAYWRIGHT: '' });
+    const result = await run('scripts/capture.mjs', [project, '--states', plan, '--out', out], NO_BROWSER);
     assert.equal(result.code, 1, 'invalid capture plan must be rejected: ' + JSON.stringify(states));
     assert.equal(fs.existsSync(out), false);
   }
@@ -387,7 +389,7 @@ test('doctor', 'reports real capabilities and leaves project configuration untou
   assert.equal(fs.readdirSync(project).some((file) => file.startsWith('.awards-check-')), false);
 });
 test('doctor', 'missing tools, dependencies and blocked output paths are actionable failures', async () => {
-  const missing = await run('scripts/doctor.mjs', [project, '--json'], { PATH: '', AWARDS_PLAYWRIGHT: '' });
+  const missing = await run('scripts/doctor.mjs', [project, '--json'], NO_BROWSER);
   assert.equal(missing.code, 2);
   const report = JSON.parse(missing.stdout);
   assert.equal(report.ready, false);
@@ -401,7 +403,7 @@ test('doctor', 'missing tools, dependencies and blocked output paths are actiona
     for (const id of ['dependencies', 'outputs']) assert.equal(checks.find((check) => check.id === id)?.status, 'fail');
     assert.equal(fs.readFileSync(path.join(project, '.awards'), 'utf8'), 'must survive');
     json(path.join(project, 'package.json'), []);
-    const invalid = await run('scripts/doctor.mjs', [project, '--json'], { PATH: '', AWARDS_PLAYWRIGHT: '' });
+    const invalid = await run('scripts/doctor.mjs', [project, '--json'], NO_BROWSER);
     assert.equal(JSON.parse(invalid.stdout).checks.find((check) => check.id === 'dependencies')?.status, 'fail');
   } finally {
     fs.unlinkSync(path.join(project, '.awards'));

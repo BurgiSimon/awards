@@ -80,7 +80,9 @@ export async function launchChromium(pw, { webgl = true } = {}) {
   try {
     return await pw.chromium.launch(launchOptions);
   } catch (err) {
-    const fallback = '/opt/pw-browsers/chromium';
+    // Claude Code cloud containers preinstall one Chromium here (PLAYWRIGHT_BROWSERS_PATH); a project whose
+    // Playwright expects another build still launches it instead of failing. Tried only after a failed launch.
+    const fallback = path.join(process.env.PLAYWRIGHT_BROWSERS_PATH || '/opt/pw-browsers', 'chromium');
     if (!launchOptions.executablePath && fs.existsSync(fallback)) {
       return pw.chromium.launch({ ...launchOptions, executablePath: fallback });
     }
