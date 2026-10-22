@@ -30,6 +30,7 @@ node scripts/new-project.mjs --stack vite|next|nuxt|astro|sveltekit --name <dir>
 node scripts/roll.mjs --deal 3 --of 7 [--seed <key>]      # seeded direction roll used by the concept skill
 
 node scripts/lint-refs.mjs                                 # every [site:]/[recipe:]/[pattern:] and ${CLAUDE_PLUGIN_ROOT} path resolves
+node scripts/check-sync.mjs                                # manifest versions, pins vs versions.md, scaffold/_shared copies, LICENSE/NOTICE, quoted counts
 node evals/behavior.mjs                                   # serial browser/tool regressions; needs recipes/node_modules + Playwright
 node evals/selftest.mjs                                   # every file-target grader must fail on untouched input
 node evals/codex-install.mjs --build                       # isolated install, discovery and both scaffold builds (needs recipes/node_modules)
@@ -40,6 +41,8 @@ claude plugin eval . --tag route --runs 3 --ablation none --allow-tools Write Ed
 claude plugin eval . --case trigger-jury --runs 1 --ablation none   # one case, cheapest iteration
 claude plugin eval . --tag build --scaffold --runs 1 --ablation none --allow-tools Write Edit WebFetch Bash   # 20–30 min per case; Bash whole, not Bash(node *): those match a command prefix and deny everything the skills actually run
 ```
+
+CI: `.github/workflows/checks.yml` runs the free checks above (check-sync, lint-refs, the self-tests, the recipes audit gated at P0–P2, the recipes build, both validates) on Node 22 and 24 for every push to `main` and every pull request; `behavior.mjs` and `verify-recipes` run only on a manual dispatch with `browser` ticked. No paid eval runs in CI.
 
 Requirements: Node 20.19+ (20.x) or 22.12+, Playwright plus its Chromium browser (global or project-local) for `verify-recipes`, `capture` and `audit --render`. Verification outputs (`recipes/_verify/`, `recipes/dist/`, `evals/results/`, `.awards/`) are gitignored. Headless SwiftShader proves recipes correct, not fast.
 
@@ -71,7 +74,7 @@ Requirements: Node 20.19+ (20.x) or 22.12+, Playwright plus its Chromium browser
 - Lenis 1.3 defaults to `autoRaf: false`. Every recipe drives `lenis.raf(time)` from the GSAP ticker or the shared ticker; a Lenis with no clock swallows wheel events and the page looks frozen.
 - Custom `ShaderMaterial`s include `#include <colorspace_fragment>`, otherwise sRGB textures and render targets render dark.
 - Distance-field shaders divide by `max(fwidth(d), 1e-5)`. A padded atlas is flat almost everywhere, `fwidth` is exactly zero there, and the division renders the whole quad opaque under SwiftShader.
-- Pinned library versions live in `recipes/package.json` and `references/stacks/versions.md`; keep them in sync. Keep `version` in `plugins/awards/.claude-plugin/plugin.json`, `plugins/awards/.codex-plugin/plugin.json` and `.claude-plugin/marketplace.json` in sync. Keep the root and plugin copies of `LICENSE` and `NOTICE.md` in sync.
+- Pinned library versions live in `recipes/package.json` and `references/stacks/versions.md`; keep them in sync. Keep `version` in `plugins/awards/.claude-plugin/plugin.json`, `plugins/awards/.codex-plugin/plugin.json` and `.claude-plugin/marketplace.json` in sync. Keep the root and plugin copies of `LICENSE` and `NOTICE.md` in sync. `scripts/check-sync.mjs` checks all of these (and the skill, recipe and rule counts the descriptions quote); CI runs it.
 - Original prose only: the workflow shape echoes the *impeccable* skill, its wording never does. Site copy is quoted in fragments of at most 25 words. Every fact on a site card carries `[verified]`, `[recalled]`, `[inferred]` or `[unknown]`.
 - No model identifiers in any repository artefact (code, docs, commit titles or bodies). Commit messages end with the attribution footer the session provides.
 - Fonts: recipes use system stacks and never ship font files.
