@@ -20,13 +20,18 @@ const PART = /\b(component|hero|nav|navigation|menu|cursor|footer|preloader|load
 export function hint(prompt) {
   if (typeof prompt !== 'string' || !AWARD.test(prompt)) return '';
   // First match wins. A part of an existing site ("the menu of this site") is a component job;
-  // a new site that merely lists parts ("a site with a hero and a footer") stays with craft.
+  // a new site that merely lists parts ("a site with a hero and a footer") stays with craft, and so
+  // does a new site that names a technique ("build a site with WebGL"): craft owns the whole build
+  // and hands the technique to its motion or webgl phase. Planning one scene stays with webgl.
+  const newBuild = BUILD.test(prompt) && NEW_SITE.test(prompt);
   const skill = REVIEW.test(prompt) && !BUILD.test(prompt) ? 'jury'
+    : newBuild ? 'craft'
     : WEBGL.test(prompt) ? 'webgl'
     : MOTION.test(prompt) ? 'motion'
     : PART.test(prompt) && !NEW_SITE.test(prompt) ? 'component'
     : IDEAS.test(prompt) ? 'concept' : 'craft';
-  return `awards: this request carries award framing; invoke the \`awards:${skill}\` skill with the Skill tool before planning or writing code, unless another awards skill fits the request better.`;
+  const handed = newBuild && (WEBGL.test(prompt) || MOTION.test(prompt)) ? ' It records the named technique as a deep mode and hands it to the motion or webgl phase.' : '';
+  return `awards: this request carries award framing; invoke the \`awards:${skill}\` skill with the Skill tool before planning or writing code, unless another awards skill fits the request better.${handed}`;
 }
 
 function selftest() {
@@ -40,6 +45,10 @@ function selftest() {
   assert(hint(undefined) === '', 'silent on missing prompt');
   assert(hint('Review the design of my site: is it award-worthy?').includes('awards:jury'), 'design as noun stays jury');
   assert(hint('Make the menu of this site award-worthy').includes('awards:component'), 'part of a site -> component');
+  assert(hint('Build an Awwwards-level site for a ceramics studio with WebGL').includes('awards:craft'), 'new site naming WebGL -> craft');
+  assert(hint('Make an award-winning portfolio site with GSAP scroll timelines and a Three.js hero').includes('awards:craft'), 'new site naming GSAP and three -> craft');
+  assert(hint('Build an award-level WebGL hero for our landing page').includes('awards:webgl'), 'a WebGL part of an existing page -> webgl');
+  assert(hint('Plan an award-level product page built around one glTF scene').includes('awards:webgl'), 'planning one scene -> webgl');
   // The shipped routing cases: negatives stay silent; every award-framed case names a skill its own grader accepts.
   const evals = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'evals');
   const body = (c) => fs.readFileSync(path.join(evals, c, 'prompt.md'), 'utf8').split(/^---$/m).slice(2).join('---');
@@ -59,7 +68,7 @@ function selftest() {
 }
 
 // Imported (e.g. by a test) it only exports hint(); stdin is read only when run as the hook.
-const direct = process.argv[1] && fs.realpathSync(process.argv[1]) === fileURLToPath(import.meta.url);
+const direct = (() => { try { return fs.realpathSync(process.argv[1]) === fileURLToPath(import.meta.url); } catch { return false; } })();
 if (direct && process.argv.includes('--selftest')) selftest();
 else if (direct && process.env.AWARDS_HOOK !== '0') {
   let prompt;
