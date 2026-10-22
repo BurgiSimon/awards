@@ -8,6 +8,7 @@ import { createRequire } from 'node:module';
 import { spawnSync } from 'node:child_process';
 import { parseArgs, now } from './lib/report.mjs';
 import { resolvePlaywright, launchChromium, MISSING_MESSAGE } from './lib/playwright.mjs';
+import { satisfies } from './lib/semver.mjs';
 
 const args = parseArgs(process.argv.slice(2), { json: 'boolean' });
 const project = path.resolve(args._[0] ?? '.');
@@ -19,7 +20,9 @@ const checks = [];
 const add = (id, status, detail, fix) => checks.push({ id, status, detail, ...(fix ? { fix } : {}) });
 const [major, minor] = process.versions.node.split('.').map(Number);
 const supported = (major === 20 && minor >= 19) || (major === 22 && minor >= 12) || major > 22;
-add('node', supported ? 'pass' : 'fail', process.version, supported ? null : 'Use Node 20.19+ on 20.x, or 22.12+.');
+// Node 20 left support on 2026-04-30 and odd majors never had LTS: they still run the scripts, so warn, not fail.
+const lts = major === 22 || (major >= 24 && major % 2 === 0);
+add('node', !supported ? 'fail' : lts ? 'pass' : 'warn', process.version, !supported ? 'Use Node 22 LTS (22.12+) or 24 LTS.' : lts ? null : `Node ${major} is past end of life or never LTS; current Astro, Nuxt and SvelteKit releases need 22 or later. Move to 22 LTS or 24 LTS.`);
 const npm = spawnSync(process.platform === 'win32' ? 'npm.cmd' : 'npm', ['--version'], { encoding: 'utf8', timeout: 5000 });
 add('npm', !npm.error && npm.status === 0 ? 'pass' : 'fail', npm.stdout?.trim() || npm.error?.message || 'npm unavailable', !npm.error && npm.status === 0 ? null : 'Install npm with Node, or make it available on PATH.');
 
@@ -35,6 +38,16 @@ if (!fs.existsSync(packageFile)) {
     const declared = Object.keys({ ...pkg.dependencies, ...pkg.devDependencies }).filter((name) => !Object.hasOwn(pkg.optionalDependencies ?? {}, name));
     const missing = declared.filter((name) => !(require.resolve.paths(name) ?? []).some((dir) => fs.existsSync(path.join(dir, name, 'package.json'))));
     add('dependencies', missing.length ? 'fail' : 'pass', missing.length ? 'Missing: ' + missing.join(', ') : declared.length + ' declared packages found', missing.length ? 'Run the project package manager install command, then rerun doctor.' : null);
+    // Each installed package's own engines.node, and the project's: the framework says which Node it runs on.
+    const needs = [];
+    if (pkg.engines?.node && !satisfies(process.versions.node, pkg.engines.node)) needs.push(`the project (${pkg.engines.node})`);
+    for (const name of declared.filter((n) => !missing.includes(n))) {
+      try {
+        const own = JSON.parse(fs.readFileSync(require.resolve(`${name}/package.json`), 'utf8'));
+        if (own.engines?.node && !satisfies(process.versions.node, own.engines.node)) needs.push(`${name} ${own.version} (${own.engines.node})`);
+      } catch {}
+    }
+    add('node-engines', needs.length ? 'fail' : 'pass', needs.length ? `Node ${process.versions.node} is outside what ${needs.join(', ')} declare${needs.length === 1 ? 's' : ''}` : `Node ${process.versions.node} satisfies every installed package's engines`, needs.length ? 'Switch to a Node release inside every range (22 LTS or 24 LTS), or pin the package to a release that supports this one.' : null);
     add('build', pkg.scripts?.build ? 'pass' : 'warn', pkg.scripts?.build || 'No build script; capture static HTML or the running dev server.');
   } catch (error) {
     add('dependencies', 'fail', error.message, 'Repair package.json before installing or building.');

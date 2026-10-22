@@ -46,6 +46,17 @@ Use these exact versions in scaffolds, recipes and generated `package.json` file
 | swiper | 14.3.0 | client-maintained sliders (checked 2026-10-05) |
 | axe-core | 4.14.0 | WCAG 2.2 A/AA scan inside `audit.mjs --render`; install it as a devDependency of the website project (checked 2026-10-22) |
 
+## Node
+Use Node 22 LTS (22.12 or later) or 24 LTS. Node 20 reached end of life on 2026-04-30: 20.19+ still runs the plugin's scripts and the Vite scaffold, but not current Astro, Nuxt or SvelteKit releases. `scripts/doctor.mjs` checks the running Node against every installed package's `engines.node`; `scripts/new-project.mjs` reads the table below before it scaffolds; `scripts/check-versions.mjs` prints what each latest release needs.
+
+| Stack (pinned) | Node it needs | Latest release (checked 2026-10-22) |
+|---|---|---|
+| vite 8.3.0 | `^20.19.0 \|\| >=22.12.0` | 8.3.5, unchanged |
+| next 16.3.5 | `>=20.9.0` | 16.4.2, unchanged |
+| nuxt 4.5.2 | `^22.19.0 \|\| ^24.11.0 \|\| >=26.0.0` | 4.6.2 needs `^22.22.3 \|\| ^24.15.0 \|\| >=26.0.0` |
+| astro 7.3.3 | `>=22.12.0` | 7.4.2 needs `>=22.23.4` |
+| sveltekit 2.70.3 | `>=18.13` | 3.1.0 (a major) needs `>=22.17` |
+
 ## The rule
 Check Context7 before using an API you have not verified in this session, even for libraries you know well: `mcp__Context7__resolve-library-id`, then `mcp__Context7__query-docs` with one concept per query. If a claim cannot be verified, write `[unverified]` next to it instead of asserting it.
 
