@@ -19,7 +19,7 @@
 - **Audience and their real scene:**
 - **Stakes and conversion (what a visitor should do, matched to the price of the decision):**
 - **Assets on hand:** photo / video / 3D / copy / none — anything authored for the build is labelled synthetic
-- **Binding constraints:** stack, CMS, hosting, deadline, brand commitments, accessibility standard
+- **Binding constraints:** stack, CMS, hosting, deadline, brand commitments, accessibility standard, `programs:` the award programs aimed at (awwwards, cssda, fwa, webby; the first is primary) and the target (Site of the Day or Honors)
 - **Routes:** single page / n routes
 - **Sound:** none / opt-in
 - **Visitor mode:** persuade / experience / read
