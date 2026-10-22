@@ -248,6 +248,24 @@ test('tools', 'the scaffold adds only the missing files to a project the earlier
   assert.equal(JSON.parse(fs.readFileSync(path.join(dir, 'package.json'), 'utf8')).dependencies.three, undefined, 'a written package.json is still trimmed without --webgl');
   assert.match(kept.stdout, /does not load the boot/, 'a kept index.html without the boot script is called out');
 });
+test('tools', 'after compaction the state card names the next phase and stays silent when there is nothing to resume', async () => {
+  const dir = path.join(tmp, 'compacted');
+  fs.mkdirSync(dir);
+  const card = async () => (await run('scripts/state-card.mjs', ['--project', dir])).stdout.trim();
+  assert.equal(await card(), '', 'silent without AWARDS.md');
+  let md = fs.readFileSync(path.join(plugin, 'assets', 'templates', 'AWARDS.md'), 'utf8');
+  for (const line of ['Brief captured', 'Direction contract locked (concept)', 'Visual system written', 'Page map and skeleton built (structure)']) md = md.replace('- [ ] ' + line, '- [x] ' + line);
+  md = md.replace(/^- Deep modes:.*$/m, '- Deep modes: motion gsap · webgl none — declined');
+  fs.writeFileSync(path.join(dir, 'AWARDS.md'), md);
+  const said = JSON.parse(await card()).hookSpecificOutput;
+  assert.equal(said.hookEventName, 'SessionStart');
+  assert.match(said.additionalContext, /4 of 9 done; next "Stack booted \(stack\)" → awards:stack/);
+  assert.match(said.additionalContext, /Deep modes: motion gsap/);
+  fs.writeFileSync(path.join(dir, 'AWARDS.md'), md.replaceAll('- [ ]', '- [x]'));
+  assert.equal(await card(), '', 'silent once every Status line is checked');
+  fs.writeFileSync(path.join(dir, 'AWARDS.md'), md);
+  assert.equal((await run('scripts/state-card.mjs', ['--project', dir], { AWARDS_HOOK: '0' })).stdout.trim(), '', 'AWARDS_HOOK=0 silences it');
+});
 test('ticker', 'pause/resume never duplicates callbacks and teardown stops scheduling', () => {
   for (const file of ['recipes/_shared/raf.js', 'assets/scaffold/vite-vanilla/src/lib/raf.js']) {
     const callbacks = new Map();
