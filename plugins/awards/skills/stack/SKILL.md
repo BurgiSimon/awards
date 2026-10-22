@@ -50,7 +50,7 @@ Each row is a question the brief already answers; write the answers into `AWARDS
 | Vue team, content routes, DOM-first score | Nuxt 4 with a `.client` plugin for the boot `[site:the-line]` | `stacks/nuxt.md` |
 | Mostly documents plus one WebGL island, SEO matters | Astro with `<ClientRouter />` and a persisted canvas `[site:mont-fort]` | `stacks/astro.md` |
 | Svelte team, engine-first site with a component model | SvelteKit + Threlte; keep SSR on for the DOM mirror `[site:igloo]` (framework at medium confidence) | `stacks/sveltekit.md` |
-| The client edits and hosts in Webflow | Webflow shell + an injected ESM engine from your own origin; the ceiling is Site of the Month `[site:lando-norris]` `[site:son-daven]` | `stacks/webflow-export.md` |
+| The client edits and hosts in Webflow | Webflow shell + an injected ESM engine from your own origin; the shell is no ceiling: `[site:lando-norris]` took Site of the Day at 8.18, `[site:son-daven]` at 7.62 | `stacks/webflow-export.md` |
 | Is a shared-element or overlay transition the money moment? | Yes: SPA navigation (taxi on Vite and Webflow, the framework router elsewhere). No: MPA with cross-document View Transitions | `[pattern:preloaders-and-transitions#route-transition-mechanics]` |
 | WebGL dose from the direction contract | Any dose above "none" means a lazy chunk, a quality tier and a mirror; OGL for planes-only sites `[site:floema-jewelry]` `[site:siena]`, Three otherwise, R3F or Threlte only inside their frameworks | `[pattern:webgl-architecture#dosage-ladder]`, `stacks/ogl-1.0.md`, `stacks/three-0.186.md` |
 | `--cms <name>` given | The framework the CMS SDK serves best; content routes stay static HTML and the engine hydrates by attribute | the framework note |
@@ -166,7 +166,7 @@ Set up the asset tooling with the project, because a scene is cheap or expensive
 - `ffmpeg` for frame sequences and stacked-alpha video.
 - Decoders served from `public/decoders/`, never from a third-party CDN.
 
-Copy the budgets into `AWARDS.md ## Budgets & tiers` and hold the build to them. They are the numbers a Site of the Year shipped, listed with their sources in `[pattern:asset-pipeline#budgets]`: shell entry ≈ 20 KB gz, JS before the GL chunk ≤ 200 KB gz, GL chunk plus first scene ≤ 500 KB gz and lazy, textures ≤ 700 KB per scene, hero mesh ≤ 300 KB, rasters under 1 MB, fonts ≤ 4 files, LCP ≤ 2.5 s on throttled 4G from a poster or the DOM. Measure gzipped output, never source size.
+Copy the budgets into `AWARDS.md ## Budgets & tiers` and hold the build to them. They are the numbers a 100 % canvas Site of the Day shipped `[site:igloo]`, listed with their sources in `[pattern:asset-pipeline#budgets]`: shell entry ≈ 20 KB gz, JS before the GL chunk ≤ 200 KB gz, GL chunk plus first scene ≤ 500 KB gz and lazy, textures ≤ 700 KB per scene, hero mesh ≤ 300 KB, rasters under 1 MB, fonts ≤ 4 files, LCP ≤ 2.5 s on throttled 4G from a poster or the DOM. Measure gzipped output, never source size.
 
 ## Transitions per stack
 
@@ -224,5 +224,5 @@ Tick "Stack booted (stack)" in `AWARDS.md ## Status`, fill `## Budgets & tiers`,
 - `location.reload()` at a breakpoint, or two scores toggled with `display: none`: focus, scroll position and every live region are lost mid-visit.
 - `ssr: false`, `client:only` or an empty shell to dodge `window` errors: it deletes the DOM mirror the accessibility score is made of.
 - Bumping a pinned version because a newer one exists: bump one library at a time and re-run the recipe verification.
-- Tailwind or a component library added by reflex: no winner shipped one in production; use them only where the project already does.
+- Tailwind or a component library added by reflex. Winners do ship Tailwind, but as their own token layer (`[site:usavionix]` v4 tokens, `[site:shopify-editions-w26]` an oklch palette), never as the stock look; use it where the project already does, wired to the DESIGN.md tokens.
 - Scaffolding into a non-empty directory, or a scaffold whose placeholders ship.

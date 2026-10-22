@@ -105,7 +105,7 @@ An invalid capture is a bug to fix now, followed by a recapture; the report neve
 
 ## 4. Performance budgets
 
-Why: a Site of the Year shipped its whole 3D app at under half a megabyte gzipped, and the developer jury docks every heavy asset it can see in the network panel. Budgets are measured from the build output, gzipped, never from source sizes; the full table with its sources is in `${CLAUDE_PLUGIN_ROOT}/references/patterns/asset-pipeline.md#budgets`, to read when a number is disputed.
+Why: a 100 % canvas Site of the Day shipped its whole 3D app at under half a megabyte gzipped `[site:igloo]`, and the developer jury docks every heavy asset it can see in the network panel. Budgets are measured from the build output, gzipped, never from source sizes; the full table with its sources is in `${CLAUDE_PLUGIN_ROOT}/references/patterns/asset-pipeline.md#budgets`, to read when a number is disputed.
 
 | Check | Budget | How to measure or fix |
 |---|---|---|

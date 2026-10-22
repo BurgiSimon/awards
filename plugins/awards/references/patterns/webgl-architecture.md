@@ -19,7 +19,7 @@ What this file is for: how the corpus puts a canvas on a page without the canvas
 
 ## Dosage ladder
 
-Why: the corpus took Site of the Month with no canvas at all and Site of the Year with nothing but a canvas. Dosage is a budget decision, not a quality signal; it is fixed in the direction contract before a single mesh exists, because every rung below changes the DOM, the load gate and the accessibility work.
+Why: the corpus has a Site of the Day with no canvas at all `[site:the-line]` (7.76) and one with nothing but a canvas `[site:igloo]` (7.92). Dosage is a budget decision, not a quality signal; it is fixed in the direction contract before a single mesh exists, because every rung below changes the DOM, the load gate and the accessibility work.
 
 | Rung | What it means | Sites | Notes |
 |---|---|---|---|

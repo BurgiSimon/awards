@@ -29,7 +29,7 @@ Use these exact versions in scaffolds, recipes and generated `package.json` file
 | astro | 7.3.3 | framework |
 | @sveltejs/kit | 2.70.3 | framework |
 | vite | 8.3.0 | build (Rolldown) |
-| tailwindcss | 4.3.3 | only when the project already uses it; no winner shipped it in production |
+| tailwindcss | 4.3.3 | only when the project already uses it, wired to the DESIGN.md tokens; winners use it as a token layer (usavionix, shopify-editions-w26), never the stock look |
 | @threlte/core / @threlte/extras | 8.6.0 / 9.21.1 | Svelte renderer for three |
 | @bsmnt/scrollytelling | 0.3.3 | basement.studio's ScrollTrigger abstraction (React) |
 | @gltf-transform/cli | 4.5.0 | glTF optimisation (Draco, KTX2, resize) |
