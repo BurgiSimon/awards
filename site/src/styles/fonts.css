@@ -1,0 +1,18 @@
+/* Self-hosted OFL faces (licences in public/fonts). Latin subset, variable wght + wdth. */
+@font-face {
+  font-family: "Archivo";
+  src: url("/fonts/archivo.woff2") format("woff2");
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Martian Mono";
+  src: url("/fonts/martian-mono.woff2") format("woff2");
+  font-weight: 100 800;
+  font-stretch: 75% 112.5%;
+  font-display: swap;
+}
+/* Metric-matched fallbacks so the swap does not reflow the hero. */
+@font-face { font-family: "Archivo Fallback"; src: local("Arial"); size-adjust: 103%; ascent-override: 85%; descent-override: 20.4%; line-gap-override: 0%; font-display: swap; }
+@font-face { font-family: "Martian Mono Fallback"; src: local("Courier New"); size-adjust: 125%; ascent-override: 80%; descent-override: 16%; line-gap-override: 0%; font-display: swap; }
