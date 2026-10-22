@@ -10,7 +10,7 @@
 - [x] Stack booted (stack)
 - [x] Motion score authored and built (motion)
 - [x] WebGL layer built or explicitly declined (webgl) — built: dosage moments, one context, no-GL fallback
-- [ ] Jury disposition: —
+- [x] Jury disposition: fix · 2026-10-22
 - [ ] Shipped (ship)
 
 ## Brief
@@ -79,6 +79,8 @@ Notes: responsive strategy is a fluid clamp scale on a 1728 artboard, single col
 
 ## Jury log
 <!-- appended by awards:jury — date · disposition · D/U/C/Co · dev sub-scores · top fixes -->
+- 2026-10-22 · fix · D 7.5 / U 7.0 / C 8.0 / Co 7.4 → 7.44 · dev seo 8.0 / anim 8.4 / a11y 7.8 / wpo 8.2 / resp 7.8 / meta 7.2 → 7.90 · .awards/jury/2026-10-22.md
+  top fixes: 1) readout carries this report's scores verbatim and a sound pending sentence (jury.json, index.html:63/:78, facts.js:62-63) 2) reduced-motion readout reads 0 when Airflow is off (src/flow/index.js:235/:243) 3) footer links this page's jury report (partials/footer.html:13)
 
 ## Ship log
 <!-- appended by awards:ship — date · audit summary · captures · performance numbers -->

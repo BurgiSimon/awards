@@ -2,3 +2,6 @@ node_modules/
 dist/
 .awards/captures/
 .awards/audit.json
+# third-party pages captured for the jury's neighbours: evidence, never published
+.awards/neighbours/
+.awards/research/
