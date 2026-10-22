@@ -430,4 +430,4 @@ Stamped on 2026-09-18 and **not** re-run since:
 | Audit rules | 55 (`T` fonts, `C` colour, `M` motion, `A` accessibility, `L` layout, `P` performance, `S` surfaces, `X` slop) |
 | Eval cases | 23 (17 smoke, 6 build) |
 | Site of the Day overalls across the 20 verified entries | 7.28 – 8.18, median 7.67 |
-| Pinned versions | gsap 3.15.0, lenis 1.3.26, three 0.186.0, animejs 4.5.0, ogl 1.0.11, postprocessing 6.39.5, @unseenco/taxi 1.9.1, vite 8.3.0 (full list in `references/stacks/versions.md`) |
+| Pinned versions | gsap 3.15.0, lenis 1.3.26, three 0.186.0, animejs 4.5.0, ogl 1.0.11, postprocessing 6.39.5, @unseenco/taxi 1.9.1, vite 8.3.5 (full list in `references/stacks/versions.md`) |

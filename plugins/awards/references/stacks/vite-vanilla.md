@@ -8,7 +8,7 @@ The default for anything that is not content-heavy: one page or a handful of rou
 ## Scaffold
 ```sh
 npm create vite@latest my-site -- --template vanilla        # [verified] create-vite; `vanilla-ts` also exists
-cd my-site && npm i gsap@3.15.0 lenis@1.3.26 && npm i -D vite@8.3.0
+cd my-site && npm i gsap@3.15.0 lenis@1.3.26 && npm i -D vite@8.3.5
 npm i three@0.186.0 postprocessing@6.39.5                   # only with a WebGL layer
 ```
 `awards:stack` writes the same layout with `scripts/new-project.mjs --stack vite [--webgl]`. Layout: one `index.html` per route (MPA), `src/main.js` (boot), `src/motion/` (the score), `src/webgl/` (own chunk), `src/styles/{tokens,fonts,base}.css`, `public/fonts/*.woff2`, `public/decoders/{draco,basis}/`.

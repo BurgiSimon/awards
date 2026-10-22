@@ -331,7 +331,7 @@ test('audit', 'a rendered step that throws is an ERR finding, and a bundler proj
   assert.ok(report.findings.some((f) => f.rule === 'ERR' && f.severity === 'P1' && /rendered check did not run/.test(f.message)), 'a thrown in-page check must surface, not read clean');
   const app = path.join(tmp, 'bundled');
   fs.mkdirSync(path.join(app, 'src'), { recursive: true });
-  json(path.join(app, 'package.json'), { name: 'bundled', type: 'module', scripts: { build: 'vite build' }, devDependencies: { vite: '8.3.0' } });
+  json(path.join(app, 'package.json'), { name: 'bundled', type: 'module', scripts: { build: 'vite build' }, devDependencies: { vite: '8.3.5' } });
   fs.writeFileSync(path.join(app, 'index.html'), '<html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><main><h1>Source</h1></main><script type="module" src="/src/main.js"></script></body></html>');
   fs.writeFileSync(path.join(app, 'src', 'main.js'), "import gsap from 'gsap';\ngsap.to('h1', { x: 10 });\n");
   const raw = JSON.parse((await run('scripts/audit.mjs', [app, '--render', '--json', '--no-write'])).stdout);

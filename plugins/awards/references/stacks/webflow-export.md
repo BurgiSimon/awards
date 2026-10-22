@@ -9,7 +9,7 @@ When the client designs, edits and hosts in Webflow and still wants an award-cla
 Two repos. Webflow holds pages, classes, CMS collections and custom attributes; the engine is a Vite project with a single entry.
 ```sh
 mkdir engine && cd engine && npm init -y
-npm i gsap@3.15.0 lenis@1.3.26 three@0.186.0 @unseenco/taxi@1.9.1 && npm i -D vite@8.3.0
+npm i gsap@3.15.0 lenis@1.3.26 three@0.186.0 @unseenco/taxi@1.9.1 && npm i -D vite@8.3.5
 ```
 ```js
 // engine/vite.config.js — one unhashed entry, hashed chunks, CORS for the Webflow preview origin
