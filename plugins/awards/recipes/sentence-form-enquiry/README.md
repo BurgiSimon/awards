@@ -41,4 +41,12 @@ The Tallow Room, the sentence and every message are synthetic demo copy. The for
 - **React / Vue / Svelte:** keep the markup and the native `validity` reads; drive `hidden`, `aria-invalid` and focus from state after render (a `useEffect` / `nextTick` / `tick()` before `.focus()`).
 - **Overlay:** inside a native `<dialog>` opened with `showModal()`, focus the first blank on open; see `[recipe:dialog-nested-lenis-sheet]` for a sheet with its own scroll.
 
+### Webflow
+- Designer: a Form Block, so the submission stays Webflow's (Webflow hosting runs no server code, `references/stacks/webflow-export.md`). Inside one paragraph `sentence__text`: Field Labels `frag` bound to Inputs `blank` (`f-name`, `f-topic`, `f-email`, each with `aria-describedby="e-…"`), and for the role a Div with the custom attributes `role="radiogroup"`, `aria-labelledby="l-role"`, `aria-describedby="e-role"`, `aria-required="true"` and `data-role-group` around three Radio Buttons whose labels are the pills.
+- Whether the Form Block's field wrappers let labels and inputs flow inline in one paragraph is [unverified]. If they break the sentence, the inline rules (`display: inline`, `field-sizing: content`) go in Head code, scoped to `.sentence`.
+- The error list (`e-name` to `e-email`) and the confirmation paragraph (`data-sent`, `tabindex="-1"`) are plain elements; the module sets `hidden` on them at boot.
+- Validation: the recipe always cancels the submit. On Webflow, listen in the capture phase, cancel and stop the event only when a field is invalid, and let a valid submit reach Webflow's handler. How `webflow.js` orders its own submit handling against that listener, and whether `novalidate` survives publishing, are [unverified].
+- Inject: an entry in the engine loaded by the [recipe:boot-lenis-gsap] Footer-code loader; it needs neither Lenis nor GSAP.
+- Reduced motion: only the entrance of errors and the confirmation changes (a fade, or nothing under static); its `html[data-motion]` rules go in Head code.
+
 Seen in: `[site:the-boyd]`, `[site:alectear]`.

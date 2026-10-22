@@ -18,4 +18,12 @@ Document title updates per page; focus is moved to the primary nav link after na
 - **View Transitions (MPA, Astro):** drop taxi, add `@view-transition { navigation: auto; }` and name shared elements with `view-transition-name`; run per-page setup on `astro:page-load` (see `references/stacks/astro.md`).
 - **Shared element:** inside `onEnter`, use `Flip.fit` from the leaving element's recorded state to the entering one.
 
+### Webflow
+The route layer of the injected-engine pattern (`references/stacks/webflow-export.md`, Page transitions), on `@unseenco/taxi` as [site:lando-norris] ships it.
+- Designer, on every page: a wrapper Div with the custom attribute `data-taxi` around the content, and inside it the page's main Div with `data-taxi-view` and `data-view="<name>"`, which the renderer reads. The wipe is a Div `wipe` with `data-wipe` and `aria-hidden="true"` outside the wrapper, so it survives swaps; the header link the renderer retargets carries `data-nav`. Every page carries the same contract, so a hard load of any URL works.
+- Links that must hard-load carry `data-taxi-ignore`: external links, and links to any page that relies on Webflow-JS components.
+- Turn off: no Webflow Interactions and no components that depend on `webflow.js` (dropdowns, sliders) on transitioned pages. They do not re-initialise after a swap, and the re-init snippets that circulate are [unverified].
+- Inject once, in Site settings → Footer code (the [recipe:boot-lenis-gsap] Footer-code loader). Page-level custom code runs once per hard load, never after a swap, so per-page logic belongs in the renderer's `onEnter` and `onLeave`.
+- Reduced motion: the wipe is skipped and views swap instantly; focus still moves to `data-nav` after each navigation.
+
 Seen in: `[clone:floema-jewelry]`, `[site:lando-norris]`, `[site:mont-fort]`.

@@ -59,6 +59,8 @@ jobs:
         run: |
           node scripts/audit.mjs recipes --json --no-write > "$RUNNER_TEMP/audit.json" || true
           node -e "const r = require(process.argv[1]); console.log('P0 %d · P1 %d · P2 %d · P3 %d', r.summary.P0, r.summary.P1, r.summary.P2, r.summary.P3); for (const f of r.findings.filter((f) => f.severity !== 'P3')) console.log(f.severity, f.rule, f.file + (f.line ? ':' + f.line : ''), f.message); process.exit(r.summary.P0 + r.summary.P1 + r.summary.P2 ? 1 : 0);" "$RUNNER_TEMP/audit.json"
+      - name: Framework adapters parse and import only pinned libraries
+        run: node scripts/check-adapters.mjs
       - name: Recipes build
         working-directory: plugins/awards/recipes
         run: npm run build

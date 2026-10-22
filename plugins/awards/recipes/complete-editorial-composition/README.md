@@ -22,6 +22,16 @@ The verifier checks desktop/mobile top, middle and end, reduced-motion middle, a
 
 Headless Chromium evidence establishes rendering and behavior at these sizes. It does not establish real-device performance or the shapes of a project's replacement fonts. The warm ground, brown ink, clay accent and coherent oak/stone images are one fictional example world. Replace the whole image family and palette deliberately, then inspect new crops, text measures, section density and the ending together.
 
+## Adapters
+
+### Webflow
+No module: the page is five static recipes in sequence, and `main.js` only registers page metrics. The work is structure, classes and order.
+- Body: the skip link `composition-skip` to `#main` first, a masthead with Tag **Header** (the wordmark to `#top`, an element with Tag **Nav** and `aria-label="Main navigation"`), an element with Tag **Main**, id `main` and class `composition-sequence`, then the footer from [recipe:designed-footer].
+- Inside Main, in this order: the hero from [recipe:responsive-art-directed-hero] (its `<picture>` in a Code Embed, eager), the material story from [recipe:editorial-image-text] (id `materials`), the specification from [recipe:product-specification] (id `specification`, its `<dl>` and `<details>`), and the care passage as `type-specimen type-specimen--editorial` with id `care` ([recipe:typography-specimen]). Each section's own Webflow notes apply.
+- One h1, the hero's; every other section heading is an H2. Below-the-fold images stay lazy, the hero does not.
+- Audit: a code export (Workspace plans) leaves out CMS content, so audit the unzipped export for the shell and the published URL with `--render` for the page (`references/stacks/host-platforms.md`); `capture-states.json` drives the care disclosure in captures of the live page.
+- Reduced motion: nothing moves. Interactions added to this page would be its only motion and should carry their reduced-motion settings.
+
 ## Visual notes
 
 Captured 2026-10-06 from the built page in headless Chromium 153.0.8010.12 on Linux, device scale 1 and system fonts, with normal motion. Desktop is 1440×900 CSS px; mobile is 390×844 CSS px with touch/mobile emulation. These six unedited PNGs are below 1 MiB each. The standard capture positions are 0%, 50% and 100% of the scrollable document, so middle frames are evidence of the specification and close frames show the footer. Reviewed: no material overflow, crop or hierarchy defect in these frames.

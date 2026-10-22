@@ -17,4 +17,16 @@ Contrast holds in every theme (check each pair with `audit.mjs`); the swap is in
 ## Adapters
 For Three.js call `renderer.setClearColor(live['--ground'])` (and update material uniforms) inside the same `onUpdate`; for R3F write the live values into a ref read in `useFrame`.
 
+### React
+`<ThemeSwap onUpdate={(live) => paintSwatch(canvas.current, live)} onTheme={setLabel}>…</ThemeSwap>` from `adapters/react.jsx` wraps the chapters; each child section names its theme with `data-swap`. Themes are your CSS `[data-theme="…"]` blocks (`themes`, default `default`, `dark`, `accent`). `onUpdate` receives the live object every tween frame, so a Three renderer calls `setClearColor(live['--ground'])` there.
+- On unmount it restores `data-theme` and `theme-color` and removes the inline tokens. Needs the root `<SmoothScroll>` from [recipe:boot-lenis-gsap]; `'use client'` for Next's App Router.
+
+### Webflow
+- Designer: each chapter Section carries the custom attribute `data-swap="default"`, `"dark"` or `"accent"`; an optional readout span carries `data-theme-readout`. A canvas that shares the colour is a Code Embed: `<canvas data-canvas width="480" height="200" aria-hidden="true">`.
+- Tokens: the module tweens `--ground`, `--ink` and `--accent` on `html` and reads each theme from `[data-theme="…"]` rules. Define those blocks in Head code and have the Designer's classes use `var(--ground)` and the rest; Webflow's own colour variables publish under names of their own [unverified], so map them to these three or keep the names in Head code.
+- Head code also carries `<meta name="theme-color" content="#f4f2ee">`, which the module updates on each swap, and `body { transition: none }`. No Designer transition on body or section colours, or the colour is smoothed twice.
+- No Webflow interaction that changes background or text colour on these sections: one tween owns the colour.
+- Inject: an entry in the engine loaded by the [recipe:boot-lenis-gsap] Footer-code loader; it uses the boot's Lenis and ScrollTrigger.
+- Reduced motion: the swap is instant and still happens, because it carries wayfinding.
+
 Seen in: `[site:leo-parpeix]`, `[clone:floema-jewelry]`, `[site:slosh-seltzer]`, `[site:shopify-editions-w26]`, `[site:lando-norris]`.

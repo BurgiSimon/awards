@@ -18,6 +18,15 @@ Desktop 1440 × 900 and phone 390 × 844 captures check image decoding, profile/
 
 Alder Workshop, the bench, specifications, construction and care claims, availability and imagery are synthetic demonstration material. The images are not photographs of a manufactured product or evidence of its joinery.
 
+## Adapters
+
+### Webflow
+No module: the disclosure is native `<details>`, and `main.js` only reports the facts and the disclosure state. The work is structure.
+- A Section with class `product-spec` and id `specification`: a Div with Tag **Figure** and class `product-spec__figure` (the profile Image with dimensions, alt text and caption), then a Div `product-spec__facts` with the heading wrapper `product-spec__heading` (H2 `composition-heading`), the six-pair list and the disclosure.
+- The list is a `<dl>` of six adjacent `<dt>`/`<dd>` pairs, and the disclosure is `<details id="care-details">` with its `<summary>`. Both go in a Code Embed unless the Designer offers those elements [unverified]. Do not swap in the Dropdown component: it depends on `webflow.js` (`references/stacks/webflow-export.md`), and the native element needs no script at all.
+- The enquiry action points at `#enquiry` here; on a real site it goes to the enquiry page, whose form stays Webflow's.
+- Reduced motion: nothing moves, so there is nothing to configure.
+
 ## Visual notes
 
 Captured 2026-10-06 from the built page in headless Chromium 153.0.8010.12 on Linux, device scale 1, system fonts, normal motion. Desktop is 1440×900 CSS px; mobile is 390×844 CSS px with touch/mobile emulation. All published PNGs are unedited browser screenshots under 1 MiB. Reviewed for hierarchy, aligned edges, crop, whitespace and responsive order; no material defect was found in these frames.

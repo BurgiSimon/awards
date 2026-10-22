@@ -15,4 +15,13 @@ Field `128²` · dissipation `0.96` · advection `0.02` · splat force = pointer
 ## Accessibility
 `aria-hidden` canvas, DOM mirror of the headline, no gesture required to read anything, no simulation under reduced motion.
 
+## Adapters
+
+### Webflow
+- Designer: a hero Section with class `hero` (`position: relative; min-height: 100svh; overflow: hidden`), a Div `hero__copy` and an H1 with the custom attribute `data-hero-title`. The canvas belongs to the engine: the module creates `<canvas class="gl" aria-hidden="true">` as the hero's first child, so the Designer never holds it.
+- The headline is drawn into the texture with its computed font, so the faces load first: upload them in Site settings → Fonts and keep the module behind `document.fonts.ready`. The DOM title stays in the tree as the mirror; `html.gl-active [data-hero-title] { visibility: hidden }` and `html.gl-active .gl { display: block }` go in Head code.
+- No Webflow interaction on the hero, its copy or the title: the texture is captured from the resting layout, and a title an interaction moves would no longer match it.
+- Inject: a chunk the engine's `mount()` imports (the [recipe:boot-lenis-gsap] Footer-code loader) only for the full motion tier and a quality profile above low ([recipe:quality-tiers]). Pointer listeners sit on `window`; dispose on `pagehide`, and on every taxi leave with [recipe:page-transitions].
+- Reduced motion or no WebGL: no simulation and no canvas; the Webflow heading is the hero.
+
 Seen in: `[site:leo-parpeix]`; a six-pass sibling on `[site:lando-norris]`.

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Framework adapters are code, so they are checked as code: every recipes/<id>/adapters/*.jsx|tsx parses (Vite's
-// bundled Oxc transform, no React install needed), imports only the pinned libraries or its own recipe's files,
+// bundled Oxc transform, no React install needed), imports only the pinned libraries or relative files (its own
+// recipe, a sibling recipe's adapter such as boot-lenis-gsap's useLenis, or the shared modules),
 // and uses useGSAP when it uses GSAP; every P0 recipe's README carries a Webflow section, the host the corpus
 // ships on most (16 of 62 cards).
 // Usage: node scripts/check-adapters.mjs [--json]   Exit: 0 clean · 1 a problem.
