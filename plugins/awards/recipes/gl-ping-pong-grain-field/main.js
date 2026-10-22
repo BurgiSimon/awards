@@ -246,19 +246,24 @@ async function start() {
     addEventListener('pointercancel', () => (ptr = last = null));
   }
 
-  let quiet = 0, glideStart = 0, subscribed = null;
+  let quiet = 0, glideStart = 0, glideLeftPrev = 1, subscribed = null;
+  // The glide's remaining fraction is a function of elapsed time, not of frames: each frame scales by
+  // left(now) / left(prev), so the product telescopes to left(u) at any frame rate and reaches 0 at u = 1.
+  const glideK = 60 * P.glideMs / 1000, glideFloor = P.glideKeep ** glideK;
+  const glideLeft = (u) => Math.max(0, (P.glideKeep ** (glideK * u) - glideFloor) / (1 - glideFloor));
   function frame(dt) {
     const k = Math.min(3, dt * 60);
     simMat.uniforms.uK.value = k;
     simMat.uniforms.uActive.value = 0;
+    let glideDone = false;
     if (state.gliding) {
       state.glideFrames++;
-      simMat.uniforms.uGlide.value = P.glideKeep;
-      if (performance.now() - glideStart >= P.glideMs) {
-        state.glideEnd = stats().maxAll;
-        simMat.uniforms.uGlide.value = 1;
-        clearField(); state.gliding = false; quiet = 0;
-      }
+      const u = Math.min(1, (performance.now() - glideStart) / P.glideMs);
+      const left = glideLeft(u);
+      simMat.uniforms.uGlide.value = Math.min(0.999999, glideLeftPrev > 0 ? left / glideLeftPrev : 0);
+      simMat.uniforms.uK.value = 1;
+      glideLeftPrev = left;
+      glideDone = u >= 1;
     } else if (ptr && last && (ptr.x !== last.x || ptr.y !== last.y)) {
       let dx = ptr.x - last.x, dy = ptr.y - last.y;
       const len = Math.hypot(dx, dy);
@@ -269,13 +274,18 @@ async function start() {
       last = { ...ptr }; quiet = 0;
     }
     simPass();
+    if (glideDone) {
+      state.glideEnd = stats().maxAll; // measured after the final pass, which lands on exactly zero
+      simMat.uniforms.uGlide.value = 1;
+      clearField(); state.gliding = false; quiet = 0;
+    }
     draw();
     // Idle gate: velocities settle well inside P.idleFrames; then the loop leaves the ticker until the next input.
     if (!state.gliding && ++quiet > P.idleFrames) { subscribed?.(); subscribed = null; state.awake = false; }
   }
   function wake() { quiet = 0; if (!subscribed && tier !== 'static') { subscribed = ticker.add(frame); state.awake = true; } }
 
-  resetBtn.addEventListener('click', () => { state.resets++; state.gliding = true; state.glideEnd = null; glideStart = performance.now(); wake(); });
+  resetBtn.addEventListener('click', () => { state.resets++; state.gliding = true; state.glideEnd = null; glideStart = performance.now(); glideLeftPrev = 1; ptr = last = null; wake(); });
   let resizeT = 0;
   addEventListener('resize', () => { clearTimeout(resizeT); resizeT = setTimeout(() => { build(); draw(); }, 200); });
 
