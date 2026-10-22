@@ -114,8 +114,8 @@ Resolution rules:
 - After every phase: tick its Status line, read the exit artefact yourself (not the skill's summary), and check it against the contract before invoking the next skill.
 - A phase that finds a broken earlier artefact (a page map that contradicts STORY) stops and returns to that phase; it does not patch around it.
 - Phase 6 is skipped, not forgotten: the Status line reads "explicitly declined" with the dosage rung the contract chose.
-- When ship applied material fixes, phase 7 runs once more as a verdict pass (`awards:jury --verdict`); at most two jury rounds per build unless the user asks for more. The component passes below count toward them; phase 7 always runs, so a build that used the cap gets its verdict pass only on the user's request.
-- No forked jury (no Skill tool, the skill read as a file, an unattended run): never score the build yourself. Append `scores unmeasured — run /awards:jury <dir> --captures <recorded-directory>` with the real paths to `## Jury log`, leave "Jury disposition" unchecked, and never call the build finished.
+- When ship applied material fixes, phase 7 runs once more as a verdict pass (`awards:jury --verdict`); a verdict of `ship` sends the build to phase 8 once more for its proof pass, which ticks Shipped when its gate holds. At most two page jury rounds per build, phase 7 and one verdict pass, unless the user asks for more; count them from the `## Jury log` lines not marked `component`. The component passes below have their own bound (one after the static checkpoint, one more after webgl when SIGNATURE is canvas or GL) and never use up a page round, so a build that needs its verdict pass always has one left.
+- No forked jury (no Skill tool, the skill read as a file, or a host that cannot fork it): never score the build yourself. Append `scores unmeasured — run /awards:jury <dir> --captures <recorded-directory>` with the real paths to `## Jury log`, leave "Jury disposition" unchecked, and never call the build finished.
 
 ### What to check at each hand-back
 
@@ -242,7 +242,7 @@ The final message, in this order:
 - [ ] The ship report exists; the audit is clean or every remaining finding has an `## Exceptions` line with a reason.
 - [ ] The memory-test answer is an object or a behaviour, recorded in the jury log.
 - [ ] Reduced motion, keyboard, DOM mirror and sound opt-in were verified from captures (`desktop-rm-s00`, `--no-webgl`) and a keyboard walk, not assumed.
-- [ ] `## Status` is fully checked; no phase was skipped silently; at most two jury rounds, component passes included (phase 7 itself always runs), unless the user asked for more.
+- [ ] `## Status` is fully checked; no phase was skipped silently; at most two page jury rounds (phase 7 and one verdict pass) and two component passes, unless the user asked for more.
 
 ## Hand-off
 

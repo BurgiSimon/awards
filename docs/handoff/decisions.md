@@ -32,6 +32,14 @@ Decisions taken during the build, with the reason, so a future session does not 
 | Owner policy | A site whose robots.txt or AI-usage policy forbids automated extraction is `skipped`, never retried | Treating it as `blocked` |
 | oxigen.sa | Dropped from the queue | A real-GPU retry |
 
+## Taken with the user (2026-10-22, quick wins)
+
+| Decision | Choice | Alternatives declined |
+|---|---|---|
+| Jury round cap | Two page rounds (phase 7 and one verdict pass) plus at most two component passes, counted separately from `## Jury log` (component lines are marked `component`) | Component passes counting toward the two rounds (finish gates, 2026-10-07): with both component passes used, ship's verdict pass needed a user request, so no unattended build could reach Shipped; an uncapped verdict loop |
+| Verdict mode | Re-scores the axes on the after captures; a score moves only with a named before/after evidence pair | Verdict as resolution check only: a `fix` from a weighted 6.8–7.19 could never become `ship` |
+| Component passes and `## Status` | A component pass appends its log lines and never touches `## Status` | Ticking `Jury disposition` in every mode: a resumed build could skip phase 7 or ship on one element's verdict |
+
 ## Architectural
 
 - **Corpus at the plugin root**, addressed as `${CLAUDE_PLUGIN_ROOT}/references/…`, `…/recipes/…`, `…/scripts/…`; skill folders hold no private copies. Copying a single skill folder elsewhere is unsupported.

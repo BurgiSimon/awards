@@ -49,7 +49,7 @@
 - Deep modes: motion gsap|none · webgl shader|3d|shader + 3d|none — because …
 
 ## Jury log
-<!-- appended by awards:jury — date · disposition · D/U/C/Co · dev sub-scores · top fixes -->
+<!-- appended by awards:jury — date · disposition · D/U/C/Co · dev sub-scores · top fixes; component passes are marked `component` and never count as page rounds -->
 
 ## Ship log
 <!-- appended by awards:ship — date · audit summary · captures · performance numbers -->
