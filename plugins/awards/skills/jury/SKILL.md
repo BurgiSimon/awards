@@ -1,7 +1,7 @@
 ---
 name: jury
 description: "Scores a site, page or component the way a design-award jury does: Design, Usability, Creativity and Content on anchored scales, the six Developer Award criteria, the memory and specificity tests, a keyboard and reduced-motion walk and a slop scan, ending in ordered fixes and one disposition (ship, fix, rebuild or recapture). Use when the user asks to review, critique, score, judge, rate or evaluate a site or component, asks 'would this win', 'is this award-worthy', 'what is missing', 'what would the jury say', or before shipping award-level work; --verdict re-checks a fix batch. Runs in a fresh context on captures and the audit. Not for code review, failing tests or accessibility work without award framing."
-argument-hint: "[url | path | --component <selector>] [--captures <dir>] [--states <json-file>] [--verdict]"
+argument-hint: "[url | path | --component <selector>] [--captures <dir>] [--states <json-file>] [--verdict | --baseline]"
 context: fork
 agent: awards-jury
 background: false
@@ -20,6 +20,7 @@ Arguments: `$ARGUMENTS`
 - `--captures <dir>` — where the screenshots live (default `.awards/captures`)
 - `--states <json-file>` — interaction plan to replay on recapture; use the recorded plan or `.awards/capture-states.json` when present
 - `--verdict` — re-check the last fix batch instead of scoring from scratch (section 7)
+- `--baseline` — score an existing site before a redesign (section 9): the same report, logged as a baseline, never as a page round
 - `--component <selector>` — score one element instead of a page (section 8)
 
 ## Setup
@@ -37,6 +38,8 @@ Why: a score is a feeling until it is attached to a reason and a fix, and praise
 Why: a jury looks at the site, not at code that promises a site. Without valid captures every sentence you write is an opinion, so the evidence is checked before anything is judged.
 
 Locate the recorded manifest directory (`--captures`, else the latest handoff path; standalone default `.awards/captures`) and its `manifest.json`. Establish manifest validity first; complete Page map-derived coverage only after the first-viewport inventory in section 1. The baseline frame names below remain useful examples, not a complete checklist.
+
+A site with routes is captured with `capture.mjs --routes`: the directory then holds `routes.json` and one capture folder per route. Run the gate on each route's manifest, read `desktop-s00`, `desktop-s50` and `mobile-s00` of every route, and judge world commitment, Content and Usability across them; a route the page map names with no capture is a coverage gap in the report.
 
 | Capture | What it proves |
 |---|---|
@@ -217,6 +220,14 @@ This yields `desktop-component-<slug>.png`, its `-hover` frame, `mobile-componen
 - Keep the fixes inside the component and its tokens; a page-level problem noticed on the way is one line under Keep, not a fix.
 - Log it as a component pass, never as a page round: the first `## Jury log` line reads `- <date> · component <selector> · <disposition> · D x.x / U x.x / C x.x → mean x.xx · .awards/jury/<date>.md` (all `unmeasured` without valid captures), the second gives its top fixes. Leave `## Status` untouched.
 
+
+## 9. Baseline mode (`--baseline`)
+
+Why: a redesign is measured against the site it replaces, and the faults the old site carries are the new contract's best refusals.
+
+- Score exactly as in page mode, from the baseline captures craft passes (`.awards/redesign/baseline`), with the same report shape, and write it to `.awards/jury/<date>-baseline.md`.
+- The Keep line matters more than usual: name what the existing site does that a redesign must not lose (content, a working conversion, an asset, a reputation the URL carries).
+- Log it with `awards-log.mjs --append "Jury log" --line "- <date> · baseline · <disposition> · D x.x / U x.x / C x.x / Co x.x → x.xx · .awards/jury/<date>-baseline.md"` and leave the `Jury disposition` Status line alone: a baseline is never a page round.
 ## Verify
 
 - All applicable manifest-listed captures, including mobile middle/close, reduced-motion chapters and named states, were opened and named in Evidence with their validity; the audit counts are in the report.

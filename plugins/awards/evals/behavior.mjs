@@ -766,6 +766,23 @@ body { margin: 0; padding: 0 48px; font: 18px/1.5 sans-serif; } h1 { font-size: 
   assert.ok(fp.desktop.mediaShareFirstViewport > 0, 'the media block counts toward the image share');
 });
 
+test('capture', 'several routes of one local site are captured from its root into one routes.json', async () => {
+  const site = path.join(tmp, 'routes-site');
+  fs.mkdirSync(path.join(site, 'work'), { recursive: true });
+  fs.writeFileSync(path.join(site, 'style.css'), 'body { margin: 0; padding: 40px; font: 18px/1.5 sans-serif; background: #f4f2ee; color: #1a1c1c; }');
+  const page = (title) => `<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/style.css"><title>${title}</title></head><body><main><h1>${title}</h1></main></body></html>`;
+  fs.writeFileSync(path.join(site, 'index.html'), page('Home'));
+  fs.writeFileSync(path.join(site, 'work', 'index.html'), page('Work'));
+  const out = path.join(tmp, 'routes-out');
+  const result = await run('scripts/capture.mjs', [site, '--routes', '/,/work/', '--out', out, '--scroll', '0', '--only', 'desktop', '--wait', '20']);
+  assert.equal(result.code, 0, result.stderr);
+  const index = JSON.parse(fs.readFileSync(path.join(out, 'routes.json'), 'utf8'));
+  assert.deepEqual(index.routes.map((r) => [r.slug, r.exit]), [['home', 0], ['work', 0]]);
+  const work = JSON.parse(fs.readFileSync(path.join(out, 'work', 'manifest.json'), 'utf8'));
+  assert.deepEqual(work.failedRequests, [], 'the inner route loads the root stylesheet');
+  assert.ok(fs.existsSync(path.join(out, 'work', 'desktop-s00.png')));
+});
+
 let failures = 0;
 try {
   assert.ok(tests.length, 'No matching behavior checks');

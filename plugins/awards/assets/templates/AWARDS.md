@@ -48,9 +48,10 @@
 ## Budgets & tiers
 - Entry JS (gz): · GL chunk (gz): · Textures per scene: · Fonts (files / KB): · LCP target: · Tiers: high / mid / low →
 - Deep modes: motion gsap|none · webgl shader|3d|shader + 3d|none — because …
+- Mode: full | quick | redesign from <url or dir>
 
 ## Jury log
-<!-- appended by awards:jury — date · disposition · D/U/C/Co · dev sub-scores · top fixes; component passes are marked `component` and never count as page rounds -->
+<!-- appended by awards:jury — date · disposition · D/U/C/Co · dev sub-scores · top fixes; component passes are marked `component` and a redesign's first score `baseline`; neither counts as a page round -->
 
 ## Ship log
 <!-- appended by awards:ship — date · audit summary · captures · performance numbers -->

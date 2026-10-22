@@ -203,6 +203,7 @@ Why: `awards:craft` and the user need one document that says what changed, what 
 - <date> · audit P0 n / P1 n / P2 n / P3 n · exceptions n · captures <n> valid from <manifest-path> · entry x KB gz · GL y KB gz · LCP z s (trace | throttled capture | field p75 | not measured) · CLS c · .awards/ship/<date>.md
 ```
 
+- In the report, one line from `node "${CLAUDE_PLUGIN_ROOT}/scripts/design-md.mjs" diff DESIGN.md`: the tokens that moved since the last jury snapshot (or `unmeasured`). A token that moved without a jury fix asking for it is named.
 - A material fix is any change that alters what a capture shows: layout, motion, colour, type, copy, a state. Meta, cleanup, exceptions and gitignore changes are not material.
 - Set `## Status` (`awards-log.mjs AWARDS.md --status "Shipped" --tick`): tick `Shipped (ship)` only when no material fix was applied, the audit is clean, every contract row is kept or resolved, no fix remains partial/unresolved, and the recorded manifest covers all required chapters, viewports and states with valid frames. Otherwise leave the box unticked; record unresolved contract/evidence gaps in the report, or `back to awards:jury --verdict` after a valid material fix batch until its verdict is `ship`.
 - Remind the user that headless captures prove correctness, not frame rate: WebGL work needs one pass on a real phone before launch.

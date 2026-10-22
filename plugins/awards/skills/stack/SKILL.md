@@ -60,6 +60,15 @@ One-off library notes, read only when the direction needs that exact piece: `sta
 
 Choose for the team and the content, never for the motion: the motion is identical on every row.
 
+## Content from a CMS
+
+Why: a multi-route build lives or dies on its templates; content typed per route keeps every case study, product and article inside the world instead of pasted into it.
+
+- Model one content type per page-map template (case study, product, article, about), with fields named after what the inner-page structure needs (`[pattern:inner-pages#case-study]`): title, credits, media in order with captions and alt text, facts, and the next item.
+- Fetch at build time and render static HTML per route; the engine hydrates by attribute. A client-side fetch never gates the first viewport or the LCP image.
+- Images come through the CMS's transform API at the widths the layout draws them (`srcset` with real width descriptors); log the sources in the asset log as the client's own.
+- Preview and drafts use the CMS's preview route, never the production build. The DOM mirror rule holds: every string a canvas draws comes from the same field the HTML renders.
+
 ## Scaffold
 
 The scaffold ships the boot, the shared modules and the two contract files, so a new project starts at the floor instead of climbing to it. It never overwrites a file: a non-empty directory is refused unless `--keep-existing` is given, and then only the missing files are written.

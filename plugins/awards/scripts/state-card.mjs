@@ -26,6 +26,8 @@ export function card(md) {
     `- Status: ${lines.filter((l) => l.done).length} of ${lines.length} done; next "${next.text}" → awards:${skill}`,
   ];
   if (deep && !/gsap\|none/.test(deep)) out.push(`- Deep modes: ${deep}`);
+  const mode = md.match(/^- Mode:\s*(.+)$/m)?.[1];
+  if (mode && !/^full\b|\|/.test(mode)) out.push(`- Mode: ${mode}`);
   const jury = last('Jury log');
   if (jury) out.push(`- Last jury: ${jury.slice(2)}`);
   const ship = last('Ship log');

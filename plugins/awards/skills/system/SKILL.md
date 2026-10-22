@@ -119,6 +119,13 @@ Why: the frontmatter is the machine-readable layer other tools read, the CSS is 
 
 When the brief needs editorial/product hierarchy, open `[recipe:typography-specimen]` desktop/mobile images and the complete composition’s asset/type notes through `${CLAUDE_PLUGIN_ROOT}/references/patterns/visual-composition.md`; select the project’s own type, colour and image direction.
 
+## DESIGN.md interop
+
+Why: `DESIGN.md` follows the format Google's design.md tools read, so a team can lint it, diff it between rounds and export it to their own token pipeline without the plugin.
+
+- After writing it: `node "${CLAUDE_PLUGIN_ROOT}/scripts/design-md.mjs" lint DESIGN.md`. Errors (a broken `{token}` reference, an invalid value) are fixed; warnings are read and either fixed or named in `## Overview`. With no network it prints `unmeasured` and the build goes on.
+- When the brief names Tailwind or a token pipeline: `design-md.mjs export --format css-tailwind|json-tailwind|dtcg DESIGN.md --out <file>`; `tokens.css` stays the source the recipes read.
+
 ## Verify
 
 Run `node "${CLAUDE_PLUGIN_ROOT}/scripts/audit.mjs" <dir> --scope fonts,contrast,surfaces,slop` on the project directory. It also catches a generated palette (X12), coloured glow and halos (X10, X11) and running text set against reading (T07). The result must be exit 0 or every finding recorded under `AWARDS.md ## Exceptions` with a reason. Then tick:
@@ -135,6 +142,8 @@ Run `node "${CLAUDE_PLUGIN_ROOT}/scripts/audit.mjs" <dir> --scope fonts,contrast
 - [ ] No hex, pairing or set from any corpus card reused as a package; one `Calibration:` line per card read, each citing its `[site:slug]`.
 
 ## Hand-off
+
+In quick mode (`--quick`, or `Mode: quick` in `AWARDS.md`): read only the three DIVERGENCE cards' §8, skip the calibration lines beyond one per card, and hand straight to structure with `--quick`; craft checks both artefacts once.
 
 The next phase belongs to `awards:structure`, which needs `DESIGN.md`, `tokens.css` and the contract. When the user asked for the whole site or `awards:craft` is driving the build: Invoke the `awards:structure` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. When the user asked only for tokens, a palette or fonts, stop after the verify step and offer that next step in one line. If the project is scaffolded later by `awards:stack`, this `tokens.css` replaces the scaffold's, never the other way round.
 

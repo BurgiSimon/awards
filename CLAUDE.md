@@ -34,6 +34,7 @@ node scripts/check-versions.mjs [--json] [--strict]        # every versions.md p
 node scripts/calibration.mjs [--since 2021] [--json]       # the score figures the rubric quotes, recomputed from the site cards
 node scripts/crux.mjs <url> [--origin]                     # Chrome UX Report field p75 for a live site (needs CRUX_API_KEY)
 node scripts/fonts.mjs search --category <class> --seed <key> | specimen --fonts <ids> --text "<headline>" | fetch --font <id>   # character-first faces from Fontsource
+node scripts/design-md.mjs lint | export --format dtcg|css-tailwind|json-tailwind | snapshot --label round-n | diff   # DESIGN.md through Google's design.md CLI (pinned 0.4.0, npx); unmeasured offline
 node scripts/assets.mjs add --file <f> --kind owned|licensed|generated|drawn|placeholder | check [dir] | credits   # the project's asset and licence log
 node scripts/skeleton.mjs <url|dir> --out <file.png>       # composition block map + measured fingerprint of one page (owner policy first)
 node scripts/corpus-skeletons.mjs [--only slug,…] [--missing] [--table-only]   # every card's skeleton and references/sites/_fingerprints.md
