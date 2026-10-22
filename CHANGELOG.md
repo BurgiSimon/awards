@@ -23,6 +23,7 @@ From the 2026-10-22 review, batches 1 to 5 (everything except the large, lower-i
 - **Thirteen new recipes, 89 entries.** View transitions across documents, CSS scroll-driven timelines, Flip layout states, a case-study route kit, a drag-pan infinite grid, a bounded image trail, a matter-js pile of real words, a per-line goo reveal, scrubbed animation clips, a noise-edge theme wipe, auto-drive with takeover, a designed 404 and a cart drawer with quick add; each passes the pseudo-locale pass.
 - **Framework adapters.** Ten core recipes carry a React adapter (`adapters/react.jsx`, `useGSAP` for cleanup) and every core README a Webflow section; `scripts/check-adapters.mjs` parses them in CI.
 - **DESIGN.md that lints.** The template's frontmatter uses values Google's design.md lint accepts (a number and a unit at the artboard width; the `clamp()` stays in `tokens.css`).
+- **Vite 8.3.5.** The pin moves from 8.3.0, which carries six dev-server advisories (fixed in 8.3.3), in the recipes, the scaffold, the stack notes and the eval fixtures.
 - **The plugin's own site** moved onto `main` under `site/`.
 - **Not yet measured.** No paid eval has run against these changes; `node evals/pick.mjs` lists the cases they need.
 
