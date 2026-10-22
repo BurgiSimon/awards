@@ -1,5 +1,59 @@
 # Open todos
 
+## Review work queue (from the 2026-10-22 review; the maintainer asked for everything except the large-effort, lower-impact items)
+
+Item ids are the review's (A site quality, B engineering, C measurement, D corpus and recipes, E platform, F features, G docs). Tick each as it lands; one PR per batch.
+
+Excluded by that instruction (lower impact, larger effort): F5 jury panel, F6 motion tuning page, B11 context weight, C2 per-rule fixtures, B24 audit split, F7 more scaffolds, D12 pattern digests, D13 variants as data, E8 plugin-managed browser, F8 comp-first, F10 recipe registry, G9 build gallery, recipes R7 Rive, R10 configurator, R11 WebGPU TSL, R12 variable axes. Not runnable here: C13 paid A/B sprint (costs the maintainer money). Deferred by an earlier decision until convergence is measured: A12 stimulus deck.
+
+**Batch 1 — evidence (0.8 remainder)**
+- [ ] C7 cheaper eval tiers (contract tier, regrade on kept workspaces)
+- [ ] C8 missing eval cases (jury-bland-clean, concept-deal-distinct, near-miss negatives, new-site technique, phase order, resume)
+- [ ] C9 tablet capture and lopsided/blank-band render rules
+- [ ] C10 Playwright Clock, ariaSnapshot, screencast evidence
+- [ ] C11 visual diff between capture rounds
+- [ ] C12 refresh calibration claims
+- [ ] C5 performance evidence (CLS rule, long tasks, lab INP, CPU throttle)
+- [ ] C6 real-GPU and WebKit lanes (`--gpu`, Safari and DevTools MCP guidance, CrUX field data)
+- [ ] C14 GSAP official skills coexistence eval
+- [ ] B9 render the build output, not bundler source
+- [ ] B16 rendered checks never fail silently
+- [ ] B10 Node floor per stack
+- [ ] D3 version check script
+
+**Batch 2 — engineering, platform and docs**
+- [ ] B12 + E9 jury agent tools, turns, omitClaudeMd, `awards-log.mjs`
+- [ ] B13 concept deal within four options
+- [ ] B14 sub-skill hand-offs keep craft's checks
+- [ ] B17 scoped exceptions and ignores
+- [ ] B18 Windows and macOS spawn and lock fixes
+- [ ] B19 scaffold `.gitignore` and capture `--out` root
+- [ ] B20 research honours owner policy
+- [ ] B22 reproducible verification (pin Playwright, opt-in stamping)
+- [ ] B25 harden the local server
+- [ ] B26 small drift
+- [ ] E3 trimmed descriptions; E4 `!command` state; E5 hook refinements; E6 userConfig; E7 effort; E10 report pages
+- [ ] G2 quick start; G3 permissions; G4 Playwright advice; G5 stale docs; G6 listing fields; G7 CONTRIBUTING and templates; G8 CHANGELOG; G10 archive
+
+**Batch 3 — ceiling (generation side)**
+- [ ] A3 imagery strategy in WORLD + F3 asset sourcing and licence log
+- [ ] A5 house-style remnants; A6 mechanism, not look; A7 character-first fonts; A9 references slot
+- [ ] A8 positive craft checklist; A10 computed eyebrow counter; A11 negative exemplars
+- [ ] A2 layout and composition pattern file
+- [ ] A1 composition skeletons and fingerprints per card
+- [ ] D5 inner routes in research; D6 floema-jewelry citations; D7 stack notes (Rive, WebGPU/TSL, host platforms); D9 missing pattern topics
+- [ ] D4 gap-driven waves; D10 model-free pre-pass; D11 index, card and health scripts; D14 generated catalogue table; D15 tag vocabulary
+
+**Batch 4 — recipes**
+- [ ] R1 view-transitions-mpa; R2 css-scroll-driven-timeline; R3 flip-layout-state; R4 case-study-route-kit
+- [ ] R5 drag-pan-infinite-grid; R6 image-trail-cursor; R8 pseudo-locale stress state; R9 physics-pile-matter
+- [ ] R13 the four specced wave-4 recipes; R14 designed-404, cart-drawer-quick-add
+
+**Batch 5 — new modes and proof**
+- [ ] F2 quick mode; F1 redesign mode; F4 multi-route sites; F9 award program presets; F11 DESIGN.md interop; D8 framework adapters
+- [ ] G1 finish and ship the plugin's own site
+
+
 ## Quick wins (2026-10-22) follow-ups
 
 1. Measure, paid: an uninterrupted `build-antarctic-site` should now reach `Shipped` or stop on a named blocker; record the page and component jury lines it writes.
