@@ -2,6 +2,7 @@
 // Catch the drift that CLAUDE.md asks maintainers to prevent by hand: the three manifest versions,
 // pinned versions against references/stacks/versions.md, the scaffold's shared modules against
 // recipes/_shared, the root and plugin LICENSE/NOTICE copies, and the counts the descriptions quote.
+// Also: the Codex manifest declares no hooks.
 // Usage: node scripts/check-sync.mjs [--json]   Exit: 0 in sync · 1 drift found.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -23,6 +24,10 @@ const manifests = {
   [rel(path.join(plugin, '.codex-plugin/plugin.json'))]: json(path.join(plugin, '.codex-plugin/plugin.json')).version,
   '.claude-plugin/marketplace.json': json(path.join(repo, '.claude-plugin/marketplace.json')).plugins.find((p) => p.name === 'awards')?.version,
 };
+// The hooks are Claude Code hooks; an empty inline object is what stops Codex discovering hooks/hooks.json
+// (an empty array reads as unset there), and plugins with lifecycle hooks miss Codex's public directory.
+const codexHooks = json(path.join(plugin, '.codex-plugin/plugin.json')).hooks;
+check('Codex manifest ships no hooks', codexHooks && typeof codexHooks === 'object' && !Array.isArray(codexHooks) && !Object.keys(codexHooks).length, `hooks is ${JSON.stringify(codexHooks)}, expected {}`);
 check('manifest versions agree', new Set(Object.values(manifests)).size === 1, Object.entries(manifests).map(([f, v]) => `${f} ${v}`).join(', '));
 
 // ---------- pins ----------

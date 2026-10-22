@@ -10,6 +10,7 @@
   "repository": "https://github.com/burgisimon/awards",
   "license": "MIT",
   "skills": "./skills/",
+  "hooks": {},
   "interface": {
     "displayName": "Awards",
     "shortDescription": "Award-worthy websites and components",

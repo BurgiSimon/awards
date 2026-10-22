@@ -43,6 +43,7 @@ try {
   let stderr = '';
   server.stderr.on('data', (chunk) => { stderr += chunk; });
   let skills;
+  let hooks;
   try {
     server.stdin.write(JSON.stringify({
       id: 1, method: 'initialize', params: { clientInfo: { name: 'awards-install-check', version: '0.1.0' } },
@@ -54,14 +55,22 @@ try {
         for (const request of [
           { method: 'initialized', params: {} },
           { id: 2, method: 'skills/list', params: { cwds: [testHome], forceReload: true } },
+          { id: 3, method: 'hooks/list', params: { cwds: [testHome] } },
         ]) server.stdin.write(JSON.stringify(request) + '\n');
       }
-      if (response.id !== 2) continue;
-      const entry = response.result.data.find((item) => item.cwd === testHome);
-      assert.ok(entry, 'Codex must return skills for the test workspace');
-      assert.deepEqual(entry.errors, []);
-      skills = entry.skills.filter((skill) => skill.path.startsWith(root + path.sep));
-      break;
+      if (response.id === 2) {
+        const entry = response.result.data.find((item) => item.cwd === testHome);
+        assert.ok(entry, 'Codex must return skills for the test workspace');
+        assert.deepEqual(entry.errors, []);
+        skills = entry.skills.filter((skill) => skill.path.startsWith(root + path.sep));
+      }
+      if (response.id === 3) {
+        const entry = response.result.data.find((item) => item.cwd === testHome);
+        assert.ok(entry, 'Codex must return hooks for the test workspace');
+        assert.deepEqual(entry.errors, []);
+        hooks = entry.hooks.filter((hook) => hook.pluginId === installed.pluginId);
+      }
+      if (skills && hooks) break;
     }
   } finally {
     clearTimeout(timeout);
@@ -69,6 +78,10 @@ try {
     await exited;
   }
   assert.ok(skills, `Codex did not return skills/list: ${stderr}`);
+  // The Codex manifest declares `hooks: {}`, which replaces discovery of hooks/hooks.json: the edit
+  // audit, route hint and state card are Claude Code hooks, and Codex runs the audit explicitly.
+  assert.ok(hooks, `Codex did not return hooks/list: ${stderr}`);
+  assert.deepEqual(hooks.map((hook) => hook.key), [], 'Codex must not load the Claude Code hooks');
   const names = fs.readdirSync(path.join(plugin, 'skills')).sort();
   assert.deepEqual(skills.map((skill) => skill.name).sort(), names.map((name) => `awards:${name}`));
   for (const skill of skills) {
@@ -93,7 +106,7 @@ try {
       assert.ok(fs.existsSync(path.join(project, 'dist/index.html')));
     }
   }
-  console.log(`Codex install passed: ${skills.length} skills discovered; bundled references and both scaffolds work${process.argv.includes('--build') ? ' and build' : ''}.`);
+  console.log(`Codex install passed: ${skills.length} skills discovered, no hooks; bundled references and both scaffolds work${process.argv.includes('--build') ? ' and build' : ''}.`);
 } finally {
   fs.rmSync(testHome, { recursive: true, force: true });
 }
