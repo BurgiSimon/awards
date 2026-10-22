@@ -1,0 +1,103 @@
+@import '../_shared/base.css';
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+
+:root {
+  --rise: 3rem;          /* how far a paragraph travels into place */
+  --frame-from: 0.55;    /* the sticky media's starting scale */
+  --hero-lift: -8svh;    /* how far the hero copy drifts on its way out */
+}
+
+/* ---- Layout ------------------------------------------------------------------------------------ */
+/* Gutters fall back to the phone value when this file is previewed without base.css (a raw folder served as is). */
+.bar, .hero, .chapter, .stage, .foot { padding-inline: var(--gutter, 20px); }
+.skip-link:not(:focus) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip-link:focus { position: fixed; inset: calc(var(--unit) * 3) auto auto var(--unit); padding: calc(var(--unit) * 2) calc(var(--unit) * 3); background: var(--ink); color: var(--ground); z-index: 20; }
+
+.progress { position: fixed; inset: 0 0 auto; height: 3px; z-index: 10; pointer-events: none; }
+.progress-bar { display: block; height: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); }
+[dir="rtl"] .progress-bar { transform-origin: 100% 50%; }
+
+.bar { display: flex; justify-content: space-between; align-items: center; gap: var(--gutter); padding-block: calc(var(--unit) * 5); }
+.bar .label { margin: 0; }
+.bar a { display: inline-flex; align-items: center; min-height: 24px; }
+.bar a:focus-visible, .engine a:focus-visible { outline: 2px solid var(--accent, currentColor); outline-offset: 4px; }
+
+.hero { min-height: calc(100svh - 4.5rem); display: grid; align-content: end; padding-block: calc(var(--unit) * 8) calc(var(--unit) * 16); }
+.hero-title { font-family: var(--font-display); font-size: clamp(2.75rem, 8.5vw, 9rem); font-weight: 500; line-height: 0.92; letter-spacing: -0.035em; margin: 0; max-width: 14ch; }
+.lede { max-width: 54ch; margin: calc(var(--unit) * 8) 0 0; }
+
+.chapter { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: calc(var(--unit) * 4) var(--gutter); align-items: start; padding-block: 18svh; border-top: 1px solid var(--line); }
+.chapter h2 { font-family: var(--font-display); font-size: clamp(2rem, 4.4vw, 4.5rem); font-weight: 500; line-height: 0.95; letter-spacing: -0.03em; margin: 0; }
+.chapter p { font-size: clamp(1.125rem, 1.6vw, 1.5rem); line-height: 1.45; max-width: 36ch; margin: 0; }
+
+/* The rail is three viewports tall; its sticky stage holds the figure while the rail scrolls past. */
+.rail { position: relative; height: 280svh; border-top: 1px solid var(--line); }
+.stage { position: sticky; top: 0; height: 100svh; display: grid; align-content: center; justify-items: center; gap: calc(var(--unit) * 6); overflow: hidden; }
+.stage-title, .figure { width: min(100%, 72rem); }
+.stage-title { font-family: var(--font-display); font-size: clamp(2rem, 4.4vw, 4.5rem); font-weight: 500; line-height: 0.95; letter-spacing: -0.03em; margin: 0; }
+.figure { margin: 0; display: grid; gap: calc(var(--unit) * 5); }
+.frame { position: relative; width: 100%; aspect-ratio: 12 / 5; max-height: 52svh; background: var(--ink); color: var(--ground); overflow: hidden; transform-origin: 50% 50%; }
+.trace { position: absolute; inset: 8% 0; width: 100%; height: 84%; }
+.trace-cover { position: absolute; inset: 0; background: var(--ink); transform: translateX(101%); }
+.stage-caption { max-width: 52ch; color: var(--muted); }
+
+.foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: calc(var(--unit) * 4) var(--gutter); padding-block: calc(var(--unit) * 16); border-top: 1px solid var(--line); }
+.engine { margin: 0; }
+.engine a { display: inline-block; min-height: 24px; margin-inline-start: 0.25em; }
+
+@media (max-width: 48rem) {
+  .chapter { grid-template-columns: 1fr; padding-block: 14svh; }
+  .frame { aspect-ratio: 1; max-height: 50svh; }
+}
+
+/* ---- Scroll timelines --------------------------------------------------------------------------
+   Every animated property is transform or opacity, so the compositor runs them and the main thread
+   does nothing while the page scrolls. The whole block is skipped where `view()` is unknown (main.js
+   then runs the fallback), under reduced motion, in the static tier and when the fallback is forced. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    :root:not([data-engine="script"], [data-motion="reduced"], [data-motion="static"]) {
+      /* Reading progress: the document's own scroll, start to end. */
+      .progress-bar { animation: sd-grow auto linear both; animation-timeline: scroll(root block); }
+
+      /* Section reveals: each block is its own view() subject, in place before it reaches the middle of the screen. */
+      .reveal { animation: sd-rise auto linear both; animation-timeline: view(); animation-range: entry 10% cover 35%; }
+      .chapter .reveal + .reveal { animation-range: entry 25% cover 42%; }
+
+      /* The hero copy leaves over the hero's exit range: drifts up and dims as the first chapter arrives. */
+      .hero { view-timeline: --hero block; }
+      .hero-copy { animation: sd-leave auto linear both; animation-timeline: --hero; animation-range: exit 0% exit 100%; }
+
+      /* The sticky media: one named view timeline on the rail, read by three children during the rail's contain range
+         (the stretch in which the sticky stage holds). */
+      .rail { view-timeline: --rail block; }
+      .frame { animation: sd-open auto linear both; animation-timeline: --rail; animation-range: contain 0% contain 45%; }
+      .trace-cover { animation: sd-draw auto linear both; animation-timeline: --rail; animation-range: contain 15% contain 70%; }
+      .stage-caption { animation: sd-rise auto linear both; animation-timeline: --rail; animation-range: contain 50% contain 68%; }
+    }
+  }
+
+  /* Reduced motion keeps one readout: the bar moves in ten cuts, a position rather than a motion. Everything else is
+     already at its end state because none of the rules above apply. */
+  @media (prefers-reduced-motion: reduce) {
+    :root:not([data-engine="script"], [data-motion="static"]) .progress-bar { animation: sd-grow auto steps(10) both; animation-timeline: scroll(root block); }
+  }
+}
+
+@keyframes sd-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes sd-rise { from { opacity: 0; transform: translateY(var(--rise)); } to { opacity: 1; transform: none; } }
+@keyframes sd-leave { from { opacity: 1; transform: none; } to { opacity: 0.15; transform: translateY(var(--hero-lift)); } }
+@keyframes sd-open { from { transform: scale(var(--frame-from)); } to { transform: scale(1); } }
+@keyframes sd-draw { from { transform: translateX(0); } to { transform: translateX(101%); } }
+
+/* ---- Fallback: main.js marks what has not been seen yet and an IntersectionObserver clears the mark -- */
+:root[data-engine="script"] .reveal { transition: opacity 0.6s var(--ease-out-expo), transform 0.9s var(--ease-out-expo); }
+:root[data-engine="script"] .reveal.is-pending { opacity: 0; transform: translateY(var(--rise)); }
+:root[data-engine="script"] .frame, :root[data-engine="script"] .trace-cover { transition: transform 1.2s var(--ease-out-expo); }
+:root[data-engine="script"] .stage-caption { transition: opacity 0.6s var(--ease-out-expo) 0.5s; }
+:root[data-engine="script"] .rail.is-pending .frame { transform: scale(var(--frame-from)); }
+:root[data-engine="script"] .rail.is-pending .trace-cover { transform: translateX(0); }
+:root[data-engine="script"] .rail.is-pending .stage-caption { opacity: 0; }
+
+/* The static tier: no bar at all, every block at its end state. */
+:root[data-motion="static"] .progress { display: none; }

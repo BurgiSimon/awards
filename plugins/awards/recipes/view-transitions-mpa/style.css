@@ -1,0 +1,93 @@
+@import '../_shared/base.css';
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+
+:root {
+  --vt-leave: 0.4s;   /* old page out */
+  --vt-enter: 0.6s;   /* new page in, after a short overlap */
+  --vt-overlap: 0.12s;
+  --vt-morph: 0.7s;   /* the shared picture and name */
+  --vt-shift: 6%;     /* how far the page bodies travel */
+}
+
+/* ---- Cross-document view transitions ------------------------------------------------------------
+   The opt-in, `@view-transition { navigation: auto; }`, is the inline <style> in each page's head, inside
+   the same motion query: the incoming page has to know it opts in before this file arrives. What follows
+   only styles a transition that is already running. Under reduced motion there is none at all. */
+@media (prefers-reduced-motion: no-preference) {
+  /* The bar is the same on every page: it holds still instead of sliding with the body. */
+  ::view-transition-group(bar), ::view-transition-new(bar) { animation: none; }
+  ::view-transition-old(bar) { animation: none; opacity: 0; }
+
+  /* The page body (everything without a name of its own) slides in the reading direction. */
+  ::view-transition-old(root) { animation: vt-leave var(--vt-leave) var(--ease-in-out-expo) both; }
+  ::view-transition-new(root) { animation: vt-enter var(--vt-enter) var(--ease-out-expo) var(--vt-overlap) both; }
+  html:active-view-transition-type(back)::view-transition-old(root) { animation-name: vt-leave-back; }
+  html:active-view-transition-type(back)::view-transition-new(root) { animation-name: vt-enter-back; }
+
+  /* The shared picture and name morph between the tile and the hero. */
+  ::view-transition-group(media), ::view-transition-group(title) { animation-duration: var(--vt-morph); animation-timing-function: var(--ease-in-out-expo); }
+  /* Tile and hero have different proportions: crop both snapshots to the moving box instead of stretching them. */
+  ::view-transition-old(media), ::view-transition-new(media) { height: 100%; object-fit: cover; overflow: clip; }
+}
+
+@keyframes vt-leave { to { opacity: 0; transform: translateX(calc(var(--vt-shift) * -1)); } }
+@keyframes vt-enter { from { opacity: 0; transform: translateX(var(--vt-shift)); } }
+@keyframes vt-leave-back { to { opacity: 0; transform: translateX(var(--vt-shift)); } }
+@keyframes vt-enter-back { from { opacity: 0; transform: translateX(calc(var(--vt-shift) * -1)); } }
+
+/* ---- Pages ------------------------------------------------------------------------------------- */
+.skip-link:not(:focus) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip-link:focus { position: fixed; inset: var(--unit) auto auto var(--unit); width: auto; height: auto; margin: 0; clip: auto; padding: calc(var(--unit) * 2) calc(var(--unit) * 3); background: var(--ink); color: var(--ground); z-index: 10; }
+/* The gutter falls back to its phone value when this file is previewed without base.css (a raw folder served as is). */
+.bar, .page, .foot { padding-inline: var(--gutter, 20px); }
+.bar { display: flex; justify-content: space-between; align-items: center; gap: var(--gutter); padding-block: calc(var(--unit) * 5); view-transition-name: bar; }
+.bar .label { margin: 0; }
+.bar a { display: inline-flex; align-items: center; min-height: 24px; }
+.page { padding-block: calc(var(--unit) * 8) calc(var(--unit) * 24); }
+.foot { padding-block: calc(var(--unit) * 8); border-top: 1px solid var(--line); }
+
+/* The heading takes focus after a navigation as a starting point for reading, not as a control: no ring. */
+[data-focus]:focus { outline: none; }
+
+.intro { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: calc(var(--unit) * 6) var(--gutter); align-items: end; }
+.intro .lede { margin: 0; }
+.intro .title { font-size: clamp(2.5rem, 6vw, 5.75rem); max-width: none; }
+.title { font-family: var(--font-display); font-size: clamp(2.5rem, 7vw, 6.5rem); font-weight: 500; line-height: 0.92; letter-spacing: -0.03em; margin: 0; max-width: 13ch; }
+.lede { max-width: 54ch; margin: calc(var(--unit) * 6) 0 0; }
+
+/* Tiles: one link each, picture, name, one line. */
+.works { list-style: none; margin: calc(var(--unit) * 12) 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: calc(var(--unit) * 12) var(--gutter); }
+.work { display: grid; align-content: start; gap: calc(var(--unit) * 3); color: var(--ink); text-decoration: none; }
+.work-title { font-family: var(--font-display); font-size: clamp(1.4rem, 2.4vw, 2.25rem); font-weight: 500; line-height: 1; letter-spacing: -0.02em; width: fit-content; max-width: 100%; transition: color var(--dur-feedback) ease-out; }
+.work-line { color: var(--muted); }
+.work:hover .work-title, .work:focus-visible .work-title { color: var(--accent); text-decoration: underline; text-decoration-thickness: 2px; }
+.work:focus-visible { outline-offset: 8px; }
+
+/* The pictures are drawn, so the recipe ships no image files. */
+.media { display: block; aspect-ratio: 1; overflow: hidden; border-radius: 2px; background: var(--ink); color: var(--ground); }
+.media svg { width: 100%; height: 100%; }
+.media--ropewalk { background: var(--accent); }
+.media--nightbus { background: color-mix(in oklab, var(--accent) 42%, var(--ink)); }
+
+/* Detail pages: the hero carries the two shared names permanently; only one hero exists per page. */
+.case-hero { display: grid; gap: calc(var(--unit) * 6); }
+.case-hero .title { max-width: 16ch; width: fit-content; view-transition-name: title; }
+/* Picture above the name, as on the tile, so the name never crosses the picture in flight; the h1 stays first in the DOM. */
+.case-hero .media { order: -1; aspect-ratio: auto; width: 100%; height: clamp(14rem, 56svh, 44rem); view-transition-name: media; }
+.case-body { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: calc(var(--unit) * 6) var(--gutter); margin-top: calc(var(--unit) * 10); align-items: start; }
+.case-body .lede { margin: 0; }
+.facts { display: grid; grid-template-columns: auto 1fr; gap: calc(var(--unit) * 2) calc(var(--unit) * 6); margin: 0; }
+.facts div { display: contents; }
+.facts dt { color: var(--muted); }
+.facts dd { margin: 0; }
+.cta { display: inline-block; margin-top: calc(var(--unit) * 12); font-family: var(--font-display); font-size: 1.5rem; }
+
+@media (max-width: 48rem) {
+  .intro { grid-template-columns: 1fr; }
+  .works { grid-template-columns: 1fr; gap: calc(var(--unit) * 8); }
+  .work { grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr); grid-template-rows: auto 1fr; column-gap: calc(var(--unit) * 4); }
+  .work .media { grid-row: 1 / span 2; aspect-ratio: 4 / 5; }
+  .work-title { align-self: end; }
+  .case-hero .media { height: clamp(12rem, 42svh, 24rem); }
+  .case-body { grid-template-columns: 1fr; }
+}
