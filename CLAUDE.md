@@ -26,7 +26,7 @@ node scripts/audit.mjs recipes                            # craft-floor audit; m
 node scripts/audit.mjs <dir|file|url> [--json] [--quick] [--render]
 node scripts/doctor.mjs <project-dir> [--json]             # prerequisites + actual browser launch, no installs
 node scripts/capture.mjs <url|file|dir> [--out .awards/captures] [--states <json-file>] [--wheel <px>]   # jury evidence: three scroll positions, phone, reduced motion
-node scripts/new-project.mjs --stack vite|next|nuxt|astro|sveltekit --name <dir> [--webgl] [--dry-run]
+node scripts/new-project.mjs --stack vite|next|nuxt|astro|sveltekit --name <dir> [--webgl] [--keep-existing] [--dry-run]
 node scripts/roll.mjs --deal 3 --of 7 [--seed <key>]      # seeded direction roll used by the concept skill
 
 node scripts/lint-refs.mjs                                 # every [site:]/[recipe:]/[pattern:] and ${CLAUDE_PLUGIN_ROOT} path resolves

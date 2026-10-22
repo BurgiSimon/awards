@@ -192,6 +192,30 @@ test('tools', 'the deal leads with a seeded dealt card and the route hint matche
   assert.equal(hint.code, 0, hint.stdout + hint.stderr);
 });
 
+test('tools', 'the scaffold adds only the missing files to a project the earlier phases started', async () => {
+  const dir = path.join(tmp, 'started');
+  fs.mkdirSync(path.join(dir, 'src', 'styles'), { recursive: true });
+  const filled = {
+    'AWARDS.md': '# Awards\n\n## Brief\n\nTide tables for the strait.\n',
+    'DESIGN.md': '---\nname: tides\n---\n',
+    'src/styles/tokens.css': ':root { --ground: #eef1f2; }\n',
+    'index.html': '<!doctype html><title>Tides</title><main><h1>Tides</h1></main>',
+  };
+  for (const [file, text] of Object.entries(filled)) fs.writeFileSync(path.join(dir, file), text);
+  const scaffold = (...extra) => run('scripts/new-project.mjs', ['--stack', 'vite', '--name', dir, ...extra]);
+  assert.equal((await scaffold()).code, 1, 'a started project is refused without --keep-existing');
+  const dry = await scaffold('--dry-run');
+  assert.equal(dry.code, 0, 'a dry run lists a started project instead of refusing');
+  assert.match(dry.stdout, /would keep \S*AWARDS\.md/);
+  assert.match(dry.stdout, /would write \S*main\.js/);
+  assert.equal(fs.existsSync(path.join(dir, 'src', 'main.js')), false, 'a dry run writes nothing');
+  const kept = await scaffold('--keep-existing');
+  assert.equal(kept.code, 0, kept.stderr);
+  for (const [file, text] of Object.entries(filled)) assert.equal(fs.readFileSync(path.join(dir, file), 'utf8'), text, file + ' must stay as the earlier phase wrote it');
+  assert.ok(fs.existsSync(path.join(dir, 'src', 'main.js')) && fs.existsSync(path.join(dir, 'src', 'lib', 'awards-hook.js')), 'the boot and shared modules are added');
+  assert.equal(JSON.parse(fs.readFileSync(path.join(dir, 'package.json'), 'utf8')).dependencies.three, undefined, 'a written package.json is still trimmed without --webgl');
+  assert.match(kept.stdout, /does not load the boot/, 'a kept index.html without the boot script is called out');
+});
 test('ticker', 'pause/resume never duplicates callbacks and teardown stops scheduling', () => {
   for (const file of ['recipes/_shared/raf.js', 'assets/scaffold/vite-vanilla/src/lib/raf.js']) {
     const callbacks = new Map();

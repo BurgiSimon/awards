@@ -61,13 +61,14 @@ Choose for the team and the content, never for the motion: the motion is identic
 
 ## Scaffold
 
-The scaffold ships the boot, the shared modules and the two contract files, so a new project starts at the floor instead of climbing to it. It refuses to overwrite a non-empty directory.
+The scaffold ships the boot, the shared modules and the two contract files, so a new project starts at the floor instead of climbing to it. It never overwrites a file: a non-empty directory is refused unless `--keep-existing` is given, and then only the missing files are written.
 
 ```sh
-node "${CLAUDE_PLUGIN_ROOT}/scripts/new-project.mjs" --stack vite --name <dir> [--webgl] [--dry-run]
+node "${CLAUDE_PLUGIN_ROOT}/scripts/new-project.mjs" --stack vite --name <dir> [--webgl] [--keep-existing] [--dry-run]
 ```
 
-- `--stack vite` copies `${CLAUDE_PLUGIN_ROOT}/assets/scaffold/vite-vanilla/`: `index.html`, `src/main.js`, `src/lib/{scroll,motion,raf,reduced-motion,quality-tiers,awards-hook}.js`, `src/styles/{tokens,fonts,base}.css`, `src/webgl/scene.js` (only with `--webgl`), a `.gitignore` and pinned dependencies, then adds `AWARDS.md` and `DESIGN.md` from `${CLAUDE_PLUGIN_ROOT}/assets/templates/`. Run `--dry-run` first when the directory already holds files.
+- `--stack vite` copies `${CLAUDE_PLUGIN_ROOT}/assets/scaffold/vite-vanilla/`: `index.html`, `src/main.js`, `src/lib/{scroll,motion,raf,reduced-motion,quality-tiers,awards-hook}.js`, `src/styles/{tokens,fonts,base}.css`, `src/webgl/scene.js` (only with `--webgl`), a `.gitignore` and pinned dependencies, then adds `AWARDS.md` and `DESIGN.md` from `${CLAUDE_PLUGIN_ROOT}/assets/templates/`.
+- Under `awards:craft` the earlier phases have already written `AWARDS.md`, `DESIGN.md`, `src/styles/` and the pages, so run it in the project root as `--name . --keep-existing` (`--dry-run` first lists every file it would write or keep). It keeps each existing file as that phase wrote it, adds the boot, the shared modules, `package.json` and `vite.config.js`, and names a kept `index.html` that does not yet load `/src/main.js`.
 - Any other `--stack` prints the path of its note and exits: follow that note's "Scaffold" section, then copy `src/lib/{awards-hook,reduced-motion,quality-tiers,raf}.js` from the vite scaffold into the client-only location the note names.
 - Existing app: install `gsap@3.15.0`, `lenis@1.3.26` and, with WebGL, `three@0.186.0 postprocessing@6.39.5` at the pinned versions, then port the boot into the framework's client-only entry exactly as the note shows.
 - Replace every placeholder before anyone sees it: the hero copy, the icosahedron in `src/webgl/scene.js` (a placeholder, never a hero), the commented `@font-face` rules in `fonts.css`, the empty `og:image` and `meta description`.
