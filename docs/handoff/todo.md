@@ -52,7 +52,7 @@ Excluded by that instruction (lower impact, larger effort): F5 jury panel, F6 mo
 
 **Batch 5 — new modes and proof**
 - [x] F2 quick mode; F1 redesign mode; F4 multi-route sites; F9 award program presets; F11 DESIGN.md interop
-- [ ] D8 framework adapters (`scripts/check-adapters.mjs` checks them)
+- [x] D8 framework adapters: React adapters for ten core recipes, a Webflow section in every core README, `scripts/check-adapters.mjs` in CI
 - [ ] G1 finish and ship the plugin's own site
 
 
