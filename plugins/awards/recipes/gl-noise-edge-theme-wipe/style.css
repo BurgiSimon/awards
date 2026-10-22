@@ -1,0 +1,56 @@
+@import '../_shared/base.css';
+
+/* The cover does the transition; a CSS ease on the ground as well would smear the flip that happens under it. */
+body { transition: none; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.topbar { position: relative; z-index: 2; display: flex; align-items: center; gap: calc(var(--unit) * 4); padding-block: calc(var(--unit) * 4); }
+.topbar > * { margin: 0; }
+.topbar__id { margin-inline-end: auto; }
+
+/* The toggle: a real button; aria-pressed is the state, the filled dot and ground are its picture. */
+.mode { display: inline-flex; align-items: center; gap: calc(var(--unit) * 2.5); min-height: 48px; padding: 0 calc(var(--unit) * 5) 0 calc(var(--unit) * 3); border: 1px solid var(--ink); border-radius: 999px; background: var(--ground); font-family: var(--font-mono); font-size: .8125rem; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
+.mode__dot { width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--ink); background: transparent; }
+.mode[aria-pressed="true"] .mode__dot { background: var(--ink); }
+
+.hero { min-height: 82svh; display: grid; align-content: end; gap: calc(var(--unit) * 8); padding-block: calc(var(--unit) * 12) calc(var(--unit) * 16); }
+.hero__title { max-width: 15ch; margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(2.75rem, 7.4vw, 8.25rem); line-height: .92; letter-spacing: -.035em; text-wrap: balance; overflow-wrap: anywhere; }
+.hero__lede { max-width: 54ch; margin: 0; font-size: 1.125rem; }
+.hero__lede strong { font-weight: 600; }
+
+/* The live tokens, so the swap is visible in more than the ground. */
+.swatches { display: flex; flex-wrap: wrap; gap: calc(var(--unit) * 3); }
+.swatch { display: inline-flex; align-items: center; gap: calc(var(--unit) * 2); padding: 6px 14px 6px 6px; border: 1px solid var(--line); border-radius: 999px; font-family: var(--font-mono); font-size: .8125rem; }
+.swatch__chip { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--ink); }
+.swatch--ground .swatch__chip { background: var(--ground); }
+.swatch--ink .swatch__chip { background: var(--ink); }
+.swatch--accent .swatch__chip { background: var(--accent); }
+
+.rules { padding-block: calc(var(--unit) * 20); border-top: 1px solid var(--line); }
+.rules__title, .long__title { max-width: 18ch; margin: 0 0 calc(var(--unit) * 10); font-family: var(--font-display); font-weight: 500; font-size: clamp(2rem, 4.6vw, 4.75rem); line-height: .95; letter-spacing: -.025em; overflow-wrap: anywhere; }
+.rules__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: calc(var(--unit) * 12) var(--gutter); }
+.rules__grid h3 { margin: 0 0 calc(var(--unit) * 3); font-size: 1.5rem; font-weight: 500; letter-spacing: -.01em; }
+.rules__grid p { max-width: 46ch; margin: 0; }
+
+.long { padding-block: calc(var(--unit) * 20) calc(var(--unit) * 24); border-top: 1px solid var(--line); }
+.long p { max-width: 60ch; margin: 0 0 1.2em; font-size: 1.125rem; line-height: 1.6; }
+
+.footer { padding-block: calc(var(--unit) * 10); border-top: 1px solid var(--line); }
+
+/* The cover: fixed over everything, click-through, hidden (display: none) whenever no swap is running. */
+.wipe { position: fixed; inset: 0; z-index: 100; width: 100%; height: 100%; pointer-events: none; }
+.wipe[hidden] { display: none; }
+.wipe--css { clip-path: circle(0 at 50% 50%); }
+
+@media (max-width: 767px) {
+  .topbar__id { display: none; }
+  .topbar > a { margin-inline-end: auto; }
+  .hero { min-height: 72svh; }
+  .hero__lede, .long p { font-size: 1rem; }
+  .rules__grid { grid-template-columns: 1fr; gap: calc(var(--unit) * 8); }
+}
+
+/* Reduced motion: main.js swaps the tokens at once and never shows the cover. */
+@media (prefers-reduced-motion: reduce) {
+  .wipe { display: none; }
+}

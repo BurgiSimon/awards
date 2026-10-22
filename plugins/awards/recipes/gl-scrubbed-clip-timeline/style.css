@@ -1,0 +1,65 @@
+@import '../_shared/base.css';
+
+/* One theme for the page: no 1.4 s ground ease from base.css. */
+body { transition: none; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.topbar { position: relative; z-index: 3; display: flex; justify-content: space-between; gap: var(--gutter); padding-block: calc(var(--unit) * 5); }
+.topbar > * { margin: 0; }
+
+/* The intro spans the width: the headline across the top, the lede and the skip link in the right half below it. */
+.intro { min-height: 80svh; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); align-content: space-between; row-gap: calc(var(--unit) * 12); padding-block: calc(var(--unit) * 16) calc(var(--unit) * 14); }
+.intro__title { grid-column: 1 / -1; max-width: 16ch; margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(2.75rem, 8.6vw, 9.5rem); line-height: .9; letter-spacing: -.035em; text-wrap: balance; overflow-wrap: anywhere; }
+.intro__body { grid-column: 7 / -1; display: grid; gap: calc(var(--unit) * 6); }
+.intro__lede { max-width: 52ch; margin: 0; font-size: 1.125rem; }
+.intro__skip { margin: 0; }
+
+/* The track's height is the timeline's scroll budget: nine units over 540svh on desktop. The stage is sticky (no pin). */
+.track { position: relative; height: 640svh; }
+.marker { position: absolute; left: 0; top: calc(var(--p) * (100% - 100svh)); width: 1px; height: 1px; }
+.stage { position: sticky; top: 0; height: 100svh; overflow: hidden; }
+.gl { position: absolute; inset: 0; width: 100%; height: 100%; display: none; }
+html.gl-active .gl { display: block; }
+
+/* Without WebGL2: a CSS still of the first form, settled. */
+.still { display: none; position: absolute; top: 50%; right: 14vw; width: min(46svh, 36vw); aspect-ratio: 1; translate: 0 -56%; }
+html.no-gl .still { display: block; }
+.still__petal { position: absolute; left: 39%; top: 4%; width: 22%; height: 46%; border-radius: 50% 50% 46% 46% / 64% 64% 36% 36%; background: var(--accent); transform-origin: 50% 100%; transform: rotate(calc(var(--i) * 45deg)); }
+.still__petal:nth-child(even) { background: color-mix(in oklab, var(--accent) 72%, var(--ground)); }
+.still__heart { position: absolute; left: 50%; top: 50%; width: 20%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; background: var(--ink); }
+
+/* The DOM mirror and chapter links: real text over the stage, the active form's link marked aria-current. */
+.beats { position: absolute; inset-inline-start: 0; bottom: calc(var(--unit) * 12); z-index: 1; width: min(30rem, 44%); }
+.beats__list { list-style: none; margin: 0; padding: 0; display: grid; gap: calc(var(--unit) * 5); }
+.beat a { display: inline-block; min-height: 44px; font-family: var(--font-display); font-weight: 500; font-size: clamp(1.75rem, 3vw, 3rem); line-height: 1.1; letter-spacing: -.02em; color: var(--muted); text-decoration: none; overflow-wrap: anywhere; }
+.beat a[aria-current="step"] { color: var(--ink); }
+.beat a:hover { text-decoration: underline; text-underline-offset: .12em; text-decoration-thickness: 2px; }
+.beat p { max-width: 34ch; margin: 2px 0 0; color: var(--muted); }
+.beat[data-active] p { color: var(--ink); }
+.readout { position: absolute; inset-inline-end: var(--gutter); bottom: calc(var(--unit) * 12); z-index: 1; margin: 0; font-variant-numeric: tabular-nums; }
+
+.after { padding-block: calc(var(--unit) * 24); }
+.after__title { max-width: 16ch; margin: 0 0 calc(var(--unit) * 10); font-family: var(--font-display); font-weight: 500; font-size: clamp(2rem, 4.6vw, 4.75rem); line-height: .95; letter-spacing: -.025em; }
+.after ul { max-width: 62ch; margin: 0; padding-inline-start: 1.2em; }
+.after li + li { margin-top: calc(var(--unit) * 3); }
+.footer { padding-block: calc(var(--unit) * 12); }
+
+@media (max-width: 767px) {
+  .intro { min-height: 76svh; align-content: end; }
+  .intro__body { grid-column: 1 / -1; }
+  .intro__lede { font-size: 1rem; }
+  .track { height: 560svh; }
+  .still { right: auto; left: 50%; top: 36%; width: min(68vw, 36svh); translate: -50% -50%; }
+  .beats { width: auto; inset-inline-end: 0; bottom: calc(var(--unit) * 8); }
+  .beats__list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: calc(var(--unit) * 3); }
+  .beat a { font-size: 1.5rem; }
+  .beat p { font-size: .9375rem; }
+  /* Only the active form's line shows on a phone; the others stay readable to assistive technology. */
+  .beat:not([data-active]) p { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .beat[data-active] p { position: absolute; inset-inline: var(--gutter); margin-top: calc(var(--unit) * 2); }
+  .beats { padding-bottom: calc(var(--unit) * 14); }
+  .readout { top: calc(var(--unit) * 16); bottom: auto; }
+}
+
+/* main.js cuts to one settled pose per form under reduced motion; CSS only has to keep jumps instant. */
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

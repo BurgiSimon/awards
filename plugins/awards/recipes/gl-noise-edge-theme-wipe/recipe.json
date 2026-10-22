@@ -1,0 +1,31 @@
+{
+  "id": "gl-noise-edge-theme-wipe",
+  "title": "Theme change as a full-screen shader wipe with a noise edge",
+  "intent": "Theme swap under cover",
+  "group": "webgl-surfaces",
+  "summary": "A fixed, click-through orthographic quad (`ShaderMaterial`, `#include <colorspace_fragment>`, premultiplied alpha, DPR ≤ 2) grows the next theme's ground from the press point (`uCenter`; a key press starts at the button's centre) as `uProgress` runs `0 → 1` over `.9 s power2.inOut`, its rim moved by two octaves of hash value noise (`uEdge 56 px`) with exact ends (radius `−edge … farthest corner + edge`); `data-theme` flips only on the tween's completion under full cover, then the cover fades `.3 s` and is hidden; a second press mid-cover reverses the same edge; the choice kept in `sessionStorage` and restored by a head script before first paint; an `aria-pressed` button; the shader compiled ahead at idle; a CSS `circle()` cover on the same driver without WebGL; an instant swap with no canvas frame under reduced motion",
+  "tags": [
+    "webgl",
+    "shader",
+    "three",
+    "gsap",
+    "theme",
+    "transition",
+    "noise",
+    "storage"
+  ],
+  "tier": "P2",
+  "deps": [
+    "three@0.186.0",
+    "gsap@3.15.0"
+  ],
+  "variants": [
+    "two grounds behind an aria-pressed toggle, sessionStorage for the visit (this, default)",
+    "several named grounds: one button per ground with aria-pressed, the same cover in that ground's colour",
+    "route change: the same cover grown from the clicked link, the route swapped under full cover",
+    "no WebGL: the same proxy drives a CSS clip-path circle (?gl=0)"
+  ],
+  "seenIn": [
+    "bleibtgleich"
+  ]
+}

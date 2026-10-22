@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>auto-drive-manual-takeover — awards recipe</title>
+  <meta name="description" content="An optional auto-scroll that advances the page at a fixed rate and hands control back on the first wheel, touch, press or key.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">auto-drive-manual-takeover</p></header>
+
+  <main id="main">
+    <section class="wrap cover" aria-labelledby="t">
+      <h1 id="t" class="cover__title">Let the page walk. Take it back with a touch.</h1>
+      <p class="cover__lede">The Auto button moves this page at a steady pace, for reading hands-free. The first wheel, touch, press or key hands control straight back, and it stops by itself at the end. It is off until you ask for it. The towpath notes below are synthetic demo text.</p>
+    </section>
+
+    <article class="wrap notes" aria-labelledby="walk">
+      <h2 id="walk" class="sr-only">The Lowmere towpath, in six stretches</h2>
+      <section class="stretch" aria-labelledby="s1">
+        <h3 id="s1">Lock nine at first light</h3>
+        <p>The walk starts where the canal steps down through a single lock. At dawn the gates drip and the balance beams are wet enough to show every handprint from the day before. A heron stands on the far wall as if it had been bolted there.</p>
+        <p>Fog sits low on the water for the first half mile. You hear the weir before you see it, a steady hiss behind the reeds, and the path is soft gravel that takes a footprint and keeps it.</p>
+      </section>
+      <section class="stretch" aria-labelledby="s2">
+        <h3 id="s2">Where the hedges close in</h3>
+        <p>Past the second bridge the hawthorn leans over from both sides and the towpath narrows to one person wide. Walkers coming the other way step into the gaps the anglers have worn, and everyone nods.</p>
+        <p>In late summer the brambles here are worth stopping for. Pick from the field side; the canal side belongs to the moorhens, who nest low and object loudly.</p>
+      </section>
+      <section class="stretch" aria-labelledby="s3">
+        <h3 id="s3">The ferry bell nobody rings</h3>
+        <p>A cast bell hangs from a post at the old crossing. There has been no ferry for decades, but the bell is polished, and someone repaints the sign each spring with the same faded instruction to ring twice and wait.</p>
+        <p>Across the water a single cottage keeps a light in the window that faces the post. Nobody on the path has ever asked about it.</p>
+      </section>
+      <section class="stretch" aria-labelledby="s4">
+        <h3 id="s4">Counting moorings</h3>
+        <p>The long straight has forty-one rings set into the coping stones, about one boat length apart. On a weekday you might count six boats; on a holiday weekend every ring has a rope through it and the smell of breakfast drifts along the whole row.</p>
+        <p>The boat names are a reading list of their own: weather, dogs, grandmothers, and one that simply says Elsewhere in careful gold letters.</p>
+      </section>
+      <section class="stretch" aria-labelledby="s5">
+        <h3 id="s5">A bridge with two names</h3>
+        <p>The brick arch at the bend is called Miller's Bridge on the map and Cold Bridge by everyone who lives near it. Under the arch the air drops a few degrees, even in August, and the rope grooves in the corner bricks are deep enough to lay a finger in.</p>
+        <p>Look up as you pass beneath: the keystone carries a date and a mason's mark, half worn away by a century of rain.</p>
+      </section>
+      <section class="stretch" aria-labelledby="s6">
+        <h3 id="s6">The last mile into town</h3>
+        <p>The path widens to a cycle lane, the hedges give way to garden fences, and the canal picks up shopping trolleys and swans in roughly equal numbers. The water tower marks the finish.</p>
+        <p>The café by the basin opens at eight. If you walked at the pace this page scrolls, you would arrive just as the shutters go up.</p>
+      </section>
+    </article>
+
+    <section class="wrap rules" aria-labelledby="r">
+      <h2 id="r">How the hand-back works</h2>
+      <ul>
+        <li>Auto is a real toggle button with <code>aria-pressed</code>, off on every visit. It never starts by itself.</li>
+        <li>While on, the shared ticker moves the page 90 px per second of frame time, so a slow device reads at the same pace.</li>
+        <li>Any wheel, touch, pointer press or key press stops it at once, and so does a scroll from anywhere else: the scrollbar, find-in-page, a link.</li>
+        <li>It stops on its own at the end of the page. Each change is announced once in a polite status line.</li>
+        <li>Under reduced motion the button stays reachable but is disabled, with the reason written beside it.</li>
+      </ul>
+    </section>
+  </main>
+
+  <div class="dock" role="group" aria-label="Auto scroll">
+    <button type="button" class="dock__toggle" aria-pressed="false" aria-describedby="auto-note" data-auto>Auto<span class="sr-only"> scroll</span> <span class="dock__state" aria-hidden="true" data-auto-state>off</span></button>
+    <div class="dock__text">
+      <p class="dock__note" id="auto-note" data-note>A steady pace. Any wheel, touch, press or key takes it back.</p>
+      <p class="dock__status" role="status" data-status></p>
+    </div>
+  </div>
+
+  <footer class="wrap footer"><p class="label">awards · recipe · MIT · synthetic demo content</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

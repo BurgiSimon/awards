@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>gl-noise-edge-theme-wipe — awards recipe</title>
+  <meta name="description" content="A theme change covered by a full-screen shader wipe with a hash-noise edge, grown from the press point, tokens flipped under full cover.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <!-- Restore the visit's choice before first paint: a reload neither flashes the default nor wipes into the stored ground. -->
+  <script>
+    try {
+      var t = sessionStorage.getItem('wipe:theme');
+      if (t === 'dark' || t === 'default') document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar">
+    <a href="../index.html" class="label">← recipes</a>
+    <p class="label topbar__id">gl-noise-edge-theme-wipe</p>
+    <button type="button" class="mode" aria-pressed="false" data-mode><span class="mode__dot" aria-hidden="true"></span>Dark ground</button>
+  </header>
+
+  <main id="main">
+    <section class="wrap hero" aria-labelledby="t">
+      <h1 id="t" class="hero__title">A new ground, poured from where you pressed.</h1>
+      <p class="hero__lede">Press <strong>Dark ground</strong>. A full-screen quad grows the next ground colour from the press point with a ragged, noisy edge. When it covers every corner, the page's tokens flip underneath it and the cover fades away. The copy on this page is a synthetic demo.</p>
+      <div class="swatches" aria-label="Current tokens" role="group">
+        <span class="swatch swatch--ground"><span class="swatch__chip" aria-hidden="true"></span>ground</span>
+        <span class="swatch swatch--ink"><span class="swatch__chip" aria-hidden="true"></span>ink</span>
+        <span class="swatch swatch--accent"><span class="swatch__chip" aria-hidden="true"></span>accent</span>
+      </div>
+    </section>
+
+    <section class="wrap rules" aria-labelledby="r">
+      <h2 id="r" class="rules__title">Four rules for a covered swap</h2>
+      <div class="rules__grid">
+        <section aria-labelledby="r1"><h3 id="r1">Under full cover</h3><p>The tokens change only once the edge has passed the farthest corner, so no frame ever shows half of one theme and half of the other.</p></section>
+        <section aria-labelledby="r2"><h3 id="r2">From the press point</h3><p>The circle starts at the pointer. A key press starts it at the button's centre instead. Two octaves of hash noise roughen the rim.</p></section>
+        <section aria-labelledby="r3"><h3 id="r3">Kept for the visit</h3><p>The choice goes to <code>sessionStorage</code> and a head script restores it before first paint. A new tab starts from the default ground.</p></section>
+        <section aria-labelledby="r4"><h3 id="r4">Calm when asked</h3><p>Under reduced motion the swap is instant and no canvas frame is drawn. Between swaps the canvas is hidden and draws nothing.</p></section>
+      </div>
+    </section>
+
+    <section class="wrap long" aria-labelledby="l">
+      <h2 id="l" class="long__title">A reading ground is a choice, not a mood.</h2>
+      <p>Some visitors read long pages at night, on a bright screen, in a dark room. A second ground is a courtesy to them; a wipe that takes a second is a courtesy to everyone else, because it makes the change legible instead of abrupt. The cover hides the moment the tokens swap, which is the one moment that would otherwise flicker.</p>
+      <p>Press the button again during the cover and the same edge turns around and shrinks back to where it started. Nothing was swapped yet, so nothing needs undoing.</p>
+    </section>
+  </main>
+
+  <!-- The cover. Hidden when idle; pointer-events none, so a second press reaches the button through it. -->
+  <canvas class="wipe" data-wipe aria-hidden="true" hidden></canvas>
+  <div class="wipe wipe--css" data-cover-css aria-hidden="true" hidden></div>
+
+  <footer class="wrap footer"><p class="label">awards · recipe · MIT · synthetic demo content</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

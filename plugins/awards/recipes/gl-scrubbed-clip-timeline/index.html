@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#1a1c1c">
+  <title>gl-scrubbed-clip-timeline — awards recipe</title>
+  <meta name="description" content="Animation clips built in code on procedural meshes, scrubbed through mixer.setTime from one ScrollTrigger timeline with slots and hand-offs, rendered on demand.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+  <noscript><style>.still { display: block; }</style></noscript>
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">gl-scrubbed-clip-timeline · <span data-gl-readout>dom</span></p></header>
+
+  <main id="main">
+    <section class="wrap intro" aria-labelledby="t">
+      <h1 id="t" class="intro__title">Three forms, grown by the scroll.</h1>
+      <div class="intro__body">
+        <p class="intro__lede">Each form carries an animation clip built in code from keyframe tracks: petals that open, discs that stack, beads that coil. Nothing plays on a clock. One scrubbed timeline sets every clip's time from the scroll position, so scrolling back ungrows them. The forms and the copy are a synthetic demo.</p>
+        <p class="intro__skip"><a href="#after">Skip past the scene</a></p>
+      </div>
+    </section>
+
+    <!-- One tall track; the stage sticks inside it. Its scroll range is one timeline of three slots. -->
+    <section class="track" data-track aria-labelledby="beats-title">
+      <span class="marker" id="beat-bloom" style="--p: .25"></span>
+      <span class="marker" id="beat-stack" style="--p: .5833"></span>
+      <span class="marker" id="beat-coil" style="--p: .9167"></span>
+      <div class="stage">
+        <canvas class="gl" data-gl aria-hidden="true"></canvas>
+        <div class="still" aria-hidden="true" data-still>
+          <span class="still__petal" style="--i: 0"></span><span class="still__petal" style="--i: 1"></span><span class="still__petal" style="--i: 2"></span><span class="still__petal" style="--i: 3"></span>
+          <span class="still__petal" style="--i: 4"></span><span class="still__petal" style="--i: 5"></span><span class="still__petal" style="--i: 6"></span><span class="still__petal" style="--i: 7"></span>
+          <span class="still__heart"></span>
+        </div>
+        <nav class="beats wrap" aria-labelledby="beats-title">
+          <h2 id="beats-title" class="sr-only">The three forms</h2>
+          <ol class="beats__list" data-beats>
+            <li class="beat"><a href="#beat-bloom" data-seek="0">Bloom</a><p>Eight petals open out of a closed bud.</p></li>
+            <li class="beat"><a href="#beat-stack" data-seek="1">Stack</a><p>Seven discs rise and twist into a column.</p></li>
+            <li class="beat"><a href="#beat-coil" data-seek="2">Coil</a><p>Fourteen beads leave the centre for a helix.</p></li>
+          </ol>
+        </nav>
+        <p class="readout label" aria-hidden="true" data-clip-readout>bloom · clip 0.00 s</p>
+      </div>
+    </section>
+
+    <section class="wrap after" id="after" aria-labelledby="a">
+      <h2 id="a" class="after__title">How the clock is wired</h2>
+      <ul>
+        <li>Each form is a group of generated meshes with one <code>AnimationClip</code> made of position, rotation and scale tracks. No model or texture file is loaded.</li>
+        <li>One timeline of nine units gives each form a slot of three: a hand-off that slides the rail, a growth that drives <code>mixer.setTime</code>, and a tone that warms the material.</li>
+        <li>ScrollTrigger scrubs that timeline from the top of the track to its bottom; Lenis runs on the GSAP ticker.</li>
+        <li>A frame is drawn only when a scroll update or a resize has changed something. At rest the canvas draws nothing.</li>
+        <li>Under reduced motion each form appears settled, cut at the slot boundary. Without WebGL2 a CSS still stands in.</li>
+      </ul>
+    </section>
+  </main>
+  <footer class="wrap footer"><p class="label">awards · recipe · MIT · synthetic demo content</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

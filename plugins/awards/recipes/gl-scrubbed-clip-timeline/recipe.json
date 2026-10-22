@@ -1,0 +1,31 @@
+{
+  "id": "gl-scrubbed-clip-timeline",
+  "title": "Scroll-scrubbed animation clips through mixer.setTime",
+  "intent": "Scroll owns the clip",
+  "group": "scroll-set-pieces",
+  "summary": "Three procedural forms (petals on pivots, stacked discs, helix beads) each carry an `AnimationClip` built in code from position, quaternion and scale `KeyframeTrack`s (`2.4 / 2.8 / 3 s`); one paused nine-unit timeline gives each a slot of three: a rail hand-off straddling the boundary (`1` unit, `power2.inOut`), a growth proxy at `+.25` for `1.75` (`sine.inOut`) that becomes `mixer.setTime(proxy × duration)` on a `LoopOnce` action unpaused before every set, a tone at `+1`; ScrollTrigger scrubs it over a `640svh` sticky track (`scrub .8`, `.3` on coarse pointers) with Lenis on the GSAP ticker; frames drawn only after a scroll update or a resize; chapter links with `aria-current` as the DOM mirror; quality tiers set DPR, pixels and segments; settled pose per slot, cut at the boundary, under reduced motion and static; a CSS still without WebGL2",
+  "tags": [
+    "webgl",
+    "three",
+    "3d",
+    "scrolltrigger",
+    "scrub",
+    "timeline",
+    "procedural",
+    "dom-mirror"
+  ],
+  "tier": "P2",
+  "deps": [
+    "three@0.186.0",
+    "gsap@3.15.0",
+    "lenis@1.3.26"
+  ],
+  "variants": [
+    "procedural groups with clips built from KeyframeTracks (this, default)",
+    "baked clips from a glb: merge each model's tracks into one clip per object and scrub it the same way",
+    "masked hand-off: replace the rail slide with a circular discard grown from a DOM element (see gl-material-patch-reveal)"
+  ],
+  "seenIn": [
+    "eugeniagrab"
+  ]
+}

@@ -1,0 +1,58 @@
+@import '../_shared/base.css';
+
+/* base.css eases the ground over 1.4 s for scroll themes; this page has one theme, so no transition is needed. */
+body { transition: none; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.topbar { display: flex; justify-content: space-between; gap: var(--gutter); padding-block: calc(var(--unit) * 5); }
+.topbar > * { margin: 0; }
+
+.cover { min-height: 86svh; display: grid; align-content: end; gap: calc(var(--unit) * 8); padding-block: calc(var(--unit) * 16) calc(var(--unit) * 20); border-bottom: 1px solid var(--line); }
+.cover__title { max-width: 14ch; margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(2.75rem, 7.6vw, 8.5rem); line-height: .92; letter-spacing: -.035em; text-wrap: balance; overflow-wrap: anywhere; }
+.cover__lede { max-width: 52ch; margin: 0; font-size: 1.125rem; }
+
+/* The reading column: long enough that a hands-free pace is worth having. */
+.notes { padding-block: calc(var(--unit) * 24) calc(var(--unit) * 8); }
+.stretch { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: calc(var(--unit) * 6) var(--gutter); min-height: 72svh; align-content: start; padding-block: calc(var(--unit) * 14); border-top: 1px solid var(--line); }
+.stretch h3 { grid-row: span 2; margin: 0; max-width: 12ch; font-family: var(--font-display); font-weight: 500; font-size: clamp(1.75rem, 3.6vw, 3.5rem); line-height: 1; letter-spacing: -.02em; overflow-wrap: anywhere; }
+.stretch p { max-width: 58ch; margin: 0; font-size: 1.125rem; line-height: 1.6; }
+
+.rules { padding-block: calc(var(--unit) * 20) calc(var(--unit) * 16); border-top: 1px solid var(--line); }
+.rules h2 { max-width: 18ch; margin: 0 0 calc(var(--unit) * 8); font-family: var(--font-display); font-weight: 500; font-size: clamp(2rem, 4.4vw, 4.5rem); line-height: .95; letter-spacing: -.025em; }
+.rules ul { max-width: 62ch; margin: 0; padding-inline-start: 1.2em; }
+.rules li + li { margin-top: calc(var(--unit) * 3); }
+
+/* The dock: one toggle, what it does (or why it cannot), and the polite status line.
+   Desktop: a narrow card in its own lane, so it never sits over the reading column. Below 1024 px: a bar at the bottom. */
+.dock { position: fixed; z-index: 10; inset-inline: var(--gutter); bottom: max(16px, env(safe-area-inset-bottom)); display: flex; align-items: center; gap: calc(var(--unit) * 3); padding: calc(var(--unit) * 2); padding-inline-end: calc(var(--unit) * 4); border: 1px solid var(--ink); border-radius: 20px; background: var(--ground); }
+.dock__toggle { flex: none; display: inline-flex; align-items: center; justify-content: center; gap: calc(var(--unit) * 2); min-height: 48px; padding: 0 calc(var(--unit) * 4); border: 1px solid var(--ink); border-radius: 999px; background: transparent; font-family: var(--font-mono); font-size: .8125rem; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
+.dock__toggle[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+.dock__toggle[aria-disabled="true"] { border-style: dashed; cursor: not-allowed; }
+.dock__state { min-width: 3ch; font-variant-numeric: tabular-nums; }
+.dock__state::before { content: '['; }
+.dock__state::after { content: ']'; }
+.dock__text { min-width: 0; }
+.dock__note, .dock__status { margin: 0; font-size: .8125rem; line-height: 1.35; }
+.dock__status { margin-top: 2px; color: var(--muted); }
+.dock__status:empty { display: none; }
+
+.footer { padding-block: calc(var(--unit) * 10) calc(var(--unit) * 36); } /* clears the fixed dock at the end of the page */
+
+@media (min-width: 1024px) {
+  .notes, .rules { padding-inline-end: calc(var(--gutter) + 17rem); }
+  .dock { inset-inline: auto var(--gutter); width: 15rem; flex-direction: column; align-items: stretch; padding: calc(var(--unit) * 3); }
+  .dock__text { padding-inline: calc(var(--unit) * 1); }
+  .footer { padding-block-end: calc(var(--unit) * 12); }
+}
+
+@media (max-width: 767px) {
+  .cover { min-height: 72svh; }
+  .stretch { grid-template-columns: 1fr; min-height: 0; padding-block: calc(var(--unit) * 10); }
+  .stretch h3 { grid-row: auto; }
+  .stretch p, .cover__lede { font-size: 1rem; }
+}
+
+/* Reduced motion: main.js disables the toggle (with the reason beside it) and turns Lenis wheel smoothing off. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}

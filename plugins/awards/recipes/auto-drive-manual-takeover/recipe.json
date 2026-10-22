@@ -1,0 +1,28 @@
+{
+  "id": "auto-drive-manual-takeover",
+  "title": "Optional auto-scroll that any user input hands back",
+  "intent": "Hands-free, handed back",
+  "group": "scroll-set-pieces",
+  "summary": "An `aria-pressed` Auto toggle, off on every visit, advances Lenis by `90 px × dt` on the shared ticker (`lenis.scrollTo(y, { immediate: true })` from a float accumulator, `dt` clamped to `100 ms`); a capture-phase wheel, touchstart, pointerdown or keydown anywhere but the toggle hands control back at once, as does any scroll more than `3 px` from where it was written (scrollbar, find-in-page, a link) and reaching the end; each change written once to a polite `role=\"status\"` line; under reduced motion and static the toggle stays focusable but `aria-disabled`, with the reason in its description",
+  "tags": [
+    "lenis",
+    "scroll",
+    "autoplay",
+    "toggle",
+    "interruption",
+    "keyboard",
+    "reduced-motion"
+  ],
+  "tier": "P2",
+  "deps": [
+    "lenis@1.3.26"
+  ],
+  "variants": [
+    "fixed 90 px/s on a reading page, stops at the end (this, default)",
+    "film clock: drive a speed-capped progress clock instead of the document, the same hand-back on input (see gl-progress-scene-windows)",
+    "resume after idle: offer, never start, a Resume button a few seconds after a hand-back"
+  ],
+  "seenIn": [
+    "cutobot-byholm"
+  ]
+}
