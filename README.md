@@ -111,6 +111,12 @@ The table uses Claude Code's `/awards:<name>` notation; use `$awards:<name>` in 
 
 Every skill also triggers on its own request ("add a custom cursor", "judge this page", "set up Vite with GSAP and Three"); `craft` is the entry point for a whole site and routes single elements to `component` and critiques to `jury`.
 
+Three ways into a whole site:
+
+- `/awards:craft --quick` for one landing page: the same contract, one jury round, no component passes.
+- `/awards:craft redesign <url or folder>` for an existing site: a baseline capture and critique first, a content inventory, and the old site's faults as the new contract's refusals, on a branch.
+- `/awards:craft` for the full build. Name the award programs in the brief (`programs: awwwards, cssda`) and the jury reports a target line for each.
+
 ## How a build runs
 
 1. **Brief.** `craft` copies `AWARDS.md` into the project, asks at most three questions, records the visitor mode and every synthetic asset.
