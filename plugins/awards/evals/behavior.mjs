@@ -134,6 +134,38 @@ test('audit', 'BEM eyebrows, micro-meta and a bounded Exceptions section', async
   assert.deepEqual(where(found, 'X07'), [], 'X07 is excepted');
   assert.equal(where(found, 'L05').length, 2, 'a rule id after the Exceptions section is not an exception');
 });
+test('audit', 'the edit hook answers project questions from the whole project, finds nested builds and stays fast', async () => {
+  const dir = path.join(tmp, 'hooked');
+  fs.mkdirSync(path.join(dir, 'src'), { recursive: true });
+  fs.writeFileSync(path.join(dir, 'AWARDS.md'), '# Awards\n');
+  fs.writeFileSync(path.join(dir, 'src', 'main.js'), "gsap.to('.hero', { opacity: 1 });\nel.addEventListener('pointerdown', grab);\n");
+  fs.writeFileSync(path.join(dir, 'src', 'button.css'), '.btn:focus { outline: none; }\n');
+  fs.writeFileSync(path.join(dir, 'index.html'), '<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width"></head><body><main><button class="btn">Open</button></main></body></html>');
+  const hook = async (file, env) => {
+    const out = (await run('scripts/audit.mjs', ['--quick', '--changed-file', path.join(dir, file)], env)).stdout.trim();
+    return out ? JSON.parse(out).hookSpecificOutput.additionalContext : '';
+  };
+  const says = (text, id) => text.includes(`- ${id} `);
+  assert.ok(says(await hook('src/main.js'), 'M01') && says(await hook('src/main.js'), 'A11'), 'control: nothing handles reduced motion or keys yet');
+  assert.ok(says(await hook('src/button.css'), 'A07'), 'control: no focus-visible style yet');
+  // The answers live in other modules, as they do in the scaffold.
+  fs.writeFileSync(path.join(dir, 'src', 'base.css'), 'a:focus-visible, button:focus-visible { outline: 2px solid currentColor; }\n');
+  fs.writeFileSync(path.join(dir, 'src', 'reduced-motion.js'), "export const reduced = matchMedia('(prefers-reduced-motion: reduce)');\n");
+  fs.writeFileSync(path.join(dir, 'src', 'keys.js'), "addEventListener('keydown', (e) => e.key);\n");
+  for (const file of ['src/main.js', 'src/button.css', 'index.html']) {
+    const said = await hook(file);
+    for (const id of ['M01', 'A06', 'A07', 'A11']) assert.ok(!says(said, id), `${file}: ${id} is handled elsewhere in the project`);
+  }
+  // A build in a subfolder of the open project is still audited.
+  fs.writeFileSync(path.join(dir, 'src', 'tight.css'), '.title { letter-spacing: -0.08em; }\n');
+  assert.ok(says(await hook('src/tight.css', { CLAUDE_PROJECT_DIR: tmp }), 'T04'), 'AWARDS.md below CLAUDE_PROJECT_DIR is found');
+  // Line numbers are indexed, not rescanned: a 1.2 MB stylesheet took over a minute before.
+  fs.writeFileSync(path.join(dir, 'src', 'big.css'), Array.from({ length: 20000 }, (_, i) => `.b${i} {\n  letter-spacing: -0.08em;\n}\n`).join(''));
+  const started = Date.now();
+  const big = await hook('src/big.css');
+  assert.ok(Date.now() - started < 4000, `the hook must stay inside its 5 s budget (${Date.now() - started} ms)`);
+  assert.match(big, /T04 \(P2\)[^\n]*\[line 2\]/, 'line numbers stay exact');
+});
 test('audit', 'rendered checks see stuck content, long lines, edges, flat hierarchy and nested cards', async () => {
   const dir = path.join(tmp, 'rendered');
   fs.mkdirSync(dir);
@@ -192,6 +224,48 @@ test('tools', 'the deal leads with a seeded dealt card and the route hint matche
   assert.equal(hint.code, 0, hint.stdout + hint.stderr);
 });
 
+test('tools', 'the scaffold adds only the missing files to a project the earlier phases started', async () => {
+  const dir = path.join(tmp, 'started');
+  fs.mkdirSync(path.join(dir, 'src', 'styles'), { recursive: true });
+  const filled = {
+    'AWARDS.md': '# Awards\n\n## Brief\n\nTide tables for the strait.\n',
+    'DESIGN.md': '---\nname: tides\n---\n',
+    'src/styles/tokens.css': ':root { --ground: #eef1f2; }\n',
+    'index.html': '<!doctype html><title>Tides</title><main><h1>Tides</h1></main>',
+  };
+  for (const [file, text] of Object.entries(filled)) fs.writeFileSync(path.join(dir, file), text);
+  const scaffold = (...extra) => run('scripts/new-project.mjs', ['--stack', 'vite', '--name', dir, ...extra]);
+  assert.equal((await scaffold()).code, 1, 'a started project is refused without --keep-existing');
+  const dry = await scaffold('--dry-run');
+  assert.equal(dry.code, 0, 'a dry run lists a started project instead of refusing');
+  assert.match(dry.stdout, /would keep \S*AWARDS\.md/);
+  assert.match(dry.stdout, /would write \S*main\.js/);
+  assert.equal(fs.existsSync(path.join(dir, 'src', 'main.js')), false, 'a dry run writes nothing');
+  const kept = await scaffold('--keep-existing');
+  assert.equal(kept.code, 0, kept.stderr);
+  for (const [file, text] of Object.entries(filled)) assert.equal(fs.readFileSync(path.join(dir, file), 'utf8'), text, file + ' must stay as the earlier phase wrote it');
+  assert.ok(fs.existsSync(path.join(dir, 'src', 'main.js')) && fs.existsSync(path.join(dir, 'src', 'lib', 'awards-hook.js')), 'the boot and shared modules are added');
+  assert.equal(JSON.parse(fs.readFileSync(path.join(dir, 'package.json'), 'utf8')).dependencies.three, undefined, 'a written package.json is still trimmed without --webgl');
+  assert.match(kept.stdout, /does not load the boot/, 'a kept index.html without the boot script is called out');
+});
+test('tools', 'after compaction the state card names the next phase and stays silent when there is nothing to resume', async () => {
+  const dir = path.join(tmp, 'compacted');
+  fs.mkdirSync(dir);
+  const card = async () => (await run('scripts/state-card.mjs', ['--project', dir])).stdout.trim();
+  assert.equal(await card(), '', 'silent without AWARDS.md');
+  let md = fs.readFileSync(path.join(plugin, 'assets', 'templates', 'AWARDS.md'), 'utf8');
+  for (const line of ['Brief captured', 'Direction contract locked (concept)', 'Visual system written', 'Page map and skeleton built (structure)']) md = md.replace('- [ ] ' + line, '- [x] ' + line);
+  md = md.replace(/^- Deep modes:.*$/m, '- Deep modes: motion gsap · webgl none — declined');
+  fs.writeFileSync(path.join(dir, 'AWARDS.md'), md);
+  const said = JSON.parse(await card()).hookSpecificOutput;
+  assert.equal(said.hookEventName, 'SessionStart');
+  assert.match(said.additionalContext, /4 of 9 done; next "Stack booted \(stack\)" → awards:stack/);
+  assert.match(said.additionalContext, /Deep modes: motion gsap/);
+  fs.writeFileSync(path.join(dir, 'AWARDS.md'), md.replaceAll('- [ ]', '- [x]'));
+  assert.equal(await card(), '', 'silent once every Status line is checked');
+  fs.writeFileSync(path.join(dir, 'AWARDS.md'), md);
+  assert.equal((await run('scripts/state-card.mjs', ['--project', dir], { AWARDS_HOOK: '0' })).stdout.trim(), '', 'AWARDS_HOOK=0 silences it');
+});
 test('ticker', 'pause/resume never duplicates callbacks and teardown stops scheduling', () => {
   for (const file of ['recipes/_shared/raf.js', 'assets/scaffold/vite-vanilla/src/lib/raf.js']) {
     const callbacks = new Map();

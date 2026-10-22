@@ -1,8 +1,25 @@
 // Tolerant, dependency-free HTML helpers for the audit (regex-based on purpose: templates, JSX and Vue files still scan).
+// Line numbers come from a newline index built once per text and binary-searched, so a large
+// stylesheet costs one pass instead of one scan from the top for every rule block and finding.
+const lineIndexes = [];
 export function lineOf(text, index) {
-  let line = 1;
-  for (let i = 0; i < index && i < text.length; i++) if (text.charCodeAt(i) === 10) line++;
-  return line;
+  let entry = lineIndexes.find((e) => e.text === text);
+  if (!entry) {
+    const newlines = [];
+    for (let i = text.indexOf('\n'); i !== -1; i = text.indexOf('\n', i + 1)) newlines.push(i);
+    entry = { text, newlines };
+    lineIndexes.unshift(entry);
+    lineIndexes.length = Math.min(lineIndexes.length, 4);
+  }
+  const end = Math.min(index, text.length);
+  let lo = 0;
+  let hi = entry.newlines.length;
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    if (entry.newlines[mid] < end) lo = mid + 1;
+    else hi = mid;
+  }
+  return lo + 1;
 }
 
 export function tags(text, name) {

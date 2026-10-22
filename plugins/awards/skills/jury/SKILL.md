@@ -158,7 +158,7 @@ Write it to `.awards/jury/<date>.md` (`date +%F`; add `-2`, `-3` when the name i
 
 For `recapture` without valid rendered evidence, use `D unmeasured / U unmeasured / C unmeasured / Co unmeasured → unmeasured · dev unmeasured` in the first log line. Keep the second line for located source findings or the needed recapture, without invented visual fixes.
 
-In `## Status`, replace `Jury disposition: —` with the disposition and the date and tick the box. Touch nothing else in the file.
+In page and verdict mode, set the `Jury disposition:` line in `## Status` to the disposition and the date (replacing `—` or the earlier value) and tick the box. A component pass never touches `## Status`: its verdict is about one element, and a ticked box would let a resumed build skip phase 7. Touch nothing else in the file.
 
 **Your reply must carry one of these blocks, verbatim from the report, unbroken.** Not a table or prose sentence. Use the measured block only with valid rendered evidence:
 
@@ -194,8 +194,9 @@ Why: after `awards:ship` applies a batch, the question is no longer "how good is
 
 - Re-run the evidence gate; `awards:ship` should have recaptured, so recapture yourself only when the captures predate the last edit.
 - Take the fix list of the latest `.awards/jury/<date>.md` as the checklist. For each row compare the named viewport/state in before and after manifests, record `resolved | partial | unresolved` with both evidence paths, and check for new regressions, and carry the original `## Keep` line into the verdict. A failed contract block omitted from the batch stays unresolved.
-- List at most three regressions, write `## Remaining` as `clear` or the list, and recompute the disposition with the rules in section 6.
-- Write the verdict to `.awards/jury/<date>-verdict.md` so the original report stays intact for `awards:craft`, and append one log line: `- <date> · verdict · <disposition> · resolved n / partial n / unresolved n · regressions n`.
+- Re-score the axes on the after captures with the same anchors, one reason each; a score moves only with a named before/after evidence pair, and an unchanged surface keeps its earlier score. A batch that resolved every seam of a `fix` can therefore reach `ship`, and a regression can lower it.
+- List at most three regressions, write `## Remaining` as `clear` or the list, and recompute the disposition from the new scores, the remaining fixes and the audit with the rules in section 6.
+- Write the verdict to `.awards/jury/<date>-verdict.md` so the original report stays intact for `awards:craft`, append one log line: `- <date> · verdict · <disposition> · D x.x / U x.x / C x.x / Co x.x → w.w · resolved n / partial n / unresolved n · regressions n`, and update `Jury disposition:` in `## Status` as in section 6. Reply with the measured block from section 6, carrying the re-scored line.
 
 ## 8. Component mode (`--component <selector>`)
 
@@ -211,6 +212,7 @@ This yields `desktop-component-<slug>.png`, its `-hover` frame, `mobile-componen
 - With valid component captures, score Design, Usability and Creativity only; their mean stands in for the weighted score in the disposition rules and uses the measured D/U/C reply line above. Without them, use `recapture` and the unmeasured D/U/C line above; no mean or visual fidelity is inferred.
 - Fill the fidelity table only for the rows the component owns: WORLD, and SIGNATURE when the component is the signature.
 - Keep the fixes inside the component and its tokens; a page-level problem noticed on the way is one line under Keep, not a fix.
+- Log it as a component pass, never as a page round: the first `## Jury log` line reads `- <date> · component <selector> · <disposition> · D x.x / U x.x / C x.x → mean x.xx · .awards/jury/<date>.md` (all `unmeasured` without valid captures), the second gives its top fixes. Leave `## Status` untouched.
 
 ## Verify
 
@@ -219,7 +221,7 @@ This yields `desktop-component-<slug>.png`, its `-hover` frame, `mobile-componen
 - Each DIVERGENCE neighbour has one finish gap with capture names, or "neighbour frame unavailable".
 - Every measured score has a one-line reason; the site weighted score is the arithmetic of the four axes and component mean of D/U/C; the caps were applied. Missing rendered evidence uses only the unmeasured branch.
 - The disposition follows the derivation order, not a feeling; floor fixes are mechanical, craft fixes at most five, each with a location; the Ceiling line is one sentence and moved nothing.
-- `.awards/jury/<date>.md` exists, and `AWARDS.md` gained exactly the two log lines and the Status update; no other project file changed.
+- `.awards/jury/<date>.md` exists, and `AWARDS.md` gained exactly the two log lines and, in page or verdict mode only, the Status update; no other project file changed.
 
 ## Hand-off
 

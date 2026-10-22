@@ -65,17 +65,21 @@ if (isUrl && !args.render) {
 // `.awards/` and the `## Exceptions` list belong beside AWARDS.md, never beside the shell. Walking
 // up from the target instead of trusting cwd is what keeps a run from inside `public/` from writing
 // its report there — Vite copies `public/` into `dist/`, so that report shipped.
-const ownerOf = (from) => {
+// The nearest AWARDS.md wins over CLAUDE_PROJECT_DIR, so a build in a subfolder of the open
+// project is still audited; the walk stops at that folder when the target lies inside it.
+const ownerOf = (from, stop) => {
   for (let d = from; ; d = path.dirname(d)) {
     if (fs.existsSync(path.join(d, 'AWARDS.md'))) return d;
-    if (d === path.dirname(d)) return null;
+    if (d === stop || d === path.dirname(d)) return null;
   }
 };
 const targetDir = isUrl ? null : (() => {
   const abs = path.resolve(String(target));
   return fs.existsSync(abs) && fs.statSync(abs).isDirectory() ? abs : path.dirname(abs);
 })();
-const projectDir = process.env.CLAUDE_PROJECT_DIR || (targetDir && ownerOf(targetDir)) || process.cwd();
+const envProject = process.env.CLAUDE_PROJECT_DIR ? path.resolve(process.env.CLAUDE_PROJECT_DIR) : null;
+const within = (dir, root) => { const r = path.relative(root, dir); return !r.startsWith('..') && !path.isAbsolute(r); };
+const projectDir = (targetDir && ownerOf(targetDir, envProject && within(targetDir, envProject) ? envProject : null)) || envProject || process.cwd();
 if (args.quick) {
   // The hook is inert outside award-level projects and for non-UI files.
   if (!fs.existsSync(path.join(projectDir, 'AWARDS.md')) || process.env.AWARDS_HOOK === '0') process.exit(0);
@@ -94,13 +98,13 @@ if (!isUrl) {
   if (fs.statSync(abs).isDirectory()) walk(abs);
   else files.push(abs);
 }
-function walk(dir, depth = 0) {
+function walk(dir, out = files, depth = 0) {
   if (depth > 8) return;
   for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
     if (ent.isDirectory()) {
-      if (!SKIP_DIRS.has(ent.name) && !ent.name.startsWith('.')) walk(path.join(dir, ent.name), depth + 1);
+      if (!SKIP_DIRS.has(ent.name) && !ent.name.startsWith('.')) walk(path.join(dir, ent.name), out, depth + 1);
     } else {
-      files.push(path.join(dir, ent.name));
+      out.push(path.join(dir, ent.name));
     }
   }
 }
@@ -143,16 +147,47 @@ const allText = sources.map((s) => s.text).join('\n');
 const cssText = stripComments(cssSources.map((s) => s.text).join('\n') + '\n' + htmlSources.map((s) => (s.text.match(/<style[^>]*>([\s\S]*?)<\/style>/gi) || []).join('\n')).join('\n'));
 const jsText = jsSources.map((s) => s.text).join('\n') + '\n' + htmlSources.map((s) => (s.text.match(/<script[^>]*>([\s\S]*?)<\/script>/gi) || []).join('\n')).join('\n');
 
+// The edit hook sees one file, but "is this handled anywhere?" is a project question: the
+// reduced-motion branch, :focus-visible or the keydown handler usually lives in another module.
+// Those conditions read the whole project; findings are still reported for the edited file only.
+let projectAll = allText;
+let projectCss = cssText;
+let projectJs = jsText;
+if ((args.quick || args['changed-file']) && !isUrl && files.length === 1 && fs.existsSync(path.join(projectDir, 'AWARDS.md'))) try {
+  const around = [];
+  walk(projectDir, around);
+  const texts = { all: [], css: [], js: [] };
+  let bytes = 0;
+  for (const f of around) {
+    const ext = path.extname(f).toLowerCase();
+    if (!SCAN_EXT.has(ext)) continue;
+    const size = fs.statSync(f).size;
+    if (bytes + size > 16 * 1024 * 1024) break;
+    bytes += size;
+    const text = fs.readFileSync(f, 'utf8');
+    texts.all.push(text);
+    if (['.css', '.scss'].includes(ext)) texts.css.push(text);
+    if (['.html', '.htm', '.vue', '.svelte', '.astro', '.jsx', '.tsx'].includes(ext)) texts.css.push(...(text.match(/<style[^>]*>([\s\S]*?)<\/style>/gi) || []));
+    if (['.js', '.mjs', '.ts', '.jsx', '.tsx', '.vue', '.svelte', '.astro'].includes(ext)) texts.js.push(text);
+    else if (['.html', '.htm'].includes(ext)) texts.js.push(...(text.match(/<script[^>]*>([\s\S]*?)<\/script>/gi) || []));
+  }
+  projectAll = allText + '\n' + texts.all.join('\n');
+  projectCss = cssText + '\n' + stripComments(texts.css.join('\n'));
+  projectJs = jsText + '\n' + texts.js.join('\n');
+} catch {
+  // An unreadable corner of the project leaves the edited file's own context in place.
+}
+
 function eachCss(fn) {
   for (const s of cssSources) fn(s.file, stripComments(s.text));
   for (const s of htmlSources) {
-    for (const m of s.text.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi)) fn(s.file, stripComments(m[1]), s.text.slice(0, m.index).split('\n').length - 1);
+    for (const m of s.text.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi)) fn(s.file, stripComments(m[1]), lineOf(s.text, m.index) - 1);
   }
 }
 function eachJs(fn) {
   for (const s of jsSources) fn(s.file, s.text);
   for (const s of htmlSources) {
-    for (const m of s.text.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/gi)) fn(s.file, m[1], s.text.slice(0, m.index).split('\n').length - 1);
+    for (const m of s.text.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/gi)) fn(s.file, m[1], lineOf(s.text, m.index) - 1);
   }
 }
 
@@ -164,7 +199,7 @@ const BEZIER = /cubic-bezier\(\s*([-\d.]+)\s*,\s*([-\d.]+)\s*,\s*([-\d.]+)\s*,\s
 const overshoots = (text) => [...text.matchAll(BEZIER)].filter((m) => [m[2], m[4]].some((y) => Number(y) > 1 || Number(y) < 0));
 let tokenProps = null;
 function colorsIn(value) {
-  tokenProps ??= customProperties(cssText);
+  tokenProps ??= customProperties(projectCss);
   const out = [];
   for (const m of String(value).matchAll(/#[0-9a-f]{3,8}\b|rgba?\([^)]*\)|hsla?\([^)]*\)|var\(--([\w-]+)\)/gi)) {
     const c = parseColor(m[1] ? tokenProps[m[1]] : m[0]);
@@ -193,7 +228,7 @@ eachCss((file, css, off = 0) => {
     if (!/font-display\s*:/i.test(b.body)) add('T05', file, lineOf(css, b.index) + off);
   }
   if (/@font-face/.test(css) && !/size-adjust\s*:/i.test(css)) add('T06', file, null);
-  if (/scroll-behavior\s*:\s*smooth/i.test(css) && /new\s+Lenis|from\s+['"]lenis|lenis\/react|lenis\/vue/i.test(jsText)) add('M05', file, lineOf(css, css.search(/scroll-behavior/i)) + off);
+  if (/scroll-behavior\s*:\s*smooth/i.test(css) && /new\s+Lenis|from\s+['"]lenis|lenis\/react|lenis\/vue/i.test(projectJs)) add('M05', file, lineOf(css, css.search(/scroll-behavior/i)) + off);
   const wc = declarations(css, 'will-change').filter((d) => !/auto/i.test(d.value));
   if (/\*\s*\{[^}]*will-change/.test(css)) add('M04', file, null, 'on *');
   else if (wc.length > 5) add('M04', file, null, `${wc.length} declarations`);
@@ -212,7 +247,7 @@ eachCss((file, css, off = 0) => {
     if (/^100vw$/.test(d.value) && !/overflow(-x)?\s*:\s*(hidden|clip)/i.test(css)) add('L02', file, lineOf(css, d.index) + off);
   }
   for (const d of declarations(css, 'outline')) {
-    if (/^(none|0)$/i.test(d.value) && !/:focus-visible/.test(cssText)) add('A07', file, lineOf(css, d.index) + off);
+    if (/^(none|0)$/i.test(d.value) && !/:focus-visible/.test(projectCss)) add('A07', file, lineOf(css, d.index) + off);
   }
   const bf = declarations(css, 'backdrop-filter|-webkit-backdrop-filter').filter((d) => !/none/i.test(d.value));
   if (bf.length > 3) add('X04', file, null, `${bf.length} declarations`);
@@ -298,7 +333,7 @@ eachCss((file, css, off = 0) => {
 // ---------- rules: motion (JS) ----------
 {
   const animates = /gsap\.|animate\(|createTimeline|@keyframes|transition\s*:|animation\s*:|new\s+Lenis|ScrollTrigger/i.test(allText);
-  const hasRM = /prefers-reduced-motion/i.test(allText);
+  const hasRM = /prefers-reduced-motion/i.test(projectAll);
   if (animates && !hasRM) add('M01', 'project', null);
   eachJs((file, js, off = 0) => {
     for (const m of js.matchAll(/scrub\s*:/g)) {
@@ -317,15 +352,15 @@ eachCss((file, css, off = 0) => {
     if (/repeat\s*:\s*-1/.test(js) && !/visibilitychange|IntersectionObserver|onEnter|onLeave|pause\(/.test(js)) add('M08', file, lineOf(js, js.search(/repeat\s*:\s*-1/)) + off);
     for (const m of js.matchAll(/\b(?:ease|easing)\s*:\s*['"`]([^'"`]*(?:elastic|bounce|back|spring)[^'"`]*)['"`]/gi)) add('X13', file, lineOf(js, m.index) + off, m[1]);
     for (const m of overshoots(js)) add('X13', file, lineOf(js, m.index) + off, m[0]);
-    if (/pin\s*:\s*true/.test(js) && /position\s*:\s*sticky/i.test(cssText)) add('M06', file, lineOf(js, js.search(/pin\s*:\s*true/)) + off);
+    if (/pin\s*:\s*true/.test(js) && /position\s*:\s*sticky/i.test(projectCss)) add('M06', file, lineOf(js, js.search(/pin\s*:\s*true/)) + off);
     if (/setPixelRatio\(\s*(window\.)?devicePixelRatio\s*\)/.test(js)) add('P06', file, lineOf(js, js.search(/setPixelRatio/)) + off);
-    if (/new\s+(THREE\.)?WebGLRenderer|new\s+Renderer\(/.test(js) && !/\.dispose\(/.test(jsText)) add('P07', file, lineOf(js, js.search(/WebGLRenderer|new\s+Renderer\(/)) + off);
-    if (/GLTFLoader|\.glb['"]|\.gltf['"]/.test(js) && !/DRACOLoader|MeshoptDecoder|KTX2Loader|draco|meshopt/i.test(jsText)) add('P03', file, null);
+    if (/new\s+(THREE\.)?WebGLRenderer|new\s+Renderer\(/.test(js) && !/\.dispose\(/.test(projectJs)) add('P07', file, lineOf(js, js.search(/WebGLRenderer|new\s+Renderer\(/)) + off);
+    if (/GLTFLoader|\.glb['"]|\.gltf['"]/.test(js) && !/DRACOLoader|MeshoptDecoder|KTX2Loader|draco|meshopt/i.test(projectJs)) add('P03', file, null);
     const pointerOnly = /addEventListener\(\s*['"](pointerdown|mousedown|touchstart|dragstart)['"]/.test(js);
-    if (pointerOnly && !/addEventListener\(\s*['"]keydown['"]|onkeydown|@keydown|on:keydown/.test(jsText)) add('A11', file, lineOf(js, js.search(/pointerdown|mousedown|touchstart|dragstart/)) + off);
+    if (pointerOnly && !/addEventListener\(\s*['"]keydown['"]|onkeydown|@keydown|on:keydown/.test(projectJs)) add('A11', file, lineOf(js, js.search(/pointerdown|mousedown|touchstart|dragstart/)) + off);
   });
   const customCursor = /data-cursor|\.cursor\b|cursor\s*:\s*none|customCursor|class(Name)?=["'][^"']*\bcursor\b/i.test(allText);
-  if (customCursor && !/pointer\s*:\s*coarse|pointer\s*:\s*fine|hover\s*:\s*none|hover\s*:\s*hover/i.test(allText)) add('A08', 'project', null);
+  if (customCursor && !/pointer\s*:\s*coarse|pointer\s*:\s*fine|hover\s*:\s*none|hover\s*:\s*hover/i.test(projectAll)) add('A08', 'project', null);
 }
 
 // ---------- rules: HTML ----------
@@ -339,7 +374,7 @@ for (const s of htmlSources) {
     if (!/<meta[^>]+name=["']viewport["']/i.test(t)) add('L03', file, null);
     if (!/<main\b/i.test(t)) add('A01', file, null);
     if (!/<meta[^>]+name=["']theme-color["']/i.test(t)) add('S03', file, null);
-    if (!/<meta[^>]+name=["']color-scheme["']/i.test(t) && !/color-scheme\s*:/i.test(cssText)) add('S04', file, null);
+    if (!/<meta[^>]+name=["']color-scheme["']/i.test(t) && !/color-scheme\s*:/i.test(projectCss)) add('S04', file, null);
     if (!/<link[^>]+rel=["'][^"']*icon[^"']*["']/i.test(t)) add('S05', file, null);
     if (!/property=["']og:image["']/i.test(t)) add('S06', file, null);
     const hs = headings(t);
@@ -402,9 +437,9 @@ for (const s of htmlSources) {
   const statRow = cls.find((c) => c.classes.some((k) => /^(stats|metrics|numbers|kpis|stat-row|stats-row)$/i.test(k)));
   if (statEls.length >= 3) add('X08', file, null);
   else if (statRow) add('X08', file, statRow.line, `.${statRow.classes.join('.')}`);
-  if (isPage && /<(button|a)\b/i.test(t) && !/:focus-visible/.test(cssText)) add('A06', file, null);
-  if (isPage && !/::selection/.test(cssText)) add('S01', file, null);
-  if (isPage && !/scrollbar/.test(cssText)) add('S02', file, null);
+  if (isPage && /<(button|a)\b/i.test(t) && !/:focus-visible/.test(projectCss)) add('A06', file, null);
+  if (isPage && !/::selection/.test(projectCss)) add('S01', file, null);
+  if (isPage && !/scrollbar/.test(projectCss)) add('S02', file, null);
 }
 
 // ---------- rules: assets & bundles ----------
