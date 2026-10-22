@@ -1,11 +1,14 @@
 {
   "id": "gl-depth-map-parallax",
   "title": "Depth-map (2.5D) parallax",
+  "intent": "2.5D",
+  "group": "webgl-surfaces",
+  "summary": "Image + depth map parallax",
   "tags": [
     "webgl",
     "three",
     "shader",
-    "image",
+    "images",
     "parallax"
   ],
   "tier": "P1",

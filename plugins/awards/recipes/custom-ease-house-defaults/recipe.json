@@ -1,12 +1,14 @@
 {
   "id": "custom-ease-house-defaults",
   "title": "House easing: CustomEase tokens as GSAP defaults",
+  "intent": "House easing",
+  "group": "foundations",
+  "summary": "Five curves (`house`, `out`, `in`, `in-out`, `write`) and a `xs / s / m / l / fade` duration ladder written once as CSS custom properties, read on boot into `CustomEase.create` and `gsap.defaults({ ease: 'house', duration: --dur-m })`, so an unannotated tween, a named tween and a CSS `transition` share one curve; stagger as a token passed explicitly; movement durations `0s` under reduced motion with the fade kept, static zeroes the fade",
   "tags": [
     "gsap",
     "easing",
     "customease",
     "tokens",
-    "css",
     "reduced-motion"
   ],
   "tier": "P0",

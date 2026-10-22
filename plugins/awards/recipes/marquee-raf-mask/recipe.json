@@ -1,10 +1,12 @@
 {
   "id": "marquee-raf-mask",
   "title": "rAF marquee with mask fade, pause and scroll-velocity speed",
+  "intent": "Ticker",
+  "group": "galleries-and-lists",
+  "summary": "rAF wraparound, mask fade, pause on hover / focus, speed from scroll velocity, off-screen stop",
   "tags": [
     "marquee",
     "ticker",
-    "raf",
     "lenis",
     "reduced-motion"
   ],

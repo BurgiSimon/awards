@@ -1,6 +1,9 @@
 {
   "id": "autoplay-tabs-progress",
   "title": "Auto-advancing tabs with a visible clock",
+  "intent": "Timed feature set",
+  "group": "evidence-blocks",
+  "summary": "Tabs that auto-advance on a linear `scaleX` 0 → 1 bar that is the timer, start once in view, hold on hover / keyboard focus / off-screen / pause button, restart on click; `role=\"tab\"` with arrow keys, no autoplay under reduced motion",
   "tags": [
     "tabs",
     "autoplay",

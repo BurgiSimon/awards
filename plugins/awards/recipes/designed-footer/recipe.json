@@ -1,6 +1,9 @@
 {
   "id": "designed-footer",
   "title": "Alder Workshop — designed close",
+  "intent": "Designed close",
+  "group": "the-close-and-beyond",
+  "summary": "Statement, contact action, navigation and colophon",
   "tags": [
     "footer",
     "navigation",

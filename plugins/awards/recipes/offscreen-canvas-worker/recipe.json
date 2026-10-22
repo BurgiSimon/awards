@@ -1,6 +1,9 @@
 {
   "id": "offscreen-canvas-worker",
   "title": "OffscreenCanvas in a Worker with a timed main-thread fallback",
+  "intent": "Loader off the main thread",
+  "group": "foundations",
+  "summary": "`transferControlToOffscreen` after a 1 s hello handshake, one draw module run by the Worker's rAF or the shared ticker, timed main-thread fallback on a cloned canvas, paused off-screen, one settled frame under reduced motion",
   "tags": [
     "performance",
     "canvas",

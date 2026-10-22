@@ -1,10 +1,13 @@
 {
   "id": "gl-postprocessing-presets",
   "title": "Post-processing with three fixed presets",
+  "intent": "Post presets",
+  "group": "webgl-surfaces",
+  "summary": "Fixed bloom presets, grain, SMAA, half-float on mobile",
   "tags": [
     "webgl",
     "three",
-    "postprocessing",
+    "post-processing",
     "bloom",
     "grain"
   ],

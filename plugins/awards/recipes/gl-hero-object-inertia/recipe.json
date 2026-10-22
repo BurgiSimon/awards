@@ -1,6 +1,9 @@
 {
   "id": "gl-hero-object-inertia",
   "title": "Single hero object with pointer inertia and scroll turn",
+  "intent": "Hero object",
+  "group": "heroes-and-type",
+  "summary": "One object with pointer inertia and scroll rotation",
   "tags": [
     "webgl",
     "three",

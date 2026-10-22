@@ -1,6 +1,9 @@
 {
   "id": "gl-material-patch-reveal",
   "title": "Patched stock material: grey-to-colour hand-off through a DOM-anchored circle",
+  "intent": "Grey to colour from a DOM point",
+  "group": "webgl-surfaces",
+  "summary": "One stock `MeshStandardMaterial` patched by `onBeforeCompile`: a luma mix after `<map_fragment>` (grey ↔ colour, saturation `1.35`) and a grained circular `discard` after `<clipping_planes_fragment>` that splits one geometry between a grey and a colour layer as exact complements; centre and start radius read from a DOM dial's rect every frame, radius scrubbed (`ease: 'none'`, `p²` at render) to the farthest corner `+ 2 px`; patches throw on a missing include; `?wobble` normal-wobble variant; even colour mix with the scroll under reduced motion, settled colour in the static tier",
   "tags": [
     "3d",
     "webgl",

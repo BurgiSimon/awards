@@ -234,12 +234,12 @@ Proposal: {the entry from the proposals file}
 Cards to read for the technique: {PLUGIN/references/sites/<slug>.md, …}
 
 1. Read REPO/CLAUDE.md sections "Recipes are a contract" and "Conventions that bite", PLUGIN/recipes/README.md, and the nearest existing recipe named under Overlap, all six files of it.
-2. Create PLUGIN/recipes/{id}/ with index.html, main.js, style.css, README.md, recipe.json and verify.mjs, to that contract: style.css imports ../_shared/base.css itself; the page exposes window.__awards through _shared/awards-hook.js; the shared ticker drives any Lenis; system font stacks only; full, reduced and static motion tiers through _shared/reduced-motion.js; demo content synthetic and labelled so in README.md. recipe.json carries id, title, tags, deps, tier, variants and seenIn (the proposal's slugs); verify-recipes stamps verified.
+2. Create PLUGIN/recipes/{id}/ with index.html, main.js, style.css, README.md, recipe.json and verify.mjs, to that contract: style.css imports ../_shared/base.css itself; the page exposes window.__awards through _shared/awards-hook.js; the shared ticker drives any Lenis; system font stacks only; full, reduced and static motion tiers through _shared/reduced-motion.js; demo content synthetic and labelled so in README.md. recipe.json carries id, title, intent, group, summary, tags, deps, tier, variants and seenIn (the proposal's slugs); group and tags come from PLUGIN/scripts/data/recipe-tags.json (add a tag to one facet there only when no existing tag fits); verify-recipes stamps verified.
 3. A dependency not in PLUGIN/recipes/package.json needs an exact pin added both there and to PLUGIN/references/stacks/versions.md, then `cd PLUGIN/recipes && npm install`.
 4. verify.mjs asserts the proposal's verify idea, plus the reduced-motion state and a mobile state. Confirm the key assertion fails when the technique is disabled, then restore it.
 5. Run until it passes:
    export AWARDS_PLAYWRIGHT="$HOME/.npm/_npx/e41f203b7505f1fb"; cd PLUGIN/recipes && node ../scripts/verify-recipes.mjs --only {id}
-6. Add one row for {id} to the "Catalogue by intent" table in PLUGIN/recipes/README.md.
+6. Run `node PLUGIN/scripts/build-catalogue.mjs` to regenerate the catalogue in PLUGIN/recipes/README.md from the recipe.json files.
 7. Reply with the files written, the verify result line, and any pin added.
 ```
 

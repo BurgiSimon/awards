@@ -1,6 +1,9 @@
 {
   "id": "gl-spring-stepped-gallery",
   "title": "WebGL gallery on a spring-snapped float index with a wheel step detector",
+  "intent": "Stepped WebGL gallery",
+  "group": "galleries-and-lists",
+  "summary": "A float index pulled to a whole item by a spring (frequency `9.5`, damping `12`, fixed `1/240 s` substeps), each plate's depth, scale, yaw and opacity derived from `i − index`; a wheel step detector (noise floor `.3`, per-event cap `24`, threshold `6`, quiet gap `130 ms`, sustained repeat `480 ms` against a `550 ms` envelope) so one flick moves one item, the wheel released to the page at either end; drag coasting with friction `.89` into the spring; a carousel-role DOM mirror with a slide list, arrow / Home / End keys, `n / N` caption, live announcer; direct snaps under reduced motion",
   "tags": [
     "webgl",
     "three",

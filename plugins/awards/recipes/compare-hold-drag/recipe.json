@@ -1,10 +1,12 @@
 {
   "id": "compare-hold-drag",
   "title": "Compare reveal: drag the divider or hold to peek",
+  "intent": "Compare",
+  "group": "evidence-blocks",
+  "summary": "Hold / drag mask between two states, arrow keys",
   "tags": [
     "pointer",
     "compare",
-    "slider",
     "keyboard"
   ],
   "tier": "P1",

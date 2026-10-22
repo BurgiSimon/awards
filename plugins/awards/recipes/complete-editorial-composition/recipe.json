@@ -1,6 +1,9 @@
 {
   "id": "complete-editorial-composition",
   "title": "Alder Workshop — complete editorial composition",
+  "intent": "Whole-page composition",
+  "group": "compositions",
+  "summary": "The five components in one paced, coherent page",
   "tags": [
     "composition",
     "editorial",

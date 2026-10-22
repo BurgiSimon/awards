@@ -1,6 +1,9 @@
 {
   "id": "throw-objects-css3d",
   "title": "Grab-and-throw CSS-3D objects into a perspective tray",
+  "intent": "Throw toy",
+  "group": "the-close-and-beyond",
+  "summary": "Draggable + InertiaPlugin throw of extruded CSS-3D blocks, `snap.points` on the clamped landing point into a perspective tray, velocity tilt on an inner body, a throw button per block, drop-in-place under reduced motion",
   "tags": [
     "pointer",
     "drag",

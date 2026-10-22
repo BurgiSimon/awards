@@ -1,6 +1,9 @@
 {
   "id": "scroll-word-fill",
   "title": "Words fill in one by one on a scrubbed scroll",
+  "intent": "Read-as-you-scroll statement",
+  "group": "scroll-set-pieces",
+  "summary": "SplitText words on a sticky stage, one scrubbed timeline taking each word from a `.5` floor to full ink (`duration 1`, `stagger .5`, linear), done before the stage releases; unsplit and at full ink under reduced motion",
   "tags": [
     "text",
     "gsap",

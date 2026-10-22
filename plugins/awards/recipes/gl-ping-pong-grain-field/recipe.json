@@ -1,6 +1,9 @@
 {
   "id": "gl-ping-pong-grain-field",
   "title": "GPU grain field on float ping-pong state",
+  "intent": "Brushed grain field",
+  "group": "webgl-surfaces",
+  "summary": "Per-grain state in a float ping-pong pair (displacement RG, velocity BA, in px), storage chosen by `checkFramebufferStatus` from RGBA32F → RGBA16F → RGBA8 (16-bit packed displacement, no inertia); a capsule brush from the last to the current pointer position with `1 − r³` falloff, delta clamped to `24 px` a frame plus a per-grain hash scatter; a protect mask drawn from the copy block's rect zeroes the force; one points program draws the generated under-layer at moved grains' homes, then the grains at home + displacement; reset glides home (`× .88` a frame, `1.6 s`) then clears; loop leaves the ticker when at rest; reveal in place without flying grains under reduced motion, surface drawn once in the static tier",
   "tags": [
     "webgl",
     "three",

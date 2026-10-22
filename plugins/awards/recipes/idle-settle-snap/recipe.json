@@ -1,6 +1,9 @@
 {
   "id": "idle-settle-snap",
   "title": "Idle settle-snap across the first viewport",
+  "intent": "Finish the half-scroll",
+  "group": "scroll-set-pieces",
+  "summary": "Lenis on the shared ticker; a wheel that rests inside the first viewport (outside a `6 %` dead zone at each end) eases to the nearer end after `160 ms` of quiet counted in ticker time (`.7 s` ease-out cubic, not locked, so a wheel takes over), `900 ms` guard; held while a pointer is down (a press stops it in place), disarmed by keyboard, find-in-page and other native scrolls and never armed by touch; off on coarse pointers and under reduced motion",
   "tags": [
     "scroll",
     "lenis",

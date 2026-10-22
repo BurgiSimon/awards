@@ -1,6 +1,9 @@
 {
   "id": "gl-rtt-composite-transition",
   "title": "Section switch by render-to-texture compositing",
+  "intent": "Scene switch",
+  "group": "webgl-surfaces",
+  "summary": "Two scenes to render targets, blended by a shader",
   "tags": [
     "webgl",
     "three",

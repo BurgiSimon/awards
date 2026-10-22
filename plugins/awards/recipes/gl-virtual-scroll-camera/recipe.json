@@ -1,6 +1,9 @@
 {
   "id": "gl-virtual-scroll-camera",
   "title": "Virtual scroll driving a camera on a spline",
+  "intent": "Spatial scroll",
+  "group": "scroll-set-pieces",
+  "summary": "Wheel / touch → eased float → camera spline, snap, keyboard",
   "tags": [
     "webgl",
     "three",

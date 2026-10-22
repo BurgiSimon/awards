@@ -1,10 +1,13 @@
 {
   "id": "gl-msdf-text",
   "title": "MSDF text in WebGL, atlas built at runtime, mirrored in the DOM",
+  "intent": "GL text",
+  "group": "heroes-and-type",
+  "summary": "MSDF text with a DOM mirror",
   "tags": [
     "webgl",
     "three",
-    "type",
+    "typography",
     "msdf",
     "dom-mirror",
     "accessibility"

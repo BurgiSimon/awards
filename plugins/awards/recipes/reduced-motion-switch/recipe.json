@@ -1,6 +1,9 @@
 {
   "id": "reduced-motion-switch",
   "title": "Central motion-tier switch (full / reduced / static)",
+  "intent": "Motion policy",
+  "group": "foundations",
+  "summary": "Central full / reduced / static tiers, user override, teardown between tiers",
   "tags": [
     "reduced-motion",
     "accessibility",

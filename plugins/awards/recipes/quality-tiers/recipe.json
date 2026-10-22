@@ -1,11 +1,13 @@
 {
   "id": "quality-tiers",
   "title": "Adaptive quality tiers from a one-time probe",
+  "intent": "Device budget",
+  "group": "foundations",
+  "summary": "One-time probe → DPR / pixel / particle budgets, still on low tier",
   "tags": [
     "performance",
     "webgl",
-    "tiers",
-    "dpr",
+    "quality-tiers",
     "fallback"
   ],
   "tier": "P0",

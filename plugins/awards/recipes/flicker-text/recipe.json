@@ -1,6 +1,9 @@
 {
   "id": "flicker-text",
   "title": "Flicker text (per-glyph opacity ladder)",
+  "intent": "Flicker text",
+  "group": "heroes-and-type",
+  "summary": "Per-letter opacity ladder `[0,1,0,0,1,1]`",
   "tags": [
     "text",
     "gsap",

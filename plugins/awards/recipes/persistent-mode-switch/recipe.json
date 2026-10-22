@@ -1,11 +1,14 @@
 {
   "id": "persistent-mode-switch",
   "title": "Persistent mode switch that re-skins the page",
+  "intent": "Visitor-held mode",
+  "group": "arrival-and-chrome",
+  "summary": "Docked segmented switch + Grid overlay pill + `L` / `D` / `G` hotkeys (ignored in text fields and with Ctrl / Alt / Meta), state set as root attributes, stored in `localStorage`, printed in the label and restored by a head script before first paint; at the close the dock cross-scales out (`1.75`) as a large centred copy arrives (from `.5`), one copy reachable at a time; no tween under reduced motion",
   "tags": [
     "theme",
     "toggle",
-    "hotkeys",
-    "localStorage",
+    "keyboard",
+    "storage",
     "gsap",
     "reduced-motion"
   ],

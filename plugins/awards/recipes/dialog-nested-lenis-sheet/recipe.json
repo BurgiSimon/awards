@@ -1,6 +1,9 @@
 {
   "id": "dialog-nested-lenis-sheet",
   "title": "Dialog with its own smooth scroll, a bottom sheet on the phone",
+  "intent": "Long-read dialog",
+  "group": "arrival-and-chrome",
+  "summary": "Native `<dialog>` + `showModal()`, nested Lenis on the shared ticker, `data-lenis-prevent` on dialog and inner pane, server-rendered content, drag-to-dismiss bottom sheet under 768 px, instant under reduced motion",
   "tags": [
     "dialog",
     "overlay",

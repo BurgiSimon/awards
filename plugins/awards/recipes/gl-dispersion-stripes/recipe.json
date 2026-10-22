@@ -1,6 +1,9 @@
 {
   "id": "gl-dispersion-stripes",
   "title": "Dispersion stripes",
+  "intent": "Dispersion edge",
+  "group": "webgl-surfaces",
+  "summary": "One triangle-wave stripe evaluated per channel with red `+.06` / blue `−.05` phase shifts, the phase a rotated ramp bent by a radial bump and 2D simplex and drifted on the shared ticker while on screen; coverage re-thresholded as `(g − .5) / max(fwidth(g) × 4, 1e-5) + .5` so every edge is a few-pixel ramp and a flat `g` cannot blow open; inline ACES, gamma and interleaved-gradient-noise dither with no render target, inside a rounded slab; one still frame under reduced motion and static",
   "tags": [
     "webgl",
     "shader",

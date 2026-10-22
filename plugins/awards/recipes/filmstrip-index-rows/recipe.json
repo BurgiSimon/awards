@@ -1,10 +1,13 @@
 {
   "id": "filmstrip-index-rows",
   "title": "Filmstrip project rows at one shared speed",
+  "intent": "Project index as reels",
+  "group": "galleries-and-lists",
+  "summary": "CSS-keyframe rows at one px/s from measured width, one link per project, pause on hover / focus / off-screen, late-overshoot grow, hover clip gated on `(hover: hover)`",
   "tags": [
     "marquee",
-    "index",
-    "css-keyframes",
+    "list",
+    "css-animation",
     "hover",
     "reduced-motion"
   ],

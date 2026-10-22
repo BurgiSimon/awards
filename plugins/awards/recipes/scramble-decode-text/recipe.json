@@ -1,10 +1,12 @@
 {
   "id": "scramble-decode-text",
   "title": "Scramble decode readouts (anime.js scrambleText)",
+  "intent": "Decode text",
+  "group": "heroes-and-type",
+  "summary": "Telemetry decode reveal",
   "tags": [
     "text",
-    "animejs",
-    "telemetry"
+    "animejs"
   ],
   "tier": "P1",
   "deps": [

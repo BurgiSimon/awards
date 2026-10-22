@@ -1,6 +1,9 @@
 {
   "id": "gl-lathe-turned-object",
   "title": "Procedural turned object from a lathe profile",
+  "intent": "Generated turned object",
+  "group": "webgl-surfaces",
+  "summary": "A 48-point profile (waist plus a cosine ripple faded by `sin πt`, so the ends meet the faces) through `LatheGeometry`, closed by two `RingGeometry` faces and a bored lathe; one self-contained map builder stringified into a Blob `Worker` (1.5 s deadline) and reused as the same-thread fallback (`?worker=0`); after a `250 ms` dwell, a mouse under `(pointer: fine)` gets one quantised revolution set exactly to `(n + 1)·2π`; frames only while turning; tint without a turn under reduced motion, drawn once in the static tier",
   "tags": [
     "webgl",
     "three",

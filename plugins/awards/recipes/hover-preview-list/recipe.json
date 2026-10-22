@@ -1,6 +1,9 @@
 {
   "id": "hover-preview-list",
   "title": "Archive list with a cursor-following preview",
+  "intent": "Archive list",
+  "group": "galleries-and-lists",
+  "summary": "Cursor-following preview, focus shows it too",
   "tags": [
     "pointer",
     "list",

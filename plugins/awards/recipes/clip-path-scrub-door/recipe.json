@@ -1,6 +1,9 @@
 {
   "id": "clip-path-scrub-door",
   "title": "Scrubbed clip-path doorway into a section",
+  "intent": "Section door",
+  "group": "scroll-set-pieces",
+  "summary": "A veil cut by one `polygon(evenodd, frame…, hole…)` whose hole a scrubbed `{ p }` proxy grows from `20% × 24%` to the full frame over a `200svh` sticky stage (`top top` → `bottom bottom`, no pin) while two labels part `±50vw`; a statement revealed through `circle(p × 150% at 50% 120%)` with a later, longer phone window; no clip at all under reduced motion or static",
   "tags": [
     "scroll",
     "gsap",

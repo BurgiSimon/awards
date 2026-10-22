@@ -1,8 +1,11 @@
 {
   "id": "page-transitions",
   "title": "Page transitions with taxi: wipe, swap, reset, clean up",
+  "intent": "Routes",
+  "group": "arrival-and-chrome",
+  "summary": "taxi wipe transition, renderer lifecycle in `gsap.context`, Lenis reset, one module",
   "tags": [
-    "transitions",
+    "transition",
     "router",
     "taxi",
     "gsap",

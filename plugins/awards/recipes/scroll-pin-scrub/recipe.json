@@ -1,6 +1,9 @@
 {
   "id": "scroll-pin-scrub",
   "title": "Pinned chapter with a scrubbed timeline",
+  "intent": "Scrubbed chapter",
+  "group": "scroll-set-pieces",
+  "summary": "Sticky stage in a tall section, linear scrub, quantised beats",
   "tags": [
     "scroll",
     "gsap",

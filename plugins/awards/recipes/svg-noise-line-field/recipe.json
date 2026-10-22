@@ -1,6 +1,9 @@
 {
   "id": "svg-noise-line-field",
   "title": "Noise-bent SVG line field with a pointer spring",
+  "intent": "Living line field",
+  "group": "heroes-and-type",
+  "summary": "Hairline SVG field, one Perlin angle per point drifting in time, pointer push with a framerate-independent spring (.005 / .925), edge-first draw-in, still under reduced motion",
   "tags": [
     "svg",
     "hero",

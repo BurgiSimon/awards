@@ -1,6 +1,9 @@
 {
   "id": "blur-peek-snap-carousel",
   "title": "Centred carousel with blur-peek neighbours and a velocity-graded snap",
+  "intent": "Snapping carousel",
+  "group": "galleries-and-lists",
+  "summary": "Centred card sharp, neighbours at `.2` + `blur(6px)` (`.1`, no blur, ≤ 920 px), gap computed from a fixed peek (`10 %` / `14 %` of the width), release speed picks the snap (`> 1.2 px/ms` → `320 ms` crisp curve, slow `450–600 ms` soft curve), rubber-band overscroll returned by a critically damped spring stepped exactly with the shared ticker's `dt`; links in a list with roving `tabindex`, arrow / Home / End keys, a live \"n of N\"; blur kept but instant, snaps instant under reduced motion",
   "tags": [
     "carousel",
     "drag",

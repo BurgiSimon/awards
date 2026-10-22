@@ -1,6 +1,9 @@
 {
   "id": "horizontal-rail",
   "title": "Horizontal rail inside a vertical page",
+  "intent": "Horizontal rail",
+  "group": "scroll-set-pieces",
+  "summary": "Pinned horizontal section, arrows, native overflow on touch",
   "tags": [
     "scroll",
     "gsap",
