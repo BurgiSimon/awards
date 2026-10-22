@@ -151,7 +151,34 @@ SwiftShader verification is not safe beside another browser. See [behavior check
 
 ## Status
 
-Version 0.6.0.
+Version 0.7.0.
+
+### 0.7.0 — 2026-10-22
+
+From the 2026-10-22 improvement review: a full build can now finish, and the tools it leans on tell the
+truth.
+
+- **Builds can finish.** The stack phase scaffolds into the project the earlier phases started
+  (`new-project.mjs --keep-existing`). A build gets two page jury rounds (phase 7 and one verdict pass)
+  plus up to two component passes, counted separately; verdict mode re-scores, so a `fix` can become
+  `ship`; a component pass no longer ticks the page-level jury box.
+- **An edit hook that tells the truth.** Line numbers are indexed, not rescanned (a 1.2 MB stylesheet went
+  from 64 s to 0.55 s against the hook's 5 s limit); "handled anywhere" checks read the whole project, so
+  ordinary edits no longer earn false P0/P1 findings; a build in a subfolder of the open project is audited.
+- **Survives compaction.** A `SessionStart` hook re-attaches a short state card from `AWARDS.md` after a
+  context compaction while a build is unfinished.
+- **Corrected facts and routing.** The igloo, the-line and son-daven award claims now match their cards
+  (Site of the Day, with scores); the Tailwind rule names the two winners that use it as a token layer; a
+  new-site brief that names WebGL or GSAP routes to `craft`.
+- **Taxi 2.0.** Both taxi recipes run on 1.9.1 and on 2.0.0; `references/stacks/taxi-2.0.md` lists the
+  breaking changes. The pin stays at 1.9.1.
+- **Codex.** The Codex manifest declares no hooks (`"hooks": {}`), which keeps the plugin eligible for
+  Codex's public plugin directory; Codex runs the audit explicitly, as before.
+- **CI and tests.** GitHub Actions runs the free checks on Node 22 and 24 for every push and pull request;
+  `scripts/check-sync.mjs` guards versions, pins, shared copies, licence files and quoted counts. The
+  grain-field reset is no longer timing-flaky, and `behavior.mjs` passes 20/20 without manual setup.
+- **Not yet measured.** No paid eval ran for this release: whether a full build now reaches Shipped awaits
+  one `build-antarctic-site` run (see `docs/handoff/todo.md`).
 
 ### 0.6.0 — 2026-10-07
 
