@@ -192,6 +192,60 @@ body { margin: 0; font: 16px/1.5 sans-serif; } canvas { position: fixed; inset: 
   const calm = await auditIds(quiet, ['--render']);
   assert.deepEqual(['L06', 'L08', 'T08'].filter((id) => calm.has(id)), [], 'earned shapes must not trip rendered rules');
 });
+test('audit', 'rendered contrast measures each text against what is behind it, focus states included', async () => {
+  const report = async (dir) => JSON.parse((await run('scripts/audit.mjs', [dir, '--render', '--json', '--no-write'])).stdout);
+  const page = (style, body) => `<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+html { background: #f4f2ee; } body { margin: 0; color: #1a1c1c; font: 16px/1.5 sans-serif; } ${style}</style></head><body><main>${body}</main></body></html>`;
+  const quiet = path.join(tmp, 'contrast-quiet');
+  fs.mkdirSync(quiet);
+  // The ground sits on html, not body (the old check read the transparent body as black); text over an
+  // image is unmeasured; large text needs 3:1; a translucent card composites over the ground.
+  fs.writeFileSync(path.join(quiet, 'index.html'), page(`.hero { height: 200px; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4"><rect width="4" height="4" fill="%23333"/></svg>'); color: #eee; }
+.big { font-size: 32px; color: #8a8580; } .card { background: rgba(255,255,255,.6); padding: 8px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); color: #f4f2ee; }
+a, button { color: #1a1c1c; } a:focus-visible, button:focus-visible { outline: 2px solid #1a1c1c; outline-offset: 2px; }`,
+  `<section class="hero"><h1>Text over a photograph</h1></section><p>Ink on a ground painted on html.</p><p class="big">Large grey text at about 3.3:1</p>
+<div class="card"><p>Ink on a translucent card.</p></div><span class="sr">Screen-reader only</span><a href="#a">A link</a> <button>A button</button>`));
+  const calm = (await report(quiet)).findings.filter((f) => ['C01', 'A12'].includes(f.rule));
+  assert.deepEqual(calm.map((f) => `${f.rule} ${f.message}`), [], 'measured text that passes must stay quiet');
+  const loud = path.join(tmp, 'contrast-loud');
+  fs.mkdirSync(loud);
+  fs.writeFileSync(path.join(loud, 'index.html'), page(`.washed { color: #c9c6c0; } .ok { color: oklch(0.85 0 0); }
+.panel { position: relative; height: 80px; } .under { position: absolute; inset: 0; background: #222; } .over { position: relative; color: #444; }
+button { color: #1a1c1c; background: #f4f2ee; border: 1px solid; } button:focus-visible { background: #1a1c1c; color: #2a2a2a; outline: none; }
+a { color: #1a1c1c; } a:focus-visible { outline: 2px solid #e8e6e2; outline-offset: 2px; }`,
+  `<h1>Fails</h1><p class="washed">A washed paragraph.</p><p class="ok">An oklch grey.</p>
+<div class="panel"><div class="under"></div><p class="over">Dark text on a positioned dark panel.</p></div><a href="#a">A faint ring</a> <button>A vanishing label</button>`));
+  const found = (await report(loud)).findings;
+  const said = (rule, text) => found.some((f) => f.rule === rule && f.message.includes(text));
+  for (const text of ['A washed paragraph', 'An oklch grey', 'positioned dark panel']) assert.ok(said('C01', text), `C01 must name “${text}”`);
+  assert.ok(found.some((f) => f.rule === 'C01' && f.file.includes('focus') && f.message.includes('A vanishing label')), 'a label that vanishes in its focus state is C01');
+  assert.ok(said('A12', 'A faint ring'), 'a ring at 1.1:1 against the ground is A12');
+});
+test('audit', 'semantics, skip links, ids, touch targets and axe-core', async () => {
+  const dir = path.join(tmp, 'semantics');
+  const good = path.join(tmp, 'semantics-good');
+  fs.mkdirSync(dir);
+  fs.mkdirSync(good);
+  fs.writeFileSync(path.join(dir, 'index.html'), `<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"><title></title><style>
+body { margin: 0; font: 16px/1.5 sans-serif; } .dots button { width: 14px; height: 14px; padding: 0; margin: 0 2px; }</style></head><body>
+<header><nav><a href="/">Home</a> <a href="/work">Work</a></nav></header><main><h1 id="title">Semantics</h1><p id="title">A second element with the same id.</p>
+<div class="dots"><button aria-label="Slide 1"></button><button aria-label="Slide 2"></button></div><button></button></main></body></html>`);
+  fs.writeFileSync(path.join(good, 'index.html'), `<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tide tables — Saltmarsh Ferry</title>
+<meta name="description" content="Crossing times for the ferry, by tide."><meta property="og:title" content="Tide tables"><meta property="og:description" content="Crossing times, by tide.">
+<link rel="canonical" href="https://example.org/tides/"></head><body><a class="skip" href="#main">Skip to content</a><header><nav><a href="/">Home</a></nav></header>
+<main id="main"><h1>Tide tables</h1><p>Crossings follow the tide, so the times move every day.</p></main></body></html>`);
+  const report = async (target, argv = []) => JSON.parse((await run('scripts/audit.mjs', [target, '--json', '--no-write', ...argv])).stdout);
+  const ids = (r) => new Set(r.findings.map((f) => f.rule));
+  const bad = ids(await report(dir));
+  for (const id of ['S07', 'S08', 'S09', 'S10', 'A13', 'A15']) assert.ok(bad.has(id), `${id} must fire`);
+  const fine = ids(await report(good));
+  assert.deepEqual(['S07', 'S08', 'S09', 'S10', 'A13', 'A15'].filter((id) => fine.has(id)), [], 'a complete head and a skip link stay quiet');
+  const rendered = await report(dir, ['--render']);
+  assert.ok(rendered.findings.some((f) => f.rule === 'A14' && /Slide/.test(f.message)), 'two 14 px dots side by side are A14');
+  assert.match(rendered.axe ?? '', /^axe-core \d/, 'axe-core resolves from the plugin recipes');
+  assert.ok(rendered.findings.some((f) => f.rule === 'A16' && /button-name/.test(f.message) && f.severity === 'P1'), 'an unnamed button is a critical axe finding');
+});
 test('audit', 'rendered ground must match the DESIGN.md ground token', async () => {
   const dir = path.join(tmp, 'ground');
   fs.mkdirSync(dir);

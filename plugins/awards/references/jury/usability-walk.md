@@ -3,7 +3,7 @@
 Usability is the lowest of the four axes on nineteen of the twenty verified corpus entries (range 7.00–7.90; `[site:white-desert]` is the one exception) [verified, twenty Awwwards entries read 2026-09-18], which makes it the axis where new work can beat the reference set instead of copying it. This walk is a fixed sequence the jury runs against the captures, the DOM and, when a page is reachable, the live page. Each step ends with a pass / fail and a one-line note; the failing steps become fix items and cap the Usability score as noted.
 
 ## 1. Keyboard only (caps Usability at 6 if any item fails)
-- Tab from the top: a skip link appears first and lands on `<main>`.
+- Tab from the top: a skip link appears first and lands on `<main>` (A13); every focused control keeps a readable label and a ring at 3:1 (C01, A12 in the rendered audit).
 - Every interactive element is reachable in a sensible order; focus is visible in the world's own style, never `outline:none` without a replacement.
 - The fullscreen menu traps focus while open, closes on Escape, returns focus to the trigger, and the page behind it is `inert`.
 - Every pointer gesture has a key path: hold gates accept Enter or Space; drags and compare sliders accept arrow keys; horizontal rails scroll with arrows; hover previews appear on focus.
@@ -13,7 +13,7 @@ Usability is the lowest of the four axes on nineteen of the twenty verified corp
 ## 2. Coarse pointer (caps at 7)
 - Custom cursor and magnetic effects are off under `(hover: none), (pointer: coarse)`.
 - Nothing is hover-only: previews, badges, tooltips and reveals have a tap or focus path.
-- Touch targets are at least 44 × 44 px; the eccentric desktop nav (a rotated side index, a hidden rail) has a visible mobile equivalent.
+- Touch targets are at least 44 × 44 px (the audit's floor is 24 px, A14); the eccentric desktop nav (a rotated side index, a hidden rail) has a visible mobile equivalent.
 - Horizontal rails become native overflow scrolling; drag surfaces declare `touch-action` and do not swallow page scroll.
 
 ## 3. Reduced motion (caps at 6 if absent, 7 if crude)
