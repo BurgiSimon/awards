@@ -10,6 +10,8 @@ export function createCanvas2D(canvas) {
 
   return {
     kind: 'canvas2d',
+    visible: true,
+    active: () => true,
     resize(width, height, pos, sep, lineCount, maxPts) {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = Math.round(width * dpr);

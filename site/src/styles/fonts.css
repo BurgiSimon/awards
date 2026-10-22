@@ -13,6 +13,7 @@
   font-stretch: 75% 112.5%;
   font-display: swap;
 }
-/* Metric-matched fallbacks so the swap does not reflow the hero. */
-@font-face { font-family: "Archivo Fallback"; src: local("Arial"); size-adjust: 103%; ascent-override: 85%; descent-override: 20.4%; line-gap-override: 0%; font-display: swap; }
-@font-face { font-family: "Martian Mono Fallback"; src: local("Courier New"); size-adjust: 125%; ascent-override: 80%; descent-override: 16%; line-gap-override: 0%; font-display: swap; }
+/* Metric-matched fallbacks so the swap does not reflow the page; Liberation and Arimo/Cousine share Arial's and
+   Courier New's metrics, so the same overrides hold where those two are missing (most Linux desktops). */
+@font-face { font-family: "Archivo Fallback"; src: local("Arial"), local("Liberation Sans"), local("Arimo"); size-adjust: 103%; ascent-override: 85%; descent-override: 20.4%; line-gap-override: 0%; font-display: swap; }
+@font-face { font-family: "Martian Mono Fallback"; src: local("Courier New"), local("Liberation Mono"), local("Cousine"); size-adjust: 125%; ascent-override: 80%; descent-override: 16%; line-gap-override: 0%; font-display: swap; }

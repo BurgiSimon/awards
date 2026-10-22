@@ -1,7 +1,7 @@
 // Rasterise the section's real layout into the obstacle grid: text elements as their glyphs, boxes as rectangles.
 // `[data-obstacle]` marks glyph obstacles; `[data-obstacle="box"]` marks rectangles.
 // `[data-veil]` marks text the air passes behind: the smoke dims there so the words stay readable.
-import { blur } from './field.js';
+import { blur, chamfer } from './field.js';
 
 // CSS percentages the canvas font shorthand only accepts as keywords.
 const STRETCH = [[62.5, 'extra-condensed'], [75, 'condensed'], [87.5, 'semi-condensed'], [100, 'normal'], [112.5, 'semi-expanded'], [125, 'expanded'], [150, 'extra-expanded']];
@@ -51,8 +51,9 @@ function drawGlyphs(ctx, el, origin) {
   return true;
 }
 
-// Returns { mask, veil, w, h, cell } for createTunnel.
-export function rasterise(section, cell) {
+// Returns { mask, veil, w, h, cell } for createTunnel. `slot` (px): gaps narrower than this are closed, because the
+// air grid cannot resolve them; left open, the smoke would slip into passages where the air stands still and jitter.
+export function rasterise(section, cell, { slot = 0 } = {}) {
   const origin = section.getBoundingClientRect();
   const w = Math.max(8, Math.ceil(origin.width / cell));
   const h = Math.max(8, Math.ceil(origin.height / cell));
@@ -72,6 +73,32 @@ export function rasterise(section, cell) {
   const px = ctx.getImageData(0, 0, w, h).data;
   const mask = new Uint8Array(w * h);
   for (let i = 0; i < mask.length; i++) mask[i] = px[i * 4 + 3] > 110 ? 1 : 0;
+  // Air cannot reach a closed counter (the bowl of an a, the eye of an e): fill every pocket the open edges of the
+  // section cannot reach, so no smoke is born, pushed or trapped inside a letter.
+  const reached = new Uint8Array(w * h), stack = [];
+  const visit = (i) => { if (!mask[i] && !reached[i]) { reached[i] = 1; stack.push(i); } };
+  for (let x = 0; x < w; x++) { visit(x); visit((h - 1) * w + x); }
+  for (let y = 0; y < h; y++) { visit(y * w); visit(y * w + w - 1); }
+  while (stack.length) {
+    const i = stack.pop(), x = i % w;
+    if (x > 0) visit(i - 1);
+    if (x < w - 1) visit(i + 1);
+    if (i >= w) visit(i - w);
+    if (i < w * (h - 1)) visit(i + w);
+  }
+  for (let i = 0; i < mask.length; i++) if (!reached[i]) mask[i] = 1;
+  // Morphological closing (dilate, then erode, by half the slot): fills slots and notches the air cannot resolve,
+  // keeps every outer contour where it was.
+  const r = slot / 2 / cell;
+  if (r >= 1) {
+    const toBody = chamfer(mask, w, h);
+    const grown = new Uint8Array(w * h);
+    for (let i = 0; i < grown.length; i++) grown[i] = toBody[i] <= r ? 1 : 0;
+    const open = new Uint8Array(w * h);
+    for (let i = 0; i < open.length; i++) open[i] = 1 - grown[i];
+    const toAir = chamfer(open, w, h);
+    for (let i = 0; i < mask.length; i++) if (grown[i] && toAir[i] > r) mask[i] = 1;
+  }
   const veil = new Float32Array(w * h);
   const pad = 14;
   for (const el of document.querySelectorAll('[data-veil]')) {

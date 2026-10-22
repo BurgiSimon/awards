@@ -15,6 +15,7 @@ export async function detectQualityTier({ sampleMs = 600 } = {}) {
     const info = gl && gl.getExtension('WEBGL_debug_renderer_info');
     if (gl && info) renderer = String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL));
     else if (gl) renderer = String(gl.getParameter(gl.RENDERER));
+    gl?.getExtension('WEBGL_lose_context')?.loseContext(); // the probe's context goes now, not at GC: one live context per page
   } catch {}
 
   // Measure the frame time we actually get before committing heavy effects.
@@ -29,14 +30,15 @@ export async function detectQualityTier({ sampleMs = 600 } = {}) {
     requestAnimationFrame(tick);
   });
 
+  // The frame sample runs while the page boots, so it can lift a device but never condemn one on its own:
+  // a slow device is caught by what it actually renders (the flow's frame-time governor), not by load jank.
   let score = 0;
   score += memory >= 8 ? 2 : memory >= 4 ? 1 : 0;
   score += cores >= 8 ? 2 : cores >= 4 ? 1 : 0;
-  score += /swiftshader|llvmpipe|software/i.test(renderer) ? -3 : /mali-4|adreno 3|adreno 4|powervr/i.test(renderer) ? -1 : 1;
-  score += fps >= 55 ? 2 : fps >= 40 ? 1 : fps >= 25 ? 0 : -2;
-  score += webgl2 ? 0 : -1;
+  score += /swiftshader|llvmpipe|software/i.test(renderer) ? -2 : /mali-4|adreno 3|adreno 4|powervr/i.test(renderer) ? -1 : 1;
+  score += fps >= 55 ? 2 : fps >= 40 ? 1 : 0;
 
-  const tier = !webgl2 ? 'low' : score >= 5 ? 'high' : score >= 2 ? 'mid' : 'low';
+  const tier = !webgl2 ? 'low' : score >= 5 ? 'high' : score >= 1 ? 'mid' : 'low';
   const profile = {
     tier,
     dpr: tier === 'high' ? Math.min(dpr, 2) : tier === 'mid' ? Math.min(dpr, 1.5) : 1,

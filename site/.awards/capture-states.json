@@ -2,42 +2,112 @@
   {
     "name": "flow-probe",
     "actions": [
-      { "type": "move", "x": 980, "y": 180, "steps": 4 },
-      { "type": "move", "x": 1180, "y": 260, "steps": 24 },
-      { "type": "wait", "ms": 200 }
+      {
+        "type": "move",
+        "x": 980,
+        "y": 180,
+        "steps": 4
+      },
+      {
+        "type": "move",
+        "x": 1180,
+        "y": 260,
+        "steps": 24
+      },
+      {
+        "type": "wait",
+        "ms": 200
+      }
+    ]
+  },
+  {
+    "name": "flow-wake",
+    "actions": [
+      {
+        "type": "wheel",
+        "dy": 800
+      },
+      {
+        "type": "wait",
+        "ms": 900
+      },
+      {
+        "type": "wheel",
+        "dy": -800
+      },
+      {
+        "type": "wait",
+        "ms": 450
+      }
     ]
   },
   {
     "name": "flow-fast-scroll",
     "actions": [
-      { "type": "wheel", "dy": 700 },
-      { "type": "wait", "ms": 120 }
-    ]
-  },
-  {
-    "name": "airflow-off",
-    "actions": [
-      { "type": "waitFor", "selector": "[data-airflow]" },
-      { "type": "click", "selector": "[data-airflow]" },
-      { "type": "wait", "ms": 200 }
+      {
+        "type": "wheel",
+        "dy": 700
+      },
+      {
+        "type": "wait",
+        "ms": 120
+      }
     ]
   },
   {
     "name": "keyboard-first-tabs",
     "actions": [
-      { "type": "press", "key": "Tab" },
-      { "type": "press", "key": "Tab" },
-      { "type": "press", "key": "Tab" },
-      { "type": "wait", "ms": 200 }
+      {
+        "type": "press",
+        "key": "Tab"
+      },
+      {
+        "type": "press",
+        "key": "Tab"
+      },
+      {
+        "type": "press",
+        "key": "Tab"
+      },
+      {
+        "type": "wait",
+        "ms": 200
+      }
     ]
   },
   {
     "name": "install-copy",
     "actions": [
-      { "type": "focus", "selector": "#install .commands li:first-child .copy" },
-      { "type": "press", "key": "Enter" },
-      { "type": "wait", "ms": 300 }
+      {
+        "type": "focus",
+        "selector": "#install .commands li:first-child .copy"
+      },
+      {
+        "type": "press",
+        "key": "Enter"
+      },
+      {
+        "type": "wait",
+        "ms": 300
+      }
     ],
     "selector": "#install"
+  },
+  {
+    "name": "airflow-toggle",
+    "actions": [
+      {
+        "type": "waitFor",
+        "selector": "[data-airflow]"
+      },
+      {
+        "type": "click",
+        "selector": "[data-airflow]"
+      },
+      {
+        "type": "wait",
+        "ms": 600
+      }
+    ]
   }
 ]

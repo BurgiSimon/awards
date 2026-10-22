@@ -19,18 +19,20 @@ a:hover { text-decoration-color: var(--accent); }
 }
 .button::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: var(--accent);
-  transform: scaleX(0); transform-origin: left; transition: transform var(--dur-routine) var(--ease-out-expo);
+  transform: scaleX(0); transform-origin: left; transition: transform var(--dur-feedback) var(--ease-out-expo);
 }
 .button:hover::after, .button:focus-visible::after { transform: scaleX(1); }
 .button:active { transform: translateY(1px); }
 .text-link { font-weight: 600; text-decoration-thickness: 1px; }
 
-/* ---------- routes: native cross-document transitions, off under reduced motion ---------- */
+/* ---------- routes: native cross-document transitions, off under reduced motion ----------
+   The opt-in itself is inline in every head (partials/head.html), ahead of this file, so it is read before the
+   first navigation; here only the cross-fade's timing. */
 @media (prefers-reduced-motion: no-preference) {
-  @view-transition { navigation: auto; }
   ::view-transition-old(root), ::view-transition-new(root) { animation-duration: var(--dur-routine); animation-timing-function: var(--ease-theme); }
 }
-[data-split] .line { padding-bottom: 0.06em; }
+/* Room for ascenders and descenders inside each line's clip, given back by the margin: the mask grows, the layout does not. */
+[data-split] .line-mask { padding-block: 0.08em; margin-block: -0.08em; }
 
 /* ---------- header ---------- */
 .site-header {
@@ -72,6 +74,9 @@ a:hover { text-decoration-color: var(--accent); }
   font-family: var(--font-mono); font-size: var(--label); letter-spacing: .08em; text-transform: uppercase;
 }
 .airflow[aria-pressed="false"] { border-style: dashed; color: var(--muted); }
+/* Until the script knows whether the flow can move, the switch keeps its place unseen (and out of the tab order and
+   the accessibility tree), so its arrival never shifts the hero. */
+.airflow[hidden] { display: block; visibility: hidden; }
 
 /* ---------- chapter heads ---------- */
 .chapter-head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: calc(var(--unit) * 6); align-items: end; margin-bottom: calc(var(--unit) * 16); }
@@ -150,7 +155,7 @@ a:hover { text-decoration-color: var(--accent); }
 }
 .copy:hover { border-color: var(--ink); }
 .copy[data-state="copied"] { border-color: var(--accent); }
-.then { margin-top: calc(var(--unit) * 10); max-width: 60ch; background: var(--ground); }
+.then { margin-top: calc(var(--unit) * 10); max-width: 60ch; }
 
 /* ---------- footer ---------- */
 .site-footer { padding-block: calc(var(--unit) * 16) calc(var(--unit) * 10); border-top: 1px solid var(--ink); }
@@ -216,6 +221,19 @@ a:hover { text-decoration-color: var(--accent); }
 .lost-links a { display: inline-block; padding-block: 8px; }
 .lost-lines { width: min(600px, 100%); height: auto; margin-top: calc(var(--unit) * 16); fill: none; stroke: var(--ink); stroke-width: 1.25; }
 .lost-lines .sep { stroke: var(--accent); stroke-width: 2; }
+/* The 404's one moment: the streamlines draw in from the inlet and the third detaches last. Once, CSS only;
+   under reduced motion or with animations off the lines are simply there. */
+@media (prefers-reduced-motion: no-preference) {
+  .lost-lines path { stroke-dasharray: 1; animation: lines-detach var(--dur-hero) var(--ease-out-expo) both; }
+  .lost-lines path:nth-child(2) { animation-delay: 80ms; }
+  .lost-lines .sep { animation-delay: 240ms; animation-duration: calc(var(--dur-hero) * 1.25); }
+}
+@keyframes lines-detach { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+
+/* ---------- tablet: one plate per row, so each command keeps to one line ---------- */
+@media (max-width: 1023px) {
+  .clients { grid-template-columns: minmax(0, 1fr); gap: calc(var(--unit) * 6); }
+}
 
 /* ---------- phone ---------- */
 @media (max-width: 767px) {

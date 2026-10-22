@@ -4,7 +4,7 @@
 // Units: CSS px and seconds. Grid values sit at cell centres; `cell` px per cell.
 
 // Two-pass chamfer distance (cells) from every cell to the nearest cell where mask is set.
-function chamfer(mask, w, h) {
+export function chamfer(mask, w, h) {
   const d = new Float32Array(w * h);
   for (let i = 0; i < d.length; i++) d[i] = mask[i] ? 0 : 1e9;
   const E = Math.SQRT2;
@@ -136,7 +136,20 @@ function vcycle(levels, l) {
 // where text sits on the glass. The air runs on a grid `scale` times coarser; the smoke collides with the fine
 // mask, so it still hugs the real letterforms. gap: px between rake nozzles; spacing: px between smoke particles
 // at release; life: s a puff of smoke lasts.
-export function createTunnel({ mask: fineMask, veil: fineVeil, w: fw, h: fh, cell: fcell, scale = 1, width, height, gap = 9, spacing = 6, life = 12 }) {
+// upstream (px): an unseen run of open tunnel ahead of the section's left edge. A real tunnel keeps its smoke rake
+// well upstream of the model; fired at a body from point-blank range, the smoke meets the stagnation point at full
+// speed and the tiniest integration difference sends successive puffs round different sides.
+export function createTunnel({ mask: sectionMask, veil: sectionVeil, w: sw, h: fh, cell: fcell, scale = 1, width: sectionWidth, height, gap = 9, spacing = 6, life = 12, upstream = 0 }) {
+  // Embed the section in the longer tunnel. Everything below runs in tunnel coordinates; write() hands back
+  // section coordinates (x − lead), so the run-in is never drawn.
+  const padF = Math.ceil(upstream / (fcell * scale)) * scale, lead = padF * fcell;
+  const fw = sw + padF, width = sectionWidth + lead;
+  const fineMask = new Uint8Array(fw * fh), fineVeil = new Float32Array(fw * fh);
+  for (let y = 0; y < fh; y++) {
+    fineMask.set(sectionMask.subarray(y * sw, y * sw + sw), y * fw + padF);
+    fineVeil.set(sectionVeil.subarray(y * sw, y * sw + sw), y * fw + padF);
+  }
+  life *= width / sectionWidth;
   const cell = fcell * scale, w = Math.ceil(fw / scale), h = Math.ceil(fh / scale);
   // Coarse body: solid where at least half the fine cells are. Coarse veil: the mean.
   const mask = new Uint8Array(w * h), veil = new Float32Array(w * h);
@@ -154,6 +167,9 @@ export function createTunnel({ mask: fineMask, veil: fineVeil, w: fw, h: fh, cel
   // Unlike a collocated grid its projection is exact, so the field carries no grid-scale checkerboard.
   const n = w * h, W1 = w + 1, nu = W1 * h, nv = w * (h + 1);
   const u = new Float32Array(nu), v = new Float32Array(nv), u0 = new Float32Array(nu), v0 = new Float32Array(nv);
+  // The settled (potential) flow at the settle speed: the laminar state the straightener pulls the air back to.
+  const uBase = new Float32Array(nu), vBase = new Float32Array(nv);
+  let U0 = 1;
   const curl = new Float32Array(n);
   const solid = new Uint8Array(n); // 1 = the page's body, 2 = the pointer probe
   const p = new Float32Array(n), div = new Float32Array(n);
@@ -168,8 +184,14 @@ export function createTunnel({ mask: fineMask, veil: fineVeil, w: fw, h: fh, cel
     levels.push(level(L.w >> 1, L.h >> 1, L.hs * 2));
   }
   const P0 = levels[0];
-  // The smoke's collision field: inside a body, the distance (fine cells) to the nearest open air.
+  // The smoke's collision field: inside a body, the distance (fine cells) to the nearest open air; outside, the
+  // distance to the nearest body, whose gradient is the wall's outward normal.
   const inside = chamfer(fineMask.map((m) => 1 - m), fw, fh);
+  const outside = chamfer(fineMask, fw, fh);
+  // Within this many px of a surface the smoke's velocity loses its component into the body (a slip wall at the
+  // fine resolution): the coarse air puts the wall up to a cell away from the letterform, and smoke carried across
+  // the difference would be kicked back out particle by particle, sawing the line.
+  const band = fcell * scale * 1.5;
   const inv = 1 / cell, inv2 = 1 / (2 * cell);
 
   function bilerp(a, stride, mx, my, gx, gy) {
@@ -310,6 +332,16 @@ export function createTunnel({ mask: fineMask, veil: fineVeil, w: fw, h: fh, cel
     relax(v, v0, w, h + 1, k);
   }
 
+  // Flow straightener: a real tunnel lays its air flat with a honeycomb ahead of the test section. Here the air is
+  // relaxed toward the settled flow (scaled to the current inflow, which is linear for potential flow) at `calm`
+  // per second, so once the scrolling stops a wake washes out in seconds instead of growing into a slow eddy.
+  function straighten(calm, U, dt) {
+    if (calm <= 0) return;
+    const a = 1 - Math.exp(-calm * dt), sc = U / U0;
+    for (let i = 0; i < nu; i++) u[i] += (uBase[i] * sc - u[i]) * a;
+    for (let i = 0; i < nv; i++) v[i] += (vBase[i] * sc - v[i]) * a;
+  }
+
   // ---------- smoke ----------
   const lines = Math.max(4, Math.round(height / gap));
   const cap = Math.ceil((width * 2.4) / spacing) + 24;
@@ -347,6 +379,24 @@ export function createTunnel({ mask: fineMask, veil: fineVeil, w: fw, h: fh, cel
     Y[j] = Y[j] < 0.5 ? 0.5 : Y[j] > height - 0.5 ? height - 0.5 : Y[j];
   }
 
+  // Sample the air for the smoke, sliding along walls: writes svx, svy.
+  let svx = 0, svy = 0;
+  function smokeVel(x, y) {
+    svx = velU(u, x, y); svy = velV(v, x, y);
+    const gx = (x / fcell) | 0, gy = (y / fcell) | 0;
+    if (gx < 1 || gy < 1 || gx >= fw - 1 || gy >= fh - 1) return;
+    const i = gy * fw + gx, d = outside[i] * fcell;
+    if (d === 0 || d >= band) return;
+    let nx = outside[i + 1] - outside[i - 1], ny = outside[i + fw] - outside[i - fw];
+    const l = Math.sqrt(nx * nx + ny * ny);
+    if (!l) return;
+    nx /= l; ny /= l;
+    const vn = svx * nx + svy * ny;
+    if (vn >= 0) return;
+    const k = 1 - d / band; // all of the inward part at the surface, none at the edge of the band
+    svx -= vn * nx * k; svy -= vn * ny * k;
+  }
+
   // Smoke caught in dead air (separation bubbles, letter gaps) diffuses into haze instead of piling up as lines.
   const dwell = (vx, vy, U) => Math.max(0, 1 - Math.sqrt(vx * vx + vy * vy) / (0.3 * U));
 
@@ -362,10 +412,12 @@ export function createTunnel({ mask: fineMask, veil: fineVeil, w: fw, h: fh, cel
         if (X[j] > out) continue;
         for (let q = 0; q < sub; q++) {
           const x = X[j], y = Y[j];
-          const ax = velU(u, x, y), ay = velV(v, x, y);
+          smokeVel(x, y);
+          const ax = svx, ay = svy;
           const mx = x + ax * h1 * 0.5, my = y + ay * h1 * 0.5;
-          X[j] = x + velU(u, mx, my) * h1;
-          Y[j] = y + velV(v, mx, my) * h1;
+          smokeVel(mx, my);
+          X[j] = x + svx * h1;
+          Y[j] = y + svy * h1;
           W[j] += dwell(ax, ay, U) * h1;
           pushOut(j, probe);
         }
@@ -379,9 +431,14 @@ export function createTunnel({ mask: fineMask, veil: fineVeil, w: fw, h: fh, cel
       while (acc[l] >= spacing && count[l] < cap) {
         acc[l] -= spacing;
         const j = base + count[l]++;
-        // Released part-way through the step: carry it for the time it has already been flowing.
+        // Released part-way through the step: carry it for the time it has already been flowing, with the same
+        // midpoint rule as every other move. A first-order placement errs by a different amount for each release
+        // phase, and where the air turns hard near the inlet that error saws the line.
         const age = acc[l] / U, y0 = nozzle[l];
-        X[j] = velU(u, 0, y0) * age; Y[j] = y0 + velV(v, 0, y0) * age;
+        smokeVel(0, y0);
+        const mx = svx * age * 0.5, my = y0 + svy * age * 0.5;
+        smokeVel(mx, my);
+        X[j] = svx * age; Y[j] = y0 + svy * age;
         A[j] = age; D[j] = density(l, time - age); S[j] = 0; W[j] = 0;
       }
     }
@@ -424,6 +481,7 @@ export function createTunnel({ mask: fineMask, veil: fineVeil, w: fw, h: fh, cel
       walls(U, null);
       project(cycles);
       vorticity();
+      uBase.set(u); vBase.set(v); U0 = U;
     },
 
     // In steady flow a streakline is a streamline: trace each nozzle's smoke as if it had been flowing for `life`.
@@ -434,10 +492,12 @@ export function createTunnel({ mask: fineMask, veil: fineVeil, w: fw, h: fh, cel
         let x = 0, y = nozzle[l], age = 0, still = 0;
         while (age < life && x < out && pts.length / 4 < cap - 40) {
           pts.push(x, y, age, still);
-          const ax = velU(u, x, y), ay = velV(v, x, y);
+          smokeVel(x, y);
+          const ax = svx, ay = svy;
           still += dwell(ax, ay, U) * dt;
           const mx = x + ax * dt * 0.5, my = y + ay * dt * 0.5;
-          X[base] = x + velU(u, mx, my) * dt; Y[base] = y + velV(v, mx, my) * dt;
+          smokeVel(mx, my);
+          X[base] = x + svx * dt; Y[base] = y + svy * dt;
           pushOut(base, null);
           x = X[base]; y = Y[base]; age += dt;
         }
@@ -454,7 +514,8 @@ export function createTunnel({ mask: fineMask, veil: fineVeil, w: fw, h: fh, cel
 
     // One step of air and smoke. U: inflow px/s; eps: confinement 1/s; visc: 0..1; turb: 0..1 tint; probe or null.
     // The air steps at most 30 times a second (it changes slowly at this scale); the smoke moves every frame.
-    step(dt, { U, eps = 0, visc = 0, turb = 0, probe = null, cycles = 2 }) {
+    step(dt, { U, eps = 0, visc = 0, turb = 0, calm = 0, probe: sectionProbe = null, cycles = 2 }) {
+      const probe = sectionProbe && { ...sectionProbe, x: sectionProbe.x + lead };
       time += dt;
       airClock += dt;
       if (airClock >= 1 / 31) {
@@ -466,6 +527,8 @@ export function createTunnel({ mask: fineMask, veil: fineVeil, w: fw, h: fh, cel
         advect(da);
         walls(U, probe);
         viscous(visc);
+        straighten(calm, U, da);
+        walls(U, probe);
         project(cycles);
         vorticity();
       }
@@ -483,7 +546,7 @@ export function createTunnel({ mask: fineMask, veil: fineVeil, w: fw, h: fh, cel
           const j = base + k, o = j * 3;
           if (k >= c) {
             const last = base + Math.max(0, c - 1);
-            pos[o] = X[last]; pos[o + 1] = Y[last]; pos[o + 2] = 0; sep[j] = 0;
+            pos[o] = X[last] - lead; pos[o + 1] = Y[last]; pos[o + 2] = 0; sep[j] = 0;
             continue;
           }
           const x = X[j], y = Y[j];
@@ -495,10 +558,13 @@ export function createTunnel({ mask: fineMask, veil: fineVeil, w: fw, h: fh, cel
           const seg = (dp + dn) / ((dp ? 1 : 0) + (dn ? 1 : 0) || 1) || spacing;
           const stretch = torn ? 0 : Math.min(1, Math.max(0.12, (spacing * 1.2) / seg)) ** 0.75;
           const age = 1 - 0.6 * smooth(0, life, A[j]);
-          const inlet = smooth(0, 40, x);
+          const inlet = smooth(lead - 8, lead + 32, x); // soft where the section's left edge cuts the lines
           const behind = 1 - 0.82 * sample(veil, x, y);
           const haze = Math.exp(-W[j] / 0.9);
-          pos[o] = x; pos[o + 1] = y; pos[o + 2] = D[j] * stretch * age * inlet * behind * haze;
+          // Smoke grazing a surface (within a fine cell) thins: the wall's last pixel is where the two grids disagree.
+          const gx = Math.min(fw - 1, Math.max(0, (x / fcell) | 0)), gy = Math.min(fh - 1, Math.max(0, (y / fcell) | 0));
+          const graze = Math.min(1, outside[gy * fw + gx] / 1.5);
+          pos[o] = x - lead; pos[o + 1] = y; pos[o + 2] = D[j] * stretch * age * inlet * behind * haze * graze;
           sep[j] = S[j];
         }
       }

@@ -8,6 +8,7 @@
   <meta name="description" content="A Claude Code and Codex plugin that designs and builds a website from a written contract, then tests it: %%rules%% audit rules, headless captures and a fresh-context jury.">
   <meta property="og:title" content="awards — websites tested before anyone sees them">
   <meta property="og:description" content="Put the website in the wind tunnel before anyone sees it. A plugin for Claude Code and Codex.">
+  <link rel="canonical" href="./" vite-ignore>
   <link rel="stylesheet" href="./src/styles/site.css">
 </head>
 <body class="page-home">
@@ -116,14 +117,14 @@
       <div class="wrap">
         <h2 id="install-title" data-split data-obstacle>Two commands</h2>
         <div class="clients">
-          <div class="client" data-obstacle>
+          <div class="client" data-obstacle="box">
             <h3>Claude Code</h3>
             <ol class="commands" role="list">
               <li><code>/plugin marketplace add burgisimon/awards</code></li>
               <li><code>/plugin install awards@awards</code></li>
             </ol>
           </div>
-          <div class="client" data-obstacle>
+          <div class="client" data-obstacle="box">
             <h3>Codex</h3>
             <ol class="commands" role="list">
               <li><code>codex plugin marketplace add burgisimon/awards</code></li>

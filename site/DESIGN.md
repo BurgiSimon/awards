@@ -8,9 +8,9 @@ colors:
 typography:
   display:
     fontFamily: "Archivo, Archivo Fallback, Helvetica Neue, Arial, sans-serif"
-    fontSize: "clamp(3.5rem, 12vw, 13rem)"
+    fontSize: "13rem"
     fontWeight: 850
-    fontStretch: "125%"
+    fontVariation: "'wdth' 125"
     lineHeight: 0.86
     letterSpacing: "-0.03em"
   body:
@@ -18,7 +18,7 @@ typography:
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.55
-    letterSpacing: "normal"
+    letterSpacing: "0em"
   label:
     fontFamily: "Martian Mono, Martian Mono Fallback, ui-monospace, Menlo, monospace"
     fontSize: "0.6875rem"
@@ -26,10 +26,10 @@ typography:
     lineHeight: 1.3
     letterSpacing: "0.08em"
 rounded:
-  none: "0"
+  none: "0px"
 spacing:
   unit: "4px"
-  gutter: "clamp(20px, 4.1667vw, 120px)"
+  gutter: "72px"
 components:
   button-primary:
     backgroundColor: "{colors.ink}"
@@ -43,11 +43,13 @@ components:
     backgroundColor: "{colors.ground}"
     textColor: "{colors.ink}"
     rounded: "{rounded.none}"
+  focus-ring:
+    backgroundColor: "{colors.accent}"
 ---
 
 # awards — design system
 
-The frontmatter is the machine-readable layer; keep every value identical to `src/styles/tokens.css`.
+The frontmatter is the machine-readable layer; keep every value identical to `src/styles/tokens.css`. Fluid sizes are recorded there at the 1728 artboard (display 13rem, the `clamp()` ceiling, which 12 vw reaches at about 1728 px; the gutter 72 px, 4.1667 vw of 1728); the `clamp()` itself is in `## Typography` and `tokens.css`.
 
 ## Overview
 - **Creative north star:** the wind tunnel. The page is a test section; the flow is the measurement; labels are the rig's markings.
@@ -95,12 +97,13 @@ Radius 0 everywhere. Hairline rules (1 px `--line`); the accent appears as a 2�
 - **Link (secondary):** ink text, 1 px underline at 0.2em offset; hover: underline turns accent.
 - **Command:** mono line with a copy button; button states idle / copied (label changes to "Copied", announced via `aria-live`) / failed ("Select and copy").
 - **Readout strip:** mono labels + tabular values; live values update ≤ 10 Hz.
-- **Airflow switch:** a real `<button aria-pressed>` stating "Airflow on" / "Airflow off".
+- **Airflow switch:** a real `<button aria-pressed>` stating "Airflow on" / "Airflow off", mono label in a 1 px ink frame, dashed and muted when off. Under reduced motion it opens at "off" over the settled frame and pressing it is an opt-in to the live flow; it is hidden only where nothing can move (static tier, low tier, no WebGL, or a device the frame governor found too slow).
 
 ## Motion
 - Easing: `--ease-out-expo: cubic-bezier(.16,1,.3,1)` arrivals; `--ease-in-out-expo: cubic-bezier(.87,0,.13,1)` travel; `--ease-theme: cubic-bezier(.645,.045,.355,1)` repaints.
 - Durations: feedback 160 ms, routine 400 ms, hero 1400 ms (once per chapter); stagger 0.06–0.08.
-- Tiers: full (flow animates, masked line reveals); reduced (the flow draws one settled frame, reveals become 120 ms opacity); static (final frames, no transitions). Never a global animation kill.
+- Tiers: full (flow animates, masked line reveals); reduced (the flow draws one settled frame, reveals become 120 ms opacity, the Airflow switch offers the live flow); static (final frames, no transitions). Never a global animation kill.
+- Flow constants (the signature's own vocabulary): arrival 1.2 s on the expo-out curve; airspeed 150 px/s at rest, + 0.3 × scroll speed, ≤ 800 px/s; separation from 200 px/s of scroll, rising at k 10 and dying at k 0.8; the close blows 110 px/s and never separates.
 
 ## Browser surfaces
 `::selection` accent with ground text; `caret-color` accent; `scrollbar-color` ink on transparent, thin; `:focus-visible` 2 px accent, 4 px offset (3.58:1 on ground, 4.14:1 on ink); `color-scheme: light` with `dark` inside the readout; `<meta name="theme-color" content="#e8ebe9">`; favicon: three ink streamlines bending around an orange tick; OG image 1200×630 rendered from the hero frame (produced at ship).
