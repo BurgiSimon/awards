@@ -41,7 +41,8 @@ Why: the page map, the hero and the components are chosen from pattern files tha
 - `${CLAUDE_PLUGIN_ROOT}/references/patterns/responsive-strategy.md` and `${CLAUDE_PLUGIN_ROOT}/references/patterns/accessibility-and-reduced-motion.md` before the DOM plan.
 - `${CLAUDE_PLUGIN_ROOT}/references/craft-floor.md`, the Structure and accessibility and Layout and responsive sections, for the audit rule ids the skeleton is measured against.
 - `${CLAUDE_PLUGIN_ROOT}/recipes/_shared/base.css` as the base stylesheet the skeleton starts from, and the `index.html` of `${CLAUDE_PLUGIN_ROOT}/recipes/nav-overlay-fullscreen/`, `${CLAUDE_PLUGIN_ROOT}/recipes/marquee-raf-mask/`, `${CLAUDE_PLUGIN_ROOT}/recipes/sticky-stack-cards/` and `${CLAUDE_PLUGIN_ROOT}/recipes/hover-preview-list/` for their markup contracts; where a recipe folder does not exist yet, the catalogue entry is the contract.
-- `${CLAUDE_PLUGIN_ROOT}/assets/templates/404.html` as the starting point for the 404.
+- `${CLAUDE_PLUGIN_ROOT}/assets/templates/404.html` as the starting point for the 404, and `${CLAUDE_PLUGIN_ROOT}/references/patterns/inner-pages.md` for every route behind the home page (case study, detail, article, about, contact, index, not found): its job, its structure and how the world carries in.
+- `${CLAUDE_PLUGIN_ROOT}/references/patterns/i18n-and-commerce.md` when the brief has a second locale or a shop, and `${CLAUDE_PLUGIN_ROOT}/references/patterns/consent-and-banners.md` when the site sets non-essential cookies: the banner is placed in the page map, not left to a plugin.
 - When the project already has a stack, `${CLAUDE_PLUGIN_ROOT}/references/stacks/<stack>.md` for where routes and styles live.
 
 ## Arguments
@@ -61,7 +62,7 @@ List from `## Brief` and the project: headings and paragraphs that exist; number
 Why: `AWARDS.md ## Page map` is the one table every later skill reads: motion authors a moment per row, WebGL builds a scene per row that names one, ship checks every row rendered.
 
 - One row per chapter or route with the template's columns: `#`, `Chapter / route`, `Beat (entrance · hold · exit)`, `Layout`, `Components (recipe id: keep · change · pair)`, `Notes`. The beat column comes from STORY; the concept phase may have left the skeleton rows.
-- Layout in the world's words ("ruled columns of a call sheet", not "two-column"): no layout in two adjacent chapters; at least four distinct layouts on a page of six or more chapters; a split header (wordmark left, links right) only when the thesis needs one.
+- Layout in the world's words, then its family, axis and image band from `${CLAUDE_PLUGIN_ROOT}/references/patterns/layout-and-composition.md` (`site-office noticeboard (Index rows · left · Accent)`), chosen with its "Choosing a layout for a chapter" steps; spans, measure and the phone line go in Notes. Adjacent rows never share a family, no three rows running share an axis or a containment, at least four families on a page of six or more chapters; a split header (wordmark left, links right) only when the thesis needs one, and a giant wordmark close only when the name is the thesis.
 - Rule of three inside a hold: three support points at most.
 - Place the signature in exactly one chapter and the interruption in exactly one, after the first content beat; write which row carries each.
 - Pacing: alternate spectacle and rest; after a scrubbed scene a block that only reads; at most one hero-scale moment per chapter and never in two adjacent chapters; a dense chapter (a spec table, a triptych) is followed by a single line at display scale.

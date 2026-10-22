@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 // One corpus card against the template: the header rows the index is built from (class and industry from
 // scripts/data/corpus-vocab.json), the nine sections, the length cap, labelled hexes and quote length.
-// Clone-level cards (Confidence starts with "clone") need only the header. A hex on a Don't take line refuses
-// a value already labelled where the card records it, so it needs no second label.
+// Clone-level cards (Confidence starts with "clone") need only the header.
 // Usage: node scripts/check-card.mjs <card.md …> | --all [--dir <sites dir>] [--json]
 // Exit: 0 clean · 1 a card has errors · 2 usage.
 import path from 'node:path';
@@ -35,7 +34,7 @@ export function checkCard(card) {
   }
   if (card.lines.length >= 200) errors.push(`${card.lines.length} lines (keep under 200)`);
   card.lines.forEach((line, i) => {
-    if (/#[0-9a-fA-F]{3,8}\b/.test(line) && !LABEL.test(line) && !/^\| (Palette strategy|Type contract|Awards \/ score) \|/.test(line) && !/^```|^\s{2,}|^- \*\*Don't take/.test(line)) errors.push(`line ${i + 1}: a hex with no label on its line`);
+    if (/#[0-9a-fA-F]{3,8}\b/.test(line) && !LABEL.test(line) && !/^\| (Palette strategy|Type contract|Awards \/ score) \|/.test(line) && !/^```|^\s{2,}/.test(line)) errors.push(`line ${i + 1}: a hex with no label on its line`);
     for (const m of line.replace(/`[^`]*`/g, "").matchAll(/“([^”]*)”|"([^"]*)"/g)) {
       if ((m[1] ?? m[2]).trim().split(/\s+/).length > 25) errors.push(`line ${i + 1}: a quote over 25 words`);
     }

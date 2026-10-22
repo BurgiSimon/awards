@@ -36,13 +36,13 @@ Excluded by that instruction (lower impact, larger effort): F5 jury panel, F6 mo
 - [x] G2 quick start; G3 permissions; G4 Playwright advice; G5 stale docs; G6 listing fields; G7 CONTRIBUTING and templates; G8 CHANGELOG; G10 archive. Left to the maintainer (repository settings, not files): tags for 0.5.0 and 0.7.0, GitHub releases, stale branches, branch protection on main, the plugin-directory submission
 
 **Batch 3 — ceiling (generation side)**
-- [ ] A3 imagery strategy in WORLD + F3 asset sourcing and licence log
-- [ ] A5 house-style remnants; A6 mechanism, not look; A7 character-first fonts; A9 references slot
-- [ ] A8 positive craft checklist; A10 computed eyebrow counter; A11 negative exemplars
-- [ ] A2 layout and composition pattern file
-- [ ] A1 composition skeletons and fingerprints per card
-- [ ] D5 inner routes in research; D6 floema-jewelry citations; D7 stack notes (Rive, WebGPU/TSL, host platforms); D9 missing pattern topics
-- [ ] D4 gap-driven waves; D10 model-free pre-pass; D11 index, card and health scripts; D14 generated catalogue table; D15 tag vocabulary
+- [x] A3 imagery strategy in WORLD + F3 asset sourcing and licence log
+- [x] A5 house-style remnants; A6 mechanism, not look; A7 character-first fonts; A9 references slot
+- [x] A8 positive craft checklist; A10 computed eyebrow counter; A11 negative exemplars
+- [x] A2 layout and composition pattern file
+- [x] A1 composition skeletons and fingerprints per card
+- [x] D5 inner routes in research; D6 floema-jewelry citations; D7 stack notes (Rive, WebGPU/TSL, host platforms); D9 missing pattern topics
+- [x] D4 gap-driven waves; D10 model-free pre-pass; D11 index, card and health scripts; D14 generated catalogue table; D15 tag vocabulary
 
 **Batch 4 — recipes**
 - [ ] R1 view-transitions-mpa; R2 css-scroll-driven-timeline; R3 flip-layout-state; R4 case-study-route-kit

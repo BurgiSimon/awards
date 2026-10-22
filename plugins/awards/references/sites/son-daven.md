@@ -68,7 +68,7 @@ Webflow shell, all site logic in one Slater-hosted ESM module (78.8 KB minified)
 
 ## 8. Take / Don't take
 - **Take:** the chapter-rhythm long-form with rests between spectacles `[pattern:narrative-structures#chaptered-journey]`; a two-token palette inverted by a theme class swapped on scroll `[recipe:theme-swap-tokens]`; the artboard-locked type scale (`calc(<px>rem / ratio)`, one ratio per breakpoint) `[pattern:typography]`; a named ease set registered once, with three duration tokens; a velocity-scaled marquee that pauses off-screen `[recipe:marquee-raf-mask]`; the sessionStorage two-path preloader `[recipe:preloader-counter-hold]`; keeping real buttons behind an expressive drag control; the two-register copy system `[pattern:copy-and-content#two-registers]`; progress-as-content; interactive location cards over a map; the local-foundry rule.
-- **Don't take:** #A89474/#2C2824, KTF Metro, the dither shader's exact parameters, the Hutsul framing, the sheep, the seasonal renders, the chapter order as a template, and the pointer-only season handle.
+- **Don't take:** #A89474/#2C2824 [verified, as recorded under Palette], KTF Metro, the dither shader's exact parameters, the Hutsul framing, the sheep, the seasonal renders, the chapter order as a template, and the pointer-only season handle.
 
 ## 9. Confidence and sources
 Awards high (entry read verbatim; the earlier SOTM and Developer-Award claims are withdrawn) · credits high for names, medium for roles · concept high · visual high · components high · motion high (parameters read from source) · stack high · a11y medium-high (source and captures, no live keyboard walk) · perf low (no field data).

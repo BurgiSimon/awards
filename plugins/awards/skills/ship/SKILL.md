@@ -108,7 +108,7 @@ An invalid capture is a bug to fix now, followed by a recapture; the report neve
 
 ## 4. Performance budgets
 
-Why: a 100 % canvas Site of the Day shipped its whole 3D app at under half a megabyte gzipped `[site:igloo]`, and the developer jury docks every heavy asset it can see in the network panel. Budgets are measured from the build output, gzipped, never from source sizes; the full table with its sources is in `${CLAUDE_PLUGIN_ROOT}/references/patterns/asset-pipeline.md#budgets`, to read when a number is disputed.
+Why: a 100 % canvas Site of the Day shipped its whole 3D app at under half a megabyte gzipped `[site:igloo]`, and the developer jury docks every heavy asset it can see in the network panel. INP and CLS, the two field metrics the motion layer decides, have their causes and fixes in `${CLAUDE_PLUGIN_ROOT}/references/patterns/performance-cwv.md`. Budgets are measured from the build output, gzipped, never from source sizes; the full table with its sources is in `${CLAUDE_PLUGIN_ROOT}/references/patterns/asset-pipeline.md#budgets`, to read when a number is disputed.
 
 | Check | Budget | How to measure or fix |
 |---|---|---|
@@ -155,7 +155,7 @@ Why: usability is the lowest axis on 27 of the 31 corpus entries awarded since 2
 
 ## 6. Meta and chrome
 
-Why: the tab, the link preview and the error page are the first and last things a juror sees, and they are the cheapest places to look unfinished. Every value below comes from the tokens and the type contract, so the chrome belongs to the world.
+Why: the tab, the link preview and the error page are the first and last things a juror sees, and they are the cheapest places to look unfinished. The head per route, structured data, robots, the outline and the text behind a canvas are in `${CLAUDE_PLUGIN_ROOT}/references/patterns/seo-and-semantics.md`; a consent banner's placement, keyboard path and cost in `${CLAUDE_PLUGIN_ROOT}/references/patterns/consent-and-banners.md`. Every value below comes from the tokens and the type contract, so the chrome belongs to the world.
 
 | Item | Ships when |
 |---|---|
