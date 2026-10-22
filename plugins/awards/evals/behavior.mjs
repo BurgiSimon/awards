@@ -134,6 +134,38 @@ test('audit', 'BEM eyebrows, micro-meta and a bounded Exceptions section', async
   assert.deepEqual(where(found, 'X07'), [], 'X07 is excepted');
   assert.equal(where(found, 'L05').length, 2, 'a rule id after the Exceptions section is not an exception');
 });
+test('audit', 'the edit hook answers project questions from the whole project, finds nested builds and stays fast', async () => {
+  const dir = path.join(tmp, 'hooked');
+  fs.mkdirSync(path.join(dir, 'src'), { recursive: true });
+  fs.writeFileSync(path.join(dir, 'AWARDS.md'), '# Awards\n');
+  fs.writeFileSync(path.join(dir, 'src', 'main.js'), "gsap.to('.hero', { opacity: 1 });\nel.addEventListener('pointerdown', grab);\n");
+  fs.writeFileSync(path.join(dir, 'src', 'button.css'), '.btn:focus { outline: none; }\n');
+  fs.writeFileSync(path.join(dir, 'index.html'), '<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width"></head><body><main><button class="btn">Open</button></main></body></html>');
+  const hook = async (file, env) => {
+    const out = (await run('scripts/audit.mjs', ['--quick', '--changed-file', path.join(dir, file)], env)).stdout.trim();
+    return out ? JSON.parse(out).hookSpecificOutput.additionalContext : '';
+  };
+  const says = (text, id) => text.includes(`- ${id} `);
+  assert.ok(says(await hook('src/main.js'), 'M01') && says(await hook('src/main.js'), 'A11'), 'control: nothing handles reduced motion or keys yet');
+  assert.ok(says(await hook('src/button.css'), 'A07'), 'control: no focus-visible style yet');
+  // The answers live in other modules, as they do in the scaffold.
+  fs.writeFileSync(path.join(dir, 'src', 'base.css'), 'a:focus-visible, button:focus-visible { outline: 2px solid currentColor; }\n');
+  fs.writeFileSync(path.join(dir, 'src', 'reduced-motion.js'), "export const reduced = matchMedia('(prefers-reduced-motion: reduce)');\n");
+  fs.writeFileSync(path.join(dir, 'src', 'keys.js'), "addEventListener('keydown', (e) => e.key);\n");
+  for (const file of ['src/main.js', 'src/button.css', 'index.html']) {
+    const said = await hook(file);
+    for (const id of ['M01', 'A06', 'A07', 'A11']) assert.ok(!says(said, id), `${file}: ${id} is handled elsewhere in the project`);
+  }
+  // A build in a subfolder of the open project is still audited.
+  fs.writeFileSync(path.join(dir, 'src', 'tight.css'), '.title { letter-spacing: -0.08em; }\n');
+  assert.ok(says(await hook('src/tight.css', { CLAUDE_PROJECT_DIR: tmp }), 'T04'), 'AWARDS.md below CLAUDE_PROJECT_DIR is found');
+  // Line numbers are indexed, not rescanned: a 1.2 MB stylesheet took over a minute before.
+  fs.writeFileSync(path.join(dir, 'src', 'big.css'), Array.from({ length: 20000 }, (_, i) => `.b${i} {\n  letter-spacing: -0.08em;\n}\n`).join(''));
+  const started = Date.now();
+  const big = await hook('src/big.css');
+  assert.ok(Date.now() - started < 4000, `the hook must stay inside its 5 s budget (${Date.now() - started} ms)`);
+  assert.match(big, /T04 \(P2\)[^\n]*\[line 2\]/, 'line numbers stay exact');
+});
 test('audit', 'rendered checks see stuck content, long lines, edges, flat hierarchy and nested cards', async () => {
   const dir = path.join(tmp, 'rendered');
   fs.mkdirSync(dir);
