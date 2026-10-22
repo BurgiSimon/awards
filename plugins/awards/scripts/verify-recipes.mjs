@@ -57,7 +57,16 @@ if (!found) {
   process.exit(3);
 }
 const server = await serveDirectory(path.join(recipesDir, 'dist'));
-const browser = await launchChromium(found.module);
+const browser = await launchChromium(found.module).catch(async (e) => {
+  console.error(`browser launch failed: ${String(e.message ?? e).split('\n')[0]}`);
+  await server.close();
+  process.exit(3);
+});
+// A probe that never answers (a page stuck in a loop) fails its state instead of hanging the whole run.
+const within = (promise, ms, what) => {
+  let timer;
+  return Promise.race([promise, new Promise((_, no) => { timer = setTimeout(() => no(new Error(`${what} gave no answer in ${ms / 1000} s`)), ms); })]).finally(() => clearTimeout(timer));
+};
 const chromium = browser.version();
 fs.mkdirSync(outDir, { recursive: true });
 const report = { at: now(), chromium, recipes: {} };
@@ -100,16 +109,20 @@ for (const id of ids) {
       if (st.hover) await page.hover(st.hover).catch((e) => errors.push(`hover failed: ${e.message}`));
       if (st.hover) await page.waitForTimeout(400);
       const state = await page.evaluate(() => { try { return window.__awards?.state?.() ?? null; } catch (e) { return { error: String(e) }; } });
-      const probe = verify.probe ? await page.evaluate(verify.probe).catch((e) => ({ probeError: String(e) })) : null;
+      const probe = verify.probe ? await within(page.evaluate(verify.probe), 30000, 'probe').catch((e) => ({ probeError: String(e) })) : null;
       // Optional Node-side look at the same page (accessibility tree, ARIA snapshot, CDP), after the in-page probe.
-      const inspect = verify.inspect ? await verify.inspect(page, st).catch((e) => ({ inspectError: String(e) })) : null;
+      const inspect = verify.inspect ? await within(verify.inspect(page, st), 30000, 'inspect').catch((e) => ({ inspectError: String(e) })) : null;
+      // A probe or inspect that threw fails the state outright, whatever the recipe's assert checks.
+      if (probe?.probeError) errors.push(`probe failed: ${probe.probeError}`);
+      if (inspect?.inspectError) errors.push(`inspect failed: ${inspect.inspectError}`);
       const shot = path.join(rdir, `${st.name}.png`);
       await page.screenshot({ path: shot });
       results[st.name] = { state, probe, inspect, errors, screenshot: shot, hook: !!(await page.evaluate(() => !!window.__awards)) };
     } catch (e) {
       results[st.name] = { state: null, probe: null, inspect: null, errors: [...errors, `state failed: ${e.message}`], screenshot: null, hook: false };
     } finally {
-      await context.close();
+      // A crashed page can make close() throw; that must fail this state, not abort the remaining recipes.
+      await context.close().catch((e) => results[st.name]?.errors.push(`context close failed: ${e.message}`));
     }
   }
   const checks = [];

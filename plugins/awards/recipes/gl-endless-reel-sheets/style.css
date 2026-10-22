@@ -7,6 +7,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .topbar { display: flex; justify-content: space-between; gap: calc(var(--unit) * 4); padding-block: calc(var(--unit) * 5); position: relative; z-index: 3; }
 .topbar > * { margin: 0; }
 .topbar a { white-space: nowrap; }
+/* A fixed slot for the readout, so 'dom' becoming 'webgl · high' after load moves nothing beside it. */
+[data-gl-readout] { display: inline-block; min-width: 18ch; }
 .reel__intro { padding-block: calc(var(--unit) * 16) calc(var(--unit) * 8); }
 .reel__title { font-family: var(--font-display); font-size: clamp(2.5rem, 7vw, 7rem); font-weight: 500; line-height: .95; letter-spacing: -.03em; margin: 0 0 calc(var(--unit) * 6); max-width: 14ch; }
 .lede { max-width: 56ch; margin: 0; }
