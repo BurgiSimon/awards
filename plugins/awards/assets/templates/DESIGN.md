@@ -8,33 +8,33 @@ colors:
 typography:
   display:
     fontFamily: "<Display face>, <fallback>"
-    fontSize: "<derive: clamp(floor, px / artboard × 100 vw, ceiling) from the composition>"
+    fontSize: "<derive: the size at the artboard width, in px or rem; the clamp() lives in tokens.css and ## Typography>"
     fontWeight: 500
     lineHeight: 0.9
     letterSpacing: "-0.03em"
   h2:
     fontFamily: "<Display face>, <fallback>"
-    fontSize: "<derive: clamp() step between display and body>"
+    fontSize: "<derive: the artboard size of the step between display and body, px or rem>"
   h3:
     fontFamily: "<Display or body face>, <fallback>"
-    fontSize: "<derive: clamp() step between h2 and body>"
+    fontSize: "<derive: the artboard size of the step between h2 and body, px or rem>"
   body:
     fontFamily: "<Body face>, <fallback>"
     fontSize: "<derive: reading size, usually 1rem–1.125rem>"
     fontWeight: 400
     lineHeight: 1.5
-    letterSpacing: "normal"
+    letterSpacing: "0em"
   label:
     fontFamily: "<Body face>, <fallback>"
     fontSize: "<derive: at least 11px>"
     fontWeight: 500
     lineHeight: 1.2
-    letterSpacing: "<derive: 0 unless WORLD sets labels as tracked caps>"
+    letterSpacing: "<derive: 0em unless WORLD sets labels as tracked caps>"
 rounded:
-  none: "0"
+  none: "0px"
 spacing:
   unit: "4px"
-  gutter: "<derive: clamp(phone px, vw, desktop px) from the grid>"
+  gutter: "<derive: the gutter at the artboard width, in px; the clamp() lives in tokens.css>"
 components:
   button-primary:
     backgroundColor: "{colors.ink}"
@@ -48,7 +48,7 @@ components:
 
 # <Project> — design system
 
-The frontmatter is the machine-readable layer (DESIGN.md spec: tokens are normative, prose explains how to apply them). Keep every value identical to `src/styles/tokens.css`.
+The frontmatter is the machine-readable layer (DESIGN.md spec: tokens are normative, prose explains how to apply them). Keep every value identical to `src/styles/tokens.css`. Frontmatter dimensions are a number and a unit (`px`, `rem`, `em`), never `clamp()`, `normal` or a bare `0`: a fluid size is recorded at the artboard width here, and its `clamp()` is written in `## Typography` and `tokens.css`. Axes such as width go in `fontVariation` (`"'wdth' 125"`).
 
 ## Overview
 - **Creative north star:** one named metaphor for the whole world.
