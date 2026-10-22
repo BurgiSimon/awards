@@ -36,5 +36,5 @@ the card should not be read as though it had been.
 
 
 Clone-level throughout. No live render, no award entry read, no capture set. Split out of
-`floema.md` on 2026-09-18 during the 0.2 corpus verification; see
-`docs/handoff/verification-log.md`.
+`floema.md` on 2026-09-18 during the 0.2 corpus verification; see the repository's
+[verification log](https://github.com/burgisimon/awards/blob/main/docs/handoff/verification-log.md).

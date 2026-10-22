@@ -42,6 +42,36 @@ Decisions taken during the build, with the reason, so a future session does not 
 | Codex hooks | `.codex-plugin/plugin.json` declares `"hooks": {}`; Codex loads no hook and runs the audit explicitly | Supporting the hooks in Codex (it discovers `hooks/hooks.json` by default and runs it once trusted, but plugins with lifecycle hooks are not eligible for its public directory); `"hooks": []`, which Codex 0.163 reads as unset and so still loads all three |
 | Compaction | A `SessionStart` hook on `compact` re-attaches a state card from `AWARDS.md` while a Status line is open; it names the next phase and tells a session doing other work to ignore it | Relying on re-attached skills (each keeps 5,000 tokens inside a 25,000-token budget filled from the most recent, so craft drops first); firing on every session start (that would be the AWARDS.md-presence trigger declined for the route hint) |
 
+## Taken in the evidence batch (2026-10-22, from the maintainer's "everything except the large, lower-impact items")
+
+| Decision | Choice | Alternatives declined |
+|---|---|---|
+| Visual diff between rounds | `capture.mjs --baseline` decodes both PNGs in the capture browser's own canvas and counts pixels whose summed channel difference exceeds 48, with a red-over-faded map | pixelmatch 8 (a second runtime dependency every user project would have to resolve beside Playwright, for a comparison of frames the same browser drew) |
+| Layout shift rule P08 | Measured during load only, before the scroll sweep, P2 above 0.1 and P1 above 0.25 | Over load and the sweep: the sweep jumps between positions, and a pinned element handing off between fixed and in-flow at a jump read as a 0.8 shift no reader sees (docked-media-grow) |
+| Rendered viewports | Desktop 1440, tablet 834 × 1194 and phone 390, with touch emulation on tablet and phone; widths judged against the layout viewport (`clientWidth`) | `innerWidth`: under phone emulation a page that overflows widens it to its own width, which hid a 1170 px figure on a 390 px phone from L02 (gl-depth-map-parallax) |
+| A failed rendered step | An `ERR` finding at P1 naming the step; after a hang the viewport is abandoned; a failed browser launch exits 3 | Swallowing the error (the run read clean); failing the whole audit (the static findings are still true) |
+| Bundler projects under `--render` | Render `dist/`, `build/`, `out/` or `.output/public` when one has an `index.html`; warn when it is older than `src/` or missing | Always rendering the source (bare imports fail, every rendered rule reads a broken page); building inside the audit (it would change the project and take minutes) |
+| Node floor | 22 LTS or 24 LTS in the docs and the doctor; 20.19+ warns, since it still runs the scripts and Vite; per package, the installed `engines.node` decides | Failing Node 20 outright (the plugin's own scripts still work on it); a hand-kept per-framework table in the doctor (the installed packages already say it) |
+| Calibration figures | Recomputed from the site cards by `scripts/calibration.mjs --since 2021` and quoted with that citation; outside-corpus counterexamples (Cartier, Accessibility 8.00) named where a corpus maximum is quoted | Hand-counted figures over a fixed twenty entries (they went stale as the corpus grew to 32 scored cards) |
+| Coexistence with gsap-skills | Two `coexist` cases list `../_vendor/gsap-skills` in `plugins:`; `evals/_vendor-fetch.sh` clones a pinned commit; `_vendor/` is gitignored | Vendoring GreenSock's plugin into this repository (a third-party copy to keep current, shipped inside the plugin); installing it into the eval workspace (the sandbox loads no `.claude/` from the workspace) |
+| Contract tier | `contract-southbound` and `concept-deal-distinct`, a few dollars a run, for corpus, template, concept and system changes | Running the full build case for every creative change (about $32 and 30 minutes each) |
+
+## Taken in the platform batch (2026-10-22)
+
+| Decision | Choice | Alternatives declined |
+|---|---|---|
+| Live state in skills (`!command`) | Not used | Injecting the state card into craft, jury and ship: a failed or unapproved injected command aborts the whole skill, and in an eval run or a restrictive permission setup craft would never load; craft already reads `AWARDS.md` first and the compaction card covers the gap |
+| Hook refinements | A `SubagentStop` check sends a jury reply without its `disposition:` line back once | A background `--render` audit with `asyncRewake` after edits (a browser and about 45 s per batch, on every batch); exec-form `args` (a CLI that ignores `args` would run bare `node` on every edit) |
+| Per-skill effort | `effort: high` on concept only | Lowering effort for stack or ship: the override's lifetime is not documented, and inside one long craft turn a low setting could carry into motion and WebGL |
+| userConfig | `hooks_enabled` (hooks on or off, like `AWARDS_HOOK=0`) and `default_stack` | A `hooks` key (the validator reads it as a misplaced hook block); an award-program option before the presets exist |
+| Jury agent | Write for the report, `scripts/awards-log.mjs` for log and Status lines, Bash pre-approved only for the plugin's scripts, `mkdir -p .awards*` and `date`, 45 turns, `omitClaudeMd: true` | Bare Bash pre-approved while the juror captures third-party sites; heredocs into `AWARDS.md` |
+| Recipe stamping | `verify-recipes.mjs --stamp`, a release step | Rewriting 76 tracked `recipe.json` files on every local pass |
+| Lockfiles | `package-lock.json` only; `bun.lock` removed | Keeping two lockfiles in step by hand |
+| Owner policy | `scripts/policy.mjs` before any research capture or download: robots.txt for the generic and AI-crawler groups, robots meta and `X-Robots-Tag` `noai`; refused means skipped | A prose rule with no check (the decision above it was never enforced) |
+| Exceptions | `RULE@path-or-viewport` scopes an exception; `audit-ignore-next-line` scopes an inline one; comments in `## Exceptions` are ignored | Bare ids only (one C01 exception hid every contrast failure) |
+| Capture concurrency | `capture.mjs --lock <path>`, a directory lock that works on every platform | `flock` (absent on macOS and Windows) |
+| Handoff archive | The 0.1.0 and 0.2.0 plans and the 2026-09-22 comparison moved to `docs/handoff/archive/` | Archiving `corpus-ledger.md` (the expand-corpus skill appends to it) or the 2026-10-06 analysis (open items still cite it) |
+
 ## Architectural
 
 - **Corpus at the plugin root**, addressed as `${CLAUDE_PLUGIN_ROOT}/references/…`, `…/recipes/…`, `…/scripts/…`; skill folders hold no private copies. Copying a single skill folder elsewhere is unsupported.

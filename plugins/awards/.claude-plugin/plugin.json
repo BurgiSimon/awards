@@ -9,6 +9,9 @@
   },
   "homepage": "https://github.com/burgisimon/awards",
   "repository": "https://github.com/burgisimon/awards",
+  "documentationUrl": "https://github.com/burgisimon/awards#readme",
+  "supportUrl": "https://github.com/burgisimon/awards/issues",
+  "icon": "./.claude-plugin/icon.png",
   "license": "MIT",
   "keywords": [
     "design",
@@ -21,5 +24,28 @@
     "webgl",
     "motion",
     "skills"
-  ]
+  ],
+  "userConfig": {
+    "hooks_enabled": {
+      "type": "boolean",
+      "title": "Awards hooks",
+      "description": "Run the edit audit, the route hint, the compaction state card and the jury reply check. Off works like AWARDS_HOOK=0.",
+      "required": false,
+      "default": true
+    },
+    "default_stack": {
+      "type": "string",
+      "title": "Default stack",
+      "description": "The stack a new build starts from when its brief names none.",
+      "required": false,
+      "options": [
+        "vite",
+        "next",
+        "nuxt",
+        "astro",
+        "sveltekit"
+      ],
+      "default": "vite"
+    }
+  }
 }

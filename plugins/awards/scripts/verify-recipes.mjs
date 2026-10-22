@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // Build the recipes (Vite MPA), serve dist/, drive every recipe through its declared states in headless Chromium
-// (WebGL via SwiftShader), run the recipe's probe/assert, capture screenshots, write a report and stamp recipe.json.
-// Usage: node verify-recipes.mjs [--only id,id] [--out <dir>] [--no-build] [--json]
+// (WebGL via SwiftShader), run the recipe's probe/assert, capture screenshots and write a report; --stamp also
+// records the pass in each recipe.json (a release step: it rewrites tracked files).
+// Usage: node verify-recipes.mjs [--only id,id] [--out <dir>] [--no-build] [--json] [--stamp]
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -13,7 +14,7 @@ import { runActions } from './lib/actions.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const recipesDir = path.resolve(here, '../recipes');
-const args = parseArgs(process.argv.slice(2), { build: 'boolean', json: 'boolean' });
+const args = parseArgs(process.argv.slice(2), { build: 'boolean', json: 'boolean', stamp: 'boolean' });
 const only = args.only ? new Set(String(args.only).split(',').map((s) => s.trim())) : null;
 const outDir = path.resolve(args.out ?? path.join(recipesDir, '_verify'));
 const VIEWPORTS = { desktop: { width: 1440, height: 900 }, mobile: { width: 390, height: 844 } };
@@ -38,13 +39,15 @@ if (!ids.length) {
   fs.writeFileSync(path.join(recipesDir, 'index.html'), html);
 }
 
+// Windows runs npm and npx through .cmd shims, which Node (since 20.12.2) only spawns through a shell.
+const win = process.platform === 'win32';
 if (args.build !== false) {
   if (!fs.existsSync(path.join(recipesDir, 'node_modules'))) {
     console.log('installing recipe dependencies…');
-    const i = spawnSync('npm', ['install', '--no-audit', '--no-fund'], { cwd: recipesDir, stdio: 'inherit' });
+    const i = spawnSync(win ? 'npm.cmd' : 'npm', ['install', '--no-audit', '--no-fund'], { cwd: recipesDir, stdio: 'inherit', shell: win });
     if (i.status !== 0) process.exit(1);
   }
-  const b = spawnSync('npx', ['vite', 'build'], { cwd: recipesDir, stdio: 'pipe', encoding: 'utf8' });
+  const b = spawnSync(win ? 'npx.cmd' : 'npx', ['vite', 'build'], { cwd: recipesDir, stdio: 'pipe', encoding: 'utf8', shell: win });
   if (b.status !== 0) {
     console.error(b.stdout, b.stderr);
     process.exit(1);
@@ -57,7 +60,16 @@ if (!found) {
   process.exit(3);
 }
 const server = await serveDirectory(path.join(recipesDir, 'dist'));
-const browser = await launchChromium(found.module);
+const browser = await launchChromium(found.module).catch(async (e) => {
+  console.error(`browser launch failed: ${String(e.message ?? e).split('\n')[0]}`);
+  await server.close();
+  process.exit(3);
+});
+// A probe that never answers (a page stuck in a loop) fails its state instead of hanging the whole run.
+const within = (promise, ms, what) => {
+  let timer;
+  return Promise.race([promise, new Promise((_, no) => { timer = setTimeout(() => no(new Error(`${what} gave no answer in ${ms / 1000} s`)), ms); })]).finally(() => clearTimeout(timer));
+};
 const chromium = browser.version();
 fs.mkdirSync(outDir, { recursive: true });
 const report = { at: now(), chromium, recipes: {} };
@@ -100,16 +112,20 @@ for (const id of ids) {
       if (st.hover) await page.hover(st.hover).catch((e) => errors.push(`hover failed: ${e.message}`));
       if (st.hover) await page.waitForTimeout(400);
       const state = await page.evaluate(() => { try { return window.__awards?.state?.() ?? null; } catch (e) { return { error: String(e) }; } });
-      const probe = verify.probe ? await page.evaluate(verify.probe).catch((e) => ({ probeError: String(e) })) : null;
+      const probe = verify.probe ? await within(page.evaluate(verify.probe), 30000, 'probe').catch((e) => ({ probeError: String(e) })) : null;
       // Optional Node-side look at the same page (accessibility tree, ARIA snapshot, CDP), after the in-page probe.
-      const inspect = verify.inspect ? await verify.inspect(page, st).catch((e) => ({ inspectError: String(e) })) : null;
+      const inspect = verify.inspect ? await within(verify.inspect(page, st), 30000, 'inspect').catch((e) => ({ inspectError: String(e) })) : null;
+      // A probe or inspect that threw fails the state outright, whatever the recipe's assert checks.
+      if (probe?.probeError) errors.push(`probe failed: ${probe.probeError}`);
+      if (inspect?.inspectError) errors.push(`inspect failed: ${inspect.inspectError}`);
       const shot = path.join(rdir, `${st.name}.png`);
       await page.screenshot({ path: shot });
       results[st.name] = { state, probe, inspect, errors, screenshot: shot, hook: !!(await page.evaluate(() => !!window.__awards)) };
     } catch (e) {
       results[st.name] = { state: null, probe: null, inspect: null, errors: [...errors, `state failed: ${e.message}`], screenshot: null, hook: false };
     } finally {
-      await context.close();
+      // A crashed page can make close() throw; that must fail this state, not abort the remaining recipes.
+      await context.close().catch((e) => results[st.name]?.errors.push(`context close failed: ${e.message}`));
     }
   }
   const checks = [];
@@ -128,7 +144,8 @@ for (const id of ids) {
   const pass = checks.every((c) => c.ok);
   if (!pass) failed++;
   report.recipes[id] = { pass, checks, states: Object.fromEntries(Object.entries(results).map(([k, v]) => [k, { state: v.state, probe: v.probe, inspect: v.inspect, errors: v.errors, screenshot: v.screenshot }])) };
-  if (pass) {
+  // Stamping rewrites tracked files, so it happens only when asked: a release pass, not every local run.
+  if (pass && args.stamp) {
     const metaPath = path.join(dir, 'recipe.json');
     const meta = safeJson(metaPath) || { id };
     meta.verified = { date: now().slice(0, 10), chromium };

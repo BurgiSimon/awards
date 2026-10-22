@@ -26,6 +26,8 @@ const IMG_EXT = new Set(['.png', '.jpg', '.jpeg', '.webp', '.gif', '.avif']);
 const FONT_EXT = new Set(['.woff2', '.woff', '.ttf', '.otf']);
 
 const findings = [];
+// Only the plugin's own catalogue is judged at recipe severity, not any folder that happens to be called recipes.
+const PLUGIN_RECIPES = path.join(here, '..', 'recipes') + path.sep;
 const ignoredRules = new Set(String(args.ignore ?? '').split(',').map((s) => s.trim()).filter(Boolean));
 const scopes = args.scope ? new Set(String(args.scope).split(',').map((s) => s.trim())) : null;
 
@@ -36,7 +38,7 @@ function add(rule, file, line, detail, weight) {
   if (scopes && !scopes.has(r.scope)) return;
   // A rule may judge the shipped catalogue harder than a user build: recipes are what gets copied.
   // An explicit weight (axe-core's impact) overrides both.
-  const severity = weight ?? (r.recipeSeverity && /(^|[\\/])recipes[\\/]/.test(file) ? r.recipeSeverity : r.severity);
+  const severity = weight ?? (r.recipeSeverity && path.resolve(String(file)).startsWith(PLUGIN_RECIPES) ? r.recipeSeverity : r.severity);
   findings.push({ rule, severity, scope: r.scope, file, line: line ?? null, message: detail ? `${r.message}: ${detail}` : r.message, fix: r.fix });
 }
 
@@ -84,7 +86,8 @@ const within = (dir, root) => { const r = path.relative(root, dir); return !r.st
 const projectDir = (targetDir && ownerOf(targetDir, envProject && within(targetDir, envProject) ? envProject : null)) || envProject || process.cwd();
 if (args.quick) {
   // The hook is inert outside award-level projects and for non-UI files.
-  if (!fs.existsSync(path.join(projectDir, 'AWARDS.md')) || process.env.AWARDS_HOOK === '0') process.exit(0);
+  // AWARDS_HOOK=0 or the plugin's `hooks_enabled` setting turned off (CLAUDE_PLUGIN_OPTION_HOOKS_ENABLED) silences it.
+  if (!fs.existsSync(path.join(projectDir, 'AWARDS.md')) || process.env.AWARDS_HOOK === '0' || /^(false|0)$/.test(process.env.CLAUDE_PLUGIN_OPTION_HOOKS_ENABLED ?? '')) process.exit(0);
   const directory = !isUrl && fs.existsSync(target) && fs.statSync(target).isDirectory();
   if (!directory && !SCAN_EXT.has(path.extname(String(target)).toLowerCase())) process.exit(0);
 }
@@ -112,14 +115,20 @@ function walk(dir, out = files, depth = 0) {
 }
 
 // ---------- exceptions ----------
+// `C02 — reason` accepts a rule everywhere; `C01@src/night.html — reason` or `L10@mobile — reason` only where the
+// finding's file or viewport label contains that scope. The template's own comment example is not an exception.
 const exceptions = new Set();
-const awardsMd = [path.join(projectDir, 'AWARDS.md'), !isUrl && fs.statSync(path.resolve(String(target))).isDirectory() ? path.join(path.resolve(String(target)), 'AWARDS.md') : null].filter(Boolean);
+const scoped = [];
+const awardsMd = [...new Set([path.join(projectDir, 'AWARDS.md'), !isUrl && fs.statSync(path.resolve(String(target))).isDirectory() ? path.join(path.resolve(String(target)), 'AWARDS.md') : null].filter(Boolean))];
 for (const p of awardsMd) {
   if (!fs.existsSync(p)) continue;
   const md = fs.readFileSync(p, 'utf8');
-  const sec = md.split(/^## Exceptions/m)[1]?.split(/^## /m)[0];
+  const sec = md.split(/^## Exceptions/m)[1]?.split(/^## /m)[0]?.replace(/<!--[\s\S]*?-->/g, '');
   if (!sec) continue;
-  for (const m of sec.matchAll(/\b([A-Z]\d{2})\b/g)) exceptions.add(m[1]);
+  for (const m of sec.matchAll(/\b([A-Z]\d{2})(?:@([^\s—–,;]+))?/g)) {
+    if (m[2]) scoped.push({ rule: m[1], scope: m[2].replace(/^\.\//, '') });
+    else exceptions.add(m[1]);
+  }
 }
 if (args.config && fs.existsSync(String(args.config))) {
   try {
@@ -134,8 +143,10 @@ for (const f of files) {
   const ext = path.extname(f).toLowerCase();
   if (SCAN_EXT.has(ext)) {
     let text = fs.readFileSync(f, 'utf8');
-    for (const m of text.matchAll(/audit-ignore:\s*([A-Z]\d{2}(?:\s*,\s*[A-Z]\d{2})*)/g)) {
-      for (const id of m[1].split(',')) exceptions.add(`${id.trim()}@${f}`);
+    // `audit-ignore: T01` covers the file; `audit-ignore-next-line: T01` only the line below it.
+    for (const m of text.matchAll(/audit-ignore(-next-line)?:\s*([A-Z]\d{2}(?:\s*,\s*[A-Z]\d{2})*)/g)) {
+      const at = m[1] ? `:${lineOf(text, m.index) + 1}` : '';
+      for (const id of m[2].split(',')) exceptions.add(`${id.trim()}@${f}${at}`);
     }
     sources.push({ file: f, ext, text });
   }
@@ -312,8 +323,9 @@ eachCss((file, css, off = 0) => {
     const ratio = contrastRatio(props[g], props[i]);
     if (ratio !== null && ratio < 4.5) add('C01', 'tokens', null, `--${i} on --${g} = ${ratio}:1`);
   }
-  const bodyBg = cssText.match(/body\s*\{[^}]*background(?:-color)?\s*:\s*([^;}]+)/i);
-  const bodyFg = cssText.match(/body\s*\{[^}]*[^-]color\s*:\s*([^;}]+)/i);
+  // The body selector itself, not .body, tbody or #body.
+  const bodyBg = cssText.match(/(?:^|[\s,}])body\s*\{[^}]*background(?:-color)?\s*:\s*([^;}]+)/i);
+  const bodyFg = cssText.match(/(?:^|[\s,}])body\s*\{[^}]*[^-]color\s*:\s*([^;}]+)/i);
   if (bodyBg && bodyFg) {
     const ratio = contrastRatio(bodyBg[1].trim(), bodyFg[1].trim());
     if (ratio !== null && ratio < 4.5) add('C01', 'body', null, `${bodyFg[1].trim()} on ${bodyBg[1].trim()} = ${ratio}:1`);
@@ -335,7 +347,8 @@ eachCss((file, css, off = 0) => {
 // ---------- rules: motion (JS) ----------
 {
   const animates = /gsap\.|animate\(|createTimeline|@keyframes|transition\s*:|animation\s*:|new\s+Lenis|ScrollTrigger/i.test(allText);
-  const hasRM = /prefers-reduced-motion/i.test(projectAll);
+  // A comment that mentions the query is not a reduced-motion branch.
+  const hasRM = /prefers-reduced-motion/i.test(projectAll.replace(/\/\*[\s\S]*?\*\/|<!--[\s\S]*?-->/g, '').replace(/(^|[^:'"\\])\/\/.*$/gm, '$1'));
   if (animates && !hasRM) add('M01', 'project', null);
   eachJs((file, js, off = 0) => {
     for (const m of js.matchAll(/scrub\s*:/g)) {
@@ -614,6 +627,152 @@ function installContrast() {
   window.__awardsContrast = { scan, focused };
 }
 
+// What a bundler's source looks like when it is served raw instead of built.
+const MODULE_ERROR = /Failed to resolve module specifier|Failed to load module script|Failed to fetch dynamically imported module|does not provide an export named/i;
+
+// Layout shift, installed before the page's own scripts: the largest session window (gaps under 1 s, at
+// most 5 s), the way CLS is defined, plus the node that moved most. Shifts right after input do not count.
+function installShift() {
+  const state = { value: 0, top: null };
+  let session = 0, first = 0, last = 0, topShift = 0;
+  try {
+    new PerformanceObserver((list) => {
+      for (const e of list.getEntries()) {
+        if (e.hadRecentInput) continue;
+        if (session && (e.startTime - last < 1000) && (e.startTime - first < 5000)) session += e.value;
+        else { session = e.value; first = e.startTime; }
+        last = e.startTime;
+        state.value = Math.max(state.value, session);
+        const node = e.sources?.find((s) => s.node?.nodeType === 1)?.node;
+        if (node && e.value > topShift) {
+          topShift = e.value;
+          state.top = `<${node.tagName.toLowerCase()}${node.id ? `#${node.id}` : node.classList[0] ? `.${node.classList[0]}` : ''}>`;
+        }
+      }
+    }).observe({ type: 'layout-shift', buffered: true });
+  } catch {}
+  window.__awardsShift = state;
+}
+
+// Scrolls the page top to bottom in half-viewport steps (through the page's own hook when it has one,
+// so Lenis and virtual scrollers move too) and reports a viewport with no content in it, and on tablet
+// and phone a section whose content keeps to one narrow side. Content is any visible box with its own
+// text, media, a background image or a drawn edge, at any opacity: a reveal still waiting for its trigger counts.
+// Small fixed or sticky bars (a header) do not, or they would fill every viewport.
+async function sweepPage(desktop) {
+  // The layout viewport: under phone emulation a page that overflows widens innerWidth to its own width.
+  const vh = innerHeight, vw = document.documentElement.clientWidth;
+  const MEDIA = new Set(['IMG', 'PICTURE', 'VIDEO', 'CANVAS', 'SVG', 'svg', 'IFRAME', 'INPUT', 'TEXTAREA', 'SELECT', 'BUTTON', 'OBJECT', 'EMBED']);
+  // The nearest fixed or sticky box an element rides in, if any.
+  const pinned = new Map();
+  const pinOf = (el) => {
+    if (!el || el === document.body) return null;
+    if (pinned.has(el)) return pinned.get(el);
+    const p = getComputedStyle(el).position;
+    const v = p === 'fixed' || p === 'sticky' ? el : pinOf(el.parentElement);
+    pinned.set(el, v);
+    return v;
+  };
+  const bar = (el) => { const pin = pinOf(el); return !!pin && pin.getBoundingClientRect().height < vh * 0.35; };
+  const content = [];
+  for (const el of document.body.querySelectorAll('*')) {
+    if (el.closest('[hidden],template,dialog:not([open]),noscript,script,style')) continue;
+    const s = getComputedStyle(el);
+    if (s.display === 'none' || s.visibility === 'hidden') continue;
+    const own = [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim());
+    // A drawn box counts too: a border, a shadow, or a filled panel smaller than the viewport (a wrapper
+    // painted the page colour would otherwise fill every viewport).
+    const drawn = (parseFloat(s.borderTopWidth) > 0 && s.borderTopStyle !== 'none') || (parseFloat(s.borderLeftWidth) > 0 && s.borderLeftStyle !== 'none') || s.boxShadow !== 'none'
+      || (!/rgba\(0, 0, 0, 0\)|transparent/.test(s.backgroundColor) && el.getBoundingClientRect().height < vh);
+    if (!own && !drawn && !MEDIA.has(el.tagName) && s.backgroundImage === 'none') continue;
+    if ((s.clip && s.clip !== 'auto') || /inset\(50%/.test(s.clipPath || '')) continue;
+    content.push(el);
+  }
+  const hook = window.__awards?.scrollTo;
+  const height = () => document.documentElement.scrollHeight;
+  const steps = Math.min(80, Math.max(hook ? 12 : 2, Math.ceil((2 * height()) / vh)));
+  const go = async (p) => {
+    if (hook) await hook(p);
+    else window.scrollTo(0, Math.round(Math.max(0, height() - vh) * p));
+    await new Promise((r) => setTimeout(r, 120));
+  };
+  const empty = [];
+  for (let i = 0; i < steps; i++) {
+    const p = steps === 1 ? 0 : i / (steps - 1);
+    await go(p);
+    const filled = content.some((el) => {
+      const b = el.getBoundingClientRect();
+      if (b.width < 2 || b.height < 2 || b.bottom <= 0 || b.top >= vh || b.right <= 0 || b.left >= vw) return false;
+      return !bar(el);
+    });
+    if (!filled) empty.push(p);
+  }
+  const blank = [];
+  for (let i = 0; i < empty.length; i++) {
+    let j = i;
+    while (j + 1 < empty.length && empty[j + 1] - empty[j] <= 1.01 / (steps - 1)) j++;
+    blank.push(`a full viewport with nothing in it, ${Math.round(empty[i] * 100)}–${Math.round(empty[j] * 100)} % down the page`);
+    i = j;
+  }
+  const lopsided = [];
+  if (!desktop) {
+    await go(0);
+    const root = document.querySelector('main') ?? document.body;
+    for (const section of root.children) {
+      const sb = section.getBoundingClientRect();
+      if (sb.height < vh * 0.3 || pinOf(section)) continue;
+      const inside = content.filter((el) => section.contains(el) && el !== section);
+      const text = inside.reduce((n, el) => n + el.textContent.trim().length, 0);
+      if (inside.length < 2 || text < 120) continue;
+      let left = Infinity, right = -Infinity, wide = false;
+      for (const el of inside) {
+        const b = el.getBoundingClientRect();
+        if (b.width < 2 || b.height < 2) continue;
+        if (b.width >= vw * 0.9) wide = true;
+        left = Math.min(left, Math.max(0, b.left));
+        right = Math.max(right, Math.min(vw, b.right));
+      }
+      if (wide || right <= left) continue;
+      const span = (right - left) / vw, offset = ((left + right) / 2 - vw / 2) / vw;
+      if (span < 0.5 && Math.abs(offset) > 0.15) {
+        const name = section.id ? `#${section.id}` : section.classList[0] ? `.${section.classList[0]}` : section.tagName.toLowerCase();
+        lopsided.push(`${name}: content spans ${Math.round(span * 100)} % of the width, all on the ${offset < 0 ? 'left' : 'right'}`);
+      }
+    }
+  }
+  await go(0);
+  return { steps, blank, lopsided };
+}
+
+// A bundler project's index.html imports /src modules and bare package names, which only its dev server
+// or its build resolves. Render the build output when there is one, and say when it is older than src/.
+const BUILD_DIRS = ['dist', 'build', 'out', '.output/public'];
+function renderRoot(abs) {
+  if (!fs.statSync(abs).isDirectory() || !fs.existsSync(path.join(abs, 'package.json'))) return { dir: abs, from: 'target' };
+  const built = BUILD_DIRS.map((d) => path.join(abs, d)).find((d) => fs.existsSync(path.join(d, 'index.html')));
+  const newest = (dir, depth = 0) => {
+    let t = 0;
+    if (!fs.existsSync(dir) || depth > 6) return t;
+    for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
+      const p = path.join(dir, ent.name);
+      t = Math.max(t, ent.isDirectory() ? newest(p, depth + 1) : fs.statSync(p).mtimeMs);
+    }
+    return t;
+  };
+  if (built) {
+    const stale = newest(path.join(abs, 'src')) > fs.statSync(path.join(built, 'index.html')).mtimeMs;
+    return { dir: built, from: path.relative(abs, built), ...(stale ? { warning: `${path.relative(abs, built)}/ is older than src/; rebuild before trusting the rendered checks` } : {}) };
+  }
+  const html = fs.existsSync(path.join(abs, 'index.html')) ? fs.readFileSync(path.join(abs, 'index.html'), 'utf8') : '';
+  const pkg = (() => { try { return JSON.parse(fs.readFileSync(path.join(abs, 'package.json'), 'utf8')); } catch { return {}; } })();
+  const bundler = /\b(vite|astro|next|nuxt|@sveltejs\/kit|parcel|webpack)\b/.test(Object.keys({ ...pkg.dependencies, ...pkg.devDependencies }).join(' '));
+  if (bundler || /<script[^>]+type=["']module["'][^>]+src=["']\/src\//i.test(html)) {
+    return { dir: abs, from: 'source', warning: 'no build output found, so the source is rendered as is; build first (npm run build) or pass the dev server URL' };
+  }
+  return { dir: abs, from: 'target' };
+}
+let renderedFrom = null;
+
 if (args.render) {
   const { resolvePlaywright, launchChromium, MISSING_MESSAGE } = await import('./lib/playwright.mjs');
   const { serveDirectory } = await import('./lib/server.mjs');
@@ -626,7 +785,9 @@ if (args.render) {
     let url = String(target);
     if (!isUrl) {
       const abs = path.resolve(String(target));
-      const dir = fs.statSync(abs).isDirectory() ? abs : path.dirname(abs);
+      renderedFrom = renderRoot(abs);
+      if (renderedFrom.warning && !args.json) console.error(`render: ${renderedFrom.warning}`);
+      const dir = fs.statSync(abs).isDirectory() ? renderedFrom.dir : path.dirname(abs);
       server = await serveDirectory(dir);
       url = server.url + (fs.statSync(abs).isDirectory() ? '' : path.basename(abs));
     }
@@ -645,19 +806,45 @@ if (args.render) {
       return null;
     })();
     axeReport = axe ? `axe-core ${axe.version}` : 'unmeasured: axe-core not installed (npm i -D axe-core)';
-    const browser = await launchChromium(found.module);
+    let browser;
     try {
-      for (const [label, width] of [['desktop', 1440], ['mobile', 390]]) {
-        const page = await browser.newPage({ viewport: { width, height: width === 390 ? 844 : 900 } });
+      browser = await launchChromium(found.module, { sandbox: isUrl });
+    } catch (e) {
+      console.error(`browser launch failed: ${String(e.message ?? e).split('\n')[0]}`);
+      if (server) await server.close();
+      process.exit(3);
+    }
+    try {
+      for (const [label, width, height] of [['desktop', 1440, 900], ['tablet', 834, 1194], ['mobile', 390, 844]]) {
+        const page = await browser.newPage({ viewport: { width, height }, isMobile: label !== 'desktop', hasTouch: label !== 'desktop' });
         const errors = [];
+        // Every in-page step reports its own failure: a check that throws or hangs is an ERR finding, never
+        // a clean read. After a hang the viewport is abandoned, since every later step would hang as well.
+        let dead = false;
+        const step = async (stage, run, ms = 20000) => {
+          if (dead) return undefined;
+          let timer;
+          try {
+            return await Promise.race([run(), new Promise((_, no) => { timer = setTimeout(() => { dead = true; no(new Error(`no answer after ${ms / 1000} s`)); }, ms); })]);
+          } catch (e) {
+            findings.push({ rule: 'ERR', severity: 'P1', scope: 'render', file: label, line: null, message: `rendered check did not run (${stage}): ${String(e.message ?? e).split('\n')[0].slice(0, 120)}`, fix: 'Fix the page error or rerun; until this step runs, the viewport is unaudited for it' });
+            return undefined;
+          } finally {
+            clearTimeout(timer);
+          }
+        };
         page.on('pageerror', (e) => errors.push(e.message));
-        await page.goto(url, { waitUntil: 'load', timeout: 30000 }).catch((e) => errors.push(e.message));
+        // A bundler's source served raw: bare imports and /src paths do not resolve, and every later rule reads a broken page.
+        page.on('console', (m) => { if (m.type() === 'error' && MODULE_ERROR.test(m.text())) errors.push(`${m.text()} (render the build output, or pass the dev server URL)`); });
+        await page.addInitScript(installShift).catch(() => {});
+        const loaded = await page.goto(url, { waitUntil: 'load', timeout: 30000 }).then(() => true, (e) => { errors.push(e.message); return false; });
+        if (!loaded) dead = true;
         // Give entrances a fair chance: the page's own ready signal (capped), then two seconds.
-        await page.evaluate(() => Promise.race([window.__awards?.ready, new Promise((res) => setTimeout(res, 8000))])).catch(() => {});
-        await page.waitForTimeout(2000);
-        await page.evaluate(installContrast).catch(() => {});
-        const contrast = await page.evaluate(() => window.__awardsContrast.scan()).catch(() => null);
-        const r = await page.evaluate((groundToken) => {
+        await step('ready', () => page.evaluate(() => Promise.race([window.__awards?.ready, new Promise((res) => setTimeout(res, 8000))])), 12000);
+        if (!dead) await page.waitForTimeout(2000);
+        await step('contrast helpers', () => page.evaluate(installContrast));
+        const contrast = await step('text contrast', () => page.evaluate(() => window.__awardsContrast.scan()));
+        const r = await step('first viewport', () => page.evaluate((groundToken) => {
           const cs = getComputedStyle(document.body);
           const fams = new Set();
           for (const el of document.querySelectorAll('h1,h2,h3,p,a,button,li,span')) fams.add(getComputedStyle(el).fontFamily.split(',')[0].replace(/["']/g, '').trim());
@@ -686,7 +873,7 @@ if (args.render) {
             if (b.width === 0 || getComputedStyle(el).visibility === 'hidden') continue;
             if (el.textContent.trim().length >= 200 && b.width / (px(el) * 0.5) > 90) long.push(`${say(el)} ≈ ${Math.round(b.width / (px(el) * 0.5))}ch`);
             const tb = textBox(el);
-            if (el.textContent.trim().length >= 40 && tb.width && (tb.left < 12 || innerWidth - tb.right < 12)) edge.push(say(el));
+            if (el.textContent.trim().length >= 40 && tb.width && (tb.left < 12 || document.documentElement.clientWidth - tb.right < 12)) edge.push(say(el));
           }
           const boxed = (el) => { const s = getComputedStyle(el); return (parseFloat(s.borderTopWidth) > 0 && s.borderTopStyle !== 'none') || s.boxShadow !== 'none'; };
           for (const el of document.querySelectorAll('[class*="card"]')) {
@@ -710,13 +897,17 @@ if (args.render) {
               else if (rgba(c).slice(0, 3).some((v, i) => Math.abs(v - want[i]) > 3)) grounds.push(`${el} ${c} vs ground ${groundToken}`);
             }
           }
-          return { bg: cs.backgroundColor, fg: cs.color, families: [...fams], overflow: document.documentElement.scrollWidth > window.innerWidth + 1, title: document.title, lang: document.documentElement.lang, stuck, long, edge, nested, ratioH1, grounds };
-        }, groundToken).catch(() => null);
+          return { bg: cs.backgroundColor, fg: cs.color, families: [...fams], overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1 ? (() => { const cw = document.documentElement.clientWidth; const el = [...document.body.querySelectorAll('*')].filter((e) => e.getBoundingClientRect().right > cw + 1).sort((a, b) => b.getBoundingClientRect().right - a.getBoundingClientRect().right).find((e) => !e.parentElement || e.parentElement.getBoundingClientRect().right <= cw + 1) ?? null; return `page is ${document.documentElement.scrollWidth} px wide in a ${cw} px viewport${el ? `, from <${el.tagName.toLowerCase()}${el.classList[0] ? `.${el.classList[0]}` : ''}>` : ''}`; })() : null, title: document.title, lang: document.documentElement.lang, stuck, long, edge, nested, ratioH1, grounds };
+        }, groundToken));
+        // Layout shift during load (P08), read before any scroll: the sweep jumps between positions, and a
+        // pinned element handing off between fixed and in-flow at a jump would count as a shift no reader sees.
+        const shift = await step('layout shift', () => page.evaluate(() => window.__awardsShift ?? null));
+        if (shift && shift.value > 0.1) add('P08', `${label} (rendered)`, null, `CLS ${shift.value.toFixed(3)} during load${shift.top ? `, largest from ${shift.top}` : ''}`, shift.value > 0.25 ? 'P1' : undefined);
         if (r) {
           const where = `${label} (rendered)`;
-          renderedCoverage[label] = { textsMeasured: contrast?.measured ?? 'unmeasured', textsOverImagery: contrast?.unmeasured ?? 0 };
+          renderedCoverage[label] = { textsMeasured: contrast?.measured ?? 'unmeasured', textsOverImagery: contrast?.unmeasured ?? 0, ...(shift ? { clsLoad: Number(shift.value.toFixed(4)) } : {}) };
           for (const f of contrast?.fails.slice(0, 4) ?? []) add('C01', where, null, `${f.say} ${f.fg} on ${f.bg} = ${f.ratio}:1, needs ${f.need}:1`);
-          if (r.overflow) add('L02', where, null, 'horizontal overflow');
+          if (r.overflow) add('L02', where, null, `horizontal overflow: ${r.overflow}`);
           for (const f of r.families) if (reflex.has(f.toLowerCase())) add('T01', where, null, f);
           for (const s of r.stuck.slice(0, 3)) add('L06', where, null, s);
           if (r.long.length) add('L07', where, null, r.long[0]);
@@ -728,7 +919,7 @@ if (args.render) {
         // Target size, phone: controls under 24 × 24 px whose 24 px circle meets another target's (WCAG 2.2,
         // 2.5.8). Links inside running text are exempt, as the criterion allows.
         if (label === 'mobile') {
-          const small = await page.evaluate(() => {
+          const small = await step('target size', () => page.evaluate(() => {
             const all = [...document.querySelectorAll('a[href],button,input:not([type="hidden"]),select,textarea,summary,[role="button"],[tabindex="0"]')].filter((el) => {
               if (el.closest('[hidden],[inert],[aria-hidden="true"],dialog:not([open])')) return false;
               const b = el.getBoundingClientRect(), s = getComputedStyle(el);
@@ -746,17 +937,17 @@ if (args.render) {
               out.push(`<${el.tagName.toLowerCase()}> “${(el.textContent.trim() || el.getAttribute('aria-label') || '').slice(0, 30)}” ${Math.round(b.width)}×${Math.round(b.height)} px`);
             }
             return out;
-          }).catch(() => []);
-          for (const s of small.slice(0, 3)) add('A14', `${label} (rendered)`, null, s);
+          }));
+          for (const s of small?.slice(0, 3) ?? []) add('A14', `${label} (rendered)`, null, s);
         }
         if (label === 'desktop' && axe) {
-          await page.addScriptTag({ path: axe.file }).catch(() => {});
-          const found = await page.evaluate(async () => {
-            if (!window.axe) return null;
+          await step('axe-core load', () => page.addScriptTag({ path: axe.file }));
+          const found = await step('axe-core', () => page.evaluate(async () => {
+            if (!window.axe) throw new Error('axe-core did not load into the page');
             // Contrast and target size are measured by C01, A12 and A14 above; axe covers the rest of WCAG 2.2 A/AA.
             const run = await window.axe.run(document, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'] }, rules: { 'color-contrast': { enabled: false }, 'target-size': { enabled: false } }, resultTypes: ['violations'] });
             return run.violations.map((v) => ({ id: v.id, impact: v.impact, help: v.help, n: v.nodes.length, target: v.nodes[0]?.target?.join(' ') ?? '' }));
-          }).catch(() => null);
+          }), 45000);
           for (const v of found?.slice(0, 6) ?? []) add('A16', `${label} (rendered)`, null, `${v.id} (${v.impact}, ${v.n}×): ${v.help} — ${v.target}`, /critical|serious/.test(v.impact ?? '') ? 'P1' : 'P2');
         }
         // Keyboard focus, desktop: Tab through the first controls and measure each in its focus state, where
@@ -764,10 +955,10 @@ if (args.render) {
         if (label === 'desktop' && contrast) {
           const visited = new Set();
           const labels = [], rings = [];
-          for (let i = 0; i < 12; i++) {
-            await page.keyboard.press('Tab');
+          for (let i = 0; i < 12 && !dead; i++) {
+            if ((await step('focus', () => page.keyboard.press('Tab').then(() => true))) === undefined) break;
             await page.waitForTimeout(200);
-            const f = await page.evaluate(() => window.__awardsContrast.focused()).catch(() => null);
+            const f = await step('focus contrast', () => page.evaluate(() => window.__awardsContrast.focused()));
             if (!f || visited.has(f.key)) break;
             visited.add(f.key);
             if (f.text && !f.text.unmeasured && f.text.ratio < f.text.need) labels.push(`${f.say} focused: ${f.text.fg} on ${f.text.bg} = ${f.text.ratio}:1, needs ${f.text.need}:1`);
@@ -777,11 +968,20 @@ if (args.render) {
           for (const s of labels.slice(0, 4)) add('C01', `${label} (rendered, focus)`, null, s);
           for (const s of rings.slice(0, 4)) add('A12', `${label} (rendered, focus)`, null, s);
         }
-        for (const e of errors) findings.push({ rule: 'ERR', severity: 'P1', scope: 'render', file: label, line: null, message: `page error: ${e.slice(0, 120)}`, fix: 'Fix runtime errors before review' });
-        await page.close();
+        // The whole page, scrolled through: a viewport with nothing in it (L09), and on tablet and phone a
+        // section whose content keeps to one narrow side (L10).
+        const sweep = await step('scroll sweep', () => page.evaluate(sweepPage, label === 'desktop'), 60000);
+        if (sweep) {
+          const where = `${label} (rendered)`;
+          for (const s of sweep.blank.slice(0, 2)) add('L09', where, null, s);
+          for (const s of sweep.lopsided.slice(0, 2)) add('L10', where, null, s);
+          if (renderedCoverage[label]) renderedCoverage[label].sweepSteps = sweep.steps;
+        }
+        for (const e of errors) findings.push({ rule: 'ERR', severity: 'P1', scope: 'render', file: label, line: null, message: `page error: ${e.slice(0, 160)}`, fix: 'Fix runtime errors before review' });
+        await page.close().catch(() => {});
       }
     } finally {
-      await browser.close();
+      await browser.close().catch(() => {});
       if (server) await server.close();
     }
   }
@@ -790,7 +990,9 @@ if (args.render) {
 // ---------- apply exceptions, dedupe, output ----------
 const seen = new Set();
 const final = findings.filter((f) => {
-  if (exceptions.has(f.rule) || exceptions.has(`${f.rule}@${f.file}`)) return false;
+  if (exceptions.has(f.rule) || exceptions.has(`${f.rule}@${f.file}`) || exceptions.has(`${f.rule}@${f.file}:${f.line}`)) return false;
+  const where = rel(f.file).split(path.sep).join('/');
+  if (scoped.some((x) => x.rule === f.rule && where.includes(x.scope))) return false;
   const key = `${f.rule}|${f.file}|${f.line}|${f.message}`;
   if (seen.has(key)) return false;
   seen.add(key);
@@ -800,7 +1002,7 @@ const order = { P0: 0, P1: 1, P2: 2, P3: 3 };
 final.sort((a, b) => order[a.severity] - order[b.severity] || a.rule.localeCompare(b.rule));
 const summary = { P0: 0, P1: 0, P2: 0, P3: 0 };
 for (const f of final) summary[f.severity]++;
-const result = { target: String(target), scannedFiles: sources.length, at: now(), summary, exceptions: [...exceptions], ...(axeReport ? { axe: axeReport, rendered: renderedCoverage } : {}), findings: final.map((f) => ({ ...f, file: rel(f.file) })) };
+const result = { target: String(target), scannedFiles: sources.length, at: now(), summary, exceptions: [...new Set([...exceptions, ...scoped.map((x) => `${x.rule}@${x.scope}`)])], ...(axeReport ? { axe: axeReport, rendered: renderedCoverage } : {}), ...(renderedFrom ? { renderedFrom: { ...renderedFrom, dir: rel(renderedFrom.dir) } } : {}), findings: final.map((f) => ({ ...f, file: rel(f.file) })) };
 
 if (args.quick) {
   const material = final.filter((f) => f.severity === 'P0' || f.severity === 'P1' || f.severity === 'P2').slice(0, 8);

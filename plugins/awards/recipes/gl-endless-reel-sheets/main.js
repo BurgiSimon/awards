@@ -252,8 +252,8 @@ async function start() {
 
 const glPossible = (() => { try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch { return false; } })();
 // Static tier or no WebGL: the page stays a plain list of works; nothing draws, nothing listens.
-if (glPossible && motionTier() !== 'static') { if (!(await start())) readout.textContent = 'dom (webgl failed)'; }
-else { readout.textContent = glPossible ? 'dom (static)' : 'dom (no webgl)'; buttons.forEach((b) => (b.disabled = true)); }
+if (glPossible && motionTier() !== 'static') { if (!(await start())) { html.classList.remove('reel-gl'); readout.textContent = 'dom (webgl failed)'; } }
+else { html.classList.remove('reel-gl'); readout.textContent = glPossible ? 'dom (static)' : 'dom (no webgl)'; buttons.forEach((b) => (b.disabled = true)); }
 
 const r4 = (n) => Math.round(n * 1e4) / 1e4;
 awards.addState(() => ({

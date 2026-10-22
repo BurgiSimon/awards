@@ -1,5 +1,59 @@
 # Open todos
 
+## Review work queue (from the 2026-10-22 review; the maintainer asked for everything except the large-effort, lower-impact items)
+
+Item ids are the review's (A site quality, B engineering, C measurement, D corpus and recipes, E platform, F features, G docs). Tick each as it lands; one PR per batch.
+
+Excluded by that instruction (lower impact, larger effort): F5 jury panel, F6 motion tuning page, B11 context weight, C2 per-rule fixtures, B24 audit split, F7 more scaffolds, D12 pattern digests, D13 variants as data, E8 plugin-managed browser, F8 comp-first, F10 recipe registry, G9 build gallery, recipes R7 Rive, R10 configurator, R11 WebGPU TSL, R12 variable axes. Not runnable here: C13 paid A/B sprint (costs the maintainer money). Deferred by an earlier decision until convergence is measured: A12 stimulus deck.
+
+**Batch 1 — evidence (0.8 remainder)**
+- [x] C7 cheaper eval tiers (contract tier, regrade on kept workspaces)
+- [x] C8 missing eval cases (jury-bland-clean, concept-deal-distinct, near-miss negatives, new-site technique, phase order, resume)
+- [x] C9 tablet capture and lopsided/blank-band render rules
+- [x] C10 Playwright Clock, ariaSnapshot, screencast evidence
+- [x] C11 visual diff between capture rounds
+- [x] C12 refresh calibration claims
+- [x] C5 performance evidence (CLS rule, long tasks, lab INP, CPU throttle)
+- [x] C6 real-GPU and WebKit lanes (`--gpu`, Safari and DevTools MCP guidance, CrUX field data)
+- [x] C14 GSAP official skills coexistence eval
+- [x] B9 render the build output, not bundler source
+- [x] B16 rendered checks never fail silently
+- [x] B10 Node floor per stack
+- [x] D3 version check script
+
+**Batch 2 — engineering, platform and docs**
+- [x] B12 + E9 jury agent tools, turns, omitClaudeMd, `awards-log.mjs`
+- [x] B13 concept deal within four options
+- [x] B14 sub-skill hand-offs keep craft's checks
+- [x] B17 scoped exceptions and ignores
+- [x] B18 Windows and macOS spawn and lock fixes
+- [x] B19 scaffold `.gitignore` and capture `--out` root
+- [x] B20 research honours owner policy
+- [x] B22 reproducible verification (pin Playwright, opt-in stamping)
+- [x] B25 harden the local server
+- [x] B26 small drift
+- [x] E3 trimmed descriptions; E5 hook refinements (SubagentStop check; asyncRewake and exec form declined, see decisions.md); E6 userConfig; E7 effort (raised for concept only); E10 report pages. E4 `!command` state declined: a failed injected command aborts the skill (decisions.md)
+- [x] G2 quick start; G3 permissions; G4 Playwright advice; G5 stale docs; G6 listing fields; G7 CONTRIBUTING and templates; G8 CHANGELOG; G10 archive. Left to the maintainer (repository settings, not files): tags for 0.5.0 and 0.7.0, GitHub releases, stale branches, branch protection on main, the plugin-directory submission
+
+**Batch 3 — ceiling (generation side)**
+- [ ] A3 imagery strategy in WORLD + F3 asset sourcing and licence log
+- [ ] A5 house-style remnants; A6 mechanism, not look; A7 character-first fonts; A9 references slot
+- [ ] A8 positive craft checklist; A10 computed eyebrow counter; A11 negative exemplars
+- [ ] A2 layout and composition pattern file
+- [ ] A1 composition skeletons and fingerprints per card
+- [ ] D5 inner routes in research; D6 floema-jewelry citations; D7 stack notes (Rive, WebGPU/TSL, host platforms); D9 missing pattern topics
+- [ ] D4 gap-driven waves; D10 model-free pre-pass; D11 index, card and health scripts; D14 generated catalogue table; D15 tag vocabulary
+
+**Batch 4 — recipes**
+- [ ] R1 view-transitions-mpa; R2 css-scroll-driven-timeline; R3 flip-layout-state; R4 case-study-route-kit
+- [ ] R5 drag-pan-infinite-grid; R6 image-trail-cursor; R8 pseudo-locale stress state; R9 physics-pile-matter
+- [ ] R13 the four specced wave-4 recipes; R14 designed-404, cart-drawer-quick-add
+
+**Batch 5 — new modes and proof**
+- [ ] F2 quick mode; F1 redesign mode; F4 multi-route sites; F9 award program presets; F11 DESIGN.md interop; D8 framework adapters
+- [ ] G1 finish and ship the plugin's own site
+
+
 ## Quick wins (2026-10-22) follow-ups
 
 1. Measure, paid: an uninterrupted `build-antarctic-site` should now reach `Shipped` or stop on a named blocker; record the page and component jury lines it writes.
@@ -39,7 +93,7 @@ historical; `verification-log.md` remains its evidence ledger.
 ## Visual comparison closeout
 
 1. Human choices are recorded: candidate Overall wins for Tidal Notes and Form & Sound, Kiln Nine
-   Overall tie, and three Mobile ties. See the [comparison record](visual-comparison-2026-09-22.md)
+   Overall tie, and three Mobile ties. See the [comparison record](archive/visual-comparison-2026-09-22.md)
    and unchanged submitted JSON. All 18 requested reasons remain blank, as do technical evidence,
    case notes and both Kiln Nine reduced-motion checkboxes. Record any later rationale verbatim;
    do not infer it or treat those blanks as ties. Practical blinding is limited.
@@ -92,7 +146,7 @@ historical; `verification-log.md` remains its evidence ledger.
    - Budget note: three smoke cases × three runs cost $6.64, not the ≈ $2 estimated. The build tier
      came in at $27.68 against a $45 ceiling, and the two grader verification runs at $3.17.
 2. ~~**Phase 8 — one real end-to-end build.**~~ **Done 2026-09-21**, $23.89, every check in the plan
-   met, and **`plan.md` risk 2 is resolved** — the forked jury's literal `disposition:` line reaches
+   met, and **`archive/plan.md` risk 2 is resolved** — the forked jury's literal `disposition:` line reaches
    the user verbatim. Details in the ledger. It left one defect, **since fixed**:
    `scripts/audit.mjs` resolved its project root from `process.cwd()`, so auditing from inside
    `public/` wrote the report there and the build shipped it — and, less visibly, dropped every
@@ -100,7 +154,7 @@ historical; `verification-log.md` remains its evidence ledger.
    the audited target to the nearest `AWARDS.md`, falling back to cwd where there is none.
 3. ~~**Phase 9 — docs and version.**~~ **Done 2026-09-21.** Both manifests are at 0.2.0, the
    release notes are in `README.md`, the counts are corrected everywhere, and the verification
-   block at the end of `plan-0.2.md` was run. **Nothing is pushed and no pull request is open** —
+   block at the end of `archive/plan-0.2.md` was run. **Nothing is pushed and no pull request is open** —
    the plan says to stop and report first, and that still stands.
 
 ## Out of scope for 0.2.0 by decision, still worth doing

@@ -7,6 +7,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from './lib/report.mjs';
+import { satisfies } from './lib/semver.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const plugin = path.resolve(here, '..');
@@ -20,6 +21,14 @@ if (!name) {
 const dest = path.resolve(name);
 const slug = path.basename(dest).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'site';
 const title = path.basename(dest).replace(/[-_]+/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+
+// The pinned framework's Node floor, from the ## Node table in versions.md: say so before npm does.
+const nodeRow = fs.readFileSync(path.join(plugin, 'references/stacks/versions.md'), 'utf8').split(/^## Node$/m)[1]?.split(/^## /m)[0]
+  .split('\n').find((row) => row.startsWith(`| ${stack} `));
+const floor = nodeRow?.match(/`([^`]+)`/)?.[1].replace(/\\\|/g, '|');
+if (floor && !satisfies(process.versions.node, floor)) {
+  console.log(`warning: ${nodeRow.split('|')[1].trim()} needs Node ${floor}; this is ${process.versions.node}. Install Node 22 LTS or 24 LTS before installing dependencies.`);
+}
 
 if (stack !== 'vite') {
   const note = path.join(plugin, 'references/stacks', `${stack}.md`);

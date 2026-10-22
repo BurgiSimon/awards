@@ -2,7 +2,7 @@
 
 Load this before any UI edit in an awards project. It is the floor, not the ceiling: everything here is what a Developer-Award jury checks in the first minute and what the deterministic audit (`scripts/audit.mjs`) can measure. Rule ids in brackets are the audit's; a finding either gets fixed or gets a reason under `AWARDS.md ## Exceptions`.
 
-Why a floor exists: every Site of the Day in the corpus also carries a published developer score, and usability is the lowest of the four axes on nineteen of the twenty verified entries [verified, twenty Awwwards entries read 2026-09-18]. The floor is where new work beats the reference set without borrowing anything from it.
+Why a floor exists: every Site of the Day in the corpus also carries a published developer score, and usability is the lowest of the four axes on 27 of the 31 corpus entries awarded since 2021 [verified per card; counted by `scripts/calibration.mjs --since 2021`, 2026-10-22]. The floor is where new work beats the reference set without borrowing anything from it.
 
 ## Verify before you call anything done
 
@@ -36,9 +36,10 @@ Why a floor exists: every Site of the Day in the corpus also carries a published
 - The responsive strategy is decided before build (vw-lock or breakpoints), no fixed widths above 600 px, no `100vw` overflow, no full reload at a breakpoint [L01, L02].
 - No identical icon-heading-text card grid, no eyebrow labels or pills over headings, no hero-metric row, no numbered section markers by habit, no cards nested in cards [L04, L05, X07, X08, X20].
 - Nothing stuck invisible after load, running text at 60–75ch, a gutter on both sides of every paragraph on a phone [L06, L07, L08 with `--render`].
+- No viewport-sized stretch with nothing in it anywhere down the page, at desktop, tablet or phone width [L09 with `--render`]; on tablet and phone no section whose content keeps to one narrow side [L10 with `--render`, advisory].
 
 **Performance**
-- Entry JS ≤ 200 KB gz (audit fails at 300) with WebGL in its own lazy chunk [P04]; rasters under 1 MB, ideally AVIF/WebP [P02]; meshes Draco or Meshopt compressed, textures KTX2 where the scene is large [P03]; renderer DPR capped and disposed on route change [P06, P07].
+- Entry JS ≤ 200 KB gz (audit fails at 300) with WebGL in its own lazy chunk [P04]; rasters under 1 MB, ideally AVIF/WebP [P02]; meshes Draco or Meshopt compressed, textures KTX2 where the scene is large [P03]; renderer DPR capped and disposed on route change [P06, P07]; layout shift during load at most 0.1 [P08 with `--render`].
 - Fonts ≤ 4 files and ≤ 400 KB [P05]; no console errors; debug flags off.
 
 **Copy**

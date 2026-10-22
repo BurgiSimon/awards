@@ -10,6 +10,8 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .hero .display { max-width: 12ch; }
 .lede { max-width: 56ch; margin-top: calc(var(--unit) * 8); }
 .hero .lede { margin-top: 0; }
+/* Centred in its viewport-tall section: top-aligned, a tall tablet showed a full screen of nothing before the statement. */
+.mid { display: grid; align-content: center; }
 .mid h2 { max-width: 18ch; margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(2rem, 5vw, 4.5rem); line-height: 1; letter-spacing: -.02em; }
 
 /* The door: 200svh of scroll, a sticky stage of one viewport. No pin, so no spacer and no reflow. */

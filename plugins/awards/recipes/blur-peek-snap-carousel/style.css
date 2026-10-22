@@ -18,9 +18,12 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 
 /* The viewport clips (clip, not hidden, so focus cannot scroll it); the track moves by transform only.
    pan-y leaves vertical page scroll to the browser and hands horizontal drags to the pointer handlers. */
-.carousel__viewport { overflow: clip; touch-action: pan-y; cursor: grab; }
+.carousel__viewport { overflow: clip; touch-action: pan-y; cursor: grab; container-type: inline-size; }
 .carousel__viewport:active { cursor: grabbing; }
 .carousel__track { display: flex; width: max-content; margin: 0; padding: 0; list-style: none; user-select: none; -webkit-user-select: none; will-change: transform; }
+/* The gap main.js computes (half the viewport, less half a card, less the 10 % peek), in CSS first: set only
+   from script, it arrived a frame after the first paint and moved every card, a 0.12 layout shift. */
+.carousel__track { gap: max(20px, 40cqw - min(62vw, 880px, 66svh) / 2); }
 
 /* Focus by subtraction: every card the same size, the neighbours dimmed and blurred, the centred one sharp.
    One duration for both properties (robbietilton: .5 s ease-in-out). */
@@ -29,6 +32,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .item.is-active { opacity: 1; filter: none; }
 /* Narrow screens drop the blur (costly on phones) and dim harder. */
 @media (max-width: 920px) {
+  .carousel__track { gap: max(20px, 36cqw - 30vw); }
   .item { flex-basis: 60vw; filter: none; opacity: .1; transition-property: opacity; }
   .item.is-active { opacity: 1; }
 }

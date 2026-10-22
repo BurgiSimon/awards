@@ -1,9 +1,19 @@
-# State of the awards plugin — 2026-10-07
+# State of the awards plugin — 2026-10-22 (release 0.7.0)
 
 Read this first, then `todo.md`. The visual composition candidate's deterministic verification is
-recorded below in [Candidate verification record](#candidate-verification-record). `plan-0.2.md` and
-`verification-log.md` record the earlier 0.2.0 work. `plan.md` is the 0.1.0 specification, kept for
+recorded below in [Candidate verification record](#candidate-verification-record). `archive/plan-0.2.md` and
+`verification-log.md` record the earlier 0.2.0 work. `archive/plan.md` is the 0.1.0 specification, kept for
 reference. `decisions.md` records choices already taken.
+
+## Review batches 1 and 2 (branch `claude/relaxed-heisenberg-rszyzq`, 2026-10-22, unreleased)
+
+- Audit, rendered: a failed or hung step is an `ERR` finding (P1); a browser that will not launch exits 3; a bundler project renders `dist/`, `build/`, `out/` or `.output/public` and warns when it is stale or missing (`renderedFrom`). Three widths (1440, 834 × 1194, 390, touch on the two smaller), measured against `clientWidth` because phone emulation widens `innerWidth` to an overflowing page. New rules L09 blank viewport, L10 lopsided tablet/phone section (P3), P08 load-time layout shift (read before the scroll sweep). Scoped exceptions (`RULE@path|viewport`), `audit-ignore-next-line`, comments no longer satisfy M01 or count as exceptions, recipe severity only for the plugin's own catalogue. 85 rules.
+- Two full URL sweeps of the 76 built recipes found five real defects, all fixed and re-verified: phone overflow in gl-depth-map-parallax (grid track) and preloader-counter-hold (image max-width), a blank tablet screen in clip-path-scrub-door, load shifts of 0.12 in blur-peek-snap-carousel (gap set by script) and 0.81 in gl-endless-reel-sheets (layout class set after load, now in the head). Only gl-endless-reel-sheets T08 remains, earned as before.
+- Capture: tablet frames, `<viewport>-aria.yml`, session CLS, long tasks, blocking time and lab INP; `--timeline` (paused clock, identical frames across runs, contact sheet), `--video`, `--throttle`, `--gpu` (exit 5 on SwiftShader, as here), `--baseline` (in-browser pixel diff), `--lock`; relative `--out` resolves beside `AWARDS.md`; remote targets launch sandboxed where the host allows. `scripts/crux.mjs` for field data. Playwright 1.64.1's `page.screencast` path needs its own ffmpeg build, which this container lacks; 1.56 records through `recordVideo`.
+- Upkeep: `check-versions.mjs` (first run: SvelteKit 3.1, motion 14.5, Taxi 2.0 and dotlottie 0.81 are majors ahead), the Node floor (22 LTS / 24 LTS; doctor checks every installed `engines.node`), `calibration.mjs` (usability lowest on 27 of 31 entries since 2021; Accessibility corpus maximum 7.60, Cartier 8.00 outside it). Playwright pinned in `recipes/`, stamping opt-in, `bun.lock` gone.
+- Evals: contract, resume, coexist tiers; near misses; jury-bland-clean; `regrade.mjs`, `pick.mjs`; every new case loads under `--max-cost-usd 0`. The resume case's history format and the coexist cases' second plugin are accepted at load but unproven until a paid run.
+- Platform and docs: descriptions trimmed to 7.4k characters; SubagentStop jury reply check; `userConfig` (`hooks_enabled`, `default_stack`); jury agent with Write, 45 turns, `omitClaudeMd`, narrow Bash and `awards-log.mjs`; research runs `policy.mjs` first; hand-offs from motion and webgl go back through craft's pre-jury checks; the deal fits four options; Windows spawns and a portable browser staging; dot-paths refused by the local server; icon and listing URLs; quick start, CHANGELOG.md, CONTRIBUTING.md, issue and PR templates; superseded plans archived.
+- Behavior suite: 30/30 pass (2026-10-22), including the new checks for the rendered failures, build output, three widths, layout rules, timeline and baseline captures, the GPU refusal, scoped exceptions, dot-paths, owner policy, the log writer, the reply check and the capture lock. Two full rendered sweeps of the recipes, the Codex install check with both scaffold builds, and every free check pass.
 
 ## Evidence phase, first batch (branch `claude/relaxed-heisenberg-rszyzq`, 2026-10-22, unreleased)
 
@@ -16,7 +26,7 @@ reference. `decisions.md` records choices already taken.
 
 ## Release 0.7.0 (2026-10-22)
 
-The quick wins and the second finish batch below ship together as 0.7.0; all three manifests agree. Release notes in `README.md#status`. Released without the paid gate run, by the maintainer's decision: `build-antarctic-site` has not run against 0.7.0.
+The quick wins and the second finish batch below ship together as 0.7.0; all three manifests agree. Release notes in `CHANGELOG.md`. Released without the paid gate run, by the maintainer's decision: `build-antarctic-site` has not run against 0.7.0.
 
 Release checks, 2026-10-22, serial: both `claude plugin validate` pass; check-sync, lint-refs, grader selftest, route-hint, jury-evidence and visual-library self-checks pass; `audit.mjs recipes` has no P0–P2; `behavior.mjs` 20/20; `codex-install.mjs --build` (Codex CLI 0.163.0) finds 11 skills and no hooks and builds both scaffolds; the recipes build. Full `verify-recipes` not re-run for the release (the three changed recipes passed on 2026-10-22).
 
@@ -40,7 +50,7 @@ Release checks, 2026-10-22, serial: both `claude plugin validate` pass; check-sy
 
 ## Release 0.6.0 (2026-10-07)
 
-The Now items, Ceiling and Finish gates below ship together as 0.6.0; all three manifests agree. Release notes in `README.md#status`.
+The Now items, Ceiling and Finish gates below ship together as 0.6.0; all three manifests agree. Release notes in `CHANGELOG.md`.
 
 Release checks, 2026-10-07, serial: both `claude plugin validate` pass; lint-refs, selftest, jury-evidence, visual-library and route-hint self-checks pass; `audit.mjs recipes` has no P0–P2; `behavior.mjs` passes; `codex-install.mjs --build` finds 11 skills and builds both scaffolds. `verify-recipes` passed 73/76 in one run. `gl-lathe-turned-object` and `gl-virtual-scroll-camera` passed when re-run alone. `gl-ping-pong-grain-field` is timing-flaky on this branch and on `main` alike: its reset glide sometimes ends 1–10 px short under SwiftShader (main 6/8, this branch 4/11 over interleaved runs). Its source is unchanged since 0.5.0.
 
@@ -106,10 +116,10 @@ Release checks, 2026-10-07, serial: both `claude plugin validate` pass; lint-ref
     - T08 skips an h1 whose visual is an svg or img.
   - A render sweep must run the audit asynchronously. `execFileSync` blocks the process that serves the pages, and every audit hangs.
 
-## Current release — visual composition library
+## 0.3.0 — visual composition library
 
 Version **0.3.0** synchronizes the Claude, Codex and marketplace manifests. The
-[release notes](../../README.md#status) describe the implementation and measured limits; the
+[release notes](../../CHANGELOG.md) describe the implementation and measured limits; the
 frozen comparison below remains a failed acceptance result, with no claim of library causality.
 
 The catalogue has **35 focused recipes plus one complete composition, 36 verifiable entries**.
@@ -170,7 +180,7 @@ findings also remain in two baseline outputs and Form & Sound candidate. This pi
 acceptance; it does not establish visual superiority. All six advertised Awards skills correctly
 but made zero Skill calls, so guide/recipe workflow effectiveness remains unmeasured.
 
-The [comparison record](visual-comparison-2026-09-22.md) records explicit gates, protocol deviations
+The [comparison record](archive/visual-comparison-2026-09-22.md) records explicit gates, protocol deviations
 and the verified 216-image neutral gallery. Simon's 2026-09-23 review prefers the candidate overall
 for Tidal Notes and Form & Sound, ties Kiln Nine overall, and ties all three Mobile comparisons.
 Kiln Nine's imagery favors the baseline; Tidal Notes' composition favors the candidate. All other
@@ -267,7 +277,7 @@ That pass recorded **11/11** behavior checks, including the reviewed server, aud
 
 ## Where the 0.2.0 work stands
 
-`plan-0.2.md` has nine phases, and **all nine are done**. What remains open is listed in `todo.md`:
+`archive/plan-0.2.md` has nine phases, and **all nine are done**. What remains open is listed in `todo.md`:
 two fixes from the third build-tier run that have not been re-measured, and the work put out of
 scope by decision (a real-device GPU pass, framework adapters, extra scaffolds).
 
@@ -281,7 +291,7 @@ scope by decision (a real-device GPU pass, framework adapters, extra scaffolds).
 | 5 | Repair graders, add `selftest.mjs`, six new smoke cases, cheap smoke run | done — but its conclusion about the two misses was wrong; see the ledger's 5c correction |
 | 6 | The two missing P2 recipes, `allowed-tools` on every skill | done, 30/30 recipes |
 | 7 | Full smoke with the baseline arm, build tier once | **both tiers have run.** Smoke meets its bars; the build tier is 2/6 all-green with 36/41 graders passing, and its six failures are diagnosed but not yet fixed |
-| 8 | One real end-to-end build | **done 2026-09-21**, $23.89, every check met, and `plan.md` risk 2 is resolved |
+| 8 | One real end-to-end build | **done 2026-09-21**, $23.89, every check met, and `archive/plan.md` risk 2 is resolved |
 | 9 | Docs, counts, version bump, final verification | **done 2026-09-21** — both manifests at 0.2.0, release notes in `README.md`, counts corrected, verification block run |
 
 The calibration outcome is load-bearing and easy to misread: this jury scores roughly 0.7 below the
@@ -352,7 +362,7 @@ Stamped on 2026-09-18 and **not** re-run since:
   skill calls, `craft` → `concept` → `system` → `structure` → `stack` → `motion` → `jury` →
   `jury --verdict`, 129 turns, $23.89. `npm run build` passed, the audit re-run independently is
   clean at P0–P3 0, and the captures cover desktop, mobile and reduced motion with no console or
-  page errors. **`plan.md` risk 2 is resolved**: the forked jury's literal `disposition:` line
+  page errors. **`archive/plan.md` risk 2 is resolved**: the forked jury's literal `disposition:` line
   reaches the user verbatim, so the Agent-tool fallback in `skills/craft/SKILL.md` stays as
   insurance rather than being needed. Full account in the ledger's Phase 8 section.
 - The one defect that run surfaced is fixed: `scripts/audit.mjs` resolved its project root from

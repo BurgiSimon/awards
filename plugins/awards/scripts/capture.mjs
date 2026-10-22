@@ -1,25 +1,42 @@
 #!/usr/bin/env node
-// Capture desktop / mobile / scroll-state / reduced-motion screenshots of a page or component for review.
-// Usage: node capture.mjs <url|file|dir> [--out .awards/captures] [--desktop 1440x900] [--mobile 390x844]
-//   [--only desktop|mobile] [--scroll 0,50,100] [--reduced-motion] [--full-page] [--selector <css>] [--hover <css>]
-//   [--wait <ms>] [--wait-for <css>] [--no-webgl] [--json] [--name <prefix>] [--timeout <ms>] [--wheel <px>]
-//   [--states <json-file>] — additional named checkpoints: [{ name, actions, selector? }]
+// Capture desktop / tablet / mobile / scroll-state / reduced-motion screenshots of a page or component for review.
+// Usage: node capture.mjs <url|file|dir> [--out .awards/captures] [--desktop 1440x900] [--tablet 834x1194 | --no-tablet]
+//   [--mobile 390x844] [--only desktop|tablet|mobile] [--scroll 0,50,100] [--reduced-motion] [--full-page]
+//   [--selector <css>] [--hover <css>] [--wait <ms>] [--wait-for <css>] [--no-webgl] [--json] [--name <prefix>]
+//   [--timeout <ms>] [--wheel <px>] [--states <json-file>] — additional named checkpoints: [{ name, actions, selector? }]
+//   [--timeline 0,400,1200] desktop frames at those milliseconds of page time, the page clock held still between them
+//   [--video] a webm of a real-time desktop scroll pass · [--throttle] phone pass at 4x CPU and slow 4G
+//   [--gpu [--headed]] a hardware-GPU run that refuses SwiftShader and records frame times
+//   [--baseline <earlier capture dir>] per-frame pixel difference against an earlier round
+//   [--lock <path>] wait for and hold a lock, so captures never run side by side (portable stand-in for flock)
 // Without --hover or --states, desktop also records hover and focus-visible frames for the first three visible links and buttons.
-// Exit codes: 0 ok · 2 page/action errors · 3 browser unavailable · 4 target unreachable · 1 usage.
+// Every viewport also writes its accessibility tree as <viewport>-aria.yml. Tablet is skipped for --selector runs unless named.
+// Exit codes: 0 ok · 2 page/action errors · 3 browser unavailable · 4 target unreachable · 5 --gpu got a software renderer · 1 usage.
 import fs from 'node:fs';
 import path from 'node:path';
 import { parseArgs, now } from './lib/report.mjs';
-import { resolvePlaywright, launchChromium, MISSING_MESSAGE } from './lib/playwright.mjs';
+import { resolvePlaywright, launchChromium, isSoftwareRenderer, MISSING_MESSAGE } from './lib/playwright.mjs';
 import { serveDirectory } from './lib/server.mjs';
 import { validateActions, runActions } from './lib/actions.mjs';
 
-const args = parseArgs(process.argv.slice(2), { 'reduced-motion': 'boolean', 'full-page': 'boolean', json: 'boolean', webgl: 'boolean' });
+const args = parseArgs(process.argv.slice(2), { 'reduced-motion': 'boolean', 'full-page': 'boolean', json: 'boolean', webgl: 'boolean', video: 'boolean', throttle: 'boolean', gpu: 'boolean', headed: 'boolean' });
 const target = args._[0];
 if (!target) {
   console.error('usage: node capture.mjs <url|file|dir> [options]');
   process.exit(1);
 }
-const outDir = path.resolve(args.out ?? '.awards/captures');
+// A relative --out belongs to the project (the nearest folder with AWARDS.md above the target, or above the shell
+// for a URL), not to wherever the shell stands: run from dist/ or public/, captures would otherwise ship with the site.
+const projectRoot = (() => {
+  const local = !/^https?:\/\//i.test(target) && fs.existsSync(path.resolve(target));
+  let d = local ? path.resolve(target) : process.cwd();
+  if (local && !fs.statSync(d).isDirectory()) d = path.dirname(d);
+  for (const start = d; ; d = path.dirname(d)) {
+    if (fs.existsSync(path.join(d, 'AWARDS.md'))) return d;
+    if (d === path.dirname(d)) return local ? process.cwd() : start;
+  }
+})();
+const outDir = path.resolve(projectRoot, args.out ?? '.awards/captures');
 const name = args.name ? String(args.name) + '-' : '';
 const parseVp = (s, d) => {
   const [w, h] = String(s ?? d).split('x').map(Number);
@@ -27,6 +44,13 @@ const parseVp = (s, d) => {
 };
 const desktop = parseVp(args.desktop, '1440x900');
 const mobile = parseVp(args.mobile, '390x844');
+// Tablet is the third responsive width the jury judges; a component run adds it only when asked by name.
+const tablet = args.tablet === false || (args.selector && args.tablet === undefined) ? null : parseVp(args.tablet, '834x1194');
+const timeline = args.timeline === undefined ? [] : String(args.timeline).split(',').map((s) => Number(s.trim())).filter((n) => Number.isFinite(n) && n >= 0).sort((a, b) => a - b);
+if (args.timeline !== undefined && !timeline.length) {
+  console.error('--timeline needs comma-separated milliseconds, e.g. 0,400,1200');
+  process.exit(1);
+}
 const states = String(args.scroll ?? '0,50,100').split(',').map((s) => Number(s.trim())).filter((n) => !Number.isNaN(n));
 const settle = Number(args.wait ?? 600);
 const timeout = Number(args.timeout ?? 30000);
@@ -62,6 +86,27 @@ if (!found) {
   console.error(MISSING_MESSAGE);
   process.exit(3);
 }
+
+// One capture at a time per lock: mkdir is atomic on every platform, unlike flock (absent on macOS and Windows).
+// A lock older than fifteen minutes belongs to a run that died and is taken over; a plain file of that name is
+// what flock left behind and holds nothing.
+if (args.lock) {
+  const lock = path.resolve(projectRoot, String(args.lock));
+  fs.mkdirSync(path.dirname(lock), { recursive: true });
+  if (fs.existsSync(lock) && !fs.statSync(lock).isDirectory()) fs.rmSync(lock, { force: true });
+  for (let waited = 0; ; waited += 250) {
+    try {
+      fs.mkdirSync(lock);
+      break;
+    } catch (e) {
+      if (e.code !== 'EEXIST') throw e;
+      if (Date.now() - fs.statSync(lock).mtimeMs > 15 * 60 * 1000) { fs.rmSync(lock, { recursive: true, force: true }); continue; }
+      if (waited > 20 * 60 * 1000) { console.error(`capture lock still held after 20 minutes: ${lock}`); process.exit(1); }
+      await new Promise((r) => setTimeout(r, 250));
+    }
+  }
+  process.on('exit', () => { try { fs.rmSync(lock, { recursive: true, force: true }); } catch {} });
+}
 const pw = found.module;
 
 let server = null;
@@ -84,7 +129,7 @@ const manifest = {
   createdAt: now(),
   playwright: found.source,
   webglRequested: webgl,
-  viewports: { desktop, mobile },
+  viewports: { desktop, ...(tablet ? { tablet } : {}), mobile },
   scrollStates: states,
   interactiveStates,
   captures: [],
@@ -94,12 +139,35 @@ const manifest = {
   metrics: {},
 };
 
+// LCP; CLS as the largest session window (gaps under 1 s, at most 5 s), as the metric is defined; main-thread
+// long tasks and their blocking time past 50 ms; and the slowest interaction this capture itself performs
+// (keyboard and pointer events carrying an interactionId), which is a lab stand-in for INP, not field INP.
 const INIT = `
 (() => {
-  window.__awardsMetrics = { lcp: 0, cls: 0 };
+  const m = window.__awardsMetrics = { lcp: 0, cls: 0, longTasks: 0, longTaskMs: 0, blockingMs: 0, inpLab: 0, interactions: 0 };
+  let session = 0, first = 0, last = 0;
+  const seen = new Map();
   try {
-    new PerformanceObserver((l) => { for (const e of l.getEntries()) window.__awardsMetrics.lcp = e.startTime; }).observe({ type: 'largest-contentful-paint', buffered: true });
-    new PerformanceObserver((l) => { for (const e of l.getEntries()) if (!e.hadRecentInput) window.__awardsMetrics.cls += e.value; }).observe({ type: 'layout-shift', buffered: true });
+    new PerformanceObserver((l) => { for (const e of l.getEntries()) m.lcp = e.startTime; }).observe({ type: 'largest-contentful-paint', buffered: true });
+    new PerformanceObserver((l) => {
+      for (const e of l.getEntries()) {
+        if (e.hadRecentInput) continue;
+        if (session && e.startTime - last < 1000 && e.startTime - first < 5000) session += e.value;
+        else { session = e.value; first = e.startTime; }
+        last = e.startTime;
+        m.cls = Math.max(m.cls, session);
+      }
+    }).observe({ type: 'layout-shift', buffered: true });
+    new PerformanceObserver((l) => { for (const e of l.getEntries()) { m.longTasks++; m.longTaskMs += e.duration; m.blockingMs += Math.max(0, e.duration - 50); } }).observe({ type: 'longtask', buffered: true });
+    new PerformanceObserver((l) => {
+      for (const e of l.getEntries()) {
+        if (!e.interactionId) continue;
+        const d = Math.max(seen.get(e.interactionId) ?? 0, e.duration);
+        seen.set(e.interactionId, d);
+        m.interactions = seen.size;
+        m.inpLab = Math.max(m.inpLab, d);
+      }
+    }).observe({ type: 'event', durationThreshold: 16, buffered: true });
   } catch {}
   ${webgl ? '' : `const gc = HTMLCanvasElement.prototype.getContext; HTMLCanvasElement.prototype.getContext = function (t, ...r) { return /webgl|webgpu/i.test(String(t)) ? null : gc.call(this, t, ...r); };`}
 })();`;
@@ -185,28 +253,158 @@ async function interactionFrames(page) {
   await page.mouse.move(0, 0).catch(() => {});
 }
 
+// The unmasked WebGL renderer: "SwiftShader" or "llvmpipe" means software, anything else names a GPU.
+function rendererString() {
+  const gl = document.createElement('canvas').getContext('webgl2') || document.createElement('canvas').getContext('webgl');
+  if (!gl) return null;
+  const ext = gl.getExtension('WEBGL_debug_renderer_info');
+  return String(gl.getParameter(ext ? ext.UNMASKED_RENDERER_WEBGL : gl.RENDERER));
+}
+
+// Frame times on a hardware GPU: three seconds at rest, then three seconds scrolling from the top to the
+// middle through the page's own hook. p50 and p95 of the rAF deltas, and the share of frames over 1.5x p50.
+async function sampleFrames() {
+  const run = (ms, during) => new Promise((resolve) => {
+    const deltas = [];
+    let prev = performance.now();
+    const start = prev;
+    const tick = (t) => {
+      deltas.push(t - prev);
+      prev = t;
+      during?.((t - start) / ms);
+      if (t - start < ms) requestAnimationFrame(tick);
+      else resolve(deltas.slice(1));
+    };
+    requestAnimationFrame(tick);
+  });
+  const stats = (d) => {
+    const s = [...d].sort((a, b) => a - b);
+    const q = (p) => Math.round(s[Math.min(s.length - 1, Math.floor(p * s.length))] * 10) / 10;
+    const p50 = q(0.5);
+    return { frames: s.length, p50, p95: q(0.95), slow: Math.round((s.filter((x) => x > p50 * 1.5).length / Math.max(1, s.length)) * 100) / 100 };
+  };
+  const idle = await run(3000);
+  const max = Math.max(0, document.documentElement.scrollHeight - innerHeight);
+  const scroll = await run(3000, (f) => {
+    const p = Math.min(0.5, f * 0.5);
+    if (window.__awards?.scrollTo) window.__awards.scrollTo(p);
+    else window.scrollTo(0, Math.round(max * p));
+  });
+  if (window.__awards?.scrollTo) await window.__awards.scrollTo(0); else window.scrollTo(0, 0);
+  return { idle: stats(idle), scroll: stats(scroll) };
+}
+
+const dataUrl = (file) => `data:image/png;base64,${fs.readFileSync(file).toString('base64')}`;
+
+// Runs in a blank page: decodes both PNGs and counts the pixels whose summed channel difference exceeds 48
+// (antialiasing noise stays under it). Returns the changed share, the box around the changes and, when
+// anything changed, a map: changed pixels in red over a faded copy of the new frame.
+async function pixelDiff({ a, b }) {
+  const load = (src) => new Promise((resolve, reject) => { const img = new Image(); img.onload = () => resolve(img); img.onerror = () => reject(new Error('image decode failed')); img.src = src; });
+  const [before, after] = await Promise.all([load(a), load(b)]);
+  if (before.width !== after.width || before.height !== after.height) return { changed: 1, sizeChanged: `${before.width}×${before.height} → ${after.width}×${after.height}` };
+  const { width: w, height: h } = after;
+  const canvas = document.createElement('canvas');
+  canvas.width = w; canvas.height = h;
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+  ctx.drawImage(before, 0, 0);
+  const pa = ctx.getImageData(0, 0, w, h).data;
+  ctx.drawImage(after, 0, 0);
+  const out = ctx.getImageData(0, 0, w, h);
+  const pb = out.data;
+  let changed = 0, x0 = w, y0 = h, x1 = -1, y1 = -1;
+  for (let i = 0; i < pb.length; i += 4) {
+    const d = Math.abs(pa[i] - pb[i]) + Math.abs(pa[i + 1] - pb[i + 1]) + Math.abs(pa[i + 2] - pb[i + 2]);
+    if (d > 48) {
+      changed++;
+      const p = i / 4, x = p % w, y = (p - x) / w;
+      if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y;
+      pb[i] = 230; pb[i + 1] = 20; pb[i + 2] = 60;
+    } else {
+      const g = 255 - (255 - (pb[i] * 0.3 + pb[i + 1] * 0.59 + pb[i + 2] * 0.11)) * 0.2;
+      pb[i] = pb[i + 1] = pb[i + 2] = g;
+    }
+  }
+  const share = Math.round((changed / (w * h)) * 10000) / 10000;
+  if (!changed) return { changed: 0 };
+  ctx.putImageData(out, 0, 0);
+  return { changed: share, box: { x: x0, y: y0, width: x1 - x0 + 1, height: y1 - y0 + 1 }, png: canvas.toDataURL('image/png') };
+}
+
+// Tiles frames three to a row at 480 px wide, each captioned, onto one PNG.
+async function contactSheet(browser, frames, out) {
+  const page = await browser.newPage();
+  try {
+    const png = await page.evaluate(async (items) => {
+      const imgs = await Promise.all(items.map((f) => new Promise((resolve, reject) => { const img = new Image(); img.onload = () => resolve(img); img.onerror = reject; img.src = f.src; })));
+      const cols = Math.min(3, imgs.length), tw = 480, th = Math.round((tw * imgs[0].height) / imgs[0].width), pad = 12, cap = 22;
+      const canvas = document.createElement('canvas');
+      canvas.width = cols * tw + (cols + 1) * pad;
+      canvas.height = Math.ceil(imgs.length / cols) * (th + cap + pad) + pad;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.font = '14px system-ui, sans-serif';
+      imgs.forEach((img, i) => {
+        const x = pad + (i % cols) * (tw + pad), y = pad + Math.floor(i / cols) * (th + cap + pad);
+        ctx.fillStyle = '#111111';
+        ctx.fillText(items[i].caption, x, y + 15);
+        ctx.drawImage(img, x, y + cap, tw, th);
+        ctx.strokeStyle = '#cccccc';
+        ctx.strokeRect(x + 0.5, y + cap + 0.5, tw - 1, th - 1);
+      });
+      return canvas.toDataURL('image/png');
+    }, frames.map((f) => ({ src: dataUrl(f.file), caption: f.caption })));
+    fs.writeFileSync(out, Buffer.from(png.split(',')[1], 'base64'));
+  } finally {
+    await page.close();
+  }
+}
+
 let browser;
 let exitCode = 0;
 try {
-  browser = await launchChromium(pw, { webgl });
-  const plans = [['desktop', desktop, false]];
-  if (!only || only === 'mobile') plans.push(['mobile', mobile, true]);
-  if (only === 'mobile') plans.shift();
-  if (args['reduced-motion']) plans.push(['desktop-rm', desktop, false, true]);
+  browser = await launchChromium(pw, { webgl, gpu: !!args.gpu, headed: !!args.headed, sandbox: /^https?:\/\//i.test(target) });
+  // The GPU lane exists to measure real frames; a software rasteriser would make every number in it fiction.
+  if (args.gpu) {
+    const probe = await browser.newPage();
+    manifest.renderer = await probe.evaluate(rendererString).catch(() => null);
+    await probe.close();
+    if (!manifest.renderer || isSoftwareRenderer(manifest.renderer)) {
+      console.error(`--gpu reached ${manifest.renderer ?? 'no WebGL at all'}, not a hardware GPU. Run on a machine with a GPU, add --headed, or drop --gpu.`);
+      await browser.close();
+      if (server) await server.close();
+      process.exit(5);
+    }
+  }
+  const UA = {
+    mobile: 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1',
+    tablet: 'Mozilla/5.0 (iPad; CPU OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1',
+  };
+  const plans = [['desktop', desktop, null], ['tablet', tablet, 'tablet'], ['mobile', mobile, 'mobile']]
+    .filter(([label, viewport]) => viewport && (!only || only === label));
+  if (args['reduced-motion']) plans.push(['desktop-rm', desktop, null, true]);
 
-  for (const [label, viewport, isMobile, reducedMotion] of plans) {
+  for (const [label, viewport, device, reducedMotion] of plans) {
+    const isMobile = !!device;
     const context = await browser.newContext({
       viewport,
-      deviceScaleFactor: isMobile ? 2 : 1,
+      deviceScaleFactor: device === 'mobile' ? 2 : 1,
       isMobile,
       hasTouch: isMobile,
       reducedMotion: reducedMotion ? 'reduce' : 'no-preference',
-      userAgent: isMobile
-        ? 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1'
-        : undefined,
+      userAgent: UA[device],
     });
     await context.addInitScript(INIT);
     const page = await context.newPage();
+    // Lighthouse's mobile profile: 4x CPU slowdown, 150 ms round trip, 1.6 Mbps down, 750 Kbps up.
+    if (args.throttle && device === 'mobile') {
+      const cdp = await context.newCDPSession(page);
+      await cdp.send('Network.enable');
+      await cdp.send('Network.emulateNetworkConditions', { offline: false, latency: 150, downloadThroughput: (1.6 * 1024 * 1024) / 8, uploadThroughput: (750 * 1024) / 8 });
+      await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
+      manifest.throttle = { viewport: 'mobile', cpu: 4, rttMs: 150, downMbps: 1.6, upKbps: 750 };
+    }
     page.on('console', (m) => { if (m.type() === 'error') manifest.consoleErrors.push(`[${label}] ${m.text()}`); });
     page.on('pageerror', (e) => manifest.pageErrors.push(`[${label}] ${e.message}`));
     page.on('requestfailed', (r) => manifest.failedRequests.push(`[${label}] ${r.url()} ${r.failure()?.errorText ?? ''}`));
@@ -259,10 +457,27 @@ try {
       }
     }
 
+    // The accessibility tree as the page exposes it at this width: the Semantics / SEO evidence.
+    if (!args.selector) {
+      try {
+        const aria = await page.locator('body').ariaSnapshot({ timeout });
+        const file = path.join(outDir, `${name}${label}-aria.yml`);
+        fs.writeFileSync(file, aria + '\n');
+        manifest.captures.push({ label, kind: 'aria', file });
+      } catch (e) {
+        manifest.pageErrors.push(`[${label}] aria snapshot failed: ${e.message.split('\n')[0]}`);
+      }
+    }
+    if (args.gpu && !args.selector) {
+      manifest.frames ??= {};
+      manifest.frames[label] = await page.evaluate(sampleFrames).catch((e) => ({ error: e.message }));
+    }
+
     manifest.metrics[label] = await page.evaluate(() => {
       const c = document.createElement('canvas');
       let gl = false;
       try { gl = !!(c.getContext('webgl2') || c.getContext('webgl')); } catch {}
+      const m = window.__awardsMetrics ?? {};
       return {
         title: document.title,
         lang: document.documentElement.lang || null,
@@ -270,8 +485,12 @@ try {
         webgl: gl,
         canvases: document.querySelectorAll('canvas').length,
         // Headless, cold cache, software GL: an asset-weight signal, never a field LCP.
-        lcpColdSynthetic: Math.round(window.__awardsMetrics?.lcp ?? 0),
-        cls: Number((window.__awardsMetrics?.cls ?? 0).toFixed(4)),
+        lcpColdSynthetic: Math.round(m.lcp ?? 0),
+        cls: Number((m.cls ?? 0).toFixed(4)),
+        longTasks: m.longTasks ?? 0,
+        blockingMs: Math.round(m.blockingMs ?? 0),
+        inpLab: m.interactions ? Math.round(m.inpLab) : null,
+        interactions: m.interactions ?? 0,
         reducedMotion: matchMedia('(prefers-reduced-motion: reduce)').matches,
         awardsHook: !!window.__awards,
         awardsState: (() => { try { return window.__awards?.state?.() ?? null; } catch { return null; } })(),
@@ -279,6 +498,13 @@ try {
     });
     manifest.metrics[label].scrollMode = scrollMode;
     if (label === 'desktop' && !args.hover && !args.states) await interactionFrames(page);
+    // Three keyboard steps give the lab INP something real to time on every page, then the figure is re-read.
+    if (label === 'desktop') {
+      for (let i = 0; i < 3; i++) await page.keyboard.press('Tab').catch(() => {});
+      await page.waitForTimeout(300);
+      const m = await page.evaluate(() => window.__awardsMetrics ?? null).catch(() => null);
+      if (m) Object.assign(manifest.metrics[label], { inpLab: m.interactions ? Math.round(m.inpLab) : null, interactions: m.interactions, longTasks: m.longTasks, blockingMs: Math.round(m.blockingMs) });
+    }
     // Each checkpoint starts at the requested URL; storage persists within this viewport.
     // A failed action cannot contaminate the next checkpoint or erase earlier evidence.
     for (const state of interactiveStates) {
@@ -301,7 +527,100 @@ try {
         manifest.pageErrors.push('[' + label + ' state ' + state.name + '] ' + error.message);
       }
     }
-    await context.close();
+    await context.close().catch(() => {});
+  }
+
+  // Page time, held still: the clock is paused before navigation, so timers, rAF and GSAP advance only by
+  // the steps below and two runs of the same page give the same frames. CSS animations and transitions run
+  // on the browser's own clock and are not held. The frames also land on one contact sheet the jury can read.
+  if (timeline.length && exitCode !== 4) {
+    const context = await browser.newContext({ viewport: desktop, reducedMotion: 'no-preference' });
+    await context.addInitScript(INIT);
+    const page = await context.newPage();
+    page.on('pageerror', (e) => manifest.pageErrors.push(`[timeline] ${e.message}`));
+    try {
+      const start = Date.now();
+      await page.clock.install({ time: start });
+      await page.clock.pauseAt(start + 1);
+      await page.goto(url, { waitUntil: 'load', timeout });
+      const frames = [];
+      let at = 0;
+      for (const t of timeline) {
+        if (t > at) await page.clock.runFor(t - at);
+        at = t;
+        const file = path.join(outDir, `${name}desktop-t${String(t).padStart(5, '0')}.png`);
+        await page.screenshot({ path: file, timeout });
+        manifest.captures.push({ label: 'desktop', kind: 'timeline', ms: t, file });
+        frames.push({ file, caption: `${t} ms` });
+      }
+      const sheet = path.join(outDir, `${name}desktop-timeline.png`);
+      await contactSheet(browser, frames, sheet);
+      manifest.captures.push({ label: 'desktop', kind: 'timeline-sheet', file: sheet });
+    } catch (e) {
+      manifest.pageErrors.push(`[timeline] ${e.message.split('\n')[0]}`);
+    }
+    await context.close().catch(() => {});
+  }
+
+  // A real-time desktop pass for people to watch: load, settle, wheel from top to bottom over about six seconds.
+  // Playwright 1.59+ records through page.screencast; older releases through the context's recordVideo.
+  if (args.video && exitCode !== 4) {
+    const size = { width: 1280, height: Math.round((1280 * desktop.height) / desktop.width) };
+    const file = path.join(outDir, `${name}desktop-scroll.webm`);
+    const probe = await browser.newPage();
+    const screencast = typeof probe.screencast?.start === 'function';
+    await probe.close();
+    const context = await browser.newContext({ viewport: desktop, ...(screencast ? {} : { recordVideo: { dir: path.join(outDir, '.video'), size } }) });
+    const page = await context.newPage();
+    try {
+      if (screencast) await page.screencast.start({ path: file, size });
+      await page.goto(url, { waitUntil: 'load', timeout });
+      await settlePage(page);
+      await page.mouse.move(Math.round(desktop.width / 2), Math.round(desktop.height / 2));
+      const height = await page.evaluate(() => Math.max(document.documentElement.scrollHeight - innerHeight, innerHeight * 4));
+      for (let i = 0; i < 60; i++) {
+        await page.mouse.wheel(0, height / 60);
+        await page.waitForTimeout(100);
+      }
+      await page.waitForTimeout(1000);
+      if (screencast) await page.screencast.stop();
+    } catch (e) {
+      manifest.pageErrors.push(`[video] ${e.message.split('\n')[0]}`);
+    }
+    const video = screencast ? null : page.video();
+    await context.close().catch(() => {});
+    if (video) {
+      await video.saveAs(file).catch((e) => manifest.pageErrors.push(`[video] ${e.message}`));
+      await video.delete().catch(() => {});
+      fs.rmSync(path.join(outDir, '.video'), { recursive: true, force: true });
+    }
+    if (fs.existsSync(file)) manifest.captures.push({ label: 'desktop', kind: 'video', file });
+  }
+
+  // Against an earlier round: the share of pixels that changed per frame, and a map of where.
+  if (args.baseline && exitCode !== 4) {
+    const base = path.resolve(String(args.baseline));
+    manifest.baseline = base;
+    manifest.diff = [];
+    const page = await browser.newPage();
+    for (const c of manifest.captures.filter((c) => c.file.endsWith('.png') && c.kind !== 'timeline-sheet')) {
+      const earlier = path.join(base, path.basename(c.file));
+      if (!fs.existsSync(earlier)) continue;
+      try {
+        const r = await page.evaluate(pixelDiff, { a: dataUrl(earlier), b: dataUrl(c.file) });
+        const entry = { file: c.file, baseline: earlier, ...r, png: undefined };
+        if (r.png) {
+          fs.mkdirSync(path.join(outDir, 'diff'), { recursive: true });
+          entry.map = path.join(outDir, 'diff', path.basename(c.file));
+          fs.writeFileSync(entry.map, Buffer.from(r.png.split(',')[1], 'base64'));
+        }
+        delete entry.png;
+        manifest.diff.push(entry);
+      } catch (e) {
+        manifest.pageErrors.push(`[baseline] ${path.basename(c.file)}: ${e.message.split('\n')[0]}`);
+      }
+    }
+    await page.close();
   }
 } catch (e) {
   if (!browser) exitCode = 3;
@@ -322,6 +641,10 @@ if (args.json) {
   if (manifest.consoleErrors.length) console.log(`console errors: ${manifest.consoleErrors.length}`);
   if (manifest.pageErrors.length) console.log(`page errors: ${manifest.pageErrors.length}`);
   if (manifest.failedRequests.length) console.log(`failed requests: ${manifest.failedRequests.length}`);
+  if (manifest.diff) {
+    const moved = manifest.diff.filter((d) => d.changed > 0.01);
+    console.log(`against ${manifest.baseline}: ${manifest.diff.length} frame(s) compared, ${moved.length} changed by more than 1 %${moved.length ? ': ' + moved.map((d) => `${path.basename(d.file)} ${(d.changed * 100).toFixed(1)} %`).join(', ') : ''}`);
+  }
   console.log(`manifest: ${manifestPath}`);
 }
 process.exit(exitCode);

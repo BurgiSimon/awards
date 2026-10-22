@@ -1,6 +1,6 @@
 ---
 name: motion
-description: "Author the motion of an award-level site or component with GSAP 3.15 (ScrollTrigger, SplitText, Flip, Observer), Lenis, anime.js 4 or CSS: a preloader that holds at 100 on a real load signal, masked line reveals, scroll-scrubbed pins and sticky stages, velocity-driven effects, a two-speed cursor, magnetic targets, rAF marquees, flicker and scramble text, theme swaps, page and shared-element transitions, all on one expo-out vocabulary with framerate-independent damping and three reduced-motion tiers. Use when asked to animate, add motion or smooth scroll, build GSAP timelines, scroll-triggered or scrollytelling effects, text reveals, transitions, micro-interactions or cursor effects, make a page feel alive, premium or cinematic, or fix animation that feels generic, janky or fade-up-everything. Not for chart or dashboard animation, and not for the WebGL layer itself (awards:webgl)."
+description: "Author the motion of an award-level site or component with GSAP 3.15 (ScrollTrigger, SplitText, Flip), Lenis, anime.js 4 or CSS: preloaders on a real load signal, masked reveals, scrubbed pins and sticky stages, velocity effects, cursors, magnetic targets, marquees, page transitions, one easing vocabulary and three reduced-motion tiers. Use when asked to animate, add motion or smooth scroll, build GSAP timelines or scrollytelling, text reveals, transitions, micro-interactions or cursor effects, make a page feel alive, premium or cinematic, or fix motion that feels generic, janky or fade-up-everything. Not for chart animation or the WebGL layer (awards:webgl)."
 argument-hint: "[target or feature] [--lib gsap|anime|css] [--gsap] [--score-only]"
 allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
 ---
@@ -269,7 +269,7 @@ Evidence first, then the checklist; the jury reads the captures before it reads 
 
 ## Hand-off
 
-Tick "Motion score authored and built (motion)" in `AWARDS.md ## Status`. When the score names a WebGL moment (a tethered plane, a wake, a scene, a camera rig): Invoke the `awards:webgl` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. Otherwise, or once the GL layer has landed: Invoke the `awards:jury` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline.
+Tick "Motion score authored and built (motion)" in `AWARDS.md ## Status`. When the score names a WebGL moment (a tethered plane, a wake, a scene, a camera rig): Invoke the `awards:webgl` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. Otherwise, or once the GL layer has landed, in a build (an `AWARDS.md` with a locked contract): Invoke the `awards:craft` skill now with the Skill tool, passing the brief and the AWARDS.md path, so it runs its pre-jury captures and slop pass before phase 7; do not invoke the jury directly. Run standalone on one page or component, offer `awards:jury` in one line instead.
 
 ## Refuse
 

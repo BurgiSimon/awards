@@ -28,6 +28,7 @@ Wheel `× 1.25` (lines `× 16`) · burst `≥ 40 px`, gap `30 ms`, cooldown `500
 - **Real work:** swap the canvas art for one KTX2 texture per project. Keep the button list and make each button a link to the project page (an `<a>` also gets focus-to-centre).
 - **OGL:** `new Plane(gl, { widthSegments: 48, heightSegments: 24 })` with a `Program` running the same vertex shader.
 - **R3F:** keep the offset, target and burst reservoir in refs, integrate them in `useFrame` and write `uBend` into each material's uniforms. Never put them in React state.
+- **Layout before paint:** the reel is a different layout from the list, so the switch belongs in a head script that runs the same WebGL test before the first paint; `main.js` only removes the class when WebGL fails. Switched from the module after load, the whole page moved: a 0.81 layout shift (`audit.mjs --render`, P08).
 - **Velocity texture:** `[site:siena]` also blurs its DOM layer by speed. Add a blur only if the reel has DOM text over it, and drop it on phones.
 
 ## Verify

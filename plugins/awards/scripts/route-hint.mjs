@@ -60,7 +60,8 @@ function selftest() {
     const gdir = path.join(evals, c, 'graders');
     for (const g of fs.existsSync(gdir) ? fs.readdirSync(gdir) : []) {
       const src = fs.readFileSync(path.join(gdir, g), 'utf8');
-      const pat = /^tool: Skill$/m.test(src) && !/^match: not_contains$/m.test(src) && src.match(/^input_match: '(.+)'$/m)?.[1];
+      // A grader that forbids a skill (max: 0) names what must not fire, so it is not checked against the hint.
+      const pat = /^tool: Skill$/m.test(src) && !/^match: not_contains$/m.test(src) && !/^max: 0$/m.test(src) && src.match(/^input_match: '(.+)'$/m)?.[1];
       if (pat) assert(new RegExp(pat).test(`"skill": "${named}"`), `${c} -> ${named}, grader ${g} wants another skill`);
     }
   }
@@ -70,7 +71,7 @@ function selftest() {
 // Imported (e.g. by a test) it only exports hint(); stdin is read only when run as the hook.
 const direct = (() => { try { return fs.realpathSync(process.argv[1]) === fileURLToPath(import.meta.url); } catch { return false; } })();
 if (direct && process.argv.includes('--selftest')) selftest();
-else if (direct && process.env.AWARDS_HOOK !== '0') {
+else if (direct && process.env.AWARDS_HOOK !== '0' && !/^(false|0)$/.test(process.env.CLAUDE_PLUGIN_OPTION_HOOKS_ENABLED ?? '')) {
   let prompt;
   try { prompt = JSON.parse(fs.readFileSync(0, 'utf8')).prompt; } catch { /* no or bad input: stay silent */ }
   const line = hint(prompt);

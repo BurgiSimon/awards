@@ -47,7 +47,9 @@ export function serveDirectory(rootDir, { port = 0 } = {}) {
     try {
       const urlPath = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
       let filePath = path.normalize(path.join(root, urlPath));
-      if (!inside(filePath)) {
+      // Dot-paths (.env, .git/, .awards/) are never part of a page; only /.well-known/ is.
+      const hidden = path.relative(root, filePath).split(path.sep).some((part) => part.startsWith('.') && part !== '.well-known');
+      if (!inside(filePath) || hidden) {
         res.writeHead(403).end('forbidden');
         return;
       }
@@ -67,7 +69,6 @@ export function serveDirectory(rootDir, { port = 0 } = {}) {
       res.writeHead(200, {
         'content-type': MIME[ext] || 'application/octet-stream',
         'cache-control': 'no-store',
-        'access-control-allow-origin': '*',
       });
       fs.createReadStream(filePath).on('error', () => res.destroy()).pipe(res);
     } catch (err) {

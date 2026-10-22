@@ -14,3 +14,4 @@ cap.txt
 # plugin eval runs
 plugins/awards/evals/results/
 plugins/awards/evals/**/results/
+plugins/awards/evals/_vendor/

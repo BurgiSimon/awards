@@ -35,7 +35,7 @@ export function card(md) {
 }
 
 function main() {
-  if (process.env.AWARDS_HOOK === '0') return;
+  if (process.env.AWARDS_HOOK === '0' || /^(false|0)$/.test(process.env.CLAUDE_PLUGIN_OPTION_HOOKS_ENABLED ?? '')) return;
   let dir = args.project ? String(args.project) : null;
   if (!dir) {
     let input = {};
