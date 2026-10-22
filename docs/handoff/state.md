@@ -5,6 +5,15 @@ recorded below in [Candidate verification record](#candidate-verification-record
 `verification-log.md` record the earlier 0.2.0 work. `plan.md` is the 0.1.0 specification, kept for
 reference. `decisions.md` records choices already taken.
 
+## Quick wins (branch `claude/relaxed-heisenberg-rszyzq`, 2026-10-22)
+
+- Source: the 2026-10-22 improvement review (top-15 items 1–5); open items in `todo.md`.
+- Finish (B1–B3): `new-project.mjs --keep-existing` scaffolds around the files concept, system and structure already wrote; the stack skill runs it as `--name . --keep-existing`. Two page jury rounds (phase 7 and one verdict pass) plus at most two component passes, counted separately; verdict mode re-scores; component passes never touch `## Status`. Decisions recorded.
+- Edit hook (B4, B5, B15): `lineOf` uses a newline index (a 1.2 MB stylesheet: 64 s → 0.55 s, identical findings on the recipes); hook-mode "handled anywhere" conditions read the whole project under the nearest `AWARDS.md`; the project root is the nearest `AWARDS.md`, bounded at `CLAUDE_PROJECT_DIR`.
+- Compaction (E1): `SessionStart` on `compact` runs `scripts/state-card.mjs`, a state card while a Status line is open.
+- CI (C1): `.github/workflows/checks.yml` and `scripts/check-sync.mjs` (113 checks, 0 drift).
+- Checks green: both validates, check-sync, lint-refs (624 files), selftest 17/0 defective, route-hint, jury-evidence, visual-library, verify-layout, audit `recipes` P0–P2 clean (P3 79), recipes build, `behavior.mjs` 20/20 with `NODE_PATH` cleared (the two missing-Playwright checks resolve a global Playwright through `NODE_PATH` on this host; known, not new). Paid evals not run.
+
 ## Release 0.6.0 (2026-10-07)
 
 The Now items, Ceiling and Finish gates below ship together as 0.6.0; all three manifests agree. Release notes in `README.md#status`.
