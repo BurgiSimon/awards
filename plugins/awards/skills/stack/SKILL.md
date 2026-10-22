@@ -1,8 +1,8 @@
 ---
 name: stack
-description: "Choose and scaffold the technical foundation of a creative-developer site and boot it correctly: Vite + vanilla by default, or Next.js (@gsap/react, React Three Fiber), Nuxt, Astro with View Transitions, SvelteKit + Threlte, or a Webflow shell with an injected ESM engine. Wires Lenis 1.3 and GSAP ScrollTrigger on one ticker, lazy-chunks Three.js, self-hosts fonts, picks the page-transition mechanism, sets up the glTF/Draco/KTX2 pipeline, quality tiers and one reduced-motion switch, and records budgets in AWARDS.md. Use when asked to set up, scaffold, bootstrap or configure a project for smooth scroll, GSAP, Lenis, Three.js, WebGL or page transitions, which framework suits an award-style site, or to add these libraries to an existing Next, Nuxt, Astro, Svelte or Webflow app. Not for CRUD or dashboard scaffolds without award framing, nor for authoring the animations (awards:motion)."
+description: "Choose, scaffold and boot the technical foundation of a creative-developer site: Vite + vanilla by default, or Next.js, Nuxt, Astro, SvelteKit + Threlte or a Webflow shell. Wires Lenis and GSAP ScrollTrigger on one ticker, lazy-chunks Three.js, self-hosts fonts, picks the page-transition mechanism, the glTF/Draco/KTX2 pipeline, quality tiers and one reduced-motion switch. Use when asked to set up, scaffold or configure a project for smooth scroll, GSAP, Lenis, Three.js, WebGL or page transitions, which framework suits an award-style site, or to add these to an existing Next, Nuxt, Astro, Svelte or Webflow app. Not for CRUD or dashboard scaffolds, nor for authoring animations (awards:motion)."
 argument-hint: "[vite|next|nuxt|astro|sveltekit|webflow] [--name <dir>] [--webgl] [--cms <name>]"
-allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
+allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(npm install), Bash(npm ci), Bash(npm run build), Bash(npx vite build), Bash(gzip -c *)
 ---
 
 # awards:stack
@@ -45,7 +45,7 @@ Each row is a question the brief already answers; write the answers into `AWARDS
 
 | Question | Answer | Read |
 |---|---|---|
-| A page or a handful of routes, no CMS | Vite + vanilla, the default; the engine-first winners ran it `[site:why-zero]` `[site:oryzo]` `[site:lama-lama]` | `${CLAUDE_PLUGIN_ROOT}/references/stacks/vite-vanilla.md` |
+| A page or a handful of routes, no CMS | Vite + vanilla, the default (the plugin's `default_stack` setting, here `${user_config.default_stack}`, moves it when the brief names no stack); the engine-first winners ran it `[site:why-zero]` `[site:oryzo]` `[site:lama-lama]` | `${CLAUDE_PLUGIN_ROOT}/references/stacks/vite-vanilla.md` |
 | Dozens of templated pages from a headless CMS, a React team | Next.js App Router with `@gsap/react`; R3F only if the scene is component-shaped `[site:white-desert]` `[site:seasats]` `[site:usavionix]` | `stacks/next.md` |
 | Vue team, content routes, DOM-first score | Nuxt 4 with a `.client` plugin for the boot `[site:the-line]` | `stacks/nuxt.md` |
 | Mostly documents plus one WebGL island, SEO matters | Astro with `<ClientRouter />` and a persisted canvas `[site:mont-fort]` | `stacks/astro.md` |
@@ -149,7 +149,7 @@ A `three` import in the entry costs every visitor the library whether or not the
 - One canvas for the whole site, created in the layout and never per page; scenes mount and dispose, the renderer persists.
 - Copy the Draco and Basis decoders into `public/decoders/` and call `KTX2Loader.detectSupport(renderer)` before the first load (`stacks/three-0.186.md`).
 
-Building the scene itself is another job. Invoke the `awards:webgl` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline.
+Building the scene itself is the `awards:webgl` phase, which runs after motion; this skill only prepares its chunk, its decoders and the shared canvas.
 
 ## Fonts, assets and budgets
 

@@ -1,7 +1,8 @@
 ---
 name: concept
-description: "Find the concept for an award-worthy site or component before any code: the one idea the page owns, its narrative or scroll story, the signature interaction and a committed visual world, grounded in a corpus of analysed award-winning sites and deliberately diverging from them. Use whenever the user asks for ideas, creative direction, a concept or 'big idea', storytelling or scrollytelling structure for a product story, 'how would an award-winning studio approach this', 'what would make this site win', 'would this win', or when a build request arrives with no direction yet. Deals three directions plus a conventional exit with a seeded roll, lets the user lock one in a single question, and writes the AWARDS.md direction contract. Never copies a reference site. Not for copywriting alone, dashboards, admin tools or feature work with no award framing."
+description: "Find the concept for an award-worthy site or component before any code: the one idea the page owns, its scroll story, the signature interaction and a committed visual world, diverging from a corpus of analysed award winners. Use when the user asks for ideas, creative direction, a 'big idea', storytelling or scrollytelling, 'how would an award-winning studio approach this', 'what would make this site win', or when a build has no direction yet. Deals three directions and a conventional exit with a seeded roll, locks one in a single question and writes the AWARDS.md contract. Never copies a reference site. Not for copywriting alone, dashboards or feature work."
 argument-hint: "[subject or brief] [--mode persuade|experience|read] [--reroll] [--component]"
+effort: high
 allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
 ---
 
@@ -28,7 +29,7 @@ Why: the durable files are the memory of the build; a skill that starts without 
 3. If impeccable's `PRODUCT.md` exists, read it for product truth (audience, purpose, voice, constraints) and never overwrite it.
 4. Detect the scope: a whole site, one component (a named element, file or selector), or a critique of existing work.
 5. Detect the stack from `package.json` and framework files (`vite.config.*`, `next.config.*`, `nuxt.config.*`, `astro.config.*`, `svelte.config.*`, a Webflow export); note the motion and GL libraries already installed.
-6. When the request is clearly a whole site and no direction contract exists yet, offer `/awards:craft` once — it drives every phase in order — then proceed with this skill if the user declines.
+6. When the request is a whole site to build and no `AWARDS.md` exists yet, the brief has not been captured: Invoke the `awards:craft` skill now with the Skill tool, passing the request; it captures the brief and hands back here; do not do its work inline. When the user asked only for directions, continue here.
 
 ## Read before you deal
 
@@ -101,7 +102,7 @@ Then add your pick and the exit, and present everything in one AskUserQuestion r
 - Your own pick: one of the three, labelled as your pick with one sentence of reason. A deal that missed the strongest world goes to the plain re-roll, never to an undealt world.
 - The conventional exit: the competent, conventional site for this category, described honestly with its ceiling (Design around 7, Creativity around 6) and its advantages (speed, safety, no pipeline).
 
-Options in the question: each dealt card by name with your pick marked, the conventional exit, and "re-roll". One round; the answer locks the direction. Rewriting a card after the answer to "improve" it is a second round in disguise and is not done. Unattended, with no user to answer, lock your pick among the dealt three and state why in one sentence in the reply.
+Options in the question: the three dealt cards by name with your pick marked, and the conventional exit. That is four, the most the question takes; a re-roll is the free-text answer every question offers, so end the question text with "or answer re-roll (plain, safer or bolder)". One round; the answer locks the direction. Rewriting a card after the answer to "improve" it is a second round in disguise and is not done. Unattended, with no user to answer, lock your pick among the dealt three and state why in one sentence in the reply.
 
 ### Re-roll registers
 

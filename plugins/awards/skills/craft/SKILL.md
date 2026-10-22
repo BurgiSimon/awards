@@ -1,8 +1,8 @@
 ---
 name: craft
-description: "Design and build award-worthy websites end to end (Site of the Day / Month / Year and Developer Award league): brief → concept → visual system → page structure → stack → motion → WebGL → jury → ship. Use whenever the user wants a site, landing page, portfolio, campaign, product, studio or brand site that should be 'award-worthy', 'award-level', 'the best site you can build', 'immersive', 'cinematic', 'creative-developer style', 'with smooth scroll / GSAP / Lenis / WebGL', names studios or sites (Lusion, basement, Igloo, Lando Norris, Léo Parpeix) or says 'make it stunning'. Also the entry point when unsure which awards skill applies: it routes single elements to awards:component and critiques to awards:jury, and it owns AWARDS.md. Not for dashboards, admin CRUD, bug fixes, API docs or accessibility work with no award framing."
+description: "Design and build award-worthy websites end to end (Site of the Day and Developer Award league): brief → concept → system → structure → stack → motion → WebGL → jury → ship. Use when the user wants a site, landing page, portfolio, campaign, product or studio site that should be 'award-worthy', 'award-level', 'immersive', 'cinematic', 'creative-developer style', with smooth scroll, GSAP or WebGL, names studios or award sites (Lusion, Igloo, Lando Norris), or says 'make it stunning'. The entry point when unsure which awards skill applies; owns AWARDS.md. Not for dashboards, admin CRUD, bug fixes, API docs or accessibility work without award framing."
 argument-hint: "[brief | site | component | resume | status | jury | ship] [target] [--gsap|--shader|--3d]"
-allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
+allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(npm run build)
 ---
 
 # awards:craft — the orchestrating skill
@@ -56,7 +56,7 @@ Why: skills cannot call each other programmatically, so the routing is a written
 | `brief <text>`, `site <target>`, or a description of a whole page or site | whole site | Run the workflow from the first unchecked phase in `## Status` (phase 0 when there is no `AWARDS.md`) |
 | `component <name, file or selector>`, or a request that names one element ("the hero", "this menu", "a cursor like…") | one component | Invoke the `awards:component` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. |
 | "is this award-worthy", "review", "score", "critique", "what is missing" | critique | Invoke the `awards:jury` skill now with the Skill tool, passing the brief, AWARDS.md path, and exact recorded captures directory and manifest path when available; do not do its work inline. |
-| `resume` | continue | Print the next unchecked phase and its entry condition, confirm in one question, then run it |
+| `resume` | continue | Print the next unchecked phase and its entry condition, then run it; ask one confirming question only when the user has not already said to carry on or not to ask |
 | `status` or no argument | orientation | The status menu below; never start a phase from it without an answer |
 | `jury`, `ship` | one phase | Invoke that skill with the routing line of its phase row |
 | Dashboard charts, admin CRUD, state bugs, API docs, a Tailwind conversion, plain accessibility fixes | out of scope | Say so in one line and stop; no awards skill applies |

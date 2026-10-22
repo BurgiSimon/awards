@@ -71,7 +71,7 @@ function selftest() {
 // Imported (e.g. by a test) it only exports hint(); stdin is read only when run as the hook.
 const direct = (() => { try { return fs.realpathSync(process.argv[1]) === fileURLToPath(import.meta.url); } catch { return false; } })();
 if (direct && process.argv.includes('--selftest')) selftest();
-else if (direct && process.env.AWARDS_HOOK !== '0') {
+else if (direct && process.env.AWARDS_HOOK !== '0' && !/^(false|0)$/.test(process.env.CLAUDE_PLUGIN_OPTION_HOOKS_ENABLED ?? '')) {
   let prompt;
   try { prompt = JSON.parse(fs.readFileSync(0, 'utf8')).prompt; } catch { /* no or bad input: stay silent */ }
   const line = hint(prompt);

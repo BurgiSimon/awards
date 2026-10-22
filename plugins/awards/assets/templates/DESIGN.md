@@ -52,7 +52,7 @@ The frontmatter is the machine-readable layer (DESIGN.md spec: tokens are normat
 
 ## Overview
 - **Creative north star:** one named metaphor for the whole world.
-- **Colour strategy:** restrained / committed / drenched / theme-per-section — and why the use scene forces light or dark.
+- **Colour strategy:** restrained duotone / committed accent / theme-per-section / palette-as-navigation (`color-and-material.md#colour-strategies`) — and why the use scene forces light or dark.
 - **What this world refuses:** the category default and the Awwwards default it will not ship.
 - **Calibration:** [site:slug] — one relationship from its §3 → this world's value and the WORLD reason (one line per DIVERGENCE card).
 

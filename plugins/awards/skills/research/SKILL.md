@@ -1,8 +1,8 @@
 ---
 name: research
-description: Turns a reference website into a structured case-study card in the awards corpus format — concept, palette, type, components, motion with parameters, stack evidence, weaknesses, generalisable principles, take / don't take, and a confidence label on every claim. Uses Playwright captures and light source inspection when the site is reachable, and marks recalled or inferred material honestly when it is not. Use whenever the user shares a site to learn from, asks "what makes this site award-winning", "analyse / deconstruct / break down this site", "why did this win", "add this to the references", pastes a CSSDA, FWA or other award-gallery entry, or wants the awards skills to learn a new style. Produces principles for awards:concept to diverge from, never a reproduction. Not for competitor SEO or content audits, and not for downloading a site's assets.
+description: "Turns a reference website into a case-study card in the awards corpus format: concept, palette, type, components, motion parameters, stack evidence, weaknesses, principles and take / don't take, every claim labelled by confidence. Captures with Playwright and inspects source when the site's owner allows it, and records recalled material honestly when not. Use when the user shares a site to learn from, asks 'what makes this site award-winning', 'analyse / deconstruct / break down this site', 'why did this win', 'add this to the references', or pastes a CSSDA, FWA or other award-gallery entry. Not for SEO or content audits, nor for downloading a site's assets."
 argument-hint: "<url | notes file> [--slug <name>] [--to project|plugin]"
-allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
+allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(curl -sL --max-time 20 -o .awards/research/*)
 ---
 
 # awards:research — turn a site into a case study
@@ -46,6 +46,14 @@ When only notes and screenshots exist and no URL, skip sections 2 to 4: the card
 When a card already exists, update it in place: keep every label that still holds, replace `[recalled]` claims with `[verified]` ones where the new evidence allows, add what changed on the site, and record the date of the pass in §9. Never lower the rigour of an existing card to fit new material.
 
 ## 2. Capture when reachable
+
+First, the owner's policy: a site whose robots.txt, robots meta tag or `X-Robots-Tag` refuses automated extraction or AI use is skipped, never retried another way.
+
+```
+node "${CLAUDE_PLUGIN_ROOT}/scripts/policy.mjs" <url>
+```
+
+Exit 2 means refused: write no capture, run no `curl`, and record `skipped — owner policy: <the reason it printed>` in the queue or the reply instead of a card; a pasted listing or the user's own notes and screenshots may still make a notes-only card. Exit 4 is unreachable (section 3). Exit 0 continues here.
 
 Why: five scroll states show the narrative beats; the mobile frame shows whether the phone was designed; the reduced-motion frame shows whether anyone thought about it; the manifest shows what the page loads and whether it errors. Together they turn recall into observation.
 

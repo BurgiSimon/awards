@@ -1,11 +1,11 @@
 ---
 name: jury
-description: Scores a site, page or single component the way a design-award jury does. Design, Usability, Creativity and Content on anchored 0–10 scales (Site of the Day winners sit at 7.3–8.2), the six Developer Award criteria, the memory test, the specificity test (could a juror name the source site?), the keyboard and reduced-motion walk and a slop scan, ending in an ordered fix list and one disposition (ship, fix, rebuild or recapture). Use whenever the user asks to review, critique, score, judge, rate or evaluate a site or component, asks "would this win", "is this award-worthy", "what is missing", "what would the jury say", or before shipping award-level work; also re-checks a fix batch with --verdict. Runs in a fresh context on Playwright captures and the audit, so the build conversation cannot talk it upward. Not for code review, failing tests or accessibility work with no award framing.
+description: "Scores a site, page or component the way a design-award jury does: Design, Usability, Creativity and Content on anchored scales, the six Developer Award criteria, the memory and specificity tests, a keyboard and reduced-motion walk and a slop scan, ending in ordered fixes and one disposition (ship, fix, rebuild or recapture). Use when the user asks to review, critique, score, judge, rate or evaluate a site or component, asks 'would this win', 'is this award-worthy', 'what is missing', 'what would the jury say', or before shipping award-level work; --verdict re-checks a fix batch. Runs in a fresh context on captures and the audit. Not for code review, failing tests or accessibility work without award framing."
 argument-hint: "[url | path | --component <selector>] [--captures <dir>] [--states <json-file>] [--verdict]"
 context: fork
 agent: awards-jury
 background: false
-allowed-tools: Read, Glob, Grep, Bash, Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
+allowed-tools: Read, Glob, Grep, Write, Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(mkdir -p .awards*), Bash(date *)
 ---
 
 # awards:jury — the fresh-context jury
@@ -82,10 +82,10 @@ Why: Design carries 40 percent of the weight, and it is where a page either owns
 - First-viewport thesis: is the THESIS block visible at s00 with the copy ignored? If it needs a scroll, name the capture where it first appears.
 - Concept versus effect: list the effects found in the source and ask which one enacts the thesis. More than one signature dilutes; effects with no concept cap Creativity at 6.
 - Specificity, first direction: compare s00 with the three DIVERGENCE cards (`${CLAUDE_PLUGIN_ROOT}/references/sites/<slug>.md`, the table and §8 of each) and with the palette and type columns of `${CLAUDE_PLUGIN_ROOT}/references/sites/_index.md`. Could a juror name the source site?
-- Finish bar: per DIVERGENCE card, reuse a current `desktop-s00.png` from `.awards/research/<slug>/` or `.awards/neighbours/<slug>/`; otherwise capture the URL on the card's first line, all three in one shell call, one at a time (without `flock`, still never beside another capture):
+- Finish bar: per DIVERGENCE card, reuse a current `desktop-s00.png` from `.awards/research/<slug>/` or `.awards/neighbours/<slug>/`; otherwise capture the URL on the card's first line, all three in one shell call, one at a time; `--lock` makes each wait for any other capture in the project:
 
   ```
-  mkdir -p .awards && flock .awards/capture.lock node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <card url> --out .awards/neighbours/<slug> --scroll 0,50 --json
+  node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <card url> --out .awards/neighbours/<slug> --scroll 0,50 --lock .awards/capture.lock --json
   ```
 
   Open its `desktop-s00`, `desktop-s50` and `mobile-s00` beside the build's and name one concrete finish gap per neighbour (edges, image quality, type detail, states) with both capture names, under Specificity test; a gap may enter Material fixes as a design seam. Missing or blank frames (an unreachable site exits 2 with none): write "neighbour frame unavailable" and use the card's §3; this never makes the disposition `recapture`. The neighbour is a finish bar, not a layout to match: a different composition never lowers a score.
@@ -152,7 +152,7 @@ Fill every section of the report:
 - Keep: one line naming what must not be diluted while fixing.
 - Ceiling: the sentence from Assessment A.
 
-Write it to `.awards/jury/<date>.md` (`date +%F`; add `-2`, `-3` when the name is taken), creating the directory when needed. Then append two lines under `AWARDS.md ## Jury log`:
+Write it with the Write tool to `.awards/jury/<date>.md` (`date +%F`; add `-2`, `-3` when the name is taken). Then append two lines under `AWARDS.md ## Jury log` with `node "${CLAUDE_PLUGIN_ROOT}/scripts/awards-log.mjs" AWARDS.md --append "Jury log" --line "<line 1>" --line "<line 2>"`, which leaves every other byte of the file alone:
 
 ```
 - <date> · <disposition> · D x.x / U x.x / C x.x / Co x.x → w.w · dev seo x.x / anim x.x / a11y x.x / wpo x.x / resp x.x / meta x.x → d.dd · .awards/jury/<date>.md
@@ -161,7 +161,7 @@ Write it to `.awards/jury/<date>.md` (`date +%F`; add `-2`, `-3` when the name i
 
 For `recapture` without valid rendered evidence, use `D unmeasured / U unmeasured / C unmeasured / Co unmeasured → unmeasured · dev unmeasured` in the first log line. Keep the second line for located source findings or the needed recapture, without invented visual fixes.
 
-In page and verdict mode, set the `Jury disposition:` line in `## Status` to the disposition and the date (replacing `—` or the earlier value) and tick the box. A component pass never touches `## Status`: its verdict is about one element, and a ticked box would let a resumed build skip phase 7. Touch nothing else in the file.
+In page and verdict mode, set the `Jury disposition:` line in `## Status` to the disposition and the date and tick the box: `node "${CLAUDE_PLUGIN_ROOT}/scripts/awards-log.mjs" AWARDS.md --status "Jury disposition" --value "<disposition> · <date>" --tick`. A component pass never touches `## Status`: its verdict is about one element, and a ticked box would let a resumed build skip phase 7. Touch nothing else in the file.
 
 **Your reply must carry one of these blocks, verbatim from the report, unbroken.** Not a table or prose sentence. Use the measured block only with valid rendered evidence:
 
@@ -199,7 +199,7 @@ Why: after `awards:ship` applies a batch, the question is no longer "how good is
 - Take the fix list of the latest `.awards/jury/<date>.md` as the checklist. For each row compare the named viewport/state in before and after manifests, record `resolved | partial | unresolved` with both evidence paths, and check for new regressions, and carry the original `## Keep` line into the verdict. A failed contract block omitted from the batch stays unresolved.
 - Re-score the axes on the after captures with the same anchors, one reason each; a score moves only with a named before/after evidence pair, and an unchanged surface keeps its earlier score. A batch that resolved every seam of a `fix` can therefore reach `ship`, and a regression can lower it.
 - List at most three regressions, write `## Remaining` as `clear` or the list, and recompute the disposition from the new scores, the remaining fixes and the audit with the rules in section 6.
-- Write the verdict to `.awards/jury/<date>-verdict.md` so the original report stays intact for `awards:craft`, append one log line: `- <date> · verdict · <disposition> · D x.x / U x.x / C x.x / Co x.x → w.w · resolved n / partial n / unresolved n · regressions n`, and update `Jury disposition:` in `## Status` as in section 6. Reply with the measured block from section 6, carrying the re-scored line.
+- Write the verdict to `.awards/jury/<date>-verdict.md` so the original report stays intact for `awards:craft`, append one log line with `awards-log.mjs --append "Jury log"`: `- <date> · verdict · <disposition> · D x.x / U x.x / C x.x / Co x.x → w.w · resolved n / partial n / unresolved n · regressions n`, and update `Jury disposition:` in `## Status` as in section 6. Reply with the measured block from section 6, carrying the re-scored line.
 
 ## 8. Component mode (`--component <selector>`)
 

@@ -1,8 +1,8 @@
 ---
 name: ship
-description: Takes an award-level site or component from "it works" to "it ships". Applies the jury's fix list in one batch, runs the deterministic craft-floor audit (reflex fonts, contrast, reduced-motion branch, landmarks and alt, overflow, scrub easing, will-change, browser surfaces, slop patterns) until every finding is fixed or recorded as an exception, captures desktop, mobile, scroll-state and reduced-motion screenshots, checks the performance budgets (entry JS, GL chunk, images, meshes, fonts, LCP, CLS), meta and Open Graph, favicon, 404, console errors, and writes the ship report. Use whenever the user says ship, launch, finalize, polish, QA, "make it production-ready", "check performance or accessibility", "run the audit", "take screenshots", or after any awards build or jury round in a project with an AWARDS.md. Not a deploy tool, nor for ordinary app screens with no award framing.
+description: "Takes an award-level site or component from 'it works' to 'it ships': applies the jury's fixes in one batch, runs the craft-floor audit until every finding is fixed or excepted, captures every viewport and state, checks the performance budgets (JS, GL chunk, images, fonts, LCP, CLS), meta, Open Graph, favicon and 404, and writes the ship report. Use when the user says ship, launch, finalize, polish, QA, 'production-ready', 'check performance or accessibility', 'run the audit', 'take screenshots', or after any awards build or jury round in a project with an AWARDS.md. Not a deploy tool, nor for app screens without award framing."
 argument-hint: "[path | url] [--fix] [--report-only] [--states <json-file>]"
-allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
+allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(npm run build), Bash(gzip -c *), Bash(git diff*), Bash(git status*)
 ---
 
 # awards:ship — fix, prove, report
@@ -65,16 +65,17 @@ Why: the audit measures the part of the craft floor that a script can measure, s
 node "${CLAUDE_PLUGIN_ROOT}/scripts/audit.mjs" <dir> --json
 ```
 
-- Run it against the project directory. It is static and needs source; add `--render` whenever Playwright is available, because stuck entrances (L06), line length (L07), text touching the phone edge (L08), flat hierarchy (T08) and nested cards (X20) exist only in a rendered page. Without a browser, write `rendered checks: unmeasured` in the report.
+- Run it against the project directory. It is static and needs source; add `--render` whenever Playwright is available, because stuck entrances (L06), line length (L07), text touching the phone edge (L08), blank viewports (L09), lopsided tablet and phone sections (L10), flat hierarchy (T08), nested cards (X20) and layout shift during load (P08) exist only in a rendered page; with a build output present it renders that, not the source. Without a browser, write `rendered checks: unmeasured` in the report.
 - The slop rules (X01–X20, with L04, L05, T07 and C04) have earned versions, listed in `## The slop scan` of `${CLAUDE_PLUGIN_ROOT}/references/anti-patterns.md`. A finding that matches its earned version is excepted with that reason, such as `X13 — the logo squashes because it is a character`. A habit is fixed. Exit 2 means P0 or P1 findings remain; exit 0 means none. The findings land in `.awards/audit.json` with `rule`, `severity`, `file`, `line`, `message` and `fix`.
-- Every finding is either fixed or recorded. A recorded finding is one line under `AWARDS.md ## Exceptions`, or an inline comment next to the code when it concerns one file:
+- Every finding is either fixed or recorded. A recorded finding is one line under `AWARDS.md ## Exceptions`, scoped to where it is earned (`RULE@path` or `RULE@viewport` matches findings whose file or viewport label contains it; a bare id accepts the rule everywhere, so scope C01, A16 and L06 always), or an inline comment next to the code: `audit-ignore-next-line` for one line, `audit-ignore` for the whole file:
 
 ```
 ## Exceptions
 C02 — pure black is diegetic: the whole site is a night-vision console
-M08 — the marquee is already paused by the IntersectionObserver in src/marquee.js
+C01@src/sections/credits.html — the end credits are set at 3:1 over the film still, read once and skipped
+L10@mobile — the specimen column keeps to the left edge on a phone, as the printed specimen does
 
-<!-- audit-ignore: L01 the poster frame is a fixed 1200px print artefact by design -->
+<!-- audit-ignore-next-line: L01 the poster frame is a fixed 1200px print artefact by design -->
 ```
 
 - The reason is one a juror would accept; `C02 — looks better` is not a reason.
@@ -195,15 +196,16 @@ Why: a single component ships inside a world that already shipped, so the pass n
 Why: `awards:craft` and the user need one document that says what changed, what was measured and what remains, so the state of the build is never in someone's memory.
 
 - Fill a copy of `${CLAUDE_PLUGIN_ROOT}/assets/templates/ship-report.md` and write it to `.awards/ship/<date>.md` (`date +%F`; suffix `-2` when taken): the fix table with classes, the audit counts and exceptions, the exact manifest path and coverage line, the performance table with measured values against budgets, the walk items, meta and chrome, browser surfaces, cleanup, and the status.
-- Append one line under `AWARDS.md ## Ship log`:
+- Append one line under `AWARDS.md ## Ship log` (`node "${CLAUDE_PLUGIN_ROOT}/scripts/awards-log.mjs" AWARDS.md --append "Ship log" --line "<line>"`):
 
 ```
 - <date> · audit P0 n / P1 n / P2 n / P3 n · exceptions n · captures <n> valid from <manifest-path> · entry x KB gz · GL y KB gz · LCP z s (trace | throttled capture | field p75 | not measured) · CLS c · .awards/ship/<date>.md
 ```
 
 - A material fix is any change that alters what a capture shows: layout, motion, colour, type, copy, a state. Meta, cleanup, exceptions and gitignore changes are not material.
-- Set `## Status`: tick `Shipped (ship)` only when no material fix was applied, the audit is clean, every contract row is kept or resolved, no fix remains partial/unresolved, and the recorded manifest covers all required chapters, viewports and states with valid frames. Otherwise leave the box unticked; record unresolved contract/evidence gaps in the report, or `back to awards:jury --verdict` after a valid material fix batch until its verdict is `ship`.
+- Set `## Status` (`awards-log.mjs AWARDS.md --status "Shipped" --tick`): tick `Shipped (ship)` only when no material fix was applied, the audit is clean, every contract row is kept or resolved, no fix remains partial/unresolved, and the recorded manifest covers all required chapters, viewports and states with valid frames. Otherwise leave the box unticked; record unresolved contract/evidence gaps in the report, or `back to awards:jury --verdict` after a valid material fix batch until its verdict is `ship`.
 - Remind the user that headless captures prove correctness, not frame rate: WebGL work needs one pass on a real phone before launch.
+- When the host offers a tool that publishes a private page (an artifact or page tool), offer once to publish the ship report and the latest jury report with their first-viewport, mobile and reduced-motion frames, for the user to share. Publish only on a yes, keep it private, and never include `.awards/research/` or `.awards/neighbours/` captures: those are other people's sites.
 
 ## Verify
 

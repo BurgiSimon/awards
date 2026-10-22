@@ -1,6 +1,6 @@
 ---
 name: webgl
-description: "Build the WebGL layer of an award-level site with Three.js 0.186, OGL, React Three Fiber or Threlte: DOM-tethered image planes with velocity distortion, a fluid-wake post-process, depth-map 2.5D parallax, scroll-driven camera rigs on a virtual scroll, render-to-texture section transitions, one hero object with inertia, particles, bloom and grain post-processing, plus the Blender to glTF + Draco + KTX2 pipeline, adaptive quality tiers, disposal, a semantic DOM mirror and a no-GL, reduced-motion fallback. Use when asked for 3D, WebGL, a Three.js scene, shaders, GLSL, Three.js, R3F, OGL, particles, liquid, fluid or distortion effects, image hover distortion, a 3D hero, scroll-scrubbed models or any canvas effect beyond CSS, and when a canvas site is slow, drifts against the DOM or renders dark. Not for DOM-only motion (awards:motion), charts, or 'make it 3D' with no concept behind it."
+description: "Build the WebGL layer of an award-level site with Three.js 0.186, OGL, React Three Fiber or Threlte: DOM-tethered image planes, fluid and distortion post-processing, depth-map parallax, scroll-driven camera rigs, render-to-texture transitions, one hero object, particles, the glTF + Draco + KTX2 pipeline, quality tiers, disposal, a DOM mirror and a no-GL fallback. Use when asked for 3D, WebGL, a Three.js or R3F scene, shaders or GLSL, particles, liquid, fluid or distortion effects, a 3D hero or scroll-scrubbed models, and when a canvas site is slow, drifts against the DOM or renders dark. Not for DOM-only motion (awards:motion), charts, or 'make it 3D' with no concept behind it."
 argument-hint: "[effect or scene] [--lib three|ogl|r3f] [--tier low|mid|high] [--shader] [--3d]"
 allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
 ---
@@ -241,7 +241,7 @@ SwiftShader proves correctness, not frame rate: the captures below prove the pag
 
 ## Hand-off
 
-Tick "WebGL layer built or explicitly declined (webgl)" in `AWARDS.md ## Status` and fill the GL lines of `## Budgets & tiers`. When SIGNATURE is canvas or GL, run the first-viewport component pass once first (`awards:jury <dir> --component <first-viewport selector>`, as in `awards:craft` After webgl) and apply its fix list. Then: Invoke the `awards:jury` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. When this skill ran standalone on a component, hand back to `awards:component` for its own verification instead.
+Tick "WebGL layer built or explicitly declined (webgl)" in `AWARDS.md ## Status` and fill the GL lines of `## Budgets & tiers`. When SIGNATURE is canvas or GL, run the first-viewport component pass once first (`awards:jury <dir> --component <first-viewport selector>`, as in `awards:craft` After webgl) and apply its fix list. Then, in a build: Invoke the `awards:craft` skill now with the Skill tool, passing the brief and the AWARDS.md path, so it runs its pre-jury captures and slop pass before phase 7; do not invoke the jury directly. When this skill ran standalone on a component, hand back to `awards:component` for its own verification instead.
 
 ## Refuse
 
