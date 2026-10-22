@@ -10,7 +10,7 @@
 - [x] Stack booted (stack)
 - [x] Motion score authored and built (motion)
 - [x] WebGL layer built or explicitly declined (webgl): explicitly declined, dosage rung none (SIGNATURE's tier is DOM-only: "No WebGL anywhere; the concept is whole without it")
-- [ ] Jury disposition: —
+- [x] Jury disposition: ship · 2026-10-22
 - [ ] Shipped (ship)
 
 ## Brief
@@ -162,6 +162,8 @@
 - 2026-10-22 · baseline · fix · D 7.5 / U 7.0 / C 8.0 / Co 7.4 → 7.44 · .awards/jury/2026-10-22-baseline.md (the old site, page mode on its pre-jury captures)
 - 2026-10-22 · component #sheet · fix · D 7.9 / U 8.0 / C 8.0 → mean 7.97 · .awards/jury/2026-10-22-component.md
   top fixes: 1) strip caption build id must differ from the footer's when frames show an earlier layout (facts/collect.js:42–50) 2) author a pointer hover on strip frames (src/styles/site.css:128–132) 3) show a refused clipboard on the ticket, not only in the sr-only status (src/ui/copy.js:27–29)
+- 2026-10-22 · ship · D 7.5 / U 7.8 / C 8.0 / Co 7.6 → 7.70 · dev seo 7.6 / anim 8.2 / a11y 8.2 / wpo 8.4 / resp 7.8 / meta 7.6 → 7.97 · .awards/jury/2026-10-22.md
+  top fixes: 1) hold chapter 3's plate at its box while the figures read (src/motion/loupe.js:32) 2) break commands and paths only at spaces and slashes (src/styles/base.css:65) 3) say what the hook runs after every edit and print one ship rule (index.html:80, :173, :160; docs.html:129)
 
 ## Ship log
 <!-- appended by awards:ship — date · audit summary · captures · performance numbers -->
