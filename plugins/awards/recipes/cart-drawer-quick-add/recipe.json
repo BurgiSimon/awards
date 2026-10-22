@@ -1,0 +1,30 @@
+{
+  "id": "cart-drawer-quick-add",
+  "title": "Quick add and a cart drawer on a native dialog",
+  "intent": "Quick add and bag",
+  "group": "evidence-blocks",
+  "summary": "A product row where one link holds art, name and price and the size choice (`fieldset` + native radios, sold out kept focusable) and quick add sit beside it; the add answers in a polite live region and a `Bag (n)` count, never only motion; the bag is a `<dialog>` opened with `showModal()`, focus on its heading, page locked and inert, Escape (taken over from `cancel`), close button and scrim all ending in the `close` event that returns focus to the bag button; keyed line items with `aria-disabled` steppers that keep focus at `1` and `9`, remove to the heading, an empty state, money in pence through `Intl.NumberFormat('en-GB', { currency: 'GBP' })`; slides from the inline-end edge (`280ms` in, `200ms` out, a bottom sheet under `768px`, reversed mid-open), fades `180ms` under reduced motion, appears in the static tier; demo only, no payment",
+  "tags": [
+    "product",
+    "dialog",
+    "bottom-sheet",
+    "button",
+    "keyboard",
+    "accessibility",
+    "reduced-motion",
+    "responsive"
+  ],
+  "tier": "P1",
+  "deps": [],
+  "variants": [
+    "drawer from the inline-end edge, bottom sheet on phones, opened from the bag button (this, default)",
+    "open on add: the drawer opens after each quick add with focus on the new line, for shops where most visitors buy one thing",
+    "inline mini-bag: a popover under the bag button for one or two lines, the full drawer behind a View bag link"
+  ],
+  "seenIn": [
+    "the-boyd",
+    "serotoninn",
+    "united-carriers",
+    "aardvarkbookclub"
+  ]
+}

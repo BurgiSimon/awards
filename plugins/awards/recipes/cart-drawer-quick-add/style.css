@@ -1,0 +1,153 @@
+@import '../_shared/base.css';
+
+/* A risograph studio on cream stock: warm ink, one blue for focus and state, fluorescent pink only as a signal.
+   Ink 13.8:1, muted 6.2:1 and blue 6.3:1 on the ground; ink on pink 5.3:1. */
+:root {
+  --ground: #f2ece1;
+  --paper: #f8f3e9;
+  --ink: #24201b;
+  --muted: #5c564d;
+  --accent: #2b4fb0;
+  --pink: #ff48b0;
+  --line: color-mix(in oklab, var(--ink) 16%, var(--ground));
+  color-scheme: light;
+}
+::selection { background: var(--pink); color: var(--ink); }
+html { scrollbar-gutter: stable; scrollbar-color: var(--ink) var(--ground); }
+html.bag-open { overflow: hidden; } /* a modal dialog does not stop the page behind it from scrolling */
+[hidden] { display: none !important; }
+:focus-visible { outline-offset: 3px; }
+
+.skip { position: absolute; z-index: 10; top: 10px; left: var(--gutter); padding: 12px 16px; background: var(--ink); color: var(--ground); font-weight: 600; text-decoration: none; transform: translateY(-160%); }
+.skip:focus-visible { transform: none; }
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* Header: the bag button is always in reach and shows its count as text. */
+.shop-head { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 24px; padding: 12px var(--gutter); background: var(--ground); border-bottom: 1px solid var(--line); }
+.brand { display: inline-flex; align-items: center; min-height: 44px; font-size: 1.25rem; font-weight: 700; letter-spacing: -.02em; text-decoration: none; }
+.shop-head__note { margin: 0 auto 0 0; font-family: var(--font-mono); font-size: .75rem; color: var(--muted); }
+.bag-button { min-height: 44px; padding: 0 20px; border: 1px solid var(--ink); border-radius: 999px; background: transparent; font-weight: 600; font-variant-numeric: tabular-nums; cursor: pointer; transition: background-color var(--dur-routine) var(--ease-out-expo), border-color var(--dur-routine) var(--ease-out-expo), color var(--dur-routine) var(--ease-out-expo); }
+.bag-button:hover { background: var(--ink); color: var(--ground); }
+.bag-button.is-bumped { background: var(--pink); border-color: var(--pink); color: var(--ink); }
+
+.intro { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); align-items: end; gap: 24px 48px; padding: clamp(40px, 6vw, 96px) var(--gutter) clamp(32px, 4vw, 56px); }
+.intro__title { margin: 0; max-width: 13ch; font-size: clamp(2.5rem, 6vw, 6.25rem); font-weight: 700; line-height: .95; letter-spacing: -.035em; text-wrap: balance; }
+.intro__copy { margin: 0; max-width: 34ch; font-size: 1.125rem; line-height: 1.5; }
+.intro__demo { margin: 16px 0 0; max-width: 40ch; font-family: var(--font-mono); font-size: .8125rem; line-height: 1.5; color: var(--muted); }
+
+.season { padding: 0 var(--gutter) clamp(56px, 7vw, 112px); }
+.season__title { margin: 0 0 24px; padding-top: 14px; border-top: 1px solid var(--ink); font-size: 1rem; font-weight: 600; letter-spacing: 0; }
+.prints { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px 32px; margin: 0; padding: 0; list-style: none; }
+.print { display: grid; align-content: start; gap: 16px; }
+
+/* One link per product: art, name and price. Hover underlines the name; the price never moves. */
+.print__link { display: grid; gap: 14px; text-decoration: none; }
+.print__art { width: 100%; height: auto; aspect-ratio: 4 / 5; background: var(--paper); outline: 1px solid var(--line); outline-offset: -1px; }
+.print__meta { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.print__name { font-size: 1.375rem; font-weight: 700; letter-spacing: -.02em; text-decoration-thickness: 2px; text-underline-offset: .2em; }
+.print__link:hover .print__name { text-decoration-line: underline; }
+.print__price { font-size: 1.125rem; font-variant-numeric: tabular-nums; }
+.print__buy { display: grid; gap: 14px; }
+.print__spec { margin: 0; color: var(--muted); font-size: .9375rem; }
+
+/* Sizes: native radios under pill labels, so arrow keys move the choice; sold out stays focusable. */
+.sizes { display: flex; flex-wrap: wrap; gap: 8px; min-width: 0; margin: 0; padding: 0; border: 0; }
+.sizes__legend { margin-bottom: 8px; padding: 0; font-family: var(--font-mono); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.size { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: 56px; min-height: 44px; padding: 0 16px; border: 1px solid var(--ink); border-radius: 999px; font-weight: 600; cursor: pointer; }
+.size input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.size:has(input:checked) { background: var(--ink); color: var(--ground); }
+.size:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 3px; }
+.size--out { border-style: dashed; color: var(--muted); }
+.size__out { font-family: var(--font-mono); font-size: .6875rem; font-weight: 400; letter-spacing: .06em; text-transform: uppercase; }
+
+/* Quick add: the label and "Added" share one cell and swap; the button keeps its accessible name throughout. */
+.add { position: relative; display: grid; place-items: center; min-height: 48px; padding: 0 20px; border: 0; border-radius: 999px; background: var(--ink); color: var(--ground); font-weight: 600; cursor: pointer; overflow: hidden; transition: background-color var(--dur-feedback) var(--ease-out-expo); }
+.add:hover { background: var(--accent); }
+.add__label, .add__done { grid-area: 1 / 1; transition: opacity 160ms linear, transform 200ms var(--ease-out-expo); }
+.add__done { opacity: 0; transform: translateY(70%); }
+.add__done::before { content: "✓ " / ""; }
+.add[data-added] { background: var(--accent); }
+.add[data-added] .add__label { opacity: 0; transform: translateY(-70%); }
+.add[data-added] .add__done { opacity: 1; transform: none; }
+.print__note { min-height: 1.45em; margin: 0; font-size: .875rem; line-height: 1.45; color: var(--accent); }
+
+.shop-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; padding: 20px var(--gutter) 24px; border-top: 1px solid var(--ink); }
+.shop-foot__text { margin: 0; font-family: var(--font-mono); font-size: .75rem; color: var(--muted); }
+
+/* The bag. The dialog is a full-viewport frame; scrim and panel inside it carry the look so both can animate. */
+.bag { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: transparent; color: var(--ink); overflow: hidden; }
+.bag::backdrop { background: transparent; }
+.bag[open] { display: grid; justify-items: end; }
+.bag__scrim { position: absolute; inset: 0; background: color-mix(in oklab, var(--ink) 45%, transparent); }
+.bag__panel { position: relative; display: flex; flex-direction: column; width: min(30rem, 100%); height: 100%; background: var(--ground); border-inline-start: 1px solid var(--ink); }
+.bag__head { flex: none; display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "title close" "count close"; align-items: center; column-gap: 16px; padding: 20px 24px 16px; border-bottom: 1px solid var(--line); }
+.bag__title { grid-area: title; margin: 0; font-size: 1.75rem; font-weight: 700; line-height: 1.1; letter-spacing: -.02em; }
+.bag__title:focus { outline: none; } /* a programmatic landing point, not a control */
+.bag__count { grid-area: count; margin: 4px 0 0; font-family: var(--font-mono); font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.bag__close { grid-area: close; min-height: 44px; padding: 0 18px; border: 1px solid var(--ink); border-radius: 999px; background: transparent; font-weight: 600; cursor: pointer; }
+.bag__close:hover, .bag__back:hover { background: var(--ink); color: var(--ground); }
+.bag__body { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 0 24px; }
+
+.lines { margin: 0; padding: 0; list-style: none; }
+.line { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; grid-template-areas: "art info total" "art step remove"; align-items: center; gap: 10px 16px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.line__art { grid-area: art; align-self: start; width: 64px; height: 80px; outline: 1px solid var(--line); outline-offset: -1px; }
+.line__info { grid-area: info; min-width: 0; }
+.line__name { margin: 0; font-weight: 700; letter-spacing: -.01em; }
+.line__meta { margin: 2px 0 0; color: var(--muted); font-size: .875rem; font-variant-numeric: tabular-nums; }
+.line__total { grid-area: total; margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; text-align: end; }
+.stepper { grid-area: step; justify-self: start; display: inline-flex; align-items: center; border: 1px solid var(--ink); border-radius: 999px; }
+.stepper__btn { display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 999px; background: transparent; font-size: 1.25rem; line-height: 1; cursor: pointer; }
+.stepper__btn:hover { background: color-mix(in oklab, var(--ink) 8%, var(--ground)); }
+.stepper__btn[aria-disabled="true"] { color: var(--muted); cursor: not-allowed; background: transparent; }
+.stepper__qty { width: 3ch; min-height: 44px; padding: 0; border: 0; background: transparent; text-align: center; font-weight: 600; font-variant-numeric: tabular-nums; appearance: textfield; }
+.stepper__qty::-webkit-inner-spin-button, .stepper__qty::-webkit-outer-spin-button { margin: 0; appearance: none; }
+.line__remove { grid-area: remove; min-height: 44px; padding: 0 2px; border: 0; background: none; text-decoration: underline; text-underline-offset: .25em; cursor: pointer; }
+.line__remove:hover { color: var(--accent); }
+
+.bag__empty { display: grid; justify-items: start; gap: 18px; padding: 36px 0; }
+.bag__empty-text { margin: 0; font-size: 1.5rem; font-weight: 700; letter-spacing: -.02em; }
+.bag__back { min-height: 44px; padding: 0 20px; border: 1px solid var(--ink); border-radius: 999px; background: transparent; font-weight: 600; cursor: pointer; }
+
+.bag__foot { flex: none; display: grid; gap: 10px; padding: 18px 24px 22px; border-top: 1px solid var(--ink); }
+.bag__sum { display: flex; justify-content: space-between; align-items: baseline; margin: 0; }
+.bag__sum dt { font-weight: 600; }
+.bag__sum dd { margin: 0; font-size: 1.5rem; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.bag__ship { margin: 0; color: var(--muted); font-size: .875rem; }
+.bag__checkout { min-height: 52px; margin-top: 4px; border: 0; border-radius: 999px; background: var(--ink); color: var(--ground); font-size: 1.0625rem; font-weight: 700; cursor: pointer; }
+.bag__checkout:hover { background: var(--accent); }
+.bag__demo { margin: 0; font-family: var(--font-mono); font-size: .75rem; line-height: 1.5; color: var(--muted); }
+.bag__panel[data-empty] :is(.bag__sum, .bag__ship, .bag__checkout) { display: none; }
+
+/* Reduced: no travel anywhere (the drawer itself fades from main.js); the quick-add swap is a crossfade. */
+@media (prefers-reduced-motion: reduce) {
+  .add__done, .add[data-added] .add__label { transform: none; }
+  .add__label, .add__done { transition: opacity 120ms linear; }
+}
+html:is([data-motion="reduced"], [data-motion-tier="reduced"]) :is(.add__done, .add[data-added] .add__label) { transform: none; }
+html:is([data-motion="reduced"], [data-motion-tier="reduced"]) :is(.add__label, .add__done) { transition: opacity 120ms linear; }
+/* Static: every state change is immediate. */
+html[data-motion="static"] :is(.add__done, .add[data-added] .add__label) { transform: none; }
+html[data-motion="static"] :is(.add, .add__label, .add__done, .bag-button) { transition: none; }
+
+/* Tablet: two prints a row. */
+@media (max-width: 1023px) {
+  .prints { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .intro { grid-template-columns: minmax(0, 1fr); }
+}
+/* Phone: each print is a compact row (art beside its name and price, the choice under it), the bag a bottom sheet. */
+@media (max-width: 767.98px) {
+  .shop-head__note { display: none; }
+  .brand { margin-right: auto; }
+  .intro { padding-top: 32px; }
+  .prints { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .print { gap: 12px; padding: 20px 0; border-bottom: 1px solid var(--line); }
+  .print:first-child { padding-top: 4px; }
+  .print__link { grid-template-columns: 112px minmax(0, 1fr); align-items: end; gap: 16px; }
+  .print__meta { flex-direction: column; align-items: flex-start; gap: 4px; }
+  .print__buy { gap: 12px; }
+  .size { min-width: 48px; padding: 0 12px; }
+  .bag[open] { justify-items: stretch; align-items: end; }
+  .bag__panel { width: 100%; height: auto; max-height: 88dvh; border-inline-start: 0; border-top: 1px solid var(--ink); border-radius: 16px 16px 0 0; }
+  .bag__head, .bag__foot { padding-inline: 20px; }
+  .bag__body { padding-inline: 20px; }
+}

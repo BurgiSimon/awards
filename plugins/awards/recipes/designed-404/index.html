@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- A real 404 is served with status 404 (README); noindex also covers hosts that answer a missing page with 200. -->
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Page not found on The Salt Almanac: the way back to the tide tables, the harbour notes and the sky tables.">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#13223a">
+  <title>Page not found · The Salt Almanac</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2313223a'/%3E%3Cpath d='M6 20a10 10 0 0 1 20 0z' fill='%23f4a462'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to the way back</a>
+  <header class="masthead">
+    <!-- Root-absolute links: a 404 is served at whatever path was requested, so relative links would break. -->
+    <a class="wordmark" href="/">The Salt Almanac</a>
+    <p class="masthead__code">Error 404<span class="masthead__more"> · not found</span></p>
+  </header>
+
+  <main id="main" class="lost">
+    <!-- The way back comes first in the DOM; the drawn scene after it is decoration and hidden from assistive tech. -->
+    <div class="lost__lead">
+      <h1 class="lost__title">No such page on this chart.</h1>
+      <p class="lost__voice">The address you followed runs out into open water: the page may have moved with this season’s charts, or it was never printed.</p>
+      <a class="lost__home" href="/" data-home>Back to the front page <span aria-hidden="true">→</span></a>
+    </div>
+
+    <nav class="routes" aria-labelledby="routes-title">
+      <h2 class="routes__title" id="routes-title">Or set a course for</h2>
+      <ul class="routes__list">
+        <li class="route"><a class="route__link" href="/tides/">Tide tables <span aria-hidden="true">→</span></a><span class="route__note">High and low water for forty-one harbours, a year ahead.</span></li>
+        <li class="route"><a class="route__link" href="/harbours/">Harbour notes <span aria-hidden="true">→</span></a><span class="route__note">Approaches, moorings and where the fuel berth is.</span></li>
+        <li class="route"><a class="route__link" href="/sky/">The sky this month <span aria-hidden="true">→</span></a><span class="route__note">Sunrise, sunset and the phases of the moon.</span></li>
+      </ul>
+    </nav>
+
+    <!-- data-demo: main.js keeps this demo on the page. Remove the attribute and the form GETs /search?q=… -->
+    <form class="find" role="search" action="/search" method="get" aria-labelledby="find-label" data-search data-demo>
+      <label class="find__label" id="find-label" for="q">Search the almanac</label>
+      <div class="find__row">
+        <input class="find__input" id="q" name="q" type="search" placeholder="a harbour, a date, a tide" autocomplete="off" enterkeyhint="search">
+        <button class="find__go" type="submit">Search</button>
+      </div>
+      <p class="find__note" role="status" data-search-note></p>
+    </form>
+
+    <!-- The authored moment: the zero of 404 is the sun, and it sets once. Nothing waits for it. -->
+    <div class="scene" aria-hidden="true" data-scene>
+      <svg class="scene__art" viewBox="0 0 1000 620" focusable="false">
+        <defs>
+          <path id="four" d="M200 0H260V250H300V300H260V340H200V300H0V250L200 0ZM200 85V250H68Z" fill-rule="evenodd"/>
+          <clipPath id="sky"><rect width="1000" height="380"/></clipPath>
+          <clipPath id="sea"><rect y="380" width="1000" height="240"/></clipPath>
+        </defs>
+        <rect class="scene__sea" y="380" width="1000" height="240"/>
+        <g class="scene__mirror" clip-path="url(#sea)">
+          <use href="#four" transform="translate(60 669) scale(.85 -.85)"/>
+          <use href="#four" transform="translate(685 669) scale(.85 -.85)"/>
+        </g>
+        <g class="scene__fours">
+          <use href="#four" transform="translate(60 91) scale(.85)"/>
+          <use href="#four" transform="translate(685 91) scale(.85)"/>
+        </g>
+        <g clip-path="url(#sky)">
+          <circle class="scene__sun" cx="500" cy="390" r="130" data-sun/>
+        </g>
+        <g class="scene__glints">
+          <rect class="scene__glint" x="360" y="404" width="280" height="9" rx="4.5"/>
+          <rect class="scene__glint" x="390" y="432" width="220" height="9" rx="4.5"/>
+          <rect class="scene__glint" x="420" y="460" width="160" height="9" rx="4.5"/>
+          <rect class="scene__glint" x="450" y="488" width="100" height="9" rx="4.5"/>
+          <rect class="scene__glint" x="476" y="516" width="48" height="9" rx="4.5"/>
+        </g>
+        <line class="scene__horizon" x1="0" x2="1000" y1="380.5" y2="380.5"/>
+      </svg>
+      <p class="scene__caption"><span>LW 04:04</span><span>0.4 m</span><span>nothing charted at this depth</span></p>
+    </div>
+  </main>
+
+  <footer class="colophon">
+    <p class="colophon__text">The Salt Almanac, its routes and this page are synthetic demo content.</p>
+    <p class="colophon__text">awards · recipe · MIT</p>
+  </footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
