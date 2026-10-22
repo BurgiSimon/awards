@@ -381,7 +381,9 @@ eachCss((file, css, off = 0) => {
 // ---------- rules: HTML ----------
 for (const s of htmlSources) {
   const t = s.text;
-  const isPage = /<html/i.test(t);
+  // A component file is a page only when its markup, not a comment, holds the root element (a Next root layout does).
+  const markup = ['.jsx', '.tsx', '.astro'].includes(s.ext) ? t.replace(/\/\*[\s\S]*?\*\/|(^|[^:])\/\/[^\n]*|\{\/\*[\s\S]*?\*\/\}/g, '$1') : t;
+  const isPage = /<html[\s>]/i.test(markup);
   const file = s.file;
   if (isPage) {
     const html = tags(t, 'html')[0];
