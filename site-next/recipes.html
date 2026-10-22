@@ -1,0 +1,804 @@
+<!doctype html>
+<html lang="en" data-proof="none">
+<!-- Skeleton (awards:structure). Bindings as described at the top of index.html: data-fact, data-fact-attr, data-proof, @proof and @fact slots. -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Recipes · awards</title>
+  <meta name="description" content="All 89 recipe entries of the awards plugin, by group: what each one demonstrates, its tags and the date it last passed its verifier in headless Chromium." data-fact-attr="content:recipes">
+  <link rel="canonical" href="./recipes.html">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#131211">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="./fonts/enriqueta-latin-500.woff2" as="font" type="font/woff2" crossorigin>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="awards">
+  <meta property="og:title" content="Recipes · awards">
+  <meta property="og:description" content="89 verifiable recipe entries, each with its group, tags and recorded pass." data-fact-attr="content:recipes">
+  <meta property="og:image" content="./og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A black film rebate along the top of a white proof sheet, the line “Your site, proofed before anyone sees it.” and an install ticket ringed in red pencil.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="./src/styles/site.css">
+</head>
+<body>
+<div id="page" class="sheet">
+  <a class="skip" href="#main">Skip to the page</a>
+
+  <div class="rebate" data-theme="rebate">
+    <header class="rebate__head">
+      <p class="rebate__mark"><a class="rebate__wordmark" href="./">awards</a> <span class="rebate__version edge" data-fact="version">0.7.0</span></p>
+      <nav class="rebate__nav" aria-label="Site">
+        <ul role="list">
+          <li><a class="rebate__install" href="./install.html">Install</a></li>
+          <li><a href="./docs.html">Docs</a></li>
+          <li><a href="./recipes.html" aria-current="page">Recipes</a></li>
+          <li><a href="https://github.com/burgisimon/awards" data-fact-attr="href:repo">Source</a></li>
+        </ul>
+      </nav>
+    </header>
+    <!-- @proof:strip route="recipes" — the same frames nav as on the home route, with this route's own frames; nothing in state none -->
+  </div>
+
+  <main id="main" class="paper">
+
+    <section class="chapter route-head" aria-labelledby="recipes-title">
+      <h1 id="recipes-title">Recipes</h1>
+      <p class="lede"><span data-fact="recipes">89</span> entries: <span data-fact="recipes-focused">88</span> focused recipes and one complete page. Each folder holds the page, its script and styles, a README, a manifest and a verifier that drives it in headless Chromium; <span data-fact="recipes-verified">76</span> carry a recorded pass. The skills adapt them to a project's own world; they are never pasted.</p>
+      <nav class="catalogue-index" aria-label="Recipe groups">
+        <!-- @fact:group-index -->
+        <ol role="list">
+          <li><a href="#group-foundations">Foundations</a><span class="edge" data-fact="recipes-group-foundations">7</span></li>
+          <li><a href="#group-arrival-and-chrome">Arrival and chrome</a><span class="edge" data-fact="recipes-group-arrival-and-chrome">14</span></li>
+          <li><a href="#group-heroes-and-type">Heroes and type</a><span class="edge" data-fact="recipes-group-heroes-and-type">11</span></li>
+          <li><a href="#group-scroll-set-pieces">Scroll set-pieces</a><span class="edge" data-fact="recipes-group-scroll-set-pieces">20</span></li>
+          <li><a href="#group-galleries-and-lists">Galleries and lists</a><span class="edge" data-fact="recipes-group-galleries-and-lists">9</span></li>
+          <li><a href="#group-evidence-blocks">Evidence blocks</a><span class="edge" data-fact="recipes-group-evidence-blocks">5</span></li>
+          <li><a href="#group-the-close-and-beyond">The close and beyond</a><span class="edge" data-fact="recipes-group-the-close-and-beyond">6</span></li>
+          <li><a href="#group-webgl-surfaces">WebGL surfaces and scenes</a><span class="edge" data-fact="recipes-group-webgl-surfaces">14</span></li>
+          <li><a href="#group-compositions">Pages and compositions</a><span class="edge" data-fact="recipes-group-compositions">3</span></li>
+        </ol>
+        <!-- /@fact -->
+      </nav>
+      <!-- The filter is a control, not content: script reveals it; without script the group links above do the same job. -->
+      <form class="filter" role="search" aria-label="Filter the recipes" data-filter hidden>
+        <fieldset>
+          <legend class="caption">Group</legend>
+          <!-- @fact:filter-groups -->
+        <button type="button" class="filter__button" aria-pressed="false" data-filter-group="foundations">Foundations</button>
+          <button type="button" class="filter__button" aria-pressed="false" data-filter-group="arrival-and-chrome">Arrival and chrome</button>
+          <button type="button" class="filter__button" aria-pressed="false" data-filter-group="heroes-and-type">Heroes and type</button>
+          <button type="button" class="filter__button" aria-pressed="false" data-filter-group="scroll-set-pieces">Scroll set-pieces</button>
+          <button type="button" class="filter__button" aria-pressed="false" data-filter-group="galleries-and-lists">Galleries and lists</button>
+          <button type="button" class="filter__button" aria-pressed="false" data-filter-group="evidence-blocks">Evidence blocks</button>
+          <button type="button" class="filter__button" aria-pressed="false" data-filter-group="the-close-and-beyond">The close and beyond</button>
+          <button type="button" class="filter__button" aria-pressed="false" data-filter-group="webgl-surfaces">WebGL surfaces and scenes</button>
+          <button type="button" class="filter__button" aria-pressed="false" data-filter-group="compositions">Pages and compositions</button>
+        <!-- /@fact -->
+        </fieldset>
+        <label class="caption" for="filter-tag">Tag</label>
+        <select id="filter-tag" name="tag"><option value="">Any tag</option><!-- @fact:filter-tags -->
+        <option value="3d">3d</option><option value="accessibility">accessibility</option><option value="animejs">animejs</option><option value="art-direction">art-direction</option><option value="autoplay">autoplay</option><option value="bloom">bloom</option><option value="blur">blur</option><option value="bottom-sheet">bottom-sheet</option><option value="button">button</option><option value="camera">camera</option><option value="canvas">canvas</option><option value="cards">cards</option><option value="carousel">carousel</option><option value="clip-path">clip-path</option><option value="colour">colour</option><option value="compare">compare</option><option value="composition">composition</option><option value="consent">consent</option><option value="css-3d">css-3d</option><option value="css-animation">css-animation</option><option value="cursor">cursor</option><option value="customease">customease</option><option value="dialog">dialog</option><option value="dispersion">dispersion</option><option value="dom-mirror">dom-mirror</option><option value="drag">drag</option><option value="draggable">draggable</option><option value="easing">easing</option><option value="easter-egg">easter-egg</option><option value="editorial">editorial</option><option value="enquiry">enquiry</option><option value="environment">environment</option><option value="fallback">fallback</option><option value="fluid">fluid</option><option value="footer">footer</option><option value="form">form</option><option value="gpgpu">gpgpu</option><option value="grain">grain</option><option value="gsap">gsap</option><option value="hero">hero</option><option value="horizontal">horizontal</option><option value="hotspots">hotspots</option><option value="hover">hover</option><option value="idle">idle</option><option value="images">images</option><option value="inertia">inertia</option><option value="interruption">interruption</option><option value="keyboard">keyboard</option><option value="lathe">lathe</option><option value="layout">layout</option><option value="lenis">lenis</option><option value="list">list</option><option value="loading">loading</option><option value="marquee">marquee</option><option value="mask">mask</option><option value="matcap">matcap</option><option value="materials">materials</option><option value="media">media</option><option value="msdf">msdf</option><option value="navigation">navigation</option><option value="noise">noise</option><option value="observer">observer</option><option value="offscreencanvas">offscreencanvas</option><option value="onbeforecompile">onbeforecompile</option><option value="orbit">orbit</option><option value="overlay">overlay</option><option value="parallax">parallax</option><option value="particles">particles</option><option value="performance">performance</option><option value="pin">pin</option><option value="pointer">pointer</option><option value="post-processing">post-processing</option><option value="preloader">preloader</option><option value="procedural">procedural</option><option value="product">product</option><option value="progress">progress</option><option value="quality-tiers">quality-tiers</option><option value="quickto">quickto</option><option value="raymarch">raymarch</option><option value="reduced-motion">reduced-motion</option><option value="render-target">render-target</option><option value="responsive">responsive</option><option value="reveal">reveal</option><option value="router">router</option><option value="scene-windows">scene-windows</option><option value="scroll">scroll</option><option value="scrollbar">scrollbar</option><option value="scrolltrigger">scrolltrigger</option><option value="scrub">scrub</option><option value="sdf">sdf</option><option value="sections">sections</option><option value="sequence">sequence</option><option value="shader">shader</option><option value="snap">snap</option><option value="sound">sound</option><option value="splittext">splittext</option><option value="spring">spring</option><option value="stagger">stagger</option><option value="static">static</option><option value="sticky">sticky</option><option value="storage">storage</option><option value="svg">svg</option><option value="tabs">tabs</option><option value="taxi">taxi</option><option value="text">text</option><option value="theme">theme</option><option value="three">three</option><option value="ticker">ticker</option><option value="tilt">tilt</option><option value="timeline">timeline</option><option value="toggle">toggle</option><option value="tokens">tokens</option><option value="touch">touch</option><option value="toy">toy</option><option value="transition">transition</option><option value="typewriter">typewriter</option><option value="typography">typography</option><option value="uniforms">uniforms</option><option value="validation">validation</option><option value="velocity">velocity</option><option value="video">video</option><option value="virtual-scroll">virtual-scroll</option><option value="webaudio">webaudio</option><option value="webgl">webgl</option><option value="wheel">wheel</option><option value="worker">worker</option>
+        <!-- /@fact --></select>
+      </form>
+      <p class="catalogue-count edge" role="status" data-filter-count><span data-fact="recipes">89</span> entries shown</p>
+    </section>
+
+    <!-- @fact:catalogue (entries from each recipe.json; frames from src/data/recipes.json, written by scripts/recipe-frames.mjs) -->
+        <section class="chapter group" id="group-foundations" aria-labelledby="group-foundations-title">
+        <h2 id="group-foundations-title">Foundations</h2>
+        <p class="group__intro">7 entries: boot, motion policy, easing, device budgets, colour as state.</p>
+        <ol class="entries" role="list">
+          <li class="entry" id="recipe-boot-lenis-gsap" data-group="foundations" data-tags="scroll gsap lenis reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/boot-lenis-gsap.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/boot-lenis-gsap.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Boot: Lenis + GSAP on one ticker&quot; in headless Chromium at 1280 × 800, state &quot;mid&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/boot-lenis-gsap">Boot: Lenis + GSAP on one ticker</a></h3>
+            <p class="entry__id">boot-lenis-gsap</p>
+            <p class="entry__summary">Lenis on the GSAP ticker, <code>lagSmoothing(0)</code>, fonts before splits, reduced-motion tier, <code>__awards</code> hook</p>
+            <p class="entry__meta edge"><span>Boot the page</span><span>scroll · gsap · lenis · reduced-motion</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-custom-ease-house-defaults" data-group="foundations" data-tags="gsap easing customease tokens reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/custom-ease-house-defaults.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/custom-ease-house-defaults.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;House easing: CustomEase tokens as GSAP defaults&quot; in headless Chromium at 1280 × 800, state &quot;played&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/custom-ease-house-defaults">House easing: CustomEase tokens as GSAP defaults</a></h3>
+            <p class="entry__id">custom-ease-house-defaults</p>
+            <p class="entry__summary">Five curves (<code>house</code>, <code>out</code>, <code>in</code>, <code>in-out</code>, <code>write</code>) and a <code>xs / s / m / l / fade</code> duration ladder written once as CSS custom properties, read on boot into <code>CustomEase.create</code> and <code>gsap.defaults({ ease: 'house', duration: --dur-m })</code>, so an unannotated tween, a named tween and a CSS <code>transition</code> share one curve; stagger as a token passed explicitly; movement durations <code>0s</code> under reduced motion with the fade kept, static zeroes the fade</p>
+            <p class="entry__meta edge"><span>House easing</span><span>gsap · easing · customease · tokens · reduced-motion</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-gl-fps-governor-idle-gate" data-group="foundations" data-tags="webgl three performance idle">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/gl-fps-governor-idle-gate.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/gl-fps-governor-idle-gate.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Frame-rate DPR governor and an idle render gate&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/gl-fps-governor-idle-gate">Frame-rate DPR governor and an idle render gate</a></h3>
+            <p class="entry__id">gl-fps-governor-idle-gate</p>
+            <p class="entry__summary">Half-second fps windows step <code>setPixelRatio</code> by <code>.25</code> (down under 45, up over 57, hold between) inside the probe's clamp (ceiling = probe DPR and pixel budget, floor <code>max(.5, cap / 2)</code>); the loop leaves the shared ticker <code>1.5 s</code> after the last scroll, pointer, wheel, touch or key input unless a transition or easing is busy, and stops on hidden tabs; <code>__governor.simulate(ms)</code> injects frame times; still field under reduced motion with the same governor and gate, one frame in the static tier</p>
+            <p class="entry__meta edge"><span>Runtime GL budget</span><span>webgl · three · performance · idle</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-offscreen-canvas-worker" data-group="foundations" data-tags="performance canvas worker offscreencanvas preloader fallback">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/offscreen-canvas-worker.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/offscreen-canvas-worker.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;OffscreenCanvas in a Worker with a timed main-thread fallback&quot; in headless Chromium at 1280 × 800, state &quot;worker&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/offscreen-canvas-worker">OffscreenCanvas in a Worker with a timed main-thread fallback</a></h3>
+            <p class="entry__id">offscreen-canvas-worker</p>
+            <p class="entry__summary"><code>transferControlToOffscreen</code> after a 1 s hello handshake, one draw module run by the Worker's rAF or the shared ticker, timed main-thread fallback on a cloned canvas, paused off-screen, one settled frame under reduced motion</p>
+            <p class="entry__meta edge"><span>Loader off the main thread</span><span>performance · canvas · worker · offscreencanvas · preloader · fallback</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-quality-tiers" data-group="foundations" data-tags="performance webgl quality-tiers fallback">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/quality-tiers.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/quality-tiers.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Adaptive quality tiers from a one-time probe&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/quality-tiers">Adaptive quality tiers from a one-time probe</a></h3>
+            <p class="entry__id">quality-tiers</p>
+            <p class="entry__summary">One-time probe → DPR / pixel / particle budgets, still on low tier</p>
+            <p class="entry__meta edge"><span>Device budget</span><span>performance · webgl · quality-tiers · fallback</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-reduced-motion-switch" data-group="foundations" data-tags="reduced-motion accessibility gsap ticker">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/reduced-motion-switch.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/reduced-motion-switch.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Central motion-tier switch (full / reduced / static)&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/reduced-motion-switch">Central motion-tier switch (full / reduced / static)</a></h3>
+            <p class="entry__id">reduced-motion-switch</p>
+            <p class="entry__summary">Central full / reduced / static tiers, user override, teardown between tiers</p>
+            <p class="entry__meta edge"><span>Motion policy</span><span>reduced-motion · accessibility · gsap · ticker</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-theme-swap-tokens" data-group="foundations" data-tags="colour theme gsap scrolltrigger canvas">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/theme-swap-tokens.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/theme-swap-tokens.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Theme swap by scroll: tokens and canvas in one tween&quot; in headless Chromium at 1280 × 800, state &quot;dark&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/theme-swap-tokens">Theme swap by scroll: tokens and canvas in one tween</a></h3>
+            <p class="entry__id">theme-swap-tokens</p>
+            <p class="entry__summary">Tokens tweened on <code>&lt;html&gt;</code> per chapter, canvas clear colour in the same tween, <code>theme-color</code></p>
+            <p class="entry__meta edge"><span>Colour as state</span><span>colour · theme · gsap · scrolltrigger · canvas</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="chapter group" id="group-arrival-and-chrome" aria-labelledby="group-arrival-and-chrome-title">
+        <h2 id="group-arrival-and-chrome-title">Arrival and chrome</h2>
+        <p class="group__intro">14 entries: loaders, menus, cursors, sound, modes, routes.</p>
+        <ol class="entries" role="list">
+          <li class="entry" id="recipe-cursor-two-speed" data-group="arrival-and-chrome" data-tags="pointer cursor inertia">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/cursor-two-speed.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/cursor-two-speed.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Two-speed contextual cursor&quot; in headless Chromium at 1280 × 800, state &quot;hover&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/cursor-two-speed">Two-speed contextual cursor</a></h3>
+            <p class="entry__id">cursor-two-speed</p>
+            <p class="entry__summary">Dot <code>.75</code> / ring <code>.22</code>, hover scale, contextual badges, off on coarse pointers</p>
+            <p class="entry__meta edge"><span>Custom cursor</span><span>pointer · cursor · inertia</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-dialog-nested-lenis-sheet" data-group="arrival-and-chrome" data-tags="dialog overlay lenis gsap accessibility bottom-sheet">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/dialog-nested-lenis-sheet.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/dialog-nested-lenis-sheet.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Dialog with its own smooth scroll, a bottom sheet on the phone&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/dialog-nested-lenis-sheet">Dialog with its own smooth scroll, a bottom sheet on the phone</a></h3>
+            <p class="entry__id">dialog-nested-lenis-sheet</p>
+            <p class="entry__summary">Native <code>&lt;dialog&gt;</code> + <code>showModal()</code>, nested Lenis on the shared ticker, <code>data-lenis-prevent</code> on dialog and inner pane, server-rendered content, drag-to-dismiss bottom sheet under 768 px, instant under reduced motion</p>
+            <p class="entry__meta edge"><span>Long-read dialog</span><span>dialog · overlay · lenis · gsap · accessibility · bottom-sheet</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-image-trail-cursor" data-group="arrival-and-chrome" data-tags="pointer cursor velocity stagger images hero reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/image-trail-cursor.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/image-trail-cursor.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Pooled image trail behind a fine pointer&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/image-trail-cursor">Pooled image trail behind a fine pointer</a></h3>
+            <p class="entry__id">image-trail-cursor</p>
+            <p class="entry__summary">A fixed pool of <code>12</code> CSS-drawn pictures recycled oldest-first behind a fine pointer inside one hero: one lands every <code>80 px</code> of path travel (marks interpolated along each pointer segment, at most <code>4</code> per event, so density is the same at any speed), scales in from <code>.6</code> over <code>.32 s</code> expo-out, holds <code>.5 s</code>, and fades over <code>.45 s</code> in arrival order at least <code>60 ms</code> apart; smoothed speed (<code>τ 50 ms</code>) sets size <code>.8–1.25×</code> (saturating at <code>2 px/ms</code>) and tilt <code>±8°</code>, plus a cycled <code>±3°</code> sway; a picture whose box would touch the heading's text box or the copy beside it (padded <code>12 px</code>) is skipped; transform and opacity only on the shared ticker, which leaves when nothing is alive; the layer is <code>aria-hidden</code>, <code>inert</code> and <code>pointer-events: none</code>; off when the hero leaves the screen, on coarse pointers and under reduced motion or static, where three still pictures placed by the design take its place</p>
+            <p class="entry__meta edge"><span>Image trail</span><span>pointer · cursor · velocity · stagger · images · hero · reduced-motion</span><span data-fact="recipe-pass">no recorded pass yet</span></p>
+          </li>
+          <li class="entry" id="recipe-magnetic-button" data-group="arrival-and-chrome" data-tags="pointer gsap quickto hover button">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/magnetic-button.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/magnetic-button.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Magnetic button with distance falloff&quot; in headless Chromium at 1280 × 800, state &quot;pull&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/magnetic-button">Magnetic button with distance falloff</a></h3>
+            <p class="entry__id">magnetic-button</p>
+            <p class="entry__summary"><code>quickTo</code> pull with smoothstep falloff, label parallax, fine pointers only</p>
+            <p class="entry__meta edge"><span>Magnetic CTA</span><span>pointer · gsap · quickto · hover · button</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-nav-overlay-fullscreen" data-group="arrival-and-chrome" data-tags="navigation overlay gsap accessibility lenis">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/nav-overlay-fullscreen.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/nav-overlay-fullscreen.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Fullscreen navigation overlay with focus trap&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/nav-overlay-fullscreen">Fullscreen navigation overlay with focus trap</a></h3>
+            <p class="entry__id">nav-overlay-fullscreen</p>
+            <p class="entry__summary">Clip-path wipe, display-scale links (numbered only as a variant), <code>inert</code>, focus trap, Escape, Lenis stop</p>
+            <p class="entry__meta edge"><span>Menu</span><span>navigation · overlay · gsap · accessibility · lenis</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-page-transitions" data-group="arrival-and-chrome" data-tags="transition router taxi gsap lenis">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/page-transitions.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/page-transitions.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Page transitions with taxi: wipe, swap, reset, clean up&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/page-transitions">Page transitions with taxi: wipe, swap, reset, clean up</a></h3>
+            <p class="entry__id">page-transitions</p>
+            <p class="entry__summary">taxi wipe transition, renderer lifecycle in <code>gsap.context</code>, Lenis reset, one module</p>
+            <p class="entry__meta edge"><span>Routes</span><span>transition · router · taxi · gsap · lenis</span><span data-fact="recipe-pass">passed 2026-10-22</span></p>
+          </li>
+          <li class="entry" id="recipe-persistent-mode-switch" data-group="arrival-and-chrome" data-tags="theme toggle keyboard storage gsap reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/persistent-mode-switch.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/persistent-mode-switch.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Persistent mode switch that re-skins the page&quot; in headless Chromium at 1280 × 800, state &quot;fresh&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/persistent-mode-switch">Persistent mode switch that re-skins the page</a></h3>
+            <p class="entry__id">persistent-mode-switch</p>
+            <p class="entry__summary">Docked segmented switch + Grid overlay pill + <code>L</code> / <code>D</code> / <code>G</code> hotkeys (ignored in text fields and with Ctrl / Alt / Meta), state set as root attributes, stored in <code>localStorage</code>, printed in the label and restored by a head script before first paint; at the close the dock cross-scales out (<code>1.75</code>) as a large centred copy arrives (from <code>.5</code>), one copy reachable at a time; no tween under reduced motion</p>
+            <p class="entry__meta edge"><span>Visitor-held mode</span><span>theme · toggle · keyboard · storage · gsap · reduced-motion</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-preloader-aperture-handoff" data-group="arrival-and-chrome" data-tags="preloader loading clip-path gsap hero storage reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/preloader-aperture-handoff.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/preloader-aperture-handoff.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Preloader that hands off to the hero through an opening aperture&quot; in headless Chromium at 1280 × 800, state &quot;first&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/preloader-aperture-handoff">Preloader that hands off to the hero through an opening aperture</a></h3>
+            <p class="entry__id">preloader-aperture-handoff</p>
+            <p class="entry__summary">Curtain gated on fonts + the hero's first frame (4 s ceiling, no floor, head-script <code>is-gated</code> so neither the hero nor the curtain flashes), lifted <code>yPercent −100</code> while the hero opens from <code>clip-path: inset(30% round 12px)</code> to <code>inset(0% round 0px)</code> and its media scales <code>.6 → 1</code> (1.4 s <code>expo.inOut</code>); root <code>overflow: hidden</code> + <code>inert</code> until open, <code>__awards.ready</code> after the hand-off, <code>sessionStorage</code> repeat-visit skip, Skip button; a curtain fade only under reduced motion, a cut in the static tier</p>
+            <p class="entry__meta edge"><span>Loader into hero</span><span>preloader · loading · clip-path · gsap · hero · storage · reduced-motion</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-preloader-counter-hold" data-group="arrival-and-chrome" data-tags="preloader loading gsap accessibility storage">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/preloader-counter-hold.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/preloader-counter-hold.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Preloader: real-signal counter that holds at 100&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/preloader-counter-hold">Preloader: real-signal counter that holds at 100</a></h3>
+            <p class="entry__id">preloader-counter-hold</p>
+            <p class="entry__summary">Real-signal counter, uneven jumps, hold at 100, exit by lines, sessionStorage skip</p>
+            <p class="entry__meta edge"><span>Loading</span><span>preloader · loading · gsap · accessibility · storage</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-scrollbar-thumb-drag" data-group="arrival-and-chrome" data-tags="scroll scrollbar lenis pointer accessibility reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/scrollbar-thumb-drag.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/scrollbar-thumb-drag.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Drawn scrollbar thumb beside a working native scroll&quot; in headless Chromium at 1280 × 800, state &quot;eased&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/scrollbar-thumb-drag">Drawn scrollbar thumb beside a working native scroll</a></h3>
+            <p class="entry__id">scrollbar-thumb-drag</p>
+            <p class="entry__summary">Themed thumb mirroring <code>scrollY</code> on the shared ticker, drag and track-press write the scroll, native bar and keys kept, <code>aria-hidden</code> pointer duplicate, snaps under reduced motion, hidden on coarse pointers</p>
+            <p class="entry__meta edge"><span>Drawn scrollbar</span><span>scroll · scrollbar · lenis · pointer · accessibility · reduced-motion</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-sound-toggle-opt-in" data-group="arrival-and-chrome" data-tags="sound webaudio accessibility consent canvas">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/sound-toggle-opt-in.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/sound-toggle-opt-in.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Opt-in sound: a real toggle, a synthesised bed, a remembered yes&quot; in headless Chromium at 1280 × 800, state &quot;off&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/sound-toggle-opt-in">Opt-in sound: a real toggle, a synthesised bed, a remembered yes</a></h3>
+            <p class="entry__id">sound-toggle-opt-in</p>
+            <p class="entry__summary">Opt-in ambient + SFX, persisted</p>
+            <p class="entry__meta edge"><span>Sound</span><span>sound · webaudio · accessibility · consent · canvas</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-transition-promote-chosen" data-group="arrival-and-chrome" data-tags="transition router taxi gsap stagger">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/transition-promote-chosen.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/transition-promote-chosen.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Route exit that promotes the chosen item&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/transition-promote-chosen">Route exit that promotes the chosen item</a></h3>
+            <p class="entry__id">transition-promote-chosen</p>
+            <p class="entry__summary">Clicked row rises to the header slot, siblings fade by <code>.09 s × distance</code>, route pushed after the rise, phone timing set</p>
+            <p class="entry__meta edge"><span>Chosen-item exit</span><span>transition · router · taxi · gsap · stagger</span><span data-fact="recipe-pass">passed 2026-10-22</span></p>
+          </li>
+          <li class="entry" id="recipe-two-phase-interruptible-timeline" data-group="arrival-and-chrome" data-tags="gsap timeline navigation interruption reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/two-phase-interruptible-timeline.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/two-phase-interruptible-timeline.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Two-phase interruptible timeline: open, addPause() hinge, close&quot; in headless Chromium at 1280 × 800, state &quot;rest&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/two-phase-interruptible-timeline">Two-phase interruptible timeline: open, addPause() hinge, close</a></h3>
+            <p class="entry__id">two-phase-interruptible-timeline</p>
+            <p class="entry__summary">One paused timeline: open half, <code>addPause()</code> at its duration <code>I</code>, close half; close calls <code>tl.time() &lt; I ? tl.reverse() : tl.play()</code>, so a close mid-open rewinds from where it is and a close after the hinge plays the authored exit; reopen during the exit reverses back onto the pause; <code>pause(0)</code> on complete; the panel's visibility set at <code>.001</code> so <code>pause(0)</code> hides it; disclosure with <code>aria-expanded</code>, <code>inert</code> on close, Escape; opacity-only under reduced motion, <code>pause(I)</code> / <code>pause(0)</code> in the static tier</p>
+            <p class="entry__meta edge"><span>Interruptible open / close</span><span>gsap · timeline · navigation · interruption · reduced-motion</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-view-transitions-mpa" data-group="arrival-and-chrome" data-tags="transition router fallback reduced-motion accessibility">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/view-transitions-mpa.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/view-transitions-mpa.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Cross-document page transitions with the View Transitions API&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/view-transitions-mpa">Cross-document page transitions with the View Transitions API</a></h3>
+            <p class="entry__id">view-transitions-mpa</p>
+            <p class="entry__summary">Four static pages joined by <code>@view-transition { navigation: auto }</code> in an inline head <code>&lt;style&gt;</code> inside the motion query, no router; <code>pageswap</code> names only the destination's tile (<code>media</code>, <code>title</code>) and <code>pagereveal</code> adds the <code>forward</code> / <code>back</code> type from the page order and names the tile returned to, cleared on <code>ready</code>; picture and name morph <code>.7 s</code> with <code>object-fit: cover</code> snapshots clipped to the moving box while the body slides <code>6 %</code> (<code>.4 s</code> out, <code>.6 s</code> in after <code>.12 s</code>), the bar held still; first frame held by <code>&lt;link rel=&quot;expect&quot; blocking=&quot;render&quot;&gt;</code>; focus to the new <code>h1</code>; plain navigation without the API, no transition under reduced motion</p>
+            <p class="entry__meta edge"><span>Native page morph</span><span>transition · router · fallback · reduced-motion · accessibility</span><span data-fact="recipe-pass">no recorded pass yet</span></p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="chapter group" id="group-heroes-and-type" aria-labelledby="group-heroes-and-type-title">
+        <h2 id="group-heroes-and-type-title">Heroes and type</h2>
+        <p class="group__intro">11 entries: first viewports and text that moves.</p>
+        <ol class="entries" role="list">
+          <li class="entry" id="recipe-flicker-text" data-group="heroes-and-type" data-tags="text gsap hover">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/flicker-text.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/flicker-text.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Flicker text (per-glyph opacity ladder)&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/flicker-text">Flicker text (per-glyph opacity ladder)</a></h3>
+            <p class="entry__id">flicker-text</p>
+            <p class="entry__summary">Per-letter opacity ladder <code>[0,1,0,0,1,1]</code></p>
+            <p class="entry__meta edge"><span>Flicker text</span><span>text · gsap · hover</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-gl-hero-object-inertia" data-group="heroes-and-type" data-tags="webgl three hero inertia matcap">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/gl-hero-object-inertia.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/gl-hero-object-inertia.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Single hero object with pointer inertia and scroll turn&quot; in headless Chromium at 1280 × 800, state &quot;scrolled&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/gl-hero-object-inertia">Single hero object with pointer inertia and scroll turn</a></h3>
+            <p class="entry__id">gl-hero-object-inertia</p>
+            <p class="entry__summary">One object with pointer inertia and scroll rotation</p>
+            <p class="entry__meta edge"><span>Hero object</span><span>webgl · three · hero · inertia · matcap</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-gl-msdf-text" data-group="heroes-and-type" data-tags="webgl three typography msdf dom-mirror accessibility">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/gl-msdf-text.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/gl-msdf-text.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;MSDF text in WebGL, atlas built at runtime, mirrored in the DOM&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/gl-msdf-text">MSDF text in WebGL, atlas built at runtime, mirrored in the DOM</a></h3>
+            <p class="entry__id">gl-msdf-text</p>
+            <p class="entry__summary">MSDF text with a DOM mirror</p>
+            <p class="entry__meta edge"><span>GL text</span><span>webgl · three · typography · msdf · dom-mirror · accessibility</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-knockout-wordmark-window" data-group="heroes-and-type" data-tags="svg mask typography canvas hero reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/knockout-wordmark-window.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/knockout-wordmark-window.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Knockout wordmark as a window onto a moving ground&quot; in headless Chromium at 1280 × 800, state &quot;full&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/knockout-wordmark-window">Knockout wordmark as a window onto a moving ground</a></h3>
+            <p class="entry__id">knockout-wordmark-window</p>
+            <p class="entry__summary">SVG <code>&lt;mask&gt;</code> subtracting the wordmark's paths from a solid <code>--ground</code> rect that overflows the word's box and is clipped by the hero, over a fixed canvas-2D ground (four Lissajous blobs + light / shade folds at 1/6 resolution) on the shared ticker, stopped off-screen; <code>h1</code> with a hidden text twin, no media files, one still frame under reduced motion</p>
+            <p class="entry__meta edge"><span>Name as a window</span><span>svg · mask · typography · canvas · hero · reduced-motion</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-responsive-art-directed-hero" data-group="heroes-and-type" data-tags="art-direction responsive images layout">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/responsive-art-directed-hero.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/responsive-art-directed-hero.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Alder Workshop — art-directed hero&quot; in headless Chromium at 1280 × 800, state &quot;desktop&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/responsive-art-directed-hero">Alder Workshop — art-directed hero</a></h3>
+            <p class="entry__id">responsive-art-directed-hero</p>
+            <p class="entry__summary">Separate wide/portrait composition, intact subject and action</p>
+            <p class="entry__meta edge"><span>Responsive image hero</span><span>art-direction · responsive · images · layout</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-scramble-decode-text" data-group="heroes-and-type" data-tags="text animejs">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/scramble-decode-text.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/scramble-decode-text.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Scramble decode readouts (anime.js scrambleText)&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/scramble-decode-text">Scramble decode readouts (anime.js scrambleText)</a></h3>
+            <p class="entry__id">scramble-decode-text</p>
+            <p class="entry__summary">Telemetry decode reveal</p>
+            <p class="entry__meta edge"><span>Decode text</span><span>text · animejs</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-split-text-masked-reveal" data-group="heroes-and-type" data-tags="text gsap splittext reveal reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/split-text-masked-reveal.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/split-text-masked-reveal.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Masked line reveal with SplitText, after fonts&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/split-text-masked-reveal">Masked line reveal with SplitText, after fonts</a></h3>
+            <p class="entry__id">split-text-masked-reveal</p>
+            <p class="entry__summary"><code>SplitText.create</code> lines with masks, <code>autoSplit</code> + <code>onSplit</code>, <code>y 120 % → 0</code>, expo-out</p>
+            <p class="entry__meta edge"><span>Text reveal</span><span>text · gsap · splittext · reveal · reduced-motion</span><span data-fact="recipe-pass">passed 2026-10-22</span></p>
+          </li>
+          <li class="entry" id="recipe-svg-goo-line-reveal" data-group="heroes-and-type" data-tags="text typography gsap splittext scrolltrigger svg blur reveal stagger reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/svg-goo-line-reveal.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/svg-goo-line-reveal.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Headings that condense line by line through an SVG goo filter&quot; in headless Chromium at 1280 × 800, state &quot;mid&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/svg-goo-line-reveal">Headings that condense line by line through an SVG goo filter</a></h3>
+            <p class="entry__id">svg-goo-line-reveal</p>
+            <p class="entry__summary">SplitText lines after fonts, each given its own <code>&lt;filter&gt;</code> of <code>feGaussianBlur</code> into an <code>feColorMatrix</code> alpha threshold (<code>18 × α − 7</code>): <code>stdDeviation</code> from <code>.32 em</code> of the font size to <code>0</code> over <code>1.1 s</code> <code>power3.out</code>, lines <code>.12 s</code> apart, the matrix relaxed to identity over the blur's last <code>.45 s</code>, each line's filter and <code>&lt;filter&gt;</code> node removed as it lands and the split reverted when the heading has, so it ends as its authored markup; once per heading at <code>top 85%</code>, <code>autoSplit</code> rebuilds the filters mid-reveal; a <code>.4 s</code> opacity fade with no split and no filter under reduced motion, plain text in the static tier</p>
+            <p class="entry__meta edge"><span>Goo line reveal</span><span>text · typography · gsap · splittext · scrolltrigger · svg · blur · reveal · stagger · reduced-motion</span><span data-fact="recipe-pass">no recorded pass yet</span></p>
+          </li>
+          <li class="entry" id="recipe-svg-noise-line-field" data-group="heroes-and-type" data-tags="svg hero noise pointer gsap reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/svg-noise-line-field.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/svg-noise-line-field.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Noise-bent SVG line field with a pointer spring&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/svg-noise-line-field">Noise-bent SVG line field with a pointer spring</a></h3>
+            <p class="entry__id">svg-noise-line-field</p>
+            <p class="entry__summary">Hairline SVG field, one Perlin angle per point drifting in time, pointer push with a framerate-independent spring (.005 / .925), edge-first draw-in, still under reduced motion</p>
+            <p class="entry__meta edge"><span>Living line field</span><span>svg · hero · noise · pointer · gsap · reduced-motion</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-typography-specimen" data-group="heroes-and-type" data-tags="typography layout static">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/typography-specimen.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/typography-specimen.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;In good order — three typographic voices&quot; in headless Chromium at 1280 × 800, state &quot;desktop-quarter&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/typography-specimen">In good order — three typographic voices</a></h3>
+            <p class="entry__id">typography-specimen</p>
+            <p class="entry__summary">Same copy in poster, editorial and technical registers; measure and mobile reflow</p>
+            <p class="entry__meta edge"><span>Typography hierarchy</span><span>typography · layout · static</span><span data-fact="recipe-pass">passed 2026-10-22</span></p>
+          </li>
+          <li class="entry" id="recipe-word-cycle-hero" data-group="heroes-and-type" data-tags="text hero gsap wheel typewriter reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/word-cycle-hero.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/word-cycle-hero.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Hero word cycle: slot roll, typed, wheel-stepped&quot; in headless Chromium at 1280 × 800, state &quot;timed&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/word-cycle-hero">Hero word cycle: slot roll, typed, wheel-stepped</a></h3>
+            <p class="entry__id">word-cycle-hero</p>
+            <p class="entry__summary">One slot in a fixed headline cycles a word list three ways: timed reel roll (<code>back.out</code> overshoot, 900 ms rest), typed and erased per character, or stepped by the first wheel inputs at <code>scrollY 0</code> before the page moves; width held by one grid cell so the line never reflows, <code>aria-hidden</code> slot with an <code>aria-live=&quot;off&quot;</code> label, first word still under reduced motion</p>
+            <p class="entry__meta edge"><span>Turning hero word</span><span>text · hero · gsap · wheel · typewriter · reduced-motion</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="chapter group" id="group-scroll-set-pieces" aria-labelledby="group-scroll-set-pieces-title">
+        <h2 id="group-scroll-set-pieces-title">Scroll set-pieces</h2>
+        <p class="group__intro">20 entries: chapters the scroll drives.</p>
+        <ol class="entries" role="list">
+          <li class="entry" id="recipe-auto-drive-manual-takeover" data-group="scroll-set-pieces" data-tags="lenis scroll autoplay toggle interruption keyboard reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/auto-drive-manual-takeover.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/auto-drive-manual-takeover.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Optional auto-scroll that any user input hands back&quot; in headless Chromium at 1280 × 800, state &quot;rest&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/auto-drive-manual-takeover">Optional auto-scroll that any user input hands back</a></h3>
+            <p class="entry__id">auto-drive-manual-takeover</p>
+            <p class="entry__summary">An <code>aria-pressed</code> Auto toggle, off on every visit, advances Lenis by <code>90 px × dt</code> on the shared ticker (<code>lenis.scrollTo(y, { immediate: true })</code> from a float accumulator, <code>dt</code> clamped to <code>100 ms</code>); a capture-phase wheel, touchstart, pointerdown or keydown anywhere but the toggle hands control back at once, as does any scroll more than <code>3 px</code> from where it was written (scrollbar, find-in-page, a link) and reaching the end; each change written once to a polite <code>role=&quot;status&quot;</code> line; under reduced motion and static the toggle stays focusable but <code>aria-disabled</code>, with the reason in its description</p>
+            <p class="entry__meta edge"><span>Hands-free, handed back</span><span>lenis · scroll · autoplay · toggle · interruption · keyboard · reduced-motion</span><span data-fact="recipe-pass">no recorded pass yet</span></p>
+          </li>
+          <li class="entry" id="recipe-clip-path-scrub-door" data-group="scroll-set-pieces" data-tags="scroll gsap scrolltrigger scrub clip-path reveal reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/clip-path-scrub-door.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/clip-path-scrub-door.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Scrubbed clip-path doorway into a section&quot; in headless Chromium at 1280 × 800, state &quot;mid&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/clip-path-scrub-door">Scrubbed clip-path doorway into a section</a></h3>
+            <p class="entry__id">clip-path-scrub-door</p>
+            <p class="entry__summary">A veil cut by one <code>polygon(evenodd, frame…, hole…)</code> whose hole a scrubbed <code>{ p }</code> proxy grows from <code>20% × 24%</code> to the full frame over a <code>200svh</code> sticky stage (<code>top top</code> → <code>bottom bottom</code>, no pin) while two labels part <code>±50vw</code>; a statement revealed through <code>circle(p × 150% at 50% 120%)</code> with a later, longer phone window; no clip at all under reduced motion or static</p>
+            <p class="entry__meta edge"><span>Section door</span><span>scroll · gsap · scrolltrigger · scrub · clip-path · reveal · reduced-motion</span><span data-fact="recipe-pass">passed 2026-10-22</span></p>
+          </li>
+          <li class="entry" id="recipe-css-scroll-driven-timeline" data-group="scroll-set-pieces" data-tags="scroll css-animation scrub reveal sticky progress fallback">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/css-scroll-driven-timeline.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/css-scroll-driven-timeline.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Scroll-driven animation in CSS: progress, reveals and a sticky media scale&quot; in headless Chromium at 1280 × 800, state &quot;mid&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/css-scroll-driven-timeline">Scroll-driven animation in CSS: progress, reveals and a sticky media scale</a></h3>
+            <p class="entry__id">css-scroll-driven-timeline</p>
+            <p class="entry__summary">A reading-progress bar on <code>scroll(root block)</code> (<code>scaleX 0 → 1</code>), section reveals on <code>view()</code> with <code>animation-range: entry 10% cover 35%</code> (<code>opacity 0 → 1</code>, <code>translateY 3rem → 0</code>), the hero copy leaving over <code>exit 0% exit 100%</code> of a named <code>--hero</code> timeline, and one <code>--rail</code> view timeline on a <code>280svh</code> rail scaling its sticky figure <code>.55 → 1</code> over <code>contain 0% contain 45%</code>; transform and opacity only, so nothing runs on the main thread; a <code>@supports (animation-timeline: view())</code> guard with a scroll-listener and IntersectionObserver fallback that sets the same end states (a top margin of <code>1000000px</code> so a jump never strands a block); end states and a <code>steps(10)</code> bar under reduced motion</p>
+            <p class="entry__meta edge"><span>Scroll motion in CSS</span><span>scroll · css-animation · scrub · reveal · sticky · progress · fallback</span><span data-fact="recipe-pass">no recorded pass yet</span></p>
+          </li>
+          <li class="entry" id="recipe-docked-media-grow" data-group="scroll-set-pieces" data-tags="scroll gsap scrolltrigger scrub media reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/docked-media-grow.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/docked-media-grow.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Docked media card that grows into its section&quot; in headless Chromium at 1280 × 800, state &quot;dock&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/docked-media-grow">Docked media card that grows into its section</a></h3>
+            <p class="entry__id">docked-media-grow</p>
+            <p class="entry__summary">A fixed card docked bottom right, scaled (transform only, <code>transform-origin</code> bottom right) from <code>300 px</code> to the viewport minus the gutter between <code>top 85%</code> and <code>top top</code> of its section, linear <code>scrub: true</code>, then swapped from <code>position: fixed</code> to the section's flow where the two boxes coincide; unscaled cue link fades out, desktop only (≥ 1024 px), CSS placeholder film so no media ships, full-size in its section under reduced motion</p>
+            <p class="entry__meta edge"><span>Reel from the corner</span><span>scroll · gsap · scrolltrigger · scrub · media · reduced-motion</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-gl-arc-length-mask-reveal" data-group="scroll-set-pieces" data-tags="webgl shader scroll mask">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/gl-arc-length-mask-reveal.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/gl-arc-length-mask-reveal.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Arc-length mask reveal&quot; in headless Chromium at 1280 × 800, state &quot;half&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/gl-arc-length-mask-reveal">Arc-length mask reveal</a></h3>
+            <p class="entry__id">gl-arc-length-mask-reveal</p>
+            <p class="entry__summary">Four Bézier branches rasterised at load into one RGBA8 mask (branch id in R, 16-bit arc length across G / B, centreline distance in A) read with <code>texelFetch</code>; one <code>u_reveal[4]</code> array, a <code>.2</code> stagger over a sticky <code>320svh</code> chapter, <code>front = arc + .12 × edge²</code> so the head rounds; one fullscreen triangle in raw WebGL2, damped on the shared ticker that leaves at rest; complete and still under reduced motion and static</p>
+            <p class="entry__meta edge"><span>Ordered stroke reveal</span><span>webgl · shader · scroll · mask</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-gl-progress-scene-windows" data-group="scroll-set-pieces" data-tags="webgl three 3d lenis scroll scene-windows reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/gl-progress-scene-windows.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/gl-progress-scene-windows.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;One progress line: stretch bands, scene windows and a speed-capped clock&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/gl-progress-scene-windows">One progress line: stretch bands, scene windows and a speed-capped clock</a></h3>
+            <p class="entry__id">gl-progress-scene-windows</p>
+            <p class="entry__summary">Scroll inside a <code>900svh</code> sticky track (Lenis on the shared ticker) is a raw 0–1 folded through a piecewise-linear map where two stretch bands cost more scroll (<code>.24–.36 × 2</code>, <code>.62–.72 × 1.5</code>, overlapping bands discarded); a clock follows that target at most <code>K × dt / FILM_SECONDS</code> per frame (<code>4</code>, <code>14 s</code>) so a flick cannot skip a beat; five scene windows of generated three.js geometry switched on half-way into the window before and off half-way into the next (<code>visible</code> toggled, never disposed), with a per-window <code>dropPrevAt</code> override; a rail drawn from the same tables; one settled frame per beat under reduced motion and static</p>
+            <p class="entry__meta edge"><span>One value owns the film</span><span>webgl · three · 3d · lenis · scroll · scene-windows · reduced-motion</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-gl-scrubbed-clip-timeline" data-group="scroll-set-pieces" data-tags="webgl three 3d scrolltrigger scrub timeline procedural dom-mirror">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/gl-scrubbed-clip-timeline.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/gl-scrubbed-clip-timeline.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Scroll-scrubbed animation clips through mixer.setTime&quot; in headless Chromium at 1280 × 800, state &quot;idle&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/gl-scrubbed-clip-timeline">Scroll-scrubbed animation clips through mixer.setTime</a></h3>
+            <p class="entry__id">gl-scrubbed-clip-timeline</p>
+            <p class="entry__summary">Three procedural forms (petals on pivots, stacked discs, helix beads) each carry an <code>AnimationClip</code> built in code from position, quaternion and scale <code>KeyframeTrack</code>s (<code>2.4 / 2.8 / 3 s</code>); one paused nine-unit timeline gives each a slot of three: a rail hand-off straddling the boundary (<code>1</code> unit, <code>power2.inOut</code>), a growth proxy at <code>+.25</code> for <code>1.75</code> (<code>sine.inOut</code>) that becomes <code>mixer.setTime(proxy × duration)</code> on a <code>LoopOnce</code> action unpaused before every set, a tone at <code>+1</code>; ScrollTrigger scrubs it over a <code>640svh</code> sticky track (<code>scrub .8</code>, <code>.3</code> on coarse pointers) with Lenis on the GSAP ticker; frames drawn only after a scroll update or a resize; chapter links with <code>aria-current</code> as the DOM mirror; quality tiers set DPR, pixels and segments; settled pose per slot, cut at the boundary, under reduced motion and static; a CSS still without WebGL2</p>
+            <p class="entry__meta edge"><span>Scroll owns the clip</span><span>webgl · three · 3d · scrolltrigger · scrub · timeline · procedural · dom-mirror</span><span data-fact="recipe-pass">no recorded pass yet</span></p>
+          </li>
+          <li class="entry" id="recipe-gl-virtual-scroll-camera" data-group="scroll-set-pieces" data-tags="webgl three virtual-scroll camera keyboard">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/gl-virtual-scroll-camera.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/gl-virtual-scroll-camera.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Virtual scroll driving a camera on a spline&quot; in headless Chromium at 1280 × 800, state &quot;mid&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/gl-virtual-scroll-camera">Virtual scroll driving a camera on a spline</a></h3>
+            <p class="entry__id">gl-virtual-scroll-camera</p>
+            <p class="entry__summary">Wheel / touch → eased float → camera spline, snap, keyboard</p>
+            <p class="entry__meta edge"><span>Spatial scroll</span><span>webgl · three · virtual-scroll · camera · keyboard</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-horizontal-rail" data-group="scroll-set-pieces" data-tags="scroll gsap horizontal keyboard touch">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/horizontal-rail.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/horizontal-rail.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Horizontal rail inside a vertical page&quot; in headless Chromium at 1280 × 800, state &quot;mid&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/horizontal-rail">Horizontal rail inside a vertical page</a></h3>
+            <p class="entry__id">horizontal-rail</p>
+            <p class="entry__summary">Pinned horizontal section, arrows, native overflow on touch</p>
+            <p class="entry__meta edge"><span>Horizontal rail</span><span>scroll · gsap · horizontal · keyboard · touch</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-idle-settle-snap" data-group="scroll-set-pieces" data-tags="scroll lenis snap idle reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/idle-settle-snap.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/idle-settle-snap.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Idle settle-snap across the first viewport&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/idle-settle-snap">Idle settle-snap across the first viewport</a></h3>
+            <p class="entry__id">idle-settle-snap</p>
+            <p class="entry__summary">Lenis on the shared ticker; a wheel that rests inside the first viewport (outside a <code>6 %</code> dead zone at each end) eases to the nearer end after <code>160 ms</code> of quiet counted in ticker time (<code>.7 s</code> ease-out cubic, not locked, so a wheel takes over), <code>900 ms</code> guard; held while a pointer is down (a press stops it in place), disarmed by keyboard, find-in-page and other native scrolls and never armed by touch; off on coarse pointers and under reduced motion</p>
+            <p class="entry__meta edge"><span>Finish the half-scroll</span><span>scroll · lenis · snap · idle · reduced-motion</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-image-sequence-scrub" data-group="scroll-set-pieces" data-tags="scroll canvas sequence gsap">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/image-sequence-scrub.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/image-sequence-scrub.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Pre-rendered image sequence scrubbed on scroll&quot; in headless Chromium at 1280 × 800, state &quot;mid&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/image-sequence-scrub">Pre-rendered image sequence scrubbed on scroll</a></h3>
+            <p class="entry__id">image-sequence-scrub</p>
+            <p class="entry__summary">Pre-rendered frames scrubbed on scroll</p>
+            <p class="entry__meta edge"><span>Frame scrub</span><span>scroll · canvas · sequence · gsap</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-scroll-drawn-svg-path" data-group="scroll-set-pieces" data-tags="scroll svg gsap">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/scroll-drawn-svg-path.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/scroll-drawn-svg-path.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Scroll-drawn SVG path&quot; in headless Chromium at 1280 × 800, state &quot;mid&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/scroll-drawn-svg-path">Scroll-drawn SVG path</a></h3>
+            <p class="entry__id">scroll-drawn-svg-path</p>
+            <p class="entry__summary">Dash-offset path on scroll</p>
+            <p class="entry__meta edge"><span>Drawn path</span><span>scroll · svg · gsap</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-scroll-pin-scrub" data-group="scroll-set-pieces" data-tags="scroll gsap scrolltrigger pin scrub">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/scroll-pin-scrub.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/scroll-pin-scrub.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Pinned chapter with a scrubbed timeline&quot; in headless Chromium at 1280 × 800, state &quot;mid&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/scroll-pin-scrub">Pinned chapter with a scrubbed timeline</a></h3>
+            <p class="entry__id">scroll-pin-scrub</p>
+            <p class="entry__summary">Sticky stage in a tall section, linear scrub, quantised beats</p>
+            <p class="entry__meta edge"><span>Scrubbed chapter</span><span>scroll · gsap · scrolltrigger · pin · scrub</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-scroll-word-fill" data-group="scroll-set-pieces" data-tags="text gsap splittext scrolltrigger scrub sticky reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/scroll-word-fill.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/scroll-word-fill.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Words fill in one by one on a scrubbed scroll&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/scroll-word-fill">Words fill in one by one on a scrubbed scroll</a></h3>
+            <p class="entry__id">scroll-word-fill</p>
+            <p class="entry__summary">SplitText words on a sticky stage, one scrubbed timeline taking each word from a <code>.5</code> floor to full ink (<code>duration 1</code>, <code>stagger .5</code>, linear), done before the stage releases; unsplit and at full ink under reduced motion</p>
+            <p class="entry__meta edge"><span>Read-as-you-scroll statement</span><span>text · gsap · splittext · scrolltrigger · scrub · sticky · reduced-motion</span><span data-fact="recipe-pass">passed 2026-10-22</span></p>
+          </li>
+          <li class="entry" id="recipe-scrub-threshold-timelines" data-group="scroll-set-pieces" data-tags="scroll gsap scrolltrigger scrub timeline text reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/scrub-threshold-timelines.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/scrub-threshold-timelines.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Paused timelines fired at scrub-progress thresholds&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/scrub-threshold-timelines">Paused timelines fired at scrub-progress thresholds</a></h3>
+            <p class="entry__id">scrub-threshold-timelines</p>
+            <p class="entry__summary">Paused copy timelines ride a <code>top top</code> → <code>bottom bottom</code> linear scrub without being scrubbed: a gate that remembers its side plays one at progress <code>≥ .3</code> (<code>timeScale 1.5</code>) and reverses it at <code>≥ .6</code> or back below <code>.3</code> (<code>3.5</code>), a final line plays at <code>≥ .81</code> (<code>1.25</code>); a step label flipped by two <code>.001 s</code> tweens at <code>.5</code> inside the scrub; refresh snaps each timeline with <code>progress(0|1)</code>; fade-only copy and a still bloom under reduced motion, no tween in the static tier</p>
+            <p class="entry__meta edge"><span>Copy on scrub thresholds</span><span>scroll · gsap · scrolltrigger · scrub · timeline · text · reduced-motion</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-section-switcher-wheel-commit" data-group="scroll-set-pieces" data-tags="sections wheel gsap observer keyboard reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/section-switcher-wheel-commit.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/section-switcher-wheel-commit.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Section switcher with a wheel commit ring&quot; in headless Chromium at 1280 × 800, state &quot;hook-mid&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/section-switcher-wheel-commit">Section switcher with a wheel commit ring</a></h3>
+            <p class="entry__id">section-switcher-wheel-commit</p>
+            <p class="entry__summary">The document never scrolls: GSAP Observer sums wheel delta magnitudes into a <code>role=&quot;progressbar&quot;</code> ring that commits one step at 500, drains after 1 s idle, resets on reversal and locks 900 ms after a commit; swipe &gt; 55 px, arrow / Page / Home / End keys and prev / next reach every panel, inactive panels <code>inert</code>, one live-region announcement per change, instant swap (wheel still live) under reduced motion, <code>__awards.scrollTo</code> routed to panels</p>
+            <p class="entry__meta edge"><span>Deck of panels</span><span>sections · wheel · gsap · observer · keyboard · reduced-motion</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-sticky-stack-cards" data-group="scroll-set-pieces" data-tags="scroll gsap sticky cards">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/sticky-stack-cards.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/sticky-stack-cards.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Sticky stack cards&quot; in headless Chromium at 1280 × 800, state &quot;mid&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/sticky-stack-cards">Sticky stack cards</a></h3>
+            <p class="entry__id">sticky-stack-cards</p>
+            <p class="entry__summary">Sticky cards scaling the previous one</p>
+            <p class="entry__meta edge"><span>Stacked cards</span><span>scroll · gsap · sticky · cards</span><span data-fact="recipe-pass">passed 2026-10-22</span></p>
+          </li>
+          <li class="entry" id="recipe-sticky-stages-rails" data-group="scroll-set-pieces" data-tags="scroll gsap sticky">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/sticky-stages-rails.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/sticky-stages-rails.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Sticky stages on invisible rails, with a hero hinge&quot; in headless Chromium at 1280 × 800, state &quot;hinge&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/sticky-stages-rails">Sticky stages on invisible rails, with a hero hinge</a></h3>
+            <p class="entry__id">sticky-stages-rails</p>
+            <p class="entry__summary">Sticky stages on invisible rails, hero hinge (x −10 %, −15°, child lags), no <code>pin</code></p>
+            <p class="entry__meta edge"><span>Hold and hinge</span><span>scroll · gsap · sticky</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-title-mask-tunnel" data-group="scroll-set-pieces" data-tags="scroll gsap scrolltrigger scrub mask css-3d reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/title-mask-tunnel.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/title-mask-tunnel.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Section title as a doorway into a CSS-3D tunnel&quot; in headless Chromium at 1280 × 800, state &quot;mid&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/title-mask-tunnel">Section title as a doorway into a CSS-3D tunnel</a></h3>
+            <p class="entry__id">title-mask-tunnel</p>
+            <p class="entry__summary">Capsule title mask scrubbed to a computed cover scale (exponential zoom, linear scrub), counter-scaled CSS-3D scene moved on one layer, focus flies a work to the front, plain list under reduced motion</p>
+            <p class="entry__meta edge"><span>Title as a doorway</span><span>scroll · gsap · scrolltrigger · scrub · mask · css-3d · reduced-motion</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-video-clip-wipe-panels" data-group="scroll-set-pieces" data-tags="sections video clip-path transition gsap reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/video-clip-wipe-panels.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/video-clip-wipe-panels.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Panels changed by a clip-path wipe between two video buffers&quot; in headless Chromium at 1280 × 800, state &quot;rest&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/video-clip-wipe-panels">Panels changed by a clip-path wipe between two video buffers</a></h3>
+            <p class="entry__id">video-clip-wipe-panels</p>
+            <p class="entry__summary">Two double-buffered media layers (canvases standing in for <code>&lt;video&gt;</code>): the hidden one holds the next clip, then opens over the visible one from <code>clip-path: inset()</code> in <code>1 s expo.inOut</code> (reversed going back) with a 1 px glowing seam written by the same tween; copy out <code>.34 s power2.in</code> before the gate, in <code>.72 s power3.out</code>; stepped wheel, swipe, keys and buttons from the section switcher; <code>.2 s</code> cross-fade and parked first frames under reduced motion; README shows the <code>&lt;video&gt;</code> swap and preload</p>
+            <p class="entry__meta edge"><span>Video panel wipe</span><span>sections · video · clip-path · transition · gsap · reduced-motion</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="chapter group" id="group-galleries-and-lists" aria-labelledby="group-galleries-and-lists-title">
+        <h2 id="group-galleries-and-lists-title">Galleries and lists</h2>
+        <p class="group__intro">9 entries: work, archives and reels.</p>
+        <ol class="entries" role="list">
+          <li class="entry" id="recipe-blur-peek-snap-carousel" data-group="galleries-and-lists" data-tags="carousel drag snap spring blur keyboard reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/blur-peek-snap-carousel.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/blur-peek-snap-carousel.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Centred carousel with blur-peek neighbours and a velocity-graded snap&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/blur-peek-snap-carousel">Centred carousel with blur-peek neighbours and a velocity-graded snap</a></h3>
+            <p class="entry__id">blur-peek-snap-carousel</p>
+            <p class="entry__summary">Centred card sharp, neighbours at <code>.2</code> + <code>blur(6px)</code> (<code>.1</code>, no blur, ≤ 920 px), gap computed from a fixed peek (<code>10 %</code> / <code>14 %</code> of the width), release speed picks the snap (<code>&gt; 1.2 px/ms</code> → <code>320 ms</code> crisp curve, slow <code>450–600 ms</code> soft curve), rubber-band overscroll returned by a critically damped spring stepped exactly with the shared ticker's <code>dt</code>; links in a list with roving <code>tabindex</code>, arrow / Home / End keys, a live &quot;n of N&quot;; blur kept but instant, snaps instant under reduced motion</p>
+            <p class="entry__meta edge"><span>Snapping carousel</span><span>carousel · drag · snap · spring · blur · keyboard · reduced-motion</span><span data-fact="recipe-pass">passed 2026-10-22</span></p>
+          </li>
+          <li class="entry" id="recipe-drag-pan-infinite-grid" data-group="galleries-and-lists" data-tags="drag wheel touch keyboard inertia virtual-scroll static">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/drag-pan-infinite-grid.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/drag-pan-infinite-grid.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Infinite drag-and-wheel plane of project links&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/drag-pan-infinite-grid">Infinite drag-and-wheel plane of project links</a></h3>
+            <p class="entry__id">drag-pan-infinite-grid</p>
+            <p class="entry__summary">A fixed pool of 24 DOM links on a <code>6 × 4</code> sheet, each moved by <code>translate3d</code> only to <code>mod(c·pitch + x0 + offset + pitch, span) − pitch</code> on both axes, the pitch held at <code>≥ stage / (count − 1)</code> so the wrap never opens a hole and odd columns staggered half a row; drag after a <code>6 px</code> threshold with pointer capture, release velocity from the last <code>100 ms</code> of samples (<code>0</code> after a <code>60 ms</code> rest, clamp <code>4000 px/s</code>), coasting by the exact integral of <code>v·e^(−4t)</code> on the shared ticker so a flick travels <code>v0 / 4</code> at any frame rate; wheel in both axes eased at <code>k = 16</code>, held back to the page until the stage is wholly in view; arrow keys move focus to the neighbour and the plane exactly one pitch (<code>.42 s</code> expo-out glide), Home / End centre the first / last project the short way round; the stage is an <code>overflow: hidden</code> scroll container parked one pitch in, so Tab, find-in-page and a screen reader's reveal scroll it instead of the page and the script turns that scroll into a glide <code>32 px</code> inside; <code>touch-action: none</code> on the stage only; no inertia and instant moves under reduced motion, a plain wrapped grid of the same links in the static tier</p>
+            <p class="entry__meta edge"><span>Infinite work plane</span><span>drag · wheel · touch · keyboard · inertia · virtual-scroll · static</span><span data-fact="recipe-pass">no recorded pass yet</span></p>
+          </li>
+          <li class="entry" id="recipe-filmstrip-index-rows" data-group="galleries-and-lists" data-tags="marquee list css-animation hover reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/filmstrip-index-rows.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/filmstrip-index-rows.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Filmstrip project rows at one shared speed&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/filmstrip-index-rows">Filmstrip project rows at one shared speed</a></h3>
+            <p class="entry__id">filmstrip-index-rows</p>
+            <p class="entry__summary">CSS-keyframe rows at one px/s from measured width, one link per project, pause on hover / focus / off-screen, late-overshoot grow, hover clip gated on <code>(hover: hover)</code></p>
+            <p class="entry__meta edge"><span>Project index as reels</span><span>marquee · list · css-animation · hover · reduced-motion</span><span data-fact="recipe-pass">passed 2026-10-22</span></p>
+          </li>
+          <li class="entry" id="recipe-flip-layout-state" data-group="galleries-and-lists" data-tags="gsap customease stagger tokens layout list toggle dialog keyboard reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/flip-layout-state.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/flip-layout-state.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Layout state with GSAP Flip: grid to list, filter, detail and back&quot; in headless Chromium at 1280 × 800, state &quot;desktop&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/flip-layout-state">Layout state with GSAP Flip: grid to list, filter, detail and back</a></h3>
+            <p class="entry__id">flip-layout-state</p>
+            <p class="entry__summary"><code>Flip.getState</code> → class or <code>hidden</code> change → <code>Flip.from</code> for three moves on one list of nine works: grid ↔ list with <code>nested: true</code> and <code>absolute: true</code> on the item and its parts, scale off so a card that becomes a row moves width / height and never squashes its text, the list's end height pinned while everything is absolute; a discipline filter at <code>scale: true</code> with <code>absoluteOnLeave</code>, leavers to <code>scale .85, opacity 0</code> in <code>onLeave</code> and arrivals back in <code>onEnter</code>; a work's plate reparented into a native <code>&lt;dialog&gt;</code> and flown there at <code>scale: true</code> (4:3 to 4:3, so uniform), home again after the copy and ground fade; <code>.75 s</code> on a CustomEase read from <code>--flip-ease</code>, stagger <code>--flip-stagger</code> (<code>.025 s</code>) per item so a card and its parts start together; <code>aria-pressed</code> view and filter buttons, a polite count, focus kept on the control, moved into the dialog and back to the work's button; every change settled on the next frame under reduced motion and static</p>
+            <p class="entry__meta edge"><span>Index that rearranges</span><span>gsap · customease · stagger · tokens · layout · list · toggle · dialog · keyboard · reduced-motion</span><span data-fact="recipe-pass">no recorded pass yet</span></p>
+          </li>
+          <li class="entry" id="recipe-gl-endless-reel-sheets" data-group="galleries-and-lists" data-tags="webgl three virtual-scroll wheel velocity keyboard dom-mirror">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/gl-endless-reel-sheets.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/gl-endless-reel-sheets.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Endless reel of deformable GL sheets&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/gl-endless-reel-sheets">Endless reel of deformable GL sheets</a></h3>
+            <p class="entry__id">gl-endless-reel-sheets</p>
+            <p class="entry__summary">Virtual offset in items on a modulo-wrapped belt (<code>mod(i − offset + N/2, N) − N/2</code>, the first work follows the last going forward), wheel-burst detector (≥ 40 px after a 30 ms gap, 500 ms cooldown, doubled and released at <code>1 − (1 − .22)^frames</code>), snap after 200 ms idle, segmented sheets twisted and folded by one <code>uBend</code> = velocity · <code>sin(π·p)</code> that is exactly 0 at rest, canvas-drawn card art, horizontal belt on landscape and vertical stack on portrait; a button index with <code>aria-current</code> and a live &quot;n / 8&quot; counter; flat sheets and one step per input under reduced motion, plain list in the static tier</p>
+            <p class="entry__meta edge"><span>Endless work reel</span><span>webgl · three · virtual-scroll · wheel · velocity · keyboard · dom-mirror</span><span data-fact="recipe-pass">passed 2026-10-22</span></p>
+          </li>
+          <li class="entry" id="recipe-gl-spring-stepped-gallery" data-group="galleries-and-lists" data-tags="webgl three 3d carousel spring wheel drag keyboard reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/gl-spring-stepped-gallery.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/gl-spring-stepped-gallery.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;WebGL gallery on a spring-snapped float index with a wheel step detector&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/gl-spring-stepped-gallery">WebGL gallery on a spring-snapped float index with a wheel step detector</a></h3>
+            <p class="entry__id">gl-spring-stepped-gallery</p>
+            <p class="entry__summary">A float index pulled to a whole item by a spring (frequency <code>9.5</code>, damping <code>12</code>, fixed <code>1/240 s</code> substeps), each plate's depth, scale, yaw and opacity derived from <code>i − index</code>; a wheel step detector (noise floor <code>.3</code>, per-event cap <code>24</code>, threshold <code>6</code>, quiet gap <code>130 ms</code>, sustained repeat <code>480 ms</code> against a <code>550 ms</code> envelope) so one flick moves one item, the wheel released to the page at either end; drag coasting with friction <code>.89</code> into the spring; a carousel-role DOM mirror with a slide list, arrow / Home / End keys, <code>n / N</code> caption, live announcer; direct snaps under reduced motion</p>
+            <p class="entry__meta edge"><span>Stepped WebGL gallery</span><span>webgl · three · 3d · carousel · spring · wheel · drag · keyboard · reduced-motion</span><span data-fact="recipe-pass">passed 2026-10-22</span></p>
+          </li>
+          <li class="entry" id="recipe-hover-preview-list" data-group="galleries-and-lists" data-tags="pointer list hover keyboard">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/hover-preview-list.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/hover-preview-list.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Archive list with a cursor-following preview&quot; in headless Chromium at 1280 × 800, state &quot;follow&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/hover-preview-list">Archive list with a cursor-following preview</a></h3>
+            <p class="entry__id">hover-preview-list</p>
+            <p class="entry__summary">Cursor-following preview, focus shows it too</p>
+            <p class="entry__meta edge"><span>Archive list</span><span>pointer · list · hover · keyboard</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-marquee-raf-mask" data-group="galleries-and-lists" data-tags="marquee ticker lenis reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/marquee-raf-mask.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/marquee-raf-mask.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;rAF marquee with mask fade, pause and scroll-velocity speed&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/marquee-raf-mask">rAF marquee with mask fade, pause and scroll-velocity speed</a></h3>
+            <p class="entry__id">marquee-raf-mask</p>
+            <p class="entry__summary">rAF wraparound, mask fade, pause on hover / focus, speed from scroll velocity, off-screen stop</p>
+            <p class="entry__meta edge"><span>Ticker</span><span>marquee · ticker · lenis · reduced-motion</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-pointer-tilt-shine" data-group="galleries-and-lists" data-tags="pointer hover tilt 3d gsap quickto cards">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/pointer-tilt-shine.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/pointer-tilt-shine.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Cards that tilt toward the pointer with a moving shine&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/pointer-tilt-shine">Cards that tilt toward the pointer with a moving shine</a></h3>
+            <p class="entry__id">pointer-tilt-shine</p>
+            <p class="entry__summary">Face turns toward a mouse pointer (<code>rotateY 7° × nx</code>, <code>rotateX −7° × ny</code>, the corner under the pointer recedes) through <code>quickTo</code>, measured on an untransformed link that carries the <code>perspective</code>; a shine layer follows the pointer and a shade gathers opposite, moved by translate only; any scroll locks the field until the first pointer move after a <code>140 ms</code> quiet period; mouse pointers only, flat with no layers under reduced motion</p>
+            <p class="entry__meta edge"><span>Tilting cards</span><span>pointer · hover · tilt · 3d · gsap · quickto · cards</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="chapter group" id="group-evidence-blocks" aria-labelledby="group-evidence-blocks-title">
+        <h2 id="group-evidence-blocks-title">Evidence blocks</h2>
+        <p class="group__intro">5 entries: facts, specifications, comparisons, models.</p>
+        <ol class="entries" role="list">
+          <li class="entry" id="recipe-autoplay-tabs-progress" data-group="evidence-blocks" data-tags="tabs autoplay gsap progress keyboard reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/autoplay-tabs-progress.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/autoplay-tabs-progress.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Auto-advancing tabs with a visible clock&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/autoplay-tabs-progress">Auto-advancing tabs with a visible clock</a></h3>
+            <p class="entry__id">autoplay-tabs-progress</p>
+            <p class="entry__summary">Tabs that auto-advance on a linear <code>scaleX</code> 0 → 1 bar that is the timer, start once in view, hold on hover / keyboard focus / off-screen / pause button, restart on click; <code>role=&quot;tab&quot;</code> with arrow keys, no autoplay under reduced motion</p>
+            <p class="entry__meta edge"><span>Timed feature set</span><span>tabs · autoplay · gsap · progress · keyboard · reduced-motion</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-cart-drawer-quick-add" data-group="evidence-blocks" data-tags="product dialog bottom-sheet button keyboard accessibility reduced-motion responsive">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/cart-drawer-quick-add.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/cart-drawer-quick-add.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Quick add and a cart drawer on a native dialog&quot; in headless Chromium at 1280 × 800, state &quot;desktop&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/cart-drawer-quick-add">Quick add and a cart drawer on a native dialog</a></h3>
+            <p class="entry__id">cart-drawer-quick-add</p>
+            <p class="entry__summary">A product row where one link holds art, name and price and the size choice (<code>fieldset</code> + native radios, sold out kept focusable) and quick add sit beside it; the add answers in a polite live region and a <code>Bag (n)</code> count, never only motion; the bag is a <code>&lt;dialog&gt;</code> opened with <code>showModal()</code>, focus on its heading, page locked and inert, Escape (taken over from <code>cancel</code>), close button and scrim all ending in the <code>close</code> event that returns focus to the bag button; keyed line items with <code>aria-disabled</code> steppers that keep focus at <code>1</code> and <code>9</code>, remove to the heading, an empty state, money in pence through <code>Intl.NumberFormat('en-GB', { currency: 'GBP' })</code>; slides from the inline-end edge (<code>280ms</code> in, <code>200ms</code> out, a bottom sheet under <code>768px</code>, reversed mid-open), fades <code>180ms</code> under reduced motion, appears in the static tier; demo only, no payment</p>
+            <p class="entry__meta edge"><span>Quick add and bag</span><span>product · dialog · bottom-sheet · button · keyboard · accessibility · reduced-motion · responsive</span><span data-fact="recipe-pass">no recorded pass yet</span></p>
+          </li>
+          <li class="entry" id="recipe-compare-hold-drag" data-group="evidence-blocks" data-tags="pointer compare keyboard">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/compare-hold-drag.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/compare-hold-drag.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Compare reveal: drag the divider or hold to peek&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/compare-hold-drag">Compare reveal: drag the divider or hold to peek</a></h3>
+            <p class="entry__id">compare-hold-drag</p>
+            <p class="entry__summary">Hold / drag mask between two states, arrow keys</p>
+            <p class="entry__meta edge"><span>Compare</span><span>pointer · compare · keyboard</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-gl-orbit-model-hotspots" data-group="evidence-blocks" data-tags="webgl three orbit camera hotspots dialog keyboard">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/gl-orbit-model-hotspots.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/gl-orbit-model-hotspots.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Explorable model with a clamped orbit and hotspot buttons&quot; in headless Chromium at 1280 × 800, state &quot;open&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/gl-orbit-model-hotspots">Explorable model with a clamped orbit and hotspot buttons</a></h3>
+            <p class="entry__id">gl-orbit-model-hotspots</p>
+            <p class="entry__summary">Model in a native <code>&lt;dialog&gt;</code> on a spherical goal / current camera damped by <code>1 − k^dt</code> (drag <code>.0004</code>, fly <code>.02</code>), polar clamped to <code>0.85–1.3</code> rad and distance to <code>7–15</code>, zones as real <code>aria-pressed</code> buttons pinned to projected targets that fly the camera there, arrow / <code>+</code> / <code>−</code> / Home keys on the focused stage; instant fly-tos under reduced motion, poster plus the same list in the static tier</p>
+            <p class="entry__meta edge"><span>Explorable model</span><span>webgl · three · orbit · camera · hotspots · dialog · keyboard</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-product-specification" data-group="evidence-blocks" data-tags="product accessibility responsive">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/product-specification.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/product-specification.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Alder Workshop — product specification&quot; in headless Chromium at 1280 × 800, state &quot;desktop&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/product-specification">Alder Workshop — product specification</a></h3>
+            <p class="entry__id">product-specification</p>
+            <p class="entry__summary">Semantic facts with units and native care disclosure</p>
+            <p class="entry__meta edge"><span>Product facts</span><span>product · accessibility · responsive</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="chapter group" id="group-the-close-and-beyond" aria-labelledby="group-the-close-and-beyond-title">
+        <h2 id="group-the-close-and-beyond-title">The close and beyond</h2>
+        <p class="group__intro">6 entries: footers, enquiries, easter eggs.</p>
+        <ol class="entries" role="list">
+          <li class="entry" id="recipe-designed-404" data-group="the-close-and-beyond" data-tags="navigation typography svg css-animation reduced-motion accessibility responsive">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/designed-404.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/designed-404.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Designed 404 in the site&#x27;s own world&quot; in headless Chromium at 1280 × 800, state &quot;desktop&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/designed-404">Designed 404 in the site's own world</a></h3>
+            <p class="entry__id">designed-404</p>
+            <p class="entry__summary">A not-found page in the site's voice: <code>&lt;title&gt;</code> and <code>&lt;h1&gt;</code> that say it, <code>noindex</code>, one <code>&lt;main&gt;</code> whose first link is home, three named routes in a labelled <code>&lt;nav&gt;</code> and a <code>role=&quot;search&quot;</code> GET form, every URL root-absolute because the page answers at any depth; the scene (<code>aria-hidden</code>, after the links) is the zero of 404 drawn as a sun that sets once, <code>translateY(-140)</code> over <code>1.8s</code> after <code>.35s</code> with glints opening at <code>.08s</code> steps, in CSS so it plays without script; opacity-only <code>.4s</code> under reduced motion, the last frame at once in the static tier, even when the tier flips mid-moment; README serves it with a real 404 status per host and framework</p>
+            <p class="entry__meta edge"><span>Authored not-found page</span><span>navigation · typography · svg · css-animation · reduced-motion · accessibility · responsive</span><span data-fact="recipe-pass">no recorded pass yet</span></p>
+          </li>
+          <li class="entry" id="recipe-designed-footer" data-group="the-close-and-beyond" data-tags="footer navigation typography responsive">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/designed-footer.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/designed-footer.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Alder Workshop — designed close&quot; in headless Chromium at 1280 × 800, state &quot;desktop-end&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/designed-footer">Alder Workshop — designed close</a></h3>
+            <p class="entry__id">designed-footer</p>
+            <p class="entry__summary">Statement, contact action, navigation and colophon</p>
+            <p class="entry__meta edge"><span>Designed close</span><span>footer · navigation · typography · responsive</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-physics-pile-matter" data-group="the-close-and-beyond" data-tags="toy drag pointer keyboard touch ticker idle list accessibility reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/physics-pile-matter.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/physics-pile-matter.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;A section&#x27;s words as a matter-js pile, drawn by the DOM&quot; in headless Chromium at 1280 × 800, state &quot;settled&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/physics-pile-matter">A section's words as a matter-js pile, drawn by the DOM</a></h3>
+            <p class="entry__id">physics-pile-matter</p>
+            <p class="entry__summary">List items as matter-js bodies (pills chamfered by half their height, blocks by <code>6</code> px, circles) dropped from a seeded order into a walled box when <code>30 %</code> of it is in view; <code>Engine.update(engine, 1000 / 60)</code> on the shared ticker through an accumulator capped at <code>4</code> steps, gravity <code>2.4</code>, <code>sleepThreshold 40</code>, each body's position and angle written to its own <code>&lt;li&gt;</code> as a <code>transform</code> so the words stay text in source order; the step leaves the ticker when every body sleeps and wakes on a press, a key or a <code>ResizeObserver</code> change that rebuilds the walls; <code>MouseConstraint</code> scoped to the box on fine pointers with its wheel and touch listeners removed, Enter / Space toss (<code>vy −14</code>) and ← / → push on real buttons, tap to toss on touch; no engine under reduced motion, the list wrapped upwards from the floor in CSS</p>
+            <p class="entry__meta edge"><span>Words in a pile</span><span>toy · drag · pointer · keyboard · touch · ticker · idle · list · accessibility · reduced-motion</span><span data-fact="recipe-pass">no recorded pass yet</span></p>
+          </li>
+          <li class="entry" id="recipe-sentence-form-enquiry" data-group="the-close-and-beyond" data-tags="form enquiry validation accessibility responsive">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/sentence-form-enquiry.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/sentence-form-enquiry.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Enquiry form written as a sentence&quot; in headless Chromium at 1280 × 800, state &quot;desktop&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/sentence-form-enquiry">Enquiry form written as a sentence</a></h3>
+            <p class="entry__id">sentence-form-enquiry</p>
+            <p class="entry__summary">One sentence the visitor completes: each prose fragment is the <code>&lt;label&gt;</code> of its blank (a <code>span</code> + <code>aria-labelledby</code> names the <code>radiogroup</code>), native <code>required</code> / <code>type=&quot;email&quot;</code> validity with the page's own messages tied by <code>aria-describedby</code>, <code>aria-invalid</code> and focus on the first invalid in sentence order, submit prevented with a focused local confirmation, <code>field-sizing: content</code> blanks, fragment-over-field rows on the phone; rise / fade / none entrance tiers</p>
+            <p class="entry__meta edge"><span>Enquiry as prose</span><span>form · enquiry · validation · accessibility · responsive</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-sprite-rain-canvas2d" data-group="the-close-and-beyond" data-tags="canvas particles easter-egg ticker quality-tiers reduced-motion toy">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/sprite-rain-canvas2d.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/sprite-rain-canvas2d.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Canvas-2D sprite rain as an easter egg&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/sprite-rain-canvas2d">Canvas-2D sprite rain as an easter egg</a></h3>
+            <p class="entry__id">sprite-rain-canvas2d</p>
+            <p class="entry__summary">Button-triggered canvas-2D sprite shower from one pre-rendered bitmap, gravity <code>.45</code> / spin <code>±10°</code> per 60 fps frame scaled by <code>dt</code>, live count capped by the quality tier, sprites dropped off-screen and the ticker released, nothing spawns under reduced motion</p>
+            <p class="entry__meta edge"><span>Easter-egg rain</span><span>canvas · particles · easter-egg · ticker · quality-tiers · reduced-motion · toy</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-throw-objects-css3d" data-group="the-close-and-beyond" data-tags="pointer drag inertia gsap draggable css-3d keyboard toy">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/throw-objects-css3d.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/throw-objects-css3d.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Grab-and-throw CSS-3D objects into a perspective tray&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/throw-objects-css3d">Grab-and-throw CSS-3D objects into a perspective tray</a></h3>
+            <p class="entry__id">throw-objects-css3d</p>
+            <p class="entry__summary">Draggable + InertiaPlugin throw of extruded CSS-3D blocks, <code>snap.points</code> on the clamped landing point into a perspective tray, velocity tilt on an inner body, a throw button per block, drop-in-place under reduced motion</p>
+            <p class="entry__meta edge"><span>Throw toy</span><span>pointer · drag · inertia · gsap · draggable · css-3d · keyboard · toy</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="chapter group" id="group-webgl-surfaces" aria-labelledby="group-webgl-surfaces-title">
+        <h2 id="group-webgl-surfaces-title">WebGL surfaces and scenes</h2>
+        <p class="group__intro">14 entries: GL layers, materials, light and post.</p>
+        <ol class="entries" role="list">
+          <li class="entry" id="recipe-gl-built-studio-environment" data-group="webgl-surfaces" data-tags="3d webgl three environment materials">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/gl-built-studio-environment.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/gl-built-studio-environment.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Studio environment built at runtime, no HDR file&quot; in headless Chromium at 1280 × 800, state &quot;lit&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/gl-built-studio-environment">Studio environment built at runtime, no HDR file</a></h3>
+            <p class="entry__id">gl-built-studio-environment</p>
+            <p class="entry__summary">No lamps and no file: a room of emissive panels (softbox, warm key and cool rim strips, thin hot sparkle strips at values up to 9, a near-black floor flag) baked once through <code>PMREMGenerator.fromScene</code> into a half-float environment, or a 1024 × 512 canvas gradient with soft light bands through <code>fromEquirectangular</code> at environment intensity 2.2; lights a chrome (metalness 1, roughness .1) and a clearcoat <code>MeshPhysicalMaterial</code>; each variant baked on first use, generators disposed after the bake; lit and held still under reduced motion and static, CSS still without WebGL</p>
+            <p class="entry__meta edge"><span>Studio light, no HDR</span><span>3d · webgl · three · environment · materials</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-gl-depth-map-parallax" data-group="webgl-surfaces" data-tags="webgl three shader images parallax">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/gl-depth-map-parallax.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/gl-depth-map-parallax.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Depth-map (2.5D) parallax&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/gl-depth-map-parallax">Depth-map (2.5D) parallax</a></h3>
+            <p class="entry__id">gl-depth-map-parallax</p>
+            <p class="entry__summary">Image + depth map parallax</p>
+            <p class="entry__meta edge"><span>2.5D</span><span>webgl · three · shader · images · parallax</span><span data-fact="recipe-pass">passed 2026-10-22</span></p>
+          </li>
+          <li class="entry" id="recipe-gl-dispersion-stripes" data-group="webgl-surfaces" data-tags="webgl shader procedural dispersion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/gl-dispersion-stripes.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/gl-dispersion-stripes.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Dispersion stripes&quot; in headless Chromium at 1280 × 800, state &quot;still&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/gl-dispersion-stripes">Dispersion stripes</a></h3>
+            <p class="entry__id">gl-dispersion-stripes</p>
+            <p class="entry__summary">One triangle-wave stripe evaluated per channel with red <code>+.06</code> / blue <code>−.05</code> phase shifts, the phase a rotated ramp bent by a radial bump and 2D simplex and drifted on the shared ticker while on screen; coverage re-thresholded as <code>(g − .5) / max(fwidth(g) × 4, 1e-5) + .5</code> so every edge is a few-pixel ramp and a flat <code>g</code> cannot blow open; inline ACES, gamma and interleaved-gradient-noise dither with no render target, inside a rounded slab; one still frame under reduced motion and static</p>
+            <p class="entry__meta edge"><span>Dispersion edge</span><span>webgl · shader · procedural · dispersion</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-gl-dom-tethered-planes" data-group="webgl-surfaces" data-tags="webgl three images scroll velocity dom-mirror">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/gl-dom-tethered-planes.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/gl-dom-tethered-planes.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;DOM-tethered WebGL planes with a velocity bulge&quot; in headless Chromium at 1280 × 800, state &quot;grid&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/gl-dom-tethered-planes">DOM-tethered WebGL planes with a velocity bulge</a></h3>
+            <p class="entry__id">gl-dom-tethered-planes</p>
+            <p class="entry__summary">Absolute canvas re-offset per frame, rect → plane mapping, velocity bulge, colour-space parity, DOM mirror</p>
+            <p class="entry__meta edge"><span>Images in GL</span><span>webgl · three · images · scroll · velocity · dom-mirror</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-gl-fluid-wake-post" data-group="webgl-surfaces" data-tags="webgl three shader fluid post-processing pointer">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/gl-fluid-wake-post.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/gl-fluid-wake-post.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Fluid wake as one global post-process&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/gl-fluid-wake-post">Fluid wake as one global post-process</a></h3>
+            <p class="entry__id">gl-fluid-wake-post</p>
+            <p class="entry__summary">128² ping-pong velocity field, splat, advect, dissipate, distortion + chroma composite</p>
+            <p class="entry__meta edge"><span>Global wake</span><span>webgl · three · shader · fluid · post-processing · pointer</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-gl-lathe-turned-object" data-group="webgl-surfaces" data-tags="webgl three 3d procedural lathe worker hover">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/gl-lathe-turned-object.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/gl-lathe-turned-object.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Procedural turned object from a lathe profile&quot; in headless Chromium at 1280 × 800, state &quot;rest&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/gl-lathe-turned-object">Procedural turned object from a lathe profile</a></h3>
+            <p class="entry__id">gl-lathe-turned-object</p>
+            <p class="entry__summary">A 48-point profile (waist plus a cosine ripple faded by <code>sin πt</code>, so the ends meet the faces) through <code>LatheGeometry</code>, closed by two <code>RingGeometry</code> faces and a bored lathe; one self-contained map builder stringified into a Blob <code>Worker</code> (1.5 s deadline) and reused as the same-thread fallback (<code>?worker=0</code>); after a <code>250 ms</code> dwell, a mouse under <code>(pointer: fine)</code> gets one quantised revolution set exactly to <code>(n + 1)·2π</code>; frames only while turning; tint without a turn under reduced motion, drawn once in the static tier</p>
+            <p class="entry__meta edge"><span>Generated turned object</span><span>webgl · three · 3d · procedural · lathe · worker · hover</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-gl-material-patch-reveal" data-group="webgl-surfaces" data-tags="3d webgl three shader onbeforecompile scroll reveal">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/gl-material-patch-reveal.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/gl-material-patch-reveal.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Patched stock material: grey-to-colour hand-off through a DOM-anchored circle&quot; in headless Chromium at 1280 × 800, state &quot;start&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/gl-material-patch-reveal">Patched stock material: grey-to-colour hand-off through a DOM-anchored circle</a></h3>
+            <p class="entry__id">gl-material-patch-reveal</p>
+            <p class="entry__summary">One stock <code>MeshStandardMaterial</code> patched by <code>onBeforeCompile</code>: a luma mix after <code>&lt;map_fragment&gt;</code> (grey ↔ colour, saturation <code>1.35</code>) and a grained circular <code>discard</code> after <code>&lt;clipping_planes_fragment&gt;</code> that splits one geometry between a grey and a colour layer as exact complements; centre and start radius read from a DOM dial's rect every frame, radius scrubbed (<code>ease: 'none'</code>, <code>p²</code> at render) to the farthest corner <code>+ 2 px</code>; patches throw on a missing include; <code>?wobble</code> normal-wobble variant; even colour mix with the scroll under reduced motion, settled colour in the static tier</p>
+            <p class="entry__meta edge"><span>Grey to colour from a DOM point</span><span>3d · webgl · three · shader · onbeforecompile · scroll · reveal</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-gl-noise-edge-theme-wipe" data-group="webgl-surfaces" data-tags="webgl shader three gsap theme transition noise storage">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/gl-noise-edge-theme-wipe.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/gl-noise-edge-theme-wipe.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Theme change as a full-screen shader wipe with a noise edge&quot; in headless Chromium at 1280 × 800, state &quot;fresh&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/gl-noise-edge-theme-wipe">Theme change as a full-screen shader wipe with a noise edge</a></h3>
+            <p class="entry__id">gl-noise-edge-theme-wipe</p>
+            <p class="entry__summary">A fixed, click-through orthographic quad (<code>ShaderMaterial</code>, <code>#include &lt;colorspace_fragment&gt;</code>, premultiplied alpha, DPR ≤ 2) grows the next theme's ground from the press point (<code>uCenter</code>; a key press starts at the button's centre) as <code>uProgress</code> runs <code>0 → 1</code> over <code>.9 s power2.inOut</code>, its rim moved by two octaves of hash value noise (<code>uEdge 56 px</code>) with exact ends (radius <code>−edge … farthest corner + edge</code>); <code>data-theme</code> flips only on the tween's completion under full cover, then the cover fades <code>.3 s</code> and is hidden; a second press mid-cover reverses the same edge; the choice kept in <code>sessionStorage</code> and restored by a head script before first paint; an <code>aria-pressed</code> button; the shader compiled ahead at idle; a CSS <code>circle()</code> cover on the same driver without WebGL; an instant swap with no canvas frame under reduced motion</p>
+            <p class="entry__meta edge"><span>Theme swap under cover</span><span>webgl · shader · three · gsap · theme · transition · noise · storage</span><span data-fact="recipe-pass">no recorded pass yet</span></p>
+          </li>
+          <li class="entry" id="recipe-gl-one-context-many-canvases" data-group="webgl-surfaces" data-tags="3d webgl three canvas performance">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/gl-one-context-many-canvases.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/gl-one-context-many-canvases.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;One WebGL renderer drawn into many 2D canvases&quot; in headless Chromium at 1280 × 800, state &quot;grid&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/gl-one-context-many-canvases">One WebGL renderer drawn into many 2D canvases</a></h3>
+            <p class="entry__id">gl-one-context-many-canvases</p>
+            <p class="entry__summary">One <code>WebGLRenderer</code> on a detached canvas renders each item into the top-left slice of its buffer (<code>setViewport(0, H − h, w, h)</code>) and <code>drawImage</code>s it into that item's own 2D canvas in the same task; an item re-renders only when dirty and within a <code>50%</code> root margin; one <code>2,000,000</code> px budget sets the pixel ratio for the set (<code>min(tier DPR, √(budget / Σ area))</code>); teardown disposes, then <code>forceContextLoss()</code>, and the 2D canvases keep their frame; hover / press turns one item, a tint under reduced motion, drawn once in the static tier</p>
+            <p class="entry__meta edge"><span>Many GL items, one context</span><span>3d · webgl · three · canvas · performance</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-gl-ping-pong-grain-field" data-group="webgl-surfaces" data-tags="webgl three shader gpgpu particles pointer">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/gl-ping-pong-grain-field.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/gl-ping-pong-grain-field.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;GPU grain field on float ping-pong state&quot; in headless Chromium at 1280 × 800, state &quot;rest&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/gl-ping-pong-grain-field">GPU grain field on float ping-pong state</a></h3>
+            <p class="entry__id">gl-ping-pong-grain-field</p>
+            <p class="entry__summary">Per-grain state in a float ping-pong pair (displacement RG, velocity BA, in px), storage chosen by <code>checkFramebufferStatus</code> from RGBA32F → RGBA16F → RGBA8 (16-bit packed displacement, no inertia); a capsule brush from the last to the current pointer position with <code>1 − r³</code> falloff, delta clamped to <code>24 px</code> a frame plus a per-grain hash scatter; a protect mask drawn from the copy block's rect zeroes the force; one points program draws the generated under-layer at moved grains' homes, then the grains at home + displacement; reset glides home (<code>× .88</code> a frame, <code>1.6 s</code>) then clears; loop leaves the ticker when at rest; reveal in place without flying grains under reduced motion, surface drawn once in the static tier</p>
+            <p class="entry__meta edge"><span>Brushed grain field</span><span>webgl · three · shader · gpgpu · particles · pointer</span><span data-fact="recipe-pass">passed 2026-10-22</span></p>
+          </li>
+          <li class="entry" id="recipe-gl-postprocessing-presets" data-group="webgl-surfaces" data-tags="webgl three post-processing bloom grain">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/gl-postprocessing-presets.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/gl-postprocessing-presets.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Post-processing with three fixed presets&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/gl-postprocessing-presets">Post-processing with three fixed presets</a></h3>
+            <p class="entry__id">gl-postprocessing-presets</p>
+            <p class="entry__summary">Fixed bloom presets, grain, SMAA, half-float on mobile</p>
+            <p class="entry__meta edge"><span>Post presets</span><span>webgl · three · post-processing · bloom · grain</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-gl-rtt-composite-transition" data-group="webgl-surfaces" data-tags="webgl three transition render-target sections">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/gl-rtt-composite-transition.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/gl-rtt-composite-transition.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Section switch by render-to-texture compositing&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/gl-rtt-composite-transition">Section switch by render-to-texture compositing</a></h3>
+            <p class="entry__id">gl-rtt-composite-transition</p>
+            <p class="entry__summary">Two scenes to render targets, blended by a shader</p>
+            <p class="entry__meta edge"><span>Scene switch</span><span>webgl · three · transition · render-target · sections</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-gl-sdf-extruded-symbol" data-group="webgl-surfaces" data-tags="webgl shader raymarch sdf procedural">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/gl-sdf-extruded-symbol.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/gl-sdf-extruded-symbol.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Raymarched extruded SDF symbol&quot; in headless Chromium at 1280 × 800, state &quot;lit&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/gl-sdf-extruded-symbol">Raymarched extruded SDF symbol</a></h3>
+            <p class="entry__id">gl-sdf-extruded-symbol</p>
+            <p class="entry__summary">A 2D signed-distance mark (ring + capsule, or a field baked from an SVG path) extruded with <code>min(max(w.x, w.y), 0) + length(max(w, 0)) − bevel</code> after shrinking profile and depth by the bevel, raymarched in raw WebGL2 inside a ray–box clip with an <code>80</code>-step budget; four-tap normals and AO, a studio ring environment so the bevel outshines the face, Schlick tint, inline ACES and gamma; depth-and-yaw intro then a slow sway on the shared ticker; an SVG stroke still under reduced motion, static, no WebGL2 or context loss</p>
+            <p class="entry__meta edge"><span>Logo with a body</span><span>webgl · shader · raymarch · sdf · procedural</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+          <li class="entry" id="recipe-gl-uniform-tween-targets" data-group="webgl-surfaces" data-tags="gsap webgl three shader uniforms hover">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/gl-uniform-tween-targets.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/gl-uniform-tween-targets.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Shader uniforms and post presets as GSAP tween targets&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/gl-uniform-tween-targets">Shader uniforms and post presets as GSAP tween targets</a></h3>
+            <p class="entry__id">gl-uniform-tween-targets</p>
+            <p class="entry__summary">Uniform <code>{ value }</code> objects and post-look values as GSAP tween targets through one <code>retarget()</code> (<code>killTweensOf</code> first, then <code>to</code> from the current value): charge <code>.9 s power2.out</code>, release <code>.45 s power2.in</code>, so a half-finished hover turns around without a jump; <code>calm</code> / <code>charged</code> vignette, grain and density tweened together <code>.9 s power2.inOut</code>; renders only on a dirty frame from <code>gsap.ticker</code>; colour-only charge under reduced motion, instant in the static tier</p>
+            <p class="entry__meta edge"><span>Shader states on the house clock</span><span>gsap · webgl · three · shader · uniforms · hover</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="chapter group" id="group-compositions" aria-labelledby="group-compositions-title">
+        <h2 id="group-compositions-title">Pages and compositions</h2>
+        <p class="group__intro">3 entries: components placed together on a page.</p>
+        <ol class="entries" role="list">
+          <li class="entry" id="recipe-case-study-route-kit" data-group="compositions" data-tags="composition editorial layout images sections reveal responsive art-direction accessibility reduced-motion">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/case-study-route-kit.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/case-study-route-kit.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Case-study route kit: an index and the inner page it opens&quot; in headless Chromium at 1280 × 800, state &quot;case-mid&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/case-study-route-kit">Case-study route kit: an index and the inner page it opens</a></h3>
+            <p class="entry__id">case-study-route-kit</p>
+            <p class="entry__summary">Two real pages, <code>index.html</code> and <code>case.html</code>: an <code>&lt;article&gt;</code> opening on an edge-to-edge title over a <code>&lt;dl&gt;</code> of client, year, role and credits by role (a nested <code>&lt;dl&gt;</code>), then a media rhythm whose neighbours never share a layout family: a full-bleed plate recropped <code>16:9 → 4:5</code> on the phone, a prose column at about 60ch from column 5, an uneven pair (6 and 4 of 12 columns, the second dropped a step), a caption-led figure bled right, a second plate, the result as ruled rows with units, and a next-project close that repeats the title's family as the bookend, with its own image and the next title at the h1's scale, linking back into the set (<code>index.html#harbour-almanac</code>, marked by <code>:target</code>); inline-SVG drawings with <code>role=&quot;img&quot;</code> labels in boxes sized by <code>aspect-ratio</code>, so layout shift stays under <code>0.05</code>; own <code>&lt;title&gt;</code>, description and <code>CreativeWork</code> JSON-LD per page; reveals only for what starts below the fold (<code>32px</code> rise and fade over <code>.9 s</code>, fade only under reduced motion, nothing held back in the static tier)</p>
+            <p class="entry__meta edge"><span>Case-study page</span><span>composition · editorial · layout · images · sections · reveal · responsive · art-direction · accessibility · reduced-motion</span><span data-fact="recipe-pass">no recorded pass yet</span></p>
+          </li>
+          <li class="entry" id="recipe-complete-editorial-composition" data-group="compositions" data-tags="composition editorial responsive static">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/complete-editorial-composition.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/complete-editorial-composition.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Alder Workshop — complete editorial composition&quot; in headless Chromium at 1280 × 800, state &quot;desktop-middle&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/complete-editorial-composition">Alder Workshop — complete editorial composition</a></h3>
+            <p class="entry__id">complete-editorial-composition</p>
+            <p class="entry__summary">The five components in one paced, coherent page</p>
+            <p class="entry__meta edge"><span>Whole-page composition</span><span>composition · editorial · responsive · static</span><span data-fact="recipe-pass">passed 2026-10-22</span></p>
+          </li>
+          <li class="entry" id="recipe-editorial-image-text" data-group="compositions" data-tags="editorial images layout responsive">
+            <a class="entry__frame" data-theme="rebate" href="./recipes/editorial-image-text.webp" data-fact-attr="href:recipe-frame"><img src="./recipes/editorial-image-text.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Alder Workshop — editorial image and text&quot; in headless Chromium at 1280 × 800, state &quot;desktop&quot;."></a>
+            <h3><a href="https://github.com/burgisimon/awards/tree/main/plugins/awards/recipes/editorial-image-text">Alder Workshop — editorial image and text</a></h3>
+            <p class="entry__id">editorial-image-text</p>
+            <p class="entry__summary">Figure, caption, asymmetric reading column and mobile order</p>
+            <p class="entry__meta edge"><span>Editorial story</span><span>editorial · images · layout · responsive</span><span data-fact="recipe-pass">passed 2026-10-07</span></p>
+          </li>
+        </ol>
+      </section>
+        <!-- /@fact -->
+  </main>
+
+  <footer class="colophon" aria-label="Colophon">
+    <div class="colophon__edition">
+      <p>awards <span data-fact="version">0.7.0</span>, <span data-fact="license">MIT</span> licence, by BurgiSimon.</p>
+      <!-- @proof:jury-line — when a page-round report exists: "Judged {date}: {disposition}, weighted {w}. Report: .awards/jury/{file} in the repository." -->
+      <!-- @fact:build — the build being read: "This is build {version}+{hash}." -->
+    </div>
+    <ul class="colophon__links" role="list">
+      <li><a href="https://github.com/burgisimon/awards" data-fact-attr="href:repo">Source on GitHub</a></li>
+      <li><a href="https://github.com/burgisimon/awards/blob/main/CHANGELOG.md">Release notes</a></li>
+      <li><a href="https://github.com/burgisimon/awards/blob/main/LICENSE">Licence</a></li>
+    </ul>
+    <div class="colophon__credits">
+      <table class="data">
+        <caption>Credits</caption>
+        <thead><tr><th scope="col">Part</th><th scope="col">Source</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Enriqueta</th><td>FontFuror, SIL Open Font License 1.1</td></tr>
+          <tr><th scope="row">Saira Condensed</th><td>Omnibus-Type, SIL Open Font License 1.1</td></tr>
+          <tr><th scope="row">Commands and code</th><td>your system's monospace</td></tr>
+          <tr><th scope="row">Marks</th><td>drawn for this page</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="colophon__note caption">Every picture on this site is a capture of this site or of the plugin's own recipes, made by the plugin's own scripts. Nothing here is a screenshot of anyone else's work.</p>
+  </footer>
+</div>
+</body>
+</html>

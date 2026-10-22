@@ -1,0 +1,98 @@
+/* Foundation, started from plugins/awards/recipes/_shared/base.css and re-tokened for the contact sheet.
+   Fonts and tokens first, so the cascade survives bundling. */
+@import "./fonts.css";
+@import "./tokens.css";
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  color-scheme: light;
+  -webkit-text-size-adjust: 100%;
+  /* Browser surfaces belong to the world: a thin ink scrollbar over native scrolling. */
+  scrollbar-width: thin;
+  scrollbar-color: var(--ink) var(--ground);
+}
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--body);
+  font-weight: 400;
+  line-height: 1.55;
+  font-feature-settings: var(--font-feature);
+  caret-color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img, svg, video, canvas { display: block; max-width: 100%; }
+img { height: auto; }
+button, input, select, textarea { font: inherit; color: inherit; }
+p, ol, ul, dl, dd, figure, blockquote, table { margin: 0; }
+ol, ul { padding: 0; }
+
+h1, h2, h3, h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  text-wrap: balance;
+}
+h1, .display { font-size: var(--display); line-height: 1; letter-spacing: -0.03em; }
+h2 { font-size: var(--h2); line-height: 1.05; letter-spacing: -0.02em; }
+h3 { font-size: var(--h3); line-height: 1.2; letter-spacing: -0.01em; }
+h4 { font-size: var(--body); line-height: 1.35; }
+strong, b { font-weight: 500; }
+p, li, dd { text-wrap: pretty; }
+
+a {
+  color: currentColor;
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: text-decoration-thickness var(--dur-feedback) var(--ease-out-expo);
+}
+a:hover, a:focus-visible { text-decoration-thickness: var(--stroke); }
+
+code, kbd, samp {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  font-feature-settings: normal;
+}
+/* Short code in running text never breaks at its own hyphens; long commands and paths wrap where they live. */
+p code, li code, dd code, td code { white-space: nowrap; }
+dt code, .commands code, .entry__summary code, .entry__id { white-space: normal; overflow-wrap: anywhere; }
+
+/* Selection inverts the two inks; focus is the ink's ring, which is the paper on the rebate. The red stays on the select. */
+::selection { background: var(--ink); color: var(--ground); }
+:focus-visible { outline: var(--stroke) solid var(--ink); outline-offset: 4px; }
+:focus:not(:focus-visible) { outline: none; }
+
+/* Edge print: facts of the sheet, in the narrow sans, untracked, sentence case. */
+.edge {
+  font-family: var(--font-edge);
+  font-size: var(--label);
+  line-height: 1.2;
+  letter-spacing: 0;
+  font-feature-settings: var(--font-feature-figures);
+  color: var(--muted);
+}
+.caption {
+  font-family: var(--font-edge);
+  font-size: var(--caption);
+  line-height: 1.35;
+  letter-spacing: 0;
+  color: var(--muted);
+  max-width: 48ch;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* Reduced motion is a tier, never a kill: tokens.css shortens the durations; only spatial travel stops here. */
+@media (prefers-reduced-motion: reduce) {
+  [data-motion="spatial"] { transition-property: opacity, color, background-color; }
+}

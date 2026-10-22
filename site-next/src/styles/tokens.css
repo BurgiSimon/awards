@@ -1,0 +1,82 @@
+/* awards (site-next) · contact sheet. Generated with DESIGN.md by awards:system; keep the two identical.
+   Restrained duotone, four live tokens: proof paper, silver-black ink (also the rebate), a second ink mixed from the
+   two (edge print and captions), one grease-pencil red that exists only on the select. */
+:root {
+  --ground: #fcfbf8;   /* proof paper: bright, a hair warm, not cream, bone or grey */
+  --ink: #131211;      /* dense silver-black; the rebate is this ink */
+  --accent: #d1213a;   /* grease pencil (china marker) red: the select ring and the rebate's Install underline only */
+
+  --font-display: "Enriqueta", "Enriqueta Fallback", "Times New Roman", serif;
+  --font-body: "Enriqueta", "Enriqueta Fallback", "Times New Roman", serif;
+  --font-edge: "Saira Condensed", "Saira Condensed Fallback", "Arial Narrow", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  --font-feature: "kern" 1, "liga" 1;   /* Enriqueta ships old-style figures only (no lnum, no tnum): identifiers such as P0 are set as code */
+  --font-feature-figures: "kern" 1;     /* tables align figures right instead; neither face ships tnum */
+
+  /* Fluid clamp from one 1440 baseline: every desktop measure is px / 1440 × 100 vw, floored in rem, capped at the
+     artboard value. */
+  --artboard: 1440;
+  --display: clamp(2.75rem, 7.2222vw, 6.5rem);   /* 104 px at 1440 · 44 px floor (phone) */
+  --h2: clamp(2rem, 3.8889vw, 3.5rem);           /* 56 px at 1440 · 32 px floor */
+  --h3: clamp(1.375rem, 1.9444vw, 1.75rem);      /* 28 px at 1440 · 22 px floor */
+  --lede: clamp(1.1875rem, 1.4583vw, 1.3125rem); /* 21 px at 1440 · 19 px floor */
+  --body: clamp(1.0625rem, 1.25vw, 1.125rem);    /* 18 px at 1440 · 17 px floor */
+  --caption: 0.9375rem;                          /* 15 px: edge-print sentences (captions, the report's lines) */
+  --label: 0.8125rem;                            /* 13 px: edge-print facts (stops, stamps, build ids, nav) */
+
+  --unit: 4px;
+  --gutter: clamp(20px, 4.1667vw, 120px);        /* 60 px at 1440 · 20 px phone */
+  --gap: clamp(16px, 1.6667vw, 32px);            /* 24 px at 1440: the column gutter inside the paper */
+  --strip: 25%;                                  /* 360 of 1440: the rebate column when frames exist */
+  --strip-gap: clamp(24px, 4.4444vw, 128px);     /* 64 px at 1440: rebate to paper */
+  --rebate-band: 56px;                           /* the rebate as a top band (phone, and every width before a capture) */
+  --rebate-head: 88px;                           /* the rebate's top block in the column: two 44 px lines */
+  --target: 44px;                                /* every control outside running text */
+  --measure: 64ch;
+  --space-1: calc(var(--unit) * 2);              /* 8 px: inside a component */
+  --space-2: calc(var(--unit) * 6);              /* 24 px: between components */
+  --space-3: clamp(4rem, 8.8889vw, 8rem);        /* 128 px at 1440: between chapters */
+  --space-4: clamp(6rem, 13.3333vw, 12rem);      /* 192 px at 1440: around the interruption */
+  --stroke: 2px;                                 /* rules, underlines and the focus ring */
+  --mark: 3px;                                   /* drawn marks: ring, cross, arrow, the select's ellipse */
+  --mark-ink: var(--ink);                        /* the jury's black wax; resolved here, so it stays black on the rebate */
+
+  /* Editorial register: a contact sheet is publishing paperwork. */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-expo: cubic-bezier(0.87, 0, 0.13, 1);
+  --ease-theme: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-feedback: 160ms;
+  --dur-routine: 400ms;
+  --dur-mark: 600ms;
+  --dur-hero: 1200ms;
+  --stagger: 120ms;
+}
+
+/* Wide gamut: the accent only, a little more saturated where the screen can show it (same lightness and hue). */
+@supports (color: color(display-p3 0 0 0)) {
+  :root { --accent: color(display-p3 0.7874 0.1215 0.2147); }
+}
+
+/* The rebate is the ink's own surface: the same token names remapped, so every derived value follows. */
+[data-theme="rebate"] {
+  --ground: #131211;
+  --ink: #fcfbf8;
+  color-scheme: dark;
+}
+
+/* Derived tokens are declared wherever a theme is, so they resolve against that surface's ground and ink. */
+:root,
+[data-theme] {
+  --muted: color-mix(in oklab, var(--ink) 68%, var(--ground)); /* second ink: #545251 on paper, #a9a8a5 on the rebate */
+  --line: color-mix(in oklab, var(--ink) 14%, var(--ground));  /* the one rule under a table head: #d7d6d3 */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-feedback: 0ms;
+    --dur-routine: 120ms;
+    --dur-mark: 0ms;
+    --dur-hero: 200ms;
+    --stagger: 0ms;
+  }
+}

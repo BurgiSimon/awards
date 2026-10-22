@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en" data-proof="none">
+<!--
+  Skeleton (awards:structure, 2026-10-22). Static tier: no script. Build-time bindings for awards:stack:
+  · data-fact="{name}"            the element's text is a literal read from the plugin at build time (name = the fact)
+  · data-fact-attr="{attr}:{name}" an attribute holds that literal (several pairs separated by spaces)
+  · data-proof on {html}           none | capture | report: what `npm run proof` found on disk (contract LOAD & CLOSE)
+  · {comment @proof:… } comments    slots the proof step fills with frames, marks and figures; empty means nothing renders
+-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>awards · your site, proofed before anyone sees it</title>
+  <meta name="description" content="A plugin for Claude Code and Codex that builds a website to a written contract, runs 89 audit rules after every edit, captures the page at three widths and hands it to a juror in a fresh context." data-fact-attr="content:rules">
+  <link rel="canonical" href="./">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#131211">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="./fonts/enriqueta-latin-500.woff2" as="font" type="font/woff2" crossorigin>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="awards">
+  <meta property="og:title" content="awards · your site, proofed before anyone sees it">
+  <meta property="og:description" content="A plugin for Claude Code and Codex: a written contract, 89 audit rules after every edit, captures at three widths and a juror in a fresh context." data-fact-attr="content:rules">
+  <meta property="og:image" content="./og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="A black film rebate along the top of a white proof sheet, the line “Your site, proofed before anyone sees it.” and an install ticket ringed in red pencil.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="./src/styles/site.css">
+</head>
+<body>
+<div id="page" class="sheet">
+  <a class="skip" href="#main">Skip to the page</a>
+
+  <div class="rebate" data-theme="rebate">
+    <header class="rebate__head">
+      <p class="rebate__mark"><a class="rebate__wordmark" href="./" aria-current="page">awards</a> <span class="rebate__version edge" data-fact="version">0.7.0</span></p>
+      <nav class="rebate__nav" aria-label="Site">
+        <ul role="list">
+          <li><a class="rebate__install" href="./install.html">Install</a></li>
+          <li><a href="./docs.html">Docs</a></li>
+          <li><a href="./recipes.html">Recipes</a></li>
+          <li><a href="https://github.com/burgisimon/awards" data-fact-attr="href:repo">Source</a></li>
+        </ul>
+      </nav>
+    </header>
+    <!-- @proof:strip route="/" · states capture and report only; nothing renders in state none.
+      The proof step writes, from src/data/proof.json, a nav.strip labelled "Frames of this page as the jury captured
+      them": an ol.strip__list (data-motion strip) with one li per frame (s00 s25 s50 s75 s100, plus any stop the
+      report cites). Each li holds an a.frame linking to its depth (data-stop, aria-current on the current frame) with
+      an img.frame__img (width, height, alt naming what it shows, its stop, width and capture stamp; eager for s00 and
+      s25, lazy after), an aria-hidden svg.frame__marks (data-motion marks) with the ring, cross and arrow paths, and a
+      span.frame__edge of edge print (stop, stamp); a cited frame adds p.frame__note, the report's line verbatim with
+      "report {date} · {section}". Under the list, p.strip__caption: "Frames: capture {stamp}, build {id} · Marks:
+      report {date}". On phones the same links sit in a details.frames-disclosure ("Frames") inside .rebate__head.
+      DESIGN.md ## Components holds the states and the motion hooks. -->
+  </div>
+
+  <main id="main" class="paper">
+
+    <section class="chapter open" id="sheet" aria-labelledby="sheet-title">
+      <h1 id="sheet-title">Your site, proofed before anyone sees&nbsp;it.</h1>
+      <p class="lede">awards is a plugin for Claude Code and Codex that holds a website to a written contract, runs <span data-fact="rules">89</span> audit rules after every edit, captures the page at three widths and hands it to a juror in a fresh context who never saw it built.</p>
+
+      <div class="ticket" id="select-open" role="group" aria-labelledby="ticket-title">
+        <svg class="ticket__ring" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false" data-motion="select-ring">
+          <path d="M7 5 C 32 1, 72 0, 92 2 C 98 3, 100 8, 100 18 C 100 40, 100 64, 99 82 C 98 94, 95 98, 86 99 C 62 100, 32 100, 12 98 C 3 97, 0 92, 0 80 C 0 60, 0 38, 1 17 C 2 7, 6 3, 16 2 C 32 1, 50 1, 66 3"/>
+        </svg>
+        <h2 class="ticket__title" id="ticket-title">Install it: two commands in either client</h2>
+        <div class="ticket__row">
+          <h3 class="ticket__client">Claude Code</h3>
+          <ol class="commands" role="list" data-fact="commands-claude-code">
+            <li><code>/plugin marketplace add burgisimon/awards</code><button class="copy" type="button" data-copy hidden>Copy</button></li>
+            <li><code>/plugin install awards@awards</code><button class="copy" type="button" data-copy hidden>Copy</button></li>
+          </ol>
+        </div>
+        <div class="ticket__row">
+          <h3 class="ticket__client">Codex</h3>
+          <ol class="commands" role="list" data-fact="commands-codex">
+            <li><code>codex plugin marketplace add burgisimon/awards</code><button class="copy" type="button" data-copy hidden>Copy</button></li>
+            <li><code>codex plugin add awards@awards</code><button class="copy" type="button" data-copy hidden>Copy</button></li>
+          </ol>
+        </div>
+      </div>
+      <!-- @proof:inline chapter="sheet" stops="s00" — phone: this route's phone frames in a sideways row, s00 ringed -->
+    </section>
+
+    <section class="chapter runs" id="shoot" aria-labelledby="shoot-title">
+      <!-- @proof:inline chapter="shoot" stops="s25" -->
+      <h2 id="shoot-title">Every phase leaves a file the next one reads</h2>
+      <p class="chapter__intro">A build runs nine phases in three runs. Skills cannot call each other, so each phase ends by writing its decision to disk, and the next phase starts from that file rather than from a summary of the conversation. <code>AWARDS.md</code> carries every decision from one session to the next.</p>
+
+      <section class="run" aria-labelledby="run-decide">
+        <h3 id="run-decide">Decide</h3>
+        <ol class="run__phases" role="list">
+          <li class="phase"><h4>Brief</h4><p>At most three questions: what only this subject can prove, who reads it and where, and what a visitor should do.</p><p class="phase__file"><code>AWARDS.md</code>, Brief</p></li>
+          <li class="phase"><h4>Concept</h4><p>Seven candidate worlds; a seeded roll deals three and a conventional exit; you lock one, written down as a direction contract.</p><p class="phase__file"><code>AWARDS.md</code>, Direction contract</p></li>
+          <li class="phase"><h4>System</h4><p>One type contract, two to four colour tokens, self-hosted fonts and every browser surface themed.</p><p class="phase__file"><code>DESIGN.md</code>, <code>tokens.css</code></p></li>
+        </ol>
+      </section>
+
+      <section class="run" aria-labelledby="run-build">
+        <h3 id="run-build">Build</h3>
+        <ol class="run__phases" role="list">
+          <li class="phase"><h4>Structure</h4><p>Chapters with beats, one interruption, a designed close and a 404, as semantic HTML before any motion.</p><p class="phase__file"><code>AWARDS.md</code>, Page map; the skeleton</p></li>
+          <li class="phase"><h4>Stack</h4><p>Vite by default; Lenis and GSAP on one ticker, and a hook that lets captures drive the page.</p><p class="phase__file"><code>window.__awards</code></p></li>
+          <li class="phase"><h4>Motion</h4><p>One authored moment per chapter, each with a reduced-motion tier, and never a global animation kill.</p><p class="phase__file"><code>AWARDS.md</code>, Motion score</p></li>
+          <li class="phase"><h4>WebGL</h4><p>Only where a beat needs depth: its own lazy chunk, a DOM mirror, and a page that works without it.</p><p class="phase__file">The GL chunk, or a written decline</p></li>
+        </ol>
+      </section>
+
+      <section class="run" aria-labelledby="run-judge">
+        <h3 id="run-judge">Judge</h3>
+        <ol class="run__phases" role="list">
+          <li class="phase"><h4>Jury</h4><p>A juror in a fresh context reads the captures before the contract, scores four axes and ends on one word.</p><p class="phase__file"><code>.awards/jury/</code>, Jury log</p></li>
+          <li class="phase"><h4>Ship</h4><p>The fixes in one batch, the audit clean or every exception explained, the performance measured.</p><p class="phase__file"><code>.awards/ship/</code>, Ship log</p></li>
+        </ol>
+      </section>
+    </section>
+
+    <section class="chapter proof" id="proof" aria-labelledby="proof-title">
+      <h2 id="proof-title">The jury reads the captures before the contract</h2>
+      <p class="chapter__intro">Each round ends with a juror that never saw the page being built, so nothing in the building conversation can argue for it. It describes the first viewport in its own words, then reads the contract, scores four axes the way award entries are weighed plus six developer criteria, and ends on one word.</p>
+      <!-- @proof:loupe — states capture and report: the frame the memory sentence came from (or the capture's s00), a
+           "Skip the frame" link to #proof-figures, and an "Open at full size" button for the 1:1 dialog; then
+           {div class="proof__figures" id="proof-figures"} with this page's scores (report) or the capture's measured
+           layout shift, blocking time, page errors and the build's audit summary (capture), each naming its file and date. -->
+
+      <table class="data weights">
+        <caption>How the jury weighs a page</caption>
+        <thead><tr><th scope="col">Axis</th><th scope="col" class="num">Weight</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Design</th><td class="num">40 %</td></tr>
+          <tr><th scope="row">Usability</th><td class="num">30 %</td></tr>
+          <tr><th scope="row">Creativity</th><td class="num">20 %</td></tr>
+          <tr><th scope="row">Content</th><td class="num">10 %</td></tr>
+        </tbody>
+      </table>
+
+      <div class="dispositions">
+        <h3>The one word it ends on</h3>
+        <dl>
+          <div><dt><code>ship</code></dt><dd>Weighted 7.2 or higher, no axis under 6.8, no <code>P0</code> or <code>P1</code> audit finding, every contract row kept.</dd></div>
+          <div><dt><code>fix</code></dt><dd>Weighted 6.8 to 7.19, or one axis under 6.8, or a <code>P0</code> or <code>P1</code> finding, or a broken contract row.</dd></div>
+          <div><dt><code>rebuild</code></dt><dd>Weighted under 6.8, a source site a juror could name, a memory test that returns only a mood, or a thesis not visible on screen one.</dd></div>
+          <div><dt><code>recapture</code></dt><dd>The evidence is missing, blank or broken, so no score exists yet.</dd></div>
+        </dl>
+      </div>
+
+      <p class="proof__calibration">This juror scores about 0.7 below the published award on the same sites, by design. A <code>ship</code> here means a page cleared that stricter floor, not that it would win.</p>
+    </section>
+
+    <section class="chapter marks-key" id="marks" aria-labelledby="marks-title">
+      <!-- @proof:inline chapter="marks" stops="s50" -->
+      <div class="marks-key__copy">
+        <h2 id="marks-title"><span data-fact="rules">89</span> rules, run after every edit</h2>
+        <!-- @proof:audit — this page's newest audit result in one sentence, naming .awards/audit.json's copy in proof.json and its date -->
+        <p>The audit is deterministic, with no model in the loop. In Claude Code a hook runs its fast subset after every edit in a project that has an <code>AWARDS.md</code> and stays silent everywhere else; Codex runs it after each batch of edits. Add <code>--render</code> and it opens the page in Chromium at three widths to measure what only a browser can.</p>
+      </div>
+
+      <table class="data families" data-fact="families">
+        <caption>Eight families</caption>
+        <thead><tr><th scope="col">Family</th><th scope="col" class="num">Rules</th><th scope="col">One thing it catches</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Type</th><td class="num">8</td><td>a reflex face, a fonts CDN link, display type with no ceiling</td></tr>
+          <tr><th scope="row">Colour</th><td class="num">5</td><td>text under 4.5:1 against what is actually behind it</td></tr>
+          <tr><th scope="row">Motion</th><td class="num">8</td><td>no reduced-motion branch, or a global animation kill</td></tr>
+          <tr><th scope="row">Accessibility</th><td class="num">18</td><td>a phone control smaller than 44 by 44 pixels</td></tr>
+          <tr><th scope="row">Layout</th><td class="num">10</td><td>a whole viewport with nothing in it</td></tr>
+          <tr><th scope="row">Performance</th><td class="num">9</td><td>layout shift above 0.1 while the page loads</td></tr>
+          <tr><th scope="row">Browser surfaces</th><td class="num">10</td><td>a default selection colour, no theme colour, no favicon</td></tr>
+          <tr><th scope="row">Slop scan</th><td class="num">21</td><td>glow, glass, framework purple, bounce easing, a hero-metric row</td></tr>
+        </tbody>
+      </table>
+      <p class="marks-key__slop"><span data-fact="rules-slop">21</span> of the rules look for the habits a generator falls into when nobody made a decision. When two or more of those families remain on a page, the jury caps Creativity at 6.</p>
+    </section>
+
+    <section class="chapter archive" id="archive" aria-labelledby="archive-title">
+      <h2 id="archive-title">Taste you can cite</h2>
+      <!-- @fact:recipe-row (one frame from each recipe group, from src/data/recipes.json) -->
+      <ol class="archive__row proof-row" data-theme="rebate" role="list" aria-label="Recipe frames, one from each group">
+          <li class="proof-row__item"><a class="proof-row__frame" href="./recipes.html#recipe-boot-lenis-gsap"><img src="./recipes/boot-lenis-gsap.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Boot: Lenis + GSAP on one ticker&quot; in headless Chromium at 1280 × 800, state &quot;mid&quot;."></a><span class="edge">boot-lenis-gsap</span></li>
+          <li class="proof-row__item"><a class="proof-row__frame" href="./recipes.html#recipe-cursor-two-speed"><img src="./recipes/cursor-two-speed.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Two-speed contextual cursor&quot; in headless Chromium at 1280 × 800, state &quot;hover&quot;."></a><span class="edge">cursor-two-speed</span></li>
+          <li class="proof-row__item"><a class="proof-row__frame" href="./recipes.html#recipe-flicker-text"><img src="./recipes/flicker-text.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Flicker text (per-glyph opacity ladder)&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a><span class="edge">flicker-text</span></li>
+          <li class="proof-row__item"><a class="proof-row__frame" href="./recipes.html#recipe-clip-path-scrub-door"><img src="./recipes/clip-path-scrub-door.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Scrubbed clip-path doorway into a section&quot; in headless Chromium at 1280 × 800, state &quot;mid&quot;."></a><span class="edge">clip-path-scrub-door</span></li>
+          <li class="proof-row__item"><a class="proof-row__frame" href="./recipes.html#recipe-blur-peek-snap-carousel"><img src="./recipes/blur-peek-snap-carousel.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Centred carousel with blur-peek neighbours and a velocity-graded snap&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a><span class="edge">blur-peek-snap-carousel</span></li>
+          <li class="proof-row__item"><a class="proof-row__frame" href="./recipes.html#recipe-autoplay-tabs-progress"><img src="./recipes/autoplay-tabs-progress.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Auto-advancing tabs with a visible clock&quot; in headless Chromium at 1280 × 800, state &quot;top&quot;."></a><span class="edge">autoplay-tabs-progress</span></li>
+          <li class="proof-row__item"><a class="proof-row__frame" href="./recipes.html#recipe-designed-footer"><img src="./recipes/designed-footer.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Alder Workshop — designed close&quot; in headless Chromium at 1280 × 800, state &quot;desktop-end&quot;."></a><span class="edge">designed-footer</span></li>
+          <li class="proof-row__item"><a class="proof-row__frame" href="./recipes.html#recipe-gl-built-studio-environment"><img src="./recipes/gl-built-studio-environment.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Studio environment built at runtime, no HDR file&quot; in headless Chromium at 1280 × 800, state &quot;lit&quot;."></a><span class="edge">gl-built-studio-environment</span></li>
+          <li class="proof-row__item"><a class="proof-row__frame" href="./recipes.html#recipe-complete-editorial-composition"><img src="./recipes/complete-editorial-composition.webp" width="640" height="400" loading="lazy" decoding="async" alt="Frame of the recipe &quot;Alder Workshop — complete editorial composition&quot; in headless Chromium at 1280 × 800, state &quot;desktop-middle&quot;."></a><span class="edge">complete-editorial-composition</span></li>
+      </ol>
+      <!-- /@fact -->
+      <ul class="archive__facts" role="list">
+        <li><p><span data-fact="sites">62</span> site cards, award winners read closely: palette, type, motion parameters, stack and weaknesses. <span data-fact="skeletons">55</span> of them carry a measured composition skeleton, and every fact on a card is labelled verified, recalled, inferred or unknown.</p></li>
+        <li><p><span data-fact="patterns">26</span> pattern files: narrative models, hero archetypes, motion vocabulary, WebGL dosage and the accessibility paths the winners skipped, each citing the cards it came from.</p></li>
+        <li><p><span data-fact="recipes">89</span> recipe entries, <span data-fact="recipes-focused">88</span> focused recipes and one complete page, each built with Vite and driven in headless Chromium by its own verifier; <span data-fact="recipes-verified">76</span> carry a recorded pass.</p></li>
+      </ul>
+      <p class="archive__next"><a class="next" href="./recipes.html">Every recipe, with its group, tags and pass date</a></p>
+    </section>
+
+    <section class="chapter select" id="select" aria-labelledby="select-title">
+      <h2 id="select-title">Install it before your next site</h2>
+      <div class="ticket" id="select-close" role="group" aria-label="Install commands">
+        <svg class="ticket__ring" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false" data-motion="select-ring">
+          <path d="M9 3 C 34 0, 70 1, 90 2 C 97 3, 100 9, 100 20 C 101 42, 100 66, 99 84 C 98 95, 94 99, 84 99 C 60 100, 30 101, 11 98 C 3 96, 0 91, 0 79 C -1 58, 0 36, 1 16 C 2 6, 7 2, 18 2 C 36 1, 54 2, 70 4"/>
+        </svg>
+        <div class="ticket__row">
+          <h3 class="ticket__client">Claude Code</h3>
+          <ol class="commands" role="list" data-fact="commands-claude-code">
+            <li><code>/plugin marketplace add burgisimon/awards</code><button class="copy" type="button" data-copy hidden>Copy</button></li>
+            <li><code>/plugin install awards@awards</code><button class="copy" type="button" data-copy hidden>Copy</button></li>
+          </ol>
+        </div>
+        <div class="ticket__row">
+          <h3 class="ticket__client">Codex</h3>
+          <ol class="commands" role="list" data-fact="commands-codex">
+            <li><code>codex plugin marketplace add burgisimon/awards</code><button class="copy" type="button" data-copy hidden>Copy</button></li>
+            <li><code>codex plugin add awards@awards</code><button class="copy" type="button" data-copy hidden>Copy</button></li>
+          </ol>
+        </div>
+      </div>
+      <p class="select__then">Then ask for a site in your own words, or start it with <code>/awards:craft</code> in Claude Code and <code>$awards:craft</code> in Codex. Builds need Node 22.12 or later, or 24 LTS; captures and the rendered audit need Playwright with Chromium. <a href="./install.html#requirements">The full requirements</a></p>
+      <!-- @proof:close-frame stop="s100" — the strip's s100 frame (this close as the jury shot it) beside the ticket -->
+    </section>
+
+    <p class="sr-only" role="status" data-copy-status></p>
+  </main>
+
+  <footer class="colophon" aria-label="Colophon">
+    <div class="colophon__edition">
+      <p>awards <span data-fact="version">0.7.0</span>, <span data-fact="license">MIT</span> licence, by BurgiSimon.</p>
+      <!-- @proof:jury-line — when a page-round report exists: "Judged {date}: {disposition}, weighted {w}. Report: .awards/jury/{file} in the repository." -->
+      <!-- @fact:build — the build being read: "This is build {version}+{hash}." -->
+    </div>
+    <ul class="colophon__links" role="list">
+      <li><a href="https://github.com/burgisimon/awards" data-fact-attr="href:repo">Source on GitHub</a></li>
+      <li><a href="https://github.com/burgisimon/awards/blob/main/CHANGELOG.md">Release notes</a></li>
+      <li><a href="https://github.com/burgisimon/awards/blob/main/LICENSE">Licence</a></li>
+    </ul>
+    <div class="colophon__credits">
+      <table class="data">
+        <caption>Credits</caption>
+        <thead><tr><th scope="col">Part</th><th scope="col">Source</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Enriqueta</th><td>FontFuror, SIL Open Font License 1.1</td></tr>
+          <tr><th scope="row">Saira Condensed</th><td>Omnibus-Type, SIL Open Font License 1.1</td></tr>
+          <tr><th scope="row">Commands and code</th><td>your system's monospace</td></tr>
+          <tr><th scope="row">Marks</th><td>drawn for this page</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="colophon__note caption">Every picture on this site is a capture of this site or of the plugin's own recipes, made by the plugin's own scripts. Nothing here is a screenshot of anyone else's work.</p>
+  </footer>
+</div>
+<!-- @proof:loupe-dialog — {dialog class="loupe" data-theme="rebate" aria-labelledby="loupe-title"} with the frame at 1:1 and a Close button; Esc closes, focus returns -->
+</body>
+</html>
