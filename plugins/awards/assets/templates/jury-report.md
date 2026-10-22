@@ -26,11 +26,13 @@ component unmeasured: Design unmeasured · Usability unmeasured · Creativity un
 
 | Developer criteria | Score /10 | Note |
 |---|---|---|
-| Animation and interaction | | |
-| Performance | | |
-| Responsive | | |
-| Accessibility and semantics | | |
-| Code quality | | |
+| Semantics / SEO | | |
+| Animations / Transitions | | |
+| Accessibility | | |
+| WPO | | |
+| Responsive Design | | |
+| Markup / Meta-data | | |
+| **Developer mean** | | Developer Award above 7 |
 
 <!-- Without valid rendered evidence, every value above is unmeasured. For a component, use only Design, Usability and Creativity with their mean; omit Content and the developer table. -->
 

@@ -1,6 +1,6 @@
 ---
 name: jury
-description: Scores a site, page or single component the way a design-award jury does. Design, Usability, Creativity and Content on anchored 0–10 scales (Site of the Day winners sit at 7.3–8.2), the five Developer Award criteria, the memory test, the specificity test (could a juror name the source site?), the keyboard and reduced-motion walk and a slop scan, ending in an ordered fix list and one disposition (ship, fix, rebuild or recapture). Use whenever the user asks to review, critique, score, judge, rate or evaluate a site or component, asks "would this win", "is this award-worthy", "what is missing", "what would the jury say", or before shipping award-level work; also re-checks a fix batch with --verdict. Runs in a fresh context on Playwright captures and the audit, so the build conversation cannot talk it upward. Not for code review, failing tests or accessibility work with no award framing.
+description: Scores a site, page or single component the way a design-award jury does. Design, Usability, Creativity and Content on anchored 0–10 scales (Site of the Day winners sit at 7.3–8.2), the six Developer Award criteria, the memory test, the specificity test (could a juror name the source site?), the keyboard and reduced-motion walk and a slop scan, ending in an ordered fix list and one disposition (ship, fix, rebuild or recapture). Use whenever the user asks to review, critique, score, judge, rate or evaluate a site or component, asks "would this win", "is this award-worthy", "what is missing", "what would the jury say", or before shipping award-level work; also re-checks a fix batch with --verdict. Runs in a fresh context on Playwright captures and the audit, so the build conversation cannot talk it upward. Not for code review, failing tests or accessibility work with no award framing.
 argument-hint: "[url | path | --component <selector>] [--captures <dir>] [--states <json-file>] [--verdict]"
 context: fork
 agent: awards-jury
@@ -100,11 +100,14 @@ Why: Design carries 40 percent of the weight, and it is where a page either owns
 
 Why: a Developer Award accompanies nearly every Site of the Day in the corpus, and the technical criteria are the easiest place to lose a whole award on details. Read `${CLAUDE_PLUGIN_ROOT}/references/craft-floor.md` now for what the floor demands and which audit rule catches it; grep the source rather than trusting the motion score.
 
-- Animation and interaction: one ticker, framerate-independent damping, scrubbed tweens with `ease: 'none'` (M03), `will-change` scoped to what animates (M04), loops paused off-screen (M08), transforms and opacity only (M07).
-- Performance: `manifest.json` metrics (CLS, DOM nodes, canvases, WebGL), audit P01–P07, gzipped entry size from `dist/` when a build exists, font count and weight. **Never score performance from `metrics[label].lcpColdSynthetic`**: it is a headless cold-cache software-GL number, and one corpus capture reported 71,044 ms desktop against 368 ms mobile in the same run. Read it only as a rough asset-weight signal beside the byte counts, and say which it is whenever you cite it. Budgets are in `${CLAUDE_PLUGIN_ROOT}/references/patterns/asset-pipeline.md#budgets`; read it when a number is in doubt.
-- Responsive: the mobile capture is designed rather than shrunk; no horizontal overflow (L02); eccentric desktop navigation has a touch equivalent; cursor and magnetic effects are guarded on coarse pointers (A08).
-- Accessibility and semantics: landmarks, one h1, alt text, `lang`, canvases `aria-hidden` with a DOM mirror, focus-visible styles, keyboard handlers for pointer gestures (A01–A11).
-- Code and markup: console and page errors from the manifest, debug flags, duplicate tickers, renderers never disposed (P07), dead code.
+Score the six criteria Awwwards publishes, under its names:
+
+- Semantics / SEO: a title, meta description, canonical and Open Graph text per page (S07–S10), one h1 and an unbroken outline (A03), landmarks (A01), `lang` (A09), and the words a canvas draws present in a DOM mirror (A04).
+- Animations / Transitions: one ticker, framerate-independent damping, scrubbed tweens with `ease: 'none'` (M03), `will-change` scoped to what animates (M04), loops paused off-screen (M08), transforms and opacity only (M07).
+- WPO: `manifest.json` metrics (CLS, DOM nodes, canvases, WebGL), audit P01–P07, gzipped entry size from `dist/` when a build exists, font count and weight. **Never score performance from `metrics[label].lcpColdSynthetic`**: it is a headless cold-cache software-GL number, and one corpus capture reported 71,044 ms desktop against 368 ms mobile in the same run. Read it only as a rough asset-weight signal beside the byte counts, and say which it is whenever you cite it. Budgets are in `${CLAUDE_PLUGIN_ROOT}/references/patterns/asset-pipeline.md#budgets`; read it when a number is in doubt.
+- Responsive Design: the mobile capture is designed rather than shrunk; no horizontal overflow (L02); eccentric desktop navigation has a touch equivalent; cursor and magnetic effects are guarded on coarse pointers (A08).
+- Accessibility: alt text (A02), focus-visible styles (A06, A07) and a ring at 3:1 (A12), text contrast in every state including focus (C01), keyboard handlers for pointer gestures (A11), a skip link (A13), target size (A14), autoplay rules (A10), and the axe-core violations (A16) when the rendered audit could run it.
+- Markup / Meta-data: unique ids (A15), theme-color, colour-scheme, favicon and Open Graph image (S03–S06), console and page errors from the manifest, debug flags, duplicate tickers, renderers never disposed (P07), dead code.
 
 ## 4. Assessment C — the usability walk
 
@@ -121,7 +124,7 @@ Record one line per step in the shape `walk n — pass | fail — note (file:lin
 Why: anchored scores mean the same thing on every run, and the weighted arithmetic exists so a middling axis is never rounded up because another one is strong. Read `${CLAUDE_PLUGIN_ROOT}/references/jury/rubric.md` now and score against its anchors and corpus exemplars.
 
 - Four axes, 0–10, one-line reason each: Design (40), Usability (30), Creativity (20), Content (10). Weighted = D × 0.4 + U × 0.3 + C × 0.2 + Co × 0.1.
-- Five developer criteria, 0–10, with a note each: animation and interaction, performance, responsive, accessibility and semantics, code quality.
+- Six developer criteria, 0–10, with a note each, in Awwwards' order: Semantics / SEO, Animations / Transitions, Accessibility, WPO, Responsive Design, Markup / Meta-data. Their mean is the developer score; a Developer Award needs it above 7.
 - Apply the caps: a failed specificity test in either direction (a nameable source site, or a nameable generator from the slop scan) caps Creativity at 6, effects without a concept cap Creativity at 6, and each failed walk step caps Usability as the walk states.
 - Site of the Day territory is a weighted 7.2 or higher with no axis below 6.8. When you give a Design 9, name the corpus site it would beat.
 - The contract can lower a score (a block not kept) but never raise one; the inventory and the memory sentence from section 1 stay as written.
@@ -152,7 +155,7 @@ Fill every section of the report:
 Write it to `.awards/jury/<date>.md` (`date +%F`; add `-2`, `-3` when the name is taken), creating the directory when needed. Then append two lines under `AWARDS.md ## Jury log`:
 
 ```
-- <date> · <disposition> · D x.x / U x.x / C x.x / Co x.x → w.w · dev a / p / r / a11y / code · .awards/jury/<date>.md
+- <date> · <disposition> · D x.x / U x.x / C x.x / Co x.x → w.w · dev seo x.x / anim x.x / a11y x.x / wpo x.x / resp x.x / meta x.x → d.dd · .awards/jury/<date>.md
   top fixes: 1) <fix> 2) <fix> 3) <fix>
 ```
 

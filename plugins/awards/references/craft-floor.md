@@ -13,8 +13,9 @@ Why a floor exists: every Site of the Day in the corpus also carries a published
 - Running text is ragged-right, sentence case, led 1.4–1.6, normally tracked and at least 16 px [T07]; the display step stands well clear of body size [T08 with `--render`].
 
 **Colour and material**
-- Two to four tokens under a named strategy; body contrast ≥ 4.5:1 [C01]; a warm or cool near-black rather than pure #000 unless the black is diegetic and recorded as an exception [C02]; no more than six hues in the tokens [C03]; no gradient text [C04]; the rendered ground matches the DESIGN.md ground token [C05].
+- Two to four tokens under a named strategy; every text at 4.5:1 (large text 3:1) against what is actually behind it, in the focus state too, and a focus ring at 3:1 [C01, A12 with `--render`]; a warm or cool near-black rather than pure #000 unless the black is diegetic and recorded as an exception [C02]; no more than six hues in the tokens [C03]; no gradient text [C04]; the rendered ground matches the DESIGN.md ground token [C05].
 - Browser surfaces themed from the tokens: `::selection`, scrollbar, `theme-color`, `color-scheme`, favicon, focus ring, Open Graph image [S01–S06].
+- Every page has a title, a meta description, Open Graph title and description, and a canonical link [S07–S10]; ids are unique [A15].
 
 **Motion**
 - A real `prefers-reduced-motion` branch that keeps state changes and hierarchy; never a global 0.01 ms kill [M01, M02].
@@ -26,7 +27,8 @@ Why a floor exists: every Site of the Day in the corpus also carries a published
 - Landmarks with one `<main>`, one `<h1>`, an unbroken heading order, `lang` on `<html>`, a viewport meta [A01, A03, A09, L03].
 - Every image has alt text, dimensions and a loading hint; autoplay video is muted with `playsinline` and a poster [A02, P01, A10].
 - Every canvas is `aria-hidden` with its text and images mirrored in the DOM, or carries an accessible name [A04].
-- Real controls: buttons and links, never click handlers on `div`/`span` [A05]; visible `:focus-visible` styles, never `outline: none` without a replacement [A06, A07].
+- Real controls: buttons and links, never click handlers on `div`/`span` [A05]; visible `:focus-visible` styles, never `outline: none` without a replacement [A06, A07]; a skip link first in the tab order wherever there is navigation [A13]; targets at least 24 × 24 px on a phone, 44 px for primary actions [A14 with `--render`].
+- No axe-core WCAG 2.2 A/AA violations; the rendered audit runs axe when the project installs `axe-core` [A16 with `--render`].
 - Every pointer-only gesture (drag, hold, draw) has a keyboard handler; the custom cursor is off on coarse pointers [A08, A11].
 - Overlays: `inert` on the page behind, focus trapped, Escape closes, focus returns.
 

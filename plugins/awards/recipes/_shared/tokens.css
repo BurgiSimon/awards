@@ -4,7 +4,7 @@
   --ground: #f4f2ee;
   --ink: #1a1c1c;
   --accent: #0016cb;
-  --muted: color-mix(in oklab, var(--ink) 55%, var(--ground));
+  --muted: color-mix(in oklab, var(--ink) 62%, var(--ground));
   --line: color-mix(in oklab, var(--ink) 14%, var(--ground));
 
   --font-display: "Helvetica Neue", "Arial Nova", Helvetica, Arial, sans-serif;

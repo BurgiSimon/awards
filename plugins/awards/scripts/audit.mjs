@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Deterministic craft-floor audit for award-level front-ends, including the slop habits in references/anti-patterns.md.
-// Static by default; --render adds in-page checks (contrast, overflow, rendered fonts, stuck content, measure, edges, hierarchy, nested cards, ground vs DESIGN.md).
+// Static by default; --render adds in-page checks (text and focus contrast against what is behind them, overflow, rendered fonts, stuck content, measure, edges, hierarchy, nested cards, ground vs DESIGN.md).
 // Usage: node audit.mjs <dir|file|url> [--json] [--quick] [--changed-file <path|->] [--render]
 //   [--scope fonts,contrast,motion,a11y,layout,perf,surfaces,slop] [--ignore T01,…] [--config .awards/audit.json] [--no-write]
 // Exit: 0 clean (no P0/P1) · 2 P0/P1 findings · 3 missing browser · 1 error. Quick mode exits 0 and prints hook JSON.
@@ -8,6 +8,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import zlib from 'node:zlib';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
 import { parseArgs, fmtTable, now } from './lib/report.mjs';
 import { contrastRatio, parseColor, hueOf } from './lib/contrast.mjs';
 import { tags, attr, hasAttr, headings, stripTags, classNames, lineOf } from './lib/html.mjs';
@@ -28,13 +29,14 @@ const findings = [];
 const ignoredRules = new Set(String(args.ignore ?? '').split(',').map((s) => s.trim()).filter(Boolean));
 const scopes = args.scope ? new Set(String(args.scope).split(',').map((s) => s.trim())) : null;
 
-function add(rule, file, line, detail) {
+function add(rule, file, line, detail, weight) {
   if (ignoredRules.has(rule)) return;
   const r = RULES[rule];
   if (!r) return;
   if (scopes && !scopes.has(r.scope)) return;
   // A rule may judge the shipped catalogue harder than a user build: recipes are what gets copied.
-  const severity = r.recipeSeverity && /(^|[\\/])recipes[\\/]/.test(file) ? r.recipeSeverity : r.severity;
+  // An explicit weight (axe-core's impact) overrides both.
+  const severity = weight ?? (r.recipeSeverity && /(^|[\\/])recipes[\\/]/.test(file) ? r.recipeSeverity : r.severity);
   findings.push({ rule, severity, scope: r.scope, file, line: line ?? null, message: detail ? `${r.message}: ${detail}` : r.message, fix: r.fix });
 }
 
@@ -377,6 +379,16 @@ for (const s of htmlSources) {
     if (!/<meta[^>]+name=["']color-scheme["']/i.test(t) && !/color-scheme\s*:/i.test(projectCss)) add('S04', file, null);
     if (!/<link[^>]+rel=["'][^"']*icon[^"']*["']/i.test(t)) add('S05', file, null);
     if (!/property=["']og:image["']/i.test(t)) add('S06', file, null);
+    // Semantics / SEO and meta-data: what a crawler and a link preview read first.
+    const metas = tags(t, 'meta');
+    const meta = (key, value) => metas.some((m) => (attr(m.attrs, key) ?? '').toLowerCase() === value && (attr(m.attrs, 'content') ?? '').trim());
+    if (!/<title\b[^>]*>\s*[^<\s][^<]*<\/title>/i.test(t)) add('S07', file, null);
+    if (!meta('name', 'description')) add('S08', file, null);
+    if (!meta('property', 'og:title') || !meta('property', 'og:description')) add('S09', file, null);
+    if (!tags(t, 'link').some((l) => /(^|\s)canonical(\s|$)/i.test(attr(l.attrs, 'rel') ?? '') && attr(l.attrs, 'href'))) add('S10', file, null);
+    // A page with navigation needs a way past it: a same-page link that says it skips, first in the tab order.
+    const skip = [...t.matchAll(/<a\b([^>]*)>([\s\S]{0,160}?)<\/a>/gi)].some((m) => /^#./.test(attr(m[1], 'href') ?? '') && (/skip|zum inhalt|contenu|contenido|contenuto/i.test(stripTags(m[2])) || /skip/i.test(attr(m[1], 'class') ?? '')));
+    if (/<nav\b/i.test(t) && !skip) add('A13', file, null);
     const hs = headings(t);
     const h1s = hs.filter((h) => h.level === 1);
     if (!h1s.length) add('A03', file, null, 'no h1');
@@ -437,6 +449,16 @@ for (const s of htmlSources) {
   const statRow = cls.find((c) => c.classes.some((k) => /^(stats|metrics|numbers|kpis|stat-row|stats-row)$/i.test(k)));
   if (statEls.length >= 3) add('X08', file, null);
   else if (statRow) add('X08', file, statRow.line, `.${statRow.classes.join('.')}`);
+  if (['.html', '.htm'].includes(s.ext)) {
+    // Ids written into scripts or templates are blanked first (same length, so line numbers hold).
+    const markup = t.replace(/<(script|template)\b[\s\S]*?<\/\1>/gi, (m) => m.replace(/[^\n]/g, ' '));
+    const ids = new Map();
+    let dupes = 0;
+    for (const m of markup.matchAll(/\sid\s*=\s*["']([^"'\s]+)["']/gi)) {
+      if (ids.has(m[1]) && ids.get(m[1]) === 1 && dupes++ < 3) add('A15', file, lineOf(t, m.index), `#${m[1]}`);
+      ids.set(m[1], (ids.get(m[1]) ?? 0) + 1);
+    }
+  }
   if (isPage && /<(button|a)\b/i.test(t) && !/:focus-visible/.test(projectCss)) add('A06', file, null);
   if (isPage && !/::selection/.test(projectCss)) add('S01', file, null);
   if (isPage && !/scrollbar/.test(projectCss)) add('S02', file, null);
@@ -467,6 +489,131 @@ if (!isUrl) {
 }
 
 // ---------- rendered checks ----------
+let axeReport = null;
+const renderedCoverage = {};
+// In-page contrast helpers, installed once per page. Every visible text node is measured against what is
+// actually behind it: the fills under its centre (elementsFromPoint, so a positioned panel counts) or,
+// off screen, its ancestors' fills, composited until one is opaque. Text over an image, a gradient, a
+// video or a canvas is unmeasured rather than guessed, and colours go through a canvas so oklch, lab,
+// color-mix and alpha all resolve to sRGB bytes.
+function installContrast() {
+  const ctx = document.createElement('canvas').getContext('2d', { willReadFrequently: true });
+  const rgba = (c) => { ctx.clearRect(0, 0, 1, 1); ctx.fillStyle = '#000'; ctx.fillStyle = c; ctx.fillRect(0, 0, 1, 1); return [...ctx.getImageData(0, 0, 1, 1).data]; };
+  const lum = (c) => { const f = (v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }; return 0.2126 * f(c[0]) + 0.7152 * f(c[1]) + 0.0722 * f(c[2]); };
+  const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return Math.round(((x + 0.05) / (y + 0.05)) * 100) / 100; };
+  const over = (top, under) => { const t = top[3] / 255; return [0, 1, 2].map((i) => top[i] * t + under[i] * (1 - t)).concat(255); };
+  const css = (c) => `rgb(${c.slice(0, 3).map(Math.round).join(' ')})`;
+  const media = new Set(['IMG', 'VIDEO', 'CANVAS', 'PICTURE', 'IFRAME', 'SVG', 'OBJECT', 'EMBED']);
+  const say = (el) => `<${el.tagName.toLowerCase()}> “${el.textContent.trim().replace(/\s+/g, ' ').slice(0, 40)}”`;
+  const imagery = (n) => { const s = getComputedStyle(n); return media.has(n.tagName.toUpperCase()) || s.backgroundImage !== 'none' || (s.backdropFilter && s.backdropFilter !== 'none'); };
+  // An unpainted root shows the browser canvas: white, or #121212 under a dark-only colour scheme.
+  const canvasDefault = /^(only\s+)?dark$/.test(getComputedStyle(document.documentElement).colorScheme.trim()) ? [18, 18, 18, 255] : [255, 255, 255, 255];
+  const composite = (fills) => { let out = canvasDefault; for (const fill of fills.reverse()) out = over(fill, out); return out; };
+  // Ancestors only: what sits behind a box when it is off screen (or behind its ring, with self = false).
+  function behind(el, self = true) {
+    const fills = [];
+    for (let n = self ? el : el.parentElement; n; n = n.parentElement) {
+      if (imagery(n)) return null;
+      const c = rgba(getComputedStyle(n).backgroundColor);
+      if (c[3]) { fills.push(c); if (c[3] === 255) break; }
+    }
+    return composite(fills);
+  }
+  // On screen: the paint stack under the text's centre; 'covered' when something unrelated sits on top.
+  function under(el) {
+    const b = el.getBoundingClientRect();
+    const x = b.left + b.width / 2, y = b.top + Math.min(b.height / 2, 12);
+    if (x < 0 || y < 0 || x >= innerWidth || y >= innerHeight) return behind(el);
+    const stack = document.elementsFromPoint(x, y);
+    const related = (n) => n === el || el.contains(n) || n.contains(el);
+    if (!stack.length || !related(stack[0])) return 'covered';
+    const fills = [];
+    for (const n of stack) {
+      if (el.contains(n) && n !== el) continue;
+      if (imagery(n)) return null;
+      const c = rgba(getComputedStyle(n).backgroundColor);
+      if (c[3]) { fills.push(c); if (c[3] === 255) break; }
+    }
+    return composite(fills);
+  }
+  // What a ring is drawn over: the paint stack at a point on the ring, minus the control itself, so a
+  // header floating over a dark hero is judged against the hero, not the page ground under both.
+  function ringGround(el, x, y) {
+    if (x < 0 || y < 0 || x >= innerWidth || y >= innerHeight) return behind(el, false);
+    const fills = [];
+    for (const n of document.elementsFromPoint(x, y)) {
+      if (n === el || el.contains(n)) continue;
+      if (imagery(n)) return null;
+      const c = rgba(getComputedStyle(n).backgroundColor);
+      if (c[3]) { fills.push(c); if (c[3] === 255) break; }
+    }
+    return composite(fills);
+  }
+  // One element's own text: its colour times the opacity it inherits, over what is behind it.
+  function measure(el) {
+    const s = getComputedStyle(el);
+    const b = el.getBoundingClientRect();
+    if (b.width <= 2 || b.height <= 2 || s.visibility !== 'visible' || /transparent|rgba\(.*,\s*0\)$/.test(s.webkitTextFillColor || '') || (s.mixBlendMode && s.mixBlendMode !== 'normal')) return null;
+    let opacity = 1;
+    for (let n = el; n && n !== document.documentElement; n = n.parentElement) {
+      const ns = getComputedStyle(n);
+      opacity *= Number(ns.opacity);
+      if ((ns.clip && ns.clip !== 'auto') || /inset\(50%/.test(ns.clipPath || '') || /blur\(/.test(ns.filter || '')) return null;
+    }
+    // Blurred or ghosted text (under a quarter opacity) is a state, such as a carousel's dimmed neighbours,
+    // not text offered for reading; a stuck entrance is L06's job.
+    if (opacity < 0.25) return null;
+    const back = under(el);
+    if (back === 'covered') return null;
+    if (!back) return { unmeasured: true };
+    const fg = rgba(s.color);
+    const text = over([fg[0], fg[1], fg[2], fg[3] * opacity], back);
+    const size = parseFloat(s.fontSize), weight = Number(s.fontWeight) || 400;
+    const need = size >= 24 || (size >= 18.66 && weight >= 700) ? 3 : 4.5;
+    return { say: say(el), fg: css(text), bg: css(back), ratio: ratio(text, back), need };
+  }
+  function scan(limit = 600) {
+    const seen = new Set();
+    const fails = [];
+    let measured = 0, unmeasured = 0;
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    for (let t = walker.nextNode(); t && seen.size < limit; t = walker.nextNode()) {
+      const el = t.parentElement;
+      if (!t.nodeValue.trim() || !el || seen.has(el)) continue;
+      seen.add(el);
+      if (el.closest('script,style,noscript,template,option,svg,[hidden],[inert],[aria-hidden="true"],[aria-disabled="true"],dialog:not([open]),:disabled')) continue;
+      const m = measure(el);
+      if (!m) continue;
+      if (m.unmeasured) { unmeasured++; continue; }
+      measured++;
+      if (m.ratio < m.need) fails.push(m);
+    }
+    const pairs = new Set();
+    return { measured, unmeasured, fails: fails.sort((p, q) => p.ratio - q.ratio).filter((f) => !pairs.has(f.fg + f.bg) && pairs.add(f.fg + f.bg)) };
+  }
+  // The focused control: its label in the focus state, and its outline against what surrounds it.
+  function focused() {
+    const el = document.activeElement;
+    if (!el || el === document.body || el === document.documentElement) return null;
+    if (el.closest('[aria-disabled="true"]')) return { key: `${el.tagName}|${el.id}|disabled`, say: say(el) };
+    const out = { key: `${el.tagName}|${el.id}|${el.getAttribute('href') ?? ''}|${el.textContent.trim().slice(0, 30)}`, say: say(el) };
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    for (let t = walker.nextNode(); t; t = walker.nextNode()) {
+      if (t.nodeValue.trim() && t.parentElement) { out.text = measure(t.parentElement); break; }
+    }
+    const s = getComputedStyle(el);
+    if (s.outlineStyle !== 'none' && parseFloat(s.outlineWidth) > 0) {
+      const ring = rgba(s.outlineColor);
+      const offset = parseFloat(s.outlineOffset) || 0, width = parseFloat(s.outlineWidth);
+      const b = el.getBoundingClientRect();
+      const around = offset < 0 ? behind(el) : ringGround(el, b.left - offset - width / 2, b.top + b.height / 2);
+      if (around && ring[3]) out.ring = { color: css(ring), bg: css(around), ratio: ratio(over(ring, around), around) };
+    }
+    return out;
+  }
+  window.__awardsContrast = { scan, focused };
+}
+
 if (args.render) {
   const { resolvePlaywright, launchChromium, MISSING_MESSAGE } = await import('./lib/playwright.mjs');
   const { serveDirectory } = await import('./lib/server.mjs');
@@ -487,6 +634,17 @@ if (args.render) {
     const designMd = [projectDir, targetDir].filter(Boolean).map((d) => path.join(d, 'DESIGN.md')).find((p) => fs.existsSync(p));
     const colorsBlock = designMd && fs.readFileSync(designMd, 'utf8').split(/^---\s*$/m)[1]?.match(/^colors:\s*\n((?:[ \t]+.*\n?)*)/m)?.[1];
     const groundToken = colorsBlock?.match(/^[ \t]+(?:ground|background|bg)[ \t]*:[ \t]*["']?([^"'\n]+?)["']?[ \t]*$/m)?.[1] ?? null;
+    // axe-core runs when the project (or the plugin's recipes) installs it; otherwise the scan is unmeasured.
+    const axe = (() => {
+      for (const base of [projectDir, process.env.AWARDS_PLAYWRIGHT, path.join(here, '..', 'recipes')].filter(Boolean)) {
+        try {
+          const file = createRequire(path.join(base, 'package.json')).resolve('axe-core/axe.min.js');
+          return { file, version: JSON.parse(fs.readFileSync(path.join(path.dirname(file), 'package.json'), 'utf8')).version };
+        } catch {}
+      }
+      return null;
+    })();
+    axeReport = axe ? `axe-core ${axe.version}` : 'unmeasured: axe-core not installed (npm i -D axe-core)';
     const browser = await launchChromium(found.module);
     try {
       for (const [label, width] of [['desktop', 1440], ['mobile', 390]]) {
@@ -497,11 +655,15 @@ if (args.render) {
         // Give entrances a fair chance: the page's own ready signal (capped), then two seconds.
         await page.evaluate(() => Promise.race([window.__awards?.ready, new Promise((res) => setTimeout(res, 8000))])).catch(() => {});
         await page.waitForTimeout(2000);
+        await page.evaluate(installContrast).catch(() => {});
+        const contrast = await page.evaluate(() => window.__awardsContrast.scan()).catch(() => null);
         const r = await page.evaluate((groundToken) => {
           const cs = getComputedStyle(document.body);
           const fams = new Set();
           for (const el of document.querySelectorAll('h1,h2,h3,p,a,button,li,span')) fams.add(getComputedStyle(el).fontFamily.split(',')[0].replace(/["']/g, '').trim());
-          const tucked = (el) => el.closest('[hidden],[inert],[aria-hidden="true"],dialog:not([open]),template');
+          // Hidden, inert, or clipped to nothing (a screen-reader-only copy): not text anyone sees.
+          const clipped = (el) => { for (let n = el; n && n !== document.body; n = n.parentElement) { const s = getComputedStyle(n); if ((s.clip && s.clip !== 'auto') || /inset\(50%/.test(s.clipPath || '')) return true; } return false; };
+          const tucked = (el) => el.closest('[hidden],[inert],[aria-hidden="true"],dialog:not([open]),template') || clipped(el);
           const say = (el) => `<${el.tagName.toLowerCase()}> “${el.textContent.trim().replace(/\s+/g, ' ').slice(0, 40)}”`;
           const px = (el) => parseFloat(getComputedStyle(el).fontSize);
           const stuck = [], long = [], edge = [], nested = [];
@@ -552,8 +714,8 @@ if (args.render) {
         }, groundToken).catch(() => null);
         if (r) {
           const where = `${label} (rendered)`;
-          const ratio = contrastRatio(r.bg, r.fg);
-          if (ratio !== null && ratio < 4.5) add('C01', where, null, `${r.fg} on ${r.bg} = ${ratio}:1`);
+          renderedCoverage[label] = { textsMeasured: contrast?.measured ?? 'unmeasured', textsOverImagery: contrast?.unmeasured ?? 0 };
+          for (const f of contrast?.fails.slice(0, 4) ?? []) add('C01', where, null, `${f.say} ${f.fg} on ${f.bg} = ${f.ratio}:1, needs ${f.need}:1`);
           if (r.overflow) add('L02', where, null, 'horizontal overflow');
           for (const f of r.families) if (reflex.has(f.toLowerCase())) add('T01', where, null, f);
           for (const s of r.stuck.slice(0, 3)) add('L06', where, null, s);
@@ -562,6 +724,58 @@ if (args.render) {
           if (label === 'desktop' && r.ratioH1 !== null && r.ratioH1 < 1.5) add('T08', where, null, `h1 is ${r.ratioH1.toFixed(2)}× the body size`);
           for (const s of r.nested.slice(0, 3)) add('X20', where, null, s);
           if (label === 'desktop') for (const s of r.grounds) add('C05', where, null, s);
+        }
+        // Target size, phone: controls under 24 × 24 px whose 24 px circle meets another target's (WCAG 2.2,
+        // 2.5.8). Links inside running text are exempt, as the criterion allows.
+        if (label === 'mobile') {
+          const small = await page.evaluate(() => {
+            const all = [...document.querySelectorAll('a[href],button,input:not([type="hidden"]),select,textarea,summary,[role="button"],[tabindex="0"]')].filter((el) => {
+              if (el.closest('[hidden],[inert],[aria-hidden="true"],dialog:not([open])')) return false;
+              const b = el.getBoundingClientRect(), s = getComputedStyle(el);
+              return b.width > 2 && b.height > 2 && s.visibility === 'visible' && Number(s.opacity) > 0;
+            });
+            const centre = (el) => { const b = el.getBoundingClientRect(); return [b.left + b.width / 2, b.top + b.height / 2]; };
+            const out = [];
+            for (const el of all) {
+              const b = el.getBoundingClientRect();
+              if (b.width >= 24 && b.height >= 24) continue;
+              const block = el.parentElement?.closest('p,li,dd,td,figcaption,blockquote');
+              if (el.tagName === 'A' && block && block.textContent.trim().length > el.textContent.trim().length + 10) continue;
+              const [x, y] = centre(el);
+              if (!all.some((o) => o !== el && Math.hypot(centre(o)[0] - x, centre(o)[1] - y) < 24)) continue;
+              out.push(`<${el.tagName.toLowerCase()}> “${(el.textContent.trim() || el.getAttribute('aria-label') || '').slice(0, 30)}” ${Math.round(b.width)}×${Math.round(b.height)} px`);
+            }
+            return out;
+          }).catch(() => []);
+          for (const s of small.slice(0, 3)) add('A14', `${label} (rendered)`, null, s);
+        }
+        if (label === 'desktop' && axe) {
+          await page.addScriptTag({ path: axe.file }).catch(() => {});
+          const found = await page.evaluate(async () => {
+            if (!window.axe) return null;
+            // Contrast and target size are measured by C01, A12 and A14 above; axe covers the rest of WCAG 2.2 A/AA.
+            const run = await window.axe.run(document, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'] }, rules: { 'color-contrast': { enabled: false }, 'target-size': { enabled: false } }, resultTypes: ['violations'] });
+            return run.violations.map((v) => ({ id: v.id, impact: v.impact, help: v.help, n: v.nodes.length, target: v.nodes[0]?.target?.join(' ') ?? '' }));
+          }).catch(() => null);
+          for (const v of found?.slice(0, 6) ?? []) add('A16', `${label} (rendered)`, null, `${v.id} (${v.impact}, ${v.n}×): ${v.help} — ${v.target}`, /critical|serious/.test(v.impact ?? '') ? 'P1' : 'P2');
+        }
+        // Keyboard focus, desktop: Tab through the first controls and measure each in its focus state, where
+        // a label can lose its contrast against the focus fill and a ring can vanish into the ground.
+        if (label === 'desktop' && contrast) {
+          const visited = new Set();
+          const labels = [], rings = [];
+          for (let i = 0; i < 12; i++) {
+            await page.keyboard.press('Tab');
+            await page.waitForTimeout(200);
+            const f = await page.evaluate(() => window.__awardsContrast.focused()).catch(() => null);
+            if (!f || visited.has(f.key)) break;
+            visited.add(f.key);
+            if (f.text && !f.text.unmeasured && f.text.ratio < f.text.need) labels.push(`${f.say} focused: ${f.text.fg} on ${f.text.bg} = ${f.text.ratio}:1, needs ${f.text.need}:1`);
+            if (f.ring && f.ring.ratio < 3) rings.push(`${f.say} ring ${f.ring.color} on ${f.ring.bg} = ${f.ring.ratio}:1`);
+          }
+          if (renderedCoverage[label]) renderedCoverage[label].focusStops = visited.size;
+          for (const s of labels.slice(0, 4)) add('C01', `${label} (rendered, focus)`, null, s);
+          for (const s of rings.slice(0, 4)) add('A12', `${label} (rendered, focus)`, null, s);
         }
         for (const e of errors) findings.push({ rule: 'ERR', severity: 'P1', scope: 'render', file: label, line: null, message: `page error: ${e.slice(0, 120)}`, fix: 'Fix runtime errors before review' });
         await page.close();
@@ -586,7 +800,7 @@ const order = { P0: 0, P1: 1, P2: 2, P3: 3 };
 final.sort((a, b) => order[a.severity] - order[b.severity] || a.rule.localeCompare(b.rule));
 const summary = { P0: 0, P1: 0, P2: 0, P3: 0 };
 for (const f of final) summary[f.severity]++;
-const result = { target: String(target), scannedFiles: sources.length, at: now(), summary, exceptions: [...exceptions], findings: final.map((f) => ({ ...f, file: rel(f.file) })) };
+const result = { target: String(target), scannedFiles: sources.length, at: now(), summary, exceptions: [...exceptions], ...(axeReport ? { axe: axeReport, rendered: renderedCoverage } : {}), findings: final.map((f) => ({ ...f, file: rel(f.file) })) };
 
 if (args.quick) {
   const material = final.filter((f) => f.severity === 'P0' || f.severity === 'P1' || f.severity === 'P2').slice(0, 8);
@@ -611,4 +825,5 @@ if (args.json) {
   if (final.length) console.log(fmtTable(final.map((f) => [f.severity, f.rule, `${rel(f.file)}${f.line ? ':' + f.line : ''}`, f.message]), ['sev', 'rule', 'where', 'finding']));
   else console.log('clean');
 }
-process.exit(summary.P0 + summary.P1 > 0 ? 2 : 0);
+// exitCode, not exit(): a piped stdout drains asynchronously, and exit() cut a large --json report at 64 KB.
+process.exitCode = summary.P0 + summary.P1 > 0 ? 2 : 0;

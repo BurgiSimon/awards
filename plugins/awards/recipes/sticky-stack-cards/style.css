@@ -10,4 +10,6 @@
 .card:nth-child(4) { background: var(--accent); color: var(--ground); }
 .card h2 { font-family: var(--font-display); font-size: clamp(2.5rem, 7vw, 7rem); line-height: .95; letter-spacing: -.03em; margin: .2em 0 .3em; }
 .card p { max-width: 50ch; }
+/* The number takes each card's own ink: the page's muted label colour fails on the darker cards and the accent. */
+.card .label { color: inherit; }
 html[data-motion-tier="reduced"] .card { transform: none !important; opacity: 1 !important; }
