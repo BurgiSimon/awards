@@ -947,28 +947,31 @@ if (args.render) {
           if (label === 'desktop') for (const s of r.grounds) add('C05', where, null, s);
         }
         // Target size, phone: controls under 24 × 24 px whose 24 px circle meets another target's (WCAG 2.2,
-        // 2.5.8). Links inside running text are exempt, as the criterion allows.
+        // 2.5.8), A14; and any other control under 44 × 44 px, the floor the jury's usability walk holds (A18).
+        // Links inside running text are exempt from both, as the criterion allows.
         if (label === 'mobile') {
-          const small = await step('target size', () => page.evaluate(() => {
+          const targets = await step('target size', () => page.evaluate(() => {
             const all = [...document.querySelectorAll('a[href],button,input:not([type="hidden"]),select,textarea,summary,[role="button"],[tabindex="0"]')].filter((el) => {
               if (el.closest('[hidden],[inert],[aria-hidden="true"],dialog:not([open])')) return false;
               const b = el.getBoundingClientRect(), s = getComputedStyle(el);
               return b.width > 2 && b.height > 2 && s.visibility === 'visible' && Number(s.opacity) > 0;
             });
             const centre = (el) => { const b = el.getBoundingClientRect(); return [b.left + b.width / 2, b.top + b.height / 2]; };
-            const out = [];
+            const out = { small: [], under44: [] };
             for (const el of all) {
               const b = el.getBoundingClientRect();
-              if (b.width >= 24 && b.height >= 24) continue;
+              if ((b.width >= 44 && b.height >= 44) || b.right <= 0 || b.left >= innerWidth) continue;
               const block = el.parentElement?.closest('p,li,dd,td,figcaption,blockquote');
               if (el.tagName === 'A' && block && block.textContent.trim().length > el.textContent.trim().length + 10) continue;
+              const name = `<${el.tagName.toLowerCase()}> “${(el.textContent.trim() || el.getAttribute('aria-label') || '').slice(0, 30)}” ${Math.round(b.width)}×${Math.round(b.height)} px`;
               const [x, y] = centre(el);
-              if (!all.some((o) => o !== el && Math.hypot(centre(o)[0] - x, centre(o)[1] - y) < 24)) continue;
-              out.push(`<${el.tagName.toLowerCase()}> “${(el.textContent.trim() || el.getAttribute('aria-label') || '').slice(0, 30)}” ${Math.round(b.width)}×${Math.round(b.height)} px`);
+              if ((b.width < 24 || b.height < 24) && all.some((o) => o !== el && Math.hypot(centre(o)[0] - x, centre(o)[1] - y) < 24)) out.small.push(name);
+              else out.under44.push(name);
             }
             return out;
           }));
-          for (const s of small?.slice(0, 3) ?? []) add('A14', `${label} (rendered)`, null, s);
+          for (const s of targets?.small.slice(0, 3) ?? []) add('A14', `${label} (rendered)`, null, s);
+          if (targets?.under44.length) add('A18', `${label} (rendered)`, null, `${targets.under44.length} control(s), e.g. ${targets.under44.slice(0, 3).join(', ')}`);
         }
         if (label === 'desktop' && axe) {
           await step('axe-core load', () => page.addScriptTag({ path: axe.file }));

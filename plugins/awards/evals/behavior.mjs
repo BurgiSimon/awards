@@ -300,6 +300,8 @@ body { margin: 0; font: 16px/1.5 sans-serif; } .dots button { width: 14px; heigh
   assert.deepEqual(['S07', 'S08', 'S09', 'S10', 'A13', 'A15'].filter((id) => fine.has(id)), [], 'a complete head and a skip link stay quiet');
   const rendered = await report(dir, ['--render']);
   assert.ok(rendered.findings.some((f) => f.rule === 'A14' && /Slide/.test(f.message)), 'two 14 px dots side by side are A14');
+  const a18 = rendered.findings.find((f) => f.rule === 'A18');
+  assert.ok(a18 && /Home/.test(a18.message) && !/Slide/.test(a18.message), 'a nav link one line tall is A18; what A14 reports is not counted twice');
   assert.match(rendered.axe ?? '', /^axe-core \d/, 'axe-core resolves from the plugin recipes');
   assert.ok(rendered.findings.some((f) => f.rule === 'A16' && /button-name/.test(f.message) && f.severity === 'P1'), 'an unnamed button is a critical axe finding');
 });

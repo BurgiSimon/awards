@@ -27,7 +27,7 @@ Why a floor exists: every Site of the Day in the corpus also carries a published
 - Landmarks with one `<main>`, one `<h1>`, an unbroken heading order, `lang` on `<html>`, a viewport meta [A01, A03, A09, L03].
 - Every image has alt text, dimensions and a loading hint; autoplay video is muted with `playsinline` and a poster [A02, P01, A10].
 - Every canvas is `aria-hidden` with its text and images mirrored in the DOM, or carries an accessible name [A04].
-- Real controls: buttons and links, never click handlers on `div`/`span` [A05]; visible `:focus-visible` styles, never `outline: none` without a replacement [A06, A07]; a skip link first in the tab order wherever there is navigation [A13]; targets at least 24 × 24 px on a phone, 44 px for primary actions [A14 with `--render`].
+- Real controls: buttons and links, never click handlers on `div`/`span` [A05]; visible `:focus-visible` styles, never `outline: none` without a replacement [A06, A07]; a skip link first in the tab order wherever there is navigation [A13]; targets at least 24 × 24 px on a phone [A14 with `--render`], and 44 × 44 px for every control outside running text, the size the jury walks [A18 with `--render`].
 - No axe-core WCAG 2.2 A/AA violations; the rendered audit runs axe when the project installs `axe-core` [A16 with `--render`].
 - Pinch zoom stays on: no `user-scalable=no` and no `maximum-scale` under 2 in the viewport meta; a gesture the page needs is scoped with `touch-action` on its element [A17].
 - Every pointer-only gesture (drag, hold, draw) has a keyboard handler; the custom cursor is off on coarse pointers [A08, A11].

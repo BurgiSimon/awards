@@ -15,7 +15,7 @@
 
 ## Brief
 - **Subject:** `awards`, a Claude Code and Codex plugin (MIT, BurgiSimon; the version is read from its manifest at build time) that designs, builds, audits and judges websites against a corpus of analysed award winners. This site is its public page, self-hosted as static files. It replaces the earlier public page in `site/` (the wind-tunnel build), which is this redesign's baseline.
-- **Unique mechanism (what only this subject can prove):** a website held to a written contract and tested before anyone sees it, by the same loop that built this page: 88 audit rules in 8 families run after every edit, headless captures at three widths, and a juror in a fresh context who scores Design 40 · Usability 30 · Creativity 20 · Content 10 and ends on one word (`ship`, `fix`, `rebuild`, `recapture`). The taste is cited, not claimed: 62 analysed award sites (55 with measured composition skeletons) and 89 recipe entries verified in headless Chromium. The scores this page received are printed on it, unedited.
+- **Unique mechanism (what only this subject can prove):** a website held to a written contract and tested before anyone sees it, by the same loop that built this page: 89 audit rules in 8 families run after every edit, headless captures at three widths, and a juror in a fresh context who scores Design 40 · Usability 30 · Creativity 20 · Content 10 and ends on one word (`ship`, `fix`, `rebuild`, `recapture`). The taste is cited, not claimed: 62 analysed award sites (55 with measured composition skeletons) and 89 recipe entries verified in headless Chromium. The scores this page received are printed on it, unedited.
 - **Audience and their real scene:** developers and design engineers who already run Claude Code or Codex; they arrive from a repository link or a post, on a laptop with a terminal open beside the browser, with about thirty seconds before deciding to install or close the tab. A second visit is a lookup: a rule id, a recipe, a command.
 - **Stakes and conversion (what a visitor should do, matched to the price of the decision):** free, two commands, reversible: copy the install commands (Claude Code and Codex) and paste them. Secondary: browse the recipes, read the docs.
 - **Assets on hand:** no photographs, video or 3D. Owned: frames of the plugin's own 89 recipes rendered in headless Chromium (MIT, produced by `verify-recipes` and `capture.mjs`), this build's own captures, audit JSON and jury report, and the recipe, rule and card metadata. Copy is authored from the plugin's own files; every count is read from the repository at build time. Anything drawn for the build (diagrams, marks) is labelled synthetic. No screenshots of third-party sites: the corpus captures are other people's work, evidence and never published.
@@ -52,6 +52,7 @@
 
 ## Jury log
 <!-- appended by awards:jury — date · disposition · D/U/C/Co · dev sub-scores · top fixes; component passes are marked `component` and a redesign's first score `baseline`; neither counts as a page round -->
+- 2026-10-22 · baseline · fix · D 7.5 / U 7.0 / C 8.0 / Co 7.4 → 7.44 · .awards/jury/2026-10-22-baseline.md (the old site, page mode on its pre-jury captures)
 
 ## Ship log
 <!-- appended by awards:ship — date · audit summary · captures · performance numbers -->
