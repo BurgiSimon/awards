@@ -1,0 +1,67 @@
+@import '../_shared/base.css';
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe after. */
+
+:root {
+  --clay: #c97164;
+  --moss: #619785;
+  --pic-w: clamp(80px, 7vw, 120px);
+}
+
+/* The page's own gutters and hidden-text rule, with fallbacks, so the page holds together even where base.css is not
+   served (an unbundled preview of this folder). */
+.topbar, .hero, .rules, .footer { padding-inline: var(--gutter, clamp(20px, 4.1667vw, 120px)); }
+.sr-only:not(:focus) { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.skip-link:focus { position: fixed; inset: var(--unit) auto auto var(--unit); width: auto; height: auto; margin: 0; clip: auto; padding: calc(var(--unit) * 2) calc(var(--unit) * 3); background: var(--ink); color: var(--ground); z-index: 10; }
+
+.topbar { display: flex; justify-content: space-between; align-items: center; gap: calc(var(--unit) * 4); padding-block: calc(var(--unit) * 4); }
+.topbar > * { margin: 0; }
+.topbar a { display: inline-block; padding-block: 4px; white-space: nowrap; }
+
+/* The hero: copy at the foot, open ground above it where the trail plays. */
+.hero { position: relative; min-height: calc(100svh - 3.75rem); display: flex; flex-direction: column; justify-content: flex-end; padding-block: clamp(24px, 4vw, 64px) clamp(32px, 5vw, 72px); overflow: clip; }
+.hero__copy { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 32ch); gap: calc(var(--unit) * 6) clamp(32px, 5vw, 96px); align-items: end; }
+.hero__title { margin: 0; max-width: 11ch; font-family: var(--font-display); font-weight: 500; font-size: clamp(3rem, 8vw, 8.5rem); line-height: .92; letter-spacing: -.035em; }
+.hero__aside { display: grid; gap: calc(var(--unit) * 5); justify-items: start; }
+.hero__lede { margin: 0; max-width: 32ch; }
+.hero__cta { display: inline-flex; align-items: center; min-height: 44px; padding: 0 calc(var(--unit) * 5); border: 1px solid var(--ink); border-radius: 999px; color: var(--ink); text-decoration: none; transition: background-color var(--dur-feedback) ease-out, color var(--dur-feedback) ease-out; }
+.hero__cta:hover, .hero__cta:focus-visible { background: var(--ink); color: var(--ground); }
+
+/* Pictures: drawn in CSS from the tokens, so no image file ships. Swap for <img alt=""> or a background-image. */
+.pic { display: block; width: var(--pic-w); aspect-ratio: 4 / 5; border-radius: 4px; background: var(--ink); }
+.pic[data-art="0"] { background: radial-gradient(circle at 64% 34%, var(--ground) 0 12%, transparent 12.5%), linear-gradient(to bottom, var(--clay) 0 58%, var(--ink) 58%); }
+.pic[data-art="1"] { background: radial-gradient(ellipse 42% 32% at 50% 100%, var(--ground) 0 98%, transparent 100%), var(--accent); }
+.pic[data-art="2"] { background: repeating-linear-gradient(90deg, var(--ink) 0 16%, var(--line) 16% 32%); }
+.pic[data-art="3"] { background: radial-gradient(circle at 30% 70%, var(--ground) 0 10%, transparent 10.5%), var(--moss); }
+.pic[data-art="4"] { background: linear-gradient(135deg, var(--ink) 0 50%, var(--clay) 50%); }
+.pic[data-art="5"] { background: radial-gradient(circle, transparent 0 24%, var(--ground) 24.5% 33%, transparent 33.5%), var(--accent); }
+
+/* The trail layer sits over the hero, under nothing the visitor clicks: pointer-events none, inert, aria-hidden.
+   Items are placed by transform only; main.js writes translate, rotate, scale and opacity. */
+.trail { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.trail__item { position: absolute; left: 0; top: 0; visibility: hidden; opacity: 0; will-change: transform, opacity; }
+
+/* Stills: the rest frame. While a trail is alive they fade out quickly; once it has gone they return after a beat. */
+.stills { position: absolute; inset: 0; pointer-events: none; transition: opacity var(--dur-routine) ease-out .4s; }
+.hero.is-trailing .stills { opacity: 0; transition-duration: var(--dur-feedback); transition-delay: 0s; }
+/* Reduced and static tiers have no trail, so the stills never step aside: no fade to run. */
+@media (prefers-reduced-motion: reduce) { .stills { transition: none; } }
+html[data-motion="reduced"] .stills, html[data-motion="static"] .stills { transition: none; }
+.still { position: absolute; }
+.still--a { left: 52%; top: 10%; rotate: -5deg; }
+.still--b { left: 68%; top: 24%; rotate: 4deg; }
+.still--c { left: 83%; top: 7%; rotate: -2deg; }
+
+.rules { min-height: 100svh; padding-block: calc(var(--unit) * 24); border-top: 1px solid var(--line); }
+.rules__title { margin: 0 0 calc(var(--unit) * 8); max-width: 22ch; font-family: var(--font-display); font-weight: 500; font-size: clamp(1.75rem, 3.4vw, 3rem); line-height: 1.02; letter-spacing: -.02em; }
+.rules__list { margin: 0; padding-left: 1.4em; max-width: 64ch; display: grid; gap: calc(var(--unit) * 4); }
+.footer { padding-block: calc(var(--unit) * 8); border-top: 1px solid var(--line); }
+.footer .label { margin: 0; }
+
+@media (max-width: 760px) {
+  .hero__copy { grid-template-columns: minmax(0, 1fr); }
+  /* On a phone the stills join the flow above the copy, so they can never sit on it, centred in the open ground. */
+  .stills { position: static; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: calc(var(--unit) * 3); align-items: start; margin-block: auto; padding-block: calc(var(--unit) * 6); }
+  .still { position: static; width: 100%; }
+  .still--b { margin-top: 2.5rem; }
+  .still--c { margin-top: 1rem; }
+}

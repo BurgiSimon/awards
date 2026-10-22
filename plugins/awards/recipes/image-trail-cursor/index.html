@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>image-trail-cursor — awards recipe</title>
+  <meta name="description" content="A pooled trail of small pictures behind a fine pointer in one hero, spaced by distance, sized by speed, kept off the copy.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ image-trail-cursor</p></header>
+  <main id="main">
+    <section class="hero" data-trail-hero aria-labelledby="hero-title">
+      <!-- Three pictures placed by the design: the hero's rest frame. They step aside while a trail is alive and are all
+           that touch screens, reduced motion, the static tier and a page without JS ever show. -->
+      <div class="stills" data-stills aria-hidden="true">
+        <span class="pic still still--a" data-art="0"></span>
+        <span class="pic still still--b" data-art="3"></span>
+        <span class="pic still still--c" data-art="4"></span>
+      </div>
+      <div class="hero__copy">
+        <h1 class="hero__title" id="hero-title" data-trail-protect>Leave a trail of pictures.</h1>
+        <div class="hero__aside" data-trail-protect>
+          <p class="hero__lede">Move a mouse across this hero. A small picture lands every 80 pixels of travel, grows in, then fades in the order it came. Faster hands leave larger, tilted pictures. None of them ever covers this text.</p>
+          <a class="hero__cta" href="#rules">Read the five rules</a>
+        </div>
+      </div>
+      <!-- The trail: a fixed pool of twelve pictures, reused oldest first. Decoration only: hidden from assistive
+           technology, inert, and never under the pointer (pointer-events: none). -->
+      <div class="trail" data-trail aria-hidden="true" inert>
+        <span class="pic trail__item" data-trail-item></span>
+        <span class="pic trail__item" data-trail-item></span>
+        <span class="pic trail__item" data-trail-item></span>
+        <span class="pic trail__item" data-trail-item></span>
+        <span class="pic trail__item" data-trail-item></span>
+        <span class="pic trail__item" data-trail-item></span>
+        <span class="pic trail__item" data-trail-item></span>
+        <span class="pic trail__item" data-trail-item></span>
+        <span class="pic trail__item" data-trail-item></span>
+        <span class="pic trail__item" data-trail-item></span>
+        <span class="pic trail__item" data-trail-item></span>
+        <span class="pic trail__item" data-trail-item></span>
+      </div>
+    </section>
+    <section class="rules" id="rules" aria-labelledby="rules-title">
+      <h2 class="rules__title" id="rules-title">Five rules for a trail that stays polite</h2>
+      <ol class="rules__list">
+        <li>Spacing is distance, not time: a picture every 80 px along the pointer's path, so a slow hand and a fast one leave the same density.</li>
+        <li>Twelve pictures exist, ever. The thirteenth reuses the oldest; nothing is created while the pointer moves.</li>
+        <li>Speed sets size (0.8× to 1.25×) and tilt (up to 10°), inside a clamp, so a flick reads as a flick without growing past the layout.</li>
+        <li>The heading and the copy beside it are protected areas: a picture that would touch them is skipped.</li>
+        <li>Touch screens and reduced motion get three still pictures placed by the design. The trail stops when the hero leaves the screen.</li>
+      </ol>
+    </section>
+  </main>
+  <footer class="footer"><p class="label">awards · recipe · MIT · pictures are drawn in CSS; the copy is a synthetic demo</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

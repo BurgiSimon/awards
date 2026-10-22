@@ -1,0 +1,26 @@
+{
+  "id": "image-trail-cursor",
+  "title": "Pooled image trail behind a fine pointer",
+  "intent": "Image trail",
+  "group": "arrival-and-chrome",
+  "summary": "A fixed pool of `12` CSS-drawn pictures recycled oldest-first behind a fine pointer inside one hero: one lands every `80 px` of path travel (marks interpolated along each pointer segment, at most `4` per event, so density is the same at any speed), scales in from `.6` over `.32 s` expo-out, holds `.5 s`, and fades over `.45 s` in arrival order at least `60 ms` apart; smoothed speed (`τ 50 ms`) sets size `.8–1.25×` (saturating at `2 px/ms`) and tilt `±8°`, plus a cycled `±3°` sway; a picture whose box would touch the heading's text box or the copy beside it (padded `12 px`) is skipped; transform and opacity only on the shared ticker, which leaves when nothing is alive; the layer is `aria-hidden`, `inert` and `pointer-events: none`; off when the hero leaves the screen, on coarse pointers and under reduced motion or static, where three still pictures placed by the design take its place",
+  "tags": [
+    "pointer",
+    "cursor",
+    "velocity",
+    "stagger",
+    "images",
+    "hero",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [],
+  "variants": [
+    "CSS-drawn pictures over the hero, kept off the heading and copy (this, default)",
+    "Real images: twelve <img alt=\"\"> or background-images decoded up front, cycled by data-art; the pool and the timings unchanged",
+    "Behind the copy: z-index under the text and no protected areas, for a quieter ground layer"
+  ],
+  "seenIn": [
+    "mensch"
+  ]
+}
