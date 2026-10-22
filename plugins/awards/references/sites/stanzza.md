@@ -3,6 +3,7 @@
 | Field | Value |
 |---|---|
 | Class | studio (architecture + interior design practice, Spain; residential and hospitality interiors, enquiry-led) [verified, index.html + captures] |
+| Industry | architecture |
 | Visitor mode | persuade [verified, captures: a persistent call CTA in every desktop frame] |
 | Awards | none read; the route is named `/awards`, which suggests a page built for a submission [inferred]; any entry, date or score [unknown] |
 | Corpus rating | D 7.2 / U 6.4 / C 6.7 / Co 7.0 → weighted 6.84, 2026-10-05 [inferred, from captures against references/jury/rubric.md]; official scores: none read |
@@ -13,6 +14,11 @@
 | WebGL dosage | none — 0 canvases in all three contexts [verified, manifest.json]; motion is DOM + 11 MP4/WebM loops [verified, index.html] |
 | Scroll model | native + Lenis (lerp .1, own rAF, not wired to ScrollTrigger) [verified, index.html inline]; CSS sticky stages (11 `position:sticky` rules) with scrubbed horizontal counter-translation [verified, site.css + IX3 JSON] |
 | Narrative model | specification (preloader → poem-line hero → numbered service promises → three disciplines as stages → projects slider → figures → contact close) [verified, captures + index.html headings] |
+| Palette strategy | bone ground #f4f3eb + charcoal ink #1e1e1e, one navy gradient chapter (#030b24 → #2c3c66) as the only saturated field |
+| Type contract | narrow serif display + condensed grotesque body + one handwritten script line (Instrument Serif + Helioscond + Katherine Plus) |
+| Awards / score | none read; route named /awards, entry [unknown] |
+| Confidence | medium-high (live + source read, entry not read) |
+| Last verified | 2026-10-05 |
 
 ## 1. Concept and narrative
 The studio's name is read as a stanza, and the hero line defines it as a group of lines forming one unit [verified, index.html h1, fragment]. The idea is that a home is composed, so the page sells **control and calm**, not spectacle. The four promises are about accountability, process, visible costs and site quality, which is a delivery pitch in a luxury register [verified, index.html h3s].

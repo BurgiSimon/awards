@@ -37,7 +37,7 @@ The corpus holds a Site of the Day with no canvas at all and one with nothing bu
 | Rung | Meaning | Cards | What it costs |
 |---|---|---|---|
 | 100 % canvas | the DOM is a shell; layout is camera framing | `[site:igloo]` `[site:why-zero]` | a full DOM mirror, a virtual scroll with keys, the whole pipeline; the 6.6 accessibility score lives here |
-| Canvas-first | one canvas behind or over DOM content: tethered planes, a hero object, a scene per section | `[site:leo-parpeix]` `[site:oryzo]` `[site:lando-norris]` `[site:mont-fort]` `[site:floema-jewelry]` `[site:shopify-editions-w26]` | a lazy chunk, tiers, disposal, a mirror; text stays in the DOM |
+| Canvas-first | one canvas behind or over DOM content: tethered planes, a hero object, a scene per section | `[site:leo-parpeix]` `[site:oryzo]` `[site:lando-norris]` `[site:mont-fort]` `[clone:floema-jewelry]` `[site:shopify-editions-w26]` | a lazy chunk, tiers, disposal, a mirror; text stays in the DOM |
 | Moments | flat planes or one demo inside a DOM-first page | `[site:trevor-noah]` `[site:the-line]` `[site:son-daven]` | one material behaviour, one recipe, one fallback still |
 | None | 3D by pre-render, vector runtime or photography | `[site:seasats]` `[site:white-desert]` `[site:mindmarket]` | a frame sequence or a poster; zero runtime GL risk |
 
@@ -83,7 +83,7 @@ When the DOM owns layout, semantics, responsiveness and CMS content survive, and
 Native scrolling and `requestAnimationFrame` do not share a clock, so a fixed canvas whose planes are placed from the scroll value can lag the DOM by a frame and the planes swim against their placeholders `[pattern:webgl-architecture#canvas-positioning]`.
 
 - Absolute canvas, re-offset every frame: `position: absolute` and `translate3d(0, scrollY, 0)` in the ticker, with ≈ 25 % vertical over-render against a fast scroll — Lusion's published `WebGL-Scroll-Sync` technique, though `[site:oryzo]` itself ships a fixed canvas tethered by DOM rects [verified, live source 2026-09-18] (`[recipe:gl-dom-tethered-planes]`).
-- Or a fixed canvas plus a scroll uniform, where every plane offsets itself by the same smoothed value the DOM moved with `[site:floema-jewelry]`.
+- Or a fixed canvas plus a scroll uniform, where every plane offsets itself by the same smoothed value the DOM moved with `[clone:floema-jewelry]`.
 - Choose one, write it into the contract, and never scroll-jack to cure drift: fix the clock.
 - One canvas per page, created in the layout; scenes mount into it and dispose. Two contexts cannot share resources and the second one is the one that gets lost.
 
@@ -132,7 +132,7 @@ Every parameter below is published or reconstructed from one card and lives, wit
 
 | Effect | Recipe | Architecture to take | What you design |
 |---|---|---|---|
-| Velocity bulge on planes | `gl-dom-tethered-planes` | vertex-stage displacement scaled by a damped scroll speed; a trivial fragment stage | the displacement shape, the strength, the rest state `[site:floema-jewelry]` |
+| Velocity bulge on planes | `gl-dom-tethered-planes` | vertex-stage displacement scaled by a damped scroll speed; a trivial fragment stage | the displacement shape, the strength, the rest state `[clone:floema-jewelry]` |
 | Global fluid wake | `gl-fluid-wake-post` | a 128² ping-pong velocity field, advection only, dissipation ≈ .96; one post pass reading it as UV distortion plus chromatic aberration | the splat radius and force, the distortion magnitude, what the wake touches `[site:leo-parpeix]` |
 | Depth-map parallax | `gl-depth-map-parallax` | image plus greyscale depth, parallax occlusion with a forward pass and a refinement pass | the offset range, the pointer and scroll mix `[site:shopify-editions-w26]` |
 | Section transition | `gl-rtt-composite-transition` | each section to a render target; a fullscreen plane's fragment blends them | the blend (wipe, warp, dissolve), the duration on the in-out curve `[site:slosh-seltzer]` |
@@ -155,7 +155,7 @@ Every parameter below is published or reconstructed from one card and lives, wit
 | A logo as an extruded chrome object, no mesh | `gl-sdf-extruded-symbol` | a raymarched 2D SDF with bevel, a static SVG fallback | the mark and the light `[site:cyphercapital]` |
 | Heavy drawing off the main thread | `offscreen-canvas-worker` | `OffscreenCanvas` in a worker with a timed main-thread fallback | what moves off the thread |
 
-Library choice: Three by default; OGL for a planes-only page where the smaller bundle matters `[site:floema-jewelry]`; R3F only inside a React app with a component-shaped scene (`<Canvas dpr={[1, 2]} frameloop="always" flat gl={{ antialias: false, powerPreference: 'high-performance' }}>`, `useFrame((state, delta) => …)`); Threlte inside SvelteKit (`useTask`, `useThrelte()` for `renderer`, `dpr`, `renderMode`, `invalidate`). Whatever the wrapper, the rect loop, the uniforms and the disposal rules above are unchanged.
+Library choice: Three by default; OGL for a planes-only page where the smaller bundle matters `[clone:floema-jewelry]`; R3F only inside a React app with a component-shaped scene (`<Canvas dpr={[1, 2]} frameloop="always" flat gl={{ antialias: false, powerPreference: 'high-performance' }}>`, `useFrame((state, delta) => …)`); Threlte inside SvelteKit (`useTask`, `useThrelte()` for `renderer`, `dpr`, `renderMode`, `invalidate`). Whatever the wrapper, the rect loop, the uniforms and the disposal rules above are unchanged.
 
 ## Post-processing
 

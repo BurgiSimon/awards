@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | campaign: a studio showcase. HOLM presents an experimental "webfilm" whose opening rail doubles as the service pitch (the stops are titled "WHAT IT SUITS" and "WHO MAKES IT") [verified, main.js `duraklar`] |
+| Industry | agency-studio |
 | Visitor mode | experience |
 | Awards | none looked up this pass [unknown] |
 | Corpus rating | D 7.8 / U 5.6 / C 8.0 / Co 7.4 → weighted 7.14, 2026-10-05 [inferred, from captures and source against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -15,6 +16,11 @@
 | WebGL dosage | 100 % canvas for the film: one fixed Three.js canvas marked `aria-hidden` and `role="presentation"`, plus the loader's 2D canvas [verified, main.js; manifest.json `canvases: 2`]. The opening rail and the setup dialog are DOM |
 | Scroll model | native + Lenis: `body` is sized to `100 + 170 × film-seconds` vh, and Lenis 1.3.26 (duration .62, smoothWheel) is locked until BEGIN. Its progress feeds a speed-limited, forward-ratcheted film clock; an AUTO mode scrolls the document itself [verified, main.js `y_`] |
 | Narrative model | chaptered journey, looping: one robot walk through named beats (walk, fall, grass, encounter, chase, mirror, world two, world three, meeting, lens, marble walk, skateboard ride, flip, mirror jump) that ends back at the start [verified, main.js `li`, `Th`; index.html synopsis] |
+| Palette strategy | black film frame + grey noise-paper pitch (#e9e9e9, ink #0c101a); worlds lit, not tokenised: magenta grass, pink key #ff4f9a, blue fill #2f5cff |
+| Type contract | grotesque + mono HUD (Inter Variable + JetBrains Mono Variable) |
+| Awards / score | none looked up |
+| Confidence | medium |
+| Last verified | 2026-10-05 |
 
 ## 1. Concept and narrative
 A "webfilm": a short film with no video file, computed in the browser while the visitor scrolls. The visitor holds the timeline: scroll and the robot walks; stop and the world waits. The page argues the medium before it shows it. A horizontal opening rail of about eight titled stops explains what a webfilm is, how it adapts to the machine, what it suits and who makes it [verified, main.js `duraklar`]. Then ENTER THE FILM opens a two-question setup (sound on or off, manual or auto scroll) before BEGIN [verified, main.js]. The film is a wordless sequence of beats: a small four-legged robot walks off a finite ground and crosses grass worlds, mirrors and a lens, rides a skateboard and returns to the start [verified, main.js beat table; index.html synopsis]. Register: plain, first-person craft prose with no superlatives [verified, main.js].

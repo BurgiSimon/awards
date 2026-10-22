@@ -37,7 +37,12 @@ node scripts/assets.mjs add --file <f> --kind owned|licensed|generated|drawn|pla
 node scripts/skeleton.mjs <url|dir> --out <file.png>       # composition block map + measured fingerprint of one page (owner policy first)
 node scripts/corpus-skeletons.mjs [--only slug,…] [--missing] [--table-only]   # every card's skeleton and references/sites/_fingerprints.md
 
-node scripts/lint-refs.mjs                                 # every [site:]/[recipe:]/[pattern:] and ${CLAUDE_PLUGIN_ROOT} path resolves
+node scripts/lint-refs.mjs                                 # every [site:]/[clone:]/[recipe:]/[pattern:] and ${CLAUDE_PLUGIN_ROOT} path resolves
+node scripts/build-index.mjs [--dir .awards/sites] [--check]   # references/sites/_index.md table from the card headers; never typed by hand
+node scripts/check-card.mjs <card.md> | --all              # header rows and vocabularies (scripts/data/corpus-vocab.json), nine sections, length, labels, quotes
+node scripts/corpus-gaps.mjs                               # card counts by class, industry, mode, dosage, routes against the floors; where to look
+node scripts/corpus-prepass.mjs --queue awardsworthysites.md [--capture]   # model-free wave pre-pass: DNS, owner policy, signatures, existing cards, captures
+node scripts/corpus-health.mjs [--only slug,…]             # quarterly: DNS, HTTP and asset-list hash per card URL against references/sites/_health.json
 node scripts/build-catalogue.mjs [--check]                 # recipes/README.md catalogue from recipe.json; tags against scripts/data/recipe-tags.json
 node scripts/check-sync.mjs                                # manifest versions, pins vs versions.md, scaffold/_shared copies, LICENSE/NOTICE, quoted counts
 node evals/behavior.mjs                                   # serial browser/tool regressions; needs recipes/node_modules + Playwright
@@ -65,7 +70,7 @@ Requirements: Node 22 LTS (22.12+) or 24 LTS; 20.19+ still runs the scripts but 
 
 **Deep modes, not more skills.** `motion --gsap`, `webgl --shader` and `webgl --3d` switch on from the contract, dosage or score or by flag, record themselves on the `Deep modes:` line of `AWARDS.md ## Budgets & tiers`, and load `references/patterns/gsap-choreography.md`, `webgl-shaders.md` or `webgl-3d-scenes.md`. Those playbooks are filled only by corpus waves with a tech lens (`### Tech lens:` at the end of a card's §5); the `trigger-*-deep` evals check the mode fires and the playbook is actually read.
 
-**Corpus lives at the plugin root, never inside skill folders.** Skills reference `${CLAUDE_PLUGIN_ROOT}/references/…`, `…/recipes/…`, `…/scripts/…`. Cross-references use `[site:slug]`, `[recipe:id]` and `[pattern:file#anchor]` forms that must resolve to real files (`references/sites/<slug>.md`, `recipes/<id>/`, `references/patterns/<file>.md`). `references/patterns/visual-composition.md` selects the six visual examples and their reviewed desktop/mobile images.
+**Corpus lives at the plugin root, never inside skill folders.** Skills reference `${CLAUDE_PLUGIN_ROOT}/references/…`, `…/recipes/…`, `…/scripts/…`. Cross-references use `[site:slug]`, `[clone:slug]` (a clone-level card, never rendered live; `floema-jewelry` is the one), `[recipe:id]` and `[pattern:file#anchor]` forms that must resolve to real files (`references/sites/<slug>.md`, `recipes/<id>/`, `references/patterns/<file>.md`). `references/patterns/visual-composition.md` selects the six visual examples and their reviewed desktop/mobile images.
 
 **Durable project files** in a user's project: `AWARDS.md` (brief, direction contract, page map, motion score, budgets, jury and ship logs, exceptions), `DESIGN.md` (tokens and rules), `.awards/` (captures, reports, audit JSON). Templates in `assets/templates/`, the Vite scaffold in `assets/scaffold/vite-vanilla/`.
 

@@ -66,8 +66,9 @@ Read `docs/handoff/corpus-ledger.md`. If it does not exist, run Setup. Otherwise
    ### Notes
    ```
    Waves opened before wave 4 keep their eight-column table.
-3. Commit: `docs(corpus): open wave <n> ledger`.
-4. Then continue with triage.
+3. **Gaps.** Run `node PLUGIN/scripts/corpus-gaps.mjs` and copy its gap lines into the new wave's `### Notes`. A wave is gap-driven: before triage, the queue under `# not reviewed` must hold sites for at least two of those gaps (a class, an industry, the read mode, inner routes). When it does not, say which gaps are open and where the script says to look (Awwwards, CSS Design Awards, FWA, Webby industry categories), and ask the maintainer to queue sites for them; a wave of more of the same is not opened.
+4. Commit: `docs(corpus): open wave <n> ledger`.
+5. Then continue with triage.
 
 ## Phase: triage
 
@@ -76,10 +77,11 @@ Read `docs/handoff/corpus-ledger.md`. If it does not exist, run Setup. Otherwise
 3. **Slug.** Host name without `www.` and without the public suffix (`co.uk` counts as one suffix), remaining dots to hyphens, lower-case kebab-case: `why.zero.university` → `why-zero`, `911rennsport.co.uk` → `911rennsport`, `boc.studio` → `boc`. This collision rule applies only to new URLs: if the slug is already a file in `PLUGIN/references/sites/` or a row in any wave, append the next host label to the left; if none is left to append, append `-2`. A URL matched to an existing card in step 2 keeps that card's slug; the collision rule never applies to it.
 4. **Selection.** Rows with status `queued` or `blocked`, narrowed by `--only` (slugs) or `--limit N` (`queued` rows first in table order, then `blocked`). `blocked` rows get one retry per run.
 5. **Orphans.** A selected slug whose card file already exists while its row is `queued` or `blocked` is left over from a killed run; the subagent overwrites it. If that re-run returns `skipped`, `blocked` or `failed`, the main session deletes the orphan card. Rows with Reason `existing card` are never orphans: their card is corpus, and `skipped` leaves it untouched.
+5b. **Pre-pass, no model calls.** Run `node PLUGIN/scripts/corpus-prepass.mjs --queue REPO/awardsworthysites.md --capture` once for the queued rows. It resolves each host, runs the owner-policy check, reads the served HTML and first-party scripts for stack signatures, finds existing cards, and takes the research capture set one site at a time into `REPO/.awards/research/<slug>/` (with `prepass.json` beside it). Rows it marks `failed`, `skipped` or `blocked` take that status and reason now and never get a subagent; `ready` rows go to the batches below with their `prepass.json` path.
 6. **Batches of three.** Spawn up to three `general-purpose` Agent calls in one message, one site each, with the prompt in "Subagent prompt: site". Wait for all of them before the next batch.
 7. **Per output block:**
    - `added`: run "Card checks". A failing check goes back to the same subagent once through SendMessage with the failing lines; if it still fails, delete the card and record `blocked`, reason `card failed checks: <which>`.
-   - `added`: append `index_row` as the last row of the table in `PLUGIN/references/sites/_index.md` (the table ends before `## Picking neighbours`). It must have the table's twelve cells. If `_index.md` already has a row for the slug, replace it instead of appending. An existing-card row replaces its index row; it never appends one.
+   - `added`: run `node PLUGIN/scripts/build-index.mjs`; the index row is built from the card's header (class, industry, routes read, the one-line palette, type, award, confidence and date rows), never typed into `_index.md`.
    - Every status: update the Sites row (status, rating, novelty hits separated by `; `, reason, date; `Synthesised` stays empty). Append each `techniques` and `stack_signatures` line to `### Techniques and stacks` prefixed with `<slug>: `.
    - `blocked` with a reason starting `environment:`: reset the row to `queued` instead of `blocked`, and stop the run after this batch; report the reason to the maintainer.
    - `awardsworthysites.md`: remove the bullet from every `# not reviewed…` heading it sits under and add it once to `# Reviewed and in Skill` (added; skip if already there) or to `# Reviewed, not added` (skipped; create that section after `# Reviewed and in Skill` if absent, bullet suffixed ` — <reason>`). A `failed` bullet stays and gets ` (host does not resolve)`. A `blocked` bullet stays unchanged. Empty lens headings stay as queue slots. An existing-card bullet only leaves its lens headings: it stays under `# Reviewed and in Skill` whatever the status.
@@ -102,14 +104,15 @@ Slugs already added this wave (they count as corpus): {comma-separated or "none"
 Lens: {GSAP | WebGL | 3D, comma list, or none}
 Existing card: {PLUGIN/references/sites/<slug>.md | none}
 Lens file(s): {PLUGIN/references/patterns/gsap-choreography.md | webgl-shaders.md | webgl-3d-scenes.md, one per lens, or none}
+Pre-pass: {REPO/.awards/research/{slug}/prepass.json: the host resolved, the owner allows it, its stack signatures and its capture set are already done}
 
 Every shell call that drives a browser starts with:
 export AWARDS_PLAYWRIGHT="$HOME/.npm/_npx/e41f203b7505f1fb";
 and runs the browser command under the shared lock, so captures of parallel subagents never overlap (overlapping captures time out):
 mkdir -p {repo}/.awards && flock {repo}/.awards/capture.lock node ...
 
-1. Read PLUGIN/skills/research/SKILL.md and PLUGIN/references/README.md in full. You follow research §2, §4, §5 and §6 with destination `--to plugin`. Return research §7's index row instead of writing it, and skip its Hand-off.
-1b. Owner policy, before any capture. First check the host resolves: `getent hosts <host>` (non-zero exit = does not resolve) → status failed, stop. Then read the site's `robots.txt` and any AI-usage policy it names (for example `/ai-usage.txt` or a meta agent-policy tag). If either forbids automated extraction or agents like this one → status skipped, reason `owner policy: <file>`, delete anything fetched, stop.
+1. Read PLUGIN/skills/research/SKILL.md and PLUGIN/references/README.md in full. You follow research §2, §4, §5 and §6 with destination `--to plugin`. Fill every header row of `_TEMPLATE.md`, including Industry from `PLUGIN/scripts/data/corpus-vocab.json` and the one-line Palette strategy, Type contract, Awards / score, Confidence and Last verified rows the index is built from; never edit `_index.md`, and skip research's Hand-off.
+1b. Read the Pre-pass file first: its host, policy and capture steps are done, so skip the rest of 1b and the capture in 2 and read the frames in its capture directory. Without a Pre-pass file: owner policy, before any capture. First check the host resolves: `getent hosts <host>` (non-zero exit = does not resolve) → status failed, stop. Then read the site's `robots.txt` and any AI-usage policy it names (for example `/ai-usage.txt` or a meta agent-policy tag). If either forbids automated extraction or agents like this one → status skipped, reason `owner policy: <file>`, delete anything fetched, stop.
 2. Capture per research §2 into REPO/.awards/research/{slug}/ and inspect the source per §4.
    - capture.mjs exit 3 → status blocked, reason `environment: browser unavailable`, and tell the main session; do not retry.
    - Resolves but exit 4, 403, or a timeout after research's one wheel/wait retry → status blocked. Never write a card from memory.
@@ -120,6 +123,7 @@ mkdir -p {repo}/.awards && flock {repo}/.awards/capture.lock node ...
 3. Rate. Read PLUGIN/references/jury/rubric.md. Score Design, Usability, Creativity and Content on its anchors, from the captures and research §6's walk. Weighted = D×0.4 + U×0.3 + C×0.2 + Co×0.1, two decimals, label [inferred]. Finding the award entry is optional: if its URL is known or turns up from one search, capture it with `--out REPO/.awards/research/{slug}/entry --only desktop` so the site's own captures are not overwritten, and record its published scores as [verified, entry page]. Otherwise official is none. The rating never decides inclusion.
 4. Novelty. Read PLUGIN/references/sites/_index.md, the title and tags of every PLUGIN/recipes/*/recipe.json, the file names in PLUGIN/references/stacks/, and the headings of PLUGIN/references/patterns/*.md. Record each hit as `<type>: <what> — checked against <nearest card, recipe, stack or pattern>`:
    class — the site's class has at most one card in the index
+   gap — the site fills a gap `PLUGIN/scripts/corpus-gaps.mjs` lists (a class, an industry, the read mode, or an inner route you were asked to read)
    model — the class together with the site's narrative model, scroll model or WebGL dosage is absent from the index
    technique — an effect or interaction the site has is covered by no recipe and no pattern section
    stack — a library or framework it uses has no stack note
@@ -137,7 +141,6 @@ status: added | skipped | blocked | failed
 rating: D x.x / U x.x / C x.x / Co x.x → w x.xx [inferred]; official: <scores [verified, entry page]> | none
 novelty: <hit>; <hit> | none
 lens: <Lens, comma list> | none
-index_row: | `{slug}` | … |   (added only: the twelve columns of _index.md, in order; the 12th (Last verified) is {YYYY-MM-DD})
 techniques:
 <name> — <evidence file> — <parameters>   (a lens technique ends with [lens:gsap|webgl|3d])
 stack_signatures:
@@ -151,14 +154,13 @@ Run for each `added` slug; every command must print nothing unless noted:
 
 ```bash
 f=PLUGIN/references/sites/<slug>.md
-[ "$(wc -l < "$f")" -lt 200 ] || echo "over 200 lines"
-for n in 1 2 3 4 5 6 7 8 9; do grep -q "^## $n\. " "$f" || echo "missing section $n"; done
+node PLUGIN/scripts/check-card.mjs "$f"          # header rows and vocabularies, nine sections, under 200 lines, labelled hexes, quotes of at most 25 words
 grep -q "^| Corpus rating |" "$f" || echo "missing Corpus rating row"
-grep -nE '#[0-9a-fA-F]{3,8}\b' "$f" | grep -vE '\[(verified|recalled|inferred|unknown)'
 for L in <each lens of the row>; do grep -q "^### Tech lens: $L" "$f" || echo "missing lens $L"; done
+node PLUGIN/scripts/build-index.mjs --check || node PLUGIN/scripts/build-index.mjs
 ```
 
-The last line prints hex values with no label on their line. After the index row is appended, `grep -c '^| `<slug>` |' PLUGIN/references/sites/_index.md` must print `1`; for an existing-card row the count stays 1. Then read the card once for quotes over 25 words; the slug must be identical in the file name, the index row and every `[site:<slug>]` in the card.
+`check-card.mjs` exits 1 and names each failing line. The slug must be identical in the file name and every `[site:<slug>]` in the card.
 
 ## Phase: synthesis
 

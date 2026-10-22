@@ -1,6 +1,6 @@
 # Sound
 
-What this file is for: when a site may make sound, at what levels, bound to which states, and how the control is built so that a visitor who never wanted audio is never ambushed by it. Three cards carry real evidence [site:leo-parpeix] [site:igloo] [site:mont-fort]; Why Zero names its engine [site:why-zero]; Floema verifiably ships none [site:floema-jewelry]; the rest are unknown. The 2026-09-23 wave adds ten sounded cards, verified from their bundles: [site:nodeck] [site:areebali] [site:zainabkabira] [site:gehry-getty] [site:runrobrun] [site:noth] [site:pensatori-irrazionali] [site:haoqi] [site:spasoje] [site:siena]. Cite as `[pattern:sound#section]`.
+What this file is for: when a site may make sound, at what levels, bound to which states, and how the control is built so that a visitor who never wanted audio is never ambushed by it. Three cards carry real evidence [site:leo-parpeix] [site:igloo] [site:mont-fort]; Why Zero names its engine [site:why-zero]; Floema verifiably ships none [clone:floema-jewelry]; the rest are unknown. The 2026-09-23 wave adds ten sounded cards, verified from their bundles: [site:nodeck] [site:areebali] [site:zainabkabira] [site:gehry-getty] [site:runrobrun] [site:noth] [site:pensatori-irrazionali] [site:haoqi] [site:spasoje] [site:siena]. Cite as `[pattern:sound#section]`.
 
 ## Opt-in only
 

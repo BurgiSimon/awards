@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | docs — a studio's educational explainer on layout grids, one of a series after typography and colour [verified, index.html meta description + `desktop-s100.png` "Prev. project" rows] |
+| Industry | education |
 | Visitor mode | read — four grid types, tips, worked examples from the studio's own projects and a reading list; no conversion beyond an e-mail line [verified, wait/desktop-s00 to s100.png] |
 | Awards | Awwwards **Site of the Day, 1 Sep 2021, 7.83** — D 8.03 / U 7.44 / C 8.02 / Co 7.83 [verified, entry page, `entry/entry.html`] |
 | | Developer Award 7.19 — Semantics/SEO 7.40, Animations 8.40, Accessibility 6.00, WPO 6.40, Responsive 7.00, Markup 7.80 [verified, entry page] |
@@ -22,6 +23,11 @@
 | WebGL dosage | none — `canvases: 0` on every pass [verified, manifest.json] |
 | Scroll model | native, no smoothing library; the four Readymag pages run as one continuous document scroll with the URL rewritten per page; widget transforms keyed to scroll pixels [verified, manifest.json GA `dl`/`dr` pairs / → /columns_vandegraaf/ → /booksandcredits/, `scrollMode: native`] |
 | Narrative model | print artefact — an illustrated grid handbook: cover, chapter opener, worked examples with spec tables, margin notes, bibliography and colophon [verified, wait/desktop-s00 to s100.png, states/desktop-state-keyboard-tab.png] |
+| Palette strategy | achromatic paper #F1F1F1 + black #000000 ink, one inversion to a black chapter, no accent; an opt-in "Crazy mode" floods the page yellow |
+| Type contract | one uploaded grotesque at one weight (face "Grids", 400) from 14 px labels to full-width caps, outline cuts as illustration; Google script face (Mr Bedfort) only in the alternate mode |
+| Awards / score | SOTD 1 Sep 2021, 7.83 (dev 7.19, a11y 6.00) |
+| Confidence | high (live source + captures + interaction states + entry) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 **One idea:** a site about grids that is visibly built on one, and lets the reader switch the grid on. The page argues its subject by exposing its own construction — sparse vertical rules in the cover, a translucent column overlay on demand, spec tables that name each grid's margins and power lines [verified, wait/desktop-s00.png, states/desktop-state-grid-on.png, wait/desktop-s50.png].

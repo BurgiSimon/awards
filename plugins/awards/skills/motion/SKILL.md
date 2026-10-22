@@ -90,7 +90,7 @@ Name the curves and bands once as tokens and use nothing else; a site reads as o
 | Role | Value | Notes |
 |---|---|---|
 | Entrances, hover, cursor | `--ease-out-expo` as `system` set it from WORLD's register; mapped to the matching GSAP or anime curve | page and cursor share it `[site:leo-parpeix]`; the corpus runs from soft expo-outs to elastic house voices `[pattern:motion-vocabulary#easing]`, so the value is the world's, not this plugin's |
-| Travel between two known states (flights, camera moves) | `--ease-in-out-expo` from `DESIGN.md` | symmetric because departure and arrival are both known `[site:floema-jewelry]` |
+| Travel between two known states (flights, camera moves) | `--ease-in-out-expo` from `DESIGN.md` | symmetric because departure and arrival are both known `[clone:floema-jewelry]` |
 | Theme swap, whole-page repaint | `--ease-theme` from `DESIGN.md`, in the hero band | symmetric on purpose: a repaint has no arrival |
 | Anything scrubbed by scroll | `ease: 'none'` | the smoothing lives in Lenis or in `scrub: .4–.6` [M03] |
 | Feedback (hover, press, toggle) | `--dur-feedback`, at most .3 s | slower reads as lag |
@@ -212,7 +212,7 @@ The pointer is an affordance system, not decoration: a cursor with two rates car
 
 One transition vocabulary per site; a shared-element flight and a wipe on the same route are two ideas `[pattern:preloaders-and-transitions#transition-archetypes]`.
 
-- Shared element: `Flip.getState(el)`, change the DOM, `Flip.from(state, { duration: 1–1.5, ease: 'expo.inOut', absolute: true })`; `Flip.fit` moves one element into another's box. In GL the source plane is lifted and tweened to the destination rect on the same curve `[site:floema-jewelry]`.
+- Shared element: `Flip.getState(el)`, change the DOM, `Flip.from(state, { duration: 1–1.5, ease: 'expo.inOut', absolute: true })`; `Flip.fit` moves one element into another's box. In GL the source plane is lifted and tweened to the destination rect on the same curve `[clone:floema-jewelry]`.
 - Routes: taxi on Vite SPA and Webflow (`Renderer.onEnter` opens a `gsap.context`, `onLeave` reverts it; the `Transition` resets Lenis, then refreshes before `done()`); the framework router with View Transitions on Next, Nuxt, Astro and SvelteKit `[recipe:page-transitions]`.
 - Theme swap: tween `--ground`, `--ink` and `--accent` on `documentElement` over 1–1.5 s on the theme curve, retarget rather than stack under fast scrolling, and paint the canvas clear colour from the same live object; update `theme-color` on complete `[recipe:theme-swap-tokens]`.
 - After any route change: scroll reset with `lenis.scrollTo(0, { immediate: true })`, focus to the new `<main>` or `<h1>`, old contexts reverted, `ScrollTrigger.refresh()` once fonts and images have landed `[pattern:preloaders-and-transitions#route-transition-mechanics]`.
@@ -283,4 +283,4 @@ Tick "Motion score authored and built (motion)" in `AWARDS.md ## Status`. When t
 - Eased scrubs that fight the scroll; `pin: true` where a sticky stage works.
 - A global animation kill presented as the reduced-motion path; marquees and flickers that keep running under it.
 - Framer Motion or `motion` for scroll scrub; two smooth-scroll libraries.
-- `[site:floema-jewelry]`'s bulge and flight, `[site:leo-parpeix]`'s cursor badges and counter jumps, `[site:the-line]`'s hinge and `00/24` leader, or any corpus device reproduced as a signature: they are pattern pointers, never parts.
+- `[clone:floema-jewelry]`'s bulge and flight, `[site:leo-parpeix]`'s cursor badges and counter jumps, `[site:the-line]`'s hinge and `00/24` leader, or any corpus device reproduced as a signature: they are pattern pointers, never parts.

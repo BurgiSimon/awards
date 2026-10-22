@@ -3,6 +3,7 @@
 | Field | Value |
 |---|---|
 | Class | brand (personal-brand / talent hub: tour, podcast, books, specials, foundation) [verified, index.html routes + desktop-s100.png footer index] |
+| Industry | personal-talent |
 | Visitor mode | experience → persuade — the only persistent CTA is a "Get Tickets" pill [verified, desktop-s25.png + index.html] |
 | Awards | Site of the Day 3 Sep 2026, overall 7.45 = D 7.38 / U 7.32 / C 7.78 / Co 7.40 [verified, Awwwards entry read 2026-09-18]; DEV AWARD 7.23 = Semantics-SEO 7.40 / Animations-Transitions 7.40 / Accessibility 6.80 / WPO 6.80 / Responsive 7.60 / Markup-Metadata 7.20 [verified, same]; community score 9.13 [verified, same] |
 | Studio / credits | OFF+BRAND (PRO submitter on the entry) [verified, Awwwards entry read 2026-09-18]; individual designers/developers [unknown] |
@@ -12,6 +13,11 @@
 | WebGL dosage | canvas-first — one persistent full-page `canvas.webgl_canvas` outside `<main>`, carrying the hero head carousel, the `gl-nav` and a footer tour head [verified, index.html + chunk-022tjzda.js] |
 | Scroll model | native + smooth library (Locomotive 5 / Lenis; `scrollMode: native` in all three capture passes) [verified, manifest.json + chunk-022tjzda.js] |
 | Narrative model | collage → index: a mind spilling objects, resolving into a numbered CMS-driven hub [verified, desktop-s00/25/100.png] |
+| Palette strategy | navy ground + pink accent + green-cast off-white paper |
+| Type contract | one grotesque, three cuts (Die Grotesk C / D / B), h1 to 450px |
+| Awards / score | SOTD 3 Sep 2026, 7.45 (dev 7.23) |
+| Confidence | high |
+| Last verified | 2026-09-18 |
 
 ## 1. Concept and narrative
 The agency's stated idea puts the subject's mind at the centre: snapshots into his mind, "a living collage where fragmented thoughts evolve into fully formed ideas" [verified quote, agency case study]. The homepage takes that literally: a cut-out photographic head with the crown torn off, and 3D objects — microphone, brain, cloud, book, video player, heart — rising out of the opening [verified, desktop-s00.png; glb names `TREVOR_head-opt-04.glb`, `TREVOR_brain-opt-01.glb`, `TREVOR_mic-opt-01.glb`, `TREVOR_book-opt-21.glb`, `TREVOR_player-opt-24.glb`, `TREVOR_heart-opt-01.glb`, `TREVOR_cloud-opt-01.glb`, plus earth, leaves, mug, quote, rocks and a page in chunk-022tjzda.js]. The entry's own line: "An immersive digital home for Trevor Noah, uniting his stand-up, podcast, books and world tour in one interactive experience built to explore." [verified quote, Awwwards entry read 2026-09-18].

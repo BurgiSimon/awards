@@ -3,6 +3,7 @@
 | Field | Value |
 |---|---|
 | Class | campaign / manifesto microsite (AI-native alternative to university; waitlist) |
+| Industry | education |
 | Visitor mode | persuade (experience-led) |
 | Awards | Awwwards **Site of the Day, Sep 7, 2026**; SOTD / SCORE **7.73** (Design 7.7 · Usability 7.46 · Creativity 8.16 · Content 7.75); DEV AWARD **score 7.26** (Semantics/SEO 6.60 · Animations/Transitions 8.40 · Accessibility 6.60 · WPO 8.00 · Responsive Design 7.00 · Markup/Meta-data 6.80); nominated for the Business & Services Honors [verified, Awwwards entry read 2026-09-18]. No Developer Award badge, Honorable Mention or Site of the Month appears on the entry — the "DEV AWARD" figure is the developer score panel every SOTD carries [verified, Awwwards entry read 2026-09-18]. CSSDA 8.99, FWA of the Month and "20+ awards" are **unverified this pass** — the Awwwards entry mentions none of them [verified absent, Awwwards entry read 2026-09-18] |
 | Corpus rating | D 7.6 / U 5.5 / C 9.0 / Co 7.5 → weighted 7.24, 2026-10-05 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -13,6 +14,11 @@
 | WebGL dosage | 100 % canvas. The served `<body>` holds four elements: a fixed gradient div, a decorative pre-canvas digit, `<canvas id="webgl" role="img" aria-label="ZERO interactive 3D experience">` and an empty `<div id="ui-container" role="region">` that JS fills [verified, index.html] |
 | Scroll model | virtual float: wheel and touch move `targetScrollPos`, `scrollPos` eases toward it and publishes a `progress` float to `onScrub` subscribers; no native scroll and no oversized DOM. A `setHeld(true)` latch and a `_scrollClampMin` let a stage freeze or fence the float [verified, main.js] |
 | Narrative model | manifesto with gates — **five stages joined by four gates**, not six and five [verified, main.js] |
+| Palette strategy | frost-to-mint ground + one signal green (entry declares white + #01C654; build uses neither) |
+| Type contract | four self-hosted OTFs (PP Supply Sans/Mono, Bethany Elingston, STK Bureau Serif) + Google Sans Flex/Code; narrative type is a KTX2 sprite atlas |
+| Awards / score | Awwwards SOTD 7 Sep 2026, 7.73 (dev score 7.26) |
+| Confidence | high |
+| Last verified | 2026-10-05 |
 
 ## 1. Concept and narrative
 You sign the manifesto before you read it: the load gate asks you to draw a zero, and the closed stroke unlocks the experience. The served stage array runs `gate0to1 → stage1 → gate1to2 → stage2 → stage3 → gate3to4 → stage4 → gate4to5 → stage5` — five stages and four gates, with stage 2 handing off to stage 3 directly on an `advanceAtEnd` threshold rather than through a gate [verified, main.js]. Each stage owns a scroll budget in viewport heights: 175, 250, 325, 368, 50; every gate is a fixed 50 vh that auto-scrolls itself over 3.5 s, 3 s, 3 s and 0 s [verified, main.js]. Asset names carry the argument — `stage2_glass-shatter.glb`, `glass_shards.glb`, a `leather-money-shreds` atlas, a `board-certificates` atlas, `tunnel_new_new.glb`, `origami_certificate.webp`, `garden-godrays.ktx2` — so the beats read as: promise, shattered glass, shredded certificates and burning money, the ZERO tunnel, a world map, and a waitlist folded as origami [verified, main.js]. A persistent XP counter accumulates in the HUD (`.hud-xp`, `.xp-ripple`) [verified, main.css]. Tone: defiant, gamified; the argument is delivered as physics.

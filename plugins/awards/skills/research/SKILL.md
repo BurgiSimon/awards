@@ -1,7 +1,7 @@
 ---
 name: research
 description: "Turns a reference website into a case-study card in the awards corpus format: concept, palette, type, components, motion parameters, stack evidence, weaknesses, principles and take / don't take, every claim labelled by confidence. Captures with Playwright and inspects source when the site's owner allows it, and records recalled material honestly when not. Use when the user shares a site to learn from, asks 'what makes this site award-winning', 'analyse / deconstruct / break down this site', 'why did this win', 'add this to the references', or pastes a CSSDA, FWA or other award-gallery entry. Not for SEO or content audits, nor for downloading a site's assets."
-argument-hint: "<url | notes file> [--slug <name>] [--to project|plugin]"
+argument-hint: "<url | notes file> [--slug <name>] [--to project|plugin] [--routes <path>,<path>]"
 allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(curl -sL --max-time 20 -o .awards/research/*)
 ---
 
@@ -14,6 +14,7 @@ Arguments: `$ARGUMENTS`
 - `<url | notes file>` — the site, or a file of notes, screenshots and pasted award listings about it
 - `--slug <name>` — the card's file name; default is the host name without `www` and the top-level domain, in kebab-case
 - `--to project | plugin` — `project` (default) writes to `.awards/sites/`; `plugin` writes into the corpus itself and is only valid inside the awards repository
+- `--routes <path>,<path>` — at most two inner routes of the same site the user or maintainer names (a case study, a product page, an article, pricing); see §2b
 
 ## Setup
 
@@ -76,6 +77,14 @@ On exit 0 or 2, open every capture with the Read tool and read each one for what
 - A preloader or a consent wall in every frame is itself an observation about the load gate; add `--wait 3000` or `--wait-for <selector>` once, then record what you got.
 - Frames that are identical, or a `scrollMode` of `wheel` in the manifest with nothing changing between states, mean the page hijacks the wheel and never moved: rerun once with `--wheel 12000 --wait 6000 --timeout 90000`, and say in §9 how the states were reached.
 
+### 2b. Inner routes, only when named
+
+Why: the home route sells; the case study, product page, article or pricing page is where a site proves it can hold a reader, and those templates are what a multi-route build needs. The corpus read almost only home routes until 0.8.
+
+- Only routes named with `--routes` (at most two), on the same host, after the owner-policy check passes for each path. Never discover, crawl or guess routes.
+- Capture each into its own folder: `node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <url><path> --out .awards/research/<slug>/<route-name> --scroll 0,50,100 --mobile --reduced-motion --json`, and fetch only that route's HTML for §4.
+- Record them in the header's `Routes read` row by kind (`home, case /work/x, pricing /pricing`), describe what the inner template adds in §2 (how a case study opens, where the facts sit, how it hands to the next one), and give §8 at least one take from an inner route.
+
 ## 3. When the site is unreachable
 
 Why: a card written from memory and presented as observation poisons every brief that later leans on it. Exit 3 (Playwright missing) or exit 4 (unreachable) is stated in the card with the date, and the confidence drops accordingly.
@@ -95,7 +104,7 @@ curl -sL --max-time 20 -o .awards/research/<slug>/index.html <url>
 ```
 
 - Read the head: `<title>`, description, `generator`, Open Graph tags, `theme-color`, `color-scheme`, `lang`, `rel="preload"` fonts (face names), `rel="modulepreload"` (a bundler).
-- Fetch linked CSS and JS as text, at most a few files and at most 2 MB each, into the same folder. Never fetch images, fonts, videos, audio or 3D models, and never follow routes the user did not name.
+- Fetch linked CSS and JS as text, at most a few files and at most 2 MB each, into the same folder. Never fetch images, fonts, videos, audio or 3D models, and never follow routes the user did not name (`--routes`, §2b).
 - Record each signature hit as `[verified]` with the file named:
 
 | Signature in the served text | Claim it supports |
@@ -146,15 +155,11 @@ Write one line per item with a pass, a fail or `[unknown]`, then the sentence th
 
 ## 7. The index row
 
-Why: the planning skills find neighbours through the index table, not by opening every card. Add one row with the index's columns:
+Why: the planning skills find neighbours through the index table, not by opening every card; the table is built from the card headers so a row never disagrees with its card.
 
-```
-| `<slug>` | <site> | <class> | <visitor mode> | <narrative model> | <WebGL dosage> | <scroll model> | <palette strategy> | <type contract> | <awards / score> | <confidence> | <last verified YYYY-MM-DD> |
-```
-
-- Project destination: `.awards/sites/_index.md`. Create it when missing with a one-line heading, a note that these are project-local additions read alongside the plugin corpus, and the same table header as `${CLAUDE_PLUGIN_ROOT}/references/sites/_index.md`.
-- Plugin destination: append the row to `${CLAUDE_PLUGIN_ROOT}/references/sites/_index.md`.
-- The confidence cell is the card's overall label: high when sources were read verbatim, medium when captures and award pages carried it, low when recall did.
+- Fill the header rows the index reads: Class (one of the template's classes first), Industry (one id from `${CLAUDE_PLUGIN_ROOT}/scripts/data/corpus-vocab.json`), Routes read when you read inner routes, and the one-line Palette strategy, Type contract, Awards / score, Confidence and Last verified rows. Confidence is the card's overall label: high when sources were read verbatim, medium when captures and award pages carried it, low when recall did.
+- Then build the index: `node "${CLAUDE_PLUGIN_ROOT}/scripts/build-index.mjs" --dir .awards/sites` for the project destination (it creates `.awards/sites/_index.md` when missing), or `node "${CLAUDE_PLUGIN_ROOT}/scripts/build-index.mjs"` for the plugin destination. Never type a row into `_index.md`.
+- Check the card: `node "${CLAUDE_PLUGIN_ROOT}/scripts/check-card.mjs" <card.md>` names every missing row, missing section, unlabelled hex and long quote.
 
 ## Verify
 

@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | studio — a production-led creative company (direction, production, animation, VFX, live experiences) [verified, index.html services list; mobile-s100.png] |
+| Industry | film-music |
 | Visitor mode | persuade — the reel, the work and a copy-to-clipboard email do the selling [verified, desktop-s00.png, index.html "Click to copy"] |
 | Awards | Awwwards **Site of the Day, 12 Sep 2026, 7.26** — Design 7.35 / Usability 7.03 / Creativity 7.35 / Content 7.40; **Developer Award 7.52** — Semantics 7.60, Animations 7.60, Accessibility 7.20, WPO 7.20, Responsive 7.80, Markup 7.60 [verified, entry page, `entry/entry.html` + `entry/desktop-s00.png`] |
 | Corpus rating | D 7.2 / U 6.8 / C 7.0 / Co 7.2 → weighted 7.04, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -20,6 +21,11 @@
 | WebGL dosage | moments — WebGPU silhouette canvases on work cards and titles, feature-detected; the hero's glitch look is in the video, not in a shader [verified, 0vfjpxgat0bl8.js; runtime probe: hero stack is `<video>` + `<img>`, no canvas] |
 | Scroll model | native + Lenis on an inner scroll container: the document is one viewport tall and a page container scrolls [verified, runtime probe `scrollHeight 900`; manifest.json `scrollMode: wheel`] |
 | Narrative model | gallery — reel hero, a statement, featured work, a manifesto paragraph, services, disciplines, a photographic interruption, a wordmark close [verified, desktop-s00 to s100.png, mobile-s00 to s100.png] |
+| Palette strategy | theme-per-section: five flat named grounds (black / ultramarine #190bb6 / yellow #f7dd47 / orange #e74a27 / white), chroma from the work |
+| Type contract | one grotesque, one weight (Suisse Int'l 700) + hand-drawn SVG wordmark |
+| Awards / score | SOTD 12 Sep 2026, 7.26 + Dev 7.52 |
+| Confidence | high (live source + captures + entry) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 **One idea:** "feel good" made literal through colour. Each section is a flat, saturated ground, black → ultramarine → yellow → blue, so scrolling the page is a run of colour changes. The work supplies the texture: campaign stills, anamorphic billboards, toy-like 3D [verified, desktop-s00 to s100.png].

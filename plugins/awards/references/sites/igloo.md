@@ -3,6 +3,7 @@
 | Field | Value |
 |---|---|
 | Class | brand — a corporate monument for the parent company of Pudgy Penguins, OverpassIP and Abstract; the ventures appear as specimens, not as a portfolio grid [verified, app3d.js: a baked `cubes:[…]` array of three `PORTFOLIO_CO_0n` entries] |
+| Industry | web3 |
 | Visitor mode | experience |
 | Awards | **Site of the Day, 23 Jul 2024** — the only award the entry page carries [verified, Awwwards entry read 2026-09-18: sole award `<h2>`]. Overall **7.92**; Design 8.05 · Usability 7.50 · Creativity 8.31 · Content 7.91. **DEV AWARD 7.66**, a score block, not a badge; its six criteria: semantics/SEO 6.60 · animations/transitions 9.60 · accessibility 6.60 · WPO 8.00 · responsive design 8.40 · markup/meta-data 6.40 [all verified, Awwwards entry read 2026-09-18]. Entry tags: Animation, Infinite Scroll, Transitions, 3D [verified, same]. **Site of the Year / Developer Site of the Year 2024 and Site of the Month Jul 2024: not shown on the entry** — the only "of the year" string on the page is the site-wide nav link to `/websites/sites_of_the_year/`, and "developer" occurs only as juror job titles [verified, same]. The prior card asserted SOTY + Dev SOTY from four secondary sources; treat as [recalled medium, contradicted by the entry page] until an annual-results page is read. FWA / CSSDA / Godly [unknown] |
 | Studio / credits | **abeto** and **Bureaux**, credited on the entry itself [verified, Awwwards entry read 2026-09-18]; `abeto.studio` / `bureaux.studio` [recalled high]. Named individuals [unknown] — the personal names on the entry are the juror panel, not the build team |
@@ -12,6 +13,11 @@
 | WebGL dosage | 100 % canvas — and the canvas is **sealed in a closed shadow root** [verified, app3d.js: `document.createElement("div").attachShadow({mode:"closed"}).append(this.renderer.domElement)`; manifest.json reports `canvases: 0` with `domNodes: 27`] |
 | Scroll model | virtual float — document scroll abolished; wheel, touch-drag and arrow keys drive a damped, snapping, modulo-wrapped scalar [verified, app3d.js + manifest.json `scrollMode: "wheel"` on all three profiles] |
 | Narrative model | chaptered journey as a spatial descent, wrapping infinitely; three sections `entry`, `igloo`, `cubes` plus a `/portfolio/:project` route [verified, app3d.js] |
+| Palette strategy | one temperature, saturation ≈ 0, fog gradient + one rim accent |
+| Type contract | single monospace as MSDF (IBM Plex Mono) |
+| Awards / score | SOTD 23 Jul 2024, 7.92 · dev 7.66 (a11y 6.60) |
+| Confidence | high (live) |
+| Last verified | 2026-09-18 |
 
 ## 1. Concept and narrative
 **One idea:** you descend into an arctic world; scroll drives a camera, not a document [verified, app3d.js scroll router + the five desktop frames].

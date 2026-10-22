@@ -7,6 +7,7 @@
 | Field | Value |
 |---|---|
 | Class | campaign — Shopify's twice-yearly product-release publication; Winter '26 is "The Renaissance Edition", 150+ updates [verified, index.html meta description: "Explore 150+ product updates across AI, retail, and more."]; the release title sets the letters *ai* of "Ren**ai**ssance" in the script face, so the pun is typographic, not verbal [verified, desktop-s00] |
+| Industry | software-saas |
 | Visitor mode | read — 150+ updates that must stay scannable, searchable and filterable, under an experience layer [verified: 187 `<h3>` update headings, `role="combobox"` ×2 for search and the edition switcher, index.html] |
 | Awards | **Awwwards Site of the Day, 9 February 2026** — overall **7.92**; Design 8.03 · Usability 7.51 · Creativity 8.24 · Content 8.09; **Developer Award 8.05** — Semantics/SEO 7.80 · Animations/Transitions **9.40** · Accessibility **7.00** · WPO 8.40 · Responsive Design 7.80 · Markup/Meta-data 7.60 [verified, Awwwards entry read 2026-09-18]. The entry lists **no Site of the Month and no Site of the Year**; the previous "SOTD + SOTM Feb 2026" claim is corrected [verified — negative]. CSS Design Awards and the RGD 2026 In-House award: **not checked this pass, unverified** [recalled high, prior search extraction]. Declared tags: 3D, WebGL, Parallax, Transitions, Animation, Gestures/Interaction, Interaction Design; technologies **Shopify, Blender, WebGL** [verified, Awwwards entry]. Highlighted element: "Section animation and transition" [verified, entry]. Series lineage (sibling): Summer '24 SOTD 7.27; Winter '24 HM; Winter '25 "The Boring Edition" HM; Spring '26 "Everywhere" Codrops case study [recalled high — via search] |
 | Studio / credits | Submitted by **Shopify Design** (PRO); collaborators credited **Danetag** and **Anton Kolisnyk** [verified, Awwwards entry]. Named individuals beyond those two [unknown]. Art pipeline — AI generated each artwork's foundations, human artists fine-tuned depth, lighting and character animation [recalled high — RGD citation via search, not re-verified] |
@@ -16,6 +17,11 @@
 | WebGL dosage | canvas-first — a per-chapter scene layer, `webgl: true`, 2 canvases, the main one `aria-hidden="true" pointer-events-none` with a 700 ms opacity crossfade [verified, manifest.json + index.html] |
 | Scroll model | **native scroll** in all three profiles, Lenis present but not hijacking [verified, manifest.json `scrollMode: "native"` ×3]; a sticky 12-item rail with Roman numerals, dotted leaders and an active state persists from chapter 1 to the end [verified, desktop-s25/s50/s75/s100]; only three `sticky` elements in the document — the scene stage is composited, not one sticky block per section [verified, index.html] |
 | Narrative model | chaptered gallery — **twelve** chapters (Sidekick, Agentic, Online, Retail, Marketing, Checkout, Operations, Shop app, B2B, Finance, Shipping, Developer), each a painted scene whose updates are the wall labels [verified, desktop-s00 + matching `.glb` and `.ktx2` filenames]. The earlier "roughly seven chapters" is corrected [verified] |
+| Palette strategy | paper #f7f7ee + warm ink #292919 + one accent per chapter |
+| Type contract | HWCigars display serif + Neue Montreal grotesque + Imperial Script accent |
+| Awards / score | SOTD 9 Feb 2026, 7.92 + Dev 8.05 |
+| Confidence | high |
+| Last verified | 2026-09-18 |
 
 ## 1. Concept and narrative
 - **The one idea:** merchants as Renaissance masters equipped with AI. Awwwards' own line: "150+ updates to Shopify, set in a mashup of generative paintings with elements of modern commerce" [verified, Awwwards entry, 18 words].
@@ -38,7 +44,7 @@
 ## 3. Visual language
 - **Imagery:** generative Renaissance paintings with warm luminosity and dramatic composition, human-finished [recalled high — RGD via search]; verified in the captures as full-bleed painted stages with modern-commerce objects collaged in and ragged torn-edge cut-outs [verified, desktop-s00/s25/s50].
 - **Palette roles:** paper #f7f7ee is the reading ground and carries a visible grain texture [verified, mobile-s50]; #292919 is the content black — warm, not pure — so the batch-wide "no pure black as content black" rule holds; `bg-black` is reserved for the mobile header bar and the consent panel [verified].
-- **Type:** the grotesque carries chapter words at ~140 px and all card titles; the serif carries chapter statements and the tagline; the script appears **twice only** — the *ai* in the wordmark and the drop-cap initial of each chapter statement [verified, desktop-s00/s25/s50]. A third layer exists because 150 discrete items need more hierarchy than the two-face pairing in [site:floema-jewelry] provides.
+- **Type:** the grotesque carries chapter words at ~140 px and all card titles; the serif carries chapter statements and the tagline; the script appears **twice only** — the *ai* in the wordmark and the drop-cap initial of each chapter statement [verified, desktop-s00/s25/s50]. A third layer exists because 150 discrete items need more hierarchy than the two-face pairing in [clone:floema-jewelry] provides.
 - **Layout:** a fixed rail column at ~20 % width, the scene stage behind, editorial content in two columns over it; mobile is one column with the scene reduced to a cropped band between card groups [verified, mobile-s50].
 - **Browser surfaces:** no `theme-color` and no `color-scheme` meta [verified — negative, index.html]; `lang="en"`, canonical set, favicons at 16/32/180 [verified].
 

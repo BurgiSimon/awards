@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | portfolio: one-page self-presentation of a web developer, photographer and videographer in the Ruhr area [verified, index.html `<title>`, `meta[name=description]`, JSON-LD `ProfilePage`] |
+| Industry | creative-practice |
 | Visitor mode | persuade. A *Kontakt* mailto and an *SEO Schnelltest* lead tool sit in the header on every panel [verified, index.html `.header-actions`; desktop-s00.png] |
 | Awards | Awwwards Nominee, 27 Aug 2026, listed as "Christoph Nagel Portfolio"; nominees publish no jury axis scores [verified, entry/desktop-s00.png; entry/entry.html] |
 | Corpus rating | D 6.8 / U 6.6 / C 6.8 / Co 6.4 → weighted 6.70, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -23,6 +24,11 @@
 | WebGL dosage | none. 0 canvases on all three profiles; the manifest's `webgl: true` only reports an available context [verified, manifest.json] |
 | Scroll model | section switcher. `body { overflow: hidden }`; wheel (|Δy| ≥ 18, 760 ms lock), swipe (> 55 px), arrows / PageUp / PageDown / Space / Home, prev / next buttons and nav buttons step five panels; long chapter copy scrolls inside its own box and hands the wheel back at its edges [verified, script.js; styles.css `.content-panel`] |
 | Narrative model | chaptered journey: a portrait intro that cycles three words, then four numbered chapters (web, photography, video, the person), each on its own full-bleed video loop [verified, index.html panels; desktop-s00/s25/s75/s100.png, desktop-rm-s100.png] |
+| Palette strategy | near-black #080808 + off-white #f4f4f1, all footage forced greyscale by CSS filter, glass chrome at white alphas; one red #ff4b3e only in the preloader meter's danger zone |
+| Type contract | condensed display + variable grotesque body (Anton + Manrope 200–800, self-hosted) |
+| Awards / score | Awwwards Nominee 27 Aug 2026, no jury axis scores |
+| Confidence | high (live source + captures + entry; desktop s50 frame not captured) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 **One idea:** the three trades as three words — code, camera, plain talk — and the site as a short film of the person doing each. The page has no work gallery at all: the evidence is the footage itself, shot and graded by the subject [verified, index.html; captures]. The register is blunt and self-deprecating, "ohne unnötiges Gedöns" (without needless fuss) in the meta description; the video chapter jokes that twelve transitions and dramatic fog are rarely the answer [verified, index.html].

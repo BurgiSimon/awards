@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | e-commerce — an online art gallery in Dubai selling paintings and objects, with prices in AED, a currency switch (AED / USD / SAR / QAR), a cart and Stripe checkout [verified, index.html header markup; DHmUQlsp.js `loadStripe`; entry "Online gallery of visual art and design"] |
+| Industry | art-culture |
 | Visitor mode | persuade — SHOP NOW in the hero, CART (0) and CATALOGUE in the header throughout, priced catalogue cards, an enquiry form [verified, gated/desktop-state-entered.png, walk/desktop-s50.png] |
 | Awards | Awwwards **Site of the Day, 25 Mar 2025, 7.45**: D 7.63 / U 7.06 / C 7.58 / Co 7.65. **Dev score 7.09**: Semantics/SEO 6.80, Animations 7.80, Accessibility 6.40, WPO 6.80, Responsive 7.40, Markup 7.20 [verified, entry page, `entry/entry.html`, `entry/desktop-s00.png`]. Entry tags: Art & Illustration, Culture & Education [verified, same] |
 | Corpus rating | D 7.2 / U 5.4 / C 6.6 / Co 5.8 → weighted 6.40, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -29,6 +30,11 @@
 | WebGL dosage | none — no Three.js, OGL or `getContext` signature in the entry bundle or the fetched chunks [verified, DHmUQlsp.js, chunks/]. One full-viewport canvas (1425 × 900, class `inset` in `.canvas-wrapper`) exists on desktop and not on the phone; what draws it is [unknown] [verified, walk script DOM read] |
 | Scroll model | native + smooth library — Lenis `duration 1.2`, `smoothWheel`, driven by `gsap.ticker` with `lagSmoothing(0)`; scrubbed parallax; no pin observed [verified, DHmUQlsp.js; chunks/Dq1AkkTS.js] |
 | Narrative model | gallery — a gate, a hero, a statement, five priced works, services, an enquiry, questions; no argument runs between them [verified, index.html section order] |
+| Palette strategy | warm light monochrome: bone ground #ece6d6 + taupe-brown ink #66514b on every surface including buttons, white type over photos, pale yellow #f9ef93 only in the selection; colour from renders of clouds, colonnades and dunes |
+| Type contract | hairline art-deco display caps + editorial serif reading face + wide extended grotesque labels (Love + Canela Light/Regular + Adieu), 1440 / 375 artboards |
+| Awards / score | Awwwards SOTD 25 Mar 2025, 7.45 (dev 7.09, a11y 6.40) |
+| Confidence | high (live source + captures + entry; scroll frames from a scripted walk after the gate; catalogue images unloadable, CDN dead) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 The idea is a gallery that stands in the sky: a cloud caught inside a classical colonnade, curtains and a parquet floor, over which the display type sits at poster scale in white [verified, gated/desktop-state-entered.png, walk/mobile-s00.png]. The register is quiet luxury: collecting "quietly", pieces that "carry the weight of time" [verified, index.html about copy]. Copy is short and warm; the hero line reads "Balance your Space, and Enter the gallery" [verified, same capture].

@@ -1,0 +1,80 @@
+{
+  "about": "Controlled values for the corpus card header (references/sites/_TEMPLATE.md). scripts/check-card.mjs rejects anything else; scripts/build-index.mjs and scripts/corpus-gaps.mjs group by them.",
+  "classes": [
+    "portfolio",
+    "studio",
+    "campaign",
+    "brand",
+    "docs",
+    "e-commerce",
+    "B2B product",
+    "B2B service"
+  ],
+  "industries": {
+    "creative-practice": "an individual designer, developer, artist or director",
+    "agency-studio": "a branding, design, web or marketing agency selling services",
+    "film-music": "film, animation, music and production houses",
+    "publishing": "books, magazines, editorial products",
+    "art-culture": "museums, galleries, exhibitions, foundations",
+    "fashion-beauty": "clothing, jewellery, cosmetics, haircare",
+    "food-drink": "food, beverage, restaurants and producers",
+    "travel": "expeditions, tours, airlines, destinations",
+    "property-hospitality": "real estate, hotels, workplaces, residences",
+    "architecture": "architecture and interior practices",
+    "automotive": "cars, bikes, mobility makers and restorers",
+    "manufacturing": "industrial groups, furniture and object makers",
+    "logistics": "freight, shipping, supply chains",
+    "defence-aerospace": "defence, avionics, marine and space hardware",
+    "software-saas": "software products and platforms sold as a service",
+    "dev-tools": "libraries, developer communities, technical documentation",
+    "finance": "asset management, banking, investment, fintech",
+    "web3": "crypto and token-led ventures",
+    "climate": "environmental markets, energy transition, sustainability products",
+    "health-care": "medicine, therapy, wellbeing practices",
+    "education": "schools, courses, explainers, alternatives to university",
+    "consulting-research": "consultancies and research agencies",
+    "personal-talent": "athletes, performers, public figures",
+    "fictional": "a showcase dressed as a product or company that does not exist"
+  },
+  "routeKinds": [
+    "home",
+    "case",
+    "product",
+    "article",
+    "pricing",
+    "about",
+    "contact",
+    "index",
+    "other"
+  ],
+  "quotas": {
+    "about": "The floor each value should reach before a wave adds a fourth card to a crowded one. corpus-gaps.mjs reports every value under its floor; a wave should fill at least two.",
+    "class": 4,
+    "industry": 2,
+    "visitorMode": 6,
+    "webglDosage": 5,
+    "innerRouteShare": 0.25
+  },
+  "sources": [
+    {
+      "name": "Awwwards",
+      "url": "https://www.awwwards.com/websites/",
+      "use": "Site of the Day and Honorable Mentions, filterable by category and technology; every entry publishes axis scores"
+    },
+    {
+      "name": "CSS Design Awards",
+      "url": "https://www.cssdesignawards.com/",
+      "use": "Website of the Day with UI, UX and innovation scores; a second jury with a different taste"
+    },
+    {
+      "name": "FWA",
+      "url": "https://thefwa.com/",
+      "use": "FWA of the Day; strongest on campaigns, experiments and interactive work"
+    },
+    {
+      "name": "The Webby Awards",
+      "url": "https://www.webbyawards.com/winners/",
+      "use": "winners by industry category, the quickest way to fill an industry gap (finance, health, education, public service)"
+    }
+  ]
+}

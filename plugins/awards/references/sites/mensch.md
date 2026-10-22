@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | studio — a brand studio for startups, selling brands and "Brand OS" systems [verified, index.html `<title>` and meta description] |
+| Industry | agency-studio |
 | Visitor mode | persuade — *Learn More* / *See Work* pills under the statement, a Contact dialog in the nav [verified, desktop-s25.png; web-chrome.js `#mc-contact`] |
 | Awards | Awwwards **Honorable Mention, 18 Aug 2026**; no aggregate axis scores published, fifteen individual juror rows with overalls from 6.40 to 9.90 [verified, entry page, `entry/entry.html`, `entry/desktop-s00.png`]. The site's footer links the entry [verified, web-chrome.js] |
 | Corpus rating | D 7.2 / U 6.8 / C 7.0 / Co 6.5 → weighted 6.97, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -27,6 +28,11 @@
 | WebGL dosage | moments — one procedural soil field drawn by two canvases (section bed and footer); the hero mark is a canvas-2D image sequence [verified, manifest.json `canvases: 3`; mensch-soil.js; lab-canvases.js] |
 | Scroll model | native + Lenis 1.1.14 (`duration 1.05`, ease-out cubic) on its own rAF, desktop fine pointer only, never under reduced motion; fixed hero covered by the page; one sticky statement; an idle settle-snap across the first viewport [verified, web-chrome.js; index.html] |
 | Narrative model | specification — sky hero with the mark → typed statement over soil → client ticker → four service cards → testimonial marquee → wordmark close [verified, desktop-s00 to s100.png] |
+| Palette strategy | warm rust ground #2A0800 + cream ink #EBE9D9 + one orange #FB3F0C; a blurred sky video as the single cool field, moss green only in shader and renders |
+| Type contract | narrow grotesque display + grotesque body + blackletter accent (Greed Narrow + Be Vietnam Pro + UnifrakturCook) |
+| Awards / score | Awwwards Honorable Mention 18 Aug 2026, no aggregate axis scores published |
+| Confidence | high (live source + captures + entry; boot loader not captured) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 **One idea:** the brand grows. The name means a decent person, and the mark is a figure with arms out; in the hero it hangs in a blurred sky and cycles from bare glossy orange to overgrown with moss and flowers and back [verified, desktop-rm-s00.png vs desktop-s00.png; index.html comment on the 120-frame loop]. Below it the page turns into warm soil: a slow procedural field of rust and green that the pointer smears [verified, desktop-s25/s50.png; mensch-soil.js]. The entry states the idea as soil that greens and assets that flower [verified, entry page].

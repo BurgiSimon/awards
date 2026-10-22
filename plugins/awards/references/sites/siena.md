@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | studio: a boutique film production house showing eight of its films; the home route plus `/work`, `/about` and `/films/<slug>` case routes [verified, index.html meta description, prefetch links] |
+| Industry | film-music |
 | Visitor mode | experience: the home route is the reel itself; the contact is an "ADMIT ONE" ticket with an e-mail link, reached through the menu [verified, index.html text; desktop-state-menu-open.png] |
 | Awards | Awwwards **Site of the Day, 18 Mar 2025, 7.9**: Design 7.99 / Usability 7.61 / Creativity 8.13 / Content 8. **Developer 7.51**: Semantics 7.20, Animations 8.60, Accessibility 6.60, WPO 7.20, Responsive 8.00, Markup 7.20; entry palette `#000000` + `#FAF7EF` [verified, entry page, `entry/siena-film-foundation.html` + `entry/desktop-s00.png`]. A Site of the Month in March 2025 is reported by a search snippet but is not shown on the entry page [unknown] |
 | Corpus rating | D 7.8 / U 5.8 / C 8.0 / Co 7.2 → weighted 7.18, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -15,6 +16,11 @@
 | WebGL dosage | canvas-first: one OGL canvas draws the film frames of the roll; the DOM lays out and carries titles, reviews and buttons over it [verified, manifest.json `canvases: 1`, index.html `data-gl="c"`, app.js] |
 | Scroll model | virtual float, snapping, modulo-wrapped: the home route is fixed at `100svh`; wheel, touch, keys and top/bottom hitboxes feed a looping roll that eases and snaps to the nearest film [verified, out.css `[data-page=home]{height:100svh}`, app.js roll config; manifest `scrollMode: wheel`] |
 | Narrative model | gallery: eight films on one endless vertical film strip, each frame a poster with reviews and an EXPLORE ticket to its case route [verified, index.html; states2 captures] |
+| Palette strategy | black ground + one warm cream #faf7ef for type and tickets; declared gold #ffc700 / red #ff0f00 unseen; chroma from film stills graded amber by the shader; grain and ticket perforations as material |
+| Type contract | quirky display grotesque + spaced serif small caps + neutral grotesque + SVG period logotype (Neue Brucke + P22 Parrish Roman + NB International) |
+| Awards / score | SOTD 18 Mar 2025, 7.9 (dev 7.51, a11y 6.60) |
+| Confidence | high (live source + captures + interactive states + entry) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 The house presents itself as a cinema: you buy a ticket to get in, and what you see is the reel. The ENTER button is a ticket stub, the menu is a ticket with a perforated tear line, the contact is an "ADMIT ONE" stub numbered 004, and the films run past vertically as frames on a strip with rounded gate corners, grain and light leaks [verified, desktop-s00.png, desktop-state-menu-open.png, index.html].

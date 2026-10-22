@@ -3,6 +3,7 @@
 | Field | Value |
 |---|---|
 | Class | brand / e-commerce (pre-sale aparthotel investment + design resort hotel, Yaremche, Ivano-Frankivsk region, Ukrainian Carpathians) [verified, index.html `<title>` "Son Daven — Design Resort Hotel in Yaremche" + Awwwards tags E-Commerce, Food & Drink, Hotel / Restaurant]; unit count and 2027/2028 phasing [recalled medium] |
+| Industry | property-hospitality |
 | Visitor mode | persuade (investors) wrapped in experience (future guests); `<meta name="description">` is "Investment project with guaranteed return." [verified, index.html] |
 | Awards | **Awwwards Site of the Day, 5 Jun 2026 — the only award badge on the entry** [verified, Awwwards entry read 2026-09-18]. SOTD / SCORE 7.62: Design 7.70 · Usability 7.16 · Creativity 8.15 · Content 7.59 (40/30/20/10) [verified, same]. **DEV AWARD is a published score, 8.09/10, not a badge** — six criteria: Semantics/SEO 8.20 · Animations/Transitions 8.20 · Accessibility 7.40 · WPO 8.00 · Responsive Design 8.40 · Markup/Meta-data 8.00 [verified, same]. **No Site of the Month appears anywhere on the entry** (the only "of the Month" strings are global nav links) [verified, same]. A CSSDA entry and a 9.01 reading (9.3/8.6/9.4/8.5) came from a 2026 search-extraction batch and were not confirmed this pass [recalled low]. Tags: Animation, Scrolling, Storytelling, UI design, Microinteractions, WebGL, GSAP, Webflow [verified, same] |
 | Studio / credits | Three credits only, in entry order: **The First The Last** (PRO), **Maksym Stepenko**, **Ivan Chopei** [verified, Awwwards entry read 2026-09-18]. Role split (design + dev Chopei, producer Stepenko) and the studio's 24-award / SOTY-2022 record [recalled medium]; moving image by Zerkalo Studio [recalled low] |
@@ -12,6 +13,11 @@
 | WebGL dosage | moments — 16 DOM-tethered canvases running one shader, inside a DOM-led long-form page [verified, manifest.json + slater-55210.js] |
 | Scroll model | native + Lenis 1.3.15 (duration 1.2, `smoothWheel`, `touchMultiplier: 2`, expo-out easing) + **CSS `position: sticky` stages (13 declarations)** + horizontal rails each on their **own nested Lenis** (duration 0.6). `scrollMode: native` on desktop, mobile and reduced motion [verified, slater-55210.js, webflow-shared.css, manifest.json]. **No ScrollTrigger `pin` anywhere** — 23 scrubbed triggers, zero pins [verified, slater-55210.js] |
 | Narrative model | chaptered journey: prologue → about → seasons → benefits → factoids → typologies/gallery → location → FAQ → finance → footer, read from the scene registry `initSceneProlog / About / Seasons / Benefits… / Factoid / Faq / Fin / Footer` [verified, slater-55210.js] |
+| Palette strategy | two tokens inverted by theme class, 4.98:1 |
+| Type contract | one superfamily, two cuts (KTF Metro Roman + Blueline) |
+| Awards / score | SOTD 5 Jun 2026, 7.62 (dev 8.09) |
+| Confidence | high |
+| Last verified | 2026-09-18 |
 
 ## 1. Concept and narrative
 "Son Daven is a new place of power in the Carpathians, where Hutsul culture meets contemporary architecture, art, hospitality" [verified fragment, Awwwards entry read 2026-09-18]. The brief is hard: sell an unbuilt building in a war-affected country to investors while seducing future guests. The order is emotion before economics — the scene registry runs prologue and about before factoids, and `initSceneFin` (finance) sits second-to-last, ahead of the footer [verified, slater-55210.js]. The hero states the commercial frame in the eyebrow ("İNVESTMENT PROJECT") and the emotional one in the wordmark, then hands off three plain facts — developer, typology, place — in a single meta row [verified, desktop-s00.png]. Two copy registers, literary in the atmosphere chapters and plainly numeric in the commercial ones ("20+ years of experience", "ranked 2nd among developers in Ukraine by Forbes Ukraine", "37 completed projects") [verified, desktop-s75.png].

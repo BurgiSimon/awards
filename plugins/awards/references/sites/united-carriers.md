@@ -3,6 +3,7 @@
 | Field | Value |
 |---|---|
 | Class | B2B product (APAC freight forwarder: air, sea, customs brokerage, warehousing, project cargo) [verified, index.html JSON-LD OfferCatalog] |
+| Industry | logistics |
 | Visitor mode | persuade |
 | Awards | Awwwards Site of the Day, Sep 6 2026 [verified, Awwwards entry read 2026-09-18]. SOTD score 7.28 — Design 7.35, Usability 7.00, Creativity 7.61, Content 7.16 [verified, same]. DEV AWARD 7.54 — Semantics/SEO 8.00, Animations/Transitions 8.00, Accessibility 6.80, WPO 7.60, Responsive Design 7.00, Markup/Meta-data 7.60 [verified, same; Awwwards publishes six developer criteria, the corpus rubric names five]. Entry tags: Business & Corporate, Web & Interactive, Icons, Transitions, Responsive, Storytelling, GSAP, Three.js, 3D, Microinteractions, Webflow [verified, same]. Declared palette on the entry: one colour, #0016CB [verified, same]. Curated on Lapa Ninja, A1 Gallery, Site of Sites, footer.design, Muzli [recalled medium, not re-checked in the 2026-09-18 pass]; 12M+ combined views of creator reaction videos within two weeks of launch [verified 2026-07, company LinkedIn; not re-checked] |
 | Studio / credits | Bearplus + Kenny Ho, the only two credits on the entry [verified, Awwwards entry read 2026-09-18]; site footer reads "CRAFTED BY BEARPLUS" [verified, desktop-s100.png] |
@@ -12,6 +13,11 @@
 | WebGL dosage | moments, not canvas-first: a Three.js globe in the hero, a Three.js ocean + wake simulation, a footer particle canvas; the land beats are 2D-canvas image sequences [verified, chunk-globe.js, chunk-my-flights.js, chunk-Home-CZ3JhV-m.js, index.html] |
 | Scroll model | native + Lenis + heavily scrubbed ScrollTrigger; below 767px the page scrolls an inner `.body-inner` element rather than the window [verified, chunk-scroll-CRhVCsWB.js; manifest.json scrollMode desktop native / mobile wheel] |
 | Narrative model | chaptered journey: one shipment from orbit to door, shot in plan view |
+| Palette strategy | two tokens: ultramarine brand + orange interaction, dark hero on a white body |
+| Type contract | condensed display + mono + neutral grotesque (BT Steinhart / BT Steinhart Mono / Helvetica Neue) |
+| Awards / score | SOTD Sep 6 2026, 7.28 + Dev 7.54 |
+| Confidence | high |
+| Last verified | 2026-09-18 |
 
 ## 1. Concept and narrative
 "Every leg of the journey" is the single H1 and the JSON-LD `slogan` [verified, index.html]. The beats read across the capture set: orbit — a dotted point-cloud Earth with orange great-circle trade arcs and country label chips (UK, Germany, Spain, Italy, Egypt, South Africa, Colombia, Brazil, Argentina), blue atmospheric rim, star field [verified, desktop-s00.png, desktop-rm-s00.png]; then a crane setting a container on a truck bed on white [verified, desktop-s25.png]; then the truck seen from directly overhead on a black road strip that splits the white page in two [verified, desktop-s50.png]; then a freighter over ocean and cloud, also from overhead [verified, desktop-s75.png]; then white informational blocks and a white footer [verified, desktop-s100.png].

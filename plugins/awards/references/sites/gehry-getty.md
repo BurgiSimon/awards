@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | campaign: a museum's online exhibition marking an anniversary. It tells the story of one building from the archive of the architect who designed it [verified, index.html `<title>`, meta description "A new online exhibition from Getty"] |
+| Industry | art-culture |
 | Visitor mode | experience → read: a narrated, scored film layer over long archival essays with "[READ MORE]" expanders [verified, desktop-s50/s75, mobile-s50] |
 | Awards | Awwwards **Site of the Day, 17 Nov 2023**, **7.89**: Design 7.97 · Usability 7.52 · Creativity 8.19 · Content 8.04. **DEV AWARD 7.78**: Semantics/SEO 7.80 · Animations/Transitions 8.60 · Accessibility 7.60 · WPO 8.00 · Responsive Design 7.60 · Markup/Meta-data 7.00 [verified, entry page awwwards.com/sites/sculpting-harmony, fetched and captured 2026-09-23]. Site of the Month, November 2023 [recalled medium: only the title of an Awwwards article in one search result; the article was not read] |
 | Corpus rating | D 8.0 / U 6.8 / C 7.8 / Co 8.4 → weighted 7.64, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -15,6 +16,11 @@
 | WebGL dosage | moments. The manifest reports 2 canvases with `webgl: true`. The GL is an explorable model scene: modulepreloaded `InteractiveScene`, `Hotspot`, `orbit` and `gltf-loader` chunks, plus an "[EXPLORE THE MODEL]" control [verified, manifest.json, index.html, desktop-s25]. The rest of the page is video and DOM [verified, 11 `<video>` in index.html] |
 | Scroll model | native + smooth library (Lenis 1.0.19). GSAP ScrollTrigger is scrubbed through a shared `useBaseScrollTrigger` composable (`scrub` defaults to `true`) [verified, useBaseScrollTrigger.f0aaf192.js]. The intro and outro films are named `*-scrub.mp4` [verified, manifest.json failedRequests]. manifest `scrollMode: native` [verified] |
 | Narrative model | chaptered journey: a sketch preloader, then a scrubbed intro film, then three numbered, titled chapters (each has film, an essay, archival stills and a model beat), then an index / acknowledgements close [verified, desktop-s00…s100, credits list in desktop-s100] |
+| Palette strategy | theme-per-chapter: four flat institutional hues flooding whole chapters (yellow-orange #ffa441 leads, red #ff6359, blue #4596ff, green #16a147), black ink, white caption grounds; chroma otherwise from archival photography and film |
+| Type contract | light editorial serif text + stretched black grotesque for drop caps and full-width titles only + mono labels (Reckless + Sharp Grotesk Black widths 15/20 + Roboto Mono) |
+| Awards / score | SOTD 17 Nov 2023, 7.89 + Dev 7.78 (SOTM Nov 2023 reported, not read) |
+| Confidence | high (live source + captures + entry) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 The idea is an archive told in the architect's own voice, with one piece of music per chapter. The site retells how a building's form was found, by hand, in paper and wood models. The medium follows the same order: a line sketch, then a model, then film of the finished steel [verified, desktop-s00, desktop-s25, desktop-s50].

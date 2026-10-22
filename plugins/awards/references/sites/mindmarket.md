@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | B2B service brand (global qualitative market-research agency, quote-led) |
+| Industry | consulting-research |
 | Visitor mode | persuade |
 | Awards | Awwwards **Site of the Day, 29 Dec 2025** [verified, Awwwards entry read 2026-09-18]; SOTD score **7.85 / 10** — Design 8.09 · Usability 7.48 · Creativity 7.95 · Content 7.75, weights 40/30/20/10 [verified, same]; **DEV AWARD score 7.55 / 10** — Semantics/SEO 7.40 · Animations/Transitions 8.00 · **Accessibility 6.80** · WPO 7.80 · Responsive Design 7.60 · Markup/Meta-data 7.40 [verified, same; Awwwards publishes six developer criteria, the corpus rubric names five]. Entry tags: Art & Illustration · Culture & Education · Promotional · Animation · Colorful · Flat Design · Scrolling · Illustration · Storytelling [verified, same]. No Honourable Mention or Mobile Excellence badge on the entry [verified, same] |
 | Studio / credits | **Louis Paquet** (PRO) — the entry's single credit, no role given [verified, Awwwards entry read 2026-09-18]. Illustration author, agency, other collaborators [unknown] |
@@ -14,6 +15,11 @@
 | WebGL dosage | **none for 3D** — no 3D library signature in any fetched file; `manifest.json`'s `webgl:true` is context availability, not use [verified, manifest.json + 6 chunks]. 14 `<canvas>` elements at runtime, 13 of them Rive [verified, manifest.json + index.html] |
 | Scroll model | native document scroll + **Lenis**; `scrollMode: native` in all three capture contexts [verified, manifest.json]. Scroll progress is published into CSS custom properties (`data-scroll-css-progress` → `--progress`, `--t`, `--tx/--ty/--scale/--rot`) and a named JS event (`data-scroll-event-progress="pathProgress"`) [verified, index.html + inline CSS]. Sticky illustration stage, sticky stat stack and three rAF rails sit inside it |
 | Narrative model | faceted world — one persuade homepage in front of a methodology × sector × strategy catalogue (34 templated child routes) |
+| Palette strategy | theme-per-section: five flat hues over warm beige #f5f1e4, charcoal ink |
+| Type contract | Inter only, 400/500/700, body at 500 |
+| Awards / score | SOTD 29 Dec 2025, 7.85 (dev 7.55) |
+| Confidence | high |
+| Last verified | 2026-09-18 |
 
 ## 1. Concept and narrative
 The proposition is *market research as people, not data*. The whole site is carried by one commissioned illustration world — flat vector characters, no photography in the hero, no dashboards, no stock boardroom — and the headline says it outright: "Real human insights" over "One global partner" [verified, index.html + desktop-s00.png]. The strategic problem is the old card's read and it still holds [inferred]: qualitative fieldwork is invisible, so the site sells the feeling of being understood rather than the method.

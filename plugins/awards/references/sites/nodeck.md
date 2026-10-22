@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | campaign — a satirical showcase for a *fictional* startup consultancy, declared non-commercial in its own Legal and Credits dialogs [verified, index.html JSON-LD and `legal-modal`] |
+| Industry | fictional |
 | Visitor mode | experience — the one "order" button is a joke that dodges the cursor; nothing is sold [verified, index.html `cta-sike-modal`; main-BqI5seD_.js `_resolveFlee`] |
 | Awards | none found: one search turned up no award entry for this site. A One Page Love listing appeared as a search result title and was not read [unknown] |
 | Corpus rating | D 7.3 / U 6.9 / C 8.0 / Co 7.6 → weighted 7.35, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -25,6 +26,11 @@
 | WebGL dosage | moments — `canvases: 0` at rest; one lazy Three.js scene mounted only for the closing paper transition [verified, manifest.json; main-BqI5seD_.js `paperTransition`] |
 | Scroll model | section switcher — `html, body { overflow: hidden }`; wheel delta accumulates into a commit ring, plus prev / next buttons, arrow keys and a thumbnail menu [verified, index.html inline style; main-BqI5seD_.js `_onWheel`] |
 | Narrative model | print artefact — the site *is* a numbered ten-slide deck with presenter chrome, and turns on the format it imitates [verified, desktop-s00.png `SLIDE 1/10`; index.html `.statusbar`] |
+| Palette strategy | two paper grounds alternated per slide (hot pink #ff87ab / cream #f3e6d6), black ink with 4 px hard shadows, one highlighter-lime accent #def915; photographed desk props as the material |
+| Type contract | fat cartoon display + geometric grotesque + bitmap DOS face for one slide (BN Dime Display + DM Sans + Web437 IBM VGA) |
+| Awards / score | none found (one search) |
+| Confidence | high (live source + captures; no award entry) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 **One idea:** a presentation that hates presentations. The critique of the pitch-deck habit is delivered as a pitch deck, with slide counter, prev / next controls, a *Presenter notes* drawer and a thumbnail sorter [verified, desktop-s00.png; index.html]. Then the deck breaks its own format. A slide crashes into a boot screen. The order button runs from the mouse. At the close the deck is crumpled and binned [verified, index.html `slide--sitebroken`, `slide--cta`; main-BqI5seD_.js `trash-bg`].

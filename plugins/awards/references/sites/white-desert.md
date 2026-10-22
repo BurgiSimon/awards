@@ -3,6 +3,7 @@
 | Field | Value |
 |---|---|
 | Class | brand / luxury travel (Antarctic expeditions, enquiry-led with published prices) |
+| Industry | travel |
 | Visitor mode | persuade |
 | Awards | Awwwards **Site of the Day, 11 Sep 2026** [verified, Awwwards entry read 2026-09-18]; SOTD score **7.31 / 10** — Design 7.28 · Usability 7.27 · Creativity 7.21 · Content 7.74, weights 40/30/20/10 [verified, same]; **DEV AWARD score 7.61 / 10** — Semantics/SEO 7.40 · Animations/Transitions 7.80 · Accessibility 7.00 · WPO 8.00 · Responsive Design 7.60 · Markup/Meta-data 7.60 [verified, same]. No Developer Award, Honourable Mention or Mobile Excellence badge appears on the entry [verified, same]. Entry tags: Hotel / Restaurant · Luxury · Gallery · Photo & Video [verified, same] |
 | Studio / credits | **Malvah** (PRO), **Geoff Dawes**, **Usudo** — the entry lists three credits and no roles [verified, Awwwards entry read 2026-09-18]; Geoff Dawes as front-end developer, Malvah as design studio [recalled medium]; photographers [unknown] |
@@ -12,6 +13,11 @@
 | WebGL dosage | none — 0 canvases across all three capture contexts [verified, manifest.json]; the `webgl:true` flag is context availability, not use |
 | Scroll model | native document scroll + **Lenis** smooth scroll; `scrollMode: native` in all three contexts [verified, manifest.json + CSS/HTML signatures]. Sticky globe stage and a horizontal camps rail sit inside it [verified, class inventory + desktop-s50.png] |
 | Narrative model | specification / place-led: brand line → season → priced trips → founder → camps → testimony → the journey itself (flight data, globe) → process → footer |
+| Palette strategy | navy ink + warm bone grounds, one orange CTA accent |
+| Type contract | Cardinal Classic italic + Inter Tight + Oswald |
+| Awards / score | SOTD 11 Sep 2026, 7.31 (dev 7.61) |
+| Confidence | high |
+| Last verified | 2026-09-18 |
 
 ## 1. Concept and narrative
 The proposition is *access to an impossible place, rendered as logistics*. Awe is delivered in measurements rather than adjectives: camp coordinates set in brackets under each card, a flight chapter labelled "CPT – WFR" carrying flying time 05:30 hrs, distance 4,220 km / 2,610 mi and average summer temperature -5°C / 23°F [verified, index.html + desktop-s50.png]. Beats read, in order [verified, index.html spine + desktop-s00/25/50/75/100.png]: full-bleed film hero with the wordmark "Antarctica" set edge to edge and one italic serif line, "Luxury and adventure in the most remote place on Earth"; an intro chapter (The Last Continent / Our Season); five priced trips from US $16,500 to US $115,500 as flickable cards; a signed founder statement from the co-founder & CEO; three camps, each with its own concept sentence and coordinates — "Inspired by astronauts, used by explorers" for one, "a side of Antarctica seldom seen" for another; a full-bleed press pull-quote over a crevasse; the Cape Town → Wolf's Fang flight on a sticky globe; a six-step "How it works" flyout; a dense operational footer closing on Shackleton's "We all have our own white South".

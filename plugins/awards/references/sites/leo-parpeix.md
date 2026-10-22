@@ -3,6 +3,7 @@
 | Field | Value |
 |---|---|
 | Class | portfolio (art director + interactive designer) |
+| Industry | creative-practice |
 | Visitor mode | experience |
 | Awards | Awwwards **Site of the Day 14 Sep 2026**, overall 7.69 — Design 7.79 / Usability 7.34 / Creativity 8.04 / Content 7.63; **DEV AWARD 7.47** — Semantics-SEO 7.00, Animations-Transitions 8.40, Accessibility 7.00, WPO 7.20, Responsive 7.80, Markup-Metadata 7.40 (Awwwards publishes six developer criteria; the corpus rubric names five) [verified, Awwwards entry read 2026-09-18]. Categories Promotional, Web & Interactive; tags Experimental, Animation, Portfolio, Typography, Transitions, 3D, Microinteractions; declared tech WebGL, After Effects, Blender [verified, same]. An **earlier, different portfolio** took an Honorable Mention 6 Oct 2021; that entry publishes no axis scores [verified, Awwwards entry `leo-parpeix-portfolio` read 2026-09-18] |
 | Studio / credits | The 2026 entry lists exactly two people under "by", **with no role labels**: Léo Parpeix (PRO, the submitter) and Thoma Lecornu [verified, Awwwards entry read 2026-09-18]. The site's own footer data carries one credit object, `{name:"Thoma Lecornu", link:"twitter.com/LecornuThoma"}`, and footer copy thanking "Thoma Lecornu, who jumped onto this project with me" plus Victor (Roussel), Félix (Sikora) and Lucas (Gousserey) "for their patience and 3D crazy skills" [verified, index.js fetched 2026-09-18]. `twitter:site` and `twitter:creator` are both `@LecornuThoma` [verified, index.html]. **The Mélina Guyon conflict is resolved**: she is credited on the **2021** Honorable Mention entry, not on this one [verified, Awwwards 2021 entry]. No sound or copywriting credit appears in either entry or the bundle [unknown] |
@@ -12,6 +13,11 @@
 | WebGL dosage | canvas-first: two canvases (`#canvas-app` behind the DOM, `#canvas-top-app` above it) plus one full-frame velocity post-pass [verified, index.html + manifest.json `canvases: 2`, `webgl: true`] |
 | Scroll model | native + Lenis + GSAP; `lenis.on('scroll', …)` calls `ScrollTrigger.update()` [verified, index.js; manifest `scrollMode: native`] |
 | Narrative model | collage → index: manifesto → 3 projects · WebGL typographic break · 3 projects · archive → CTA |
+| Palette strategy | 3 named themes per route, light-dominant (#f7f7f7 / #022016) |
+| Type contract | grotesque body + variable display (Monument Grotesk + Avantt) |
+| Awards / score | SOTD 14 Sep 2026, 7.69 + Dev 7.47 |
+| Confidence | high |
+| Last verified | 2026-09-18 |
 
 ## 1. Concept and narrative
 A first-person craft manifesto, not a case-study index. The site states its own brief in the footer: a balance between an immersive 3D experience and a clean 2D environment, projects readable "in a single scroll", skill set legible "in under 10 seconds" [verified, index.js]. The 3D carries a character — **the moustache daisy**, a bee and a flower "meticulously sculpted in an artist's workshop" [verified, index.js] — which is also the easter egg: the hero invites "(Click to feed the bee)" and spawns 3D fruit with an SFX [verified, index.js `beeMesh`/`flowerMesh`/`_scheduleFruit1Sound`].
@@ -71,4 +77,4 @@ One entry chunk: `index-*.js` **1.38 MB raw / 432 KB gzip** and `index-*.css` **
 ## 9. Confidence and sources
 Awards, scores and credits [verified, Awwwards entries read 2026-09-18] · palette, type, easings, breakpoints and reduced-motion absence [verified, index.css] · stack, fluid parameters, Lenis config, sound, content data and copy [verified, index.js] · composition, mobile design and reduced-motion frames [verified, captures 2026-09-18] · hosting and any non-developer credit [unknown].
 **Live pass 2026-09-18: reachable, capture exit 0, scroll mode native, sources `index.html`, `index.css` (`/assets/index-CLH3rn1-.css`), `index.js` (`/assets/index-BZFBO0Ol.js`), `manifest.json`, `desktop-s00/25/50/75/100.png`, `mobile-s00/25/50/75/100.png`, `desktop-rm-s00/25/50/75/100.png`, awwwards.com/sites/leo-parpeix-portfolio-2026, awwwards.com/sites/leo-parpeix-portfolio.**
-The manifest's LCP figures are a headless-SwiftShader cold-cache artefact and are not reported as performance claims. The 2021 Honorable Mention entry is a different portfolio (palette #2779a7) and is recorded here only to resolve the credit conflict.
+The manifest's LCP figures are a headless-SwiftShader cold-cache artefact and are not reported as performance claims. The 2021 Honorable Mention entry is a different portfolio (palette #2779a7 [verified, Awwwards entry `leo-parpeix-portfolio` read 2026-09-18]) and is recorded here only to resolve the credit conflict.

@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | portfolio (independent product designer; one document holding home, About, Playground and four case-study views) [verified, index.html] |
+| Industry | creative-practice |
 | Visitor mode | persuade: "Work with me" sits in the nav pill and opens a contact drawer; the scrolled nav collapses to an "Available for work" pill [verified, desktop-s00.png, retry/desktop-s25.png, site.js] |
 | Awards | Awwwards **Honorable Mention, 26 Aug 2026**; no aggregate axis scores published, only 15 of 22 community votes listed one by one (overalls 6.50–8.90) [verified, entry page awwwards.com/sites/zainab-kabira-portfolio-2026, entry.html]. The entry declares two colours and "Javascript, HTML5, Figma" [verified, entry.html] |
 | Corpus rating | D 7.3 / U 6.8 / C 7.2 / Co 7.3 → weighted 7.13, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -15,6 +16,11 @@
 | WebGL dosage | none — no `<canvas>` in the DOM; the hero "shader" is a baked `hero-shader.webp` preloaded at high priority; manifest `webgl: true` only reports an available context [verified, index.html, manifest.json `canvases: 0`] |
 | Scroll model | native, no smoothing library; one shared scroll scheduler drives CSS-sticky pins with scrubbed stages; case studies are gesture-snapped decks (one wheel, key or swipe = one panel) on desktop and plain vertical scroll at ≤ 820 px [verified, index.html; manifest `scrollMode: native`] |
 | Narrative model | gallery — sky hero → statement → logo marquee → scrubbed project tiles → testimonial deck → garden close, with four case-study routes [verified, retry/desktop-s00…s100] |
+| Palette strategy | illustrated strata: sky-gradient hero → cream #fff9f1 / sand #eee8d2 grounds with painted scenery, gold #ffda3f + coral #fc9073 accents, remembered day/night toggle |
+| Type contract | serif display + grotesque body + mono labels (DM Serif Display + Space Grotesk + JetBrains Mono); 10 Google families load |
+| Awards / score | Awwwards Honorable Mention 26 Aug 2026, no axis scores published |
+| Confidence | high (live source + captures + entry) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 A portfolio as a walk down through one painted landscape: it opens in the sky, lands on cream ground, passes a willow grove and ends in a flower bed over dark soil. The claim sits in the headline — a designer who ships, codes, builds or solves, the last word rolling through the cycle like a slot [verified, index.html `#scramble`]. The tone is warm and playful: a tape-deck widget offers the design journey "rapped" as audio [verified, desktop-s00.png, index.html `<audio>`], and the loader is a Pac-Man eating dots with rotating lines [verified, index.html `#page-loader`].

@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | brand (pre-launch splash for a haircare label on a password-protected Shopify store; every route answers with the splash, served at `/password` and rewritten to `/`) [verified, index.html `pageType":"password"`, `history.replaceState`] |
+| Industry | fashion-beauty |
 | Visitor mode | experience: one screen to play with, socials as the only exit [verified, index.html + captures] |
 | Awards | none found [unknown]; no award entry was looked up |
 | Corpus rating | D 7.4 / U 5.6 / C 7.4 / Co 5.0 → weighted 6.62, 2026-10-05 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -15,6 +16,11 @@
 | WebGL dosage | canvas-first: three fixed full-viewport canvases (2D ground, WebGL sand, 2D grain) around one masked `<video>`; the GL layer is transparent until a grain is moved [verified, index.html; manifest.json `canvases` 3] |
 | Scroll model | none: `overflow: hidden`, `touch-action: none`, a single viewport [verified, index.html CSS] |
 | Narrative model | single-object launch: an old television half-buried in sand, playing the brand reel; the visitor digs the sand around it [verified, desktop-s00.png + index.html] |
+| Palette strategy | photographic: warm sand photo ground, cool video reel, white chrome, one orange loader accent (#F2643E) |
+| Type contract | DM Sans labels + Playfair Display (loaded, line commented out); wordmark lives in the video |
+| Awards / score | none found |
+| Confidence | high |
+| Last verified | 2026-10-05 |
 
 ## 1. Concept and narrative
 A brand that does not exist yet, shown as an object found on a beach. A top-down photograph of sand holds a buried cathode-ray television whose screen plays a looping seascape reel with the wordmark set into it; moving the pointer brushes the sand grain by grain, revealing a darker, smoother layer beneath, and the brushed grains slide off the set's raised bezel back onto flat ground [verified, desktop-s00.png, index.html sim comments]. There is no copy beyond the tagline in the meta description and the copyright line; the register is atmosphere, sound and touch [verified, index.html].

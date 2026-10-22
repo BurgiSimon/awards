@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | portfolio (design engineer; one home page with `/reunimos`, `/inspire_mono`, `/adrive` and other case routes, plus external tool and event links) [verified, index.html] |
+| Industry | creative-practice |
 | Visitor mode | persuade: the work grid and a mail link carry the page, the WebGL scenes frame them [verified, index.html + captures] |
 | Awards | Awwwards **Site of the Day, 14 Aug 2026, 7.36**: Design 7.44 / Usability 7.10 / Creativity 7.69 / Content 7.17; **Developer Award 7.43**: Semantics/SEO 7.00, Animations 8.80, Accessibility 6.60, WPO 7.80, Responsive 7.20, Markup 7.00; entry tags Portfolio, Scrolling, Gallery, 3D, UI design, Next.js, WebGL [verified, entry page `/sites/haoqi-design` read and captured 2026-09-23] |
 | Corpus rating | D 7.3 / U 6.6 / C 7.2 / Co 6.8 → weighted 7.02, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -15,6 +16,11 @@
 | WebGL dosage | canvas-first: one fixed full-viewport canvas (`z-30`) draws the glass lettering and 3D cursor, every work thumbnail over empty DOM boxes, the hyperspace chapter and a sticker rain [verified, index.html + manifest.json `canvases: 1`] |
 | Scroll model | native + Lenis 1.3.23 (`lerp .1`, `smoothWheel`, `syncTouch`, `anchors`, `autoRaf:false`) on an inner `overflow-y-auto` wrapper, ticked from the site's shared frame loop; one scroll-staged shader chapter, no pin [verified, 3c6cc5b2fcccdee5.js + 4d3f3b68dbbde33a.js; manifest `scrollMode: wheel`] |
 | Narrative model | gallery with one manifesto interlude: sky hero → statement and portrait → staggered work grid → hyperspace chapter of principles → sky contact close [verified, retry/desktop-s00…s100] |
+| Palette strategy | user-chosen light / dark / system token sets (bone #fbfaf4 / near-black #0f1111) + one acid lime #c0fe04 for selection and tags; GL chapters paint their own worlds (pale sky, black space with neon streaks) |
+| Type contract | wide variable grotesque display caps + mono body + pixel-mono HUD (TikTok Sans wdth 120 + Geist Mono + Departure Mono) |
+| Awards / score | SOTD 14 Aug 2026, 7.36 + Dev 7.43 |
+| Confidence | high (live source + captures + entry) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 A design engineer's portfolio staged as a round trip: it opens under a pale sky where a greeting written in glassy, inflated tube lettering floats beside a chunky 3D pointer, drops to a flat bone-coloured drafting sheet for the work, launches into a hyperspace tunnel for a short creed, and lands back under the sky to ask for contact. The chrome never changes: corner labels, a local clock with temperature, and a live pointer coordinate readout sit on a visible 3 × 2 construction grid with crosshair marks [verified, retry/desktop-s00.png]. The copy register is short and first-person, taglines like "Thinking in systems. Designing with care." [verified, index.html]. One detail carries the tone: the current employer's name is printed as six black squares that ask for a passcode [verified, index.html `aria-label`].

@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | brand (corporate group, B2B heavy industry) |
+| Industry | manufacturing |
 | Visitor mode | experience, with read routes (divisions, ESG, news) |
 | Awards | Awwwards **Site of the Day, 23 June 2025**; SOTD score **7.62/10** — Design 7.67 · Usability 7.40 · Creativity 7.85 · Content 7.65; **DEV AWARD 7.84/10** over six criteria — Semantics/SEO 7.40 · Animations & Transitions **9.00** · Accessibility **7.20** · WPO 8.00 · Responsive Design 7.60 · Markup & Meta-data 7.80; tags 3D, Business & Corporate, Gestures / Interaction, Responsive, Scrolling, UI design, Web & Interactive [verified, Awwwards entry read 2026-09-18] · reputational proxy: seven-plus GitHub replicas [verified, earlier pass] |
 | Studio / credits | **Immersive Garden** (INT), the sole credit on the entry; no individuals named [verified, Awwwards entry read 2026-09-18] |
@@ -14,6 +15,11 @@
 | WebGL dosage | canvas-first: one hydrated island, `#canvas-wrapper` `aria-hidden="true"` and `data-astro-transition-persist="webgl"`, so the scene survives route changes instead of rebooting [verified, index.html]; 2 canvases (scene + the sound icon) [verified, manifest.json] |
 | Scroll model | native + Lenis, sticky chapters driven by ScrollTrigger with a jump rail; `scrollMode: native` [verified, manifest.json] |
 | Narrative model | chaptered journey |
+| Palette strategy | procedural landscape + one desaturated blue ramp |
+| Type contract | two geometric sans (Century Gothic + Josefin Sans) |
+| Awards / score | SOTD Jun 23 2025, 7.62 + Dev 7.84 |
+| Confidence | high (live + entry) |
+| Last verified | 2026-09-18 |
 
 ## 1. Concept and narrative
 - The idea [verified name, inferred reading]: a business with no photogenic product borrows its own name's landscape. The homepage opens inside cloud on a snow peak; the peak is the brand's etymology [inferred, high].

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Every cross-reference in the plugin must resolve to a file that exists: [site:slug],
+// Every cross-reference in the plugin must resolve to a file that exists: [site:slug], [clone:slug],
 // [recipe:id], [pattern:file#anchor] and ${CLAUDE_PLUGIN_ROOT}/<path>. A dangling citation is a
 // promise the corpus does not keep, and no other check catches one.
 // Usage: node scripts/lint-refs.mjs [--json]
@@ -12,6 +12,12 @@ const json = process.argv.includes('--json');
 // The forms that are written as examples of the syntax rather than as citations.
 const PLACEHOLDERS = new Set(['slug', 'id', 'name', 'file', 'x', 'section', 'component', 'archetype', 'model']);
 const SKIP_DIRS = new Set(['node_modules', 'dist', '_verify', '.git', '.awards', 'results', '_vendor']); // _vendor: third-party plugins fetched for the coexist evals
+
+const cloneCache = new Map();
+const isClone = (card) => {
+  if (!cloneCache.has(card)) cloneCache.set(card, /^\| Confidence \| clone/im.test(fs.readFileSync(card, 'utf8')));
+  return cloneCache.get(card);
+};
 
 const files = [];
 (function walk(dir) {
@@ -69,9 +75,15 @@ for (const file of files) {
     }
   }
 
-  for (const m of text.matchAll(/\[site:([a-z0-9-]+)\]/g)) {
-    if (PLACEHOLDERS.has(m[1])) continue;
-    if (!fs.existsSync(path.join(root, 'references/sites', `${m[1]}.md`))) miss(file, lineOf(text, m.index), m[0], 'no references/sites/<slug>.md');
+  // [site:slug] cites an award card; [clone:slug] cites a clone-level card (rebuilt from course clones, never
+  // rendered live), so every citation of one shows its evidence level where it is read.
+  for (const m of text.matchAll(/\[(site|clone):([a-z0-9-]+)\]/g)) {
+    if (PLACEHOLDERS.has(m[2])) continue;
+    const card = path.join(root, 'references/sites', `${m[2]}.md`);
+    if (!fs.existsSync(card)) { miss(file, lineOf(text, m.index), m[0], 'no references/sites/<slug>.md'); continue; }
+    const clone = isClone(card);
+    if (m[1] === 'site' && clone) miss(file, lineOf(text, m.index), m[0], `clone-level card: cite it as [clone:${m[2]}]`);
+    if (m[1] === 'clone' && !clone) miss(file, lineOf(text, m.index), m[0], `not a clone-level card: cite it as [site:${m[2]}]`);
   }
   for (const m of text.matchAll(/\[recipe:([a-z0-9-]+)\]/g)) {
     if (PLACEHOLDERS.has(m[1])) continue;

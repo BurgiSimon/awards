@@ -5,6 +5,7 @@
 | Field | Value |
 |---|---|
 | Class | portfolio (product designer and founder, one page plus an About view) [verified, index.html description and markup] |
+| Industry | creative-practice |
 | Visitor mode | persuade: the work is the pitch, the only action is an e-mail link in the footer [verified, desktop-s100.png, index.html `mailto:`] |
 | Awards | Awwwards **Site of the Day, 28 Jul 2012**, **6.99** — Design 7 · Usability 6.63 · Creativity 7.5 · Content 7 [verified, entry page awwwards.com/sites/robbie-tilton, captured 2026-09-23]. The entry shows a **predecessor site** (red ground, Portfolio / Archive / Blog nav) and no developer scores; the design analysed here is not the one that was judged [verified, entry/desktop-s00.png] |
 | Corpus rating | D 6.6 / U 6.3 / C 6.4 / Co 6.9 → weighted 6.50, 2026-09-23 [inferred, from captures against references/jury/rubric.md]; official scores stay in the Awards row |
@@ -15,6 +16,11 @@
 | WebGL dosage | none — manifest `webgl: true` only reports a context was available; no canvas in the DOM [verified, manifest.json] |
 | Scroll model | native, no smoothing library; on fine pointers a hand-rolled drag-to-scroll with momentum and rubber-band overscroll writes `window.scrollTo`; each chapter is a snapped horizontal carousel [verified, index.html; manifest `scrollMode: native`] |
 | Narrative model | gallery — four career chapters, newest first, one carousel row each [verified, desktop-s00…s100] |
+| Palette strategy | white ground + graphite ink + greys, no accent; chroma only from product photography |
+| Type contract | system sans only (sans-serif / Helvetica), no web font |
+| Awards / score | SOTD 28 Jul 2012, 6.99 (predecessor design; D 7 / U 6.63 / C 7.5 / Co 7) |
+| Confidence | high (live source + captures + entry) |
+| Last verified | 2026-09-23 |
 
 ## 1. Concept and narrative
 A career told as a stack of product shelves. Each row is one employer or period, captioned with a name and a date range; the visitor reads the CV by moving down and browses the work by moving sideways. The feel borrows from phone OS physics rather than from web motion: things snap, stretch and spring back instead of fading in. Copy is plain and first-person; the About view closes with a personal essay under the heading "Notes to the explorers" [verified, index.html].

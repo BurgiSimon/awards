@@ -7,6 +7,7 @@
 | Field | Value |
 |---|---|
 | Class | studio — self-promotional site of an Amsterdam creative digital agency [verified, index.html meta description + desktop-s00.png]; a product sub-brand lives at `growsuite.lamalama.com` [recalled medium] |
+| Industry | agency-studio |
 | Visitor mode | persuade |
 | Awards | **Awwwards Site of the Day, 20 Jul 2026** — entry `/sites/lama-lama-2`, which links and screenshots `https://lamalama.com/`; overall **7.51** — Design 7.64 · Usability 7.36 · Creativity 7.52 · Content 7.39; **developer score 7.37** over Awwwards' six criteria — Semantics/SEO 7.20 · Animations/Transitions 7.80 · **Accessibility 6.60** · WPO 7.60 · Responsive Design 7.20 · Markup/Meta-data 7.60; tags WebGL, GSAP, Javascript, Animation, Design Agencies, Graphic design, E-Commerce, Web & Interactive [verified, Awwwards entry read 2026-09-18] · **earlier award:** Site of the Day, 30 Dec 2021 — entry `/sites/lama-lama`, judged at the old `lamalama.nl`; overall 7.69 (D 7.71 · U 7.38 · C 8.08 · Co 7.77), developer 7.84 (7.80 · 8.20 · 7.60 · 8.00 · 7.60 · 7.80); tags Highway.js, Tailwind, Canvas API, HTML5, Scrolling, 404 pages [verified, Awwwards entry read 2026-09-18] · both entries are Site of the **Day**; neither carries a Site of the Month badge or a separate Developer Award, and no Portfolio Honors listing was found on either [verified — absence in both entries] · agency-level Annual Awards nomination, FWA and Webby mentions [recalled medium] |
 | Studio / credits | In-house: the entry is submitted under the agency's own name and carries no per-role credit block [verified, Awwwards entry read 2026-09-18]; individual authorship [unknown] |
@@ -16,6 +17,11 @@
 | WebGL dosage | **canvas-first** — two fixed full-viewport canvases (`js-canvas`, and `js-upper-canvas` at `z-[8]`, pointer-events-none) composite the page's imagery, cursor and transitions [verified, index.html + desktop captures] |
 | Scroll model | **virtual float** — `html,body{position:fixed;inset:0;overflow:hidden}` with Lenis driving a transformed wrapper, so the document keeps no scroll height and the wheel is hijacked [verified, main-FSCSogN-.css + `scrollMode: "wheel"` on all three capture profiles in manifest.json]. The previous card's "native (assumed)" was wrong |
 | Narrative model | gallery — six labelled chapters: hero → cases → services → clients → team → contact [verified, six `data-labels` blocks in document order, index.html] |
+| Palette strategy | near-black + bone + 4 accents, semantic tokens re-pointed per section |
+| Type contract | grotesque display + mono labels (Suisse BP Int'l + Sometype Mono) |
+| Awards / score | SOTD 20 Jul 2026, 7.51 (dev 7.37, a11y 6.60) |
+| Confidence | high |
+| Last verified | 2026-09-18 |
 
 ## 1. Concept and narrative
 - **The one idea:** an agency that argues by tone of voice. The h1 states the thesis — "A creative digital agency that goes all in or not at all." [verified, index.html] — and every piece of chrome then tells a joke, so the visitor is being auditioned for a culture, not shown a process.
@@ -83,7 +89,7 @@
   - The WebGL-over-real-`<img srcset alt>` pattern, and the lazy component graph mounted from `data-component` attributes.
   - A case index as rows with horizontal rails when the work is image-rich and the client wants breadth visible at a glance.
 - **Don't take:**
-  - `#1A1C1C` / `#F9F4EB` or Suisse BP Int'l as "the award look" — this batch already carries both, and [site:floema-jewelry] uses the same family.
+  - `#1A1C1C` / `#F9F4EB` or Suisse BP Int'l as "the award look" — this batch already carries both, and [clone:floema-jewelry] uses the same family.
   - The jokes themselves, the chapter label sets, or the pill-and-right-card-stack chrome as a shape.
   - The virtual scroll on a fixed `html,body` unless you are willing to rebuild the scrollbar, find-in-page, scroll restoration and the full keyboard path.
   - `maximum-scale=1.0, user-scalable=0`, the missing `prefers-reduced-motion` branch and the div-soup link tree — this is the 6.60 accessibility score, and it is the axis a new build should beat.

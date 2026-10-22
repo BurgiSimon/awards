@@ -75,7 +75,7 @@ Why: three cards give a principle; one card gives a signature, and a signature i
 1. Pick the three nearest cards in the index's order of matching: class first, then visitor mode, then the WebGL dosage the budget affords, then the scroll model. Widen by mode when fewer than three fit; never fill a slot with an unrelated card.
 2. Read their §7 and §8. For each card write one principle taken (a rule that would hold for any site) and one literal move refused (the device, object, colour set, order or line that is that site's own). At least one take is compositional, typographic or structural, not technique; when a card's §8 has none, take it from §7.
 3. Note what all three share (masked reveals, a designed footer, numbers as copy): shared moves are the genre's craft and may be used. Anything only one card does is its signature and is refused.
-4. This becomes the DIVERGENCE block, verbatim in shape: three `[site:slug]` entries, each with a take and a refuse line.
+4. This becomes the DIVERGENCE block, verbatim in shape: three `[site:slug]` entries, each with a take and a refuse line (a `[clone:slug]` card is a technique reference, never one of the three).
 
 ## Step 3 — seven candidate worlds
 

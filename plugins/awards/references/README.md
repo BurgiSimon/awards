@@ -10,7 +10,7 @@ The corpus is the skill set's taste. Every planning skill reads `sites/_index.md
 - `craft-floor.md` — the quality floor loaded before any UI edit; `anti-patterns.md` — the Awwwards-default slop families; `reflex-lists.md` — faces, palettes and effects to avoid, with verified alternatives.
 
 ## Citation convention
-Cite a card as `[site:slug]` (slugs are the file names in `sites/`), a pattern as `[pattern:file#anchor]`, a recipe as `[recipe:id]`. A citation is a pointer to a principle, never permission to reproduce a layout, copy, palette or asset.
+Cite a card as `[site:slug]` (slugs are the file names in `sites/`), a pattern as `[pattern:file#anchor]`, a recipe as `[recipe:id]`. A clone-level card (rebuilt from course clones, never rendered live; its Confidence row says `clone-level`) is cited as `[clone:slug]` instead, so the evidence level is visible at every citation; it is a technique reference and never a DIVERGENCE neighbour. A citation is a pointer to a principle, never permission to reproduce a layout, copy, palette or asset.
 
 ## Confidence labels
 Every factual claim about a site carries one label: `[verified]` (read from a fetched source, named), `[recalled]` (from memory, with high / medium / low), `[inferred]` (typical for the genre, not specific to the site), `[unknown]`. Never state a hex, a date, a score, a library or a credit without a label. Quote a site's copy only in fragments of at most 25 words.
