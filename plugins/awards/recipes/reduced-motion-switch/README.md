@@ -17,3 +17,10 @@ The override is a real button group with `aria-pressed`; the readout is `aria-li
 ## Adapters
 - **GSAP only:** `gsap.matchMedia().add({ full: '(prefers-reduced-motion: no-preference)', reduced: '(prefers-reduced-motion: reduce)' }, ctx => …)` (see `boot-lenis-gsap`).
 - **anime.js:** `createScope({ mediaQueries: { reduced: '(prefers-reduced-motion: reduce)' } }).add(self => { if (self.matches.reduced) … })`.
+
+### Webflow
+- Designer: in the header, a Div with the custom attributes `role="group"` and `aria-label="Motion tier override"` around four buttons with `data-tier="auto"`, `"full"`, `"reduced"`, `"static"` and `aria-pressed`, plus a readout span with `data-tier-readout` and `aria-live="polite"`. The demo pieces are `data-orbit`, `data-marquee` (with its visually hidden mirror) and `data-panel`.
+- The module writes `data-motion` on `html` and persists it under the `localStorage` key `awards:motion`; every engine module asks `motionTier()`. Mount it first in the engine loaded by the [recipe:boot-lenis-gsap] Footer-code loader, so the saved override is on `html` before the other modules read it.
+- Interactions with GSAP has its own prefers-reduced-motion settings and Classic Interactions has none. At best they follow the OS, not this switch [inferred], so keep Interactions off anything the switch is meant to govern.
+- Head code carries the recipe's `html[data-motion-tier="…"]` rules for the orbit, the marquee and the panels.
+- Reduced motion: the switch is how a visitor reaches `reduced` or `static` without changing the OS setting; `auto` hands the decision back.

@@ -1,0 +1,32 @@
+{
+  "id": "designed-404",
+  "title": "Designed 404 in the site's own world",
+  "intent": "Authored not-found page",
+  "group": "the-close-and-beyond",
+  "summary": "A not-found page in the site's voice: `<title>` and `<h1>` that say it, `noindex`, one `<main>` whose first link is home, three named routes in a labelled `<nav>` and a `role=\"search\"` GET form, every URL root-absolute because the page answers at any depth; the scene (`aria-hidden`, after the links) is the zero of 404 drawn as a sun that sets once, `translateY(-140)` over `1.8s` after `.35s` with glints opening at `.08s` steps, in CSS so it plays without script; opacity-only `.4s` under reduced motion, the last frame at once in the static tier, even when the tier flips mid-moment; README serves it with a real 404 status per host and framework",
+  "tags": [
+    "navigation",
+    "typography",
+    "svg",
+    "css-animation",
+    "reduced-motion",
+    "accessibility",
+    "responsive"
+  ],
+  "tier": "P1",
+  "deps": [],
+  "variants": [
+    "drawn scene beside the copy on wide screens, a band above it on phones (this, default)",
+    "type only: the h1 at display scale reacts once (a weight or a letter shifting) with no drawing",
+    "search-led: the search field first, for a site whose routes are too many to pick three"
+  ],
+  "seenIn": [
+    "lando-norris",
+    "united-carriers",
+    "pensatori-irrazionali",
+    "goats",
+    "the-line",
+    "usavionix",
+    "boc"
+  ]
+}

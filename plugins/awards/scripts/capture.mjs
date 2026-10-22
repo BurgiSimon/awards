@@ -9,11 +9,13 @@
 //   [--gpu [--headed]] a hardware-GPU run that refuses SwiftShader and records frame times
 //   [--baseline <earlier capture dir>] per-frame pixel difference against an earlier round
 //   [--lock <path>] wait for and hold a lock, so captures never run side by side (portable stand-in for flock)
+//   [--routes /,/work,/work/x] one full capture per route of the same site into <out>/<route>/, plus <out>/routes.json
 // Without --hover or --states, desktop also records hover and focus-visible frames for the first three visible links and buttons.
 // Every viewport also writes its accessibility tree as <viewport>-aria.yml. Tablet is skipped for --selector runs unless named.
 // Exit codes: 0 ok · 2 page/action errors · 3 browser unavailable · 4 target unreachable · 5 --gpu got a software renderer · 1 usage.
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { parseArgs, now } from './lib/report.mjs';
 import { acquireLock } from './lib/lock.mjs';
 import { resolvePlaywright, launchChromium, isSoftwareRenderer, MISSING_MESSAGE } from './lib/playwright.mjs';
@@ -38,6 +40,36 @@ const projectRoot = (() => {
   }
 })();
 const outDir = path.resolve(projectRoot, args.out ?? '.awards/captures');
+
+// Several routes of one site: each gets its own capture (same flags) in <out>/<route>/, and routes.json lists
+// them with their manifests and exit codes, so the jury reads every page the page map names, not only the home.
+if (args.routes) {
+  const { spawn } = await import('node:child_process');
+  const routes = String(args.routes).split(',').map((r) => r.trim()).filter(Boolean);
+  const remote = /^https?:\/\//i.test(target);
+  // A local site is served once from its root, so absolute asset paths resolve on every route.
+  const site = remote ? null : await serveDirectory(fs.statSync(path.resolve(target)).isDirectory() ? path.resolve(target) : path.dirname(path.resolve(target)));
+  const base = remote ? target : site.url;
+  const rest = process.argv.slice(2).filter((a, i, all) => a !== target && !['--routes', '--out'].includes(a) && !['--routes', '--out'].includes(all[i - 1]));
+  const results = [];
+  for (const route of routes) {
+    const slug = route.replace(/^\/+|\/+$/g, '').replace(/[^a-z0-9]+/gi, '-').toLowerCase() || 'home';
+    const routeTarget = new URL(route.replace(/^\//, ''), base.endsWith('/') ? base : base + '/').href;
+    const out = path.join(outDir, slug);
+    const exit = await new Promise((resolve) => {
+      const child = spawn(process.execPath, [fileURLToPath(import.meta.url), routeTarget, '--out', out, ...rest], { stdio: args.json ? 'ignore' : 'inherit' });
+      child.on('exit', (code) => resolve(code ?? 1));
+    });
+    results.push({ route, slug, url: remote ? routeTarget : route, out: path.relative(projectRoot, out), manifest: path.relative(projectRoot, path.join(out, 'manifest.json')), exit });
+  }
+  if (site) await site.close();
+  fs.mkdirSync(outDir, { recursive: true });
+  const index = { at: now(), target, routes: results };
+  fs.writeFileSync(path.join(outDir, 'routes.json'), JSON.stringify(index, null, 2) + '\n');
+  if (args.json) console.log(JSON.stringify(index, null, 2));
+  else console.log(`${results.length} route(s): ${results.map((r) => `${r.route} exit ${r.exit}`).join(' · ')} → ${path.relative(process.cwd(), path.join(outDir, 'routes.json'))}`);
+  process.exit(results.some((r) => r.exit === 1) ? 1 : Math.max(0, ...results.map((r) => r.exit)));
+}
 const name = args.name ? String(args.name) + '-' : '';
 const parseVp = (s, d) => {
   const [w, h] = String(s ?? d).split('x').map(Number);

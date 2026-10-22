@@ -28,6 +28,7 @@ Use these exact versions in scaffolds, recipes and generated `package.json` file
 | nuxt | 4.5.2 | framework |
 | astro | 7.3.3 | framework |
 | @sveltejs/kit | 2.70.3 | framework |
+| @google/design.md | 0.4.0 | DESIGN.md lint, diff and export (DTCG, Tailwind 3 and 4), alpha; run through `scripts/design-md.mjs`, never installed (checked 2026-10-22) |
 | vite | 8.3.0 | build (Rolldown) |
 | tailwindcss | 4.3.3 | only when the project already uses it, wired to the DESIGN.md tokens; winners use it as a token layer (usavionix, shopify-editions-w26), never the stock look |
 | @threlte/core / @threlte/extras | 8.6.0 / 9.21.1 | Svelte renderer for three |

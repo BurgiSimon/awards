@@ -14,6 +14,16 @@ The example uses the shared warm-ground, brown-ink and clay-accent system and sy
 
 The verifier captures top, preceding context, final viewport and keyboard-focus states at desktop 1440 × 900 and mobile 390 × 844, checking fragments, image decoding, heading count, overflow, link name, focus outline and target size. Headless browser captures demonstrate rendering and behavior at those sizes, not real-device performance.
 
+## Adapters
+
+### Webflow
+No module: the close is links and type, and `main.js` only reports footer metrics. The work is structure.
+- An element with Tag **Footer**, class `designed-close`, id `enquire` and the custom attribute `aria-labelledby="close-title"`. Inside `designed-close__inner`: the message row `designed-close__message` (the H2 `composition-title` with id `close-title`, and the `mailto:` link `designed-close__primary` with its `aria-label`), the bottom row (`designed-close__signature`, an element with Tag **Nav** and `aria-label="Explore the bench"` holding the three section links, and the `#top` return `designed-close__top`), then the colophon.
+- `#top` needs a target: an element with id `top` at the start of the page. The recipe puts it on `body`; whether the Designer lets the body take an id is [unverified].
+- In-page links (`#materials`, `#specifications`, `#care`, `#top`): Webflow's built-in smooth scroll animates them and jumps under reduced motion. If the site runs the engine's Lenis, give them one owner ([recipe:boot-lenis-gsap]).
+- Keep the enquiry target at least 44 × 44 px, with the pale focus outline from `style.css` in Head code.
+- Reduced motion: nothing of its own moves.
+
 ## Visual notes
 
 Captured 2026-10-06 from the built page in headless Chromium 153.0.8010.12 on Linux, device scale 1, system fonts, normal motion. Desktop is 1440×900 CSS px; mobile is 390×844 CSS px with touch/mobile emulation. All published PNGs are unedited browser screenshots under 1 MiB. Reviewed for hierarchy, aligned edges, crop, whitespace and responsive order; no material defect was found in these frames.

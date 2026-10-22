@@ -1,0 +1,32 @@
+{
+  "id": "svg-goo-line-reveal",
+  "title": "Headings that condense line by line through an SVG goo filter",
+  "intent": "Goo line reveal",
+  "group": "heroes-and-type",
+  "summary": "SplitText lines after fonts, each given its own `<filter>` of `feGaussianBlur` into an `feColorMatrix` alpha threshold (`18 × α − 7`): `stdDeviation` from `.32 em` of the font size to `0` over `1.1 s` `power3.out`, lines `.12 s` apart, the matrix relaxed to identity over the blur's last `.45 s`, each line's filter and `<filter>` node removed as it lands and the split reverted when the heading has, so it ends as its authored markup; once per heading at `top 85%`, `autoSplit` rebuilds the filters mid-reveal; a `.4 s` opacity fade with no split and no filter under reduced motion, plain text in the static tier",
+  "tags": [
+    "text",
+    "typography",
+    "gsap",
+    "splittext",
+    "scrolltrigger",
+    "svg",
+    "blur",
+    "reveal",
+    "stagger",
+    "reduced-motion"
+  ],
+  "tier": "P2",
+  "deps": [
+    "gsap@3.15.0"
+  ],
+  "variants": [
+    "per-line blur and alpha threshold relaxed to identity, filter removed on landing (full tier)",
+    "opacity fade only, never split or filtered (reduced)",
+    "plain text from the first frame (static)",
+    "condense out again: the same timeline reversed with the threshold restored first (README)"
+  ],
+  "seenIn": [
+    "bleibtgleich"
+  ]
+}

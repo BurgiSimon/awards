@@ -55,6 +55,16 @@ The verifier directly exports the shared `probeLayout` and calls `assertLayout`.
 
 These assertions supplement visual inspection. They cannot prove attractive glyph shapes, optical alignment, perfect line breaks, font rasterization on every OS, or real-device performance. Raw captures and machine reports stay in ignored `recipes/_verify/`; metadata is stamped only by a passing run. The Task 4 report records the red/green evidence and actual inspection.
 
+## Adapters
+
+### Webflow
+No module: the page is static, and its `main.js` only registers verifier metrics, so nothing is injected. The work is structure and classes.
+- Each treatment is an element with Tag **Section**, class `type-specimen` and a second class for the voice (`type-specimen--poster`, `--editorial` or `--technical`). Inside: `type-specimen__intro` (the H2 `type-specimen__title` and the lead), `type-specimen__body` (`__reading` with the H3 `__heading`, the `__copy` paragraph and the `__list`, then a Div with Tag **Figure** as `__figure` holding the `__facts` list and its caption), and `__glyphs`. Check that the published class names keep `__` and `--` as written [unverified]; if not, copy the scoped rules under the names Webflow publishes.
+- The editorial voice also takes the shared `composition-title` and `composition-heading` classes on its title and intermediate heading. The facts are a `<dl>`, which a Code Embed supplies if the Designer does not [unverified].
+- Fonts: the recipe uses system stacks. A project face goes through Site settings → Fonts, and then every setting in the table needs inspecting again.
+- Keep Interactions with GSAP, its SplitText included, off these specimens: resting text must have no mask or clipping ancestor, which the verifier checks.
+- Reduced motion: nothing moves, so there is nothing to configure.
+
 ## Visual notes
 
 Captured 2026-10-06 from the built page in headless Chromium 153.0.8010.12 on Linux, device scale 1, system fonts, normal motion. Desktop is 1440×900 CSS px; mobile is 390×844 CSS px with touch/mobile emulation. All published PNGs are unedited browser screenshots under 1 MiB. Reviewed for hierarchy, aligned edges, crop, whitespace and responsive order; no material defect was found in these frames.

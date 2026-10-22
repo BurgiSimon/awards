@@ -1,0 +1,67 @@
+@import '../_shared/base.css';
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe after. */
+
+:root {
+  --clay: #c97164;
+  --tile-w: clamp(11.25rem, 17vw, 18.75rem); /* 180–300 px */
+  --gap: 24px;
+}
+
+/* The page's own gutters and hidden-text rule, with fallbacks, so the page holds together even where base.css is not
+   served (an unbundled preview of this folder). */
+.topbar, .intro, .legend, .footer { padding-inline: var(--gutter, clamp(20px, 4.1667vw, 120px)); }
+.sr-only:not(:focus) { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+.skip-link:focus { position: fixed; inset: var(--unit) auto auto var(--unit); width: auto; height: auto; margin: 0; clip: auto; padding: calc(var(--unit) * 2) calc(var(--unit) * 3); background: var(--ink); color: var(--ground); z-index: 10; }
+.topbar { display: flex; justify-content: space-between; align-items: center; gap: calc(var(--unit) * 4); padding-block: calc(var(--unit) * 4); }
+.topbar > * { margin: 0; }
+.topbar a { display: inline-block; padding-block: 4px; white-space: nowrap; }
+
+.intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 38ch); gap: calc(var(--unit) * 4) calc(var(--unit) * 12); align-items: end; padding-block: calc(var(--unit) * 2) calc(var(--unit) * 6); }
+.intro__title { margin: 0; font-family: var(--font-display); font-weight: 500; font-size: clamp(2.25rem, 4.4vw, 4.75rem); line-height: .95; letter-spacing: -.03em; max-width: 13ch; }
+.intro__lede { margin: 0; max-width: 38ch; }
+
+/* The tiles. Without the plane (no JS, static tier) the list is a plain wrapped grid of the same links. */
+.tiles { list-style: none; margin: 0; padding: 0 var(--gutter); display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 11rem), 1fr)); gap: calc(var(--unit) * 8) calc(var(--unit) * 5); }
+.tile__link { display: grid; gap: calc(var(--unit) * 2); color: var(--ink); text-decoration: none; -webkit-user-drag: none; }
+.tile__plate { display: block; aspect-ratio: 4 / 5; border-radius: 3px; background: var(--ink); }
+.tile__name { font-family: var(--font-display); font-size: 1.125rem; font-weight: 500; line-height: 1.15; letter-spacing: -.01em; overflow-wrap: anywhere; }
+.tile__meta { font-family: var(--font-mono); font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; color: color-mix(in oklab, var(--ink) 72%, var(--ground)); overflow-wrap: anywhere; }
+.tile__link:hover .tile__name, .tile__link:focus-visible .tile__name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .18em; }
+.tile__link:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 4px; }
+
+/* Plate art: drawn in CSS from the tokens, so no image ships. Swap for <img> with real alt text on a real site. */
+[data-art="sun"] { background: radial-gradient(circle at 50% 58%, var(--accent) 0 24%, transparent 24.5%), var(--line); }
+[data-art="horizon"] { background: linear-gradient(to bottom, var(--clay) 0 62%, var(--ink) 62%); }
+[data-art="arch"] { background: radial-gradient(ellipse 40% 34% at 50% 100%, var(--ground) 0 98%, transparent 100%), var(--accent); }
+[data-art="bands"] { background: repeating-linear-gradient(90deg, var(--ink) 0 14%, var(--line) 14% 28%); }
+[data-art="corner"] { background: radial-gradient(circle at 0 100%, var(--clay) 0 62%, transparent 62.5%), var(--ink); }
+[data-art="dot"] { background: radial-gradient(circle at 68% 30%, var(--ground) 0 9%, transparent 9.5%), var(--clay); }
+[data-art="split"] { background: linear-gradient(90deg, var(--accent) 0 50%, var(--line) 50%); }
+[data-art="ring"] { background: radial-gradient(circle, transparent 0 22%, var(--ground) 22.5% 30%, transparent 30.5%), var(--ink); }
+
+.legend { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: calc(var(--unit) * 2) calc(var(--unit) * 8); padding-block: calc(var(--unit) * 5) calc(var(--unit) * 12); }
+.legend:focus { outline: none; }
+.legend__keys { margin: 0; max-width: 62ch; }
+.legend__readout { margin: 0; }
+.footer { padding-block: calc(var(--unit) * 8); border-top: 1px solid var(--line); }
+.footer .label { margin: 0; }
+
+/* The plane: a framed, clipped stage holding a fixed pool of absolutely placed tiles moved by transform only.
+   The stage is overflow: hidden, a scroll container that wheel and touch never scroll: main.js parks it one pitch in
+   on each axis, so the browser's own reveals (Tab, find-in-page, a screen reader's cursor) scroll the stage rather
+   than the page, and the script turns that scroll into a glide. touch-action: none here and nowhere else, so a finger
+   drags the plane and the page still scrolls around it. The stage keeps physical (ltr) geometry in any language. */
+html.plane-live .plane { position: relative; height: clamp(24rem, calc(100svh - 15rem), 56rem); margin-inline: var(--gutter); border: 1px solid var(--line); border-radius: 6px; }
+html.plane-live .stage { position: absolute; inset: 0; overflow: hidden; overflow-anchor: none; direction: ltr; border-radius: inherit; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; mask-image: linear-gradient(90deg, transparent, #000 24px, #000 calc(100% - 24px), transparent), linear-gradient(transparent, #000 24px, #000 calc(100% - 24px), transparent); mask-composite: intersect; }
+html.plane-live .stage.is-dragging { cursor: grabbing; }
+html.plane-live .tiles { display: block; position: relative; padding: 0; }
+html.plane-live .tile { position: absolute; left: 0; top: 0; width: var(--tile-w); will-change: transform; }
+html[dir="rtl"] .tile { direction: rtl; }
+/* Until main.js has placed the pool, the tiles stay hidden: nothing is drawn stacked at the origin, nothing shifts. */
+html.plane-live:not(.plane-ready) .tile { visibility: hidden; }
+
+@media (max-width: 760px) {
+  .intro { grid-template-columns: minmax(0, 1fr); }
+  html.plane-live .plane { height: clamp(22rem, 62svh, 40rem); }
+}

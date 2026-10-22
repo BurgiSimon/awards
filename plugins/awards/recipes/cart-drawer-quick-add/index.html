@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A demo print shop: quick add with a size radio group, a live bag count and a cart drawer on a native dialog. Nothing can be bought.">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f2ece1">
+  <title>Moth &amp; Margin · demo print shop</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f2ece1'/%3E%3Ccircle cx='13' cy='15' r='8' fill='%23ff48b0'/%3E%3Ccircle cx='19' cy='17' r='8' fill='%230078bf' style='mix-blend-mode:multiply'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body id="top">
+  <a class="skip" href="#main">Skip to the prints</a>
+
+  <!-- Print art, drawn once and used by the cards and the bag's line items. Two inks per print, overprinted. -->
+  <svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="2.2" fill="#0078bf"/></pattern>
+      <symbol id="art-low-sun" viewBox="0 0 400 500">
+        <rect width="400" height="500" fill="#f8f3e9"/>
+        <circle cx="200" cy="250" r="118" fill="#ff48b0"/>
+        <rect y="268" width="400" height="232" fill="#0078bf" style="mix-blend-mode:multiply"/>
+        <g fill="#f8f3e9"><rect x="70" y="300" width="260" height="5"/><rect x="110" y="330" width="180" height="5"/><rect x="150" y="360" width="100" height="5"/></g>
+        <rect x="40" y="40" width="80" height="80" fill="url(#dots)" style="mix-blend-mode:multiply"/>
+      </symbol>
+      <symbol id="art-night-ferry" viewBox="0 0 400 500">
+        <rect width="400" height="500" fill="#f8f3e9"/>
+        <rect width="400" height="330" fill="#0078bf"/>
+        <circle cx="300" cy="96" r="30" fill="#ffe800"/>
+        <path d="M70 300h250l-28 36H96z" fill="#ffe800" style="mix-blend-mode:multiply"/>
+        <rect x="128" y="262" width="130" height="38" fill="#ffe800"/>
+        <g fill="#0078bf"><rect x="142" y="272" width="14" height="12"/><rect x="168" y="272" width="14" height="12"/><rect x="194" y="272" width="14" height="12"/><rect x="220" y="272" width="14" height="12"/></g>
+        <g fill="#0078bf"><rect x="60" y="370" width="280" height="4"/><rect x="100" y="398" width="200" height="4"/><rect x="140" y="426" width="120" height="4"/></g>
+        <g fill="#ffe800" style="mix-blend-mode:multiply"><rect x="150" y="352" width="90" height="6"/><rect x="170" y="380" width="50" height="6"/></g>
+      </symbol>
+      <symbol id="art-three-pears" viewBox="0 0 400 500">
+        <rect width="400" height="500" fill="#f8f3e9"/>
+        <g fill="#0078bf"><ellipse cx="128" cy="392" rx="62" ry="12"/><ellipse cx="236" cy="404" rx="62" ry="12"/><ellipse cx="300" cy="300" rx="50" ry="10"/></g>
+        <g fill="#ffe800" style="mix-blend-mode:multiply">
+          <circle cx="120" cy="330" r="58"/><circle cx="120" cy="252" r="36"/>
+          <circle cx="228" cy="342" r="58"/><circle cx="228" cy="264" r="36"/>
+          <circle cx="292" cy="248" r="46"/><circle cx="292" cy="186" r="29"/>
+        </g>
+        <g stroke="#0078bf" stroke-width="6" stroke-linecap="round"><path d="M122 216l6-22"/><path d="M230 228l-4-24"/><path d="M294 157l8-18"/></g>
+        <rect x="250" y="50" width="100" height="60" fill="url(#dots)" style="mix-blend-mode:multiply"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <header class="shop-head">
+    <a class="brand" href="#top">Moth &amp; Margin</a>
+    <p class="shop-head__note">Demo shop · nothing is for sale</p>
+    <button class="bag-button" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="bag" data-bag-open>Bag (<span data-count>0</span>)</button>
+    <!-- The one polite region for the page. While the bag is open the page is inert, so the bag has its own. -->
+    <p class="sr-only" role="status" data-announce></p>
+  </header>
+
+  <main id="main">
+    <section class="intro" aria-labelledby="intro-title">
+      <h1 class="intro__title" id="intro-title">Prints pulled by hand, two inks at a time.</h1>
+      <div class="intro__side">
+        <p class="intro__copy">Risograph editions from a one-room studio, numbered and signed. Choose a size, add it to the bag, and change your mind in the bag.</p>
+        <p class="intro__demo">The studio, the prints and the prices are invented for this demo. There is no checkout and no payment is taken.</p>
+      </div>
+    </section>
+
+    <section class="season" aria-labelledby="season-title">
+      <h2 class="season__title" id="season-title">This season</h2>
+      <ul class="prints">
+        <li class="print" data-product="low-sun" data-name="Low Sun">
+          <!-- One link to the product page holds the art, the name and the price; the size choice and quick add sit beside it. -->
+          <a class="print__link" href="/prints/low-sun/">
+            <svg class="print__art" viewBox="0 0 400 500" role="img" aria-label="A pink sun half under a blue sea"><use href="#art-low-sun"/></svg>
+            <span class="print__meta"><span class="print__name">Low Sun</span> <span class="print__price" data-price-label>£24</span></span>
+          </a>
+          <div class="print__buy">
+            <p class="print__spec">Pink and blue · edition of 60</p>
+            <fieldset class="sizes">
+              <legend class="sizes__legend">Size<span class="sr-only"> of Low Sun</span></legend>
+              <label class="size"><input type="radio" name="size-low-sun" value="A3" data-price="2400" checked><span>A3</span></label>
+              <label class="size"><input type="radio" name="size-low-sun" value="A2" data-price="3800"><span>A2</span></label>
+            </fieldset>
+            <button class="add" type="button" data-add aria-label="Add to bag, Low Sun, A3" aria-describedby="note-low-sun"><span class="add__label">Add to bag</span><span class="add__done" aria-hidden="true">Added</span></button>
+            <p class="print__note" id="note-low-sun" data-card-note></p>
+          </div>
+        </li>
+        <li class="print" data-product="night-ferry" data-name="Night Ferry">
+          <a class="print__link" href="/prints/night-ferry/">
+            <svg class="print__art" viewBox="0 0 400 500" role="img" aria-label="A yellow ferry crossing a blue night under a moon"><use href="#art-night-ferry"/></svg>
+            <span class="print__meta"><span class="print__name">Night Ferry</span> <span class="print__price" data-price-label>£26</span></span>
+          </a>
+          <div class="print__buy">
+            <p class="print__spec">Blue and yellow · edition of 40</p>
+            <fieldset class="sizes">
+              <legend class="sizes__legend">Size<span class="sr-only"> of Night Ferry</span></legend>
+              <label class="size"><input type="radio" name="size-night-ferry" value="A3" data-price="2600" checked><span>A3</span></label>
+              <label class="size"><input type="radio" name="size-night-ferry" value="A2" data-price="4000"><span>A2</span></label>
+            </fieldset>
+            <button class="add" type="button" data-add aria-label="Add to bag, Night Ferry, A3" aria-describedby="note-night-ferry"><span class="add__label">Add to bag</span><span class="add__done" aria-hidden="true">Added</span></button>
+            <p class="print__note" id="note-night-ferry" data-card-note></p>
+          </div>
+        </li>
+        <li class="print" data-product="three-pears" data-name="Three Pears">
+          <a class="print__link" href="/prints/three-pears/">
+            <svg class="print__art" viewBox="0 0 400 500" role="img" aria-label="Three yellow pears with blue shadows"><use href="#art-three-pears"/></svg>
+            <span class="print__meta"><span class="print__name">Three Pears</span> <span class="print__price" data-price-label>£22</span></span>
+          </a>
+          <div class="print__buy">
+            <p class="print__spec">Yellow and blue · edition of 75</p>
+            <fieldset class="sizes">
+              <legend class="sizes__legend">Size<span class="sr-only"> of Three Pears</span></legend>
+              <label class="size"><input type="radio" name="size-three-pears" value="A3" data-price="2200" checked><span>A3</span></label>
+              <label class="size"><input type="radio" name="size-three-pears" value="A2" data-price="3400"><span>A2</span></label>
+              <!-- Sold out stays focusable and says so in its name; choosing it explains instead of hiding the size. -->
+              <label class="size size--out"><input type="radio" name="size-three-pears" value="A1" data-price="5200" data-sold-out><span>A1 <span class="size__out">sold out</span></span></label>
+            </fieldset>
+            <button class="add" type="button" data-add aria-label="Add to bag, Three Pears, A3" aria-describedby="note-three-pears"><span class="add__label">Add to bag</span><span class="add__done" aria-hidden="true">Added</span></button>
+            <p class="print__note" id="note-three-pears" data-card-note></p>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="shop-foot">
+    <p class="shop-foot__text">Moth &amp; Margin is a synthetic demo shop: invented prints, invented prices, no checkout, no payment.</p>
+    <p class="shop-foot__text">awards · recipe · MIT</p>
+  </footer>
+
+  <!-- The bag: a native modal dialog. showModal() makes the page inert; focus goes to the heading, back to the bag button on close. -->
+  <dialog class="bag" id="bag" aria-labelledby="bag-title" data-bag>
+    <div class="bag__scrim" data-scrim></div>
+    <div class="bag__panel" data-panel>
+      <div class="bag__head">
+        <h2 class="bag__title" id="bag-title" tabindex="-1">Your bag</h2>
+        <p class="bag__count" data-bag-count>0 prints</p>
+        <button class="bag__close" type="button" data-bag-close>Close<span class="sr-only"> the bag</span></button>
+      </div>
+      <div class="bag__body">
+        <ul class="lines" data-lines></ul>
+        <div class="bag__empty" data-empty>
+          <p class="bag__empty-text">Your bag is empty.</p>
+          <button class="bag__back" type="button" data-bag-close>Back to the prints</button>
+        </div>
+      </div>
+      <div class="bag__foot">
+        <dl class="bag__sum"><dt>Subtotal</dt><dd data-subtotal>£0.00</dd></dl>
+        <p class="bag__ship">Shipping is added at checkout.</p>
+        <button class="bag__checkout" type="button" data-checkout>Checkout</button>
+        <p class="bag__demo" data-demo-note>Demo only: there is no checkout and no payment is taken.</p>
+        <p class="sr-only" role="status" data-bag-announce></p>
+      </div>
+    </div>
+  </dialog>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

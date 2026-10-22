@@ -1,0 +1,27 @@
+{
+  "id": "drag-pan-infinite-grid",
+  "title": "Infinite drag-and-wheel plane of project links",
+  "intent": "Infinite work plane",
+  "group": "galleries-and-lists",
+  "summary": "A fixed pool of 24 DOM links on a `6 × 4` sheet, each moved by `translate3d` only to `mod(c·pitch + x0 + offset + pitch, span) − pitch` on both axes, the pitch held at `≥ stage / (count − 1)` so the wrap never opens a hole and odd columns staggered half a row; drag after a `6 px` threshold with pointer capture, release velocity from the last `100 ms` of samples (`0` after a `60 ms` rest, clamp `4000 px/s`), coasting by the exact integral of `v·e^(−4t)` on the shared ticker so a flick travels `v0 / 4` at any frame rate; wheel in both axes eased at `k = 16`, held back to the page until the stage is wholly in view; arrow keys move focus to the neighbour and the plane exactly one pitch (`.42 s` expo-out glide), Home / End centre the first / last project the short way round; the stage is an `overflow: hidden` scroll container parked one pitch in, so Tab, find-in-page and a screen reader's reveal scroll it instead of the page and the script turns that scroll into a glide `32 px` inside; `touch-action: none` on the stage only; no inertia and instant moves under reduced motion, a plain wrapped grid of the same links in the static tier",
+  "tags": [
+    "drag",
+    "wheel",
+    "touch",
+    "keyboard",
+    "inertia",
+    "virtual-scroll",
+    "static"
+  ],
+  "tier": "P1",
+  "deps": [],
+  "variants": [
+    "DOM pool on a staggered 6 × 4 sheet, links in DOM order, shared-ticker inertia (this, default)",
+    "Plain sheet: STAGGER 0 for a straight grid; arrows then move one pitch on one axis only",
+    "GL planes: keep this pool, offset and key model as the DOM mirror and map each li's box to a plane, as in gl-dom-tethered-planes"
+  ],
+  "seenIn": [
+    "floema-jewelry",
+    "bleibtgleich"
+  ]
+}

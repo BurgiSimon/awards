@@ -132,7 +132,7 @@ Real controls only — `<a>` and `<button>`, never a `div` with a click handler 
 
 ## Refuse
 
-- A single dot as the "custom cursor"; trails, glitter or particles behind the pointer.
+- A single dot as the "custom cursor"; trails, glitter or particles following the pointer across the whole page. The earned form is bounded: one hero, the native cursor kept, a fixed pool, the copy protected, nothing on touch or under reduced motion (`[recipe:image-trail-cursor]`).
 - A custom cursor with no coarse-pointer guard, or one that hides the native cursor on inputs.
 - Hover-only previews and drag-only galleries.
 - Magnetic cards, paragraphs or whole sections.

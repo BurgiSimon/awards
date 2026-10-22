@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>drag-pan-infinite-grid — awards recipe</title>
+  <meta name="description" content="A wall of project links you pan by drag, wheel or keys in both axes; it wraps, so it never ends.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+  <!-- The plane is a different layout from the grid, so it is chosen before the first paint: switched from the module
+       after load, the page would jump from grid to plane. main.js removes the class again in the static tier. -->
+  <script>
+    if (document.documentElement.dataset.motion !== 'static') document.documentElement.classList.add('plane-live');
+  </script>
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ drag-pan-infinite-grid</p></header>
+  <main id="main">
+    <div class="wrap intro">
+      <h1 class="intro__title">A wall of work with no edge.</h1>
+      <p class="intro__lede">Twenty-four projects on one plane. Pull it in any direction and it keeps going: the tiles that leave one side come back on the other.</p>
+    </div>
+    <a class="skip-link sr-only" href="#after-plane">Skip past the projects</a>
+    <!-- Without JS, in the static tier, this is a plain wrapped grid of the same links. With html.plane-live the list
+         becomes a fixed pool of 24 tiles moved by transform inside a clipped stage; the stage is a scroll container only
+         the browser's own reveals (focus, find-in-page) scroll, and main.js turns each of those into a glide. -->
+    <section class="plane" aria-label="Projects, on a plane that wraps in every direction" aria-describedby="plane-help">
+      <div class="stage" data-stage>
+      <ul class="tiles" data-tiles>
+        <li class="tile" data-tile="0"><a class="tile__link" href="#main"><span class="tile__plate" data-art="sun" aria-hidden="true"></span><span class="tile__name">Salt Ledger</span> <span class="tile__meta">Archive · 2026</span></a></li>
+        <li class="tile" data-tile="1"><a class="tile__link" href="#main"><span class="tile__plate" data-art="horizon" aria-hidden="true"></span><span class="tile__name">Low Tide Radio</span> <span class="tile__meta">Broadcast · 2026</span></a></li>
+        <li class="tile" data-tile="2"><a class="tile__link" href="#main"><span class="tile__plate" data-art="arch" aria-hidden="true"></span><span class="tile__name">Copper Garden</span> <span class="tile__meta">Identity · 2026</span></a></li>
+        <li class="tile" data-tile="3"><a class="tile__link" href="#main"><span class="tile__plate" data-art="bands" aria-hidden="true"></span><span class="tile__name">North Light</span> <span class="tile__meta">Gallery · 2025</span></a></li>
+        <li class="tile" data-tile="4"><a class="tile__link" href="#main"><span class="tile__plate" data-art="corner" aria-hidden="true"></span><span class="tile__name">Paper Weather</span> <span class="tile__meta">Editorial · 2025</span></a></li>
+        <li class="tile" data-tile="5"><a class="tile__link" href="#main"><span class="tile__plate" data-art="dot" aria-hidden="true"></span><span class="tile__name">Field Office</span> <span class="tile__meta">Workspace · 2025</span></a></li>
+        <li class="tile" data-tile="6"><a class="tile__link" href="#main"><span class="tile__plate" data-art="split" aria-hidden="true"></span><span class="tile__name">Quiet Engine</span> <span class="tile__meta">Product · 2025</span></a></li>
+        <li class="tile" data-tile="7"><a class="tile__link" href="#main"><span class="tile__plate" data-art="ring" aria-hidden="true"></span><span class="tile__name">Harbour Type</span> <span class="tile__meta">Typeface · 2024</span></a></li>
+        <li class="tile" data-tile="8"><a class="tile__link" href="#main"><span class="tile__plate" data-art="horizon" aria-hidden="true"></span><span class="tile__name">Glass Orchard</span> <span class="tile__meta">Campaign · 2024</span></a></li>
+        <li class="tile" data-tile="9"><a class="tile__link" href="#main"><span class="tile__plate" data-art="sun" aria-hidden="true"></span><span class="tile__name">Slow Signal</span> <span class="tile__meta">Installation · 2024</span></a></li>
+        <li class="tile" data-tile="10"><a class="tile__link" href="#main"><span class="tile__plate" data-art="dot" aria-hidden="true"></span><span class="tile__name">Moss and Mortar</span> <span class="tile__meta">Architecture · 2024</span></a></li>
+        <li class="tile" data-tile="11"><a class="tile__link" href="#main"><span class="tile__plate" data-art="arch" aria-hidden="true"></span><span class="tile__name">Night Bakery</span> <span class="tile__meta">Packaging · 2024</span></a></li>
+        <li class="tile" data-tile="12"><a class="tile__link" href="#main"><span class="tile__plate" data-art="corner" aria-hidden="true"></span><span class="tile__name">Bright Static</span> <span class="tile__meta">Record label · 2023</span></a></li>
+        <li class="tile" data-tile="13"><a class="tile__link" href="#main"><span class="tile__plate" data-art="bands" aria-hidden="true"></span><span class="tile__name">Common Thread</span> <span class="tile__meta">Textiles · 2023</span></a></li>
+        <li class="tile" data-tile="14"><a class="tile__link" href="#main"><span class="tile__plate" data-art="ring" aria-hidden="true"></span><span class="tile__name">Long Lens</span> <span class="tile__meta">Film festival · 2023</span></a></li>
+        <li class="tile" data-tile="15"><a class="tile__link" href="#main"><span class="tile__plate" data-art="split" aria-hidden="true"></span><span class="tile__name">Stone Index</span> <span class="tile__meta">Catalogue · 2023</span></a></li>
+        <li class="tile" data-tile="16"><a class="tile__link" href="#main"><span class="tile__plate" data-art="sun" aria-hidden="true"></span><span class="tile__name">Open Field</span> <span class="tile__meta">Festival · 2022</span></a></li>
+        <li class="tile" data-tile="17"><a class="tile__link" href="#main"><span class="tile__plate" data-art="horizon" aria-hidden="true"></span><span class="tile__name">Second Shift</span> <span class="tile__meta">Exhibition · 2022</span></a></li>
+        <li class="tile" data-tile="18"><a class="tile__link" href="#main"><span class="tile__plate" data-art="arch" aria-hidden="true"></span><span class="tile__name">Small Hours</span> <span class="tile__meta">Podcast · 2022</span></a></li>
+        <li class="tile" data-tile="19"><a class="tile__link" href="#main"><span class="tile__plate" data-art="dot" aria-hidden="true"></span><span class="tile__name">Tin Roof</span> <span class="tile__meta">Restaurant · 2022</span></a></li>
+        <li class="tile" data-tile="20"><a class="tile__link" href="#main"><span class="tile__plate" data-art="split" aria-hidden="true"></span><span class="tile__name">Far Shore</span> <span class="tile__meta">Travel guide · 2021</span></a></li>
+        <li class="tile" data-tile="21"><a class="tile__link" href="#main"><span class="tile__plate" data-art="corner" aria-hidden="true"></span><span class="tile__name">Rope Walk</span> <span class="tile__meta">Museum · 2021</span></a></li>
+        <li class="tile" data-tile="22"><a class="tile__link" href="#main"><span class="tile__plate" data-art="ring" aria-hidden="true"></span><span class="tile__name">Lamp Room</span> <span class="tile__meta">Lighting · 2021</span></a></li>
+        <li class="tile" data-tile="23"><a class="tile__link" href="#main"><span class="tile__plate" data-art="bands" aria-hidden="true"></span><span class="tile__name">Dry Dock</span> <span class="tile__meta">Shipyard · 2021</span></a></li>
+      </ul>
+      </div>
+    </section>
+    <div class="wrap legend" id="after-plane" tabindex="-1">
+      <p class="legend__keys" id="plane-help">Drag or turn the wheel to move the plane; it wraps, so it never runs out. Tab reaches every project in order, the arrow keys move one tile, Home brings the first project back to the centre and End the last.</p>
+      <p class="label legend__readout" data-readout>At the centre: Salt Ledger</p>
+    </div>
+  </main>
+  <footer class="wrap footer"><p class="label">awards · recipe · MIT · the projects are synthetic</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

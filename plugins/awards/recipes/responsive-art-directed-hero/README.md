@@ -28,6 +28,15 @@ The verifier directly exports the shared layout probe. Desktop 1440 × 900, phon
 
 Alder Workshop, the white-oak bench, all construction claims, dimensions and imagery are synthetic demonstration material. The pictures are not evidence of a manufactured product or instructions for making one.
 
+## Adapters
+
+### Webflow
+No module: the hero is static HTML and CSS, and `main.js` only reports which source was chosen. The work is structure.
+- A Section with class `art-hero` holding, in this order, a Div `art-hero__copy` (the H1 `composition-title`, the paragraph `composition-copy`, the link `art-hero__action`) and the picture. Keep that order at every breakpoint, with no reordering in the Designer, so keyboard and screen-reader users meet the text and the action first.
+- The art direction is two compositions, not one image at two sizes. Webflow's Image element emits a `srcset` (`references/stacks/webflow-export.md`), and a `srcset` resizes one asset, so the `<picture>` with its `<source media="(max-width: 47.999rem)">` goes in a Code Embed with both assets' URLs, `width` and `height`, the alt text and `fetchpriority="high"`. Whether the Designer offers a per-breakpoint image source is [unverified]. Never lazy: it is the hero.
+- The frame switch (8:5 to 4:5, `object-fit: cover`) sits at 48rem in the recipe; Webflow's nearest breakpoint is 767 px [recalled]. Set the frame there in the Designer, or keep the recipe's media query in Head code beside the `<source>` boundary.
+- Reduced motion: nothing moves, so there is nothing to configure.
+
 ## Visual notes
 
 Captured 2026-10-06 from the built page in headless Chromium 153.0.8010.12 on Linux, device scale 1, system fonts, normal motion. Desktop is 1440×900 CSS px; mobile is 390×844 CSS px with touch/mobile emulation. All published PNGs are unedited browser screenshots under 1 MiB. Reviewed for hierarchy, aligned edges, crop, whitespace and responsive order; no material defect was found in these frames.

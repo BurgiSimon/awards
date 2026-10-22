@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>Night Bus Atlas — view-transitions-mpa — awards recipe</title>
+  <meta name="description" content="Route maps for the hours after midnight: a synthetic case page reached through a cross-document view transition.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <!-- Hold the first frame until the hero is parsed, so the shared picture and name exist when the new view is captured. -->
+  <link rel="expect" href="#hero" blocking="render">
+  <!-- The opt-in lives inline, ahead of every external file: the incoming page must know it opts in before its stylesheet
+       arrives, or Chromium may skip the transition. Inside the motion query, so reduced motion gets a plain navigation. -->
+  <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+  <!-- Cross-document view transition hooks, the same block on every page (a layout partial on a real site). Classic and
+       inline on purpose: `pagereveal` fires before the new page's first frame, which a module script can miss. -->
+  <script>
+    (() => {
+      const ORDER = ['index', 'lamps', 'ropewalk', 'nightbus']; // reading order: a later page is "forward"
+      const slug = (url) => new URL(url, location.href).pathname.split('/').pop().replace(/\.html$/, '') || 'index';
+      const still = () => matchMedia('(prefers-reduced-motion: reduce)').matches || /^(reduced|static)$/.test(document.documentElement.dataset.motion || '');
+      const direction = (from, to) => (ORDER.indexOf(slug(to)) < ORDER.indexOf(slug(from)) ? 'back' : 'forward');
+      const inUse = () => [...document.querySelectorAll('body *')].map((el) => getComputedStyle(el).viewTransitionName).filter((n) => n && n !== 'none');
+      // Only the tile being opened or returned to carries the shared names; the same name on two tiles aborts the transition.
+      const name = (item, on) => {
+        for (const el of document.querySelectorAll('[data-vt-item="' + item + '"] [data-vt]')) el.style.viewTransitionName = on ? el.dataset.vt : '';
+      };
+      const keep = (key, value) => { try { sessionStorage.setItem(key, JSON.stringify(value)); } catch (_) {} };
+      let pressed = null; // without the Navigation API, pageswap has no destination: remember the last link pressed
+      addEventListener('click', (e) => { const a = e.target.closest && e.target.closest('a[href]'); if (a) pressed = a.href; }, true);
+      const vt = (window.__vt = { swap: null, reveal: null });
+
+      // Leaving: name the destination's tile and record what happened for the next page.
+      addEventListener('pageswap', (e) => {
+        const t = e.viewTransition;
+        const to = (e.activation && e.activation.entry && e.activation.entry.url) || pressed;
+        const r = { from: slug(location.href), to: to ? slug(to) : null, transition: !!t, skipped: false, direction: null, named: [] };
+        if (t) t.ready.catch(() => {});
+        if (t && still()) { t.skipTransition(); r.skipped = true; }
+        else if (t && to) {
+          r.direction = direction(location.href, to);
+          t.types.add(r.direction);
+          name(r.to, true);
+          r.named = inUse();
+          t.finished.finally(() => name(r.to, false)); // the page may come back from the back/forward cache
+        }
+        vt.swap = r;
+        keep('vt:swap', r);
+      });
+
+      // Arriving, before the first frame: set the direction from the page order, name the tile we came back to, clear it once captured.
+      addEventListener('pagereveal', (e) => {
+        const t = e.viewTransition;
+        const a = window.navigation && navigation.activation;
+        const from = (a && a.from && a.from.url) || document.referrer || null;
+        const r = { transition: !!t, skipped: false, from: from ? slug(from) : null, kind: a ? a.navigationType : null, direction: null, named: [], groups: [], finished: !t };
+        if (t) t.ready.catch(() => {});
+        if (t && still()) { t.skipTransition(); r.skipped = true; r.finished = true; }
+        else if (t) {
+          r.direction = from ? direction(from, location.href) : 'forward';
+          t.types.add(r.direction);
+          if (r.from) name(r.from, true);
+          r.named = inUse();
+          t.ready.then(() => {
+            r.groups = [...new Set(document.getAnimations().map((x) => x.effect && x.effect.pseudoElement).filter(Boolean))];
+            name(r.from, false);
+          }, () => {});
+          t.finished.then(() => { r.finished = true; });
+        }
+        vt.reveal = r;
+      });
+    })();
+  </script>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="bar wrap"><a href="../index.html" class="label">← recipes</a><p class="label">/ view-transitions-mpa</p></header>
+  <main id="main" class="wrap page">
+    <article data-vt-item="nightbus" aria-labelledby="t">
+      <div class="case-hero" id="hero">
+        <h1 class="title" id="t" tabindex="-1" data-focus>Night Bus Atlas</h1>
+        <span class="media media--nightbus" aria-hidden="true">
+          <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" focusable="false"><polyline points="30,272 110,272 150,214 240,214 278,140 370,140" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><g fill="currentColor"><circle cx="30" cy="272" r="8"/><circle cx="110" cy="272" r="6"/><circle cx="150" cy="214" r="6"/><circle cx="240" cy="214" r="6"/><circle cx="278" cy="140" r="6"/><circle cx="370" cy="140" r="8"/></g></svg>
+        </span>
+      </div>
+      <div class="case-body">
+        <p class="lede">Six routes drawn with only the stops that stay open after midnight, printed on one sheet that folds to fit a coat pocket.</p>
+        <dl class="facts">
+          <div><dt>Year</dt><dd>2026</dd></div>
+          <div><dt>Format</dt><dd>Folded sheet, 6 routes</dd></div>
+          <div><dt>Stops</dt><dd>52 open after midnight</dd></div>
+        </dl>
+      </div>
+      <p><a class="cta" href="./index.html" data-back>← All works</a></p>
+    </article>
+  </main>
+  <footer class="wrap foot"><p class="label">awards · recipe · MIT · synthetic works</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

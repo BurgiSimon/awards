@@ -1,6 +1,6 @@
 # awards — award-worthy websites with Claude Code and Codex
 
-A plugin for Claude Code and Codex that teaches the agent to design and build websites and single components in the league of award winners. It is built from a reference corpus of analysed award-winning sites, the pattern language they share, 75 focused recipes and one complete composition (76 browser-verifiable entries), a deterministic craft-floor audit, and a fresh-context jury that scores the way the real one does.
+A plugin for Claude Code and Codex that teaches the agent to design and build websites and single components in the league of award winners. It is built from a reference corpus of analysed award-winning sites, the pattern language they share, 88 focused recipes and one complete composition (89 browser-verifiable entries), a deterministic craft-floor audit, and a fresh-context jury that scores the way the real one does.
 
 ## Install
 
@@ -111,6 +111,12 @@ The table uses Claude Code's `/awards:<name>` notation; use `$awards:<name>` in 
 
 Every skill also triggers on its own request ("add a custom cursor", "judge this page", "set up Vite with GSAP and Three"); `craft` is the entry point for a whole site and routes single elements to `component` and critiques to `jury`.
 
+Three ways into a whole site:
+
+- `/awards:craft --quick` for one landing page: the same contract, one jury round, no component passes.
+- `/awards:craft redesign <url or folder>` for an existing site: a baseline capture and critique first, a content inventory, and the old site's faults as the new contract's refusals, on a branch.
+- `/awards:craft` for the full build. Name the award programs in the brief (`programs: awwwards, cssda`) and the jury reports a target line for each.
+
 ## How a build runs
 
 1. **Brief.** `craft` copies `AWARDS.md` into the project, asks at most three questions, records the visitor mode and every synthetic asset.
@@ -146,7 +152,7 @@ npm ci                                       # includes the pinned Playwright (1
 npx playwright install chromium
 node ../scripts/doctor.mjs .                 # early prerequisite check; no installs
 node ../evals/behavior.mjs                   # live behavior regressions, no model calls
-node ../scripts/verify-recipes.mjs            # all 76 entries, headless Chromium with WebGL
+node ../scripts/verify-recipes.mjs            # all 89 entries, headless Chromium with WebGL
 node ../scripts/audit.mjs .                   # the craft floor: must stay free of P0-P2
 node ../scripts/lint-refs.mjs                 # every [site:]/[recipe:]/[pattern:] reference resolves
 node ../scripts/check-sync.mjs                # versions, pins, shared copies, licence files, quoted counts

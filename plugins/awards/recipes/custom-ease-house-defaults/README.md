@@ -36,3 +36,11 @@ The play control is a real `button` with `aria-pressed`; the curve plots are `ar
 - **JS-first tokens:** keep the curves in a module, call `CustomEase.create` from it, and write `root.style.setProperty('--ease-…', 'cubic-bezier(…)')` at boot; CSS transitions then wait for the script.
 - **Curves `cubic-bezier` cannot hold** (overshoot with several bounces, springs): export `CustomEase` samples as a CSS `linear()` list and keep the name the same in both places.
 - **React / Vue / Svelte:** register once in the app entry, before any component's `useGSAP` / `onMounted`; the defaults are global.
+
+### Webflow
+No element to build: the curves and durations are CSS custom properties, and the module only reads them.
+- Head code `<style>`: the `:root` token block from the Parameters table plus the reduced and static overrides, so CSS transitions have the curves before any script runs.
+- Inject: the engine from the [recipe:boot-lenis-gsap] Footer-code loader. Register the curves and call `gsap.defaults` first in `main.js`, before any module mounts, because the defaults are global.
+- One GSAP: Settings → GSAP integration loads every plugin from Webflow's CDN, registered. With it on, bundle no second core and register the curves on that copy; how the integration exposes `gsap` to custom code is [unverified].
+- Interactions with GSAP runs on its own runtime (DevLink exports it as a per-site GSAP bundle, `references/stacks/host-platforms.md`), so the engine's `gsap.defaults` do not reach it [inferred]. Give Interactions and the engine different elements, or set the house curve in each interaction if it accepts a custom one [unverified].
+- Reduced motion: the Head-code overrides zero the movement durations and the module re-reads them when the OS setting changes. Whether the Designer's transition settings accept `var(--ease-…)` is [unverified], so transitions that must follow the tiers belong in the Head-code style.

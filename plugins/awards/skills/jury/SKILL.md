@@ -1,7 +1,7 @@
 ---
 name: jury
 description: "Scores a site, page or component the way a design-award jury does: Design, Usability, Creativity and Content on anchored scales, the six Developer Award criteria, the memory and specificity tests, a keyboard and reduced-motion walk and a slop scan, ending in ordered fixes and one disposition (ship, fix, rebuild or recapture). Use when the user asks to review, critique, score, judge, rate or evaluate a site or component, asks 'would this win', 'is this award-worthy', 'what is missing', 'what would the jury say', or before shipping award-level work; --verdict re-checks a fix batch. Runs in a fresh context on captures and the audit. Not for code review, failing tests or accessibility work without award framing."
-argument-hint: "[url | path | --component <selector>] [--captures <dir>] [--states <json-file>] [--verdict]"
+argument-hint: "[url | path | --component <selector>] [--captures <dir>] [--states <json-file>] [--verdict | --baseline] [--program awwwards|cssda|fwa|webby[,…]]"
 context: fork
 agent: awards-jury
 background: false
@@ -20,6 +20,8 @@ Arguments: `$ARGUMENTS`
 - `--captures <dir>` — where the screenshots live (default `.awards/captures`)
 - `--states <json-file>` — interaction plan to replay on recapture; use the recorded plan or `.awards/capture-states.json` when present
 - `--verdict` — re-check the last fix batch instead of scoring from scratch (section 7)
+- `--baseline` — score an existing site before a redesign (section 9): the same report, logged as a baseline, never as a page round
+- `--program <list>` — the award programs to report a target line for (default: the `programs:` constraint in `## Brief`, else Awwwards); read `${CLAUDE_PLUGIN_ROOT}/references/jury/programs.md`. A program adds target lines; it never changes a score or the disposition
 - `--component <selector>` — score one element instead of a page (section 8)
 
 ## Setup
@@ -37,6 +39,8 @@ Why: a score is a feeling until it is attached to a reason and a fix, and praise
 Why: a jury looks at the site, not at code that promises a site. Without valid captures every sentence you write is an opinion, so the evidence is checked before anything is judged.
 
 Locate the recorded manifest directory (`--captures`, else the latest handoff path; standalone default `.awards/captures`) and its `manifest.json`. Establish manifest validity first; complete Page map-derived coverage only after the first-viewport inventory in section 1. The baseline frame names below remain useful examples, not a complete checklist.
+
+A site with routes is captured with `capture.mjs --routes`: the directory then holds `routes.json` and one capture folder per route. Run the gate on each route's manifest, read `desktop-s00`, `desktop-s50` and `mobile-s00` of every route, and judge world commitment, Content and Usability across them; a route the page map names with no capture is a coverage gap in the report.
 
 | Capture | What it proves |
 |---|---|
@@ -124,6 +128,7 @@ Record one line per step in the shape `walk n — pass | fail — note (file:lin
 Why: anchored scores mean the same thing on every run, and the weighted arithmetic exists so a middling axis is never rounded up because another one is strong. Read `${CLAUDE_PLUGIN_ROOT}/references/jury/rubric.md` now and score against its anchors and corpus exemplars.
 
 - Four axes, 0–10, one-line reason each: Design (40), Usability (30), Creativity (20), Content (10). Weighted = D × 0.4 + U × 0.3 + C × 0.2 + Co × 0.1.
+- Then one target line per program (`--program`, else the brief's `programs:`, else Awwwards) from `programs.md#mapping-the-plugins-scores`, with what the gap to its bar is made of. Target lines go in the report, after the scores; they never move a score or the disposition.
 - Six developer criteria, 0–10, with a note each, in Awwwards' order: Semantics / SEO, Animations / Transitions, Accessibility, WPO, Responsive Design, Markup / Meta-data. Their mean is the developer score; a Developer Award needs it above 7.
 - Apply the caps: a failed specificity test in either direction (a nameable source site, or a nameable generator from the slop scan) caps Creativity at 6, effects without a concept cap Creativity at 6, and each failed walk step caps Usability as the walk states.
 - Site of the Day territory is a weighted 7.2 or higher with no axis below 6.8. When you give a Design 9, name the corpus site it would beat.
@@ -217,6 +222,14 @@ This yields `desktop-component-<slug>.png`, its `-hover` frame, `mobile-componen
 - Keep the fixes inside the component and its tokens; a page-level problem noticed on the way is one line under Keep, not a fix.
 - Log it as a component pass, never as a page round: the first `## Jury log` line reads `- <date> · component <selector> · <disposition> · D x.x / U x.x / C x.x → mean x.xx · .awards/jury/<date>.md` (all `unmeasured` without valid captures), the second gives its top fixes. Leave `## Status` untouched.
 
+
+## 9. Baseline mode (`--baseline`)
+
+Why: a redesign is measured against the site it replaces, and the faults the old site carries are the new contract's best refusals.
+
+- Score exactly as in page mode, from the baseline captures craft passes (`.awards/redesign/baseline`), with the same report shape, and write it to `.awards/jury/<date>-baseline.md`.
+- The Keep line matters more than usual: name what the existing site does that a redesign must not lose (content, a working conversion, an asset, a reputation the URL carries).
+- Log it with `awards-log.mjs --append "Jury log" --line "- <date> · baseline · <disposition> · D x.x / U x.x / C x.x / Co x.x → x.xx · .awards/jury/<date>-baseline.md"` and leave the `Jury disposition` Status line alone: a baseline is never a page round.
 ## Verify
 
 - All applicable manifest-listed captures, including mobile middle/close, reduced-motion chapters and named states, were opened and named in Evidence with their validity; the audit counts are in the report.

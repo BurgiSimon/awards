@@ -1,0 +1,27 @@
+{
+  "id": "view-transitions-mpa",
+  "title": "Cross-document page transitions with the View Transitions API",
+  "intent": "Native page morph",
+  "group": "arrival-and-chrome",
+  "summary": "Four static pages joined by `@view-transition { navigation: auto }` in an inline head `<style>` inside the motion query, no router; `pageswap` names only the destination's tile (`media`, `title`) and `pagereveal` adds the `forward` / `back` type from the page order and names the tile returned to, cleared on `ready`; picture and name morph `.7 s` with `object-fit: cover` snapshots clipped to the moving box while the body slides `6 %` (`.4 s` out, `.6 s` in after `.12 s`), the bar held still; first frame held by `<link rel=\"expect\" blocking=\"render\">`; focus to the new `h1`; plain navigation without the API, no transition under reduced motion",
+  "tags": [
+    "transition",
+    "router",
+    "fallback",
+    "reduced-motion",
+    "accessibility"
+  ],
+  "tier": "P1",
+  "deps": [],
+  "variants": [
+    "cross-document @view-transition (MPA)",
+    "same-document document.startViewTransition under a client router",
+    "next-view-transitions in a Next App Router"
+  ],
+  "seenIn": [
+    "mont-fort",
+    "pensatori-irrazionali",
+    "zainabkabira",
+    "shopify-editions-w26"
+  ]
+}

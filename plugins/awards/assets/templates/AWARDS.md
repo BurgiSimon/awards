@@ -19,7 +19,7 @@
 - **Audience and their real scene:**
 - **Stakes and conversion (what a visitor should do, matched to the price of the decision):**
 - **Assets on hand:** photo / video / 3D / copy / none — anything authored for the build is labelled synthetic
-- **Binding constraints:** stack, CMS, hosting, deadline, brand commitments, accessibility standard
+- **Binding constraints:** stack, CMS, hosting, deadline, brand commitments, accessibility standard, `programs:` the award programs aimed at (awwwards, cssda, fwa, webby; the first is primary) and the target (Site of the Day or Honors)
 - **Routes:** single page / n routes
 - **Sound:** none / opt-in
 - **Visitor mode:** persuade / experience / read
@@ -48,9 +48,10 @@
 ## Budgets & tiers
 - Entry JS (gz): · GL chunk (gz): · Textures per scene: · Fonts (files / KB): · LCP target: · Tiers: high / mid / low →
 - Deep modes: motion gsap|none · webgl shader|3d|shader + 3d|none — because …
+- Mode: full | quick | redesign from <url or dir>
 
 ## Jury log
-<!-- appended by awards:jury — date · disposition · D/U/C/Co · dev sub-scores · top fixes; component passes are marked `component` and never count as page rounds -->
+<!-- appended by awards:jury — date · disposition · D/U/C/Co · dev sub-scores · top fixes; component passes are marked `component` and a redesign's first score `baseline`; neither counts as a page round -->
 
 ## Ship log
 <!-- appended by awards:ship — date · audit summary · captures · performance numbers -->

@@ -71,6 +71,7 @@ The thesis must refuse all three by name; a thesis that refuses one lands in ano
 
 Why: three cards give a principle; one card gives a signature, and a signature is exactly what may not be taken.
 
+0a. When `Mode:` in `## Budgets & tiers` reads `redesign`, read the baseline report in `.awards/jury/` (the one marked `baseline`): its Keep line survives into the contract, and at least two of its named faults become THESIS refusals, worded as what the new site does instead.
 0. When `## Brief` lists references the user likes, each needs a card first: a corpus card when its slug exists, otherwise Invoke the `awards:research` skill now with the Skill tool for that URL (two at most), then continue here. A user reference may fill one DIVERGENCE slot, never more, with the same take and refuse lines as any card: liking a site is a reason to learn its principle, never to copy its signature.
 1. Pick the three nearest cards in the index's order of matching: class first, then visitor mode, then the WebGL dosage the budget affords, then the scroll model. Widen by mode when fewer than three fit; never fill a slot with an unrelated card.
 2. Read their §7 and §8. For each card write one principle taken (a rule that would hold for any site) and one literal move refused (the device, object, colour set, order or line that is that site's own). At least one take is compositional, typographic or structural, not technique; when a card's §8 has none, take it from §7.

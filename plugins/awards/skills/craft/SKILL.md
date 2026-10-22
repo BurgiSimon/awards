@@ -1,7 +1,7 @@
 ---
 name: craft
 description: "Design and build award-worthy websites end to end (Site of the Day and Developer Award league): brief → concept → system → structure → stack → motion → WebGL → jury → ship. Use when the user wants a site, landing page, portfolio, campaign, product or studio site that should be 'award-worthy', 'award-level', 'immersive', 'cinematic', 'creative-developer style', with smooth scroll, GSAP or WebGL, names studios or award sites (Lusion, Igloo, Lando Norris), or says 'make it stunning'. The entry point when unsure which awards skill applies; owns AWARDS.md. Not for dashboards, admin CRUD, bug fixes, API docs or accessibility work without award framing."
-argument-hint: "[brief | site | component | resume | status | jury | ship] [target] [--gsap|--shader|--3d]"
+argument-hint: "[brief | site | redesign <url|dir> | component | resume | status | jury | ship] [target] [--quick] [--gsap|--shader|--3d]"
 allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(npm run build)
 ---
 
@@ -54,6 +54,8 @@ Why: skills cannot call each other programmatically, so the routing is a written
 | Argument or request | Reading | Action |
 |---|---|---|
 | `brief <text>`, `site <target>`, or a description of a whole page or site | whole site | Run the workflow from the first unchecked phase in `## Status` (phase 0 when there is no `AWARDS.md`) |
+| `--quick`, or a request for one landing page fast | whole site, quick mode | Write `Mode: quick` on the `## Budgets & tiers` line, then run the workflow under `## Quick mode` below |
+| `redesign <url or dir>`, or a request to redo, rework or replace an existing site | redesign | Run `## Redesign mode` below first, then the workflow from phase 0 with what it found |
 | `component <name, file or selector>`, or a request that names one element ("the hero", "this menu", "a cursor like…") | one component | Invoke the `awards:component` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. |
 | "is this award-worthy", "review", "score", "critique", "what is missing" | critique | Invoke the `awards:jury` skill now with the Skill tool, passing the brief, AWARDS.md path, and exact recorded captures directory and manifest path when available; do not do its work inline. |
 | `resume` | continue | Print the next unchecked phase and its entry condition, then run it; ask one confirming question only when the user has not already said to carry on or not to ask |
@@ -68,6 +70,27 @@ A component request inside a project that already has `AWARDS.md` and `DESIGN.md
 Why: a build resumed in a new session has state the user may not remember; running a phase on an assumption wastes a jury round.
 
 Print, in this order: the `## Status` checklist as it stands; the next unchecked phase with its entry condition and the skill it routes to; the last line of `## Jury log` and `## Ship log` if any; the `## Exceptions` count. Then ask with AskUserQuestion which to run: the next phase, a specific phase, a jury round, or nothing. Never auto-run a phase from the menu.
+
+## Quick mode
+
+Why: a full build costs well over a hundred turns, and a one-page brief does not need every gate twice. Quick mode keeps every decision the jury scores and drops the repeats.
+
+- For one landing page with one primary action and its 404. A brief with routes, a shop or a CMS is not quick; say so and run the full workflow.
+- Phase 0 asks at most two questions. Phase 1 is unchanged: the contract is complete or it is not locked.
+- Phases 2 and 3 run as one: invoke `awards:system` with `--quick`; it hands straight to `awards:structure --quick`, and you check both exit artefacts once, after structure returns. The hero probe still runs.
+- No component passes: skip the static-checkpoint jury before motion and the one after webgl. Motion covers the signature, the hero entrance and the reveals; webgl runs only when SIGNATURE is canvas or GL.
+- One page jury round and one ship pass. A verdict pass runs only when the user asks for it; otherwise ship records its fixes and the build ends on its ship report, with `quick` in the Ship log line.
+
+## Redesign mode
+
+Why: a redesign starts with a site that already has content, an audience and known faults. Starting intake from zero throws away the best brief the build will ever get.
+
+1. Branch first: when the project is a git repository, `git switch -c awards-redesign-<YYYYMMDD>` before any file changes (unless the user named a branch), and never commit to the default branch.
+2. Baseline: run `node "${CLAUDE_PLUGIN_ROOT}/scripts/policy.mjs" <url>` for a URL the user does not own, then `node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <url|dir> --out .awards/redesign/baseline --scroll 0,25,50,75,100 --reduced-motion` (add `--routes` for the routes the brief keeps) and `node "${CLAUDE_PLUGIN_ROOT}/scripts/audit.mjs" <url|dir> --render --json --no-write > .awards/redesign/baseline-audit.json`.
+3. Critique: Invoke the `awards:jury` skill now with the Skill tool, passing `--baseline`, the AWARDS.md path and the baseline captures directory and manifest path; do not do its work inline. Its report is a baseline, never a page round.
+4. Inventory: write `.awards/redesign/inventory.md`, one row per existing route, section, heading, asset and form, marked keep, rewrite or drop, with the reason. Content kept is real content: it replaces synthetic copy in the brief.
+5. Seed the brief from the existing site (subject, audience, conversion, assets on hand) and write `Mode: redesign from <url|dir>` on the `## Budgets & tiers` line. Concept reads the baseline report: its Keep line is kept, and at least two of its named faults become THESIS refusals.
+6. Then run the workflow from phase 0, asking only what the existing site cannot answer. The final jury compares against the baseline: name in the ship report which baseline faults are gone.
 
 ## Intake — phase 0
 
@@ -108,14 +131,15 @@ Two rules apply to every phase: never write page code before `## Direction contr
 | 4 | Stack | Skeleton exists; no booted project (no `package.json`, or no Lenis + GSAP boot) | Invoke the `awards:stack` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. | Project boots on one ticker, `window.__awards` hook, `## Budgets & tiers` |
 | 5 | Motion | Stack booted; static checkpoint and component jury recorded in Page map Notes | Invoke the `awards:motion` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. | `## Motion score` and the motion code, reduced-motion tiers wired |
 | 6 | WebGL | SIGNATURE or the motion score names a GL moment; otherwise tick "explicitly declined", write `webgl none — declined` on the `Deep modes:` line, and skip | Invoke the `awards:webgl` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. | GL layer in its own chunk, DOM mirror, no-GL fallback, budgets updated |
-| 7 | Jury | Phases 1–6 done or declined; the page renders | Invoke the `awards:jury` skill now with the Skill tool, passing the brief, AWARDS.md path, `--captures <recorded-directory>`, and that directory's exact `manifest.json` path; do not do its work inline. | `.awards/jury/<date>.md`, a line in `## Jury log`, a disposition |
+| 7 | Jury | Phases 1–6 done or declined; the page renders | Capture first (with `--routes` and every route the page map names when `## Brief` lists more than one), then invoke the `awards:jury` skill now with the Skill tool, passing the brief, AWARDS.md path, `--captures <recorded-directory>`, and that directory's exact `manifest.json` path (or its `routes.json`); do not do its work inline. | `.awards/jury/<date>.md`, a line in `## Jury log`, a disposition |
 | 8 | Ship | Disposition is `fix` or `ship` | Invoke the `awards:ship` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. | `.awards/ship/<date>.md`, a line in `## Ship log`; "Shipped" ticked only after the ship gate passes |
 
 Resolution rules:
 - After every phase: tick its Status line, read the exit artefact yourself (not the skill's summary), and check it against the contract before invoking the next skill.
 - A phase that finds a broken earlier artefact (a page map that contradicts STORY) stops and returns to that phase; it does not patch around it.
+- Before each page jury round, snapshot the system: `node "${CLAUDE_PLUGIN_ROOT}/scripts/design-md.mjs" snapshot --label round-<n> DESIGN.md`; ship reports what moved since (`design-md.mjs diff`), so a jury fix that quietly changed a token is visible.
 - Phase 6 is skipped, not forgotten: the Status line reads "explicitly declined" with the dosage rung the contract chose.
-- When ship applied material fixes, phase 7 runs once more as a verdict pass (`awards:jury --verdict`); a verdict of `ship` sends the build to phase 8 once more for its proof pass, which ticks Shipped when its gate holds. At most two page jury rounds per build, phase 7 and one verdict pass, unless the user asks for more; count them from the `## Jury log` lines not marked `component`. The component passes below have their own bound (one after the static checkpoint, one more after webgl when SIGNATURE is canvas or GL) and never use up a page round, so a build that needs its verdict pass always has one left.
+- When ship applied material fixes, phase 7 runs once more as a verdict pass (`awards:jury --verdict`); a verdict of `ship` sends the build to phase 8 once more for its proof pass, which ticks Shipped when its gate holds. At most two page jury rounds per build, phase 7 and one verdict pass, unless the user asks for more; count them from the `## Jury log` lines not marked `component` or `baseline`. The component passes below have their own bound (one after the static checkpoint, one more after webgl when SIGNATURE is canvas or GL) and never use up a page round, so a build that needs its verdict pass always has one left.
 - No forked jury (no Skill tool, the skill read as a file, or a host that cannot fork it): never score the build yourself. Append `scores unmeasured — run /awards:jury <dir> --captures <recorded-directory>` with the real paths to `## Jury log`, leave "Jury disposition" unchecked, and never call the build finished.
 
 ### What to check at each hand-back

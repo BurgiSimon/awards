@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>css-scroll-driven-timeline — awards recipe</title>
+  <meta name="description" content="A reading-progress bar, section reveals and a sticky media scale driven by CSS scroll timelines, with an IntersectionObserver fallback.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <!-- Reading position, drawn by scroll(root): decorative, the native scrollbar says the same thing. -->
+  <div class="progress" aria-hidden="true"><span class="progress-bar" data-progress></span></div>
+  <header class="bar"><a href="../index.html" class="label">← recipes</a><p class="label">/ css-scroll-driven-timeline</p></header>
+
+  <main id="main">
+    <section class="hero" data-hero aria-labelledby="t">
+      <div class="hero-copy">
+        <h1 class="hero-title" id="t">How the harbour keeps time with the sea.</h1>
+        <p class="lede">A short read in five parts. The bar along the top, the paragraphs as they arrive and the trace that opens halfway down are CSS scroll timelines; the script on this page only reports which engine ran.</p>
+      </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="c1">
+      <h2 class="reveal" id="c1">The well</h2>
+      <p class="reveal">A tide gauge starts with a pipe sunk into the quay. Water enters through a narrow slot near the bottom, so the chop of the waves cancels out and only the slow rise of the tide reaches the float inside.</p>
+    </section>
+
+    <section class="chapter" aria-labelledby="c2">
+      <h2 class="reveal" id="c2">The float</h2>
+      <p class="reveal">A copper float rides that still water and turns a drum on a fine chain. Twice a day the drum winds one way, and twice a day it winds back.</p>
+    </section>
+
+    <section class="rail" data-rail aria-labelledby="c3">
+      <div class="stage">
+        <h2 class="stage-title" id="c3">The trace</h2>
+        <figure class="figure">
+          <div class="frame" data-frame>
+            <svg class="trace" viewBox="0 0 1200 500" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+              <path d="M0 250H1200" fill="none" stroke="currentColor" stroke-width="1" opacity=".3" vector-effect="non-scaling-stroke"/>
+              <path d="M171 470V500M343 470V500M514 470V500M686 470V500M857 470V500M1029 470V500" fill="none" stroke="currentColor" stroke-width="1" opacity=".5" vector-effect="non-scaling-stroke"/>
+              <path d="M0 239L4 188L7 141L11 101L14 71L18 52L21 45L25 52L29 71L32 101L36 141L39 188L43 239L46 291L50 339L54 383L57 417L61 441L64 453L68 452L71 438L75 412L79 376L82 332L86 282L89 231L93 181L96 135L100 97L104 68L107 51L111 47L114 56L118 77L121 109L125 150L129 197L132 247L136 298L139 346L143 387L146 419L150 441L154 451L157 447L161 432L164 404L168 367L171 323L175 274L179 223L182 175L186 131L189 95L193 69L196 54L200 52L204 63L207 85L211 118L214 159L218 206L221 255L225 304L229 350L232 389L236 419L239 438L243 445L246 440L250 423L254 394L257 357L261 313L264 265L268 216L271 170L275 129L279 95L282 72L286 60L289 60L293 72L296 96L300 129L304 169L307 215L311 263L314 310L318 353L321 389L325 416L329 432L332 437L336 430L339 412L343 383L346 346L350 303L354 257L357 211L361 167L364 129L368 98L371 77L375 68L379 70L382 83L386 107L389 140L393 180L396 224L400 270L404 314L407 353L411 386L414 411L418 425L421 427L425 419L429 400L432 371L436 335L439 293L443 250L446 206L450 165L454 130L457 103L461 85L464 78L468 82L471 96L475 120L479 152L482 191L486 232L489 275L493 316L496 353L500 382L504 404L507 415L511 416L514 406L518 386L521 358L525 323L529 284L532 243L536 202L539 165L543 133L546 109L550 94L554 89L557 94L561 109L564 133L568 164L571 201L575 240L579 280L582 317L586 350L589 377L593 395L596 404L600 403L604 392L607 373L611 346L614 313L618 276L621 237L625 200L629 166L632 138L636 117L639 105L643 101L646 108L650 123L654 146L657 176L661 210L664 247L668 283L671 317L675 347L679 370L682 386L686 392L689 390L693 379L696 360L700 334L704 302L707 268L711 233L714 199L718 168L721 143L725 125L729 115L732 114L736 121L739 136L743 159L746 187L750 219L754 252L757 286L761 316L764 343L768 363L771 376L775 381L779 377L782 366L786 347L789 322L793 293L796 261L800 229L804 198L807 171L811 149L814 134L818 126L821 126L825 133L829 149L832 170L836 197L839 226L843 257L846 287L850 315L854 338L857 356L861 367L864 370L868 366L871 354L875 336L879 312L882 285L886 256L889 226L893 198L896 174L900 155L904 141L907 135L911 136L914 145L918 160L921 180L925 205L929 233L932 261L936 289L939 314L943 335L946 350L950 359L954 361L957 355L961 344L964 326L968 304L971 278L975 251L979 224L982 198L986 176L989 159L993 148L996 143L1000 145L1004 154L1007 169L1011 189L1014 212L1018 238L1021 265L1025 290L1029 313L1032 331L1036 345L1039 352L1043 353L1046 347L1050 335L1054 318L1057 297L1061 272L1064 247L1068 221L1071 198L1075 178L1079 163L1082 153L1086 150L1089 152L1093 162L1096 176L1100 195L1104 218L1107 243L1111 268L1114 291L1118 312L1121 329L1125 341L1129 347L1132 347L1136 341L1139 329L1143 312L1146 291L1150 267L1154 243L1157 219L1161 197L1164 178L1168 165L1171 156L1175 154L1179 157L1182 167L1186 182L1189 201L1193 223L1196 247L1200 271" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
+            </svg>
+            <span class="trace-cover" aria-hidden="true"></span>
+          </div>
+          <figcaption class="stage-caption">One week on the drum, a tick for each day: two highs and two lows a day, each arriving about fifty minutes later than the day before, the range easing as spring tides give way to neaps.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="chapter" aria-labelledby="c4">
+      <h2 class="reveal" id="c4">The table</h2>
+      <p class="reveal">From years of traces the harbour office prints a table of predicted heights. It holds to a few centimetres, unless a long onshore wind piles the water against the coast.</p>
+    </section>
+
+    <section class="chapter" aria-labelledby="c5">
+      <h2 class="reveal" id="c5">The read</h2>
+      <p class="reveal">Reading the table takes one rule: find the day, find the hour, and add the height to the chart datum printed on the cover.</p>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p class="engine" data-engine-note>Drawn by <strong data-engine-name>CSS scroll timelines</strong>. <a href="./index.html?engine=script" data-engine-link>Compare the script fallback</a></p>
+    <p class="label">awards · recipe · MIT · synthetic text</p>
+  </footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

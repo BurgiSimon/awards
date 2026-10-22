@@ -1,0 +1,31 @@
+{
+  "id": "case-study-route-kit",
+  "title": "Case-study route kit: an index and the inner page it opens",
+  "intent": "Case-study page",
+  "group": "compositions",
+  "summary": "Two real pages, `index.html` and `case.html`: an `<article>` opening on an edge-to-edge title over a `<dl>` of client, year, role and credits by role (a nested `<dl>`), then a media rhythm whose neighbours never share a layout family: a full-bleed plate recropped `16:9 → 4:5` on the phone, a prose column at about 60ch from column 5, an uneven pair (6 and 4 of 12 columns, the second dropped a step), a caption-led figure bled right, a second plate, the result as ruled rows with units, and a next-project close that repeats the title's family as the bookend, with its own image and the next title at the h1's scale, linking back into the set (`index.html#harbour-almanac`, marked by `:target`); inline-SVG drawings with `role=\"img\"` labels in boxes sized by `aspect-ratio`, so layout shift stays under `0.05`; own `<title>`, description and `CreativeWork` JSON-LD per page; reveals only for what starts below the fold (`32px` rise and fade over `.9 s`, fade only under reduced motion, nothing held back in the static tier)",
+  "tags": [
+    "composition",
+    "editorial",
+    "layout",
+    "images",
+    "sections",
+    "reveal",
+    "responsive",
+    "art-direction",
+    "accessibility",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [],
+  "variants": [
+    "static multi-page (this)",
+    "one case template fed by CMS fields, the next project taken from the index order",
+    "with a route transition into it: transition-promote-chosen or page-transitions"
+  ],
+  "seenIn": [
+    "zainabkabira",
+    "a24-raviklaassens",
+    "the-line"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "css-scroll-driven-timeline",
+  "title": "Scroll-driven animation in CSS: progress, reveals and a sticky media scale",
+  "intent": "Scroll motion in CSS",
+  "group": "scroll-set-pieces",
+  "summary": "A reading-progress bar on `scroll(root block)` (`scaleX 0 → 1`), section reveals on `view()` with `animation-range: entry 10% cover 35%` (`opacity 0 → 1`, `translateY 3rem → 0`), the hero copy leaving over `exit 0% exit 100%` of a named `--hero` timeline, and one `--rail` view timeline on a `280svh` rail scaling its sticky figure `.55 → 1` over `contain 0% contain 45%`; transform and opacity only, so nothing runs on the main thread; a `@supports (animation-timeline: view())` guard with a scroll-listener and IntersectionObserver fallback that sets the same end states (a top margin of `1000000px` so a jump never strands a block); end states and a `steps(10)` bar under reduced motion",
+  "tags": [
+    "scroll",
+    "css-animation",
+    "scrub",
+    "reveal",
+    "sticky",
+    "progress",
+    "fallback"
+  ],
+  "tier": "P1",
+  "deps": [],
+  "variants": [
+    "CSS scroll and view timelines",
+    "IntersectionObserver fallback (?engine=script)"
+  ],
+  "seenIn": [
+    "mindmarket",
+    "seasats",
+    "likova"
+  ]
+}

@@ -14,4 +14,14 @@ Sample `500 ms` of frames · score from memory, cores, GPU string, fps, WebGL2 �
 ## Accessibility
 The forced-tier switch is a real button group with `aria-pressed`; the readout is `aria-live`; the canvas is `aria-hidden` and the fallback image carries alt text.
 
+## Adapters
+
+### Webflow
+The probe is a library, not a component: `src/lib/quality-tiers.js` in the engine (`references/stacks/webflow-export.md`) runs once in `mount()` and hands its profile to every module, which is how the WebGL recipes decide whether to load at all.
+- Designer: only what a tier swaps. The low-tier still is a real Image with alt text and the custom attribute `data-still`, which the module hides until the tier is low or motion is reduced; any canvas comes from the engine. A forced-tier switch, if one ships, is a Div with `role="group"` and an `aria-label` around buttons with `data-force="auto"`, `"high"`, `"mid"`, `"low"` and `aria-pressed`.
+- The module sets `data-quality` on `html`; rules keyed on it (`html[data-quality="low"] …`) go in Head code.
+- Inject: part of the engine loaded by the [recipe:boot-lenis-gsap] Footer-code loader; nothing per page.
+- The probe times 500 ms of frames, so only the published or staging site gives a meaningful tier, not a preview inside an editing surface [inferred].
+- Reduced motion overrides every tier: no particles, and the still shows.
+
 Seen in: `[site:why-zero]`, `[site:shopify-editions-w26]`, `[site:slosh-seltzer]`, `[site:igloo]`.

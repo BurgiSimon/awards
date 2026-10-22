@@ -113,11 +113,18 @@ Why: the frontmatter is the machine-readable layer other tools read, the CSS is 
 1. Write `DESIGN.md` at the project root from `${CLAUDE_PLUGIN_ROOT}/assets/templates/DESIGN.md`: the frontmatter (`name`, `description`, `colors`, `typography.display`, `typography.h2`, `typography.h3`, `typography.body`, `typography.label`, `rounded`, `spacing`, `components`) and the sections `## Overview`, `## Colors` (with the theme table and the contrast ratios), `## Typography`, `## Layout`, `## Elevation & Depth`, `## Shapes`, `## Components`, `## Motion`, `## Browser surfaces`, `## Do's and Don'ts`. When impeccable wrote a `DESIGN.md` first, extend it: keep its frontmatter keys and values, add the missing sections, and say what changed.
 2. Write `src/styles/tokens.css` with exactly these names, because the recipes and the scaffold read them: `--ground`, `--ink`, `--accent`, `--muted`, `--line`, `--font-display`, `--font-body`, `--font-mono`, `--artboard`, `--display`, `--h2`, `--h3`, `--body`, `--label`, `--gutter`, `--unit`, `--ease-out-expo`, `--ease-in-out-expo`, `--ease-theme`, `--dur-feedback`, `--dur-routine`, `--dur-hero`; then one `[data-theme="…"]` block per theme that remaps only `--ground`, `--ink` and `--accent` (the derived tokens follow).
 3. Write `src/styles/fonts.css` with the `@font-face` rules and the metric-matched fallbacks; put the files in `public/fonts/`.
-4. Keep every value identical in the frontmatter, the prose and the CSS; when one changes, change the other in the same edit.
+4. Keep every value identical in the frontmatter, the prose and the CSS; when one changes, change the other in the same edit. The one difference is form: frontmatter dimensions are a number and a unit, so a fluid size is written there at the artboard width (the `clamp()` that `tokens.css` and `## Typography` carry, evaluated at `--artboard`), `0em` and `0px` stand for zero, and a width axis goes in `fontVariation`.
 5. Fill `## Components` with the components the page map names once `awards:structure` has run; until then, the button and link entries from the template with every state.
 6. Tick "Visual system written (system → DESIGN.md, tokens.css)" in `AWARDS.md ## Status`. When no project exists yet, write the files at those paths anyway; `awards:stack` scaffolds around them and never overwrites them.
 
 When the brief needs editorial/product hierarchy, open `[recipe:typography-specimen]` desktop/mobile images and the complete composition’s asset/type notes through `${CLAUDE_PLUGIN_ROOT}/references/patterns/visual-composition.md`; select the project’s own type, colour and image direction.
+
+## DESIGN.md interop
+
+Why: `DESIGN.md` follows the format Google's design.md tools read, so a team can lint it, diff it between rounds and export it to their own token pipeline without the plugin.
+
+- After writing it: `node "${CLAUDE_PLUGIN_ROOT}/scripts/design-md.mjs" lint DESIGN.md`. Errors (a broken `{token}` reference, an invalid value) are fixed; warnings are read and either fixed or named in `## Overview`. With no network it prints `unmeasured` and the build goes on.
+- When the brief names Tailwind or a token pipeline: `design-md.mjs export --format css-tailwind|json-tailwind|dtcg DESIGN.md --out <file>`; `tokens.css` stays the source the recipes read.
 
 ## Verify
 
@@ -135,6 +142,8 @@ Run `node "${CLAUDE_PLUGIN_ROOT}/scripts/audit.mjs" <dir> --scope fonts,contrast
 - [ ] No hex, pairing or set from any corpus card reused as a package; one `Calibration:` line per card read, each citing its `[site:slug]`.
 
 ## Hand-off
+
+In quick mode (`--quick`, or `Mode: quick` in `AWARDS.md`): read only the three DIVERGENCE cards' §8, skip the calibration lines beyond one per card, and hand straight to structure with `--quick`; craft checks both artefacts once.
 
 The next phase belongs to `awards:structure`, which needs `DESIGN.md`, `tokens.css` and the contract. When the user asked for the whole site or `awards:craft` is driving the build: Invoke the `awards:structure` skill now with the Skill tool, passing the brief and the AWARDS.md path; do not do its work inline. When the user asked only for tokens, a palette or fonts, stop after the verify step and offer that next step in one line. If the project is scaffolded later by `awards:stack`, this `tokens.css` replaces the scaffold's, never the other way round.
 

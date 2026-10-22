@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>svg-goo-line-reveal — awards recipe</title>
+  <meta name="description" content="Headings that condense out of a dark pool line by line: one SVG blur and alpha-threshold filter per SplitText line, relaxed to identity and removed when the line lands.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <!-- Hold the goo headings for at most 2.5 s until main.js has armed them, so the text never shows, vanishes and then
+       condenses. If the script never arrives the timeout lets the plain text through. -->
+  <script>document.documentElement.classList.add('goo-wait'); setTimeout(() => document.documentElement.classList.remove('goo-wait'), 2500);</script>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">svg-goo-line-reveal</p></header>
+  <main id="main">
+    <section class="section wrap hero" aria-labelledby="t">
+      <h1 class="display" id="t" data-goo>Letters gather out of a pool of ink.</h1>
+      <p class="lede">Each line of a heading gets its own SVG filter: a Gaussian blur pulled down to nothing while an alpha threshold relaxes back to identity, so the letters condense out of a dark pool and land crisp. The filter comes off as each line lands. The journal and all its copy are a synthetic demo.</p>
+    </section>
+    <section class="section wrap chapter" aria-labelledby="c1">
+      <h2 id="c1" data-goo>Every line owns its filter, so the second can still be pooling while the first has already set.</h2>
+      <p>The lines start a beat apart. The blur eases out over a little more than a second, and the threshold lets go only in its last half second, which is when the edges soften back into ordinary type.</p>
+    </section>
+    <section class="section wrap chapter" aria-labelledby="c2">
+      <h2 id="c2" data-goo>When the last line lands, the filters and the split are gone and the heading is plain text again.</h2>
+      <p>Nothing is left on the text after the reveal: no filter for the compositor to keep, no line wrappers for a screen reader to step through, nothing between a reader's cursor and the words.</p>
+    </section>
+    <section class="section wrap chapter" aria-labelledby="c3">
+      <h2 id="c3" data-goo>Under reduced motion the heading only fades in.</h2>
+      <p>No split, no blur, no threshold at any moment: a short fade once the heading reaches the viewport, and with motion off altogether, the text is simply there.</p>
+    </section>
+  </main>
+  <footer class="wrap foot"><a href="../index.html" class="label">All recipes</a><p class="label">awards · recipe · MIT</p></footer>
+  <!-- The filters live here, one per line while it reveals; main.js adds and removes them. -->
+  <svg class="goo-defs" aria-hidden="true" focusable="false" width="0" height="0"><defs data-goo-defs></defs></svg>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

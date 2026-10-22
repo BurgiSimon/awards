@@ -1,0 +1,31 @@
+{
+  "id": "physics-pile-matter",
+  "title": "A section's words as a matter-js pile, drawn by the DOM",
+  "intent": "Words in a pile",
+  "group": "the-close-and-beyond",
+  "summary": "List items as matter-js bodies (pills chamfered by half their height, blocks by `6` px, circles) dropped from a seeded order into a walled box when `30 %` of it is in view; `Engine.update(engine, 1000 / 60)` on the shared ticker through an accumulator capped at `4` steps, gravity `2.4`, `sleepThreshold 40`, each body's position and angle written to its own `<li>` as a `transform` so the words stay text in source order; the step leaves the ticker when every body sleeps and wakes on a press, a key or a `ResizeObserver` change that rebuilds the walls; `MouseConstraint` scoped to the box on fine pointers with its wheel and touch listeners removed, Enter / Space toss (`vy −14`) and ← / → push on real buttons, tap to toss on touch; no engine under reduced motion, the list wrapped upwards from the floor in CSS",
+  "tags": [
+    "toy",
+    "drag",
+    "pointer",
+    "keyboard",
+    "touch",
+    "ticker",
+    "idle",
+    "list",
+    "accessibility",
+    "reduced-motion"
+  ],
+  "tier": "P2",
+  "deps": [
+    "matter-js@0.20.0"
+  ],
+  "variants": [
+    "seeded drop into a walled box, drag on fine pointers, toss and push from the keyboard and by tap (full tier)",
+    "no engine, the list wrapped upwards from the floor with a fixed tilt per piece (reduced / static / no script)",
+    "loader: the same engine under a full-screen layer with SVG hull bodies, torn down after the hand-off (README)"
+  ],
+  "seenIn": [
+    "agrumeafarm"
+  ]
+}

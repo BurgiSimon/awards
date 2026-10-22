@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <meta name="description" content="One index of nine synthetic works, rearranged three ways with GSAP Flip: grid to list, a discipline filter, and a work opened into its detail view and back.">
+  <title>flip-layout-state — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">flip-layout-state</p></header>
+  <main id="main">
+    <section class="wrap hero" aria-labelledby="t">
+      <h1 class="display" id="t">One index, held three ways.</h1>
+      <p class="lede">Switch the grid to a list, narrow it to one discipline, or open a work. Each change measures the items before and after and moves the same elements between the two layouts, so nothing is replaced and focus stays where you left it. Under reduced motion every change lands at once.</p>
+    </section>
+
+    <section class="wrap index" aria-labelledby="works-title">
+      <div class="index__head">
+        <h2 id="works-title">Works</h2>
+        <div class="tools">
+          <div class="tools__group" role="group" aria-labelledby="view-name">
+            <span class="tools__name" id="view-name">View</span>
+            <button type="button" class="switch" data-view="grid" aria-pressed="true">Grid</button>
+            <button type="button" class="switch" data-view="list" aria-pressed="false">List</button>
+          </div>
+          <div class="tools__group" role="group" aria-labelledby="filter-name">
+            <span class="tools__name" id="filter-name">Discipline</span>
+            <button type="button" class="switch" data-filter="all" aria-pressed="true">All <span class="switch__count">9</span></button>
+            <button type="button" class="switch" data-filter="identity" aria-pressed="false">Identity <span class="switch__count">2</span></button>
+            <button type="button" class="switch" data-filter="wayfinding" aria-pressed="false">Wayfinding <span class="switch__count">2</span></button>
+            <button type="button" class="switch" data-filter="print" aria-pressed="false">Print <span class="switch__count">3</span></button>
+            <button type="button" class="switch" data-filter="digital" aria-pressed="false">Digital <span class="switch__count">2</span></button>
+          </div>
+          <p class="tools__status" role="status" data-status>9 of 9 works, as a grid</p>
+        </div>
+      </div>
+
+      <ul class="works" data-works data-view="grid" aria-labelledby="works-title">
+        <li class="work" data-work="tidewater" data-discipline="identity">
+          <div class="work__frame" data-part aria-hidden="true"><div class="plate tone-clay fig-arch" data-plate="tidewater"></div></div>
+          <h3 class="work__title" data-part><button type="button" class="work__open" data-open aria-haspopup="dialog">Tidewater Archive</button></h3>
+          <p class="work__meta" data-part>Identity · 2026</p>
+          <div class="work__more" data-more hidden>
+            <dl><div><dt>Client</dt><dd>A county record office</dd></div><div><dt>Year</dt><dd>2026</dd></div><div><dt>Role</dt><dd>Mark, type and shelf signage</dd></div></dl>
+            <p>A mark drawn from the columns of a tide table, cut in one weight so it survives the photocopier the reading room still uses.</p>
+          </div>
+        </li>
+        <li class="work" data-work="low-bridge" data-discipline="wayfinding">
+          <div class="work__frame" data-part aria-hidden="true"><div class="plate tone-slate fig-bar" data-plate="low-bridge"></div></div>
+          <h3 class="work__title" data-part><button type="button" class="work__open" data-open aria-haspopup="dialog">Low Bridge Cinema</button></h3>
+          <p class="work__meta" data-part>Wayfinding · 2025</p>
+          <div class="work__more" data-more hidden>
+            <dl><div><dt>Client</dt><dd>A two-screen repertory cinema</dd></div><div><dt>Year</dt><dd>2025</dd></div><div><dt>Role</dt><dd>Signs, seat rows and the late-show map</dd></div></dl>
+            <p>Screen numbers painted at the height of a stooped head, because the foyer runs under a railway arch with a 2.1 metre clearance.</p>
+          </div>
+        </li>
+        <li class="work" data-work="fennel-rye" data-discipline="print">
+          <div class="work__frame" data-part aria-hidden="true"><div class="plate tone-ochre fig-disc" data-plate="fennel-rye"></div></div>
+          <h3 class="work__title" data-part><button type="button" class="work__open" data-open aria-haspopup="dialog">Fennel &amp; Rye</button></h3>
+          <p class="work__meta" data-part>Print · 2025</p>
+          <div class="work__more" data-more hidden>
+            <dl><div><dt>Client</dt><dd>A bakery with one oven</dd></div><div><dt>Year</dt><dd>2025</dd></div><div><dt>Role</dt><dd>Bags, price cards and a weekly bake sheet</dd></div></dl>
+            <p>Price cards printed on the paper the loaves are wrapped in, so the shelf and the bag read as one thing from the street.</p>
+          </div>
+        </li>
+        <li class="work" data-work="quarry-lane" data-discipline="wayfinding">
+          <div class="work__frame" data-part aria-hidden="true"><div class="plate tone-moss fig-step" data-plate="quarry-lane"></div></div>
+          <h3 class="work__title" data-part><button type="button" class="work__open" data-open aria-haspopup="dialog">Quarry Lane Library</button></h3>
+          <p class="work__meta" data-part>Wayfinding · 2024</p>
+          <div class="work__more" data-more hidden>
+            <dl><div><dt>Client</dt><dd>A branch library on three split levels</dd></div><div><dt>Year</dt><dd>2024</dd></div><div><dt>Role</dt><dd>Floor names, stair marks and shelf ends</dd></div></dl>
+            <p>Each half-floor named after the stone it was cut into, so a visitor asked to meet at the Sandstone shelves can find them.</p>
+          </div>
+        </li>
+        <li class="work" data-work="marram" data-discipline="print">
+          <div class="work__frame" data-part aria-hidden="true"><div class="plate tone-bone fig-ring" data-plate="marram"></div></div>
+          <h3 class="work__title" data-part><button type="button" class="work__open" data-open aria-haspopup="dialog">Marram Records</button></h3>
+          <p class="work__meta" data-part>Print · 2024</p>
+          <div class="work__more" data-more hidden>
+            <dl><div><dt>Client</dt><dd>A label that presses 300 copies at a time</dd></div><div><dt>Year</dt><dd>2024</dd></div><div><dt>Role</dt><dd>Sleeves, inner bags and catalogue numbers</dd></div></dl>
+            <p>One sleeve template, its colour taken from the dune grass on the day of each pressing and written on the spine.</p>
+          </div>
+        </li>
+        <li class="work" data-work="halden-ferry" data-discipline="digital">
+          <div class="work__frame" data-part aria-hidden="true"><div class="plate tone-blue fig-quarter" data-plate="halden-ferry"></div></div>
+          <h3 class="work__title" data-part><button type="button" class="work__open" data-open aria-haspopup="dialog">Halden Ferry Timetable</button></h3>
+          <p class="work__meta" data-part>Digital · 2026</p>
+          <div class="work__more" data-more hidden>
+            <dl><div><dt>Client</dt><dd>A three-boat river crossing</dd></div><div><dt>Year</dt><dd>2026</dd></div><div><dt>Role</dt><dd>Live departures for the pier screen and phones</dd></div></dl>
+            <p>The next sailing as one large time, the two after it smaller, and a tide warning that only appears when it changes the crossing.</p>
+          </div>
+        </li>
+        <li class="work" data-work="stone-fruit" data-discipline="print">
+          <div class="work__frame" data-part aria-hidden="true"><div class="plate tone-clay fig-disc" data-plate="stone-fruit"></div></div>
+          <h3 class="work__title" data-part><button type="button" class="work__open" data-open aria-haspopup="dialog">Stone Fruit Almanac</button></h3>
+          <p class="work__meta" data-part>Print · 2023</p>
+          <div class="work__more" data-more hidden>
+            <dl><div><dt>Client</dt><dd>An orchard cooperative</dd></div><div><dt>Year</dt><dd>2023</dd></div><div><dt>Role</dt><dd>A 64-page yearbook and its picking calendar</dd></div></dl>
+            <p>A calendar laid out by ripening week rather than by month, with a fold-out chart of which tree is ready when.</p>
+          </div>
+        </li>
+        <li class="work" data-work="cobble-street" data-discipline="identity">
+          <div class="work__frame" data-part aria-hidden="true"><div class="plate tone-ink fig-arch" data-plate="cobble-street"></div></div>
+          <h3 class="work__title" data-part><button type="button" class="work__open" data-open aria-haspopup="dialog">Cobble Street Clinic</button></h3>
+          <p class="work__meta" data-part>Identity · 2023</p>
+          <div class="work__more" data-more hidden>
+            <dl><div><dt>Client</dt><dd>A walk-in dental clinic</dd></div><div><dt>Year</dt><dd>2023</dd></div><div><dt>Role</dt><dd>Name, mark and appointment cards</dd></div></dl>
+            <p>An arch from the clinic's own doorway, used as the mark and as the shape of every card, so the reminder looks like the door.</p>
+          </div>
+        </li>
+        <li class="work" data-work="weir-house" data-discipline="digital">
+          <div class="work__frame" data-part aria-hidden="true"><div class="plate tone-slate fig-ring" data-plate="weir-house"></div></div>
+          <h3 class="work__title" data-part><button type="button" class="work__open" data-open aria-haspopup="dialog">Weir House Radio</button></h3>
+          <p class="work__meta" data-part>Digital · 2025</p>
+          <div class="work__more" data-more hidden>
+            <dl><div><dt>Client</dt><dd>A community station in a mill</dd></div><div><dt>Year</dt><dd>2025</dd></div><div><dt>Role</dt><dd>Player, schedule and the on-air light</dd></div></dl>
+            <p>A schedule that reads like the paper one taped to the studio door, with the show on air drawn as the lit bulb above it.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <dialog class="detail" data-detail aria-labelledby="detail-title">
+    <div class="detail__ground" data-detail-ground></div>
+    <div class="detail__bar">
+      <p class="detail__where" data-detail-where></p>
+      <button type="button" class="switch" data-close>Back to the index</button>
+    </div>
+    <div class="detail__body">
+      <div class="detail__frame" data-detail-frame aria-hidden="true"></div>
+      <div class="detail__copy" data-detail-copy>
+        <h2 class="detail__title" id="detail-title" data-detail-title>Work</h2>
+        <dl class="detail__facts" data-detail-facts></dl>
+        <p class="detail__text" data-detail-text></p>
+      </div>
+    </div>
+  </dialog>
+
+  <footer class="wrap footer"><p class="label">Works, clients and copy are synthetic, written for this recipe.</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

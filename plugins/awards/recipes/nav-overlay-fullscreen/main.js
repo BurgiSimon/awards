@@ -35,7 +35,8 @@ function open() {
   const tl = gsap.timeline({ onComplete: () => { state.animating = false; focusables()[0]?.focus(); } });
   if (full) {
     tl.fromTo(menu, { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 0.9, ease: 'expo.inOut' })
-      .from(words, { yPercent: 110, duration: 1, ease: 'expo.out', stagger: 0.07 }, '-=0.45');
+      // fromTo, not from: after a close the words sit at -110 %, which from() would read as its end value.
+      .fromTo(words, { yPercent: 110 }, { yPercent: 0, duration: 1, ease: 'expo.out', stagger: 0.07 }, '-=0.45');
   } else {
     tl.set(menu, { clipPath: 'inset(0 0 0% 0)' }).set(words, { yPercent: 0 });
   }

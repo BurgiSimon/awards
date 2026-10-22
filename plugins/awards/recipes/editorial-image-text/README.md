@@ -18,6 +18,15 @@ Desktop 1440 × 900, phone 390 × 844 and reduced-motion desktop captures check 
 
 Alder Workshop, the bench, dimensions, construction claims and imagery are synthetic demonstration material. The pictures illustrate an idea and are not manufacturing instructions or proof of a built product.
 
+## Adapters
+
+### Webflow
+No module: the composition is native grid and links, and `main.js` only reports image and caption state. The work is structure and the grid.
+- A Section with class `editorial-feature` and id `detail`: first a Div with Tag **Figure** (the joinery Image with alt text and dimensions, lazy because it starts below the first viewport, and its caption directly below), then a Div `editorial-feature__copy` with the H2 `composition-heading`, two paragraphs `composition-copy`, the note `editorial-feature__note` and the link.
+- Grid: the figure 1.35 parts and the copy 1 part, the shared gutter between, top edges aligned; one column below 48rem. Webflow's nearest breakpoint is 767 px [recalled]: set the single column there, and keep the figure before the copy in the Navigator so phone order is reading order.
+- The Tag setting lists Figure but no caption element, so the caption is a text element inside the figure unless a Code Embed supplies `<figcaption>` [unverified].
+- Reduced motion: nothing moves. If Interactions reach the page later, keep them off the caption, which must stay attached to its image.
+
 ## Visual notes
 
 Captured 2026-10-06 from the built page in headless Chromium 153.0.8010.12 on Linux, device scale 1, system fonts, normal motion. Desktop is 1440×900 CSS px; mobile is 390×844 CSS px with touch/mobile emulation. All published PNGs are unedited browser screenshots under 1 MiB. Reviewed for hierarchy, aligned edges, crop, whitespace and responsive order; no material defect was found in these frames.

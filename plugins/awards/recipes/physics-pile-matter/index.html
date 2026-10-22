@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>physics-pile-matter — awards recipe</title>
+  <meta name="description" content="A list of words dropped into a bounded box as matter-js bodies: the list items are the render, stepped on the shared ticker at a fixed step until every body sleeps.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">physics-pile-matter</p></header>
+  <main id="main">
+    <section class="section wrap hero" aria-labelledby="t">
+      <h1 class="display" id="t">Tip the drawer out.</h1>
+      <p class="lede">Fourteen pieces from a letterpress drawer fall into the box below once it scrolls into view, knock into each other, pile up and go still. Every piece is the list item itself: matter-js moves the bodies, the browser draws the words, so they stay text in reading order. The print shop and its drawer are a synthetic demo.</p>
+    </section>
+
+    <section class="wrap drawer" aria-labelledby="d">
+      <h2 id="d">In the type drawer</h2>
+      <div class="pile" data-pile>
+        <ul class="pile__list" data-pile-list>
+          <li data-shape="pill" data-tone="ink" data-size="l">wood type</li>
+          <li data-shape="pill" data-tone="paper">brass rule</li>
+          <li data-shape="circle" data-tone="accent">quoins</li>
+          <li data-shape="block" data-tone="paper" data-size="l">furniture</li>
+          <li data-shape="pill" data-tone="accent">leading</li>
+          <li data-shape="block" data-tone="ink">ink knife</li>
+          <li data-shape="pill" data-tone="paper" data-size="l">composing stick</li>
+          <li data-shape="circle" data-tone="ink">chase</li>
+          <li data-shape="block" data-tone="accent">tympan</li>
+          <li data-shape="pill" data-tone="ink">brayer</li>
+          <li data-shape="block" data-tone="paper">galley</li>
+          <li data-shape="pill" data-tone="accent">em quads</li>
+          <li data-shape="pill" data-tone="paper">reglets</li>
+          <li data-shape="circle" data-tone="paper">key</li>
+        </ul>
+      </div>
+      <p class="hint" id="pile-hint" data-pile-hint>The drawer, laid out as it settles.</p>
+    </section>
+
+    <section class="section wrap notes" aria-labelledby="r">
+      <h2 id="r">How the pile is built</h2>
+      <ul>
+        <li>matter-js steps on the shared ticker at a fixed 1/60 s, at most four steps a frame: no <code>Runner</code>, no second <code>requestAnimationFrame</code>.</li>
+        <li>Each list item is one body. Its position and angle are written to the item's <code>transform</code>, so the words stay selectable text in source order.</li>
+        <li>When every body sleeps the step leaves the ticker. A drag, a key, a tap or a change in the box's size wakes it, and a resize rebuilds the walls.</li>
+        <li>Under reduced motion no engine is created: the list wraps along the floor of the box, already at rest.</li>
+      </ul>
+    </section>
+  </main>
+  <footer class="wrap foot"><a href="../index.html" class="label">All recipes</a><p class="label">awards · recipe · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

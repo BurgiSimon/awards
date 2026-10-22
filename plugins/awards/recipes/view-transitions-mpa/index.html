@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>Works — view-transitions-mpa — awards recipe</title>
+  <meta name="description" content="Three static pages joined by cross-document view transitions: a tile's picture and name carried into the next page's hero.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <!-- Hold the first frame until the list is parsed, so the tile a visitor returns to exists when the new view is captured. -->
+  <link rel="expect" href="#works" blocking="render">
+  <!-- The opt-in lives inline, ahead of every external file: the incoming page must know it opts in before its stylesheet
+       arrives, or Chromium may skip the transition. Inside the motion query, so reduced motion gets a plain navigation. -->
+  <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+  <!-- Cross-document view transition hooks, the same block on every page (a layout partial on a real site). Classic and
+       inline on purpose: `pagereveal` fires before the new page's first frame, which a module script can miss. -->
+  <script>
+    (() => {
+      const ORDER = ['index', 'lamps', 'ropewalk', 'nightbus']; // reading order: a later page is "forward"
+      const slug = (url) => new URL(url, location.href).pathname.split('/').pop().replace(/\.html$/, '') || 'index';
+      const still = () => matchMedia('(prefers-reduced-motion: reduce)').matches || /^(reduced|static)$/.test(document.documentElement.dataset.motion || '');
+      const direction = (from, to) => (ORDER.indexOf(slug(to)) < ORDER.indexOf(slug(from)) ? 'back' : 'forward');
+      const inUse = () => [...document.querySelectorAll('body *')].map((el) => getComputedStyle(el).viewTransitionName).filter((n) => n && n !== 'none');
+      // Only the tile being opened or returned to carries the shared names; the same name on two tiles aborts the transition.
+      const name = (item, on) => {
+        for (const el of document.querySelectorAll('[data-vt-item="' + item + '"] [data-vt]')) el.style.viewTransitionName = on ? el.dataset.vt : '';
+      };
+      const keep = (key, value) => { try { sessionStorage.setItem(key, JSON.stringify(value)); } catch (_) {} };
+      let pressed = null; // without the Navigation API, pageswap has no destination: remember the last link pressed
+      addEventListener('click', (e) => { const a = e.target.closest && e.target.closest('a[href]'); if (a) pressed = a.href; }, true);
+      const vt = (window.__vt = { swap: null, reveal: null });
+
+      // Leaving: name the destination's tile and record what happened for the next page.
+      addEventListener('pageswap', (e) => {
+        const t = e.viewTransition;
+        const to = (e.activation && e.activation.entry && e.activation.entry.url) || pressed;
+        const r = { from: slug(location.href), to: to ? slug(to) : null, transition: !!t, skipped: false, direction: null, named: [] };
+        if (t) t.ready.catch(() => {});
+        if (t && still()) { t.skipTransition(); r.skipped = true; }
+        else if (t && to) {
+          r.direction = direction(location.href, to);
+          t.types.add(r.direction);
+          name(r.to, true);
+          r.named = inUse();
+          t.finished.finally(() => name(r.to, false)); // the page may come back from the back/forward cache
+        }
+        vt.swap = r;
+        keep('vt:swap', r);
+      });
+
+      // Arriving, before the first frame: set the direction from the page order, name the tile we came back to, clear it once captured.
+      addEventListener('pagereveal', (e) => {
+        const t = e.viewTransition;
+        const a = window.navigation && navigation.activation;
+        const from = (a && a.from && a.from.url) || document.referrer || null;
+        const r = { transition: !!t, skipped: false, from: from ? slug(from) : null, kind: a ? a.navigationType : null, direction: null, named: [], groups: [], finished: !t };
+        if (t) t.ready.catch(() => {});
+        if (t && still()) { t.skipTransition(); r.skipped = true; r.finished = true; }
+        else if (t) {
+          r.direction = from ? direction(from, location.href) : 'forward';
+          t.types.add(r.direction);
+          if (r.from) name(r.from, true);
+          r.named = inUse();
+          t.ready.then(() => {
+            r.groups = [...new Set(document.getAnimations().map((x) => x.effect && x.effect.pseudoElement).filter(Boolean))];
+            name(r.from, false);
+          }, () => {});
+          t.finished.then(() => { r.finished = true; });
+        }
+        vt.reveal = r;
+      });
+    })();
+  </script>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="bar wrap"><a href="../index.html" class="label">← recipes</a><p class="label">/ view-transitions-mpa</p></header>
+  <main id="main" class="wrap page">
+    <div class="intro">
+      <h1 class="title" id="t" tabindex="-1" data-focus>Three works, three documents.</h1>
+      <p class="lede">Every tile links to a separate HTML page. On the way there the browser carries the tile's picture and name into the next page's hero, and on the way back it returns them to the tile. No router runs; each page loads in full.</p>
+    </div>
+    <ul class="works" id="works" aria-labelledby="t">
+      <li data-vt-item="lamps">
+        <a class="work" href="./lamps.html">
+          <span class="media media--lamps" data-vt="media" aria-hidden="true">
+            <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" focusable="false"><path d="M200 200 L400 128 L400 272 Z" fill="currentColor" opacity=".16"/><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="200" cy="200" r="28"/><circle cx="200" cy="200" r="62" opacity=".8"/><circle cx="200" cy="200" r="98" opacity=".6"/><circle cx="200" cy="200" r="136" opacity=".42"/><circle cx="200" cy="200" r="176" opacity=".26"/></g><circle cx="200" cy="200" r="9" fill="currentColor"/></svg>
+          </span>
+          <span class="work-title" data-vt="title">Harbour Lamp Survey</span>
+          <span class="work-line">A field guide to forty working lights</span>
+        </a>
+      </li>
+      <li data-vt-item="ropewalk">
+        <a class="work" href="./ropewalk.html">
+          <span class="media media--ropewalk" data-vt="media" aria-hidden="true">
+            <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" focusable="false"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M-10 170 C 40 120, 90 220, 140 170 S 240 120, 290 170 S 390 220, 420 170"/><path d="M-10 200 C 40 150, 90 250, 140 200 S 240 150, 290 200 S 390 250, 420 200" opacity=".7"/><path d="M-10 230 C 40 180, 90 280, 140 230 S 240 180, 290 230 S 390 280, 420 230" opacity=".45"/></g></svg>
+          </span>
+          <span class="work-title" data-vt="title">Rope Walk Studio</span>
+          <span class="work-line">Identity for a long, narrow workshop</span>
+        </a>
+      </li>
+      <li data-vt-item="nightbus">
+        <a class="work" href="./nightbus.html">
+          <span class="media media--nightbus" data-vt="media" aria-hidden="true">
+            <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" focusable="false"><polyline points="30,272 110,272 150,214 240,214 278,140 370,140" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><g fill="currentColor"><circle cx="30" cy="272" r="8"/><circle cx="110" cy="272" r="6"/><circle cx="150" cy="214" r="6"/><circle cx="240" cy="214" r="6"/><circle cx="278" cy="140" r="6"/><circle cx="370" cy="140" r="8"/></g></svg>
+          </span>
+          <span class="work-title" data-vt="title">Night Bus Atlas</span>
+          <span class="work-line">Route maps for the hours after midnight</span>
+        </a>
+      </li>
+    </ul>
+  </main>
+  <footer class="wrap foot"><p class="label">awards · recipe · MIT · synthetic works</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
