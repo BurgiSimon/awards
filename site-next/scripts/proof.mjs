@@ -20,7 +20,7 @@ import { siteRoot, openBrowser, pngSize, encodeWebp, prune, posix } from './lib/
 
 const STOPS = [0, 25, 50, 75, 100];
 const CLASSES = ['desktop', 'tablet', 'mobile'];
-const STRIP_WIDTH = 600;
+const STRIP_WIDTH = { desktop: 600, tablet: 600, mobile: 360 };
 const FULL_MAX = 1440;
 const QUALITY = { strip: 0.8, full: 0.82 };
 const DASH = '[—–]';
@@ -289,8 +289,6 @@ function dirMatches(pattern, segs) {
   return true;
 }
 
-// Resolves every frame a piece of report text names against the frames of the cited capture runs. A bare file
-// name belongs to the folder or manifest named just before it in the same text ("`run/manifest.json` + `a.png`").
 // A folder under .awards/captures/ on disk (a run, or a run's stage name), whether or not Evidence lists it.
 function underCaptures(dirPart) {
   if (!dirPart.length || !fs.existsSync(capturesDir)) return false;
@@ -298,6 +296,12 @@ function underCaptures(dirPart) {
   return fs.readdirSync(capturesDir).some((r) => r === dirPart[0] || stageOf(r) === dirPart[0]);
 }
 
+const maskTicks = (text) => text.replace(/`[^`]*`/g, (m) => ' '.repeat(m.length));
+const isFrameName = (name) => FRAME_BASE.test(path.basename(name).replace(/\.png$/, ''));
+
+// Resolves every frame a piece of report text names against the frames of the cited capture runs. A bare file
+// name belongs to the folder or manifest named just before it in the same text ("`run/manifest.json` + `a.png`").
+// Every frame-like citation comes back with its position in the text, resolved or not.
 function citations(text, frames) {
   const tokens = [];
   const masked = text.replace(/`([^`]*)`/g, (m, inner, off) => {
@@ -308,21 +312,20 @@ function citations(text, frames) {
   for (const m of masked.matchAll(FRAME_BARE)) tokens.push({ at: m.index, t: m[0] });
   tokens.sort((a, b) => a.at - b.at);
 
-  const found = [];
-  const unresolved = [];
-  const ambiguous = [];
+  // kind: 'frame' (hits), 'unresolved', 'ambiguous', or 'foreign' (a frame of a page outside .awards/captures/).
+  const entries = [];
   // null: no folder named yet · 'foreign': a folder outside .awards/captures/ (dist/, a neighbour) · 'uncited': a
   // capture folder Evidence does not list · otherwise the folder pattern (segments) bare names belong to.
   let ctx = null;
-  for (const { t: rawToken } of tokens) {
+  for (const { at, t: rawToken } of tokens) {
     let token = rawToken.trim().replace(/^[(]+|[),;:.]+$/g, '').replace(/^\.\//, '');
     if (!token) continue;
     if (path.isAbsolute(token)) {
       const rel = posix(path.relative(capturesDir, token));
-      if (rel.startsWith('..')) { ctx = 'foreign'; continue; }
+      if (rel.startsWith('..')) { ctx = 'foreign'; if (isFrameName(token)) entries.push({ at, token, kind: 'foreign' }); continue; }
       token = rel;
     } else if (token.startsWith('.awards/captures/')) token = token.slice('.awards/captures/'.length);
-    else if (token.startsWith('.awards/') || token.startsWith('../')) { ctx = 'foreign'; continue; }
+    else if (token.startsWith('.awards/') || token.startsWith('../')) { ctx = 'foreign'; if (isFrameName(token)) entries.push({ at, token, kind: 'foreign' }); continue; }
     for (const e of expandBraces(token).flatMap(expandStopList)) {
       const segs = e.split('/').filter(Boolean);
       const last = segs.at(-1) ?? '';
@@ -339,35 +342,96 @@ function citations(text, frames) {
       if (dirPart.length) {
         if (!frames.some((f) => dirMatches(dirPart, f.dirSegs))) {
           ctx = underCaptures(dirPart) ? 'uncited' : 'foreign';
-          if (ctx === 'uncited') unresolved.push(e);
+          entries.push({ at, token: e, kind: ctx === 'uncited' ? 'unresolved' : 'foreign' });
           continue;
         }
         ctx = dirPart;
         hits = frames.filter((f) => dirMatches(dirPart, f.dirSegs) && matcher.test(f.base));
       } else if (ctx === 'foreign') {
+        entries.push({ at, token: e, kind: 'foreign' });
         continue;
       } else if (ctx === 'uncited') {
-        unresolved.push(e);
+        entries.push({ at, token: e, kind: 'unresolved' });
         continue;
       } else {
         hits = ctx ? frames.filter((f) => dirMatches(ctx, f.dirSegs) && matcher.test(f.base)) : [];
         if (!hits.length) hits = frames.filter((f) => matcher.test(f.base));
       }
-      if (!hits.length) unresolved.push(e);
-      else if (!wild && hits.length > 1) ambiguous.push({ token: e, matches: hits.map((f) => f.id) });
-      else for (const f of hits) found.push({ frame: f, token: e, explicit: !wild });
+      if (!hits.length) entries.push({ at, token: e, kind: 'unresolved' });
+      else if (!wild && hits.length > 1) entries.push({ at, token: e, kind: 'ambiguous', matches: hits.map((f) => f.id) });
+      else entries.push({ at, token: e, kind: 'frame', frames: hits });
     }
   }
-  return { found, unresolved, ambiguous };
+  return entries;
 }
 
-// Frames named by one mark source; a citation that names no frame of the cited runs, or several, stops the run.
-function framesOf(text, frames, file, section, what) {
-  const r = citations(text, frames);
-  if (r.unresolved.length) throw new ShapeError(file, section, `${what} cites ${r.unresolved.map((t) => `\`${t}\``).join(', ')}, which no capture run listed under Evidence holds`);
-  if (r.ambiguous.length) throw new ShapeError(file, section, `${what} cites ${r.ambiguous.map((a) => `\`${a.token}\` (${a.matches.join(', ')})`).join('; ')}: more than one frame fits`);
+// Clauses of a line: split at ';' and at a full stop that ends a sentence (not "vs.", "e.g.", "i.e.", "cf.").
+function clauses(masked) {
+  const out = [];
+  let start = 0;
+  for (let i = 0; i < masked.length; i++) {
+    const ch = masked[i];
+    const stop = ch === ';' || (ch === '.' && /\s/.test(masked[i + 1] ?? ' ') && !/\b(?:vs|e\.g|i\.e|cf)$/i.test(masked.slice(Math.max(0, i - 4), i)));
+    if (stop) { out.push([start, i]); start = i + 1; }
+  }
+  out.push([start, masked.length]);
+  return out;
+}
+
+// Comparisons ("A vs B", "A against B", "A versus B"): in a clause that cites a frame before the word, every
+// frame cited after it is the reference that shows how it should look, and carries no mark.
+function referenceSpans(text, entries) {
+  const masked = maskTicks(text);
+  const spans = [];
+  for (const [a, b] of clauses(masked)) {
+    const m = /\b(?:vs\.?|versus|against)(?=\s|$)/i.exec(masked.slice(a, b));
+    if (!m) continue;
+    const at = a + m.index;
+    if (entries.some((e) => e.at >= a && e.at < at)) spans.push([at, b]);
+  }
+  return spans;
+}
+
+// Top-level parentheses of a line, outside backticks: [open, close] positions.
+function parentheticals(masked, from = 0) {
+  const out = [];
+  let depth = 0;
+  let open = -1;
+  for (let i = from; i < masked.length; i++) {
+    if (masked[i] === '(') { if (depth++ === 0) open = i; }
+    else if (masked[i] === ')' && depth > 0 && --depth === 0) out.push([open, i]);
+  }
+  return out;
+}
+
+// Frames named by one mark source, minus comparison references and anything outside `scope` ([start, end) in the
+// text). A kept citation that names no frame of the cited runs, or several, stops the run.
+function framesOf(text, frames, file, section, what, { scope = null } = {}) {
+  const entries = citations(text, frames);
+  const refs = referenceSpans(text, entries);
+  const kept = entries.filter((e) => (!scope || (e.at >= scope[0] && e.at < scope[1])) && !refs.some(([a, b]) => e.at >= a && e.at < b));
+  const unresolved = kept.filter((e) => e.kind === 'unresolved');
+  const ambiguous = kept.filter((e) => e.kind === 'ambiguous');
+  if (unresolved.length) throw new ShapeError(file, section, `${what} cites ${unresolved.map((e) => `\`${e.token}\``).join(', ')}, which no capture run listed under Evidence holds`);
+  if (ambiguous.length) throw new ShapeError(file, section, `${what} cites ${ambiguous.map((e) => `\`${e.token}\` (${e.matches.join(', ')})`).join('; ')}: more than one frame fits`);
   const seen = new Set();
-  return r.found.filter(({ frame }) => !seen.has(frame.id) && seen.add(frame.id)).map(({ frame }) => frame);
+  return kept.filter((e) => e.kind === 'frame').flatMap((e) => e.frames).filter((f) => !seen.has(f.id) && seen.add(f.id));
+}
+
+// A slop family line is `<family> — <evidence>`. The family is seen where the evidence's first frame citation
+// points: the parenthetical that holds it, or, when it stands outside parentheses (the template's bare form), its
+// clause. Frames cited later in the line refer to other places and carry no mark.
+function slopScope(text, frames) {
+  const masked = maskTicks(text);
+  const dash = new RegExp(`\\s${DASH}\\s`).exec(masked);
+  if (!dash) return null;
+  const from = dash.index + dash[0].length;
+  const first = citations(text, frames).map((e) => e.at).filter((p) => p >= from).sort((a, b) => a - b)[0];
+  if (first === undefined) return [from, masked.length];
+  const group = parentheticals(masked, from).find(([a, b]) => first > a && first < b);
+  if (group) return [group[0], group[1] + 1];
+  const clause = clauses(masked).find(([a, b]) => first >= a && first < b);
+  return [Math.max(from, clause[0]), clause[1]];
 }
 
 function requireSection(sections, title, file) {
@@ -524,7 +588,7 @@ function extract(report, frames) {
   const familyLines = slopLines.filter((l) => l !== presentLine && l !== nameable && new RegExp(` ${DASH} `).test(l.text));
   if (familyLines.length !== present) throw new ShapeError(rel, 'Slop scan', `\`families present: ${present}\` but ${familyLines.length} family line(s) of the form \`<family> — <evidence>\``);
   familyLines.forEach((l, i) => {
-    const list = framesOf(l.text, frames, rel, 'Slop scan', `family line ${i + 1}`);
+    const list = framesOf(l.text, frames, rel, 'Slop scan', `family line ${i + 1}`, { scope: slopScope(l.text, frames) });
     add('cross', list, { section: 'Slop scan', source: `slop-${i + 1}`, line: l.raw.trim(), lineNo: l.no, family: l.text.replace(/^\s*-\s*/, '').split(new RegExp(` ${DASH} `))[0] });
     if (!list.length) undrawn.push({ section: 'Slop scan', line: l.raw.trim() });
   });
@@ -782,7 +846,7 @@ async function encodeAll(frames) {
       if (!fs.existsSync(f.png)) throw new Error(`frame missing on disk: ${projRel(f.png)} (listed in ${f.manifest})`);
       const { width: W, height: H } = pngSize(f.png);
       const size = (w) => ({ width: w, height: Math.round((H * w) / W) });
-      const stripSize = size(Math.min(STRIP_WIDTH, W));
+      const stripSize = size(Math.min(STRIP_WIDTH[f.class], W));
       const fullSize = size(Math.min(FULL_MAX, W));
       const routeDir = path.join(proofDir, f.run, f.route);
       const stem = (f.capDir && f.capDir !== f.route ? `${f.capDir.replace(/\//g, '-')}-` : '') + f.base;
