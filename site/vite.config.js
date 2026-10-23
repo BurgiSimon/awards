@@ -1,23 +1,24 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'node:path';
-import facts from './facts.js';
+import facts from './facts/index.js';
+
+const page = (file) => resolve(import.meta.dirname, file);
 
 export default defineConfig({
-  // Relative asset paths: dist/ works from a domain root or any subfolder.
+  // Relative asset paths: dist/ works from a domain root or any subfolder (the 404 sets its own <base> from SITE_ROOT).
   base: './',
+  appType: 'mpa',
   plugins: [facts()],
   build: {
     target: 'es2022',
-    rollupOptions: {
+    // Vite 8 is Rolldown-based; rolldownOptions replaces the deprecated rollupOptions alias.
+    rolldownOptions: {
       input: {
-        index: resolve(import.meta.dirname, 'index.html'),
-        install: resolve(import.meta.dirname, 'install.html'),
-        docs: resolve(import.meta.dirname, 'docs.html'),
-        404: resolve(import.meta.dirname, '404.html'),
-      },
-      output: {
-        // Keep WebGL out of the entry chunk.
-        manualChunks: (id) => (id.includes('node_modules/three') ? 'three' : undefined),
+        index: page('index.html'),
+        install: page('install.html'),
+        docs: page('docs.html'),
+        recipes: page('recipes.html'),
+        404: page('404.html'),
       },
     },
   },

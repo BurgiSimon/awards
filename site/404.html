@@ -1,33 +1,108 @@
 <!doctype html>
-<html lang="en" data-theme="default">
+<html lang="en" data-proof="none">
+<!-- Skeleton (awards:structure), started from plugins/awards/assets/templates/404.html and rewritten in the contact
+     sheet. Served at any missing path: {base} is the site root (bound to SITE_ROOT at build), so every relative link
+     and stylesheet resolves at any depth. Links come first in the DOM. -->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <base href="%%site-root%%">
-<!-- @head -->
+  <!-- Script-only controls keep their place from the first paint (no shift when the module wires them up). -->
+  <script>(function(d){d.classList.add('js');if(navigator.clipboard&&window.isSecureContext)d.classList.add('can-copy');if(window.HTMLDialogElement)d.classList.add('can-dialog');
+    var still=matchMedia('(prefers-reduced-motion: reduce)').matches||/^(reduced|static)$/.test(d.dataset.motion||'');
+    addEventListener('pagereveal',function(e){var t=e.viewTransition;window.__vt={ran:!!t,skipped:false,finished:false};if(!t)return;if(still){t.skipTransition();window.__vt.skipped=true}t.finished.then(function(){window.__vt.finished=true},function(){})});
+  })(document.documentElement)</script>
+  <!-- Cross-document View Transitions (motion score: Transitions): the opt-in sits inline, ahead of every external file,
+       so the arriving page knows it opts in; inside the motion query, so reduced motion gets a plain navigation. -->
+  <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
+  <base href="/" data-fact-attr="href:site-root">
   <meta name="robots" content="noindex">
-  <title>Flow separated — awards</title>
-  <meta name="description" content="Nothing at this address. Three links back to the awards plugin: home, install and docs.">
-  <meta property="og:title" content="Flow separated — awards">
-  <meta property="og:description" content="Nothing at this address. Home, install and docs are one link away.">
+  <title>No capture at this address · awards</title>
+  <meta name="description" content="Nothing was ever shot at this address. Three ways back into the awards plugin's site: the sheet, the recipes and the docs.">
+  <link rel="canonical" href="./404.html">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#131211">
+  <link rel="icon" href="./favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+  <link rel="preload" href="./fonts/enriqueta-latin-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./fonts/enriqueta-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./fonts/saira-condensed-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="awards">
+  <meta property="og:title" content="No capture at this address · awards">
+  <meta property="og:description" content="Nothing was ever shot here. The sheet, the recipes and the docs are one link away.">
+  <meta property="og:url" content="./404.html">
+  <meta property="og:image" content="./og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="(written at build from src/data/proof.json)">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="./src/styles/site.css">
 </head>
-<body class="page-404">
-  <div id="page">
-  <main id="main" class="lost wrap">
-    <h1><span class="wordmark">404</span> <span class="claim">Flow separated.</span></h1>
-    <p class="lede">Nothing at this address. The streamlines left the surface here; these three reattach.</p>
-    <ul class="lost-links" role="list">
-      <li><a href="./">Home</a></li>
-      <li><a href="./install.html">Install</a></li>
-      <li><a href="./docs.html">Docs</a></li>
-    </ul>
-    <svg class="lost-lines" viewBox="0 -20 600 180" aria-hidden="true" focusable="false">
-      <path pathLength="1" d="M0 40 C120 40 200 40 260 40 C300 40 330 20 380 8 C440 -6 520 -10 600 -14"/>
-      <path pathLength="1" d="M0 80 C120 80 200 80 260 80 C310 80 340 70 400 76 C460 84 500 110 600 120"/>
-      <path class="sep" pathLength="1" d="M0 120 C120 120 200 120 260 120 C300 120 320 140 340 150 C360 160 380 150 372 136 C366 124 388 118 404 132"/>
-    </svg>
-  </main>
+<body>
+<div id="page" class="sheet">
+  <a class="skip" href="#main">Skip to the way back</a>
+
+  <div class="rebate" data-theme="rebate">
+    <header class="rebate__head">
+      <p class="rebate__mark"><a class="rebate__wordmark" href="./">awards</a> <span class="rebate__version edge" data-fact="version">0.7.0</span></p>
+      <!-- @proof:disclosure — phone, states capture and report: the Frames disclosure, this route's phone frames as links -->
+      <nav class="rebate__nav" aria-label="Site">
+        <ul role="list">
+          <li><a class="rebate__install" href="./install.html">Install</a></li>
+          <li><a href="./docs.html">Docs</a></li>
+          <li><a href="./recipes.html">Recipes</a></li>
+          <li><a href="https://github.com/burgisimon/awards" data-fact-attr="href:repo">Source</a></li>
+        </ul>
+      </nav>
+    </header>
+    <!-- @proof:strip route="404" — the same frames nav as on the home route, with this route's own frames; nothing in state none -->
   </div>
+
+  <main id="main" class="paper">
+    <section class="chapter lost" aria-labelledby="lost-title">
+      <h1 id="lost-title">No capture exists at this address.</h1>
+      <!-- The requested path as edge print under the line, never above it; script writes location.pathname into it. -->
+      <p class="lost__path edge">Requested: <span data-requested-path>this address</span></p>
+      <nav class="ways" aria-labelledby="ways-title">
+        <h2 id="ways-title">Three ways back onto the sheet</h2>
+        <ul role="list">
+          <li><a class="next" href="./">The sheet</a><p>The plugin, what it does to a website, and the two commands that install it.</p></li>
+          <li><a class="next" href="./recipes.html">Recipes</a><p>All <span data-fact="recipes">89</span> entries, by group, with their tags and pass dates.</p></li>
+          <li><a class="next" href="./docs.html">Docs</a><p>Skills, the craft flow, the jury, the audit rules and the scripts.</p></li>
+        </ul>
+      </nav>
+      <p class="lede">Nothing was ever shot here: the page you asked for is not part of this site, or it moved when the site was rebuilt.</p>
+    </section>
+  </main>
+
+  <footer class="colophon" aria-label="Colophon">
+    <div class="colophon__edition">
+      <p>awards <span data-fact="version">0.7.0</span>, <span data-fact="license">MIT</span> licence, by BurgiSimon.</p>
+      <!-- @proof:jury-line — when a page-round report exists: "Judged {date}: {disposition}, weighted {w}. Report: .awards/jury/{file} in the repository." -->
+      <!-- @fact:build — the build being read: "This is build {version}+{hash}." -->
+    </div>
+    <ul class="colophon__links" role="list">
+      <!-- @proof:pages — states capture and report: Docs and Recipes, which the phone band gives up to the Frames disclosure -->
+      <li><a href="https://github.com/burgisimon/awards" data-fact-attr="href:repo">Source on GitHub</a></li>
+      <li><a href="https://github.com/burgisimon/awards/blob/main/CHANGELOG.md">Release notes</a></li>
+      <li><a href="https://github.com/burgisimon/awards/blob/main/LICENSE">Licence</a></li>
+    </ul>
+    <div class="colophon__credits">
+      <table class="data">
+        <caption>Credits</caption>
+        <thead><tr><th scope="col">Part</th><th scope="col">Source</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Enriqueta</th><td>FontFuror, SIL Open Font License 1.1</td></tr>
+          <tr><th scope="row">Saira Condensed</th><td>Omnibus-Type, SIL Open Font License 1.1</td></tr>
+          <tr><th scope="row">Commands and code</th><td>your system's monospace</td></tr>
+          <tr><th scope="row">Marks</th><td>drawn for this page</td></tr><!-- @fact:libraries -->
+        </tbody>
+      </table>
+    </div>
+    <p class="colophon__note caption">Every picture on this site is a capture of this site or of the plugin's own recipes, made by the plugin's own scripts. Nothing here is a screenshot of anyone else's work.</p>
+  </footer>
+</div>
+<script type="module" src="./src/main.js"></script>
 </body>
 </html>

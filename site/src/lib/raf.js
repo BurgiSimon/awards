@@ -1,38 +1,28 @@
-// A single ticker for the whole page plus framerate-independent damping helpers.
-// Standalone rAF clock for recipes without a GSAP ticker subscription.
-const subscribers = new Set();
-let running = false;
-let last = 0;
-let raf = 0;
+// Every loop on the page subscribes here, and here is GSAP's ticker: the same clock that drives Lenis and
+// ScrollTrigger, so no private requestAnimationFrame ever gives a scroll-linked value a second opinion.
+// Callbacks receive dt in seconds (clamped to 0.1, so a long frame never overshoots) and the ticker time.
+import gsap from 'gsap';
 
-function frame(t) {
-  raf = 0;
-  if (!running) return;
-  const dt = last ? Math.min(0.1, (t - last) / 1000) : 1 / 60;
-  last = t;
-  for (const fn of subscribers) fn(dt, t);
-  if (running && !raf && subscribers.size) raf = requestAnimationFrame(frame);
-}
+const wrapped = new Map();
 
 export const ticker = {
   add(fn) {
-    subscribers.add(fn);
-    ticker.resume();
+    if (wrapped.has(fn)) return () => ticker.remove(fn);
+    const wrap = (time, deltaTime) => fn(Math.min(0.1, deltaTime / 1000), time);
+    wrapped.set(fn, wrap);
+    gsap.ticker.add(wrap);
     return () => ticker.remove(fn);
   },
   remove(fn) {
-    subscribers.delete(fn);
-    if (!subscribers.size) ticker.pause();
+    const wrap = wrapped.get(fn);
+    if (wrap) gsap.ticker.remove(wrap);
+    wrapped.delete(fn);
   },
-  pause() { running = false; last = 0; cancelAnimationFrame(raf); raf = 0; },
-  resume() { if (!running && subscribers.size && !document.hidden) { running = true; raf = requestAnimationFrame(frame); } },
 };
 
-// Pause loops when the tab is hidden: nothing should burn frames nobody sees.
-document.addEventListener('visibilitychange', () => (document.hidden ? ticker.pause() : ticker.resume()));
-
 export const lerp = (a, b, t) => a + (b - a) * t;
-// Exponential damping: identical feel at 60 Hz and 144 Hz. k ≈ 6–10 feels like a 0.1 lerp at 60 fps.
+// Exponential damping, identical at 60 Hz and 144 Hz: a per-frame lerp l at 60 fps is k = -ln(1 - l) * 60.
 export const damp = (current, target, k, dt) => lerp(current, target, 1 - Math.exp(-k * dt));
+export const lerpToK = (l) => -Math.log(1 - l) * 60;
 export const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
 export const mapRange = (v, inMin, inMax, outMin, outMax) => outMin + ((v - inMin) / (inMax - inMin)) * (outMax - outMin);

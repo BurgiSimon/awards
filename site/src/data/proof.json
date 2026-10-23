@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "generator": "scripts/proof.mjs",
-  "project": "site-next",
+  "project": "site",
   "publicBase": "paths are relative to public/",
   "state": "a",
   "strip": true,
@@ -223,6 +223,49 @@
       }
     ],
     "remaining": "- Floor: the FIRST VIEWPORT block in state (a) — the strip at s00 shows one frame and three long notes instead of the frames column (`facts/proof.js:105–106`, `:144–148`; `src/styles/site.css:170`).\n- Craft: blank bands after a jump and a row printed twice in the strip (`src/styles/site.css:857`, `src/motion/marks.js:56–63`, `facts/proof.js:144`).\n- Craft: the phone chapter-head row's long notes beside an empty half (`src/styles/site.css:198`).\n- Craft: round-1 craft 1, partial — bare paper under \"Open at full size\" in chapter 3 (`src/motion/loupe.js` `measure()`, `src/styles/site.css:569`).\n- Craft: the hover crop beside s00 (`facts/proof.js:144`, `.frame--crop`)."
+  },
+  "latest": {
+    "kind": "verdict",
+    "file": ".awards/jury/2026-10-23-verdict.md",
+    "date": "2026-10-23",
+    "disposition": "ship",
+    "dispositionLine": "disposition: ship",
+    "scoresLine": "Design 7.6 · Usability 8.0 · Creativity 8.3 · Content 7.8 — weighted 7.88",
+    "scores": {
+      "kind": "site",
+      "design": "7.6",
+      "usability": "8.0",
+      "creativity": "8.3",
+      "content": "7.8",
+      "weighted": "7.88"
+    },
+    "axes": [
+      {
+        "name": "Design (40)",
+        "score": "7.6",
+        "reason": "The marked state now reads as the contract's sheet: at s00 the rail strips to a ringed and crossed s00, the crop, the memory sentence and all of s25, nothing cut by the caption (`20261022T163356-ship/home/desktop-s00.png` → `20261022T174443-ship/home/desktop-s00.png`); the rail runs unbroken after a jump (`home/desktop-s100.png` pair), the phone row is frames and two lines (`chapters-phone/mobile-s10.png` pair), and chapter 3's columns end together (`chapters/desktop-s42.png` pair). Held under 7.8 by the hover crop, whose black cross and arrow vanish on the black it pictures and whose picture is soft (`home/desktop-s00.png` x 30–176), by s00's cross and arrow, whose reason prints two screens down under s50, and by the Copy buttons, still 2 px outlines (unchanged surface)"
+      },
+      {
+        "name": "Usability (30)",
+        "score": "8.0",
+        "reason": "The two frictions that held it at 7.8 are gone: no dark report slab after the phone ticket (`chapters-phone/mobile-s10.png` pair) and no blank rail where the wayfinding frames should be after a jump (`home/desktop-s100.png`, `states/keys-desktop-state-strip-jump.png` pairs); all eight walk steps pass. One friction remains on an unchanged surface: below 768 px Docs and Recipes live only in the colophon (`home/mobile-s00.png`)"
+      },
+      {
+        "name": "Creativity (20)",
+        "score": "8.3",
+        "reason": "The marker language is whole on the page for the first time: crosses carry the verdict's arrows, their lines end \"resolved, verdict 2026-10-22\" or \"partial\", and the lines are the report's lead clauses rather than its `Location` cells, so they read as an editor's notes, not a code-review log (`20261022T163356-ship/home/desktop-s50.png` → `home/desktop-s50.png`; `docs-html/desktop-s75.png` pair). A page that prints its critique and its repair on its own pictures is not a move the corpus holds. Held under 8.5 because every mark still takes a whole frame, s00's arrow points at a corner rather than at its label, and the crop's marks cannot be seen"
+      },
+      {
+        "name": "Content (10)",
+        "score": "7.8",
+        "reason": "The superseded lede claim and the since-fixed walk 8 failure now stand beside their resolution: Craft 3 \"resolved, verdict 2026-10-22\" under s50 and on /docs, Walk 8 followed by Craft 2 \"resolved\" on the phone row (`chapters-phone/mobile-s10.png`, `docs-html/desktop-s75.png` pairs); every line is a quoted clause with its source. Held under 8 because the Walk 8 line still states a failure in its own words with no arrow of its own, the phone Frames list reads \"the top, cross and cross and arrow drawn\" (`states/phone-mobile-state-frames-open.png`), and the footer's \"Judged 2026-10-22: ship, weighted 7.70\" sits beside arrows from a verdict whose disposition the page never names (`home/desktop-s100.png`)"
+      },
+      {
+        "name": "Weighted",
+        "score": "7.88",
+        "reason": "7.6 × 0.4 + 8.0 × 0.3 + 8.3 × 0.2 + 7.8 × 0.1; SOTD threshold ≥ 7.2 with no axis < 6.8: met"
+      }
+    ]
   },
   "captures": [
     {
@@ -3903,7 +3946,7 @@
   },
   "audit": {
     "file": ".awards/audit.json",
-    "date": "2026-10-22T17:17:44.932Z",
+    "date": "2026-10-23T05:28:39.132Z",
     "target": ".",
     "scannedFiles": 35,
     "summary": {
@@ -3917,20 +3960,20 @@
       "axe": "axe-core 4.14.0",
       "viewports": {
         "desktop": {
-          "textsMeasured": 224,
+          "textsMeasured": 229,
           "textsOverImagery": 0,
           "clsLoad": 0,
           "focusStops": 8,
           "sweepSteps": 18
         },
         "tablet": {
-          "textsMeasured": 222,
+          "textsMeasured": 224,
           "textsOverImagery": 0,
           "clsLoad": 0,
           "sweepSteps": 16
         },
         "mobile": {
-          "textsMeasured": 216,
+          "textsMeasured": 218,
           "textsOverImagery": 0,
           "clsLoad": 0,
           "sweepSteps": 29
@@ -3963,6 +4006,10 @@
     {
       "file": ".awards/jury/2026-10-22-baseline.md",
       "reason": "baseline (never a page round)"
+    },
+    {
+      "file": ".awards/jury/2026-10-23-verdict.md",
+      "reason": "arrows: its table re-checks an earlier verdict's fix list, no row of .awards/jury/2026-10-22.md; its scores and disposition are the newest round's (chapter 3)"
     }
   ]
 }

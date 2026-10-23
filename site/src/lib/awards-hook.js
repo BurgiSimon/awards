@@ -3,6 +3,7 @@
 let resolveReady;
 const readyPromise = new Promise((r) => (resolveReady = r));
 const stateFns = [];
+const settlers = [];
 let scroller = null;
 
 export const awards = {
@@ -11,7 +12,15 @@ export const awards = {
   setScroller(fn) { scroller = fn; },
   // Register a function contributing to state(): () => object
   addState(fn) { stateFns.push(fn); },
+  // Register a function scrollTo waits on after moving, so a capture never shoots a value still easing toward its
+  // target (the strip's follow, a mark being drawn): () => Promise
+  addSettle(fn) { settlers.push(fn); },
 };
+
+const settle = () => Promise.race([
+  Promise.all(settlers.map((fn) => Promise.resolve().then(fn).catch(() => null))),
+  new Promise((r) => setTimeout(r, 2500)),
+]);
 
 window.__awards = {
   ready: readyPromise,
@@ -27,6 +36,7 @@ window.__awards = {
     }
     window.dispatchEvent(new Event('scroll'));
     await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+    await settle();
   },
   state() {
     const base = {

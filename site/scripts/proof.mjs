@@ -3,7 +3,8 @@
 // what exists on disk, and this script is the one place that reads it. It writes src/data/proof.json and the
 // re-encoded frames under public/proof/<capture>/<route>/, both committed, because .awards/ is gitignored and
 // the deploy builds without it. `npm run build` only reads them.
-//   (a) the newest page-round jury report → the frames of the capture runs its Evidence names, and its marks
+//   (a) the newest page-round jury report → the frames of the capture runs its Evidence names, and its marks; the
+//       newest verdict that checks its rows adds arrows, and the newest verdict's scores are chapter 3's figures
 //   (b) else the newest valid `capture.mjs --routes` run → dated, unmarked frames and what that capture measured
 //   (c) else no strip
 // In states (a) and (b) it also renders public/og.png, the Open Graph card: the home page's desktop s00 frame the strip
@@ -481,6 +482,21 @@ function cellOf(row, name) {
 }
 
 const strip = (s) => String(s ?? '').replace(/\*\*/g, '').trim();
+const rowsOf = (t) => t?.rows.map((r) => ({ name: strip(r.cells[0]), score: strip(r.cells[1]), reason: r.cells[2] ?? '' })) ?? null;
+
+// A report's or a verdict's axis table, verbatim; when measured it must agree with the scores line.
+function axesOf({ rel, sections, scores }, { measured = true } = {}) {
+  const axes = rowsOf(tablesOf(requireSection(sections, 'Scores', rel)).find((t) => /axis/i.test(t.header[0] ?? '')));
+  if (measured) {
+    if (!axes) throw new ShapeError(rel, 'Scores', 'no axis table (`| Axis (weight) | Score /10 | One-line reason |`)');
+    for (const [key, label] of [['design', 'Design'], ['usability', 'Usability'], ['creativity', 'Creativity'], ['content', 'Content'], ['weighted', 'Weighted']]) {
+      const row = axes.find((r) => r.name.toLowerCase().startsWith(label.toLowerCase()));
+      if (!row) throw new ShapeError(rel, 'Scores', `the axis table has no ${label} row`);
+      if (row.score !== scores[key]) throw new ShapeError(rel, 'Scores', `${label} is ${row.score} in the table and ${scores[key]} on the scores line`);
+    }
+  }
+  return axes;
+}
 
 // Everything chapter 3 and the marks need from one page-round report.
 function extract(report, frames) {
@@ -496,18 +512,8 @@ function extract(report, frames) {
   // Scores: the axis and developer tables, verbatim, and they must agree with the scores line.
   const scoresSection = requireSection(sections, 'Scores', rel);
   const tables = tablesOf(scoresSection);
-  const axisTable = tables.find((t) => /axis/i.test(t.header[0] ?? ''));
   const devTable = tables.find((t) => /developer/i.test(t.header[0] ?? ''));
-  const rowsOf = (t) => t?.rows.map((r) => ({ name: strip(r.cells[0]), score: strip(r.cells[1]), reason: r.cells[2] ?? '' })) ?? null;
-  const axes = rowsOf(axisTable);
-  if (measured) {
-    if (!axes) throw new ShapeError(rel, 'Scores', 'no axis table (`| Axis (weight) | Score /10 | One-line reason |`)');
-    for (const [key, label] of [['design', 'Design'], ['usability', 'Usability'], ['creativity', 'Creativity'], ['content', 'Content'], ['weighted', 'Weighted']]) {
-      const row = axes.find((r) => r.name.toLowerCase().startsWith(label.toLowerCase()));
-      if (!row) throw new ShapeError(rel, 'Scores', `the axis table has no ${label} row`);
-      if (row.score !== report.scores[key]) throw new ShapeError(rel, 'Scores', `${label} is ${row.score} in the table and ${report.scores[key]} on the scores line`);
-    }
-  }
+  const axes = axesOf(report, { measured });
   const lineStarting = (s, prefix) => content(s).find((l) => l.text.trim().startsWith(prefix))?.raw.trim() ?? null;
 
   // Memory test: the quoted sentence; its source frame takes a ring.
@@ -614,12 +620,17 @@ function extract(report, frames) {
   };
 }
 
-// A verdict on the report: arrows on the crosses of every row it marks resolved or partial.
-function extractVerdict(verdict, fixRows, crossMarks) {
+// A verdict on the report: arrows on the crosses of every row it marks resolved or partial. A later verdict whose
+// table re-checks an earlier verdict's fix list (every Location is one of that verdict's Material fixes, none is the
+// report's) checks no row with a cross on the page: it draws nothing, and null says so.
+function extractVerdict(verdict, fixRows, crossMarks, earlier = []) {
   const { rel, sections } = verdict;
   const section = requireSection(sections, 'Verdict', rel);
   const tables = tablesOf(section);
   if (!tables.length) throw new ShapeError(rel, 'Verdict', 'no table');
+  const listed = tables.flatMap((t) => t.rows.map((row) => strip(cellOf(row, 'Location')))).filter(Boolean);
+  const theirs = new Set(earlier.flatMap((v) => tablesOf(requireSection(v.sections, 'Material fixes', v.rel)).flatMap((t) => t.rows.map((row) => strip(cellOf(row, 'Location'))))));
+  if (listed.length && !listed.some((l) => fixRows.some((r) => r.location === l)) && listed.every((l) => theirs.has(l))) return null;
   const arrows = [];
   const rows = [];
   let n = 0;
@@ -668,7 +679,7 @@ function componentFiles() {
 
 function pickReport() {
   const skipped = [];
-  if (!fs.existsSync(juryDir)) return { report: null, verdict: null, skipped };
+  if (!fs.existsSync(juryDir)) return { report: null, verdicts: [], skipped };
   const files = fs.readdirSync(juryDir);
   const components = componentFiles();
   const rounds = files.map((f) => ({ f, m: PAGE_ROUND.exec(f) })).filter((x) => x.m)
@@ -680,28 +691,25 @@ function pickReport() {
     if (!parsed.scores) throw new ShapeError(parsed.rel, 'header', `the scores line is not in the site form: ${parsed.scoresLine}`);
     Object.assign(parsed, { date: r.date, round: r.round });
     // A verdict dated after the report applies; one dated the same day applies when it names the report, or when
-    // the report is that day's only round. Anything else is ambiguous and stops the run.
+    // the report is that day's only round. Anything else is ambiguous and stops the run. Every applicable verdict
+    // is kept, newest first: the newest re-scores the page, the newest that checks the report's rows draws arrows.
     const sameDay = rounds.filter((x) => x.date === r.date).length;
     const verdicts = files.map((f) => ({ f, m: VERDICT.exec(f) })).filter((x) => x.m && x.m[1] >= r.date)
       .map(({ f, m }) => ({ f, date: m[1], n: Number(m[2] ?? 1) }))
-      .sort((a, b) => b.date.localeCompare(a.date) || b.n - a.n);
-    let verdict = null;
-    for (const v of verdicts) {
-      const text = fs.readFileSync(path.join(juryDir, v.f), 'utf8');
-      if (v.date > r.date || text.includes(r.f) || sameDay === 1) { verdict = v; break; }
-      throw new ShapeError(projRel(path.join(juryDir, v.f)), 'header', `dated the same day as ${sameDay} page rounds and names none of them`);
-    }
-    if (verdict) {
-      const vfile = path.join(juryDir, verdict.f);
-      const sections = sectionsOf(fs.readFileSync(vfile, 'utf8'));
-      const head = headOf(sections, projRel(vfile), 'whole file');
-      verdict = { rel: projRel(vfile), file: vfile, date: verdict.date, sections, ...head, scores: head.scoresLine ? parseScoresLine(head.scoresLine) : null };
-    }
+      .sort((a, b) => b.date.localeCompare(a.date) || b.n - a.n)
+      .map((v) => {
+        const vfile = path.join(juryDir, v.f);
+        const text = fs.readFileSync(vfile, 'utf8');
+        if (!(v.date > r.date || text.includes(r.f) || sameDay === 1)) throw new ShapeError(projRel(vfile), 'header', `dated the same day as ${sameDay} page rounds and names none of them`);
+        const sections = sectionsOf(text);
+        const head = headOf(sections, projRel(vfile), 'whole file');
+        return { rel: projRel(vfile), file: vfile, date: v.date, sections, ...head, scores: head.scoresLine ? parseScoresLine(head.scoresLine) : null };
+      });
     for (const f of files.filter((x) => /-baseline\.md$/.test(x))) skipped.push({ file: projRel(path.join(juryDir, f)), reason: 'baseline (never a page round)' });
-    return { report: parsed, verdict, skipped };
+    return { report: parsed, verdicts, skipped };
   }
   for (const f of files.filter((x) => /-baseline\.md$/.test(x))) skipped.push({ file: projRel(path.join(juryDir, f)), reason: 'baseline (never a page round)' });
-  return { report: null, verdict: null, skipped };
+  return { report: null, verdicts: [], skipped };
 }
 
 // Routes the Page map names (Home plus every /route), when AWARDS.md has one.
@@ -996,7 +1004,8 @@ function writeOut(proof, written) {
 function summarise(proof, removed) {
   const lines = [`proof: state ${proof.state} — ${proof.why}`];
   if (proof.report) lines.push(`  report ${proof.report.file} (${proof.report.date}) · disposition ${proof.report.disposition} · ${proof.report.scoresLine}`);
-  if (proof.verdict) lines.push(`  verdict ${proof.verdict.file} (${proof.verdict.date}) · disposition ${proof.verdict.disposition}`);
+  if (proof.verdict) lines.push(`  verdict ${proof.verdict.file} (${proof.verdict.date}) · disposition ${proof.verdict.disposition} · arrows from its table`);
+  if (proof.latest) lines.push(`  chapter 3 scores ${proof.latest.file} (${proof.latest.date}) · disposition ${proof.latest.disposition} · ${proof.latest.scoresLine}`);
   for (const r of proof.routes ?? []) {
     lines.push(`  ${r.slug}: ${CLASSES.map((c) => `${c} ${r.frames[c].length}`).join(' · ')} — ${r.caption}`);
   }
@@ -1016,7 +1025,7 @@ function summarise(proof, removed) {
 async function main() {
   const base = { schema: 1, generator: 'scripts/proof.mjs', project: path.basename(project), publicBase: 'paths are relative to public/' };
   const forced = args.state ? String(args.state) : null;
-  const picked = forced ? { report: null, verdict: null, skipped: [{ file: '.awards/jury/', reason: `ignored (--state ${forced})` }] } : pickReport();
+  const picked = forced ? { report: null, verdicts: [], skipped: [{ file: '.awards/jury/', reason: `ignored (--state ${forced})` }] } : pickReport();
 
   // (a) a page-round report
   if (picked.report) {
@@ -1043,14 +1052,26 @@ async function main() {
     const ex = extract(report, allFrames);
     let marks = ex.marks;
     let verdictOut = null;
-    if (picked.verdict) {
-      const v = extractVerdict(picked.verdict, ex.fixRows, new Set(marks.filter((m) => m.type === 'cross').map((m) => m.id)));
+    const crosses = new Set(marks.filter((m) => m.type === 'cross').map((m) => m.id));
+    for (const [i, verdict] of picked.verdicts.entries()) {
+      const v = extractVerdict(verdict, ex.fixRows, crosses, picked.verdicts.slice(i + 1));
+      if (!v) {
+        picked.skipped.push({ file: verdict.rel, reason: `arrows: its table re-checks an earlier verdict's fix list, no row of ${report.rel}${i === 0 ? '; its scores and disposition are the newest round\'s (chapter 3)' : ''}` });
+        continue;
+      }
       marks = [...marks, ...v.arrows];
       verdictOut = {
-        file: picked.verdict.rel, date: picked.verdict.date, disposition: picked.verdict.disposition, dispositionLine: picked.verdict.dispositionLine,
-        scoresLine: picked.verdict.scoresLine, scores: picked.verdict.scores, rows: v.rows, remaining: v.remaining,
+        file: verdict.rel, date: verdict.date, disposition: verdict.disposition, dispositionLine: verdict.dispositionLine,
+        scoresLine: verdict.scoresLine, scores: verdict.scores, rows: v.rows, remaining: v.remaining,
       };
+      break;
     }
+    // Chapter 3's figures: the newest round's scores and disposition, verbatim. A verdict re-scores the page, so the
+    // newest verdict's take the place of the report's; the memory sentence stays the report's (it rings s00).
+    const newest = picked.verdicts.find((v) => v.scores?.kind === 'site');
+    const latest = newest
+      ? { kind: 'verdict', file: newest.rel, date: newest.date, disposition: newest.disposition, dispositionLine: newest.dispositionLine, scoresLine: newest.scoresLine, scores: newest.scores, axes: axesOf(newest) }
+      : { kind: 'report', file: report.rel, date: report.date, disposition: report.disposition, dispositionLine: report.dispositionLine, scoresLine: report.scoresLine, scores: report.scores, axes: ex.summary.axes };
     const frames = select(manifests, marks);
     const written = await encodeAll(frames, loupeIds(frames, ex.summary.memory?.frames));
     const routes = routesOut(frames, manifests, report);
@@ -1067,6 +1088,7 @@ async function main() {
         undrawn: ex.undrawn,
       },
       verdict: verdictOut,
+      latest,
       captures: captureSources(manifests),
       routes,
       metrics: metricsOut(manifests.filter((m) => m.inRoutes || !manifests.some((x) => x.inRoutes))),

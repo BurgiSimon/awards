@@ -53,8 +53,15 @@ Excluded by that instruction (lower impact, larger effort): F5 jury panel, F6 mo
 **Batch 5 — new modes and proof**
 - [x] F2 quick mode; F1 redesign mode; F4 multi-route sites; F9 award program presets; F11 DESIGN.md interop
 - [x] D8 framework adapters: React adapters for ten core recipes, a Webflow section in every core README, `scripts/check-adapters.mjs` in CI
-- [ ] G1 finish and ship the plugin's own site
+- [x] G1 the plugin's own site, rebuilt from scratch in redesign mode as the maintainer asked ("Contact sheet", seed `3zaj142iys4g`): three page jury rounds (ship 7.70, fix 7.71, ship 7.88; the third asked for by the maintainer), Shipped 2026-10-23. Left to the maintainer: enable GitHub Pages with Actions as the source and run `.github/workflows/site.yml`; one pass on a real phone and trackpad (the strip's follow and chapter 3's scroll were measured only headless); the Awwwards submission. Open after ship: two craft rows in `site/.awards/ship/2026-10-23.md` (s00's arrow label in view; the hover crop's marks in paper ink)
 
+
+## Release 0.8.0 follow-ups (2026-10-23)
+- Maintainer: tag `v0.8.0` on the merge commit and publish the GitHub release from `CHANGELOG.md`.
+- Maintainer: enable GitHub Pages with "GitHub Actions" as the source, then run `.github/workflows/site.yml`; check the deployed page once on a real phone and a trackpad (the strip's follow and chapter 3's scroll were measured headless only).
+- Paid evals: none ran for 0.8.0; `node plugins/awards/evals/pick.mjs v0.7.0` lists the cases the changes need, with their commands.
+- Site, open after ship (`site/.awards/ship/2026-10-23.md`): s00's arrow label in view; the hover crop's marks in paper ink. Each is material, so it needs a verdict round.
+- Still excluded by the review instruction (large effort, lower impact): F5, F6, B11, C2, B24, F7, D12, D13, E8, F8, F10, G9, R7, R10, R11, R12; C13 (paid); A12 (deferred).
 
 ## Quick wins (2026-10-22) follow-ups
 

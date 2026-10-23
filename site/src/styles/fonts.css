@@ -1,19 +1,43 @@
-/* Self-hosted OFL faces (licences in public/fonts). Latin subset, variable wght + wdth. */
+/* Self-hosted OFL faces, latin subset, woff2 (licence texts beside the files in public/fonts). Three files, 58 KB (59,380 bytes). */
 @font-face {
-  font-family: "Archivo";
-  src: url("/fonts/archivo.woff2") format("woff2");
-  font-weight: 100 900;
-  font-stretch: 62% 125%;
+  font-family: "Enriqueta";
+  src: url("/fonts/enriqueta-latin-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Martian Mono";
-  src: url("/fonts/martian-mono.woff2") format("woff2");
-  font-weight: 100 800;
-  font-stretch: 75% 112.5%;
+  font-family: "Enriqueta";
+  src: url("/fonts/enriqueta-latin-500.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
   font-display: swap;
 }
-/* Metric-matched fallbacks so the swap does not reflow the page; Liberation and Arimo/Cousine share Arial's and
-   Courier New's metrics, so the same overrides hold where those two are missing (most Linux desktops). */
-@font-face { font-family: "Archivo Fallback"; src: local("Arial"), local("Liberation Sans"), local("Arimo"); size-adjust: 103%; ascent-override: 85%; descent-override: 20.4%; line-gap-override: 0%; font-display: swap; }
-@font-face { font-family: "Martian Mono Fallback"; src: local("Courier New"), local("Liberation Mono"), local("Cousine"); size-adjust: 125%; ascent-override: 80%; descent-override: 16%; line-gap-override: 0%; font-display: swap; }
+@font-face {
+  font-family: "Saira Condensed";
+  src: url("/fonts/saira-condensed-latin-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Metric-matched fallbacks, measured against Liberation Serif and Liberation Sans (metric twins of Times New Roman
+   and Arial): size-adjust is the running-text width ratio, the overrides are the faces' own hhea metrics divided by it. */
+@font-face {
+  font-family: "Enriqueta Fallback";
+  src: local("Times New Roman"), local("Liberation Serif"), local("Tinos");
+  size-adjust: 109.2%;
+  ascent-override: 98.63%;
+  descent-override: 23.9%;
+  line-gap-override: 0%;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Saira Condensed Fallback";
+  src: local("Arial"), local("Liberation Sans"), local("Arimo");
+  size-adjust: 78.55%;
+  ascent-override: 144.49%;
+  descent-override: 55.89%;
+  line-gap-override: 0%;
+  font-display: swap;
+}
