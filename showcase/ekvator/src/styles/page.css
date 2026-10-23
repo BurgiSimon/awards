@@ -17,6 +17,11 @@
 .room__mullion { position: absolute; background: var(--wall, #d3d4d6); }
 .room__mullion--v { clip-path: var(--mullion-v, polygon(80.5% 5%, 81.5% 5%, 81.5% 78%, 80.5% 78%)); inset: 0; }
 .room__mullion--h { clip-path: var(--mullion-h, polygon(58% 44%, 104% 37%, 104% 38.6%, 58% 45.6%)); inset: 0; }
+/* With JavaScript the light starts off and the engine switches it on from a real signal; if the engine never
+   starts, it comes on by itself after 2.5 s so nothing waits on a script. */
+html.js:not(.is-live) .room__patch { opacity: 0; animation: light-on var(--dur-hero) var(--ease-out-expo) 2.5s forwards; }
+html.is-live .room__patch { opacity: var(--patch-on, 1); }
+@keyframes light-on { to { opacity: 1; } }
 .wall-canvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: 0; transition: opacity var(--dur-hero) var(--ease-out-expo); }
 html.has-gl .wall-canvas { opacity: 1; }
 html.has-gl .room { visibility: hidden; }
@@ -62,8 +67,12 @@ html.has-gl .room { visibility: hidden; }
   transition: border-color var(--dur-feedback) var(--ease-out-expo);
 }
 .hourline__city:hover { border-color: var(--ink); }
+.hourline__clock { font-weight: 400; color: var(--muted); }
+.hourline__clock:empty { display: none; }
 .hourline__caret { width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform var(--dur-feedback) var(--ease-out-expo); }
-.hourline__city[aria-expanded="true"] .hourline__caret { transform: translateY(2px) rotate(225deg); }
+.hourline__city[aria-expanded="true"] .hourline__clock { font-weight: 400; color: var(--muted); }
+.hourline__clock:empty { display: none; }
+.hourline__caret { transform: translateY(2px) rotate(225deg); }
 
 /* ——— Buttons: ink on the warm end of the light, radius 0 ——— */
 .button {

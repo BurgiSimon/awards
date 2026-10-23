@@ -2,6 +2,7 @@
 <html lang="en" data-theme="day">
 <head>
   <meta charset="utf-8">
+  <script>document.documentElement.classList.add("js")</script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#e7e4dd">
@@ -40,7 +41,7 @@
         </ol>
       </nav>
       <button class="hourline__city" type="button" aria-expanded="false" aria-controls="cities">
-        <span class="sr-only">Borrowed city: </span><span data-city-name>Lisbon</span><span class="hourline__caret" aria-hidden="true"></span>
+        <span class="sr-only">Borrowed city: </span><span data-city-name>Lisbon</span><span class="hourline__clock" data-city-clock aria-hidden="true"></span><span class="hourline__caret" aria-hidden="true"></span>
       </button>
       <a class="button button--primary hourline__action" href="#reserve">Reserve<span class="hourline__long">&nbsp;a window</span>, €200</a>
     </header>
