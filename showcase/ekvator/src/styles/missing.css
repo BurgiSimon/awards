@@ -1,0 +1,31 @@
+@import "./base.css";
+
+/* The 404: the same wall in polar night, the window's outline with no light in it. */
+body { min-height: 100svh; display: grid; align-items: end; }
+.room { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+.room__frame {
+  position: absolute; right: 9%; top: 10%; width: min(30vw, 340px); aspect-ratio: 2 / 3;
+  border: 1.5px solid var(--line);
+  transform: skewY(-8deg);
+}
+.room__mullion { position: absolute; background: var(--line); }
+.room__mullion--v { left: 50%; top: 0; bottom: 0; width: 1.5px; }
+.room__mullion--h { top: 50%; left: 0; right: 0; height: 1.5px; }
+
+.missing { display: grid; gap: calc(var(--unit) * 6); padding: calc(var(--unit) * 24) var(--gutter) calc(var(--unit) * 16); max-width: 62rem; }
+.missing__title { font-family: var(--font-display); font-weight: 800; font-size: var(--h2); line-height: 1.02; letter-spacing: -0.03em; max-width: 12em; }
+.missing__body { color: var(--ink); }
+.missing__routes { display: grid; gap: 0; border-top: 1px solid var(--line); max-width: 34rem; }
+.missing__routes li { border-bottom: 1px solid var(--line); }
+.missing__routes a {
+  display: flex; align-items: center; min-height: 52px; padding-inline: 0.25rem;
+  font-family: var(--font-display); font-weight: 800; font-size: var(--h3); letter-spacing: -0.01em; text-decoration: none;
+  transition: color var(--dur-feedback) var(--ease-out-expo), padding var(--dur-feedback) var(--ease-out-expo);
+}
+.missing__routes a:hover, .missing__routes a:focus-visible { color: var(--accent); }
+.missing__reserve { color: var(--accent); }
+.missing__note { color: var(--muted); font-size: var(--label); }
+
+@media (max-width: 700px) {
+  .room__frame { width: 46vw; right: 6%; top: 6%; }
+}

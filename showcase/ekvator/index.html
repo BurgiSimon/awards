@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en" data-theme="day">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#e7e4dd">
+  <title>Ekvator E1 — another city's sun, in your window</title>
+  <meta name="description" content="Ekvator E1 is a 60 × 90 cm window panel made in Tromsø that replays the real sun of Lisbon, Kyoto, Nairobi or any city: its angle, its warmth and its length of day.">
+  <link rel="canonical" href="https://burgisimon.github.io/awards/showcase/ekvator/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ekvator E1 — another city's sun, in your window">
+  <meta property="og:description" content="A window panel that replays the real sun of another city, hour by hour, for rooms that get no sun from November to January.">
+  <meta property="og:image" content="og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/fonts/unbounded-latin-800.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/src/styles/page.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="room" aria-hidden="true">
+    <div class="room__wall"></div>
+    <div class="room__patch"><span class="room__mullion room__mullion--v"></span><span class="room__mullion room__mullion--h"></span></div>
+  </div>
+
+  <div id="page">
+    <header class="hourline" id="top">
+      <a class="hourline__mark" href="#first-light" aria-label="Ekvator, back to first light">Ekvator</a>
+      <nav class="hourline__nav" aria-label="Chapters, by the hour in the borrowed city">
+        <span class="hourline__rule" aria-hidden="true"><span class="hourline__sun"></span></span>
+        <ol class="hourline__ticks">
+          <li><a href="#first-light" data-chapter="first-light"><time data-sun="t-first-light">08:03</time><span class="hourline__name">First light</span></a></li>
+          <li><a href="#morning" data-chapter="morning"><time data-sun="t-morning">09:34</time><span class="hourline__name">Morning</span></a></li>
+          <li><a href="#polar-night" data-chapter="polar-night"><span class="hourline__dark">Tromsø</span><span class="hourline__name">Polar night</span></a></li>
+          <li><a href="#noon" data-chapter="noon"><time data-sun="t-noon">13:20</time><span class="hourline__name">Noon</span></a></li>
+          <li><a href="#afternoon" data-chapter="afternoon"><time data-sun="t-afternoon">16:22</time><span class="hourline__name">Afternoon</span></a></li>
+          <li><a href="#reserve" data-chapter="reserve"><time data-sun="t-reserve">19:22</time><span class="hourline__name">Blue hour</span></a></li>
+        </ol>
+      </nav>
+      <button class="hourline__city" type="button" aria-expanded="false" aria-controls="cities">
+        <span class="sr-only">Borrowed city: </span><span data-city-name>Lisbon</span><span class="hourline__caret" aria-hidden="true"></span>
+      </button>
+      <a class="button button--primary hourline__action" href="#reserve">Reserve<span class="hourline__long">&nbsp;a window</span>, €200</a>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section class="chapter chapter--first-light" id="first-light" aria-labelledby="first-light-title" data-chapter-at="first-light">
+        <h1 class="display" id="first-light-title" data-cast><span data-city-name>Lisbon</span>'s sun, in&nbsp;your window.</h1>
+        <div class="first-light__lede">
+          <p>Ekvator E1 is a 60 × 90 cm panel that replays the real sun of another city on your wall: its angle, its warmth and the length of its day. It is made in Tromsø, where the sun does not rise from <span data-sun="polar-first">28 November</span> to <span data-sun="polar-last">14 January</span>.</p>
+          <p class="readout" data-readout><span data-city-name>Lisbon</span> <time data-sun="now-time">08:03</time> · sun <span data-sun="now-el">1.8° up</span>, <span data-sun="now-az">101° E</span> · <span data-sun="now-k">2,060 K</span></p>
+          <a class="button button--primary" href="#reserve">Reserve a window, €200 deposit</a>
+        </div>
+      </section>
+
+      <section class="chapter chapter--morning" id="morning" aria-labelledby="morning-title" data-chapter-at="morning">
+        <h2 id="morning-title" data-cast>It follows the sun it&nbsp;borrows.</h2>
+        <ul class="stair">
+          <li><h3 data-cast>The angle</h3><p>A light bar travels behind the opal front and tilts, so a chair, a plant or the cup on your table throws its shadow where the borrowed sun would put it.</p></li>
+          <li><h3 data-cast>The warmth</h3><p>1,536 LEDs mix from 1,800 K at first light to 5,600 K under a high noon, and back down to the red of an evening, at the minute it happens in that city.</p></li>
+          <li><h3 data-cast>The length of day</h3><p><span data-city-name>Lisbon</span> gives you <span data-sun="daylen">10 h 54 min</span> of light today. Nairobi gives you about 12 hours on every day of the year. Tromsø gives you <span data-sun="tromso-daylen">7 h 58 min</span> today, and nothing at all in <span data-sun="polar-month">December</span>.</p></li>
+        </ul>
+      </section>
+
+      <section class="chapter chapter--polar-night" data-theme="night" id="polar-night" aria-labelledby="polar-night-title" data-chapter-at="polar-night">
+        <div class="polar-night__stage">
+          <h2 id="polar-night-title">Meanwhile, in&nbsp;Tromsø.</h2>
+          <p class="polar-night__figure" data-cast><span data-sun="tromso-midwinter-el">−3.0°</span></p>
+          <p class="polar-night__caption">where the sun stands at noon on 21 December, below the horizon.</p>
+          <p class="polar-night__body">From <span data-sun="polar-first">28 November</span> to <span data-sun="polar-last">14 January</span> it does not come up at all: <span data-sun="polar-days">48</span> days without a sunrise, a blue glow for two hours around noon, then night again. Today the sun in Tromsø <span data-sun="tromso-status">rose at 08:29 and sets at 16:27</span>.</p>
+        </div>
+      </section>
+
+      <section class="chapter chapter--noon" id="noon" aria-labelledby="noon-title" data-chapter-at="noon">
+        <h2 id="noon-title" data-cast>Noon, taken apart.</h2>
+        <figure class="panel-figure">
+          <svg class="panel-drawing" viewBox="0 0 678 875" role="img" aria-labelledby="panel-drawing-title">
+            <title id="panel-drawing-title">Exploded drawing of the E1: the aluminium back with the city dial on its edge, the travelling light bar on its rails, the LED matrix and the opal front.</title>
+            <g class="layer layer--back" data-layer-z="0">
+              <path class="edge" d="M377.7 490.0 L637.6 640.0 L637.6 190.0 L377.7 40.0 Z"/>
+              <path class="edge edge--thin" d="M350.0 506.0 L609.8 656.0 L609.8 206.0 L350.0 56.0 Z"/>
+              <path class="edge edge--thin" d="M377.7 490.0 L350.0 506.0"/>
+              <path class="edge edge--thin" d="M637.6 640.0 L609.8 656.0"/>
+              <path class="edge edge--thin" d="M637.6 190.0 L609.8 206.0"/>
+              <path class="edge edge--thin" d="M377.7 40.0 L350.0 56.0"/>
+              <path class="edge" d="M538.8 242.0 L599.5 277.0 L599.5 207.0 L538.8 172.0 Z"/>
+              <path class="edge" d="M623.7 556.0 L621.1 557.7 L618.7 559.9 L616.3 562.5 L614.2 565.4 L612.4 568.6 L611.0 571.9 L609.9 575.2 L609.2 578.4 L609.0 581.5 L609.2 584.3 L609.9 586.8 L611.0 588.9 L612.4 590.4 L614.2 591.5 L616.3 592.0 L618.7 591.9 L621.1 591.2 L623.7 590.0 L626.3 588.3 L628.7 586.1 L631.1 583.5 L633.2 580.6 L635.0 577.4 L636.5 574.1 L637.5 570.8 L638.2 567.6 L638.4 564.5 L638.2 561.7 L637.5 559.2 L636.5 557.1 L635.0 555.6 L633.2 554.5 L631.1 554.0 L628.7 554.1 L626.3 554.8 L623.7 556.0 Z"/>
+              <path class="edge edge--thin" d="M623.7 573.0 L623.7 559.4"/>
+            </g>
+            <g class="layer layer--bar" data-layer-z="260">
+              <path class="edge" d="M271.2 558.5 L271.2 108.5"/>
+              <path class="edge" d="M518.9 701.5 L518.9 251.5"/>
+              <path class="edge edge--bar" d="M260.0 348.0 L511.1 493.0 L511.1 476.0 L260.0 331.0 Z"/>
+              <path class="edge edge--thin" d="M260.0 331.0 L269.5 325.5 L520.6 470.5 L511.1 476.0"/>
+              <path class="edge edge--thin" d="M554.2 461.6 L552.4 461.1 L550.5 460.8 L548.5 460.7 L546.4 460.9 L544.3 461.4 L542.0 462.1 L539.8 463.1 L537.5 464.2 L535.3 465.7 L533.0 467.3 L530.8 469.2 L528.6 471.2 L526.6 473.4 L524.5 475.8 L522.6 478.3 L520.8 480.9"/>
+            </g>
+            <g class="layer layer--matrix" data-layer-z="520">
+              <path class="edge" d="M152.6 620.0 L412.4 770.0 L412.4 320.0 L152.6 170.0 Z"/>
+              <circle class="dot" cx="165.6" cy="612.5" r="2.6"/>
+              <circle class="dot" cx="165.6" cy="587.8" r="2.6"/>
+              <circle class="dot" cx="165.6" cy="563.1" r="2.6"/>
+              <circle class="dot" cx="165.6" cy="538.4" r="2.6"/>
+              <circle class="dot" cx="165.6" cy="513.7" r="2.6"/>
+              <circle class="dot" cx="165.6" cy="489.0" r="2.6"/>
+              <circle class="dot" cx="165.6" cy="464.3" r="2.6"/>
+              <circle class="dot" cx="165.6" cy="439.6" r="2.6"/>
+              <circle class="dot" cx="165.6" cy="414.9" r="2.6"/>
+              <circle class="dot" cx="165.6" cy="390.1" r="2.6"/>
+              <circle class="dot" cx="165.6" cy="365.4" r="2.6"/>
+              <circle class="dot" cx="165.6" cy="340.7" r="2.6"/>
+              <circle class="dot" cx="165.6" cy="316.0" r="2.6"/>
+              <circle class="dot" cx="165.6" cy="291.3" r="2.6"/>
+              <circle class="dot" cx="165.6" cy="266.6" r="2.6"/>
+              <circle class="dot" cx="165.6" cy="241.9" r="2.6"/>
+              <circle class="dot" cx="165.6" cy="217.2" r="2.6"/>
+              <circle class="dot" cx="165.6" cy="192.5" r="2.6"/>
+              <circle class="dot" cx="186.8" cy="624.8" r="2.6"/>
+              <circle class="dot" cx="186.8" cy="600.1" r="2.6"/>
+              <circle class="dot" cx="186.8" cy="575.4" r="2.6"/>
+              <circle class="dot" cx="186.8" cy="550.7" r="2.6"/>
+              <circle class="dot" cx="186.8" cy="525.9" r="2.6"/>
+              <circle class="dot" cx="186.8" cy="501.2" r="2.6"/>
+              <circle class="dot" cx="186.8" cy="476.5" r="2.6"/>
+              <circle class="dot" cx="186.8" cy="451.8" r="2.6"/>
+              <circle class="dot" cx="186.8" cy="427.1" r="2.6"/>
+              <circle class="dot" cx="186.8" cy="402.4" r="2.6"/>
+              <circle class="dot" cx="186.8" cy="377.7" r="2.6"/>
+              <circle class="dot" cx="186.8" cy="353.0" r="2.6"/>
+              <circle class="dot" cx="186.8" cy="328.3" r="2.6"/>
+              <circle class="dot" cx="186.8" cy="303.6" r="2.6"/>
+              <circle class="dot" cx="186.8" cy="278.9" r="2.6"/>
+              <circle class="dot" cx="186.8" cy="254.2" r="2.6"/>
+              <circle class="dot" cx="186.8" cy="229.5" r="2.6"/>
+              <circle class="dot" cx="186.8" cy="204.8" r="2.6"/>
+              <circle class="dot" cx="208.1" cy="637.0" r="2.6"/>
+              <circle class="dot" cx="208.1" cy="612.3" r="2.6"/>
+              <circle class="dot" cx="208.1" cy="587.6" r="2.6"/>
+              <circle class="dot" cx="208.1" cy="562.9" r="2.6"/>
+              <circle class="dot" cx="208.1" cy="538.2" r="2.6"/>
+              <circle class="dot" cx="208.1" cy="513.5" r="2.6"/>
+              <circle class="dot" cx="208.1" cy="488.8" r="2.6"/>
+              <circle class="dot" cx="208.1" cy="464.1" r="2.6"/>
+              <circle class="dot" cx="208.1" cy="439.4" r="2.6"/>
+              <circle class="dot" cx="208.1" cy="414.7" r="2.6"/>
+              <circle class="dot" cx="208.1" cy="390.0" r="2.6"/>
+              <circle class="dot" cx="208.1" cy="365.3" r="2.6"/>
+              <circle class="dot" cx="208.1" cy="340.6" r="2.6"/>
+              <circle class="dot" cx="208.1" cy="315.9" r="2.6"/>
+              <circle class="dot" cx="208.1" cy="291.2" r="2.6"/>
+              <circle class="dot" cx="208.1" cy="266.5" r="2.6"/>
+              <circle class="dot" cx="208.1" cy="241.8" r="2.6"/>
+              <circle class="dot" cx="208.1" cy="217.0" r="2.6"/>
+              <circle class="dot" cx="229.3" cy="649.3" r="2.6"/>
+              <circle class="dot" cx="229.3" cy="624.6" r="2.6"/>
+              <circle class="dot" cx="229.3" cy="599.9" r="2.6"/>
+              <circle class="dot" cx="229.3" cy="575.2" r="2.6"/>
+              <circle class="dot" cx="229.3" cy="550.5" r="2.6"/>
+              <circle class="dot" cx="229.3" cy="525.8" r="2.6"/>
+              <circle class="dot" cx="229.3" cy="501.1" r="2.6"/>
+              <circle class="dot" cx="229.3" cy="476.4" r="2.6"/>
+              <circle class="dot" cx="229.3" cy="451.7" r="2.6"/>
+              <circle class="dot" cx="229.3" cy="427.0" r="2.6"/>
+              <circle class="dot" cx="229.3" cy="402.3" r="2.6"/>
+              <circle class="dot" cx="229.3" cy="377.6" r="2.6"/>
+              <circle class="dot" cx="229.3" cy="352.8" r="2.6"/>
+              <circle class="dot" cx="229.3" cy="328.1" r="2.6"/>
+              <circle class="dot" cx="229.3" cy="303.4" r="2.6"/>
+              <circle class="dot" cx="229.3" cy="278.7" r="2.6"/>
+              <circle class="dot" cx="229.3" cy="254.0" r="2.6"/>
+              <circle class="dot" cx="229.3" cy="229.3" r="2.6"/>
+              <circle class="dot" cx="250.6" cy="661.6" r="2.6"/>
+              <circle class="dot" cx="250.6" cy="636.9" r="2.6"/>
+              <circle class="dot" cx="250.6" cy="612.2" r="2.6"/>
+              <circle class="dot" cx="250.6" cy="587.5" r="2.6"/>
+              <circle class="dot" cx="250.6" cy="562.8" r="2.6"/>
+              <circle class="dot" cx="250.6" cy="538.1" r="2.6"/>
+              <circle class="dot" cx="250.6" cy="513.4" r="2.6"/>
+              <circle class="dot" cx="250.6" cy="488.6" r="2.6"/>
+              <circle class="dot" cx="250.6" cy="463.9" r="2.6"/>
+              <circle class="dot" cx="250.6" cy="439.2" r="2.6"/>
+              <circle class="dot" cx="250.6" cy="414.5" r="2.6"/>
+              <circle class="dot" cx="250.6" cy="389.8" r="2.6"/>
+              <circle class="dot" cx="250.6" cy="365.1" r="2.6"/>
+              <circle class="dot" cx="250.6" cy="340.4" r="2.6"/>
+              <circle class="dot" cx="250.6" cy="315.7" r="2.6"/>
+              <circle class="dot" cx="250.6" cy="291.0" r="2.6"/>
+              <circle class="dot" cx="250.6" cy="266.3" r="2.6"/>
+              <circle class="dot" cx="250.6" cy="241.6" r="2.6"/>
+              <circle class="dot" cx="271.9" cy="673.9" r="2.6"/>
+              <circle class="dot" cx="271.9" cy="649.2" r="2.6"/>
+              <circle class="dot" cx="271.9" cy="624.5" r="2.6"/>
+              <circle class="dot" cx="271.9" cy="599.7" r="2.6"/>
+              <circle class="dot" cx="271.9" cy="575.0" r="2.6"/>
+              <circle class="dot" cx="271.9" cy="550.3" r="2.6"/>
+              <circle class="dot" cx="271.9" cy="525.6" r="2.6"/>
+              <circle class="dot" cx="271.9" cy="500.9" r="2.6"/>
+              <circle class="dot" cx="271.9" cy="476.2" r="2.6"/>
+              <circle class="dot" cx="271.9" cy="451.5" r="2.6"/>
+              <circle class="dot" cx="271.9" cy="426.8" r="2.6"/>
+              <circle class="dot" cx="271.9" cy="402.1" r="2.6"/>
+              <circle class="dot" cx="271.9" cy="377.4" r="2.6"/>
+              <circle class="dot" cx="271.9" cy="352.7" r="2.6"/>
+              <circle class="dot" cx="271.9" cy="328.0" r="2.6"/>
+              <circle class="dot" cx="271.9" cy="303.3" r="2.6"/>
+              <circle class="dot" cx="271.9" cy="278.6" r="2.6"/>
+              <circle class="dot" cx="271.9" cy="253.9" r="2.6"/>
+              <circle class="dot" cx="293.1" cy="686.1" r="2.6"/>
+              <circle class="dot" cx="293.1" cy="661.4" r="2.6"/>
+              <circle class="dot" cx="293.1" cy="636.7" r="2.6"/>
+              <circle class="dot" cx="293.1" cy="612.0" r="2.6"/>
+              <circle class="dot" cx="293.1" cy="587.3" r="2.6"/>
+              <circle class="dot" cx="293.1" cy="562.6" r="2.6"/>
+              <circle class="dot" cx="293.1" cy="537.9" r="2.6"/>
+              <circle class="dot" cx="293.1" cy="513.2" r="2.6"/>
+              <circle class="dot" cx="293.1" cy="488.5" r="2.6"/>
+              <circle class="dot" cx="293.1" cy="463.8" r="2.6"/>
+              <circle class="dot" cx="293.1" cy="439.1" r="2.6"/>
+              <circle class="dot" cx="293.1" cy="414.4" r="2.6"/>
+              <circle class="dot" cx="293.1" cy="389.7" r="2.6"/>
+              <circle class="dot" cx="293.1" cy="365.0" r="2.6"/>
+              <circle class="dot" cx="293.1" cy="340.3" r="2.6"/>
+              <circle class="dot" cx="293.1" cy="315.5" r="2.6"/>
+              <circle class="dot" cx="293.1" cy="290.8" r="2.6"/>
+              <circle class="dot" cx="293.1" cy="266.1" r="2.6"/>
+              <circle class="dot" cx="314.4" cy="698.4" r="2.6"/>
+              <circle class="dot" cx="314.4" cy="673.7" r="2.6"/>
+              <circle class="dot" cx="314.4" cy="649.0" r="2.6"/>
+              <circle class="dot" cx="314.4" cy="624.3" r="2.6"/>
+              <circle class="dot" cx="314.4" cy="599.6" r="2.6"/>
+              <circle class="dot" cx="314.4" cy="574.9" r="2.6"/>
+              <circle class="dot" cx="314.4" cy="550.2" r="2.6"/>
+              <circle class="dot" cx="314.4" cy="525.5" r="2.6"/>
+              <circle class="dot" cx="314.4" cy="500.8" r="2.6"/>
+              <circle class="dot" cx="314.4" cy="476.1" r="2.6"/>
+              <circle class="dot" cx="314.4" cy="451.4" r="2.6"/>
+              <circle class="dot" cx="314.4" cy="426.6" r="2.6"/>
+              <circle class="dot" cx="314.4" cy="401.9" r="2.6"/>
+              <circle class="dot" cx="314.4" cy="377.2" r="2.6"/>
+              <circle class="dot" cx="314.4" cy="352.5" r="2.6"/>
+              <circle class="dot" cx="314.4" cy="327.8" r="2.6"/>
+              <circle class="dot" cx="314.4" cy="303.1" r="2.6"/>
+              <circle class="dot" cx="314.4" cy="278.4" r="2.6"/>
+              <circle class="dot" cx="335.6" cy="710.7" r="2.6"/>
+              <circle class="dot" cx="335.6" cy="686.0" r="2.6"/>
+              <circle class="dot" cx="335.6" cy="661.3" r="2.6"/>
+              <circle class="dot" cx="335.6" cy="636.6" r="2.6"/>
+              <circle class="dot" cx="335.6" cy="611.9" r="2.6"/>
+              <circle class="dot" cx="335.6" cy="587.2" r="2.6"/>
+              <circle class="dot" cx="335.6" cy="562.4" r="2.6"/>
+              <circle class="dot" cx="335.6" cy="537.7" r="2.6"/>
+              <circle class="dot" cx="335.6" cy="513.0" r="2.6"/>
+              <circle class="dot" cx="335.6" cy="488.3" r="2.6"/>
+              <circle class="dot" cx="335.6" cy="463.6" r="2.6"/>
+              <circle class="dot" cx="335.6" cy="438.9" r="2.6"/>
+              <circle class="dot" cx="335.6" cy="414.2" r="2.6"/>
+              <circle class="dot" cx="335.6" cy="389.5" r="2.6"/>
+              <circle class="dot" cx="335.6" cy="364.8" r="2.6"/>
+              <circle class="dot" cx="335.6" cy="340.1" r="2.6"/>
+              <circle class="dot" cx="335.6" cy="315.4" r="2.6"/>
+              <circle class="dot" cx="335.6" cy="290.7" r="2.6"/>
+              <circle class="dot" cx="356.9" cy="723.0" r="2.6"/>
+              <circle class="dot" cx="356.9" cy="698.2" r="2.6"/>
+              <circle class="dot" cx="356.9" cy="673.5" r="2.6"/>
+              <circle class="dot" cx="356.9" cy="648.8" r="2.6"/>
+              <circle class="dot" cx="356.9" cy="624.1" r="2.6"/>
+              <circle class="dot" cx="356.9" cy="599.4" r="2.6"/>
+              <circle class="dot" cx="356.9" cy="574.7" r="2.6"/>
+              <circle class="dot" cx="356.9" cy="550.0" r="2.6"/>
+              <circle class="dot" cx="356.9" cy="525.3" r="2.6"/>
+              <circle class="dot" cx="356.9" cy="500.6" r="2.6"/>
+              <circle class="dot" cx="356.9" cy="475.9" r="2.6"/>
+              <circle class="dot" cx="356.9" cy="451.2" r="2.6"/>
+              <circle class="dot" cx="356.9" cy="426.5" r="2.6"/>
+              <circle class="dot" cx="356.9" cy="401.8" r="2.6"/>
+              <circle class="dot" cx="356.9" cy="377.1" r="2.6"/>
+              <circle class="dot" cx="356.9" cy="352.4" r="2.6"/>
+              <circle class="dot" cx="356.9" cy="327.7" r="2.6"/>
+              <circle class="dot" cx="356.9" cy="303.0" r="2.6"/>
+              <circle class="dot" cx="378.1" cy="735.2" r="2.6"/>
+              <circle class="dot" cx="378.1" cy="710.5" r="2.6"/>
+              <circle class="dot" cx="378.1" cy="685.8" r="2.6"/>
+              <circle class="dot" cx="378.1" cy="661.1" r="2.6"/>
+              <circle class="dot" cx="378.1" cy="636.4" r="2.6"/>
+              <circle class="dot" cx="378.1" cy="611.7" r="2.6"/>
+              <circle class="dot" cx="378.1" cy="587.0" r="2.6"/>
+              <circle class="dot" cx="378.1" cy="562.3" r="2.6"/>
+              <circle class="dot" cx="378.1" cy="537.6" r="2.6"/>
+              <circle class="dot" cx="378.1" cy="512.9" r="2.6"/>
+              <circle class="dot" cx="378.1" cy="488.2" r="2.6"/>
+              <circle class="dot" cx="378.1" cy="463.5" r="2.6"/>
+              <circle class="dot" cx="378.1" cy="438.8" r="2.6"/>
+              <circle class="dot" cx="378.1" cy="414.1" r="2.6"/>
+              <circle class="dot" cx="378.1" cy="389.3" r="2.6"/>
+              <circle class="dot" cx="378.1" cy="364.6" r="2.6"/>
+              <circle class="dot" cx="378.1" cy="339.9" r="2.6"/>
+              <circle class="dot" cx="378.1" cy="315.2" r="2.6"/>
+              <circle class="dot" cx="399.4" cy="747.5" r="2.6"/>
+              <circle class="dot" cx="399.4" cy="722.8" r="2.6"/>
+              <circle class="dot" cx="399.4" cy="698.1" r="2.6"/>
+              <circle class="dot" cx="399.4" cy="673.4" r="2.6"/>
+              <circle class="dot" cx="399.4" cy="648.7" r="2.6"/>
+              <circle class="dot" cx="399.4" cy="624.0" r="2.6"/>
+              <circle class="dot" cx="399.4" cy="599.3" r="2.6"/>
+              <circle class="dot" cx="399.4" cy="574.6" r="2.6"/>
+              <circle class="dot" cx="399.4" cy="549.9" r="2.6"/>
+              <circle class="dot" cx="399.4" cy="525.1" r="2.6"/>
+              <circle class="dot" cx="399.4" cy="500.4" r="2.6"/>
+              <circle class="dot" cx="399.4" cy="475.7" r="2.6"/>
+              <circle class="dot" cx="399.4" cy="451.0" r="2.6"/>
+              <circle class="dot" cx="399.4" cy="426.3" r="2.6"/>
+              <circle class="dot" cx="399.4" cy="401.6" r="2.6"/>
+              <circle class="dot" cx="399.4" cy="376.9" r="2.6"/>
+              <circle class="dot" cx="399.4" cy="352.2" r="2.6"/>
+              <circle class="dot" cx="399.4" cy="327.5" r="2.6"/>
+            </g>
+            <g class="layer layer--front" data-layer-z="780">
+              <path class="edge edge--front" d="M40.0 685.0 L299.8 835.0 L299.8 385.0 L40.0 235.0 Z"/>
+              <path class="edge edge--thin" d="M49.5 679.5 L290.3 818.5 L290.3 390.5 L49.5 251.5 Z"/>
+            </g>
+            <g class="callouts" aria-hidden="true"><g class="callout"><path class="leader" d="M511.1 476.0 L581.1 466.0"/><circle cx="581.1" cy="466.0" r="16"/><text x="581.1" y="471.0">1</text></g><g class="callout"><path class="leader" d="M412.4 419.0 L472.4 379.0"/><circle cx="472.4" cy="379.0" r="16"/><text x="472.4" y="384.0">2</text></g><g class="callout"><path class="leader" d="M623.7 556.0 L683.7 586.0"/><circle cx="683.7" cy="586.0" r="16"/><text x="683.7" y="591.0">3</text></g></g>
+          </svg>
+          <figcaption class="sr-only">The four layers of the panel, drawn apart along its depth.</figcaption>
+        </figure>
+        <ol class="parts">
+          <li><h3 data-cast>The travelling bar</h3><p>A 58 cm bar of 96 high-output LEDs rides a belt-driven rail and tilts ±40°, throwing hard light through the opal front at the borrowed sun's angle.</p></li>
+          <li><h3 data-cast>The matrix</h3><p>1,536 LEDs in two whites and an amber, mixed every frame from 1,800 to 6,500 K at CRI 97: the soft sky around the hard light.</p></li>
+          <li><h3 data-cast>The ephemeris</h3><p>Solar positions for 2,000 cities until the year 2100, computed on the panel itself. No account, no app, no cloud: you choose a city with the dial on its edge.</p></li>
+        </ol>
+      </section>
+
+      <section class="chapter chapter--afternoon" id="afternoon" aria-labelledby="afternoon-title" data-chapter-at="afternoon">
+        <h2 id="afternoon-title" data-cast>The afternoon, in&nbsp;numbers.</h2>
+        <dl class="spec">
+          <div><dt>Size</dt><dd>600 × 900 × 64 mm <span class="spec__alt">23.6 × 35.4 × 2.5 in</span></dd></div>
+          <div><dt>Weight</dt><dd>9.8 kg <span class="spec__alt">21.6 lb</span></dd></div>
+          <div><dt>Light</dt><dd>Up to 12,000 lux at 50 cm <span class="spec__alt">1,115 foot-candles</span>; 1,800–6,500 K; CRI 97</dd></div>
+          <div><dt>Shadow</dt><dd>Travelling bar, ±40° tilt in 0.5° steps</dd></div>
+          <div><dt>Cities</dt><dd>2,000 built in; any latitude and longitude by the dial</dd></div>
+          <div><dt>Power</dt><dd>140 W at full noon, 0.4 W standby; 2.5 m cable, EU, UK or US plug</dd></div>
+          <div><dt>Mounting</dt><dd>Wall, window recess, or the oak floor stand (€380)</dd></div>
+          <div><dt>Made</dt><dd>Recycled aluminium frame, opal acrylic front, assembled in Tromsø</dd></div>
+          <div><dt>Warranty</dt><dd>5 years; LEDs rated 50,000 hours to 80 % output</dd></div>
+          <div class="spec__price"><dt>Price</dt><dd>€2,400 including VAT <span class="spec__alt">NOK 28,400</span></dd></div>
+        </dl>
+      </section>
+
+      <section class="chapter chapter--reserve" data-theme="night" id="reserve" aria-labelledby="reserve-title" data-chapter-at="reserve">
+        <div class="reserve__panel" aria-hidden="true"><span class="reserve__glass"></span></div>
+        <div class="reserve__copy">
+          <h2 id="reserve-title" data-cast><span data-city-name>Lisbon</span>'s sun set at <time data-sun="set">18:47</time>.</h2>
+          <p>Batch 03 is 120 panels, assembled in Tromsø and shipped on 1 December 2026, three days after the sun leaves. A €200 deposit holds one, and it is refunded in full if you change your mind before it ships.</p>
+          <form class="reserve__form" id="reserve-form" novalidate>
+            <div class="field">
+              <label for="r-name">Your name</label>
+              <input id="r-name" name="name" type="text" autocomplete="name" required aria-describedby="r-name-error">
+              <p class="field__error" id="r-name-error" hidden>Write the name the panel ships to.</p>
+            </div>
+            <div class="field">
+              <label for="r-email">E-mail</label>
+              <input id="r-email" name="email" type="email" autocomplete="email" required aria-describedby="r-email-error">
+              <p class="field__error" id="r-email-error" hidden>An address we can send the receipt to, with an @ in it.</p>
+            </div>
+            <div class="field">
+              <label for="r-country">Delivered to</label>
+              <select id="r-country" name="country" autocomplete="country-name">
+                <option>Norway</option><option>Sweden</option><option>Finland</option><option>Iceland</option><option>Denmark</option><option>Canada</option><option>United States (Alaska)</option><option>United Kingdom</option><option>Germany</option>
+              </select>
+            </div>
+            <button class="button button--primary" type="submit">Reserve a window, €200 deposit</button>
+            <p class="reserve__status" id="reserve-status"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="colophon" data-theme="night">
+      <p class="colophon__place">Ekvator, Tromsø, Norway · <span class="colophon__coords">69.65° N, 18.96° E</span></p>
+      <p class="colophon__sun">Sun in Tromsø today: <span data-sun="tromso-today">up at 08:29, down at 16:27</span>.</p>
+      <p class="colophon__note">Ekvator and the E1 are fictional, made for a design showcase built with the <a href="https://github.com/burgisimon/awards">awards plugin</a>. Every sun time and angle on this page is real and computed in your browser; no deposit can be taken.</p>
+    </footer>
+  </div>
+
+  <div class="cities" id="cities" role="dialog" aria-modal="false" aria-labelledby="cities-title" hidden>
+    <h2 class="cities__title" id="cities-title">Borrow a sun from</h2>
+    <div class="cities__list" role="radiogroup" aria-labelledby="cities-title">
+      <button type="button" role="radio" aria-checked="true" data-city="lisbon">Lisbon <span data-city-line="lisbon">07:53–18:47</span></button>
+      <button type="button" role="radio" aria-checked="false" data-city="marrakesh" tabindex="-1">Marrakesh <span data-city-line="marrakesh">07:40–18:51</span></button>
+      <button type="button" role="radio" aria-checked="false" data-city="nairobi" tabindex="-1">Nairobi <span data-city-line="nairobi">06:12–18:21</span></button>
+      <button type="button" role="radio" aria-checked="false" data-city="kyoto" tabindex="-1">Kyoto <span data-city-line="kyoto">06:09–17:13</span></button>
+      <button type="button" role="radio" aria-checked="false" data-city="lima" tabindex="-1">Lima <span data-city-line="lima">05:38–18:05</span></button>
+    </div>
+  </div>
+
+  <div class="sr-only" role="status" aria-live="polite" id="announcer"></div>
+  <canvas class="wall-canvas" aria-hidden="true"></canvas>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

@@ -98,7 +98,7 @@ Voice: a heavy, wide, warm display with soft corners and thick strokes, a Nordic
 
 Candidates pulled with `fonts.mjs search` (sans-serif at 800, sans-serif with a width axis, display at 700) and judged on `.awards/type/specimen.png` with the real headline and paragraph:
 - **Chosen display: Unbounded** (NARS Design for Google Fonts, OFL-1.1, weights 400 and 800). Widest and heaviest of the six, soft-cornered terminals, open counters; at 800 the strokes are thick enough to cast a shadow that reads as a shadow, not as a blur.
-- **Chosen body: Schibsted Grotesk** (Bakken & Bæck, Oslo, for Schibsted; OFL-1.1, weights 400 and 600). A Norwegian-made grotesque for a Tromsø maker: the local-provenance rule taken from [site:son-daven]. Tabular figures for every readout.
+- **Chosen body: Schibsted Grotesk** (Bakken & Bæck, Oslo, for Schibsted; OFL-1.1, weights 400 and 600). A Norwegian-made grotesque for a Tromsø maker: the local-provenance rule taken from [site:son-daven]. Proportional figures (its tabular set spaces punctuation like digits).
 - Rejected: Parkinsans (warm and round, but geometric and toy-like at 800; the claim reads as a children's brand); Anek Latin (good weight, too narrow at default width to fill the wall); Encode Sans (wide but generic; disappears next to the light); Pliant (spacing collapses at body size); Bricolage Grotesque (on the reflex list, and its quirks fight the shadows).
 
 Contract: a voice and a silence. Unbounded 800 for display, h2 and h3; Schibsted Grotesk for body, readouts and controls. No third face.
@@ -110,7 +110,7 @@ Scale, vw-lock on a 1440 artboard, `clamp()` floors for the phone:
 - `--body: clamp(1.0625rem, 1.3194vw, 1.25rem)` — 19 px at 1440, 17 px on a phone.
 - `--label: 0.875rem` — 14 px, readouts and control text; sentence case, not tracked caps (this is not a metadata world: the readout is content).
 
-Display setting: tracking −0.035em at display, −0.03em at h2; leading 0.98 (Unbounded's tall ascender clears the line above at 0.98); no optical hang needed (the L and the K have flat stems). `font-feature-settings: "tnum" 1` on every readout and table. Loading: self-hosted woff2 in `public/fonts/`, four files, 91 KB in all; `font-display: swap`; metric-matched fallbacks (`Unbounded Fallback`: Arial Bold, size-adjust 133.8 %, ascent 74.4 %, descent 18.3 %; `Schibsted Fallback`: Arial, size-adjust 105.1 %, ascent 92.9 %, descent 24.5 %); the display 800 file is preloaded. No text is split.
+Display setting: tracking −0.035em at display, −0.03em at h2; leading 0.98 (Unbounded's tall ascender clears the line above at 0.98); no optical hang needed (the L and the K have flat stems). Proportional figures throughout: Schibsted's tabular set spaces the colon and the point like digits, which broke "08:03" and "1.4°" in the hero probe. Loading: self-hosted woff2 in `public/fonts/`, four files, 91 KB in all; `font-display: swap`; metric-matched fallbacks (`Unbounded Fallback`: Arial Bold, size-adjust 133.8 %, ascent 74.4 %, descent 18.3 %; `Schibsted Fallback`: Arial, size-adjust 105.1 %, ascent 92.9 %, descent 24.5 %); the display 800 file is preloaded. No text is split.
 
 ## Layout
 - Artboard 1440 × 900; 12 columns; gutter `clamp(20px, 4.1667vw, 120px)` (60 px at 1440, 20 px at 390); unit 4 px.
