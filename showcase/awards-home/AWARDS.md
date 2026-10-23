@@ -5,7 +5,7 @@
 ## Status
 - [x] Brief captured
 - [x] Direction contract locked (concept)
-- [ ] Visual system written (system → DESIGN.md, tokens.css)
+- [x] Visual system written (system → DESIGN.md, tokens.css)
 - [ ] Page map and skeleton built (structure)
 - [ ] Stack booted (stack)
 - [ ] Motion score authored and built (motion)

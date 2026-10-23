@@ -1,0 +1,19 @@
+/* One variable file, OFL-1.1 (licence beside it in public/fonts): Special Gothic, wght 400–700, wdth 75–125.
+   Condensed for display, normal for reading, expanded for the sheet's furniture. The fallback is metric-matched
+   to Arial at the default instance from the font's own hhea metrics and advance widths. */
+@font-face {
+  font-family: "Special Gothic";
+  src: url("/fonts/special-gothic-latin-wdth.woff2") format("woff2-variations"), url("/fonts/special-gothic-latin-wdth.woff2") format("woff2");
+  font-weight: 400 700;
+  font-stretch: 75% 125%;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Special Gothic Fallback";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans");
+  size-adjust: 94%;
+  ascent-override: 106.9%;
+  descent-override: 31.4%;
+  line-gap-override: 0%;
+  font-display: swap;
+}
