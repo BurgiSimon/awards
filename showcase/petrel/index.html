@@ -73,12 +73,15 @@
             <path class="bow__house" d="M388 34 L388 -52 L480 -52 M380 -52 L480 -52 M388 -30 L480 -30 M408 -52 L408 -30 M428 -52 L428 -30 M448 -52 L448 -30 M468 -52 L468 -30 M396 -52 L396 -70 L480 -70" />
             <path class="bow__mast" d="M318 96 L318 -520 M296 -236 L340 -236 M304 -236 L318 -270 M332 -236 L318 -270 M318 -150 L340 -150" />
             <path class="bow__rig" d="M318 -470 L150 94 M318 -236 L236 96" />
-            <path class="bow__arm" d="M118 104 L214 120 M118 104 L236 96 M150 94 L214 120" />
-            <path class="bow__cable" d="M480 80 L130 72 C 102 70 86 84 84 104" />
-            <circle class="bow__sheave" cx="118" cy="104" r="34" />
-            <circle class="bow__hub" cx="118" cy="104" r="5" />
+            <path class="bow__arm" d="M127 104 L214 120 M127 104 L236 96 M159 94 L214 120" />
+            <!-- The cable lies on the sheave, not in it: its centreline runs 43 units from the hub (the rim at 34 plus half the
+                 cable), along the deck at y 61 and down the leading edge at x 84, where the drop continues. -->
+            <path class="bow__cable" d="M520 61 L127 61 A43 43 0 0 0 84 104" />
+            <path class="bow__lay" d="M520 61 L127 61 A43 43 0 0 0 84 104" />
+            <circle class="bow__sheave" cx="127" cy="104" r="34" />
+            <circle class="bow__hub" cx="127" cy="104" r="5" />
             <line class="bow__waterline" x1="0" y1="300" x2="480" y2="300" />
-            <path class="bow__leader" d="M392 334 L360 300 M60 40 L60 56 L94 80" />
+            <path class="bow__leader" d="M392 334 L360 300 M60 40 L60 52 L92 70" />
             <text class="bow__label" x="396" y="346">waterline</text>
             <text class="bow__label" x="20" y="32">bow sheave</text>
           </svg>
@@ -145,7 +148,8 @@
               <path class="seabed__floor" d="M0 300 C120 296 220 306 340 300 S560 292 700 302 S960 310 1200 296 L1200 420 L0 420 Z" />
               <circle class="seabed__cable" cx="820" cy="296" r="9" />
               <path class="seabed__wire" d="M120 0 C140 120 150 220 160 288" />
-              <path class="seabed__grapnel" d="M152 288 L168 288 M160 276 L160 300 M160 300 C150 300 146 292 148 286 M160 300 C170 300 174 292 172 286" />
+              <!-- The drawn grapnel lies on the ooze, its shank leaning up toward the wire; the score moves it to the cable. -->
+              <path class="seabed__grapnel" d="M160 251 m -6 0 a 6 6 0 1 0 12 0 a 6 6 0 1 0 -12 0 M160 257 L160 298 M160 298 C 146 300 135 292 133 277 M160 298 C 174 300 185 292 187 277 M160 298 C 158 300 153 296 151 290" />
             </svg>
             <svg class="tension" viewBox="0 0 1200 120" preserveAspectRatio="none">
               <polyline class="tension__trace" pathLength="1" points="0,92 640,92 650,88 660,90 812,90 820,24 830,30 1200,30" />
@@ -160,10 +164,24 @@
           <p class="splice__lede">Both ends come up through 4,212&nbsp;m of water to the deck. Each is cut back to good glass; a new length is spliced in at two joints, in a clean room behind the bridge.</p>
           <figure class="cutaway">
             <svg class="cutaway__drawing" viewBox="0 0 640 220" aria-hidden="true">
-              <rect class="cutaway__sheath" x="20" y="70" width="300" height="80" rx="40" />
-              <rect class="cutaway__armour" x="200" y="80" width="220" height="60" rx="30" />
-              <rect class="cutaway__copper" x="330" y="90" width="160" height="40" rx="20" />
-              <rect class="cutaway__tube" x="420" y="96" width="120" height="28" rx="14" />
+              <!-- The drawn tier's cut cable: each layer shaded as a cylinder lit from above, the armour's lay hatched,
+                   and an end face where each layer is cut back. -->
+              <defs>
+                <linearGradient id="cw-pe" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a5459"/><stop offset="0.18" stop-color="#1c2124"/><stop offset="0.7" stop-color="#0b0e10"/><stop offset="1" stop-color="#2b3236"/></linearGradient>
+                <linearGradient id="cw-steel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e3e8eb"/><stop offset="0.3" stop-color="#9aa4aa"/><stop offset="0.75" stop-color="#4d575d"/><stop offset="1" stop-color="#7d878d"/></linearGradient>
+                <linearGradient id="cw-cu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f0b88c"/><stop offset="0.3" stop-color="#c47a45"/><stop offset="0.75" stop-color="#7a3f1d"/><stop offset="1" stop-color="#a5602f"/></linearGradient>
+                <linearGradient id="cw-shade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.35"/><stop offset="0.3" stop-color="#fff" stop-opacity="0"/><stop offset="0.7" stop-color="#000" stop-opacity="0.35"/><stop offset="1" stop-color="#000" stop-opacity="0.1"/></linearGradient>
+                <pattern id="cw-lay" width="9" height="60" patternUnits="userSpaceOnUse" patternTransform="skewX(-34)"><rect width="9" height="60" fill="#8a949a"/><rect x="6.5" width="2.5" height="60" fill="#2c3439"/><rect x="1" width="1.6" height="60" fill="#d5dbde"/></pattern>
+              </defs>
+              <rect class="cutaway__tube" x="420" y="96" width="120" height="28" fill="url(#cw-steel)" />
+              <ellipse cx="540" cy="110" rx="2.5" ry="14" fill="#4d575d" />
+              <rect class="cutaway__copper" x="330" y="90" width="160" height="40" fill="url(#cw-cu)" />
+              <ellipse cx="490" cy="110" rx="3.5" ry="20" fill="#7a3f1d" /><ellipse cx="490" cy="110" rx="2.5" ry="14" fill="#9aa4aa" />
+              <rect class="cutaway__armour" x="200" y="80" width="220" height="60" fill="url(#cw-lay)" />
+              <rect x="200" y="80" width="220" height="60" fill="url(#cw-shade)" />
+              <ellipse cx="420" cy="110" rx="5" ry="30" fill="#3d464c" /><ellipse cx="420" cy="110" rx="3.5" ry="20" fill="#a5602f" />
+              <path class="cutaway__sheath" d="M60 70 H320 V150 H60 A40 40 0 0 1 60 70 Z" fill="url(#cw-pe)" />
+              <ellipse cx="320" cy="110" rx="7" ry="40" fill="#0b0e10" /><ellipse cx="320" cy="110" rx="5" ry="31" fill="#59636a" />
               <g class="cutaway__fibres"><path d="M540 100.0 C 570 100.0 585 60.0 620 60.0" stroke="#1f5fbf" stroke-width="2.4" fill="none" /><path d="M540 102.6 C 570 102.6 585 74.0 620 74.0" stroke="#e07a1f" stroke-width="2.4" fill="none" /><path d="M540 105.2 C 570 105.2 585 88.0 620 88.0" stroke="#2e8b3e" stroke-width="2.4" fill="none" /><path d="M540 107.8 C 570 107.8 585 102.0 620 102.0" stroke="#7a4a24" stroke-width="2.4" fill="none" /><path d="M540 110.4 C 570 110.4 585 116.0 620 116.0" stroke="#7d8790" stroke-width="2.4" fill="none" /><path d="M540 113.0 C 570 113.0 585 130.0 620 130.0" stroke="#f2f2f2" stroke-width="2.4" fill="none" /><path d="M540 115.6 C 570 115.6 585 144.0 620 144.0" stroke="#c8261d" stroke-width="2.4" fill="none" /><path d="M540 118.2 C 570 118.2 585 158.0 620 158.0" stroke="#111417" stroke-width="2.4" fill="none" /></g>
             </svg>
             <ol class="cutaway__layers">

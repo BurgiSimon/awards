@@ -1,8 +1,10 @@
 @import "./base.css";
 
 /* Where the cable runs, as a share of the page width: the bow sheave's leading edge. Text never crosses it. */
-:root { --cable-x: 72.5%; --strand-w: 18px; }
-@media (max-width: 767px) { :root { --cable-x: 92%; --strand-w: 10px; } }
+/* The cable's width scales with the bow drawing, so the wrap over the sheave and the drop are one width: 18 units of a
+   480-unit bow a third of the page wide on desktop, 31 units of a bow 40 % wide on phones. */
+:root { --cable-x: 72.5%; --strand-w: 1.25vw; }
+@media (max-width: 767px) { :root { --cable-x: 92%; --strand-w: 2.5833vw; } }
 
 /* ——— Bridge line: the ship's own top line, on the band's ground ——— */
 .bridge {
@@ -14,7 +16,7 @@
 }
 .bridge a { text-decoration: none; }
 .bridge__mark { display: inline-flex; flex-direction: column; justify-content: center; min-height: 44px; line-height: 1.1; }
-.bridge__name { font-family: var(--font-display); font-weight: 800; font-size: 1.0625rem; letter-spacing: 0; }
+.bridge__name { font-family: var(--font-display); font-weight: 800; font-size: 1.0625rem; letter-spacing: 0; white-space: nowrap; }
 .bridge__pos { font-size: var(--label); font-weight: 600; letter-spacing: 0.08em; color: var(--muted); font-variant-numeric: tabular-nums; }
 .bridge__nav ol { display: flex; justify-content: center; gap: calc(var(--unit) * 6); }
 .bridge__nav a {
@@ -70,7 +72,11 @@
   background-size: 100% 100%, 100% 40px;
   background-position: 0 0, 0 var(--payout, 0px);
 }
-html.has-gl .strand, html.has-gl .seabed__wire, html.has-gl .seabed__grapnel { visibility: hidden; }
+/* The GL cable cross-fades with the drawn one it replaces (the canvas fades in over the same 360 ms). */
+.strand, .bow__cable, .bow__lay, .seabed__wire, .seabed__grapnel, .cutaway__drawing { transition: opacity var(--dur-routine) var(--ease-out-expo), visibility 0s; }
+html.has-gl :is(.strand, .bow__cable, .bow__lay, .seabed__wire, .seabed__grapnel, .cutaway__drawing) {
+  opacity: 0; visibility: hidden; transition: opacity var(--dur-routine) var(--ease-out-expo), visibility 0s var(--dur-routine);
+}
 
 .thermocline { position: relative; height: 22vh; background: linear-gradient(var(--from), var(--to)); }
 .thermocline--strand::after {
@@ -79,7 +85,7 @@ html.has-gl .strand, html.has-gl .seabed__wire, html.has-gl .seabed__grapnel { v
   background-size: 100% 100%, 100% 40px;
   background-position: 0 0, 0 var(--payout, 0px);
 }
-html.has-gl .thermocline--strand::after { visibility: hidden; }
+html.has-gl .thermocline--strand::after { opacity: 0; transition: opacity var(--dur-routine) var(--ease-out-expo); }
 
 /* 1 · The fault — offset split: the claim in the left two thirds, the bow and its sheave in the right third. */
 .chapter--fault {
@@ -108,6 +114,8 @@ html.has-gl .thermocline--strand::after { visibility: hidden; }
 .bow__mast { fill: none; stroke: var(--ink); stroke-width: 1.5; }
 .bow__rig, .bow__leader { fill: none; stroke: var(--ink); stroke-width: 0.75; }
 .bow__cable { fill: none; stroke: #283035; stroke-width: var(--bow-cable-w, 18); stroke-linecap: butt; }
+/* The drawn wrap carries the same lay as the drawn drop: light wire crowns across a dark body. */
+.bow__lay { fill: none; stroke: #8f999f; stroke-width: calc(var(--bow-cable-w, 18) * 0.72); stroke-dasharray: 1.7 3.3; stroke-linecap: butt; opacity: 0.6; }
 .bow__sheave { fill: var(--ground); stroke: var(--ink); stroke-width: 1.5; }
 .bow__hub { fill: var(--ink); }
 .bow__waterline { stroke: var(--ink); stroke-width: 1; stroke-dasharray: 6 6; }
@@ -171,6 +179,7 @@ html.has-gl .thermocline--strand::after { visibility: hidden; }
 .seabed__floor { fill: color-mix(in oklab, var(--ink) 9%, var(--ground)); stroke: var(--ink); stroke-width: 1.25; vector-effect: non-scaling-stroke; }
 .seabed__cable { fill: var(--ink); }
 .seabed__wire, .seabed__grapnel { fill: none; stroke: var(--ink); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.seabed__grapnel { stroke-width: 3; stroke-linecap: round; }
 .tension { border-top: 1px solid var(--line); background: color-mix(in oklab, var(--ink) 9%, var(--ground)); }
 .tension__trace { fill: none; stroke: var(--ink); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
 /* With script, the trace draws as the drag runs (the score sets the offset); without it the whole trace shows. */
@@ -183,11 +192,7 @@ html.js .tension__trace { stroke-dasharray: 1; stroke-dashoffset: 1; }
 .splice__lede { grid-column: 1 / span 6; }
 .cutaway { grid-column: 1 / -1; display: grid; gap: calc(var(--unit) * 8); }
 .cutaway__drawing { width: min(100%, 60rem); height: auto; margin: 0 auto; }
-html.has-gl .cutaway__drawing { visibility: hidden; }
-.cutaway__sheath { fill: #15191c; }
-.cutaway__armour { fill: #79838a; }
-.cutaway__copper { fill: #b0693a; }
-.cutaway__tube { fill: #aab3b8; }
+
 .cutaway__layers { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: calc(var(--unit) * 6); }
 .cutaway__layers li { border-top: 1px solid var(--ink); padding-top: calc(var(--unit) * 3); font-size: 1rem; }
 .cutaway__key { display: block; font-family: var(--font-display); font-weight: 700; font-size: var(--h3); margin-bottom: 0.25rem; }
@@ -235,6 +240,8 @@ html.has-gl .cutaway__drawing { visibility: hidden; }
 .chapters { position: fixed; top: var(--bridge-h, 64px); right: var(--gutter); z-index: 25; background: var(--ground); color: var(--ink); border: 1px solid var(--ink); padding: calc(var(--unit) * 2) calc(var(--unit) * 5); min-width: 15rem; }
 .chapters[hidden] { display: none; }
 .chapters a { display: flex; align-items: center; min-height: 44px; text-decoration: none; font-weight: 600; border-bottom: 1px solid var(--line); }
+.chapters a[aria-current="true"] { box-shadow: inset 3px 0 0 var(--ink); padding-left: 0.75rem; }
+.bridge__menu[aria-expanded="true"] { background: var(--ink); color: var(--ground); }
 
 /* The fixed WebGL cable: a canvas over the whole viewport, transparent, beneath the bridge line. */
 .cable { position: fixed; inset: 0; z-index: 4; pointer-events: none; }

@@ -47,8 +47,15 @@ awards.ready();
 async function startGL() {
   if (!('WebGL2RenderingContext' in window)) return;
   const quality = await detectQualityTier({ sampleMs: 400 });
+  // `?tier=high|mid|low` overrides the probe, so a reviewer on a software renderer can see the GL tier it would refuse.
+  const forced = new URLSearchParams(location.search).get('tier');
+  if (['high', 'mid', 'low'].includes(forced)) {
+    Object.assign(quality, { tier: forced, dpr: Math.min(devicePixelRatio || 1, forced === 'high' ? 2 : forced === 'mid' ? 1.5 : 1) });
+    if (forced !== 'low') quality.maxPixels = forced === 'high' ? 2560 * 1440 : 1920 * 1080;
+  }
   awards.addState(() => ({ quality: quality.tier }));
   if (!quality.probe.webgl2) return; // the API can exist while no context can be made (blocklists, --disable-webgl)
+  if (quality.tier === 'low') return; // the contract's low tier is the drawn cable, not a coarse GL one
   try {
     const { mountScene } = await import('./webgl/scene.js');
     cable.attach(mountScene(document.querySelector('.cable__gl'), quality));
@@ -56,5 +63,7 @@ async function startGL() {
     console.warn('[cable] staying on the drawn tier:', err);
   }
 }
-requestAnimationFrame(() => requestAnimationFrame(startGL));
+// The hero's pay-out plays on whichever cable is final: right after the GL's first frame, or on the drawn one.
+requestAnimationFrame(() => requestAnimationFrame(() => startGL().finally(() => score.payout())));
+setTimeout(() => score.payout(), 3000); // never later than this, even on a slow network
 addEventListener('pagehide', () => cable.destroy(), { once: true });

@@ -12,6 +12,7 @@ export function createCable({ score, awards }) {
   const q = (sel) => document.querySelector(sel);
   const el = {
     faultStrand: q('.strand--fault'),
+    bow: q('.bow__drawing'),
     descentStrand: q('.strand--descent'),
     located: q('#located'),
     scale: q('.depthscale'),
@@ -43,6 +44,8 @@ export function createCable({ score, awards }) {
   function measure() {
     const vh = innerHeight;
     const fault = docRect(el.faultStrand);
+    const bow = docRect(el.bow);
+    const unit = bow.width / 480; // the bow drawing's units to CSS pixels
     const descent = docRect(el.descentStrand);
     const located = docRect(el.located);
     const scale = docRect(el.scale);
@@ -54,8 +57,17 @@ export function createCable({ score, awards }) {
     const laid = docRect(el.laid);
     m = {
       vw: innerWidth, vh,
+      // The cable's path in document pixels: along the deck at y 61, round the sheave (hub 127, 104) at radius 43,
+      // down the leading edge at x 84 to the grapnel. The drop lands on the drawn strands' own line.
+      path: {
+        deckX: Math.max(innerWidth + 40, bow.left + 560 * unit),
+        sheaveX: bow.left + 127 * unit,
+        sheaveY: bow.top + 104 * unit,
+        radius: 43 * unit,
+        end: descent.bottom,
+        width: fault.width,
+      },
       x: fault.left + fault.width / 2,
-      width: fault.width,
       top: fault.top,
       end: descent.bottom,
       dragTop: drag.top, dragH: drag.height, stageH: el.stage.offsetHeight,
@@ -103,7 +115,7 @@ export function createCable({ score, awards }) {
     const s = score.update(y);
     const still = score.isReduced();
     write('depth', el.depth, `${nf.format(Math.round(s.depth))} m`);
-    write('wire', el.wire, `${nf.format(Math.round(s.wire))} m`);
+    write('wire', el.wire, s.wire < 10 ? `${s.wire.toFixed(1)} m` : `${nf.format(Math.round(s.wire))} m`);
     write('tension', el.tension, `${s.tension.toFixed(1)} kN`);
 
     // The lay of the cable runs down the screen at the scroll's speed; the hero adds its 40 cm pay-out.
@@ -125,11 +137,12 @@ export function createCable({ score, awards }) {
     const dragKey = `${gx.toFixed(1)}|${rise.toFixed(1)}`;
     if (shown.drag !== dragKey) {
       shown.drag = dragKey;
-      el.svgGrapnel.setAttribute('transform', `translate(${(gx - 160).toFixed(1)} ${(-rise).toFixed(1)})`);
+      // Moved to the crown's place, then leaned 50° about the crown so the shank points up toward the wire.
+      el.svgGrapnel.setAttribute('transform', `translate(${(gx - 160).toFixed(1)} ${(-rise).toFixed(1)}) rotate(50 160 298)`);
       el.svgCable.setAttribute('transform', `translate(0 ${(-rise).toFixed(1)})`);
       // The wire comes down from the ship, off the stage's top edge and ahead of the hook (the drawing overflows).
       const lead = (-m.seabed.top / m.seabed.height) * SEABED.h;
-      el.svgWire.setAttribute('d', `M${(gx + 560).toFixed(1)} ${lead.toFixed(1)} C${(gx + 420).toFixed(1)} 110 ${(gx + 90).toFixed(1)} ${(262 - rise).toFixed(1)} ${(gx + 2).toFixed(1)} ${(276 - rise).toFixed(1)}`);
+      el.svgWire.setAttribute('d', `M${(gx + 560).toFixed(1)} ${lead.toFixed(1)} C${(gx + 420).toFixed(1)} 110 ${(gx + 90).toFixed(1)} ${(262 - rise).toFixed(1)} ${(gx + 36).toFixed(1)} ${(264 - rise).toFixed(1)}`);
     }
 
     if (!scene) return;
@@ -139,8 +152,8 @@ export function createCable({ score, awards }) {
     const end = m.end - y;
     const cut = { left: m.cutaway.left, top: m.cutaway.top - y, width: m.cutaway.width, height: m.cutaway.height };
     frameOut = {
-      vw: m.vw, vh: m.vh, phase,
-      cable: { visible: end > -80 && top < m.vh, x: m.x, top, bottom: end, width: m.width },
+      vw: m.vw, vh: m.vh, phase, scroll: y,
+      cable: { visible: end > -80, path: m.path },
       grapnel: { visible: end > -120 && end < m.vh + 20, x: m.x, y: end },
       drag: {
         visible: st < m.vh && st + m.stageH > 0,
@@ -177,8 +190,9 @@ export function createCable({ score, awards }) {
     attach(next) {
       scene = next;
       tick();
-      if (!scene) return;
+      if (!scene) return false;
       root.classList.add('has-gl');
+      return true;
     },
     measure,
     destroy() {

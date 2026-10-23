@@ -9,6 +9,8 @@ export const LABELS = ['fault', 'located', 'descent', 'drag', 'catch', 'lift', '
 export function createScore() {
   const s = { depth: 0, wire: 0, tension: 0, pulse: 0, drag: 0, trace: 0, lift: 0, open: 0, payout: 0 };
   let master = null;
+  let hero = null;
+  let heroQueued = false;
   let reduced = false;
   let map = [[0, 0]];
   const mm = gsap.matchMedia();
@@ -18,7 +20,7 @@ export function createScore() {
     const tl = gsap.timeline({ paused: true, defaults: { ease: 'none', immediateRender: false } });
     tl.addLabel('fault', 0)
       .addLabel('located', 1)
-      .fromTo(s, { depth: 0, wire: 0, tension: 0 }, { depth: 200, wire: 200, tension: 3, duration: 1 }, 'located')
+      .fromTo(s, { depth: 0, wire: 2, tension: 0 }, { depth: 200, wire: 200, tension: 3, duration: 1 }, 'located')
       .fromTo(s, { pulse: 0 }, { pulse: 1, duration: 1 }, 'located')
       .addLabel('descent', 2)
       .fromTo(s, { depth: 200, wire: 200, tension: 3 }, { depth: 4212, wire: 4212, tension: 11.9, duration: 1 }, 'descent')
@@ -37,11 +39,11 @@ export function createScore() {
       .addLabel('end', 6.5);
     master = tl;
 
-    // The hero's one moment: the cable pays out about 40 cm over the sheave and stops.
-    if (!reduced) {
-      gsap.timeline({ delay: 0.15 }).addLabel('payout').fromTo(s, { payout: 0 }, { payout: 180, duration: 0.9, ease: 'power3.out' }, 'payout');
-    }
-    return () => { master = null; s.payout = 0; };
+    // The hero's one moment: the cable pays out about 40 cm over the sheave and stops. It waits for the cable that
+    // will carry it (the GL one's first frame, or the drawn one), so the hand-over never lands inside the move.
+    hero = reduced ? null : gsap.timeline({ paused: true }).addLabel('payout').fromTo(s, { payout: 0 }, { payout: 180, duration: 0.9, ease: 'power3.out' }, 'payout');
+    if (heroQueued) hero?.play();
+    return () => { master = null; hero = null; s.payout = 0; };
   });
 
   // Chapter positions in scroll pixels → master time. Anchors that do not advance are dropped, so the map is monotonic.
@@ -73,6 +75,8 @@ export function createScore() {
       s.drag = 1; s.trace = 1; s.open = 1; s.lift = 0; s.pulse = 0.5;
       if (t >= 3 && t < 4) { s.wire = 6318; s.tension = 17.4; } // the drag's readouts match its settled, hooked frame
     }
+    // Over the bow the wire counts what has paid out: the hero's 0.4 m, then up to 2 m more through chapter 1.
+    if (t < 1) s.wire = 0.4 * (reduced ? 1 : s.payout / 180) + 1.6 * t;
     s.time = t;
     return s;
   }
@@ -85,5 +89,6 @@ export function createScore() {
     return current;
   };
 
-  return { state: s, measure, update, label, isReduced: () => reduced, revert: () => mm.revert() };
+  const payout = () => { if (heroQueued) return; heroQueued = true; hero?.play(); };
+  return { state: s, measure, update, label, payout, isReduced: () => reduced, revert: () => mm.revert() };
 }

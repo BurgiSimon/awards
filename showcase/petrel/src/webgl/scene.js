@@ -4,8 +4,9 @@
 // files, no textures. Renders only when a frame differs from the last one.
 import {
   WebGLRenderer, Scene, OrthographicCamera, Group, Mesh, InstancedMesh, Object3D, MeshStandardMaterial,
-  CylinderGeometry, TubeGeometry, TorusGeometry, SphereGeometry, RingGeometry, Curve, Vector3, CubicBezierCurve3,
-  QuadraticBezierCurve3, Plane, PMREMGenerator, NeutralToneMapping, DoubleSide, DirectionalLight,
+  CylinderGeometry, TubeGeometry, TorusGeometry, SphereGeometry, RingGeometry, Curve, CurvePath, LineCurve3, Vector3,
+  CubicBezierCurve3, QuadraticBezierCurve3, Plane, PMREMGenerator, NeutralToneMapping, DoubleSide, DirectionalLight,
+  DataTexture,
 } from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 
@@ -69,36 +70,76 @@ export function mountScene(canvas, quality) {
   const geos = [];
   const keep = (g) => { geos.push(g); return g; };
 
-  // ——— The cable from the sheave to the grapnel: armour wires in a helix over a black core ———
-  const cablePlanes = [new Plane(new Vector3(0, -1, 0), 0), new Plane(new Vector3(0, 1, 0), 0)];
-  const cableSteel = steel.clone();
-  const cableCore = pe.clone();
-  cableSteel.clippingPlanes = cablePlanes;
-  cableCore.clippingPlanes = cablePlanes;
-  cableCore.side = 0;
-  owned.push(cableSteel, cableCore);
-  const cable = new Group();
+  // ——— The cable: one tube from the deck, over the sheave and down to the grapnel ———
+  // The armour is a procedural lay in the material: N wires wound at one lay length, each a crown with a groove on
+  // either side, bump-mapped from screen-space derivatives (so it stays crisp at any pixel ratio) and darkened in the
+  // grooves where the black core shows. Paying out moves the lay along the tube: one uniform, no geometry rebuilt.
+  const lay = { uLength: { value: 1 }, uPitch: { value: 60 }, uPhase: { value: 0 }, uWires: { value: 8 } };
+  const flat = new DataTexture(new Uint8Array([255, 255, 255, 255]), 1, 1);
+  flat.needsUpdate = true;
+  const cableSteel = new MeshStandardMaterial({ color: 0x8a949a, metalness: 0.72, roughness: 0.34, bumpMap: flat, bumpScale: 1.6 });
+  cableSteel.onBeforeCompile = (shader) => {
+    Object.assign(shader.uniforms, lay);
+    shader.fragmentShader = shader.fragmentShader
+      .replace('#include <bumpmap_pars_fragment>', `
+#ifdef USE_BUMPMAP
+  uniform sampler2D bumpMap;
+  uniform float bumpScale;
+  uniform float uLength;
+  uniform float uPitch;
+  uniform float uPhase;
+  uniform float uWires;
+  // 1 on a wire's crown, 0 in the groove between two wires.
+  float layH(vec2 uv) {
+    float w = uv.y * uWires + (uv.x * uLength - uPhase) / uPitch * uWires;
+    return cos((fract(w) - 0.5) * 3.14159265);
+  }
+  vec2 dHdxy_fwd() {
+    float h = layH(vBumpMapUv);
+    return bumpScale * vec2(dFdx(h), dFdy(h));
+  }
+  vec3 perturbNormalArb(vec3 surf_pos, vec3 surf_norm, vec2 dHdxy, float faceDirection) {
+    vec3 vSigmaX = normalize(dFdx(surf_pos.xyz));
+    vec3 vSigmaY = normalize(dFdy(surf_pos.xyz));
+    vec3 vN = surf_norm;
+    vec3 R1 = cross(vSigmaY, vN);
+    vec3 R2 = cross(vN, vSigmaX);
+    float fDet = dot(vSigmaX, R1) * faceDirection;
+    vec3 vGrad = sign(fDet) * (dHdxy.x * R1 + dHdxy.y * R2);
+    return normalize(abs(fDet) * surf_norm - vGrad);
+  }
+#endif`)
+      .replace('#include <map_fragment>', '#include <map_fragment>\n  float layCrown = layH(vBumpMapUv);\n  diffuseColor.rgb *= mix(0.16, 1.0, smoothstep(0.0, 0.75, layCrown));')
+      .replace('#include <roughnessmap_fragment>', '#include <roughnessmap_fragment>\n  roughnessFactor = mix(0.85, roughnessFactor, layCrown);');
+  };
+  owned.push(cableSteel, flat);
+  const cable = new Mesh(undefined, cableSteel);
+  cable.frustumCulled = false;
   scene.add(cable);
-  let built = { width: 0, length: 0, pitch: 1 };
-  let cableGeos = [];
-  function buildCable(width, length) {
-    cable.clear();
-    cableGeos.forEach((g) => g.dispose());
-    const r = width / 2;
-    const n = 14;
-    const sn = Math.sin(Math.PI / n);
-    const wr = (r * sn) / (1 + sn);
-    const R = r - wr;
-    // Drawn a little under their pitch circle so the black core shows between the wires.
-    const pitch = width * 3.3;
-    const wire = new TubeGeometry(new Helix(R, pitch, length), Math.ceil(length / 3), wr * 0.86, 6, false);
-    const coreGeo = new CylinderGeometry(R * 0.96, R * 0.96, length, 20, 1, true);
-    cableGeos = [wire, coreGeo];
-    cable.add(armour(wire, cableSteel, n, 'y'));
-    const core = new Mesh(coreGeo, cableCore);
-    core.position.y = -length / 2;
-    cable.add(core);
-    built = { width, length, pitch };
+  let built = { key: '', pitch: 60 };
+  // A quarter turn around the sheave, in the cable's own path.
+  class Arc extends Curve {
+    constructor(cx, cy, r, a0, a1) { super(); Object.assign(this, { cx, cy, r, a0, a1 }); }
+    getPoint(t, target = new Vector3()) {
+      const a = this.a0 + (this.a1 - this.a0) * t;
+      return target.set(this.cx + Math.cos(a) * this.r, this.cy + Math.sin(a) * this.r, 0);
+    }
+  }
+  function buildCable(c) {
+    const key = JSON.stringify(c);
+    if (key === built.key) return;
+    cable.geometry.dispose();
+    const path = new CurvePath();
+    const r = c.radius; // the wrap's centreline radius around the sheave
+    // World y is minus document y; the path is fixed to the document and the mesh follows the scroll.
+    path.add(new LineCurve3(new Vector3(c.deckX, -(c.sheaveY - r), 0), new Vector3(c.sheaveX, -(c.sheaveY - r), 0)));
+    path.add(new Arc(c.sheaveX, -c.sheaveY, r, Math.PI / 2, Math.PI));
+    path.add(new LineCurve3(new Vector3(c.sheaveX - r, -c.sheaveY, 0), new Vector3(c.sheaveX - r, -c.end, 0)));
+    const length = path.getLength();
+    cable.geometry = new TubeGeometry(path, Math.ceil(length / 4), c.width / 2, 20, false);
+    lay.uLength.value = length;
+    lay.uPitch.value = c.width * 3.4;
+    built = { key, pitch: lay.uPitch.value };
   }
 
   // ——— The grapnel: a forged shank, a ring, a crown and four flukes; origin at the ring, pointing down ———
@@ -230,16 +271,13 @@ export function mountScene(canvas, quality) {
       const s = `${f.vw}x${f.vh}`;
       if (s !== sized) { size(f.vw, f.vh); sized = s; }
 
-      // The cable: fixed to the screen, clipped to the sheave above and the grapnel below; turning it about its axis
-      // runs the lay down the screen, which reads as the cable paying out.
+      // The cable: one tube in document space from the deck to the grapnel; the mesh follows the scroll and the lay
+      // runs along it by the pay-out phase.
       cable.visible = f.cable.visible;
       if (cable.visible) {
-        const length = f.vh + 4 * f.cable.width * 3.3 + 200;
-        if (built.width !== f.cable.width || built.length < length) buildCable(f.cable.width, Math.max(length, 2400));
-        cable.position.set(f.cable.x, 2 * built.pitch, 0);
-        cable.rotation.y = (f.phase / built.pitch) * TAU;
-        cablePlanes[0].constant = -Math.max(f.cable.top, -built.pitch);
-        cablePlanes[1].constant = f.cable.bottom;
+        buildCable(f.cable.path);
+        cable.position.set(0, f.scroll, 0);
+        lay.uPhase.value = f.phase;
       }
       hanging.visible = f.grapnel.visible;
       if (hanging.visible) {
@@ -294,7 +332,7 @@ export function mountScene(canvas, quality) {
       dragWire.geometry?.dispose();
       for (const m of fibres.children) m.geometry.dispose();
       geos.forEach((g) => g.dispose());
-      cableGeos.forEach((g) => g.dispose());
+      cable.geometry.dispose();
       owned.forEach((m) => m.dispose());
       env.dispose();
       pmrem.dispose();
