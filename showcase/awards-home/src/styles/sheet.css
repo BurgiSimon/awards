@@ -113,7 +113,7 @@ html.js:not(.is-live) { --reg-x: calc(13px * var(--reg-scale)); --reg-y: calc(-9
 .chapter--sheet { min-height: 100svh; padding-top: calc(52px + var(--unit) * 22); row-gap: calc(var(--unit) * 10); align-content: start; isolation: isolate; overflow: clip; }
 .chapter--sheet .display, .display__ghost { grid-area: 1 / 1 / 2 / 13; }
 .display {
-  font-family: var(--font-display); font-size: var(--display); font-weight: 700; font-stretch: 78%;
+  font-family: var(--font-display); font-size: var(--display); font-weight: 700; font-stretch: var(--display-wdth, 78%);
   line-height: 0.86; letter-spacing: -0.02em; max-width: none;
 }
 .display__line { display: block; }
@@ -177,13 +177,13 @@ html.js .install__for { display: none; }
 .floor__figure { grid-column: 1 / span 7; display: grid; gap: calc(var(--unit) * 4); container-type: inline-size; }
 .bar { display: grid; grid-template-columns: repeat(8, 1fr); gap: 3px; height: clamp(12rem, 26vw, 22rem); mix-blend-mode: multiply; }
 .bar__patch { background: color-mix(in oklab, var(--accent) calc(var(--d) * 100%), var(--ground)); align-self: end; height: calc(30% + var(--d) * 70%); }
-/* The key reads in rows of four (two on a narrow figure), in the bar's order; every name carries its patch's swatch. */
-.bar__key { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: calc(var(--unit) * 4) calc(var(--unit) * 3); }
-@container (max-width: 36rem) { .bar__key { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.bar__key div { display: grid; align-content: space-between; gap: 0.25rem; border-top: 1px solid var(--ink); padding-top: 0.5rem; }
-.bar__key dt { display: flex; gap: 0.5em; align-items: baseline; font-size: var(--label); font-weight: 600; font-stretch: 115%; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.25; }
-.bar__swatch { flex: none; width: 0.75rem; height: 0.75rem; align-self: center; background: color-mix(in oklab, var(--accent) calc(var(--d) * 100%), var(--ground)); box-shadow: inset 0 0 0 1px var(--line); mix-blend-mode: multiply; }
+/* The key sits on the bar's own eight columns: each patch's rule-id letter and count at its foot; the names follow. */
+.bar__key { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 3px; }
+.bar__key div { display: grid; gap: 2px; border-top: 1px solid var(--ink); padding-top: 0.5rem; }
+.bar__code { font-size: var(--label); font-weight: 600; font-stretch: 115%; letter-spacing: 0.08em; line-height: 1.25; }
 .bar__key dd { font-family: var(--font-display); font-weight: 700; font-stretch: 78%; font-size: var(--h3); }
+.bar__legend { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; max-width: none; font-size: 0.875rem; color: var(--muted); }
+.bar__legend b { color: var(--ink); font-size: var(--label); font-weight: 600; font-stretch: 115%; letter-spacing: 0.08em; margin-right: 0.15em; }
 .floor__copy { grid-column: 8 / -1; display: grid; gap: calc(var(--unit) * 6); }
 .floor__quoted { display: grid; gap: calc(var(--unit) * 2); border-top: 1px solid var(--line); padding-top: calc(var(--unit) * 4); }
 .floor__quoted code { display: inline-block; min-width: 3.2em; font-weight: 600; }
@@ -215,13 +215,16 @@ html.js .install__for { display: none; }
 /* 5 · The case — the recipes in rows, grouped like a type case. */
 .chapter--case { row-gap: calc(var(--unit) * 12); }
 .case__head { grid-column: 1 / span 7; display: grid; gap: calc(var(--unit) * 5); }
-/* Groups of very different lengths are set like a type case in balanced columns, so no short group strands a row. */
+/* Groups of very different lengths are set like an index in balanced columns: a long group runs on into the next
+   column, its head always kept with its first rows, so the column feet meet. */
 .case__groups { columns: 4 17rem; column-gap: calc(var(--gutter) / 2); }
-.case__group { display: grid; gap: calc(var(--unit) * 3); border-top: 2px solid var(--ink); padding-top: calc(var(--unit) * 3); margin-bottom: calc(var(--unit) * 10); break-inside: avoid; }
+.case__group { display: block; border-top: 2px solid var(--ink); padding-top: calc(var(--unit) * 3); margin-bottom: calc(var(--unit) * 10); }
+.case__group h3 { break-after: avoid; margin-bottom: calc(var(--unit) * 3); }
+.case__group li { break-inside: avoid; }
 .case__group h3 { position: relative; font-size: 1.25rem; padding-left: 0.5rem; }
 .case__solid { position: absolute; z-index: -1; left: 0; top: 0.05em; width: 0.9em; height: 1.05em; background: var(--accent); mix-blend-mode: multiply; }
 .case__count { font-family: var(--font-body); font-weight: 400; font-stretch: 100%; font-size: 0.875rem; color: var(--muted); }
-.case__group ul { display: grid; }
+.case__group ul { display: block; }
 .case__group a { display: block; padding: 0.4rem 0; border-bottom: 1px solid var(--line); text-decoration: none; font-size: 0.9375rem; line-height: 1.35; transition: background-color var(--dur-feedback) var(--ease-out-expo); }
 .case__group a:hover, .case__group a:focus-visible { background: color-mix(in oklab, var(--accent) 45%, var(--ground)); }
 
@@ -244,6 +247,9 @@ html.js .install__for { display: none; }
 .plates { position: fixed; top: 52px; right: var(--gutter); z-index: 25; background: var(--ground); border: 2px solid var(--ink); padding: calc(var(--unit) * 3) calc(var(--unit) * 5); min-width: 14rem; }
 .plates[hidden] { display: none; }
 .plates a { display: flex; align-items: center; min-height: 44px; text-decoration: none; font-weight: 600; border-bottom: 1px solid var(--line); }
+
+/* ——— Desktop: the claim widens on the width axis to three quarters of the plate, at the same height ——— */
+@media (min-width: 1001px) { :root { --display-wdth: 92%; } }
 
 /* ——— Short laptop screens: the copy action stays in the first viewport ——— */
 @media (min-width: 1001px) and (max-height: 920px) {
@@ -273,7 +279,8 @@ html.js .install__for { display: none; }
   .run__row { grid-template-columns: 3rem 1fr; row-gap: calc(var(--unit) * 1); }
   .run__row .run__skill, .run__row .run__line { grid-column: 2; }
   .chapter--check { height: auto; }
-  .check__stage { position: static; min-height: 0; row-gap: calc(var(--unit) * 10); padding-block: calc(var(--unit) * 22); }
+  /* Unpinned, the chapter's own padding spaces it like every other chapter; the stage adds none. */
+  .check__stage { position: static; min-height: 0; row-gap: calc(var(--unit) * 10); padding-block: 0; }
   .bar { grid-template-columns: repeat(8, 1fr); height: 10rem; }
   .stamp { right: 3%; top: -8%; }
   .case__group a { padding: 0.65rem 0; min-height: 44px; display: flex; align-items: center; }

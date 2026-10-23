@@ -12,7 +12,7 @@ typography:
     fontWeight: 700
     lineHeight: 0.86
     letterSpacing: "-0.02em"
-    fontVariation: "'wdth' 78"
+    fontVariation: "'wdth' 92"
   h2:
     fontFamily: "Special Gothic, Special Gothic Fallback, Arial Narrow, sans-serif"
     fontSize: "72px"
@@ -89,13 +89,13 @@ Contrast (WCAG 2.x, computed): key on paper 15.13 : 1; muted on paper 5.92 : 1; 
 Voice: a sturdy American gothic with the cadence of trade-press headlines, condensed when it shouts, plain when it reads, wide and tracked when it labels a plate.
 
 Candidates pulled with `fonts.mjs search` (sans-serif with a width axis, sans-serif at 900, display at 800) and judged on `.awards/type/specimen.png` with the real headline and paragraph:
-- **Chosen: Special Gothic** (Alistair McCready, OFL-1.1), one variable file, wght 400–700 and wdth 75–125. A gothic in the trade-press tradition; at wdth 78 and 700 it fills the plate like a proof headline, at 100 and 400 it reads quietly, at 115 and 600 it sets the sheet's furniture. One family as a voice and its own silence, by width.
+- **Chosen: Special Gothic** (Alistair McCready, OFL-1.1), one variable file, wght 400–700 and wdth 75–125. A gothic in the trade-press tradition; at wdth 92 and 700 it fills three quarters of the plate like a proof headline (78 where the claim breaks onto three or two lines), at 100 and 400 it reads quietly, at 115 and 600 it sets the sheet's furniture. One family as a voice and its own silence, by width.
 - Rejected: Phudu (all caps only: the body and the commands cannot be set in it); Asap Sharp (the sharp terminals read as a tech-brand sans, not print); Saira (squared counters pull toward a sci-fi console); Pliant (spacing collapses at body size, as on the specimen).
 
 Contract: one family across three widths. No second display face. The install commands are set in the system monospace stack (`--font-mono`) because they are code a visitor pastes; that is the one place a third face appears, recorded under `AWARDS.md ## Exceptions` if the audit asks.
 
 Scale, vw-lock on a 1440 artboard:
-- `--display: clamp(4rem, 11.6667vw, 10.5rem)` — 168 px at 1440, wdth 78, leading 0.86, tracking −0.02em.
+- `--display: clamp(4rem, 11.6667vw, 10.5rem)` — 168 px at 1440, wdth 92 above 1000 px (`--display-wdth`, page round 1: the claim reaches three quarters of the artboard without gaining height), wdth 78 on tablet and phone, leading 0.86, tracking −0.02em.
 - `--h2: clamp(2.25rem, 5vw, 4.5rem)` — 72 px, wdth 82.
 - `--h3: clamp(1.25rem, 1.9444vw, 1.75rem)` — 28 px, wdth 92.
 - `--body: clamp(1.0625rem, 1.25vw, 1.1875rem)` — 18 px, wdth 100.

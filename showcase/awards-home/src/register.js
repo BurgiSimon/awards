@@ -41,7 +41,7 @@ export function createRegister({ announce = () => {} }) {
     root.style.setProperty('--reg-y', `${(Math.sin(ANGLE) * px).toFixed(2)}px`);
     root.style.setProperty('--reg-r', `${(START.deg * k * scale).toFixed(3)}deg`);
     const text = fmt(plate.mm);
-    if (out && out.value !== text) out.value = text;
+    if (out && out.textContent !== text) out.textContent = text; // plain text: read on demand, never announced per frame
   }
 
   const mm = gsap.matchMedia();
@@ -119,7 +119,8 @@ export function createRegister({ announce = () => {} }) {
     if (!stamped && t >= 3) {
       stamped = true;
       stampTl?.play();
-      announce(`Plates in register. ${stamp?.textContent.replace(/\s+/g, ' ').trim() || ''}`);
+      const parts = stamp ? [...stamp.children].map((el) => el.textContent.trim()).filter(Boolean) : [];
+      announce(`Plates in register. ${parts.join(', ')}.`);
     }
     const ch = chapterAt(y);
     if (ch !== current) {

@@ -56,12 +56,15 @@ function outside(f) {
 function bar(f) {
   const max = Math.max(...f.rules.families.map((x) => x.count));
   const patches = f.rules.families.map((x) => `<span class="bar__patch" style="--d:${(x.count / max).toFixed(3)}"></span>`).join('');
-  // The key is a legend: each family carries a swatch of its own patch, so the order and the density both match the bar.
+  // Each patch is keyed at its foot by the family's rule-id letter and its count, as a press colour bar keys its
+  // patches; the names follow in one legend line. Screen readers get the name in the key itself.
   const rows = f.rules.families.map((x) => `
-            <div style="--d:${(x.count / max).toFixed(3)}"><dt><span class="bar__swatch" data-plate="y" aria-hidden="true"></span>${esc(x.name)}</dt><dd>${x.count}</dd></div>`).join('');
+            <div><dt><span class="bar__code" aria-hidden="true">${esc(x.code)}</span><span class="sr-only">${esc(x.name)}</span></dt><dd>${x.count}</dd></div>`).join('');
+  const legend = f.rules.families.map((x) => `<span><b>${esc(x.code)}</b> ${esc(x.name)}</span>`).join(' ');
   return `<div class="bar" data-plate="y" aria-hidden="true">${patches}</div>
           <dl class="bar__key">${rows}
-          </dl>`;
+          </dl>
+          <p class="bar__legend" aria-hidden="true">${legend}</p>`;
 }
 
 function quoted(f) {
@@ -72,7 +75,7 @@ function quoted(f) {
 
 function verdict(f) {
   const j = f.ekvator.jury;
-  const kind = j.kind === 'page' ? 'page round' : 'component pass on the first viewport';
+  const kind = { verdict: 'verdict pass on its ship fixes', page: 'page round', component: 'component pass on the first viewport' }[j.kind];
   return `<p class="check__line"><code>disposition: ${esc(j.disposition)}</code> <span>${esc(j.scores)} → ${esc(j.result)}</span></p>
             <p class="check__meta">Ekvator's latest jury line, a ${kind}, ${esc(longDate(j.date))}; ${f.ekvator.rounds} jury ${f.ekvator.rounds === 1 ? 'pass' : 'passes'} logged in its AWARDS.md. ${f.ekvator.shipped ? 'Shipped.' : 'Not shipped yet: the build is still a proof.'}</p>`;
 }
@@ -80,7 +83,7 @@ function verdict(f) {
 function stamp(f) {
   const j = f.ekvator.jury;
   const ok = f.ekvator.shipped;
-  return `<p class="stamp" data-stamp data-plate="y"><span class="stamp__word">${ok ? 'OK to print' : 'Proof'}</span><span class="stamp__date">${ok ? esc(longDate(j.date)) : `${esc(j.disposition)} · ${esc(longDate(j.date))}`}</span></p>`;
+  return `<p class="stamp" data-stamp data-plate="y"><span class="stamp__word">${ok ? 'OK to print' : 'Proof'}</span> <span class="stamp__date">${ok ? esc(longDate(j.date)) : `${esc(j.disposition)} · ${esc(longDate(j.date))}`}</span></p>`;
 }
 
 function cases(f) {

@@ -82,7 +82,13 @@ function recipes() {
 function rules() {
   const all = json(resolve(pluginRoot, 'scripts/data/rules.json'));
   const ids = Object.keys(all);
-  const families = FAMILIES.map(([scope, name]) => ({ scope, name, count: ids.filter((id) => all[id].scope === scope).length }));
+  const families = FAMILIES.map(([scope, name]) => {
+    const own = ids.filter((id) => all[id].scope === scope);
+    // The family's rule-id letter (T01, C01, …), the code its patch carries on the colour bar.
+    const codes = [...new Set(own.map((id) => id[0]))];
+    if (codes.length !== 1) fail(`rules in ${scope} do not share one id letter: ${codes.join(', ')}`);
+    return { scope, name, code: codes[0], count: own.length };
+  });
   const counted = families.reduce((s, f) => s + f.count, 0);
   if (counted !== ids.length) fail(`rules.json has ${ids.length} rules but the families count ${counted}`);
   const quoted = QUOTED_RULES.map((id) => (all[id] ? { id, message: all[id].message } : fail(`rule ${id} is gone from rules.json`)));
@@ -107,13 +113,13 @@ function ekvator() {
   if (!lines.length) fail('ekvator has no jury line yet');
   const page = lines.filter((l) => !/· component |· baseline /.test(l));
   const latest = (page.length ? page : lines).at(-1);
-  const m = latest.match(/^- (\d{4}-\d{2}-\d{2}) · (?:component \S+ · )?(\w+) · (D [\d.]+ \/ U [\d.]+ \/ C [\d.]+(?: \/ Co [\d.]+)?) → (?:mean )?([\d.]+)/);
+  const m = latest.match(/^- (\d{4}-\d{2}-\d{2}) · (?:component \S+ · |(verdict) · )?(\w+) · (D [\d.]+ \/ U [\d.]+ \/ C [\d.]+(?: \/ Co [\d.]+)?) → (?:mean )?([\d.]+)/);
   if (!m) fail(`cannot read the jury line: ${latest}`);
   const shipped = /- \[x\] Shipped/.test(md);
   const ship = md.slice(md.indexOf('## Ship log'), md.indexOf('## Exceptions')).split('\n').filter((l) => /^- \d{4}/.test(l)).at(-1) || null;
   return {
     seed: seed[1], dealt: seed[2].trim().split(/\s+/).join(' '), of: seed[3], lead: seed[4],
-    jury: { date: m[1], disposition: m[2], scores: m[3].replace(/ \/ /g, ' · '), result: m[4], kind: page.length ? 'page' : 'component' },
+    jury: { date: m[1], disposition: m[3], scores: m[4].replace(/ \/ /g, ' · '), result: m[5], kind: m[2] ? 'verdict' : page.length ? 'page' : 'component' },
     rounds: lines.length,
     shipped,
     shipLine: ship,
