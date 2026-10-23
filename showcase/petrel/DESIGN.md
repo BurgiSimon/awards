@@ -108,7 +108,7 @@ Candidates pulled with `fonts.mjs search` (sans-serif with a width axis at 400�
 Contract: a voice and a silence. Science Gothic for display, h2, h3 and the wordmark; Radio Canada for body, readouts, labels and controls. No third face; readouts are Radio Canada 600 with `font-variant-numeric: tabular-nums`.
 
 Scale, vw-lock on a 1440 artboard, `clamp()` floors for the phone:
-- `--display: clamp(2.5rem, 6.1111vw, 6.25rem)` — 88 px at 1440, 40 px at 390; three lines on desktop, four on a phone.
+- `--display: clamp(2.5rem, 6.1111vw, 6.25rem)` — 88 px at 1440; three lines on desktop. Under 560 px `clamp(2rem, 9.2vw, 2.25rem)`, 36 px at 390 and 32 px at 320, so the claim's longest unbreakable run, "4,212 metres", clears the cable band at the right edge; four lines on a phone.
 - `--h2: clamp(1.875rem, 3.6111vw, 3.5rem)` — 52 px at 1440, 30 px on a phone.
 - `--h3: clamp(1.125rem, 1.5278vw, 1.375rem)` — 22 px at 1440.
 - `--body: clamp(1.0625rem, 1.25vw, 1.1875rem)` — 18 px at 1440, 17 px on a phone.

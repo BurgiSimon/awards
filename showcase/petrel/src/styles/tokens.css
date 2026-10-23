@@ -1,5 +1,13 @@
 /* Petrel tokens. Values are identical to DESIGN.md's frontmatter; change both in the same edit.
    Theme by depth: each chapter section carries the band it sits in, and the three base tokens are re-pointed. */
+/* The four depth grounds as constants, so the thermocline strips between bands can name both sides. */
+:root {
+  --band-surface: #dfe5e4;
+  --band-blue: #97bccb;
+  --band-dark: #0a141d;
+  --band-ooze: #d2ccbf;
+}
+
 :root,
 [data-theme="surface"] {
   --ground: #dfe5e4;
@@ -68,6 +76,11 @@
   --dur-routine: 360ms;
   --dur-hero: 900ms;
   --stagger: 0.06s;
+}
+
+/* Narrow phones: the claim's longest unbreakable run ("4,212 metres") must clear the cable at 320–390 px. */
+@media (max-width: 560px) {
+  :root { --display: clamp(2rem, 9.2vw, 2.25rem); }
 }
 
 @media (prefers-reduced-motion: reduce) {

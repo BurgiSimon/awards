@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en" data-theme="surface">
+<head>
+  <meta charset="utf-8">
+  <script>document.documentElement.classList.add("js")</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#dfe5e4">
+  <title>C/S Petrel — the ship that mends the internet</title>
+  <meta name="description" content="When an internet cable breaks on the floor of the North Atlantic, the repair ship Petrel drags a hook across the seabed at four kilometres, lifts both ends and splices them by hand. Report a cable fault to her desk.">
+  <link rel="canonical" href="https://burgisimon.github.io/awards/showcase/petrel/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="C/S Petrel — the ship that mends the internet">
+  <meta property="og:description" content="The internet is broken 4,212 metres down. Scroll the cable to the seabed, hook it, lift it, splice it.">
+  <meta property="og:image" content="https://burgisimon.github.io/awards/showcase/petrel/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/fonts/science-gothic-latin-800.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/src/styles/page.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- The cable owns the right third of the page. In the static and no-WebGL tiers it is drawn in the flow, one
+       segment per chapter, so the document alone shows one cable from the bow sheave to the grapnel; when WebGL
+       runs, this fixed canvas takes over after its first frame. Both are decoration over real text. -->
+  <div class="cable" aria-hidden="true">
+    <canvas class="cable__gl" aria-hidden="true"></canvas>
+  </div>
+
+  <div id="page">
+    <header class="bridge" id="top">
+      <a class="bridge__mark" href="#fault"><span class="bridge__name">C/S Petrel</span><span class="bridge__pos">41°06′ N 33°12′ W</span></a>
+      <nav class="bridge__nav" aria-label="Chapters, by depth">
+        <ol>
+          <li><a href="#fault" data-chapter="fault" aria-current="true">0 m</a></li>
+          <li><a href="#located" data-chapter="located">200 m</a></li>
+          <li><a href="#descent" data-chapter="descent">4,212 m</a></li>
+          <li><a href="#drag" data-chapter="drag">Seabed</a></li>
+          <li><a href="#splice" data-chapter="splice">Deck</a></li>
+          <li><a href="#laid" data-chapter="laid">Laid</a></li>
+        </ol>
+      </nav>
+      <p class="bridge__readout" data-readout>
+        <span class="readout"><span class="readout__label">Depth</span> <span class="readout__value" data-depth>0 m</span></span>
+        <span class="readout readout--wire"><span class="readout__label">Wire out</span> <span class="readout__value" data-wire>0 m</span></span>
+        <span class="readout readout--tension"><span class="readout__label">Tension</span> <span class="readout__value" data-tension>0.0 kN</span></span>
+      </p>
+      <a class="button button--fault bridge__desk" href="#desk">Fault desk</a>
+      <button class="bridge__menu" type="button" aria-expanded="false" aria-controls="chapters">Chapters</button>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section class="chapter chapter--fault" id="fault" data-theme="surface" aria-labelledby="fault-title" data-chapter-at="fault">
+        <div class="fault__copy">
+          <h1 class="display" id="fault-title">The internet is broken 4,212&nbsp;metres down.</h1>
+          <p class="alarm"><span class="alarm__mark" aria-hidden="true"></span>At 03:14 UTC the light in Gannet-1 stopped 2,147.3&nbsp;km out from the shore station at Sines. Your own light crosses the sea to the other side in about <span data-crossing>31&nbsp;ms</span>, one way, when the glass is whole.</p>
+          <p class="fault__action"><a class="button button--fault" href="#desk">Report a cable fault</a> <span class="fault__reply">Tickets answer within 15 minutes, day or night.</span></p>
+        </div>
+        <span class="strand strand--fault" aria-hidden="true"></span>
+        <figure class="bow" aria-hidden="true">
+          <svg class="bow__drawing" viewBox="0 0 480 560" preserveAspectRatio="xMaxYMin meet">
+            <!-- The Petrel's bow in profile, hairline: a raked stem well aft of the cable, the sheave platform
+                 projecting forward on two arms, the cable coming off the engine along the deck and over the sheave. -->
+            <path class="bow__hull" d="M214 120 C 226 190 240 250 252 300 C 262 344 276 392 300 424 L480 424" />
+            <path class="bow__deck" d="M214 120 L480 120 M236 96 L480 96 M214 120 L236 96" />
+            <path class="bow__stanchions" d="M272 96 L272 120 M308 96 L308 120 M344 96 L344 120 M380 96 L380 120 M416 96 L416 120 M452 96 L452 120" />
+            <path class="bow__house" d="M372 96 L372 34 L480 34 M372 54 L480 54 M396 34 L396 54 M420 34 L420 54 M444 34 L444 54 M468 34 L468 54" />
+            <path class="bow__arm" d="M118 104 L214 120 M118 104 L236 96 M150 94 L214 120" />
+            <path class="bow__cable" d="M480 80 L130 72 C 102 70 86 84 84 104" />
+            <circle class="bow__sheave" cx="118" cy="104" r="34" />
+            <circle class="bow__hub" cx="118" cy="104" r="5" />
+            <line class="bow__waterline" x1="0" y1="300" x2="480" y2="300" />
+            <text class="bow__label" x="300" y="290">waterline</text>
+            <text class="bow__label" x="36" y="50">bow sheave</text>
+          </svg>
+        </figure>
+      </section>
+
+      <div class="thermocline thermocline--strand" aria-hidden="true" style="--from: var(--band-surface); --to: var(--band-blue)"></div>
+
+      <section class="chapter chapter--located" id="located" data-theme="blue" aria-labelledby="located-title" data-chapter-at="located">
+        <span class="strand" aria-hidden="true"></span>
+        <h2 id="located-title">Found with a pulse of light.</h2>
+        <figure class="pulse">
+          <svg class="pulse__drawing" viewBox="0 0 960 120" aria-hidden="true" preserveAspectRatio="none">
+            <line class="pulse__fibre" x1="20" y1="60" x2="900" y2="60" />
+            <g class="pulse__repeaters"><line x1="44.6" y1="52" x2="44.6" y2="68" /><line x1="69.2" y1="52" x2="69.2" y2="68" /><line x1="93.8" y1="52" x2="93.8" y2="68" /><line x1="118.4" y1="52" x2="118.4" y2="68" /><line x1="142.9" y1="52" x2="142.9" y2="68" /><line x1="167.5" y1="52" x2="167.5" y2="68" /><line x1="192.1" y1="52" x2="192.1" y2="68" /><line x1="216.7" y1="52" x2="216.7" y2="68" /><line x1="241.3" y1="52" x2="241.3" y2="68" /><line x1="265.9" y1="52" x2="265.9" y2="68" /><line x1="290.5" y1="52" x2="290.5" y2="68" /><line x1="315.1" y1="52" x2="315.1" y2="68" /><line x1="339.7" y1="52" x2="339.7" y2="68" /><line x1="364.2" y1="52" x2="364.2" y2="68" /><line x1="388.8" y1="52" x2="388.8" y2="68" /><line x1="413.4" y1="52" x2="413.4" y2="68" /><line x1="438.0" y1="52" x2="438.0" y2="68" /><line x1="462.6" y1="52" x2="462.6" y2="68" /><line x1="487.2" y1="52" x2="487.2" y2="68" /><line x1="511.8" y1="52" x2="511.8" y2="68" /><line x1="536.4" y1="52" x2="536.4" y2="68" /><line x1="561.0" y1="52" x2="561.0" y2="68" /><line x1="585.5" y1="52" x2="585.5" y2="68" /><line x1="610.1" y1="52" x2="610.1" y2="68" /><line x1="634.7" y1="52" x2="634.7" y2="68" /><line x1="659.3" y1="52" x2="659.3" y2="68" /><line x1="683.9" y1="52" x2="683.9" y2="68" /><line x1="708.5" y1="52" x2="708.5" y2="68" /><line x1="733.1" y1="52" x2="733.1" y2="68" /><line x1="757.7" y1="52" x2="757.7" y2="68" /><line x1="782.3" y1="52" x2="782.3" y2="68" /><line x1="806.8" y1="52" x2="806.8" y2="68" /><line x1="831.4" y1="52" x2="831.4" y2="68" /><line x1="856.0" y1="52" x2="856.0" y2="68" /><line x1="880.6" y1="52" x2="880.6" y2="68" /></g>
+            <path class="pulse__break" d="M900 46 L914 60 L900 74 L886 60 Z" />
+            <circle class="pulse__dot" cx="20" cy="60" r="6" />
+          </svg>
+          <figcaption class="pulse__caption"><span>Sines shore station, 0 km</span><span>Repeaters every 60 km</span><span>Break, 2,147.3 km</span></figcaption>
+        </figure>
+        <dl class="located__facts">
+          <div>
+            <dt>The echo</dt>
+            <dd>The shore station fires a pulse into the dead fibre and times the echo from the break. Glass slows light to about 204,000 km a second, five microseconds a kilometre: the echo came back after 21.47&nbsp;ms, so the glass ends 2,147.3&nbsp;km out.</dd>
+          </div>
+          <div>
+            <dt>The passage</dt>
+            <dd>The Petrel sailed from Ponta Delgada at 05:40 UTC with 18&nbsp;km of spare cable coiled in her tanks. The position is 403 nautical miles away: 31 hours at 13 knots.</dd>
+          </div>
+          <div>
+            <dt>The cause</dt>
+            <dd>Most cables are broken by people: trawl nets and dragged anchors cause most of the 150 to 200 faults a year worldwide. At this depth it is rarer; here it was probably the seabed itself moving.</dd>
+          </div>
+        </dl>
+      </section>
+
+      <div class="thermocline thermocline--strand" aria-hidden="true" style="--from: var(--band-blue); --to: var(--band-dark)"></div>
+
+      <section class="chapter chapter--descent" id="descent" data-theme="dark" aria-labelledby="descent-title" data-chapter-at="descent">
+        <span class="strand strand--descent" aria-hidden="true"><span class="strand__grapnel"></span></span>
+        <h2 id="descent-title">Four kilometres of wire, two hours down.</h2>
+        <p class="descent__lede">The grapnel, a forged hook of about 300&nbsp;kg, goes over the bow on a steel wire paid out at 35 metres a minute. From here the readout at the top is the only way to know where it is.</p>
+        <ol class="depthlog">
+          <li class="depthlog__row" style="--at: 200"><span class="depthlog__depth">200 m</span><p>The last red light went in the first ten metres. Only blue is left, and it is fading.</p></li>
+          <li class="depthlog__row" style="--at: 1000"><span class="depthlog__depth">1,000 m</span><p>No sunlight reaches this far. From here the wire goes down in the dark.</p></li>
+          <li class="depthlog__row" style="--at: 2000"><span class="depthlog__depth">2,000 m</span><p>An hour gone. On deck the winch drivers watch a number, not the sea.</p></li>
+          <li class="depthlog__row" style="--at: 3000"><span class="depthlog__depth">3,000 m</span><p>The cable down here is about 17&nbsp;mm across, as thick as a garden hose: polyethylene over steel wire and copper, and glass inside thinner than a hair.</p></li>
+          <li class="depthlog__row" style="--at: 4212"><span class="depthlog__depth">4,212 m</span><p>The seabed: a pale ooze on an abyssal plain, two degrees above freezing, in the dark.</p></li>
+        </ol>
+      </section>
+
+      <div class="thermocline" aria-hidden="true" style="--from: var(--band-dark); --to: var(--band-ooze)"></div>
+
+      <section class="chapter chapter--drag" id="drag" data-theme="ooze" aria-labelledby="drag-title" data-chapter-at="drag">
+        <div class="drag__stage">
+          <div class="drag__copy">
+            <h2 id="drag-title">Dragging blind.</h2>
+            <p>The ship steams at about one knot across the cable's line, the grapnel on the bottom with one and a half times the depth of wire out. Nobody can see it. The only signal is the tension on the wire: flat, flat, flat, then a jump when the hook takes the cable.</p>
+            <p class="drag__catch">Caught at <span data-catch>17.4&nbsp;kN</span>, 640&nbsp;m from where the drag began.</p>
+          </div>
+          <figure class="seabed" aria-hidden="true">
+            <svg class="seabed__drawing" viewBox="0 0 1200 420" preserveAspectRatio="none">
+              <path class="seabed__floor" d="M0 300 C120 296 220 306 340 300 S560 292 700 302 S960 310 1200 296 L1200 420 L0 420 Z" />
+              <circle class="seabed__cable" cx="820" cy="296" r="9" />
+              <path class="seabed__wire" d="M120 0 C140 120 150 220 160 288" />
+              <path class="seabed__grapnel" d="M152 288 L168 288 M160 276 L160 300 M160 300 C150 300 146 292 148 286 M160 300 C170 300 174 292 172 286" />
+            </svg>
+            <svg class="tension" viewBox="0 0 1200 120" preserveAspectRatio="none">
+              <polyline class="tension__trace" points="0,92 640,92 650,88 660,90 812,90 820,24 830,30 1200,30" />
+            </svg>
+          </figure>
+        </div>
+      </section>
+
+      <section class="chapter chapter--splice" id="splice" data-theme="surface" aria-labelledby="splice-title" data-chapter-at="splice">
+        <div class="splice__stage">
+          <h2 id="splice-title">Mended by hand, fibre by fibre.</h2>
+          <p class="splice__lede">Both ends come up through 4,212&nbsp;m of water to the deck. Each is cut back to good glass; a new length is spliced in at two joints, in a clean room behind the bridge.</p>
+          <figure class="cutaway">
+            <svg class="cutaway__drawing" viewBox="0 0 640 220" aria-hidden="true">
+              <rect class="cutaway__sheath" x="20" y="70" width="300" height="80" rx="40" />
+              <rect class="cutaway__armour" x="200" y="80" width="220" height="60" rx="30" />
+              <rect class="cutaway__copper" x="330" y="90" width="160" height="40" rx="20" />
+              <rect class="cutaway__tube" x="420" y="96" width="120" height="28" rx="14" />
+              <g class="cutaway__fibres"><path d="M540 100.0 C 570 100.0 585 60.0 620 60.0" stroke="#1f5fbf" stroke-width="2.4" fill="none" /><path d="M540 102.6 C 570 102.6 585 74.0 620 74.0" stroke="#e07a1f" stroke-width="2.4" fill="none" /><path d="M540 105.2 C 570 105.2 585 88.0 620 88.0" stroke="#2e8b3e" stroke-width="2.4" fill="none" /><path d="M540 107.8 C 570 107.8 585 102.0 620 102.0" stroke="#7a4a24" stroke-width="2.4" fill="none" /><path d="M540 110.4 C 570 110.4 585 116.0 620 116.0" stroke="#7d8790" stroke-width="2.4" fill="none" /><path d="M540 113.0 C 570 113.0 585 130.0 620 130.0" stroke="#f2f2f2" stroke-width="2.4" fill="none" /><path d="M540 115.6 C 570 115.6 585 144.0 620 144.0" stroke="#c8261d" stroke-width="2.4" fill="none" /><path d="M540 118.2 C 570 118.2 585 158.0 620 158.0" stroke="#111417" stroke-width="2.4" fill="none" /></g>
+            </svg>
+            <ol class="cutaway__layers">
+              <li><span class="cutaway__key">Sheath</span> Polyethylene, 17&nbsp;mm across; it keeps the sea out.</li>
+              <li><span class="cutaway__key">Strength</span> A ring of high-tensile steel wires; the cable hangs from them on the way down.</li>
+              <li><span class="cutaway__key">Copper</span> A conductor carrying about 10,000 volts to the repeaters that boost the light every 60&nbsp;km.</li>
+              <li><span class="cutaway__key">Glass</span> Eight fibre pairs in a steel tube filled with gel; each fibre is 0.25&nbsp;mm with its coating.</li>
+            </ol>
+          </figure>
+          <dl class="splice__facts">
+            <div><dt>Per fibre</dt><dd>Aligned under a microscope and fused with an electric arc: under a minute.</dd></div>
+            <div><dt>Per joint</dt><dd>Sixteen fibres, the copper, the steel and the sheath rebuilt in a mould: most of a day.</dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="chapter chapter--laid" id="laid" data-theme="ooze" aria-labelledby="laid-title" data-chapter-at="laid">
+        <div class="laid__copy">
+          <h2 id="laid-title">Laid back on the bottom, eleven days later.</h2>
+          <p>The mended cable is longer than the old one by about twice the depth, so it cannot go back in a straight line. It is lowered as a loop, a bight 8.4&nbsp;km long, and laid on the seabed beside the old route.</p>
+          <figure class="bight" aria-hidden="true">
+            <svg viewBox="0 0 520 120">
+              <line class="bight__old" x1="10" y1="60" x2="510" y2="60" />
+              <path class="bight__new" d="M10 60 L200 60 C220 60 228 22 260 18 C292 14 300 60 320 60 L510 60" />
+              <text class="bight__label" x="196" y="104">old route</text>
+              <text class="bight__label" x="236" y="12">bight, 8.4 km</text>
+            </svg>
+          </figure>
+          <p class="laid__restored"><span class="alarm__mark alarm__mark--ok" aria-hidden="true"></span>Light through Gannet-1 again at 22:40 UTC, eleven days after it stopped.</p>
+          <dl class="coverage">
+            <div><dt>Standby</dt><dd>14 cables between 20° and 45° W</dd></div>
+            <div><dt>Response</dt><dd>Sails within 24 hours of a confirmed fault</dd></div>
+            <div><dt>Aboard</dt><dd>18 km of spare cable, two universal joints</dd></div>
+          </dl>
+        </div>
+        <form class="desk" id="desk" novalidate aria-labelledby="desk-title">
+          <h3 id="desk-title">Report a cable fault</h3>
+          <p class="desk__note">For cable owners and their operations centres. This is a demonstration: nothing is sent.</p>
+          <div class="field">
+            <label for="f-cable">Cable</label>
+            <input id="f-cable" name="cable" type="text" autocomplete="off" required aria-describedby="f-cable-err">
+            <p class="field__error" id="f-cable-err" hidden>Name the cable, as your consortium lists it.</p>
+          </div>
+          <div class="field">
+            <label for="f-repeater">Last good repeater</label>
+            <input id="f-repeater" name="repeater" type="text" inputmode="numeric" autocomplete="off" required aria-describedby="f-repeater-err">
+            <p class="field__error" id="f-repeater-err" hidden>The number of the last repeater that still answers.</p>
+          </div>
+          <div class="field">
+            <label for="f-alarm">First alarm (UTC)</label>
+            <input id="f-alarm" name="alarm" type="text" placeholder="03:14" autocomplete="off" required aria-describedby="f-alarm-err">
+            <p class="field__error" id="f-alarm-err" hidden>The time of the first loss of light, as hh:mm in UTC.</p>
+          </div>
+          <div class="field">
+            <label for="f-email">Contact e-mail</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required aria-describedby="f-email-err">
+            <p class="field__error" id="f-email-err" hidden>An address the desk can answer, with an @ in it.</p>
+          </div>
+          <button class="button button--fault desk__submit" type="submit">Open a fault ticket</button>
+          <p class="desk__status" data-desk-status></p>
+        </form>
+      </section>
+    </main>
+
+    <footer class="plate">
+      <h2 class="plate__title">C/S Petrel</h2>
+      <dl class="plate__grid">
+        <div><dt>Built</dt><dd>2009</dd></div>
+        <div><dt>Length</dt><dd>132 m</dd></div>
+        <div><dt>Beam</dt><dd>21 m</dd></div>
+        <div><dt>Cable tanks</dt><dd>3, 4,200 t</dd></div>
+        <div><dt>Wire on the drum</dt><dd>9,000 m</dd></div>
+        <div><dt>Base</dt><dd>Ponta Delgada, Azores</dd></div>
+      </dl>
+      <p class="plate__fiction">The Petrel, her crew, Gannet-1 and this fault are fictional, made for a design showcase built with the <a href="https://github.com/burgisimon/awards">awards plugin</a>. The method and the physics are real; the figures are rounded.</p>
+    </footer>
+  </div>
+
+  <div class="chapters" id="chapters" role="dialog" aria-modal="false" aria-label="Chapters, by depth" hidden>
+    <ol>
+      <li><a href="#fault">0 m · The fault</a></li>
+      <li><a href="#located">200 m · Located</a></li>
+      <li><a href="#descent">4,212 m · The descent</a></li>
+      <li><a href="#drag">Seabed · The drag</a></li>
+      <li><a href="#splice">Deck · The splice</a></li>
+      <li><a href="#laid">Laid · The fault desk</a></li>
+    </ol>
+  </div>
+
+  <div class="sr-only" role="status" aria-live="polite" id="announcer"></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
