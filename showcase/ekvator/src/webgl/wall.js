@@ -32,13 +32,19 @@ float gnoise(vec2 p) {
   float d = dot(grad(i + vec2(1.0, 1.0)), f - vec2(1.0, 1.0));
   return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
 }
-// Plaster: broad trowel sweeps bent by a slower field, a mid swirl and a soft fine layer.
+// Plaster laid with a trowel: long arcs whose direction wanders slowly across the wall, each stroke a soft ridge
+// with a crisp edge on one side, over a faint fine texture. A grazing sun picks out the strokes; noon flattens them.
 float plaster(vec2 p) {
-  vec2 q = p * 0.0034;
-  vec2 warp = vec2(gnoise(q * 0.6 + 1.7), gnoise(q * 0.6 + 9.2)) * 1.1;
-  float h = 0.6 * gnoise(q + warp);
-  h += 0.27 * gnoise(p * 0.0105 + 7.1);
-  h += 0.13 * gnoise(p * 0.028 + 3.3);
+  float ang = gnoise(p * 0.0011 + 2.7) * 2.6 + 0.35;
+  float ca = cos(ang); float sa = sin(ang);
+  vec2 q = vec2(ca * p.x - sa * p.y, sa * p.x + ca * p.y);
+  float strokes = gnoise(q * vec2(0.0013, 0.0068) + 4.1);
+  strokes += 0.45 * gnoise(q * vec2(0.0031, 0.0145) + 6.6);
+  float edge = 1.0 - abs(gnoise(q * vec2(0.0019, 0.0115) + 9.7));
+  edge = edge * edge;
+  float h = 0.62 * strokes + 0.12 * edge;
+  h += 0.1 * gnoise(p * 0.008 + 1.3);
+  h += 0.05 * gnoise(p * 0.04);
   return h;
 }
 float grain(vec2 p) { return gnoise(p * 0.45) * 0.5 + 0.5; }

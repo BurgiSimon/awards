@@ -27,7 +27,10 @@ html.has-gl .wall-canvas { opacity: 1; }
 html.has-gl .room { visibility: hidden; }
 
 /* Every word the light reaches throws a shadow away from it; the vector comes from the sun, word by word. */
-[data-cast] .cast-word { text-shadow: var(--cast, none); }
+[data-cast] { display: grid; }
+[data-cast] > .cast-shade, [data-cast] > .cast-text { grid-area: 1 / 1; }
+.cast-shade { color: transparent; user-select: none; pointer-events: none; }
+.cast-shade .cast-word { text-shadow: var(--cast, none); }
 
 /* ——— The hour line: drawn on the wall itself, the chapters as ticks on a baseline, the sun riding it ——— */
 .hourline {
@@ -155,7 +158,7 @@ html.has-gl .room { visibility: hidden; }
 .panel-drawing .callout text { font: 600 15px var(--font-body); text-anchor: middle; fill: currentColor; }
 .parts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: calc(var(--gutter) / 2); counter-reset: part; }
 .parts li { display: grid; gap: calc(var(--unit) * 3); counter-increment: part; padding-top: calc(var(--unit) * 4); border-top: 1px solid var(--line); }
-.parts h3::before { content: counter(part) "  "; font-family: var(--font-body); font-weight: 600; font-size: var(--label); vertical-align: 0.35em; white-space: pre; }
+.parts li::before { content: counter(part); font-family: var(--font-body); font-weight: 600; font-size: var(--label); display: inline-grid; place-items: center; width: 1.9em; height: 1.9em; border: 1.5px solid currentColor; border-radius: 50%; }
 
 /* 5 · Afternoon — offset split: the heading holds the left third, the specification rows the right two. */
 .chapter--afternoon { align-items: start; row-gap: calc(var(--unit) * 10); }
@@ -176,6 +179,12 @@ html.has-gl .room { visibility: hidden; }
   background: radial-gradient(closest-side, rgb(255 168 88 / 0.3), rgb(255 150 70 / 0.1) 55%, transparent);
 }
 .chapter--reserve { isolation: isolate; overflow: clip; }
+/* A fine grain over the glow only, so its falloff has no 8-bit rings on the night wall. */
+.reserve__panel::after {
+  content: ""; position: absolute; inset: -55% -70%; z-index: -1; pointer-events: none; opacity: 0.09; mix-blend-mode: overlay;
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAAAAABWESUoAAAEK0lEQVR42gEgBN/7AKVNyhglMLsdbRMs3tYjey7ZHj9yH8sZcRdElNZJPJ1cA+IgKcb19v27JSqIAtor9Qbi3GV4ISgUox6WnxrRtgx7ASd5DgVL6zoMW2gv/n9GrTTsWuHJoeXBIlEkrzxN/TYrAVWQ6MG4lrJG4wu0190w8ykBj/JlKQpySIzn5p3bzt8DAMzJNfbNH2EiauFTOK4aNABNM7oNJGrATIGxuvI+O/nuA48YCWHNAGUffWe5SC7izpK8VRzxeuIP+OrwM5UNrLw8AA6P8YRjsOSyuilwNHTwZKxo9wD1sCs9xmb0W96qLMrtA8Z9w+3kltRvdrkC3OJx0Nv5P/TAgGQO/P7vBCWD6EEZANdCTQnhXQJMWEjyPR+m9zYdf2GNFTLnDiDipmaN5/R+Aq0lmD304caWSd2JngbGpAgyPOj0Mb2JIqsXrQzF9dovAlP90V1afUHLSbyO6YQrhfsmeuIGRSXsWnffMV36IdmAAyOk9FmhGb/T+ndYiCKvuXVwZAm6sGXN8TxqDtJGzshJAlY+Ldjk9wrahDeCW1349fgcyOUzmesPfSsC5qCF5nO/AjjQOd9zFgXkVe+WZx1Q3avc4KMpwFEWMfqo6Oxq5KOvAC6HLUnMFckLmZt3K0/Hpv1MkUoW20cIdSsPFUS4NcDnABkJffqHAekjLyHygSaHeGl26/zDJ/WTF2UnS6mCm0QGA+qgqpCqVk4GMZT/N7IFMKeiGhI/n1jNdtYiy8fwFVPkApkawu3Mic94vxQN+JM0qaq+uA1Tghod52DSPthM+wbeAMnHJ7jbjBiPNBqSTH+I36Fhv9sOzGgpGdLmRpL4GUFXA434Mt3j8DhF+VBhKJnzuK0naoSo0V1TztbYzfkHymz9AbzI46PJ8Q+YVcojcuCPKoguwVv1RQgY+cJsNs/JGQgGASWjJ/aauDvd/uqzQensQDeciKY/X1r58nXJZL/tjgWVBMaj2dt3+Qa/xMsy71ic2FJw2ZjklcMVnCogBOCelY3PA4ihHNbLd7tI653U2xFA7p37akoBnMSoWqbzNU8sn/sMBKv7v5EhKVD+6qtZ4cq2Zw1pDiT9tvTKw0+7lHJaq35DAbo4HcOsUUWsUdwz/2TgvY0M0iBrcBzrC2kg62u/vfvXAIDc/EP+XQSbTXino+u5KGXIUX7QIRH2plLaNSSHK2oxAdco5XQfzZEWjcZYAPn6NcQD4Hue4R771kLQR3qptv35ADPtEjQC83blvxSWdz0ZYWMmvlvlhQM2s28TvK5IFmiCABNoBafRvl6fJ2gQ/fcg0DPKTy5Ty4rRkZ3VGp+21NUJALpkyM9oA95Q2Douz7rrU0IHGkjLLb1XSrKRUlciN8T7BKs2eNbhOT2rVCYfAKo4ChzTsoT5ioINNLCz/pLliyKhTz8MEeA3vD8AAAAASUVORK5CYII=") 0 0 / 32px 32px;
+  -webkit-mask: radial-gradient(closest-side, #000 40%, transparent); mask: radial-gradient(closest-side, #000 40%, transparent);
+}
 .reserve__glass { display: block; width: 100%; height: 100%; background: radial-gradient(120% 90% at 50% 42%, rgb(255 236 210), var(--panel-light, rgb(255 190 122)) 70%); }
 .reserve__copy { grid-column: 7 / -1; display: grid; gap: calc(var(--unit) * 6); }
 .reserve__form { display: grid; gap: calc(var(--unit) * 4); max-width: 30rem; }
@@ -187,6 +196,8 @@ html.has-gl .room { visibility: hidden; }
   transition: border-color var(--dur-feedback) var(--ease-out-expo);
 }
 .field input:hover, .field select:hover { border-color: var(--muted); }
+/* A focused field brings its label into view with it. */
+.field input, .field select { scroll-margin-top: 2.75rem; }
 .field input:focus-visible, .field select:focus-visible { border-color: var(--ink); }
 .field input[aria-invalid="true"] { border-color: var(--accent); }
 .field__error { font-size: var(--label); color: var(--accent); }

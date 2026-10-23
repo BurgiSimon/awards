@@ -10,7 +10,7 @@
 - [x] Stack booted (stack)
 - [x] Motion score authored and built (motion)
 - [x] WebGL layer built or explicitly declined (webgl): canvas-first, one fullscreen shader behind the DOM (the wall), shader deep mode
-- [ ] Jury disposition: —
+- [x] Jury disposition: fix · 2026-10-23
 - [ ] Shipped (ship)
 
 ## Brief
@@ -83,6 +83,8 @@ Responsive strategy: vw-lock above 768 px through the `clamp()` tokens (1440 art
   top fixes: 1) city switch inert by click and Enter, #cities never opens (frozen index.html:43; src/ui/city.js unbuilt at freeze) 2) readout and action inside the sunrise patch, patch re-declared for portrait, time in the phone hour line (src/styles/page.css:11, :102, :213) 3) cast the h1 shadow only where the patch crosses it and take the sun marker off --accent (src/styles/page.css:30, :48)
 - 2026-10-23 · component .chapter--first-light · fix · D 7.6 / U 7.0 / C 8.0 → mean 7.53 · .awards/jury/2026-10-23-component-2.md
   top fixes: 1) checked city row off the accent, ink ground + plaster text (src/styles/page.css:224) 2) phone h1 on four lines as contracted (src/styles/tokens.css:44) 3) wall relief clips into yellow cells at sunrise (src/webgl/wall.js:73-87); then cast colour in the light (src/light/engine.js:185), city list on --wall-now (page.css:207), phone tick row for walk 2 (page.css:228)
+- 2026-10-23 · fix · D 7.6 / U 6.0 / C 8.2 / Co 8.2 → 7.3 · dev seo 8.4 / anim 8.0 / a11y 7.0 / wpo 8.3 / resp 7.8 / meta 7.8 → 7.88 · .awards/jury/2026-10-23-2.md
+  top fixes: 1) scroll-padding-top for the fixed hour line so focus lands below it; phone empty submit hides the name field (src/styles/base.css:5, page.css:33-34, :230) 2) possessive cast shadow smears the city name (index.html:53, :355; src/light/engine.js:20-43) 3) sunrise relief reads as dapple, not plaster (src/webgl/wall.js:23-39); then the halo rings (page.css .reserve__panel) and Noon in night tokens on tablet (engine.js:143-150)
 
 ## Ship log
 <!-- appended by awards:ship — date · audit summary · captures · performance numbers -->

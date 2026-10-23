@@ -3,6 +3,10 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; background: var(--ground); transition: background-color var(--dur-routine) var(--ease-theme); }
+/* The hour line is fixed: anchor jumps, Tab and focus() land below it (WCAG 2.4.11). The engine writes the measured
+   height; the fallbacks are its one-row and two-row heights. */
+html { scroll-padding-top: calc(var(--hourline-h, 72px) + 16px); }
+@media (max-width: 900px) { html { scroll-padding-top: calc(var(--hourline-h, 118px) + 16px); } }
 body {
   margin: 0;
   background: transparent;

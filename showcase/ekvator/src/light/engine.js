@@ -15,16 +15,16 @@ const smooth = (a, b, x) => {
   return t * t * (3 - 2 * t);
 };
 
-// Wrap each word of a cast heading in its own span (nested live values stay whole), so a shadow can fall on the
-// words the light reaches and not on the others. Non-breaking spaces keep their words together.
-function splitCast(headings) {
+// Each cast heading gets an aria-hidden shadow layer under its text: a copy whose words are wrapped in their own
+// spans with transparent glyphs, so each word can throw its own shadow where the light reaches it, and no word's
+// shadow ever paints over a neighbour's letters. The text layer keeps the original nodes, unchanged and readable.
+function castLayers(headings) {
   const words = [];
-  for (const h of headings) {
-    for (const node of [...h.childNodes]) {
+  const split = (root) => {
+    for (const node of [...root.childNodes]) {
       if (node.nodeType === Node.TEXT_NODE) {
-        const parts = node.textContent.split(/( +)/);
         const frag = document.createDocumentFragment();
-        for (const part of parts) {
+        for (const part of node.textContent.split(/( +)/)) {
           if (!part) continue;
           if (/^ +$/.test(part)) { frag.append(part); continue; }
           const s = document.createElement('span');
@@ -34,11 +34,21 @@ function splitCast(headings) {
           words.push(s);
         }
         node.replaceWith(frag);
-      } else if (node.nodeType === Node.ELEMENT_NODE) {
+      } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName !== 'BR') {
         node.classList.add('cast-word');
         words.push(node);
       }
     }
+  };
+  for (const h of headings) {
+    const text = document.createElement('span');
+    text.className = 'cast-text';
+    while (h.firstChild) text.append(h.firstChild);
+    const shade = text.cloneNode(true);
+    shade.className = 'cast-shade';
+    shade.setAttribute('aria-hidden', 'true');
+    split(shade);
+    h.append(shade, text);
   }
   return words;
 }
@@ -48,10 +58,13 @@ export function createDay({ tier: initialTier, wall = null, announce = () => {} 
   const root = document.documentElement;
   const metaTheme = document.querySelector('meta[name="theme-color"]');
   const room = document.querySelector('.room');
-  const cast = splitCast([...document.querySelectorAll('[data-cast]')]);
+  const cast = castLayers([...document.querySelectorAll('[data-cast]')]);
   const ticks = [...document.querySelectorAll('.hourline__ticks a')];
   const sunMark = document.querySelector('.hourline__sun');
   const cityLabel = document.querySelector('[data-city-clock]');
+  const polarLast = document.querySelector('.polar-night__body');
+  const hourline = document.querySelector('.hourline');
+  let hourlineH = 72;
   const chapters = Object.fromEntries([...document.querySelectorAll('[data-chapter-at]')].map((el) => [el.dataset.chapterAt, el]));
 
   const params = new URLSearchParams(location.search);
@@ -99,6 +112,8 @@ export function createDay({ tier: initialTier, wall = null, announce = () => {} 
 
   function measure() {
     vh = innerHeight;
+    hourlineH = hourline ? hourline.offsetHeight : 72;
+    root.style.setProperty('--hourline-h', `${hourlineH}px`);
     vw = innerWidth;
     const max = Math.max(1, document.documentElement.scrollHeight - vh);
     const c = chapters;
@@ -142,10 +157,12 @@ export function createDay({ tier: initialTier, wall = null, announce = () => {} 
 
   function polarDark() {
     const r = chapters['polar-night'].getBoundingClientRect();
-    if (tier !== 'full') return r.top < vh * 0.5 && r.bottom > vh * 0.5 ? 1 : 0;
-    // Dark before the stage's words can be seen, and dark until the last of them has gone.
+    if (tier !== 'full') return r.top < vh * 0.5 && polarLast.getBoundingClientRect().bottom > hourlineH + vh * 0.06 ? 1 : 0;
+    // Dark before the stage's words can be seen, and dark only until the last of them has passed under the hour
+    // line, so the noon chapter always arrives on a daylit wall.
     const enter = smooth(vh * 0.95, vh * 0.72, r.top);
-    const leave = smooth(0, vh * 0.3, r.bottom);
+    const last = polarLast.getBoundingClientRect().bottom;
+    const leave = smooth(hourlineH, hourlineH + vh * 0.12, last);
     return Math.min(enter, leave);
   }
 
