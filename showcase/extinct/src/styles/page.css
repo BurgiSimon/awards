@@ -160,7 +160,7 @@ html.has-gl .microscope { opacity: 1; }
 .chapter--poison .still--a, .chapter--forgotten .still--a { top: -10vh; height: calc(52% + 10vh); clip-path: var(--wave-a); }
 .still--b { top: 48%; bottom: 0; clip-path: var(--wave-b); }
 html.has-gl .still { visibility: hidden; }
-.layers__title { grid-column: 1 / -1; justify-self: start; max-width: 14em; font-size: var(--h2); background: var(--ground); padding: calc(var(--unit) * 4) calc(var(--unit) * 7) calc(var(--unit) * 5); box-shadow: inset 0 0 0 1px var(--line); }
+.layers__title { grid-column: 1 / -1; justify-self: start; font-size: var(--h2); background: var(--ground); padding: calc(var(--unit) * 4) calc(var(--unit) * 7) calc(var(--unit) * 5); box-shadow: inset 0 0 0 1px var(--line); }
 .plaque {
   display: grid; gap: calc(var(--unit) * 4); align-content: start; max-width: 32rem;
   background: var(--ground); color: var(--ink); padding: calc(var(--unit) * 7) calc(var(--unit) * 8);
@@ -181,7 +181,7 @@ html.has-gl .still { visibility: hidden; }
 .chapter--forgotten .plaque:nth-of-type(2) { grid-column: 8 / span 5; grid-row: 3; align-self: end; margin-bottom: 12vh; }
 
 /* 5 · The lights go out (interruption) — a centred statement on a held stage. */
-.chapter--ir { height: 260vh; padding: 0; }
+.chapter.chapter--ir { height: 260vh; padding: 0; } /* never the narrow chapter padding: the held stage is full-bleed */
 .ir__stage { position: sticky; top: 0; height: 100svh; display: grid; place-items: center; padding: calc(64px + 4vh) var(--gutter) 6vh; isolation: isolate; overflow: clip; }
 .still--ir { top: 0; bottom: 0; background: var(--shards-blue), var(--grain-light), var(--c); background-size: 240px, 160px, auto; }
 /* Without the field, Egyptian blue's top boundary wanders up over Tyrian purple as the stills' do. */
