@@ -24,7 +24,9 @@ From the 2026-10-22 review, batches 1 to 5 (everything except the large, lower-i
 - **Framework adapters.** Ten core recipes carry a React adapter (`adapters/react.jsx`, `useGSAP` for cleanup) and every core README a Webflow section; `scripts/check-adapters.mjs` parses them in CI.
 - **DESIGN.md that lints.** The template's frontmatter uses values Google's design.md lint accepts (a number and a unit at the artboard width; the `clamp()` stays in `tokens.css`).
 - **Vite 8.3.5.** The pin moves from 8.3.0, which carries six dev-server advisories (fixed in 8.3.3), in the recipes, the scaffold, the stack notes and the eval fixtures.
-- **The plugin's own site** moved onto `main` under `site/`.
+- **The plugin's own site, rebuilt.** `site/` is now the "Contact sheet" page, made by the plugin's own loop in redesign mode: a strip of the page's own captured frames with the jury's marks drawn on them, judged `ship` at 7.88 on its third round and shipped. `.github/workflows/site.yml` deploys it to GitHub Pages on demand.
+- **Ship gate.** After a `ship` verdict, only floor rows hold the Shipped box; craft rows are recorded as open after ship.
+- **Capture.** A bare `--routes` stops with a usage line instead of capturing a route named `true`.
 - **Not yet measured.** No paid eval has run against these changes; `node evals/pick.mjs` lists the cases they need.
 
 ## 0.7.0 — 2026-10-22

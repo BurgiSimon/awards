@@ -53,7 +53,7 @@ Excluded by that instruction (lower impact, larger effort): F5 jury panel, F6 mo
 **Batch 5 — new modes and proof**
 - [x] F2 quick mode; F1 redesign mode; F4 multi-route sites; F9 award program presets; F11 DESIGN.md interop
 - [x] D8 framework adapters: React adapters for ten core recipes, a Webflow section in every core README, `scripts/check-adapters.mjs` in CI
-- [ ] G1 finish and ship the plugin's own site
+- [x] G1 the plugin's own site, rebuilt from scratch in redesign mode as the maintainer asked ("Contact sheet", seed `3zaj142iys4g`): three page jury rounds (ship 7.70, fix 7.71, ship 7.88; the third asked for by the maintainer), Shipped 2026-10-23. Left to the maintainer: enable GitHub Pages with Actions as the source and run `.github/workflows/site.yml`; one pass on a real phone and trackpad (the strip's follow and chapter 3's scroll were measured only headless); the Awwwards submission. Open after ship: two craft rows in `site/.awards/ship/2026-10-23.md` (s00's arrow label in view; the hover crop's marks in paper ink)
 
 
 ## Quick wins (2026-10-22) follow-ups
