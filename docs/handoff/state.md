@@ -1,11 +1,15 @@
-# State of the awards plugin — 2026-10-22 (release 0.7.0)
+# State of the awards plugin — 2026-10-23 (release 0.8.0)
 
 Read this first, then `todo.md`. The visual composition candidate's deterministic verification is
 recorded below in [Candidate verification record](#candidate-verification-record). `archive/plan-0.2.md` and
 `verification-log.md` record the earlier 0.2.0 work. `archive/plan.md` is the 0.1.0 specification, kept for
 reference. `decisions.md` records choices already taken.
 
-## Review batches 3 to 5 (branch `claude/relaxed-heisenberg-rszyzq`, 2026-10-22, unreleased)
+## Release 0.8.0 (2026-10-23)
+
+Review batches 1 to 5 and the rebuilt site (G1) ship together as 0.8.0; all three manifests agree. Release notes in `CHANGELOG.md`. No paid eval has run against it: `node evals/pick.mjs` lists the cases the changes need. Tag and GitHub release are the maintainer's.
+
+## Review batches 3 to 5 (2026-10-22 to 2026-10-23, in 0.8.0)
 
 - Ceiling, generation side: WORLD names an imagery strategy and the asset log (`scripts/assets.mjs`); house-style defaults removed; faces chosen character first through `scripts/fonts.mjs` (Fontsource search, a rendered specimen, licence on fetch; offline it falls back to the reflex-list alternatives); `references/patterns/negative-exemplars.md` with three captured failures; X21 (eyebrow labels by computed style) and P09 (images drawn above their natural size) under `--render`; A17 (viewport that locks zoom) static; A18 (a phone control under 44 × 44 px, rendered), added after the old site's jury capped Usability on targets the audit had passed. 89 rules.
 - Composition: `references/patterns/layout-and-composition.md`, and a skeleton plus a measured fingerprint row for every card that allows it (55 skeletons; clone cards skipped). Corpus scripts: `build-index.mjs` writes `_index.md` from the card headers, `check-card.mjs` holds every card to `scripts/data/corpus-vocab.json`, `corpus-gaps.mjs`, `corpus-prepass.mjs`, `corpus-health.mjs` (`_health.json`). `[clone:slug]` is a citation form; lint-refs resolves it.
@@ -16,7 +20,7 @@ reference. `decisions.md` records choices already taken.
 - What the build found in the plugin, all fixed: the DESIGN.md template's frontmatter failed design.md lint; the audit passed phone targets the jury's walk capped (A18, 89 rules); Vite 8.3.0 carried six dev-server advisories (pin 8.3.5); no build could tick Shipped once a verdict listed any craft seam (ship gate, `decisions.md`); a bare `capture.mjs --routes` captured a route named `true`. Noted, not changed: `gsap.matchMedia` made ScrollTrigger scroll the page to the top when the window crossed a breakpoint in this build (`site/` uses `gsap.context` with its own media listeners); unverified beyond this build.
 - Not measured: no paid eval has run against batches 1 to 5 (`node evals/pick.mjs` lists the cases); the site's frame time on a real GPU (SwiftShader here: about 33 ms a frame at 1440 × 900 with the flow live).
 
-## Review batches 1 and 2 (branch `claude/relaxed-heisenberg-rszyzq`, 2026-10-22, unreleased)
+## Review batches 1 and 2 (2026-10-22, in 0.8.0)
 
 - Audit, rendered: a failed or hung step is an `ERR` finding (P1); a browser that will not launch exits 3; a bundler project renders `dist/`, `build/`, `out/` or `.output/public` and warns when it is stale or missing (`renderedFrom`). Three widths (1440, 834 × 1194, 390, touch on the two smaller), measured against `clientWidth` because phone emulation widens `innerWidth` to an overflowing page. New rules L09 blank viewport, L10 lopsided tablet/phone section (P3), P08 load-time layout shift (read before the scroll sweep). Scoped exceptions (`RULE@path|viewport`), `audit-ignore-next-line`, comments no longer satisfy M01 or count as exceptions, recipe severity only for the plugin's own catalogue. 85 rules.
 - Two full URL sweeps of the 76 built recipes found five real defects, all fixed and re-verified: phone overflow in gl-depth-map-parallax (grid track) and preloader-counter-hold (image max-width), a blank tablet screen in clip-path-scrub-door, load shifts of 0.12 in blur-peek-snap-carousel (gap set by script) and 0.81 in gl-endless-reel-sheets (layout class set after load, now in the head). Only gl-endless-reel-sheets T08 remains, earned as before.
@@ -26,7 +30,7 @@ reference. `decisions.md` records choices already taken.
 - Platform and docs: descriptions trimmed to 7.4k characters; SubagentStop jury reply check; `userConfig` (`hooks_enabled`, `default_stack`); jury agent with Write, 45 turns, `omitClaudeMd`, narrow Bash and `awards-log.mjs`; research runs `policy.mjs` first; hand-offs from motion and webgl go back through craft's pre-jury checks; the deal fits four options; Windows spawns and a portable browser staging; dot-paths refused by the local server; icon and listing URLs; quick start, CHANGELOG.md, CONTRIBUTING.md, issue and PR templates; superseded plans archived.
 - Behavior suite: 30/30 pass (2026-10-22), including the new checks for the rendered failures, build output, three widths, layout rules, timeline and baseline captures, the GPU refusal, scoped exceptions, dot-paths, owner policy, the log writer, the reply check and the capture lock. Two full rendered sweeps of the recipes, the Codex install check with both scaffold builds, and every free check pass.
 
-## Evidence phase, first batch (branch `claude/relaxed-heisenberg-rszyzq`, 2026-10-22, unreleased)
+## Evidence phase, first batch (2026-10-22, in 0.8.0)
 
 - Contrast (A4, B6): rendered C01 measures every visible text against what is behind it (paint stack under its centre, or ancestors off screen, composited, colours through a canvas); imagery is unmeasured, blurred or ghosted (opacity < .25) and clipped text skipped, large text 3:1. A desktop Tab pass measures focused labels (C01, focus) and rings (A12, 3:1). The JSON reports texts measured, texts over imagery and focus stops per viewport.
 - Developer criteria (C3, C4): the jury scores Awwwards' six criteria by name and their mean. New rules S07–S10 (title, description, OG text, canonical), A13 skip link, A14 targets (render, phone), A15 duplicate ids, A16 axe-core WCAG 2.2 A/AA (render; axe-core 4.14.0 pinned in recipes). 82 rules.

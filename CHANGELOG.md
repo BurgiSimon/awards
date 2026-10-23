@@ -2,9 +2,9 @@
 
 Release notes for the awards plugin, newest first. The manifests carry the version; `scripts/check-sync.mjs` keeps them in step.
 
-## Unreleased
+## 0.8.0 — 2026-10-23
 
-From the 2026-10-22 review, batches 1 to 5 (everything except the large, lower-impact items).
+From the 2026-10-22 review, batches 1 to 5 (everything except the large, lower-impact items), and the plugin's own site rebuilt and shipped by the plugin's own loop.
 
 - **Truthful rendered checks.** Every visible text is measured against what is actually behind it, focus states included (C01, A12); axe-core runs WCAG 2.2 A/AA (A16); new rules for titles, descriptions, canonical and Open Graph (S07–S10), skip links (A13), touch targets (A14) and duplicate ids (A15). A rendered step that fails is an `ERR` finding, never a clean read; a bundler project renders its build output. Rendered checks run at desktop, tablet and phone and add blank viewports (L09), lopsided tablet and phone sections (L10) and layout shift during load (P08). 85 rules.
 - **Evidence the jury can use.** Tablet frames, ARIA trees, held-clock timeline frames and a contact sheet, a video pass, a throttled phone pass, a GPU lane that refuses SwiftShader, per-frame diffs against the previous round, and Chrome UX Report field data (`scripts/crux.mjs`). The jury scores Awwwards' six developer criteria by name.
