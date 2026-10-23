@@ -53,7 +53,7 @@ components:
   button-primary-hover:
     backgroundColor: "{colors.ground}"
     textColor: "{colors.ink}"
-  label-card:
+  plaque:
     backgroundColor: "{colors.ground}"
     textColor: "{colors.ink}"
     rounded: "{rounded.none}"
@@ -94,7 +94,7 @@ The exhibits (sRGB approximations computed from published descriptions, labelled
 | 6 | Tyrian purple | 1453 | `#6a1043` | fine and dense |
 | 7 | Egyptian blue | c. 4th century | `#2b5fae` | angular, glassy crystals |
 
-Contrast (WCAG 2.x, computed): lab — ink on ground 15.40 : 1, muted 5.77 : 1, ground on the ink button 15.40 : 1; ir — light ink on ground 15.69 : 1, muted 7.54 : 1. Text never sits on a pigment field: every word in a chapter is on a ground-coloured label card or in the page margin on the ground. The colour chips beside names run from 10.18 : 1 (Tyrian purple) down to 1.22 : 1 (lead-tin yellow) against the ground; every chip carries a 1 px ink hairline, so its shape reads whatever its colour, and no chip carries meaning that its name beside it does not. Focus ring: 2 px ink, 3 px offset, 15.40 : 1 and 15.69 : 1.
+Contrast (WCAG 2.x, computed): lab — ink on ground 15.40 : 1, muted 5.77 : 1, ground on the ink button 15.40 : 1; ir — light ink on ground 15.69 : 1, muted 7.54 : 1. Text never sits on a pigment field: every word in a chapter is on a ground-coloured plaque or in the page margin on the ground. The colour chips beside names run from 10.18 : 1 (Tyrian purple) down to 1.22 : 1 (lead-tin yellow) against the ground; every chip carries a 1 px ink hairline, so its shape reads whatever its colour, and no chip carries meaning that its name beside it does not. Focus ring: 2 px ink, 3 px offset, 15.40 : 1 and 15.69 : 1.
 
 Wide gamut: there is no accent hue to duplicate; the pigment approximations stay sRGB on purpose, because they are approximations and claiming P3 would overstate them.
 
@@ -136,9 +136,9 @@ Radius 0 for cards, buttons and fields; the resin block alone is a rounded recta
 - **Museum line (nav):** fixed top bar on the ground with a hairline; the museum's name at the left, the seven colour names as links with their chips across (the current layer marked `aria-current`), "Book" at the right. Phone: the name, the current layer and a Colours menu (non-modal list, Escape closes).
 - **Stage readout:** a small fixed line at the bottom left in label size: depth in µm, layer number and name, year it ended, magnification; text, `aria-live="off"`.
 - **Resin block:** the cross-section object, CSS-drawn: a translucent grey rounded rectangle with a polished face showing seven bands in layer order (approximations), a 1 mm scale bar and the catalogue number "MEC 7".
-- **Label card:** a museum wall label: catalogue number and year in label capitals, the colour name in Kalnia, two short paragraphs (what it was, why it ended), a confidence note in muted text (verified, recalled or uncertain), and the chip.
+- **Plaque (wall label):** a museum wall label, one per exhibit, in four different compositions down the page: catalogue number and year in label capitals, the colour name in Kalnia, two short paragraphs (what it was, why it ended), a confidence note in muted text (verified, recalled or uncertain), and the chip.
 - **Infrared toggle:** a real `<button aria-pressed>` "Visible light / Infrared" inside the Egyptian blue stage; the scroll dims the visible light, the button flips it at once.
-- **Booking form (button-primary):** day (a native date input limited to Tuesday–Sunday), time slot (a radio group, 10:00 to 16:20 every 40 minutes), number of people (1–6); inline errors, a submitting state and a confirmation with a booking number that says plainly nothing was charged. The action: ground text on ink, radius 0, at least 48 px tall; hover inverts in 180 ms; focus ring; active 1 px press; disabled at 50 %.
+- **Booking form (button-primary):** day (a native date input limited to Tuesday–Sunday), time slot (a radio group, 10:00 to 16:40 every 40 minutes), number of people (1–6); inline errors, a submitting state and a confirmation with a booking number that says plainly nothing was charged. The action: ground text on ink, radius 0, at least 48 px tall; hover inverts in 180 ms; focus ring; active 1 px press; disabled at 50 %.
 - **Sources list:** an ordered list of sources, one line per claim, each with its confidence label.
 - **404:** the resin block with an empty layer; one line, three routes out.
 
