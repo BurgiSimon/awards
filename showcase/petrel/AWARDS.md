@@ -91,6 +91,7 @@ Responsive strategy: vw-lock above 768 px through the `clamp()` tokens (1440 art
 ## Ship log
 <!-- appended by awards:ship — date · audit summary · captures · performance numbers -->
 - 2026-10-23 · audit P0 0 / P1 0 / P2 0 / P3 0 · exceptions 1 · captures 5 valid from .awards/captures/20261023T131833Z-ship/manifest.json · entry 54.8 KB gz · GL 136.6 KB gz · LCP 0.98 s (throttled capture) · CLS 0 · .awards/ship/2026-10-23.md
+- 2026-10-23 · pass 2 after verdict fix (7.84) · 3 fixes resolved · audit P0 0 / P1 0 / P2 0 / P3 0 · exceptions 1 · captures 5 valid from .awards/captures/20261023T134356Z-ship2/manifest.json · entry 54.8 KB gz · GL 136.6 KB gz · LCP 1.01 s (throttled capture) · CLS 0 · blocking 278 ms · Shipped waits on a third round · .awards/ship/2026-10-23-2.md
 
 ## Exceptions
 <!-- audit rule ids deliberately accepted, one per line, scoped to a path or viewport where you can: `C02 — pure black is diegetic (night-vision console)`, `C01@src/credits.html — read once over the film still` -->
