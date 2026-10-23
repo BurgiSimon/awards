@@ -23,7 +23,7 @@
 
   <!-- The microscope's field: one fixed canvas behind the whole page. Each layer also has a still drawn in CSS and
        SVG (the static tier and the fallback); every word is in the DOM on a label card. -->
-  <canvas class="field" aria-hidden="true"></canvas>
+  <canvas class="microscope" aria-hidden="true"></canvas>
 
   <div id="page">
     <header class="museum" id="top">
@@ -72,14 +72,14 @@
         <span class="still still--b" aria-hidden="true" style="--c: #d4482b"></span>
         <h2 class="layers__title" id="taken-title">Used up, and taken.</h2>
         <article class="plaque" id="mummy-brown" data-layer-at="1" aria-labelledby="mummy-brown-name">
-          <p class="label">No. 1 · Layer 0–110 µm · ended in the 1960s</p>
+          <p class="label">No. 1 · Layer 0–110 <span class="unit">µm</span> · ended in the 1960<span class="unit">s</span></p>
           <h3 id="mummy-brown-name"><span class="chip" style="--chip: #5c3b26"></span>Mummy brown</h3>
           <p>A warm, transparent brown ground from the bodies of Egyptian mummies, resin and bitumen and all, and sold to painters from the sixteenth century. The painter Edward Burne-Jones is said to have buried his tube in the garden when he learned what was in it.</p>
           <p>In the 1960s the London colourmen C. Roberson &amp; Co. told a reporter that they had run out, and could find no more mummies to grind.</p>
           <p class="plaque__note">Recalled from published histories; the burial is a family story.</p>
         </article>
         <article class="plaque" id="uranium-red" data-layer-at="2" aria-labelledby="uranium-red-name">
-          <p class="label">No. 2 · Layer 110–150 µm · ended in 1943</p>
+          <p class="label">No. 2 · Layer 110–150 <span class="unit">µm</span> · ended in 1943</p>
           <h3 id="uranium-red-name"><span class="chip" style="--chip: #d4482b"></span>Uranium red</h3>
           <p>Uranium oxide gave a ceramic glaze a deep orange-red. An American pottery fired it onto everyday tableware from 1936, until 1943, when the government took control of the country's uranium for the war.</p>
           <p>It came back in 1959, made with depleted uranium, and stopped for good in 1972. The old plates still tick under a Geiger counter.</p>
@@ -92,14 +92,14 @@
         <span class="still still--b" aria-hidden="true" style="--c: #6f9a35"></span>
         <h2 class="layers__title" id="poison-title">Unbearable, and poisonous.</h2>
         <article class="plaque" id="indian-yellow" data-layer-at="3" aria-labelledby="indian-yellow-name">
-          <p class="label">No. 3 · Layer 150–235 µm · ended c. 1910</p>
+          <p class="label">No. 3 · Layer 150–235 <span class="unit">µm</span> · ended c. 1910</p>
           <h3 id="indian-yellow-name"><span class="chip" style="--chip: #e2a51c"></span>Indian yellow</h3>
           <p>A deep, glowing yellow that reached Europe as foul-smelling balls called purree. A report of 1883 described it being made in a village in Bihar from the urine of cows fed only on mango leaves and water.</p>
           <p>By the early twentieth century it had gone. Whether it was banned or simply stopped being made is still argued.</p>
           <p class="plaque__note">Recalled from published histories; the cause of its end is uncertain.</p>
         </article>
         <article class="plaque" id="scheeles-green" data-layer-at="4" aria-labelledby="scheeles-green-name">
-          <p class="label">No. 4 · Layer 235–290 µm · ended c. 1900</p>
+          <p class="label">No. 4 · Layer 235–290 <span class="unit">µm</span> · ended c. 1900</p>
           <h3 id="scheeles-green-name"><span class="chip" style="--chip: #6f9a35"></span>Scheele's green</h3>
           <p>Made in 1775 by the Swedish chemist Carl Wilhelm Scheele from copper and arsenic. It coloured wallpaper, dresses, toys and sweets through the nineteenth century, and in a damp room the walls could give off arsenic.</p>
           <p>Safer greens replaced it before the century was out. It is still blamed, without proof, for the death of Napoleon.</p>
@@ -112,14 +112,14 @@
         <span class="still still--b" aria-hidden="true" style="--c: #6a1043"></span>
         <h2 class="layers__title" id="forgotten-title">Forgotten, and too dear.</h2>
         <article class="plaque" id="lead-tin-yellow" data-layer-at="5" aria-labelledby="lead-tin-yellow-name">
-          <p class="label">No. 5 · Layer 290–385 µm · ended c. 1750</p>
+          <p class="label">No. 5 · Layer 290–385 <span class="unit">µm</span> · ended c. 1750</p>
           <h3 id="lead-tin-yellow-name"><span class="chip" style="--chip: #efd86c"></span>Lead-tin yellow</h3>
           <p>A bright, opaque lemon yellow made by heating lead and tin together, used from the thirteenth century to the eighteenth: Titian painted with it, and so did Vermeer.</p>
           <p>Then it was forgotten so completely that nobody knew it had existed, until a German researcher found it in old paintings in 1941.</p>
           <p class="plaque__note">Recalled from published histories.</p>
         </article>
         <article class="plaque" id="tyrian-purple" data-layer-at="6" aria-labelledby="tyrian-purple-name">
-          <p class="label">No. 6 · Layer 385–420 µm · ended 1453</p>
+          <p class="label">No. 6 · Layer 385–420 <span class="unit">µm</span> · ended 1453</p>
           <h3 id="tyrian-purple-name"><span class="chip" style="--chip: #6a1043"></span>Tyrian purple</h3>
           <p>Taken from the glands of sea snails off the coast of Tyre. In 1909 the chemist Paul Friedländer crushed about 12,000 of them to make 1.4 grams.</p>
           <p>The great dyeworks ended when Constantinople fell in 1453. A few people still make it by hand, at a price per gram well above gold's.</p>
@@ -131,7 +131,7 @@
         <div class="ir__stage">
           <span class="still still--ir" aria-hidden="true" style="--c: #2b5fae"></span>
           <article class="plaque plaque--ir">
-            <p class="label">No. 7 · Layer 420–550 µm · lost after Rome</p>
+            <p class="label">No. 7 · Layer 420–550 <span class="unit">µm</span> · lost after Rome</p>
             <h2 class="ir__name" id="egyptian-blue-name"><span class="chip" style="--chip: #2b5fae"></span>Egyptian blue</h2>
             <p>The first colour anyone made rather than dug: copper, lime and sand fired together in Egypt from about 2600 BCE, and used across the Roman world. Then the recipe was lost, and the blue was not made again until the nineteenth century.</p>
             <p>It has one property nobody saw for four thousand years: under red light it glows in the infrared. A camera that sees infrared finds specks of it on statues that look bare to the eye.</p>

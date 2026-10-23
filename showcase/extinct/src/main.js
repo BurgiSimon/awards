@@ -8,6 +8,7 @@ import { createScroll } from './lib/scroll.js';
 import { syncMotionTierAttribute, motionTier } from './lib/reduced-motion.js';
 import { createMenu } from './ui/menu.js';
 import { createBooking } from './ui/booking.js';
+import { createMicroscope } from './motion/microscope.js';
 
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
@@ -22,9 +23,17 @@ const announce = (text) => {
 
 createMenu();
 createBooking({ announce });
+const microscope = createMicroscope({ awards, announce, tier: motionTier });
 await document.fonts.ready;
 ScrollTrigger.refresh();
 
-awards.addState(() => ({ motion: motionTier(), gl: false }));
+// The one hero-scale moment: the resin block turns 8° and settles. Reduced and static tiers leave it at rest.
+if (motionTier() === 'full') {
+  gsap.fromTo('.chapter--block .resin', { '--turn': '5deg' }, { '--turn': '-3deg', duration: 1.2, ease: 'expo.out' });
+}
+
+awards.addState(() => ({ motion: motionTier() }));
 document.documentElement.classList.add('is-ready');
 awards.ready();
+// The field is not needed for first paint: it starts after the page is ready and shows after its own first frame.
+requestAnimationFrame(() => requestAnimationFrame(() => microscope.start()));
