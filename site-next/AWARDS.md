@@ -10,7 +10,7 @@
 - [x] Stack booted (stack)
 - [x] Motion score authored and built (motion)
 - [x] WebGL layer built or explicitly declined (webgl): explicitly declined, dosage rung none (SIGNATURE's tier is DOM-only: "No WebGL anywhere; the concept is whole without it")
-- [x] Jury disposition: fix · 2026-10-22
+- [x] Jury disposition: ship · 2026-10-23
 - [ ] Shipped (ship)
 
 ## Brief
@@ -165,6 +165,7 @@
 - 2026-10-22 · ship · D 7.5 / U 7.8 / C 8.0 / Co 7.6 → 7.70 · dev seo 7.6 / anim 8.2 / a11y 8.2 / wpo 8.4 / resp 7.8 / meta 7.6 → 7.97 · .awards/jury/2026-10-22.md
   top fixes: 1) hold chapter 3's plate at its box while the figures read (src/motion/loupe.js:32) 2) break commands and paths only at spaces and slashes (src/styles/base.css:65) 3) say what the hook runs after every edit and print one ship rule (index.html:80, :173, :160; docs.html:129)
 - 2026-10-22 · verdict · fix · D 7.4 / U 7.8 / C 8.2 / Co 7.7 → 7.71 · resolved 4 / partial 1 / unresolved 0 · regressions 3
+- 2026-10-23 · verdict · ship · D 7.6 / U 8.0 / C 8.3 / Co 7.8 → 7.88 · resolved 4 / partial 1 / unresolved 0 · regressions 0
 
 ## Ship log
 <!-- appended by awards:ship — date · audit summary · captures · performance numbers -->
