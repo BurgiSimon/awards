@@ -7,7 +7,7 @@
 - [x] Direction contract locked (concept)
 - [x] Visual system written (system → DESIGN.md, tokens.css)
 - [x] Page map and skeleton built (structure)
-- [ ] Stack booted (stack)
+- [x] Stack booted (stack)
 - [ ] Motion score authored and built (motion)
 - [ ] WebGL layer built or explicitly declined (webgl)
 - [ ] Jury disposition: —
@@ -59,9 +59,10 @@ Responsive strategy: vw-lock above 768 px through the `clamp()` tokens (1440 art
 |---|---|---|---|---|
 
 ## Budgets & tiers
-- Entry JS (gz): · GL chunk (gz): · Textures per scene: · Fonts (files / KB): · LCP target: · Tiers: high / mid / low →
-- Deep modes: motion gsap|none · webgl shader|3d|shader + 3d|none — because …
-- Mode: full | quick | redesign from <url or dir>
+- Entry JS (gz): 49.4 KB measured at the stack checkpoint, budget ≤ 200 KB · GL chunk (gz): one raw WebGL2 fullscreen shader, lazy, budget ≤ 20 KB · Textures per scene: none (every grain is procedural) · Fonts (files / KB): 4 / 80 KB · LCP target: ≤ 2.5 s on a throttled phone, from the DOM claim · Tiers: high (render scale 1) / mid (0.75) / low (0.5) → without WebGL2, the CSS and SVG stills.
+- Stack: Vite 8.3 + vanilla JS, MPA (index and 404), relative base; GSAP 3.15 and Lenis 1.3 on GSAP's ticker; the field is raw WebGL2 (no library) behind a dynamic import; scroll model native + Lenis with one sticky stage; resize rebuilds on a debounced ResizeObserver, never a reload; no route transitions (one page).
+- Deep modes: motion none · webgl shader — because the signature is one procedural field (seven pigments' grains, their boundaries and the infrared view) and the motion is a scroll-read stage position, not a choreography.
+- Mode: full
 
 ## Jury log
 <!-- appended by awards:jury — date · disposition · D/U/C/Co · dev sub-scores · top fixes; component passes are marked `component` and a redesign's first score `baseline`; neither counts as a page round -->
