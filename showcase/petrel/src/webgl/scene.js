@@ -44,8 +44,8 @@ function armour(geometry, material, count, axis) {
 // The TIA fibre colours, as the static cutaway draws them.
 const FIBRES = ['#1f5fbf', '#e07a1f', '#2e8b3e', '#7a4a24', '#7d8790', '#f2f2f2', '#c8261d', '#111417'];
 
-export function mountScene(canvas, quality) {
-  const renderer = new WebGLRenderer({ canvas, antialias: quality.tier !== 'low', alpha: true, powerPreference: 'high-performance' });
+export function mountScene(canvas, quality, context) {
+  const renderer = new WebGLRenderer({ canvas, context, alpha: true, antialias: true, powerPreference: 'high-performance' });
   renderer.setClearColor(0x000000, 0);
   renderer.toneMapping = NeutralToneMapping;
   renderer.localClippingEnabled = true;
@@ -262,6 +262,10 @@ export function mountScene(canvas, quality) {
     });
   }
 
+  // Compile every program off the main thread where the driver can (KHR_parallel_shader_compile) before the first
+  // frame, so the GL never lands as one long task.
+  const ready = renderer.compileAsync(scene, camera).catch(() => {});
+
   let last = '';
   let lost = false;
   const onLost = (e) => { e.preventDefault(); lost = true; };
@@ -279,6 +283,7 @@ export function mountScene(canvas, quality) {
   let sized = '';
 
   return {
+    ready,
     update(f) {
       if (lost) return false;
       const k = JSON.stringify(f);

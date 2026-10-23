@@ -46,7 +46,11 @@ awards.ready();
 // GL one has drawn its first frame. No WebGL2, a failed probe or a lost context leave the drawn tier in place.
 async function startGL() {
   if (!('WebGL2RenderingContext' in window)) return;
-  const quality = await detectQualityTier({ sampleMs: 400 });
+  // One context, the scene's own: the tier is read from it, and a low tier gives it back rather than opening a second.
+  const canvas = document.querySelector('.cable__gl');
+  const gl = canvas.getContext('webgl2', { antialias: true, alpha: true, powerPreference: 'high-performance' });
+  if (!gl) return;
+  const quality = await detectQualityTier({ sampleMs: 400, gl });
   // `?tier=high|mid|low` overrides the probe, so a reviewer on a software renderer can see the GL tier it would refuse.
   const forced = new URLSearchParams(location.search).get('tier');
   if (['high', 'mid', 'low'].includes(forced)) {
@@ -54,16 +58,22 @@ async function startGL() {
     if (forced !== 'low') quality.maxPixels = forced === 'high' ? 2560 * 1440 : 1920 * 1080;
   }
   awards.addState(() => ({ quality: quality.tier }));
-  if (!quality.probe.webgl2) return; // the API can exist while no context can be made (blocklists, --disable-webgl)
-  if (quality.tier === 'low') return; // the contract's low tier is the drawn cable, not a coarse GL one
+  if (quality.tier === 'low') { // the contract's low tier is the drawn cable, not a coarse GL one
+    gl.getExtension('WEBGL_lose_context')?.loseContext();
+    return;
+  }
   try {
     const { mountScene } = await import('./webgl/scene.js');
-    cable.attach(mountScene(document.querySelector('.cable__gl'), quality));
+    const scene = mountScene(canvas, quality, gl);
+    await scene.ready;
+    cable.attach(scene);
   } catch (err) {
     console.warn('[cable] staying on the drawn tier:', err);
   }
 }
 // The hero's pay-out plays on whichever cable is final: right after the GL's first frame, or on the drawn one.
-requestAnimationFrame(() => requestAnimationFrame(() => startGL().finally(() => score.payout())));
+// The drawn cable already carries the hero, so the GL waits for the first idle moment after boot.
+const idle = window.requestIdleCallback || ((cb) => setTimeout(cb, 200));
+idle(() => startGL().finally(() => score.payout()), { timeout: 1500 });
 setTimeout(() => score.payout(), 3000); // never later than this, even on a slow network
 addEventListener('pagehide', () => cable.destroy(), { once: true });
