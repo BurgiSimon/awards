@@ -88,6 +88,7 @@ Responsive strategy: vw-lock above 768 px through the `clamp()` tokens (1440 art
 
 ## Ship log
 <!-- appended by awards:ship — date · audit summary · captures · performance numbers -->
+- 2026-10-23 · audit P0 0 / P1 0 / P2 0 / P3 0 · exceptions 1 · captures 68 valid from .awards/captures/20261023T095536-ship/manifest.json · entry 58.8 KB gz · GL 3.1 KB gz · LCP 1.11 s (throttled capture) · CLS 0.0137 · .awards/ship/2026-10-23.md
 
 ## Exceptions
 <!-- audit rule ids deliberately accepted, one per line, scoped to a path or viewport where you can: `C02 — pure black is diegetic (night-vision console)`, `C01@src/credits.html — read once over the film still` -->
