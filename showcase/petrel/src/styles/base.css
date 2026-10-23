@@ -6,7 +6,7 @@ html { -webkit-text-size-adjust: 100%; background: var(--band-surface); }
 /* The bridge line is fixed: anchor jumps, Tab and focus() land below it (WCAG 2.4.11). The script writes the
    measured height; the fallbacks are its one-row and two-row heights. */
 html { scroll-padding-top: calc(var(--bridge-h, 64px) + 16px); }
-@media (max-width: 900px) { html { scroll-padding-top: calc(var(--bridge-h, 56px) + 16px); } }
+@media (max-width: 767px) { html { scroll-padding-top: calc(var(--bridge-h, 56px) + 16px); } }
 body {
   margin: 0;
   background: transparent;

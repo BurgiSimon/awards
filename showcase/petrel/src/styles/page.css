@@ -2,7 +2,7 @@
 
 /* Where the cable runs, as a share of the page width: the bow sheave's leading edge. Text never crosses it. */
 :root { --cable-x: 72.5%; --strand-w: 18px; }
-@media (max-width: 900px) { :root { --cable-x: 92%; --strand-w: 10px; } }
+@media (max-width: 767px) { :root { --cable-x: 92%; --strand-w: 10px; } }
 
 /* ——— Bridge line: the ship's own top line, on the band's ground ——— */
 .bridge {
@@ -52,15 +52,21 @@
   position: relative; background: var(--ground); color: var(--ink);
   padding: calc(var(--unit) * 40) calc(100% - var(--cable-x) + var(--gutter)) calc(var(--unit) * 40) var(--gutter);
 }
-.chapter > :not(.strand, .bow) { position: relative; z-index: 2; }
+/* Lift the copy over the drawn cable; the absolutely placed pieces (the cable, the bow, the depth scale and log) keep
+   their own positioning. */
+.chapter > :not(.strand, .bow, .depthlog, .depthscale) { position: relative; z-index: 2; }
 
-/* The drawn cable: galvanised armour wires in a helix over a round body. The static and no-WebGL tiers. */
+/* The drawn cable: galvanised armour wires in a helix over a round body. The static and no-WebGL tiers. Each wire is
+   lit on its upper edge and shadowed on its lower one, and the body is shaded as a cylinder lit from the left; the
+   lay runs at 60°, so the tile repeats every 10 px down and 40 px holds it without a seam. */
+:root {
+  --wire-shade: linear-gradient(90deg, rgb(0 0 0 / 0.62), rgb(0 0 0 / 0.08) 20%, rgb(255 255 255 / 0.3) 36%, rgb(255 255 255 / 0) 56%, rgb(0 0 0 / 0.35) 78%, rgb(0 0 0 / 0.7));
+  --wire-lay: repeating-linear-gradient(-60deg, #1b2125 0, #3d474d 0.8px, #aab4b9 1.9px, #7b868c 2.9px, #3a4349 4.1px, #1b2125 5px);
+}
 .strand {
   position: absolute; z-index: 1; top: 0; bottom: 0; left: var(--cable-x);
   width: var(--strand-w); margin-left: calc(var(--strand-w) / -2);
-  background:
-    linear-gradient(90deg, rgb(0 0 0 / 0.55), transparent 32%, rgb(255 255 255 / 0.22) 48%, transparent 64%, rgb(0 0 0 / 0.6)),
-    repeating-linear-gradient(-58deg, #283035 0 4px, #6d777d 4px 6px, #3b4349 6px 9px);
+  background: var(--wire-shade), var(--wire-lay);
   background-size: 100% 100%, 100% 40px;
   background-position: 0 0, 0 var(--payout, 0px);
 }
@@ -69,10 +75,9 @@ html.has-gl .strand, html.has-gl .seabed__wire, html.has-gl .seabed__grapnel { v
 .thermocline { position: relative; height: 22vh; background: linear-gradient(var(--from), var(--to)); }
 .thermocline--strand::after {
   content: ""; position: absolute; top: 0; bottom: 0; left: var(--cable-x); width: var(--strand-w); margin-left: calc(var(--strand-w) / -2);
-  background:
-    linear-gradient(90deg, rgb(0 0 0 / 0.55), transparent 32%, rgb(255 255 255 / 0.22) 48%, transparent 64%, rgb(0 0 0 / 0.6)),
-    repeating-linear-gradient(-58deg, #283035 0 4px, #6d777d 4px 6px, #3b4349 6px 9px);
+  background: var(--wire-shade), var(--wire-lay);
   background-size: 100% 100%, 100% 40px;
+  background-position: 0 0, 0 var(--payout, 0px);
 }
 html.has-gl .thermocline--strand::after { visibility: hidden; }
 
@@ -100,6 +105,8 @@ html.has-gl .thermocline--strand::after { visibility: hidden; }
 .bow__drawing { width: 100%; height: auto; overflow: visible; }
 .bow__hull { fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; }
 .bow__deck, .bow__stanchions, .bow__house, .bow__arm { fill: none; stroke: var(--ink); stroke-width: 1.25; }
+.bow__mast { fill: none; stroke: var(--ink); stroke-width: 1.5; }
+.bow__rig, .bow__leader { fill: none; stroke: var(--ink); stroke-width: 0.75; }
 .bow__cable { fill: none; stroke: #283035; stroke-width: var(--bow-cable-w, 18); stroke-linecap: butt; }
 .bow__sheave { fill: var(--ground); stroke: var(--ink); stroke-width: 1.5; }
 .bow__hub { fill: var(--ink); }
@@ -223,7 +230,7 @@ html.has-gl .cutaway__drawing { visibility: hidden; }
 .plate :focus-visible { outline-color: #d9e2e5; }
 
 /* The chapter menu (phones): a non-modal list under the bridge line. */
-.chapters { position: fixed; top: 56px; right: var(--gutter); z-index: 25; background: var(--ground); color: var(--ink); border: 1px solid var(--ink); padding: calc(var(--unit) * 2) calc(var(--unit) * 5); min-width: 15rem; }
+.chapters { position: fixed; top: var(--bridge-h, 64px); right: var(--gutter); z-index: 25; background: var(--ground); color: var(--ink); border: 1px solid var(--ink); padding: calc(var(--unit) * 2) calc(var(--unit) * 5); min-width: 15rem; }
 .chapters[hidden] { display: none; }
 .chapters a { display: flex; align-items: center; min-height: 44px; text-decoration: none; font-weight: 600; border-bottom: 1px solid var(--line); }
 
@@ -232,20 +239,31 @@ html.has-gl .cutaway__drawing { visibility: hidden; }
 .cable__gl { width: 100%; height: 100%; opacity: 0; transition: opacity var(--dur-routine) var(--ease-out-expo); }
 html.has-gl .cable__gl { opacity: 1; }
 
-/* ——— Tablet and phone ——— */
-@media (max-width: 900px) {
-  .bridge { grid-template-columns: auto 1fr auto; gap: calc(var(--unit) * 3); min-height: 56px; }
-  .bridge__nav, .bridge__desk, .readout--wire, .readout--tension, .bridge__pos { display: none; }
+/* ——— Tablet: the bridge folds its nav and two readouts into the Chapters list; the page keeps the desktop layout ——— */
+@media (max-width: 1100px) {
+  .bridge { grid-template-columns: auto 1fr auto auto; gap: calc(var(--unit) * 4); }
+  .bridge__nav, .readout--wire, .readout--tension { display: none; }
   .bridge__readout { justify-self: end; }
   .bridge__menu {
     display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.875rem;
     background: none; border: 1px solid var(--ink); border-radius: 0; cursor: pointer; font-weight: 600; font-size: 0.875rem;
   }
+  .located__facts, .cutaway__layers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 768px) and (max-width: 1100px) and (orientation: portrait) {
+  .chapter--fault { padding-top: calc(64px + 12vh); --bow-top: calc(64px + 24vh); }
+  .plate__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .plate__grid div { border-bottom: 1px solid #485259; }
+}
+/* ——— Phone ——— */
+@media (max-width: 767px) {
+  .bridge { grid-template-columns: auto 1fr auto; gap: calc(var(--unit) * 3); min-height: 56px; }
+  .bridge__desk, .bridge__pos { display: none; }
   .chapter { padding: calc(var(--unit) * 24) calc(100% - var(--cable-x) + 22px) calc(var(--unit) * 24) var(--gutter); }
   .chapter--fault { padding-top: calc(56px + 34vw); --bow-top: calc(56px + 2vh); --bow-scale: 0.083333vw; }
   /* The sheave's leading edge lands on the cable line: right = 100 − cable-x − 0.825 × width. */
   .bow { width: 40%; right: -25%; --bow-cable-w: 31; }
-  .bow__label { display: none; }
+  .bow__label, .bow__leader { display: none; }
   .located__facts, .coverage, .splice__facts, .cutaway__layers { grid-template-columns: 1fr; }
   .depthlog { left: calc(var(--gutter) + 56px); right: calc(100% - var(--cable-x) + 22px); }
   .depthlog__row { grid-template-columns: 1fr; gap: calc(var(--unit) * 1); }
@@ -254,7 +272,6 @@ html.has-gl .cable__gl { opacity: 1; }
   .chapter--laid { grid-template-columns: 1fr; }
   .desk { padding: calc(var(--unit) * 5); }
   .plate__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .plate__grid div { border-bottom: 1px solid #485259; }
   .drag__copy { max-width: none; padding-right: calc(100% - var(--cable-x) + 22px); }
   .seabed { height: 40%; }
 }

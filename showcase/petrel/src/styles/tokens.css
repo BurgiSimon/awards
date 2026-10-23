@@ -79,6 +79,10 @@
 }
 
 /* Narrow phones: the claim's longest unbreakable run ("4,212 metres") must clear the cable at 320–390 px. */
+/* A portrait tablet re-locks the scale up a step, so the claim holds the taller frame (the Seasats lesson). */
+@media (min-width: 768px) and (max-width: 1100px) and (orientation: portrait) {
+  :root { --display: clamp(2.5rem, 7.6vw, 5rem); --h2: clamp(2rem, 5.2vw, 3.5rem); }
+}
 @media (max-width: 560px) {
   :root { --display: clamp(2rem, 9.2vw, 2.25rem); }
 }

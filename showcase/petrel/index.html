@@ -54,7 +54,7 @@
       <section class="chapter chapter--fault" id="fault" data-theme="surface" aria-labelledby="fault-title" data-chapter-at="fault">
         <div class="fault__copy">
           <h1 class="display" id="fault-title">The internet is broken 4,212&nbsp;metres down.</h1>
-          <p class="alarm"><span class="alarm__mark" aria-hidden="true"></span>At 03:14 UTC the light in Gannet-1 stopped 2,147.3&nbsp;km out from the shore station at Sines. Your own light crosses the sea to the other side in about <span data-crossing>31&nbsp;ms</span>, one way, when the glass is whole.</p>
+          <p class="alarm"><span class="alarm__mark" aria-hidden="true"></span>At 03:14 UTC the light in Gannet-1 stopped 2,147.3&nbsp;km out from the shore station at Sines. Your own light crosses the sea to the other side in about <span data-crossing>32&nbsp;ms</span>, one way, when the glass is whole.</p>
           <p class="fault__action"><a class="button button--fault" href="#desk">Report a cable fault</a> <span class="fault__reply">Tickets answer within 15 minutes, day or night.</span></p>
         </div>
         <span class="strand strand--fault" aria-hidden="true"></span>
@@ -66,13 +66,19 @@
             <path class="bow__deck" d="M214 120 L480 120 M236 96 L480 96 M214 120 L236 96" />
             <path class="bow__stanchions" d="M272 96 L272 120 M308 96 L308 120 M344 96 L344 120 M380 96 L380 120 M416 96 L416 120 M452 96 L452 120" />
             <path class="bow__house" d="M372 96 L372 34 L480 34 M372 54 L480 54 M396 34 L396 54 M420 34 L420 54 M444 34 L444 54 M468 34 L468 54" />
+            <!-- Above the deck: the wheelhouse with its window band, the foremast running up past the top of the page, and
+                 the stay from the masthead down to the sheave platform. -->
+            <path class="bow__house" d="M388 34 L388 -52 L480 -52 M380 -52 L480 -52 M388 -30 L480 -30 M408 -52 L408 -30 M428 -52 L428 -30 M448 -52 L448 -30 M468 -52 L468 -30 M396 -52 L396 -70 L480 -70" />
+            <path class="bow__mast" d="M318 96 L318 -520 M296 -236 L340 -236 M304 -236 L318 -270 M332 -236 L318 -270 M318 -150 L340 -150" />
+            <path class="bow__rig" d="M318 -470 L150 94 M318 -236 L236 96" />
             <path class="bow__arm" d="M118 104 L214 120 M118 104 L236 96 M150 94 L214 120" />
             <path class="bow__cable" d="M480 80 L130 72 C 102 70 86 84 84 104" />
             <circle class="bow__sheave" cx="118" cy="104" r="34" />
             <circle class="bow__hub" cx="118" cy="104" r="5" />
             <line class="bow__waterline" x1="0" y1="300" x2="480" y2="300" />
-            <text class="bow__label" x="300" y="290">waterline</text>
-            <text class="bow__label" x="36" y="50">bow sheave</text>
+            <path class="bow__leader" d="M392 334 L360 300 M60 40 L60 56 L94 80" />
+            <text class="bow__label" x="396" y="346">waterline</text>
+            <text class="bow__label" x="20" y="32">bow sheave</text>
           </svg>
         </figure>
       </section>
