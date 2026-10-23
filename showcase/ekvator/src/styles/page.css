@@ -251,7 +251,8 @@ html.has-gl .room { visibility: hidden; }
   .room { --patch: polygon(26% 5%, 112% -2%, 112% 46%, 26% 53%); --mullion-v: polygon(68% 4%, 70% 4%, 70% 50%, 68% 50%); --mullion-h: polygon(26% 27%, 112% 21%, 112% 22.4%, 26% 28.4%); }
   .hourline__city { justify-self: end; }
   .chapter { padding-block: calc(var(--unit) * 24); }
-  .chapter--first-light { padding-top: max(calc(var(--unit) * 64), 50svh); align-content: start; }
+  /* The light takes the top of the portrait screen; the words and the action sit on the screen's foot, whole. */
+  .chapter--first-light { padding-top: calc(var(--unit) * 64); align-content: end; }
   .chapter--first-light h1, .first-light__lede, .chapter--morning h2, .chapter--noon h2, .panel-figure,
   .chapter--afternoon h2, .spec, .reserve__panel, .reserve__copy { grid-column: 1 / -1; }
   .stair { grid-template-columns: 1fr; }

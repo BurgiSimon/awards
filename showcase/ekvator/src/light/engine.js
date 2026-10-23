@@ -63,6 +63,7 @@ export function createDay({ tier: initialTier, wall = null, announce = () => {} 
   const sunMark = document.querySelector('.hourline__sun');
   const cityLabel = document.querySelector('[data-city-clock]');
   const polarLast = document.querySelector('.polar-night__body');
+  const morningLast = document.querySelector('.chapter--morning .stair li:last-child');
   const hourline = document.querySelector('.hourline');
   let hourlineH = 72;
   const chapters = Object.fromEntries([...document.querySelectorAll('[data-chapter-at]')].map((el) => [el.dataset.chapterAt, el]));
@@ -156,12 +157,13 @@ export function createDay({ tier: initialTier, wall = null, announce = () => {} 
   }
 
   function polarDark() {
-    const r = chapters['polar-night'].getBoundingClientRect();
-    if (tier !== 'full') return r.top < vh * 0.5 && polarLast.getBoundingClientRect().bottom > hourlineH + vh * 0.06 ? 1 : 0;
-    // Dark before the stage's words can be seen, and dark only until the last of them has passed under the hour
-    // line, so the noon chapter always arrives on a daylit wall.
-    const enter = smooth(vh * 0.95, vh * 0.72, r.top);
+    // The stage paints its own night ground, so the wall only has to darken while no daylit words are left on it:
+    // from the moment Morning's last line passes under the hour line until the stage's last line does the same.
+    // Both edges are measured against the bar, so a tall tablet viewport never turns Morning dark.
+    const first = morningLast.getBoundingClientRect().bottom;
     const last = polarLast.getBoundingClientRect().bottom;
+    if (tier !== 'full') return first < hourlineH + vh * 0.06 && last > hourlineH + vh * 0.06 ? 1 : 0;
+    const enter = smooth(hourlineH + vh * 0.12, hourlineH, first);
     const leave = smooth(hourlineH, hourlineH + vh * 0.12, last);
     return Math.min(enter, leave);
   }

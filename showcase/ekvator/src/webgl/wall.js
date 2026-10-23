@@ -32,19 +32,20 @@ float gnoise(vec2 p) {
   float d = dot(grad(i + vec2(1.0, 1.0)), f - vec2(1.0, 1.0));
   return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
 }
-// Plaster laid with a trowel: long arcs whose direction wanders slowly across the wall, each stroke a soft ridge
+// Plaster laid with a trowel: long strokes in one working direction, bent into arcs by a slow warp, each a soft ridge
 // with a crisp edge on one side, over a faint fine texture. A grazing sun picks out the strokes; noon flattens them.
+// The direction is fixed and the domain is warped by a bounded offset: rotating by an angle that varies with position
+// would sweep coordinates far from the origin through many strokes and draw contour rings.
 float plaster(vec2 p) {
-  float ang = gnoise(p * 0.0011 + 2.7) * 2.6 + 0.35;
-  float ca = cos(ang); float sa = sin(ang);
-  vec2 q = vec2(ca * p.x - sa * p.y, sa * p.x + ca * p.y);
-  float strokes = gnoise(q * vec2(0.0013, 0.0068) + 4.1);
-  strokes += 0.45 * gnoise(q * vec2(0.0031, 0.0145) + 6.6);
-  float edge = 1.0 - abs(gnoise(q * vec2(0.0019, 0.0115) + 9.7));
+  vec2 pp = p + vec2(gnoise(p * 0.0016 + 2.7), gnoise(p * 0.0016 + 8.3)) * 140.0;
+  vec2 q = vec2(0.8776 * pp.x - 0.4794 * pp.y, 0.4794 * pp.x + 0.8776 * pp.y); // ~29°
+  float strokes = gnoise(q * vec2(0.0024, 0.0105) + 4.1);
+  strokes += 0.45 * gnoise(q * vec2(0.0052, 0.023) + 6.6);
+  float edge = 1.0 - abs(gnoise(q * vec2(0.0033, 0.017) + 9.7));
   edge = edge * edge;
   float h = 0.62 * strokes + 0.12 * edge;
-  h += 0.1 * gnoise(p * 0.008 + 1.3);
-  h += 0.05 * gnoise(p * 0.04);
+  h += 0.035 * gnoise(p * 0.008 + 1.3);
+  h += 0.015 * gnoise(p * 0.04);
   return h;
 }
 float grain(vec2 p) { return gnoise(p * 0.45) * 0.5 + 0.5; }
@@ -60,7 +61,10 @@ void main() {
   float h0 = plaster(wp);
   float hx = plaster(wp + vec2(e, 0.0));
   float hy = plaster(wp + vec2(0.0, e));
-  float strength = mix(0.5, 1.3, uGrazing) * mix(1.0, 0.35, uNight) * 46.0 / e;
+  // How low the sun is: about 0 at a high noon (grazing ≈ 0.25), 1 at first light (≈ 0.65). The relief follows it,
+  // so the wall reads flat at noon and raked at sunrise.
+  float low = smoothstep(0.3, 0.62, uGrazing);
+  float strength = mix(0.12, 1.3, low) * mix(1.0, 0.35, uNight) * 46.0 / e;
   vec3 n = normalize(vec3(-(hx - h0) * strength, (hy - h0) * strength, 1.0));
 
   // The window patch: a parallelogram with soft edges and a cross-shaped mullion shadow.
@@ -78,9 +82,9 @@ void main() {
   // Lambert against the flat wall, so relief modulates the light rather than dimming it.
   // Relief bounded by the grazing angle, never divided by the sun's height, and eased into its range so a
   // sunrise rakes the plaster without breaking into hard steps.
-  float r = dot(n.xy, normalize(uDir.xy + 1e-4)) * mix(1.2, 4.0, uGrazing);
+  float r = dot(n.xy, normalize(uDir.xy + 1e-4)) * mix(1.0, 4.0, low);
   float lit = 1.0 + 0.42 * r / (1.0 + abs(r));
-  float sky = mix(1.0 + (n.y * 0.05), 1.0, uNight);
+  float sky = mix(1.0 + (n.y * 0.05 * mix(0.3, 1.0, low)), 1.0, uNight);
   float sand = 1.0 + (grain(wp) - 0.5) * 0.035;
 
   vec3 col = uAmbient * sky * sand;

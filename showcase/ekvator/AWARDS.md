@@ -85,10 +85,12 @@ Responsive strategy: vw-lock above 768 px through the `clamp()` tokens (1440 art
   top fixes: 1) checked city row off the accent, ink ground + plaster text (src/styles/page.css:224) 2) phone h1 on four lines as contracted (src/styles/tokens.css:44) 3) wall relief clips into yellow cells at sunrise (src/webgl/wall.js:73-87); then cast colour in the light (src/light/engine.js:185), city list on --wall-now (page.css:207), phone tick row for walk 2 (page.css:228)
 - 2026-10-23 · fix · D 7.6 / U 6.0 / C 8.2 / Co 8.2 → 7.3 · dev seo 8.4 / anim 8.0 / a11y 7.0 / wpo 8.3 / resp 7.8 / meta 7.8 → 7.88 · .awards/jury/2026-10-23-2.md
   top fixes: 1) scroll-padding-top for the fixed hour line so focus lands below it; phone empty submit hides the name field (src/styles/base.css:5, page.css:33-34, :230) 2) possessive cast shadow smears the city name (index.html:53, :355; src/light/engine.js:20-43) 3) sunrise relief reads as dapple, not plaster (src/webgl/wall.js:23-39); then the halo rings (page.css .reserve__panel) and Noon in night tokens on tablet (engine.js:143-150)
+- 2026-10-23 · verdict · fix · D 7.7 / U 7.2 / C 8.2 / Co 8.2 → 7.7 · resolved 4 / partial 1 / unresolved 0 · regressions 2
 
 ## Ship log
 <!-- appended by awards:ship — date · audit summary · captures · performance numbers -->
 - 2026-10-23 · audit P0 0 / P1 0 / P2 0 / P3 0 · exceptions 1 · captures 68 valid from .awards/captures/20261023T095536-ship/manifest.json · entry 58.8 KB gz · GL 3.1 KB gz · LCP 1.11 s (throttled capture) · CLS 0.0137 · .awards/ship/2026-10-23.md
+- 2026-10-23 · audit P0 0 / P1 0 / P2 0 / P3 0 · exceptions 1 · captures 68 valid from .awards/captures/20261023T102204-ship-2/manifest.json · entry 58.7 KB gz · GL 3.3 KB gz · LCP 1.16 s (throttled capture) · CLS 0.0137 · .awards/ship/2026-10-23-2.md
 
 ## Exceptions
 <!-- audit rule ids deliberately accepted, one per line, scoped to a path or viewport where you can: `C02 — pure black is diegetic (night-vision console)`, `C01@src/credits.html — read once over the film still` -->
