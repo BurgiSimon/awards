@@ -11,7 +11,7 @@
 - [x] Motion score authored and built (motion)
 - [x] WebGL layer built or explicitly declined (webgl): explicitly declined, dosage rung none (two plates of print need no depth)
 - [x] Jury disposition: ship · 2026-10-23
-- [ ] Shipped (ship)
+- [x] Shipped (ship)
 
 ## Brief
 - **Subject:** awards, the open-source plugin for Claude Code and Codex in this repository (`plugins/awards`, version read from its manifest): eleven skills that design and build award-level websites and components, browser-verified recipes, a deterministic craft-floor audit, a corpus of analysed award winners, and a jury that scores a build in a fresh context. Every count, name and command the page prints is read from the plugin at build time; nothing is typed by hand. Real, not synthetic. The one proof the page shows is the Ekvator showcase in this repository, a real build the plugin made, cited with its own captures and jury lines.
@@ -80,10 +80,12 @@ Responsive strategy: vw-lock above 768 px through the `clamp()` tokens (1440 art
   top fixes: 1) WORLD: install tabs and copy button set in the furniture's --label style, take them into the text widths (src/styles/sheet.css:134, :93) 2) tablet plate leaves 460 px empty under the install block (.chapter--sheet min-height 100svh, align-content start) 3) copy button below the fold at 1366x768 (.chapter--sheet padding-top and gaps); source: src/main.js:32 calls register.setTier, which createRegister never returns
 - 2026-10-23 · ship · D 7.8 / U 7.8 / C 8.2 / Co 8.3 → 7.9 · dev seo 8.4 / anim 8.2 / a11y 7.6 / wpo 8.2 / resp 8.0 / meta 8.4 → 8.13 · .awards/jury/2026-10-23-2.md
   top fixes: 1) slug readout is a live <output> re-announced every scroll frame, stamp announced as 'Prooffix' (index.html:46, src/register.js:44, :122) 2) floor key's 4 columns sit under the wrong bars of the 8-bar chart (src/styles/sheet.css:181) 3) hero h1 ends at 61% of the artboard, widen wdth to reach three quarters (src/styles/sheet.css:115)
+- 2026-10-23 · verdict · ship · D 7.9 / U 8.0 / C 8.2 / Co 8.4 → 8.0 · resolved 3 / partial 2 / unresolved 0 · regressions 1
 
 ## Ship log
 <!-- appended by awards:ship — date · audit summary · captures · performance numbers -->
 - 2026-10-23 · audit P0 0 / P1 0 / P2 0 / P3 0 · exceptions 0 · captures 64 valid from .awards/captures/20261023T102557-ship/manifest.json · entry 50.7 KB gz · GL none (declined) · LCP 1.20 s (throttled capture) · CLS 0 · .awards/ship/2026-10-23.md
+- 2026-10-23 · audit P0 0 / P1 0 / P2 0 / P3 0 · exceptions 0 · captures 64 valid from .awards/captures/20261023T102557-ship/manifest.json · entry 50.7 KB gz · GL none (declined) · LCP 1.20 s (throttled capture) · CLS 0 · .awards/ship/2026-10-23-2.md
 
 ## Exceptions
 <!-- audit rule ids deliberately accepted, one per line, scoped to a path or viewport where you can: `C02 — pure black is diegetic (night-vision console)`, `C01@src/credits.html — read once over the film still` -->
