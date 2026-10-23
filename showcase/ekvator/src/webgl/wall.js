@@ -1,5 +1,5 @@
-// The wall, in one fullscreen shader: procedural plaster relief lit by the borrowed sun's direction, the window
-// patch with its mullion, and at blue hour the drawn panel's own glow. Raw WebGL2: the scene is one triangle,
+// The wall, in one fullscreen shader: procedural plaster relief lit by the borrowed sun's direction and the window
+// patch with its mullion. Raw WebGL2: the scene is one triangle,
 // so a library would only add weight. The canvas is aria-hidden; every word stays in the DOM.
 
 const VERT = `#version 300 es
@@ -17,8 +17,6 @@ uniform vec4 uPatch;        // cx, top, width, height (css px)
 uniform vec2 uShape;        // slope, softness (css px)
 uniform vec3 uDir;          // light direction in wall space (x right, y up, z out)
 uniform float uGrazing;     // 0 frontal … 1 raking
-uniform vec4 uGlowRect;     // x, y, w, h (css px) of the drawn panel
-uniform vec3 uGlow;         // linear rgb × strength of its glow
 uniform float uNight;       // 0 day … 1 night: how much relief the sky still shows
 out vec4 outColor;
 
@@ -56,7 +54,7 @@ void main() {
   float h0 = plaster(wp);
   float hx = plaster(wp + vec2(e, 0.0));
   float hy = plaster(wp + vec2(0.0, e));
-  float strength = mix(0.6, 2.0, uGrazing) * mix(1.0, 0.35, uNight) * 46.0 / e;
+  float strength = mix(0.5, 1.3, uGrazing) * mix(1.0, 0.35, uNight) * 46.0 / e;
   vec3 n = normalize(vec3(-(hx - h0) * strength, (hy - h0) * strength, 1.0));
 
   // The window patch: a parallelogram with soft edges and a cross-shaped mullion shadow.
@@ -73,7 +71,7 @@ void main() {
 
   // Lambert against the flat wall, so relief modulates the light rather than dimming it.
   float flatLit = max(uDir.z, 0.08);
-  float lit = clamp(mix(1.0, dot(n, uDir) / flatLit, 0.6), 0.5, 1.7);
+  float lit = clamp(mix(1.0, dot(n, uDir) / flatLit, 0.5), 0.65, 1.45);
   float sky = mix(1.0 + (n.y * 0.05), 1.0, uNight);
   float sand = 1.0 + (grain(wp) - 0.5) * 0.035;
 
@@ -82,18 +80,6 @@ void main() {
   // A faint bounce around the patch: light scattered off the floor and the room.
   float halo = bandIn(u, -0.35, 1.35, 0.35) * bandIn(v, -0.25, 1.25, 0.3);
   col += uLight * 0.05 * halo;
-
-  // The drawn panel at blue hour: a soft rectangular glow on the plaster around it.
-  if (uGlow.r + uGlow.g + uGlow.b > 0.0) {
-    vec2 c = uGlowRect.xy + uGlowRect.zw * 0.5;
-    vec2 d = max(abs(frag - c) - uGlowRect.zw * 0.5, 0.0);
-    float dist = length(d);
-    float g = exp(-dist / (uGlowRect.z * 0.55));
-    // The relief around it is lit from the panel itself, so the marks radiate from the light.
-    vec3 toPanel = normalize(vec3(c.x - frag.x, frag.y - c.y, uGlowRect.z * 0.9));
-    float glit = clamp(mix(1.0, dot(n, toPanel) / max(toPanel.z, 0.1), 0.45), 0.6, 1.5);
-    col += uGlow * g * glit * 0.55;
-  }
 
   // Linear → sRGB, with a little dither so the long gradients never band.
   vec3 srgb = mix(col * 12.92, 1.055 * pow(col, vec3(1.0 / 2.4)) - 0.055, step(0.0031308, col));
@@ -131,7 +117,7 @@ export function createWall(canvas, profile) {
   gl.useProgram(prog);
 
   const U = {};
-  for (const name of ['uRes', 'uPx', 'uScroll', 'uAmbient', 'uLight', 'uPatch', 'uShape', 'uDir', 'uGrazing', 'uGlowRect', 'uGlow', 'uNight']) U[name] = gl.getUniformLocation(prog, name);
+  for (const name of ['uRes', 'uPx', 'uScroll', 'uAmbient', 'uLight', 'uPatch', 'uShape', 'uDir', 'uGrazing', 'uNight']) U[name] = gl.getUniformLocation(prog, name);
 
   // Resolution budget: the light is soft, so the wall renders under the device pixel ratio on every tier.
   const scaleByTier = { high: 1, mid: 0.75, low: 0.5 };
@@ -152,7 +138,7 @@ export function createWall(canvas, profile) {
   const api = {
     lost: false,
     frames: 0,
-    render({ ambient, light, scroll, glow, night }) {
+    render({ ambient, light, scroll, night }) {
       if (api.lost) return;
       if (canvas.width !== Math.round(innerWidth * px) || canvas.height !== Math.round(innerHeight * px)) resize();
       const L = light;
@@ -166,12 +152,6 @@ export function createWall(canvas, profile) {
       gl.uniform3fv(U.uDir, L.dir);
       gl.uniform1f(U.uGrazing, Math.min(1, L.grazing * 1.3));
       gl.uniform1f(U.uNight, night);
-      if (glow && glow.k > 0) {
-        gl.uniform4f(U.uGlowRect, glow.x, glow.y, glow.w, glow.h);
-        gl.uniform3f(U.uGlow, 1.0 * glow.k, 0.62 * glow.k, 0.32 * glow.k);
-      } else {
-        gl.uniform3f(U.uGlow, 0, 0, 0);
-      }
       gl.drawArrays(gl.TRIANGLES, 0, 3);
       api.frames += 1;
     },

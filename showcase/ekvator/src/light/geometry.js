@@ -31,7 +31,7 @@ export const linearToCss = (rgb, alpha = 1) => {
 const DAWN = hexToLinear('#cfd2d8');
 const DAY = hexToLinear('#e4e1da');
 const NIGHT_LOW = hexToLinear('#192030');
-const NIGHT_HIGH = hexToLinear('#2b3447');
+const NIGHT_HIGH = hexToLinear('#222a3b');
 
 export function ambient(elevation, nightMix) {
   const day = mix(DAWN, DAY, smooth(2, 30, elevation));
@@ -56,11 +56,11 @@ export function lightState(sun, { w, h }, on = 1) {
   const cx = w * (0.5 - 0.37 * sinRel);
   const top = h * (0.05 + 0.4 * sinE ** 0.85);
   const slope = -0.24 * sinRel * (1 - 0.45 * sinE); // the far side of the patch sits lower
-  const soft = (5 + 15 * Math.abs(sinRel) + 9 * (1 - sinE)) * scale;
+  const soft = (3 + 8 * Math.abs(sinRel) + 4 * (1 - sinE)) * scale;
 
   const kelvin = kelvinAt(sun.elevation);
   const colour = kelvinToRgb(kelvin).map((s) => (s <= 0.04045 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4)); // linear
-  const intensity = smooth(-1.2, 5, sun.elevation) * (0.55 + 0.45 * smooth(5, 35, sun.elevation)) * on;
+  const intensity = smooth(-1.5, 3, sun.elevation) * (0.78 + 0.22 * smooth(5, 35, sun.elevation)) * on;
 
   // A raised letter on a wall, lit from the window: its shadow falls away from the light and down.
   const grazing = 1 - Math.cos(rel * RAD) * Math.cos(e * RAD);

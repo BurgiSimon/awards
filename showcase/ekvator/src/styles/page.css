@@ -155,6 +155,12 @@ html.has-gl .room { visibility: hidden; }
 /* 6 · Blue hour — even split: the lit panel, and the reservation inside its light. */
 .chapter--reserve { min-height: 100svh; align-items: center; row-gap: calc(var(--unit) * 12); }
 .reserve__panel { grid-column: 1 / span 5; justify-self: center; width: min(100%, 360px); aspect-ratio: 2 / 3; border: 1.5px solid var(--ink); padding: 14px; position: relative; }
+/* The panel is the last light source on the page: its glow falls on the wall around it. */
+.reserve__panel::before {
+  content: ""; position: absolute; inset: -55% -70%; z-index: -1; pointer-events: none;
+  background: radial-gradient(closest-side, rgb(255 168 88 / 0.3), rgb(255 150 70 / 0.1) 55%, transparent);
+}
+.chapter--reserve { isolation: isolate; overflow: clip; }
 .reserve__glass { display: block; width: 100%; height: 100%; background: radial-gradient(120% 90% at 50% 42%, rgb(255 236 210), var(--panel-light, rgb(255 190 122)) 70%); }
 .reserve__copy { grid-column: 7 / -1; display: grid; gap: calc(var(--unit) * 6); }
 .reserve__form { display: grid; gap: calc(var(--unit) * 4); max-width: 30rem; }
@@ -172,9 +178,10 @@ html.has-gl .room { visibility: hidden; }
 .reserve__form .button { justify-self: start; margin-top: calc(var(--unit) * 2); }
 .reserve__status { font-size: var(--label); min-height: 1.4em; }
 
-/* Sections set at night carry their own tokens; without the live wall they paint their own darkness. */
+/* Sections set at night carry their own tokens and paint their own darkness, so their contrast never waits on
+   the canvas; the wall darkens to the same colour as they arrive. */
 [data-theme="night"] { color: var(--ink); }
-html:not(.is-live) .chapter[data-theme="night"], html:not(.is-live) .colophon { background: var(--ground); }
+.chapter[data-theme="night"], .colophon { background: var(--ground); }
 
 .colophon { display: grid; gap: calc(var(--unit) * 2); padding: calc(var(--unit) * 16) var(--gutter) calc(var(--unit) * 12); font-size: var(--label); border-top: 1px solid var(--line); }
 .colophon__place { font-family: var(--font-display); font-weight: 800; font-size: var(--h3); letter-spacing: -0.01em; max-width: none; }

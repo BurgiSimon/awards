@@ -4,10 +4,11 @@
 import gsap from 'gsap';
 import { sunDay, sunPosition, clock, CITIES } from '../lib/sun.js';
 import { chapterTimes, facts, fmtElevation, fmtAzimuth, fmtKelvin, cityById } from '../lib/facts.js';
-import { lightState, patchPolygons, litFraction, ambient, linearToCss, mix } from './geometry.js';
+import { lightState, patchPolygons, litFraction, ambient, linearToCss, mix, hexToLinear } from './geometry.js';
 
 const MIN = 60000;
 const NIGHT_BELOW = -3;
+const NIGHT_GROUND = hexToLinear('#192030');
 const smooth = (a, b, x) => {
   const t = Math.min(1, Math.max(0, (x - a) / (b - a)));
   return t * t * (3 - 2 * t);
@@ -23,7 +24,6 @@ export function createDay({ tier: initialTier, wall = null, announce = () => {} 
   const sunMark = document.querySelector('.hourline__sun');
   const cityLabel = document.querySelector('[data-city-clock]');
   const chapters = Object.fromEntries([...document.querySelectorAll('[data-chapter-at]')].map((el) => [el.dataset.chapterAt, el]));
-  const panel = document.querySelector('.reserve__panel');
 
   const params = new URLSearchParams(location.search);
   let city = cityById(params.get('city') || 'lisbon');
@@ -144,7 +144,8 @@ export function createDay({ tier: initialTier, wall = null, announce = () => {} 
 
     const sun = { elevation: pos.elevation, azimuth: pos.azimuth, noonAzimuth: noonAz };
     const L = lightState(sun, { w: vw, h: vh }, mixes.on * (1 - dark));
-    const amb = ambient(pos.elevation, Math.max(mixes.night, dark));
+    // In the polar stage the wall falls to exactly the stage's own ground, so its edge disappears.
+    const amb = mix(ambient(pos.elevation, mixes.night), NIGHT_GROUND, dark);
 
     // Shadows: cast by the patch where it reaches the letters, faintly by the sky elsewhere.
     const sky = 0.1 * (1 - Math.max(mixes.night, dark));
@@ -156,15 +157,8 @@ export function createDay({ tier: initialTier, wall = null, announce = () => {} 
       el.style.setProperty('--cast', `${L.shadow.x.toFixed(3)}em ${L.shadow.y.toFixed(3)}em ${L.shadow.blur.toFixed(3)}em rgb(21 26 34 / ${a.toFixed(3)})`);
     }
 
-    // The close: the drawn panel glows with its own evening light once the borrowed sun has gone.
-    let glow = null;
-    if (panel) {
-      const r = panel.getBoundingClientRect();
-      if (r.bottom > 0 && r.top < vh) glow = { x: r.left, y: r.top, w: r.width, h: r.height, k: mixes.night * (1 - dark) };
-    }
-
     if (wall && !wall.lost) {
-      wall.render({ ambient: amb, light: L, scroll: y, glow, night: Math.max(mixes.night, dark) });
+      wall.render({ ambient: amb, light: L, scroll: y, night: Math.max(mixes.night, dark) });
     } else {
       const poly = patchPolygons(L.patch);
       room.style.setProperty('--wall', linearToCss(amb));
