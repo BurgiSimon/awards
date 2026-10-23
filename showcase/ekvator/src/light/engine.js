@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { sunDay, sunPosition, clock, CITIES } from '../lib/sun.js';
 import { chapterTimes, facts, fmtElevation, fmtAzimuth, fmtKelvin, cityById } from '../lib/facts.js';
 import { lightState, patchPolygons, litFraction, ambient, linearToCss, mix, hexToLinear } from './geometry.js';
+import { hereByZone } from '../lib/zones.js';
 
 const MIN = 60000;
 const NIGHT_BELOW = -3;
@@ -14,12 +15,40 @@ const smooth = (a, b, x) => {
   return t * t * (3 - 2 * t);
 };
 
+// Wrap each word of a cast heading in its own span (nested live values stay whole), so a shadow can fall on the
+// words the light reaches and not on the others. Non-breaking spaces keep their words together.
+function splitCast(headings) {
+  const words = [];
+  for (const h of headings) {
+    for (const node of [...h.childNodes]) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const parts = node.textContent.split(/( +)/);
+        const frag = document.createDocumentFragment();
+        for (const part of parts) {
+          if (!part) continue;
+          if (/^ +$/.test(part)) { frag.append(part); continue; }
+          const s = document.createElement('span');
+          s.className = 'cast-word';
+          s.textContent = part;
+          frag.append(s);
+          words.push(s);
+        }
+        node.replaceWith(frag);
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        node.classList.add('cast-word');
+        words.push(node);
+      }
+    }
+  }
+  return words;
+}
+
 export function createDay({ tier: initialTier, wall = null, announce = () => {} }) {
   let tier = initialTier;
   const root = document.documentElement;
   const metaTheme = document.querySelector('meta[name="theme-color"]');
   const room = document.querySelector('.room');
-  const cast = [...document.querySelectorAll('[data-cast]')];
+  const cast = splitCast([...document.querySelectorAll('[data-cast]')]);
   const ticks = [...document.querySelectorAll('.hourline__ticks a')];
   const sunMark = document.querySelector('.hourline__sun');
   const cityLabel = document.querySelector('[data-city-clock]');
@@ -147,15 +176,18 @@ export function createDay({ tier: initialTier, wall = null, announce = () => {} 
     // In the polar stage the wall falls to exactly the stage's own ground, so its edge disappears.
     const amb = mix(ambient(pos.elevation, mixes.night), NIGHT_GROUND, dark);
 
-    // Shadows: cast by the patch where it reaches the letters, faintly by the sky elsewhere.
-    const sky = 0.1 * (1 - Math.max(mixes.night, dark));
-    for (const el of cast) {
-      const r = el.getBoundingClientRect();
-      if (r.bottom < -40 || r.top > vh + 40) continue;
-      const lit = litFraction(r, L.patch);
-      const a = Math.min(0.5, sky + 0.4 * lit * L.intensity);
-      el.style.setProperty('--cast', `${L.shadow.x.toFixed(3)}em ${L.shadow.y.toFixed(3)}em ${L.shadow.blur.toFixed(3)}em rgb(21 26 34 / ${a.toFixed(3)})`);
-    }
+    // Shadows: word by word, cast where the patch reaches the letters, a breath of sky shadow elsewhere.
+    // All rects are read first and all styles written after, so the loop never forces a second layout.
+    const sky = 0.04 * (1 - Math.max(mixes.night, dark));
+    const rects = cast.map((el) => el.getBoundingClientRect());
+    const values = rects.map((r) => {
+      if (r.bottom < -40 || r.top > vh + 40) return null;
+      const a = Math.min(0.55, sky + 0.5 * litFraction(r, L.patch) * L.intensity);
+      return `${L.shadow.x.toFixed(3)}em ${L.shadow.y.toFixed(3)}em ${L.shadow.blur.toFixed(3)}em rgb(21 26 34 / ${a.toFixed(3)})`;
+    });
+    values.forEach((v, i) => { if (v && v !== cast[i].__cast) { cast[i].__cast = v; cast[i].style.setProperty('--cast', v); } });
+    root.style.setProperty('--wall-now', linearToCss(amb));
+    root.style.setProperty('--sun-color', pos.elevation > -1 ? linearToCss(L.colour) : 'var(--muted)');
 
     if (wall && !wall.lost) {
       wall.render({ ambient: amb, light: L, scroll: y, night: Math.max(mixes.night, dark) });
@@ -183,6 +215,7 @@ export function createDay({ tier: initialTier, wall = null, announce = () => {} 
 
     // The hour line: the sun rides between the chapter ticks; the current chapter is marked.
     placeSun(y);
+    writeHere();
     state = { city: city.id, clock: hm, elevation: Number(pos.elevation.toFixed(2)), azimuth: Math.round(pos.azimuth), kelvin: L.kelvin, theme, polarDark: Number(dark.toFixed(2)) };
   }
 
@@ -190,6 +223,20 @@ export function createDay({ tier: initialTier, wall = null, announce = () => {} 
   function write(key, value) {
     readouts[key] ??= [...document.querySelectorAll(`[data-sun="${key}"]`)];
     for (const el of readouts[key]) if (el.textContent !== value) el.textContent = value;
+  }
+
+  // The visitor's own sky beside the borrowed one, by time zone, once a minute.
+  const here = hereByZone();
+  const hereEl = document.querySelector('[data-here]');
+  let hereMinute = -1;
+  function writeHere() {
+    if (!here || !hereEl) return;
+    const now = Date.now();
+    const m = Math.floor(now / MIN);
+    if (m === hereMinute) return;
+    hereMinute = m;
+    const p = sunPosition(now, here.lat, here.lon);
+    hereEl.textContent = `Your own sky, by your time zone (${here.name}): ${clock(now, here.tz)}, sun ${fmtElevation(p.elevation)}.`;
   }
 
   let tickX = [];

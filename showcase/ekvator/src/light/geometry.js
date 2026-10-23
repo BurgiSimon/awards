@@ -51,7 +51,7 @@ export function lightState(sun, { w, h }, on = 1) {
   const scale = Math.min(1, h / 900);
   // Sized from the shorter side, so a tall phone gets a window across its top half, not a lit screen.
   const base = Math.min(h, w * 1.25);
-  const ph = base * 0.8 * (1 - 0.28 * sinE);
+  const ph = base * 0.86 * (1 - 0.28 * sinE);
   const pw = ph * (2 / 3) * (1 + 0.85 * Math.abs(sinRel));
   const cx = w * (0.5 - 0.37 * sinRel);
   const top = h * (0.05 + 0.4 * sinE ** 0.85);
@@ -64,7 +64,7 @@ export function lightState(sun, { w, h }, on = 1) {
 
   // A raised letter on a wall, lit from the window: its shadow falls away from the light and down.
   const grazing = 1 - Math.cos(rel * RAD) * Math.cos(e * RAD);
-  const len = 0.045 + 0.11 * grazing + 0.03 * (1 - sinE);
+  const len = 0.04 + 0.2 * grazing + 0.06 * (1 - sinE);
   const dx = sinRel * Math.cos(e * RAD);
   const dy = 0.25 + 0.75 * sinE;
   const n = Math.hypot(dx, dy) || 1;
