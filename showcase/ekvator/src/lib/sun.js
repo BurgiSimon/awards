@@ -143,16 +143,25 @@ export function cardinal(az) {
 }
 
 // Local clock text for a UTC instant in a city's zone.
+// Building an Intl formatter costs far more than using one, and the polar-night search runs ~100 days:
+// every formatter is made once per zone and reused.
+const formatters = new Map();
+function fmt(kind, tz, make) {
+  const key = `${kind}|${tz}`;
+  if (!formatters.has(key)) formatters.set(key, make());
+  return formatters.get(key);
+}
+
 export function clock(ms, tz) {
-  return new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone: tz }).format(ms);
+  return fmt('clock', tz, () => new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone: tz })).format(ms);
 }
 
 export function longDate(ms, tz) {
-  return new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', timeZone: tz }).format(ms);
+  return fmt('date', tz, () => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', timeZone: tz })).format(ms);
 }
 
 function ymdOf(ms, tz) {
-  const parts = new Intl.DateTimeFormat('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: tz })
+  const parts = fmt('ymd', tz, () => new Intl.DateTimeFormat('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: tz }))
     .formatToParts(ms);
   const get = (type) => Number(parts.find((p) => p.type === type).value);
   return [get('year'), get('month') - 1, get('day')];
@@ -170,9 +179,9 @@ function zonedMidnight(ms, tz) {
 }
 
 function zoneOffset(ms, tz) {
-  const parts = new Intl.DateTimeFormat('en-US', {
+  const parts = fmt('offset', tz, () => new Intl.DateTimeFormat('en-US', {
     timeZone: tz, hourCycle: 'h23', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit',
-  }).formatToParts(ms);
+  })).formatToParts(ms);
   const get = (type) => Number(parts.find((p) => p.type === type).value);
   const asUtc = Date.UTC(get('year'), get('month') - 1, get('day'), get('hour') % 24, get('minute'), get('second'));
   return asUtc - Math.floor(ms / 1000) * 1000;

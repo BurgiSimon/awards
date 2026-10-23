@@ -85,8 +85,8 @@ html.js:not(.is-live) { --reg-x: calc(13px * var(--reg-scale)); --reg-y: calc(-9
 .slug__plates a[aria-current="true"]::after { transform: scaleX(1); height: 3px; background: var(--ink); }
 .slug__register { display: inline-flex; gap: 0.6em; align-items: baseline; white-space: nowrap; max-width: none; }
 .slug__label { color: var(--muted); }
-.slug__error { font-variant-numeric: tabular-nums; min-width: 5.5ch; text-align: right; }
-.slug__phase { color: var(--muted); min-width: 9ch; }
+.slug__error { display: inline-block; font-variant-numeric: tabular-nums; min-width: 6.2em; text-align: right; }
+.slug__phase { display: inline-block; color: var(--muted); width: 9.5em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .slug__menu { display: none; }
 
 /* ——— Buttons ——— */
@@ -128,7 +128,9 @@ html.js:not(.is-live) { --reg-x: calc(13px * var(--reg-scale)); --reg-y: calc(-9
 /* The install block: tabs over the commands, one copy action. Without JavaScript both panels show. */
 .install { display: grid; gap: calc(var(--unit) * 3); max-width: 36rem; border-top: 2px solid var(--ink); padding-top: calc(var(--unit) * 4); }
 .install__tabs { display: none; gap: 2px; }
-html.is-live .install__tabs { display: flex; }
+/* With JavaScript the tabs and the first panel are decided in CSS before the script runs, so nothing moves. */
+html.js .install__tabs { display: flex; }
+html.js:not(.is-live) .install__panel[data-panel="codex"] { display: none; }
 .install__tabs button {
   min-height: 44px; padding: 0 1rem; border: 1px solid var(--line); border-radius: 0; background: none; cursor: pointer;
   font-size: var(--label); font-weight: 600; font-stretch: 115%; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
@@ -137,7 +139,7 @@ html.is-live .install__tabs { display: flex; }
 .install__tabs button:hover { color: var(--ink); border-color: var(--ink); }
 .install__tabs button[aria-selected="true"] { color: var(--ink); border-color: var(--ink); background: var(--accent); }
 .install__for { font-size: var(--label); font-weight: 600; font-stretch: 115%; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-html.is-live .install__for { display: none; }
+html.js .install__for { display: none; }
 .install__panel { display: grid; gap: calc(var(--unit) * 2); }
 .install__panel[hidden] { display: none; }
 .install__code { padding: 1rem 1.125rem; background: color-mix(in oklab, var(--ink) 6%, var(--ground)); border: 1px solid var(--line); overflow-x: auto; line-height: 1.7; font-size: 0.9375rem; }
