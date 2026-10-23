@@ -70,7 +70,7 @@ export function initMotion({ signal }) {
     readTokens();
     takeover(tier);
     const animate = animateFor(tier);
-    const strip = createStrip({ tier, onCurrent: (li) => { if (animate) request(marks.unitOf(li)); } });
+    const strip = createStrip({ tier, onCurrent: (li) => { if (animate) { marks.passed(li); request(marks.unitOf(li)); } } });
     const wide = matchMedia('(min-width: 768px)').matches;
     const loupe = tier === 'full' && wide ? createLoupe({ strip }) : null;
     const close = home ? createCloseRing({ animate, scope: (fn) => ctx.add(fn) }) : null;

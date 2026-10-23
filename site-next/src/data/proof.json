@@ -171,7 +171,59 @@
       }
     ]
   },
-  "verdict": null,
+  "verdict": {
+    "file": ".awards/jury/2026-10-22-verdict.md",
+    "date": "2026-10-22",
+    "disposition": "fix",
+    "dispositionLine": "disposition: fix",
+    "scoresLine": "Design 7.4 · Usability 7.8 · Creativity 8.2 · Content 7.7 — weighted 7.71",
+    "scores": {
+      "kind": "site",
+      "design": "7.4",
+      "usability": "7.8",
+      "creativity": "8.2",
+      "content": "7.7",
+      "weighted": "7.71"
+    },
+    "rows": [
+      {
+        "status": "partial",
+        "location": "`src/motion/loupe.js:32` (`held: top - vh * 0.15`, `out: top`), with `src/styles/site.css:569` (`.proof__loupe`)",
+        "line": "| 1 | `src/motion/loupe.js:32` (`held: top - vh * 0.15`, `out: top`), with `src/styles/site.css:569` (`.proof__loupe`) | End chapter 3's hold when the figures column's foot reaches the viewport top, not when the plate's own top does, so the plate rests at its laid-out box (x 424–1052 at 1440, where the reduced tier places it) for as long as \"What the capture measured\" and \"What the audit found\" are being read | desktop and tablet, home chapter 3, full tier | `.awards/captures/20261022T154816-jury/manifest.json` + `20261022T154816-jury/desktop-s38.png` (plate in flight at 0.91 scale, about 60 px left of its box), `20261022T154816-jury/desktop-s46.png` | `.awards/captures/20261022T163356-ship/chapters/manifest.json` + `chapters/desktop-s38.png` and `chapters/desktop-s42.png` (plate still, full size, x 424–1053, beside the scores), `chapters/desktop-s46.png`; tablet `chapters/tablet-s38.png` | partial — the motion is resolved: no frame catches the plate in flight after s34 (`chapters/desktop-s34.png` is the growth). The empty paper is not: under \"Open at full size\" about 330 × 630 px of bare paper stands beside the memory sentence and its source (`chapters/desktop-s42.png` y 510–840, `chapters/desktop-s46.png` y 215–540), as the reduced tier shows too (`chapters/desktop-rm-s38.png`) |",
+        "lineNo": 21,
+        "fix": "craft-1"
+      },
+      {
+        "status": "resolved",
+        "location": "`src/styles/base.css:65` (`dt code, .commands code, … { overflow-wrap: anywhere }`)",
+        "line": "| 2 | `src/styles/base.css:65` (`dt code, .commands code, … { overflow-wrap: anywhere }`) | Let commands and paths break only at spaces and after `/` (break opportunities written at build, `overflow-wrap` no longer `anywhere`), and stack a long term above its description in the /docs spec list where the term column is narrower than the command | phone 320 and 390 (home, /install tickets), desktop /docs Scripts | `.awards/captures/20261022T155633-jury-states/w320/routes.json` + `20261022T155633-jury-states/w320/home/mobile-s00.png` (`burgisimon/awar` / `ds`), `20261022T153705Z-prejury-2/install-html/mobile-s50.png` (`doctor.mj` / `s`), `20261022T153705Z-prejury-2/docs-html/desktop-s75.png` (`scripts/doctor.m` / `js`) | `.awards/captures/20261022T163356-ship/w320/routes.json` + `w320/home/mobile-s00.png` (`burgisimon/` / `awards`), `install-html/mobile-s50.png` (`npx playwright install` / `--with-deps chromium`; `node <plugin>/scripts/` / `doctor.mjs . --json`, hanging indent), `docs-scripts/docs-html/desktop-s82.png` and `desktop-s88.png` (each script term whole on its own line above its description) | resolved |",
+        "lineNo": 22,
+        "fix": "craft-2"
+      },
+      {
+        "status": "resolved",
+        "location": "`index.html:28`, `:39`, `:80`, `:173` (\"89 audit rules after every edit\") against `index.html:175` and `plugins/awards/hooks/hooks.json:32` (`audit.mjs --quick`); `index.html:160` and `docs.html:129` (the ship rule)",
+        "line": "| 3 | `index.html:28`, `:39`, `:80`, `:173` (\"89 audit rules after every edit\") against `index.html:175` and `plugins/awards/hooks/hooks.json:32` (`audit.mjs --quick`); `index.html:160` and `docs.html:129` (the ship rule) | Say what runs when (a static quick pass after every edit in Claude Code, after each batch in Codex, all 89 rules with `--render`), and print the ship rule once, from one source, as the jury applies it: weighted 7.2 or higher, no axis under 6.8, no P0 or P1, every contract row kept, usability walk steps 1 and 3 passed | every width: home s00 and chapters 3–4, /docs Jury | `20261022T153705Z-prejury-2/home/desktop-s00.png`, `20261022T154816-jury/desktop-s62.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png`, `20261022T153705Z-prejury-2/docs-html/desktop-s50.png` | `.awards/captures/20261022T163356-ship/home/desktop-s00.png` (lede: \"a quick audit as it edits and all 89 rules on the rendered page at three widths\"), `chapters/desktop-s62.png` and `chapters/desktop-s70.png` (heading \"89 rules, the fast ones as you edit\", body names the hook, Codex and `--render`), `home/desktop-s50.png` and `docs-html/desktop-s50.png` (the same four dispositions word for word); `dist/index.html` meta and OG descriptions agree | resolved |",
+        "lineNo": 23,
+        "fix": "craft-3"
+      },
+      {
+        "status": "resolved",
+        "location": "`public/og.png`; the head's `og:image` (`index.html:40`) and the missing `og:url`, on every route",
+        "line": "| 4 | `public/og.png`; the head's `og:image` (`index.html:40`) and the missing `og:url`, on every route | Render `og.png` from the newest s00 frame in its rebate with the job line, as `DESIGN.md ## Browser surfaces` assigns to the proof step once a capture exists, and write `og:image` and `og:url` as absolute URLs from the deploy origin (the baseline's floor fix 5, still open) | meta, every route | the head of `dist/index.html` (`og:image ./og.png`, no `og:url`) and `dist/og.png` (the drawn state-c sheet) | `dist/og.png` (opened: 1200 × 630, the home s00 frame of `20261022T153705Z-prejury-2` in its rebate with the wordmark, beside the job line in the voice, capture and build in edge print); `dist/*.html` heads: canonical, `og:url` and `og:image` absolute on all five routes | resolved |",
+        "lineNo": 24,
+        "fix": "craft-4"
+      },
+      {
+        "status": "resolved",
+        "location": "`src/styles/site.css:53–62` (`.rebate__wordmark`, no hover rule)",
+        "line": "| 5 | `src/styles/site.css:53–62` (`.rebate__wordmark`, no hover rule) | Give the wordmark the rebate's link vocabulary: the 2 px paper underline over `--dur-feedback` under `(hover: hover)` and with `:focus-visible` (the baseline's craft fix 5, repeated here) | desktop and tablet hover, every route | `.awards/captures/20261022T153705Z-prejury-2/home/manifest.json` + `20261022T153705Z-prejury-2/home/desktop-hover-1.png` (pixel-identical to rest) | `.awards/captures/20261022T163356-ship/home/manifest.json` + `home/desktop-hover-1.png` and `install-html/desktop-hover-1.png` (paper underline under \"awards\"), `home/desktop-focus-1.png` (ring and underline) | resolved |",
+        "lineNo": 25,
+        "fix": "craft-5"
+      }
+    ],
+    "remaining": "- Floor: the FIRST VIEWPORT block in state (a) — the strip at s00 shows one frame and three long notes instead of the frames column (`facts/proof.js:105–106`, `:144–148`; `src/styles/site.css:170`).\n- Craft: blank bands after a jump and a row printed twice in the strip (`src/styles/site.css:857`, `src/motion/marks.js:56–63`, `facts/proof.js:144`).\n- Craft: the phone chapter-head row's long notes beside an empty half (`src/styles/site.css:198`).\n- Craft: round-1 craft 1, partial — bare paper under \"Open at full size\" in chapter 3 (`src/motion/loupe.js` `measure()`, `src/styles/site.css:569`).\n- Craft: the hover crop beside s00 (`facts/proof.js:144`, `.frame--crop`)."
+  },
   "captures": [
     {
       "capture": "20261022T153705Z-prejury-2",
@@ -452,6 +504,19 @@
                 },
                 "report": ".awards/jury/2026-10-22.md",
                 "date": "2026-10-22"
+              },
+              {
+                "id": "arrow-7",
+                "type": "arrow",
+                "from": "cross-7",
+                "status": "resolved",
+                "label": "resolved, verdict 2026-10-22",
+                "section": "Verdict",
+                "source": "craft-3",
+                "line": "| 3 | `index.html:28`, `:39`, `:80`, `:173` (\"89 audit rules after every edit\") against `index.html:175` and `plugins/awards/hooks/hooks.json:32` (`audit.mjs --quick`); `index.html:160` and `docs.html:129` (the ship rule) | Say what runs when (a static quick pass after every edit in Claude Code, after each batch in Codex, all 89 rules with `--render`), and print the ship rule once, from one source, as the jury applies it: weighted 7.2 or higher, no axis under 6.8, no P0 or P1, every contract row kept, usability walk steps 1 and 3 passed | every width: home s00 and chapters 3–4, /docs Jury | `20261022T153705Z-prejury-2/home/desktop-s00.png`, `20261022T154816-jury/desktop-s62.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png`, `20261022T153705Z-prejury-2/docs-html/desktop-s50.png` | `.awards/captures/20261022T163356-ship/home/desktop-s00.png` (lede: \"a quick audit as it edits and all 89 rules on the rendered page at three widths\"), `chapters/desktop-s62.png` and `chapters/desktop-s70.png` (heading \"89 rules, the fast ones as you edit\", body names the hook, Codex and `--render`), `home/desktop-s50.png` and `docs-html/desktop-s50.png` (the same four dispositions word for word); `dist/index.html` meta and OG descriptions agree | resolved |",
+                "lineNo": 23,
+                "report": ".awards/jury/2026-10-22-verdict.md",
+                "date": "2026-10-22"
               }
             ]
           },
@@ -540,6 +605,19 @@
                 },
                 "report": ".awards/jury/2026-10-22.md",
                 "date": "2026-10-22"
+              },
+              {
+                "id": "arrow-1",
+                "type": "arrow",
+                "from": "cross-1",
+                "status": "partial",
+                "label": "partial",
+                "section": "Verdict",
+                "source": "craft-1",
+                "line": "| 1 | `src/motion/loupe.js:32` (`held: top - vh * 0.15`, `out: top`), with `src/styles/site.css:569` (`.proof__loupe`) | End chapter 3's hold when the figures column's foot reaches the viewport top, not when the plate's own top does, so the plate rests at its laid-out box (x 424–1052 at 1440, where the reduced tier places it) for as long as \"What the capture measured\" and \"What the audit found\" are being read | desktop and tablet, home chapter 3, full tier | `.awards/captures/20261022T154816-jury/manifest.json` + `20261022T154816-jury/desktop-s38.png` (plate in flight at 0.91 scale, about 60 px left of its box), `20261022T154816-jury/desktop-s46.png` | `.awards/captures/20261022T163356-ship/chapters/manifest.json` + `chapters/desktop-s38.png` and `chapters/desktop-s42.png` (plate still, full size, x 424–1053, beside the scores), `chapters/desktop-s46.png`; tablet `chapters/tablet-s38.png` | partial — the motion is resolved: no frame catches the plate in flight after s34 (`chapters/desktop-s34.png` is the growth). The empty paper is not: under \"Open at full size\" about 330 × 630 px of bare paper stands beside the memory sentence and its source (`chapters/desktop-s42.png` y 510–840, `chapters/desktop-s46.png` y 215–540), as the reduced tier shows too (`chapters/desktop-rm-s38.png`) |",
+                "lineNo": 21,
+                "report": ".awards/jury/2026-10-22-verdict.md",
+                "date": "2026-10-22"
               }
             ]
           },
@@ -593,6 +671,19 @@
                   "Status": "unresolved"
                 },
                 "report": ".awards/jury/2026-10-22.md",
+                "date": "2026-10-22"
+              },
+              {
+                "id": "arrow-2",
+                "type": "arrow",
+                "from": "cross-2",
+                "status": "partial",
+                "label": "partial",
+                "section": "Verdict",
+                "source": "craft-1",
+                "line": "| 1 | `src/motion/loupe.js:32` (`held: top - vh * 0.15`, `out: top`), with `src/styles/site.css:569` (`.proof__loupe`) | End chapter 3's hold when the figures column's foot reaches the viewport top, not when the plate's own top does, so the plate rests at its laid-out box (x 424–1052 at 1440, where the reduced tier places it) for as long as \"What the capture measured\" and \"What the audit found\" are being read | desktop and tablet, home chapter 3, full tier | `.awards/captures/20261022T154816-jury/manifest.json` + `20261022T154816-jury/desktop-s38.png` (plate in flight at 0.91 scale, about 60 px left of its box), `20261022T154816-jury/desktop-s46.png` | `.awards/captures/20261022T163356-ship/chapters/manifest.json` + `chapters/desktop-s38.png` and `chapters/desktop-s42.png` (plate still, full size, x 424–1053, beside the scores), `chapters/desktop-s46.png`; tablet `chapters/tablet-s38.png` | partial — the motion is resolved: no frame catches the plate in flight after s34 (`chapters/desktop-s34.png` is the growth). The empty paper is not: under \"Open at full size\" about 330 × 630 px of bare paper stands beside the memory sentence and its source (`chapters/desktop-s42.png` y 510–840, `chapters/desktop-s46.png` y 215–540), as the reduced tier shows too (`chapters/desktop-rm-s38.png`) |",
+                "lineNo": 21,
+                "report": ".awards/jury/2026-10-22-verdict.md",
                 "date": "2026-10-22"
               }
             ]
@@ -677,6 +768,32 @@
                 },
                 "report": ".awards/jury/2026-10-22.md",
                 "date": "2026-10-22"
+              },
+              {
+                "id": "arrow-3",
+                "type": "arrow",
+                "from": "cross-3",
+                "status": "partial",
+                "label": "partial",
+                "section": "Verdict",
+                "source": "craft-1",
+                "line": "| 1 | `src/motion/loupe.js:32` (`held: top - vh * 0.15`, `out: top`), with `src/styles/site.css:569` (`.proof__loupe`) | End chapter 3's hold when the figures column's foot reaches the viewport top, not when the plate's own top does, so the plate rests at its laid-out box (x 424–1052 at 1440, where the reduced tier places it) for as long as \"What the capture measured\" and \"What the audit found\" are being read | desktop and tablet, home chapter 3, full tier | `.awards/captures/20261022T154816-jury/manifest.json` + `20261022T154816-jury/desktop-s38.png` (plate in flight at 0.91 scale, about 60 px left of its box), `20261022T154816-jury/desktop-s46.png` | `.awards/captures/20261022T163356-ship/chapters/manifest.json` + `chapters/desktop-s38.png` and `chapters/desktop-s42.png` (plate still, full size, x 424–1053, beside the scores), `chapters/desktop-s46.png`; tablet `chapters/tablet-s38.png` | partial — the motion is resolved: no frame catches the plate in flight after s34 (`chapters/desktop-s34.png` is the growth). The empty paper is not: under \"Open at full size\" about 330 × 630 px of bare paper stands beside the memory sentence and its source (`chapters/desktop-s42.png` y 510–840, `chapters/desktop-s46.png` y 215–540), as the reduced tier shows too (`chapters/desktop-rm-s38.png`) |",
+                "lineNo": 21,
+                "report": ".awards/jury/2026-10-22-verdict.md",
+                "date": "2026-10-22"
+              },
+              {
+                "id": "arrow-9",
+                "type": "arrow",
+                "from": "cross-9",
+                "status": "resolved",
+                "label": "resolved, verdict 2026-10-22",
+                "section": "Verdict",
+                "source": "craft-3",
+                "line": "| 3 | `index.html:28`, `:39`, `:80`, `:173` (\"89 audit rules after every edit\") against `index.html:175` and `plugins/awards/hooks/hooks.json:32` (`audit.mjs --quick`); `index.html:160` and `docs.html:129` (the ship rule) | Say what runs when (a static quick pass after every edit in Claude Code, after each batch in Codex, all 89 rules with `--render`), and print the ship rule once, from one source, as the jury applies it: weighted 7.2 or higher, no axis under 6.8, no P0 or P1, every contract row kept, usability walk steps 1 and 3 passed | every width: home s00 and chapters 3–4, /docs Jury | `20261022T153705Z-prejury-2/home/desktop-s00.png`, `20261022T154816-jury/desktop-s62.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png`, `20261022T153705Z-prejury-2/docs-html/desktop-s50.png` | `.awards/captures/20261022T163356-ship/home/desktop-s00.png` (lede: \"a quick audit as it edits and all 89 rules on the rendered page at three widths\"), `chapters/desktop-s62.png` and `chapters/desktop-s70.png` (heading \"89 rules, the fast ones as you edit\", body names the hook, Codex and `--render`), `home/desktop-s50.png` and `docs-html/desktop-s50.png` (the same four dispositions word for word); `dist/index.html` meta and OG descriptions agree | resolved |",
+                "lineNo": 23,
+                "report": ".awards/jury/2026-10-22-verdict.md",
+                "date": "2026-10-22"
               }
             ]
           },
@@ -730,6 +847,19 @@
                   "Status": "unresolved"
                 },
                 "report": ".awards/jury/2026-10-22.md",
+                "date": "2026-10-22"
+              },
+              {
+                "id": "arrow-8",
+                "type": "arrow",
+                "from": "cross-8",
+                "status": "resolved",
+                "label": "resolved, verdict 2026-10-22",
+                "section": "Verdict",
+                "source": "craft-3",
+                "line": "| 3 | `index.html:28`, `:39`, `:80`, `:173` (\"89 audit rules after every edit\") against `index.html:175` and `plugins/awards/hooks/hooks.json:32` (`audit.mjs --quick`); `index.html:160` and `docs.html:129` (the ship rule) | Say what runs when (a static quick pass after every edit in Claude Code, after each batch in Codex, all 89 rules with `--render`), and print the ship rule once, from one source, as the jury applies it: weighted 7.2 or higher, no axis under 6.8, no P0 or P1, every contract row kept, usability walk steps 1 and 3 passed | every width: home s00 and chapters 3–4, /docs Jury | `20261022T153705Z-prejury-2/home/desktop-s00.png`, `20261022T154816-jury/desktop-s62.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png`, `20261022T153705Z-prejury-2/docs-html/desktop-s50.png` | `.awards/captures/20261022T163356-ship/home/desktop-s00.png` (lede: \"a quick audit as it edits and all 89 rules on the rendered page at three widths\"), `chapters/desktop-s62.png` and `chapters/desktop-s70.png` (heading \"89 rules, the fast ones as you edit\", body names the hook, Codex and `--render`), `home/desktop-s50.png` and `docs-html/desktop-s50.png` (the same four dispositions word for word); `dist/index.html` meta and OG descriptions agree | resolved |",
+                "lineNo": 23,
+                "report": ".awards/jury/2026-10-22-verdict.md",
                 "date": "2026-10-22"
               }
             ]
@@ -857,6 +987,19 @@
                   "Status": "unresolved"
                 },
                 "report": ".awards/jury/2026-10-22.md",
+                "date": "2026-10-22"
+              },
+              {
+                "id": "arrow-11",
+                "type": "arrow",
+                "from": "cross-11",
+                "status": "resolved",
+                "label": "resolved, verdict 2026-10-22",
+                "section": "Verdict",
+                "source": "craft-5",
+                "line": "| 5 | `src/styles/site.css:53–62` (`.rebate__wordmark`, no hover rule) | Give the wordmark the rebate's link vocabulary: the 2 px paper underline over `--dur-feedback` under `(hover: hover)` and with `:focus-visible` (the baseline's craft fix 5, repeated here) | desktop and tablet hover, every route | `.awards/captures/20261022T153705Z-prejury-2/home/manifest.json` + `20261022T153705Z-prejury-2/home/desktop-hover-1.png` (pixel-identical to rest) | `.awards/captures/20261022T163356-ship/home/manifest.json` + `home/desktop-hover-1.png` and `install-html/desktop-hover-1.png` (paper underline under \"awards\"), `home/desktop-focus-1.png` (ring and underline) | resolved |",
+                "lineNo": 25,
+                "report": ".awards/jury/2026-10-22-verdict.md",
                 "date": "2026-10-22"
               }
             ]
@@ -1131,6 +1274,19 @@
                   "Status": "unresolved"
                 },
                 "report": ".awards/jury/2026-10-22.md",
+                "date": "2026-10-22"
+              },
+              {
+                "id": "arrow-4",
+                "type": "arrow",
+                "from": "cross-4",
+                "status": "resolved",
+                "label": "resolved, verdict 2026-10-22",
+                "section": "Verdict",
+                "source": "craft-2",
+                "line": "| 2 | `src/styles/base.css:65` (`dt code, .commands code, … { overflow-wrap: anywhere }`) | Let commands and paths break only at spaces and after `/` (break opportunities written at build, `overflow-wrap` no longer `anywhere`), and stack a long term above its description in the /docs spec list where the term column is narrower than the command | phone 320 and 390 (home, /install tickets), desktop /docs Scripts | `.awards/captures/20261022T155633-jury-states/w320/routes.json` + `20261022T155633-jury-states/w320/home/mobile-s00.png` (`burgisimon/awar` / `ds`), `20261022T153705Z-prejury-2/install-html/mobile-s50.png` (`doctor.mj` / `s`), `20261022T153705Z-prejury-2/docs-html/desktop-s75.png` (`scripts/doctor.m` / `js`) | `.awards/captures/20261022T163356-ship/w320/routes.json` + `w320/home/mobile-s00.png` (`burgisimon/` / `awards`), `install-html/mobile-s50.png` (`npx playwright install` / `--with-deps chromium`; `node <plugin>/scripts/` / `doctor.mjs . --json`, hanging indent), `docs-scripts/docs-html/desktop-s82.png` and `desktop-s88.png` (each script term whole on its own line above its description) | resolved |",
+                "lineNo": 22,
+                "report": ".awards/jury/2026-10-22-verdict.md",
                 "date": "2026-10-22"
               }
             ]
@@ -1761,6 +1917,19 @@
                 },
                 "report": ".awards/jury/2026-10-22.md",
                 "date": "2026-10-22"
+              },
+              {
+                "id": "arrow-5",
+                "type": "arrow",
+                "from": "cross-5",
+                "status": "resolved",
+                "label": "resolved, verdict 2026-10-22",
+                "section": "Verdict",
+                "source": "craft-2",
+                "line": "| 2 | `src/styles/base.css:65` (`dt code, .commands code, … { overflow-wrap: anywhere }`) | Let commands and paths break only at spaces and after `/` (break opportunities written at build, `overflow-wrap` no longer `anywhere`), and stack a long term above its description in the /docs spec list where the term column is narrower than the command | phone 320 and 390 (home, /install tickets), desktop /docs Scripts | `.awards/captures/20261022T155633-jury-states/w320/routes.json` + `20261022T155633-jury-states/w320/home/mobile-s00.png` (`burgisimon/awar` / `ds`), `20261022T153705Z-prejury-2/install-html/mobile-s50.png` (`doctor.mj` / `s`), `20261022T153705Z-prejury-2/docs-html/desktop-s75.png` (`scripts/doctor.m` / `js`) | `.awards/captures/20261022T163356-ship/w320/routes.json` + `w320/home/mobile-s00.png` (`burgisimon/` / `awards`), `install-html/mobile-s50.png` (`npx playwright install` / `--with-deps chromium`; `node <plugin>/scripts/` / `doctor.mjs . --json`, hanging indent), `docs-scripts/docs-html/desktop-s82.png` and `desktop-s88.png` (each script term whole on its own line above its description) | resolved |",
+                "lineNo": 22,
+                "report": ".awards/jury/2026-10-22-verdict.md",
+                "date": "2026-10-22"
               }
             ]
           },
@@ -1967,6 +2136,19 @@
                 },
                 "report": ".awards/jury/2026-10-22.md",
                 "date": "2026-10-22"
+              },
+              {
+                "id": "arrow-10",
+                "type": "arrow",
+                "from": "cross-10",
+                "status": "resolved",
+                "label": "resolved, verdict 2026-10-22",
+                "section": "Verdict",
+                "source": "craft-3",
+                "line": "| 3 | `index.html:28`, `:39`, `:80`, `:173` (\"89 audit rules after every edit\") against `index.html:175` and `plugins/awards/hooks/hooks.json:32` (`audit.mjs --quick`); `index.html:160` and `docs.html:129` (the ship rule) | Say what runs when (a static quick pass after every edit in Claude Code, after each batch in Codex, all 89 rules with `--render`), and print the ship rule once, from one source, as the jury applies it: weighted 7.2 or higher, no axis under 6.8, no P0 or P1, every contract row kept, usability walk steps 1 and 3 passed | every width: home s00 and chapters 3–4, /docs Jury | `20261022T153705Z-prejury-2/home/desktop-s00.png`, `20261022T154816-jury/desktop-s62.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png`, `20261022T153705Z-prejury-2/docs-html/desktop-s50.png` | `.awards/captures/20261022T163356-ship/home/desktop-s00.png` (lede: \"a quick audit as it edits and all 89 rules on the rendered page at three widths\"), `chapters/desktop-s62.png` and `chapters/desktop-s70.png` (heading \"89 rules, the fast ones as you edit\", body names the hook, Codex and `--render`), `home/desktop-s50.png` and `docs-html/desktop-s50.png` (the same four dispositions word for word); `dist/index.html` meta and OG descriptions agree | resolved |",
+                "lineNo": 23,
+                "report": ".awards/jury/2026-10-22-verdict.md",
+                "date": "2026-10-22"
               }
             ]
           },
@@ -2031,6 +2213,19 @@
                   "Status": "unresolved"
                 },
                 "report": ".awards/jury/2026-10-22.md",
+                "date": "2026-10-22"
+              },
+              {
+                "id": "arrow-6",
+                "type": "arrow",
+                "from": "cross-6",
+                "status": "resolved",
+                "label": "resolved, verdict 2026-10-22",
+                "section": "Verdict",
+                "source": "craft-2",
+                "line": "| 2 | `src/styles/base.css:65` (`dt code, .commands code, … { overflow-wrap: anywhere }`) | Let commands and paths break only at spaces and after `/` (break opportunities written at build, `overflow-wrap` no longer `anywhere`), and stack a long term above its description in the /docs spec list where the term column is narrower than the command | phone 320 and 390 (home, /install tickets), desktop /docs Scripts | `.awards/captures/20261022T155633-jury-states/w320/routes.json` + `20261022T155633-jury-states/w320/home/mobile-s00.png` (`burgisimon/awar` / `ds`), `20261022T153705Z-prejury-2/install-html/mobile-s50.png` (`doctor.mj` / `s`), `20261022T153705Z-prejury-2/docs-html/desktop-s75.png` (`scripts/doctor.m` / `js`) | `.awards/captures/20261022T163356-ship/w320/routes.json` + `w320/home/mobile-s00.png` (`burgisimon/` / `awards`), `install-html/mobile-s50.png` (`npx playwright install` / `--with-deps chromium`; `node <plugin>/scripts/` / `doctor.mjs . --json`, hanging indent), `docs-scripts/docs-html/desktop-s82.png` and `desktop-s88.png` (each script term whole on its own line above its description) | resolved |",
+                "lineNo": 22,
+                "report": ".awards/jury/2026-10-22-verdict.md",
                 "date": "2026-10-22"
               }
             ]
@@ -3708,7 +3903,7 @@
   },
   "audit": {
     "file": ".awards/audit.json",
-    "date": "2026-10-22T16:19:19.086Z",
+    "date": "2026-10-22T17:17:44.932Z",
     "target": ".",
     "scannedFiles": 35,
     "summary": {
@@ -3722,23 +3917,23 @@
       "axe": "axe-core 4.14.0",
       "viewports": {
         "desktop": {
-          "textsMeasured": 220,
+          "textsMeasured": 224,
           "textsOverImagery": 0,
           "clsLoad": 0,
           "focusStops": 8,
-          "sweepSteps": 19
+          "sweepSteps": 18
         },
         "tablet": {
-          "textsMeasured": 220,
+          "textsMeasured": 222,
           "textsOverImagery": 0,
           "clsLoad": 0,
           "sweepSteps": 16
         },
         "mobile": {
-          "textsMeasured": 214,
+          "textsMeasured": 216,
           "textsOverImagery": 0,
           "clsLoad": 0,
-          "sweepSteps": 28
+          "sweepSteps": 29
         }
       }
     }
@@ -3750,7 +3945,7 @@
     "marks": {
       "ring": 3,
       "cross": 14,
-      "arrow": 0
+      "arrow": 11
     }
   },
   "og": {

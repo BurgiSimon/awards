@@ -90,20 +90,128 @@ function marksSvg(marks) {
   return `<svg class="frame__marks" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false" data-motion="marks">${paths.join('')}</svg>`;
 }
 
-// A mark's caption: the report's own words, then where they come from.
-function noteText(m) {
-  if (m.type === 'arrow') return esc(m.label);
-  if (m.source === 'memory' && m.sentence) return `“${inline(m.sentence)}”`;
-  if (m.cells) {
-    const cell = (name) => Object.entries(m.cells).find(([k]) => k.toLowerCase() === name)?.[1]?.trim() ?? '';
-    const parts = [cell('location'), cell('change')].filter(Boolean);
-    if (parts.length) return parts.map(inline).join(': ');
-  }
-  return inline(String(m.line ?? '').replace(/^\s*-\s*/, ''));
+// --- the report's lines ---------------------------------------------------------------------------------------------
+// A mark's line is the report's own words, then where they come from (`report <date> · <section>`). The memory
+// sentence is quoted whole under the frame it came from (FIRST VIEWPORT). Every other row is quoted by its lead
+// clause, verbatim, with what is left out marked "…", so its line is one or two lines (verdict 2026-10-22, floor
+// fix); the full row stays in the report the footer links. A verdict's arrow joins its row's line as the label the
+// arrow points to ("resolved, verdict <date>" or "partial").
+const ELL = '…';
+
+// The row a mark belongs to: a fix row, a walk step, a Keep line, the memory test (an arrow carries its fix row's).
+const rowOf = (m) => String(m.source ?? m.id);
+
+function rowLabel(m) {
+  const src = rowOf(m);
+  if (src === 'memory') return 'Memory test';
+  if (/^keep-\d+$/.test(src)) return 'Keep';
+  if (/^slop-\d+$/.test(src)) return 'Slop scan';
+  const n = /^([a-z]+)-(\d+)$/.exec(src);
+  if (n) return `${n[1][0].toUpperCase()}${n[1].slice(1)} ${n[2]}`; // craft-3 → Craft 3, walk-8 → Walk 8
+  return m.section ?? '';
 }
 
-function notesHtml(marks) {
-  return (marks ?? []).map((m) => `<p class="frame__note caption" data-mark-id="${esc(m.id)}" data-motion="mark-note">${noteText(m)} <span class="frame__source edge">report ${esc(m.date)} · ${esc(m.section)}</span></p>`).join('');
+// The lead clause of a report line: a parenthesis set off by a space (paths, examples) is left out and marked, then
+// the line is cut at its first clause end (": ", "; ", then ", ") that leaves between 24 and `max` units, or at the
+// last space before `max`. A unit is one character of the edge face; code is set in the wider mono, so its
+// characters count 1.6 (two lines of a 300 px strip note hold about 110 units). Code spans are never cut or
+// searched, and every "…" is tied to its neighbouring word, so a line never breaks onto an ellipsis alone.
+export function leadClause(raw, max = 96) {
+  return tieEllipses(clauseOf(raw, max));
+}
+
+const NBSP = ' ';
+const tieEllipses = (s) => s.replace(new RegExp(`${ELL} (?=\\S)`, 'g'), `${ELL}${NBSP}`).replace(new RegExp(` ${ELL}$`), `${NBSP}${ELL}`);
+
+function clauseOf(raw, max) {
+  const text = String(raw ?? '').replace(/\s+/g, ' ').trim();
+  let s = '';
+  for (let i = 0, code = false; i < text.length; i++) {
+    const c = text[i];
+    if (c === '`') code = !code;
+    if (!code && c === '(' && text[i - 1] === ' ') {
+      let depth = 0;
+      let j = i;
+      for (let inCode = false; j < text.length; j++) {
+        const d = text[j];
+        if (d === '`') inCode = !inCode;
+        else if (!inCode && d === '(') depth++;
+        else if (!inCode && d === ')' && --depth === 0) break;
+      }
+      if (j < text.length) { s = `${s.trimEnd()} ${ELL}`; i = j; continue; }
+    }
+    s += c;
+  }
+  s = s.replace(new RegExp(`${ELL}(?:\\s*${ELL})+`, 'g'), ELL).replace(/\s+/g, ' ').trim();
+  // Width so far, in units, at every index.
+  const units = [];
+  let u = 0;
+  for (let i = 0, code = false; i < s.length; i++) {
+    units.push(u);
+    if (s[i] === '`') { code = !code; continue; }
+    u += code ? 1.6 : 1;
+  }
+  if (u <= max) return s;
+  const strong = [];
+  const weak = [];
+  const spaces = [];
+  for (let i = 0, code = false; i < s.length; i++) {
+    if (s[i] === '`') { code = !code; continue; }
+    if (code) continue;
+    if (s[i] === ' ' && units[i] <= max) spaces.push(i);
+    if (units[i] < 24 || units[i] > max) continue;
+    const two = s.slice(i, i + 2);
+    if (two === ': ' || two === '; ') strong.push(i);
+    else if (two === ', ' && !/^, but\b/.test(s.slice(i))) weak.push(i);
+  }
+  const at = strong[0] ?? weak[0] ?? spaces.at(-1) ?? s.length;
+  const cut = s.slice(0, at).replace(/[\s,;:]+$/, '');
+  return cut.endsWith(ELL) ? cut : `${cut} ${ELL}`;
+}
+
+function quoteOf(m, max) {
+  if (m.source === 'memory' && m.sentence) return m.sentence;
+  const cell = (name) => Object.entries(m.cells ?? {}).find(([k]) => k.toLowerCase() === name)?.[1]?.trim() ?? '';
+  // A fix row by its Change, which says what was wrong in the words of the remedy; a walk line by its note after
+  // "walk n — fail —" (the source names the step); anything else by its own line.
+  const walk = String(m.line ?? '').replace(/^\s*-\s*/, '').replace(/^walk \d+ \S+ (?:pass|fail) \S+ /, '');
+  return leadClause(cell('change') || walk, max);
+}
+
+// Each row a list of frames cites, once, in the order the frames carry their marks (rings, crosses, then arrows).
+function rowsOf(frames) {
+  const rows = new Map();
+  for (const fr of frames) {
+    for (const m of fr.marks ?? []) {
+      const key = rowOf(m);
+      if (!rows.has(key)) rows.set(key, { key, marks: [] });
+      rows.get(key).marks.push(m);
+    }
+  }
+  return [...rows.values()].filter((r) => r.marks.some((m) => m.type !== 'arrow'));
+}
+
+function noteHtml(row, { unit, beside = false } = {}) {
+  const lead = row.marks.find((m) => m.type !== 'arrow');
+  const arrow = row.marks.find((m) => m.type === 'arrow');
+  const memory = lead.source === 'memory' && lead.sentence;
+  const ids = row.marks.map((m) => m.id).join(' ');
+  // A line set beside a crop has half the column: its quote is cut shorter, so it still ends on its own "…".
+  const quote = quoteOf(lead, beside ? 40 : undefined);
+  return `<p class="frame__note caption${memory ? ' frame__note--memory' : ''}${beside ? ' frame__note--beside' : ''}" data-row="${esc(row.key)}" data-mark-id="${esc(ids)}"${unit ? ` data-unit="${esc(unit)}"` : ''} data-motion="mark-note"><span class="frame__quote">“${inline(quote)}”</span> <span class="frame__source edge">report ${esc(lead.date)} · ${esc(rowLabel(lead))}${arrow ? ` · <span class="frame__status">${esc(arrow.label)}</span>` : ''}</span></p>`;
+}
+
+// The lines under one unit of frames. `printed` holds the rows this strip or row has already printed: a row cited
+// by several frames is printed once, under the first, and the other frames carry only their marks. A unit that
+// carries the memory ring (the first viewport's s00) prints the memory sentence and nothing else; its other rows
+// print under the next frame that cites them.
+function unitNotes(frames, printed, { unit, beside } = {}) {
+  const rows = rowsOf(frames);
+  const memoryUnit = rows.some((r) => r.key === 'memory');
+  return rows.filter((r) => (memoryUnit ? r.key === 'memory' : !printed.has(r.key))).map((r) => {
+    printed.add(r.key);
+    return noteHtml(r, { unit, beside });
+  }).join('');
 }
 
 // --- one frame ------------------------------------------------------------------------------------------------------
@@ -117,17 +225,18 @@ function imgHtml(fr, { eager = fr.eager, cls = 'frame__img', useFull = false }) 
 // The picture and its marks share one box, so the marks register on the frame and never on its edge print.
 const plateHtml = (fr, opts) => `<span class="frame__plate">${imgHtml(fr, opts)}${marksSvg(fr.marks)}</span>`;
 
-const edgeHtml = (fr) => `<span class="frame__edge edge" aria-hidden="true"><span>${esc(fr.label)}</span><span>${esc(fr.capture)}</span></span>`;
+// A frame seated beside a stop from the same capture prints only its label: the stop beside it names the capture.
+const edgeHtml = (fr, { stamp = true } = {}) => `<span class="frame__edge edge" aria-hidden="true"><span>${esc(fr.label)}</span>${stamp ? `<span>${esc(fr.capture)}</span>` : ''}</span>`;
 
-function frameLink(fr, { sizes, sections, extra = '', eager }) {
+function frameLink(fr, { sizes, sections, extra = '', eager, stamp }) {
   const at = fr.at ?? (fr.stop !== null ? fr.stop / 100 : null);
-  // A hover or focus frame is a crop around one control, not a page: it is drawn at its own pixels (site.css).
+  // A hover or focus frame is a crop around one control, not a page (site.css seats it beside its stop).
   if (fr.kind === 'hover' || fr.kind === 'focus') extra += ' frame--crop';
-  return `<a class="frame${extra}" href="${hrefFor(at, sections)}"${at !== null ? ` data-at="${at}"` : ''} data-frame="${esc(fr.id)}"${fr.marks?.length ? ' data-marked' : ''}>${plateHtml(fr, { sizes, eager })}${edgeHtml(fr)}</a>`;
+  return `<a class="frame${extra}" href="${hrefFor(at, sections)}"${at !== null ? ` data-at="${at}"` : ''} data-frame="${esc(fr.id)}"${fr.marks?.length ? ' data-marked' : ''}>${plateHtml(fr, { sizes, eager })}${edgeHtml(fr, { stamp })}</a>`;
 }
 
 // Plain stops in depth order; a state, hover or focus frame (or a marked twin of a stop) beside its nearest stop.
-function stripItems(list, { sizes, sizesBeside, sections, eager = true }) {
+function groupItems(list) {
   const isStop = (fr) => fr.kind === 'scroll' && !fr.variants?.length && !fr.duplicateOf;
   const items = [];
   for (const fr of list) {
@@ -140,13 +249,41 @@ function stripItems(list, { sizes, sizesBeside, sections, eager = true }) {
     if (host) host.beside.push(fr);
     else items.push({ main: fr, beside: [] });
   }
-  return items.map(({ main, beside }) => {
-    const notes = [main, ...beside].map((fr) => notesHtml(fr.marks)).join('');
-    // A crop seated beside a stop takes that stop's depth, so it joins the strip's one tab stop and jumps there.
-    const seated = (fr) => (fr.at === null && fr.stop === null && main.stop !== null ? { ...fr, at: main.stop / 100 } : fr);
-    const besideHtml = beside.map((fr) => frameLink(seated(fr), { sizes: sizesBeside, sections, extra: ' frame--beside', eager: false })).join('');
-    return `\n          <li class="strip__item${beside.length ? ' strip__item--pair' : ''}"${main.stop !== null ? ` data-stop="${main.stop}"` : ''}>${frameLink(main, { sizes, sections, eager: eager && main.eager })}${besideHtml}${notes}</li>`;
+  // A crop seated beside a stop takes that stop's depth, so it joins the strip's one tab stop and jumps there.
+  return items.map(({ main, beside }) => ({
+    main,
+    beside: beside.map((fr) => (fr.at === null && fr.stop === null && main.stop !== null ? { ...fr, at: main.stop / 100 } : fr)),
+  }));
+}
+
+// The strip (desktop and tablet): each item is its stop's frame, any frame seated beside it, then their lines.
+// `unitKey` names each item for the marks (src/motion/marks.js draws a unit's marks and lines together).
+function stripItems(list, { sizes, sizesBeside, sections, eager = true, unitKey }) {
+  const printed = new Set();
+  const isCrop = (fr) => fr.kind === 'hover' || fr.kind === 'focus';
+  return groupItems(list).map(({ main, beside }, i) => {
+    const unit = `${unitKey}${i}`;
+    const notes = unitNotes([main, ...beside.filter((fr) => !isCrop(fr))], printed);
+    // A crop seated beside a stop carries its own rows in the half column beside it (the stop's lines stay under
+    // the stop: under s00, the memory sentence alone).
+    const besideHtml = beside.map((fr) => frameLink(fr, { sizes: sizesBeside, sections, extra: ' frame--beside', eager: false, stamp: fr.capture !== main.capture })
+      + (isCrop(fr) ? unitNotes([fr], printed, { beside: true }) : '')).join('');
+    return `\n          <li class="strip__item${beside.length ? ' strip__item--pair' : ''}"${main.stop !== null ? ` data-stop="${main.stop}"` : ''} data-unit="${unit}">${frameLink(main, { sizes, sections, eager: eager && main.eager })}${besideHtml}${notes}</li>`;
   }).join('');
+}
+
+// The phone's row (chapter 1): every frame its own item in one sideways row, a marked twin next to its stop, and
+// the row's lines under the row at its full width, one per row of the report (verdict 2026-10-22, craft fix 2).
+function rowItems(list, { sizes, sections, unitKey }) {
+  const printed = new Set();
+  const frames = groupItems(list).flatMap(({ main, beside }) => [main, ...beside]);
+  let notes = '';
+  const items = frames.map((fr, i) => {
+    const unit = `${unitKey}${i}`;
+    notes += unitNotes([fr], printed, { unit });
+    return `\n          <li class="strip__item"${fr.stop !== null ? ` data-stop="${fr.stop}"` : ''} data-unit="${unit}">${frameLink(fr, { sizes, sections, eager: false })}</li>`;
+  }).join('');
+  return { items, notes };
 }
 
 // --- slots ----------------------------------------------------------------------------------------------------------
@@ -162,7 +299,7 @@ export function proofSlots({ proof, routeName, html, facts }) {
 
   const stripList = (cls, sizes, sizesBeside, eager) => {
     const list = framesOf(route, cls);
-    return list.length ? `\n        <ol class="strip__list" data-class="${cls}" role="list" data-motion="strip">${stripItems(list, { sizes, sizesBeside, sections, eager })}\n        </ol>` : '';
+    return list.length ? `\n        <ol class="strip__list" data-class="${cls}" role="list" data-motion="strip">${stripItems(list, { sizes, sizesBeside, sections, eager, unitKey: `${cls[0]}` })}\n        </ol>` : '';
   };
 
   const slots = {
@@ -179,12 +316,13 @@ export function proofSlots({ proof, routeName, html, facts }) {
     disclosure() {
       const list = framesOf(route, 'mobile');
       if (!route || !list.length) return '';
+      const printed = new Set();
       const items = list.map((fr) => {
         const at = fr.at ?? (fr.stop !== null ? fr.stop / 100 : null);
         const where = fr.kind === 'scroll' && !fr.variants?.length ? STOP_WORDS[fr.stop] ?? `${pct(at)} down` : `${fr.label}${at !== null ? `, ${pct(at)} down` : ''}`;
         // A marked frame carries the report's lines here too: on a phone the disclosure is where a route without
         // inline frames shows what the jury drew on it.
-        return `\n            <li><a href="${hrefFor(at, sections)}"${at !== null ? ` data-at="${at}"` : ''} data-frame="${esc(fr.id)}"><span>${esc(fr.kind === 'scroll' ? stopLabel(fr.stop) : fr.label)}</span> <span class="edge">${esc(where)}${fr.marks?.length ? `, ${fr.marks.map((m) => m.type).join(' and ')} drawn` : ''}</span></a>${notesHtml(fr.marks)}</li>`;
+        return `\n            <li><a href="${hrefFor(at, sections)}"${at !== null ? ` data-at="${at}"` : ''} data-frame="${esc(fr.id)}"><span>${esc(fr.kind === 'scroll' ? stopLabel(fr.stop) : fr.label)}</span> <span class="edge">${esc(where)}${fr.marks?.length ? `, ${fr.marks.map((m) => m.type).join(' and ')} drawn` : ''}</span></a>${unitNotes([fr], printed)}</li>`;
       }).join('');
       return `<details class="frames-disclosure">
         <summary>Frames</summary>
@@ -201,15 +339,18 @@ export function proofSlots({ proof, routeName, html, facts }) {
       const list = framesOf(route, 'mobile');
       if (!list.length) return '';
       if (chapter === 'sheet') {
-        return `<ol class="chapter__frames chapter__frames--row" data-theme="rebate" role="list" aria-label="${label}, phone width">${stripItems(list, { sizes: '42vw', sizesBeside: '21vw', sections, eager: false })}
-      </ol>`;
+        const { items, notes } = rowItems(list, { sizes: '42vw', sections, unitKey: 'r' });
+        return `<div class="chapter__frames chapter__frames--row" data-theme="rebate">
+        <ol class="chapter__row" role="list" aria-label="${label}, phone width">${items}
+        </ol>${notes ? `\n        <div class="chapter__notes">${notes}</div>` : ''}
+      </div>`;
       }
       const want = String(stops ?? '').split(/\s+/).filter(Boolean);
       const picked = list.filter((fr) => fr.kind === 'scroll' && want.includes(stopLabel(fr.stop)) && !fr.variants?.length && !fr.duplicateOf);
       if (!picked.length) return '';
       return picked.map((fr) => `<figure class="chapter__frames" data-theme="rebate">
         <div class="frame"${fr.marks?.length ? ' data-marked' : ''}>${plateHtml(fr, { sizes: '38vw', eager: false })}</div>${edgeHtml(fr)}
-        ${fr.marks?.length ? `<figcaption>${notesHtml(fr.marks)}</figcaption>` : ''}
+        ${fr.marks?.length ? `<figcaption>${unitNotes([fr], new Set())}</figcaption>` : ''}
       </figure>`).join('\n      ');
     },
     // Chapter 3: the frame the memory sentence came from (state a), else the capture's s00, and the figures.

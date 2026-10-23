@@ -19,14 +19,18 @@ export const session = {
   },
 };
 
-// A unit is what draws together: a strip item (its frame, any frame set beside it, their lines), a phone chapter's
-// figure, or the close's s100 frame.
+// A unit is what draws together: a strip item (its frame, any frame set beside it, their lines), a frame of the
+// phone's row (its lines sit under the row, named by the item's data-unit), a phone chapter's figure, or the close's
+// s100 frame. A frame whose row was printed under an earlier frame has marks and no line.
 export function markUnits() {
   const units = [];
   for (const el of document.querySelectorAll('.strip__item, figure.chapter__frames, .select__frame')) {
     const paths = [...el.querySelectorAll('.frame__marks path')];
     if (!paths.length) continue;
-    const notes = el.matches('.select__frame') ? [] : [...el.querySelectorAll('.frame__note')];
+    const key = el.dataset.unit;
+    const notes = el.matches('.select__frame') ? []
+      : key ? [...document.querySelectorAll(`.frame__note[data-unit="${CSS.escape(key)}"]`), ...el.querySelectorAll('.frame__note:not([data-unit])')]
+        : [...el.querySelectorAll('.frame__note')];
     units.push({ el, paths, notes, ids: [...new Set(paths.map((p) => p.dataset.markId))], state: 'drawn', tl: null });
   }
   return units;
@@ -86,9 +90,23 @@ export function createMarks({ units }) {
     return tl;
   }
 
+  // The strip's frames above the current one have been passed, by scroll or by a jump (__awards.scrollTo, Enter,
+  // End): they show their marks drawn at once, so no line waits hidden in its own space between frames (verdict
+  // 2026-10-22, craft fix 1). Only the frame that became current draws.
+  function passed(li) {
+    const list = li?.parentElement;
+    const k = Number(li?.dataset.stop);
+    if (!list || !Number.isFinite(k)) return;
+    for (const el of list.querySelectorAll(':scope > .strip__item[data-stop]')) {
+      const u = byEl.get(el);
+      if (u && u.state === 'pending' && Number(el.dataset.stop) < k) { session.addDrawn(u.ids); show(u); }
+    }
+  }
+
   return {
     prepare,
     draw,
+    passed,
     reveal(u) { session.addDrawn(u.ids); show(u); },
     unitOf: (el) => (el ? byEl.get(el) ?? null : null),
     pending: (el) => byEl.get(el)?.state === 'pending',

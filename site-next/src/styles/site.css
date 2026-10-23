@@ -134,10 +134,14 @@
 .strip__item > .frame--beside { grid-column: auto; }
 .frame { position: relative; display: block; text-decoration: none; color: var(--ink); }
 .frame__plate { position: relative; display: block; }
-/* A hover or focus frame is a crop around one control, shot at 1x: drawn at its own pixels, never stretched to the
-   column (rendered audit P09), with its marks on the crop itself. */
-.frame--crop .frame__plate { width: fit-content; max-width: 100%; }
-.frame--crop .frame__img { width: auto; }
+/* A hover or focus frame is a crop around one control, shot at 1x. Seated beside its stop it takes half the
+   column (SIGNATURE: half-width beside its nearest stop) with its label on one line under it, and its own line from
+   the report stands in the other half; its marks sit on the crop itself. It shares its stop's depth, so it is
+   current with it and carries the same outline. */
+.strip__item > .frame--beside.frame--crop { grid-column: 1; }
+.strip__item > .frame__note--beside { grid-column: 2; align-self: start; margin-block-start: 0; }
+.frame--crop .frame__img { width: 100%; }
+.strip__item:has(> a.frame[aria-current="true"]) > .frame--beside .frame__img { outline-color: var(--ink); }
 /* A frame's states, all on its own outline (DESIGN.md Elevation; the rebate's ink is the paper): current, a 2 px ink
    outline that arrives over --dur-routine; hover, the second ink, with the edge print lifted to the ink; pressed, the
    outline steps 6 px inside the picture, like a thumb on the print. Hover only where a pointer can hover. */
@@ -168,6 +172,16 @@ a.frame:focus-visible { outline-offset: 3px; }
 .frame__marks { position: absolute; inset: -6px; width: calc(100% + 12px); height: calc(100% + 12px); max-width: none; overflow: visible; pointer-events: none; }
 .frame__marks path { fill: none; stroke: var(--mark-ink); stroke-width: var(--mark); stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 .frame__note { margin-block-start: var(--space-1); max-width: none; }
+/* A mark's line (facts/proof.js): the memory sentence whole, any other row by its lead clause in two lines at most,
+   then where it comes from and, when a verdict has drawn an arrow, the label it points to. */
+.frame__quote { display: block; }
+.frame__note:not(.frame__note--memory) .frame__quote {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
 /* The report's lines quote its code (a selector list, a capture path): in a frame's narrow note it wraps at its
    spaces, after an inner "/" and at its hyphens, and only a piece still wider than the note breaks inside, so nothing
    runs past the rebate's edge or under the next frame. */
@@ -181,20 +195,29 @@ a.frame:focus-visible { outline-offset: 3px; }
 .frames-disclosure { display: none; }
 
 :root:not([data-proof="none"]) .chapter__frames {
+  display: block;
+  padding: 12px;
+  margin-inline: calc(var(--gutter) * -1);
+  background: var(--ground); /* the element carries data-theme="rebate" */
+  color: var(--ink);
+}
+.chapter__frames--row { margin-block-start: var(--space-2); }
+/* Chapter 1's row: every phone frame of the route in one sideways run (native overflow with snap, to the band's
+   edges), and the report's lines under the run at its full width, so the band is as tall as its frames plus one
+   short line per row of the report: the quote to one line, then where it comes from. */
+.chapter__row {
+  list-style: none;
   display: flex;
   gap: 12px;
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
   scroll-padding-inline: 12px;
-  padding: 12px;
-  margin-inline: calc(var(--gutter) * -1);
-  background: var(--ground); /* the element carries data-theme="rebate" */
-  color: var(--ink);
-  list-style: none;
+  margin-inline: -12px;
+  padding-inline: 12px;
 }
-:root:not([data-proof="none"]) .chapter__frames > li { flex: 0 0 42%; scroll-snap-align: start; }
-.chapter__frames--row { margin-block-start: var(--space-2); }
+.chapter__row > li { flex: 0 0 42%; scroll-snap-align: start; }
+.chapter__notes .frame__note:not(.frame__note--memory) .frame__quote { -webkit-line-clamp: 1; line-clamp: 1; }
 /* One frame at a chapter's head: the frame at a third of the band, its edge print and notes beside it. */
 :root:not([data-proof="none"]) figure.chapter__frames { display: grid; grid-template-columns: 38% minmax(0, 1fr); column-gap: var(--space-2); align-items: start; overflow: visible; margin-block-end: var(--space-2); }
 figure.chapter__frames .frame__edge { flex-direction: column; justify-content: flex-start; padding-block-start: 0; }
@@ -586,6 +609,15 @@ figure.chapter__frames figcaption { grid-column: 1 / -1; }
 .weights { grid-column: 1 / span 5; margin-block-start: var(--space-3); }
 .dispositions { grid-column: 7 / -1; margin-block-start: var(--space-3); }
 .proof__calibration { grid-column: 1 / span 7; margin-block-start: var(--space-3); max-width: var(--measure); }
+/* Beside the strip, the hold sets the calibration line in the plate's column under its button (Page map row 3:
+   scores, disposition, memory sentence and the calibration line are read beside the plate), so the plate's column
+   and the figures end together instead of leaving bare paper beside the memory sentence (verdict 2026-10-22). The
+   source order stays the terms' own: weights, dispositions, then this line. */
+@media (min-width: 1024px) {
+  :root:not([data-proof="none"]) .proof__loupe { grid-row: 3; }
+  :root:not([data-proof="none"]) .proof__figures { grid-row: 3 / span 2; }
+  :root:not([data-proof="none"]) .proof__calibration { grid-row: 4; grid-column: 1 / span 8; }
+}
 @media (max-width: 1023px) {
   .proof h2, .proof .chapter__intro, .proof__loupe, .proof__figures, .proof__calibration { grid-column: 1 / -1; }
   .weights { grid-column: 1 / span 4; }
