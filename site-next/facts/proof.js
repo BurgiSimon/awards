@@ -418,9 +418,9 @@ export function proofSlots({ proof, routeName, html, facts }) {
       if (!route) return '';
       return `<li><a href="./docs.html">Docs</a></li>\n      <li><a href="./recipes.html">Recipes</a></li>`;
     },
-    // Footer: the jury line, only when a page-round report exists.
+    // Footer: the jury line, only when a page-round report exists; it names the newest round, as chapter 3 does.
     'jury-line'() {
-      const r = proof.report;
+      const r = proof.latest ?? proof.report;
       if (state !== 'a' || !r) return '';
       const weighted = r.scores?.weighted ?? r.scores?.mean;
       const href = `${facts.repo}/blob/main/${facts.siteDir}/${r.file}`;
@@ -493,11 +493,13 @@ function captureFigures(proof) {
         <p class="figures__note caption">No jury has scored this build yet; its scores take this place when one does.</p>`;
 }
 
-// State a: the report's scores, disposition, date and memory sentence, verbatim.
+// State a: the newest round's scores and disposition (a later verdict re-scores the page: proof.latest) and the
+// report's memory sentence, verbatim, each with the file and date it is quoted from.
 function reportFigures(proof, facts) {
   const r = proof.report;
-  const axes = (r.axes ?? []).filter((x) => x.score && x.score !== 'unmeasured');
-  const href = `${facts.repo}/blob/main/${facts.siteDir}/${r.file}`;
+  const s = proof.latest ?? r;
+  const axes = (s.axes ?? []).filter((x) => x.score && x.score !== 'unmeasured');
+  const link = (x) => `<a href="${esc(`${facts.repo}/blob/main/${facts.siteDir}/${x.file}`)}"><code>${esc(x.file)}</code></a>`;
   const rows = axes.map((x) => `
             <tr><th scope="row">${inline(x.name)}</th><td class="num">${esc(x.score)}</td></tr>`).join('');
   const memory = r.memory?.sentence ? `
@@ -510,6 +512,6 @@ function reportFigures(proof, facts) {
           <tbody>${rows}
           </tbody>
         </table>
-        <p class="figures__disposition"><span class="edge">disposition</span> <code>${esc(r.disposition)}</code></p>${memory}
-        <p class="figures__source caption">Report <a href="${esc(href)}"><code>${esc(r.file)}</code></a>, ${esc(r.date)}, quoted unedited.</p>`;
+        <p class="figures__disposition"><span class="edge">disposition</span> <code>${esc(s.disposition)}</code></p>${memory}
+        <p class="figures__source caption">Report ${link(s)}, ${esc(s.date)}, quoted unedited${memory && s.file !== r.file ? `; the memory test from ${link(r)}, ${esc(r.date)}` : ''}.</p>`;
 }

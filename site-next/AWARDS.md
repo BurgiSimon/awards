@@ -11,7 +11,7 @@
 - [x] Motion score authored and built (motion)
 - [x] WebGL layer built or explicitly declined (webgl): explicitly declined, dosage rung none (SIGNATURE's tier is DOM-only: "No WebGL anywhere; the concept is whole without it")
 - [x] Jury disposition: ship · 2026-10-23
-- [ ] Shipped (ship)
+- [x] Shipped (ship)
 
 ## Brief
 - **Subject:** `awards`, a Claude Code and Codex plugin (MIT, BurgiSimon; the version is read from its manifest at build time) that designs, builds, audits and judges websites against a corpus of analysed award winners. This site is its public page, self-hosted as static files. It replaces the earlier public page in `site/` (the wind-tunnel build), which is this redesign's baseline.
@@ -171,6 +171,7 @@
 <!-- appended by awards:ship — date · audit summary · captures · performance numbers -->
 - 2026-10-22 · audit P0 0 / P1 0 / P2 0 / P3 0 · exceptions 3 · captures 236 valid from .awards/captures/20261022T163356-ship/routes.json · entry 58.3 KB gz · GL none (DOM-only) · LCP 1.24 s (throttled capture) · CLS 0.0061 · .awards/ship/2026-10-22.md
 - 2026-10-22 · audit P0 0 / P1 0 / P2 0 / P3 0 · exceptions 3 · captures 236 valid from .awards/captures/20261022T174443-ship/routes.json · entry 58.4 KB gz · GL none (DOM-only) · LCP 1.20 s (throttled capture) · CLS 0 · .awards/ship/2026-10-22-2.md
+- 2026-10-23 · audit P0 0 / P1 0 / P2 0 / P3 0 · exceptions 3 · captures 245 valid from .awards/captures/20261023T053002-ship/routes.json · entry 58.4 KB gz · GL none (DOM-only) · LCP 1.23 s (throttled capture) · CLS 0 · .awards/ship/2026-10-23.md
 
 ## Exceptions
 <!-- audit rule ids deliberately accepted, one per line, scoped to a path or viewport where you can: `C02 — pure black is diegetic (night-vision console)`, `C01@src/credits.html — read once over the film still` -->
