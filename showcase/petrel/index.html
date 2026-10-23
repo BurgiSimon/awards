@@ -50,6 +50,16 @@
       </p>
       <a class="button button--fault bridge__desk" href="#desk">Fault desk</a>
       <button class="bridge__menu" type="button" aria-expanded="false" aria-controls="chapters">Chapters</button>
+      <div class="chapters" id="chapters" role="dialog" aria-modal="false" aria-label="Chapters, by depth" hidden>
+        <ol>
+          <li><a href="#fault">0 m · The fault</a></li>
+          <li><a href="#located">200 m · Located</a></li>
+          <li><a href="#descent">4,212 m · The descent</a></li>
+          <li><a href="#drag">Seabed · The drag</a></li>
+          <li><a href="#splice">Deck · The splice</a></li>
+          <li><a href="#laid">Laid · The fault desk</a></li>
+        </ol>
+      </div>
     </header>
 
     <main id="main" tabindex="-1">
@@ -88,7 +98,7 @@
         </figure>
       </section>
 
-      <div class="thermocline thermocline--strand" aria-hidden="true" style="--from: var(--band-surface); --to: var(--band-blue)"></div>
+      <div class="thermocline thermocline--strand" aria-hidden="true" style="--from: color-mix(in oklab, var(--band-blue) 24%, var(--band-surface)); --to: var(--band-blue)"></div>
 
       <section class="chapter chapter--located" id="located" data-theme="blue" aria-labelledby="located-title" data-chapter-at="located">
         <span class="strand" aria-hidden="true"></span>
@@ -146,13 +156,15 @@
           <figure class="seabed" aria-hidden="true">
             <svg class="seabed__drawing" viewBox="0 0 1200 420" preserveAspectRatio="none">
               <path class="seabed__floor" d="M0 300 C120 296 220 306 340 300 S560 292 700 302 S960 310 1200 296 L1200 420 L0 420 Z" />
+              <path class="seabed__profile" d="M0 300 C120 296 220 306 340 300 S560 292 700 302 S960 310 1200 296" />
               <circle class="seabed__cable" cx="820" cy="296" r="9" />
               <path class="seabed__wire" d="M120 0 C140 120 150 220 160 288" />
               <!-- The drawn grapnel lies on the ooze, its shank leaning up toward the wire; the score moves it to the cable. -->
               <path class="seabed__grapnel" d="M160 251 m -6 0 a 6 6 0 1 0 12 0 a 6 6 0 1 0 -12 0 M160 257 L160 298 M160 298 C 146 300 135 292 133 277 M160 298 C 174 300 185 292 187 277 M160 298 C 158 300 153 296 151 290" />
             </svg>
             <svg class="tension" viewBox="0 0 1200 120" preserveAspectRatio="none">
-              <polyline class="tension__trace" pathLength="1" points="0,92 640,92 650,88 660,90 812,90 820,24 830,30 1200,30" />
+              <clipPath id="trace-reveal"><rect class="tension__reveal" x="-10" y="-10" width="1220" height="140" /></clipPath>
+              <polyline class="tension__trace" points="0,92 640,92 650,88 660,90 812,90 820,24 830,30 1200,30" clip-path="url(#trace-reveal)" />
             </svg>
           </figure>
         </div>
@@ -258,17 +270,6 @@
       </dl>
       <p class="plate__fiction">The Petrel, her crew, Gannet-1 and this fault are fictional, made for a design showcase built with the <a href="https://github.com/burgisimon/awards">awards plugin</a>. The method and the physics are real; the figures are rounded.</p>
     </footer>
-  </div>
-
-  <div class="chapters" id="chapters" role="dialog" aria-modal="false" aria-label="Chapters, by depth" hidden>
-    <ol>
-      <li><a href="#fault">0 m · The fault</a></li>
-      <li><a href="#located">200 m · Located</a></li>
-      <li><a href="#descent">4,212 m · The descent</a></li>
-      <li><a href="#drag">Seabed · The drag</a></li>
-      <li><a href="#splice">Deck · The splice</a></li>
-      <li><a href="#laid">Laid · The fault desk</a></li>
-    </ol>
   </div>
 
   <div class="sr-only" role="status" aria-live="polite" id="announcer"></div>

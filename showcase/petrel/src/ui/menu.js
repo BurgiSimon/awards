@@ -1,4 +1,4 @@
-// The phone's chapter list: a non-modal list under the bridge line. The toggle states its value; Escape and a
+// The phone's chapter list: a non-modal list under the bridge line, right after its toggle in the DOM. The toggle states its value; Escape and a
 // chosen link close it and hand focus back.
 export function createMenu() {
   const toggle = document.querySelector('.bridge__menu');
@@ -14,11 +14,16 @@ export function createMenu() {
   const onKey = (e) => { if (e.key === 'Escape' && !panel.hidden) set(false, { focus: true }); };
   const onPick = (e) => { if (e.target.closest('a')) set(false); };
   const onOutside = (e) => { if (!panel.hidden && !panel.contains(e.target) && e.target !== toggle) set(false); };
+  // Focus leaving the list (Tab past its end, Shift+Tab back to the toggle) closes it; the list sits right after the
+  // toggle in the bridge line, so the tab order runs toggle → list → page.
+  const onFocusOut = (e) => { if (!panel.hidden && !panel.contains(e.relatedTarget) && e.relatedTarget !== toggle) set(false); };
   toggle.addEventListener('click', onToggle);
   document.addEventListener('keydown', onKey);
   panel.addEventListener('click', onPick);
   document.addEventListener('pointerdown', onOutside);
+  panel.addEventListener('focusout', onFocusOut);
   return () => {
+    panel.removeEventListener('focusout', onFocusOut);
     toggle.removeEventListener('click', onToggle);
     document.removeEventListener('keydown', onKey);
     panel.removeEventListener('click', onPick);
