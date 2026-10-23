@@ -178,12 +178,17 @@ export function createDay({ tier: initialTier, wall = null, announce = () => {} 
 
     // Shadows: word by word, cast where the patch reaches the letters, a breath of sky shadow elsewhere.
     // All rects are read first and all styles written after, so the loop never forces a second layout.
-    const sky = 0.04 * (1 - Math.max(mixes.night, dark));
+    // The cast shadow is the wall where the window's light is blocked, so it is drawn in the unlit wall's own
+    // colour (invisible off the patch, a cool cut-out inside it); a faint ink shadow from the sky sits under it.
+    const sky = 0.05 * (1 - Math.max(mixes.night, dark));
+    const unlit = linearToCss(amb.map((v) => v * 0.94));
     const rects = cast.map((el) => el.getBoundingClientRect());
     const values = rects.map((r) => {
       if (r.bottom < -40 || r.top > vh + 40) return null;
-      const a = Math.min(0.55, sky + 0.5 * litFraction(r, L.patch) * L.intensity);
-      return `${L.shadow.x.toFixed(3)}em ${L.shadow.y.toFixed(3)}em ${L.shadow.blur.toFixed(3)}em rgb(21 26 34 / ${a.toFixed(3)})`;
+      const lit = litFraction(r, L.patch) * L.intensity;
+      const a = Math.min(0.92, 0.95 * lit);
+      const { x, y: sy, blur } = L.shadow;
+      return `${x.toFixed(3)}em ${sy.toFixed(3)}em ${blur.toFixed(3)}em ${unlit.replace(')', ` / ${a.toFixed(3)})`)}, ${(x * 0.35).toFixed(3)}em ${(sy * 0.35).toFixed(3)}em ${(blur * 1.4).toFixed(3)}em rgb(21 26 34 / ${sky.toFixed(3)})`;
     });
     values.forEach((v, i) => { if (v && v !== cast[i].__cast) { cast[i].__cast = v; cast[i].style.setProperty('--cast', v); } });
     root.style.setProperty('--wall-now', linearToCss(amb));

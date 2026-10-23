@@ -70,8 +70,10 @@ void main() {
   float win = inside * mullion;
 
   // Lambert against the flat wall, so relief modulates the light rather than dimming it.
-  float flatLit = max(uDir.z, 0.08);
-  float lit = clamp(mix(1.0, dot(n, uDir) / flatLit, 0.5), 0.65, 1.45);
+  // Relief bounded by the grazing angle, never divided by the sun's height, and eased into its range so a
+  // sunrise rakes the plaster without breaking into hard steps.
+  float r = dot(n.xy, normalize(uDir.xy + 1e-4)) * mix(1.2, 4.0, uGrazing);
+  float lit = 1.0 + 0.42 * r / (1.0 + abs(r));
   float sky = mix(1.0 + (n.y * 0.05), 1.0, uNight);
   float sand = 1.0 + (grain(wp) - 0.5) * 0.035;
 
@@ -80,6 +82,9 @@ void main() {
   // A faint bounce around the patch: light scattered off the floor and the room.
   float halo = bandIn(u, -0.35, 1.35, 0.35) * bandIn(v, -0.25, 1.25, 0.3);
   col += uLight * 0.05 * halo;
+
+  // A soft shoulder above 0.8 so a bright patch rolls off instead of clipping channel by channel.
+  col = mix(col, 0.8 + 0.2 * (1.0 - exp(-(col - 0.8) / 0.2)), step(0.8, col));
 
   // Linear → sRGB, with a little dither so the long gradients never band.
   vec3 srgb = mix(col * 12.92, 1.055 * pow(col, vec3(1.0 / 2.4)) - 0.055, step(0.0031308, col));

@@ -207,7 +207,7 @@ html.has-gl .room { visibility: hidden; }
 .cities {
   position: fixed; top: calc(var(--unit) * 20); right: var(--gutter); z-index: 30;
   width: min(22rem, calc(100vw - 2 * var(--gutter)));
-  background: var(--ground); color: var(--ink); border: 1px solid var(--ink); padding: calc(var(--unit) * 5);
+  background: var(--wall-now, var(--ground)); color: var(--ink); border: 1px solid var(--ink); padding: calc(var(--unit) * 5);
   display: grid; gap: calc(var(--unit) * 3);
 }
 .cities[hidden] { display: none; }
@@ -221,17 +221,26 @@ html.has-gl .room { visibility: hidden; }
 }
 .cities__list button span { font-family: var(--font-body); font-weight: 400; font-size: var(--label); color: var(--muted); }
 .cities__list button:hover { background: color-mix(in oklab, var(--ground) 86%, var(--ink)); }
-.cities__list button[aria-checked="true"] { background: var(--accent); color: #151a22; }
-.cities__list button[aria-checked="true"] span { color: #151a22; }
+.cities__list button[aria-checked="true"] { background: var(--ink); color: var(--ground); }
+.cities__list button[aria-checked="true"] span { color: var(--ground); }
 
 /* ——— Phone and tablet ——— */
+.br-phone { display: none; }
 @media (max-width: 900px) {
-  .hourline { grid-template-columns: auto 1fr auto; gap: calc(var(--unit) * 3); }
-  .hourline__nav { display: none; }
+  .hourline { grid-template-columns: auto 1fr auto; grid-template-areas: "mark city action" "nav nav nav"; gap: calc(var(--unit) * 1) calc(var(--unit) * 3); padding-bottom: calc(var(--unit) * 1); }
+  .hourline__mark { grid-area: mark; }
+  .hourline__city { grid-area: city; }
+  .hourline__action { grid-area: action; }
+  /* The chapters stay on the phone: times only, the current one drawn long; names stay in each link's text. */
+  .hourline__nav { grid-area: nav; }
+  .hourline__ticks a { min-width: 40px; padding-inline: 0; }
+  .hourline__ticks a .hourline__name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .hourline__ticks a[aria-current="true"] { font-weight: 600; }
+  .br-phone { display: inline; }
   .room { --patch: polygon(26% 5%, 112% -2%, 112% 46%, 26% 53%); --mullion-v: polygon(68% 4%, 70% 4%, 70% 50%, 68% 50%); --mullion-h: polygon(26% 27%, 112% 21%, 112% 22.4%, 26% 28.4%); }
   .hourline__city { justify-self: end; }
   .chapter { padding-block: calc(var(--unit) * 24); }
-  .chapter--first-light { padding-top: calc(var(--unit) * 52); align-content: end; }
+  .chapter--first-light { padding-top: calc(var(--unit) * 64); align-content: end; }
   .chapter--first-light h1, .first-light__lede, .chapter--morning h2, .chapter--noon h2, .panel-figure,
   .chapter--afternoon h2, .spec, .reserve__panel, .reserve__copy { grid-column: 1 / -1; }
   .stair { grid-template-columns: 1fr; }
@@ -245,6 +254,12 @@ html.has-gl .room { visibility: hidden; }
 }
 @media (max-width: 560px) {
   .hourline__action { padding-inline: 0.75rem; }
+  .hourline__clock { display: none; }
+  .hourline__city { padding-inline: 0.625rem; min-width: 0; }
   .hourline__long { display: none; }
+}
+@media (max-width: 360px) {
+  .hourline__price { display: none; }
+  .hourline { gap: calc(var(--unit) * 1) calc(var(--unit) * 2); }
   .hourline__mark { font-size: 0.9375rem; }
 }

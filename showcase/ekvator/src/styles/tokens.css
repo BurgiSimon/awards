@@ -60,6 +60,11 @@
   --stagger: 0.08s;
 }
 
+/* Narrow phones: the claim scales with the screen so the longest city name (Marrakesh's) still fits a line. */
+@media (max-width: 560px) {
+  :root { --display: clamp(2.25rem, 11.3vw, 2.75rem); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   :root {
     --dur-feedback: 0ms;

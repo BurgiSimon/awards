@@ -104,7 +104,7 @@ Candidates pulled with `fonts.mjs search` (sans-serif at 800, sans-serif with a 
 Contract: a voice and a silence. Unbounded 800 for display, h2 and h3; Schibsted Grotesk for body, readouts and controls. No third face.
 
 Scale, vw-lock on a 1440 artboard, `clamp()` floors for the phone:
-- `--display: clamp(2.75rem, 8.8889vw, 9rem)` — 128 px at 1440, 44 px at 390.
+- `--display: clamp(2.75rem, 8.8889vw, 9rem)` — 128 px at 1440; under 560 px `clamp(2.25rem, 11.3vw, 2.75rem)`, 44 px at 390 and 36 px at 320, so the longest city name (Marrakesh's) holds one line; the phone claim breaks on four lines (`.br-phone`).
 - `--h2: clamp(2rem, 4.4444vw, 4.5rem)` — 64 px at 1440.
 - `--h3: clamp(1.25rem, 1.8056vw, 1.75rem)` — 26 px at 1440.
 - `--body: clamp(1.0625rem, 1.3194vw, 1.25rem)` — 19 px at 1440, 17 px on a phone.
