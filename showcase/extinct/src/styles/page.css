@@ -1,0 +1,283 @@
+@import "./base.css";
+
+/* Grain for the static fields: fractal noise as dark and light speckle over a pigment, drawn once as SVG. */
+:root {
+  --grain-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.22' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1.1 -0.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --grain-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='2' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.4 -0.78'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ——— Museum line: the name, the seven colours as the index, the booking ——— */
+.museum {
+  position: fixed; inset: 0 0 auto 0; z-index: 20;
+  display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: calc(var(--unit) * 6);
+  min-height: 64px; padding: 0 var(--gutter);
+  background: var(--ground); border-bottom: 1px solid var(--line);
+}
+.museum a { text-decoration: none; }
+.museum__name { display: inline-flex; align-items: center; min-height: 44px; white-space: nowrap; font-family: var(--font-display); font-weight: 600; font-size: 1.0625rem; letter-spacing: -0.005em; }
+.museum__nav ol { display: flex; justify-content: center; flex-wrap: wrap; gap: 0 calc(var(--unit) * 5); }
+.museum__nav a {
+  position: relative; display: inline-flex; align-items: center; gap: 0.45em; min-height: 44px;
+  font-size: 0.9375rem; color: var(--muted); white-space: nowrap;
+}
+.museum__nav a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 10px; height: 1px; background: currentColor;
+  transform: scaleX(0); transform-origin: left; transition: transform var(--dur-feedback) var(--ease-out-expo);
+}
+.museum__nav a:hover, .museum__nav a:focus-visible, .museum__nav a[aria-current="true"] { color: var(--ink); }
+.museum__nav a:hover::after, .museum__nav a:focus-visible::after, .museum__nav a[aria-current="true"]::after { transform: scaleX(1); }
+.museum__book { min-height: 44px; padding: 0.5rem 1.125rem; background: var(--ink); color: var(--ground); }
+.museum__book:hover { background: var(--ground); color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.museum__menu { display: none; }
+.museum__menu[aria-expanded="true"] { background: var(--ink); color: var(--ground); }
+.museum__now { margin-right: 0.5em; }
+.museum__now[hidden] { display: none; }
+.chip { display: inline-block; flex: none; width: 10px; height: 10px; background: var(--chip); box-shadow: 0 0 0 1px var(--ink); }
+
+/* ——— Buttons ——— */
+.button {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0.875rem 1.5rem;
+  border: 0; border-radius: 0; cursor: pointer; text-decoration: none;
+  font-family: var(--font-body); font-size: 1.0625rem; font-weight: 600; line-height: 1.2;
+  transition: background-color var(--dur-feedback) var(--ease-out-expo), color var(--dur-feedback) var(--ease-out-expo), box-shadow var(--dur-feedback) var(--ease-out-expo), transform var(--dur-feedback) var(--ease-out-expo);
+}
+.button--primary { background: var(--ink); color: var(--ground); }
+.button--primary:hover { background: var(--ground); color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.button--primary:active { transform: translateY(1px); }
+.button[aria-disabled="true"] { opacity: 0.5; pointer-events: none; }
+
+/* ——— The microscope's field: fixed behind the page; chapters over it are transparent ——— */
+.microscope { position: fixed; inset: 0; z-index: 0; width: 100%; height: 100%; opacity: 0; transition: opacity var(--dur-routine) var(--ease-out-expo); pointer-events: none; }
+html.has-gl .microscope { opacity: 1; }
+#page { position: relative; z-index: 1; }
+.chapter { position: relative; padding: calc(var(--unit) * 40) var(--gutter); }
+
+/* 1 · The block — an even split: the claim on the left, the resin block on the right. */
+.chapter--block {
+  min-height: 100svh; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: calc(var(--gutter) / 2);
+  align-items: center; padding-top: calc(64px + 4vh); padding-bottom: calc(var(--unit) * 12); background: var(--ground);
+  overflow-x: clip; /* the bench line runs past the column; the fade below the hero still overflows downward */
+}
+.chapter--block::after {
+  content: ""; position: absolute; z-index: 1; left: 0; right: 0; top: 100%; height: 16vh; pointer-events: none;
+  background: linear-gradient(var(--ground), color-mix(in oklab, var(--ground) 0%, transparent));
+}
+.block__copy { grid-column: 1 / span 6; display: grid; gap: calc(var(--unit) * 7); }
+.block__lede { max-width: 30em; }
+.block__action { display: flex; flex-wrap: wrap; align-items: center; gap: calc(var(--unit) * 3) calc(var(--unit) * 5); max-width: none; }
+.block__slot { font-size: 1rem; color: var(--muted); }
+.specimen { grid-column: 7 / span 6; display: grid; gap: calc(var(--unit) * 5); justify-items: center; }
+.specimen figcaption { max-width: 26em; font-size: 1rem; color: var(--muted); text-align: center; }
+.specimen figcaption .label { display: block; color: var(--ink); margin-bottom: 0.25rem; }
+
+/* The resin block: cast epoxy, clear, so the bench behind it shows through, blurred; a crisp top edge where the polished
+   top meets the front, the top face drawn as the block's own top, and the light it gathers falling on the bench below
+   instead of a shadow. The reflection band stays fixed while the block turns (it counter-rotates inside the glare). */
+.specimen { position: relative; container-type: inline-size; }
+.specimen::before {
+  content: ""; position: absolute; z-index: -1; left: -6%; right: -6%; top: calc(min(100cqw, 30rem) * 0.8 * 0.74); height: 1px;
+  background: color-mix(in oklab, var(--ink) 30%, var(--ground));
+}
+.resin {
+  position: relative; isolation: isolate; width: min(100%, 30rem); aspect-ratio: 5 / 4;
+  border-radius: 5px 5px var(--radius-block) var(--radius-block);
+  background:
+    linear-gradient(to top, rgb(255 255 255 / 0.5), rgb(255 255 255 / 0) 9%),
+    linear-gradient(100deg, color-mix(in oklab, var(--ink) 5%, transparent), color-mix(in oklab, var(--ink) 11%, transparent) 70%, color-mix(in oklab, var(--ink) 17%, transparent));
+  -webkit-backdrop-filter: blur(2.5px); backdrop-filter: blur(2.5px);
+  box-shadow:
+    inset 0 1.5px 0 rgb(255 255 255 / 0.95),
+    inset 0 0 0 1px color-mix(in oklab, var(--ink) 22%, transparent),
+    inset 16px 0 18px -16px rgb(255 255 255 / 0.85),
+    inset -16px 0 22px -16px rgb(0 0 0 / 0.14),
+    inset 0 -18px 26px -22px rgb(0 0 0 / 0.2),
+    0 1px 0 color-mix(in oklab, var(--ink) 34%, transparent);
+  display: grid; place-items: center; rotate: var(--turn, -3deg);
+}
+/* The first painted frame already stands at the turn's start, so the turn only settles. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js:not([data-motion="static"]) .chapter--block .resin { --turn: 5deg; }
+}
+.resin::after {
+  content: ""; position: absolute; z-index: -1; left: 0; right: 0; top: -8%; height: calc(8% + 6px);
+  clip-path: polygon(3.5% 0, 96.5% 0, 100% 100%, 0 100%);
+  background: linear-gradient(to bottom, color-mix(in oklab, var(--ink) 4%, var(--ground)), color-mix(in oklab, var(--ink) 13%, var(--ground)));
+}
+.resin__glare { position: absolute; z-index: 3; inset: 0; border-radius: inherit; overflow: hidden; pointer-events: none; mix-blend-mode: screen; }
+.resin__glare::before {
+  content: ""; position: absolute; inset: -40%; rotate: calc(-1 * var(--turn, -3deg));
+  background: linear-gradient(112deg, transparent 40%, rgb(255 255 255 / 0.42) 46.5%, rgb(255 255 255 / 0.1) 50%, transparent 56%);
+}
+.resin__caustic {
+  position: absolute; z-index: -2; left: 10%; right: 10%; top: 98%; height: 16%;
+  background: radial-gradient(50% 60% at 50% 0%, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0.25) 55%, rgb(255 255 255 / 0) 100%);
+}
+.resin__tag {
+  position: absolute; z-index: 2; right: 7%; bottom: 5.5%; padding: 0.125rem 0.5rem;
+  background: #f6f6f2; color: #151719; box-shadow: 0 0 0 1px rgb(0 0 0 / 0.12);
+  font-size: 10px; font-weight: 600; letter-spacing: 0.1em; line-height: 1.4;
+}
+/* The polished window, darker, and in it the sliver of paint: seven layers of real, uneven thickness, with
+   wavy boundaries and broken edges, as a cross-section looks under a hand lens. */
+.resin::before {
+  content: ""; position: absolute; left: 15%; right: 15%; top: 10%; bottom: 16%; border-radius: 4px;
+  background: linear-gradient(160deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0) 38%), color-mix(in oklab, var(--ink) 58%, var(--ground));
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.3), inset 0 10px 18px -12px rgb(0 0 0 / 0.5);
+}
+.resin__face {
+  position: relative; width: 56%; height: 62%; margin-bottom: 6%; display: flex; flex-direction: column;
+  clip-path: polygon(3% 2%, 22% 0, 41% 3%, 63% 1%, 84% 4%, 97% 1%, 100% 22%, 96% 47%, 99% 71%, 95% 98%, 74% 100%, 52% 97%, 29% 100%, 6% 97%, 0 76%, 4% 51%, 1% 27%);
+  filter: drop-shadow(0 0 0.5px rgb(0 0 0 / 0.6));
+}
+.resin__face span {
+  flex: var(--h) 1 0; margin-top: -3px;
+  background: var(--grain-dark), var(--grain-light), var(--c); background-size: 110px, 80px, auto;
+  clip-path: polygon(0 3px, 14% 0, 31% 4px, 48% 1px, 66% 5px, 83% 1px, 100% 4px, 100% 100%, 0 100%);
+}
+.resin__face span:first-child { margin-top: 0; clip-path: none; }
+/* The scale bar, inside the polished window under the paint: 100 µm at the face's own scale (550 µm across 62 % of a
+   block 4/5 as tall as wide, so 100 µm is 9.02 % of its width). */
+.resin__scale { position: absolute; left: 21%; bottom: 17.5%; width: 9.02%; height: 6px; border: 1px solid #eceeeb; border-top: 0; color: #eceeeb; }
+.resin__scale span { position: absolute; left: calc(100% + 6px); top: -5px; white-space: nowrap; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; }
+.resin--small { width: 9rem; rotate: 0deg; margin-bottom: calc(var(--unit) * 6); }
+
+/* 2–4 · The layers: the field fills the screen, every word on a label card. The stills are the static tier. */
+.chapter--layers {
+  min-height: 250vh; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: calc(var(--gutter) / 2);
+  grid-template-rows: auto 1fr 1fr; align-items: start; isolation: isolate; overflow: clip;
+}
+.still { position: absolute; z-index: -1; left: 0; right: 0; background: var(--grain-dark), var(--grain-light), var(--c); background-size: 220px, 160px, auto; }
+.still--a { top: 0; height: 52%; }
+.still--b { top: 48%; bottom: 0; clip-path: polygon(0 6%, 12% 3%, 27% 7%, 41% 2%, 58% 6%, 73% 1%, 88% 5%, 100% 2%, 100% 100%, 0 100%); }
+html.has-gl .still { visibility: hidden; }
+.layers__title { grid-column: 1 / -1; justify-self: start; background: var(--ground); padding: calc(var(--unit) * 4) calc(var(--unit) * 6); box-shadow: inset 0 0 0 1px var(--line); }
+.plaque {
+  display: grid; gap: calc(var(--unit) * 4); align-content: start; max-width: 32rem;
+  background: var(--ground); color: var(--ink); padding: calc(var(--unit) * 7) calc(var(--unit) * 8);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.plaque h3, .ir__name { display: flex; align-items: center; gap: 0.5em; }
+.plaque h3 .chip, .ir__name .chip { width: 0.55em; height: 0.55em; }
+.plaque p { font-size: 1.0625rem; }
+.plaque .label { color: var(--muted); font-size: var(--label); }
+.plaque__note { font-style: italic; color: var(--muted); font-size: 0.9375rem !important; }
+/* Column over field: both cards in the left column. */
+.chapter--taken .plaque { grid-column: 1 / span 5; margin-top: 30vh; }
+/* Stepped indent: the first card left, the second a stair to the right. */
+.chapter--poison .plaque:nth-of-type(1) { grid-column: 1 / span 5; margin-top: 30vh; }
+.chapter--poison .plaque:nth-of-type(2) { grid-column: 7 / span 5; margin-top: 34vh; }
+/* Plate: the field to the glass, the cards pinned to opposite corners. */
+.chapter--forgotten .plaque:nth-of-type(1) { grid-column: 1 / span 5; margin-top: 18vh; }
+.chapter--forgotten .plaque:nth-of-type(2) { grid-column: 8 / span 5; align-self: end; margin-bottom: 12vh; }
+
+/* 5 · The lights go out (interruption) — a centred statement on a held stage. */
+.chapter--ir { height: 260vh; padding: 0; }
+.ir__stage { position: sticky; top: 0; height: 100svh; display: grid; place-items: center; padding: calc(64px + 4vh) var(--gutter) 6vh; isolation: isolate; overflow: clip; }
+.still--ir { top: 0; bottom: 0; }
+/* Without the field, the infrared view is a cut to a second still: dark, with only the crystals lit. */
+[data-theme="ir"] .still--ir { background: var(--grain-light), var(--grain-light), #0d0e0f; background-size: 90px, 140px, auto; }
+.plaque--ir { transition: background-color var(--dur-hero) var(--ease-in-out-expo), color var(--dur-hero) var(--ease-in-out-expo); }
+.plaque--ir { max-width: 36rem; }
+.ir__name { font-size: var(--h2); }
+.ir__toggle {
+  justify-self: start; min-height: 44px; padding: 0.5rem 1rem; border: 1px solid var(--ink); border-radius: 0; background: none; cursor: pointer;
+  font-weight: 600; transition: background-color var(--dur-feedback) var(--ease-out-expo), color var(--dur-feedback) var(--ease-out-expo);
+}
+.ir__toggle[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+html:not(.js) .ir__toggle { display: none; }
+
+/* 6 · The drawer room — figure and spec: the seven named beside the booking form. */
+.chapter--visit {
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: calc(var(--gutter) / 2); row-gap: calc(var(--unit) * 12);
+  align-items: start; background: var(--ground);
+}
+.visit__specimen { grid-column: 1 / span 6; display: grid; gap: calc(var(--unit) * 6); align-content: start; }
+.visit__layers { display: grid; border-top: 1px solid var(--ink); }
+.visit__layers li { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 0.75rem; min-height: 48px; border-bottom: 1px solid var(--line); }
+.visit__name { font-family: var(--font-display); font-size: 1.25rem; }
+.visit__end { color: var(--muted); }
+.booking { grid-column: 8 / span 5; display: grid; gap: calc(var(--unit) * 6); padding: calc(var(--unit) * 8); box-shadow: inset 0 0 0 1px var(--ink); }
+.booking h3 { font-size: var(--h3); }
+.booking__note { color: var(--muted); font-size: 1rem; }
+.field { display: grid; gap: calc(var(--unit) * 2); }
+.field label, .slots legend { font-weight: 600; }
+.field input, .field select {
+  min-height: 48px; padding: 0.5rem 0.875rem; border: 1px solid var(--muted); border-radius: 0; background: var(--ground);
+}
+.slots { display: grid; gap: calc(var(--unit) * 3); }
+.slots legend { margin-bottom: calc(var(--unit) * 3); }
+.slots__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.slots__grid label {
+  position: relative; display: flex; align-items: center; justify-content: center; min-height: 44px; cursor: pointer;
+  box-shadow: inset 0 0 0 1px var(--line); font-variant-numeric: lining-nums tabular-nums;
+}
+.slots__grid input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.slots__grid label:has(input:checked) { background: var(--ink); color: var(--ground); box-shadow: none; }
+.slots__grid label:has(input:focus-visible) { outline: 2px solid var(--ink); outline-offset: 3px; }
+[aria-invalid="true"] { box-shadow: inset 0 0 0 2px var(--ink) !important; }
+.field__error { font-size: 1rem; font-style: italic; }
+.booking__submit { justify-self: start; }
+.booking__status { font-weight: 600; }
+.booking__status:empty { display: none; }
+
+/* ——— Colophon: the sources for every claim ——— */
+.colophon { position: relative; background: var(--ground); padding: calc(var(--unit) * 16) var(--gutter) calc(var(--unit) * 16); display: grid; gap: calc(var(--unit) * 8); border-top: 1px solid var(--ink); }
+.colophon__title { font-size: var(--h3); font-weight: 600; }
+.sources { display: grid; gap: calc(var(--unit) * 2); list-style: decimal; padding-left: 1.4em; columns: 2; column-gap: calc(var(--gutter)); max-width: 72rem; }
+.sources li { font-size: 1rem; color: var(--muted); break-inside: avoid; margin-bottom: 0.5rem; }
+.colophon__fiction { font-size: 1rem; color: var(--muted); max-width: 40em; }
+
+/* The stage readout: the microscope's coordinates, a quiet line under the museum line at the right, clear of the plaques. */
+.stage {
+  position: fixed; right: var(--gutter); top: calc(64px + 12px); z-index: 15; max-width: calc(100vw - 2 * var(--gutter));
+  background: var(--ground); box-shadow: inset 0 0 0 1px var(--line); padding: 0.375rem 0.75rem;
+  color: var(--ink); font-size: 0.875rem; font-weight: 600; letter-spacing: 0.02em; font-variant-numeric: lining-nums tabular-nums;
+  transition: opacity var(--dur-routine) var(--ease-out-expo), background-color var(--dur-hero) var(--ease-in-out-expo), color var(--dur-hero) var(--ease-in-out-expo);
+}
+/* The readout belongs to the microscope: it appears once the stage is on the layers, never over the block. */
+html:not(.js) .stage, html.js:not(.on-layers) .stage { opacity: 0; visibility: hidden; }
+
+/* The colours menu (phones): a non-modal list under the museum line. */
+.colours { position: fixed; top: var(--museum-h, 64px); right: var(--gutter); z-index: 25; background: var(--ground); box-shadow: inset 0 0 0 1px var(--ink); padding: calc(var(--unit) * 2) calc(var(--unit) * 5); min-width: 15rem; }
+.colours[hidden] { display: none; }
+.colours a { display: flex; align-items: center; gap: 0.6em; min-height: 44px; text-decoration: none; font-weight: 600; border-bottom: 1px solid var(--line); }
+
+/* The infrared theme flips the cards and the readout with the field. */
+[data-theme="ir"] .plaque, [data-theme="ir"] .layers__title { background: var(--ground); color: var(--ink); }
+
+/* ——— Tablet and phone ——— */
+/* Between the fold and 1440 px the seven colours tighten so the museum line stays one row. */
+@media (min-width: 1301px) and (max-width: 1439px) {
+  .museum { gap: calc(var(--unit) * 4); }
+  .museum__nav ol { gap: 0 calc(var(--unit) * 3.5); }
+  .museum__nav a { font-size: 0.875rem; }
+}
+@media (max-width: 1300px) {
+  .museum { grid-template-columns: auto 1fr auto; }
+  .museum__nav, .museum__book { display: none; }
+  .museum__menu {
+    display: inline-flex; align-items: center; justify-self: end; min-height: 44px; padding: 0 0.875rem;
+    background: none; border: 1px solid var(--ink); border-radius: 0; cursor: pointer; font-weight: 600; font-size: 1rem;
+  }
+}
+@media (max-width: 900px) {
+  .museum { min-height: 56px; }
+  /* On tablets and phones the readout is a strip under the museum line, part of the chrome rather than a chip over a card. */
+  .stage { top: 56px; left: 0; right: 0; max-width: none; padding: 0.3125rem var(--gutter); box-shadow: inset 0 -1px 0 var(--line); }
+  .museum__name { font-size: 0.9375rem; }
+  .chapter { padding: calc(var(--unit) * 24) var(--gutter); }
+  .chapter--block { grid-template-columns: 1fr; row-gap: calc(var(--unit) * 12); padding-top: calc(56px + 8vh); align-items: start; }
+  .block__copy, .specimen { grid-column: 1 / -1; }
+  .chapter--layers { grid-template-columns: 1fr; }
+  .chapter--layers .plaque { grid-column: 1 / -1 !important; margin-top: 24vh !important; margin-bottom: 0 !important; align-self: start !important; }
+  .chapter--visit { grid-template-columns: 1fr; }
+  .visit__specimen, .booking { grid-column: 1 / -1; }
+  .booking { padding: calc(var(--unit) * 5); }
+  .sources { columns: 1; }
+  .plaque { padding: calc(var(--unit) * 5) calc(var(--unit) * 5); }
+}
+@media (max-width: 560px) {
+  .block__action { flex-direction: column; align-items: flex-start; }
+  .slots__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .stage { font-size: 0.8125rem; }
+}

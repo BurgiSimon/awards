@@ -1,0 +1,188 @@
+[
+ {
+  "name": "desk-invalid",
+  "actions": [
+   {
+    "type": "click",
+    "selector": ".desk__submit"
+   },
+   {
+    "type": "waitFor",
+    "selector": "#f-cable-err"
+   },
+   {
+    "type": "wait",
+    "ms": 300
+   }
+  ],
+  "selector": "#desk"
+ },
+ {
+  "name": "desk-sent",
+  "actions": [
+   {
+    "type": "click",
+    "selector": "#f-cable"
+   },
+   {
+    "type": "press",
+    "key": "G"
+   },
+   {
+    "type": "press",
+    "key": "a"
+   },
+   {
+    "type": "press",
+    "key": "n"
+   },
+   {
+    "type": "press",
+    "key": "n"
+   },
+   {
+    "type": "press",
+    "key": "e"
+   },
+   {
+    "type": "press",
+    "key": "t"
+   },
+   {
+    "type": "press",
+    "key": "-"
+   },
+   {
+    "type": "press",
+    "key": "1"
+   },
+   {
+    "type": "click",
+    "selector": "#f-repeater"
+   },
+   {
+    "type": "press",
+    "key": "3"
+   },
+   {
+    "type": "press",
+    "key": "5"
+   },
+   {
+    "type": "click",
+    "selector": "#f-alarm"
+   },
+   {
+    "type": "press",
+    "key": "0"
+   },
+   {
+    "type": "press",
+    "key": "3"
+   },
+   {
+    "type": "press",
+    "key": ":"
+   },
+   {
+    "type": "press",
+    "key": "1"
+   },
+   {
+    "type": "press",
+    "key": "4"
+   },
+   {
+    "type": "click",
+    "selector": "#f-email"
+   },
+   {
+    "type": "press",
+    "key": "n"
+   },
+   {
+    "type": "press",
+    "key": "o"
+   },
+   {
+    "type": "press",
+    "key": "c"
+   },
+   {
+    "type": "press",
+    "key": "@"
+   },
+   {
+    "type": "press",
+    "key": "e"
+   },
+   {
+    "type": "press",
+    "key": "x"
+   },
+   {
+    "type": "press",
+    "key": "a"
+   },
+   {
+    "type": "press",
+    "key": "m"
+   },
+   {
+    "type": "press",
+    "key": "p"
+   },
+   {
+    "type": "press",
+    "key": "l"
+   },
+   {
+    "type": "press",
+    "key": "e"
+   },
+   {
+    "type": "press",
+    "key": "."
+   },
+   {
+    "type": "press",
+    "key": "n"
+   },
+   {
+    "type": "press",
+    "key": "e"
+   },
+   {
+    "type": "press",
+    "key": "t"
+   },
+   {
+    "type": "click",
+    "selector": ".desk__submit"
+   },
+   {
+    "type": "wait",
+    "ms": 800
+   }
+  ],
+  "selector": "#desk"
+ },
+ {
+  "name": "desk-keyboard",
+  "actions": [
+   {
+    "type": "focus",
+    "selector": "#f-cable"
+   },
+   {
+    "type": "press",
+    "key": "Tab"
+   },
+   {
+    "type": "press",
+    "key": "Tab"
+   }
+  ],
+  "selector": "#desk"
+ }
+]

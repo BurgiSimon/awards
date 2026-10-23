@@ -1,0 +1,45 @@
+/* Self-hosted, OFL-1.1 (licences beside the files in public/fonts). Fallbacks are metric-matched
+   to Arial from the fonts' own hhea metrics and advance widths, so a swap never reflows a line. */
+@font-face {
+  font-family: "Science Gothic";
+  src: url("/fonts/science-gothic-latin-800.woff2") format("woff2");
+  font-weight: 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Science Gothic";
+  src: url("/fonts/science-gothic-latin-700.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Radio Canada";
+  src: url("/fonts/radio-canada-latin-400.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Radio Canada";
+  src: url("/fonts/radio-canada-latin-600.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Science Gothic Fallback";
+  src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("Arial");
+  font-weight: 700 800;
+  size-adjust: 133.3%;
+  ascent-override: 81.6%;
+  descent-override: 29.1%;
+  line-gap-override: 0%;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Radio Canada Fallback";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans");
+  size-adjust: 105%;
+  ascent-override: 90%;
+  descent-override: 24.3%;
+  line-gap-override: 0%;
+  font-display: swap;
+}

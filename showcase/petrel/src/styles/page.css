@@ -1,0 +1,290 @@
+@import "./base.css";
+
+/* Where the cable runs, as a share of the page width: the bow sheave's leading edge. Text never crosses it. */
+/* The cable's width scales with the bow drawing, so the wrap over the sheave and the drop are one width: 18 units of a
+   480-unit bow a third of the page wide on desktop, 31 units of a bow 40 % wide on phones. */
+:root { --cable-x: 72.5%; --strand-w: 1.25vw; }
+@media (max-width: 767px) { :root { --cable-x: 92%; --strand-w: 2.5833vw; } }
+
+/* ——— Bridge line: the ship's own top line, on the band's ground ——— */
+.bridge {
+  position: fixed; inset: 0 0 auto 0; z-index: 20;
+  display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: calc(var(--unit) * 8);
+  min-height: 64px; padding: 0 var(--gutter);
+  background: var(--ground); color: var(--ink); border-bottom: 1px solid var(--line);
+  transition: background-color var(--dur-routine) var(--ease-theme), color var(--dur-routine) var(--ease-theme);
+}
+.bridge a { text-decoration: none; }
+.bridge__mark { display: inline-flex; flex-direction: column; justify-content: center; min-height: 44px; line-height: 1.1; }
+.bridge__name { font-family: var(--font-display); font-weight: 800; font-size: 1.0625rem; letter-spacing: 0; white-space: nowrap; }
+.bridge__pos { font-size: var(--label); font-weight: 600; letter-spacing: 0.08em; color: var(--muted); font-variant-numeric: tabular-nums; }
+.bridge__nav ol { display: flex; justify-content: center; gap: calc(var(--unit) * 6); }
+.bridge__nav a {
+  position: relative; display: inline-flex; align-items: center; min-height: 44px;
+  font-size: var(--label); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.bridge__nav a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 10px; height: 1px; background: currentColor;
+  transform: scaleX(0); transform-origin: left; transition: transform var(--dur-feedback) var(--ease-out-expo);
+}
+.bridge__nav a:hover, .bridge__nav a:focus-visible, .bridge__nav a[aria-current="true"] { color: var(--ink); }
+.bridge__nav a:hover::after, .bridge__nav a:focus-visible::after, .bridge__nav a[aria-current="true"]::after { transform: scaleX(1); }
+.bridge__readout { display: flex; gap: calc(var(--unit) * 5); max-width: none; white-space: nowrap; }
+.readout { display: inline-flex; flex-direction: column; line-height: 1.15; }
+.readout__label { font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.readout__value { font-weight: 600; font-size: 0.9375rem; font-variant-numeric: tabular-nums; min-width: 5.6em; }
+.bridge__desk { min-height: 40px; padding: 0.5rem 1rem; font-size: 0.875rem; }
+.bridge__menu { display: none; }
+
+/* ——— Buttons ——— */
+.button {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0.875rem 1.5rem;
+  border: 0; border-radius: 0; cursor: pointer; text-decoration: none;
+  font-family: var(--font-body); font-size: 1rem; font-weight: 600; line-height: 1.2;
+  transition: background-color var(--dur-feedback) var(--ease-out-expo), color var(--dur-feedback) var(--ease-out-expo), transform var(--dur-feedback) var(--ease-out-expo);
+}
+.button--fault { background: var(--accent); color: var(--on-accent); }
+.button--fault:hover { background: var(--ink); color: var(--ground); }
+.button--fault:active { transform: translateY(1px); }
+.button[aria-disabled="true"] { opacity: 0.5; pointer-events: none; }
+
+/* ——— Chapters: each owns its depth band; text stays left of the cable ——— */
+.chapter {
+  position: relative; background: var(--ground); color: var(--ink);
+  padding: calc(var(--unit) * 40) calc(100% - var(--cable-x) + var(--gutter)) calc(var(--unit) * 40) var(--gutter);
+}
+/* Lift the copy over the drawn cable; the pieces with their own positioning (the cable, the bow, the depth scale and
+   log, and the sticky drag stage) keep it. */
+.chapter > :not(.strand, .bow, .depthlog, .depthscale, .drag__stage) { position: relative; z-index: 2; }
+
+/* The drawn cable: galvanised armour wires in a helix over a round body. The static and no-WebGL tiers. Each wire is
+   lit on its upper edge and shadowed on its lower one, and the body is shaded as a cylinder lit from the left; the
+   lay runs at 60°, so the tile repeats every 10 px down and 40 px holds it without a seam. */
+:root {
+  --wire-shade: linear-gradient(90deg, rgb(0 0 0 / 0.62), rgb(0 0 0 / 0.08) 20%, rgb(255 255 255 / 0.3) 36%, rgb(255 255 255 / 0) 56%, rgb(0 0 0 / 0.35) 78%, rgb(0 0 0 / 0.7));
+  --wire-lay: repeating-linear-gradient(-60deg, #1b2125 0, #3d474d 0.8px, #aab4b9 1.9px, #7b868c 2.9px, #3a4349 4.1px, #1b2125 5px);
+}
+.strand {
+  position: absolute; z-index: 1; top: 0; bottom: 0; left: var(--cable-x);
+  width: var(--strand-w); margin-left: calc(var(--strand-w) / -2);
+  background: var(--wire-shade), var(--wire-lay);
+  background-size: 100% 100%, 100% 40px;
+  background-position: 0 0, 0 var(--payout, 0px);
+}
+/* The GL cable cross-fades with the drawn one it replaces (the canvas fades in over the same 360 ms). */
+.strand, .bow__cable, .bow__lay, .seabed__wire, .seabed__grapnel, .cutaway__drawing { transition: opacity var(--dur-routine) var(--ease-out-expo), visibility 0s; }
+html.has-gl :is(.strand, .bow__cable, .bow__lay, .seabed__wire, .seabed__grapnel, .cutaway__drawing) {
+  opacity: 0; visibility: hidden; transition: opacity var(--dur-routine) var(--ease-out-expo), visibility 0s var(--dur-routine);
+}
+
+.thermocline { position: relative; height: 22vh; background: linear-gradient(var(--from), var(--to)); }
+.thermocline--strand::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: var(--cable-x); width: var(--strand-w); margin-left: calc(var(--strand-w) / -2);
+  background: var(--wire-shade), var(--wire-lay);
+  background-size: 100% 100%, 100% 40px;
+  background-position: 0 0, 0 var(--payout, 0px);
+}
+html.has-gl .thermocline--strand::after { opacity: 0; transition: opacity var(--dur-routine) var(--ease-out-expo); }
+
+/* 1 · The fault — offset split: the claim in the left two thirds, the bow and its sheave in the right third. */
+.chapter--fault {
+  min-height: 100svh; display: grid; align-content: start; isolation: isolate; overflow: clip;
+  padding-top: calc(64px + 15vh);
+  --bow-top: calc(64px + 22vh);
+  --bow-scale: 0.069444vw;         /* the bow drawing is 480 units across a third of the page */
+}
+/* Below the waterline the ground is a shade deeper. */
+.chapter--fault::before {
+  content: ""; position: absolute; z-index: 0; left: 0; right: 0; bottom: 0;
+  top: calc(var(--bow-top) + 300 * var(--bow-scale));
+  background: color-mix(in oklab, var(--band-blue) 24%, var(--ground));
+}
+.fault__copy { display: grid; gap: calc(var(--unit) * 7); max-width: 58rem; }
+.fault__copy .display { max-width: 11.5em; }
+.alarm { display: block; max-width: 40em; }
+.alarm__mark { display: inline-block; width: 0.6em; height: 0.6em; margin-right: 0.6em; background: var(--accent); transform: rotate(45deg) translateY(-0.08em); }
+.alarm__mark--ok { background: var(--ink); }
+.fault__action { display: flex; flex-wrap: wrap; align-items: center; gap: calc(var(--unit) * 3) calc(var(--unit) * 5); max-width: none; }
+.fault__reply { font-size: 0.9375rem; color: var(--muted); }
+.bow { position: absolute; z-index: 3; top: var(--bow-top); right: 0; width: 33.3333%; pointer-events: none; }
+.bow__drawing { width: 100%; height: auto; overflow: visible; }
+.bow__hull { fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; }
+.bow__deck, .bow__stanchions, .bow__house, .bow__arm { fill: none; stroke: var(--ink); stroke-width: 1.25; }
+.bow__mast { fill: none; stroke: var(--ink); stroke-width: 1.5; }
+.bow__rig, .bow__leader { fill: none; stroke: var(--ink); stroke-width: 0.75; }
+.bow__cable { fill: none; stroke: #283035; stroke-width: var(--bow-cable-w, 18); stroke-linecap: butt; }
+/* The drawn wrap carries the same lay as the drawn drop: light wire crowns across a dark body. */
+.bow__lay { fill: none; stroke: #8f999f; stroke-width: calc(var(--bow-cable-w, 18) * 0.72); stroke-dasharray: 1.7 3.3; stroke-linecap: butt; opacity: 0.6; }
+.bow__sheave { fill: var(--ground); stroke: var(--ink); stroke-width: 1.5; }
+.bow__hub { fill: var(--ink); }
+.bow__waterline { stroke: var(--ink); stroke-width: 1; stroke-dasharray: 6 6; }
+.bow__label { font-family: var(--font-body); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; fill: var(--muted); }
+.strand--fault { top: calc(var(--bow-top) + 104 * var(--bow-scale)); }
+
+/* 2 · Located — figure and spec: the fibre from the shore to the break, three facts under it. */
+.chapter--located { display: grid; gap: calc(var(--unit) * 14); }
+.chapter--located h2 { max-width: 12em; }
+.pulse { display: grid; gap: calc(var(--unit) * 3); }
+.pulse__drawing { width: 100%; height: 120px; overflow: visible; }
+.pulse__fibre { stroke: var(--ink); stroke-width: 2; }
+.pulse__repeaters line { stroke: var(--ink); stroke-width: 1; }
+.pulse__break { fill: var(--accent); }
+.pulse__dot { fill: var(--ink); }
+.pulse__caption { display: flex; justify-content: space-between; gap: 1rem; font-size: var(--label); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.located__facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: calc(var(--unit) * 8); }
+.located__facts div { display: grid; gap: calc(var(--unit) * 2); align-content: start; border-top: 1px solid var(--ink); padding-top: calc(var(--unit) * 4); }
+.located__facts dt { font-family: var(--font-display); font-weight: 700; font-size: var(--h3); }
+.located__facts dd { font-size: 1rem; }
+
+/* 3 · Descent — the depth log: ruled rows set at their real depth down a tall chapter. */
+.chapter--descent { min-height: 340vh; }
+/* A depth scale down the left edge: a tick every 100 m, a label every 250 m, so no screen of the descent is blank. */
+.depthscale {
+  position: absolute; z-index: 1; top: 62vh; bottom: 34vh; left: calc(var(--gutter) / 2 - 4px); width: 40px;
+  background: repeating-linear-gradient(to bottom, var(--line) 0 1px, transparent 1px calc(100% / 40.12)) left top / 8px 100% no-repeat;
+}
+.depthscale li {
+  position: absolute; left: 12px; top: calc((var(--at) - 200) / 4012 * 100%); transform: translateY(-50%);
+  font-size: 0.875rem; font-weight: 600; letter-spacing: 0.01em; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.depthscale li::before { content: ""; position: absolute; left: -12px; top: 50%; width: 10px; height: 1px; background: var(--muted); }
+.chapter--descent h2 { max-width: 11em; }
+.descent__lede { margin-top: calc(var(--unit) * 6); color: var(--muted); }
+.depthlog { position: absolute; z-index: 2; top: 62vh; bottom: 34vh; left: calc(var(--gutter) + 72px); right: calc(100% - var(--cable-x) + var(--gutter)); }
+.depthlog__row {
+  position: absolute; left: 0; right: 0; top: calc((var(--at) - 200) / 4012 * 100%);
+  display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: calc(var(--unit) * 5);
+  padding-top: calc(var(--unit) * 3); border-top: 1px solid var(--line);
+}
+.depthlog__depth { font-family: var(--font-display); font-weight: 800; font-size: var(--h3); font-variant-numeric: tabular-nums; }
+.depthlog__row p { color: var(--ink); }
+.strand--descent { bottom: 34vh; }
+.strand__grapnel {
+  position: absolute; left: 50%; bottom: -46px; width: 40px; height: 52px; margin-left: -20px;
+  border: 3px solid #4a5359; border-top: 0; border-radius: 0 0 20px 20px;
+}
+.strand__grapnel::before { content: ""; position: absolute; left: 50%; top: -6px; width: 6px; height: 40px; margin-left: -3px; background: #4a5359; }
+
+/* 4 · The drag (interruption) — a plate: the seabed across the whole stage, the copy in the top-left corner. */
+.chapter--drag { height: 190vh; padding: 0; }
+.drag__stage {
+  position: sticky; top: 0; z-index: 2; height: 100svh; overflow: clip;
+  padding: calc(64px + 7vh) var(--gutter) 0;
+}
+.drag__copy { display: grid; gap: calc(var(--unit) * 5); max-width: min(34rem, calc(var(--cable-x) - 2 * var(--gutter))); }
+.drag__catch { font-weight: 600; font-variant-numeric: tabular-nums; }
+.seabed { position: absolute; z-index: 0; left: 0; right: 0; bottom: 0; height: 54%; display: grid; grid-template-rows: minmax(0, 1fr) 22%; }
+.seabed__drawing, .tension { width: 100%; height: 100%; min-height: 0; overflow: visible; }
+.seabed__floor { fill: color-mix(in oklab, var(--ink) 9%, var(--ground)); stroke: var(--ink); stroke-width: 1.25; vector-effect: non-scaling-stroke; }
+.seabed__cable { fill: var(--ink); }
+.seabed__wire, .seabed__grapnel { fill: none; stroke: var(--ink); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.seabed__grapnel { stroke-width: 3; stroke-linecap: round; }
+.tension { border-top: 1px solid var(--line); background: color-mix(in oklab, var(--ink) 9%, var(--ground)); }
+.tension__trace { fill: none; stroke: var(--ink); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+/* With script, the trace draws as the drag runs (the score sets the offset); without it the whole trace shows. */
+html.js .tension__trace { stroke-dasharray: 1; stroke-dashoffset: 1; }
+
+/* 5 · The splice — an object stage: the cut cable centred, its layers pinned below, the facts in the corner. */
+.chapter--splice { padding-right: var(--gutter); }
+.splice__stage { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: calc(var(--gutter) / 2); row-gap: calc(var(--unit) * 8); }
+.splice__stage h2 { grid-column: 1 / span 7; }
+.splice__lede { grid-column: 1 / span 6; }
+.cutaway { grid-column: 1 / -1; display: grid; gap: calc(var(--unit) * 8); }
+.cutaway__drawing { width: min(100%, 60rem); height: auto; margin: 0 auto; }
+
+.cutaway__layers { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: calc(var(--unit) * 6); }
+.cutaway__layers li { border-top: 1px solid var(--ink); padding-top: calc(var(--unit) * 3); font-size: 1rem; }
+.cutaway__key { display: block; font-family: var(--font-display); font-weight: 700; font-size: var(--h3); margin-bottom: 0.25rem; }
+.splice__facts { grid-column: 7 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: calc(var(--unit) * 6); }
+.splice__facts div, .coverage div { display: grid; gap: 0.25rem; align-content: start; }
+.splice__facts dt, .coverage dt { font-size: var(--label); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+/* 6 · Laid back and the fault desk — an even split: the bight and the coverage, the ticket form. */
+.chapter--laid { padding-right: var(--gutter); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: calc(var(--unit) * 16); align-items: start; }
+.laid__copy { display: grid; gap: calc(var(--unit) * 7); }
+.bight svg { width: 100%; max-width: 32rem; height: auto; overflow: visible; }
+.bight__old { stroke: var(--line); stroke-width: 2; stroke-dasharray: 5 6; }
+.bight__new { fill: none; stroke: var(--ink); stroke-width: 2.5; }
+.bight__label { font-family: var(--font-body); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; fill: var(--muted); }
+.laid__restored { font-weight: 600; }
+.coverage { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: calc(var(--unit) * 6); border-top: 1px solid var(--ink); padding-top: calc(var(--unit) * 4); }
+.desk { display: grid; gap: calc(var(--unit) * 5); padding: calc(var(--unit) * 8); border: 1px solid var(--ink); }
+.desk h3 { font-size: var(--h2); font-weight: 800; }
+.desk__note { color: var(--muted); font-size: 0.9375rem; }
+.field { display: grid; gap: calc(var(--unit) * 2); }
+.field label { font-weight: 600; }
+.field input {
+  min-height: 48px; padding: 0.625rem 0.875rem; border: 1px solid var(--muted); border-radius: 0; background: var(--ground);
+  font-variant-numeric: tabular-nums;
+}
+.field input[aria-invalid="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.field__error { font-size: 0.9375rem; }
+.field__error::before { content: ""; display: inline-block; width: 0.5em; height: 0.5em; margin-right: 0.5em; background: var(--accent); transform: rotate(45deg); }
+.desk__submit { justify-self: start; }
+.desk__status { font-weight: 600; }
+.desk__status:empty { display: none; }
+
+/* ——— The ship's particulars: a data plate ——— */
+.plate { background: var(--band-dark); color: #d9e2e5; padding: calc(var(--unit) * 20) var(--gutter) calc(var(--unit) * 16); display: grid; gap: calc(var(--unit) * 10); }
+.plate__title { font-size: var(--h2); }
+.plate__grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border: 1px solid #485259; }
+.plate__grid div { display: grid; gap: 0.25rem; padding: calc(var(--unit) * 4); border-right: 1px solid #485259; }
+.plate__grid div:last-child { border-right: 0; }
+.plate__grid dt { font-size: var(--label); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #9fa8ad; }
+.plate__grid dd { font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+.plate__fiction { color: #9fa8ad; font-size: 0.9375rem; max-width: 56em; }
+.plate :focus-visible { outline-color: #d9e2e5; }
+
+/* The chapter menu (phones): a non-modal list under the bridge line. */
+.chapters { position: fixed; top: var(--bridge-h, 64px); right: var(--gutter); z-index: 25; background: var(--ground); color: var(--ink); border: 1px solid var(--ink); padding: calc(var(--unit) * 2) calc(var(--unit) * 5); min-width: 15rem; }
+.chapters[hidden] { display: none; }
+.chapters a { display: flex; align-items: center; min-height: 44px; text-decoration: none; font-weight: 600; border-bottom: 1px solid var(--line); }
+.chapters a[aria-current="true"] { box-shadow: inset 3px 0 0 var(--ink); padding-left: 0.75rem; }
+.bridge__menu[aria-expanded="true"] { background: var(--ink); color: var(--ground); }
+
+/* The fixed WebGL cable: a canvas over the whole viewport, transparent, beneath the bridge line. */
+.cable { position: fixed; inset: 0; z-index: 4; pointer-events: none; }
+.cable__gl { width: 100%; height: 100%; opacity: 0; transition: opacity var(--dur-routine) var(--ease-out-expo); }
+html.has-gl .cable__gl { opacity: 1; }
+
+/* ——— Tablet: the bridge folds its nav and two readouts into the Chapters list; the page keeps the desktop layout ——— */
+@media (max-width: 1100px) {
+  .bridge { grid-template-columns: auto 1fr auto auto; gap: calc(var(--unit) * 4); }
+  .bridge__nav, .readout--wire, .readout--tension { display: none; }
+  .bridge__readout { justify-self: end; }
+  .bridge__menu {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.875rem;
+    background: none; border: 1px solid var(--ink); border-radius: 0; cursor: pointer; font-weight: 600; font-size: 0.875rem;
+  }
+  .located__facts, .cutaway__layers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 768px) and (max-width: 1100px) and (orientation: portrait) {
+  .chapter--fault { padding-top: calc(64px + 12vh); --bow-top: calc(64px + 24vh); }
+  .plate__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .plate__grid div { border-bottom: 1px solid #485259; }
+}
+/* ——— Phone ——— */
+@media (max-width: 767px) {
+  .bridge { grid-template-columns: auto 1fr auto; gap: calc(var(--unit) * 3); min-height: 56px; }
+  .bridge__desk, .bridge__pos { display: none; }
+  .chapter { padding: calc(var(--unit) * 24) calc(100% - var(--cable-x) + 22px) calc(var(--unit) * 24) var(--gutter); }
+  .chapter--fault { padding-top: calc(56px + 34vw); --bow-top: calc(56px + 2vh); --bow-scale: 0.083333vw; }
+  /* The sheave's leading edge lands on the cable line: right = 100 − cable-x − 0.825 × width. */
+  .bow { width: 40%; right: -25%; --bow-cable-w: 31; }
+  .bow__label, .bow__leader { display: none; }
+  .located__facts, .coverage, .splice__facts, .cutaway__layers { grid-template-columns: 1fr; }
+  .depthlog { left: calc(var(--gutter) + 56px); right: calc(100% - var(--cable-x) + 22px); }
+  .depthlog__row { grid-template-columns: 1fr; gap: calc(var(--unit) * 1); }
+  .chapter--splice, .chapter--laid { padding-right: var(--gutter); }
+  .splice__stage h2, .splice__lede, .splice__facts { grid-column: 1 / -1; }
+  .chapter--laid { grid-template-columns: 1fr; }
+  .desk { padding: calc(var(--unit) * 5); }
+  .plate__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .drag__copy { max-width: none; padding-right: calc(100% - var(--cable-x) + 22px); }
+  .seabed { height: 40%; }
+}
+@media (max-width: 560px) {
+  .fault__action { flex-direction: column; align-items: flex-start; }
+  .pulse__caption span:nth-child(2) { display: none; }
+}

@@ -1,0 +1,20 @@
+@import "./base.css";
+
+/* The 404: the cut end of a fibre in section, one point of red light, three routes out. Links first. */
+html { background: var(--band-dark); }
+body { min-height: 100svh; display: grid; place-items: center; }
+.missing { display: grid; gap: calc(var(--unit) * 6); max-width: 46rem; padding: calc(var(--unit) * 16) var(--gutter); }
+.cutend { width: min(40vw, 13rem); }
+.cutend svg { width: 100%; height: auto; }
+.cutend__sheath { fill: none; stroke: var(--ink); stroke-width: 2; }
+.cutend__armour { fill: none; stroke: var(--line); stroke-width: 18; stroke-dasharray: 3 7; }
+.cutend__copper { fill: none; stroke: var(--muted); stroke-width: 2; }
+.cutend__tube { fill: none; stroke: var(--ink); stroke-width: 1.5; }
+.cutend__light { fill: var(--accent); }
+.missing__title { font-family: var(--font-display); font-size: var(--h2); font-weight: 800; line-height: 1; }
+.missing__routes { display: grid; border-top: 1px solid var(--line); }
+.missing__routes a { display: flex; align-items: center; min-height: 52px; border-bottom: 1px solid var(--line); text-decoration: none; font-weight: 600; }
+.missing__routes a::after { content: "\2192"; margin-left: auto; }
+.missing__routes a:hover { text-decoration: underline; }
+.missing__desk { color: var(--ink); }
+.missing__note { color: var(--muted); font-size: 0.9375rem; }

@@ -1,0 +1,97 @@
+{
+  "assets": [
+    {
+      "file": "public/favicon.svg",
+      "kind": "drawn",
+      "synthetic": false,
+      "author": "Museum build (code)",
+      "licence": "same as repository",
+      "credit": "Favicon: the seven bands of the cross-section",
+      "date": "2026-10-23"
+    },
+    {
+      "file": "public/favicon-32.png",
+      "kind": "drawn",
+      "synthetic": false,
+      "author": "Museum build (rendered from favicon.svg)",
+      "licence": "same as repository",
+      "credit": "Favicon, 32 px raster of the SVG",
+      "date": "2026-10-23"
+    },
+    {
+      "file": "public/apple-touch-icon.png",
+      "kind": "drawn",
+      "synthetic": false,
+      "author": "Museum build (rendered from favicon.svg)",
+      "licence": "same as repository",
+      "credit": "Touch icon, 180 px raster of the SVG on the lab ground",
+      "date": "2026-10-23"
+    },
+    {
+      "file": "public/og.png",
+      "kind": "generated",
+      "synthetic": true,
+      "credit": "Open Graph image: the page's own first viewport",
+      "tool": "Playwright screenshot of the built page's first viewport (1200 × 630, reduced motion)",
+      "date": "2026-10-23"
+    },
+    {
+      "file": "index.html",
+      "kind": "drawn",
+      "synthetic": false,
+      "author": "Museum build (code)",
+      "licence": "same as repository",
+      "credit": "The resin block and its cross-section, drawn in CSS; the stills as SVG turbulence",
+      "date": "2026-10-23"
+    },
+    {
+      "file": "src/webgl/field.js",
+      "kind": "drawn",
+      "synthetic": false,
+      "author": "Museum build (code)",
+      "licence": "same as repository",
+      "credit": "The microscope field: seven pigments' grains in one procedural WebGL2 shader, no textures",
+      "date": "2026-10-23"
+    },
+    {
+      "file": "public/fonts/kalnia-latin-400.woff2",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://fontsource.org/fonts/kalnia",
+      "author": "Kalnia authors (via Fontsource)",
+      "licence": "SIL Open Font License 1.1",
+      "licenceUrl": "https://openfontlicense.org",
+      "date": "2026-10-23"
+    },
+    {
+      "file": "public/fonts/kalnia-latin-600.woff2",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://fontsource.org/fonts/kalnia",
+      "author": "Kalnia authors (via Fontsource)",
+      "licence": "SIL Open Font License 1.1",
+      "licenceUrl": "https://openfontlicense.org",
+      "date": "2026-10-23"
+    },
+    {
+      "file": "public/fonts/eb-garamond-latin-400.woff2",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://fontsource.org/fonts/eb-garamond",
+      "author": "EB Garamond authors (via Fontsource)",
+      "licence": "SIL Open Font License 1.1",
+      "licenceUrl": "https://openfontlicense.org",
+      "date": "2026-10-23"
+    },
+    {
+      "file": "public/fonts/eb-garamond-latin-600.woff2",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://fontsource.org/fonts/eb-garamond",
+      "author": "EB Garamond authors (via Fontsource)",
+      "licence": "SIL Open Font License 1.1",
+      "licenceUrl": "https://openfontlicense.org",
+      "date": "2026-10-23"
+    }
+  ]
+}

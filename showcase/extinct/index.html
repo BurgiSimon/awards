@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en" data-theme="lab">
+<head>
+  <meta charset="utf-8">
+  <script>document.documentElement.classList.add("js")</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#eceeeb">
+  <title>Museum of Extinct Colours — seven colours you can no longer buy</title>
+  <meta name="description" content="A one-room museum in Antwerp showing seven pigments that no longer exist, from mummy brown to Egyptian blue, each under the microscope beside the reason it ended. Book a viewing of the drawer room, €12.">
+  <link rel="canonical" href="https://burgisimon.github.io/awards/showcase/extinct/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Museum of Extinct Colours — seven colours you can no longer buy">
+  <meta property="og:description" content="One paint cross-section, seven lost pigments, and the reason each one ended: used up, taken, unbearable, poisonous, forgotten, too dear, lost.">
+  <meta property="og:image" content="https://burgisimon.github.io/awards/showcase/extinct/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preload" href="/fonts/kalnia-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/src/styles/page.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- The microscope's field: one fixed canvas behind the whole page. Each layer also has a still drawn in CSS and
+       SVG (the static tier and the fallback); every word is in the DOM on a label card. -->
+  <canvas class="microscope" aria-hidden="true"></canvas>
+
+  <div id="page">
+    <header class="museum" id="top">
+      <a class="museum__name" href="#block">Museum of Extinct Colours</a>
+      <nav class="museum__nav" aria-label="The seven colours, top layer first">
+        <ol>
+          <li><a href="#mummy-brown" data-layer="1"><span class="chip" style="--chip: #5c3b26"></span>Mummy brown</a></li>
+          <li><a href="#uranium-red" data-layer="2"><span class="chip" style="--chip: #d4482b"></span>Uranium red</a></li>
+          <li><a href="#indian-yellow" data-layer="3"><span class="chip" style="--chip: #e2a51c"></span>Indian yellow</a></li>
+          <li><a href="#scheeles-green" data-layer="4"><span class="chip" style="--chip: #6f9a35"></span>Scheele's green</a></li>
+          <li><a href="#lead-tin-yellow" data-layer="5"><span class="chip" style="--chip: #efd86c"></span>Lead-tin yellow</a></li>
+          <li><a href="#tyrian-purple" data-layer="6"><span class="chip" style="--chip: #6a1043"></span>Tyrian purple</a></li>
+          <li><a href="#egyptian-blue" data-layer="7"><span class="chip" style="--chip: #2b5fae"></span>Egyptian blue</a></li>
+        </ol>
+      </nav>
+      <a class="button museum__book" href="#visit">Book</a>
+      <button class="museum__menu" type="button" aria-expanded="false" aria-controls="colours"><span class="chip museum__now" aria-hidden="true" hidden></span>Colours</button>
+      <div class="colours" id="colours" role="dialog" aria-modal="false" aria-label="The seven colours" hidden>
+        <ol>
+          <li><a href="#mummy-brown"><span class="chip" style="--chip: #5c3b26"></span>1 · Mummy brown</a></li>
+          <li><a href="#uranium-red"><span class="chip" style="--chip: #d4482b"></span>2 · Uranium red</a></li>
+          <li><a href="#indian-yellow"><span class="chip" style="--chip: #e2a51c"></span>3 · Indian yellow</a></li>
+          <li><a href="#scheeles-green"><span class="chip" style="--chip: #6f9a35"></span>4 · Scheele's green</a></li>
+          <li><a href="#lead-tin-yellow"><span class="chip" style="--chip: #efd86c"></span>5 · Lead-tin yellow</a></li>
+          <li><a href="#tyrian-purple"><span class="chip" style="--chip: #6a1043"></span>6 · Tyrian purple</a></li>
+          <li><a href="#egyptian-blue"><span class="chip" style="--chip: #2b5fae"></span>7 · Egyptian blue</a></li>
+          <li><a href="#visit">Book a viewing</a></li>
+        </ol>
+      </div>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section class="chapter chapter--block" id="block" aria-labelledby="block-title" data-chapter-at="block">
+        <div class="block__copy">
+          <h1 class="display" id="block-title">Seven colours you can no longer buy.</h1>
+          <p class="block__lede">A one-room museum in a former pharmacy on the Hoogstraat, Antwerp. One paint cross-section under a microscope, seven pigments that ended, and the reason each one did.</p>
+          <p class="block__action"><a class="button button--primary" href="#visit">Book a viewing, €12</a> <span class="block__slot">Next free slot: Tuesday, 10:40. Six people, twenty minutes.</span></p>
+        </div>
+        <figure class="specimen" aria-labelledby="specimen-caption">
+          <div class="resin" aria-hidden="true">
+            <div class="resin__face">
+              <span style="--c: #5c3b26; --h: 110"></span>
+              <span style="--c: #d4482b; --h: 40"></span>
+              <span style="--c: #e2a51c; --h: 85"></span>
+              <span style="--c: #6f9a35; --h: 55"></span>
+              <span style="--c: #efd86c; --h: 95"></span>
+              <span style="--c: #6a1043; --h: 35"></span>
+              <span style="--c: #2b5fae; --h: 130"></span>
+            </div>
+            <span class="resin__scale"><span>100&nbsp;µm</span></span>
+            <span class="resin__tag">MEC 7</span>
+            <span class="resin__glare"></span>
+            <span class="resin__caustic"></span>
+          </div>
+          <figcaption id="specimen-caption"><span class="label">MEC 7</span> A sliver of seven paint layers, newest on top, set in clear resin and polished. Each colour on this page is a screen approximation.</figcaption>
+        </figure>
+      </section>
+
+      <section class="chapter chapter--layers chapter--taken" id="taken" aria-labelledby="taken-title" data-chapter-at="taken">
+        <span class="still still--a" aria-hidden="true" style="--c: #5c3b26"></span>
+        <span class="still still--b" aria-hidden="true" style="--c: #d4482b"></span>
+        <h2 class="layers__title" id="taken-title">Used up, and taken.</h2>
+        <article class="plaque" id="mummy-brown" data-layer-at="1" aria-labelledby="mummy-brown-name">
+          <p class="label">No. 1 · Layer 0–110 <span class="unit">µm</span> · ended in the 1960<span class="unit">s</span></p>
+          <h3 id="mummy-brown-name"><span class="chip" style="--chip: #5c3b26"></span>Mummy brown</h3>
+          <p>A warm, transparent brown ground from the bodies of Egyptian mummies, resin and bitumen and all, and sold to painters from the sixteenth century. The painter Edward Burne-Jones is said to have buried his tube in the garden when he learned what was in it.</p>
+          <p>In the 1960s the London colourmen C. Roberson &amp; Co. told a reporter that they had run out, and could find no more mummies to grind.</p>
+          <p class="plaque__note">Recalled from published histories; the burial is a family story.</p>
+        </article>
+        <article class="plaque" id="uranium-red" data-layer-at="2" aria-labelledby="uranium-red-name">
+          <p class="label">No. 2 · Layer 110–150 <span class="unit">µm</span> · ended in 1943</p>
+          <h3 id="uranium-red-name"><span class="chip" style="--chip: #d4482b"></span>Uranium red</h3>
+          <p>Uranium oxide gave a ceramic glaze a deep orange-red. An American pottery fired it onto everyday tableware from 1936, until 1943, when the government took control of the country's uranium for the war.</p>
+          <p>It came back in 1959, made with depleted uranium, and stopped for good in 1972. The old plates still tick under a Geiger counter.</p>
+          <p class="plaque__note">Recalled from published histories.</p>
+        </article>
+      </section>
+
+      <section class="chapter chapter--layers chapter--poison" id="poison" aria-labelledby="poison-title" data-chapter-at="poison">
+        <span class="still still--a" aria-hidden="true" style="--c: #e2a51c"></span>
+        <span class="still still--b" aria-hidden="true" style="--c: #6f9a35"></span>
+        <h2 class="layers__title" id="poison-title">Unbearable, and poisonous.</h2>
+        <article class="plaque" id="indian-yellow" data-layer-at="3" aria-labelledby="indian-yellow-name">
+          <p class="label">No. 3 · Layer 150–235 <span class="unit">µm</span> · ended c. 1910</p>
+          <h3 id="indian-yellow-name"><span class="chip" style="--chip: #e2a51c"></span>Indian yellow</h3>
+          <p>A deep, glowing yellow that reached Europe as foul-smelling balls called purree. A report of 1883 described it being made in a village in Bihar from the urine of cows fed only on mango leaves and water.</p>
+          <p>By the early twentieth century it had gone. Whether it was banned or simply stopped being made is still argued.</p>
+          <p class="plaque__note">Recalled from published histories; the cause of its end is uncertain.</p>
+        </article>
+        <article class="plaque" id="scheeles-green" data-layer-at="4" aria-labelledby="scheeles-green-name">
+          <p class="label">No. 4 · Layer 235–290 <span class="unit">µm</span> · ended c. 1900</p>
+          <h3 id="scheeles-green-name"><span class="chip" style="--chip: #6f9a35"></span>Scheele's green</h3>
+          <p>Made in 1775 by the Swedish chemist Carl Wilhelm Scheele from copper and arsenic. It coloured wallpaper, dresses, toys and sweets through the nineteenth century, and in a damp room the walls could give off arsenic.</p>
+          <p>Safer greens replaced it before the century was out. It is still blamed, without proof, for the death of Napoleon.</p>
+          <p class="plaque__note">Recalled from published histories; the Napoleon story is contested.</p>
+        </article>
+      </section>
+
+      <section class="chapter chapter--layers chapter--forgotten" id="forgotten" aria-labelledby="forgotten-title" data-chapter-at="forgotten">
+        <span class="still still--a" aria-hidden="true" style="--c: #efd86c"></span>
+        <span class="still still--b" aria-hidden="true" style="--c: #6a1043"></span>
+        <h2 class="layers__title" id="forgotten-title">Forgotten, and too dear.</h2>
+        <article class="plaque" id="lead-tin-yellow" data-layer-at="5" aria-labelledby="lead-tin-yellow-name">
+          <p class="label">No. 5 · Layer 290–385 <span class="unit">µm</span> · ended c. 1750</p>
+          <h3 id="lead-tin-yellow-name"><span class="chip" style="--chip: #efd86c"></span>Lead-tin yellow</h3>
+          <p>A bright, opaque lemon yellow made by heating lead and tin together, used from the thirteenth century to the eighteenth: Titian painted with it, and so did Vermeer.</p>
+          <p>Then it was forgotten so completely that nobody knew it had existed, until a German researcher found it in old paintings in 1941.</p>
+          <p class="plaque__note">Recalled from published histories.</p>
+        </article>
+        <article class="plaque" id="tyrian-purple" data-layer-at="6" aria-labelledby="tyrian-purple-name">
+          <p class="label">No. 6 · Layer 385–420 <span class="unit">µm</span> · ended 1453</p>
+          <h3 id="tyrian-purple-name"><span class="chip" style="--chip: #6a1043"></span>Tyrian purple</h3>
+          <p>Taken from the glands of sea snails off the coast of Tyre. In 1909 the chemist Paul Friedländer crushed about 12,000 of them to make 1.4 grams.</p>
+          <p>The great dyeworks ended when Constantinople fell in 1453. A few people still make it by hand, at a price per gram well above gold's.</p>
+          <p class="plaque__note">Recalled from published histories.</p>
+        </article>
+      </section>
+
+      <section class="chapter chapter--ir" id="egyptian-blue" data-theme="lab" aria-labelledby="egyptian-blue-name" data-chapter-at="ir" data-layer-at="7">
+        <div class="ir__stage">
+          <span class="still still--ir" aria-hidden="true" style="--c: #2b5fae"></span>
+          <article class="plaque plaque--ir">
+            <p class="label">No. 7 · Layer 420–550 <span class="unit">µm</span> · lost after Rome</p>
+            <h2 class="ir__name" id="egyptian-blue-name"><span class="chip" style="--chip: #2b5fae"></span>Egyptian blue</h2>
+            <p>The first colour anyone made rather than dug: copper, lime and sand fired together in Egypt from about 2600 BCE, and used across the Roman world. Then the recipe was lost, and the blue was not made again until the nineteenth century.</p>
+            <p>It has one property nobody saw for four thousand years: under red light it glows in the infrared. A camera that sees infrared finds specks of it on statues that look bare to the eye.</p>
+            <p class="plaque__note">Recalled from published histories and conservation science.</p>
+            <button class="ir__toggle" type="button" aria-pressed="false">See it in infrared</button>
+          </article>
+        </div>
+      </section>
+
+      <section class="chapter chapter--visit" id="visit" aria-labelledby="visit-title" data-chapter-at="visit">
+        <div class="visit__specimen">
+          <div class="resin resin--small" aria-hidden="true">
+            <div class="resin__face">
+              <span style="--c: #5c3b26; --h: 110"></span>
+              <span style="--c: #d4482b; --h: 40"></span>
+              <span style="--c: #e2a51c; --h: 85"></span>
+              <span style="--c: #6f9a35; --h: 55"></span>
+              <span style="--c: #efd86c; --h: 95"></span>
+              <span style="--c: #6a1043; --h: 35"></span>
+              <span style="--c: #2b5fae; --h: 130"></span>
+            </div>
+          </div>
+          <h2 id="visit-title">The drawer room.</h2>
+          <p>The cross-section is shown under the microscope in the drawer room, with the last tubes, cakes and shards we could find. Six people at a time, for twenty minutes.</p>
+          <ol class="visit__layers">
+            <li><span class="chip" style="--chip: #5c3b26"></span><span class="visit__name">Mummy brown</span><span class="visit__end">1960s</span></li>
+            <li><span class="chip" style="--chip: #d4482b"></span><span class="visit__name">Uranium red</span><span class="visit__end">1943</span></li>
+            <li><span class="chip" style="--chip: #e2a51c"></span><span class="visit__name">Indian yellow</span><span class="visit__end">c. 1910</span></li>
+            <li><span class="chip" style="--chip: #6f9a35"></span><span class="visit__name">Scheele's green</span><span class="visit__end">c. 1900</span></li>
+            <li><span class="chip" style="--chip: #efd86c"></span><span class="visit__name">Lead-tin yellow</span><span class="visit__end">c. 1750</span></li>
+            <li><span class="chip" style="--chip: #6a1043"></span><span class="visit__name">Tyrian purple</span><span class="visit__end">1453</span></li>
+            <li><span class="chip" style="--chip: #2b5fae"></span><span class="visit__name">Egyptian blue</span><span class="visit__end">after Rome</span></li>
+          </ol>
+        </div>
+        <form class="booking" id="booking" novalidate aria-labelledby="booking-title">
+          <h3 id="booking-title">Book a viewing, €12</h3>
+          <p class="booking__note">Tuesday to Sunday, 10:00 to 16:40. This is a demonstration: nothing is charged.</p>
+          <div class="field">
+            <label for="b-day">Day</label>
+            <input id="b-day" name="day" type="date" required aria-describedby="b-day-err">
+            <p class="field__error" id="b-day-err" hidden>Choose a day from tomorrow on, Tuesday to Sunday; the museum is closed on Mondays.</p>
+          </div>
+          <fieldset class="slots" aria-describedby="b-slot-err">
+            <legend>Time</legend>
+            <div class="slots__grid">
+              <label><input type="radio" name="slot" value="10:00" required> 10:00</label>
+              <label><input type="radio" name="slot" value="10:40"> 10:40</label>
+              <label><input type="radio" name="slot" value="11:20"> 11:20</label>
+              <label><input type="radio" name="slot" value="12:00"> 12:00</label>
+              <label><input type="radio" name="slot" value="12:40"> 12:40</label>
+              <label><input type="radio" name="slot" value="13:20"> 13:20</label>
+              <label><input type="radio" name="slot" value="14:00"> 14:00</label>
+              <label><input type="radio" name="slot" value="14:40"> 14:40</label>
+              <label><input type="radio" name="slot" value="15:20"> 15:20</label>
+              <label><input type="radio" name="slot" value="16:00"> 16:00</label>
+              <label><input type="radio" name="slot" value="16:40"> 16:40</label>
+            </div>
+            <p class="field__error" id="b-slot-err" hidden>Choose a time.</p>
+          </fieldset>
+          <div class="field">
+            <label for="b-people">People</label>
+            <select id="b-people" name="people">
+              <option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option>
+            </select>
+          </div>
+          <button class="button button--primary booking__submit" type="submit">Book the viewing</button>
+          <p class="booking__status" data-booking-status></p>
+        </form>
+      </section>
+    </main>
+
+    <footer class="colophon">
+      <h2 class="colophon__title">Sources</h2>
+      <ol class="sources">
+        <li>Mummy brown: Victoria Finlay, <cite>Colour: Travels Through the Paintbox</cite> (2002); the Roberson remark as reported in the press in 1964. Recalled.</li>
+        <li>Uranium red: histories of Fiesta ware and of uranium glazes in American pottery. Recalled.</li>
+        <li>Indian yellow: T. N. Mukharji's report of 1883 and later accounts doubting a ban. Recalled; the end is uncertain.</li>
+        <li>Scheele's green: histories of arsenical pigments and wallpaper in the nineteenth century. Recalled; the Napoleon link is contested.</li>
+        <li>Lead-tin yellow: Richard Jacobi's identification of 1941 and conservation literature since. Recalled.</li>
+        <li>Tyrian purple: Paul Friedländer's 1909 extraction and histories of Byzantine dyeing. Recalled.</li>
+        <li>Egyptian blue: histories of the pigment and its infrared luminescence as used in conservation imaging. Recalled.</li>
+      </ol>
+      <p class="colophon__fiction">The museum, its address, its drawer room and its prices are fictional, made for a design showcase built with the <a href="https://github.com/burgisimon/awards">awards plugin</a>. The histories are real, told from memory and labelled as such; every colour is a screen approximation.</p>
+    </footer>
+  </div>
+  <p class="stage" aria-hidden="true"><span data-stage-depth>0 µm</span> · <span data-stage-layer>the block</span> · ×<span data-stage-mag>10</span></p>
+  <div class="sr-only" role="status" aria-live="polite" id="announcer"></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

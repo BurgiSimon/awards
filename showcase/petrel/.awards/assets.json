@@ -1,0 +1,97 @@
+{
+  "assets": [
+    {
+      "file": "public/favicon.svg",
+      "kind": "drawn",
+      "synthetic": false,
+      "author": "Petrel build (code)",
+      "licence": "same as repository",
+      "credit": "Favicon: the cut cable end with its red core, drawn in the tokens",
+      "date": "2026-10-23"
+    },
+    {
+      "file": "public/favicon-32.png",
+      "kind": "drawn",
+      "synthetic": false,
+      "author": "Petrel build (rendered from favicon.svg)",
+      "licence": "same as repository",
+      "credit": "Favicon, 32 px raster of the SVG",
+      "date": "2026-10-23"
+    },
+    {
+      "file": "public/apple-touch-icon.png",
+      "kind": "drawn",
+      "synthetic": false,
+      "author": "Petrel build (rendered from favicon.svg)",
+      "licence": "same as repository",
+      "credit": "Touch icon, 180 px raster of the SVG on the surface ground",
+      "date": "2026-10-23"
+    },
+    {
+      "file": "public/og.png",
+      "kind": "generated",
+      "synthetic": true,
+      "credit": "Open Graph image: the page's own first viewport",
+      "tool": "Playwright screenshot of the built page's first viewport (1200 × 630, reduced motion)",
+      "date": "2026-10-23"
+    },
+    {
+      "file": "index.html",
+      "kind": "drawn",
+      "synthetic": false,
+      "author": "Petrel build (code)",
+      "licence": "same as repository",
+      "credit": "Inline SVG: the bow profile, the fibre pulse, the seabed and tension trace, the cutaway and the bight, drawn by hand in code",
+      "date": "2026-10-23"
+    },
+    {
+      "file": "src/webgl/scene.js",
+      "kind": "drawn",
+      "synthetic": false,
+      "author": "Petrel build (code)",
+      "licence": "same as repository",
+      "credit": "The 3D armoured cable, grapnel and cut cable: procedural geometry in Three, no model files",
+      "date": "2026-10-23"
+    },
+    {
+      "file": "public/fonts/science-gothic-latin-700.woff2",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://fontsource.org/fonts/science-gothic",
+      "author": "Science Gothic authors (via Fontsource)",
+      "licence": "SIL Open Font License 1.1",
+      "licenceUrl": "https://openfontlicense.org",
+      "date": "2026-10-23"
+    },
+    {
+      "file": "public/fonts/science-gothic-latin-800.woff2",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://fontsource.org/fonts/science-gothic",
+      "author": "Science Gothic authors (via Fontsource)",
+      "licence": "SIL Open Font License 1.1",
+      "licenceUrl": "https://openfontlicense.org",
+      "date": "2026-10-23"
+    },
+    {
+      "file": "public/fonts/radio-canada-latin-400.woff2",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://fontsource.org/fonts/radio-canada",
+      "author": "Radio Canada typeface authors (via Fontsource)",
+      "licence": "SIL Open Font License 1.1",
+      "licenceUrl": "https://openfontlicense.org",
+      "date": "2026-10-23"
+    },
+    {
+      "file": "public/fonts/radio-canada-latin-600.woff2",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://fontsource.org/fonts/radio-canada",
+      "author": "Radio Canada typeface authors (via Fontsource)",
+      "licence": "SIL Open Font License 1.1",
+      "licenceUrl": "https://openfontlicense.org",
+      "date": "2026-10-23"
+    }
+  ]
+}
