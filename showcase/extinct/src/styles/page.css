@@ -195,7 +195,7 @@ html:not(.js) .ir__toggle { display: none; }
 .colophon__title { font-size: var(--h3); font-weight: 600; }
 .sources { display: grid; gap: calc(var(--unit) * 2); list-style: decimal; padding-left: 1.4em; columns: 2; column-gap: calc(var(--gutter)); max-width: 72rem; }
 .sources li { font-size: 1rem; color: var(--muted); break-inside: avoid; margin-bottom: 0.5rem; }
-.colophon__fiction { font-size: 1rem; color: var(--muted); max-width: 52em; }
+.colophon__fiction { font-size: 1rem; color: var(--muted); max-width: 40em; }
 
 /* The stage readout: the microscope's coordinates, a quiet line under the museum line at the right, clear of the plaques. */
 .stage {
@@ -216,7 +216,13 @@ html:not(.js) .stage, html.js:not(.on-layers) .stage { opacity: 0; visibility: h
 [data-theme="ir"] .plaque, [data-theme="ir"] .layers__title { background: var(--ground); color: var(--ink); }
 
 /* ——— Tablet and phone ——— */
-@media (max-width: 1100px) {
+/* Between the fold and 1440 px the seven colours tighten so the museum line stays one row. */
+@media (min-width: 1301px) and (max-width: 1439px) {
+  .museum { gap: calc(var(--unit) * 4); }
+  .museum__nav ol { gap: 0 calc(var(--unit) * 3.5); }
+  .museum__nav a { font-size: 0.875rem; }
+}
+@media (max-width: 1300px) {
   .museum { grid-template-columns: auto 1fr auto; }
   .museum__nav, .museum__book { display: none; }
   .museum__menu {

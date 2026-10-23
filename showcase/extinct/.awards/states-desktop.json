@@ -1,0 +1,47 @@
+[
+ {
+  "name": "ir-on",
+  "actions": [
+   {
+    "type": "click",
+    "selector": ".ir__toggle"
+   },
+   {
+    "type": "wait",
+    "ms": 1700
+   }
+  ]
+ },
+ {
+  "name": "booking-invalid",
+  "actions": [
+   {
+    "type": "click",
+    "selector": ".booking__submit"
+   },
+   {
+    "type": "waitFor",
+    "selector": "#b-day-err"
+   },
+   {
+    "type": "wait",
+    "ms": 300
+   }
+  ],
+  "selector": "#booking"
+ },
+ {
+  "name": "booking-slot",
+  "actions": [
+   {
+    "type": "click",
+    "selector": ".slots__grid label:nth-child(2)"
+   },
+   {
+    "type": "wait",
+    "ms": 300
+   }
+  ],
+  "selector": "#booking"
+ }
+]

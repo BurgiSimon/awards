@@ -1,0 +1,71 @@
+[
+ {
+  "name": "menu-open",
+  "actions": [
+   {
+    "type": "click",
+    "selector": ".museum__menu"
+   },
+   {
+    "type": "waitFor",
+    "selector": "#colours:not([hidden])"
+   }
+  ]
+ },
+ {
+  "name": "menu-escape",
+  "actions": [
+   {
+    "type": "click",
+    "selector": ".museum__menu"
+   },
+   {
+    "type": "waitFor",
+    "selector": "#colours:not([hidden])"
+   },
+   {
+    "type": "press",
+    "key": "Escape"
+   },
+   {
+    "type": "waitFor",
+    "selector": "#colours",
+    "state": "hidden"
+   }
+  ]
+ },
+ {
+  "name": "menu-kbd-back",
+  "actions": [
+   {
+    "type": "click",
+    "selector": ".museum__menu"
+   },
+   {
+    "type": "waitFor",
+    "selector": "#colours:not([hidden])"
+   },
+   {
+    "type": "press",
+    "key": "Shift+Tab"
+   }
+  ]
+ },
+ {
+  "name": "menu-pick",
+  "actions": [
+   {
+    "type": "click",
+    "selector": ".museum__menu"
+   },
+   {
+    "type": "click",
+    "selector": "#colours a[href=\"#tyrian-purple\"]"
+   },
+   {
+    "type": "wait",
+    "ms": 900
+   }
+  ]
+ }
+]
