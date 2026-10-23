@@ -7,7 +7,7 @@
 - [x] Direction contract locked (concept)
 - [x] Visual system written (system → DESIGN.md, tokens.css)
 - [x] Page map and skeleton built (structure)
-- [ ] Stack booted (stack)
+- [x] Stack booted (stack)
 - [ ] Motion score authored and built (motion)
 - [ ] WebGL layer built or explicitly declined (webgl)
 - [ ] Jury disposition: —
@@ -59,9 +59,10 @@ Responsive strategy: vw-lock above 768 px through the `clamp()` tokens (1440 art
 |---|---|---|---|---|
 
 ## Budgets & tiers
-- Entry JS (gz): · GL chunk (gz): · Textures per scene: · Fonts (files / KB): · LCP target: · Tiers: high / mid / low →
-- Deep modes: motion gsap|none · webgl shader|3d|shader + 3d|none — because …
-- Mode: full | quick | redesign from <url or dir>
+- Entry JS (gz): 49.3 KB measured at the stack checkpoint, budget ≤ 200 KB · GL chunk (gz): Three 0.186 plus the cable scene, lazy, budget ≤ 250 KB · Textures per scene: none (the armour, the grapnel and the sea are procedural) · Fonts (files / KB): 4 / 55 KB · LCP target: ≤ 2.5 s on a throttled phone, from the DOM claim · Tiers: high (DPR ≤ 2, the armour helix lit) / mid (DPR ≤ 1.5) / low (DPR 1, render scale 0.5) → without WebGL2, the drawn cable strands and the SVG cutaway.
+- Stack: Vite 8.3 + vanilla JS, MPA (index and 404), relative base; GSAP 3.15 and Lenis 1.3 on GSAP's ticker; Three 0.186 behind a dynamic import in its own chunk; scroll model native + Lenis with two sticky stages; resize rebuilds on a debounced ResizeObserver, never a reload; no route transitions (one page).
+- Deep modes: motion gsap · webgl 3d — because the signature is one rendered object (an armoured cable and its grapnel) whose pay-out, bend and cutaway are scrubbed through one paused timeline.
+- Mode: full
 
 ## Jury log
 <!-- appended by awards:jury — date · disposition · D/U/C/Co · dev sub-scores · top fixes; component passes are marked `component` and a redesign's first score `baseline`; neither counts as a page round -->
