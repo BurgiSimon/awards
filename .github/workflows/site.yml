@@ -34,9 +34,11 @@ jobs:
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
       # The 404 page sets <base> from SITE_ROOT so its assets resolve at any depth; a project page lives under /<repo>/.
+      # SITE_URL makes og:image, og:url, canonicals, robots.txt and sitemap.xml absolute.
       - run: npm run build
         env:
           SITE_ROOT: ${{ steps.pages.outputs.base_path }}/
+          SITE_URL: ${{ steps.pages.outputs.base_url }}/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site/dist

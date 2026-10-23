@@ -29,7 +29,7 @@ Use these exact versions in scaffolds, recipes and generated `package.json` file
 | astro | 7.3.3 | framework |
 | @sveltejs/kit | 2.70.3 | framework |
 | @google/design.md | 0.4.0 | DESIGN.md lint, diff and export (DTCG, Tailwind 3 and 4), alpha; run through `scripts/design-md.mjs`, never installed (checked 2026-10-22) |
-| vite | 8.3.0 | build (Rolldown) |
+| vite | 8.3.5 | build (Rolldown); 8.3.0–8.3.2 carry six dev-server advisories (cross-origin script execution through custom middleware, files outside `server.fs.allow`, launch-editor), fixed in 8.3.3 (checked 2026-10-22) |
 | tailwindcss | 4.3.3 | only when the project already uses it, wired to the DESIGN.md tokens; winners use it as a token layer (usavionix, shopify-editions-w26), never the stock look |
 | @threlte/core / @threlte/extras | 8.6.0 / 9.21.1 | Svelte renderer for three |
 | @bsmnt/scrollytelling | 0.3.3 | basement.studio's ScrollTrigger abstraction (React) |
@@ -53,7 +53,7 @@ Use Node 22 LTS (22.12 or later) or 24 LTS. Node 20 reached end of life on 2026-
 
 | Stack (pinned) | Node it needs | Latest release (checked 2026-10-22) |
 |---|---|---|
-| vite 8.3.0 | `^20.19.0 \|\| >=22.12.0` | 8.3.5, unchanged |
+| vite 8.3.5 | `^20.19.0 \|\| >=22.12.0` | 8.3.5, unchanged |
 | next 16.3.5 | `>=20.9.0` | 16.4.2, unchanged |
 | nuxt 4.5.2 | `^22.19.0 \|\| ^24.11.0 \|\| >=26.0.0` | 4.6.2 needs `^22.22.3 \|\| ^24.15.0 \|\| >=26.0.0` |
 | astro 7.3.3 | `>=22.12.0` | 7.4.2 needs `>=22.23.4` |

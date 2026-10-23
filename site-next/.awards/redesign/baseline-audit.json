@@ -1,0 +1,48 @@
+{
+  "target": ".",
+  "scannedFiles": 28,
+  "at": "2026-10-22T12:00:46.382Z",
+  "summary": {
+    "P0": 0,
+    "P1": 0,
+    "P2": 0,
+    "P3": 0
+  },
+  "exceptions": [
+    "S03",
+    "S05",
+    "S06",
+    "X02@/home/user/awards/site/docs.html",
+    "X07@/home/user/awards/site/docs.html",
+    "A13@docs.html",
+    "S10@404.html"
+  ],
+  "axe": "axe-core 4.14.0",
+  "rendered": {
+    "desktop": {
+      "textsMeasured": 148,
+      "textsOverImagery": 0,
+      "clsLoad": 0.0009,
+      "focusStops": 10,
+      "sweepSteps": 16
+    },
+    "tablet": {
+      "textsMeasured": 148,
+      "textsOverImagery": 0,
+      "clsLoad": 0,
+      "sweepSteps": 13
+    },
+    "mobile": {
+      "textsMeasured": 148,
+      "textsOverImagery": 0,
+      "clsLoad": 0,
+      "sweepSteps": 21
+    }
+  },
+  "renderedFrom": {
+    "dir": "dist",
+    "from": "dist",
+    "warning": "dist/ is older than src/; rebuild before trusting the rendered checks"
+  },
+  "findings": []
+}

@@ -7,3 +7,5 @@ dist/
 .awards/neighbours/
 .awards/capture.lock
 .awards/browsers/
+# the old site's frames in a redesign: evidence, kept out of history
+.awards/redesign/baseline/

@@ -1,0 +1,1529 @@
+{
+  "assets": [
+    {
+      "file": "public/favicon.svg",
+      "kind": "drawn",
+      "synthetic": false,
+      "author": "awards:system for this build",
+      "credit": "Favicon drawn from the tokens: a rebate square holding one frame with a black wax ring",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/fonts/enriqueta-latin-400.woff2",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://fontsource.org/fonts/enriqueta",
+      "author": "FontFuror",
+      "licence": "SIL OFL 1.1",
+      "licenceUrl": "https://github.com/google/fonts/blob/main/ofl/enriqueta/OFL.txt",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/fonts/enriqueta-latin-500.woff2",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://fontsource.org/fonts/enriqueta",
+      "author": "FontFuror",
+      "licence": "SIL OFL 1.1",
+      "licenceUrl": "https://github.com/google/fonts/blob/main/ofl/enriqueta/OFL.txt",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/fonts/saira-condensed-latin-400.woff2",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://fontsource.org/fonts/saira-condensed",
+      "author": "Omnibus-Type",
+      "licence": "SIL OFL 1.1",
+      "licenceUrl": "https://github.com/google/fonts/blob/main/ofl/sairacondensed/OFL.txt",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/auto-drive-manual-takeover.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/auto-drive-manual-takeover (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/autoplay-tabs-progress.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/autoplay-tabs-progress (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/blur-peek-snap-carousel.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/blur-peek-snap-carousel (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/boot-lenis-gsap.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/boot-lenis-gsap (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/cart-drawer-quick-add.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/cart-drawer-quick-add (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/case-study-route-kit.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/case-study-route-kit (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/clip-path-scrub-door.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/clip-path-scrub-door (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/compare-hold-drag.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/compare-hold-drag (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/complete-editorial-composition.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/complete-editorial-composition (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/css-scroll-driven-timeline.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/css-scroll-driven-timeline (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/cursor-two-speed.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/cursor-two-speed (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/custom-ease-house-defaults.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/custom-ease-house-defaults (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/designed-404.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/designed-404 (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/designed-footer.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/designed-footer (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/dialog-nested-lenis-sheet.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/dialog-nested-lenis-sheet (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/docked-media-grow.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/docked-media-grow (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/drag-pan-infinite-grid.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/drag-pan-infinite-grid (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/editorial-image-text.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/editorial-image-text (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/filmstrip-index-rows.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/filmstrip-index-rows (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/flicker-text.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/flicker-text (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/flip-layout-state.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/flip-layout-state (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/gl-arc-length-mask-reveal.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/gl-arc-length-mask-reveal (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/gl-built-studio-environment.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/gl-built-studio-environment (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/gl-depth-map-parallax.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/gl-depth-map-parallax (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/gl-dispersion-stripes.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/gl-dispersion-stripes (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/gl-dom-tethered-planes.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/gl-dom-tethered-planes (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/gl-endless-reel-sheets.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/gl-endless-reel-sheets (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/gl-fluid-wake-post.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/gl-fluid-wake-post (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/gl-fps-governor-idle-gate.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/gl-fps-governor-idle-gate (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/gl-hero-object-inertia.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/gl-hero-object-inertia (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/gl-lathe-turned-object.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/gl-lathe-turned-object (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/gl-material-patch-reveal.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/gl-material-patch-reveal (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/gl-msdf-text.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/gl-msdf-text (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/gl-noise-edge-theme-wipe.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/gl-noise-edge-theme-wipe (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/gl-one-context-many-canvases.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/gl-one-context-many-canvases (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/gl-orbit-model-hotspots.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/gl-orbit-model-hotspots (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/gl-ping-pong-grain-field.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/gl-ping-pong-grain-field (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/gl-postprocessing-presets.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/gl-postprocessing-presets (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/gl-progress-scene-windows.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/gl-progress-scene-windows (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/gl-rtt-composite-transition.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/gl-rtt-composite-transition (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/gl-scrubbed-clip-timeline.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/gl-scrubbed-clip-timeline (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/gl-sdf-extruded-symbol.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/gl-sdf-extruded-symbol (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/gl-spring-stepped-gallery.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/gl-spring-stepped-gallery (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/gl-uniform-tween-targets.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/gl-uniform-tween-targets (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/gl-virtual-scroll-camera.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/gl-virtual-scroll-camera (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/horizontal-rail.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/horizontal-rail (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/hover-preview-list.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/hover-preview-list (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/idle-settle-snap.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/idle-settle-snap (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/image-sequence-scrub.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/image-sequence-scrub (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/image-trail-cursor.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/image-trail-cursor (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/knockout-wordmark-window.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/knockout-wordmark-window (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/magnetic-button.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/magnetic-button (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/marquee-raf-mask.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/marquee-raf-mask (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/nav-overlay-fullscreen.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/nav-overlay-fullscreen (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/offscreen-canvas-worker.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/offscreen-canvas-worker (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/page-transitions.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/page-transitions (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/persistent-mode-switch.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/persistent-mode-switch (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/physics-pile-matter.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/physics-pile-matter (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/pointer-tilt-shine.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/pointer-tilt-shine (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/preloader-aperture-handoff.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/preloader-aperture-handoff (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/preloader-counter-hold.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/preloader-counter-hold (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/product-specification.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/product-specification (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/quality-tiers.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/quality-tiers (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/reduced-motion-switch.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/reduced-motion-switch (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/responsive-art-directed-hero.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/responsive-art-directed-hero (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/scramble-decode-text.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/scramble-decode-text (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/scroll-drawn-svg-path.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/scroll-drawn-svg-path (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/scroll-pin-scrub.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/scroll-pin-scrub (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/scroll-word-fill.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/scroll-word-fill (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/scrollbar-thumb-drag.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/scrollbar-thumb-drag (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/scrub-threshold-timelines.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/scrub-threshold-timelines (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/section-switcher-wheel-commit.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/section-switcher-wheel-commit (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/sentence-form-enquiry.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/sentence-form-enquiry (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/sound-toggle-opt-in.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/sound-toggle-opt-in (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/split-text-masked-reveal.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/split-text-masked-reveal (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/sprite-rain-canvas2d.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/sprite-rain-canvas2d (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/sticky-stack-cards.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/sticky-stack-cards (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/sticky-stages-rails.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/sticky-stages-rails (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/svg-goo-line-reveal.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/svg-goo-line-reveal (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/svg-noise-line-field.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/svg-noise-line-field (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/theme-swap-tokens.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/theme-swap-tokens (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/throw-objects-css3d.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/throw-objects-css3d (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/title-mask-tunnel.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/title-mask-tunnel (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/transition-promote-chosen.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/transition-promote-chosen (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/two-phase-interruptible-timeline.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/two-phase-interruptible-timeline (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/typography-specimen.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/typography-specimen (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/video-clip-wipe-panels.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/video-clip-wipe-panels (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/view-transitions-mpa.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/view-transitions-mpa (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/recipes/word-cycle-hero.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "plugins/awards/recipes/word-cycle-hero (rendered by scripts/recipe-frames.mjs)",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/404-html/desktop-s00-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/404-html/desktop-s100-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/404-html/desktop-s25-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/404-html/desktop-s50-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/404-html/desktop-s75-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/404-html/mobile-s00-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/404-html/mobile-s100-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/404-html/mobile-s25-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/404-html/mobile-s50-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/404-html/mobile-s75-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/404-html/tablet-s00-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/404-html/tablet-s100-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/404-html/tablet-s25-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/404-html/tablet-s50-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/404-html/tablet-s75-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/docs-html/desktop-s00-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/docs-html/desktop-s100-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/docs-html/desktop-s25-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/docs-html/desktop-s50-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/docs-html/desktop-s75-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/docs-html/mobile-s00-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/docs-html/mobile-s100-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/docs-html/mobile-s25-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/docs-html/mobile-s50-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/docs-html/mobile-s75-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/docs-html/tablet-s00-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/docs-html/tablet-s100-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/docs-html/tablet-s25-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/docs-html/tablet-s50-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/docs-html/tablet-s75-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/home/desktop-hover-1-110.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/home/desktop-s00-1440.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/home/desktop-s00-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/home/desktop-s100-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/home/desktop-s25-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/home/desktop-s50-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/home/desktop-s75-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/home/mobile-s00-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/home/mobile-s00-780.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/home/mobile-s100-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/home/mobile-s25-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/home/mobile-s50-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/home/mobile-s75-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/home/tablet-s00-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/home/tablet-s00-834.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/home/tablet-s100-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/home/tablet-s25-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/home/tablet-s50-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/home/tablet-s75-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/install-html/desktop-s00-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/install-html/desktop-s100-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/install-html/desktop-s25-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/install-html/desktop-s50-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/install-html/desktop-s75-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/install-html/mobile-s00-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/install-html/mobile-s100-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/install-html/mobile-s25-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/install-html/mobile-s50-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/install-html/mobile-s75-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/install-html/tablet-s00-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/install-html/tablet-s100-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/install-html/tablet-s25-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/install-html/tablet-s50-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/install-html/tablet-s75-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/recipes-html/desktop-s00-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/recipes-html/desktop-s100-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/recipes-html/desktop-s25-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/recipes-html/desktop-s50-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/recipes-html/desktop-s75-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/recipes-html/mobile-s00-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/recipes-html/mobile-s100-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/recipes-html/mobile-s25-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/recipes-html/mobile-s50-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/recipes-html/mobile-s75-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/recipes-html/tablet-s00-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/recipes-html/tablet-s100-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/recipes-html/tablet-s25-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/recipes-html/tablet-s50-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T153705Z-prejury-2/recipes-html/tablet-s75-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2 (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T154816-jury/home/desktop-s38-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T154816-jury (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T154816-jury/home/desktop-s46-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T154816-jury (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T154816-jury/home/desktop-s62-600.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T154816-jury (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/proof/20261022T155633-jury-states/home/w320-home-mobile-s00-360.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T155633-jury-states (capture.mjs), re-encoded by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/og.png",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2/home/desktop-s00.png (capture.mjs), set in its rebate beside the job line by scripts/proof.mjs",
+      "author": "awards:ship for this build",
+      "licence": "MIT",
+      "tool": "Chromium screenshot of an HTML card in the site's own faces and tokens (scripts/proof.mjs renderOg)",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/favicon-32.png",
+      "kind": "drawn",
+      "synthetic": false,
+      "author": "awards:ship for this build",
+      "credit": "PNG fallback of public/favicon.svg, drawn from the tokens",
+      "tool": "Chromium render of public/favicon.svg (scripts/icons.mjs)",
+      "date": "2026-10-22"
+    },
+    {
+      "file": "public/apple-touch-icon.png",
+      "kind": "drawn",
+      "synthetic": false,
+      "author": "awards:ship for this build",
+      "credit": "180 px touch icon of public/favicon.svg, drawn from the tokens",
+      "tool": "Chromium render of public/favicon.svg (scripts/icons.mjs)",
+      "date": "2026-10-22"
+    }
+  ]
+}

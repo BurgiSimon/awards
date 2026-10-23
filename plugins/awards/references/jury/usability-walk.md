@@ -13,7 +13,7 @@ Usability is the lowest of the four axes on 27 of the 31 corpus entries awarded 
 ## 2. Coarse pointer (caps at 7)
 - Custom cursor and magnetic effects are off under `(hover: none), (pointer: coarse)`.
 - Nothing is hover-only: previews, badges, tooltips and reveals have a tap or focus path.
-- Touch targets are at least 44 × 44 px (the audit's floor is 24 px, A14); the eccentric desktop nav (a rotated side index, a hidden rail) has a visible mobile equivalent.
+- Touch targets are at least 44 × 44 px (the audit reports the WCAG floor of 24 px as A14 and this walk's 44 px as A18); the eccentric desktop nav (a rotated side index, a hidden rail) has a visible mobile equivalent.
 - Horizontal rails become native overflow scrolling; drag surfaces declare `touch-action` and do not swallow page scroll.
 
 ## 3. Reduced motion (caps at 6 if absent, 7 if crude)

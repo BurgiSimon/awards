@@ -1,0 +1,47 @@
+[
+  { "name": "strip-rove", "actions": [
+      { "type": "press", "key": "Tab" }, { "type": "press", "key": "Tab" }, { "type": "press", "key": "Tab" }, { "type": "press", "key": "Tab" },
+      { "type": "press", "key": "Tab" }, { "type": "press", "key": "Tab" }, { "type": "press", "key": "Tab" },
+      { "type": "waitFor", "selector": ".strip a.frame[data-at=\"0\"]:focus-visible" },
+      { "type": "press", "key": "End" },
+      { "type": "waitFor", "selector": ".strip a.frame[data-at=\"1\"]:focus-visible" },
+      { "type": "press", "key": "ArrowUp" },
+      { "type": "waitFor", "selector": ".strip a.frame[data-at=\"0.75\"]:focus-visible" },
+      { "type": "wait", "ms": 900 } ] },
+  { "name": "strip-jump", "actions": [
+      { "type": "press", "key": "Tab" }, { "type": "press", "key": "Tab" }, { "type": "press", "key": "Tab" }, { "type": "press", "key": "Tab" },
+      { "type": "press", "key": "Tab" }, { "type": "press", "key": "Tab" }, { "type": "press", "key": "Tab" },
+      { "type": "press", "key": "End" }, { "type": "press", "key": "ArrowUp" },
+      { "type": "press", "key": "Enter" },
+      { "type": "waitFor", "selector": ".strip a.frame[data-at=\"0.75\"][aria-current=\"true\"]:visible" },
+      { "type": "wait", "ms": 900 } ] },
+  { "name": "strip-hover", "actions": [
+      { "type": "hover", "selector": ".strip li[data-stop=\"25\"] > a.frame:visible" },
+      { "type": "wait", "ms": 400 } ] },
+  { "name": "strip-press", "actions": [
+      { "type": "hover", "selector": ".strip li[data-stop=\"25\"] > a.frame:visible" },
+      { "type": "down" },
+      { "type": "wait", "ms": 300 } ] },
+  { "name": "loupe-open", "actions": [
+      { "type": "focus", "selector": "[data-loupe-open]" },
+      { "type": "press", "key": "Enter" },
+      { "type": "waitFor", "selector": "dialog#loupe[open]" },
+      { "type": "wait", "ms": 500 } ] },
+  { "name": "loupe-closed", "actions": [
+      { "type": "focus", "selector": "[data-loupe-open]" },
+      { "type": "press", "key": "Enter" },
+      { "type": "waitFor", "selector": "dialog#loupe[open]" },
+      { "type": "press", "key": "Escape" },
+      { "type": "waitFor", "selector": "dialog#loupe", "state": "hidden" },
+      { "type": "waitFor", "selector": "[data-loupe-open]:focus" },
+      { "type": "wait", "ms": 300 } ] },
+  { "name": "copy-keyboard", "actions": [
+      { "type": "press", "key": "Tab" }, { "type": "press", "key": "Tab" }, { "type": "press", "key": "Tab" }, { "type": "press", "key": "Tab" },
+      { "type": "press", "key": "Tab" }, { "type": "press", "key": "Tab" }, { "type": "press", "key": "Tab" }, { "type": "press", "key": "Tab" },
+      { "type": "waitFor", "selector": "#select-open button[data-copy]:focus-visible" },
+      { "type": "wait", "ms": 300 } ] },
+  { "name": "copy-refused", "actions": [
+      { "type": "click", "selector": "#select-open .ticket__row:first-of-type li:first-child button[data-copy]" },
+      { "type": "waitFor", "selector": "#select-open .ticket__refused" },
+      { "type": "wait", "ms": 300 } ] }
+]

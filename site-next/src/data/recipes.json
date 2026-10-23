@@ -1,0 +1,2305 @@
+{
+  "schema": 1,
+  "generator": "scripts/recipe-frames.mjs",
+  "source": "plugins/awards/recipes/*/recipe.json",
+  "publicBase": "paths are relative to public/",
+  "count": 89,
+  "verified": 76,
+  "groups": [
+    {
+      "id": "foundations",
+      "title": "Foundations",
+      "count": 7
+    },
+    {
+      "id": "arrival-and-chrome",
+      "title": "Arrival and chrome",
+      "count": 14
+    },
+    {
+      "id": "heroes-and-type",
+      "title": "Heroes and type",
+      "count": 11
+    },
+    {
+      "id": "scroll-set-pieces",
+      "title": "Scroll set-pieces",
+      "count": 20
+    },
+    {
+      "id": "galleries-and-lists",
+      "title": "Galleries and lists",
+      "count": 9
+    },
+    {
+      "id": "evidence-blocks",
+      "title": "Evidence blocks",
+      "count": 5
+    },
+    {
+      "id": "the-close-and-beyond",
+      "title": "The close and beyond",
+      "count": 6
+    },
+    {
+      "id": "webgl-surfaces",
+      "title": "WebGL surfaces and scenes",
+      "count": 14
+    },
+    {
+      "id": "compositions",
+      "title": "Pages and compositions",
+      "count": 3
+    }
+  ],
+  "capture": {
+    "viewport": {
+      "width": 1280,
+      "height": 800
+    },
+    "frame": {
+      "width": 640,
+      "height": 400
+    },
+    "maxBytes": 40960,
+    "rule": "first desktop full-motion state with a scroll fraction strictly between 0 and 1, else the first such state, else the first state; degraded tiers and teardown checks are skipped",
+    "overrides": {
+      "designed-footer": {
+        "state": "desktop-end",
+        "why": "the footer is the recipe; mid-page shows the content above it"
+      },
+      "hover-preview-list": {
+        "state": "follow",
+        "why": "at rest the list shows no preview"
+      },
+      "magnetic-button": {
+        "state": "pull",
+        "why": "at rest the button sits still"
+      },
+      "physics-pile-matter": {
+        "state": "settled",
+        "why": "at load the drawer has not tipped out yet"
+      },
+      "gl-arc-length-mask-reveal": {
+        "state": "half",
+        "why": "at load no branch is drawn"
+      },
+      "svg-goo-line-reveal": {
+        "state": "mid",
+        "why": "the reveal under way"
+      },
+      "title-mask-tunnel": {
+        "state": "mid",
+        "why": "at rest the title has not entered the tunnel"
+      },
+      "clip-path-scrub-door": {
+        "state": "mid",
+        "why": "the door half open"
+      },
+      "cursor-two-speed": {
+        "state": "hover",
+        "why": "the badge only shows over a target"
+      },
+      "custom-ease-house-defaults": {
+        "state": "played",
+        "why": "the curves only draw once played"
+      }
+    }
+  },
+  "totalBytes": 1054732,
+  "recipes": [
+    {
+      "id": "auto-drive-manual-takeover",
+      "title": "Optional auto-scroll that any user input hands back",
+      "group": "scroll-set-pieces",
+      "summary": "An `aria-pressed` Auto toggle, off on every visit, advances Lenis by `90 px × dt` on the shared ticker (`lenis.scrollTo(y, { immediate: true })` from a float accumulator, `dt` clamped to `100 ms`); a capture-phase wheel, touchstart, pointerdown or keydown anywhere but the toggle hands control back at once, as does any scroll more than `3 px` from where it was written (scrollbar, find-in-page, a link) and reaching the end; each change written once to a polite `role=\"status\"` line; under reduced motion and static the toggle stays focusable but `aria-disabled`, with the reason in its description",
+      "tags": [
+        "lenis",
+        "scroll",
+        "autoplay",
+        "toggle",
+        "interruption",
+        "keyboard",
+        "reduced-motion"
+      ],
+      "tier": "P2",
+      "verified": null,
+      "frame": {
+        "src": "recipes/auto-drive-manual-takeover.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 15262
+      },
+      "state": "rest",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Optional auto-scroll that any user input hands back\" in headless Chromium at 1280 × 800, state \"rest\"."
+    },
+    {
+      "id": "autoplay-tabs-progress",
+      "title": "Auto-advancing tabs with a visible clock",
+      "group": "evidence-blocks",
+      "summary": "Tabs that auto-advance on a linear `scaleX` 0 → 1 bar that is the timer, start once in view, hold on hover / keyboard focus / off-screen / pause button, restart on click; `role=\"tab\"` with arrow keys, no autoplay under reduced motion",
+      "tags": [
+        "tabs",
+        "autoplay",
+        "gsap",
+        "progress",
+        "keyboard",
+        "reduced-motion"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/autoplay-tabs-progress.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 11384
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Auto-advancing tabs with a visible clock\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "blur-peek-snap-carousel",
+      "title": "Centred carousel with blur-peek neighbours and a velocity-graded snap",
+      "group": "galleries-and-lists",
+      "summary": "Centred card sharp, neighbours at `.2` + `blur(6px)` (`.1`, no blur, ≤ 920 px), gap computed from a fixed peek (`10 %` / `14 %` of the width), release speed picks the snap (`> 1.2 px/ms` → `320 ms` crisp curve, slow `450–600 ms` soft curve), rubber-band overscroll returned by a critically damped spring stepped exactly with the shared ticker's `dt`; links in a list with roving `tabindex`, arrow / Home / End keys, a live \"n of N\"; blur kept but instant, snaps instant under reduced motion",
+      "tags": [
+        "carousel",
+        "drag",
+        "snap",
+        "spring",
+        "blur",
+        "keyboard",
+        "reduced-motion"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-22",
+      "frame": {
+        "src": "recipes/blur-peek-snap-carousel.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 10042
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Centred carousel with blur-peek neighbours and a velocity-graded snap\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "boot-lenis-gsap",
+      "title": "Boot: Lenis + GSAP on one ticker",
+      "group": "foundations",
+      "summary": "Lenis on the GSAP ticker, `lagSmoothing(0)`, fonts before splits, reduced-motion tier, `__awards` hook",
+      "tags": [
+        "scroll",
+        "gsap",
+        "lenis",
+        "reduced-motion"
+      ],
+      "tier": "P0",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/boot-lenis-gsap.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 5098
+      },
+      "state": "mid",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Boot: Lenis + GSAP on one ticker\" in headless Chromium at 1280 × 800, state \"mid\"."
+    },
+    {
+      "id": "cart-drawer-quick-add",
+      "title": "Quick add and a cart drawer on a native dialog",
+      "group": "evidence-blocks",
+      "summary": "A product row where one link holds art, name and price and the size choice (`fieldset` + native radios, sold out kept focusable) and quick add sit beside it; the add answers in a polite live region and a `Bag (n)` count, never only motion; the bag is a `<dialog>` opened with `showModal()`, focus on its heading, page locked and inert, Escape (taken over from `cancel`), close button and scrim all ending in the `close` event that returns focus to the bag button; keyed line items with `aria-disabled` steppers that keep focus at `1` and `9`, remove to the heading, an empty state, money in pence through `Intl.NumberFormat('en-GB', { currency: 'GBP' })`; slides from the inline-end edge (`280ms` in, `200ms` out, a bottom sheet under `768px`, reversed mid-open), fades `180ms` under reduced motion, appears in the static tier; demo only, no payment",
+      "tags": [
+        "product",
+        "dialog",
+        "bottom-sheet",
+        "button",
+        "keyboard",
+        "accessibility",
+        "reduced-motion",
+        "responsive"
+      ],
+      "tier": "P1",
+      "verified": null,
+      "frame": {
+        "src": "recipes/cart-drawer-quick-add.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 16626
+      },
+      "state": "desktop",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Quick add and a cart drawer on a native dialog\" in headless Chromium at 1280 × 800, state \"desktop\"."
+    },
+    {
+      "id": "case-study-route-kit",
+      "title": "Case-study route kit: an index and the inner page it opens",
+      "group": "compositions",
+      "summary": "Two real pages, `index.html` and `case.html`: an `<article>` opening on an edge-to-edge title over a `<dl>` of client, year, role and credits by role (a nested `<dl>`), then a media rhythm whose neighbours never share a layout family: a full-bleed plate recropped `16:9 → 4:5` on the phone, a prose column at about 60ch from column 5, an uneven pair (6 and 4 of 12 columns, the second dropped a step), a caption-led figure bled right, a second plate, the result as ruled rows with units, and a next-project close that repeats the title's family as the bookend, with its own image and the next title at the h1's scale, linking back into the set (`index.html#harbour-almanac`, marked by `:target`); inline-SVG drawings with `role=\"img\"` labels in boxes sized by `aspect-ratio`, so layout shift stays under `0.05`; own `<title>`, description and `CreativeWork` JSON-LD per page; reveals only for what starts below the fold (`32px` rise and fade over `.9 s`, fade only under reduced motion, nothing held back in the static tier)",
+      "tags": [
+        "composition",
+        "editorial",
+        "layout",
+        "images",
+        "sections",
+        "reveal",
+        "responsive",
+        "art-direction",
+        "accessibility",
+        "reduced-motion"
+      ],
+      "tier": "P1",
+      "verified": null,
+      "frame": {
+        "src": "recipes/case-study-route-kit.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 5138
+      },
+      "state": "case-mid",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Case-study route kit: an index and the inner page it opens\" in headless Chromium at 1280 × 800, state \"case-mid\"."
+    },
+    {
+      "id": "clip-path-scrub-door",
+      "title": "Scrubbed clip-path doorway into a section",
+      "group": "scroll-set-pieces",
+      "summary": "A veil cut by one `polygon(evenodd, frame…, hole…)` whose hole a scrubbed `{ p }` proxy grows from `20% × 24%` to the full frame over a `200svh` sticky stage (`top top` → `bottom bottom`, no pin) while two labels part `±50vw`; a statement revealed through `circle(p × 150% at 50% 120%)` with a later, longer phone window; no clip at all under reduced motion or static",
+      "tags": [
+        "scroll",
+        "gsap",
+        "scrolltrigger",
+        "scrub",
+        "clip-path",
+        "reveal",
+        "reduced-motion"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-22",
+      "frame": {
+        "src": "recipes/clip-path-scrub-door.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 5202
+      },
+      "state": "mid",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Scrubbed clip-path doorway into a section\" in headless Chromium at 1280 × 800, state \"mid\"."
+    },
+    {
+      "id": "compare-hold-drag",
+      "title": "Compare reveal: drag the divider or hold to peek",
+      "group": "evidence-blocks",
+      "summary": "Hold / drag mask between two states, arrow keys",
+      "tags": [
+        "pointer",
+        "compare",
+        "keyboard"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/compare-hold-drag.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 2740
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Compare reveal: drag the divider or hold to peek\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "complete-editorial-composition",
+      "title": "Alder Workshop — complete editorial composition",
+      "group": "compositions",
+      "summary": "The five components in one paced, coherent page",
+      "tags": [
+        "composition",
+        "editorial",
+        "responsive",
+        "static"
+      ],
+      "tier": "P0",
+      "verified": "2026-10-22",
+      "frame": {
+        "src": "recipes/complete-editorial-composition.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 11996
+      },
+      "state": "desktop-middle",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Alder Workshop — complete editorial composition\" in headless Chromium at 1280 × 800, state \"desktop-middle\"."
+    },
+    {
+      "id": "css-scroll-driven-timeline",
+      "title": "Scroll-driven animation in CSS: progress, reveals and a sticky media scale",
+      "group": "scroll-set-pieces",
+      "summary": "A reading-progress bar on `scroll(root block)` (`scaleX 0 → 1`), section reveals on `view()` with `animation-range: entry 10% cover 35%` (`opacity 0 → 1`, `translateY 3rem → 0`), the hero copy leaving over `exit 0% exit 100%` of a named `--hero` timeline, and one `--rail` view timeline on a `280svh` rail scaling its sticky figure `.55 → 1` over `contain 0% contain 45%`; transform and opacity only, so nothing runs on the main thread; a `@supports (animation-timeline: view())` guard with a scroll-listener and IntersectionObserver fallback that sets the same end states (a top margin of `1000000px` so a jump never strands a block); end states and a `steps(10)` bar under reduced motion",
+      "tags": [
+        "scroll",
+        "css-animation",
+        "scrub",
+        "reveal",
+        "sticky",
+        "progress",
+        "fallback"
+      ],
+      "tier": "P1",
+      "verified": null,
+      "frame": {
+        "src": "recipes/css-scroll-driven-timeline.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 3890
+      },
+      "state": "mid",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Scroll-driven animation in CSS: progress, reveals and a sticky media scale\" in headless Chromium at 1280 × 800, state \"mid\"."
+    },
+    {
+      "id": "cursor-two-speed",
+      "title": "Two-speed contextual cursor",
+      "group": "arrival-and-chrome",
+      "summary": "Dot `.75` / ring `.22`, hover scale, contextual badges, off on coarse pointers",
+      "tags": [
+        "pointer",
+        "cursor",
+        "inertia"
+      ],
+      "tier": "P0",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/cursor-two-speed.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 3328
+      },
+      "state": "hover",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Two-speed contextual cursor\" in headless Chromium at 1280 × 800, state \"hover\"."
+    },
+    {
+      "id": "custom-ease-house-defaults",
+      "title": "House easing: CustomEase tokens as GSAP defaults",
+      "group": "foundations",
+      "summary": "Five curves (`house`, `out`, `in`, `in-out`, `write`) and a `xs / s / m / l / fade` duration ladder written once as CSS custom properties, read on boot into `CustomEase.create` and `gsap.defaults({ ease: 'house', duration: --dur-m })`, so an unannotated tween, a named tween and a CSS `transition` share one curve; stagger as a token passed explicitly; movement durations `0s` under reduced motion with the fade kept, static zeroes the fade",
+      "tags": [
+        "gsap",
+        "easing",
+        "customease",
+        "tokens",
+        "reduced-motion"
+      ],
+      "tier": "P0",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/custom-ease-house-defaults.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 6720
+      },
+      "state": "played",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"House easing: CustomEase tokens as GSAP defaults\" in headless Chromium at 1280 × 800, state \"played\"."
+    },
+    {
+      "id": "designed-404",
+      "title": "Designed 404 in the site's own world",
+      "group": "the-close-and-beyond",
+      "summary": "A not-found page in the site's voice: `<title>` and `<h1>` that say it, `noindex`, one `<main>` whose first link is home, three named routes in a labelled `<nav>` and a `role=\"search\"` GET form, every URL root-absolute because the page answers at any depth; the scene (`aria-hidden`, after the links) is the zero of 404 drawn as a sun that sets once, `translateY(-140)` over `1.8s` after `.35s` with glints opening at `.08s` steps, in CSS so it plays without script; opacity-only `.4s` under reduced motion, the last frame at once in the static tier, even when the tier flips mid-moment; README serves it with a real 404 status per host and framework",
+      "tags": [
+        "navigation",
+        "typography",
+        "svg",
+        "css-animation",
+        "reduced-motion",
+        "accessibility",
+        "responsive"
+      ],
+      "tier": "P1",
+      "verified": null,
+      "frame": {
+        "src": "recipes/designed-404.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 15620
+      },
+      "state": "desktop",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Designed 404 in the site's own world\" in headless Chromium at 1280 × 800, state \"desktop\"."
+    },
+    {
+      "id": "designed-footer",
+      "title": "Alder Workshop — designed close",
+      "group": "the-close-and-beyond",
+      "summary": "Statement, contact action, navigation and colophon",
+      "tags": [
+        "footer",
+        "navigation",
+        "typography",
+        "responsive"
+      ],
+      "tier": "P0",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/designed-footer.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 9498
+      },
+      "state": "desktop-end",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Alder Workshop — designed close\" in headless Chromium at 1280 × 800, state \"desktop-end\"."
+    },
+    {
+      "id": "dialog-nested-lenis-sheet",
+      "title": "Dialog with its own smooth scroll, a bottom sheet on the phone",
+      "group": "arrival-and-chrome",
+      "summary": "Native `<dialog>` + `showModal()`, nested Lenis on the shared ticker, `data-lenis-prevent` on dialog and inner pane, server-rendered content, drag-to-dismiss bottom sheet under 768 px, instant under reduced motion",
+      "tags": [
+        "dialog",
+        "overlay",
+        "lenis",
+        "gsap",
+        "accessibility",
+        "bottom-sheet"
+      ],
+      "tier": "P2",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/dialog-nested-lenis-sheet.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 12940
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Dialog with its own smooth scroll, a bottom sheet on the phone\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "docked-media-grow",
+      "title": "Docked media card that grows into its section",
+      "group": "scroll-set-pieces",
+      "summary": "A fixed card docked bottom right, scaled (transform only, `transform-origin` bottom right) from `300 px` to the viewport minus the gutter between `top 85%` and `top top` of its section, linear `scrub: true`, then swapped from `position: fixed` to the section's flow where the two boxes coincide; unscaled cue link fades out, desktop only (≥ 1024 px), CSS placeholder film so no media ships, full-size in its section under reduced motion",
+      "tags": [
+        "scroll",
+        "gsap",
+        "scrolltrigger",
+        "scrub",
+        "media",
+        "reduced-motion"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/docked-media-grow.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 14332
+      },
+      "state": "dock",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Docked media card that grows into its section\" in headless Chromium at 1280 × 800, state \"dock\"."
+    },
+    {
+      "id": "drag-pan-infinite-grid",
+      "title": "Infinite drag-and-wheel plane of project links",
+      "group": "galleries-and-lists",
+      "summary": "A fixed pool of 24 DOM links on a `6 × 4` sheet, each moved by `translate3d` only to `mod(c·pitch + x0 + offset + pitch, span) − pitch` on both axes, the pitch held at `≥ stage / (count − 1)` so the wrap never opens a hole and odd columns staggered half a row; drag after a `6 px` threshold with pointer capture, release velocity from the last `100 ms` of samples (`0` after a `60 ms` rest, clamp `4000 px/s`), coasting by the exact integral of `v·e^(−4t)` on the shared ticker so a flick travels `v0 / 4` at any frame rate; wheel in both axes eased at `k = 16`, held back to the page until the stage is wholly in view; arrow keys move focus to the neighbour and the plane exactly one pitch (`.42 s` expo-out glide), Home / End centre the first / last project the short way round; the stage is an `overflow: hidden` scroll container parked one pitch in, so Tab, find-in-page and a screen reader's reveal scroll it instead of the page and the script turns that scroll into a glide `32 px` inside; `touch-action: none` on the stage only; no inertia and instant moves under reduced motion, a plain wrapped grid of the same links in the static tier",
+      "tags": [
+        "drag",
+        "wheel",
+        "touch",
+        "keyboard",
+        "inertia",
+        "virtual-scroll",
+        "static"
+      ],
+      "tier": "P1",
+      "verified": null,
+      "frame": {
+        "src": "recipes/drag-pan-infinite-grid.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 15544
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Infinite drag-and-wheel plane of project links\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "editorial-image-text",
+      "title": "Alder Workshop — editorial image and text",
+      "group": "compositions",
+      "summary": "Figure, caption, asymmetric reading column and mobile order",
+      "tags": [
+        "editorial",
+        "images",
+        "layout",
+        "responsive"
+      ],
+      "tier": "P0",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/editorial-image-text.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 24192
+      },
+      "state": "desktop",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Alder Workshop — editorial image and text\" in headless Chromium at 1280 × 800, state \"desktop\"."
+    },
+    {
+      "id": "filmstrip-index-rows",
+      "title": "Filmstrip project rows at one shared speed",
+      "group": "galleries-and-lists",
+      "summary": "CSS-keyframe rows at one px/s from measured width, one link per project, pause on hover / focus / off-screen, late-overshoot grow, hover clip gated on `(hover: hover)`",
+      "tags": [
+        "marquee",
+        "list",
+        "css-animation",
+        "hover",
+        "reduced-motion"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-22",
+      "frame": {
+        "src": "recipes/filmstrip-index-rows.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 16282
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Filmstrip project rows at one shared speed\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "flicker-text",
+      "title": "Flicker text (per-glyph opacity ladder)",
+      "group": "heroes-and-type",
+      "summary": "Per-letter opacity ladder `[0,1,0,0,1,1]`",
+      "tags": [
+        "text",
+        "gsap",
+        "hover"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/flicker-text.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 11452
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Flicker text (per-glyph opacity ladder)\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "flip-layout-state",
+      "title": "Layout state with GSAP Flip: grid to list, filter, detail and back",
+      "group": "galleries-and-lists",
+      "summary": "`Flip.getState` → class or `hidden` change → `Flip.from` for three moves on one list of nine works: grid ↔ list with `nested: true` and `absolute: true` on the item and its parts, scale off so a card that becomes a row moves width / height and never squashes its text, the list's end height pinned while everything is absolute; a discipline filter at `scale: true` with `absoluteOnLeave`, leavers to `scale .85, opacity 0` in `onLeave` and arrivals back in `onEnter`; a work's plate reparented into a native `<dialog>` and flown there at `scale: true` (4:3 to 4:3, so uniform), home again after the copy and ground fade; `.75 s` on a CustomEase read from `--flip-ease`, stagger `--flip-stagger` (`.025 s`) per item so a card and its parts start together; `aria-pressed` view and filter buttons, a polite count, focus kept on the control, moved into the dialog and back to the work's button; every change settled on the next frame under reduced motion and static",
+      "tags": [
+        "gsap",
+        "customease",
+        "stagger",
+        "tokens",
+        "layout",
+        "list",
+        "toggle",
+        "dialog",
+        "keyboard",
+        "reduced-motion"
+      ],
+      "tier": "P1",
+      "verified": null,
+      "frame": {
+        "src": "recipes/flip-layout-state.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 14624
+      },
+      "state": "desktop",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Layout state with GSAP Flip: grid to list, filter, detail and back\" in headless Chromium at 1280 × 800, state \"desktop\"."
+    },
+    {
+      "id": "gl-arc-length-mask-reveal",
+      "title": "Arc-length mask reveal",
+      "group": "scroll-set-pieces",
+      "summary": "Four Bézier branches rasterised at load into one RGBA8 mask (branch id in R, 16-bit arc length across G / B, centreline distance in A) read with `texelFetch`; one `u_reveal[4]` array, a `.2` stagger over a sticky `320svh` chapter, `front = arc + .12 × edge²` so the head rounds; one fullscreen triangle in raw WebGL2, damped on the shared ticker that leaves at rest; complete and still under reduced motion and static",
+      "tags": [
+        "webgl",
+        "shader",
+        "scroll",
+        "mask"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/gl-arc-length-mask-reveal.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 6572
+      },
+      "state": "half",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Arc-length mask reveal\" in headless Chromium at 1280 × 800, state \"half\"."
+    },
+    {
+      "id": "gl-built-studio-environment",
+      "title": "Studio environment built at runtime, no HDR file",
+      "group": "webgl-surfaces",
+      "summary": "No lamps and no file: a room of emissive panels (softbox, warm key and cool rim strips, thin hot sparkle strips at values up to 9, a near-black floor flag) baked once through `PMREMGenerator.fromScene` into a half-float environment, or a 1024 × 512 canvas gradient with soft light bands through `fromEquirectangular` at environment intensity 2.2; lights a chrome (metalness 1, roughness .1) and a clearcoat `MeshPhysicalMaterial`; each variant baked on first use, generators disposed after the bake; lit and held still under reduced motion and static, CSS still without WebGL",
+      "tags": [
+        "3d",
+        "webgl",
+        "three",
+        "environment",
+        "materials"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/gl-built-studio-environment.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 14324
+      },
+      "state": "lit",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Studio environment built at runtime, no HDR file\" in headless Chromium at 1280 × 800, state \"lit\"."
+    },
+    {
+      "id": "gl-depth-map-parallax",
+      "title": "Depth-map (2.5D) parallax",
+      "group": "webgl-surfaces",
+      "summary": "Image + depth map parallax",
+      "tags": [
+        "webgl",
+        "three",
+        "shader",
+        "images",
+        "parallax"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-22",
+      "frame": {
+        "src": "recipes/gl-depth-map-parallax.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 10846
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Depth-map (2.5D) parallax\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "gl-dispersion-stripes",
+      "title": "Dispersion stripes",
+      "group": "webgl-surfaces",
+      "summary": "One triangle-wave stripe evaluated per channel with red `+.06` / blue `−.05` phase shifts, the phase a rotated ramp bent by a radial bump and 2D simplex and drifted on the shared ticker while on screen; coverage re-thresholded as `(g − .5) / max(fwidth(g) × 4, 1e-5) + .5` so every edge is a few-pixel ramp and a flat `g` cannot blow open; inline ACES, gamma and interleaved-gradient-noise dither with no render target, inside a rounded slab; one still frame under reduced motion and static",
+      "tags": [
+        "webgl",
+        "shader",
+        "procedural",
+        "dispersion"
+      ],
+      "tier": "P2",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/gl-dispersion-stripes.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 17662
+      },
+      "state": "still",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Dispersion stripes\" in headless Chromium at 1280 × 800, state \"still\"."
+    },
+    {
+      "id": "gl-dom-tethered-planes",
+      "title": "DOM-tethered WebGL planes with a velocity bulge",
+      "group": "webgl-surfaces",
+      "summary": "Absolute canvas re-offset per frame, rect → plane mapping, velocity bulge, colour-space parity, DOM mirror",
+      "tags": [
+        "webgl",
+        "three",
+        "images",
+        "scroll",
+        "velocity",
+        "dom-mirror"
+      ],
+      "tier": "P0",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/gl-dom-tethered-planes.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 5204
+      },
+      "state": "grid",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"DOM-tethered WebGL planes with a velocity bulge\" in headless Chromium at 1280 × 800, state \"grid\"."
+    },
+    {
+      "id": "gl-endless-reel-sheets",
+      "title": "Endless reel of deformable GL sheets",
+      "group": "galleries-and-lists",
+      "summary": "Virtual offset in items on a modulo-wrapped belt (`mod(i − offset + N/2, N) − N/2`, the first work follows the last going forward), wheel-burst detector (≥ 40 px after a 30 ms gap, 500 ms cooldown, doubled and released at `1 − (1 − .22)^frames`), snap after 200 ms idle, segmented sheets twisted and folded by one `uBend` = velocity · `sin(π·p)` that is exactly 0 at rest, canvas-drawn card art, horizontal belt on landscape and vertical stack on portrait; a button index with `aria-current` and a live \"n / 8\" counter; flat sheets and one step per input under reduced motion, plain list in the static tier",
+      "tags": [
+        "webgl",
+        "three",
+        "virtual-scroll",
+        "wheel",
+        "velocity",
+        "keyboard",
+        "dom-mirror"
+      ],
+      "tier": "P2",
+      "verified": "2026-10-22",
+      "frame": {
+        "src": "recipes/gl-endless-reel-sheets.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 10532
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Endless reel of deformable GL sheets\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "gl-fluid-wake-post",
+      "title": "Fluid wake as one global post-process",
+      "group": "webgl-surfaces",
+      "summary": "128² ping-pong velocity field, splat, advect, dissipate, distortion + chroma composite",
+      "tags": [
+        "webgl",
+        "three",
+        "shader",
+        "fluid",
+        "post-processing",
+        "pointer"
+      ],
+      "tier": "P0",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/gl-fluid-wake-post.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 16142
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Fluid wake as one global post-process\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "gl-fps-governor-idle-gate",
+      "title": "Frame-rate DPR governor and an idle render gate",
+      "group": "foundations",
+      "summary": "Half-second fps windows step `setPixelRatio` by `.25` (down under 45, up over 57, hold between) inside the probe's clamp (ceiling = probe DPR and pixel budget, floor `max(.5, cap / 2)`); the loop leaves the shared ticker `1.5 s` after the last scroll, pointer, wheel, touch or key input unless a transition or easing is busy, and stops on hidden tabs; `__governor.simulate(ms)` injects frame times; still field under reduced motion with the same governor and gate, one frame in the static tier",
+      "tags": [
+        "webgl",
+        "three",
+        "performance",
+        "idle"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/gl-fps-governor-idle-gate.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 33334
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Frame-rate DPR governor and an idle render gate\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "gl-hero-object-inertia",
+      "title": "Single hero object with pointer inertia and scroll turn",
+      "group": "heroes-and-type",
+      "summary": "One object with pointer inertia and scroll rotation",
+      "tags": [
+        "webgl",
+        "three",
+        "hero",
+        "inertia",
+        "matcap"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/gl-hero-object-inertia.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 15058
+      },
+      "state": "scrolled",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Single hero object with pointer inertia and scroll turn\" in headless Chromium at 1280 × 800, state \"scrolled\"."
+    },
+    {
+      "id": "gl-lathe-turned-object",
+      "title": "Procedural turned object from a lathe profile",
+      "group": "webgl-surfaces",
+      "summary": "A 48-point profile (waist plus a cosine ripple faded by `sin πt`, so the ends meet the faces) through `LatheGeometry`, closed by two `RingGeometry` faces and a bored lathe; one self-contained map builder stringified into a Blob `Worker` (1.5 s deadline) and reused as the same-thread fallback (`?worker=0`); after a `250 ms` dwell, a mouse under `(pointer: fine)` gets one quantised revolution set exactly to `(n + 1)·2π`; frames only while turning; tint without a turn under reduced motion, drawn once in the static tier",
+      "tags": [
+        "webgl",
+        "three",
+        "3d",
+        "procedural",
+        "lathe",
+        "worker",
+        "hover"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/gl-lathe-turned-object.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 14922
+      },
+      "state": "rest",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Procedural turned object from a lathe profile\" in headless Chromium at 1280 × 800, state \"rest\"."
+    },
+    {
+      "id": "gl-material-patch-reveal",
+      "title": "Patched stock material: grey-to-colour hand-off through a DOM-anchored circle",
+      "group": "webgl-surfaces",
+      "summary": "One stock `MeshStandardMaterial` patched by `onBeforeCompile`: a luma mix after `<map_fragment>` (grey ↔ colour, saturation `1.35`) and a grained circular `discard` after `<clipping_planes_fragment>` that splits one geometry between a grey and a colour layer as exact complements; centre and start radius read from a DOM dial's rect every frame, radius scrubbed (`ease: 'none'`, `p²` at render) to the farthest corner `+ 2 px`; patches throw on a missing include; `?wobble` normal-wobble variant; even colour mix with the scroll under reduced motion, settled colour in the static tier",
+      "tags": [
+        "3d",
+        "webgl",
+        "three",
+        "shader",
+        "onbeforecompile",
+        "scroll",
+        "reveal"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/gl-material-patch-reveal.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 7638
+      },
+      "state": "start",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Patched stock material: grey-to-colour hand-off through a DOM-anchored circle\" in headless Chromium at 1280 × 800, state \"start\"."
+    },
+    {
+      "id": "gl-msdf-text",
+      "title": "MSDF text in WebGL, atlas built at runtime, mirrored in the DOM",
+      "group": "heroes-and-type",
+      "summary": "MSDF text with a DOM mirror",
+      "tags": [
+        "webgl",
+        "three",
+        "typography",
+        "msdf",
+        "dom-mirror",
+        "accessibility"
+      ],
+      "tier": "P2",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/gl-msdf-text.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 9132
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"MSDF text in WebGL, atlas built at runtime, mirrored in the DOM\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "gl-noise-edge-theme-wipe",
+      "title": "Theme change as a full-screen shader wipe with a noise edge",
+      "group": "webgl-surfaces",
+      "summary": "A fixed, click-through orthographic quad (`ShaderMaterial`, `#include <colorspace_fragment>`, premultiplied alpha, DPR ≤ 2) grows the next theme's ground from the press point (`uCenter`; a key press starts at the button's centre) as `uProgress` runs `0 → 1` over `.9 s power2.inOut`, its rim moved by two octaves of hash value noise (`uEdge 56 px`) with exact ends (radius `−edge … farthest corner + edge`); `data-theme` flips only on the tween's completion under full cover, then the cover fades `.3 s` and is hidden; a second press mid-cover reverses the same edge; the choice kept in `sessionStorage` and restored by a head script before first paint; an `aria-pressed` button; the shader compiled ahead at idle; a CSS `circle()` cover on the same driver without WebGL; an instant swap with no canvas frame under reduced motion",
+      "tags": [
+        "webgl",
+        "shader",
+        "three",
+        "gsap",
+        "theme",
+        "transition",
+        "noise",
+        "storage"
+      ],
+      "tier": "P2",
+      "verified": null,
+      "frame": {
+        "src": "recipes/gl-noise-edge-theme-wipe.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 16230
+      },
+      "state": "fresh",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Theme change as a full-screen shader wipe with a noise edge\" in headless Chromium at 1280 × 800, state \"fresh\"."
+    },
+    {
+      "id": "gl-one-context-many-canvases",
+      "title": "One WebGL renderer drawn into many 2D canvases",
+      "group": "webgl-surfaces",
+      "summary": "One `WebGLRenderer` on a detached canvas renders each item into the top-left slice of its buffer (`setViewport(0, H − h, w, h)`) and `drawImage`s it into that item's own 2D canvas in the same task; an item re-renders only when dirty and within a `50%` root margin; one `2,000,000` px budget sets the pixel ratio for the set (`min(tier DPR, √(budget / Σ area))`); teardown disposes, then `forceContextLoss()`, and the 2D canvases keep their frame; hover / press turns one item, a tint under reduced motion, drawn once in the static tier",
+      "tags": [
+        "3d",
+        "webgl",
+        "three",
+        "canvas",
+        "performance"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/gl-one-context-many-canvases.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 7696
+      },
+      "state": "grid",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"One WebGL renderer drawn into many 2D canvases\" in headless Chromium at 1280 × 800, state \"grid\"."
+    },
+    {
+      "id": "gl-orbit-model-hotspots",
+      "title": "Explorable model with a clamped orbit and hotspot buttons",
+      "group": "evidence-blocks",
+      "summary": "Model in a native `<dialog>` on a spherical goal / current camera damped by `1 − k^dt` (drag `.0004`, fly `.02`), polar clamped to `0.85–1.3` rad and distance to `7–15`, zones as real `aria-pressed` buttons pinned to projected targets that fly the camera there, arrow / `+` / `−` / Home keys on the focused stage; instant fly-tos under reduced motion, poster plus the same list in the static tier",
+      "tags": [
+        "webgl",
+        "three",
+        "orbit",
+        "camera",
+        "hotspots",
+        "dialog",
+        "keyboard"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/gl-orbit-model-hotspots.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 8800
+      },
+      "state": "open",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Explorable model with a clamped orbit and hotspot buttons\" in headless Chromium at 1280 × 800, state \"open\"."
+    },
+    {
+      "id": "gl-ping-pong-grain-field",
+      "title": "GPU grain field on float ping-pong state",
+      "group": "webgl-surfaces",
+      "summary": "Per-grain state in a float ping-pong pair (displacement RG, velocity BA, in px), storage chosen by `checkFramebufferStatus` from RGBA32F → RGBA16F → RGBA8 (16-bit packed displacement, no inertia); a capsule brush from the last to the current pointer position with `1 − r³` falloff, delta clamped to `24 px` a frame plus a per-grain hash scatter; a protect mask drawn from the copy block's rect zeroes the force; one points program draws the generated under-layer at moved grains' homes, then the grains at home + displacement; reset glides home (`× .88` a frame, `1.6 s`) then clears; loop leaves the ticker when at rest; reveal in place without flying grains under reduced motion, surface drawn once in the static tier",
+      "tags": [
+        "webgl",
+        "three",
+        "shader",
+        "gpgpu",
+        "particles",
+        "pointer"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-22",
+      "frame": {
+        "src": "recipes/gl-ping-pong-grain-field.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 37018
+      },
+      "state": "rest",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"GPU grain field on float ping-pong state\" in headless Chromium at 1280 × 800, state \"rest\"."
+    },
+    {
+      "id": "gl-postprocessing-presets",
+      "title": "Post-processing with three fixed presets",
+      "group": "webgl-surfaces",
+      "summary": "Fixed bloom presets, grain, SMAA, half-float on mobile",
+      "tags": [
+        "webgl",
+        "three",
+        "post-processing",
+        "bloom",
+        "grain"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/gl-postprocessing-presets.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 12742
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Post-processing with three fixed presets\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "gl-progress-scene-windows",
+      "title": "One progress line: stretch bands, scene windows and a speed-capped clock",
+      "group": "scroll-set-pieces",
+      "summary": "Scroll inside a `900svh` sticky track (Lenis on the shared ticker) is a raw 0–1 folded through a piecewise-linear map where two stretch bands cost more scroll (`.24–.36 × 2`, `.62–.72 × 1.5`, overlapping bands discarded); a clock follows that target at most `K × dt / FILM_SECONDS` per frame (`4`, `14 s`) so a flick cannot skip a beat; five scene windows of generated three.js geometry switched on half-way into the window before and off half-way into the next (`visible` toggled, never disposed), with a per-window `dropPrevAt` override; a rail drawn from the same tables; one settled frame per beat under reduced motion and static",
+      "tags": [
+        "webgl",
+        "three",
+        "3d",
+        "lenis",
+        "scroll",
+        "scene-windows",
+        "reduced-motion"
+      ],
+      "tier": "P2",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/gl-progress-scene-windows.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 10480
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"One progress line: stretch bands, scene windows and a speed-capped clock\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "gl-rtt-composite-transition",
+      "title": "Section switch by render-to-texture compositing",
+      "group": "webgl-surfaces",
+      "summary": "Two scenes to render targets, blended by a shader",
+      "tags": [
+        "webgl",
+        "three",
+        "transition",
+        "render-target",
+        "sections"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/gl-rtt-composite-transition.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 11310
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Section switch by render-to-texture compositing\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "gl-scrubbed-clip-timeline",
+      "title": "Scroll-scrubbed animation clips through mixer.setTime",
+      "group": "scroll-set-pieces",
+      "summary": "Three procedural forms (petals on pivots, stacked discs, helix beads) each carry an `AnimationClip` built in code from position, quaternion and scale `KeyframeTrack`s (`2.4 / 2.8 / 3 s`); one paused nine-unit timeline gives each a slot of three: a rail hand-off straddling the boundary (`1` unit, `power2.inOut`), a growth proxy at `+.25` for `1.75` (`sine.inOut`) that becomes `mixer.setTime(proxy × duration)` on a `LoopOnce` action unpaused before every set, a tone at `+1`; ScrollTrigger scrubs it over a `640svh` sticky track (`scrub .8`, `.3` on coarse pointers) with Lenis on the GSAP ticker; frames drawn only after a scroll update or a resize; chapter links with `aria-current` as the DOM mirror; quality tiers set DPR, pixels and segments; settled pose per slot, cut at the boundary, under reduced motion and static; a CSS still without WebGL2",
+      "tags": [
+        "webgl",
+        "three",
+        "3d",
+        "scrolltrigger",
+        "scrub",
+        "timeline",
+        "procedural",
+        "dom-mirror"
+      ],
+      "tier": "P2",
+      "verified": null,
+      "frame": {
+        "src": "recipes/gl-scrubbed-clip-timeline.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 8518
+      },
+      "state": "idle",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Scroll-scrubbed animation clips through mixer.setTime\" in headless Chromium at 1280 × 800, state \"idle\"."
+    },
+    {
+      "id": "gl-sdf-extruded-symbol",
+      "title": "Raymarched extruded SDF symbol",
+      "group": "webgl-surfaces",
+      "summary": "A 2D signed-distance mark (ring + capsule, or a field baked from an SVG path) extruded with `min(max(w.x, w.y), 0) + length(max(w, 0)) − bevel` after shrinking profile and depth by the bevel, raymarched in raw WebGL2 inside a ray–box clip with an `80`-step budget; four-tap normals and AO, a studio ring environment so the bevel outshines the face, Schlick tint, inline ACES and gamma; depth-and-yaw intro then a slow sway on the shared ticker; an SVG stroke still under reduced motion, static, no WebGL2 or context loss",
+      "tags": [
+        "webgl",
+        "shader",
+        "raymarch",
+        "sdf",
+        "procedural"
+      ],
+      "tier": "P2",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/gl-sdf-extruded-symbol.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 11108
+      },
+      "state": "lit",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Raymarched extruded SDF symbol\" in headless Chromium at 1280 × 800, state \"lit\"."
+    },
+    {
+      "id": "gl-spring-stepped-gallery",
+      "title": "WebGL gallery on a spring-snapped float index with a wheel step detector",
+      "group": "galleries-and-lists",
+      "summary": "A float index pulled to a whole item by a spring (frequency `9.5`, damping `12`, fixed `1/240 s` substeps), each plate's depth, scale, yaw and opacity derived from `i − index`; a wheel step detector (noise floor `.3`, per-event cap `24`, threshold `6`, quiet gap `130 ms`, sustained repeat `480 ms` against a `550 ms` envelope) so one flick moves one item, the wheel released to the page at either end; drag coasting with friction `.89` into the spring; a carousel-role DOM mirror with a slide list, arrow / Home / End keys, `n / N` caption, live announcer; direct snaps under reduced motion",
+      "tags": [
+        "webgl",
+        "three",
+        "3d",
+        "carousel",
+        "spring",
+        "wheel",
+        "drag",
+        "keyboard",
+        "reduced-motion"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-22",
+      "frame": {
+        "src": "recipes/gl-spring-stepped-gallery.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 7782
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"WebGL gallery on a spring-snapped float index with a wheel step detector\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "gl-uniform-tween-targets",
+      "title": "Shader uniforms and post presets as GSAP tween targets",
+      "group": "webgl-surfaces",
+      "summary": "Uniform `{ value }` objects and post-look values as GSAP tween targets through one `retarget()` (`killTweensOf` first, then `to` from the current value): charge `.9 s power2.out`, release `.45 s power2.in`, so a half-finished hover turns around without a jump; `calm` / `charged` vignette, grain and density tweened together `.9 s power2.inOut`; renders only on a dirty frame from `gsap.ticker`; colour-only charge under reduced motion, instant in the static tier",
+      "tags": [
+        "gsap",
+        "webgl",
+        "three",
+        "shader",
+        "uniforms",
+        "hover"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/gl-uniform-tween-targets.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 35918
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Shader uniforms and post presets as GSAP tween targets\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "gl-virtual-scroll-camera",
+      "title": "Virtual scroll driving a camera on a spline",
+      "group": "scroll-set-pieces",
+      "summary": "Wheel / touch → eased float → camera spline, snap, keyboard",
+      "tags": [
+        "webgl",
+        "three",
+        "virtual-scroll",
+        "camera",
+        "keyboard"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/gl-virtual-scroll-camera.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 17832
+      },
+      "state": "mid",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Virtual scroll driving a camera on a spline\" in headless Chromium at 1280 × 800, state \"mid\"."
+    },
+    {
+      "id": "horizontal-rail",
+      "title": "Horizontal rail inside a vertical page",
+      "group": "scroll-set-pieces",
+      "summary": "Pinned horizontal section, arrows, native overflow on touch",
+      "tags": [
+        "scroll",
+        "gsap",
+        "horizontal",
+        "keyboard",
+        "touch"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/horizontal-rail.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 4322
+      },
+      "state": "mid",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Horizontal rail inside a vertical page\" in headless Chromium at 1280 × 800, state \"mid\"."
+    },
+    {
+      "id": "hover-preview-list",
+      "title": "Archive list with a cursor-following preview",
+      "group": "galleries-and-lists",
+      "summary": "Cursor-following preview, focus shows it too",
+      "tags": [
+        "pointer",
+        "list",
+        "hover",
+        "keyboard"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/hover-preview-list.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 6832
+      },
+      "state": "follow",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Archive list with a cursor-following preview\" in headless Chromium at 1280 × 800, state \"follow\"."
+    },
+    {
+      "id": "idle-settle-snap",
+      "title": "Idle settle-snap across the first viewport",
+      "group": "scroll-set-pieces",
+      "summary": "Lenis on the shared ticker; a wheel that rests inside the first viewport (outside a `6 %` dead zone at each end) eases to the nearer end after `160 ms` of quiet counted in ticker time (`.7 s` ease-out cubic, not locked, so a wheel takes over), `900 ms` guard; held while a pointer is down (a press stops it in place), disarmed by keyboard, find-in-page and other native scrolls and never armed by touch; off on coarse pointers and under reduced motion",
+      "tags": [
+        "scroll",
+        "lenis",
+        "snap",
+        "idle",
+        "reduced-motion"
+      ],
+      "tier": "P2",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/idle-settle-snap.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 13754
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Idle settle-snap across the first viewport\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "image-sequence-scrub",
+      "title": "Pre-rendered image sequence scrubbed on scroll",
+      "group": "scroll-set-pieces",
+      "summary": "Pre-rendered frames scrubbed on scroll",
+      "tags": [
+        "scroll",
+        "canvas",
+        "sequence",
+        "gsap"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/image-sequence-scrub.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 2766
+      },
+      "state": "mid",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Pre-rendered image sequence scrubbed on scroll\" in headless Chromium at 1280 × 800, state \"mid\"."
+    },
+    {
+      "id": "image-trail-cursor",
+      "title": "Pooled image trail behind a fine pointer",
+      "group": "arrival-and-chrome",
+      "summary": "A fixed pool of `12` CSS-drawn pictures recycled oldest-first behind a fine pointer inside one hero: one lands every `80 px` of path travel (marks interpolated along each pointer segment, at most `4` per event, so density is the same at any speed), scales in from `.6` over `.32 s` expo-out, holds `.5 s`, and fades over `.45 s` in arrival order at least `60 ms` apart; smoothed speed (`τ 50 ms`) sets size `.8–1.25×` (saturating at `2 px/ms`) and tilt `±8°`, plus a cycled `±3°` sway; a picture whose box would touch the heading's text box or the copy beside it (padded `12 px`) is skipped; transform and opacity only on the shared ticker, which leaves when nothing is alive; the layer is `aria-hidden`, `inert` and `pointer-events: none`; off when the hero leaves the screen, on coarse pointers and under reduced motion or static, where three still pictures placed by the design take its place",
+      "tags": [
+        "pointer",
+        "cursor",
+        "velocity",
+        "stagger",
+        "images",
+        "hero",
+        "reduced-motion"
+      ],
+      "tier": "P1",
+      "verified": null,
+      "frame": {
+        "src": "recipes/image-trail-cursor.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 10634
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Pooled image trail behind a fine pointer\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "knockout-wordmark-window",
+      "title": "Knockout wordmark as a window onto a moving ground",
+      "group": "heroes-and-type",
+      "summary": "SVG `<mask>` subtracting the wordmark's paths from a solid `--ground` rect that overflows the word's box and is clipped by the hero, over a fixed canvas-2D ground (four Lissajous blobs + light / shade folds at 1/6 resolution) on the shared ticker, stopped off-screen; `h1` with a hidden text twin, no media files, one still frame under reduced motion",
+      "tags": [
+        "svg",
+        "mask",
+        "typography",
+        "canvas",
+        "hero",
+        "reduced-motion"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/knockout-wordmark-window.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 15266
+      },
+      "state": "full",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Knockout wordmark as a window onto a moving ground\" in headless Chromium at 1280 × 800, state \"full\"."
+    },
+    {
+      "id": "magnetic-button",
+      "title": "Magnetic button with distance falloff",
+      "group": "arrival-and-chrome",
+      "summary": "`quickTo` pull with smoothstep falloff, label parallax, fine pointers only",
+      "tags": [
+        "pointer",
+        "gsap",
+        "quickto",
+        "hover",
+        "button"
+      ],
+      "tier": "P0",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/magnetic-button.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 1876
+      },
+      "state": "pull",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Magnetic button with distance falloff\" in headless Chromium at 1280 × 800, state \"pull\"."
+    },
+    {
+      "id": "marquee-raf-mask",
+      "title": "rAF marquee with mask fade, pause and scroll-velocity speed",
+      "group": "galleries-and-lists",
+      "summary": "rAF wraparound, mask fade, pause on hover / focus, speed from scroll velocity, off-screen stop",
+      "tags": [
+        "marquee",
+        "ticker",
+        "lenis",
+        "reduced-motion"
+      ],
+      "tier": "P0",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/marquee-raf-mask.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 15896
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"rAF marquee with mask fade, pause and scroll-velocity speed\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "nav-overlay-fullscreen",
+      "title": "Fullscreen navigation overlay with focus trap",
+      "group": "arrival-and-chrome",
+      "summary": "Clip-path wipe, display-scale links (numbered only as a variant), `inert`, focus trap, Escape, Lenis stop",
+      "tags": [
+        "navigation",
+        "overlay",
+        "gsap",
+        "accessibility",
+        "lenis"
+      ],
+      "tier": "P0",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/nav-overlay-fullscreen.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 12456
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Fullscreen navigation overlay with focus trap\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "offscreen-canvas-worker",
+      "title": "OffscreenCanvas in a Worker with a timed main-thread fallback",
+      "group": "foundations",
+      "summary": "`transferControlToOffscreen` after a 1 s hello handshake, one draw module run by the Worker's rAF or the shared ticker, timed main-thread fallback on a cloned canvas, paused off-screen, one settled frame under reduced motion",
+      "tags": [
+        "performance",
+        "canvas",
+        "worker",
+        "offscreencanvas",
+        "preloader",
+        "fallback"
+      ],
+      "tier": "P2",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/offscreen-canvas-worker.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 6102
+      },
+      "state": "worker",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"OffscreenCanvas in a Worker with a timed main-thread fallback\" in headless Chromium at 1280 × 800, state \"worker\"."
+    },
+    {
+      "id": "page-transitions",
+      "title": "Page transitions with taxi: wipe, swap, reset, clean up",
+      "group": "arrival-and-chrome",
+      "summary": "taxi wipe transition, renderer lifecycle in `gsap.context`, Lenis reset, one module",
+      "tags": [
+        "transition",
+        "router",
+        "taxi",
+        "gsap",
+        "lenis"
+      ],
+      "tier": "P0",
+      "verified": "2026-10-22",
+      "frame": {
+        "src": "recipes/page-transitions.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 6766
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Page transitions with taxi: wipe, swap, reset, clean up\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "persistent-mode-switch",
+      "title": "Persistent mode switch that re-skins the page",
+      "group": "arrival-and-chrome",
+      "summary": "Docked segmented switch + Grid overlay pill + `L` / `D` / `G` hotkeys (ignored in text fields and with Ctrl / Alt / Meta), state set as root attributes, stored in `localStorage`, printed in the label and restored by a head script before first paint; at the close the dock cross-scales out (`1.75`) as a large centred copy arrives (from `.5`), one copy reachable at a time; no tween under reduced motion",
+      "tags": [
+        "theme",
+        "toggle",
+        "keyboard",
+        "storage",
+        "gsap",
+        "reduced-motion"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/persistent-mode-switch.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 11286
+      },
+      "state": "fresh",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Persistent mode switch that re-skins the page\" in headless Chromium at 1280 × 800, state \"fresh\"."
+    },
+    {
+      "id": "physics-pile-matter",
+      "title": "A section's words as a matter-js pile, drawn by the DOM",
+      "group": "the-close-and-beyond",
+      "summary": "List items as matter-js bodies (pills chamfered by half their height, blocks by `6` px, circles) dropped from a seeded order into a walled box when `30 %` of it is in view; `Engine.update(engine, 1000 / 60)` on the shared ticker through an accumulator capped at `4` steps, gravity `2.4`, `sleepThreshold 40`, each body's position and angle written to its own `<li>` as a `transform` so the words stay text in source order; the step leaves the ticker when every body sleeps and wakes on a press, a key or a `ResizeObserver` change that rebuilds the walls; `MouseConstraint` scoped to the box on fine pointers with its wheel and touch listeners removed, Enter / Space toss (`vy −14`) and ← / → push on real buttons, tap to toss on touch; no engine under reduced motion, the list wrapped upwards from the floor in CSS",
+      "tags": [
+        "toy",
+        "drag",
+        "pointer",
+        "keyboard",
+        "touch",
+        "ticker",
+        "idle",
+        "list",
+        "accessibility",
+        "reduced-motion"
+      ],
+      "tier": "P2",
+      "verified": null,
+      "frame": {
+        "src": "recipes/physics-pile-matter.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 18136
+      },
+      "state": "settled",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"A section's words as a matter-js pile, drawn by the DOM\" in headless Chromium at 1280 × 800, state \"settled\"."
+    },
+    {
+      "id": "pointer-tilt-shine",
+      "title": "Cards that tilt toward the pointer with a moving shine",
+      "group": "galleries-and-lists",
+      "summary": "Face turns toward a mouse pointer (`rotateY 7° × nx`, `rotateX −7° × ny`, the corner under the pointer recedes) through `quickTo`, measured on an untransformed link that carries the `perspective`; a shine layer follows the pointer and a shade gathers opposite, moved by translate only; any scroll locks the field until the first pointer move after a `140 ms` quiet period; mouse pointers only, flat with no layers under reduced motion",
+      "tags": [
+        "pointer",
+        "hover",
+        "tilt",
+        "3d",
+        "gsap",
+        "quickto",
+        "cards"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/pointer-tilt-shine.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 13476
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Cards that tilt toward the pointer with a moving shine\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "preloader-aperture-handoff",
+      "title": "Preloader that hands off to the hero through an opening aperture",
+      "group": "arrival-and-chrome",
+      "summary": "Curtain gated on fonts + the hero's first frame (4 s ceiling, no floor, head-script `is-gated` so neither the hero nor the curtain flashes), lifted `yPercent −100` while the hero opens from `clip-path: inset(30% round 12px)` to `inset(0% round 0px)` and its media scales `.6 → 1` (1.4 s `expo.inOut`); root `overflow: hidden` + `inert` until open, `__awards.ready` after the hand-off, `sessionStorage` repeat-visit skip, Skip button; a curtain fade only under reduced motion, a cut in the static tier",
+      "tags": [
+        "preloader",
+        "loading",
+        "clip-path",
+        "gsap",
+        "hero",
+        "storage",
+        "reduced-motion"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/preloader-aperture-handoff.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 8886
+      },
+      "state": "first",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Preloader that hands off to the hero through an opening aperture\" in headless Chromium at 1280 × 800, state \"first\"."
+    },
+    {
+      "id": "preloader-counter-hold",
+      "title": "Preloader: real-signal counter that holds at 100",
+      "group": "arrival-and-chrome",
+      "summary": "Real-signal counter, uneven jumps, hold at 100, exit by lines, sessionStorage skip",
+      "tags": [
+        "preloader",
+        "loading",
+        "gsap",
+        "accessibility",
+        "storage"
+      ],
+      "tier": "P0",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/preloader-counter-hold.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 12420
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Preloader: real-signal counter that holds at 100\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "product-specification",
+      "title": "Alder Workshop — product specification",
+      "group": "evidence-blocks",
+      "summary": "Semantic facts with units and native care disclosure",
+      "tags": [
+        "product",
+        "accessibility",
+        "responsive"
+      ],
+      "tier": "P0",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/product-specification.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 16116
+      },
+      "state": "desktop",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Alder Workshop — product specification\" in headless Chromium at 1280 × 800, state \"desktop\"."
+    },
+    {
+      "id": "quality-tiers",
+      "title": "Adaptive quality tiers from a one-time probe",
+      "group": "foundations",
+      "summary": "One-time probe → DPR / pixel / particle budgets, still on low tier",
+      "tags": [
+        "performance",
+        "webgl",
+        "quality-tiers",
+        "fallback"
+      ],
+      "tier": "P0",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/quality-tiers.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 12052
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Adaptive quality tiers from a one-time probe\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "reduced-motion-switch",
+      "title": "Central motion-tier switch (full / reduced / static)",
+      "group": "foundations",
+      "summary": "Central full / reduced / static tiers, user override, teardown between tiers",
+      "tags": [
+        "reduced-motion",
+        "accessibility",
+        "gsap",
+        "ticker"
+      ],
+      "tier": "P0",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/reduced-motion-switch.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 12512
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Central motion-tier switch (full / reduced / static)\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "responsive-art-directed-hero",
+      "title": "Alder Workshop — art-directed hero",
+      "group": "heroes-and-type",
+      "summary": "Separate wide/portrait composition, intact subject and action",
+      "tags": [
+        "art-direction",
+        "responsive",
+        "images",
+        "layout"
+      ],
+      "tier": "P0",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/responsive-art-directed-hero.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 16174
+      },
+      "state": "desktop",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Alder Workshop — art-directed hero\" in headless Chromium at 1280 × 800, state \"desktop\"."
+    },
+    {
+      "id": "scramble-decode-text",
+      "title": "Scramble decode readouts (anime.js scrambleText)",
+      "group": "heroes-and-type",
+      "summary": "Telemetry decode reveal",
+      "tags": [
+        "text",
+        "animejs"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/scramble-decode-text.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 10952
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Scramble decode readouts (anime.js scrambleText)\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "scroll-drawn-svg-path",
+      "title": "Scroll-drawn SVG path",
+      "group": "scroll-set-pieces",
+      "summary": "Dash-offset path on scroll",
+      "tags": [
+        "scroll",
+        "svg",
+        "gsap"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/scroll-drawn-svg-path.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 2684
+      },
+      "state": "mid",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Scroll-drawn SVG path\" in headless Chromium at 1280 × 800, state \"mid\"."
+    },
+    {
+      "id": "scroll-pin-scrub",
+      "title": "Pinned chapter with a scrubbed timeline",
+      "group": "scroll-set-pieces",
+      "summary": "Sticky stage in a tall section, linear scrub, quantised beats",
+      "tags": [
+        "scroll",
+        "gsap",
+        "scrolltrigger",
+        "pin",
+        "scrub"
+      ],
+      "tier": "P0",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/scroll-pin-scrub.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 7206
+      },
+      "state": "mid",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Pinned chapter with a scrubbed timeline\" in headless Chromium at 1280 × 800, state \"mid\"."
+    },
+    {
+      "id": "scroll-word-fill",
+      "title": "Words fill in one by one on a scrubbed scroll",
+      "group": "scroll-set-pieces",
+      "summary": "SplitText words on a sticky stage, one scrubbed timeline taking each word from a `.5` floor to full ink (`duration 1`, `stagger .5`, linear), done before the stage releases; unsplit and at full ink under reduced motion",
+      "tags": [
+        "text",
+        "gsap",
+        "splittext",
+        "scrolltrigger",
+        "scrub",
+        "sticky",
+        "reduced-motion"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-22",
+      "frame": {
+        "src": "recipes/scroll-word-fill.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 11192
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Words fill in one by one on a scrubbed scroll\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "scrollbar-thumb-drag",
+      "title": "Drawn scrollbar thumb beside a working native scroll",
+      "group": "arrival-and-chrome",
+      "summary": "Themed thumb mirroring `scrollY` on the shared ticker, drag and track-press write the scroll, native bar and keys kept, `aria-hidden` pointer duplicate, snaps under reduced motion, hidden on coarse pointers",
+      "tags": [
+        "scroll",
+        "scrollbar",
+        "lenis",
+        "pointer",
+        "accessibility",
+        "reduced-motion"
+      ],
+      "tier": "P2",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/scrollbar-thumb-drag.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 5960
+      },
+      "state": "eased",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Drawn scrollbar thumb beside a working native scroll\" in headless Chromium at 1280 × 800, state \"eased\"."
+    },
+    {
+      "id": "scrub-threshold-timelines",
+      "title": "Paused timelines fired at scrub-progress thresholds",
+      "group": "scroll-set-pieces",
+      "summary": "Paused copy timelines ride a `top top` → `bottom bottom` linear scrub without being scrubbed: a gate that remembers its side plays one at progress `≥ .3` (`timeScale 1.5`) and reverses it at `≥ .6` or back below `.3` (`3.5`), a final line plays at `≥ .81` (`1.25`); a step label flipped by two `.001 s` tweens at `.5` inside the scrub; refresh snaps each timeline with `progress(0|1)`; fade-only copy and a still bloom under reduced motion, no tween in the static tier",
+      "tags": [
+        "scroll",
+        "gsap",
+        "scrolltrigger",
+        "scrub",
+        "timeline",
+        "text",
+        "reduced-motion"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/scrub-threshold-timelines.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 2298
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Paused timelines fired at scrub-progress thresholds\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "section-switcher-wheel-commit",
+      "title": "Section switcher with a wheel commit ring",
+      "group": "scroll-set-pieces",
+      "summary": "The document never scrolls: GSAP Observer sums wheel delta magnitudes into a `role=\"progressbar\"` ring that commits one step at 500, drains after 1 s idle, resets on reversal and locks 900 ms after a commit; swipe > 55 px, arrow / Page / Home / End keys and prev / next reach every panel, inactive panels `inert`, one live-region announcement per change, instant swap (wheel still live) under reduced motion, `__awards.scrollTo` routed to panels",
+      "tags": [
+        "sections",
+        "wheel",
+        "gsap",
+        "observer",
+        "keyboard",
+        "reduced-motion"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/section-switcher-wheel-commit.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 8376
+      },
+      "state": "hook-mid",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Section switcher with a wheel commit ring\" in headless Chromium at 1280 × 800, state \"hook-mid\"."
+    },
+    {
+      "id": "sentence-form-enquiry",
+      "title": "Enquiry form written as a sentence",
+      "group": "the-close-and-beyond",
+      "summary": "One sentence the visitor completes: each prose fragment is the `<label>` of its blank (a `span` + `aria-labelledby` names the `radiogroup`), native `required` / `type=\"email\"` validity with the page's own messages tied by `aria-describedby`, `aria-invalid` and focus on the first invalid in sentence order, submit prevented with a focused local confirmation, `field-sizing: content` blanks, fragment-over-field rows on the phone; rise / fade / none entrance tiers",
+      "tags": [
+        "form",
+        "enquiry",
+        "validation",
+        "accessibility",
+        "responsive"
+      ],
+      "tier": "P0",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/sentence-form-enquiry.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 13726
+      },
+      "state": "desktop",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Enquiry form written as a sentence\" in headless Chromium at 1280 × 800, state \"desktop\"."
+    },
+    {
+      "id": "sound-toggle-opt-in",
+      "title": "Opt-in sound: a real toggle, a synthesised bed, a remembered yes",
+      "group": "arrival-and-chrome",
+      "summary": "Opt-in ambient + SFX, persisted",
+      "tags": [
+        "sound",
+        "webaudio",
+        "accessibility",
+        "consent",
+        "canvas"
+      ],
+      "tier": "P2",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/sound-toggle-opt-in.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 13892
+      },
+      "state": "off",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Opt-in sound: a real toggle, a synthesised bed, a remembered yes\" in headless Chromium at 1280 × 800, state \"off\"."
+    },
+    {
+      "id": "split-text-masked-reveal",
+      "title": "Masked line reveal with SplitText, after fonts",
+      "group": "heroes-and-type",
+      "summary": "`SplitText.create` lines with masks, `autoSplit` + `onSplit`, `y 120 % → 0`, expo-out",
+      "tags": [
+        "text",
+        "gsap",
+        "splittext",
+        "reveal",
+        "reduced-motion"
+      ],
+      "tier": "P0",
+      "verified": "2026-10-22",
+      "frame": {
+        "src": "recipes/split-text-masked-reveal.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 16198
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Masked line reveal with SplitText, after fonts\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "sprite-rain-canvas2d",
+      "title": "Canvas-2D sprite rain as an easter egg",
+      "group": "the-close-and-beyond",
+      "summary": "Button-triggered canvas-2D sprite shower from one pre-rendered bitmap, gravity `.45` / spin `±10°` per 60 fps frame scaled by `dt`, live count capped by the quality tier, sprites dropped off-screen and the ticker released, nothing spawns under reduced motion",
+      "tags": [
+        "canvas",
+        "particles",
+        "easter-egg",
+        "ticker",
+        "quality-tiers",
+        "reduced-motion",
+        "toy"
+      ],
+      "tier": "P2",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/sprite-rain-canvas2d.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 10084
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Canvas-2D sprite rain as an easter egg\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "sticky-stack-cards",
+      "title": "Sticky stack cards",
+      "group": "scroll-set-pieces",
+      "summary": "Sticky cards scaling the previous one",
+      "tags": [
+        "scroll",
+        "gsap",
+        "sticky",
+        "cards"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-22",
+      "frame": {
+        "src": "recipes/sticky-stack-cards.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 2778
+      },
+      "state": "mid",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Sticky stack cards\" in headless Chromium at 1280 × 800, state \"mid\"."
+    },
+    {
+      "id": "sticky-stages-rails",
+      "title": "Sticky stages on invisible rails, with a hero hinge",
+      "group": "scroll-set-pieces",
+      "summary": "Sticky stages on invisible rails, hero hinge (x −10 %, −15°, child lags), no `pin`",
+      "tags": [
+        "scroll",
+        "gsap",
+        "sticky"
+      ],
+      "tier": "P0",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/sticky-stages-rails.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 10374
+      },
+      "state": "hinge",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Sticky stages on invisible rails, with a hero hinge\" in headless Chromium at 1280 × 800, state \"hinge\"."
+    },
+    {
+      "id": "svg-goo-line-reveal",
+      "title": "Headings that condense line by line through an SVG goo filter",
+      "group": "heroes-and-type",
+      "summary": "SplitText lines after fonts, each given its own `<filter>` of `feGaussianBlur` into an `feColorMatrix` alpha threshold (`18 × α − 7`): `stdDeviation` from `.32 em` of the font size to `0` over `1.1 s` `power3.out`, lines `.12 s` apart, the matrix relaxed to identity over the blur's last `.45 s`, each line's filter and `<filter>` node removed as it lands and the split reverted when the heading has, so it ends as its authored markup; once per heading at `top 85%`, `autoSplit` rebuilds the filters mid-reveal; a `.4 s` opacity fade with no split and no filter under reduced motion, plain text in the static tier",
+      "tags": [
+        "text",
+        "typography",
+        "gsap",
+        "splittext",
+        "scrolltrigger",
+        "svg",
+        "blur",
+        "reveal",
+        "stagger",
+        "reduced-motion"
+      ],
+      "tier": "P2",
+      "verified": null,
+      "frame": {
+        "src": "recipes/svg-goo-line-reveal.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 12854
+      },
+      "state": "mid",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Headings that condense line by line through an SVG goo filter\" in headless Chromium at 1280 × 800, state \"mid\"."
+    },
+    {
+      "id": "svg-noise-line-field",
+      "title": "Noise-bent SVG line field with a pointer spring",
+      "group": "heroes-and-type",
+      "summary": "Hairline SVG field, one Perlin angle per point drifting in time, pointer push with a framerate-independent spring (.005 / .925), edge-first draw-in, still under reduced motion",
+      "tags": [
+        "svg",
+        "hero",
+        "noise",
+        "pointer",
+        "gsap",
+        "reduced-motion"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/svg-noise-line-field.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 26982
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Noise-bent SVG line field with a pointer spring\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "theme-swap-tokens",
+      "title": "Theme swap by scroll: tokens and canvas in one tween",
+      "group": "foundations",
+      "summary": "Tokens tweened on `<html>` per chapter, canvas clear colour in the same tween, `theme-color`",
+      "tags": [
+        "colour",
+        "theme",
+        "gsap",
+        "scrolltrigger",
+        "canvas"
+      ],
+      "tier": "P0",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/theme-swap-tokens.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 7410
+      },
+      "state": "dark",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Theme swap by scroll: tokens and canvas in one tween\" in headless Chromium at 1280 × 800, state \"dark\"."
+    },
+    {
+      "id": "throw-objects-css3d",
+      "title": "Grab-and-throw CSS-3D objects into a perspective tray",
+      "group": "the-close-and-beyond",
+      "summary": "Draggable + InertiaPlugin throw of extruded CSS-3D blocks, `snap.points` on the clamped landing point into a perspective tray, velocity tilt on an inner body, a throw button per block, drop-in-place under reduced motion",
+      "tags": [
+        "pointer",
+        "drag",
+        "inertia",
+        "gsap",
+        "draggable",
+        "css-3d",
+        "keyboard",
+        "toy"
+      ],
+      "tier": "P2",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/throw-objects-css3d.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 7764
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Grab-and-throw CSS-3D objects into a perspective tray\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "title-mask-tunnel",
+      "title": "Section title as a doorway into a CSS-3D tunnel",
+      "group": "scroll-set-pieces",
+      "summary": "Capsule title mask scrubbed to a computed cover scale (exponential zoom, linear scrub), counter-scaled CSS-3D scene moved on one layer, focus flies a work to the front, plain list under reduced motion",
+      "tags": [
+        "scroll",
+        "gsap",
+        "scrolltrigger",
+        "scrub",
+        "mask",
+        "css-3d",
+        "reduced-motion"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/title-mask-tunnel.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 3054
+      },
+      "state": "mid",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Section title as a doorway into a CSS-3D tunnel\" in headless Chromium at 1280 × 800, state \"mid\"."
+    },
+    {
+      "id": "transition-promote-chosen",
+      "title": "Route exit that promotes the chosen item",
+      "group": "arrival-and-chrome",
+      "summary": "Clicked row rises to the header slot, siblings fade by `.09 s × distance`, route pushed after the rise, phone timing set",
+      "tags": [
+        "transition",
+        "router",
+        "taxi",
+        "gsap",
+        "stagger"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-22",
+      "frame": {
+        "src": "recipes/transition-promote-chosen.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 14408
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Route exit that promotes the chosen item\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "two-phase-interruptible-timeline",
+      "title": "Two-phase interruptible timeline: open, addPause() hinge, close",
+      "group": "arrival-and-chrome",
+      "summary": "One paused timeline: open half, `addPause()` at its duration `I`, close half; close calls `tl.time() < I ? tl.reverse() : tl.play()`, so a close mid-open rewinds from where it is and a close after the hinge plays the authored exit; reopen during the exit reverses back onto the pause; `pause(0)` on complete; the panel's visibility set at `.001` so `pause(0)` hides it; disclosure with `aria-expanded`, `inert` on close, Escape; opacity-only under reduced motion, `pause(I)` / `pause(0)` in the static tier",
+      "tags": [
+        "gsap",
+        "timeline",
+        "navigation",
+        "interruption",
+        "reduced-motion"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/two-phase-interruptible-timeline.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 11512
+      },
+      "state": "rest",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Two-phase interruptible timeline: open, addPause() hinge, close\" in headless Chromium at 1280 × 800, state \"rest\"."
+    },
+    {
+      "id": "typography-specimen",
+      "title": "In good order — three typographic voices",
+      "group": "heroes-and-type",
+      "summary": "Same copy in poster, editorial and technical registers; measure and mobile reflow",
+      "tags": [
+        "typography",
+        "layout",
+        "static"
+      ],
+      "tier": "P0",
+      "verified": "2026-10-22",
+      "frame": {
+        "src": "recipes/typography-specimen.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 14434
+      },
+      "state": "desktop-quarter",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"In good order — three typographic voices\" in headless Chromium at 1280 × 800, state \"desktop-quarter\"."
+    },
+    {
+      "id": "video-clip-wipe-panels",
+      "title": "Panels changed by a clip-path wipe between two video buffers",
+      "group": "scroll-set-pieces",
+      "summary": "Two double-buffered media layers (canvases standing in for `<video>`): the hidden one holds the next clip, then opens over the visible one from `clip-path: inset()` in `1 s expo.inOut` (reversed going back) with a 1 px glowing seam written by the same tween; copy out `.34 s power2.in` before the gate, in `.72 s power3.out`; stepped wheel, swipe, keys and buttons from the section switcher; `.2 s` cross-fade and parked first frames under reduced motion; README shows the `<video>` swap and preload",
+      "tags": [
+        "sections",
+        "video",
+        "clip-path",
+        "transition",
+        "gsap",
+        "reduced-motion"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/video-clip-wipe-panels.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 10640
+      },
+      "state": "rest",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Panels changed by a clip-path wipe between two video buffers\" in headless Chromium at 1280 × 800, state \"rest\"."
+    },
+    {
+      "id": "view-transitions-mpa",
+      "title": "Cross-document page transitions with the View Transitions API",
+      "group": "arrival-and-chrome",
+      "summary": "Four static pages joined by `@view-transition { navigation: auto }` in an inline head `<style>` inside the motion query, no router; `pageswap` names only the destination's tile (`media`, `title`) and `pagereveal` adds the `forward` / `back` type from the page order and names the tile returned to, cleared on `ready`; picture and name morph `.7 s` with `object-fit: cover` snapshots clipped to the moving box while the body slides `6 %` (`.4 s` out, `.6 s` in after `.12 s`), the bar held still; first frame held by `<link rel=\"expect\" blocking=\"render\">`; focus to the new `h1`; plain navigation without the API, no transition under reduced motion",
+      "tags": [
+        "transition",
+        "router",
+        "fallback",
+        "reduced-motion",
+        "accessibility"
+      ],
+      "tier": "P1",
+      "verified": null,
+      "frame": {
+        "src": "recipes/view-transitions-mpa.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 19600
+      },
+      "state": "top",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Cross-document page transitions with the View Transitions API\" in headless Chromium at 1280 × 800, state \"top\"."
+    },
+    {
+      "id": "word-cycle-hero",
+      "title": "Hero word cycle: slot roll, typed, wheel-stepped",
+      "group": "heroes-and-type",
+      "summary": "One slot in a fixed headline cycles a word list three ways: timed reel roll (`back.out` overshoot, 900 ms rest), typed and erased per character, or stepped by the first wheel inputs at `scrollY 0` before the page moves; width held by one grid cell so the line never reflows, `aria-hidden` slot with an `aria-live=\"off\"` label, first word still under reduced motion",
+      "tags": [
+        "text",
+        "hero",
+        "gsap",
+        "wheel",
+        "typewriter",
+        "reduced-motion"
+      ],
+      "tier": "P1",
+      "verified": "2026-10-07",
+      "frame": {
+        "src": "recipes/word-cycle-hero.webp",
+        "width": 640,
+        "height": 400,
+        "bytes": 13916
+      },
+      "state": "timed",
+      "capturedAt": "2026-10-22",
+      "alt": "Frame of the recipe \"Hero word cycle: slot roll, typed, wheel-stepped\" in headless Chromium at 1280 × 800, state \"timed\"."
+    }
+  ]
+}

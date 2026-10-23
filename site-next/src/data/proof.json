@@ -1,0 +1,3968 @@
+{
+  "schema": 1,
+  "generator": "scripts/proof.mjs",
+  "project": "site-next",
+  "publicBase": "paths are relative to public/",
+  "state": "a",
+  "strip": true,
+  "why": "page-round report .awards/jury/2026-10-22.md",
+  "report": {
+    "file": ".awards/jury/2026-10-22.md",
+    "date": "2026-10-22",
+    "round": 1,
+    "title": "Jury report — awards public site (site-next `dist/`, five routes) — 2026-10-22",
+    "disposition": "ship",
+    "dispositionLine": "disposition: ship",
+    "scoresLine": "Design 7.5 · Usability 7.8 · Creativity 8.0 · Content 7.6 — weighted 7.70",
+    "scores": {
+      "kind": "site",
+      "design": "7.5",
+      "usability": "7.8",
+      "creativity": "8.0",
+      "content": "7.6",
+      "weighted": "7.70"
+    },
+    "axes": [
+      {
+        "name": "Design (40)",
+        "score": "7.5",
+        "reason": "A four-token proof-paper world held on five routes, the 404 and every browser surface, with a first viewport that is an object (`20261022T153705Z-prejury-2/home/desktop-s00.png`); kept under 8 by finish seams: the chapter 3 plate seen in flight and an empty half beside the figures (`20261022T154816-jury/desktop-s38.png`, `desktop-s46.png`), commands split mid-word, an unauthored wordmark hover, and strip frames that read as grey miniatures, worst on tablet"
+      },
+      {
+        "name": "Usability (30)",
+        "score": "7.8",
+        "reason": "Every gesture has a key path, reduced motion keeps every state, no gate, layout shift 0 on every route and width, Install sticky at every depth and width; capped at 8 by walk step 8 (commands split inside tokens at 320, 390 and 1440), and below 768 px Docs and Recipes are reachable only from the colophon at the foot of each route"
+      },
+      {
+        "name": "Creativity (20)",
+        "score": "8.0",
+        "reason": "The page argues its claim by being its own proof sheet: its captured frames track the reader's depth and chapter 3 grows its own s00 beside its own measured figures; the scroll-synced thumbnail column is a known minimap move, and the judging half of the thesis (the marks) cannot show until this report exists"
+      },
+      {
+        "name": "Content (10)",
+        "score": "7.6",
+        "reason": "Every count checked against the plugin holds (89 rules as 8/5/8/18/10/9/10/21, 62 cards, 55 skeletons, 26 patterns, 89 recipes, 76 passes, 11 skills), two registers, credits with licences and an authored 404; but the lede and chapter 4's heading say 89 rules run after every edit while chapter 4's own body and `hooks/hooks.json:32` say a fast subset does, and the ship rule is printed two different ways on home and /docs"
+      },
+      {
+        "name": "Weighted",
+        "score": "7.70",
+        "reason": "SOTD threshold ≥ 7.2 with no axis < 6.8: met"
+      }
+    ],
+    "developer": [
+      {
+        "name": "Semantics / SEO",
+        "score": "7.6",
+        "reason": "A title, description, canonical and Open Graph text per route, one h1, landmarks, `lang`, skip link, an ARIA tree that reads in order (`home/desktop-aria.yml`); the canonical is relative (`./`) and `og:image` is relative with no `og:url` (`index.html:29`, `:40`), the baseline's floor fix 5 carried over"
+      },
+      {
+        "name": "Animations / Transitions",
+        "score": "8.2",
+        "reason": "One GSAP ticker drives Lenis, the strip (damped with a clamped dt) and one paused master timeline on `ease: none`; transforms only, `will-change` only on the plate in flight (`src/styles/site.css:332`), View Transitions with a reduced opt-out; the chapter 3 hold is `vh × 0.15` (`src/motion/loupe.js:32`), so the scrubbed plate rarely rests"
+      },
+      {
+        "name": "Accessibility",
+        "score": "8.2",
+        "reason": "Skip link first, roving tabindex on the strip, native modal dialog with focus return, Escape on the phone disclosure, a refused clipboard said on the ticket and in `role=status`, 44 px targets (A18 clean), axe-core 0 violations, focus ring 18:1 on both surfaces; strip links are named for the picture, not the chapter they jump to"
+      },
+      {
+        "name": "WPO",
+        "score": "8.4",
+        "reason": "Entry JS 59.6 KB gz (158.7 KB raw), CSS 7.0 KB gz, three preloaded woff2 (58 KB), WebP frames lazy except s00/s25, layout shift 0 and blocking ≤ 12 ms on every route; throttled LCP unmeasured, and /recipes' `lcpColdSynthetic` of 3.4–4.1 s is read only as the weight of its 99 lazy images"
+      },
+      {
+        "name": "Responsive Design",
+        "score": "7.8",
+        "reason": "Three designed layouts (25 % strip, 22 % strip with the nav two by two, a 56 px band with inline chapter frames), `clamp()` from 1440, hover states only under `(hover: hover)`, no overflow at 320 px; commands split inside tokens at every width, and the phone band drops Docs and Recipes"
+      },
+      {
+        "name": "Markup / Meta-data",
+        "score": "7.6",
+        "reason": "No duplicate ids on any route, theme-color, colour-scheme, an SVG favicon, 0 console and page errors; `og.png` is still the pre-capture drawing that `DESIGN.md ## Browser surfaces` says the proof step replaces once a capture exists, and every manifest records `buildDirty: true`"
+      },
+      {
+        "name": "Developer mean",
+        "score": "7.97",
+        "reason": "Developer Award above 7: met"
+      }
+    ],
+    "caps": null,
+    "target": "Target line (Awwwards, the rubric's thresholds as they stand): `Awwwards: SOTD candidate`. A weighted 7.70 with the lowest axis at 7.5 clears 7.2 / 6.8. The gap to the stronger winners is Design: 7.5 sits just under the corpus median of 7.63, and what holds it there is imagery that is this page's own screenshots at thumbnail size plus the finish seams in the craft list. The rubric runs about 0.7 under the published award by design; this target line moves no score.",
+    "memory": {
+      "sentence": "A black rail of the page's own screenshots runs down the left while a red hand-drawn ring circles the two install commands under a huge slab-serif 'Your site, proofed before anyone sees it.'",
+      "line": "\"A black rail of the page's own screenshots runs down the left while a red hand-drawn ring circles the two install commands under a huge slab-serif 'Your site, proofed before anyone sees it.'\" (written from `20261022T153705Z-prejury-2/home/desktop-s00.png` before the contract; two objects, the rail and the ring)",
+      "lineNo": 49,
+      "frames": [
+        "20261022T153705Z-prejury-2/home/desktop-s00"
+      ]
+    },
+    "keep": "The rail of this page's own frames following the reader at the depth being read, beside the red-ringed install ticket on bare proof paper (`20261022T153705Z-prejury-2/home/desktop-s00.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png`): fix the plate's hold, the breaks and the copy around it; never shrink, recolour or decorate the strip, and never add a second red.",
+    "slop": {
+      "present": 0,
+      "nameable": "generator nameable: no"
+    },
+    "walks": [
+      {
+        "step": 1,
+        "result": "pass",
+        "section": "Usability walk",
+        "line": "- walk 1 — pass — skip link first on Tab (`20261022T155633-jury-states/skip/desktop-state-skip-link.png`), Enter then Tab lands on the first Copy (`20261022T155633-jury-states/skip/desktop-state-skip-enter.png`); a ring on every control in the world's two inks (`20261022T153705Z-prejury-2/home/desktop-focus-1.png` to `-3`); strip arrows and Enter (`20261022T153931Z-prejury-states/keys-desktop-state-strip-rove.png`, `keys-desktop-state-strip-jump.png`); dialog Escape returns focus (`keys-desktop-state-loupe-closed.png`); phone Frames Escape returns focus (`phone-mobile-state-frames-escape.png`); recipe filter by keyboard (`20261022T155633-jury-states/filter/recipes-html/desktop-state-filter-tag-keys.png`, 1 of 89 shown)"
+      },
+      {
+        "step": 2,
+        "result": "pass",
+        "section": "Usability walk",
+        "line": "- walk 2 — pass — no cursor or magnetic effects; strip hover and the Copy fill only under `(hover: hover)`, so a tap leaves paper behind (`20261022T153931Z-prejury-states/phone-mobile-state-copy-tap-after.png`); targets 44 px (A18 clean at three widths); the recipe rail is native overflow with snap; below 768 px Docs and Recipes leave the band and head the colophon only (`20261022T153705Z-prejury-2/home/mobile-s00.png` vs `mobile-s100.png`), friction rather than a missing equivalent"
+      },
+      {
+        "step": 3,
+        "result": "pass",
+        "section": "Usability walk",
+        "line": "- walk 3 — pass — reduced frames readable at rest on every route (`20261022T153705Z-prejury-2/home/desktop-rm-s00.png` to `s100`), rings printed, the plate placed at its box with no growth (`20261022T154816-jury/desktop-rm-s38.png`), strip jump, dialog, copy and filter all work reduced (`keys-desktop-rm-state-*`), no global kill (`src/motion/index.js` tiers)"
+      },
+      {
+        "step": 4,
+        "result": "pass",
+        "section": "Usability walk",
+        "line": "- walk 4 — pass — no preloader, text paints first, layout shift 0 on every route and width, longest blocking 12 ms (/recipes phone)"
+      },
+      {
+        "step": 5,
+        "result": "pass",
+        "section": "Usability walk",
+        "line": "- walk 5 — pass — s00 alone says what (a plugin for Claude Code and Codex that holds a site to a written contract), who (people running those clients) and what to do (two commands with Copy, ringed) (`20261022T153705Z-prejury-2/home/desktop-s00.png`)"
+      },
+      {
+        "step": 6,
+        "result": "pass",
+        "section": "Usability walk",
+        "line": "- walk 6 — pass — the current route underlined in the rebate (`20261022T153705Z-prejury-2/docs-html/desktop-s00.png`), the current strip frame is the depth cue (`home/desktop-s50.png`), the wordmark goes home, the 404 offers three ways out (`404-html/desktop-s00.png`); on the phone each chapter head's frame carries its stop (`20261022T155047-jury-phone/mobile-s10.png`, `mobile-s60.png`)"
+      },
+      {
+        "step": 7,
+        "result": "pass",
+        "section": "Usability walk",
+        "line": "- walk 7 — pass — one action matched to the stakes (two commands, free, reversible), Install in the rebate at every depth and width (`20261022T153705Z-prejury-2/home/desktop-s50.png`, `home/mobile-s50.png`), the select again at the close (`20261022T154816-jury/desktop-s88.png`); \"Install it\" names the outcome"
+      },
+      {
+        "step": 8,
+        "result": "fail",
+        "section": "Usability walk",
+        "line": "- walk 8 — fail — no overflow at 320 px, but `overflow-wrap: anywhere` (`src/styles/base.css:65`) splits commands and paths inside tokens: the primary command reads `burgisimon/awar` / `ds` at 320 (`20261022T155633-jury-states/w320/home/mobile-s00.png`), `doctor.mj` / `s` and `--` / `with-deps` at 390 (`20261022T153705Z-prejury-2/install-html/mobile-s50.png`), `scripts/doctor.m` / `js` at 1440 (`20261022T153705Z-prejury-2/docs-html/desktop-s75.png`); caps Usability at 8"
+      }
+    ],
+    "ceiling": "Ceiling: the editor's china-marker crop brackets, the L-corners that choose which part of a frame gets enlarged, never appear, so chapter 3's enlargement arrives without the mark that on a real contact sheet orders it.",
+    "evidence": [
+      ".awards/captures/20261022T153705Z-prejury-2/routes.json",
+      ".awards/captures/20261022T153931Z-prejury-states/keys-manifest.json",
+      ".awards/captures/20261022T153931Z-prejury-states/keys-tablet-manifest.json",
+      ".awards/captures/20261022T153931Z-prejury-states/phone-manifest.json",
+      ".awards/captures/20261022T153931Z-prejury-states/granted-manifest.json",
+      ".awards/captures/20261022T154816-jury/manifest.json",
+      ".awards/captures/20261022T155047-jury-phone/manifest.json",
+      ".awards/captures/20261022T155633-jury-states/skip/manifest.json",
+      ".awards/captures/20261022T155633-jury-states/filter/routes.json",
+      ".awards/captures/20261022T155633-jury-states/w320/routes.json"
+    ],
+    "undrawn": [
+      {
+        "section": "Material fixes · Craft",
+        "line": "| `public/og.png`; the head's `og:image` (`index.html:40`) and the missing `og:url`, on every route | Render `og.png` from the newest s00 frame in its rebate with the job line, as `DESIGN.md ## Browser surfaces` assigns to the proof step once a capture exists, and write `og:image` and `og:url` as absolute URLs from the deploy origin (the baseline's floor fix 5, still open) | A link posted in a chat or a feed shows the sheet with its strip and the ringed ticket, not a blank card or the pre-capture drawing | meta, every route | the head of `dist/index.html` (`og:image ./og.png`, no `og:url`) and `dist/og.png` (the drawn state-c sheet) | pending | unresolved |"
+      }
+    ]
+  },
+  "verdict": {
+    "file": ".awards/jury/2026-10-22-verdict.md",
+    "date": "2026-10-22",
+    "disposition": "fix",
+    "dispositionLine": "disposition: fix",
+    "scoresLine": "Design 7.4 · Usability 7.8 · Creativity 8.2 · Content 7.7 — weighted 7.71",
+    "scores": {
+      "kind": "site",
+      "design": "7.4",
+      "usability": "7.8",
+      "creativity": "8.2",
+      "content": "7.7",
+      "weighted": "7.71"
+    },
+    "rows": [
+      {
+        "status": "partial",
+        "location": "`src/motion/loupe.js:32` (`held: top - vh * 0.15`, `out: top`), with `src/styles/site.css:569` (`.proof__loupe`)",
+        "line": "| 1 | `src/motion/loupe.js:32` (`held: top - vh * 0.15`, `out: top`), with `src/styles/site.css:569` (`.proof__loupe`) | End chapter 3's hold when the figures column's foot reaches the viewport top, not when the plate's own top does, so the plate rests at its laid-out box (x 424–1052 at 1440, where the reduced tier places it) for as long as \"What the capture measured\" and \"What the audit found\" are being read | desktop and tablet, home chapter 3, full tier | `.awards/captures/20261022T154816-jury/manifest.json` + `20261022T154816-jury/desktop-s38.png` (plate in flight at 0.91 scale, about 60 px left of its box), `20261022T154816-jury/desktop-s46.png` | `.awards/captures/20261022T163356-ship/chapters/manifest.json` + `chapters/desktop-s38.png` and `chapters/desktop-s42.png` (plate still, full size, x 424–1053, beside the scores), `chapters/desktop-s46.png`; tablet `chapters/tablet-s38.png` | partial — the motion is resolved: no frame catches the plate in flight after s34 (`chapters/desktop-s34.png` is the growth). The empty paper is not: under \"Open at full size\" about 330 × 630 px of bare paper stands beside the memory sentence and its source (`chapters/desktop-s42.png` y 510–840, `chapters/desktop-s46.png` y 215–540), as the reduced tier shows too (`chapters/desktop-rm-s38.png`) |",
+        "lineNo": 21,
+        "fix": "craft-1"
+      },
+      {
+        "status": "resolved",
+        "location": "`src/styles/base.css:65` (`dt code, .commands code, … { overflow-wrap: anywhere }`)",
+        "line": "| 2 | `src/styles/base.css:65` (`dt code, .commands code, … { overflow-wrap: anywhere }`) | Let commands and paths break only at spaces and after `/` (break opportunities written at build, `overflow-wrap` no longer `anywhere`), and stack a long term above its description in the /docs spec list where the term column is narrower than the command | phone 320 and 390 (home, /install tickets), desktop /docs Scripts | `.awards/captures/20261022T155633-jury-states/w320/routes.json` + `20261022T155633-jury-states/w320/home/mobile-s00.png` (`burgisimon/awar` / `ds`), `20261022T153705Z-prejury-2/install-html/mobile-s50.png` (`doctor.mj` / `s`), `20261022T153705Z-prejury-2/docs-html/desktop-s75.png` (`scripts/doctor.m` / `js`) | `.awards/captures/20261022T163356-ship/w320/routes.json` + `w320/home/mobile-s00.png` (`burgisimon/` / `awards`), `install-html/mobile-s50.png` (`npx playwright install` / `--with-deps chromium`; `node <plugin>/scripts/` / `doctor.mjs . --json`, hanging indent), `docs-scripts/docs-html/desktop-s82.png` and `desktop-s88.png` (each script term whole on its own line above its description) | resolved |",
+        "lineNo": 22,
+        "fix": "craft-2"
+      },
+      {
+        "status": "resolved",
+        "location": "`index.html:28`, `:39`, `:80`, `:173` (\"89 audit rules after every edit\") against `index.html:175` and `plugins/awards/hooks/hooks.json:32` (`audit.mjs --quick`); `index.html:160` and `docs.html:129` (the ship rule)",
+        "line": "| 3 | `index.html:28`, `:39`, `:80`, `:173` (\"89 audit rules after every edit\") against `index.html:175` and `plugins/awards/hooks/hooks.json:32` (`audit.mjs --quick`); `index.html:160` and `docs.html:129` (the ship rule) | Say what runs when (a static quick pass after every edit in Claude Code, after each batch in Codex, all 89 rules with `--render`), and print the ship rule once, from one source, as the jury applies it: weighted 7.2 or higher, no axis under 6.8, no P0 or P1, every contract row kept, usability walk steps 1 and 3 passed | every width: home s00 and chapters 3–4, /docs Jury | `20261022T153705Z-prejury-2/home/desktop-s00.png`, `20261022T154816-jury/desktop-s62.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png`, `20261022T153705Z-prejury-2/docs-html/desktop-s50.png` | `.awards/captures/20261022T163356-ship/home/desktop-s00.png` (lede: \"a quick audit as it edits and all 89 rules on the rendered page at three widths\"), `chapters/desktop-s62.png` and `chapters/desktop-s70.png` (heading \"89 rules, the fast ones as you edit\", body names the hook, Codex and `--render`), `home/desktop-s50.png` and `docs-html/desktop-s50.png` (the same four dispositions word for word); `dist/index.html` meta and OG descriptions agree | resolved |",
+        "lineNo": 23,
+        "fix": "craft-3"
+      },
+      {
+        "status": "resolved",
+        "location": "`public/og.png`; the head's `og:image` (`index.html:40`) and the missing `og:url`, on every route",
+        "line": "| 4 | `public/og.png`; the head's `og:image` (`index.html:40`) and the missing `og:url`, on every route | Render `og.png` from the newest s00 frame in its rebate with the job line, as `DESIGN.md ## Browser surfaces` assigns to the proof step once a capture exists, and write `og:image` and `og:url` as absolute URLs from the deploy origin (the baseline's floor fix 5, still open) | meta, every route | the head of `dist/index.html` (`og:image ./og.png`, no `og:url`) and `dist/og.png` (the drawn state-c sheet) | `dist/og.png` (opened: 1200 × 630, the home s00 frame of `20261022T153705Z-prejury-2` in its rebate with the wordmark, beside the job line in the voice, capture and build in edge print); `dist/*.html` heads: canonical, `og:url` and `og:image` absolute on all five routes | resolved |",
+        "lineNo": 24,
+        "fix": "craft-4"
+      },
+      {
+        "status": "resolved",
+        "location": "`src/styles/site.css:53–62` (`.rebate__wordmark`, no hover rule)",
+        "line": "| 5 | `src/styles/site.css:53–62` (`.rebate__wordmark`, no hover rule) | Give the wordmark the rebate's link vocabulary: the 2 px paper underline over `--dur-feedback` under `(hover: hover)` and with `:focus-visible` (the baseline's craft fix 5, repeated here) | desktop and tablet hover, every route | `.awards/captures/20261022T153705Z-prejury-2/home/manifest.json` + `20261022T153705Z-prejury-2/home/desktop-hover-1.png` (pixel-identical to rest) | `.awards/captures/20261022T163356-ship/home/manifest.json` + `home/desktop-hover-1.png` and `install-html/desktop-hover-1.png` (paper underline under \"awards\"), `home/desktop-focus-1.png` (ring and underline) | resolved |",
+        "lineNo": 25,
+        "fix": "craft-5"
+      }
+    ],
+    "remaining": "- Floor: the FIRST VIEWPORT block in state (a) — the strip at s00 shows one frame and three long notes instead of the frames column (`facts/proof.js:105–106`, `:144–148`; `src/styles/site.css:170`).\n- Craft: blank bands after a jump and a row printed twice in the strip (`src/styles/site.css:857`, `src/motion/marks.js:56–63`, `facts/proof.js:144`).\n- Craft: the phone chapter-head row's long notes beside an empty half (`src/styles/site.css:198`).\n- Craft: round-1 craft 1, partial — bare paper under \"Open at full size\" in chapter 3 (`src/motion/loupe.js` `measure()`, `src/styles/site.css:569`).\n- Craft: the hover crop beside s00 (`facts/proof.js:144`, `.frame--crop`)."
+  },
+  "captures": [
+    {
+      "capture": "20261022T153705Z-prejury-2",
+      "stage": "prejury-2",
+      "route": "home",
+      "manifest": ".awards/captures/20261022T153705Z-prejury-2/home/manifest.json",
+      "capturedAt": "2026-10-22T15:37:06.202Z",
+      "builds": [
+        "0.7.0+6846b08.db50265"
+      ],
+      "pageErrors": 0,
+      "consoleErrors": 0
+    },
+    {
+      "capture": "20261022T153705Z-prejury-2",
+      "stage": "prejury-2",
+      "route": "install-html",
+      "manifest": ".awards/captures/20261022T153705Z-prejury-2/install-html/manifest.json",
+      "capturedAt": "2026-10-22T15:37:36.958Z",
+      "builds": [
+        "0.7.0+6846b08.db50265"
+      ],
+      "pageErrors": 0,
+      "consoleErrors": 0
+    },
+    {
+      "capture": "20261022T153705Z-prejury-2",
+      "stage": "prejury-2",
+      "route": "docs-html",
+      "manifest": ".awards/captures/20261022T153705Z-prejury-2/docs-html/manifest.json",
+      "capturedAt": "2026-10-22T15:38:03.764Z",
+      "builds": [
+        "0.7.0+6846b08.db50265"
+      ],
+      "pageErrors": 0,
+      "consoleErrors": 0
+    },
+    {
+      "capture": "20261022T153705Z-prejury-2",
+      "stage": "prejury-2",
+      "route": "recipes-html",
+      "manifest": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/manifest.json",
+      "capturedAt": "2026-10-22T15:38:30.709Z",
+      "builds": [
+        "0.7.0+6846b08.db50265"
+      ],
+      "pageErrors": 0,
+      "consoleErrors": 0
+    },
+    {
+      "capture": "20261022T153705Z-prejury-2",
+      "stage": "prejury-2",
+      "route": "404-html",
+      "manifest": ".awards/captures/20261022T153705Z-prejury-2/404-html/manifest.json",
+      "capturedAt": "2026-10-22T15:38:58.277Z",
+      "builds": [
+        "0.7.0+6846b08.db50265"
+      ],
+      "pageErrors": 0,
+      "consoleErrors": 0
+    },
+    {
+      "capture": "20261022T153931Z-prejury-states",
+      "stage": "prejury-states",
+      "route": "home",
+      "manifest": ".awards/captures/20261022T153931Z-prejury-states/keys-manifest.json",
+      "capturedAt": "2026-10-22T15:39:31.701Z",
+      "builds": [
+        "0.7.0+6846b08.db50265"
+      ],
+      "pageErrors": 0,
+      "consoleErrors": 0
+    },
+    {
+      "capture": "20261022T153931Z-prejury-states",
+      "stage": "prejury-states",
+      "route": "home",
+      "manifest": ".awards/captures/20261022T153931Z-prejury-states/keys-tablet-manifest.json",
+      "capturedAt": "2026-10-22T15:40:20.120Z",
+      "builds": [
+        "0.7.0+6846b08.db50265"
+      ],
+      "pageErrors": 0,
+      "consoleErrors": 0
+    },
+    {
+      "capture": "20261022T153931Z-prejury-states",
+      "stage": "prejury-states",
+      "route": "home",
+      "manifest": ".awards/captures/20261022T153931Z-prejury-states/phone-manifest.json",
+      "capturedAt": "2026-10-22T15:40:46.713Z",
+      "builds": [
+        "0.7.0+6846b08.db50265"
+      ],
+      "pageErrors": 0,
+      "consoleErrors": 0
+    },
+    {
+      "capture": "20261022T153931Z-prejury-states",
+      "stage": "prejury-states",
+      "route": "home",
+      "manifest": ".awards/captures/20261022T153931Z-prejury-states/granted-manifest.json",
+      "capturedAt": "2026-10-22T15:41:11.532Z",
+      "builds": [],
+      "pageErrors": 0,
+      "consoleErrors": 0
+    },
+    {
+      "capture": "20261022T154816-jury",
+      "stage": "jury",
+      "route": "home",
+      "manifest": ".awards/captures/20261022T154816-jury/manifest.json",
+      "capturedAt": "2026-10-22T15:48:16.682Z",
+      "builds": [
+        "0.7.0+6846b08.db50265"
+      ],
+      "pageErrors": 0,
+      "consoleErrors": 0
+    },
+    {
+      "capture": "20261022T155047-jury-phone",
+      "stage": "jury-phone",
+      "route": "home",
+      "manifest": ".awards/captures/20261022T155047-jury-phone/manifest.json",
+      "capturedAt": "2026-10-22T15:50:48.107Z",
+      "builds": [
+        "0.7.0+6846b08.db50265"
+      ],
+      "pageErrors": 0,
+      "consoleErrors": 0
+    },
+    {
+      "capture": "20261022T155633-jury-states",
+      "stage": "jury-states",
+      "route": "home",
+      "manifest": ".awards/captures/20261022T155633-jury-states/skip/manifest.json",
+      "capturedAt": "2026-10-22T15:58:34.786Z",
+      "builds": [
+        "0.7.0+6846b08.db50265"
+      ],
+      "pageErrors": 0,
+      "consoleErrors": 0
+    },
+    {
+      "capture": "20261022T155633-jury-states",
+      "stage": "jury-states",
+      "route": "recipes-html",
+      "manifest": ".awards/captures/20261022T155633-jury-states/filter/recipes-html/manifest.json",
+      "capturedAt": "2026-10-22T15:58:49.213Z",
+      "builds": [
+        "0.7.0+6846b08.db50265"
+      ],
+      "pageErrors": 0,
+      "consoleErrors": 0
+    },
+    {
+      "capture": "20261022T155633-jury-states",
+      "stage": "jury-states",
+      "route": "home",
+      "manifest": ".awards/captures/20261022T155633-jury-states/w320/home/manifest.json",
+      "capturedAt": "2026-10-22T15:58:56.976Z",
+      "builds": [
+        "0.7.0+6846b08.db50265"
+      ],
+      "pageErrors": 0,
+      "consoleErrors": 0
+    },
+    {
+      "capture": "20261022T155633-jury-states",
+      "stage": "jury-states",
+      "route": "install-html",
+      "manifest": ".awards/captures/20261022T155633-jury-states/w320/install-html/manifest.json",
+      "capturedAt": "2026-10-22T15:59:02.014Z",
+      "builds": [
+        "0.7.0+6846b08.db50265"
+      ],
+      "pageErrors": 0,
+      "consoleErrors": 0
+    },
+    {
+      "capture": "20261022T155633-jury-states",
+      "stage": "jury-states",
+      "route": "docs-html",
+      "manifest": ".awards/captures/20261022T155633-jury-states/w320/docs-html/manifest.json",
+      "capturedAt": "2026-10-22T15:59:05.735Z",
+      "builds": [
+        "0.7.0+6846b08.db50265"
+      ],
+      "pageErrors": 0,
+      "consoleErrors": 0
+    }
+  ],
+  "routes": [
+    {
+      "slug": "home",
+      "name": "home",
+      "path": "/",
+      "captures": [
+        "20261022T153705Z-prejury-2",
+        "20261022T154816-jury",
+        "20261022T155633-jury-states"
+      ],
+      "builds": [
+        "0.7.0+6846b08.db50265"
+      ],
+      "caption": "Frames: captures 20261022T153705Z-prejury-2, 20261022T154816-jury, 20261022T155633-jury-states, build 0.7.0+6846b08.db50265 · Marks: report 2026-10-22",
+      "frames": {
+        "desktop": [
+          {
+            "id": "20261022T153705Z-prejury-2/home/desktop-s00",
+            "kind": "scroll",
+            "stop": 0,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0,
+            "label": "s00",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:06.202Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/home/desktop-s00.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/home/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/home/desktop-s00-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 22424
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/home/desktop-s00-1440.webp",
+              "width": 1440,
+              "height": 900,
+              "bytes": 79458
+            },
+            "alt": "Screenshot of the home page at desktop width (1440 × 900), at scroll stop s00, 0 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": [
+              {
+                "id": "ring-1",
+                "type": "ring",
+                "section": "Memory test",
+                "source": "memory",
+                "line": "\"A black rail of the page's own screenshots runs down the left while a red hand-drawn ring circles the two install commands under a huge slab-serif 'Your site, proofed before anyone sees it.'\" (written from `20261022T153705Z-prejury-2/home/desktop-s00.png` before the contract; two objects, the rail and the ring)",
+                "lineNo": 49,
+                "sentence": "A black rail of the page's own screenshots runs down the left while a red hand-drawn ring circles the two install commands under a huge slab-serif 'Your site, proofed before anyone sees it.'",
+                "report": ".awards/jury/2026-10-22.md",
+                "date": "2026-10-22"
+              },
+              {
+                "id": "ring-2",
+                "type": "ring",
+                "section": "Keep",
+                "source": "keep-1",
+                "line": "The rail of this page's own frames following the reader at the depth being read, beside the red-ringed install ticket on bare proof paper (`20261022T153705Z-prejury-2/home/desktop-s00.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png`): fix the plate's hold, the breaks and the copy around it; never shrink, recolour or decorate the strip, and never add a second red.",
+                "lineNo": 98,
+                "report": ".awards/jury/2026-10-22.md",
+                "date": "2026-10-22"
+              },
+              {
+                "id": "cross-7",
+                "type": "cross",
+                "section": "Material fixes · Craft",
+                "source": "craft-3",
+                "line": "| `index.html:28`, `:39`, `:80`, `:173` (\"89 audit rules after every edit\") against `index.html:175` and `plugins/awards/hooks/hooks.json:32` (`audit.mjs --quick`); `index.html:160` and `docs.html:129` (the ship rule) | Say what runs when (a static quick pass after every edit in Claude Code, after each batch in Codex, all 89 rules with `--render`), and print the ship rule once, from one source, as the jury applies it: weighted 7.2 or higher, no axis under 6.8, no P0 or P1, every contract row kept, usability walk steps 1 and 3 passed | The lede, the meta and OG descriptions and chapter 4's heading agree with chapter 4's body and the hook; home and /docs state the same ship rule | every width: home s00 and chapters 3–4, /docs Jury | `20261022T153705Z-prejury-2/home/desktop-s00.png`, `20261022T154816-jury/desktop-s62.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png`, `20261022T153705Z-prejury-2/docs-html/desktop-s50.png` | pending | unresolved |",
+                "lineNo": 93,
+                "cells": {
+                  "Location": "`index.html:28`, `:39`, `:80`, `:173` (\"89 audit rules after every edit\") against `index.html:175` and `plugins/awards/hooks/hooks.json:32` (`audit.mjs --quick`); `index.html:160` and `docs.html:129` (the ship rule)",
+                  "Change": "Say what runs when (a static quick pass after every edit in Claude Code, after each batch in Codex, all 89 rules with `--render`), and print the ship rule once, from one source, as the jury applies it: weighted 7.2 or higher, no axis under 6.8, no P0 or P1, every contract row kept, usability walk steps 1 and 3 passed",
+                  "Expected visible result": "The lede, the meta and OG descriptions and chapter 4's heading agree with chapter 4's body and the hook; home and /docs state the same ship rule",
+                  "Viewport/state": "every width: home s00 and chapters 3–4, /docs Jury",
+                  "Before evidence": "`20261022T153705Z-prejury-2/home/desktop-s00.png`, `20261022T154816-jury/desktop-s62.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png`, `20261022T153705Z-prejury-2/docs-html/desktop-s50.png`",
+                  "After evidence": "pending",
+                  "Status": "unresolved"
+                },
+                "report": ".awards/jury/2026-10-22.md",
+                "date": "2026-10-22"
+              },
+              {
+                "id": "arrow-7",
+                "type": "arrow",
+                "from": "cross-7",
+                "status": "resolved",
+                "label": "resolved, verdict 2026-10-22",
+                "section": "Verdict",
+                "source": "craft-3",
+                "line": "| 3 | `index.html:28`, `:39`, `:80`, `:173` (\"89 audit rules after every edit\") against `index.html:175` and `plugins/awards/hooks/hooks.json:32` (`audit.mjs --quick`); `index.html:160` and `docs.html:129` (the ship rule) | Say what runs when (a static quick pass after every edit in Claude Code, after each batch in Codex, all 89 rules with `--render`), and print the ship rule once, from one source, as the jury applies it: weighted 7.2 or higher, no axis under 6.8, no P0 or P1, every contract row kept, usability walk steps 1 and 3 passed | every width: home s00 and chapters 3–4, /docs Jury | `20261022T153705Z-prejury-2/home/desktop-s00.png`, `20261022T154816-jury/desktop-s62.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png`, `20261022T153705Z-prejury-2/docs-html/desktop-s50.png` | `.awards/captures/20261022T163356-ship/home/desktop-s00.png` (lede: \"a quick audit as it edits and all 89 rules on the rendered page at three widths\"), `chapters/desktop-s62.png` and `chapters/desktop-s70.png` (heading \"89 rules, the fast ones as you edit\", body names the hook, Codex and `--render`), `home/desktop-s50.png` and `docs-html/desktop-s50.png` (the same four dispositions word for word); `dist/index.html` meta and OG descriptions agree | resolved |",
+                "lineNo": 23,
+                "report": ".awards/jury/2026-10-22-verdict.md",
+                "date": "2026-10-22"
+              }
+            ]
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/home/desktop-s25",
+            "kind": "scroll",
+            "stop": 25,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.25,
+            "label": "s25",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:06.202Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/home/desktop-s25.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/home/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/home/desktop-s25-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 19902
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/home/desktop-s25-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 19902
+            },
+            "alt": "Screenshot of the home page at desktop width (1440 × 900), at scroll stop s25, 25 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T154816-jury/desktop-s38",
+            "kind": "scroll",
+            "stop": 38,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.38,
+            "label": "s38",
+            "capture": "20261022T154816-jury",
+            "capturedAt": "2026-10-22T15:48:16.682Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T154816-jury/desktop-s38.png",
+            "manifest": ".awards/captures/20261022T154816-jury/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T154816-jury/home/desktop-s38-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 20988
+            },
+            "full": {
+              "src": "proof/20261022T154816-jury/home/desktop-s38-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 20988
+            },
+            "alt": "Screenshot of the home page at desktop width (1440 × 900), at scroll stop s38, 38 % down; capture 20261022T154816-jury.",
+            "marks": [
+              {
+                "id": "cross-1",
+                "type": "cross",
+                "section": "Material fixes · Craft",
+                "source": "craft-1",
+                "line": "| `src/motion/loupe.js:32` (`held: top - vh * 0.15`, `out: top`), with `src/styles/site.css:569` (`.proof__loupe`) | End chapter 3's hold when the figures column's foot reaches the viewport top, not when the plate's own top does, so the plate rests at its laid-out box (x 424–1052 at 1440, where the reduced tier places it) for as long as \"What the capture measured\" and \"What the audit found\" are being read | Between s38 and s50 the plate sits still at full size beside the figures: no frame shows it at 0.91 scale 63 px left of its box, and no empty half of the paper beside the audit table | desktop and tablet, home chapter 3, full tier | `.awards/captures/20261022T154816-jury/manifest.json` + `20261022T154816-jury/desktop-s38.png`, `20261022T154816-jury/desktop-s46.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png` | pending | unresolved |",
+                "lineNo": 91,
+                "cells": {
+                  "Location": "`src/motion/loupe.js:32` (`held: top - vh * 0.15`, `out: top`), with `src/styles/site.css:569` (`.proof__loupe`)",
+                  "Change": "End chapter 3's hold when the figures column's foot reaches the viewport top, not when the plate's own top does, so the plate rests at its laid-out box (x 424–1052 at 1440, where the reduced tier places it) for as long as \"What the capture measured\" and \"What the audit found\" are being read",
+                  "Expected visible result": "Between s38 and s50 the plate sits still at full size beside the figures: no frame shows it at 0.91 scale 63 px left of its box, and no empty half of the paper beside the audit table",
+                  "Viewport/state": "desktop and tablet, home chapter 3, full tier",
+                  "Before evidence": "`.awards/captures/20261022T154816-jury/manifest.json` + `20261022T154816-jury/desktop-s38.png`, `20261022T154816-jury/desktop-s46.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png`",
+                  "After evidence": "pending",
+                  "Status": "unresolved"
+                },
+                "report": ".awards/jury/2026-10-22.md",
+                "date": "2026-10-22"
+              },
+              {
+                "id": "arrow-1",
+                "type": "arrow",
+                "from": "cross-1",
+                "status": "partial",
+                "label": "partial",
+                "section": "Verdict",
+                "source": "craft-1",
+                "line": "| 1 | `src/motion/loupe.js:32` (`held: top - vh * 0.15`, `out: top`), with `src/styles/site.css:569` (`.proof__loupe`) | End chapter 3's hold when the figures column's foot reaches the viewport top, not when the plate's own top does, so the plate rests at its laid-out box (x 424–1052 at 1440, where the reduced tier places it) for as long as \"What the capture measured\" and \"What the audit found\" are being read | desktop and tablet, home chapter 3, full tier | `.awards/captures/20261022T154816-jury/manifest.json` + `20261022T154816-jury/desktop-s38.png` (plate in flight at 0.91 scale, about 60 px left of its box), `20261022T154816-jury/desktop-s46.png` | `.awards/captures/20261022T163356-ship/chapters/manifest.json` + `chapters/desktop-s38.png` and `chapters/desktop-s42.png` (plate still, full size, x 424–1053, beside the scores), `chapters/desktop-s46.png`; tablet `chapters/tablet-s38.png` | partial — the motion is resolved: no frame catches the plate in flight after s34 (`chapters/desktop-s34.png` is the growth). The empty paper is not: under \"Open at full size\" about 330 × 630 px of bare paper stands beside the memory sentence and its source (`chapters/desktop-s42.png` y 510–840, `chapters/desktop-s46.png` y 215–540), as the reduced tier shows too (`chapters/desktop-rm-s38.png`) |",
+                "lineNo": 21,
+                "report": ".awards/jury/2026-10-22-verdict.md",
+                "date": "2026-10-22"
+              }
+            ]
+          },
+          {
+            "id": "20261022T154816-jury/desktop-s46",
+            "kind": "scroll",
+            "stop": 46,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.46,
+            "label": "s46",
+            "capture": "20261022T154816-jury",
+            "capturedAt": "2026-10-22T15:48:16.682Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T154816-jury/desktop-s46.png",
+            "manifest": ".awards/captures/20261022T154816-jury/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T154816-jury/home/desktop-s46-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 16388
+            },
+            "full": {
+              "src": "proof/20261022T154816-jury/home/desktop-s46-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 16388
+            },
+            "alt": "Screenshot of the home page at desktop width (1440 × 900), at scroll stop s46, 46 % down; capture 20261022T154816-jury.",
+            "marks": [
+              {
+                "id": "cross-2",
+                "type": "cross",
+                "section": "Material fixes · Craft",
+                "source": "craft-1",
+                "line": "| `src/motion/loupe.js:32` (`held: top - vh * 0.15`, `out: top`), with `src/styles/site.css:569` (`.proof__loupe`) | End chapter 3's hold when the figures column's foot reaches the viewport top, not when the plate's own top does, so the plate rests at its laid-out box (x 424–1052 at 1440, where the reduced tier places it) for as long as \"What the capture measured\" and \"What the audit found\" are being read | Between s38 and s50 the plate sits still at full size beside the figures: no frame shows it at 0.91 scale 63 px left of its box, and no empty half of the paper beside the audit table | desktop and tablet, home chapter 3, full tier | `.awards/captures/20261022T154816-jury/manifest.json` + `20261022T154816-jury/desktop-s38.png`, `20261022T154816-jury/desktop-s46.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png` | pending | unresolved |",
+                "lineNo": 91,
+                "cells": {
+                  "Location": "`src/motion/loupe.js:32` (`held: top - vh * 0.15`, `out: top`), with `src/styles/site.css:569` (`.proof__loupe`)",
+                  "Change": "End chapter 3's hold when the figures column's foot reaches the viewport top, not when the plate's own top does, so the plate rests at its laid-out box (x 424–1052 at 1440, where the reduced tier places it) for as long as \"What the capture measured\" and \"What the audit found\" are being read",
+                  "Expected visible result": "Between s38 and s50 the plate sits still at full size beside the figures: no frame shows it at 0.91 scale 63 px left of its box, and no empty half of the paper beside the audit table",
+                  "Viewport/state": "desktop and tablet, home chapter 3, full tier",
+                  "Before evidence": "`.awards/captures/20261022T154816-jury/manifest.json` + `20261022T154816-jury/desktop-s38.png`, `20261022T154816-jury/desktop-s46.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png`",
+                  "After evidence": "pending",
+                  "Status": "unresolved"
+                },
+                "report": ".awards/jury/2026-10-22.md",
+                "date": "2026-10-22"
+              },
+              {
+                "id": "arrow-2",
+                "type": "arrow",
+                "from": "cross-2",
+                "status": "partial",
+                "label": "partial",
+                "section": "Verdict",
+                "source": "craft-1",
+                "line": "| 1 | `src/motion/loupe.js:32` (`held: top - vh * 0.15`, `out: top`), with `src/styles/site.css:569` (`.proof__loupe`) | End chapter 3's hold when the figures column's foot reaches the viewport top, not when the plate's own top does, so the plate rests at its laid-out box (x 424–1052 at 1440, where the reduced tier places it) for as long as \"What the capture measured\" and \"What the audit found\" are being read | desktop and tablet, home chapter 3, full tier | `.awards/captures/20261022T154816-jury/manifest.json` + `20261022T154816-jury/desktop-s38.png` (plate in flight at 0.91 scale, about 60 px left of its box), `20261022T154816-jury/desktop-s46.png` | `.awards/captures/20261022T163356-ship/chapters/manifest.json` + `chapters/desktop-s38.png` and `chapters/desktop-s42.png` (plate still, full size, x 424–1053, beside the scores), `chapters/desktop-s46.png`; tablet `chapters/tablet-s38.png` | partial — the motion is resolved: no frame catches the plate in flight after s34 (`chapters/desktop-s34.png` is the growth). The empty paper is not: under \"Open at full size\" about 330 × 630 px of bare paper stands beside the memory sentence and its source (`chapters/desktop-s42.png` y 510–840, `chapters/desktop-s46.png` y 215–540), as the reduced tier shows too (`chapters/desktop-rm-s38.png`) |",
+                "lineNo": 21,
+                "report": ".awards/jury/2026-10-22-verdict.md",
+                "date": "2026-10-22"
+              }
+            ]
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/home/desktop-s50",
+            "kind": "scroll",
+            "stop": 50,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.5,
+            "label": "s50",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:06.202Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/home/desktop-s50.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/home/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/home/desktop-s50-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 16468
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/home/desktop-s50-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 16468
+            },
+            "alt": "Screenshot of the home page at desktop width (1440 × 900), at scroll stop s50, 50 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": [
+              {
+                "id": "ring-3",
+                "type": "ring",
+                "section": "Keep",
+                "source": "keep-1",
+                "line": "The rail of this page's own frames following the reader at the depth being read, beside the red-ringed install ticket on bare proof paper (`20261022T153705Z-prejury-2/home/desktop-s00.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png`): fix the plate's hold, the breaks and the copy around it; never shrink, recolour or decorate the strip, and never add a second red.",
+                "lineNo": 98,
+                "report": ".awards/jury/2026-10-22.md",
+                "date": "2026-10-22"
+              },
+              {
+                "id": "cross-3",
+                "type": "cross",
+                "section": "Material fixes · Craft",
+                "source": "craft-1",
+                "line": "| `src/motion/loupe.js:32` (`held: top - vh * 0.15`, `out: top`), with `src/styles/site.css:569` (`.proof__loupe`) | End chapter 3's hold when the figures column's foot reaches the viewport top, not when the plate's own top does, so the plate rests at its laid-out box (x 424–1052 at 1440, where the reduced tier places it) for as long as \"What the capture measured\" and \"What the audit found\" are being read | Between s38 and s50 the plate sits still at full size beside the figures: no frame shows it at 0.91 scale 63 px left of its box, and no empty half of the paper beside the audit table | desktop and tablet, home chapter 3, full tier | `.awards/captures/20261022T154816-jury/manifest.json` + `20261022T154816-jury/desktop-s38.png`, `20261022T154816-jury/desktop-s46.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png` | pending | unresolved |",
+                "lineNo": 91,
+                "cells": {
+                  "Location": "`src/motion/loupe.js:32` (`held: top - vh * 0.15`, `out: top`), with `src/styles/site.css:569` (`.proof__loupe`)",
+                  "Change": "End chapter 3's hold when the figures column's foot reaches the viewport top, not when the plate's own top does, so the plate rests at its laid-out box (x 424–1052 at 1440, where the reduced tier places it) for as long as \"What the capture measured\" and \"What the audit found\" are being read",
+                  "Expected visible result": "Between s38 and s50 the plate sits still at full size beside the figures: no frame shows it at 0.91 scale 63 px left of its box, and no empty half of the paper beside the audit table",
+                  "Viewport/state": "desktop and tablet, home chapter 3, full tier",
+                  "Before evidence": "`.awards/captures/20261022T154816-jury/manifest.json` + `20261022T154816-jury/desktop-s38.png`, `20261022T154816-jury/desktop-s46.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png`",
+                  "After evidence": "pending",
+                  "Status": "unresolved"
+                },
+                "report": ".awards/jury/2026-10-22.md",
+                "date": "2026-10-22"
+              },
+              {
+                "id": "cross-9",
+                "type": "cross",
+                "section": "Material fixes · Craft",
+                "source": "craft-3",
+                "line": "| `index.html:28`, `:39`, `:80`, `:173` (\"89 audit rules after every edit\") against `index.html:175` and `plugins/awards/hooks/hooks.json:32` (`audit.mjs --quick`); `index.html:160` and `docs.html:129` (the ship rule) | Say what runs when (a static quick pass after every edit in Claude Code, after each batch in Codex, all 89 rules with `--render`), and print the ship rule once, from one source, as the jury applies it: weighted 7.2 or higher, no axis under 6.8, no P0 or P1, every contract row kept, usability walk steps 1 and 3 passed | The lede, the meta and OG descriptions and chapter 4's heading agree with chapter 4's body and the hook; home and /docs state the same ship rule | every width: home s00 and chapters 3–4, /docs Jury | `20261022T153705Z-prejury-2/home/desktop-s00.png`, `20261022T154816-jury/desktop-s62.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png`, `20261022T153705Z-prejury-2/docs-html/desktop-s50.png` | pending | unresolved |",
+                "lineNo": 93,
+                "cells": {
+                  "Location": "`index.html:28`, `:39`, `:80`, `:173` (\"89 audit rules after every edit\") against `index.html:175` and `plugins/awards/hooks/hooks.json:32` (`audit.mjs --quick`); `index.html:160` and `docs.html:129` (the ship rule)",
+                  "Change": "Say what runs when (a static quick pass after every edit in Claude Code, after each batch in Codex, all 89 rules with `--render`), and print the ship rule once, from one source, as the jury applies it: weighted 7.2 or higher, no axis under 6.8, no P0 or P1, every contract row kept, usability walk steps 1 and 3 passed",
+                  "Expected visible result": "The lede, the meta and OG descriptions and chapter 4's heading agree with chapter 4's body and the hook; home and /docs state the same ship rule",
+                  "Viewport/state": "every width: home s00 and chapters 3–4, /docs Jury",
+                  "Before evidence": "`20261022T153705Z-prejury-2/home/desktop-s00.png`, `20261022T154816-jury/desktop-s62.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png`, `20261022T153705Z-prejury-2/docs-html/desktop-s50.png`",
+                  "After evidence": "pending",
+                  "Status": "unresolved"
+                },
+                "report": ".awards/jury/2026-10-22.md",
+                "date": "2026-10-22"
+              },
+              {
+                "id": "arrow-3",
+                "type": "arrow",
+                "from": "cross-3",
+                "status": "partial",
+                "label": "partial",
+                "section": "Verdict",
+                "source": "craft-1",
+                "line": "| 1 | `src/motion/loupe.js:32` (`held: top - vh * 0.15`, `out: top`), with `src/styles/site.css:569` (`.proof__loupe`) | End chapter 3's hold when the figures column's foot reaches the viewport top, not when the plate's own top does, so the plate rests at its laid-out box (x 424–1052 at 1440, where the reduced tier places it) for as long as \"What the capture measured\" and \"What the audit found\" are being read | desktop and tablet, home chapter 3, full tier | `.awards/captures/20261022T154816-jury/manifest.json` + `20261022T154816-jury/desktop-s38.png` (plate in flight at 0.91 scale, about 60 px left of its box), `20261022T154816-jury/desktop-s46.png` | `.awards/captures/20261022T163356-ship/chapters/manifest.json` + `chapters/desktop-s38.png` and `chapters/desktop-s42.png` (plate still, full size, x 424–1053, beside the scores), `chapters/desktop-s46.png`; tablet `chapters/tablet-s38.png` | partial — the motion is resolved: no frame catches the plate in flight after s34 (`chapters/desktop-s34.png` is the growth). The empty paper is not: under \"Open at full size\" about 330 × 630 px of bare paper stands beside the memory sentence and its source (`chapters/desktop-s42.png` y 510–840, `chapters/desktop-s46.png` y 215–540), as the reduced tier shows too (`chapters/desktop-rm-s38.png`) |",
+                "lineNo": 21,
+                "report": ".awards/jury/2026-10-22-verdict.md",
+                "date": "2026-10-22"
+              },
+              {
+                "id": "arrow-9",
+                "type": "arrow",
+                "from": "cross-9",
+                "status": "resolved",
+                "label": "resolved, verdict 2026-10-22",
+                "section": "Verdict",
+                "source": "craft-3",
+                "line": "| 3 | `index.html:28`, `:39`, `:80`, `:173` (\"89 audit rules after every edit\") against `index.html:175` and `plugins/awards/hooks/hooks.json:32` (`audit.mjs --quick`); `index.html:160` and `docs.html:129` (the ship rule) | Say what runs when (a static quick pass after every edit in Claude Code, after each batch in Codex, all 89 rules with `--render`), and print the ship rule once, from one source, as the jury applies it: weighted 7.2 or higher, no axis under 6.8, no P0 or P1, every contract row kept, usability walk steps 1 and 3 passed | every width: home s00 and chapters 3–4, /docs Jury | `20261022T153705Z-prejury-2/home/desktop-s00.png`, `20261022T154816-jury/desktop-s62.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png`, `20261022T153705Z-prejury-2/docs-html/desktop-s50.png` | `.awards/captures/20261022T163356-ship/home/desktop-s00.png` (lede: \"a quick audit as it edits and all 89 rules on the rendered page at three widths\"), `chapters/desktop-s62.png` and `chapters/desktop-s70.png` (heading \"89 rules, the fast ones as you edit\", body names the hook, Codex and `--render`), `home/desktop-s50.png` and `docs-html/desktop-s50.png` (the same four dispositions word for word); `dist/index.html` meta and OG descriptions agree | resolved |",
+                "lineNo": 23,
+                "report": ".awards/jury/2026-10-22-verdict.md",
+                "date": "2026-10-22"
+              }
+            ]
+          },
+          {
+            "id": "20261022T154816-jury/desktop-s62",
+            "kind": "scroll",
+            "stop": 62,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.62,
+            "label": "s62",
+            "capture": "20261022T154816-jury",
+            "capturedAt": "2026-10-22T15:48:16.682Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T154816-jury/desktop-s62.png",
+            "manifest": ".awards/captures/20261022T154816-jury/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T154816-jury/home/desktop-s62-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 23940
+            },
+            "full": {
+              "src": "proof/20261022T154816-jury/home/desktop-s62-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 23940
+            },
+            "alt": "Screenshot of the home page at desktop width (1440 × 900), at scroll stop s62, 62 % down; capture 20261022T154816-jury.",
+            "marks": [
+              {
+                "id": "cross-8",
+                "type": "cross",
+                "section": "Material fixes · Craft",
+                "source": "craft-3",
+                "line": "| `index.html:28`, `:39`, `:80`, `:173` (\"89 audit rules after every edit\") against `index.html:175` and `plugins/awards/hooks/hooks.json:32` (`audit.mjs --quick`); `index.html:160` and `docs.html:129` (the ship rule) | Say what runs when (a static quick pass after every edit in Claude Code, after each batch in Codex, all 89 rules with `--render`), and print the ship rule once, from one source, as the jury applies it: weighted 7.2 or higher, no axis under 6.8, no P0 or P1, every contract row kept, usability walk steps 1 and 3 passed | The lede, the meta and OG descriptions and chapter 4's heading agree with chapter 4's body and the hook; home and /docs state the same ship rule | every width: home s00 and chapters 3–4, /docs Jury | `20261022T153705Z-prejury-2/home/desktop-s00.png`, `20261022T154816-jury/desktop-s62.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png`, `20261022T153705Z-prejury-2/docs-html/desktop-s50.png` | pending | unresolved |",
+                "lineNo": 93,
+                "cells": {
+                  "Location": "`index.html:28`, `:39`, `:80`, `:173` (\"89 audit rules after every edit\") against `index.html:175` and `plugins/awards/hooks/hooks.json:32` (`audit.mjs --quick`); `index.html:160` and `docs.html:129` (the ship rule)",
+                  "Change": "Say what runs when (a static quick pass after every edit in Claude Code, after each batch in Codex, all 89 rules with `--render`), and print the ship rule once, from one source, as the jury applies it: weighted 7.2 or higher, no axis under 6.8, no P0 or P1, every contract row kept, usability walk steps 1 and 3 passed",
+                  "Expected visible result": "The lede, the meta and OG descriptions and chapter 4's heading agree with chapter 4's body and the hook; home and /docs state the same ship rule",
+                  "Viewport/state": "every width: home s00 and chapters 3–4, /docs Jury",
+                  "Before evidence": "`20261022T153705Z-prejury-2/home/desktop-s00.png`, `20261022T154816-jury/desktop-s62.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png`, `20261022T153705Z-prejury-2/docs-html/desktop-s50.png`",
+                  "After evidence": "pending",
+                  "Status": "unresolved"
+                },
+                "report": ".awards/jury/2026-10-22.md",
+                "date": "2026-10-22"
+              },
+              {
+                "id": "arrow-8",
+                "type": "arrow",
+                "from": "cross-8",
+                "status": "resolved",
+                "label": "resolved, verdict 2026-10-22",
+                "section": "Verdict",
+                "source": "craft-3",
+                "line": "| 3 | `index.html:28`, `:39`, `:80`, `:173` (\"89 audit rules after every edit\") against `index.html:175` and `plugins/awards/hooks/hooks.json:32` (`audit.mjs --quick`); `index.html:160` and `docs.html:129` (the ship rule) | Say what runs when (a static quick pass after every edit in Claude Code, after each batch in Codex, all 89 rules with `--render`), and print the ship rule once, from one source, as the jury applies it: weighted 7.2 or higher, no axis under 6.8, no P0 or P1, every contract row kept, usability walk steps 1 and 3 passed | every width: home s00 and chapters 3–4, /docs Jury | `20261022T153705Z-prejury-2/home/desktop-s00.png`, `20261022T154816-jury/desktop-s62.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png`, `20261022T153705Z-prejury-2/docs-html/desktop-s50.png` | `.awards/captures/20261022T163356-ship/home/desktop-s00.png` (lede: \"a quick audit as it edits and all 89 rules on the rendered page at three widths\"), `chapters/desktop-s62.png` and `chapters/desktop-s70.png` (heading \"89 rules, the fast ones as you edit\", body names the hook, Codex and `--render`), `home/desktop-s50.png` and `docs-html/desktop-s50.png` (the same four dispositions word for word); `dist/index.html` meta and OG descriptions agree | resolved |",
+                "lineNo": 23,
+                "report": ".awards/jury/2026-10-22-verdict.md",
+                "date": "2026-10-22"
+              }
+            ]
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/home/desktop-s75",
+            "kind": "scroll",
+            "stop": 75,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.75,
+            "label": "s75",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:06.202Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/home/desktop-s75.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/home/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/home/desktop-s75-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 21752
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/home/desktop-s75-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 21752
+            },
+            "alt": "Screenshot of the home page at desktop width (1440 × 900), at scroll stop s75, 75 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/home/desktop-s100",
+            "kind": "scroll",
+            "stop": 100,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 1,
+            "label": "s100",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:06.202Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/home/desktop-s100.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/home/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/home/desktop-s100-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 15508
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/home/desktop-s100-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 15508
+            },
+            "alt": "Screenshot of the home page at desktop width (1440 × 900), at scroll stop s100, 100 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/home/desktop-hover-1",
+            "kind": "hover",
+            "stop": null,
+            "state": "hover-1",
+            "variants": [],
+            "near": null,
+            "at": null,
+            "label": "hover 1",
+            "element": {
+              "tag": "a",
+              "text": "awards",
+              "matched": true
+            },
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:06.202Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/home/desktop-hover-1.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/home/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/home/desktop-hover-1-110.webp",
+              "width": 110,
+              "height": 67,
+              "bytes": 1494
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/home/desktop-hover-1-110.webp",
+              "width": 110,
+              "height": 67,
+              "bytes": 1494
+            },
+            "alt": "Screenshot of the home page at desktop width (1440 × 900), cropped around the hovered link \"awards\"; capture 20261022T153705Z-prejury-2.",
+            "marks": [
+              {
+                "id": "cross-11",
+                "type": "cross",
+                "section": "Material fixes · Craft",
+                "source": "craft-5",
+                "line": "| `src/styles/site.css:53–62` (`.rebate__wordmark`, no hover rule) | Give the wordmark the rebate's link vocabulary: the 2 px paper underline over `--dur-feedback` under `(hover: hover)` and with `:focus-visible` (the baseline's craft fix 5, repeated here) | Hovering \"awards\" shows the underline Docs and Recipes already show | desktop and tablet hover, every route | `.awards/captures/20261022T153705Z-prejury-2/home/manifest.json` + `20261022T153705Z-prejury-2/home/desktop-hover-1.png` (pixel-identical to rest) vs `20261022T153705Z-prejury-2/home/desktop-hover-3.png` | pending | unresolved |",
+                "lineNo": 95,
+                "cells": {
+                  "Location": "`src/styles/site.css:53–62` (`.rebate__wordmark`, no hover rule)",
+                  "Change": "Give the wordmark the rebate's link vocabulary: the 2 px paper underline over `--dur-feedback` under `(hover: hover)` and with `:focus-visible` (the baseline's craft fix 5, repeated here)",
+                  "Expected visible result": "Hovering \"awards\" shows the underline Docs and Recipes already show",
+                  "Viewport/state": "desktop and tablet hover, every route",
+                  "Before evidence": "`.awards/captures/20261022T153705Z-prejury-2/home/manifest.json` + `20261022T153705Z-prejury-2/home/desktop-hover-1.png` (pixel-identical to rest) vs `20261022T153705Z-prejury-2/home/desktop-hover-3.png`",
+                  "After evidence": "pending",
+                  "Status": "unresolved"
+                },
+                "report": ".awards/jury/2026-10-22.md",
+                "date": "2026-10-22"
+              },
+              {
+                "id": "arrow-11",
+                "type": "arrow",
+                "from": "cross-11",
+                "status": "resolved",
+                "label": "resolved, verdict 2026-10-22",
+                "section": "Verdict",
+                "source": "craft-5",
+                "line": "| 5 | `src/styles/site.css:53–62` (`.rebate__wordmark`, no hover rule) | Give the wordmark the rebate's link vocabulary: the 2 px paper underline over `--dur-feedback` under `(hover: hover)` and with `:focus-visible` (the baseline's craft fix 5, repeated here) | desktop and tablet hover, every route | `.awards/captures/20261022T153705Z-prejury-2/home/manifest.json` + `20261022T153705Z-prejury-2/home/desktop-hover-1.png` (pixel-identical to rest) | `.awards/captures/20261022T163356-ship/home/manifest.json` + `home/desktop-hover-1.png` and `install-html/desktop-hover-1.png` (paper underline under \"awards\"), `home/desktop-focus-1.png` (ring and underline) | resolved |",
+                "lineNo": 25,
+                "report": ".awards/jury/2026-10-22-verdict.md",
+                "date": "2026-10-22"
+              }
+            ]
+          }
+        ],
+        "tablet": [
+          {
+            "id": "20261022T153705Z-prejury-2/home/tablet-s00",
+            "kind": "scroll",
+            "stop": 0,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0,
+            "label": "s00",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:06.202Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/home/tablet-s00.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/home/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/home/tablet-s00-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 24946
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/home/tablet-s00-834.webp",
+              "width": 834,
+              "height": 1194,
+              "bytes": 91386
+            },
+            "alt": "Screenshot of the home page at tablet width (834 × 1194), at scroll stop s00, 0 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/home/tablet-s25",
+            "kind": "scroll",
+            "stop": 25,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.25,
+            "label": "s25",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:06.202Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/home/tablet-s25.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/home/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/home/tablet-s25-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 19950
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/home/tablet-s25-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 19950
+            },
+            "alt": "Screenshot of the home page at tablet width (834 × 1194), at scroll stop s25, 25 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/home/tablet-s50",
+            "kind": "scroll",
+            "stop": 50,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.5,
+            "label": "s50",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:06.202Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/home/tablet-s50.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/home/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/home/tablet-s50-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 17902
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/home/tablet-s50-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 17902
+            },
+            "alt": "Screenshot of the home page at tablet width (834 × 1194), at scroll stop s50, 50 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/home/tablet-s75",
+            "kind": "scroll",
+            "stop": 75,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.75,
+            "label": "s75",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:06.202Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/home/tablet-s75.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/home/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/home/tablet-s75-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 19794
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/home/tablet-s75-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 19794
+            },
+            "alt": "Screenshot of the home page at tablet width (834 × 1194), at scroll stop s75, 75 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/home/tablet-s100",
+            "kind": "scroll",
+            "stop": 100,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 1,
+            "label": "s100",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:06.202Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/home/tablet-s100.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/home/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/home/tablet-s100-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 13968
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/home/tablet-s100-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 13968
+            },
+            "alt": "Screenshot of the home page at tablet width (834 × 1194), at scroll stop s100, 100 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          }
+        ],
+        "mobile": [
+          {
+            "id": "20261022T153705Z-prejury-2/home/mobile-s00",
+            "kind": "scroll",
+            "stop": 0,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0,
+            "label": "s00",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:06.202Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/home/mobile-s00.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/home/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/home/mobile-s00-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 31186
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/home/mobile-s00-780.webp",
+              "width": 780,
+              "height": 1688,
+              "bytes": 83158
+            },
+            "alt": "Screenshot of the home page at phone width (390 × 844), at scroll stop s00, 0 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T155633-jury-states/w320/home/mobile-s00",
+            "kind": "scroll",
+            "stop": 0,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0,
+            "label": "s00",
+            "duplicateOf": "20261022T153705Z-prejury-2/home/mobile-s00",
+            "capture": "20261022T155633-jury-states",
+            "capturedAt": "2026-10-22T15:58:56.976Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T155633-jury-states/w320/home/mobile-s00.png",
+            "manifest": ".awards/captures/20261022T155633-jury-states/w320/home/manifest.json",
+            "viewport": {
+              "width": 320,
+              "height": 700
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T155633-jury-states/home/w320-home-mobile-s00-360.webp",
+              "width": 360,
+              "height": 788,
+              "bytes": 32680
+            },
+            "full": {
+              "src": "proof/20261022T155633-jury-states/home/w320-home-mobile-s00-360.webp",
+              "width": 360,
+              "height": 788,
+              "bytes": 32680
+            },
+            "alt": "Screenshot of the home page at phone width (320 × 700), at scroll stop s00, 0 % down; capture 20261022T155633-jury-states.",
+            "marks": [
+              {
+                "id": "cross-12",
+                "type": "cross",
+                "section": "Usability walk",
+                "source": "walk-8",
+                "line": "- walk 8 — fail — no overflow at 320 px, but `overflow-wrap: anywhere` (`src/styles/base.css:65`) splits commands and paths inside tokens: the primary command reads `burgisimon/awar` / `ds` at 320 (`20261022T155633-jury-states/w320/home/mobile-s00.png`), `doctor.mj` / `s` and `--` / `with-deps` at 390 (`20261022T153705Z-prejury-2/install-html/mobile-s50.png`), `scripts/doctor.m` / `js` at 1440 (`20261022T153705Z-prejury-2/docs-html/desktop-s75.png`); caps Usability at 8",
+                "lineNo": 46,
+                "step": 8,
+                "report": ".awards/jury/2026-10-22.md",
+                "date": "2026-10-22"
+              },
+              {
+                "id": "cross-4",
+                "type": "cross",
+                "section": "Material fixes · Craft",
+                "source": "craft-2",
+                "line": "| `src/styles/base.css:65` (`dt code, .commands code, … { overflow-wrap: anywhere }`) | Let commands and paths break only at spaces and after `/` (break opportunities written at build, `overflow-wrap` no longer `anywhere`), and stack a long term above its description in the /docs spec list where the term column is narrower than the command | `burgisimon/awards`, `doctor.mjs`, `--with-deps` and every script name stay whole at 320, 390 and 1440, with the hanging indent the page map asks for | phone 320 and 390 (home, /install tickets), desktop /docs Scripts | `.awards/captures/20261022T155633-jury-states/w320/routes.json` + `20261022T155633-jury-states/w320/home/mobile-s00.png`, `20261022T153705Z-prejury-2/install-html/mobile-s50.png`, `20261022T153705Z-prejury-2/docs-html/desktop-s75.png` | pending | unresolved |",
+                "lineNo": 92,
+                "cells": {
+                  "Location": "`src/styles/base.css:65` (`dt code, .commands code, … { overflow-wrap: anywhere }`)",
+                  "Change": "Let commands and paths break only at spaces and after `/` (break opportunities written at build, `overflow-wrap` no longer `anywhere`), and stack a long term above its description in the /docs spec list where the term column is narrower than the command",
+                  "Expected visible result": "`burgisimon/awards`, `doctor.mjs`, `--with-deps` and every script name stay whole at 320, 390 and 1440, with the hanging indent the page map asks for",
+                  "Viewport/state": "phone 320 and 390 (home, /install tickets), desktop /docs Scripts",
+                  "Before evidence": "`.awards/captures/20261022T155633-jury-states/w320/routes.json` + `20261022T155633-jury-states/w320/home/mobile-s00.png`, `20261022T153705Z-prejury-2/install-html/mobile-s50.png`, `20261022T153705Z-prejury-2/docs-html/desktop-s75.png`",
+                  "After evidence": "pending",
+                  "Status": "unresolved"
+                },
+                "report": ".awards/jury/2026-10-22.md",
+                "date": "2026-10-22"
+              },
+              {
+                "id": "arrow-4",
+                "type": "arrow",
+                "from": "cross-4",
+                "status": "resolved",
+                "label": "resolved, verdict 2026-10-22",
+                "section": "Verdict",
+                "source": "craft-2",
+                "line": "| 2 | `src/styles/base.css:65` (`dt code, .commands code, … { overflow-wrap: anywhere }`) | Let commands and paths break only at spaces and after `/` (break opportunities written at build, `overflow-wrap` no longer `anywhere`), and stack a long term above its description in the /docs spec list where the term column is narrower than the command | phone 320 and 390 (home, /install tickets), desktop /docs Scripts | `.awards/captures/20261022T155633-jury-states/w320/routes.json` + `20261022T155633-jury-states/w320/home/mobile-s00.png` (`burgisimon/awar` / `ds`), `20261022T153705Z-prejury-2/install-html/mobile-s50.png` (`doctor.mj` / `s`), `20261022T153705Z-prejury-2/docs-html/desktop-s75.png` (`scripts/doctor.m` / `js`) | `.awards/captures/20261022T163356-ship/w320/routes.json` + `w320/home/mobile-s00.png` (`burgisimon/` / `awards`), `install-html/mobile-s50.png` (`npx playwright install` / `--with-deps chromium`; `node <plugin>/scripts/` / `doctor.mjs . --json`, hanging indent), `docs-scripts/docs-html/desktop-s82.png` and `desktop-s88.png` (each script term whole on its own line above its description) | resolved |",
+                "lineNo": 22,
+                "report": ".awards/jury/2026-10-22-verdict.md",
+                "date": "2026-10-22"
+              }
+            ]
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/home/mobile-s25",
+            "kind": "scroll",
+            "stop": 25,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.25,
+            "label": "s25",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:06.202Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/home/mobile-s25.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/home/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/home/mobile-s25-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 26226
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/home/mobile-s25-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 26226
+            },
+            "alt": "Screenshot of the home page at phone width (390 × 844), at scroll stop s25, 25 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/home/mobile-s50",
+            "kind": "scroll",
+            "stop": 50,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.5,
+            "label": "s50",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:06.202Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/home/mobile-s50.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/home/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/home/mobile-s50-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 18940
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/home/mobile-s50-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 18940
+            },
+            "alt": "Screenshot of the home page at phone width (390 × 844), at scroll stop s50, 50 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/home/mobile-s75",
+            "kind": "scroll",
+            "stop": 75,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.75,
+            "label": "s75",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:06.202Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/home/mobile-s75.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/home/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/home/mobile-s75-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 23204
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/home/mobile-s75-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 23204
+            },
+            "alt": "Screenshot of the home page at phone width (390 × 844), at scroll stop s75, 75 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/home/mobile-s100",
+            "kind": "scroll",
+            "stop": 100,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 1,
+            "label": "s100",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:06.202Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/home/mobile-s100.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/home/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/home/mobile-s100-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 19530
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/home/mobile-s100-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 19530
+            },
+            "alt": "Screenshot of the home page at phone width (390 × 844), at scroll stop s100, 100 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          }
+        ]
+      }
+    },
+    {
+      "slug": "install-html",
+      "name": "install",
+      "path": "/install.html",
+      "captures": [
+        "20261022T153705Z-prejury-2"
+      ],
+      "builds": [
+        "0.7.0+6846b08.db50265"
+      ],
+      "caption": "Frames: capture 20261022T153705Z-prejury-2, build 0.7.0+6846b08.db50265 · Marks: report 2026-10-22",
+      "frames": {
+        "desktop": [
+          {
+            "id": "20261022T153705Z-prejury-2/install-html/desktop-s00",
+            "kind": "scroll",
+            "stop": 0,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0,
+            "label": "s00",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:36.958Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/install-html/desktop-s00.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/install-html/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/desktop-s00-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 15550
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/desktop-s00-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 15550
+            },
+            "alt": "Screenshot of the /install.html page at desktop width (1440 × 900), at scroll stop s00, 0 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/install-html/desktop-s25",
+            "kind": "scroll",
+            "stop": 25,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.25,
+            "label": "s25",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:36.958Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/install-html/desktop-s25.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/install-html/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/desktop-s25-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 20862
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/desktop-s25-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 20862
+            },
+            "alt": "Screenshot of the /install.html page at desktop width (1440 × 900), at scroll stop s25, 25 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/install-html/desktop-s50",
+            "kind": "scroll",
+            "stop": 50,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.5,
+            "label": "s50",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:36.958Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/install-html/desktop-s50.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/install-html/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/desktop-s50-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 19546
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/desktop-s50-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 19546
+            },
+            "alt": "Screenshot of the /install.html page at desktop width (1440 × 900), at scroll stop s50, 50 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/install-html/desktop-s75",
+            "kind": "scroll",
+            "stop": 75,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.75,
+            "label": "s75",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:36.958Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/install-html/desktop-s75.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/install-html/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/desktop-s75-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 18440
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/desktop-s75-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 18440
+            },
+            "alt": "Screenshot of the /install.html page at desktop width (1440 × 900), at scroll stop s75, 75 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/install-html/desktop-s100",
+            "kind": "scroll",
+            "stop": 100,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 1,
+            "label": "s100",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:36.958Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/install-html/desktop-s100.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/install-html/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/desktop-s100-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 16216
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/desktop-s100-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 16216
+            },
+            "alt": "Screenshot of the /install.html page at desktop width (1440 × 900), at scroll stop s100, 100 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          }
+        ],
+        "tablet": [
+          {
+            "id": "20261022T153705Z-prejury-2/install-html/tablet-s00",
+            "kind": "scroll",
+            "stop": 0,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0,
+            "label": "s00",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:36.958Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/install-html/tablet-s00.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/install-html/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/tablet-s00-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 22798
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/tablet-s00-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 22798
+            },
+            "alt": "Screenshot of the /install.html page at tablet width (834 × 1194), at scroll stop s00, 0 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/install-html/tablet-s25",
+            "kind": "scroll",
+            "stop": 25,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.25,
+            "label": "s25",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:36.958Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/install-html/tablet-s25.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/install-html/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/tablet-s25-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 26724
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/tablet-s25-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 26724
+            },
+            "alt": "Screenshot of the /install.html page at tablet width (834 × 1194), at scroll stop s25, 25 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/install-html/tablet-s50",
+            "kind": "scroll",
+            "stop": 50,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.5,
+            "label": "s50",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:36.958Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/install-html/tablet-s50.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/install-html/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/tablet-s50-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 25604
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/tablet-s50-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 25604
+            },
+            "alt": "Screenshot of the /install.html page at tablet width (834 × 1194), at scroll stop s50, 50 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/install-html/tablet-s75",
+            "kind": "scroll",
+            "stop": 75,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.75,
+            "label": "s75",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:36.958Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/install-html/tablet-s75.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/install-html/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/tablet-s75-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 23114
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/tablet-s75-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 23114
+            },
+            "alt": "Screenshot of the /install.html page at tablet width (834 × 1194), at scroll stop s75, 75 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/install-html/tablet-s100",
+            "kind": "scroll",
+            "stop": 100,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 1,
+            "label": "s100",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:36.958Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/install-html/tablet-s100.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/install-html/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/tablet-s100-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 18590
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/tablet-s100-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 18590
+            },
+            "alt": "Screenshot of the /install.html page at tablet width (834 × 1194), at scroll stop s100, 100 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          }
+        ],
+        "mobile": [
+          {
+            "id": "20261022T153705Z-prejury-2/install-html/mobile-s00",
+            "kind": "scroll",
+            "stop": 0,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0,
+            "label": "s00",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:36.958Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/install-html/mobile-s00.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/install-html/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/mobile-s00-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 27556
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/mobile-s00-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 27556
+            },
+            "alt": "Screenshot of the /install.html page at phone width (390 × 844), at scroll stop s00, 0 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/install-html/mobile-s25",
+            "kind": "scroll",
+            "stop": 25,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.25,
+            "label": "s25",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:36.958Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/install-html/mobile-s25.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/install-html/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/mobile-s25-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 32012
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/mobile-s25-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 32012
+            },
+            "alt": "Screenshot of the /install.html page at phone width (390 × 844), at scroll stop s25, 25 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/install-html/mobile-s50",
+            "kind": "scroll",
+            "stop": 50,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.5,
+            "label": "s50",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:36.958Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/install-html/mobile-s50.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/install-html/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/mobile-s50-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 32690
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/mobile-s50-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 32690
+            },
+            "alt": "Screenshot of the /install.html page at phone width (390 × 844), at scroll stop s50, 50 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": [
+              {
+                "id": "cross-13",
+                "type": "cross",
+                "section": "Usability walk",
+                "source": "walk-8",
+                "line": "- walk 8 — fail — no overflow at 320 px, but `overflow-wrap: anywhere` (`src/styles/base.css:65`) splits commands and paths inside tokens: the primary command reads `burgisimon/awar` / `ds` at 320 (`20261022T155633-jury-states/w320/home/mobile-s00.png`), `doctor.mj` / `s` and `--` / `with-deps` at 390 (`20261022T153705Z-prejury-2/install-html/mobile-s50.png`), `scripts/doctor.m` / `js` at 1440 (`20261022T153705Z-prejury-2/docs-html/desktop-s75.png`); caps Usability at 8",
+                "lineNo": 46,
+                "step": 8,
+                "report": ".awards/jury/2026-10-22.md",
+                "date": "2026-10-22"
+              },
+              {
+                "id": "cross-5",
+                "type": "cross",
+                "section": "Material fixes · Craft",
+                "source": "craft-2",
+                "line": "| `src/styles/base.css:65` (`dt code, .commands code, … { overflow-wrap: anywhere }`) | Let commands and paths break only at spaces and after `/` (break opportunities written at build, `overflow-wrap` no longer `anywhere`), and stack a long term above its description in the /docs spec list where the term column is narrower than the command | `burgisimon/awards`, `doctor.mjs`, `--with-deps` and every script name stay whole at 320, 390 and 1440, with the hanging indent the page map asks for | phone 320 and 390 (home, /install tickets), desktop /docs Scripts | `.awards/captures/20261022T155633-jury-states/w320/routes.json` + `20261022T155633-jury-states/w320/home/mobile-s00.png`, `20261022T153705Z-prejury-2/install-html/mobile-s50.png`, `20261022T153705Z-prejury-2/docs-html/desktop-s75.png` | pending | unresolved |",
+                "lineNo": 92,
+                "cells": {
+                  "Location": "`src/styles/base.css:65` (`dt code, .commands code, … { overflow-wrap: anywhere }`)",
+                  "Change": "Let commands and paths break only at spaces and after `/` (break opportunities written at build, `overflow-wrap` no longer `anywhere`), and stack a long term above its description in the /docs spec list where the term column is narrower than the command",
+                  "Expected visible result": "`burgisimon/awards`, `doctor.mjs`, `--with-deps` and every script name stay whole at 320, 390 and 1440, with the hanging indent the page map asks for",
+                  "Viewport/state": "phone 320 and 390 (home, /install tickets), desktop /docs Scripts",
+                  "Before evidence": "`.awards/captures/20261022T155633-jury-states/w320/routes.json` + `20261022T155633-jury-states/w320/home/mobile-s00.png`, `20261022T153705Z-prejury-2/install-html/mobile-s50.png`, `20261022T153705Z-prejury-2/docs-html/desktop-s75.png`",
+                  "After evidence": "pending",
+                  "Status": "unresolved"
+                },
+                "report": ".awards/jury/2026-10-22.md",
+                "date": "2026-10-22"
+              },
+              {
+                "id": "arrow-5",
+                "type": "arrow",
+                "from": "cross-5",
+                "status": "resolved",
+                "label": "resolved, verdict 2026-10-22",
+                "section": "Verdict",
+                "source": "craft-2",
+                "line": "| 2 | `src/styles/base.css:65` (`dt code, .commands code, … { overflow-wrap: anywhere }`) | Let commands and paths break only at spaces and after `/` (break opportunities written at build, `overflow-wrap` no longer `anywhere`), and stack a long term above its description in the /docs spec list where the term column is narrower than the command | phone 320 and 390 (home, /install tickets), desktop /docs Scripts | `.awards/captures/20261022T155633-jury-states/w320/routes.json` + `20261022T155633-jury-states/w320/home/mobile-s00.png` (`burgisimon/awar` / `ds`), `20261022T153705Z-prejury-2/install-html/mobile-s50.png` (`doctor.mj` / `s`), `20261022T153705Z-prejury-2/docs-html/desktop-s75.png` (`scripts/doctor.m` / `js`) | `.awards/captures/20261022T163356-ship/w320/routes.json` + `w320/home/mobile-s00.png` (`burgisimon/` / `awards`), `install-html/mobile-s50.png` (`npx playwright install` / `--with-deps chromium`; `node <plugin>/scripts/` / `doctor.mjs . --json`, hanging indent), `docs-scripts/docs-html/desktop-s82.png` and `desktop-s88.png` (each script term whole on its own line above its description) | resolved |",
+                "lineNo": 22,
+                "report": ".awards/jury/2026-10-22-verdict.md",
+                "date": "2026-10-22"
+              }
+            ]
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/install-html/mobile-s75",
+            "kind": "scroll",
+            "stop": 75,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.75,
+            "label": "s75",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:36.958Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/install-html/mobile-s75.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/install-html/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/mobile-s75-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 33392
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/mobile-s75-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 33392
+            },
+            "alt": "Screenshot of the /install.html page at phone width (390 × 844), at scroll stop s75, 75 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/install-html/mobile-s100",
+            "kind": "scroll",
+            "stop": 100,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 1,
+            "label": "s100",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:37:36.958Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/install-html/mobile-s100.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/install-html/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/mobile-s100-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 19726
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/install-html/mobile-s100-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 19726
+            },
+            "alt": "Screenshot of the /install.html page at phone width (390 × 844), at scroll stop s100, 100 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          }
+        ]
+      }
+    },
+    {
+      "slug": "docs-html",
+      "name": "docs",
+      "path": "/docs.html",
+      "captures": [
+        "20261022T153705Z-prejury-2"
+      ],
+      "builds": [
+        "0.7.0+6846b08.db50265"
+      ],
+      "caption": "Frames: capture 20261022T153705Z-prejury-2, build 0.7.0+6846b08.db50265 · Marks: report 2026-10-22",
+      "frames": {
+        "desktop": [
+          {
+            "id": "20261022T153705Z-prejury-2/docs-html/desktop-s00",
+            "kind": "scroll",
+            "stop": 0,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0,
+            "label": "s00",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:03.764Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/docs-html/desktop-s00.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/docs-html/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/desktop-s00-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 15550
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/desktop-s00-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 15550
+            },
+            "alt": "Screenshot of the /docs.html page at desktop width (1440 × 900), at scroll stop s00, 0 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/docs-html/desktop-s25",
+            "kind": "scroll",
+            "stop": 25,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.25,
+            "label": "s25",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:03.764Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/docs-html/desktop-s25.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/docs-html/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/desktop-s25-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 19804
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/desktop-s25-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 19804
+            },
+            "alt": "Screenshot of the /docs.html page at desktop width (1440 × 900), at scroll stop s25, 25 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/docs-html/desktop-s50",
+            "kind": "scroll",
+            "stop": 50,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.5,
+            "label": "s50",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:03.764Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/docs-html/desktop-s50.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/docs-html/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/desktop-s50-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 18962
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/desktop-s50-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 18962
+            },
+            "alt": "Screenshot of the /docs.html page at desktop width (1440 × 900), at scroll stop s50, 50 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": [
+              {
+                "id": "cross-10",
+                "type": "cross",
+                "section": "Material fixes · Craft",
+                "source": "craft-3",
+                "line": "| `index.html:28`, `:39`, `:80`, `:173` (\"89 audit rules after every edit\") against `index.html:175` and `plugins/awards/hooks/hooks.json:32` (`audit.mjs --quick`); `index.html:160` and `docs.html:129` (the ship rule) | Say what runs when (a static quick pass after every edit in Claude Code, after each batch in Codex, all 89 rules with `--render`), and print the ship rule once, from one source, as the jury applies it: weighted 7.2 or higher, no axis under 6.8, no P0 or P1, every contract row kept, usability walk steps 1 and 3 passed | The lede, the meta and OG descriptions and chapter 4's heading agree with chapter 4's body and the hook; home and /docs state the same ship rule | every width: home s00 and chapters 3–4, /docs Jury | `20261022T153705Z-prejury-2/home/desktop-s00.png`, `20261022T154816-jury/desktop-s62.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png`, `20261022T153705Z-prejury-2/docs-html/desktop-s50.png` | pending | unresolved |",
+                "lineNo": 93,
+                "cells": {
+                  "Location": "`index.html:28`, `:39`, `:80`, `:173` (\"89 audit rules after every edit\") against `index.html:175` and `plugins/awards/hooks/hooks.json:32` (`audit.mjs --quick`); `index.html:160` and `docs.html:129` (the ship rule)",
+                  "Change": "Say what runs when (a static quick pass after every edit in Claude Code, after each batch in Codex, all 89 rules with `--render`), and print the ship rule once, from one source, as the jury applies it: weighted 7.2 or higher, no axis under 6.8, no P0 or P1, every contract row kept, usability walk steps 1 and 3 passed",
+                  "Expected visible result": "The lede, the meta and OG descriptions and chapter 4's heading agree with chapter 4's body and the hook; home and /docs state the same ship rule",
+                  "Viewport/state": "every width: home s00 and chapters 3–4, /docs Jury",
+                  "Before evidence": "`20261022T153705Z-prejury-2/home/desktop-s00.png`, `20261022T154816-jury/desktop-s62.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png`, `20261022T153705Z-prejury-2/docs-html/desktop-s50.png`",
+                  "After evidence": "pending",
+                  "Status": "unresolved"
+                },
+                "report": ".awards/jury/2026-10-22.md",
+                "date": "2026-10-22"
+              },
+              {
+                "id": "arrow-10",
+                "type": "arrow",
+                "from": "cross-10",
+                "status": "resolved",
+                "label": "resolved, verdict 2026-10-22",
+                "section": "Verdict",
+                "source": "craft-3",
+                "line": "| 3 | `index.html:28`, `:39`, `:80`, `:173` (\"89 audit rules after every edit\") against `index.html:175` and `plugins/awards/hooks/hooks.json:32` (`audit.mjs --quick`); `index.html:160` and `docs.html:129` (the ship rule) | Say what runs when (a static quick pass after every edit in Claude Code, after each batch in Codex, all 89 rules with `--render`), and print the ship rule once, from one source, as the jury applies it: weighted 7.2 or higher, no axis under 6.8, no P0 or P1, every contract row kept, usability walk steps 1 and 3 passed | every width: home s00 and chapters 3–4, /docs Jury | `20261022T153705Z-prejury-2/home/desktop-s00.png`, `20261022T154816-jury/desktop-s62.png`, `20261022T153705Z-prejury-2/home/desktop-s50.png`, `20261022T153705Z-prejury-2/docs-html/desktop-s50.png` | `.awards/captures/20261022T163356-ship/home/desktop-s00.png` (lede: \"a quick audit as it edits and all 89 rules on the rendered page at three widths\"), `chapters/desktop-s62.png` and `chapters/desktop-s70.png` (heading \"89 rules, the fast ones as you edit\", body names the hook, Codex and `--render`), `home/desktop-s50.png` and `docs-html/desktop-s50.png` (the same four dispositions word for word); `dist/index.html` meta and OG descriptions agree | resolved |",
+                "lineNo": 23,
+                "report": ".awards/jury/2026-10-22-verdict.md",
+                "date": "2026-10-22"
+              }
+            ]
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/docs-html/desktop-s75",
+            "kind": "scroll",
+            "stop": 75,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.75,
+            "label": "s75",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:03.764Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/docs-html/desktop-s75.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/docs-html/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/desktop-s75-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 16718
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/desktop-s75-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 16718
+            },
+            "alt": "Screenshot of the /docs.html page at desktop width (1440 × 900), at scroll stop s75, 75 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": [
+              {
+                "id": "cross-14",
+                "type": "cross",
+                "section": "Usability walk",
+                "source": "walk-8",
+                "line": "- walk 8 — fail — no overflow at 320 px, but `overflow-wrap: anywhere` (`src/styles/base.css:65`) splits commands and paths inside tokens: the primary command reads `burgisimon/awar` / `ds` at 320 (`20261022T155633-jury-states/w320/home/mobile-s00.png`), `doctor.mj` / `s` and `--` / `with-deps` at 390 (`20261022T153705Z-prejury-2/install-html/mobile-s50.png`), `scripts/doctor.m` / `js` at 1440 (`20261022T153705Z-prejury-2/docs-html/desktop-s75.png`); caps Usability at 8",
+                "lineNo": 46,
+                "step": 8,
+                "report": ".awards/jury/2026-10-22.md",
+                "date": "2026-10-22"
+              },
+              {
+                "id": "cross-6",
+                "type": "cross",
+                "section": "Material fixes · Craft",
+                "source": "craft-2",
+                "line": "| `src/styles/base.css:65` (`dt code, .commands code, … { overflow-wrap: anywhere }`) | Let commands and paths break only at spaces and after `/` (break opportunities written at build, `overflow-wrap` no longer `anywhere`), and stack a long term above its description in the /docs spec list where the term column is narrower than the command | `burgisimon/awards`, `doctor.mjs`, `--with-deps` and every script name stay whole at 320, 390 and 1440, with the hanging indent the page map asks for | phone 320 and 390 (home, /install tickets), desktop /docs Scripts | `.awards/captures/20261022T155633-jury-states/w320/routes.json` + `20261022T155633-jury-states/w320/home/mobile-s00.png`, `20261022T153705Z-prejury-2/install-html/mobile-s50.png`, `20261022T153705Z-prejury-2/docs-html/desktop-s75.png` | pending | unresolved |",
+                "lineNo": 92,
+                "cells": {
+                  "Location": "`src/styles/base.css:65` (`dt code, .commands code, … { overflow-wrap: anywhere }`)",
+                  "Change": "Let commands and paths break only at spaces and after `/` (break opportunities written at build, `overflow-wrap` no longer `anywhere`), and stack a long term above its description in the /docs spec list where the term column is narrower than the command",
+                  "Expected visible result": "`burgisimon/awards`, `doctor.mjs`, `--with-deps` and every script name stay whole at 320, 390 and 1440, with the hanging indent the page map asks for",
+                  "Viewport/state": "phone 320 and 390 (home, /install tickets), desktop /docs Scripts",
+                  "Before evidence": "`.awards/captures/20261022T155633-jury-states/w320/routes.json` + `20261022T155633-jury-states/w320/home/mobile-s00.png`, `20261022T153705Z-prejury-2/install-html/mobile-s50.png`, `20261022T153705Z-prejury-2/docs-html/desktop-s75.png`",
+                  "After evidence": "pending",
+                  "Status": "unresolved"
+                },
+                "report": ".awards/jury/2026-10-22.md",
+                "date": "2026-10-22"
+              },
+              {
+                "id": "arrow-6",
+                "type": "arrow",
+                "from": "cross-6",
+                "status": "resolved",
+                "label": "resolved, verdict 2026-10-22",
+                "section": "Verdict",
+                "source": "craft-2",
+                "line": "| 2 | `src/styles/base.css:65` (`dt code, .commands code, … { overflow-wrap: anywhere }`) | Let commands and paths break only at spaces and after `/` (break opportunities written at build, `overflow-wrap` no longer `anywhere`), and stack a long term above its description in the /docs spec list where the term column is narrower than the command | phone 320 and 390 (home, /install tickets), desktop /docs Scripts | `.awards/captures/20261022T155633-jury-states/w320/routes.json` + `20261022T155633-jury-states/w320/home/mobile-s00.png` (`burgisimon/awar` / `ds`), `20261022T153705Z-prejury-2/install-html/mobile-s50.png` (`doctor.mj` / `s`), `20261022T153705Z-prejury-2/docs-html/desktop-s75.png` (`scripts/doctor.m` / `js`) | `.awards/captures/20261022T163356-ship/w320/routes.json` + `w320/home/mobile-s00.png` (`burgisimon/` / `awards`), `install-html/mobile-s50.png` (`npx playwright install` / `--with-deps chromium`; `node <plugin>/scripts/` / `doctor.mjs . --json`, hanging indent), `docs-scripts/docs-html/desktop-s82.png` and `desktop-s88.png` (each script term whole on its own line above its description) | resolved |",
+                "lineNo": 22,
+                "report": ".awards/jury/2026-10-22-verdict.md",
+                "date": "2026-10-22"
+              }
+            ]
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/docs-html/desktop-s100",
+            "kind": "scroll",
+            "stop": 100,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 1,
+            "label": "s100",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:03.764Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/docs-html/desktop-s100.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/docs-html/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/desktop-s100-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 15284
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/desktop-s100-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 15284
+            },
+            "alt": "Screenshot of the /docs.html page at desktop width (1440 × 900), at scroll stop s100, 100 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          }
+        ],
+        "tablet": [
+          {
+            "id": "20261022T153705Z-prejury-2/docs-html/tablet-s00",
+            "kind": "scroll",
+            "stop": 0,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0,
+            "label": "s00",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:03.764Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/docs-html/tablet-s00.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/docs-html/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/tablet-s00-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 23642
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/tablet-s00-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 23642
+            },
+            "alt": "Screenshot of the /docs.html page at tablet width (834 × 1194), at scroll stop s00, 0 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/docs-html/tablet-s25",
+            "kind": "scroll",
+            "stop": 25,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.25,
+            "label": "s25",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:03.764Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/docs-html/tablet-s25.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/docs-html/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/tablet-s25-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 27050
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/tablet-s25-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 27050
+            },
+            "alt": "Screenshot of the /docs.html page at tablet width (834 × 1194), at scroll stop s25, 25 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/docs-html/tablet-s50",
+            "kind": "scroll",
+            "stop": 50,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.5,
+            "label": "s50",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:03.764Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/docs-html/tablet-s50.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/docs-html/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/tablet-s50-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 21568
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/tablet-s50-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 21568
+            },
+            "alt": "Screenshot of the /docs.html page at tablet width (834 × 1194), at scroll stop s50, 50 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/docs-html/tablet-s75",
+            "kind": "scroll",
+            "stop": 75,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.75,
+            "label": "s75",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:03.764Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/docs-html/tablet-s75.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/docs-html/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/tablet-s75-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 21540
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/tablet-s75-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 21540
+            },
+            "alt": "Screenshot of the /docs.html page at tablet width (834 × 1194), at scroll stop s75, 75 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/docs-html/tablet-s100",
+            "kind": "scroll",
+            "stop": 100,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 1,
+            "label": "s100",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:03.764Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/docs-html/tablet-s100.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/docs-html/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/tablet-s100-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 18066
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/tablet-s100-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 18066
+            },
+            "alt": "Screenshot of the /docs.html page at tablet width (834 × 1194), at scroll stop s100, 100 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          }
+        ],
+        "mobile": [
+          {
+            "id": "20261022T153705Z-prejury-2/docs-html/mobile-s00",
+            "kind": "scroll",
+            "stop": 0,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0,
+            "label": "s00",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:03.764Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/docs-html/mobile-s00.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/docs-html/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/mobile-s00-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 25946
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/mobile-s00-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 25946
+            },
+            "alt": "Screenshot of the /docs.html page at phone width (390 × 844), at scroll stop s00, 0 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/docs-html/mobile-s25",
+            "kind": "scroll",
+            "stop": 25,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.25,
+            "label": "s25",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:03.764Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/docs-html/mobile-s25.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/docs-html/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/mobile-s25-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 38630
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/mobile-s25-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 38630
+            },
+            "alt": "Screenshot of the /docs.html page at phone width (390 × 844), at scroll stop s25, 25 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/docs-html/mobile-s50",
+            "kind": "scroll",
+            "stop": 50,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.5,
+            "label": "s50",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:03.764Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/docs-html/mobile-s50.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/docs-html/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/mobile-s50-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 25468
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/mobile-s50-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 25468
+            },
+            "alt": "Screenshot of the /docs.html page at phone width (390 × 844), at scroll stop s50, 50 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/docs-html/mobile-s75",
+            "kind": "scroll",
+            "stop": 75,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.75,
+            "label": "s75",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:03.764Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/docs-html/mobile-s75.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/docs-html/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/mobile-s75-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 32568
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/mobile-s75-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 32568
+            },
+            "alt": "Screenshot of the /docs.html page at phone width (390 × 844), at scroll stop s75, 75 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/docs-html/mobile-s100",
+            "kind": "scroll",
+            "stop": 100,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 1,
+            "label": "s100",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:03.764Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/docs-html/mobile-s100.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/docs-html/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/mobile-s100-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 19726
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/docs-html/mobile-s100-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 19726
+            },
+            "alt": "Screenshot of the /docs.html page at phone width (390 × 844), at scroll stop s100, 100 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          }
+        ]
+      }
+    },
+    {
+      "slug": "recipes-html",
+      "name": "recipes",
+      "path": "/recipes.html",
+      "captures": [
+        "20261022T153705Z-prejury-2"
+      ],
+      "builds": [
+        "0.7.0+6846b08.db50265"
+      ],
+      "caption": "Frames: capture 20261022T153705Z-prejury-2, build 0.7.0+6846b08.db50265 · Marks: report 2026-10-22",
+      "frames": {
+        "desktop": [
+          {
+            "id": "20261022T153705Z-prejury-2/recipes-html/desktop-s00",
+            "kind": "scroll",
+            "stop": 0,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0,
+            "label": "s00",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:30.709Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/desktop-s00.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/desktop-s00-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 21138
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/desktop-s00-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 21138
+            },
+            "alt": "Screenshot of the /recipes.html page at desktop width (1440 × 900), at scroll stop s00, 0 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/recipes-html/desktop-s25",
+            "kind": "scroll",
+            "stop": 25,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.25,
+            "label": "s25",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:30.709Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/desktop-s25.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/desktop-s25-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 30380
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/desktop-s25-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 30380
+            },
+            "alt": "Screenshot of the /recipes.html page at desktop width (1440 × 900), at scroll stop s25, 25 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/recipes-html/desktop-s50",
+            "kind": "scroll",
+            "stop": 50,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.5,
+            "label": "s50",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:30.709Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/desktop-s50.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/desktop-s50-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 22982
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/desktop-s50-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 22982
+            },
+            "alt": "Screenshot of the /recipes.html page at desktop width (1440 × 900), at scroll stop s50, 50 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/recipes-html/desktop-s75",
+            "kind": "scroll",
+            "stop": 75,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.75,
+            "label": "s75",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:30.709Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/desktop-s75.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/desktop-s75-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 30132
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/desktop-s75-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 30132
+            },
+            "alt": "Screenshot of the /recipes.html page at desktop width (1440 × 900), at scroll stop s75, 75 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/recipes-html/desktop-s100",
+            "kind": "scroll",
+            "stop": 100,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 1,
+            "label": "s100",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:30.709Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/desktop-s100.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/desktop-s100-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 16912
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/desktop-s100-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 16912
+            },
+            "alt": "Screenshot of the /recipes.html page at desktop width (1440 × 900), at scroll stop s100, 100 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          }
+        ],
+        "tablet": [
+          {
+            "id": "20261022T153705Z-prejury-2/recipes-html/tablet-s00",
+            "kind": "scroll",
+            "stop": 0,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0,
+            "label": "s00",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:30.709Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/tablet-s00.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/tablet-s00-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 21696
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/tablet-s00-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 21696
+            },
+            "alt": "Screenshot of the /recipes.html page at tablet width (834 × 1194), at scroll stop s00, 0 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/recipes-html/tablet-s25",
+            "kind": "scroll",
+            "stop": 25,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.25,
+            "label": "s25",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:30.709Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/tablet-s25.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/tablet-s25-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 25836
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/tablet-s25-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 25836
+            },
+            "alt": "Screenshot of the /recipes.html page at tablet width (834 × 1194), at scroll stop s25, 25 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/recipes-html/tablet-s50",
+            "kind": "scroll",
+            "stop": 50,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.5,
+            "label": "s50",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:30.709Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/tablet-s50.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/tablet-s50-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 29084
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/tablet-s50-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 29084
+            },
+            "alt": "Screenshot of the /recipes.html page at tablet width (834 × 1194), at scroll stop s50, 50 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/recipes-html/tablet-s75",
+            "kind": "scroll",
+            "stop": 75,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.75,
+            "label": "s75",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:30.709Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/tablet-s75.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/tablet-s75-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 31306
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/tablet-s75-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 31306
+            },
+            "alt": "Screenshot of the /recipes.html page at tablet width (834 × 1194), at scroll stop s75, 75 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/recipes-html/tablet-s100",
+            "kind": "scroll",
+            "stop": 100,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 1,
+            "label": "s100",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:30.709Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/tablet-s100.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/tablet-s100-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 17432
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/tablet-s100-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 17432
+            },
+            "alt": "Screenshot of the /recipes.html page at tablet width (834 × 1194), at scroll stop s100, 100 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          }
+        ],
+        "mobile": [
+          {
+            "id": "20261022T153705Z-prejury-2/recipes-html/mobile-s00",
+            "kind": "scroll",
+            "stop": 0,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0,
+            "label": "s00",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:30.709Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/mobile-s00.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/mobile-s00-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 28154
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/mobile-s00-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 28154
+            },
+            "alt": "Screenshot of the /recipes.html page at phone width (390 × 844), at scroll stop s00, 0 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/recipes-html/mobile-s25",
+            "kind": "scroll",
+            "stop": 25,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.25,
+            "label": "s25",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:30.709Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/mobile-s25.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/mobile-s25-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 19782
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/mobile-s25-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 19782
+            },
+            "alt": "Screenshot of the /recipes.html page at phone width (390 × 844), at scroll stop s25, 25 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/recipes-html/mobile-s50",
+            "kind": "scroll",
+            "stop": 50,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.5,
+            "label": "s50",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:30.709Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/mobile-s50.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/mobile-s50-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 32192
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/mobile-s50-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 32192
+            },
+            "alt": "Screenshot of the /recipes.html page at phone width (390 × 844), at scroll stop s50, 50 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/recipes-html/mobile-s75",
+            "kind": "scroll",
+            "stop": 75,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.75,
+            "label": "s75",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:30.709Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/mobile-s75.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/mobile-s75-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 39110
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/mobile-s75-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 39110
+            },
+            "alt": "Screenshot of the /recipes.html page at phone width (390 × 844), at scroll stop s75, 75 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/recipes-html/mobile-s100",
+            "kind": "scroll",
+            "stop": 100,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 1,
+            "label": "s100",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:30.709Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/mobile-s100.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/mobile-s100-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 19512
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/recipes-html/mobile-s100-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 19512
+            },
+            "alt": "Screenshot of the /recipes.html page at phone width (390 × 844), at scroll stop s100, 100 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          }
+        ]
+      }
+    },
+    {
+      "slug": "404-html",
+      "name": "404",
+      "path": "/404.html",
+      "captures": [
+        "20261022T153705Z-prejury-2"
+      ],
+      "builds": [
+        "0.7.0+6846b08.db50265"
+      ],
+      "caption": "Frames: capture 20261022T153705Z-prejury-2, build 0.7.0+6846b08.db50265 · Marks: report 2026-10-22",
+      "frames": {
+        "desktop": [
+          {
+            "id": "20261022T153705Z-prejury-2/404-html/desktop-s00",
+            "kind": "scroll",
+            "stop": 0,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0,
+            "label": "s00",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:58.277Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/404-html/desktop-s00.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/404-html/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/desktop-s00-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 16842
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/desktop-s00-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 16842
+            },
+            "alt": "Screenshot of the /404.html page at desktop width (1440 × 900), at scroll stop s00, 0 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/404-html/desktop-s25",
+            "kind": "scroll",
+            "stop": 25,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.25,
+            "label": "s25",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:58.277Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/404-html/desktop-s25.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/404-html/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/desktop-s25-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 15902
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/desktop-s25-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 15902
+            },
+            "alt": "Screenshot of the /404.html page at desktop width (1440 × 900), at scroll stop s25, 25 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/404-html/desktop-s50",
+            "kind": "scroll",
+            "stop": 50,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.5,
+            "label": "s50",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:58.277Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/404-html/desktop-s50.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/404-html/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/desktop-s50-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 14306
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/desktop-s50-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 14306
+            },
+            "alt": "Screenshot of the /404.html page at desktop width (1440 × 900), at scroll stop s50, 50 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/404-html/desktop-s75",
+            "kind": "scroll",
+            "stop": 75,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.75,
+            "label": "s75",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:58.277Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/404-html/desktop-s75.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/404-html/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/desktop-s75-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 15140
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/desktop-s75-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 15140
+            },
+            "alt": "Screenshot of the /404.html page at desktop width (1440 × 900), at scroll stop s75, 75 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/404-html/desktop-s100",
+            "kind": "scroll",
+            "stop": 100,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 1,
+            "label": "s100",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:58.277Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/404-html/desktop-s100.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/404-html/manifest.json",
+            "viewport": {
+              "width": 1440,
+              "height": 900
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/desktop-s100-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 14804
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/desktop-s100-600.webp",
+              "width": 600,
+              "height": 375,
+              "bytes": 14804
+            },
+            "alt": "Screenshot of the /404.html page at desktop width (1440 × 900), at scroll stop s100, 100 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          }
+        ],
+        "tablet": [
+          {
+            "id": "20261022T153705Z-prejury-2/404-html/tablet-s00",
+            "kind": "scroll",
+            "stop": 0,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0,
+            "label": "s00",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:58.277Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/404-html/tablet-s00.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/404-html/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/tablet-s00-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 18036
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/tablet-s00-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 18036
+            },
+            "alt": "Screenshot of the /404.html page at tablet width (834 × 1194), at scroll stop s00, 0 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/404-html/tablet-s25",
+            "kind": "scroll",
+            "stop": 25,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.25,
+            "label": "s25",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:58.277Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/404-html/tablet-s25.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/404-html/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/tablet-s25-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 18334
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/tablet-s25-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 18334
+            },
+            "alt": "Screenshot of the /404.html page at tablet width (834 × 1194), at scroll stop s25, 25 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/404-html/tablet-s50",
+            "kind": "scroll",
+            "stop": 50,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.5,
+            "label": "s50",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:58.277Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/404-html/tablet-s50.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/404-html/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/tablet-s50-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 17338
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/tablet-s50-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 17338
+            },
+            "alt": "Screenshot of the /404.html page at tablet width (834 × 1194), at scroll stop s50, 50 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/404-html/tablet-s75",
+            "kind": "scroll",
+            "stop": 75,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.75,
+            "label": "s75",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:58.277Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/404-html/tablet-s75.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/404-html/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/tablet-s75-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 16352
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/tablet-s75-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 16352
+            },
+            "alt": "Screenshot of the /404.html page at tablet width (834 × 1194), at scroll stop s75, 75 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/404-html/tablet-s100",
+            "kind": "scroll",
+            "stop": 100,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 1,
+            "label": "s100",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:58.277Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/404-html/tablet-s100.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/404-html/manifest.json",
+            "viewport": {
+              "width": 834,
+              "height": 1194
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/tablet-s100-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 17386
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/tablet-s100-360.webp",
+              "width": 360,
+              "height": 515,
+              "bytes": 17386
+            },
+            "alt": "Screenshot of the /404.html page at tablet width (834 × 1194), at scroll stop s100, 100 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          }
+        ],
+        "mobile": [
+          {
+            "id": "20261022T153705Z-prejury-2/404-html/mobile-s00",
+            "kind": "scroll",
+            "stop": 0,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0,
+            "label": "s00",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:58.277Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/404-html/mobile-s00.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/404-html/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/mobile-s00-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 22852
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/mobile-s00-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 22852
+            },
+            "alt": "Screenshot of the /404.html page at phone width (390 × 844), at scroll stop s00, 0 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/404-html/mobile-s25",
+            "kind": "scroll",
+            "stop": 25,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.25,
+            "label": "s25",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:58.277Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/404-html/mobile-s25.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/404-html/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": true,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/mobile-s25-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 20914
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/mobile-s25-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 20914
+            },
+            "alt": "Screenshot of the /404.html page at phone width (390 × 844), at scroll stop s25, 25 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/404-html/mobile-s50",
+            "kind": "scroll",
+            "stop": 50,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.5,
+            "label": "s50",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:58.277Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/404-html/mobile-s50.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/404-html/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/mobile-s50-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 16660
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/mobile-s50-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 16660
+            },
+            "alt": "Screenshot of the /404.html page at phone width (390 × 844), at scroll stop s50, 50 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/404-html/mobile-s75",
+            "kind": "scroll",
+            "stop": 75,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 0.75,
+            "label": "s75",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:58.277Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/404-html/mobile-s75.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/404-html/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/mobile-s75-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 17958
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/mobile-s75-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 17958
+            },
+            "alt": "Screenshot of the /404.html page at phone width (390 × 844), at scroll stop s75, 75 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          },
+          {
+            "id": "20261022T153705Z-prejury-2/404-html/mobile-s100",
+            "kind": "scroll",
+            "stop": 100,
+            "state": null,
+            "variants": [],
+            "near": null,
+            "at": 1,
+            "label": "s100",
+            "capture": "20261022T153705Z-prejury-2",
+            "capturedAt": "2026-10-22T15:38:58.277Z",
+            "build": "0.7.0+6846b08.db50265",
+            "source": ".awards/captures/20261022T153705Z-prejury-2/404-html/mobile-s100.png",
+            "manifest": ".awards/captures/20261022T153705Z-prejury-2/404-html/manifest.json",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "eager": false,
+            "strip": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/mobile-s100-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 19512
+            },
+            "full": {
+              "src": "proof/20261022T153705Z-prejury-2/404-html/mobile-s100-360.webp",
+              "width": 360,
+              "height": 779,
+              "bytes": 19512
+            },
+            "alt": "Screenshot of the /404.html page at phone width (390 × 844), at scroll stop s100, 100 % down; capture 20261022T153705Z-prejury-2.",
+            "marks": []
+          }
+        ]
+      }
+    }
+  ],
+  "metrics": {
+    "note": "lab figures from headless Chromium (capture.mjs); never field Core Web Vitals",
+    "routes": [
+      {
+        "route": "home",
+        "path": "/",
+        "manifest": ".awards/captures/20261022T153705Z-prejury-2/home/manifest.json",
+        "capturedAt": "2026-10-22T15:37:06.202Z",
+        "pageErrors": 0,
+        "consoleErrors": 0,
+        "failedRequests": 0,
+        "viewports": {
+          "desktop": {
+            "cls": 0,
+            "blockingMs": 0,
+            "longTasks": 0
+          },
+          "tablet": {
+            "cls": 0,
+            "blockingMs": 0,
+            "longTasks": 0
+          },
+          "mobile": {
+            "cls": 0,
+            "blockingMs": 0,
+            "longTasks": 0
+          },
+          "desktop-rm": {
+            "cls": 0,
+            "blockingMs": 0,
+            "longTasks": 0
+          }
+        }
+      },
+      {
+        "route": "install-html",
+        "path": "/install.html",
+        "manifest": ".awards/captures/20261022T153705Z-prejury-2/install-html/manifest.json",
+        "capturedAt": "2026-10-22T15:37:36.958Z",
+        "pageErrors": 0,
+        "consoleErrors": 0,
+        "failedRequests": 0,
+        "viewports": {
+          "desktop": {
+            "cls": 0,
+            "blockingMs": 0,
+            "longTasks": 0
+          },
+          "tablet": {
+            "cls": 0,
+            "blockingMs": 0,
+            "longTasks": 0
+          },
+          "mobile": {
+            "cls": 0,
+            "blockingMs": 0,
+            "longTasks": 0
+          },
+          "desktop-rm": {
+            "cls": 0,
+            "blockingMs": 0,
+            "longTasks": 0
+          }
+        }
+      },
+      {
+        "route": "docs-html",
+        "path": "/docs.html",
+        "manifest": ".awards/captures/20261022T153705Z-prejury-2/docs-html/manifest.json",
+        "capturedAt": "2026-10-22T15:38:03.764Z",
+        "pageErrors": 0,
+        "consoleErrors": 0,
+        "failedRequests": 0,
+        "viewports": {
+          "desktop": {
+            "cls": 0,
+            "blockingMs": 0,
+            "longTasks": 0
+          },
+          "tablet": {
+            "cls": 0,
+            "blockingMs": 0,
+            "longTasks": 0
+          },
+          "mobile": {
+            "cls": 0,
+            "blockingMs": 0,
+            "longTasks": 0
+          },
+          "desktop-rm": {
+            "cls": 0,
+            "blockingMs": 0,
+            "longTasks": 0
+          }
+        }
+      },
+      {
+        "route": "recipes-html",
+        "path": "/recipes.html",
+        "manifest": ".awards/captures/20261022T153705Z-prejury-2/recipes-html/manifest.json",
+        "capturedAt": "2026-10-22T15:38:30.709Z",
+        "pageErrors": 0,
+        "consoleErrors": 0,
+        "failedRequests": 0,
+        "viewports": {
+          "desktop": {
+            "cls": 0,
+            "blockingMs": 0,
+            "longTasks": 0
+          },
+          "tablet": {
+            "cls": 0,
+            "blockingMs": 0,
+            "longTasks": 0
+          },
+          "mobile": {
+            "cls": 0,
+            "blockingMs": 12,
+            "longTasks": 1
+          },
+          "desktop-rm": {
+            "cls": 0,
+            "blockingMs": 0,
+            "longTasks": 0
+          }
+        }
+      },
+      {
+        "route": "404-html",
+        "path": "/404.html",
+        "manifest": ".awards/captures/20261022T153705Z-prejury-2/404-html/manifest.json",
+        "capturedAt": "2026-10-22T15:38:58.277Z",
+        "pageErrors": 0,
+        "consoleErrors": 0,
+        "failedRequests": 0,
+        "viewports": {
+          "desktop": {
+            "cls": 0,
+            "blockingMs": 0,
+            "longTasks": 0
+          },
+          "tablet": {
+            "cls": 0,
+            "blockingMs": 0,
+            "longTasks": 0
+          },
+          "mobile": {
+            "cls": 0,
+            "blockingMs": 0,
+            "longTasks": 0
+          },
+          "desktop-rm": {
+            "cls": 0,
+            "blockingMs": 0,
+            "longTasks": 0
+          }
+        }
+      },
+      {
+        "route": "recipes-html",
+        "path": "/recipes.html",
+        "manifest": ".awards/captures/20261022T155633-jury-states/filter/recipes-html/manifest.json",
+        "capturedAt": "2026-10-22T15:58:49.213Z",
+        "pageErrors": 0,
+        "consoleErrors": 0,
+        "failedRequests": 0,
+        "viewports": {
+          "desktop": {
+            "cls": 0,
+            "blockingMs": 0,
+            "longTasks": 0
+          }
+        }
+      },
+      {
+        "route": "home",
+        "path": "/",
+        "manifest": ".awards/captures/20261022T155633-jury-states/w320/home/manifest.json",
+        "capturedAt": "2026-10-22T15:58:56.976Z",
+        "pageErrors": 0,
+        "consoleErrors": 0,
+        "failedRequests": 0,
+        "viewports": {
+          "mobile": {
+            "cls": 0,
+            "blockingMs": 0,
+            "longTasks": 0
+          }
+        }
+      },
+      {
+        "route": "install-html",
+        "path": "/install.html",
+        "manifest": ".awards/captures/20261022T155633-jury-states/w320/install-html/manifest.json",
+        "capturedAt": "2026-10-22T15:59:02.014Z",
+        "pageErrors": 0,
+        "consoleErrors": 0,
+        "failedRequests": 0,
+        "viewports": {
+          "mobile": {
+            "cls": 0,
+            "blockingMs": 0,
+            "longTasks": 0
+          }
+        }
+      },
+      {
+        "route": "docs-html",
+        "path": "/docs.html",
+        "manifest": ".awards/captures/20261022T155633-jury-states/w320/docs-html/manifest.json",
+        "capturedAt": "2026-10-22T15:59:05.735Z",
+        "pageErrors": 0,
+        "consoleErrors": 0,
+        "failedRequests": 0,
+        "viewports": {
+          "mobile": {
+            "cls": 0,
+            "blockingMs": 0,
+            "longTasks": 0
+          }
+        }
+      }
+    ],
+    "max": {
+      "cls": 0,
+      "blockingMs": 12
+    },
+    "pageErrors": 0
+  },
+  "audit": {
+    "file": ".awards/audit.json",
+    "date": "2026-10-22T17:17:44.932Z",
+    "target": ".",
+    "scannedFiles": 35,
+    "summary": {
+      "P0": 0,
+      "P1": 0,
+      "P2": 0,
+      "P3": 0
+    },
+    "exceptions": 3,
+    "rendered": {
+      "axe": "axe-core 4.14.0",
+      "viewports": {
+        "desktop": {
+          "textsMeasured": 224,
+          "textsOverImagery": 0,
+          "clsLoad": 0,
+          "focusStops": 8,
+          "sweepSteps": 18
+        },
+        "tablet": {
+          "textsMeasured": 222,
+          "textsOverImagery": 0,
+          "clsLoad": 0,
+          "sweepSteps": 16
+        },
+        "mobile": {
+          "textsMeasured": 216,
+          "textsOverImagery": 0,
+          "clsLoad": 0,
+          "sweepSteps": 29
+        }
+      }
+    }
+  },
+  "summary": {
+    "frames": 80,
+    "files": 83,
+    "bytes": 2002518,
+    "marks": {
+      "ring": 3,
+      "cross": 14,
+      "arrow": 11
+    }
+  },
+  "og": {
+    "src": "og.png",
+    "width": 1200,
+    "height": 630,
+    "bytes": 128056,
+    "frame": "20261022T153705Z-prejury-2/home/desktop-s00",
+    "source": ".awards/captures/20261022T153705Z-prejury-2/home/desktop-s00.png",
+    "capture": "20261022T153705Z-prejury-2",
+    "build": "0.7.0+6846b08.db50265",
+    "alt": "This page’s own first screen as the capture shot it, in a black film rebate: the strip of its frames and the install ticket ringed in red pencil, beside the line “Your site, proofed before anyone sees it.” on white proof paper."
+  },
+  "skipped": [
+    {
+      "file": ".awards/jury/2026-10-22-baseline.md",
+      "reason": "baseline (never a page round)"
+    }
+  ]
+}
