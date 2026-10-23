@@ -56,6 +56,7 @@ html.has-gl .microscope { opacity: 1; }
 .chapter--block {
   min-height: 100svh; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: calc(var(--gutter) / 2);
   align-items: center; padding-top: calc(64px + 4vh); padding-bottom: calc(var(--unit) * 12); background: var(--ground);
+  overflow-x: clip; /* the bench line runs past the column; the fade below the hero still overflows downward */
 }
 .chapter--block::after {
   content: ""; position: absolute; z-index: 1; left: 0; right: 0; top: 100%; height: 16vh; pointer-events: none;
