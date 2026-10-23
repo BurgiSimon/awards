@@ -48,6 +48,7 @@ async function startGL() {
   if (!('WebGL2RenderingContext' in window)) return;
   const quality = await detectQualityTier({ sampleMs: 400 });
   awards.addState(() => ({ quality: quality.tier }));
+  if (!quality.probe.webgl2) return; // the API can exist while no context can be made (blocklists, --disable-webgl)
   try {
     const { mountScene } = await import('./webgl/scene.js');
     cable.attach(mountScene(document.querySelector('.cable__gl'), quality));

@@ -8,8 +8,8 @@
 - [x] Visual system written (system → DESIGN.md, tokens.css)
 - [x] Page map and skeleton built (structure)
 - [x] Stack booted (stack)
-- [ ] Motion score authored and built (motion)
-- [ ] WebGL layer built or explicitly declined (webgl)
+- [x] Motion score authored and built (motion)
+- [x] WebGL layer built or explicitly declined (webgl)
 - [ ] Jury disposition: —
 - [ ] Shipped (ship)
 
@@ -75,6 +75,7 @@ Responsive strategy: vw-lock above 768 px through the `clamp()` tokens (1440 art
 - Entry JS (gz): 56.2 KB measured at the motion checkpoint (49.3 KB at stack), budget ≤ 200 KB · GL chunk (gz): 140 KB (Three 0.186 at 137.1 KB plus the cable scene at 2.9 KB), lazy, budget ≤ 250 KB · Models: none, no glb and no KTX2 (the armour, the grapnel and the cut cable are generated) · Textures per scene: none · Fonts (files / KB): 4 / 55 KB · LCP target: ≤ 2.5 s on a throttled phone, from the DOM claim · Tiers: high (pixel ratio ≤ 2 inside 2560 × 1440, MSAA) / mid (≤ 1.5 inside 1920 × 1080, MSAA) / low (1 inside 1280 × 720, no MSAA) → without WebGL2 or on context loss, the drawn cable strands and the SVG seabed and cutaway, moved by the same score.
 - Stack: Vite 8.3 + vanilla JS, MPA (index and 404), relative base; GSAP 3.15 and Lenis 1.3 on GSAP's ticker; Three 0.186 behind a dynamic import in its own chunk; scroll model native + Lenis with one sticky stage (built: the drag holds at 190 vh; the splice opens as its drawing crosses the viewport, without a second held stage, because the cutaway reads in one screen); resize re-measures on ScrollTrigger's refresh, never a reload; no route transitions (one page). Camera: one orthographic camera in CSS pixels that never moves; the page's native scroll answers the arrow, Page and Home/End keys. The scene mounts once and disposes on `pagehide`.
 - Deep modes: motion gsap · webgl 3d — because the signature is one rendered object (an armoured cable and its grapnel) whose pay-out, bend and cutaway are scrubbed through one paused timeline.
+- WebGL verify (2026-10-23): `.awards/captures/20261023T121702Z-webgl/manifest.json` — webgl true, one canvas at every width, `gl` true, 0 console, page or request errors, the reduced frames settled (lay still, drag hooked, cable open); `.awards/captures/20261023T121702Z-nogl/manifest.json` — gl false, the drawn cable, grapnel, seabed and cutaway in place, headings and copy identical, 0 errors (the Three context error on a WebGL-less browser was removed by gating on the probe). Audit perf, a11y: P03, P06, P07, A04 clean. Deep mode 3D: no glb or KTX2 (generated geometry, sizes above); no decoders; the camera is fixed and the native scroll answers the keys; one mount, disposed on `pagehide`. Deep mode GSAP: every scroll-mapped score row names `master@<label>` or `hero@payout`, the rest `—`; both timelines live in one `gsap.matchMedia()`; scrubbed tweens on `ease: 'none'`; reduced is a matchMedia branch. Real device frame times: unmeasured (sandbox, SwiftShader only).
 - Mode: full
 
 ## Jury log

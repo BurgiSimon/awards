@@ -8,8 +8,8 @@
 - [x] Visual system written (system → DESIGN.md, tokens.css)
 - [x] Page map and skeleton built (structure)
 - [x] Stack booted (stack)
-- [ ] Motion score authored and built (motion)
-- [ ] WebGL layer built or explicitly declined (webgl)
+- [x] Motion score authored and built (motion)
+- [x] WebGL layer built or explicitly declined (webgl)
 - [ ] Jury disposition: —
 - [ ] Shipped (ship)
 
@@ -71,6 +71,7 @@ Responsive strategy: vw-lock above 768 px through the `clamp()` tokens (1440 art
 - Entry JS (gz): 54.4 KB measured at the motion checkpoint (49.4 KB at stack), budget ≤ 200 KB · GL chunk (gz): 4.6 KB shader and driver-free field module plus 0.3 KB pigment data, lazy, budget ≤ 20 KB · Textures per scene: none (every grain is procedural) · Fonts (files / KB): 4 / 80 KB · LCP target: ≤ 2.5 s on a throttled phone, from the DOM claim · Tiers: high (pixel ratio ≤ 1.5 inside a 2560 × 1440 budget) / mid (≤ 1.5 inside 1920 × 1080) / low (0.6 of its 1280 × 720 budget, floor 0.5; built: the low tier still renders the field, at reduced resolution, because it renders only on a dirty frame) → without WebGL2 or on context loss, the CSS and SVG stills.
 - Stack: Vite 8.3 + vanilla JS, MPA (index and 404), relative base; GSAP 3.15 and Lenis 1.3 on GSAP's ticker; the field is raw WebGL2 (no library) behind a dynamic import; scroll model native + Lenis with one sticky stage; resize rebuilds on a debounced ResizeObserver, never a reload; no route transitions (one page).
 - Deep modes: motion none · webgl shader — because the signature is one procedural field (seven pigments' grains, their boundaries and the infrared view) and the motion is a scroll-read stage position, not a choreography.
+- WebGL verify (2026-10-23): `.awards/captures/20261023T121702Z-webgl/manifest.json` — webgl true, one canvas at every width, `gl` true, 0 console, page or request errors, the reduced frames cut to one layer each; `.awards/captures/20261023T121702Z-nogl/manifest.json` — gl false, the CSS and SVG stills under every plaque, the readout and the infrared toggle still working, 0 errors. Audit perf, a11y: P03, P06, P07, A04 clean. Deep mode shader: the field converts linear to sRGB itself at the end of the fragment shader (raw WebGL2, no three colour pipeline); depth, magnification and infrared are fed from the one ticker, with rest values (the anchored depth, the layer's magnification, infrared 0); no post chain. Real device frame times: unmeasured (sandbox, SwiftShader only).
 - Mode: full
 
 ## Jury log
