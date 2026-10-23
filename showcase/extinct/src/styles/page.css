@@ -14,7 +14,7 @@
   background: var(--ground); border-bottom: 1px solid var(--line);
 }
 .museum a { text-decoration: none; }
-.museum__name { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--font-display); font-weight: 600; font-size: 1.0625rem; letter-spacing: -0.005em; }
+.museum__name { display: inline-flex; align-items: center; min-height: 44px; white-space: nowrap; font-family: var(--font-display); font-weight: 600; font-size: 1.0625rem; letter-spacing: -0.005em; }
 .museum__nav ol { display: flex; justify-content: center; flex-wrap: wrap; gap: 0 calc(var(--unit) * 5); }
 .museum__nav a {
   position: relative; display: inline-flex; align-items: center; gap: 0.45em; min-height: 44px;
@@ -30,6 +30,8 @@
 .museum__book:hover { background: var(--ground); color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
 .museum__menu { display: none; }
 .museum__menu[aria-expanded="true"] { background: var(--ink); color: var(--ground); }
+.museum__now { margin-right: 0.5em; }
+.museum__now[hidden] { display: none; }
 .chip { display: inline-block; flex: none; width: 10px; height: 10px; background: var(--chip); box-shadow: 0 0 0 1px var(--ink); }
 
 /* ——— Buttons ——— */
@@ -55,6 +57,10 @@ html.has-gl .microscope { opacity: 1; }
   min-height: 100svh; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: calc(var(--gutter) / 2);
   align-items: center; padding-top: calc(64px + 4vh); padding-bottom: calc(var(--unit) * 12); background: var(--ground);
 }
+.chapter--block::after {
+  content: ""; position: absolute; z-index: 1; left: 0; right: 0; top: 100%; height: 16vh; pointer-events: none;
+  background: linear-gradient(var(--ground), color-mix(in oklab, var(--ground) 0%, transparent));
+}
 .block__copy { grid-column: 1 / span 6; display: grid; gap: calc(var(--unit) * 7); }
 .block__lede { max-width: 30em; }
 .block__action { display: flex; flex-wrap: wrap; align-items: center; gap: calc(var(--unit) * 3) calc(var(--unit) * 5); max-width: none; }
@@ -63,29 +69,52 @@ html.has-gl .microscope { opacity: 1; }
 .specimen figcaption { max-width: 26em; font-size: 1rem; color: var(--muted); text-align: center; }
 .specimen figcaption .label { display: block; color: var(--ink); margin-bottom: 0.25rem; }
 
-/* The resin block: cast epoxy, clear, so it takes the ground's colour; light caught on its polished top edge and gathered
-   at its base, its thickness showing as the top face just above eye level, and the paint in section on its front. */
+/* The resin block: cast epoxy, clear, so the bench behind it shows through, blurred; a crisp top edge where the polished
+   top meets the front, the top face drawn as the block's own top, and the light it gathers falling on the bench below
+   instead of a shadow. The reflection band stays fixed while the block turns (it counter-rotates inside the glare). */
+.specimen { position: relative; container-type: inline-size; }
+.specimen::before {
+  content: ""; position: absolute; z-index: -1; left: -6%; right: -6%; top: calc(min(100cqw, 30rem) * 0.8 * 0.74); height: 1px;
+  background: color-mix(in oklab, var(--ink) 30%, var(--ground));
+}
 .resin {
-  position: relative; isolation: isolate; width: min(100%, 30rem); aspect-ratio: 5 / 4; border-radius: var(--radius-block);
+  position: relative; isolation: isolate; width: min(100%, 30rem); aspect-ratio: 5 / 4;
+  border-radius: 5px 5px var(--radius-block) var(--radius-block);
   background:
-    radial-gradient(140% 90% at 22% -10%, rgb(255 255 255 / 0.7), rgb(255 255 255 / 0) 52%),
-    linear-gradient(to top, rgb(255 255 255 / 0.55), rgb(255 255 255 / 0) 10%),
-    linear-gradient(100deg, color-mix(in oklab, var(--ink) 6%, var(--ground)), color-mix(in oklab, var(--ink) 13%, var(--ground)) 70%, color-mix(in oklab, var(--ink) 19%, var(--ground)));
+    linear-gradient(to top, rgb(255 255 255 / 0.5), rgb(255 255 255 / 0) 9%),
+    linear-gradient(100deg, color-mix(in oklab, var(--ink) 5%, transparent), color-mix(in oklab, var(--ink) 11%, transparent) 70%, color-mix(in oklab, var(--ink) 17%, transparent));
+  -webkit-backdrop-filter: blur(2.5px); backdrop-filter: blur(2.5px);
   box-shadow:
     inset 0 1.5px 0 rgb(255 255 255 / 0.95),
-    inset 0 0 0 1px color-mix(in oklab, var(--ink) 24%, transparent),
-    inset 14px 0 20px -14px rgb(255 255 255 / 0.75),
-    inset -18px 0 26px -18px rgb(0 0 0 / 0.16),
-    inset 0 -22px 30px -24px rgb(0 0 0 / 0.22),
-    0 1px 0 color-mix(in oklab, var(--ink) 30%, transparent),
-    0 34px 48px -30px rgb(0 0 0 / 0.38);
+    inset 0 0 0 1px color-mix(in oklab, var(--ink) 22%, transparent),
+    inset 16px 0 18px -16px rgb(255 255 255 / 0.85),
+    inset -16px 0 22px -16px rgb(0 0 0 / 0.14),
+    inset 0 -18px 26px -22px rgb(0 0 0 / 0.2),
+    0 1px 0 color-mix(in oklab, var(--ink) 34%, transparent);
   display: grid; place-items: center; rotate: var(--turn, -3deg);
 }
+/* The first painted frame already stands at the turn's start, so the turn only settles. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js:not([data-motion="static"]) .chapter--block .resin { --turn: 5deg; }
+}
 .resin::after {
-  content: ""; position: absolute; z-index: -1; left: 2.5%; right: 2.5%; top: -6%; height: 14%;
-  border-radius: calc(var(--radius-block) - 4px) calc(var(--radius-block) - 4px) 0 0;
-  background: linear-gradient(to bottom, color-mix(in oklab, var(--ink) 3%, var(--ground)), color-mix(in oklab, var(--ink) 12%, var(--ground)));
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.9), inset 0 0 0 1px color-mix(in oklab, var(--ink) 18%, transparent);
+  content: ""; position: absolute; z-index: -1; left: 0; right: 0; top: -8%; height: calc(8% + 6px);
+  clip-path: polygon(3.5% 0, 96.5% 0, 100% 100%, 0 100%);
+  background: linear-gradient(to bottom, color-mix(in oklab, var(--ink) 4%, var(--ground)), color-mix(in oklab, var(--ink) 13%, var(--ground)));
+}
+.resin__glare { position: absolute; z-index: 3; inset: 0; border-radius: inherit; overflow: hidden; pointer-events: none; mix-blend-mode: screen; }
+.resin__glare::before {
+  content: ""; position: absolute; inset: -40%; rotate: calc(-1 * var(--turn, -3deg));
+  background: linear-gradient(112deg, transparent 40%, rgb(255 255 255 / 0.42) 46.5%, rgb(255 255 255 / 0.1) 50%, transparent 56%);
+}
+.resin__caustic {
+  position: absolute; z-index: -2; left: 10%; right: 10%; top: 98%; height: 16%;
+  background: radial-gradient(50% 60% at 50% 0%, rgb(255 255 255 / 0.85), rgb(255 255 255 / 0.25) 55%, rgb(255 255 255 / 0) 100%);
+}
+.resin__tag {
+  position: absolute; z-index: 2; right: 7%; bottom: 5.5%; padding: 0.125rem 0.5rem;
+  background: #f6f6f2; color: #151719; box-shadow: 0 0 0 1px rgb(0 0 0 / 0.12);
+  font-size: 10px; font-weight: 600; letter-spacing: 0.1em; line-height: 1.4;
 }
 /* The polished window, darker, and in it the sliver of paint: seven layers of real, uneven thickness, with
    wavy boundaries and broken edges, as a cross-section looks under a hand lens. */

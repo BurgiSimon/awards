@@ -161,8 +161,11 @@ void main() {
   vec3 col;
   float glow = 0.0;
   if (k < 0 || k > 6) {
-    // The mounting resin: clear, so it reads dark and faintly mottled in reflected light.
-    col = vec3(0.045, 0.047, 0.05) * (0.85 + 0.3 * fbm(um * 0.01));
+    // The mounting resin, the same pale cast epoxy as the block in the first screen, so the hero's ground runs into it:
+    // faintly mottled, with the fine scratches the polishing left.
+    col = vec3(0.6, 0.615, 0.6) * (0.94 + 0.08 * fbm(um * 0.012));
+    float scratch = smoothstep(0.035, 0.0, abs(fract((um.x * 0.82 + um.y * 0.57) * 0.045 + fbm(um * 0.004) * 3.0) - 0.5) - 0.465);
+    col *= 1.0 - 0.04 * scratch * smoothstep(0.45, 0.7, fbm(um * 0.006 + 4.0));
   } else {
     col = paint(k, um, glow);
   }

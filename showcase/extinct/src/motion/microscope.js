@@ -24,6 +24,7 @@ export function createMicroscope({ awards, announce, tier }) {
     layer: stage.querySelector('[data-stage-layer]'),
     mag: stage.querySelector('[data-stage-mag]'),
   };
+  const now = document.querySelector('.museum__now');
   const links = new Map([...document.querySelectorAll('.museum__nav a[data-layer]')].map((a) => [Number(a.dataset.layer), a]));
   const plaques = [...document.querySelectorAll('article.plaque[data-layer-at]')];
   const still = () => tier() !== 'full';
@@ -107,6 +108,11 @@ export function createMicroscope({ awards, announce, tier }) {
     if (shown.current !== current) {
       shown.current = current;
       links.forEach((a, n) => (n === current ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current')));
+      // On phones the Colours toggle carries the current pigment's chip: where the visitor is, in the line itself.
+      if (now) {
+        now.hidden = current === 0;
+        if (current) now.style.setProperty('--chip', LAYERS[current - 1].hex);
+      }
     }
     return k;
   }
@@ -166,11 +172,19 @@ export function createMicroscope({ awards, announce, tier }) {
   async function start() {
     if (!('WebGL2RenderingContext' in window)) return;
     const profile = await detectQualityTier({ sampleMs: 400 });
+    // `?tier=high|mid|low` overrides the probe, so a reviewer on a software renderer can see the tier it would refuse.
+    const forced = new URLSearchParams(location.search).get('tier');
+    if (['high', 'mid', 'low'].includes(forced)) {
+      Object.assign(profile, { tier: forced, dpr: Math.min(devicePixelRatio || 1, forced === 'high' ? 2 : forced === 'mid' ? 1.5 : 1) });
+      if (forced !== 'low') profile.maxPixels = forced === 'high' ? 2560 * 1440 : 1920 * 1080;
+    }
+    awards.addState(() => ({ quality: profile.tier }));
+    if (!profile.probe.webgl2 || profile.tier === 'low') return; // the contract's low tier is the stills
     const budget = () => {
       const w = Math.max(1, canvas.clientWidth);
       const h = Math.max(1, canvas.clientHeight);
       const cap = Math.min(profile.dpr, 1.5, Math.sqrt(profile.maxPixels / (w * h)));
-      return profile.tier === 'low' ? Math.max(0.5, cap * 0.6) : cap;
+      return cap;
     };
     try {
       const { createField } = await import('../webgl/field.js');
@@ -184,7 +198,6 @@ export function createMicroscope({ awards, announce, tier }) {
     const d = depthFor(scrollY);
     if (!field.render({ depth: d, umPerPx: umPerPx(d), ir: view.ir })) return lose();
     root.classList.add('has-gl');
-    awards.addState(() => ({ quality: profile.tier }));
     addEventListener('resize', () => field?.setPixelRatio(budget()));
   }
 
