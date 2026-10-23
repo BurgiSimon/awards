@@ -48,7 +48,7 @@ export function createRegister({ announce = () => {} }) {
   mm.add({ full: '(prefers-reduced-motion: no-preference)', reduce: '(prefers-reduced-motion: reduce)' }, (ctx) => {
     reduced = ctx.conditions.reduce;
     // master@sheet 4.20 mm → master@run 2.90 → master@floor 1.40 → master@check 0.00; scrubbed, so linear.
-    master = gsap.timeline({ paused: true, defaults: { ease: 'none', duration: 1 }, onUpdate: apply })
+    master = gsap.timeline({ paused: true, defaults: { ease: 'none', duration: 1 } })
       .addLabel('sheet')
       .to(plate, { mm: 2.9 })
       .addLabel('run')
@@ -115,6 +115,7 @@ export function createRegister({ announce = () => {} }) {
     lastY = y;
     const t = timeAt(y);
     master.seek(t, false);
+    apply(); // a seek that lands where it already is fires no update, so the plate is written every time
     if (!stamped && t >= 3) {
       stamped = true;
       stampTl?.play();
