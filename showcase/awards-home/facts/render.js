@@ -22,7 +22,7 @@ function install(id, f) {
   const panel = (key, label, cmds, then) => `
           <div class="install__panel" role="tabpanel" id="${id}-${key}" aria-labelledby="${id}-tab-${key}" data-panel="${key}">
             <p class="install__for">${label}</p>
-            <pre class="install__code"><code>${cmds.map(esc).join('\n')}</code></pre>
+            <pre class="install__code"><code>${cmds.map((c) => `<span class="install__cmd">${esc(c)}</span>`).join('\n')}</code></pre>
             <p class="install__then">${then}</p>
           </div>`;
   return `<div class="install" data-install id="${id}">

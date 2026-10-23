@@ -83,7 +83,7 @@ The frontmatter is the machine-readable layer; every value is identical in `src/
 | Hairlines, crop marks | `--line` | ink 20 % into paper |
 | Overprint | — | yellow under key multiplies to key; never a new token |
 
-Contrast (WCAG 2.x, computed): key on paper 15.13 : 1; muted on paper 5.92 : 1; key on yellow 11.84 : 1 (labels and headlines on solids); yellow on paper 1.28 : 1, so yellow is never text or a lone focus indicator; muted text never sits on yellow. Focus ring: 2 px key outline, 4 px offset (15.13 : 1 on paper, 11.84 : 1 on yellow). There is one theme (`proof`); the 404 uses the same tokens. Chroma from imagery: the halftone of the Ekvator proof is printed in the two inks, so no third hue appears even there.
+Contrast (WCAG 2.x, computed): key on paper 15.13 : 1; muted on paper 5.92 : 1; key on yellow 11.84 : 1 (labels and headlines on solids); yellow on paper 1.28 : 1, so yellow is never text or a lone focus indicator; muted text never sits on yellow. Focus ring: 2 px key outline at 3 px offset over a 3 px yellow inner rule (the key carries the contrast, 15.13 : 1 on paper and 11.84 : 1 on yellow; the yellow is the second plate's mark, never the indicator on its own). There is one theme (`proof`); the 404 uses the same tokens. Chroma from imagery: the halftone of the Ekvator proof is printed in the two inks, so no third hue appears even there.
 
 ## Typography
 Voice: a sturdy American gothic with the cadence of trade-press headlines, condensed when it shouts, plain when it reads, wide and tracked when it labels a plate.
@@ -119,7 +119,7 @@ Radius 0. Rectangular solids; circles only in the registration targets and halft
 
 ## Components
 - **Slug line (nav):** fixed top; job name and version left, plate names as chapter links across (K, then the phases), the live register error in mm and the current phase name right. States: link hover underline, focus ring, `aria-current` on the chapter in view. Phone: job name, error, and a "Plates" button that opens the chapter list (a non-modal dialog, Escape closes).
-- **Install block:** a tablist (Claude Code, Codex) over two commands in `<pre><code>`; one primary button "Copy the install commands" copies the visible tab's two lines; a status line says "Copied" or explains a blocked clipboard and selects the text instead. States: hover (yellow ground, key text), focus ring, active 1 px press, success, error.
+- **Install block:** a tablist (Claude Code, Codex) over two commands in `<pre><code>`; the tabs stand on the code panel's top edge, the selected one filled yellow; tab and button labels are set in the reading voice (wdth 100, sentence case), never the furniture's tracked capitals; one primary button "Copy the install commands" copies the visible tab's two lines; on a phone each command hangs under its first line; a status line says "Copied" or explains a blocked clipboard and selects the text instead. States: hover (yellow ground, key text), focus ring, active 1 px press, success, error.
 - **Register layer:** every yellow element carries `data-plate="y"` and is transformed by one scroll-read value; reduced motion steps it per chapter.
 - **Skill run rows:** an `<ol>` of the eleven skills in order, name, one line of job, the phase number; hover and focus draw a yellow solid under the row.
 - **Colour bar (the floor):** the audit's families as patches with their rule counts as text, a `<dl>` under the visual bar.
@@ -137,7 +137,7 @@ Register: mechanical. A press run is short, firm and exact.
 ## Browser surfaces
 - `::selection` yellow with key text; `caret-color` key.
 - Scrollbar thin, key thumb on paper.
-- `:focus-visible` 2 px key ring, 4 px offset, everywhere.
+- `:focus-visible` 2 px key ring at 3 px offset with a 3 px yellow inner rule, everywhere; the phone's Plates button draws it inset so it stays inside the slug line.
 - `color-scheme: light`; `<meta name="theme-color">` paper `#f3f2ee`.
 - Favicon: a registration target in key with its yellow twin offset (SVG). Open Graph image: the first viewport of the sheet, 1200 × 630.
 

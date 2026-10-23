@@ -24,12 +24,13 @@ const announce = (text) => {
 createInstall({ announce });
 createPlates();
 await document.fonts.ready;
-const register = createRegister({ tier: motionTier(), announce });
+const register = createRegister({ announce });
 ScrollTrigger.refresh();
 window.addEventListener('load', () => { register.refresh(); ScrollTrigger.refresh(); }, { once: true });
 
 awards.addState(() => ({ motion: motionTier(), gl: false, ...register.state() }));
-const offMotion = onMotionTierChange((next) => register.setTier(next));
+// The register's matchMedia rebuilds its timelines when the setting flips; the anchors only need re-reading.
+const offMotion = onMotionTierChange(() => register.refresh());
 import.meta.hot?.dispose(() => {
   offMotion();
   register.destroy();

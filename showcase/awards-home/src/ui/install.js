@@ -53,8 +53,11 @@ export function createInstall({ announce }) {
         const sel = getSelection();
         sel.removeAllRanges();
         sel.addRange(range);
-        button.textContent = 'Selected: press Ctrl+C or ⌘C';
-        announce(`The clipboard is blocked here, so the two ${label} commands are selected: press Control C or Command C to copy them.`);
+        const touch = matchMedia('(pointer: coarse)').matches;
+        button.textContent = touch ? 'Selected: choose Copy' : 'Selected: press Ctrl+C or ⌘C';
+        announce(touch
+          ? `The clipboard is blocked here, so the two ${label} commands are selected: choose Copy from the selection menu.`
+          : `The clipboard is blocked here, so the two ${label} commands are selected: press Control C or Command C to copy them.`);
       }
       clearTimeout(button.__t);
       button.__t = setTimeout(() => { button.textContent = 'Copy the install commands'; }, 2400);
