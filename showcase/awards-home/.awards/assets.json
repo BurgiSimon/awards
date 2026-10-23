@@ -5,7 +5,7 @@
       "kind": "generated",
       "synthetic": true,
       "credit": "Ekvator proof, key plate: a capture of the Ekvator showcase reprinted as a halftone",
-      "tool": "scripts/halftone.py (PIL), from showcase/ekvator/.awards/captures/component-2/desktop-s00.png",
+      "tool": "scripts/halftone.py (PIL), from showcase/ekvator/.awards/captures/20261023T095536-ship/desktop-s00.png (the ship pass frame)",
       "date": "2026-10-23"
     },
     {
@@ -22,6 +22,30 @@
       "synthetic": false,
       "author": "awards-home build (code)",
       "credit": "Favicon: registration target in two plates",
+      "date": "2026-10-23"
+    },
+    {
+      "file": "public/og.png",
+      "kind": "generated",
+      "synthetic": true,
+      "credit": "Open Graph image: the sheet's own first viewport",
+      "tool": "Playwright screenshot of the built page's first viewport at 1440 × 756, scaled to 1200 × 630",
+      "date": "2026-10-23"
+    },
+    {
+      "file": "public/apple-touch-icon.png",
+      "kind": "drawn",
+      "synthetic": false,
+      "credit": "Touch icon",
+      "tool": "rendered from public/favicon.svg",
+      "date": "2026-10-23"
+    },
+    {
+      "file": "public/favicon-32.png",
+      "kind": "drawn",
+      "synthetic": false,
+      "credit": "PNG favicon",
+      "tool": "rendered from public/favicon.svg",
       "date": "2026-10-23"
     }
   ]

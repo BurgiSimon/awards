@@ -56,8 +56,9 @@ function outside(f) {
 function bar(f) {
   const max = Math.max(...f.rules.families.map((x) => x.count));
   const patches = f.rules.families.map((x) => `<span class="bar__patch" style="--d:${(x.count / max).toFixed(3)}"></span>`).join('');
+  // The key is a legend: each family carries a swatch of its own patch, so the order and the density both match the bar.
   const rows = f.rules.families.map((x) => `
-            <div><dt>${esc(x.name)}</dt><dd>${x.count}</dd></div>`).join('');
+            <div style="--d:${(x.count / max).toFixed(3)}"><dt><span class="bar__swatch" data-plate="y" aria-hidden="true"></span>${esc(x.name)}</dt><dd>${x.count}</dd></div>`).join('');
   return `<div class="bar" data-plate="y" aria-hidden="true">${patches}</div>
           <dl class="bar__key">${rows}
           </dl>`;
