@@ -11,7 +11,7 @@
 - [x] Motion score authored and built (motion)
 - [x] WebGL layer built or explicitly declined (webgl)
 - [x] Jury disposition: ship · 2026-10-23
-- [ ] Shipped (ship)
+- [x] Shipped (ship)
 
 ## Brief
 - **Subject:** The Museum of Extinct Colours, a fictional one-room museum in a former pharmacy on the Hoogstraat in Antwerp, which shows seven pigments that can no longer be bought, each beside the reason it ended: Egyptian blue (the recipe lost after Rome, found again in the nineteenth century), Tyrian purple (about 12,000 sea snails for 1.4 grams), lead-tin yellow (forgotten in the eighteenth century), Indian yellow (made from the urine of cows fed on mango leaves, gone by the early twentieth century), Scheele's green (copper arsenite, 1775, the poison in the wallpaper), mummy brown (ground Egyptian mummies; the last London supplier said in the 1960s it had run out) and uranium red (the glaze that stopped in 1943 when the uranium went to war). Synthetic: the museum, its address, its rooms, its staff, its prices and its opening hours are invented for this build. The pigment histories are real and every fact carries its confidence label in the copy.
@@ -82,10 +82,12 @@ Responsive strategy: vw-lock above 768 px through the `clamp()` tokens (1440 art
   top fixes: 1) draw the resin's top face as the block's own top, never laid over the front face (src/styles/page.css:84-89) 2) render the translucent body and polished window, replace the drop shadow with base light (page.css:68-82, 92-96) 3) paint the +5° start angle before first paint so the load turn only settles (src/main.js:32-37, page.css:82) 4) make the block's exit the first beat of the descent instead of a straight section edge (page.css:54-57); first-pass floors (CTA hit-test, menu focus order) resolved
 - 2026-10-23 · ship · D 7.7 / U 7.6 / C 8.0 / Co 8.2 → 7.8 · dev seo 8.2 / anim 7.6 / a11y 8.0 / wpo 8.0 / resp 7.8 / meta 8.0 → 7.93 · .awards/jury/2026-10-23-page-1.md
   top fixes: 1) low-tier stills: wavy boundaries and per-pigment grain (src/styles/page.css:149-151) 2) low-tier infrared still with glowing specks (src/styles/page.css:178) 3) chapter names at display scale (src/styles/page.css:153)
+- 2026-10-23 · verdict · ship · D 7.9 / U 7.9 / C 8.2 / Co 8.3 → 8.0 · resolved 4 / partial 1 / unresolved 0 · regressions 2
 
 ## Ship log
 <!-- appended by awards:ship — date · audit summary · captures · performance numbers -->
 - 2026-10-23 · audit P0 0 / P1 0 / P2 0 / P3 0 · exceptions 1 · captures 5 valid from .awards/captures/20261023T131833Z-ship/manifest.json · entry 52.8 KB gz · GL 4.9 KB gz · LCP 1.89 s (throttled capture) · CLS 0 · .awards/ship/2026-10-23.md
+- 2026-10-23 · proof pass after verdict ship (8.00) · audit P0 0 / P1 0 / P2 0 / P3 0 · exceptions 1 · captures from .awards/captures/20261023T131833Z-ship/manifest.json and the verdict's 20261023T133225Z passes, all valid · entry 52.8 KB gz · GL 4.9 KB gz · LCP 1.89 s (throttled capture) · CLS 0 · open after ship: 2 regressions, 1 carried · .awards/ship/2026-10-23-2.md
 
 ## Exceptions
 <!-- audit rule ids deliberately accepted, one per line, scoped to a path or viewport where you can: `C02 — pure black is diegetic (night-vision console)`, `C01@src/credits.html — read once over the film still` -->
