@@ -1,42 +1,10 @@
-# awards — public site
+# awards — the plugin's public page
 
-The plugin's own site: home, install, docs and a 404. It was built with the plugin's craft flow; `AWARDS.md` and `DESIGN.md` are the build record.
+A contact sheet of its own captures: five static routes (home, install, docs, recipes, 404) built with Vite, whose counts, commands and rule tables are read from `../plugins/awards` at build time and whose strip of frames comes from this site's own captures. The contract is `AWARDS.md`, the visual system `DESIGN.md`.
 
-Every count and list on the pages (skills, recipes, audit rules, site cards, patterns, the version) is read from `../plugins/awards` at build time by `facts.js`, so a rebuild picks up plugin changes. The readout on the home page comes from `jury.json`, copied from the latest jury report.
+- `npm ci && npm run dev`: the dev server, every page rebound on each request.
+- `npm run build`: `dist/`, deployable from any folder. `SITE_ROOT=/<repo>/` sets the 404's `<base>` (`.github/workflows/site.yml` passes it).
+- `npm run proof`: after a capture, jury or verdict round, rewrites `src/data/proof.json` and `public/proof/` from `.awards/` (see the header of `scripts/proof.mjs`). Both are committed; the build only reads them.
+- `npm run frames`: re-renders each recipe's frame into `public/recipes/` and `src/data/recipes.json`.
 
-## Build
-
-```sh
-npm ci
-npm run build        # writes dist/
-npm run preview      # serves dist/ on localhost to check it
-```
-
-Node 20.19+ or 22.12+. The build needs the rest of this repository next to it (`../plugins/awards`).
-
-## Self-host
-
-`dist/` is plain static files with relative paths, so it works from a domain root or a subfolder. Copy it to any static server.
-
-The 404 page needs to know the site root to find its stylesheet from any depth. It defaults to `/`; for a subfolder build with `SITE_ROOT=/awards/ npm run build`. Then point the server's 404 at it:
-
-```nginx
-error_page 404 /404.html;          # nginx (use /awards/404.html in a subfolder)
-```
-
-```caddy
-handle_errors {
-	rewrite * /404.html
-	file_server
-}
-```
-
-The Open Graph tags use a relative image path; crawlers resolve it best as an absolute URL, so replace `./og.png` in `partials/head.html` with your full URL if link previews matter.
-
-## Checks
-
-```sh
-node ../plugins/awards/scripts/audit.mjs .              # source audit
-node ../plugins/awards/scripts/audit.mjs dist --render  # rendered audit (needs Playwright)
-node ../plugins/awards/scripts/capture.mjs dist --reduced-motion --states .awards/capture-states.json
-```
+Where things live: `facts/` is the build-time binding (a Vite plugin; its header lists the markup it understands), `src/main.js` the boot (Lenis and ScrollTrigger on GSAP's ticker, `window.__awards`, the motion tier), `src/ui/` the page's few behaviours, `src/styles/` the tokens and the sheet.

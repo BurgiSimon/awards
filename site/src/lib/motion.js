@@ -1,53 +1,84 @@
-// Motion vocabulary shared by every page: one easing family, expo-out arrivals, tiered by reduced motion.
+// The house motion vocabulary, read once from tokens.css so GSAP and CSS share one hand (DESIGN.md ## Motion;
+// [recipe:custom-ease-house-defaults]): two curves registered with CustomEase under the token names, and the four
+// duration bands plus the stagger in seconds. Anything scrubbed by scroll stays on ease 'none'.
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { SplitText } from 'gsap/SplitText';
+import { CustomEase } from 'gsap/CustomEase';
 
-gsap.registerPlugin(ScrollTrigger, SplitText);
+gsap.registerPlugin(CustomEase);
 
-export const EASE = {
-  out: 'expo.out',
-  inOut: 'expo.inOut',
-  theme: 'power2.inOut',
-  none: 'none',
+const seconds = (v) => {
+  const s = String(v).trim();
+  const n = parseFloat(s);
+  if (!Number.isFinite(n)) return 0;
+  return s.endsWith('ms') ? n / 1000 : n;
 };
-export const DUR = { feedback: 0.16, routine: 0.4, reveal: 0.9, hero: 1.2, reduced: 0.12 }; // reduced = --dur-routine under reduce
-export const REVEAL_START = 'top 80%';
 
-// Masked line reveal for [data-split] (adapted from recipe split-text-masked-reveal: keep the masked lines and
-// autoSplit; change the travel to 120 % at 0.9 s, stagger .08, trigger at the chapter's top 80 %; pair it with
-// each chapter's entrance). Call after document.fonts.ready: line breaks depend on the real face. Elements in
-// the first viewport play at once; the rest wait for their chapter, once. Returns a cleanup for the tier switch.
-export function revealHeadings(tier, root = document) {
-  if (tier === 'static') return () => {};
-  const els = [...root.querySelectorAll('[data-split]')];
-  const trigger = (el) => (el.getBoundingClientRect().top < innerHeight ? undefined : { trigger: el, start: REVEAL_START, once: true });
-  if (tier === 'reduced') {
-    // No split and no travel: whole elements fade, so the DOM keeps whole sentences.
-    const tweens = els.map((el) => gsap.from(el, { autoAlpha: 0, duration: DUR.reduced, ease: EASE.out, scrollTrigger: trigger(el) }));
-    return () => tweens.forEach((t) => { t.scrollTrigger?.kill(); t.revert(); });
+export const EASE = { out: 'house-out', travel: 'house-travel' };
+export const DUR = { feedback: 0.16, routine: 0.4, mark: 0.6, hero: 1.2, stagger: 0.12 };
+
+// Read at boot and again whenever the tier changes (tokens.css shortens the bands under reduced motion).
+export function readTokens() {
+  const cs = getComputedStyle(document.documentElement);
+  for (const [name, token] of [[EASE.out, '--ease-out-expo'], [EASE.travel, '--ease-in-out-expo']]) {
+    const pts = (cs.getPropertyValue(token).match(/-?\d*\.?\d+/g) || []).map(Number);
+    if (pts.length === 4) CustomEase.create(name, pts.join(','));
   }
-  const copies = [];
-  const splits = els.map((el) => {
-    // A heading may carry the label SplitText adds; ARIA forbids naming a span or paragraph, so a split
-    // non-heading is hidden from assistive tech and a visually hidden copy carries its words instead.
-    const named = /^H[1-6]$/.test(el.tagName);
-    if (!named) {
-      const copy = el.cloneNode(true);
-      copy.className = 'sr-only';
-      copy.removeAttribute('id');
-      for (const key of Object.keys(copy.dataset)) delete copy.dataset[key];
-      el.before(copy);
-      copies.push(copy);
-    }
-    return SplitText.create(el, {
-      type: 'lines', mask: 'lines', autoSplit: true, linesClass: 'line', aria: named ? 'auto' : 'hidden',
-      onSplit(self) {
-        return gsap.from(self.lines, {
-          yPercent: 120, duration: DUR.reveal, ease: EASE.out, stagger: 0.08, scrollTrigger: trigger(el),
-        });
-      },
-    });
-  });
-  return () => { splits.forEach((s) => s.revert()); copies.forEach((c) => c.remove()); };
+  DUR.feedback = seconds(cs.getPropertyValue('--dur-feedback'));
+  DUR.routine = seconds(cs.getPropertyValue('--dur-routine'));
+  DUR.mark = seconds(cs.getPropertyValue('--dur-mark'));
+  DUR.hero = seconds(cs.getPropertyValue('--dur-hero'));
+  DUR.stagger = seconds(cs.getPropertyValue('--stagger'));
+  gsap.defaults({ ease: EASE.out });
+  return { ease: EASE, dur: { ...DUR } };
+}
+
+// --- drawn strokes ---------------------------------------------------------------------------------------------------
+// The marks and the grease rings are paths in a 0–100 box stretched over their frame or ticket
+// (preserveAspectRatio="none") with a non-scaling stroke, so their dash pattern lives in screen pixels: pathLength
+// cannot normalise it (measured in Chromium: a pathLength="1" dash covered 62 % of the ring). Each stroke is measured
+// on screen, drawn by its dash offset, and cleared when it lands so a resize can never cut it.
+
+export function screenLength(path) {
+  const svg = path.ownerSVGElement;
+  const box = svg?.getBoundingClientRect();
+  const vb = svg?.viewBox?.baseVal;
+  if (!box || !box.width || !box.height || !vb?.width) return 0;
+  const sx = box.width / vb.width;
+  const sy = box.height / vb.height;
+  const total = path.getTotalLength();
+  const n = 96;
+  let len = 0;
+  let prev = path.getPointAtLength(0);
+  for (let i = 1; i <= n; i++) {
+    const q = path.getPointAtLength((total * i) / n);
+    len += Math.hypot((q.x - prev.x) * sx, (q.y - prev.y) * sy);
+    prev = q;
+  }
+  return len;
+}
+
+export function hideStroke(path) {
+  path.style.opacity = '0';
+}
+
+export function showStroke(path) {
+  path.style.opacity = '';
+  path.style.strokeDasharray = '';
+  path.style.strokeDashoffset = '';
+}
+
+// One stroke of the hand, added to `tl` at `at`. A stroke whose box has no size (another width's list) lands drawn.
+export function addStroke(tl, path, { duration, at = 0, ease = EASE.out }) {
+  tl.fromTo(path, {
+    // Measured when the stroke starts, not when the timeline is built: the frame may have moved or resized since.
+    strokeDashoffset: () => {
+      const len = screenLength(path);
+      if (!len) return 0;
+      // The gap is longer than the stroke, so a hidden stroke shows no round cap at either end.
+      path.style.strokeDasharray = `${len} ${len + 8}`;
+      path.style.opacity = '';
+      return len + 4;
+    },
+  }, { strokeDashoffset: 0, duration, ease, immediateRender: false, onComplete: () => showStroke(path) }, at);
+  return at + duration;
 }

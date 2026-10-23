@@ -5,7 +5,6 @@ node_modules/
 **/.awards/jury/
 # the plugin's own site keeps its jury reports, as the ship skill asks of every project
 !site/.awards/jury/
-!site-next/.awards/jury/
 **/.awards/capture.lock
 plugins/awards/recipes/dist/
 plugins/awards/recipes/_verify/
