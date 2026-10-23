@@ -1,0 +1,46 @@
+[
+  {"name": "city-open-click", "actions": [
+    {"type": "click", "selector": ".hourline__city"},
+    {"type": "waitFor", "selector": "#cities"},
+    {"type": "wait", "ms": 600}
+  ]},
+  {"name": "city-open-keyboard", "actions": [
+    {"type": "focus", "selector": ".hourline__city"},
+    {"type": "press", "key": "Enter"},
+    {"type": "waitFor", "selector": "#cities"},
+    {"type": "wait", "ms": 600}
+  ]},
+  {"name": "city-arrow-down-2", "actions": [
+    {"type": "focus", "selector": ".hourline__city"},
+    {"type": "press", "key": "Enter"},
+    {"type": "waitFor", "selector": "#cities"},
+    {"type": "press", "key": "ArrowDown"},
+    {"type": "press", "key": "ArrowDown"},
+    {"type": "wait", "ms": 1500}
+  ]},
+  {"name": "city-keyboard-choose", "actions": [
+    {"type": "focus", "selector": ".hourline__city"},
+    {"type": "press", "key": "Enter"},
+    {"type": "waitFor", "selector": "#cities"},
+    {"type": "press", "key": "ArrowDown"},
+    {"type": "press", "key": "ArrowDown"},
+    {"type": "press", "key": "ArrowDown"},
+    {"type": "press", "key": "Enter"},
+    {"type": "wait", "ms": 1800}
+  ]},
+  {"name": "city-click-choose-kyoto", "actions": [
+    {"type": "click", "selector": ".hourline__city"},
+    {"type": "waitFor", "selector": "#cities"},
+    {"type": "click", "selector": "[data-city=\"kyoto\"]"},
+    {"type": "wait", "ms": 1800}
+  ]},
+  {"name": "city-escape", "actions": [
+    {"type": "focus", "selector": ".hourline__city"},
+    {"type": "press", "key": "Enter"},
+    {"type": "waitFor", "selector": "#cities"},
+    {"type": "press", "key": "ArrowDown"},
+    {"type": "press", "key": "Escape"},
+    {"type": "waitFor", "selector": "#cities", "state": "hidden"},
+    {"type": "wait", "ms": 400}
+  ]}
+]

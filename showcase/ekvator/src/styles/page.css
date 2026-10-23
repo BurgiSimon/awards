@@ -63,8 +63,8 @@ html.has-gl .room { visibility: hidden; }
 }
 /* Each tick meets the baseline; the current one is drawn long. */
 .hourline__ticks a::after {
-  content: ""; position: absolute; left: 50%; bottom: -6px; width: 1px; height: 7px; background: currentColor;
-  transition: height var(--dur-feedback) var(--ease-out-expo);
+  content: ""; position: absolute; left: 50%; bottom: -6px; width: 1px; height: 11px; background: currentColor;
+  transform: scaleY(0.64); transform-origin: bottom; transition: transform var(--dur-feedback) var(--ease-out-expo);
 }
 .hourline__ticks a::before {
   content: ""; position: absolute; left: 2px; right: 2px; bottom: 0.2rem; height: 1px; background: currentColor;
@@ -73,7 +73,7 @@ html.has-gl .room { visibility: hidden; }
 .hourline__name { font-size: var(--label); color: inherit; max-width: 0; overflow: hidden; opacity: 0; transition: max-width var(--dur-routine) var(--ease-out-expo), opacity var(--dur-feedback) var(--ease-out-expo); }
 .hourline__ticks a:hover, .hourline__ticks a:focus-visible, .hourline__ticks a[aria-current="true"] { color: var(--ink); }
 .hourline__ticks a:hover::before, .hourline__ticks a:focus-visible::before { transform: scaleX(1); }
-.hourline__ticks a[aria-current="true"]::after { height: 11px; width: 2px; }
+.hourline__ticks a[aria-current="true"]::after { transform: none; width: 2px; }
 .hourline__ticks a:hover .hourline__name, .hourline__ticks a:focus-visible .hourline__name, .hourline__ticks a[aria-current="true"] .hourline__name { max-width: 8em; opacity: 1; }
 .hourline__dark { font-style: normal; }
 .hourline__city {
@@ -233,7 +233,7 @@ html.has-gl .room { visibility: hidden; }
   .hourline__action { grid-area: action; }
   /* The chapters stay on the phone: times only, the current one drawn long; names stay in each link's text. */
   .hourline__nav { grid-area: nav; }
-  .hourline__ticks a { min-width: 40px; padding-inline: 0; }
+  .hourline__ticks a { min-width: 44px; min-height: 44px; padding-inline: 0; }
   .hourline__ticks a .hourline__name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
   .hourline__ticks a[aria-current="true"] { font-weight: 600; }
   .br-phone { display: inline; }

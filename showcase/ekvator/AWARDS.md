@@ -89,4 +89,4 @@ Responsive strategy: vw-lock above 768 px through the `clamp()` tokens (1440 art
 
 ## Exceptions
 <!-- audit rule ids deliberately accepted, one per line, scoped to a path or viewport where you can: `C02 — pure black is diegetic (night-vision console)`, `C01@src/credits.html — read once over the film still` -->
-- `X10@src/styles/page.css` — the radial halo around `.reserve__panel` is the drawn panel's own light at blue hour, the only light source left on the wall; the light source is in the scene.
+- X10@src/styles/page.css — the radial halo around `.reserve__panel` is the drawn panel's own light at blue hour, the only light source left on the wall; the light source is in the scene.
