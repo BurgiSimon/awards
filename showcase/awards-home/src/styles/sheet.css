@@ -195,9 +195,8 @@ html.is-live .install__for { display: none; }
   position: absolute; right: -2%; top: -6%; display: grid; gap: 0.1rem; padding: 0.9rem 1.2rem 0.8rem; max-width: none;
   border: 3px solid var(--ink); background: var(--accent); rotate: calc(var(--reg-r) - 7deg);
   font-family: var(--font-display); font-stretch: 78%; font-weight: 700; text-transform: uppercase; line-height: 0.95;
-  opacity: 0; scale: 1.25; transition: opacity var(--dur-routine) var(--ease-out-expo), scale var(--dur-hero) var(--ease-out-expo);
 }
-html:not(.is-live) .stamp, .stamp.is-stamped { opacity: 1; scale: 1; }
+/* The stamp prints from a GSAP timeline when the plates meet; without JavaScript it is simply printed. */
 .stamp__word { font-size: clamp(1.75rem, 3.2vw, 3rem); }
 .stamp__date { font-size: 0.8125rem; font-family: var(--font-body); font-stretch: 115%; letter-spacing: 0.08em; }
 

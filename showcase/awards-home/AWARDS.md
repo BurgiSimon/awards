@@ -7,9 +7,9 @@
 - [x] Direction contract locked (concept)
 - [x] Visual system written (system → DESIGN.md, tokens.css)
 - [x] Page map and skeleton built (structure)
-- [ ] Stack booted (stack)
-- [ ] Motion score authored and built (motion)
-- [ ] WebGL layer built or explicitly declined (webgl)
+- [x] Stack booted (stack)
+- [x] Motion score authored and built (motion)
+- [x] WebGL layer built or explicitly declined (webgl): explicitly declined, dosage rung none (two plates of print need no depth)
 - [ ] Jury disposition: —
 - [ ] Shipped (ship)
 
@@ -57,10 +57,21 @@ Responsive strategy: vw-lock above 768 px through the `clamp()` tokens (1440 art
 ## Motion score
 | Moment | Trigger | Vocabulary (ease · duration · stagger) | Reduced-motion tier | Recipe |
 |---|---|---|---|---|
+| Load: the proof lands out of register | first paint: `html.js` sets the plate 4.20 mm and 0.8° off in CSS before any script; `document.fonts.ready` starts the readout | none: it is a state, not a tween | the same state, read by the stepped branch | custom (no preloader, no gate) |
+| Signature: registration | `master@sheet` 4.20 mm → `master@run` 2.90 → `master@floor` 1.40 → `master@check` 0.00, one paused timeline sought from the scroll position through the chapters' measured anchors (the plates meet halfway down the press check's rail); `onUpdate` writes `--reg-x`, `--reg-y`, `--reg-r` and the margin readout | `ease: 'none'` (scrubbed) · 1 s per segment on the timeline, scroll-mapped · — | `gsap.matchMedia` reduce branch: the timeline seeks to the label of the chapter being read, no drift | custom; `boot-lenis-gsap`: keep Lenis on GSAP's ticker with `lagSmoothing(0)` · re-time `lerp` to .12 · pair with the whole page |
+| Run beat: the phase names | the readout names the run row at mid-viewport | text swap, no tween | the same | custom |
+| Floor beat: the colour bar settles | the bar is on the spot plate, so it comes into register with the timeline | follows `master@floor` | stepped | custom |
+| Press check (interruption): the stamp | `stamp` timeline played once when the master reaches `master@check` | `--ease-out-expo` (mechanical out) · 0.8 s (`--dur-hero`) · scale 1.25 → 1, autoAlpha 0 → 1 | autoAlpha only, 0.2 s | `sticky-stages-rails`: keep the sticky stage on a 210 vh rail · change the hinge into the plates meeting and the stamp · pair with the interruption |
+| Install feedback | copy click: label "Copied" or "Selected", announced; reverts after 2.4 s | — | the same | — |
+| Tabs, plate menu | click and keys | instant panel swap | the same | — |
+| Hover and focus grammar | slug links draw an underline; run rows and recipe rows tint yellow; buttons swap ink and yellow | `--ease-out-expo` · `--dur-feedback` 160 ms | 0 ms (tokens) | — |
+| Budget | one ticker (`gsap.ticker`) runs Lenis and the register; the register returns early when the scroll has not moved; two timelines (master, stamp) inside one `gsap.matchMedia`; no ScrollTrigger instances, no loops | — | — | — |
 
 ## Budgets & tiers
-- Entry JS (gz): · GL chunk (gz): · Textures per scene: · Fonts (files / KB): · LCP target: · Tiers: high / mid / low →
-- Deep modes: motion — · webgl — (set by motion and webgl)
+- Stack: Vite 8.3.5 + vanilla JS, MPA (index + 404), `base: './'`; GSAP 3.15.0, Lenis 1.3.26 (`autoRaf: false`, ticked from `gsap.ticker`, `lagSmoothing(0)`); facts rendered at build by `facts/` from `plugins/awards`, the README and `showcase/ekvator/AWARDS.md`; no CMS; no route transitions. Resize: vw-lock tokens, anchors re-measured on a `ResizeObserver`.
+- Scroll model: native + Lenis; one sticky stage (the press check, 210 vh rail); register is read from the scroll, never written to it.
+- Entry JS (gz): 50.6 KB (budget ≤ 200) · GL chunk (gz): none · Textures: two halftone plates, 36 KB + 12 KB PNG · Fonts (files / KB): 1 / 71 · LCP target: ≤ 2.5 s from the DOM (the h1) · Tiers: one tier; motion tiers full / reduced (stepped) / static (in register, no script).
+- Deep modes: motion gsap — because the dosage is none and SIGNATURE is DOM motion, so the choreography carries Creativity: one master timeline with a label per chapter, read from the scroll · webgl none — declined: the concept is two plates of print; nothing in the story needs depth.
 - Mode: full
 
 ## Jury log
