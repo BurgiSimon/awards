@@ -16,6 +16,10 @@ h1, h2, h3, p, ul, ol, dl, dd, figure, pre { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
 code, pre { font-family: var(--font-mono); font-size: 0.92em; }
 ::selection { background: var(--accent); color: var(--ink); }
+html { accent-color: var(--ink); caret-color: var(--ink); -webkit-tap-highlight-color: transparent; }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--ground); }
+::-webkit-scrollbar-thumb { background: var(--ink); border: 3px solid var(--ground); }
 :focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
 :focus:not(:focus-visible) { outline: none; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
@@ -243,7 +247,7 @@ html.is-live .install__for { display: none; }
   .chapter--sheet { padding-top: calc(52px + var(--unit) * 14); }
   .sheet__lede, .run__head, .run__aside, .floor__figure, .floor__copy, .check__copy, .check__proof, .case__head, .ok__mark, .ok__install { grid-column: 1 / -1; }
   .run__row { grid-template-columns: 3rem 1fr; row-gap: calc(var(--unit) * 1); }
-  .run__skill, .run__line { grid-column: 2; }
+  .run__row .run__skill, .run__row .run__line { grid-column: 2; }
   .chapter--check { height: auto; }
   .check__stage { position: static; min-height: 0; row-gap: calc(var(--unit) * 10); padding-block: calc(var(--unit) * 22); }
   .bar__key { grid-template-columns: repeat(4, 1fr); row-gap: calc(var(--unit) * 4); }

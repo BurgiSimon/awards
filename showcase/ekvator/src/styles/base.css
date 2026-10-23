@@ -23,6 +23,10 @@ ul, ol { padding: 0; list-style: none; }
 /* Browser surfaces belong to the wall too. */
 ::selection { background: var(--accent); color: #151a22; }
 input, textarea { caret-color: var(--accent); }
+html { accent-color: var(--accent); -webkit-tap-highlight-color: transparent; }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--ground); }
+::-webkit-scrollbar-thumb { background: var(--muted); border: 3px solid var(--ground); }
 :focus-visible { outline: 2px solid var(--ring); outline-offset: 4px; }
 :focus:not(:focus-visible) { outline: none; }
 html { scrollbar-color: var(--muted) var(--ground); scrollbar-width: thin; }

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://burgisimon.github.io/awards/showcase/awards-home/sitemap.xml
