@@ -41,6 +41,18 @@
       </nav>
       <a class="button museum__book" href="#visit">Book</a>
       <button class="museum__menu" type="button" aria-expanded="false" aria-controls="colours">Colours</button>
+      <div class="colours" id="colours" role="dialog" aria-modal="false" aria-label="The seven colours" hidden>
+        <ol>
+          <li><a href="#mummy-brown"><span class="chip" style="--chip: #5c3b26"></span>1 · Mummy brown</a></li>
+          <li><a href="#uranium-red"><span class="chip" style="--chip: #d4482b"></span>2 · Uranium red</a></li>
+          <li><a href="#indian-yellow"><span class="chip" style="--chip: #e2a51c"></span>3 · Indian yellow</a></li>
+          <li><a href="#scheeles-green"><span class="chip" style="--chip: #6f9a35"></span>4 · Scheele's green</a></li>
+          <li><a href="#lead-tin-yellow"><span class="chip" style="--chip: #efd86c"></span>5 · Lead-tin yellow</a></li>
+          <li><a href="#tyrian-purple"><span class="chip" style="--chip: #6a1043"></span>6 · Tyrian purple</a></li>
+          <li><a href="#egyptian-blue"><span class="chip" style="--chip: #2b5fae"></span>7 · Egyptian blue</a></li>
+          <li><a href="#visit">Book a viewing</a></li>
+        </ol>
+      </div>
     </header>
 
     <main id="main" tabindex="-1">
@@ -61,7 +73,7 @@
               <span style="--c: #6a1043; --h: 35"></span>
               <span style="--c: #2b5fae; --h: 130"></span>
             </div>
-            <span class="resin__scale"><span>1 mm</span></span>
+            <span class="resin__scale"><span>100&nbsp;µm</span></span>
           </div>
           <figcaption id="specimen-caption"><span class="label">MEC 7</span> A sliver of seven paint layers, newest on top, set in clear resin and polished. Each colour on this page is a screen approximation.</figcaption>
         </figure>
@@ -217,20 +229,6 @@
       <p class="colophon__fiction">The museum, its address, its drawer room and its prices are fictional, made for a design showcase built with the <a href="https://github.com/burgisimon/awards">awards plugin</a>. The histories are real, told from memory and labelled as such; every colour is a screen approximation.</p>
     </footer>
   </div>
-
-  <div class="colours" id="colours" role="dialog" aria-modal="false" aria-label="The seven colours" hidden>
-    <ol>
-      <li><a href="#mummy-brown">1 · Mummy brown</a></li>
-      <li><a href="#uranium-red">2 · Uranium red</a></li>
-      <li><a href="#indian-yellow">3 · Indian yellow</a></li>
-      <li><a href="#scheeles-green">4 · Scheele's green</a></li>
-      <li><a href="#lead-tin-yellow">5 · Lead-tin yellow</a></li>
-      <li><a href="#tyrian-purple">6 · Tyrian purple</a></li>
-      <li><a href="#egyptian-blue">7 · Egyptian blue</a></li>
-      <li><a href="#visit">Book a viewing</a></li>
-    </ol>
-  </div>
-
   <p class="stage" aria-hidden="true"><span data-stage-depth>0 µm</span> · <span data-stage-layer>the block</span> · ×<span data-stage-mag>10</span></p>
   <div class="sr-only" role="status" aria-live="polite" id="announcer"></div>
   <script type="module" src="/src/main.js"></script>

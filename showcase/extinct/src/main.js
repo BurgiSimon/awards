@@ -22,6 +22,11 @@ const announce = (text) => {
 };
 
 createMenu();
+// The museum line is fixed: its measured height places the colours list under it and keeps anchor jumps clear of it.
+const museum = document.querySelector('.museum');
+const writeMuseumHeight = () => document.documentElement.style.setProperty('--museum-h', `${Math.round(museum.offsetHeight)}px`);
+writeMuseumHeight();
+new ResizeObserver(writeMuseumHeight).observe(museum);
 createBooking({ announce });
 const microscope = createMicroscope({ awards, announce, tier: motionTier });
 await document.fonts.ready;
