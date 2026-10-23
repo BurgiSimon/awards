@@ -8,6 +8,8 @@ import { createScroll } from './lib/scroll.js';
 import { syncMotionTierAttribute, motionTier } from './lib/reduced-motion.js';
 import { createMenu } from './ui/menu.js';
 import { createDesk } from './ui/desk.js';
+import { createBridge } from './ui/bridge.js';
+import { writeCrossing } from './ui/crossing.js';
 
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.config({ ignoreMobileResize: true });
@@ -22,9 +24,15 @@ const announce = (text) => {
 
 createMenu();
 createDesk({ announce });
+const crossing = writeCrossing(document.querySelector('[data-crossing]'));
+const bridge = createBridge();
+let where = {};
+ScrollTrigger.addEventListener('refresh', bridge.measure);
+bridge.measure();
+gsap.ticker.add(() => { where = bridge.update(); });
 await document.fonts.ready;
 ScrollTrigger.refresh();
 
-awards.addState(() => ({ motion: motionTier(), gl: false }));
+awards.addState(() => ({ motion: motionTier(), gl: false, crossing, band: where.theme, chapter: where.chapter }));
 document.documentElement.classList.add('is-ready');
 awards.ready();
