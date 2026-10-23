@@ -183,7 +183,6 @@ export function mountScene(canvas, quality, context) {
     return g;
   }
   const hanging = grapnel();
-  hanging.scale.setScalar(1.7); // the arrival at 4,212 m reads at the cable's scale, not as a speck
   scene.add(hanging);
   const dragged = grapnel();
   dragged.rotation.z = -1.05; // lying on the ooze, the shank leaning toward the wire, the flukes trailing in
@@ -302,6 +301,9 @@ export function mountScene(canvas, quality, context) {
       }
       hanging.visible = f.grapnel.visible;
       if (hanging.visible) {
+        // The arrival at 4,212 m reads at the cable's scale on desktop and tablet; on a phone the cable runs in the
+        // margin beside the copy, so the grapnel keeps its own size there and never reaches the text.
+        hanging.scale.setScalar(f.vw >= 768 ? 1.7 : 1);
         hanging.position.set(f.grapnel.x, -f.grapnel.y + 2, 30);
         hanging.rotation.y = f.phase * 0.004;
       }

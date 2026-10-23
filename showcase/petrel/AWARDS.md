@@ -86,6 +86,7 @@ Responsive strategy: vw-lock above 768 px through the `clamp()` tokens (1440 art
   top fixes: 1) low tier keeps the drawn cable as SIGNATURE states (src/main.js:51) 2) one continuous cable over the sheave, no width step or seam (index.html:75–76, src/webgl/scene.js:241) 3) GL cable shaded as a cylinder with resolvable wires (src/webgl/scene.js:57–94)
 - 2026-10-23 · fix · D 7.7 / U 6.0 / C 7.8 / Co 8.2 → 7.26 · dev seo 8.4 / anim 7.4 / a11y 7.0 / wpo 8.2 / resp 7.2 / meta 7.8 → 7.67 · .awards/jury/2026-10-23-page-1.md
   top fixes: 1) phone chapter menu focus order: Shift+Tab exits to the footer, panel stays open (index.html:263, src/ui/menu.js:7–16) 2) phone drag stage: hook below the seabed, trace jumps before the catch, wire over copy (src/motion/cable.js:156–162, :130) 3) chapter 6 DEPTH 0→4,212 m with WIRE OUT 0.0 m and nothing going down (src/motion/score.js:37–38)
+- 2026-10-23 · verdict · fix · D 7.9 / U 7.6 / C 7.8 / Co 8.4 → 7.84 · resolved 6 / partial 1 / unresolved 0 · regressions 1 · .awards/jury/2026-10-23-verdict.md
 
 ## Ship log
 <!-- appended by awards:ship — date · audit summary · captures · performance numbers -->

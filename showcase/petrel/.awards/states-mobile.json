@@ -67,5 +67,31 @@
     "ms": 900
    }
   ]
+ },
+ {
+  "name": "menu-back-twice",
+  "actions": [
+   {
+    "type": "click",
+    "selector": ".bridge__menu"
+   },
+   {
+    "type": "waitFor",
+    "selector": "#chapters:not([hidden])"
+   },
+   {
+    "type": "press",
+    "key": "Shift+Tab"
+   },
+   {
+    "type": "press",
+    "key": "Shift+Tab"
+   },
+   {
+    "type": "waitFor",
+    "selector": "#chapters",
+    "state": "hidden"
+   }
+  ]
  }
 ]

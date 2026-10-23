@@ -160,8 +160,8 @@ export function createCable({ score, awards }) {
       drag: {
         visible: st < m.vh && st + m.stageH > 0,
         crown: [sb.x(gx), sb.y(300 - rise)],
-        // On a phone the copy runs the full width above the seabed, so the wire enters just under the copy instead.
-        lead: [sb.x(gx + 560), m.vw < 768 ? st + m.copyBottom + 20 : st - 12],
+        // Below 1100 px the copy reaches across the wire's path from the top, so the wire enters just under the copy.
+        lead: [sb.x(gx + 560), m.vw < 1100 ? st + m.copyBottom + 20 : st - 12],
         c1: [sb.x(gx + 420), sb.y(110)],
         c2: [sb.x(gx + 90), sb.y(262 - rise)],
         scale: Math.max(0.8, Math.min(1.9, sb.s * 1.6)),

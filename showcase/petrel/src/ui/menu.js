@@ -17,13 +17,17 @@ export function createMenu() {
   // Focus leaving the list (Tab past its end, Shift+Tab back to the toggle) closes it; the list sits right after the
   // toggle in the bridge line, so the tab order runs toggle → list → page.
   const onFocusOut = (e) => { if (!panel.hidden && !panel.contains(e.relatedTarget) && e.relatedTarget !== toggle) set(false); };
+  // Shift+Tab back past the toggle leaves the list behind too, so the toggle's own exit closes it.
+  const onToggleOut = (e) => { if (!panel.hidden && !panel.contains(e.relatedTarget)) set(false); };
   toggle.addEventListener('click', onToggle);
   document.addEventListener('keydown', onKey);
   panel.addEventListener('click', onPick);
   document.addEventListener('pointerdown', onOutside);
   panel.addEventListener('focusout', onFocusOut);
+  toggle.addEventListener('focusout', onToggleOut);
   return () => {
     panel.removeEventListener('focusout', onFocusOut);
+    toggle.removeEventListener('focusout', onToggleOut);
     toggle.removeEventListener('click', onToggle);
     document.removeEventListener('keydown', onKey);
     panel.removeEventListener('click', onPick);
