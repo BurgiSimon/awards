@@ -95,7 +95,7 @@ Candidates pulled with `fonts.mjs search` (sans-serif with a width axis, sans-se
 Contract: one family across three widths. No second display face. The install commands are set in the system monospace stack (`--font-mono`) because they are code a visitor pastes; that is the one place a third face appears, recorded under `AWARDS.md ## Exceptions` if the audit asks.
 
 Scale, vw-lock on a 1440 artboard:
-- `--display: clamp(3.25rem, 11.6667vw, 10.5rem)` — 168 px at 1440, wdth 78, leading 0.86, tracking −0.02em.
+- `--display: clamp(4rem, 11.6667vw, 10.5rem)` — 168 px at 1440, wdth 78, leading 0.86, tracking −0.02em.
 - `--h2: clamp(2.25rem, 5vw, 4.5rem)` — 72 px, wdth 82.
 - `--h3: clamp(1.25rem, 1.9444vw, 1.75rem)` — 28 px, wdth 92.
 - `--body: clamp(1.0625rem, 1.25vw, 1.1875rem)` — 18 px, wdth 100.

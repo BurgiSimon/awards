@@ -1,0 +1,28 @@
+{
+  "assets": [
+    {
+      "file": "public/proof/ekvator-s00-k.png",
+      "kind": "generated",
+      "synthetic": true,
+      "credit": "Ekvator proof, key plate: a capture of the Ekvator showcase reprinted as a halftone",
+      "tool": "scripts/halftone.py (PIL), from showcase/ekvator/.awards/captures/component-2/desktop-s00.png",
+      "date": "2026-10-23"
+    },
+    {
+      "file": "public/proof/ekvator-s00-y.png",
+      "kind": "generated",
+      "synthetic": true,
+      "credit": "Ekvator proof, yellow plate",
+      "tool": "scripts/halftone.py (PIL), same capture",
+      "date": "2026-10-23"
+    },
+    {
+      "file": "public/favicon.svg",
+      "kind": "drawn",
+      "synthetic": false,
+      "author": "awards-home build (code)",
+      "credit": "Favicon: registration target in two plates",
+      "date": "2026-10-23"
+    }
+  ]
+}

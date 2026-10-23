@@ -28,7 +28,7 @@
 
   /* vw-lock on a 1440 artboard: 168px → 11.6667vw, floors for the phone. */
   --artboard: 1440;
-  --display: clamp(3.25rem, 11.6667vw, 10.5rem);
+  --display: clamp(4rem, 11.6667vw, 10.5rem);
   --h2: clamp(2.25rem, 5vw, 4.5rem);
   --h3: clamp(1.25rem, 1.9444vw, 1.75rem);
   --body: clamp(1.0625rem, 1.25vw, 1.1875rem);
