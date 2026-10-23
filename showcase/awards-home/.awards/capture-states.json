@@ -1,0 +1,9 @@
+[
+  { "name": "tab-focus", "actions": [ { "type": "focus", "selector": "#install-top-tab-claude" }, { "type": "wait", "ms": 200 } ], "selector": "#install-top" },
+  { "name": "copy-focus", "actions": [ { "type": "focus", "selector": "#install-top [data-copy]" }, { "type": "wait", "ms": 200 } ], "selector": "#install-top" },
+  { "name": "copy-click", "actions": [ { "type": "click", "selector": "#install-top [data-copy]" }, { "type": "wait", "ms": 400 } ], "selector": "#install-top" },
+  { "name": "copy-keyboard", "actions": [ { "type": "focus", "selector": "#install-top [data-copy]" }, { "type": "press", "key": "Enter" }, { "type": "wait", "ms": 400 } ], "selector": "#install-top" },
+  { "name": "tab-codex-click", "actions": [ { "type": "click", "selector": "#install-top-tab-codex" }, { "type": "waitFor", "selector": "#install-top-codex" }, { "type": "wait", "ms": 200 } ], "selector": "#install-top" },
+  { "name": "tab-persisted", "actions": [ { "type": "waitFor", "selector": "#install-top-codex" } ], "selector": "#install-top" },
+  { "name": "tab-arrow-right", "actions": [ { "type": "focus", "selector": "#install-top-tab-codex" }, { "type": "press", "key": "ArrowRight" }, { "type": "waitFor", "selector": "#install-top-claude" }, { "type": "wait", "ms": 200 } ], "selector": "#install-top" }
+]

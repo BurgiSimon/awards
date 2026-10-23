@@ -1,0 +1,18 @@
+@import "./sheet.css";
+
+/* The 404: a spoiled sheet. The plates are far out of register and the sheet is marked waste; the key still reads. */
+body { min-height: 100svh; display: grid; align-items: center; }
+.waste { position: relative; isolation: isolate; display: grid; gap: calc(var(--unit) * 6); padding: calc(var(--unit) * 20) var(--gutter); max-width: 70rem; }
+.waste__mark {
+  position: absolute; z-index: -1; right: var(--gutter); top: -6%; rotate: -9deg; max-width: none;
+  font-family: var(--font-display); font-weight: 700; font-stretch: 78%; font-size: clamp(5rem, 12vw, 11rem); line-height: 0.8;
+  text-transform: uppercase; color: var(--ground); background: var(--accent); padding: 0 0.15em; mix-blend-mode: multiply;
+}
+.waste__title, .waste__ghost { grid-area: 1 / 1; font-family: var(--font-display); font-weight: 700; font-stretch: 80%; font-size: var(--h2); line-height: 0.95; max-width: 14em; }
+.waste__ghost { z-index: -1; color: var(--accent); translate: 22px -14px; rotate: 2.4deg; mix-blend-mode: multiply; }
+.waste__body { color: var(--ink); grid-row: 2; }
+.waste__routes { grid-row: 3; }
+.waste__routes { display: grid; border-top: 2px solid var(--ink); max-width: 34rem; }
+.waste__routes a { display: flex; align-items: center; min-height: 52px; border-bottom: 1px solid var(--line); text-decoration: none; font-family: var(--font-display); font-weight: 700; font-stretch: 88%; font-size: var(--h3); transition: background-color var(--dur-feedback) var(--ease-out-expo); }
+.waste__routes a:hover, .waste__routes a:focus-visible { background: color-mix(in oklab, var(--accent) 45%, var(--ground)); }
+.waste__primary { box-shadow: inset 0 -4px 0 var(--accent); }

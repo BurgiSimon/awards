@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en" data-theme="proof">
+<head>
+  <meta charset="utf-8">
+  <script>document.documentElement.classList.add("js")</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f3f2ee">
+  <title>awards — nothing ships unproofed</title>
+  <meta name="description" content="awards is a plugin for Claude Code and Codex that designs and builds award-level websites, then has a jury in a fresh context score each build before it calls the work finished. {{skills.count}} skills, {{recipes.count}} recipes, {{rules.count}} audit rules.">
+  <link rel="canonical" href="https://burgisimon.github.io/awards/showcase/awards-home/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="awards — nothing ships unproofed">
+  <meta property="og:description" content="A plugin for Claude Code and Codex: award-level sites, proofed by a jury that never saw them being made.">
+  <meta property="og:image" content="https://burgisimon.github.io/awards/showcase/awards-home/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preload" href="/fonts/special-gothic-latin-wdth.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/src/styles/sheet.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="marks" aria-hidden="true">
+    <span class="crop crop--tl"></span><span class="crop crop--tr"></span><span class="crop crop--bl"></span><span class="crop crop--br"></span>
+    <span class="target target--top"><span class="target__k"></span><span class="target__y" data-plate="y"></span></span>
+    <span class="target target--bottom"><span class="target__k"></span><span class="target__y" data-plate="y"></span></span>
+    <span class="colourbar" data-plate="y"><span></span><span></span><span></span><span></span><span></span></span>
+  </div>
+
+  <div id="page">
+    <header class="slug" id="top">
+      <a class="slug__job" href="#sheet">awards <span class="slug__version">{{version}}</span><span class="slug__proof"> proof</span></a>
+      <nav class="slug__plates" aria-label="Chapters of the sheet">
+        <ol>
+          <li><a href="#sheet" data-chapter="sheet" aria-current="true">Sheet</a></li>
+          <li><a href="#run" data-chapter="run">Run</a></li>
+          <li><a href="#floor" data-chapter="floor">Floor</a></li>
+          <li><a href="#check" data-chapter="check">Press check</a></li>
+          <li><a href="#case" data-chapter="case">Case</a></li>
+          <li><a href="#ok" data-chapter="ok">OK</a></li>
+        </ol>
+      </nav>
+      <p class="slug__register"><span class="slug__label">Register</span> <span class="slug__error" data-register-error>0.00 mm</span> <span class="slug__phase" data-register-phase>Press check passed</span></p>
+      <a class="slug__repo" href="https://github.com/burgisimon/awards">Repository</a>
+      <button class="slug__menu" type="button" aria-expanded="false" aria-controls="plates">Plates</button>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section class="chapter chapter--sheet" id="sheet" aria-labelledby="sheet-title" data-chapter-at="sheet">
+        <h1 class="display" id="sheet-title"><span class="display__line">Nothing ships</span> <span class="display__line display__line--solid">unproofed.<span class="display__solid" data-plate="y" aria-hidden="true"></span></span></h1>
+        <p class="display display__ghost" data-plate="y" aria-hidden="true"><span class="display__line">Nothing ships</span> <span class="display__line">unproofed.</span></p>
+        <div class="sheet__lede">
+          <p>awards is a plugin for Claude Code and Codex that designs and builds websites in the league of award winners, then hands each build to a jury that never saw it being made. The jury scores captures, not intentions. Until it has, and a ship report exists, the work is only a proof.</p>
+          <!-- facts:install-top -->
+        </div>
+      </section>
+
+      <section class="chapter chapter--run" id="run" aria-labelledby="run-title" data-chapter-at="run">
+        <div class="run__head">
+          <h2 id="run-title">{{skills.count}} skills, run in&nbsp;order.</h2>
+          <p>One skill holds the brief and hands each phase to the next. Skills cannot call one another, so every hand-off is a written line in the build's <code>AWARDS.md</code>, and every phase leaves a file the next one reads before it starts.</p>
+        </div>
+        <!-- facts:run -->
+        <div class="run__aside">
+          <h3>Outside the run</h3>
+          <!-- facts:outside -->
+        </div>
+      </section>
+
+      <section class="chapter chapter--floor" id="floor" aria-labelledby="floor-title" data-chapter-at="floor">
+        <div class="floor__figure">
+          <!-- facts:bar -->
+        </div>
+        <div class="floor__copy">
+          <h2 id="floor-title">{{rules.count}} rules, measured before anyone&nbsp;looks.</h2>
+          <p>The audit is deterministic: the same page gives the same findings, by file and line. It reads type, colour, motion, accessibility, layout, performance and the browser's own surfaces, and twenty-one of its rules catch the habits a generator falls into when nobody decided anything. Rendered, it measures every text against what is actually behind it, at three widths.</p>
+          <!-- facts:quoted -->
+        </div>
+      </section>
+
+      <section class="chapter chapter--check" id="check" aria-labelledby="check-title" data-chapter-at="check">
+        <div class="check__stage">
+          <div class="check__copy">
+            <h2 id="check-title">The press&nbsp;check.</h2>
+            <p>A juror who watched the work being made scores the intention. So the jury runs forked, in a fresh context, with the builders' notes withheld. It reads the captures first, writes down what the first viewport shows and what a visitor would remember an hour later, and only then opens the contract, which can lower a score and never raise one.</p>
+            <!-- facts:verdict -->
+          </div>
+          <figure class="check__proof">
+            <div class="proof">
+              <img class="proof__k" src="/proof/ekvator-s00-k.png" width="1800" height="1125" alt="The first viewport of the Ekvator showcase, reprinted as a halftone: the headline Lisbon's sun, in your window, crossed by a four-pane window of light." loading="lazy" decoding="async">
+              <img class="proof__y" src="/proof/ekvator-s00-y.png" width="1800" height="1125" alt="" data-plate="y" loading="lazy" decoding="async">
+            </div>
+            <figcaption>Proof: Ekvator, a fictional lamp maker built with the plugin in this repository, reprinted from its own capture in the sheet's two inks.</figcaption>
+            <!-- facts:stamp -->
+          </figure>
+        </div>
+      </section>
+
+      <section class="chapter chapter--case" id="case" aria-labelledby="case-title" data-chapter-at="case">
+        <div class="case__head">
+          <h2 id="case-title">{{recipes.count}} recipes, each verified in a&nbsp;browser.</h2>
+          <p>Every recipe is a working page with a verification script: built, served and driven through its states in headless Chromium before it counts. Skills adapt them, never paste them: keep the mechanism, change the metaphor, the material or the trigger. Behind them sits a corpus of {{corpus.sites}} analysed award winners, read for principles to take and signatures to refuse.</p>
+        </div>
+        <div class="case__groups">
+          <!-- facts:cases -->
+        </div>
+      </section>
+
+      <section class="chapter chapter--ok" id="ok" aria-labelledby="ok-title" data-chapter-at="ok">
+        <div class="ok__mark">
+          <h2 id="ok-title" class="ok__title"><span class="ok__solid" data-plate="y" aria-hidden="true"></span>OK to&nbsp;print.</h2>
+          <p class="ok__sub">Install it, then make something a stranger would remember an hour later.</p>
+        </div>
+        <div class="ok__install">
+          <!-- facts:install-close -->
+          <ul class="ok__links">
+            <li><a href="https://github.com/burgisimon/awards">The repository</a></li>
+            <li><a href="https://github.com/burgisimon/awards#readme">The README, with every command</a></li>
+            <li><a href="https://github.com/burgisimon/awards/blob/main/CHANGELOG.md">The changelog</a></li>
+            <li><a href="https://github.com/burgisimon/awards/tree/main/showcase">This page's own contract and jury reports</a></li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="colophon">
+      <p>awards {{version}} · {{licence}} · {{skills.count}} skills, {{recipes.count}} recipes, {{rules.count}} audit rules, {{corpus.sites}} corpus sites, read from <code>plugins/awards</code> on {{readLong}}.</p>
+      <p>This page was built with the plugin it describes. It is printed in two inks: the key plate carries every word and never moves.</p>
+    </footer>
+  </div>
+
+  <div class="plates" id="plates" role="dialog" aria-modal="false" aria-label="Chapters of the sheet" hidden>
+    <ol>
+      <li><a href="#sheet">Sheet</a></li>
+      <li><a href="#run">Run</a></li>
+      <li><a href="#floor">Floor</a></li>
+      <li><a href="#check">Press check</a></li>
+      <li><a href="#case">Case</a></li>
+      <li><a href="#ok">OK</a></li>
+    </ol>
+  </div>
+
+  <div class="sr-only" role="status" aria-live="polite" id="announcer"></div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

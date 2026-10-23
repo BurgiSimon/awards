@@ -1,0 +1,302 @@
+@import "./tokens.css";
+@import "./fonts.css";
+
+/* ——— Base ——— */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; background: var(--ground); scrollbar-color: var(--ink) var(--ground); scrollbar-width: thin; }
+body {
+  margin: 0; color: var(--ink); background: transparent;
+  font-family: var(--font-body); font-size: var(--body); line-height: 1.5; font-stretch: 100%;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+img, svg { display: block; max-width: 100%; height: auto; }
+button { font: inherit; color: inherit; }
+a { color: currentColor; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+h1, h2, h3, p, ul, ol, dl, dd, figure, pre { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+code, pre { font-family: var(--font-mono); font-size: 0.92em; }
+::selection { background: var(--accent); color: var(--ink); }
+html { accent-color: var(--ink); caret-color: var(--ink); -webkit-tap-highlight-color: transparent; }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--ground); }
+::-webkit-scrollbar-thumb { background: var(--ink); border: 3px solid var(--ground); }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; box-shadow: 0 0 0 3px var(--accent); }
+:focus:not(:focus-visible) { outline: none; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.skip-link { position: absolute; left: var(--gutter); top: -100%; z-index: 100; background: var(--ink); color: var(--ground); padding: 0.75rem 1rem; text-decoration: none; }
+.skip-link:focus { top: 1rem; }
+p { max-width: var(--measure); }
+
+h2 { font-family: var(--font-display); font-size: var(--h2); font-weight: 700; font-stretch: 82%; line-height: 0.92; letter-spacing: -0.015em; text-wrap: balance; }
+h3 { font-family: var(--font-display); font-size: var(--h3); font-weight: 700; font-stretch: 92%; line-height: 1.1; }
+.label, .slug { font-size: var(--label); font-weight: 600; font-stretch: 115%; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.25; }
+
+/* ——— Registration: every element on the spot plate moves as one; the key plate never moves. ——— */
+:root { --reg-x: 0px; --reg-y: 0px; --reg-r: 0deg; }
+/* With JavaScript the sheet first paints out of register, as the proof arrives; the script reads the rest from the scroll. */
+html.js:not(.is-live) { --reg-x: calc(13px * var(--reg-scale)); --reg-y: calc(-9px * var(--reg-scale)); --reg-r: calc(0.8deg * var(--reg-scale)); }
+/* Millimetres on a phone are fewer pixels: the offset scales with the sheet so the key never crowds. */
+:root { --reg-scale: 1; }
+@media (max-width: 1000px) { :root { --reg-scale: 0.7; } }
+@media (max-width: 560px) { :root { --reg-scale: 0.5; } }
+[data-plate="y"] { translate: var(--reg-x) var(--reg-y); rotate: var(--reg-r); }
+
+/* ——— The sheet's furniture: crop marks, targets, the colour bar ——— */
+.marks { position: fixed; inset: 0; z-index: 30; pointer-events: none; }
+.crop { position: absolute; width: 22px; height: 22px; }
+.crop::before, .crop::after { content: ""; position: absolute; background: var(--ink); }
+.crop::before { width: 22px; height: 1px; }
+.crop::after { width: 1px; height: 22px; }
+.crop--tl { left: 6px; top: 6px; } .crop--tl::before { top: 10px; } .crop--tl::after { left: 10px; }
+.crop--tr { right: 6px; top: 6px; } .crop--tr::before { top: 10px; } .crop--tr::after { right: 10px; }
+.crop--bl { left: 6px; bottom: 6px; } .crop--bl::before { bottom: 10px; } .crop--bl::after { left: 10px; }
+.crop--br { right: 6px; bottom: 6px; } .crop--br::before { bottom: 10px; } .crop--br::after { right: 10px; }
+.target { position: absolute; top: 50%; width: 22px; height: 22px; margin-top: -11px; }
+.target--top { left: calc(var(--gutter) / 2 - 11px); }
+.target--bottom { right: calc(var(--gutter) / 2 - 11px); }
+.target__k, .target__y { position: absolute; inset: 0; border-radius: 50%; }
+.target__k { border: 1px solid var(--ink); background: linear-gradient(var(--ink), var(--ink)) center / 1px 100% no-repeat, linear-gradient(var(--ink), var(--ink)) center / 100% 1px no-repeat; }
+.target__y { border: 2px solid var(--accent); background: linear-gradient(var(--accent), var(--accent)) center / 2px 100% no-repeat, linear-gradient(var(--accent), var(--accent)) center / 100% 2px no-repeat; mix-blend-mode: multiply; }
+.colourbar { position: absolute; right: calc(var(--gutter) / 2 - 6px); bottom: 18%; display: grid; gap: 3px; width: 12px; mix-blend-mode: multiply; }
+.colourbar span { height: 22px; background: var(--accent); }
+.colourbar span:nth-child(2) { opacity: 0.7; } .colourbar span:nth-child(3) { opacity: 0.45; } .colourbar span:nth-child(4) { opacity: 0.25; } .colourbar span:nth-child(5) { opacity: 0.1; }
+
+/* ——— Slug line: the sheet's own top margin, as navigation ——— */
+.slug {
+  position: fixed; inset: 0 0 auto 0; z-index: 20;
+  display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: calc(var(--unit) * 8);
+  padding: 0 var(--gutter); min-height: 52px;
+  background: var(--ground); border-bottom: 1px solid var(--line);
+}
+.slug a { text-decoration: none; }
+.slug__job { display: inline-flex; align-items: center; gap: 0.5em; min-height: 44px; }
+.slug__version { color: var(--muted); }
+.slug__plates ol { display: flex; gap: calc(var(--unit) * 6); justify-content: center; }
+.slug__plates a, .slug__repo {
+  position: relative; display: inline-flex; align-items: center; min-height: 44px; color: var(--muted);
+  transition: color var(--dur-feedback) var(--ease-out-expo);
+}
+.slug__plates a::after, .slug__repo::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 12px; height: 1px; background: currentColor;
+  transform: scaleX(0); transform-origin: left; transition: transform var(--dur-feedback) var(--ease-out-expo);
+}
+.slug__plates a:hover, .slug__plates a:focus-visible, .slug__plates a[aria-current="true"], .slug__repo:hover { color: var(--ink); }
+.slug__plates a:hover::after, .slug__plates a:focus-visible::after, .slug__repo:hover::after, .slug__repo:focus-visible::after { transform: scaleX(1); }
+.slug__plates a[aria-current="true"]::after { transform: scaleX(1); height: 3px; background: var(--ink); }
+.slug__register { display: inline-flex; gap: 0.6em; align-items: baseline; white-space: nowrap; max-width: none; }
+.slug__label { color: var(--muted); }
+.slug__error { display: inline-block; font-variant-numeric: tabular-nums; min-width: 6.2em; text-align: right; }
+.slug__phase { display: inline-block; color: var(--muted); width: 9.5em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.slug__menu { display: none; }
+
+/* ——— Buttons ——— */
+.button {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0.875rem 1.5rem;
+  border: 0; border-radius: 0; cursor: pointer; text-decoration: none;
+  font-family: var(--font-body); font-size: 1rem; font-weight: 700; font-stretch: 100%; letter-spacing: 0; line-height: 1.2;
+  transition: background-color var(--dur-feedback) var(--ease-out-expo), color var(--dur-feedback) var(--ease-out-expo), transform var(--dur-feedback) var(--ease-out-expo);
+}
+.button--primary { background: var(--ink); color: var(--ground); box-shadow: inset 0 -4px 0 var(--accent); }
+.button--primary:hover { background: var(--accent); color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.button--primary:active { transform: translateY(1px); }
+.button--primary:focus-visible { box-shadow: inset 0 -4px 0 var(--accent), 0 0 0 3px var(--accent); }
+.button[aria-disabled="true"] { opacity: 0.5; pointer-events: none; }
+
+/* ——— Chapters ——— */
+.chapter {
+  position: relative; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: calc(var(--gutter) / 2);
+  padding: calc(var(--unit) * 36) var(--gutter);
+}
+.chapter > * { grid-column: 1 / -1; }
+
+/* 1 · The sheet — edge-to-edge type: the claim across the plate, a yellow solid band under its second line. */
+.chapter--sheet { min-height: 100svh; padding-top: calc(52px + var(--unit) * 22); row-gap: calc(var(--unit) * 10); align-content: start; isolation: isolate; overflow: clip; }
+.chapter--sheet .display, .display__ghost { grid-area: 1 / 1 / 2 / 13; }
+.display {
+  font-family: var(--font-display); font-size: var(--display); font-weight: 700; font-stretch: var(--display-wdth, 78%);
+  line-height: 0.86; letter-spacing: -0.02em; max-width: none;
+}
+.display__line { display: block; }
+.display__line--solid { position: relative; width: max-content; }
+.display__solid {
+  position: absolute; z-index: -1; left: calc(-1 * var(--gutter) - 20px); right: -200vw; top: 0.1em; bottom: 0.04em;
+  background: var(--accent); mix-blend-mode: multiply;
+}
+.display__ghost { color: var(--accent); z-index: -1; mix-blend-mode: multiply; pointer-events: none; user-select: none; }
+.sheet__lede { grid-column: 7 / -1; display: grid; gap: calc(var(--unit) * 8); align-content: start; }
+.sheet__lede > p { font-size: var(--body); }
+
+/* The install block: tabs over the commands, one copy action. Without JavaScript both panels show. */
+.install { display: grid; gap: calc(var(--unit) * 3); max-width: 36rem; border-top: 2px solid var(--ink); padding-top: calc(var(--unit) * 4); }
+.install__tabs { display: none; }
+/* With JavaScript the tabs and the first panel are decided in CSS before the script runs, so nothing moves.
+   The tabs stand on the code panel's top edge, so they read as the tabs of what they control. */
+html.js .install__tabs { display: flex; width: max-content; margin-bottom: calc(var(--unit) * -3); }
+html.js .install__code { border-color: var(--ink); }
+html.js:not(.is-live) .install__panel[data-panel="codex"] { display: none; }
+.install__tabs button {
+  min-height: 44px; padding: 0 1.125rem; margin-right: -1px; border: 1px solid var(--ink); border-bottom: 0; border-radius: 0; background: var(--ground); cursor: pointer;
+  font-size: 0.9375rem; font-weight: 600; color: var(--muted);
+  transition: color var(--dur-feedback) var(--ease-out-expo), background-color var(--dur-feedback) var(--ease-out-expo);
+}
+.install__tabs button:hover { color: var(--ink); }
+.install__tabs button[aria-selected="true"] { color: var(--ink); background: var(--accent); }
+.install__for { font-size: 0.9375rem; font-weight: 600; color: var(--muted); }
+html.js .install__for { display: none; }
+.install__panel { display: grid; gap: calc(var(--unit) * 2); }
+.install__panel[hidden] { display: none; }
+.install__code { padding: 1rem 1.125rem; background: color-mix(in oklab, var(--ink) 6%, var(--ground)); border: 1px solid var(--line); overflow-x: auto; line-height: 1.7; font-size: 0.9375rem; }
+.install__then { font-size: 0.9375rem; color: var(--muted); }
+.install__then code { color: var(--ink); }
+.install__copy { justify-self: start; }
+.install__note { font-size: 0.875rem; color: var(--muted); }
+
+/* 2 · The run — index rows down the sheet, one per phase. */
+.chapter--run { row-gap: calc(var(--unit) * 12); }
+.run__head { grid-column: 1 / span 7; display: grid; gap: calc(var(--unit) * 5); }
+.run__list { counter-reset: none; border-top: 2px solid var(--ink); }
+.run__row {
+  position: relative; display: grid; grid-template-columns: 4rem minmax(8rem, 0.9fr) minmax(7rem, 0.7fr) 3fr; gap: calc(var(--unit) * 5); align-items: baseline;
+  padding: calc(var(--unit) * 5) 0; border-bottom: 1px solid var(--line);
+}
+.run__row::before { content: ""; position: absolute; inset: 0 calc(-1 * var(--unit) * 3); z-index: -1; background: var(--accent); opacity: 0; transition: opacity var(--dur-feedback) var(--ease-out-expo); }
+.run__row:hover::before { opacity: 0.35; }
+.run__n { position: relative; font-family: var(--font-display); font-weight: 700; font-stretch: 78%; font-size: var(--h3); font-variant-numeric: tabular-nums; padding-left: 0.4rem; }
+.run__solid { position: absolute; z-index: -1; left: 0; top: 0.15em; width: 1.1em; height: 0.9em; background: var(--accent); mix-blend-mode: multiply; }
+.run__phase { font-family: var(--font-display); font-weight: 700; font-stretch: 82%; font-size: var(--h3); line-height: 1.1; }
+.run__skill { font-size: 0.9375rem; }
+.run__line { max-width: 44em; }
+.run__seed { display: block; margin-top: 0.5rem; color: var(--muted); font-size: 0.9375rem; }
+.run__seed code { color: var(--ink); }
+.run__aside { grid-column: 1 / span 8; display: grid; gap: calc(var(--unit) * 3); }
+.run__outside { display: grid; gap: calc(var(--unit) * 2); }
+.run__outside li { display: grid; grid-template-columns: minmax(7rem, auto) 1fr; gap: calc(var(--unit) * 5); }
+
+/* 3 · The floor — figure and spec: the colour bar, its key, the copy. */
+.chapter--floor { row-gap: calc(var(--unit) * 10); align-items: start; }
+.floor__figure { grid-column: 1 / span 7; display: grid; gap: calc(var(--unit) * 4); container-type: inline-size; }
+.bar { display: grid; grid-template-columns: repeat(8, 1fr); gap: 3px; height: clamp(12rem, 26vw, 22rem); mix-blend-mode: multiply; }
+.bar__patch { background: color-mix(in oklab, var(--accent) calc(var(--d) * 100%), var(--ground)); align-self: end; height: calc(30% + var(--d) * 70%); }
+/* The key sits on the bar's own eight columns: each patch's rule-id letter and count at its foot; the names follow. */
+.bar__key { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 3px; }
+.bar__key div { display: grid; gap: 2px; border-top: 1px solid var(--ink); padding-top: 0.5rem; }
+.bar__code { font-size: var(--label); font-weight: 600; font-stretch: 115%; letter-spacing: 0.08em; line-height: 1.25; }
+.bar__key dd { font-family: var(--font-display); font-weight: 700; font-stretch: 78%; font-size: var(--h3); }
+.bar__legend { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; max-width: none; font-size: 0.875rem; color: var(--muted); }
+.bar__legend b { color: var(--ink); font-size: var(--label); font-weight: 600; font-stretch: 115%; letter-spacing: 0.08em; margin-right: 0.15em; }
+.floor__copy { grid-column: 8 / -1; display: grid; gap: calc(var(--unit) * 6); }
+.floor__quoted { display: grid; gap: calc(var(--unit) * 2); border-top: 1px solid var(--line); padding-top: calc(var(--unit) * 4); }
+.floor__quoted code { display: inline-block; min-width: 3.2em; font-weight: 600; }
+
+/* 4 · The press check — the proof pulled from the press, on a sticky stage. */
+.chapter--check { display: block; padding: 0; height: 210vh; overflow-x: clip; }
+.check__stage {
+  position: sticky; top: 0; min-height: 100svh; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: calc(var(--gutter) / 2);
+  align-items: center; padding: calc(52px + var(--unit) * 10) var(--gutter) calc(var(--unit) * 10);
+}
+.check__copy { grid-column: 1 / span 4; display: grid; gap: calc(var(--unit) * 5); align-self: center; }
+.check__line { display: grid; gap: 0.25rem; padding: calc(var(--unit) * 4) 0; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line); font-size: 1.0625rem; }
+.check__line code { font-size: 1rem; font-weight: 600; }
+.check__meta { font-size: 0.875rem; color: var(--muted); }
+.check__proof { grid-column: 5 / -1; position: relative; display: grid; gap: calc(var(--unit) * 3); }
+.proof { position: relative; aspect-ratio: 1200 / 750; border: 1px solid var(--line); background: var(--ground); isolation: isolate; }
+.proof img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.proof__y { mix-blend-mode: multiply; }
+.check__proof figcaption { font-size: 0.875rem; color: var(--muted); max-width: 40em; }
+.stamp {
+  position: absolute; right: 1.5%; top: -6%; display: grid; gap: 0.1rem; padding: 0.9rem 1.2rem 0.8rem; max-width: none;
+  border: 3px solid var(--ink); background: var(--accent); rotate: calc(var(--reg-r) - 7deg);
+  font-family: var(--font-display); font-stretch: 78%; font-weight: 700; text-transform: uppercase; line-height: 0.95;
+}
+/* The stamp prints from a GSAP timeline when the plates meet; without JavaScript it is simply printed. */
+.stamp__word { font-size: clamp(1.75rem, 3.2vw, 3rem); }
+.stamp__date { font-size: 0.8125rem; font-family: var(--font-body); font-stretch: 115%; letter-spacing: 0.08em; }
+
+/* 5 · The case — the recipes in rows, grouped like a type case. */
+.chapter--case { row-gap: calc(var(--unit) * 12); }
+.case__head { grid-column: 1 / span 7; display: grid; gap: calc(var(--unit) * 5); }
+/* Groups of very different lengths are set like an index in balanced columns: a long group runs on into the next
+   column, its head always kept with its first rows, so the column feet meet. */
+.case__groups { columns: 4 17rem; column-gap: calc(var(--gutter) / 2); }
+.case__group { display: block; border-top: 2px solid var(--ink); padding-top: calc(var(--unit) * 3); margin-bottom: calc(var(--unit) * 10); }
+.case__group h3 { break-after: avoid; margin-bottom: calc(var(--unit) * 3); }
+.case__group li { break-inside: avoid; }
+.case__group h3 { position: relative; font-size: 1.25rem; padding-left: 0.5rem; }
+.case__solid { position: absolute; z-index: -1; left: 0; top: 0.05em; width: 0.9em; height: 1.05em; background: var(--accent); mix-blend-mode: multiply; }
+.case__count { font-family: var(--font-body); font-weight: 400; font-stretch: 100%; font-size: 0.875rem; color: var(--muted); }
+.case__group ul { display: block; }
+.case__group a { display: block; padding: 0.4rem 0; border-bottom: 1px solid var(--line); text-decoration: none; font-size: 0.9375rem; line-height: 1.35; transition: background-color var(--dur-feedback) var(--ease-out-expo); }
+.case__group a:hover, .case__group a:focus-visible { background: color-mix(in oklab, var(--accent) 45%, var(--ground)); }
+
+/* 6 · Press OK — offset split: the OK mark, then the install and the way out. */
+.chapter--ok { min-height: 100svh; align-items: center; row-gap: calc(var(--unit) * 12); border-top: 2px solid var(--ink); isolation: isolate; overflow: clip; }
+.ok__mark { grid-column: 1 / span 6; display: grid; gap: calc(var(--unit) * 6); }
+.ok__title { position: relative; font-size: var(--display); font-stretch: 78%; line-height: 0.86; letter-spacing: -0.02em; max-width: 6em; }
+.ok__solid { position: absolute; z-index: -1; left: calc(-1 * var(--gutter) - 20px); top: 0.12em; width: calc(100% + var(--gutter)); height: 0.76em; background: var(--accent); mix-blend-mode: multiply; }
+.ok__sub { font-size: var(--h3); font-family: var(--font-display); font-stretch: 92%; font-weight: 700; line-height: 1.15; max-width: 18em; }
+.ok__install { grid-column: 8 / -1; display: grid; gap: calc(var(--unit) * 8); }
+.ok__links { display: grid; border-top: 1px solid var(--line); }
+.ok__links a { display: flex; align-items: center; min-height: 48px; border-bottom: 1px solid var(--line); text-decoration: none; transition: padding var(--dur-feedback) var(--ease-out-expo); }
+.ok__links a::after { content: "\2192"; margin-left: auto; }
+.ok__links a:hover, .ok__links a:focus-visible { padding-left: 0.5rem; }
+
+.colophon { display: grid; gap: calc(var(--unit) * 2); padding: calc(var(--unit) * 10) var(--gutter) calc(var(--unit) * 14); border-top: 1px solid var(--line); font-size: 0.875rem; color: var(--muted); }
+.colophon p { max-width: 60em; }
+
+/* The plate menu (phones): a non-modal list under the slug line. */
+.plates { position: fixed; top: 52px; right: var(--gutter); z-index: 25; background: var(--ground); border: 2px solid var(--ink); padding: calc(var(--unit) * 3) calc(var(--unit) * 5); min-width: 14rem; }
+.plates[hidden] { display: none; }
+.plates a { display: flex; align-items: center; min-height: 44px; text-decoration: none; font-weight: 600; border-bottom: 1px solid var(--line); }
+
+/* ——— Desktop: the claim widens on the width axis to three quarters of the plate, at the same height ——— */
+@media (min-width: 1001px) { :root { --display-wdth: 92%; } }
+
+/* ——— Short laptop screens: the copy action stays in the first viewport ——— */
+@media (min-width: 1001px) and (max-height: 920px) {
+  :root { --display: min(11.6667vw, 19svh); }
+  .chapter--sheet { padding-top: calc(52px + var(--unit) * 10); row-gap: calc(var(--unit) * 6); }
+  .sheet__lede { gap: calc(var(--unit) * 5); }
+  .install { gap: calc(var(--unit) * 2); padding-top: calc(var(--unit) * 3); }
+  html.js .install__tabs { margin-bottom: calc(var(--unit) * -2); }
+}
+
+/* ——— Tablet: the claim fills the plate's head on three lines, the reading copy sits at its foot ——— */
+@media (min-width: 561px) and (max-width: 1000px) {
+  :root { --display: min(22vw, 30svh); }
+}
+
+/* ——— Tablet and phone ——— */
+@media (max-width: 1000px) {
+  .slug__plates, .slug__repo { display: none; }
+  .slug { grid-template-columns: auto 1fr auto; gap: calc(var(--unit) * 3); }
+  .slug__register { justify-self: end; }
+  .slug__menu { display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.875rem; background: none; border: 1px solid var(--ink); border-radius: 0; cursor: pointer; font: inherit; letter-spacing: inherit; text-transform: inherit; }
+  .slug__menu:focus-visible { outline-offset: -2px; box-shadow: inset 0 0 0 5px var(--accent); }
+  .target, .colourbar { display: none; }
+  .chapter { padding-block: calc(var(--unit) * 22); }
+  .chapter--sheet { padding-top: calc(52px + var(--unit) * 14); align-content: space-between; }
+  .sheet__lede, .run__head, .run__aside, .floor__figure, .floor__copy, .check__copy, .check__proof, .case__head, .ok__mark, .ok__install { grid-column: 1 / -1; }
+  .run__row { grid-template-columns: 3rem 1fr; row-gap: calc(var(--unit) * 1); }
+  .run__row .run__skill, .run__row .run__line { grid-column: 2; }
+  .chapter--check { height: auto; }
+  /* Unpinned, the chapter's own padding spaces it like every other chapter; the stage adds none. */
+  .check__stage { position: static; min-height: 0; row-gap: calc(var(--unit) * 10); padding-block: 0; }
+  .bar { grid-template-columns: repeat(8, 1fr); height: 10rem; }
+  .stamp { right: 3%; top: -8%; }
+  .case__group a { padding: 0.65rem 0; min-height: 44px; display: flex; align-items: center; }
+}
+@media (max-width: 560px) {
+  .slug__phase, .slug__label, .slug__proof { display: none; }
+  .crop { width: 12px; height: 12px; }
+  .crop::before { width: 12px; } .crop::after { height: 12px; }
+  .crop--tl, .crop--tr { top: 2px; } .crop--bl, .crop--br { bottom: 2px; }
+  .crop--tl, .crop--bl { left: 2px; } .crop--tr, .crop--br { right: 2px; }
+  .crop--tl::before, .crop--tr::before { top: 5px; } .crop--bl::before, .crop--br::before { bottom: 5px; }
+  .crop--tl::after, .crop--bl::after { left: 5px; } .crop--tr::after, .crop--br::after { right: 5px; }
+  .install__code { font-size: 0.875rem; }
+  .install__code code { white-space: normal; }
+  .install__cmd { display: block; padding-left: 1.5em; text-indent: -1.5em; overflow-wrap: anywhere; }
+  /* On a phone the action comes before the paragraph, so it is on the first screen. */
+  .sheet__lede .install { order: -1; }
+  .run__outside li { grid-template-columns: 1fr; gap: calc(var(--unit) * 1); }
+}

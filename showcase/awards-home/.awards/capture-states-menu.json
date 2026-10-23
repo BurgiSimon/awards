@@ -1,0 +1,4 @@
+[
+  {"name":"menu-open","actions":[{"type":"click","selector":".slug__menu"},{"type":"waitFor","selector":"#plates"},{"type":"wait","ms":300}]},
+  {"name":"menu-escape","actions":[{"type":"click","selector":".slug__menu"},{"type":"waitFor","selector":"#plates"},{"type":"press","key":"Escape"},{"type":"waitFor","selector":"#plates","state":"hidden"},{"type":"wait","ms":200}]}
+]

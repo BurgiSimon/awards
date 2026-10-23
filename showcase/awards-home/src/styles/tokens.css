@@ -1,0 +1,56 @@
+/* awards-home tokens. Values are identical to DESIGN.md's frontmatter; change both in the same edit.
+   Two inks on proof paper: the key carries every word, the spot yellow is a surface and never text on paper. */
+:root,
+[data-theme="proof"] {
+  --ground: #f3f2ee;
+  --ink: #1f1c1a;
+  --accent: #ffd400;
+  color-scheme: light;
+}
+
+@supports (color: color(display-p3 1 1 1)) {
+  :root,
+  [data-theme="proof"] {
+    --accent: color(display-p3 1 0.84 0.1);
+  }
+}
+
+:root,
+[data-theme] {
+  --muted: color-mix(in oklab, var(--ink) 70%, var(--ground));
+  --line: color-mix(in oklab, var(--ink) 20%, var(--ground));
+}
+
+:root {
+  --font-display: "Special Gothic", "Special Gothic Fallback", "Arial Narrow", Arial, sans-serif;
+  --font-body: "Special Gothic", "Special Gothic Fallback", Arial, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* vw-lock on a 1440 artboard: 168px → 11.6667vw, floors for the phone. */
+  --artboard: 1440;
+  --display: clamp(4rem, 11.6667vw, 10.5rem);
+  --h2: clamp(2.25rem, 5vw, 4.5rem);
+  --h3: clamp(1.25rem, 1.9444vw, 1.75rem);
+  --body: clamp(1.0625rem, 1.25vw, 1.1875rem);
+  --label: 0.75rem;
+  --gutter: clamp(20px, 4.1667vw, 120px);
+  --unit: 4px;
+  --measure: 36em;
+
+  /* Mechanical register: a press run, short and firm. */
+  --ease-out-expo: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-expo: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-theme: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-feedback: 160ms;
+  --dur-routine: 360ms;
+  --dur-hero: 800ms;
+  --stagger: 0.06s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-feedback: 0ms;
+    --dur-routine: 120ms;
+    --dur-hero: 200ms;
+  }
+}

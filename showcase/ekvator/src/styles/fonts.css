@@ -1,0 +1,45 @@
+/* Self-hosted, OFL-1.1 (licences beside the files in public/fonts). Fallbacks are metric-matched
+   to Arial from the fonts' own hhea metrics and advance widths, so a swap never reflows a line. */
+@font-face {
+  font-family: "Unbounded";
+  src: url("/fonts/unbounded-latin-800.woff2") format("woff2");
+  font-weight: 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Unbounded";
+  src: url("/fonts/unbounded-latin-400.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Schibsted Grotesk";
+  src: url("/fonts/schibsted-grotesk-latin-400.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Schibsted Grotesk";
+  src: url("/fonts/schibsted-grotesk-latin-600.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Unbounded Fallback";
+  src: local("Arial Bold"), local("Arial-BoldMT"), local("Liberation Sans Bold"), local("Arial");
+  font-weight: 800;
+  size-adjust: 133.8%;
+  ascent-override: 74.4%;
+  descent-override: 18.3%;
+  line-gap-override: 0%;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Schibsted Fallback";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans");
+  size-adjust: 105.1%;
+  ascent-override: 92.9%;
+  descent-override: 24.5%;
+  line-gap-override: 0%;
+  font-display: swap;
+}
