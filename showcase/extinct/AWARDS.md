@@ -10,7 +10,7 @@
 - [x] Stack booted (stack)
 - [x] Motion score authored and built (motion)
 - [x] WebGL layer built or explicitly declined (webgl)
-- [ ] Jury disposition: —
+- [x] Jury disposition: ship · 2026-10-23
 - [ ] Shipped (ship)
 
 ## Brief
@@ -80,6 +80,8 @@ Responsive strategy: vw-lock above 768 px through the `clamp()` tokens (1440 art
   top fixes: 1) scope the canvas rule .field (src/styles/page.css:47, index.html:27) so the booking wrappers stop covering the hero and the CTA answers click and tap 2) move #colours after its toggle (index.html:222) so Shift+Tab stays in the menu 3) give the paint face a larger share of the block and remove the empty bottom band (src/styles/page.css:50-55,76-81)
 - 2026-10-23 · component .chapter--block · ship · D 7.4 / U 7.7 / C 7.3 → mean 7.47 · .awards/jury/2026-10-23-component-2.md
   top fixes: 1) draw the resin's top face as the block's own top, never laid over the front face (src/styles/page.css:84-89) 2) render the translucent body and polished window, replace the drop shadow with base light (page.css:68-82, 92-96) 3) paint the +5° start angle before first paint so the load turn only settles (src/main.js:32-37, page.css:82) 4) make the block's exit the first beat of the descent instead of a straight section edge (page.css:54-57); first-pass floors (CTA hit-test, menu focus order) resolved
+- 2026-10-23 · ship · D 7.7 / U 7.6 / C 8.0 / Co 8.2 → 7.8 · dev seo 8.2 / anim 7.6 / a11y 8.0 / wpo 8.0 / resp 7.8 / meta 8.0 → 7.93 · .awards/jury/2026-10-23-page-1.md
+  top fixes: 1) low-tier stills: wavy boundaries and per-pigment grain (src/styles/page.css:149-151) 2) low-tier infrared still with glowing specks (src/styles/page.css:178) 3) chapter names at display scale (src/styles/page.css:153)
 
 ## Ship log
 <!-- appended by awards:ship — date · audit summary · captures · performance numbers -->

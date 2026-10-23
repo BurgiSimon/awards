@@ -1,5 +1,5 @@
 // The signature: the microscope's stage follows the scroll down the paint cross-section. Depth is a piecewise-linear
-// map from scroll position to micrometres, anchored on the plaques (a centred plaque = its layer's middle) and on the
+// map from scroll position to micrometres, anchored on the plaques (a plaque 60 % down = its layer's middle) and on the
 // held infrared stage; magnification eases between layers so each one about fills the height. The field renders only
 // on a dirty frame and only while it can be seen. Every word stays in the DOM; the readout is decoration.
 import gsap from 'gsap';
@@ -63,9 +63,11 @@ export function createMicroscope({ awards, announce, tier }) {
     const list = [
       { y: takenTop - vh, d: d0 - vh * u1 },
       { y: takenTop, d: d0 },
+      // A layer's middle is under the stage when its plaque's top is 60 % down the screen, so the pigment arrives
+      // with its plaque (the crossing falls half way between two plaques, before the second one enters).
       ...plaques.map((p) => {
         const r = p.getBoundingClientRect();
-        return { y: r.top + scrollY + r.height / 2 - vh / 2, d: mid(LAYERS[Number(p.dataset.layerAt) - 1]), layer: Number(p.dataset.layerAt) };
+        return { y: r.top + scrollY - vh * 0.6, d: mid(LAYERS[Number(p.dataset.layerAt) - 1]), layer: Number(p.dataset.layerAt) };
       }),
     ];
     const irTop = docTop(irSection);

@@ -85,8 +85,8 @@
       </section>
 
       <section class="chapter chapter--layers chapter--taken" id="taken" aria-labelledby="taken-title" data-chapter-at="taken">
-        <span class="still still--a" aria-hidden="true" style="--c: #5c3b26"></span>
-        <span class="still still--b" aria-hidden="true" style="--c: #d4482b"></span>
+        <span class="still still--a" aria-hidden="true" style="--c: #5c3b26; --g: 1.6"></span>
+        <span class="still still--b" aria-hidden="true" style="--c: #d4482b; --g: 0.9"></span>
         <h2 class="layers__title" id="taken-title">Used up, and taken.</h2>
         <article class="plaque" id="mummy-brown" data-layer-at="1" aria-labelledby="mummy-brown-name">
           <p class="label">No. 1 · Layer 0–110 <span class="unit">µm</span> · ended in the 1960<span class="unit">s</span></p>
@@ -105,8 +105,8 @@
       </section>
 
       <section class="chapter chapter--layers chapter--poison" id="poison" aria-labelledby="poison-title" data-chapter-at="poison">
-        <span class="still still--a" aria-hidden="true" style="--c: #e2a51c"></span>
-        <span class="still still--b" aria-hidden="true" style="--c: #6f9a35"></span>
+        <span class="still still--a" aria-hidden="true" style="--c: #e2a51c; --g: 2.2"></span>
+        <span class="still still--b" aria-hidden="true" style="--c: #6f9a35; --g: 0.7"></span>
         <h2 class="layers__title" id="poison-title">Unbearable, and poisonous.</h2>
         <article class="plaque" id="indian-yellow" data-layer-at="3" aria-labelledby="indian-yellow-name">
           <p class="label">No. 3 · Layer 150–235 <span class="unit">µm</span> · ended c. 1910</p>
@@ -125,8 +125,8 @@
       </section>
 
       <section class="chapter chapter--layers chapter--forgotten" id="forgotten" aria-labelledby="forgotten-title" data-chapter-at="forgotten">
-        <span class="still still--a" aria-hidden="true" style="--c: #efd86c"></span>
-        <span class="still still--b" aria-hidden="true" style="--c: #6a1043"></span>
+        <span class="still still--a" aria-hidden="true" style="--c: #efd86c; --g: 0.7"></span>
+        <span class="still still--b" aria-hidden="true" style="--c: #6a1043; --g: 0.6"></span>
         <h2 class="layers__title" id="forgotten-title">Forgotten, and too dear.</h2>
         <article class="plaque" id="lead-tin-yellow" data-layer-at="5" aria-labelledby="lead-tin-yellow-name">
           <p class="label">No. 5 · Layer 290–385 <span class="unit">µm</span> · ended c. 1750</p>
@@ -188,8 +188,8 @@
           <p class="booking__note">Tuesday to Sunday, 10:00 to 16:40. This is a demonstration: nothing is charged.</p>
           <div class="field">
             <label for="b-day">Day</label>
-            <input id="b-day" name="day" type="date" required aria-describedby="b-day-err">
-            <p class="field__error" id="b-day-err" hidden>Choose a day from tomorrow on, Tuesday to Sunday; the museum is closed on Mondays.</p>
+            <select id="b-day" name="day" required aria-describedby="b-day-err"><option value="">Choose a day</option></select>
+            <p class="field__error" id="b-day-err" hidden>Choose a day; the museum is open Tuesday to Sunday.</p>
           </div>
           <fieldset class="slots" aria-describedby="b-slot-err">
             <legend>Time</legend>
