@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "generator": "scripts/proof.mjs",
-  "project": "site-next",
+  "project": "site",
   "publicBase": "paths are relative to public/",
   "state": "a",
   "strip": true,

@@ -45,6 +45,8 @@ const outDir = path.resolve(projectRoot, args.out ?? '.awards/captures');
 // them with their manifests and exit codes, so the jury reads every page the page map names, not only the home.
 if (args.routes) {
   const { spawn } = await import('node:child_process');
+  // A bare --routes parses as true; capturing a route named "true" would 404 and exit 4 with no hint why.
+  if (args.routes === true || !String(args.routes).trim()) { console.error('--routes needs the routes to capture, e.g. --routes /,/about.html,/work/'); process.exit(1); }
   const routes = String(args.routes).split(',').map((r) => r.trim()).filter(Boolean);
   const remote = /^https?:\/\//i.test(target);
   // A local site is served once from its root, so absolute asset paths resolve on every route.
