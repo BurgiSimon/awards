@@ -5,6 +5,8 @@ export default defineConfig({
   base: './',
   build: {
     target: 'es2022',
+    // three is one lazy 137 KB (gz) chunk by design; the budget in AWARDS.md is the limit that matters.
+    chunkSizeWarningLimit: 600,
     rollupOptions: {
       input: {
         main: resolve(import.meta.dirname, 'index.html'),
