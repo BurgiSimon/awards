@@ -7,7 +7,7 @@
 - [x] Direction contract locked (concept)
 - [x] Visual system written (system → DESIGN.md, tokens.css)
 - [x] Page map and skeleton built (structure)
-- [ ] Stack booted (stack)
+- [x] Stack booted (stack)
 - [ ] Motion score authored and built (motion)
 - [ ] WebGL layer built or explicitly declined (webgl)
 - [ ] Jury disposition: —
@@ -59,7 +59,9 @@ Responsive strategy: vw-lock above 768 px through the `clamp()` tokens (1440 art
 |---|---|---|---|---|
 
 ## Budgets & tiers
-- Entry JS (gz): · GL chunk (gz): · Textures per scene: · Fonts (files / KB): · LCP target: · Tiers: high / mid / low →
+- Stack: Vite 8.3.5 + vanilla JS, MPA (index + 404), `base: './'` so `dist/` deploys from any folder; GSAP 3.15.0 + ScrollTrigger, Lenis 1.3.26 (`autoRaf: false`, ticked from `gsap.ticker`, `lagSmoothing(0)`); no CMS; no route transitions (one page). Resize: vw-lock tokens, `ScrollTrigger.config({ ignoreMobileResize: true })`, scenes rebuilt on a debounced `ResizeObserver`.
+- Scroll model: native + Lenis; one sticky stage (polar night, 230 vh rail); the borrowed clock is read from the scroll position, never written to it.
+- Entry JS (gz): 50.4 KB at boot (budget ≤ 200) · GL chunk (gz): — (raw WebGL2, one fullscreen shader, lazy; budget ≤ 30) · Textures per scene: 0 (procedural) · Fonts (files / KB): 4 / 91 · LCP target: ≤ 2.5 s from the DOM (the h1) · Tiers: high (wall at DPR ≤ 1.5) / mid (0.75 scale) / low (0.5 scale) → the CSS light when WebGL2 is missing, the context is lost, or the motion tier is static.
 - Deep modes: motion — · webgl — (set by motion and webgl)
 - Mode: full
 

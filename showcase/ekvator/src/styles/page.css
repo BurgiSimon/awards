@@ -146,7 +146,7 @@ html.has-gl .room { visibility: hidden; }
 /* 6 · Blue hour — even split: the lit panel, and the reservation inside its light. */
 .chapter--reserve { min-height: 100svh; align-items: center; row-gap: calc(var(--unit) * 12); }
 .reserve__panel { grid-column: 1 / span 5; justify-self: center; width: min(100%, 360px); aspect-ratio: 2 / 3; border: 1.5px solid var(--ink); padding: 14px; position: relative; }
-.reserve__glass { display: block; width: 100%; height: 100%; background: var(--panel-light, rgb(255 196 132)); }
+.reserve__glass { display: block; width: 100%; height: 100%; background: radial-gradient(120% 90% at 50% 42%, rgb(255 236 210), var(--panel-light, rgb(255 190 122)) 70%); }
 .reserve__copy { grid-column: 7 / -1; display: grid; gap: calc(var(--unit) * 6); }
 .reserve__form { display: grid; gap: calc(var(--unit) * 4); max-width: 30rem; }
 .field { display: grid; gap: calc(var(--unit) * 1.5); }

@@ -4,8 +4,6 @@
   --ground: #e7e4dd;
   --ink: #151a22;
   --accent: #ef9a3c;
-  --muted: color-mix(in oklab, var(--ink) 72%, var(--ground));
-  --line: color-mix(in oklab, var(--ink) 22%, var(--ground));
   --ring: var(--ink);
   color-scheme: light;
 }
@@ -21,9 +19,19 @@
   --ground: #192030;
   --ink: #e7e4dd;
   --accent: #f0a257;
-  --line: color-mix(in oklab, var(--ink) 26%, var(--ground));
   --ring: var(--accent);
   color-scheme: dark;
+}
+
+/* Mixed tokens are redeclared wherever a theme is, so a night section mixes its own ink and ground
+   instead of inheriting the day's already-computed values. */
+:root,
+[data-theme] {
+  --muted: color-mix(in oklab, var(--ink) 72%, var(--ground));
+  --line: color-mix(in oklab, var(--ink) 22%, var(--ground));
+}
+[data-theme="night"] {
+  --line: color-mix(in oklab, var(--ink) 26%, var(--ground));
 }
 
 :root {
