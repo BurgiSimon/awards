@@ -40,5 +40,6 @@ if (motionTier() === 'full') {
 awards.addState(() => ({ motion: motionTier() }));
 document.documentElement.classList.add('is-ready');
 awards.ready();
-// The field is not needed for first paint: it starts after the page is ready and shows after its own first frame.
+// The field is not needed for first paint: it arms after the page is ready, starts as the visitor nears the first
+// layer, and shows after its own first frame.
 requestAnimationFrame(() => requestAnimationFrame(() => microscope.start()));

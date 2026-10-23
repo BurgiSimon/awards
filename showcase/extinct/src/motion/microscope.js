@@ -1,5 +1,5 @@
 // The signature: the microscope's stage follows the scroll down the paint cross-section. Depth is a piecewise-linear
-// map from scroll position to micrometres, anchored on the plaques (a centred plaque = its layer's middle) and on the
+// map from scroll position to micrometres, anchored on the plaques (a plaque 60 % down = its layer's middle) and on the
 // held infrared stage; magnification eases between layers so each one about fills the height. The field renders only
 // on a dirty frame and only while it can be seen. Every word stays in the DOM; the readout is decoration.
 import gsap from 'gsap';
@@ -63,9 +63,11 @@ export function createMicroscope({ awards, announce, tier }) {
     const list = [
       { y: takenTop - vh, d: d0 - vh * u1 },
       { y: takenTop, d: d0 },
+      // A layer's middle is under the stage when its plaque's top is 60 % down the screen, so the pigment arrives
+      // with its plaque (the crossing falls half way between two plaques, before the second one enters).
       ...plaques.map((p) => {
         const r = p.getBoundingClientRect();
-        return { y: r.top + scrollY + r.height / 2 - vh / 2, d: mid(LAYERS[Number(p.dataset.layerAt) - 1]), layer: Number(p.dataset.layerAt) };
+        return { y: r.top + scrollY - vh * 0.6, d: mid(LAYERS[Number(p.dataset.layerAt) - 1]), layer: Number(p.dataset.layerAt) };
       }),
     ];
     const irTop = docTop(irSection);
@@ -171,7 +173,10 @@ export function createMicroscope({ awards, announce, tier }) {
   // The GL starts behind the page after first paint, lazily; the stills stay until its first frame has drawn.
   async function start() {
     if (!('WebGL2RenderingContext' in window)) return;
-    const profile = await detectQualityTier({ sampleMs: 400 });
+    // One context, the field's own: the tier is read from it, and a low tier gives it back rather than opening a second.
+    const ctx = canvas.getContext('webgl2', { antialias: false, alpha: false, depth: false, stencil: false, powerPreference: 'low-power', preserveDrawingBuffer: false });
+    if (!ctx) return;
+    const profile = await detectQualityTier({ sampleMs: 400, gl: ctx });
     // `?tier=high|mid|low` overrides the probe, so a reviewer on a software renderer can see the tier it would refuse.
     const forced = new URLSearchParams(location.search).get('tier');
     if (['high', 'mid', 'low'].includes(forced)) {
@@ -179,7 +184,10 @@ export function createMicroscope({ awards, announce, tier }) {
       if (forced !== 'low') profile.maxPixels = forced === 'high' ? 2560 * 1440 : 1920 * 1080;
     }
     awards.addState(() => ({ quality: profile.tier }));
-    if (!profile.probe.webgl2 || profile.tier === 'low') return; // the contract's low tier is the stills
+    if (!profile.probe.webgl2 || profile.tier === 'low') { // the contract's low tier is the stills
+      ctx.getExtension('WEBGL_lose_context')?.loseContext();
+      return;
+    }
     const budget = () => {
       const w = Math.max(1, canvas.clientWidth);
       const h = Math.max(1, canvas.clientHeight);
@@ -206,8 +214,20 @@ export function createMicroscope({ awards, announce, tier }) {
   gsap.ticker.add(frame);
   awards.addState(() => ({ gl: !!field, ...state, ir: irOn }));
 
+  // The field is behind the hero's opaque ground, so nothing GL happens until the visitor heads for the first layer
+  // (or arrives already past the hero): a reader who stays on the block pays for no context at all.
+  function arm() {
+    const taken = document.getElementById('taken');
+    const io = new IntersectionObserver((entries) => {
+      if (!entries.some((e) => e.isIntersecting)) return;
+      io.disconnect();
+      start();
+    }, { rootMargin: '0px' }); // the stills hold the first layer until the field's first frame cross-fades in
+    io.observe(taken);
+  }
+
   return {
-    start,
+    start: arm,
     destroy() {
       gsap.ticker.remove(frame);
       ScrollTrigger.removeEventListener('refresh', measure);

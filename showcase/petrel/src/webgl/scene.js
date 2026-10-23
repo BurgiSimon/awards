@@ -6,7 +6,7 @@ import {
   WebGLRenderer, Scene, OrthographicCamera, Group, Mesh, InstancedMesh, Object3D, MeshStandardMaterial,
   CylinderGeometry, TubeGeometry, TorusGeometry, SphereGeometry, RingGeometry, Curve, CurvePath, LineCurve3, Vector3,
   CubicBezierCurve3, QuadraticBezierCurve3, Plane, PMREMGenerator, NeutralToneMapping, DoubleSide, DirectionalLight,
-  DataTexture,
+  DataTexture, MeshBasicMaterial, BackSide,
 } from 'three';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 
@@ -44,8 +44,8 @@ function armour(geometry, material, count, axis) {
 // The TIA fibre colours, as the static cutaway draws them.
 const FIBRES = ['#1f5fbf', '#e07a1f', '#2e8b3e', '#7a4a24', '#7d8790', '#f2f2f2', '#c8261d', '#111417'];
 
-export function mountScene(canvas, quality) {
-  const renderer = new WebGLRenderer({ canvas, antialias: quality.tier !== 'low', alpha: true, powerPreference: 'high-performance' });
+export function mountScene(canvas, quality, context) {
+  const renderer = new WebGLRenderer({ canvas, context, alpha: true, antialias: true, powerPreference: 'high-performance' });
   renderer.setClearColor(0x000000, 0);
   renderer.toneMapping = NeutralToneMapping;
   renderer.localClippingEnabled = true;
@@ -152,22 +152,38 @@ export function mountScene(canvas, quality) {
     const tip = keep(new SphereGeometry(2.6, 8, 6));
     grapnelParts.push({ ring, shank, crown, fluke, tip });
   }
+  // A light-ink hull behind each part (back faces only, scaled out a touch), so the forged steel keeps an edge on the
+  // near-black band at 4,212 m.
+  const edge = new MeshBasicMaterial({ color: 0x9aa5ab, side: BackSide });
+  owned.push(edge);
+  function withEdge(geo, mat) {
+    const g = new Group();
+    g.add(new Mesh(geo, mat));
+    const hull = new Mesh(geo, edge);
+    // Scaled about the part's own centre, not its origin (a fluke's geometry sits away from the origin).
+    if (!geo.boundingBox) geo.computeBoundingBox();
+    hull.position.copy(geo.boundingBox.getCenter(new Vector3())).multiplyScalar(1 - 1.12);
+    hull.scale.setScalar(1.12);
+    g.add(hull);
+    return g;
+  }
   function grapnel() {
     const { ring, shank, crown, fluke, tip } = grapnelParts[0];
     const g = new Group();
-    const r = new Mesh(ring, forged); r.position.y = -6; g.add(r);
-    const sh = new Mesh(shank, forged); sh.position.y = -34; g.add(sh);
-    const c = new Mesh(crown, forged); c.position.y = -58; g.add(c);
+    const r = withEdge(ring, forged); r.position.y = -6; g.add(r);
+    const sh = withEdge(shank, forged); sh.position.y = -34; g.add(sh);
+    const c = withEdge(crown, forged); c.position.y = -58; g.add(c);
     for (let i = 0; i < 4; i++) {
       const arm = new Group();
       arm.rotation.y = (i / 4) * TAU + Math.PI / 4;
-      arm.add(new Mesh(fluke, forged));
-      const t = new Mesh(tip, forged); t.position.set(21, -42, 0); arm.add(t);
+      arm.add(withEdge(fluke, forged));
+      const t = withEdge(tip, forged); t.position.set(21, -42, 0); arm.add(t);
       g.add(arm);
     }
     return g;
   }
   const hanging = grapnel();
+  hanging.scale.setScalar(1.7); // the arrival at 4,212 m reads at the cable's scale, not as a speck
   scene.add(hanging);
   const dragged = grapnel();
   dragged.rotation.z = -1.05; // lying on the ooze, the shank leaning toward the wire, the flukes trailing in
@@ -246,6 +262,10 @@ export function mountScene(canvas, quality) {
     });
   }
 
+  // Compile every program off the main thread where the driver can (KHR_parallel_shader_compile) before the first
+  // frame, so the GL never lands as one long task.
+  const ready = renderer.compileAsync(scene, camera).catch(() => {});
+
   let last = '';
   let lost = false;
   const onLost = (e) => { e.preventDefault(); lost = true; };
@@ -263,6 +283,7 @@ export function mountScene(canvas, quality) {
   let sized = '';
 
   return {
+    ready,
     update(f) {
       if (lost) return false;
       const k = JSON.stringify(f);

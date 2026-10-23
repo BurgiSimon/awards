@@ -1,6 +1,8 @@
 // Adaptive quality: probe the device once, measure the first frames, and hand every effect a tier.
 // Tiers: high (DPR ≤ 2, full effects) · mid (DPR ≤ 1.5, fewer particles/blur samples) · low (DPR 1, no post-processing, static fallbacks allowed)
-export async function detectQualityTier({ sampleMs = 600 } = {}) {
+// Pass `gl` (the context the scene will render with) to read the renderer from it instead of opening a throwaway one:
+// on a software renderer a context costs a long main-thread task, so the probe should never create a second.
+export async function detectQualityTier({ sampleMs = 600, gl: given = null } = {}) {
   const dpr = window.devicePixelRatio || 1;
   const memory = navigator.deviceMemory || 4;
   const cores = navigator.hardwareConcurrency || 4;
@@ -9,9 +11,9 @@ export async function detectQualityTier({ sampleMs = 600 } = {}) {
   let renderer = 'unknown';
   let webgl2 = false;
   try {
-    const c = document.createElement('canvas');
-    const gl = c.getContext('webgl2') || c.getContext('webgl');
-    webgl2 = !!c.getContext('webgl2');
+    const c = given ? null : document.createElement('canvas');
+    const gl = given || c.getContext('webgl2') || c.getContext('webgl');
+    webgl2 = given ? typeof WebGL2RenderingContext !== 'undefined' && given instanceof WebGL2RenderingContext : !!c.getContext('webgl2');
     const info = gl && gl.getExtension('WEBGL_debug_renderer_info');
     if (gl && info) renderer = String(gl.getParameter(info.UNMASKED_RENDERER_WEBGL));
     else if (gl) renderer = String(gl.getParameter(gl.RENDERER));

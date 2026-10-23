@@ -25,7 +25,8 @@ export function createCable({ score, awards }) {
     depth: q('[data-depth]'),
     wire: q('[data-wire]'),
     tension: q('[data-tension]'),
-    trace: q('.tension__trace'),
+    reveal: q('.tension__reveal'),
+    copy: q('.drag__copy'),
     dot: q('.pulse__dot'),
     svgWire: q('.seabed__wire'),
     svgGrapnel: q('.seabed__grapnel'),
@@ -72,6 +73,7 @@ export function createCable({ score, awards }) {
       end: descent.bottom,
       dragTop: drag.top, dragH: drag.height, stageH: el.stage.offsetHeight,
       seabed: { left: seabed.left, top: seabed.top - stage.top, width: seabed.width, height: seabed.height },
+      copyBottom: el.copy.getBoundingClientRect().bottom - stage.top,
       cutaway,
     };
     score.measure([
@@ -127,8 +129,8 @@ export function createCable({ score, awards }) {
     const p = s.pulse < 0.5 ? s.pulse * 2 : (1 - s.pulse) * 2;
     const cx = (20 + 880 * p).toFixed(1);
     if (shown.cx !== cx) { el.dot.setAttribute('cx', cx); shown.cx = cx; }
-    const off = (1 - s.trace).toFixed(4);
-    if (shown.trace !== off) { el.trace.style.strokeDashoffset = off; shown.trace = off; }
+    const reveal = (s.trace * 1200).toFixed(1);
+    if (shown.trace !== reveal) { el.reveal.setAttribute('width', reveal); el.reveal.style.width = `${reveal}px`; shown.trace = reveal; }
 
     // The drag in seabed units: the grapnel's crown crosses from x 160 to the cable at 806; the wire leads ahead of
     // it to the ship; after the catch the hooked cable and the grapnel rise together.
@@ -158,8 +160,8 @@ export function createCable({ score, awards }) {
       drag: {
         visible: st < m.vh && st + m.stageH > 0,
         crown: [sb.x(gx), sb.y(300 - rise)],
-        // On a phone the copy runs the full width above the seabed, so the wire enters at the seabed's top edge instead.
-        lead: [sb.x(gx + 560), m.vw < 768 ? sb.y(-24) : st - 12],
+        // On a phone the copy runs the full width above the seabed, so the wire enters just under the copy instead.
+        lead: [sb.x(gx + 560), m.vw < 768 ? st + m.copyBottom + 20 : st - 12],
         c1: [sb.x(gx + 420), sb.y(110)],
         c2: [sb.x(gx + 90), sb.y(262 - rise)],
         scale: Math.max(0.8, Math.min(1.9, sb.s * 1.6)),

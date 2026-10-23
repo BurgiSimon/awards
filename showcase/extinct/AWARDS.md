@@ -10,7 +10,7 @@
 - [x] Stack booted (stack)
 - [x] Motion score authored and built (motion)
 - [x] WebGL layer built or explicitly declined (webgl)
-- [ ] Jury disposition: —
+- [x] Jury disposition: ship · 2026-10-23
 - [ ] Shipped (ship)
 
 ## Brief
@@ -68,7 +68,7 @@ Responsive strategy: vw-lock above 768 px through the `clamp()` tokens (1440 art
 | Budget | — | 2 tweens (turn, lights), 0 loops, one ticker (`gsap.ticker` → Lenis → ScrollTrigger → one field render per dirty frame); the field renders only while it can be seen (between the block's exit and the drawer room) and when depth, magnification, infrared or size changed; hidden tabs stop with rAF | — | none |
 
 ## Budgets & tiers
-- Entry JS (gz): 54.4 KB measured at the motion checkpoint (49.4 KB at stack), budget ≤ 200 KB · GL chunk (gz): 4.8 KB for the field module (the shader and its WebGL2 setup) plus 0.3 KB of pigment data, lazy, budget ≤ 20 KB · Textures per scene: none (every grain is procedural) · Fonts (files / KB): 4 / 80 KB · LCP target: ≤ 2.5 s on a throttled phone, from the DOM claim · Tiers: high (pixel ratio ≤ 1.5 inside a 2560 × 1440 budget) / mid (≤ 1.5 inside 1920 × 1080) → low, without WebGL2 or on context loss: the CSS and SVG stills, as the contract says (`?tier=high|mid|low` overrides the probe for review on a software renderer).
+- Entry JS (gz): 52.8 KB measured at ship (54.4 KB at motion, 49.4 KB at stack), budget ≤ 200 KB · GL chunk (gz): 4.8 KB for the field module (the shader and its WebGL2 setup) plus 0.3 KB of pigment data, lazy, budget ≤ 20 KB · Textures per scene: none (every grain is procedural) · Fonts (files / KB): 4 / 80 KB · LCP target: ≤ 2.5 s on a throttled phone, from the DOM claim · Tiers: high (pixel ratio ≤ 1.5 inside a 2560 × 1440 budget) / mid (≤ 1.5 inside 1920 × 1080) → low, without WebGL2 or on context loss: the CSS and SVG stills, as the contract says (`?tier=high|mid|low` overrides the probe for review on a software renderer).
 - Stack: Vite 8.3 + vanilla JS, MPA (index and 404), relative base; GSAP 3.15 and Lenis 1.3 on GSAP's ticker; the field is raw WebGL2 (no library) behind a dynamic import; scroll model native + Lenis with one sticky stage; resize rebuilds on a debounced ResizeObserver, never a reload; no route transitions (one page).
 - Deep modes: motion none · webgl shader — because the signature is one procedural field (seven pigments' grains, their boundaries and the infrared view) and the motion is a scroll-read stage position, not a choreography.
 - WebGL verify (2026-10-23): `.awards/captures/20261023T121702Z-webgl/manifest.json` — webgl true, one canvas at every width, `gl` true, 0 console, page or request errors, the reduced frames cut to one layer each; `.awards/captures/20261023T121702Z-nogl/manifest.json` — gl false, the CSS and SVG stills under every plaque, the readout and the infrared toggle still working, 0 errors. Audit perf, a11y: P03, P06, P07, A04 clean. Deep mode shader: the field converts linear to sRGB itself at the end of the fragment shader (raw WebGL2, no three colour pipeline); depth, magnification and infrared are fed from the one ticker, with rest values (the anchored depth, the layer's magnification, infrared 0); no post chain. Real device frame times: unmeasured (sandbox, SwiftShader only).
@@ -80,9 +80,12 @@ Responsive strategy: vw-lock above 768 px through the `clamp()` tokens (1440 art
   top fixes: 1) scope the canvas rule .field (src/styles/page.css:47, index.html:27) so the booking wrappers stop covering the hero and the CTA answers click and tap 2) move #colours after its toggle (index.html:222) so Shift+Tab stays in the menu 3) give the paint face a larger share of the block and remove the empty bottom band (src/styles/page.css:50-55,76-81)
 - 2026-10-23 · component .chapter--block · ship · D 7.4 / U 7.7 / C 7.3 → mean 7.47 · .awards/jury/2026-10-23-component-2.md
   top fixes: 1) draw the resin's top face as the block's own top, never laid over the front face (src/styles/page.css:84-89) 2) render the translucent body and polished window, replace the drop shadow with base light (page.css:68-82, 92-96) 3) paint the +5° start angle before first paint so the load turn only settles (src/main.js:32-37, page.css:82) 4) make the block's exit the first beat of the descent instead of a straight section edge (page.css:54-57); first-pass floors (CTA hit-test, menu focus order) resolved
+- 2026-10-23 · ship · D 7.7 / U 7.6 / C 8.0 / Co 8.2 → 7.8 · dev seo 8.2 / anim 7.6 / a11y 8.0 / wpo 8.0 / resp 7.8 / meta 8.0 → 7.93 · .awards/jury/2026-10-23-page-1.md
+  top fixes: 1) low-tier stills: wavy boundaries and per-pigment grain (src/styles/page.css:149-151) 2) low-tier infrared still with glowing specks (src/styles/page.css:178) 3) chapter names at display scale (src/styles/page.css:153)
 
 ## Ship log
 <!-- appended by awards:ship — date · audit summary · captures · performance numbers -->
+- 2026-10-23 · audit P0 0 / P1 0 / P2 0 / P3 0 · exceptions 1 · captures 5 valid from .awards/captures/20261023T131833Z-ship/manifest.json · entry 52.8 KB gz · GL 4.9 KB gz · LCP 1.89 s (throttled capture) · CLS 0 · .awards/ship/2026-10-23.md
 
 ## Exceptions
 <!-- audit rule ids deliberately accepted, one per line, scoped to a path or viewport where you can: `C02 — pure black is diegetic (night-vision console)`, `C01@src/credits.html — read once over the film still` -->

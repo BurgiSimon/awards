@@ -10,7 +10,7 @@
 - [x] Stack booted (stack)
 - [x] Motion score authored and built (motion)
 - [x] WebGL layer built or explicitly declined (webgl)
-- [ ] Jury disposition: —
+- [x] Jury disposition: fix · 2026-10-23
 - [ ] Shipped (ship)
 
 ## Brief
@@ -72,7 +72,7 @@ Responsive strategy: vw-lock above 768 px through the `clamp()` tokens (1440 art
 | Budget | — | one master timeline (labels fault, located, descent, drag, catch, lift, splice, laid, end) set from one scroll map by the ticker, one hero timeline, both inside one `gsap.matchMedia()`; 0 loops; one ticker (`gsap.ticker` → Lenis → ScrollTrigger → score → cable); the GL renders only on a dirty frame and only while a GL piece is on screen; hidden tabs stop with rAF | — | none |
 
 ## Budgets & tiers
-- Entry JS (gz): 56.2 KB measured at the motion checkpoint (49.3 KB at stack), budget ≤ 200 KB · GL chunk (gz): 140.7 KB (Three 0.186 at 137.1 KB plus the cable scene at 3.6 KB), lazy, budget ≤ 250 KB · Models: none, no glb and no KTX2 (the armour, the grapnel and the cut cable are generated) · Textures per scene: none · Fonts (files / KB): 4 / 55 KB · LCP target: ≤ 2.5 s on a throttled phone, from the DOM claim · Tiers: high (pixel ratio ≤ 2 inside 2560 × 1440, MSAA) / mid (≤ 1.5 inside 1920 × 1080, MSAA) → low, without WebGL2 or on context loss: the drawn cable strands and the SVG seabed and cutaway, moved by the same score (`?tier=` overrides the probe for review).
+- Entry JS (gz): 54.8 KB measured at ship (56.2 KB at motion, 49.3 KB at stack), budget ≤ 200 KB · GL chunk (gz): 136.6 KB at ship (Three 0.186 at 132.9 KB plus the cable scene at 3.6 KB), lazy, budget ≤ 250 KB · Models: none, no glb and no KTX2 (the armour, the grapnel and the cut cable are generated) · Textures per scene: none · Fonts (files / KB): 4 / 55 KB · LCP target: ≤ 2.5 s on a throttled phone, from the DOM claim · Tiers: high (pixel ratio ≤ 2 inside 2560 × 1440, MSAA) / mid (≤ 1.5 inside 1920 × 1080, MSAA) → low, without WebGL2 or on context loss: the drawn cable strands and the SVG seabed and cutaway, moved by the same score (`?tier=` overrides the probe for review).
 - Stack: Vite 8.3 + vanilla JS, MPA (index and 404), relative base; GSAP 3.15 and Lenis 1.3 on GSAP's ticker; Three 0.186 behind a dynamic import in its own chunk; scroll model native + Lenis with one sticky stage (built: the drag holds at 190 vh; the splice opens as its drawing crosses the viewport, without a second held stage, because the cutaway reads in one screen); resize re-measures on ScrollTrigger's refresh, never a reload; no route transitions (one page). Camera: one orthographic camera in CSS pixels that never moves; the page's native scroll answers the arrow, Page and Home/End keys. The scene mounts once and disposes on `pagehide`.
 - Deep modes: motion gsap · webgl 3d — because the signature is one rendered object (an armoured cable and its grapnel) whose pay-out, bend and cutaway are scrubbed through one paused timeline.
 - WebGL verify (2026-10-23): `.awards/captures/20261023T121702Z-webgl/manifest.json` — webgl true, one canvas at every width, `gl` true, 0 console, page or request errors, the reduced frames settled (lay still, drag hooked, cable open); `.awards/captures/20261023T121702Z-nogl/manifest.json` — gl false, the drawn cable, grapnel, seabed and cutaway in place, headings and copy identical, 0 errors (the Three context error on a WebGL-less browser was removed by gating on the probe). Audit perf, a11y: P03, P06, P07, A04 clean. Deep mode 3D: no glb or KTX2 (generated geometry, sizes above); no decoders; the camera is fixed and the native scroll answers the keys; one mount, disposed on `pagehide`. Deep mode GSAP: every scroll-mapped score row names `master@<label>` or `hero@payout`, the rest `—`; both timelines live in one `gsap.matchMedia()`; scrubbed tweens on `ease: 'none'`; reduced is a matchMedia branch. Real device frame times: unmeasured (sandbox, SwiftShader only).
@@ -84,9 +84,12 @@ Responsive strategy: vw-lock above 768 px through the `clamp()` tokens (1440 art
   top fixes: 1) compute the visitor's own crossing time (index.html:57 data-crossing is a constant 31 ms) 2) contain the bow's sideways overflow at ≤900 px (page.css:247, L02 413/390) 3) give 834 px its own bow composition (page.css:236–247)
 - 2026-10-23 · component .chapter--fault · fix · D 7.6 / U 7.9 / C 7.4 → mean 7.63 · .awards/jury/2026-10-23-component-2.md
   top fixes: 1) low tier keeps the drawn cable as SIGNATURE states (src/main.js:51) 2) one continuous cable over the sheave, no width step or seam (index.html:75–76, src/webgl/scene.js:241) 3) GL cable shaded as a cylinder with resolvable wires (src/webgl/scene.js:57–94)
+- 2026-10-23 · fix · D 7.7 / U 6.0 / C 7.8 / Co 8.2 → 7.26 · dev seo 8.4 / anim 7.4 / a11y 7.0 / wpo 8.2 / resp 7.2 / meta 7.8 → 7.67 · .awards/jury/2026-10-23-page-1.md
+  top fixes: 1) phone chapter menu focus order: Shift+Tab exits to the footer, panel stays open (index.html:263, src/ui/menu.js:7–16) 2) phone drag stage: hook below the seabed, trace jumps before the catch, wire over copy (src/motion/cable.js:156–162, :130) 3) chapter 6 DEPTH 0→4,212 m with WIRE OUT 0.0 m and nothing going down (src/motion/score.js:37–38)
 
 ## Ship log
 <!-- appended by awards:ship — date · audit summary · captures · performance numbers -->
+- 2026-10-23 · audit P0 0 / P1 0 / P2 0 / P3 0 · exceptions 1 · captures 5 valid from .awards/captures/20261023T131833Z-ship/manifest.json · entry 54.8 KB gz · GL 136.6 KB gz · LCP 0.98 s (throttled capture) · CLS 0 · .awards/ship/2026-10-23.md
 
 ## Exceptions
 <!-- audit rule ids deliberately accepted, one per line, scoped to a path or viewport where you can: `C02 — pure black is diegetic (night-vision console)`, `C01@src/credits.html — read once over the film still` -->

@@ -35,7 +35,9 @@ export function createScore() {
       .addLabel('splice', 4.5)
       .fromTo(s, { open: 0 }, { open: 1, duration: 1 }, 'splice')
       .addLabel('laid', 5.5)
-      .fromTo(s, { depth: 0 }, { depth: 4212, duration: 1 }, 'laid')
+      // Chapter 6 holds the deck values: the bight goes down in the drawing, not in the readouts, which belong to the
+      // grapnel wire, and that is back on board.
+      .set(s, { depth: 0, wire: 0, tension: 0 }, 'laid')
       .addLabel('end', 6.5);
     master = tl;
 

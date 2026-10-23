@@ -6,6 +6,10 @@ export function createBridge() {
   const bands = [...document.querySelectorAll('main [data-theme], .plate')];
   const chapters = [...document.querySelectorAll('[data-chapter-at]')];
   const links = [...document.querySelectorAll('.bridge__nav a[href^="#"], .chapters a[href^="#"]')];
+  // The browser's own chrome follows the band too (DESIGN.md, Browser surfaces): the band grounds from tokens.css.
+  const meta = document.querySelector('meta[name="theme-color"]');
+  const css = getComputedStyle(root);
+  const ground = (theme) => css.getPropertyValue(`--band-${theme === 'ooze' ? 'ooze' : theme}`).trim();
   let tops = [];
   let starts = [];
   let gap = 0;
@@ -23,7 +27,11 @@ export function createBridge() {
     const edge = scrollY + bridge.offsetHeight + gap;
     let theme = tops[0]?.theme || 'surface';
     for (const b of tops) if (b.top <= edge) theme = b.theme;
-    if (theme !== shown.theme) bridge.dataset.theme = shown.theme = theme;
+    if (theme !== shown.theme) {
+      bridge.dataset.theme = shown.theme = theme;
+      const value = ground(theme);
+      if (meta && value) meta.setAttribute('content', value);
+    }
     const probe = scrollY + innerHeight * 0.4;
     let current = starts[0]?.id;
     for (const c of starts) if (c.top <= probe) current = c.id;
