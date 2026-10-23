@@ -123,10 +123,20 @@ html.has-gl .thermocline--strand::after { visibility: hidden; }
 .located__facts dd { font-size: 1rem; }
 
 /* 3 · Descent — the depth log: ruled rows set at their real depth down a tall chapter. */
-.chapter--descent { min-height: 440vh; }
+.chapter--descent { min-height: 340vh; }
+/* A depth scale down the left edge: a tick every 100 m, a label every 250 m, so no screen of the descent is blank. */
+.depthscale {
+  position: absolute; z-index: 1; top: 62vh; bottom: 34vh; left: calc(var(--gutter) / 2 - 4px); width: 40px;
+  background: repeating-linear-gradient(to bottom, var(--line) 0 1px, transparent 1px calc(100% / 40.12)) left top / 8px 100% no-repeat;
+}
+.depthscale li {
+  position: absolute; left: 12px; top: calc((var(--at) - 200) / 4012 * 100%); transform: translateY(-50%);
+  font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.06em; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.depthscale li::before { content: ""; position: absolute; left: -12px; top: 50%; width: 10px; height: 1px; background: var(--muted); }
 .chapter--descent h2 { max-width: 11em; }
 .descent__lede { margin-top: calc(var(--unit) * 6); color: var(--muted); }
-.depthlog { position: absolute; z-index: 2; top: 62vh; bottom: 34vh; left: var(--gutter); right: calc(100% - var(--cable-x) + var(--gutter)); }
+.depthlog { position: absolute; z-index: 2; top: 62vh; bottom: 34vh; left: calc(var(--gutter) + 72px); right: calc(100% - var(--cable-x) + var(--gutter)); }
 .depthlog__row {
   position: absolute; left: 0; right: 0; top: calc((var(--at) - 200) / 4012 * 100%);
   display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: calc(var(--unit) * 5);
@@ -237,7 +247,7 @@ html.has-gl .cable__gl { opacity: 1; }
   .bow { width: 40%; right: -25%; --bow-cable-w: 31; }
   .bow__label { display: none; }
   .located__facts, .coverage, .splice__facts, .cutaway__layers { grid-template-columns: 1fr; }
-  .depthlog { right: calc(100% - var(--cable-x) + 22px); }
+  .depthlog { left: calc(var(--gutter) + 56px); right: calc(100% - var(--cable-x) + 22px); }
   .depthlog__row { grid-template-columns: 1fr; gap: calc(var(--unit) * 1); }
   .chapter--splice, .chapter--laid { padding-right: var(--gutter); }
   .splice__stage h2, .splice__lede, .splice__facts { grid-column: 1 / -1; }
