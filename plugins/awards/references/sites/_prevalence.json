@@ -115,7 +115,7 @@
         "P09",
         "S11"
       ],
-      "audit": "7aa25ebcad",
+      "audit": "8fecee690c",
       "date": "2026-10-26"
     },
     "https://lamalama.com/": {
@@ -127,9 +127,10 @@
         "A14",
         "A16",
         "A18",
+        "C01",
         "L06"
       ],
-      "audit": "7aa25ebcad",
+      "audit": "8fecee690c",
       "date": "2026-10-26"
     },
     "https://www.seasats.com/": {
@@ -147,14 +148,14 @@
         "P09",
         "S11"
       ],
-      "audit": "7aa25ebcad",
+      "audit": "8fecee690c",
       "date": "2026-10-26"
     },
     "https://www.siteassist.com/": {
       "group": "winner",
       "slug": "siteassist",
       "status": "not measured: the rendered steps failed",
-      "audit": "7aa25ebcad",
+      "audit": "8fecee690c",
       "date": "2026-10-26"
     },
     "https://thelinestudio.com/": {
@@ -172,7 +173,7 @@
         "P09",
         "S11"
       ],
-      "audit": "7aa25ebcad",
+      "audit": "8fecee690c",
       "date": "2026-10-26"
     },
     "https://unitedcarriers.com/": {
