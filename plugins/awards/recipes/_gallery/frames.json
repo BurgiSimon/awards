@@ -1,0 +1,648 @@
+{
+  "generator": "scripts/gallery-frames.mjs",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "frame": {
+    "width": 800,
+    "height": 500
+  },
+  "total": 1198916,
+  "sheet": {
+    "file": "sheet.webp",
+    "tile": {
+      "width": 160,
+      "height": 100
+    },
+    "cols": 15,
+    "rows": 6,
+    "ids": [
+      "auto-drive-manual-takeover",
+      "autoplay-tabs-progress",
+      "blur-peek-snap-carousel",
+      "boot-lenis-gsap",
+      "cart-drawer-quick-add",
+      "case-study-route-kit",
+      "clip-path-scrub-door",
+      "compare-hold-drag",
+      "complete-editorial-composition",
+      "css-scroll-driven-timeline",
+      "cursor-two-speed",
+      "custom-ease-house-defaults",
+      "designed-404",
+      "designed-footer",
+      "dialog-nested-lenis-sheet",
+      "docked-media-grow",
+      "drag-pan-infinite-grid",
+      "editorial-image-text",
+      "filmstrip-index-rows",
+      "flicker-text",
+      "flip-layout-state",
+      "gl-arc-length-mask-reveal",
+      "gl-built-studio-environment",
+      "gl-depth-map-parallax",
+      "gl-dispersion-stripes",
+      "gl-dom-tethered-planes",
+      "gl-endless-reel-sheets",
+      "gl-fluid-wake-post",
+      "gl-fps-governor-idle-gate",
+      "gl-hero-object-inertia",
+      "gl-lathe-turned-object",
+      "gl-material-patch-reveal",
+      "gl-msdf-text",
+      "gl-noise-edge-theme-wipe",
+      "gl-one-context-many-canvases",
+      "gl-orbit-model-hotspots",
+      "gl-ping-pong-grain-field",
+      "gl-postprocessing-presets",
+      "gl-progress-scene-windows",
+      "gl-rtt-composite-transition",
+      "gl-scrubbed-clip-timeline",
+      "gl-sdf-extruded-symbol",
+      "gl-spring-stepped-gallery",
+      "gl-uniform-tween-targets",
+      "gl-virtual-scroll-camera",
+      "horizontal-rail",
+      "hover-preview-list",
+      "idle-settle-snap",
+      "image-sequence-scrub",
+      "image-trail-cursor",
+      "knockout-wordmark-window",
+      "magnetic-button",
+      "marquee-raf-mask",
+      "nav-overlay-fullscreen",
+      "offscreen-canvas-worker",
+      "page-transitions",
+      "persistent-mode-switch",
+      "physics-pile-matter",
+      "pointer-tilt-shine",
+      "preloader-aperture-handoff",
+      "preloader-counter-hold",
+      "product-specification",
+      "quality-tiers",
+      "reduced-motion-switch",
+      "responsive-art-directed-hero",
+      "scramble-decode-text",
+      "scroll-drawn-svg-path",
+      "scroll-pin-scrub",
+      "scroll-word-fill",
+      "scrollbar-thumb-drag",
+      "scrub-threshold-timelines",
+      "section-switcher-wheel-commit",
+      "sentence-form-enquiry",
+      "sound-toggle-opt-in",
+      "split-text-masked-reveal",
+      "sprite-rain-canvas2d",
+      "sticky-stack-cards",
+      "sticky-stages-rails",
+      "svg-goo-line-reveal",
+      "svg-noise-line-field",
+      "theme-swap-tokens",
+      "throw-objects-css3d",
+      "title-mask-tunnel",
+      "transition-promote-chosen",
+      "two-phase-interruptible-timeline",
+      "typography-specimen",
+      "video-clip-wipe-panels",
+      "view-transitions-mpa",
+      "word-cycle-hero"
+    ]
+  },
+  "frames": {
+    "auto-drive-manual-takeover": {
+      "state": "rest",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 16708
+    },
+    "autoplay-tabs-progress": {
+      "state": "top",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 13094
+    },
+    "blur-peek-snap-carousel": {
+      "state": "top",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 11822
+    },
+    "boot-lenis-gsap": {
+      "state": "mid",
+      "scroll": 0.5,
+      "captured": "2026-10-26",
+      "bytes": 5740
+    },
+    "cart-drawer-quick-add": {
+      "state": "desktop",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 19372
+    },
+    "case-study-route-kit": {
+      "state": "case-mid",
+      "scroll": 0.5,
+      "captured": "2026-10-26",
+      "bytes": 6480
+    },
+    "clip-path-scrub-door": {
+      "state": "mid",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 5982
+    },
+    "compare-hold-drag": {
+      "state": "top",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 3176
+    },
+    "complete-editorial-composition": {
+      "state": "desktop-middle",
+      "scroll": 0.5,
+      "captured": "2026-10-26",
+      "bytes": 13804
+    },
+    "css-scroll-driven-timeline": {
+      "state": "mid",
+      "scroll": 0.5,
+      "captured": "2026-10-26",
+      "bytes": 4264
+    },
+    "cursor-two-speed": {
+      "state": "hover",
+      "scroll": 1,
+      "captured": "2026-10-26",
+      "bytes": 3908
+    },
+    "custom-ease-house-defaults": {
+      "state": "played",
+      "scroll": 1,
+      "captured": "2026-10-26",
+      "bytes": 8186
+    },
+    "designed-404": {
+      "state": "desktop",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 17688
+    },
+    "designed-footer": {
+      "state": "desktop-end",
+      "scroll": 1,
+      "captured": "2026-10-26",
+      "bytes": 10902
+    },
+    "dialog-nested-lenis-sheet": {
+      "state": "top",
+      "scroll": 0,
+      "captured": "2026-10-26",
+      "bytes": 14576
+    },
+    "docked-media-grow": {
+      "state": "dock",
+      "scroll": 0,
+      "captured": "2026-10-26",
+      "bytes": 15478
+    },
+    "drag-pan-infinite-grid": {
+      "state": "top",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 17110
+    },
+    "editorial-image-text": {
+      "state": "desktop",
+      "scroll": 0.6,
+      "captured": "2026-10-26",
+      "bytes": 28158
+    },
+    "filmstrip-index-rows": {
+      "state": "top",
+      "scroll": 0,
+      "captured": "2026-10-26",
+      "bytes": 19056
+    },
+    "flicker-text": {
+      "state": "top",
+      "scroll": 0,
+      "captured": "2026-10-26",
+      "bytes": 12994
+    },
+    "flip-layout-state": {
+      "state": "desktop",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 16866
+    },
+    "gl-arc-length-mask-reveal": {
+      "state": "half",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 7652
+    },
+    "gl-built-studio-environment": {
+      "state": "lit",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 15628
+    },
+    "gl-depth-map-parallax": {
+      "state": "top",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 12168
+    },
+    "gl-dispersion-stripes": {
+      "state": "still",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 21288
+    },
+    "gl-dom-tethered-planes": {
+      "state": "grid",
+      "scroll": 0.35,
+      "captured": "2026-10-26",
+      "bytes": 6058
+    },
+    "gl-endless-reel-sheets": {
+      "state": "top",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 12108
+    },
+    "gl-fluid-wake-post": {
+      "state": "top",
+      "scroll": 0,
+      "captured": "2026-10-26",
+      "bytes": 18070
+    },
+    "gl-fps-governor-idle-gate": {
+      "state": "top",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 37506
+    },
+    "gl-hero-object-inertia": {
+      "state": "scrolled",
+      "scroll": 0.5,
+      "captured": "2026-10-26",
+      "bytes": 17480
+    },
+    "gl-lathe-turned-object": {
+      "state": "rest",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 16810
+    },
+    "gl-material-patch-reveal": {
+      "state": "start",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 8260
+    },
+    "gl-msdf-text": {
+      "state": "top",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 9768
+    },
+    "gl-noise-edge-theme-wipe": {
+      "state": "fresh",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 17456
+    },
+    "gl-one-context-many-canvases": {
+      "state": "grid",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 9030
+    },
+    "gl-orbit-model-hotspots": {
+      "state": "open",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 9846
+    },
+    "gl-ping-pong-grain-field": {
+      "state": "rest",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 34764
+    },
+    "gl-postprocessing-presets": {
+      "state": "top",
+      "scroll": 0,
+      "captured": "2026-10-26",
+      "bytes": 16504
+    },
+    "gl-progress-scene-windows": {
+      "state": "top",
+      "scroll": 0,
+      "captured": "2026-10-26",
+      "bytes": 11666
+    },
+    "gl-rtt-composite-transition": {
+      "state": "top",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 14702
+    },
+    "gl-scrubbed-clip-timeline": {
+      "state": "idle",
+      "scroll": 0.3,
+      "captured": "2026-10-26",
+      "bytes": 9934
+    },
+    "gl-sdf-extruded-symbol": {
+      "state": "lit",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 12990
+    },
+    "gl-spring-stepped-gallery": {
+      "state": "top",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 8896
+    },
+    "gl-uniform-tween-targets": {
+      "state": "top",
+      "scroll": 0,
+      "captured": "2026-10-26",
+      "bytes": 36630
+    },
+    "gl-virtual-scroll-camera": {
+      "state": "mid",
+      "scroll": 0.5,
+      "captured": "2026-10-26",
+      "bytes": 20574
+    },
+    "horizontal-rail": {
+      "state": "mid",
+      "scroll": 0.5,
+      "captured": "2026-10-26",
+      "bytes": 5758
+    },
+    "hover-preview-list": {
+      "state": "follow",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 7864
+    },
+    "idle-settle-snap": {
+      "state": "top",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 15392
+    },
+    "image-sequence-scrub": {
+      "state": "mid",
+      "scroll": 0.5,
+      "captured": "2026-10-26",
+      "bytes": 2868
+    },
+    "image-trail-cursor": {
+      "state": "top",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 12074
+    },
+    "knockout-wordmark-window": {
+      "state": "full",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 17962
+    },
+    "magnetic-button": {
+      "state": "pull",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 2198
+    },
+    "marquee-raf-mask": {
+      "state": "top",
+      "scroll": 0.2,
+      "captured": "2026-10-26",
+      "bytes": 20752
+    },
+    "nav-overlay-fullscreen": {
+      "state": "top",
+      "scroll": 0,
+      "captured": "2026-10-26",
+      "bytes": 13454
+    },
+    "offscreen-canvas-worker": {
+      "state": "worker",
+      "scroll": 0,
+      "captured": "2026-10-26",
+      "bytes": 6944
+    },
+    "page-transitions": {
+      "state": "top",
+      "scroll": 0,
+      "captured": "2026-10-26",
+      "bytes": 7258
+    },
+    "persistent-mode-switch": {
+      "state": "fresh",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 12758
+    },
+    "physics-pile-matter": {
+      "state": "settled",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 20500
+    },
+    "pointer-tilt-shine": {
+      "state": "top",
+      "scroll": 0,
+      "captured": "2026-10-26",
+      "bytes": 15260
+    },
+    "preloader-aperture-handoff": {
+      "state": "first",
+      "scroll": 0,
+      "captured": "2026-10-26",
+      "bytes": 10482
+    },
+    "preloader-counter-hold": {
+      "state": "top",
+      "scroll": 0,
+      "captured": "2026-10-26",
+      "bytes": 14142
+    },
+    "product-specification": {
+      "state": "desktop",
+      "scroll": 0.25,
+      "captured": "2026-10-26",
+      "bytes": 18916
+    },
+    "quality-tiers": {
+      "state": "top",
+      "scroll": 0,
+      "captured": "2026-10-26",
+      "bytes": 13544
+    },
+    "reduced-motion-switch": {
+      "state": "top",
+      "scroll": 0,
+      "captured": "2026-10-26",
+      "bytes": 13928
+    },
+    "responsive-art-directed-hero": {
+      "state": "desktop",
+      "scroll": 0,
+      "captured": "2026-10-26",
+      "bytes": 18474
+    },
+    "scramble-decode-text": {
+      "state": "top",
+      "scroll": 0,
+      "captured": "2026-10-26",
+      "bytes": 12968
+    },
+    "scroll-drawn-svg-path": {
+      "state": "mid",
+      "scroll": 0.5,
+      "captured": "2026-10-26",
+      "bytes": 2950
+    },
+    "scroll-pin-scrub": {
+      "state": "mid",
+      "scroll": 0.5,
+      "captured": "2026-10-26",
+      "bytes": 7094
+    },
+    "scroll-word-fill": {
+      "state": "top",
+      "scroll": 0,
+      "captured": "2026-10-26",
+      "bytes": 12348
+    },
+    "scrollbar-thumb-drag": {
+      "state": "eased",
+      "scroll": 0.5,
+      "captured": "2026-10-26",
+      "bytes": 6396
+    },
+    "scrub-threshold-timelines": {
+      "state": "top",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 2772
+    },
+    "section-switcher-wheel-commit": {
+      "state": "hook-mid",
+      "scroll": 0.5,
+      "captured": "2026-10-26",
+      "bytes": 9732
+    },
+    "sentence-form-enquiry": {
+      "state": "desktop",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 16928
+    },
+    "sound-toggle-opt-in": {
+      "state": "off",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 16326
+    },
+    "split-text-masked-reveal": {
+      "state": "top",
+      "scroll": 0,
+      "captured": "2026-10-26",
+      "bytes": 17774
+    },
+    "sprite-rain-canvas2d": {
+      "state": "top",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 10868
+    },
+    "sticky-stack-cards": {
+      "state": "mid",
+      "scroll": 0.5,
+      "captured": "2026-10-26",
+      "bytes": 3274
+    },
+    "sticky-stages-rails": {
+      "state": "hinge",
+      "scroll": 0.12,
+      "captured": "2026-10-26",
+      "bytes": 11778
+    },
+    "svg-goo-line-reveal": {
+      "state": "mid",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 17050
+    },
+    "svg-noise-line-field": {
+      "state": "top",
+      "scroll": 0,
+      "captured": "2026-10-26",
+      "bytes": 32734
+    },
+    "theme-swap-tokens": {
+      "state": "dark",
+      "scroll": 0.3,
+      "captured": "2026-10-26",
+      "bytes": 8130
+    },
+    "throw-objects-css3d": {
+      "state": "top",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 8712
+    },
+    "title-mask-tunnel": {
+      "state": "mid",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 3466
+    },
+    "transition-promote-chosen": {
+      "state": "top",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 17162
+    },
+    "two-phase-interruptible-timeline": {
+      "state": "rest",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 13068
+    },
+    "typography-specimen": {
+      "state": "desktop-quarter",
+      "scroll": 0.25,
+      "captured": "2026-10-26",
+      "bytes": 16214
+    },
+    "video-clip-wipe-panels": {
+      "state": "rest",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 11858
+    },
+    "view-transitions-mpa": {
+      "state": "top",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 22484
+    },
+    "word-cycle-hero": {
+      "state": "timed",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 15150
+    }
+  }
+}
