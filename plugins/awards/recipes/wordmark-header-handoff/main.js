@@ -25,10 +25,15 @@ const LINE_K = 10;          // underline easing, per second: 1 − e^(−10·dt)
 
 let geo = null;
 function measure() {
+  // The word sets the sizes: the slot reserves the mark's own box (offsetWidth ignores the transform) and the hero's
+  // reference box keeps the word's proportions, so a longer name or a translated one scales down instead of overflowing.
+  const mw = mark.offsetWidth, mh = mark.offsetHeight;
+  slot.style.width = `${mw}px`;
+  ref.style.height = `${(ref.clientWidth * mh / mw).toFixed(2)}px`;
   // Slot and reference in document coordinates at the current scroll (the slot is fixed, so it does not move).
   const s = slot.getBoundingClientRect(), r = ref.getBoundingClientRect();
   geo = { sx: s.left, sy: s.top, sw: s.width, rx: r.left, ry: r.top + scrollY, rw: r.width, heroH: hero.offsetHeight };
-  copy.style.setProperty('--big', (r.width / s.width).toFixed(4)); // the reduced-motion copy, at the mark's hero size
+  copy.style.setProperty('--big', (r.width / mw).toFixed(4)); // the reduced-motion copy, at the mark's hero size
   // Each link's box relative to the list, for the underline targets.
   const n = nav.getBoundingClientRect();
   geo.items = links.map((a) => { const b = a.getBoundingClientRect(); return { left: b.left - n.left, width: b.width }; });

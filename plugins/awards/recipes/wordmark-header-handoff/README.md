@@ -12,7 +12,8 @@ The giant name in the hero and the small logo in the header are the same link. I
 | | |
 |---|---|
 | Hand-off | over `scrollY / (hero height × .6)`, cubic in-out; scale from `reference width / slot width` to 1 |
-| Slot | 132 × 28 px on desktop, 96 × 20 px under 760 px |
+| Slot | the word's own width × 28 px on desktop (about 132 px for this name), × 20 px under 760 px; measured from the mark, so a longer or translated name scales down in the hero instead of overflowing it |
+| Hero box | full content width, height in the word's proportions |
 | Underline | edges eased at `1 − e^(−10·dt)`; snap under .05 px; active chapter = the last chapter whose top is above the viewport middle; `aria-current` on its link |
 
 ## Tiers

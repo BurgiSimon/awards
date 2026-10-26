@@ -11,7 +11,7 @@ The hero is paper, with a second world under it. Where the pointer passes it lea
 ## Parameters
 | | |
 |---|---|
-| Wake | ≤ 140 points; one per 6 px of travel; life 750 ms; strength `(1 − age)²`; a 480 × 300 mask canvas; threshold `smoothstep(.02, .5)` |
+| Wake | ≤ 140 points; one per 6 px of travel; life 750 ms; strength `1 − age`, held to 45 % of the radius (× .8 there) then falling to 0; stamps added (`lighter`) into a 480 × 300 mask canvas; the shader reads its alpha through `smoothstep(.02, .5)` |
 | World | render scale .62; every second frame; procedural night (gradient, a warped ribbon, twinkling stars) |
 | Canvas | `alpha: true`, premultiplied; DPR ≤ 1.5 from the quality tier |
 

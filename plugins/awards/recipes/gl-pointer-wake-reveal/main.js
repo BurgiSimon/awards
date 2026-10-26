@@ -112,12 +112,14 @@ async function start() {
     while (pts.length && now - pts[0].t > WAKE.life) pts.shift();
     state.points = pts.length;
     mctx.clearRect(0, 0, WAKE.maskW, WAKE.maskH);
+    mctx.globalCompositeOperation = 'lighter'; // overlapping stamps add up, so a fresh stroke opens as one band
     const sx = WAKE.maskW / w, sy = WAKE.maskH / h;
     for (const p of pts) {
       const a = 1 - (now - p.t) / WAKE.life;
       const x = p.x * sx, y = p.y * sy, r = p.r * sx;
       const g = mctx.createRadialGradient(x, y, 0, x, y, r);
-      g.addColorStop(0, `rgba(255,255,255,${(a * a).toFixed(3)})`); g.addColorStop(1, 'rgba(255,255,255,0)');
+      // A plateau to 45 % of the radius, then a falloff: the band stays open while fresh and narrows as it ages.
+      g.addColorStop(0, `rgba(255,255,255,${a.toFixed(3)})`); g.addColorStop(0.45, `rgba(255,255,255,${(a * 0.8).toFixed(3)})`); g.addColorStop(1, 'rgba(255,255,255,0)');
       mctx.fillStyle = g;
       mctx.beginPath(); mctx.ellipse(x, y, r, r * (sy / sx), 0, 0, Math.PI * 2); mctx.fill();
     }

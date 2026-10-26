@@ -299,4 +299,4 @@ Reading the table:
 - Grid lines as texture with nothing on them, or a dev overlay shipped by accident (X09).
 - `100vw` bleeds, an inset invented per section, one gap everywhere.
 - A full-width wordmark close by default; the hero's family reused mid-page.
-- Any card's fingerprint as a set: The Line's 1728 artboard with an 8 px phone margin, Lama Lama's 12 columns at 24 / 40 px, Floema's 24-column clamps, Oryzo's ratio gutter, Seasats' 24 / 1.2rem / 3.2rem, Boc's quarter rail at 15 px, Christoph Nagel's 35vw column over footage, Daiki Fujita's twelve gutterless hairline bays.
+- Any card's fingerprint as a set: The Line's 1728 artboard with an 8 px phone margin, Lama Lama's 12 columns at 24 / 40 px, Floema's 24-column clamps, Oryzo's ratio gutter, Seasats' 24 / 1.2rem / 3.2rem, Boc's quarter rail at 15 px, Christoph Nagel's 35vw column over footage.
