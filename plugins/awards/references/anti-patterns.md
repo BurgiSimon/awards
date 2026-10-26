@@ -93,7 +93,7 @@ Paper ground, tracked mono labels and hairlines together count as one register, 
 | 01 / 02 / 03 section markers by habit, `/ 01` and `No. 01` included | X07 | The sequence means something to the reader; a middle-dot strip, No./Vol. issue line, locale or time strip, or version footer carries a fact of the world, not issue-number costume |
 | The same gap everywhere, so nothing groups | judge | — |
 | Opening columns of very different heights; a heading nearer the previous block than its own | judge | — |
-| Text, a heading or the primary action that is never readable: covered by another element at every scroll position where it is in view (a drawn line, a canvas wrapper, a cast shadow, a panel that never moves off it) | L11 *render* | — |
+| Text, a heading or the primary action that is never readable: covered by another element at every scroll position where it is in view (a drawn line, a filled wrapper, a cast shadow, a panel that never moves off it); text under a canvas is judged from the frames | L11 *render* | — |
 | Text that a layer passes over on its way through (clouds, a curtain reveal, stacked panels) | judge | It is readable at rest, the pass is the scene's transition, and no action is hidden while it can be pressed |
 | Menus and popovers clipped by overflow | judge (L02 catches sideways overflow) | — |
 | Outer margins that differ left and right, or a desktop section that keeps its text in one half with nothing in the other | L12, L13 *render* | Asymmetry inside the grid, closed by the section's own picture or a second column |

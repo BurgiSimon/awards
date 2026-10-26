@@ -757,14 +757,24 @@ async function sweepPage(desktop) {
             if (n === el || el.contains(n) || n.contains(el)) break;
             if (n === document.body || n === document.documentElement) break;
             const nb = n.getBoundingClientRect();
-            // A full-viewport canvas over text is usually the GL layer drawing that text (the DOM mirror): unmeasured here.
+            // A full-viewport canvas over text is usually the GL layer drawing that text (the DOM mirror), and a smaller
+            // one (a globe, a scene island) is transparent wherever it draws nothing; a hit test cannot see its pixels,
+            // so text under a canvas is the jury's to read from the frames, not this rule's.
             if (n.tagName === 'CANVAS' && nb.width >= vw * 0.9 && nb.height >= vh * 0.9) break;
+            if (n.tagName === 'CANVAS') continue;
             // A small pinned bar passing over text as the page scrolls is the header doing its job.
             if (bar(n)) break;
             // A full-viewport texture (film grain, a vignette, a blended wash) sits over everything and hides nothing,
             // and a faint layer leaves the text readable; look under both.
             if (getComputedStyle(n).visibility !== 'visible' || opacityOf(n) < 0.5) continue;
             if (nb.width >= vw * 0.9 && nb.height >= vh * 0.9 && (!solid(getComputedStyle(n).backgroundColor) || getComputedStyle(n).mixBlendMode !== 'normal')) continue;
+            // Text over text of the same kind is a reveal on purpose: a heading set twice for a masked fill, step cards
+            // stacked to cross-fade. Only a different element's text, or a fill, counts as a cover.
+            const sameText = !!n.textContent.trim() && n.textContent.trim() === el.textContent.trim();
+            const ownText = [...n.childNodes].some((c) => c.nodeType === 3 && c.textContent.trim());
+            const s2 = getComputedStyle(n);
+            const filled = PICTURE.has(n.tagName) || /url\(/.test(s2.backgroundImage) || solid(s2.backgroundColor);
+            if (!filled && ownText && (sameText || n.tagName === el.tagName)) continue;
             if (paints(n, x, y)) { hits++; by = n; break; }
           }
         }
