@@ -41,6 +41,7 @@ What a visitor who left after one viewport describes an hour later — an object
 
 ## Specificity test
 Could a juror name a source site from the first viewport? no / yes — which, and what to change:
+competitor: <named by the juror before reading the contract's line> — breaks / holds (Creativity capped at 7) — why:
 <!-- component: one scale, density or finish delta per DIVERGENCE card, from its §8 -->
 <!-- finish bar, one line per DIVERGENCE card: <slug> — <finish gap> — <build capture> vs <neighbour capture>, or <slug> — neighbour frame unavailable -->
 

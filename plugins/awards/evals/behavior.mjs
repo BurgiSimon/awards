@@ -785,6 +785,157 @@ test('capture', 'several routes of one local site are captured from its root int
   assert.ok(fs.existsSync(path.join(out, 'work', 'desktop-s00.png')));
 });
 
+test('tools', 'the deal adds engines, stimuli and seeded choices without moving old seeds', async () => {
+  const roll = (argv) => run('scripts/roll.mjs', argv);
+  const tags = 'artefact,artefact,process-performed,place,voice-led,visitor-acts,one-motif';
+  for (const seed of 'abcdef') {
+    const out = (await roll(['--deal', '3', '--of', '7', '--seed', seed, '--engines', tags])).stdout;
+    const engines = out.match(/^ENGINES (.+)$/m)[1].split(' ');
+    assert.equal(new Set(engines).size, 3, `seed ${seed}: three dealt worlds from three engines (${engines})`);
+    const avoided = (await roll(['--deal', '3', '--of', '7', '--seed', seed, '--engines', tags, '--avoid', 'artefact,process-performed'])).stdout.match(/^ENGINES (.+)$/m)[1].split(' ');
+    assert.ok(!avoided.some((e) => ['artefact', 'process-performed'].includes(e)), `seed ${seed}: avoided engines stay out while others remain (${avoided})`);
+  }
+  const narrow = (await roll(['--deal', '3', '--of', '7', '--seed', 'a', '--engines', 'artefact,artefact,artefact,artefact,artefact,artefact,place'])).stdout;
+  assert.match(narrow, /span 2 engine/, 'seven worlds on two engines are named as a deal to rewrite');
+  const s1 = (await roll(['--stimulus', '2', '--seed', 'k'])).stdout, s2 = (await roll(['--stimulus', '2', '--seed', 'k'])).stdout;
+  assert.equal(s1, s2, 'the stimuli are seeded');
+  const deck = JSON.parse(fs.readFileSync(path.join(plugin, 'scripts/data/stimuli.json'), 'utf8')).stimuli;
+  const ids = s1.match(/^STIMULI (.+)$/m)[1].split(' ');
+  assert.equal(new Set(ids.map((id) => deck.find((x) => x.id === id).family)).size, 2, 'two stimuli from two families');
+  const chosen = (argv) => roll(['--choose', 'restrained-duotone,committed-accent,theme-per-section', '--label', 'colour', '--seed', 'k', ...argv]).then((r) => r.stdout.match(/^CHOSEN colour (\S+)$/m)[1]);
+  assert.equal(await chosen([]), await chosen([]), 'a choice is seeded');
+  for (const seed of 'abcdefgh') assert.notEqual((await roll(['--choose', 'restrained-duotone,committed-accent', '--label', 'colour', '--seed', seed, '--avoid', 'restrained-duotone'])).stdout.match(/^CHOSEN colour (\S+)$/m)[1], 'restrained-duotone');
+  assert.equal((await roll(['--deal', '3', '--of', '7', '--engines', 'artefact,nope,place,place,place,place,place'])).code, 1, 'an unknown engine is refused');
+  assert.equal((await roll(['--deal', '3', '--of', '7', '--engines', 'artefact,place'])).code, 1, 'one engine per world');
+});
+
+test('tools', 'the house ledger counts what builds share and flags a contract that shares it', async () => {
+  const root = path.join(tmp, 'ledger');
+  const contract = (thesis, world, signature) => `# AWARDS.md\n\n## Direction contract\n- **THESIS:** ${thesis}\n- **WORLD:** ${world}\n- **STORY:** chapters.\n- **SIGNATURE:** ${signature}\n- **Seed:** SEED x\n\n## Jury log\n- 2026-10-23 · fix · D 7.5 / U 6.0 / C 7.8 / Co 8.0 → 7.3 · r.md\n`;
+  const same = (n) => contract(`The page is the ${n} itself. The visitor's scroll drives it down.`, 'Restrained duotone, light ground because the scene is daylit. Imagery strategy: code — procedural, no photography.', 'A readout prints the depth. Another readout prints the tension. Technique tier: canvas-first.');
+  const dirs = ['one', 'two', 'three'].map((n) => { const d = path.join(root, n); fs.mkdirSync(d, { recursive: true }); fs.writeFileSync(path.join(d, 'AWARDS.md'), same(n)); return d; });
+  const other = path.join(root, 'other');
+  fs.mkdirSync(other);
+  fs.writeFileSync(path.join(other, 'AWARDS.md'), contract('A field guide the visitor fills in, page by page.', 'Committed accent on a dark ground because the reading happens at night. Imagery strategy: found photographs from Wikimedia Commons, open collection.', 'A switch the visitor turns. Technique tier: DOM-only.'));
+  const ledger = JSON.parse((await run('scripts/house-ledger.mjs', [...dirs, other, '--json'])).stdout);
+  const spent = ledger.tallies.filter((t) => t.spent).map((t) => `${t.feature}:${t.value}`);
+  for (const want of ['shape:page-is-object', 'imagery:code-only', 'readout:carried', 'colour strategy:restrained-duotone']) assert.ok(spent.includes(want), `spent: ${want} (got ${spent})`);
+  assert.equal(ledger.builds.find((b) => b.build === 'other').imagery, 'found');
+  const fresh = path.join(root, 'fresh');
+  fs.mkdirSync(fresh);
+  fs.writeFileSync(path.join(fresh, 'AWARDS.md'), same('four'));
+  assert.equal((await run('scripts/house-ledger.mjs', [...dirs, other, '--against', fresh])).code, 2, 'a contract sharing two or more spent features exits 2');
+  assert.equal((await run('scripts/house-ledger.mjs', [...dirs, other, '--against', other])).code, 0, 'a different contract passes');
+  const md = path.join(root, 'ledger.md');
+  await run('scripts/house-ledger.mjs', [...dirs, other, '--write', md]);
+  assert.equal((await run('scripts/house-ledger.mjs', [...dirs, other, '--check-file', md])).code, 0);
+  fs.appendFileSync(md, 'edited\n');
+  assert.equal((await run('scripts/house-ledger.mjs', [...dirs, other, '--check-file', md])).code, 1, 'a hand-edited ledger is stale');
+});
+
+test('tools', 'picture search keeps only open licences and get logs the credit', async () => {
+  const site = path.join(tmp, 'collection');
+  fs.mkdirSync(site);
+  const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==', 'base64');
+  fs.writeFileSync(path.join(site, 'plate.png'), png);
+  const url = await serve(site);
+  const item = (id, license, title) => ({ id, title, creator: 'A. Engraver', license, license_version: '1.0', license_url: `https://creativecommons.org/${license}`, foreign_landing_url: `${url}item/${id}`, url: `${url}plate.png`, width: 2400, height: 1600, provider: 'fixture' });
+  json(path.join(site, 'ov.json'), { results: [item('a1', 'cc0', 'Salt pans at low tide'), item('a2', 'by-nc', 'Not for commerce'), item('a3', 'by-sa', 'Lifeboat station, 1902')] });
+  const proj = path.join(tmp, 'collection-proj');
+  fs.mkdirSync(proj);
+  fs.writeFileSync(path.join(proj, 'AWARDS.md'), '# A\n');
+  const env = { AWARDS_COLLECTION_OPENVERSE: `${url}ov.json` };
+  const found = JSON.parse((await run('scripts/assets.mjs', ['search', 'salt', '--source', 'openverse', '--json', '--project', proj], env)).stdout);
+  assert.deepEqual(found.results.map((r) => [r.ref, r.licence]), [['openverse:a1', 'CC0 1.0'], ['openverse:a3', 'CC BY-SA 1.0']], 'NC is refused; CC0 and BY-SA come back with one vocabulary');
+  const execProj = (argv) => new Promise((resolve) => execFile(process.execPath, [path.join(plugin, 'scripts/assets.mjs'), ...argv], { cwd: proj, env: { ...process.env, ...env } }, (error, stdout, stderr) => resolve({ code: error?.code ?? 0, stdout, stderr })));
+  await execProj(['search', 'salt', '--source', 'openverse']);
+  const got = await execProj(['get', 'openverse:a3', '--name', 'lifeboat']);
+  assert.equal(got.code, 0, got.stderr);
+  assert.ok(fs.existsSync(path.join(proj, 'public/images/lifeboat.png')));
+  const log = JSON.parse(fs.readFileSync(path.join(proj, '.awards/assets.json'), 'utf8')).assets[0];
+  assert.equal(log.kind, 'licensed');
+  assert.equal(log.found, true);
+  assert.match(log.credit, /Lifeboat station, 1902.*A\. Engraver.*CC BY-SA 1\.0/);
+  const down = JSON.parse((await run('scripts/assets.mjs', ['search', 'salt', '--source', 'openverse', '--json', '--project', proj], { AWARDS_COLLECTION_OPENVERSE: `${url}missing.json` })).stdout);
+  assert.equal(down.unreachable[0].source, 'openverse', 'a collection that fails is named, never fatal');
+});
+
+test('audit', 'rendered frame rules: covered text, margins, lopsided and untitled sections, near-empty screens and a late title', async () => {
+  const W = 'A paragraph of running text, long enough to read as a section of its own and to count as content in the sweep. ';
+  const bad = path.join(tmp, 'frame-bad');
+  fs.mkdirSync(bad);
+  fs.writeFileSync(path.join(bad, 'index.html'), `<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Frame</title><style>
+body{margin:0;font:18px/1.5 sans-serif;padding:0 220px 0 40px} section{position:relative;min-height:60vh;padding:40px 0}
+.cover{position:absolute;left:0;top:20px;width:70%;height:120px;background:#333;z-index:2} .left p{width:30%} .empty{min-height:130vh} .empty p{font-size:12px;margin:0} h1{opacity:0}
+</style></head><body><main><section><h1 id="title">Frame fixture</h1><p>${W}</p></section><section><h2>Covered heading here</h2><div class="cover"></div><p>${W}</p></section>
+<section class="left"><h2>Left only</h2><p>${W}${W}</p></section><section><p>${W}${W}${W}</p></section><section class="empty"><p>a line</p></section>
+<section><h2>Between</h2><p>${W}${W}</p><p>${W}${W}</p></section><section class="empty"><p>another line</p></section><section><h2>End</h2><p>${W}</p></section></main>
+<script>setTimeout(() => { document.getElementById('title').style.opacity = 1; }, 1800);</script></body></html>`);
+  const hit = await auditIds(bad, ['--render']);
+  for (const id of ['L11', 'L12', 'L13', 'L14', 'L15', 'S11']) assert.ok(hit.has(id), `the bad frame must report ${id}`);
+  const good = path.join(tmp, 'frame-good');
+  fs.mkdirSync(good);
+  fs.writeFileSync(path.join(good, 'index.html'), `<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Frame</title><style>
+body{margin:0;font:18px/1.5 sans-serif;padding:0 48px} section{display:grid;grid-template-columns:1fr 1fr;gap:48px;padding:80px 0;align-items:start} .pic{height:360px;background:#888}
+@media (max-width:700px){section{grid-template-columns:1fr}}</style></head><body><main>
+<section><div><h1>Frame fixture</h1><p>${W}</p></div><div class="pic"></div></section><section><div><h2>One</h2><p>${W}${W}</p></div><div class="pic"></div></section>
+<section><div class="pic"></div><div><h2>Two</h2><p>${W}${W}</p></div></section><section><div><h2>Three</h2><p>${W}${W}</p></div><div class="pic"></div></section></main></body></html>`);
+  const quiet = await auditIds(good, ['--render']);
+  assert.deepEqual(['L11', 'L12', 'L13', 'L14', 'L15', 'S11'].filter((id) => quiet.has(id)), [], 'a composed page stays quiet');
+  const report = JSON.parse((await run('scripts/audit.mjs', [good, '--render', '--json', '--no-write'])).stdout);
+  assert.equal(report.rendered.desktop.headlines[0].lines, 1, 'headline lines are measured for the jury');
+  assert.ok(report.rendered.desktop.margins.left === report.rendered.desktop.margins.right, 'equal margins measure equal');
+});
+
+test('capture', 'the keyboard and thumb walk, and picture shares in the manifest', async () => {
+  const dir = path.join(tmp, 'walk');
+  fs.mkdirSync(dir);
+  fs.writeFileSync(path.join(dir, 'index.html'), `<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Walk</title><style>
+body{margin:0;font:18px/1.5 sans-serif} header{position:fixed;top:0;left:0;right:0;height:80px;background:#222;color:#fff;z-index:5;display:flex;gap:20px;align-items:center;padding:0 20px}
+header a{color:#fff} main{padding:100px 20px 1200px} .menu{position:fixed;inset:80px 0 0 0;background:#eee;display:none} .menu.open{display:block}
+.city{display:inline-block;padding:10px;background:#ccc} :focus{outline:none} .ring:focus-visible{outline:3px solid #06c} .photo{display:block;width:640px;height:400px}
+</style></head><body><header><a class="ring" href="#a">Home</a><button class="ring" id="toggle" aria-expanded="false" aria-controls="menu">Menu</button></header>
+<div class="menu" id="menu" role="dialog"><a class="ring" href="#x">Inside one</a> <a class="ring" href="#y">Inside two</a></div>
+<main><h1>Walk fixture</h1><img class="photo" alt="A plate" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg=="><div class="city" role="button" tabindex="0" id="city">Lisbon</div>
+<button class="ring"><svg width="20" height="20"></svg></button></main>
+<script>const t = document.getElementById('toggle'), m = document.getElementById('menu');
+t.addEventListener('click', () => { const o = t.getAttribute('aria-expanded') === 'true'; t.setAttribute('aria-expanded', String(!o)); m.classList.toggle('open', !o); });
+document.getElementById('city').addEventListener('click', () => { document.body.dataset.city = 'on'; });</script></body></html>`);
+  const out = path.join(tmp, 'walk-out');
+  const result = await run('scripts/capture.mjs', [dir, '--out', out, '--scroll', '0', '--only', 'desktop', '--walk', '--wait', '50']);
+  assert.ok(result.code === 0 || result.code === 2, result.stderr);
+  const walk = JSON.parse(fs.readFileSync(path.join(out, 'walk.json'), 'utf8'));
+  const problems = walk.desktop.findings.map((f) => `${f.control} ${f.problem}`).join('\n');
+  for (const want of [/Lisbon.*nothing in the page changes/, /no accessible name/, /Menu.*Escape leaves the panel open/, /Menu.*Shift\+Tab leaves the open panel/, /Lisbon.*no visible change when focused/]) assert.match(problems, want);
+  assert.ok(!/Home.*no visible change/.test(problems), 'a control with a focus ring is not reported');
+  const manifest = JSON.parse(fs.readFileSync(path.join(out, 'manifest.json'), 'utf8'));
+  assert.equal(manifest.walk.findings, walk.desktop.findings.length + walk.mobile.findings.length);
+  assert.ok(manifest.metrics.desktop.pictures.shareByScroll.s00.picture > 0.1, 'the photograph counts toward the frame\'s picture share');
+});
+
+test('tools', 'the blind tournament shows judges letters and counts only reasoned judgements', async () => {
+  const site = (name, colour) => { const d = path.join(tmp, `arm-${name}`); fs.mkdirSync(d); fs.writeFileSync(path.join(d, 'index.html'), `<!doctype html><html lang="en"><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>${name}</title><style>body{margin:0;background:${colour};font:20px sans-serif}main{padding:40px}</style></head><body><main><h1>Arm ${name}</h1><p>Same brief.</p></main></body></html>`); return d; };
+  const out = path.join(tmp, 'tourney');
+  const prep = await run('evals/tournament.mjs', ['prepare', '--out', out, '--arm', `b/none=${site('none', '#eee')}`, '--arm', `b/awards=${site('awards', '#fde')}`, '--seed', 's']);
+  assert.equal(prep.code, 0, prep.stderr);
+  const letters = fs.readdirSync(path.join(out, 'blind')).sort();
+  assert.deepEqual(letters, ['A', 'B']);
+  for (const l of letters) assert.ok(fs.readdirSync(path.join(out, 'blind', l)).every((f) => /\.png$|^BRIEF\.md$/.test(f)), 'judges see frames and the brief name only');
+  const key = JSON.parse(fs.readFileSync(path.join(out, '.private/key.json'), 'utf8'));
+  const awardsLetter = Object.entries(key.letters).find(([, v]) => v.arm === 'awards')[0];
+  const otherLetter = letters.find((l) => l !== awardsLetter);
+  json(path.join(out, 'judgements', 'p.json'), { judge: 'p', scores: { [awardsLetter]: { design: 8, usability: 7, creativity: 8, content: 7, reason: 'one idea held' }, [otherLetter]: { design: 6, usability: 7, creativity: 5, content: 6, reason: 'template' } }, ranking: { b: [awardsLetter, otherLetter] }, rankingReason: { b: 'clearer idea' } });
+  const reveal = await run('evals/tournament.mjs', ['reveal', '--out', out, '--json']);
+  assert.equal(reveal.code, 0, reveal.stderr);
+  const r = JSON.parse(reveal.stdout);
+  assert.equal(r.arms[0].arm, 'awards');
+  assert.equal(r.arms[0].wins, 1);
+  json(path.join(out, 'judgements', 'q.json'), { judge: 'q', scores: { [awardsLetter]: { design: 9, usability: 9, creativity: 9, content: 9, reason: '' } } });
+  assert.equal((await run('evals/tournament.mjs', ['reveal', '--out', out])).code, 2, 'a score without a reason is not counted');
+  const { check } = await import(pathToFileURL(path.join(plugin, 'scripts/jury-reply-check.mjs')).href);
+  assert.equal(check({ agent_type: 'awards:awards-jury', last_assistant_message: 'Rankings.\ndisposition: blind' }), null, 'a blind judgement ends without a build disposition');
+});
+
 let failures = 0;
 try {
   assert.ok(tests.length, 'No matching behavior checks');

@@ -1,0 +1,103 @@
+{
+  "about": "Concept engines: the kinds of idea a page can rest on, each with the corpus cards that run it. concept tags each of its seven worlds with one engine, the seven span at least four, and roll.mjs --engines deals three worlds from three different engines. An engine is a way an idea works, never a look; two worlds on one engine are one idea in two outfits. Engines named in references/patterns/house-tells.md are the plugin's own recent defaults and need a reason.",
+  "engines": [
+    {
+      "id": "product-performs",
+      "name": "The product performs",
+      "gist": "The page runs the thing it sells, so the visitor uses it instead of reading about it.",
+      "trap": "A demo pasted under a marketing hero; the performance has to be the argument, not an exhibit.",
+      "cards": ["animejs", "grids-obys", "the-line"]
+    },
+    {
+      "id": "artefact",
+      "name": "The page is an artefact of the subject's world",
+      "gist": "The page takes the form of a printed or made thing the subject already produces or handles: a ticket, a deck, a catalogue, a shelf.",
+      "trap": "Any artefact of the category (a call sheet for any film studio, a proof for any design tool); the artefact must be this client's own.",
+      "cards": ["siena", "nodeck", "a24-raviklaassens"]
+    },
+    {
+      "id": "name-as-material",
+      "name": "The name is the material",
+      "gist": "The client's name, read for what it means, supplies the behaviour or the system of the page.",
+      "trap": "The pun as a picture; the name has to make the visitor do something, not only see something.",
+      "cards": ["noth", "wearedirect", "stanzza"]
+    },
+    {
+      "id": "one-motif",
+      "name": "One motif drives everything",
+      "gist": "One shape, line or object from the subject becomes the button, the mask, the loader and the section edges.",
+      "trap": "A motif sprinkled as decoration; it must carry structure on every screen.",
+      "cards": ["likova", "abatable", "aardvarkbookclub"]
+    },
+    {
+      "id": "borrowed-category",
+      "name": "Dressed as another category",
+      "gist": "The subject is sold in the clothes of an unrelated genre, played with total sincerity.",
+      "trap": "A costume chosen for novelty; the borrowed genre has to say something true about the subject.",
+      "cards": ["oryzo", "pensatori-irrazionali", "shopify-editions-w26"]
+    },
+    {
+      "id": "place",
+      "name": "The place carries it",
+      "gist": "One real place, its light and its measurements, does the persuading; the page is a way of being there.",
+      "trap": "A full-bleed landscape with a serif headline, the luxury category's rut.",
+      "cards": ["son-daven", "white-desert", "mont-fort"]
+    },
+    {
+      "id": "object-on-stage",
+      "name": "One object on a held stage",
+      "gist": "A single object holds the screen while the content changes around it or on it.",
+      "trap": "A product turntable; the object has to change state as the argument advances.",
+      "cards": ["areebali", "911rennsport", "daikifujita"]
+    },
+    {
+      "id": "colour-chapters",
+      "name": "One section, one colour",
+      "gist": "Flat colour fields are the chapters, and the colour itself carries the subject's range or mood.",
+      "trap": "A rainbow of section backgrounds with nothing tying a colour to its content.",
+      "cards": ["warmnfuzzy", "slosh-seltzer", "bethebuzz"]
+    },
+    {
+      "id": "voice-led",
+      "name": "The voice carries it",
+      "gist": "The copy is the design: a tone, a claim or a set of plain words held so consistently that the layout serves it.",
+      "trap": "Big type with nothing to say; the voice has to be this client's and no one else's.",
+      "cards": ["lama-lama", "seasats", "christoph-nagel"]
+    },
+    {
+      "id": "visitor-acts",
+      "name": "The visitor's act is the material",
+      "gist": "The visitor draws, switches, chooses or operates something, and the page answers with the subject's real content.",
+      "trap": "A playground of toys; one act, with the subject's real content behind it and a keyboard path.",
+      "cards": ["why-zero", "spasoje", "alectear"]
+    },
+    {
+      "id": "collage-to-index",
+      "name": "The collage that resolves into an index",
+      "gist": "The work or the people appear first as a gathering, and the gathering organises itself into something to browse.",
+      "trap": "A card grid with hover zoom; the arrangement has to mean something before it becomes a list.",
+      "cards": ["trevor-noah", "okaydev", "boc"]
+    },
+    {
+      "id": "process-performed",
+      "name": "The process performed",
+      "gist": "The scroll performs the subject's real sequence, one step per chapter: a journey, a making, a growth.",
+      "trap": "Scroll as the engine of a physical process with a numeric readout beside it; see house-tells.md before choosing it.",
+      "cards": ["united-carriers", "gehry-getty", "eugeniagrab"]
+    },
+    {
+      "id": "world-entered",
+      "name": "A world you enter",
+      "gist": "A rendered or painted world the visitor travels through, with the DOM as its mirror.",
+      "trap": "A 3D scene for its own sake; the world has to be the only place this subject could be met.",
+      "cards": ["igloo", "haoqi", "everswap"]
+    },
+    {
+      "id": "visitor-cast",
+      "name": "The visitor is cast in a role",
+      "gist": "The page gives the visitor a part in the subject's world (operator, guest, member) and speaks to them in it.",
+      "trap": "A HUD costume on a page that is not technical; the role must come from who the audience really is.",
+      "cards": ["usavionix", "siteassist", "lando-norris"]
+    }
+  ]
+}

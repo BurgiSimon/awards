@@ -6,16 +6,17 @@ What this file is for: the shared grammar of movement across the corpus — whic
 1. [Easing](#easing)
 2. [Durations](#durations)
 3. [Staggers](#staggers)
-4. [Masked line reveals](#masked-line-reveals)
-5. [Velocity as an input](#velocity-as-an-input)
-6. [Scroll philosophies](#scroll-philosophies)
-7. [Damping math](#damping-math)
-8. [Scrub and refresh rules](#scrub-and-refresh-rules)
-9. [Sticky stages and hinges](#sticky-stages-and-hinges)
-10. [Text effects](#text-effects)
-11. [Hover shifts](#hover-shifts)
-12. [Reduced-motion tiers](#reduced-motion-tiers)
-13. [Verify](#verify) · [Refuse](#refuse)
+4. [Measured beyond the corpus](#measured-beyond-the-corpus)
+5. [Masked line reveals](#masked-line-reveals)
+6. [Velocity as an input](#velocity-as-an-input)
+7. [Scroll philosophies](#scroll-philosophies)
+8. [Damping math](#damping-math)
+9. [Scrub and refresh rules](#scrub-and-refresh-rules)
+10. [Sticky stages and hinges](#sticky-stages-and-hinges)
+11. [Text effects](#text-effects)
+12. [Hover shifts](#hover-shifts)
+13. [Reduced-motion tiers](#reduced-motion-tiers)
+14. [Verify](#verify) · [Refuse](#refuse)
 
 ## Easing
 
@@ -99,6 +100,22 @@ Why: a stagger turns a block into a sequence the eye can follow; too wide and th
 | Mirrored strips fanning in | .02 s; the exit `{ each: .03, from: 'end' }` | [site:stanzza] [verified] |
 
 Rule: keep `count × step` under ≈ .6 s for text blocks; use `from: 'center'` or `'last'` when the block has a focal glyph. Stagger by a data attribute (`data-line`, `data-char`) so word and line rhythms nest [site:animejs].
+
+## Measured beyond the corpus
+
+Why: the corpus records what a few dozen winners shipped; a wider measurement of what actually ran tells whether a value is the genre's or one site's. taste-skill's probe recorded the transitions, tweens and scroll triggers that ran while 99 Awwwards Sites of the Day (July to October 2026) loaded and scrolled [external, taste-skill `references/motion.md` §2, read 2026-10-26]. Use these as the range a choice is read against, not as tokens to copy.
+
+| What | Measured |
+|---|---|
+| Curves that ran | expo out (`.16,1,.3,1` and `.19,1,.22,1`) on 14 sites, cubic out on 13, quint out on 7; in-out curves kept for wipes and things that travel; overshoot declared in 19 stylesheets and seen running on 2 |
+| Durations | hover colour 200–300 ms; small interface moves 300–450 ms; reveals and line rises 600–1,000 ms; picture openings and wipes 1,100–1,600 ms; the median of everything that ran on a site, 420 ms |
+| Staggers | 20–40 ms between characters, 75–120 ms between lines, 50–100 ms between list items |
+| Triggers | reveals fire when the element's top is 80–95 % of the way down the viewport, once |
+| Scrub | 14 of 18 scrubbing sites lock it to the scrollbar with no smoothing; the other four smooth by 0.1–3 s |
+| How much moves | a median of 130 script-moved elements, from a few gestures (one split heading is 20–60 of them) |
+| Reduced motion | 35 of 99 sites have any `prefers-reduced-motion` rule, 16 have three or more; 5 of 26 scrubbed scenes have one |
+
+Read against the bands above: the routine band's .4 s plugin default sits on the measured median; the hero band's 1.2–1.5 s is the top of the measured range for picture openings, so a hero move longer than that is a choice to defend; and two pages in three shipping no reduced-motion rule is why this plugin's tiers are a requirement, not polish.
 
 ## Masked line reveals
 

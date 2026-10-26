@@ -116,6 +116,8 @@ Why: a component the jury sees in one state is a screenshot; a component that su
 - Coarse pointer: cursor and magnetic effects off, hover-only reveals become tap or focus, drag surfaces declare `touch-action`.
 - Reduced motion: state changes and hierarchy stay, spatial movement goes; nothing is hidden behind an animation that will not run (`[pattern:accessibility-and-reduced-motion#motion-tiers]`).
 - No JS / no WebGL: the element is still readable and usable; images stay images.
+- Self-explaining: a control says how it is used by its form, its label and its place. When it seems to need a sentence on how to operate it, redesign the control rather than adding the sentence. What a field accepts is different: remove the limit where you can (a date picker, a parser that takes any common format), and keep a limit that remains (password rules, file type and size) visible beside the field, tied to it with `aria-describedby`.
+- Proved by a walk: add `--walk` to the capture below for any component with a button, a disclosure or a field; every finding in `walk.json` is fixed or recorded as an exception before the jury pass.
 
 ## Verify
 

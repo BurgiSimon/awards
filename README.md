@@ -171,7 +171,7 @@ SwiftShader verification is not safe beside another browser. See [behavior check
 
 ## Status
 
-Version 0.8.0.
+Version 0.9.0.
 
 Release notes are in [CHANGELOG.md](CHANGELOG.md); unreleased work is listed at its top.
 

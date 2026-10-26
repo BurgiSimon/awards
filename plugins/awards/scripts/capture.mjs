@@ -10,7 +10,10 @@
 //   [--baseline <earlier capture dir>] per-frame pixel difference against an earlier round
 //   [--lock <path>] wait for and hold a lock, so captures never run side by side (portable stand-in for flock)
 //   [--routes /,/work,/work/x] one full capture per route of the same site into <out>/<route>/, plus <out>/routes.json
+//   [--walk] a keyboard walk on desktop (every Tab stop, each disclosure's Enter, Shift+Tab and Escape, each button's
+//   Enter) and a thumb walk on the phone (each button and disclosure tapped), written to walk.json (scripts/lib/walk.mjs)
 // Without --hover or --states, desktop also records hover and focus-visible frames for the first three visible links and buttons.
+// Every scroll viewport also records metrics.<viewport>.pictures: how much of each frame is picture, and the page's photographs, clips and drawings.
 // Every viewport also writes its accessibility tree as <viewport>-aria.yml. Tablet is skipped for --selector runs unless named.
 // Exit codes: 0 ok · 2 page/action errors · 3 browser unavailable · 4 target unreachable · 5 --gpu got a software renderer · 1 usage.
 import fs from 'node:fs';
@@ -21,8 +24,9 @@ import { acquireLock } from './lib/lock.mjs';
 import { resolvePlaywright, launchChromium, isSoftwareRenderer, MISSING_MESSAGE } from './lib/playwright.mjs';
 import { serveDirectory } from './lib/server.mjs';
 import { validateActions, runActions } from './lib/actions.mjs';
+import { walkPage } from './lib/walk.mjs';
 
-const args = parseArgs(process.argv.slice(2), { 'reduced-motion': 'boolean', 'full-page': 'boolean', json: 'boolean', webgl: 'boolean', video: 'boolean', throttle: 'boolean', gpu: 'boolean', headed: 'boolean' });
+const args = parseArgs(process.argv.slice(2), { 'reduced-motion': 'boolean', 'full-page': 'boolean', json: 'boolean', webgl: 'boolean', video: 'boolean', throttle: 'boolean', gpu: 'boolean', headed: 'boolean', walk: 'boolean' });
 const target = args._[0];
 if (!target) {
   console.error('usage: node capture.mjs <url|file|dir> [options]');
@@ -278,6 +282,58 @@ function rendererString() {
   return String(gl.getParameter(ext ? ext.UNMASKED_RENDERER_WEBGL : gl.RENDERER));
 }
 
+// How much of the viewport is picture, split in two: `picture` is photographs, clips and other raster images (an
+// img, a video, a picture element, an iframe, a box painted with a url() background); `made` is canvases and large
+// SVG drawings. A 24 × 15 grid of points, each counted when it falls inside such a box, so text over a photograph
+// still counts as photograph. Boxes, not hit-testing, because canvases and backdrops usually take no pointer events.
+// The shares the jury reads beside each frame; not a rule.
+function pictureShare() {
+  const boxes = { picture: [], made: [] };
+  for (const el of document.body.querySelectorAll('*')) {
+    const tag = el.tagName.toUpperCase();
+    const s = getComputedStyle(el);
+    const kind = ['IMG', 'VIDEO', 'PICTURE', 'IFRAME'].includes(tag) || /url\(/.test(s.backgroundImage) ? 'picture' : ['CANVAS', 'SVG'].includes(tag) ? 'made' : null;
+    if (!kind || s.visibility === 'hidden' || s.display === 'none' || Number(s.opacity) < 0.05) continue;
+    const b = el.getBoundingClientRect();
+    if (b.width < 24 || b.height < 24 || b.bottom <= 0 || b.top >= innerHeight || b.right <= 0 || b.left >= innerWidth) continue;
+    if (tag === 'SVG' && (b.width < innerWidth * 0.25 || b.height < innerHeight * 0.2)) continue;
+    boxes[kind].push(b);
+  }
+  const share = (list) => {
+    let hit = 0;
+    for (let i = 0; i < 24; i++) for (let k = 0; k < 15; k++) {
+      const x = (i + 0.5) * (innerWidth / 24), y = (k + 0.5) * (innerHeight / 15);
+      if (list.some((b) => x >= b.left && x <= b.right && y >= b.top && y <= b.bottom)) hit++;
+    }
+    return Math.round((hit / 360) * 100) / 100;
+  };
+  return { picture: share(boxes.picture), made: share(boxes.made) };
+}
+
+// The page's pictures as a whole: photographs and other raster images (at least 300 px of their own, drawn at 120 px
+// or more), clips, large drawings, canvases, and how many sections carry a picture a third of the viewport wide.
+function pictureInventory() {
+  const big = (el) => { const b = el.getBoundingClientRect(); return b.width >= 120 && b.height >= 80; };
+  const raster = new Set();
+  for (const img of document.querySelectorAll('img')) if (img.naturalWidth >= 300 && big(img) && !/\.svg(\?|$)/i.test(img.currentSrc || img.src)) raster.add(img.currentSrc || img.src);
+  for (const el of document.body.querySelectorAll('*')) {
+    const bg = getComputedStyle(el).backgroundImage;
+    if (/url\(/.test(bg) && !/\.svg/i.test(bg) && big(el)) raster.add(bg);
+  }
+  const videos = [...document.querySelectorAll('video')].filter(big).length;
+  const drawings = [...document.querySelectorAll('svg')].filter((el) => { const b = el.getBoundingClientRect(); return b.width >= 300 && b.height >= 200; }).length;
+  const canvases = [...document.querySelectorAll('canvas')].filter(big).length;
+  const root = document.querySelector('main') ?? document.body;
+  const sections = [...root.children].filter((el) => el.getBoundingClientRect().height > 80);
+  const carries = (sec) => [...sec.querySelectorAll('img,video,canvas,picture,svg,*')].some((el) => {
+    const b = el.getBoundingClientRect();
+    if (b.width < innerWidth / 3 || b.height < 120) return false;
+    const tag = el.tagName.toUpperCase();
+    return ['IMG', 'VIDEO', 'CANVAS', 'PICTURE', 'SVG'].includes(tag) || /url\(/.test(getComputedStyle(el).backgroundImage);
+  });
+  return { raster: raster.size, videos, drawings, canvases, sections: sections.length, sectionsWithPictures: sections.filter(carries).length };
+}
+
 // Frame times on a hardware GPU: three seconds at rest, then three seconds scrolling from the top to the
 // middle through the page's own hook. p50 and p95 of the rAF deltas, and the share of frames over 1.5x p50.
 async function sampleFrames() {
@@ -380,6 +436,7 @@ async function contactSheet(browser, frames, out) {
 
 let browser;
 let exitCode = 0;
+const pictureShares = {};
 try {
   browser = await launchChromium(pw, { webgl, gpu: !!args.gpu, headed: !!args.headed, sandbox: /^https?:\/\//i.test(target) });
   // The GPU lane exists to measure real frames; a software rasteriser would make every number in it fiction.
@@ -463,6 +520,8 @@ try {
       for (const s of states) {
         scrollMode = await scrollTo(page, s, previous);
         previous = s;
+        const share = await page.evaluate(pictureShare).catch(() => null);
+        if (share !== null) ((pictureShares[label] ??= {})[`s${String(s).padStart(2, '0')}`] = share);
         const file = path.join(outDir, `${name}${label}-s${String(s).padStart(2, '0')}.png`);
         try {
           await page.screenshot({ path: file, fullPage: !!args['full-page'] && s === states[0], timeout });
@@ -514,6 +573,10 @@ try {
       };
     });
     manifest.metrics[label].scrollMode = scrollMode;
+    if (!args.selector) {
+      const inventory = await page.evaluate(pictureInventory).catch(() => null);
+      if (inventory) manifest.metrics[label].pictures = { ...inventory, shareByScroll: pictureShares[label] ?? {} };
+    }
     if (label === 'desktop' && !args.hover && !args.states) await interactionFrames(page);
     // Three keyboard steps give the lab INP something real to time on every page, then the figure is re-read.
     if (label === 'desktop') {
@@ -614,6 +677,19 @@ try {
     if (fs.existsSync(file)) manifest.captures.push({ label: 'desktop', kind: 'video', file });
   }
 
+  // The keyboard and thumb walk: evidence for the jury's usability walk, read before its steps.
+  if (args.walk && exitCode !== 4) {
+    try {
+      const report = await walkPage(browser, url, { outDir, name, desktop, mobile, timeout, settle, settlePage, manifest });
+      const file = path.join(outDir, `${name}walk.json`);
+      fs.writeFileSync(file, JSON.stringify({ at: now(), url, ...report }, null, 2) + '\n');
+      manifest.walk = { file, desktopStops: report.desktop.stops.length, findings: report.desktop.findings.length + report.mobile.findings.length, ...(report.desktop.error || report.mobile.error ? { errors: [report.desktop.error, report.mobile.error].filter(Boolean) } : {}) };
+      manifest.captures.push({ label: 'desktop', kind: 'walk-report', file });
+    } catch (e) {
+      manifest.pageErrors.push(`[walk] ${e.message.split('\n')[0]}`);
+    }
+  }
+
   // Against an earlier round: the share of pixels that changed per frame, and a map of where.
   if (args.baseline && exitCode !== 4) {
     const base = path.resolve(String(args.baseline));
@@ -657,6 +733,7 @@ if (args.json) {
   for (const c of manifest.captures) console.log(`  ${path.basename(c.file)}`);
   if (manifest.consoleErrors.length) console.log(`console errors: ${manifest.consoleErrors.length}`);
   if (manifest.pageErrors.length) console.log(`page errors: ${manifest.pageErrors.length}`);
+  if (manifest.walk) console.log(`walk: ${manifest.walk.desktopStops} focus stop(s), ${manifest.walk.findings} finding(s) → ${path.basename(manifest.walk.file)}`);
   if (manifest.failedRequests.length) console.log(`failed requests: ${manifest.failedRequests.length}`);
   if (manifest.diff) {
     const moved = manifest.diff.filter((d) => d.changed > 0.01);

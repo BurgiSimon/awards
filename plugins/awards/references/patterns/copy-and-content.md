@@ -23,6 +23,26 @@ Why: an adjective is a claim the visitor must trust; a number is a claim the vis
 
 Rules: every superlative becomes a figure with a unit; dual units whenever the audience spans systems; ranges stay ranges; a number that cannot be sourced is either cut or labelled synthetic (`#content-at-full-fidelity`); numbers are set as copy, never as a count-up (`[pattern:components-catalog#spec-and-metric-blocks]`).
 
+## Headline budget
+
+Why: a headline is held in one glance, and a large sentence over three or more lines is read as a long headline whatever its markup; in taste-skill's blind rounds jurors marked it down every time [external, taste-skill `references/copy.md` §2, read 2026-10-26]. The gallery agrees: the median hero headline is five words and about 32 characters [external, same study]. Length is arithmetic, so do it before falling for a sentence.
+
+Characters per line ≈ line width ÷ (font size × k), with k ≈ 0.40 for condensed faces, 0.50 for most grotesques and serifs at display size with tight tracking, 0.58 for wide faces and capitals. Read the face's own k from a rendered specimen (`scripts/fonts.mjs specimen`) when it is in doubt.
+
+| Where | Line width | Size | Per line | Two-line budget |
+|---|---|---|---|---|
+| Phone 390, 20 px margins | 350 px | 44 px | about 16 | about 32 characters |
+| Phone 390, 20 px margins | 350 px | 34 px | about 21 | about 42 characters |
+| Tablet 834 | 760 px | 64 px | about 24 | about 48 characters |
+| Desktop, twelve columns | 1340 px | 128 px | about 21 | about 42 characters |
+| Desktop, half width | 640 px | 72 px | about 18 | about 36 characters |
+
+Rules:
+- A title holds to two lines at every width the page ships; the hero probe and the rendered audit record the lines per heading at each width (`rendered.<viewport>.headlines` in `.awards/audit.json`), and the jury reads them. A contract that asks for more lines is a choice the jury will weigh, not a style.
+- Cut words first, then widen the measure; shrink the size last and never below the scale the system set. Author the break that matters (`<br>` hidden under the breakpoint that does not need it) and set `text-wrap: balance`.
+- A statement is not a headline: a manifesto line or a quotation set large is a `<p>` or a `<blockquote>`, about 25 words at statement size (36 px or less on desktop, 24 px on a phone), three lines (four on a phone). Set larger, it is a headline again and the two-line budget applies.
+- Section headings are shorter still: two to five words that name what the section holds.
+
 ## Verb chains
 
 Why: a mission is a sequence of actions, and a sentence built from verbs compresses a timeline into one breath. USAvionix chains detect → suppress → secure → keep open → contain and frames the hardware as an agent that acts [site:usavionix] [verified fragments]; Montfort's capability line is four verbs in a row — trade, refine, store, transport [site:mont-fort] [verified]; Seasats closes a chapter with four one-word stabs [site:seasats] [verified fragment].

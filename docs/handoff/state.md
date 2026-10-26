@@ -1,9 +1,21 @@
-# State of the awards plugin — 2026-10-26 (release 0.8.0 plus corpus wave 5, unreleased)
+# State of the awards plugin — 2026-10-26 (release 0.9.0, branch `claude/awards-0.9`)
 
 Read this first, then `todo.md`. The visual composition candidate's deterministic verification is
 recorded below in [Candidate verification record](#candidate-verification-record). `archive/plan-0.2.md` and
 `verification-log.md` record the earlier 0.2.0 work. `archive/plan.md` is the 0.1.0 specification, kept for
 reference. `decisions.md` records choices already taken.
+
+## Release 0.9.0 — the taste-skill recommendations (branch `claude/awards-0.9`, 2026-10-26)
+
+All twelve recommendations of `analysis-2026-10-26-taste-skill.md` plus its smaller borrowings, on top of corpus wave 5 and the recipe explorer; all three manifests at 0.9.0, release notes in `CHANGELOG.md`, choices and what they declined in `decisions.md` (0.9 batch).
+
+- **Generator side.** Concept Step 1 writes the Brief's `Inventory` line (eight to twelve things only this client has), names four ruts (category, Awwwards, template, and the plugin's own from `references/patterns/house-tells.md`), refuses its first idea unless it survives, and ends THESIS with `Competitor test:`. `roll.mjs` deals two stimuli (`--stimulus`, `scripts/data/stimuli.json`, 44 items in 14 families), three worlds from three engines (`--engines`, `scripts/data/engines.json`, 14 engines each tied to three cards) with spent engines held back (`--avoid`), and a colour strategy and a hero archetype among the ones WORLD allows (`--choose`); each on its own stream, so every older seed deals as before (seed `a` still deals 1 2 7). `scripts/house-ledger.mjs` derives the spent features from the five 2026-10-23 builds (`docs/handoff/house-ledger.md`: engine `artefact` and the page-is-an-object shape 5/5; restrained duotone, process-performed, code-only imagery and a readout 4/5; light ground 3/5) and `--against AWARDS.md` exits 2 on a contract that shares two.
+- **Pictures.** `assets.mjs search` / `get` over seven keyless collections (`scripts/lib/collections.mjs`; NC and ND refused), logged with credit; found pictures rank before made imagery when the project has none (`imagery-and-assets.md`). Tested live on the Met and NASA; Wikimedia answered 429 and the Art Institute 403 from this container. `capture.mjs` writes `metrics.<viewport>.pictures` (photograph and made-imagery share per scroll stop, counts per section).
+- **Frame rules.** L11 covered text (hit-tested with `pointer-events` forced on; full-viewport canvases, gradients and fades never count), L12 outer margins, L13 lopsided desktop section, L14 untitled running text, L15 near-empty screens, S11 no readable h1 1.2 s after load; headline line counts, first-viewport actions, margins and words per screen are measurements in `rendered.<viewport>`. 95 rules. Tuned on the three showcase builds that render from the repo (petrel, extinct, ekvator) until quiet on them, and on a bad and a good fixture (all six fire on the bad one, none on the good one; `evals/behavior.mjs` holds both).
+- **The walk.** `capture.mjs --walk` (`scripts/lib/walk.mjs`) tabs forward and back, opens each disclosure (Enter, Shift+Tab trap, Escape and focus return), presses each button and taps on a phone, and writes `walk.json`; jury, ship and component capture with it, and the usability walk starts from it.
+- **Jury.** A third specificity direction (the juror names the nearest competitor before reading the contract's; Creativity capped at 7 when the page serves it as well), the `House concept` and `Substance` slop families, picture metrics in the evidence, `--blind <tournament dir>` ending `disposition: blind` (the reply check accepts it), and a description that also triggers on "looks generic, templated or AI-made".
+- **Measurement.** `evals/tournament.mjs prepare|reveal` and `evals/visual/tournament.md` (blind rounds; same-tool precision as the house-style measure); `scripts/contrast-set.mjs` with `_contrast-queue.md` and the first `references/sites/_prevalence.md`. New graders: `contract-southbound` inventory, competitor and Seed engines; `concept-deal-distinct` engines and stimuli.
+- **Prose.** Hero blueprints in numbers for all fourteen archetypes, the headline budget, frame figures, motion figures and the no-loader default, each external figure marked as taste-skill's measurement.
 
 ## Corpus wave 5 — WebGL and 3D lens (branch `claude/eager-mendel-prz05n`, 2026-10-26, unreleased)
 

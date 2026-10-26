@@ -96,6 +96,21 @@ Decisions taken during the build, with the reason, so a future session does not 
 | DESIGN.md CLI | `@google/design.md` 0.4.0 through npx, pinned, `unmeasured` offline; `missing-primary` read as information because the accent plays primary | Installing it in the scaffold (alpha); adding a `primary` alias token (it would have to be kept in step with tokens.css) |
 | Adapters | Code adapters checked by `check-adapters.mjs` (Oxc parse through the recipes' Vite, pinned imports, `useGSAP` with GSAP); a Webflow section in every P0 README | Adapters as README prose only (no check catches a broken one) |
 
+## Taken in the 0.9 batch (2026-10-26, from the taste-skill comparison; the user asked for every recommendation)
+
+| Decision | Choice | Alternatives declined |
+|---|---|---|
+| House style at the concept level | A dated registry (`references/patterns/house-tells.md`), a fourth rut in concept, judge rows in a `House concept` slop family, and `scripts/house-ledger.mjs` deriving spent features from finished builds into `docs/handoff/house-ledger.md` | Audit rules for "the page is an object" or for readouts (concept shapes are judged, as the staples are); a ledger in the user's home folder (declined 2026-10-06; the plugin's own builds are the evidence, a user's builds are passed by path) |
+| Outside entropy | A12's deferral lifted: the convergence it waited for is measured (`docs/handoff/house-ledger.md`, five of five builds one engine). Fourteen engines and a forty-four-item stimulus deck dealt by `roll.mjs` on their own streams, so every existing seed deals as before; colour strategy and hero archetype dealt with `--choose` among the options WORLD allows | Per-chapter layout deals (declined 2026-10-06: they cut layout off from WORLD); a fixed direction library as the only source of geometry (it becomes its own look) |
+| Subject first | An `Inventory` line in `## Brief` (semicolon-separated, eight to twelve items) and a competitor line ending THESIS; the jury names its own competitor before reading the contract's and caps Creativity at 7 | A new contract block (block names are read by every skill, the hook and the evals) |
+| Pictures | `assets.mjs search` / `get` over collections that need no key; found pictures rank before made imagery when no assets exist; the capture manifest measures picture share for the jury | A picture-count floor as an audit rule (imagery is a contract decision; a type-only world is legitimate); atmosphere stock photographs |
+| The frame | L11–L15 and S11 as rules: readability and composition defects the showcase juries found by eye; headline line counts and first-viewport actions as measurements only | A headline-length rule and an action-in-fold rule (declined 2026-10-06, judged by decision); taste-skill's outright bans of monospace labels, index numbering and hairlines (judged, never audited, 2026-09-24) |
+| Covered text | Hit-tested with `pointer-events` forced on; a full-viewport canvas, a gradient or a fade never counts as a cover | A pixel comparison with the cover hidden (deferred until a build shows a miss) |
+| The walk | `capture.mjs --walk` writes `walk.json` as evidence for the jury's walk steps 1 and 2; its findings are not audit rules | Folding it into `audit.mjs` (it reloads and presses things; the audit stays a measurement of one load) |
+| Blind tournament | The harness, the jury's `--blind` mode and the protocol ship; a round is the maintainer's paid decision (C13) | Running a paid round unasked |
+| Contrast set | Rule hits only, template demos first, owner policy first, no pages stored | Cards for unawarded sites; stored captures |
+| Version | 0.9.0 | 1.0.0 before a blind round has measured the change |
+
 ## Architectural
 
 - **Corpus at the plugin root**, addressed as `${CLAUDE_PLUGIN_ROOT}/references/…`, `…/recipes/…`, `…/scripts/…`; skill folders hold no private copies. Copying a single skill folder elsewhere is unsupported.

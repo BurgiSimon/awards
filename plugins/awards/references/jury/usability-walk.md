@@ -1,5 +1,7 @@
 # Usability walk
 
+Read `walk.json` first when the capture directory has one (`capture.mjs --walk`): a browser has already tabbed through every stop on desktop, opened each disclosure with Enter, tried Shift+Tab and Escape on it, pressed each button, and tapped each button and disclosure on a phone. Its findings are evidence for steps 1 and 2 (a control with no name, no visible focus change, focus off screen or under a fixed bar, a disclosure that ignores Enter or Escape, a panel Shift+Tab escapes from, a button nothing answers); confirm them on the frames it lists, then walk what it cannot judge (gestures, order, the gate, copy).
+
 Usability is the lowest of the four axes on 27 of the 31 corpus entries awarded since 2021 (range 7.00–7.90; the exceptions miss by a few hundredths, see `rubric.md`) [verified per card; counted by `scripts/calibration.mjs --since 2021`, 2026-10-22], which makes it the axis where new work can beat the reference set instead of copying it. This walk is a fixed sequence the jury runs against the captures, the DOM and, when a page is reachable, the live page. Each step ends with a pass / fail and a one-line note; the failing steps become fix items and cap the Usability score as noted.
 
 ## 1. Keyboard only (caps Usability at 6 if any item fails)

@@ -11,7 +11,8 @@ export function check(input) {
   if (!input || !/(^|:)awards-jury$/.test(String(input.agent_type ?? ''))) return null;
   if (input.stop_hook_active) return null;
   const reply = String(input.last_assistant_message ?? '');
-  if (/^disposition: (ship|fix|rebuild|recapture)$/m.test(reply)) return null;
+  // A blind tournament judgement has no build to route; it ends `disposition: blind`.
+  if (/^disposition: (ship|fix|rebuild|recapture|blind)$/m.test(reply)) return null;
   return {
     decision: 'block',
     reason: 'Your reply has no `disposition: ship|fix|rebuild|recapture` line, and the build routes on it. End with the verbatim block from your report: the disposition line, then the score line (numeric with rendered evidence, all `unmeasured` with `recapture`), then the floor and craft fixes. Do not re-score or re-capture; restate what the report already says.',
