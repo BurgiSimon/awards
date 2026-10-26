@@ -791,3 +791,30 @@ edolus: basis-transcoder (wasm) — __settings__.js
 - 2026-10-05 pilot synthesis (edolus, abatable, why-zero): duplicates none. Partial overlaps: abatable `osmo` and why-zero `osmoNav` share control points 0.625,0.05,0,1 (one borrowed curve); abatable initGlobalParallax matches siteassist line for line. Open conflict: narrative-structures.md "Manifesto with gates" and cursor-and-pointer.md hold-gates paragraph still say why-zero has six stages / five gates; the updated card says five / four. Reconcile by hand.
 - 2026-10-05 pilot: parallel captures (three subagents at once) caused screenshot timeouts on all three sites; lens evidence came from source, which the lens rule allows, but captures were partial.
 - 2026-10-05 synthesis (10 cards): duplicates none. Closest pair a24-raviklaassens / agrumeafarm (one repeated lathe object as the home gallery, wheel captured, spring per item; differ in render model and keyboard support). Shared snippets: osmo 0.625,0.05,0,1 on abatable, aardvarkbookclub, a24-raviklaassens, bleibtgleich, why-zero; energy = discGlide 0.32,0.72,0,1 (aardvarkbookclub, a24-raviklaassens). Partial overlap ascension-pegassi / cyphercapital (chrome logo lit without an HDR; mesh + PMREM studio vs raymarched SDF).
+
+## Wave 5 — opened 2026-10-26
+
+| Phase | Status | Note |
+|---|---|---|
+| setup | done | WebGL + 3D lens wave on branch claude/eager-mendel-prz05n, opened at the maintainer's request for four named sites with a focus on Three.js and WebGL in the hero, nav, footer and whole page; not gap-driven (the maintainer named the queue), though everswap fills web3 and finance |
+| triage | open | |
+| synthesis | open | |
+| recipes | open | |
+| stacks | open | |
+| upkeep | open | |
+
+### Sites
+
+| Slug | URL | Lens | Status | Rating | Novelty | Synthesised | Reason | Date |
+|---|---|---|---|---|---|---|---|---|
+| oryzo | https://oryzo.ai/ | 3D, WebGL | queued | | | | existing card | |
+| daikifujita | https://daikifujita.com/ | 3D, WebGL | queued | | | | | |
+| da-san333 | https://da-san333.com/ | 3D, WebGL | queued | | | | | |
+| everswap | https://everswap.com/ | 3D, WebGL | queued | | | | | |
+
+### Techniques and stacks
+
+### Notes
+
+- Gaps at opening (`corpus-gaps.mjs`, 61 award cards): class docs 2 of 4, e-commerce 3 of 4; industry architecture, automotive, climate, finance, health-care, logistics, publishing, travel, web3 each 1 of 2; visitor mode read 3 of 6; inner routes 5 of 16.
+- Owner policy (`policy.mjs`, 2026-10-26): all four allowed.

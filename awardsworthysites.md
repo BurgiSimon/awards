@@ -73,9 +73,17 @@
 
 
 # not reviewed 3D
+- https://oryzo.ai/
+- https://daikifujita.com/
+- https://da-san333.com/
+- https://everswap.com/
 
 # not reviewed GSAP
 
 # not reviewed WebGL
 - https://santionispirits.com/
+- https://oryzo.ai/
+- https://daikifujita.com/
+- https://da-san333.com/
+- https://everswap.com/
 - https://guillaumecolombel.fr/
