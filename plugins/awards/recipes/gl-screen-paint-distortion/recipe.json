@@ -1,0 +1,32 @@
+{
+  "id": "gl-screen-paint-distortion",
+  "title": "Screen paint: a pointer field without a fluid solver",
+  "intent": "Pointer paint smear",
+  "group": "webgl-surfaces",
+  "summary": "Quarter-res capsule-stroke paint field, self-advected along a 1/16 blurred copy with gradient-noise curl, read by a 9-tap smear with an oil-film fringe",
+  "tags": [
+    "webgl",
+    "three",
+    "shader",
+    "fluid",
+    "post-processing",
+    "render-target",
+    "noise",
+    "pointer",
+    "touch",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [
+    "three@0.186.0"
+  ],
+  "variants": [
+    "Three.js (this)",
+    "As a pass in a larger post queue: run the paint once a frame and let any pass sample it (distortion here; a reveal mask or a light map elsewhere)",
+    "OGL: the same three passes with ogl RenderTargets"
+  ],
+  "seenIn": [
+    "oryzo",
+    "everswap"
+  ]
+}

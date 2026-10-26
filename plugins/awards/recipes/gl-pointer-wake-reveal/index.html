@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#ecebe6">
+  <title>gl-pointer-wake-reveal — awards recipe</title>
+  <meta name="description" content="A paper hero with a second world under it: the pointer leaves a short-lived wake that opens the paper onto a GL scene, rendered only while the wake exists.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23ecebe6'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">gl-pointer-wake-reveal · <span data-gl-readout>dom</span></p></header>
+  <main id="main">
+    <section class="hero" data-hero aria-labelledby="t">
+      <canvas class="world" data-gl aria-hidden="true"></canvas>
+      <div class="wrap hero__copy">
+        <p class="label">Under the paper</p>
+        <h1 class="display" id="t">Move slowly.<br>Something is awake.</h1>
+        <p class="lede">The page is paper. Where the pointer passes, a wake opens it onto a night scene for three quarters of a second, then the paper closes again. The scene renders at a reduced scale, every second frame, and not at all while nothing is open.</p>
+      </div>
+    </section>
+    <section class="wrap section notes" aria-labelledby="rules">
+      <h2 id="rules">Rules</h2>
+      <ul>
+        <li>The wake is up to 140 points, each living 750 ms, painted as radial gradients into a 480 × 300 canvas that the shader reads as a mask.</li>
+        <li>Faster movement opens a wider wake: radius 9.5 % of the short side × (0.6 + 0.6 × speed / 1,600 px/s).</li>
+        <li>Fine pointers only. On touch, under reduced motion or without WebGL there is only paper, which is the complete page.</li>
+      </ul>
+    </section>
+  </main>
+  <footer class="wrap footer"><p class="label">Synthetic demo content · awards recipes · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

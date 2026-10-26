@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>wordmark-header-handoff — awards recipe</title>
+  <meta name="description" content="The hero wordmark and the header logo are one element: it scales and travels into the bar as the hero leaves, and the nav underline eases between chapters.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="bar" data-bar>
+    <div class="bar__slot" data-slot aria-hidden="true"></div>
+    <a class="mark" href="#top" data-mark aria-label="Halden, back to the top"><span class="mark__word">HALDEN</span></a>
+    <nav class="bar__nav" aria-label="Chapters">
+      <ul data-nav>
+        <li><a href="#intro" data-id="intro">Intro</a></li>
+        <li><a href="#work" data-id="work">Work</a></li>
+        <li><a href="#contact" data-id="contact">Contact</a></li>
+      </ul>
+      <span class="bar__line" data-line aria-hidden="true"></span>
+    </nav>
+  </header>
+  <main id="main">
+    <section class="hero" id="top" data-hero aria-labelledby="hero-t">
+      <div class="hero__ref" data-ref aria-hidden="true"><span class="hero__copy" data-copy>HALDEN</span></div>
+      <h1 class="hero__line" id="hero-t">A studio for quiet machines. The name you just read is the logo you will use to come back.</h1>
+      <p class="label">Synthetic demo brand · recipe page</p>
+    </section>
+    <section class="chapter" id="intro" data-chapter="intro" aria-labelledby="h-intro">
+      <h2 id="h-intro">One element, two places.</h2>
+      <p>The wordmark is laid out in the header slot and drawn into the hero by a transform. As the hero scrolls away the transform unwinds, so the giant name and the small logo are the same link, the same focus ring, the same accessible name.</p>
+    </section>
+    <section class="chapter" id="work" data-chapter="work" aria-labelledby="h-work">
+      <h2 id="h-work">The underline knows the chapter.</h2>
+      <p>The nav underline eases its two edges toward the active item with a frame-rate-independent factor and snaps the last twentieth of a pixel, so it lands cleanly and stops writing styles.</p>
+    </section>
+    <section class="chapter" id="contact" data-chapter="contact" aria-labelledby="h-contact">
+      <h2 id="h-contact">Write to the studio.</h2>
+      <p><a href="mailto:hello@example.com">hello@example.com</a> (an example address).</p>
+    </section>
+  </main>
+  <footer class="wrap footer"><p class="label">Synthetic demo content · awards recipes · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

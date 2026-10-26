@@ -1,0 +1,33 @@
+{
+  "id": "gl-grade-pass-scene-cuts",
+  "title": "Scene cuts inside the grade pass: blur dip, frozen-frame iris, footer close",
+  "intent": "Scene cuts in post",
+  "group": "webgl-surfaces",
+  "summary": "Three scenes on one target; a staged full/half/quarter blur into a flat colour, a diamond iris over a frame frozen on its first frame with a 2D edge in sync, and a footer iris onto the ground",
+  "tags": [
+    "webgl",
+    "three",
+    "shader",
+    "post-processing",
+    "render-target",
+    "transition",
+    "scene-windows",
+    "sdf",
+    "canvas",
+    "footer",
+    "scroll",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [
+    "three@0.186.0"
+  ],
+  "variants": [
+    "Three.js (this)",
+    "Inside an existing post queue: add the three uniforms to the last pass instead of a separate final material",
+    "Other masks: any 2D SDF (circle, logo distance field) in place of the diamond; keep the 2D edge drawn from the same numbers"
+  ],
+  "seenIn": [
+    "everswap"
+  ]
+}

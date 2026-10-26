@@ -1,0 +1,31 @@
+{
+  "id": "gl-swarm-light-field",
+  "title": "Footer swarm lit by the pointer, shadowed by a voxel light field",
+  "intent": "Lit footer swarm",
+  "group": "the-close-and-beyond",
+  "summary": "CPU swarm in float data textures, one instanced draw, a cursor point light, AO and shadow from a sliced 3D occupancy atlas; three.js loads only near the footer",
+  "tags": [
+    "webgl",
+    "three",
+    "shader",
+    "particles",
+    "render-target",
+    "footer",
+    "pointer",
+    "procedural",
+    "performance",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [
+    "three@0.186.0"
+  ],
+  "variants": [
+    "Three.js (this)",
+    "GPU simulation: move the CPU loop into a float ping-pong pass when the count passes a few thousand",
+    "InstancedMesh with instanceMatrix instead of data textures, when no other pass needs the positions"
+  ],
+  "seenIn": [
+    "oryzo"
+  ]
+}

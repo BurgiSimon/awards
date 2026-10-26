@@ -56,6 +56,13 @@ Excluded by that instruction (lower impact, larger effort): F5 jury panel, F6 mo
 - [x] G1 the plugin's own site, rebuilt from scratch in redesign mode as the maintainer asked ("Contact sheet", seed `3zaj142iys4g`): three page jury rounds (ship 7.70, fix 7.71, ship 7.88; the third asked for by the maintainer), Shipped 2026-10-23. Left to the maintainer: enable GitHub Pages with Actions as the source and run `.github/workflows/site.yml`; one pass on a real phone and trackpad (the strip's follow and chapter 3's scroll were measured only headless); the Awwwards submission. Open after ship: two craft rows in `site/.awards/ship/2026-10-23.md` (s00's arrow label in view; the hover crop's marks in paper ink)
 
 
+## Corpus wave 5 (2026-10-26) follow-ups
+
+1. Real-GPU and real-phone pass for the seven wave 5 recipes (`gl-swarm-light-field`, `gl-screen-paint-distortion`, `gl-grade-pass-scene-cuts`, `gl-dom-refraction-lens`, `gl-pointer-wake-reveal`, `point-cloud-shape-morph`, `wordmark-header-handoff`): frame times, the swarm's lazy chunk on a phone, the lens's repaint cost during a fast scroll. All were verified on SwiftShader only.
+2. everswap's official scores: the Awwwards entry page returned 502; re-read it and replace the `[recalled]` award line with the jury figures.
+3. Not built from the wave (`recipe-proposals-2026-10-26-wave-5.md#not-built-candidates-left-in-this-file`): `gl-scroll-speed-tunnel`, `gl-texture-skinned-bird`, `gl-gpu-spline-trails`, `gl-voronoi-fracture-carry`, `gl-dual-gate-camera-track`. The bird and the camera track need authored DCC exports; the tunnel overlaps `gl-virtual-scroll-camera`.
+4. Stamp the seven recipes (`verify-recipes --only <ids> --stamp`) at the next release; all seven already pass `--pseudo`.
+
 ## Release 0.8.0 follow-ups (2026-10-23)
 - Maintainer: tag `v0.8.0` on the merge commit and publish the GitHub release from `CHANGELOG.md`.
 - Maintainer: enable GitHub Pages with "GitHub Actions" as the source, then run `.github/workflows/site.yml`; check the deployed page once on a real phone and a trackpad (the strip's follow and chapter 3's scroll were measured headless only).

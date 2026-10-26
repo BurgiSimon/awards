@@ -61,6 +61,9 @@
 - https://stanzza.design/awards
 - https://www.cyphercapital.com/
 - https://aqualoqa.com/
+- https://da-san333.com/
+- https://everswap.com/
+- https://daikifujita.com/
 
 # Reviewed, not added
 - https://www.ruitat.info/ — owner policy forbids automated extraction (ai-usage.txt, robots.txt Disallow for ClaudeBot); nothing captured or kept

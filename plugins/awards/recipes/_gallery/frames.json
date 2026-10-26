@@ -8,7 +8,7 @@
     "width": 800,
     "height": 500
   },
-  "total": 1198916,
+  "total": 1304750,
   "sheet": {
     "file": "sheet.webp",
     "tile": {
@@ -16,7 +16,7 @@
       "height": 100
     },
     "cols": 15,
-    "rows": 6,
+    "rows": 7,
     "ids": [
       "auto-drive-manual-takeover",
       "autoplay-tabs-progress",
@@ -43,10 +43,12 @@
       "gl-built-studio-environment",
       "gl-depth-map-parallax",
       "gl-dispersion-stripes",
+      "gl-dom-refraction-lens",
       "gl-dom-tethered-planes",
       "gl-endless-reel-sheets",
       "gl-fluid-wake-post",
       "gl-fps-governor-idle-gate",
+      "gl-grade-pass-scene-cuts",
       "gl-hero-object-inertia",
       "gl-lathe-turned-object",
       "gl-material-patch-reveal",
@@ -55,12 +57,15 @@
       "gl-one-context-many-canvases",
       "gl-orbit-model-hotspots",
       "gl-ping-pong-grain-field",
+      "gl-pointer-wake-reveal",
       "gl-postprocessing-presets",
       "gl-progress-scene-windows",
       "gl-rtt-composite-transition",
+      "gl-screen-paint-distortion",
       "gl-scrubbed-clip-timeline",
       "gl-sdf-extruded-symbol",
       "gl-spring-stepped-gallery",
+      "gl-swarm-light-field",
       "gl-uniform-tween-targets",
       "gl-virtual-scroll-camera",
       "horizontal-rail",
@@ -76,6 +81,7 @@
       "page-transitions",
       "persistent-mode-switch",
       "physics-pile-matter",
+      "point-cloud-shape-morph",
       "pointer-tilt-shine",
       "preloader-aperture-handoff",
       "preloader-counter-hold",
@@ -106,7 +112,8 @@
       "typography-specimen",
       "video-clip-wipe-panels",
       "view-transitions-mpa",
-      "word-cycle-hero"
+      "word-cycle-hero",
+      "wordmark-header-handoff"
     ]
   },
   "frames": {
@@ -260,6 +267,12 @@
       "captured": "2026-10-26",
       "bytes": 21288
     },
+    "gl-dom-refraction-lens": {
+      "state": "hero",
+      "scroll": 0,
+      "captured": "2026-10-26",
+      "bytes": 10738
+    },
     "gl-dom-tethered-planes": {
       "state": "grid",
       "scroll": 0.35,
@@ -283,6 +296,12 @@
       "scroll": null,
       "captured": "2026-10-26",
       "bytes": 37506
+    },
+    "gl-grade-pass-scene-cuts": {
+      "state": "iris",
+      "scroll": 0.5879,
+      "captured": "2026-10-26",
+      "bytes": 21714
     },
     "gl-hero-object-inertia": {
       "state": "scrolled",
@@ -332,6 +351,12 @@
       "captured": "2026-10-26",
       "bytes": 34764
     },
+    "gl-pointer-wake-reveal": {
+      "state": "wake",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 16064
+    },
     "gl-postprocessing-presets": {
       "state": "top",
       "scroll": 0,
@@ -350,6 +375,12 @@
       "captured": "2026-10-26",
       "bytes": 14702
     },
+    "gl-screen-paint-distortion": {
+      "state": "paint",
+      "scroll": null,
+      "captured": "2026-10-26",
+      "bytes": 17404
+    },
     "gl-scrubbed-clip-timeline": {
       "state": "idle",
       "scroll": 0.3,
@@ -367,6 +398,12 @@
       "scroll": null,
       "captured": "2026-10-26",
       "bytes": 8896
+    },
+    "gl-swarm-light-field": {
+      "state": "footer",
+      "scroll": 1,
+      "captured": "2026-10-26",
+      "bytes": 16550
     },
     "gl-uniform-tween-targets": {
       "state": "top",
@@ -457,6 +494,12 @@
       "scroll": null,
       "captured": "2026-10-26",
       "bytes": 20500
+    },
+    "point-cloud-shape-morph": {
+      "state": "shape1",
+      "scroll": 0.337,
+      "captured": "2026-10-26",
+      "bytes": 14936
     },
     "pointer-tilt-shine": {
       "state": "top",
@@ -643,6 +686,12 @@
       "scroll": null,
       "captured": "2026-10-26",
       "bytes": 15150
+    },
+    "wordmark-header-handoff": {
+      "state": "mid",
+      "scroll": 0.1,
+      "captured": "2026-10-26",
+      "bytes": 8428
     }
   }
 }

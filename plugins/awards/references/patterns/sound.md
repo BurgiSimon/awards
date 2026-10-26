@@ -30,6 +30,7 @@ Rules:
 | Easter-egg cue | .15 | plays only when sound is already on | [site:pensatori-irrazionali] | [verified] |
 | Stems mixed by chapter | per band | three music stems (melody, bass, instruments) gain-mixed by nine progress bands, e.g. .8 / 0 / .2 through the datacenter; stem fade-in 2 s, band fade 1.2 s, cross-fade 1.5 s; fourteen named one-shots per beat | [site:edolus] | [verified] |
 | Music and effects under a stated switch | music .5, effects .32 | switching off ramps to 0 over .5 s; WebAudio plus one `<audio>` loop | [site:cutobot-byholm] | [verified] |
+| A bed with no files | — | WebAudio only: a compressor, a generated 2.6 s reverb and a pad at 110–329.63 Hz under a 650 Hz lowpass, started only after a gesture, behind a Sound on / off control in the header | [site:daikifujita] | [verified]; levels and default state unknown |
 
 Rules:
 - Ambient sits under the SFX and both sit well under full scale; .375 / .35 are the only published levels and make a sensible ceiling [site:leo-parpeix]. Normalise the files themselves rather than mixing with gain alone.

@@ -1,0 +1,27 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+:root { --ground: #ecebe6; --ink: #121212; --rule: rgba(18, 18, 18, 0.14); }
+body { background: var(--ground); color: var(--ink); }
+/* Twelve hairlines, fixed: the glass bends them, which is how the eye reads the refraction. */
+.cols { position: fixed; inset: 0; display: grid; grid-template-columns: repeat(12, 1fr); padding-inline: var(--gutter); pointer-events: none; z-index: 0; }
+.cols i { border-left: 1px solid var(--rule); }
+.cols i:last-child { border-right: 1px solid var(--rule); }
+.gl { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 3; display: none; }
+html.gl-active .gl { display: block; }
+.topbar, main, .site-footer { position: relative; z-index: 1; }
+.topbar { display: flex; justify-content: space-between; padding-block: calc(var(--unit) * 5); }
+
+.block { min-height: 110vh; display: grid; align-content: center; }
+.hero .display { font-size: clamp(3rem, 11.5vw, 12rem); line-height: 0.86; letter-spacing: -0.04em; max-width: 9ch; }
+.block__copy { display: grid; gap: calc(var(--unit) * 6); max-width: 34rem; }
+.block__copy--right { margin-left: auto; }
+.block h2 { font-family: var(--font-display); font-size: clamp(2rem, 4.6vw, 4.25rem); line-height: 1; letter-spacing: -0.025em; }
+.site-footer { min-height: 100vh; }
+.site-footer__head { font-family: var(--font-display); font-size: clamp(3rem, 10vw, 10rem); line-height: 0.9; letter-spacing: -0.04em; font-weight: 700; }
+.site-footer a { display: inline-flex; min-height: 44px; align-items: center; font-size: clamp(1.25rem, 2.4vw, 2rem); }
+
+@media (max-width: 760px) {
+  .cols { grid-template-columns: repeat(4, 1fr); }
+  .cols i:nth-child(n + 5) { display: none; }
+}

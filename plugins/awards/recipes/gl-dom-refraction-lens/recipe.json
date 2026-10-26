@@ -1,0 +1,34 @@
+{
+  "id": "gl-dom-refraction-lens",
+  "title": "A glass object that refracts the page itself and travels between section anchors",
+  "intent": "Glass over the page",
+  "group": "webgl-surfaces",
+  "summary": "The page's words and hairlines repainted into a square 2D canvas around the glass; a back-face normal pass at 0.6 DPR; two-surface refraction sampled at 12 wavelengths (6 on touch) weighted into RGB; Fresnel over an analytic soft-box studio; section anchors weighted by the middle band, followed on a spring k 46",
+  "tags": [
+    "webgl",
+    "three",
+    "shader",
+    "3d",
+    "render-target",
+    "dispersion",
+    "materials",
+    "dom-mirror",
+    "scroll",
+    "spring",
+    "hero",
+    "footer",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [
+    "three@0.186.0"
+  ],
+  "variants": [
+    "Three.js with a convex crystal (this)",
+    "Any mesh: a lathe-turned lens ([recipe:gl-lathe-turned-object]) or a loaded glb, with the same back-normal pass",
+    "html2canvas or a server-rendered image as the back texture when the page under the glass is not plain text"
+  ],
+  "seenIn": [
+    "daikifujita"
+  ]
+}

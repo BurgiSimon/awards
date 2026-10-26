@@ -48,6 +48,12 @@ const OVERRIDES = {
   'clip-path-scrub-door': 'mid',
   'cursor-two-speed': 'hover',
   'custom-ease-house-defaults': 'played',
+  'gl-swarm-light-field': 'footer',
+  'gl-screen-paint-distortion': 'paint',
+  'gl-grade-pass-scene-cuts': 'iris',
+  'gl-dom-refraction-lens': 'hero',
+  'gl-pointer-wake-reveal': 'wake',
+  'point-cloud-shape-morph': 'shape1',
 };
 
 export function pickState(id, states) {
