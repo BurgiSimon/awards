@@ -96,7 +96,7 @@ Decisions taken during the build, with the reason, so a future session does not 
 | DESIGN.md CLI | `@google/design.md` 0.4.0 through npx, pinned, `unmeasured` offline; `missing-primary` read as information because the accent plays primary | Installing it in the scaffold (alpha); adding a `primary` alias token (it would have to be kept in step with tokens.css) |
 | Adapters | Code adapters checked by `check-adapters.mjs` (Oxc parse through the recipes' Vite, pinned imports, `useGSAP` with GSAP); a Webflow section in every P0 README | Adapters as README prose only (no check catches a broken one) |
 
-## Taken in the 0.9 batch (2026-10-26, from the taste-skill comparison; the user asked for every recommendation)
+## Taken in the 1.0 batch (2026-10-26, from the taste-skill comparison; the user asked for every recommendation)
 
 | Decision | Choice | Alternatives declined |
 |---|---|---|
@@ -109,7 +109,7 @@ Decisions taken during the build, with the reason, so a future session does not 
 | The walk | `capture.mjs --walk` writes `walk.json` as evidence for the jury's walk steps 1 and 2; its findings are not audit rules | Folding it into `audit.mjs` (it reloads and presses things; the audit stays a measurement of one load) |
 | Blind tournament | The harness, the jury's `--blind` mode and the protocol ship; a round is the maintainer's paid decision (C13) | Running a paid round unasked |
 | Contrast set | Rule hits only, template demos first, owner policy first, no pages stored; a row is re-measured whenever `audit.mjs` or `rules.json` changes. A rendered rule that fires on most measured winners is read as the genre's habit and narrowed or demoted, never kept at P0–P2 as it is (L11 and S11, 2026-10-26) | Cards for unawarded sites; stored captures; keeping a rule that fires on six of seven winners because the plugin's own builds passed it |
-| Version | 0.9.0 | 1.0.0 before a blind round has measured the change |
+| Version | 1.0.0, a major version at the maintainer's request: the concept round, the Brief, the Seed line and two P2 rules changed what a build is asked to do. No blind round has measured it yet (todo, Release 1.0.0 item 1) | 0.9.0, the version first proposed until a blind round had measured the change |
 
 ## Architectural
 

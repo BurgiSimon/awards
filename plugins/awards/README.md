@@ -1,6 +1,6 @@
 # awards plugin
 
-Version **0.9.0**. See the [release notes](https://github.com/burgisimon/awards/blob/main/CHANGELOG.md).
+Version **1.0.0**. See the [release notes](https://github.com/burgisimon/awards/blob/main/CHANGELOG.md).
 
 Skills, agent, hook, reference corpus, recipes and scripts for building award-worthy websites and components with Claude Code and Codex. Start with `/awards:craft` for a whole site or `/awards:component` for a single element in Claude Code; use `$awards:craft` or `$awards:component` in Codex. Every other skill also triggers on its own request. See the [installation instructions](https://github.com/burgisimon/awards#install) and [Codex runtime guidance](references/codex.md).
 

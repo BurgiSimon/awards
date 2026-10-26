@@ -81,6 +81,7 @@
         "P09",
         "T01"
       ],
+      "audit": "7aa25ebcad",
       "date": "2026-10-26"
     },
     "https://supify.webflow.io/": {
@@ -95,6 +96,7 @@
         "P09",
         "T01"
       ],
+      "audit": "7aa25ebcad",
       "date": "2026-10-26"
     },
     "https://abatable.com/": {
@@ -113,6 +115,7 @@
         "P09",
         "S11"
       ],
+      "audit": "7aa25ebcad",
       "date": "2026-10-26"
     },
     "https://lamalama.com/": {
@@ -124,9 +127,9 @@
         "A14",
         "A16",
         "A18",
-        "C01",
         "L06"
       ],
+      "audit": "7aa25ebcad",
       "date": "2026-10-26"
     },
     "https://www.seasats.com/": {
@@ -141,8 +144,10 @@
         "L11",
         "L12",
         "L14",
-        "P09"
+        "P09",
+        "S11"
       ],
+      "audit": "7aa25ebcad",
       "date": "2026-10-26"
     },
     "https://www.siteassist.com/": {

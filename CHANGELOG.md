@@ -2,7 +2,7 @@
 
 Release notes for the awards plugin, newest first. The manifests carry the version; `scripts/check-sync.mjs` keeps them in step.
 
-## 0.9.0 — 2026-10-26
+## 1.0.0 — 2026-10-26
 
 From the comparison with taste-skill v2.1.5 (`docs/handoff/analysis-2026-10-26-taste-skill.md`), all twelve of its recommendations, plus corpus wave 5 and the recipe explorer.
 
@@ -15,6 +15,8 @@ From the comparison with taste-skill v2.1.5 (`docs/handoff/analysis-2026-10-26-t
 - **Blueprints and budgets.** Every hero archetype has a desktop and phone blueprint in numbers, from the cards' measured fingerprints; the hero probe writes where the hero departs from it. `copy-and-content.md#headline-budget` gives the two-line arithmetic and the statement rule. The layout, motion and preloader files gain measured figures from beyond the corpus, marked as such, and no loader is the default.
 - **Measurement.** `evals/tournament.mjs` prepares a blind tournament (same briefs, several arms, frames under shuffled letters, a private key) and reveals it, counting only reasoned judgements and reporting how often judges grouped one arm's builds as the same tool; `jury --blind` judges one; `evals/visual/tournament.md` is the protocol. `scripts/contrast-set.mjs` runs the rendered audit on corpus winners and on unawarded pages and tabulates which rules separate them (`references/sites/_prevalence.md`, a first pilot). Its first run caught two of this release's own rules firing on most winners: L11 counted clouds, curtains and stacked panels passing over a title, and S11 counted loaders, entrances and film-first openings. L11 now counts only text that is never readable, and S11 is a P3 note; the contrast set re-measures whenever the audit changes.
 - **Smaller.** Controls that explain themselves (component); the jury triggers when an award-level page looks generic, templated or AI-made; contract graders for the inventory, the competitor line and the engines on the Seed line; deal graders for the stimuli and the engine tags.
+
+- **Upgrading from 0.8.** A major version because a build is now asked different things: the concept round writes an `Inventory` line in `## Brief`, ends THESIS with `Competitor test:`, and records `ENGINES`, `STIMULI` and the locked `ENGINE` on the Seed line. Nothing rewrites an existing `AWARDS.md`: in a 0.8 build the new lines stay empty until concept runs again, and `house-ledger.mjs` infers what an older contract does not declare. The rendered audit adds L11 at P2, so a page that passed 0.8 can newly report text it never lets a visitor read.
 
 Also in this release, from the work merged since 0.8.0:
 

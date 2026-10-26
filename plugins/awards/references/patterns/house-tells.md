@@ -34,7 +34,7 @@ Why: every rule behind the wave is sound alone; knowing which rule pulls where i
 - SIGNATURE asks for one physical metaphor doing at least two jobs, and the concept skill's own example names wayfinding as one; a readout is the cheapest way to make any metaphor do wayfinding.
 - The memory test accepts "an object or a behaviour", so "the page is the object" passes it by construction.
 - The telemetry register and "numbers not adjectives" (`[pattern:copy-and-content#telemetry-register]`) reward readouts.
-- The no-asset strategies were all made, not found, before 0.9; one of them, procedural images from the world's own data, produces readouts directly.
+- The no-asset strategies were all made, not found, before 1.0; one of them, procedural images from the world's own data, produces readouts directly.
 - Restrained duotone is the corpus's modal strategy (`[pattern:color-and-material#colour-strategies]`), and "light grounds are the corpus majority" was written to counter the dark default, so the model takes the mode.
 
 ## Using the registry

@@ -1,13 +1,13 @@
-# State of the awards plugin — 2026-10-26 (release 0.9.0, branch `claude/awards-0.9`)
+# State of the awards plugin — 2026-10-26 (release 1.0.0, branch `claude/awards-0.9`)
 
 Read this first, then `todo.md`. The visual composition candidate's deterministic verification is
 recorded below in [Candidate verification record](#candidate-verification-record). `archive/plan-0.2.md` and
 `verification-log.md` record the earlier 0.2.0 work. `archive/plan.md` is the 0.1.0 specification, kept for
 reference. `decisions.md` records choices already taken.
 
-## Release 0.9.0 — the taste-skill recommendations (branch `claude/awards-0.9`, 2026-10-26)
+## Release 1.0.0 — the taste-skill recommendations (branch `claude/awards-0.9`, 2026-10-26)
 
-All twelve recommendations of `analysis-2026-10-26-taste-skill.md` plus its smaller borrowings, on top of corpus wave 5 and the recipe explorer; all three manifests at 0.9.0, release notes in `CHANGELOG.md`, choices and what they declined in `decisions.md` (0.9 batch).
+All twelve recommendations of `analysis-2026-10-26-taste-skill.md` plus its smaller borrowings, on top of corpus wave 5 and the recipe explorer; all three manifests at 1.0.0 (a major version at the maintainer's request), release notes in `CHANGELOG.md`, choices and what they declined in `decisions.md` (1.0 batch).
 
 - **Generator side.** Concept Step 1 writes the Brief's `Inventory` line (eight to twelve things only this client has), names four ruts (category, Awwwards, template, and the plugin's own from `references/patterns/house-tells.md`), refuses its first idea unless it survives, and ends THESIS with `Competitor test:`. `roll.mjs` deals two stimuli (`--stimulus`, `scripts/data/stimuli.json`, 44 items in 14 families), three worlds from three engines (`--engines`, `scripts/data/engines.json`, 14 engines each tied to three cards) with spent engines held back (`--avoid`), and a colour strategy and a hero archetype among the ones WORLD allows (`--choose`); each on its own stream, so every older seed deals as before (seed `a` still deals 1 2 7). `scripts/house-ledger.mjs` derives the spent features from the five 2026-10-23 builds (`docs/handoff/house-ledger.md`: engine `artefact` and the page-is-an-object shape 5/5; restrained duotone, process-performed, code-only imagery and a readout 4/5; light ground 3/5) and `--against AWARDS.md` exits 2 on a contract that shares two.
 - **Pictures.** `assets.mjs search` / `get` over seven keyless collections (`scripts/lib/collections.mjs`; NC and ND refused), logged with credit; found pictures rank before made imagery when the project has none (`imagery-and-assets.md`). Tested live on the Met and NASA; Wikimedia answered 429 and the Art Institute 403 from this container. `capture.mjs` writes `metrics.<viewport>.pictures` (photograph and made-imagery share per scroll stop, counts per section).
