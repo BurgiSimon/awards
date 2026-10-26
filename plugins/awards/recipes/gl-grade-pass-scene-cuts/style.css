@@ -19,7 +19,7 @@ html.gl-active .gl, html.gl-active .outline { display: block; }
 
 .site-footer { min-height: 100vh; display: grid; align-items: end; }
 .site-footer__inner { display: grid; gap: calc(var(--unit) * 6); padding-block: calc(var(--unit) * 20); }
-.site-footer__head { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 5rem); line-height: 1; letter-spacing: -0.02em; max-width: 20ch; }
+.site-footer__head { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 5rem); line-height: 1; letter-spacing: -0.02em; max-width: 30ch; text-wrap: balance; }
 .site-footer__links { display: flex; flex-wrap: wrap; gap: calc(var(--unit) * 8); }
 .site-footer__links a { min-height: 44px; display: inline-flex; align-items: center; }
 

@@ -46,7 +46,7 @@ function placeMark() {
     // At the top the mark sits on the hero's reference box, scrolling with it; at the hand-off it is back in the slot.
     const tx = lerp(geo.rx - geo.sx, 0, e), ty = lerp(geo.ry - y - geo.sy, 0, e), sc = lerp(big, 1, e);
     state.scale = Math.round(sc * 1000) / 1000;
-    transform = e >= 1 ? 'none' : `translate3d(${tx.toFixed(2)}px, ${ty.toFixed(2)}px, 0) scale(${sc.toFixed(4)})`;
+    transform = e >= 1 ? 'none' : `translate(${tx.toFixed(2)}px, ${ty.toFixed(2)}px) scale(${sc.toFixed(4)})`; // 2D: see style.css
   } else {
     state.scale = 1;
     copy.classList.toggle('is-gone', raw > 0.5);

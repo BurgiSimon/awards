@@ -5,7 +5,9 @@
 .bar > * { pointer-events: auto; }
 /* The slot reserves the logo's resting box; the mark is laid out over it and transformed into the hero. */
 .bar__slot { width: 132px; height: 28px; }
-.mark { position: fixed; top: 22px; left: var(--gutter); width: 132px; height: 28px; display: block; transform-origin: 0 0; color: var(--ink); text-decoration: none; will-change: transform; border-radius: 2px; }
+.mark { position: fixed; top: 22px; left: var(--gutter); width: 132px; height: 28px; display: block; transform-origin: 0 0; color: var(--ink); text-decoration: none; border-radius: 2px; }
+/* No will-change and no 3D transform: a composited layer keeps the raster of the 28 px logo and upscales it into
+   a blurred hero mark. Painted in place, the word is rasterised at every scale it passes through. */
 .mark__word { display: block; font-family: var(--font-display); font-weight: 700; font-size: 28px; line-height: 28px; letter-spacing: -0.04em; white-space: nowrap; }
 .mark:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .bar__nav { position: relative; }

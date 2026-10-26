@@ -5,6 +5,7 @@ The giant name in the hero and the small logo in the header are the same link. I
 ## Why
 - **One element, one name, one focus ring.** A screen reader meets the brand once, as a link with an accessible name. A keyboard user tabs to it once. There is no second "logo" copy to keep in sync. `[site:oryzo]` drives its header logo this way, from the hero's scroll ratio [verified, `hoisted.CRsATKbF.js`, `siteHeader.setLogoTransform`, 2026-10-26].
 - **The transform follows the hero, then lets go.** At the top the mark scrolls with the hero's reference box, so it reads as part of the page. Over the first 60 % of the hero it eases (cubic in-out) into the slot. No layout property ever animates.
+- **Painted, not composited.** The mark carries no `will-change` and a 2D transform only. On a composited layer the browser keeps the raster of the 28 px logo and stretches it up to ten times (1,320 px of hero over a 132 px slot at 1440) into a blurred hero mark. Painted in place, the word is rasterised at every scale it passes through. The cost is one word repainted per scroll frame, and only during the hand-off.
 - **An underline that lands and stops.** Both edges move by `1 − e^(−10·dt)` toward the target link and snap the last 0.05 px. The motion is frame-rate independent, and once settled the loop writes no styles.
 
 ## Parameters
