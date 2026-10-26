@@ -180,15 +180,15 @@ Why: the archetype follows the narrative model and the WebGL dosage the budget a
 | Two-state typographic | collage index, specification, a faceted hub | none → canvas-first (a scene behind the DOM) | [site:leo-parpeix] |
 | Role-casting boot sequence | specification (role-casting), chaptered journey | moments → canvas-first | [site:usavionix] |
 | Poster or video hero | gallery, specification (place-led), chaptered journey | none → moments | [site:lama-lama] [site:white-desert] [site:seasats] |
-| Single object with inertia | single-object launch, a faceted hub, a chaptered journey carried by one object | canvas-first | [site:oryzo] [site:ascension-pegassi] [site:daikifujita] |
+| Single object with inertia | single-object launch, a faceted hub, a chaptered journey carried by one object | canvas-first | [site:oryzo] [site:ascension-pegassi] [site:daikifujita] [verified] |
 | Collage of flat planes | collage index, gallery | moments → canvas-first, planes only | [site:trevor-noah] [clone:floema-jewelry] |
 | Spatial descent | chaptered journey as a world, manifesto with gates | 100 % canvas | [site:igloo] [site:edolus]; gesture entry [site:why-zero] |
 | Print artefact with an acetate | print artefact, gallery | none → moments | [site:the-line] |
 | Headline as string | chaptered journey, faceted world | one canvas-first island in a static page | [site:mont-fort] |
 | Palette field bound to the product | single-object launch | canvas-first with a static per-variant tier | [site:slosh-seltzer] |
 | Generative line field | gallery, collage index, specification | none — SVG and canvas 2D; moments in GL | [site:wodniack]; drawn still [site:abatable]; GL pipes [site:cyphercapital] |
-| Point cloud that takes each chapter's shape | gallery, single-object launch | none (2D canvas) → canvas-first | [site:da-san333] |
-| Wordmark as a window | gallery, specification | moments → canvas-first ground | [site:bethebuzz] [site:noth]; a paper ground over a second world [site:daikifujita] |
+| Point cloud that takes each chapter's shape | gallery, single-object launch | none (2D canvas) → canvas-first | [site:da-san333] [verified] |
+| Wordmark as a window | gallery, specification | moments → canvas-first ground | [site:bethebuzz] [site:noth]; a paper ground over a second world [site:daikifujita] [verified] |
 | Operable object | faceted world, print artefact, single-object launch | none → canvas-first | [site:areebali] [site:spasoje] [site:nodeck] [site:aqualoqa] |
 | The work on screen one | gallery | none → 100 % canvas | [site:jesperlandberg] [site:siena] [site:robbietilton] [site:alectear] [site:a24-raviklaassens] [site:agrumeafarm] |
 

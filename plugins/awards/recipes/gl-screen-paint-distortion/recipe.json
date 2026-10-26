@@ -26,6 +26,7 @@
     "OGL: the same three passes with ogl RenderTargets"
   ],
   "seenIn": [
-    "oryzo"
+    "oryzo",
+    "everswap"
   ]
 }
