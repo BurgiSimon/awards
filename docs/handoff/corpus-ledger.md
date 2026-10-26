@@ -807,12 +807,24 @@ edolus: basis-transcoder (wasm) — __settings__.js
 
 | Slug | URL | Lens | Status | Rating | Novelty | Synthesised | Reason | Date |
 |---|---|---|---|---|---|---|---|---|
-| oryzo | https://oryzo.ai/ | 3D, WebGL | queued | | | | existing card | |
+| oryzo | https://oryzo.ai/ | 3D, WebGL | added | D 7.8 / U 6.2 / C 8.6 / Co 7.8 → 7.48 [inferred]; official SOTD 13 Apr 2026 7.86 + Dev 7.87 [verified, entry page, 2026-09-18] | lens ×8: voxel occupancy light field (AO + shadow) for an instanced swarm; CPU swarm in float DataTextures read by instanceUv; per-scene post profiles blended by ratio from a default each frame; screen paint (capsule stroke, self-advection, curl, no solver); gobo projector over a photographic base; one object posed by every scene; AI-glow edge pulse pass; TAA from an MRT velocity attachment | | existing card; lens-only update, bundle unchanged by hash; Corpus rating row added; capture exit 2 (phone stopped after two frames) | 2026-10-26 |
 | daikifujita | https://daikifujita.com/ | 3D, WebGL | queued | | | | | |
 | da-san333 | https://da-san333.com/ | 3D, WebGL | queued | | | | | |
 | everswap | https://everswap.com/ | 3D, WebGL | queued | | | | | |
 
 ### Techniques and stacks
+
+oryzo: voxel occupancy light field — hoisted.CRsATKbF.js (AboutHeroLightField) — 32×16×16 grid over 1.5 units, R8 sliced 2D atlas; 1 px points with MAX blending; slice blur ¼,½,¼; ease rise .15 / fall .05 a frame; AO along N, shadow at 1 and 2 voxels toward L [lens:webgl]
+oryzo: CPU bean swarm in float DataTextures — hoisted.CRsATKbF.js (Particles) — 32² desktop / 24² phone; spiral path (−.5,.25)→(.5,−.25) at z −.3; curve freq 8 amp .05; drift .1 rate 2; attraction .5; damping 1; pointer sphere .1 push .25; O(n²) contacts at 1.4 r; slerp .8 [lens:3d]
+oryzo: cursor point light on the swarm — hoisted.CRsATKbF.js (bean frag) — attenuation 1/(30d²+.01); specular pow 80−40·brightness; bump dFdx/dFdy × 1.25 [lens:webgl]
+oryzo: post profiles blended per scene — hoisted.CRsATKbF.js (PostProfile, Visuals) — default each frame, scene blend() by activeRatio, syncProfile(); hero bloom 2 vignette .5→1.3 tint .015; stack bloom 6; footer bokeh 1 focus .75 [lens:webgl]
+oryzo: screen paint distortion — hoisted.CRsATKbF.js (ScreenPaint) — ¼-res ping-pong + 1/16 blurred copy; capsule SDF stroke radius 0–100 px by distance; self-advection × 25; Perlin-gradient curl scale .06 strength 1.75; dissipation .985/.985/.75, floor .004; phone only while pressed [lens:webgl]
+oryzo: post queue — hoisted.CRsATKbF.js (Postprocessing.addQueue) — TAA (.8, MRT velocity) → FXAA | SMAA (.05) → bokeh → AI glow → magazine layer → bloom → box blur → screen paint → final [lens:webgl]
+oryzo: AI glow edge pulse — hoisted.CRsATKbF.js (AppleEfx) — 4 colours in a 6×1 float texture; pulse +.5/s from the scroll indicator; padding min(50 px, 10 %); runs only while amount>0 or pulse<1 [lens:webgl]
+oryzo: gobo projector — hoisted.CRsATKbF.js (Gobo) — 512² target, fov-60 projector, pointer sway .003, clock 4 + speed × .5 [lens:3d]
+oryzo: one shared hero object posed by every scene — hoisted.CRsATKbF.js (Visuals.preUpdate) — reset then hero, hand, wearable, table, sustainability, stack, footer in order, last live writer wins [lens:3d]
+oryzo: second-order dynamics — hoisted.CRsATKbF.js (SecondOrderDynamics) — f 1.5, ζ .8, r 2 default; stability-clamped k2 [lens:3d]
+oryzo: three@178-modified (unchanged) — hoisted.CRsATKbF.js
 
 ### Notes
 
