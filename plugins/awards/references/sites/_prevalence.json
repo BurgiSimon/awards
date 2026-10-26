@@ -94,7 +94,7 @@
         "P09",
         "T01"
       ],
-      "audit": "8fecee690c",
+      "audit": "34c52e19fc",
       "date": "2026-10-26"
     },
     "https://abatable.com/": {
@@ -113,7 +113,7 @@
         "P09",
         "S11"
       ],
-      "audit": "8fecee690c",
+      "audit": "34c52e19fc",
       "date": "2026-10-26"
     },
     "https://lamalama.com/": {
@@ -128,7 +128,7 @@
         "C01",
         "L06"
       ],
-      "audit": "8fecee690c",
+      "audit": "34c52e19fc",
       "date": "2026-10-26"
     },
     "https://www.seasats.com/": {
@@ -140,20 +140,19 @@
         "A18",
         "C01",
         "L08",
-        "L11",
         "L12",
         "L14",
         "P09",
         "S11"
       ],
-      "audit": "8fecee690c",
+      "audit": "34c52e19fc",
       "date": "2026-10-26"
     },
     "https://www.siteassist.com/": {
       "group": "winner",
       "slug": "siteassist",
       "status": "not measured: the rendered steps failed",
-      "audit": "8fecee690c",
+      "audit": "34c52e19fc",
       "date": "2026-10-26"
     },
     "https://thelinestudio.com/": {
@@ -171,7 +170,7 @@
         "P09",
         "S11"
       ],
-      "audit": "8fecee690c",
+      "audit": "34c52e19fc",
       "date": "2026-10-26"
     },
     "https://unitedcarriers.com/": {
@@ -184,12 +183,11 @@
         "A16",
         "A18",
         "C01",
-        "L06",
         "L12",
         "P09",
         "S11"
       ],
-      "audit": "8fecee690c",
+      "audit": "34c52e19fc",
       "date": "2026-10-26"
     },
     "https://www.warmnfuzzy.tv/": {
@@ -202,7 +200,7 @@
         "C01",
         "S11"
       ],
-      "audit": "8fecee690c",
+      "audit": "34c52e19fc",
       "date": "2026-10-26"
     },
     "https://white-desert.com/": {
@@ -215,11 +213,10 @@
         "A18",
         "C01",
         "L08",
-        "L11",
         "P09",
         "T01"
       ],
-      "audit": "8fecee690c",
+      "audit": "34c52e19fc",
       "date": "2026-10-26"
     }
   }

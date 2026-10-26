@@ -16,10 +16,10 @@ Which audit rules fire on the corpus's live pages and on a contrast group of una
 | P08 | Layout shift above 0.1 during load (rendered) | 14 % | 0 % | -14 |
 | A16 | axe-core reports a WCAG 2.2 A/AA violation (rendered) | 100 % | 83 % | -17 |
 | C01 | Text contrast below 4.5:1 (3:1 for large text) | 100 % | 83 % | -17 |
-| L11 | Text, a heading or an action covered by something painted over it at every scroll position where it is in view (rendered) | 57 % | 33 % | -24 |
 | L08 | Body text touching the viewport edge on a phone (rendered) | 43 % | 17 % | -26 |
+| L06 | Content stuck invisible after load (rendered) | 29 % | 0 % | -29 |
+| L11 | Text, a heading or an action covered by something painted over it at every scroll position where it is in view (rendered) | 29 % | 0 % | -29 |
 | L14 | A section of running text with no heading naming it (rendered) | 29 % | 0 % | -29 |
-| L06 | Content stuck invisible after load (rendered) | 43 % | 0 % | -43 |
 | S11 | First screen without a readable h1 1.2 s after load (rendered) | 71 % | 17 % | -55 |
 | A14 | Touch target under 24 px beside another target (rendered, phone) | 57 % | 0 % | -57 |
 
