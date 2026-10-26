@@ -105,7 +105,7 @@ Rules: body and labels ≥ 4.5:1, display ≥ 3:1, on every theme of a swap and 
 
 Why: a virtual scroll (models c and d in `[pattern:motion-vocabulary#scroll-philosophies]`) replaces the browser's own scrolling, and with it keyboard scrolling, scroll restoration, deep links and find-in-page anchoring — Floema's `translateY` wrapper and Igloo's viewport-height document both pay this [clone:floema-jewelry] [verified] [site:igloo] [verified].
 
-- Keys: ArrowDown/Up, PageDown/Up, Space, Home and End move the target by line, page and whole; Tab moving focus to an off-screen item scrolls the float to it. Arrow and Page keys stepping .12 of progress are a start; without a chapter indicator or jump control the run is still ≈ 32,000 px long [site:edolus] [verified]; arrows and Page keys with no Home, End or Space leave the close a long walk away [site:everswap] [verified].
+- Keys: ArrowDown/Up, PageDown/Up, Space, Home and End move the target by line, page and whole; Tab moving focus to an off-screen item scrolls the float to it. Arrow and Page keys stepping .12 of progress are a start; without a chapter indicator or jump control the run is still ≈ 32,000 px long [site:edolus] [verified]; arrows and Page keys with no Home, End or Space over ≈ 2,075 vh of chapters are the same gap [site:everswap] [verified keys; length inferred].
 - Progress is exposed: `awards.setScroller()` and `state()` from `_shared/awards-hook.js`, so `capture.mjs` and the jury can drive it; a chapter rail or index shows position and jumps [site:mont-fort] [verified rail].
 - Restoration and deep links: the float reads `location.hash` and `history.state` on load and writes them on settle.
 - Reduced tier: stepped sections, no eased float; static: native scroll.
