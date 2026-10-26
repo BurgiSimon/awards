@@ -5,6 +5,15 @@ recorded below in [Candidate verification record](#candidate-verification-record
 `verification-log.md` record the earlier 0.2.0 work. `archive/plan.md` is the 0.1.0 specification, kept for
 reference. `decisions.md` records choices already taken.
 
+## Two demos built with 1.0.0 (branch `claude/awards-1.0-demos`, 2026-10-26)
+
+Both built headless and unattended (`claude -p` with `--plugin-dir` on this branch, an explicit tool allowlist, `--max-budget-usd 100`, a fresh session id), each from a written brief, without a person between the prompt and the ship log.
+
+- `showcase/wrenmouth-lido`: a fictional 1937 seawater lido reopening. Concept "The empty frame" (engine `visitor-cast`); eleven open-collection photographs credited and captioned with where they really are. Shipped at 8.10 (D 8.2 / U 8.3 / C 7.6 / Co 8.1) after a component pass and six page rounds; $67.50 over two sessions.
+- `site/`: the plugin's new homepage, a redesign of the contact-sheet site (baseline re-judged at 7.48). Concept "The record" (engine `collage-to-index`): five real builds sort themselves by their own jury scores. Shipped at 8.01; $47.02.
+- The house ledger with both: neither shares the earlier builds' page-as-object shape, engines, colour strategy, code-only imagery or readout.
+- What the runs found in the plugin: an unattended run that hands work to a background task and ends its turn loses that work (headless `claude -p` stops background tasks ten minutes after the last turn); both builds went past the two default page rounds because the brief asked for real fix rounds; Wikimedia rate-limited the picture search, so four originals were reachable only at 1,024 px. Not measured: either build on a real phone or GPU.
+
 ## Release 1.0.0 — the taste-skill recommendations (branch `claude/awards-0.9`, 2026-10-26)
 
 All twelve recommendations of `analysis-2026-10-26-taste-skill.md` plus its smaller borrowings, on top of corpus wave 5 and the recipe explorer; all three manifests at 1.0.0 (a major version at the maintainer's request), release notes in `CHANGELOG.md`, choices and what they declined in `decisions.md` (1.0 batch).
