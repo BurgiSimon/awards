@@ -11,15 +11,15 @@ Which audit rules fire on the corpus's live pages and on a contrast group of una
 | A12 | Focus ring below 3:1 against what surrounds it (rendered) | 29 % | 50 % | +21 |
 | L02 | 100vw width can overflow with a vertical scrollbar | 0 % | 17 % | +17 |
 | P09 | Image delivered below 1.5x the width it is drawn at (rendered) | 71 % | 83 % | +12 |
-| L12 | Outer margins differ left and right at desktop width (rendered) | 29 % | 33 % | +5 |
 | A18 | Touch target under 44 × 44 px on a phone (rendered); the jury's usability walk caps Usability at 7 on it | 100 % | 100 % | +0 |
-| C01 | Text contrast below 4.5:1 (3:1 for large text) | 86 % | 83 % | -2 |
+| L12 | Outer margins differ left and right at desktop width (rendered) | 43 % | 33 % | -10 |
 | P08 | Layout shift above 0.1 during load (rendered) | 14 % | 0 % | -14 |
 | A16 | axe-core reports a WCAG 2.2 A/AA violation (rendered) | 100 % | 83 % | -17 |
+| C01 | Text contrast below 4.5:1 (3:1 for large text) | 100 % | 83 % | -17 |
+| L11 | Text, a heading or an action covered by something painted over it at every scroll position where it is in view (rendered) | 57 % | 33 % | -24 |
 | L08 | Body text touching the viewport edge on a phone (rendered) | 43 % | 17 % | -26 |
-| L06 | Content stuck invisible after load (rendered) | 29 % | 0 % | -29 |
 | L14 | A section of running text with no heading naming it (rendered) | 29 % | 0 % | -29 |
-| L11 | Text, a heading or an action covered by something painted over it at every scroll position where it is in view (rendered) | 71 % | 33 % | -38 |
+| L06 | Content stuck invisible after load (rendered) | 43 % | 0 % | -43 |
 | S11 | First screen without a readable h1 1.2 s after load (rendered) | 71 % | 17 % | -55 |
 | A14 | Touch target under 24 px beside another target (rendered, phone) | 57 % | 0 % | -57 |
 
