@@ -2,7 +2,7 @@
 // Catch the drift that CLAUDE.md asks maintainers to prevent by hand: the three manifest versions,
 // pinned versions against references/stacks/versions.md, the scaffold's shared modules against
 // recipes/_shared, the root and plugin LICENSE/NOTICE copies, and the counts the descriptions quote.
-// Also: the Codex manifest declares no hooks, the recipes README catalogue matches recipe.json, the corpus
+// Also: the Codex manifest declares no hooks, the recipes README catalogue and gallery match recipe.json, the corpus
 // index matches the card headers, and every card passes check-card.mjs.
 // Usage: node scripts/check-sync.mjs [--json]   Exit: 0 in sync · 1 drift found.
 import fs from 'node:fs';
@@ -10,6 +10,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from './lib/report.mjs';
 import { catalogue } from './build-catalogue.mjs';
+import { gallery } from './build-gallery.mjs';
 import { spawnSync } from 'node:child_process';
 
 const plugin = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -100,6 +101,7 @@ for (const [file, text] of [...described.map((f) => [rel(f), read(f)]), ['README
 const built = catalogue();
 check('recipes/README.md catalogue matches recipe.json', read(path.join(plugin, 'recipes/README.md')).includes(built.body), 'stale: run node scripts/build-catalogue.mjs');
 for (const p of built.problems) check(`recipe vocabulary: ${p}`, false, 'see scripts/data/recipe-tags.json');
+check('recipes/index.html gallery matches recipe.json', read(path.join(plugin, 'recipes/index.html')) === (await gallery()).html, 'stale: run node scripts/build-gallery.mjs');
 
 // ---------- corpus ----------
 for (const [name, script, extra] of [['references/sites/_index.md matches the card headers', 'build-index.mjs', ['--check']], ['every corpus card passes check-card.mjs', 'check-card.mjs', ['--all']]]) {

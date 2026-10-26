@@ -28,7 +28,7 @@ node evals/behavior.mjs --only audit,capture         # tool behaviour, never bes
 ## Conventions
 
 - **Original prose.** No copied text from other skills or sites; site copy only in fragments of at most 25 words. Every fact on a site card carries `[verified]`, `[recalled]`, `[inferred]` or `[unknown]`.
-- **Recipes are a contract.** Each recipe has `index.html`, `main.js`, `style.css`, `README.md`, `recipe.json` and `verify.mjs`, uses system fonts and the shared modules, and passes `verify-recipes`. Its `group` and `tags` come from `scripts/data/recipe-tags.json`; `node scripts/build-catalogue.mjs` then rewrites the README table (`check-sync` fails a stale one). Stamp `recipe.json` (`--stamp`) only in a release pass.
+- **Recipes are a contract.** Each recipe has `index.html`, `main.js`, `style.css`, `README.md`, `recipe.json` and `verify.mjs`, uses system fonts and the shared modules, and passes `verify-recipes`. Its `group` and `tags` come from `scripts/data/recipe-tags.json`; `node scripts/build-catalogue.mjs` then rewrites the README table and `node scripts/build-gallery.mjs` the explorer page (`check-sync` fails either when stale); a new or visibly changed recipe also gets its frame from `node scripts/gallery-frames.mjs --only <id>`. Stamp `recipe.json` (`--stamp`) only in a release pass.
 - **Pins move together.** A library version changes in `references/stacks/versions.md` and `recipes/package.json` (with the lockfile) in one commit; `check-sync.mjs` fails a partial bump. `scripts/check-versions.mjs` shows what moved upstream.
 - **Decisions are recorded.** A change to something listed in `docs/handoff/decisions.md` adds a row with the reason instead of quietly reversing it.
 - **No model identifiers** in code, docs, commit titles or bodies.
