@@ -173,15 +173,15 @@ if (direct) {
     const spent = tally(others).filter((t) => t.spent);
     const shared = spent.filter((t) => KEYS.find(([k]) => k === t.feature)[1](mine).includes(t.value));
     // Features, not values: an inferred pair of engines is one shared engine, not two.
-    const features = new Set(shared.map((t) => t.feature)).size;
-    const report = { build: mine, comparedWith: others.length, features, shared: shared.map((t) => ({ feature: t.feature, value: t.value, builds: t.builds, of: t.of })) };
+    const sharedFeatures = new Set(shared.map((t) => t.feature)).size;
+    const report = { build: mine, comparedWith: others.length, features: sharedFeatures, shared: shared.map((t) => ({ feature: t.feature, value: t.value, builds: t.builds, of: t.of })) };
     if (args.json) console.log(JSON.stringify(report, null, 2));
     else {
-      console.log(`against ${others.length} earlier build(s): ${features} spent feature(s) shared`);
+      console.log(`against ${others.length} earlier build(s): ${sharedFeatures} spent feature(s) shared`);
       for (const t of report.shared) console.log(`  ${t.feature}: ${t.value} (${t.builds} of ${t.of})`);
-      if (features >= 2) console.log('Two or more: the plugin rut. Name each in THESIS with the reason this subject earns it, or change the direction.');
+      if (sharedFeatures >= 2) console.log('Two or more: the plugin rut. Name each in THESIS with the reason this subject earns it, or change the direction.');
     }
-    process.exit(features >= 2 ? 2 : 0);
+    process.exit(sharedFeatures >= 2 ? 2 : 0);
   }
   const tallies = tally(rows);
   const md = markdown(rows, tallies);
