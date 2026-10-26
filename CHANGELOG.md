@@ -2,6 +2,10 @@
 
 Release notes for the awards plugin, newest first. The manifests carry the version; `scripts/check-sync.mjs` keeps them in step.
 
+## Unreleased
+
+- **A recipe explorer.** `recipes/index.html`, the page `npm run dev` opens, is now an explorer instead of a list: a contact sheet of all 89 frames, plates grouped by the catalogue with search, faceted filters (group, library, input, technique, WebGL, component, concern) and tiers, an index layout with a following preview, plates that run live under a resting pointer, and a stage that runs one recipe at desktop or phone size beside its manifest, README and source, with a scroll scrubber marked at the verifier's positions and a play-through. Generated from the manifests by `scripts/build-gallery.mjs` (check-sync holds it), frames from `scripts/gallery-frames.mjs`; readable without script, light and dark, P0–P3 clean under `audit.mjs --render`.
+
 ## 0.8.0 — 2026-10-23
 
 From the 2026-10-22 review, batches 1 to 5 (everything except the large, lower-impact items), and the plugin's own site rebuilt and shipped by the plugin's own loop.

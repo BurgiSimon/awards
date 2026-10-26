@@ -15,6 +15,7 @@ import { parseArgs, fmtTable, now } from './lib/report.mjs';
 import { resolvePlaywright, launchChromium, MISSING_MESSAGE } from './lib/playwright.mjs';
 import { serveDirectory } from './lib/server.mjs';
 import { runActions } from './lib/actions.mjs';
+import { gallery } from './build-gallery.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const recipesDir = path.resolve(here, '../recipes');
@@ -32,16 +33,9 @@ if (!ids.length) {
   process.exit(1);
 }
 
-// Regenerate the gallery index from recipe.json files — from every recipe, never the --only subset,
-// which would otherwise rewrite the committed page down to the few that were run.
-{
-  const cards = allIds.map((id) => {
-    const meta = safeJson(path.join(recipesDir, id, 'recipe.json')) || {};
-    return `<li><a href="./${id}/index.html"><strong>${meta.title || id}</strong></a> <span class="label">${(meta.tags || []).join(' · ')}${meta.tier ? ' · ' + meta.tier : ''}</span></li>`;
-  });
-  const html = `<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="theme-color" content="#f4f2ee"><title>awards recipes</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E"><link rel="stylesheet" href="./_shared/base.css"><style>ul{list-style:none;padding:0;margin:0}li{padding:.6rem 0;border-bottom:1px solid var(--line)}</style></head>\n<body><main class="wrap section"><p class="label">awards · recipes</p><h1 class="display" style="font-size:clamp(2rem,6vw,5rem)">Recipes</h1><ul>\n${cards.join('\n')}\n</ul></main></body></html>\n`;
-  fs.writeFileSync(path.join(recipesDir, 'index.html'), html);
-}
+// Regenerate the gallery (recipes/index.html) from every recipe.json, never the --only subset, which would
+// otherwise rewrite the committed page down to the few that were run.
+fs.writeFileSync(path.join(recipesDir, 'index.html'), (await gallery()).html);
 
 if (args.lock) await acquireLock(String(args.lock), 'verify lock');
 

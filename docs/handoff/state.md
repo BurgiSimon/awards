@@ -5,6 +5,11 @@ recorded below in [Candidate verification record](#candidate-verification-record
 `verification-log.md` record the earlier 0.2.0 work. `archive/plan.md` is the 0.1.0 specification, kept for
 reference. `decisions.md` records choices already taken.
 
+## Recipe explorer (2026-10-26, unreleased)
+
+- `recipes/index.html` is a generated explorer (`scripts/build-gallery.mjs`, called by `verify-recipes` and checked by check-sync) with its script, styles and committed frames in `recipes/_gallery/`; `scripts/gallery-frames.mjs` renders one 800 × 500 WebP per recipe from the 1440 × 900 desktop state the site's frame rule picks, plus a 15-column contact sheet (89 frames, 1.17 MB; sheet 103 KB). `recipes/vite.config.mjs` serves recipe text files to the explorer at `_gallery/src/` in dev and emits them at build.
+- Checked: `audit.mjs recipes` P0–P2 0 (P3 358, one fewer than before); `audit.mjs <dev url> --render` P0–P3 0 at desktop, tablet and phone with axe-core; axe on the open stage, the code tab and the facet panel, light and dark, clean; dev and built `dist/` driven in headless Chromium (open, scrub, play-through, tabs, next, Escape, Back, deep links, random, hover-live, no-JS). Not checked: Safari and Firefox (view transitions fall back to instant changes), a real GPU.
+
 ## Release 0.8.0 (2026-10-23)
 
 Review batches 1 to 5 and the rebuilt site (G1) ship together as 0.8.0; all three manifests agree. Release notes in `CHANGELOG.md`. No paid eval has run against it: `node evals/pick.mjs` lists the cases the changes need. Tag and GitHub release are the maintainer's.
