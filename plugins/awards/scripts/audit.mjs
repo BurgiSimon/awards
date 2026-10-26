@@ -730,6 +730,9 @@ async function sweepPage(desktop) {
     }
     return /^H[1-3]$/.test(el.tagName) || t.length >= 30;
   });
+  const ups = (x, k) => { const a = []; for (let i = 0; x && i < k; i++, x = x.parentElement) a.push(x); return a; };
+  const first = (x) => (typeof x.className === 'string' ? x.className.trim().split(/\s+/)[0] : '') || '';
+  const deck = (el, n) => ups(el, 5).some((a) => ups(n, 3).some((b) => a !== b && a.parentElement && a.parentElement === b.parentElement && first(a) && first(a) === first(b)));
   const coverStyle = document.createElement('style');
   coverStyle.textContent = '*, *::before, *::after { pointer-events: auto !important; }';
   // Only text covered at every stop where it is in view counts: winners pass clouds, curtain reveals and stacked
@@ -775,11 +778,20 @@ async function sweepPage(desktop) {
             const s2 = getComputedStyle(n);
             const filled = PICTURE.has(n.tagName) || /url\(/.test(s2.backgroundImage) || solid(s2.backgroundColor);
             if (!filled && ownText && (sameText || n.tagName === el.tagName)) continue;
+            // A deck: the cover is a sibling of the same repeated component (stacked cards, slides), shown one at a time.
+            if (deck(el, n)) continue;
             if (paints(n, x, y)) { hits++; by = n; break; }
           }
         }
-        if (hits >= 2) { if (!covered.has(el)) covered.set(el, `${say(el)} under ${say(by)} at every stop where it is in view (first at ${Math.round(p * 100)} % down the page)`); }
-        else clear.add(el);
+        if (hits >= 2) {
+          if (!covered.has(el)) {
+            // Tagged so the pixel check after the sweep can find the text and its cover again.
+            const id = String(covered.size);
+            el.setAttribute('data-awards-l11', id);
+            by.setAttribute('data-awards-l11-by', id);
+            covered.set(el, { id, p, say: `${say(el)} under ${say(by)} at every stop where it is in view (first at ${Math.round(p * 100)} % down the page)` });
+          }
+        } else clear.add(el);
       }
     } finally {
       coverStyle.remove();
@@ -909,7 +921,70 @@ async function sweepPage(desktop) {
     if (Number.isFinite(l) && Number.isFinite(r)) margins = { left: Math.round(l), right: Math.round(r) };
   }
   const words = wordsSeen.length ? [...wordsSeen].sort((a, b) => a - b)[Math.floor(wordsSeen.length / 2)] : 0;
-  return { steps, blank, lopsided, covered: [...covered].filter(([el]) => !clear.has(el)).map(([, say]) => say), nearEmpty, untitled, margins, wordsPerScreen: words };
+  return { steps, blank, lopsided, covered: [...covered].filter(([el]) => !clear.has(el)).map(([, c]) => c), nearEmpty, untitled, margins, wordsPerScreen: words };
+}
+
+// Text the sweep found under a cover at every stop where it is in view, checked with pixels: back at that stop, the
+// text's box is shot twice with the cover shown (a box that changes on its own is moving, a ticker or a reveal,
+// and is not judged here), then once with the cover hidden. The text is covered when hiding the cover changes a
+// quarter of the box by more than antialiasing does.
+async function coveredByPixels(page, candidates) {
+  const out = [];
+  if (!candidates.length) return out;
+  // A blank page of its own decodes the shots, out of reach of the audited page's content security policy.
+  const scratch = await page.context().browser().newPage();
+  // A deadline inside the step's own: a candidate that cannot be checked in time is unverified and dropped, never an ERR.
+  const until = Date.now() + 40000;
+  try {
+    for (const c of candidates) {
+      if (Date.now() > until) break;
+      try {
+        await page.evaluate(async (p) => {
+          const hook = window.__awards?.scrollTo;
+          if (hook) await hook(p);
+          else window.scrollTo(0, Math.round(Math.max(0, document.documentElement.scrollHeight - innerHeight) * p));
+        }, c.p);
+        await page.waitForTimeout(600);
+        const box = await page.evaluate((id) => {
+          const el = document.querySelector(`[data-awards-l11="${id}"]`);
+          if (!el) return null;
+          const r = document.createRange(); r.selectNodeContents(el);
+          const b = r.getBoundingClientRect().width ? r.getBoundingClientRect() : el.getBoundingClientRect();
+          const x = Math.max(0, b.left), y = Math.max(0, b.top), w = Math.min(document.documentElement.clientWidth, b.right) - x, h = Math.min(innerHeight, b.bottom) - y;
+          return w >= 4 && h >= 4 ? { x, y, width: w, height: h } : null;
+        }, c.id);
+        if (!box) continue;
+        const shot = async () => `data:image/png;base64,${(await page.screenshot({ clip: box, timeout: 8000 })).toString('base64')}`;
+        const a1 = await shot();
+        await page.waitForTimeout(150);
+        const a2 = await shot();
+        const hidden = await page.evaluate((id) => { const by = document.querySelector(`[data-awards-l11-by="${id}"]`); if (!by) return false; by.style.setProperty('visibility', 'hidden', 'important'); return true; }, c.id);
+        if (!hidden) continue;
+        await page.waitForTimeout(100);
+        let b;
+        try {
+          b = await shot();
+        } finally {
+          await page.evaluate((id) => document.querySelector(`[data-awards-l11-by="${id}"]`)?.style.removeProperty('visibility'), c.id).catch(() => {});
+        }
+        const [still, hides] = await scratch.evaluate(async ({ a1, a2, b }) => {
+          const load = (src) => new Promise((resolve, reject) => { const i = new Image(); i.onload = () => resolve(i); i.onerror = reject; i.src = src; });
+          const [x, y, z] = await Promise.all([load(a1), load(a2), load(b)]);
+          const canvas = document.createElement('canvas');
+          canvas.width = x.width; canvas.height = x.height;
+          const ctx = canvas.getContext('2d', { willReadFrequently: true });
+          const px = (img) => { ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.drawImage(img, 0, 0); return ctx.getImageData(0, 0, canvas.width, canvas.height).data; };
+          const share = (p, q) => { let n = 0; for (let i = 0; i < p.length; i += 4) if (Math.abs(p[i] - q[i]) + Math.abs(p[i + 1] - q[i + 1]) + Math.abs(p[i + 2] - q[i + 2]) > 96) n++; return n / (p.length / 4); };
+          const p1 = px(x), p2 = px(y), p3 = px(z);
+          return [share(p1, p2), share(p1, p3)];
+        }, { a1, a2, b });
+        if (still < 0.05 && hides >= 0.25) out.push(c);
+      } catch { /* unverified */ }
+    }
+  } finally {
+    await scratch.close().catch(() => {});
+  }
+  return out;
 }
 
 // The first screen 1.2 s after load: an h1 in view, visible and not under a loader or an entrance, that says in
@@ -1225,7 +1300,10 @@ if (args.render) {
           const where = `${label} (rendered)`;
           for (const s of sweep.blank.slice(0, 2)) add('L09', where, null, s);
           for (const s of sweep.lopsided.slice(0, 2)) add(label === 'desktop' ? 'L13' : 'L10', where, null, s);
-          for (const s of sweep.covered.slice(0, 3)) add('L11', where, null, s);
+          // The hit test proposes, the pixels decide: a transparent cut-out, a glass sheen or a canvas that draws
+          // nothing over the text is hit but hides nothing.
+          const confirmed = await step('covered text, by pixels', () => coveredByPixels(page, sweep.covered.slice(0, 5)), 60000);
+          for (const c of (confirmed ?? []).slice(0, 3)) add('L11', where, null, c.say);
           if (sweep.margins && Math.abs(sweep.margins.left - sweep.margins.right) > Math.max(16, 0.5 * Math.min(sweep.margins.left, sweep.margins.right))) add('L12', where, null, `nearest text ${sweep.margins.left} px from the left edge and ${sweep.margins.right} px from the right`);
           for (const s of sweep.untitled.slice(0, 3)) add('L14', where, null, s);
           for (const s of sweep.nearEmpty) add('L15', where, null, s);
