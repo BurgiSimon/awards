@@ -1,7 +1,7 @@
 ---
 name: jury
-description: "Scores a site, page or component the way a design-award jury does: Design, Usability, Creativity and Content on anchored scales, the six Developer Award criteria, the memory and specificity tests, a keyboard and reduced-motion walk and a slop scan, ending in ordered fixes and one disposition (ship, fix, rebuild or recapture). Use when the user asks to review, critique, score, judge, rate or evaluate a site or component, asks 'would this win', 'is this award-worthy', 'what is missing', 'what would the jury say', or before shipping award-level work; --verdict re-checks a fix batch. Runs in a fresh context on captures and the audit. Not for code review, failing tests or accessibility work without award framing."
-argument-hint: "[url | path | --component <selector>] [--captures <dir>] [--states <json-file>] [--verdict | --baseline] [--program awwwards|cssda|fwa|webby[,…]]"
+description: "Scores a site, page or component the way a design-award jury does: Design, Usability, Creativity and Content on anchored scales, the six Developer Award criteria, the memory and specificity tests, a keyboard and reduced-motion walk and a slop scan, ending in ordered fixes and one disposition (ship, fix, rebuild or recapture). Use when the user asks to review, critique, score, judge, rate or evaluate a site or component, asks 'would this win', 'is this award-worthy', 'what is missing', 'what would the jury say', says an award-level page looks generic, templated or AI-made, or before shipping award-level work; --verdict re-checks a fix batch. Runs in a fresh context on captures and the audit. Not for code review, failing tests or accessibility work without award framing."
+argument-hint: "[url | path | --component <selector>] [--captures <dir>] [--states <json-file>] [--verdict | --baseline | --blind <tournament dir>] [--program awwwards|cssda|fwa|webby[,…]]"
 context: fork
 agent: awards-jury
 background: false
@@ -23,6 +23,7 @@ Arguments: `$ARGUMENTS`
 - `--baseline` — score an existing site before a redesign (section 9): the same report, logged as a baseline, never as a page round
 - `--program <list>` — the award programs to report a target line for (default: the `programs:` constraint in `## Brief`, else Awwwards); read `${CLAUDE_PLUGIN_ROOT}/references/jury/programs.md`. A program adds target lines; it never changes a score or the disposition
 - `--component <selector>` — score one element instead of a page (section 8)
+- `--blind <tournament dir>` — judge a blind tournament's lettered frames, never a project (section 10)
 
 ## Setup
 
@@ -49,14 +50,15 @@ A site with routes is captured with `capture.mjs --routes`: the directory then h
 | `desktop-s100.png` | the close: an authored last screen or a dead end |
 | `mobile-s00.png` | a designed phone layout or a shrunken desktop; touch navigation |
 | `desktop-rm-s00.png` | the reduced-motion tier: readable at rest, nothing stuck at opacity 0 |
-| `manifest.json` | console and page errors, failed requests, CLS, DOM nodes, WebGL, `__awards` hook, `lcpColdSynthetic` |
+| `manifest.json` | console and page errors, failed requests, CLS, DOM nodes, WebGL, `__awards` hook, `lcpColdSynthetic`, and `metrics.<viewport>.pictures` (how much of each frame is photograph or made imagery) |
+| `walk.json` | the keyboard and thumb walk (`--walk`): every focus stop, disclosures under Enter, Shift+Tab and Escape, buttons and taps nothing answers |
 
 Before the inventory, read the manifest to confirm it has no `pageErrors`, its `consoleErrors` did not prevent rendering, and no capture is older than the newest source file (`find <dir> -newer <capture>`). Do not open a frame other than `desktop-s00.png` until section 1 completes Page map coverage.
 
 Missing, stale or invalid captures are recaptured, then re-checked. Before the first capture attempt in this environment, run `node "${CLAUDE_PLUGIN_ROOT}/scripts/doctor.mjs" <project-dir> --json`; use its actionable failures to explain unavailable browser evidence. Reuse a current successful preflight. Add `--states <json-file>` when a plan was supplied or recorded, following `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md`; require its named frames in addition to the applicable chapter/viewport coverage. Allocate a fresh timestamp-plus-stage `capture_out` for this pass as in `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md`; record the resulting manifest path and pass that exact directory onward. Recapture into a new directory:
 
 ```
-node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <target> --out "$capture_out" --scroll 0,50,100 --mobile --reduced-motion --json
+node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <target> --out "$capture_out" --scroll 0,50,100 --mobile --reduced-motion --walk --json
 ```
 
 Exit 2 means console, page or state-action errors: record them, and keep the frames when they rendered. Exit 3 (browser unavailable) and exit 4 (target unreachable) end the run with `disposition: recapture`, the exact command and the reason; visual and developer scores stay unmeasured. Record located source findings separately.
@@ -93,9 +95,11 @@ Why: Design carries 40 percent of the weight, and it is where a page either owns
   ```
 
   Open its `desktop-s00`, `desktop-s50` and `mobile-s00` beside the build's and name one concrete finish gap per neighbour (edges, image quality, type detail, states) with both capture names, under Specificity test; a gap may enter Material fixes as a design seam. Missing or blank frames (an unreachable site exits 2 with none): write "neighbour frame unavailable" and use the card's §3; this never makes the disposition `recapture`. The neighbour is a finish bar, not a layout to match: a different composition never lowers a score.
-- Specificity, second direction (the slop scan): read `## The slop scan` in `${CLAUDE_PLUGIN_ROOT}/references/anti-patterns.md`. Take the audit's slop, layout and type findings from `.awards/audit.json` first, then walk every `judge` row against the captures. List each family present with its evidence: a capture name, a `file:line` or a rule id. A use recorded under `AWARDS.md ## Exceptions` with a reason a juror would accept is earned and does not count. Two or more families mean a juror could name the generator.
+- Specificity, second direction (the slop scan): read `## The slop scan` in `${CLAUDE_PLUGIN_ROOT}/references/anti-patterns.md`, and the latest wave of `${CLAUDE_PLUGIN_ROOT}/references/patterns/house-tells.md` for its `House concept` family: this plugin's own defaults count like anyone else's. Take the audit's slop, layout and type findings from `.awards/audit.json` first, then walk every `judge` row against the captures. List each family present with its evidence: a capture name, a `file:line` or a rule id. A use recorded under `AWARDS.md ## Exceptions` with a reason a juror would accept is earned and does not count. Two or more families mean a juror could name the generator.
+- Specificity, third direction (the competitor): from the brief's subject and place, name the nearest real competitor yourself before reading the contract's `Competitor test` line, then put that name on s00 and on the signature. If the idea, the first viewport and the signature would serve the competitor as well, the idea belongs to the category: cap Creativity at 7 and say which inventory item in `## Brief` the page left unused. Compare your competitor with the contract's afterwards; a contract that tested against an easier one is a fidelity note on THESIS.
 - World commitment: do s50, s100, the mobile frame, the menu and the 404 belong to the same world as s00, or does a section opt out (a stock component, a second accent, browser-default chrome)?
 - Type: one contract held everywhere, display locked to the artboard, hierarchy readable at phone width, no reflex face as the first family.
+- Pictures: read `metrics.<viewport>.pictures` in the manifest beside the frames: how much of each frame is `picture` (photographs, clips, raster images) and how much is `made` (canvases, large drawings), the page's counts and `sectionsWithPictures`. Pictures that lead their screen or stay small read as decided; screen after screen at 20–40 % reads as a catalogue. Made imagery without three levels of detail is a finish gap (`${CLAUDE_PLUGIN_ROOT}/references/patterns/imagery-and-assets.md#finish-for-made-imagery`); code-only imagery for a subject the open collections document is a `House concept` row; a picture presented as the client's own when the asset log says it was found is a Content failure.
 - Pacing: across s00 → s50 → s100, are there rests between moments, or does every section shout? Does the scroll model serve the story?
 - Close: is s100 an authored last screen (footer, final action, an echo of the signature) or a dead end?
 - Ceiling: one sentence naming the world-native device the build never uses. Reported only: never a fix, never a score change.
@@ -115,7 +119,7 @@ Score the six criteria Awwwards publishes, under its names:
 
 ## 4. Assessment C — the usability walk
 
-Why: usability is the lowest axis on 27 of the 31 corpus entries awarded since 2021 [verified per card; counted by `scripts/calibration.mjs --since 2021`, 2026-10-22], which makes it the axis where a new build beats the reference set instead of copying it. Read `${CLAUDE_PLUGIN_ROOT}/references/jury/usability-walk.md` and run its eight steps against the captures, the DOM and the source. When a canvas exists, allocate a separate fresh `capture_out` and add the resilience capture for step 8:
+Why: usability is the lowest axis on 27 of the 31 corpus entries awarded since 2021 [verified per card; counted by `scripts/calibration.mjs --since 2021`, 2026-10-22], which makes it the axis where a new build beats the reference set instead of copying it. Read `${CLAUDE_PLUGIN_ROOT}/references/jury/usability-walk.md` and run its eight steps against the captures, the DOM and the source. Read `walk.json` before steps 1 and 2 when the capture has one (recapture with `--walk` when it does not): each of its findings, confirmed on its frame, fails the step it belongs to. The audit's L11 (text never readable), S11 (no readable title at 1.2 s, a P3 note: judge whether the wait is earned) and L12–L15 (the frame) findings in `.awards/audit.json` are evidence for steps 5 and 6. When a canvas exists, allocate a separate fresh `capture_out` and add the resilience capture for step 8:
 
 ```
 node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <target> --out "$capture_out" --only desktop --scroll 0 --no-webgl --name nogl
@@ -130,7 +134,7 @@ Why: anchored scores mean the same thing on every run, and the weighted arithmet
 - Four axes, 0–10, one-line reason each: Design (40), Usability (30), Creativity (20), Content (10). Weighted = D × 0.4 + U × 0.3 + C × 0.2 + Co × 0.1.
 - Then one target line per program (`--program`, else the brief's `programs:`, else Awwwards) from `programs.md#mapping-the-plugins-scores`, with what the gap to its bar is made of. Target lines go in the report, after the scores; they never move a score or the disposition.
 - Six developer criteria, 0–10, with a note each, in Awwwards' order: Semantics / SEO, Animations / Transitions, Accessibility, WPO, Responsive Design, Markup / Meta-data. Their mean is the developer score; a Developer Award needs it above 7.
-- Apply the caps: a failed specificity test in either direction (a nameable source site, or a nameable generator from the slop scan) caps Creativity at 6, effects without a concept cap Creativity at 6, and each failed walk step caps Usability as the walk states.
+- Apply the caps: a failed specificity test in either of its first two directions (a nameable source site, or a nameable generator from the slop scan) caps Creativity at 6, a page that would serve the nearest competitor as well caps Creativity at 7, effects without a concept cap Creativity at 6, and each failed walk step caps Usability as the walk states.
 - Site of the Day territory is a weighted 7.2 or higher with no axis below 6.8. When you give a Design 9, name the corpus site it would beat.
 - The contract can lower a score (a block not kept) but never raise one; the inventory and the memory sentence from section 1 stay as written.
 
@@ -150,7 +154,7 @@ Fill every section of the report:
 - Evidence: the exact manifest path, its applicable chapter/viewport/state coverage and validity, the audit file with its counts, the error counts.
 - Scores: with valid rendered evidence, both tables with a reason next to every number; otherwise every axis, weighted result and developer criterion is `unmeasured`.
 - Memory test: the sentence from section 1 when the first viewport rendered; otherwise `unmeasured`.
-- Specificity test: `no`, or `yes — <site> — <what to change>`; then one finish-bar line per neighbour.
+- Specificity test: `no`, or `yes — <site> — <what to change>`; then `competitor: <name> — breaks | holds — <why>`; then one finish-bar line per neighbour.
 - Slop scan: `families present: n`, one `<family> — <evidence>` line for each, then `generator nameable: yes | no`. The families present enter the craft list.
 - Contract fidelity: one row per block, kept or not kept with rendered evidence; otherwise mark visual fidelity `unmeasured` and put any located source findings under `## Source findings`.
 - Material fixes, in two lists. Floor: uncapped and mechanical, ordered fidelity, walk steps 1 and 3, audit P0/P1. Craft: at most five design seams inside the contract (slop families, finish gaps, unauthored states), most visible first. Each row has `location | change | expected visible result | viewport/state | before evidence | after evidence | resolved/partial/unresolved`; the first report uses `unresolved` with `pending` after evidence. Every failed contract block enters the batch or remains explicitly unresolved; no "consider" items.
@@ -216,7 +220,7 @@ node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <target> --out "$capture_out" -
 
 This yields `desktop-component-<slug>.png`, its `-hover` frame, `mobile-component-<slug>.png` and `desktop-rm-component-<slug>.png`. For an open menu, focused control, drag or persisted setting, use `--states <json-file>` and the shared state-plan reference. Open and name those additional frames in Evidence; a missing or failed required state needs recapture. Source review can explain behavior but cannot substitute for an uncaptured required state.
 
-- Run the memory test at component scale, the specificity test in both directions, one concrete scale, density or finish delta per DIVERGENCE card taken from its §8, and a states inventory: rest, hover, focus-visible, active, open and closed, reduced motion, coarse pointer, keyboard.
+- Run the memory test at component scale, the specificity test in all three directions, one concrete scale, density or finish delta per DIVERGENCE card taken from its §8, and a states inventory: rest, hover, focus-visible, active, open and closed, reduced motion, coarse pointer, keyboard.
 - With valid component captures, score Design, Usability and Creativity only; their mean stands in for the weighted score in the disposition rules and uses the measured D/U/C reply line above. Without them, use `recapture` and the unmeasured D/U/C line above; no mean or visual fidelity is inferred.
 - Fill the fidelity table only for the rows the component owns: WORLD, and SIGNATURE when the component is the signature.
 - Keep the fixes inside the component and its tokens; a page-level problem noticed on the way is one line under Keep, not a fix.
@@ -230,11 +234,22 @@ Why: a redesign is measured against the site it replaces, and the faults the old
 - Score exactly as in page mode, from the baseline captures craft passes (`.awards/redesign/baseline`), with the same report shape, and write it to `.awards/jury/<date>-baseline.md`.
 - The Keep line matters more than usual: name what the existing site does that a redesign must not lose (content, a working conversion, an asset, a reputation the URL carries).
 - Log it with `awards-log.mjs --append "Jury log" --line "- <date> · baseline · <disposition> · D x.x / U x.x / C x.x / Co x.x → x.xx · .awards/jury/<date>-baseline.md"` and leave the `Jury disposition` Status line alone: a baseline is never a page round.
+## 10. Blind mode (`--blind <tournament dir>`)
+
+Why: the only test of whether the plugin makes better pages is a comparison nobody can steer: the same briefs built by different arms, judged from frames under shuffled letters (`evals/tournament.mjs`, protocol in the repository's `evals/visual/tournament.md`).
+
+- Read only `<dir>/blind/<letter>/`: its `BRIEF.md` and its frames. Never open `<dir>/.private/`, any `AWARDS.md`, `DESIGN.md`, source, manifest or audit; there is no contract to read and no build to recapture. Sections 0 to 9 do not apply.
+- For every letter: the memory test in one sentence, then Design, Usability, Creativity and Content against the anchors in `${CLAUDE_PLUGIN_ROOT}/references/jury/rubric.md`, each with a one-line reason drawn from a named frame. Usability is read from the frames alone (the first screen's title, legibility, the phone, reduced motion); say so in the reason.
+- Per brief, rank the letters best first with one sentence of reason.
+- Across all letters, group those that look made by the same tool or studio and name what gives each group away (a layout, a device, a type habit, a way of using pictures); "none" is an answer.
+- Write `<dir>/judgements/jury-<date>.json` with the Write tool in the shape `review.md` gives (`scores`, `ranking`, `rankingReason`, `sameTool`, `sameToolReason`), touch nothing else, and reply with the rankings and the same-tool groups. End the reply with the literal line `disposition: blind`: nothing routes on it, and the reply check blocks a juror's reply without a disposition line.
+
 ## Verify
 
 - All applicable manifest-listed captures, including mobile middle/close, reduced-motion chapters and named states, were opened and named in Evidence with their validity; the audit counts are in the report.
 - The inventory and the memory sentence were written before the contract was read, and the sentence names an object or a behaviour.
 - Each DIVERGENCE neighbour has one finish gap with capture names, or "neighbour frame unavailable".
+- The competitor was named by the juror before the contract's line was read, and the cap at 7 was applied when the page would serve it as well.
 - Every measured score has a one-line reason; the site weighted score is the arithmetic of the four axes and component mean of D/U/C; the caps were applied. Missing rendered evidence uses only the unmeasured branch.
 - The disposition follows the derivation order, not a feeling; floor fixes are mechanical, craft fixes at most five, each with a location; the Ceiling line is one sentence and moved nothing.
 - `.awards/jury/<date>.md` exists, and `AWARDS.md` gained exactly the two log lines and, in page or verdict mode only, the Status update; no other project file changed.

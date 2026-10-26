@@ -3,7 +3,8 @@
 // pinned versions against references/stacks/versions.md, the scaffold's shared modules against
 // recipes/_shared, the root and plugin LICENSE/NOTICE copies, and the counts the descriptions quote.
 // Also: the Codex manifest declares no hooks, the recipes README catalogue and gallery match recipe.json, the corpus
-// index matches the card headers, and every card passes check-card.mjs.
+// index matches the card headers, every card passes check-card.mjs, the deal's engines and stimuli resolve, and the
+// generated house ledger matches the builds it reads.
 // Usage: node scripts/check-sync.mjs [--json]   Exit: 0 in sync · 1 drift found.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -95,6 +96,23 @@ for (const [file, text] of [...described.map((f) => [rel(f), read(f)]), ['README
   }
   for (const m of text.matchAll(/\ball (\d+) entries\b/gi)) check(`${file}: "${m[0]}"`, Number(m[1]) === recipes.length, `${recipes.length} entries exist`);
   for (const m of text.matchAll(/\b(\d+) rules, prefixes\b/gi)) check(`${file}: "${m[0]}"`, Number(m[1]) === rules, `rules.json has ${rules}`);
+}
+
+// ---------- deal data ----------
+// The engines name the cards that run them, and the stimuli deal by id; both must stay resolvable.
+const cardSlugs = new Set(fs.readdirSync(path.join(plugin, 'references/sites')).filter((f) => f.endsWith('.md') && !f.startsWith('_')).map((f) => f.slice(0, -3)));
+const engines = json(path.join(plugin, 'scripts/data/engines.json')).engines;
+check('engine ids are unique', new Set(engines.map((e) => e.id)).size === engines.length, 'two engines share an id');
+for (const e of engines) for (const slug of e.cards) check(`engine ${e.id}: card ${slug}`, cardSlugs.has(slug) && slug !== 'floema-jewelry', `references/sites/${slug}.md does not exist or is the clone card`);
+const stimuli = json(path.join(plugin, 'scripts/data/stimuli.json')).stimuli;
+check('stimulus ids are unique', new Set(stimuli.map((x) => x.id)).size === stimuli.length, 'two stimuli share an id');
+check('the stimulus deck spans at least eight families', new Set(stimuli.map((x) => x.family)).size >= 8, 'add stimuli from other families');
+
+// ---------- house ledger ----------
+const ledger = path.join(repo, 'docs/handoff/house-ledger.md');
+if (fs.existsSync(ledger)) {
+  const r = spawnSync(process.execPath, [path.join(plugin, 'scripts/house-ledger.mjs'), '--check-file', ledger], { encoding: 'utf8' });
+  check('docs/handoff/house-ledger.md matches the builds', r.status === 0, (r.stdout + r.stderr).trim());
 }
 
 // ---------- generated catalogue ----------

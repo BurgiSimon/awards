@@ -57,7 +57,7 @@ for (const f of changed) {
   if (/^(agents\/awards-jury\.md|references\/jury\/)/.test(f)) cases.filter((c) => c.wants.has('jury')).forEach((c) => pick(c, f));
   if (/^(scripts\/route-hint\.mjs|hooks\/)/.test(f)) cases.filter((c) => c.tags.includes('smoke') || c.tags.includes('route')).forEach((c) => pick(c, f));
   if (/^scripts\/(audit|capture|doctor)\.mjs$|^scripts\/lib\//.test(f)) cases.filter((c) => c.browser).forEach((c) => pick(c, f));
-  if (/^(references\/(sites|patterns)\/|assets\/templates\/|scripts\/roll\.mjs)/.test(f)) cases.filter((c) => c.tags.includes('contract')).forEach((c) => pick(c, f));
+  if (/^(references\/(sites|patterns)\/|assets\/templates\/|scripts\/roll\.mjs|scripts\/house-ledger\.mjs|scripts\/data\/(engines|stimuli)\.json)/.test(f)) cases.filter((c) => c.tags.includes('contract')).forEach((c) => pick(c, f));
 }
 
 const list = [...picked.values()].sort((a, b) => a.name.localeCompare(b.name));

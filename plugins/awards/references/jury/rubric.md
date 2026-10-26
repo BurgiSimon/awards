@@ -70,7 +70,7 @@ Usability is the lowest of the four axes on **27 of the 31** corpus entries awar
 | 6 | Effects without a concept: fade-ups, a blob hero, particles, a cursor trail. Effect count is not creativity |
 | ≤ 5 | A template with the client's logo |
 
-The naming test belongs here: if a juror could name the source site from the first viewport, Creativity caps at 6 regardless of polish.
+The naming test belongs here: if a juror could name the source site from the first viewport, Creativity caps at 6 regardless of polish. The competitor test caps it at 7: put the nearest real competitor's name on the page, and if the idea, the first viewport and the signature would serve it as well, the concept is the category's, however well it is made.
 
 ## Content anchors (10)
 

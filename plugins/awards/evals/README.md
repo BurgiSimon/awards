@@ -152,7 +152,16 @@ node ../evals/visual-library-selftest.mjs      # visual references and recipe me
 
 For Playwright installed elsewhere, set `AWARDS_PLAYWRIGHT` to its parent project directory. The full suite uses the installed Vite dependencies in `recipes/node_modules` to build the starter and menu into temporary directories; it deletes its fixtures/builds and leaves recipe verification stamps untouched. Run it serially, never beside `verify-recipes.mjs` or another browser. Browser launch or localhost restrictions are prerequisite failures, not skipped passes.
 
-Groups cover static-server root containment, quick/URL audit semantics, ticker pause/resume and teardown, named captures (keyboard, pointer drag, reload persistence, cropping, invalid input and failure recovery), doctor failures and configuration preservation, starter readiness without WebGL and live reduced-motion changes, and the bundled menu's focus trap/Escape restoration. Exit 0 means all selected checks passed; exit 1 means a failure. Add a regression here when a tool can pass syntactically while its observable behavior is broken. Run the 36-entry recipe verifier as the compatibility pass; use `--only` for the six visual examples. `jury-evidence-selftest.mjs` and `visual-library-selftest.mjs` cover the new evidence and visual-reference contracts without model calls. Historical smoke/build results above remain separate from that deterministic verification.
+Groups cover static-server root containment, quick/URL audit semantics, ticker pause/resume and teardown, named captures (keyboard, pointer drag, reload persistence, cropping, invalid input and failure recovery), doctor failures and configuration preservation, starter readiness without WebGL and live reduced-motion changes, and the bundled menu's focus trap/Escape restoration. Since 1.0.0 they also cover the deal (`roll.mjs --engines`, `--stimulus`, `--choose`), the house ledger, picture search against a stubbed collection (`AWARDS_COLLECTION_OPENVERSE`), the frame rules L11–L15 and S11 on a bad and a good fixture, `capture.mjs --walk` with picture shares, and a tournament prepare and reveal with the blind jury reply. Exit 0 means all selected checks passed; exit 1 means a failure. Add a regression here when a tool can pass syntactically while its observable behavior is broken. Run the 36-entry recipe verifier as the compatibility pass; use `--only` for the six visual examples. `jury-evidence-selftest.mjs` and `visual-library-selftest.mjs` cover the new evidence and visual-reference contracts without model calls. Historical smoke/build results above remain separate from that deterministic verification.
+
+## Blind tournament
+
+```bash
+node evals/tournament.mjs prepare --out <dir> --arm <brief>/<arm>=<build dir|url> … --seed <key>
+node evals/tournament.mjs reveal --out <dir>
+```
+
+The one measure of whether the plugin makes pages strangers prefer: the frozen briefs in `visual/`, built by several arms (no plugin, awards, another skill), captured the same way, judged from frames under shuffled letters by the forked jury in `--blind` mode and at least one person, then revealed. Building the arms is a paid run and the maintainer's decision; the protocol is [visual/tournament.md](visual/tournament.md).
 
 ## Grader self-test
 ```bash

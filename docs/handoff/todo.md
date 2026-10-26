@@ -4,7 +4,7 @@
 
 Item ids are the review's (A site quality, B engineering, C measurement, D corpus and recipes, E platform, F features, G docs). Tick each as it lands; one PR per batch.
 
-Excluded by that instruction (lower impact, larger effort): F5 jury panel, F6 motion tuning page, B11 context weight, C2 per-rule fixtures, B24 audit split, F7 more scaffolds, D12 pattern digests, D13 variants as data, E8 plugin-managed browser, F8 comp-first, F10 recipe registry, G9 build gallery, recipes R7 Rive, R10 configurator, R11 WebGPU TSL, R12 variable axes. Not runnable here: C13 paid A/B sprint (costs the maintainer money). Deferred by an earlier decision until convergence is measured: A12 stimulus deck.
+Excluded by that instruction (lower impact, larger effort): F5 jury panel, F6 motion tuning page, B11 context weight, C2 per-rule fixtures, B24 audit split, F7 more scaffolds, D12 pattern digests, D13 variants as data, E8 plugin-managed browser, F8 comp-first, F10 recipe registry, G9 build gallery, recipes R7 Rive, R10 configurator, R11 WebGPU TSL, R12 variable axes. Not runnable here: C13 paid A/B sprint (costs the maintainer money). A12 stimulus deck: done in 1.0.0 (the convergence it waited for is measured in `house-ledger.md`).
 
 **Batch 1 — evidence (0.8 remainder)**
 - [x] C7 cheaper eval tiers (contract tier, regrade on kept workspaces)
@@ -56,6 +56,20 @@ Excluded by that instruction (lower impact, larger effort): F5 jury panel, F6 mo
 - [x] G1 the plugin's own site, rebuilt from scratch in redesign mode as the maintainer asked ("Contact sheet", seed `3zaj142iys4g`): three page jury rounds (ship 7.70, fix 7.71, ship 7.88; the third asked for by the maintainer), Shipped 2026-10-23. Left to the maintainer: enable GitHub Pages with Actions as the source and run `.github/workflows/site.yml`; one pass on a real phone and trackpad (the strip's follow and chapter 3's scroll were measured only headless); the Awwwards submission. Open after ship: two craft rows in `site/.awards/ship/2026-10-23.md` (s00's arrow label in view; the hover crop's marks in paper ink)
 
 
+## Release 1.0.0 (2026-10-26) follow-ups
+
+From the taste-skill comparison (`analysis-2026-10-26-taste-skill.md`); every recommendation landed as code or prose, none has been measured on a paid build.
+
+1. Run one blind round (`evals/visual/tournament.md`, review item C13): three briefs, three arms (no plugin, awards, taste-skill at `12af471`), the forked jury in `--blind` mode plus one person. It is the only test of whether R1–R12 made better pages; budget $100–200. Add the no-asset persuade brief first.
+2. Paid contract cases for the new graders: `node evals/pick.mjs v0.8.0` lists them (`contract-southbound` inventory, competitor and Seed graders; `concept-deal-distinct` engines and stimuli). Then smoke and `trigger-jury`, because the jury's description changed ("says an award-level page looks generic, templated or AI-made"), and the route tier once.
+3. Widen the contrast set beyond SaaS templates (`references/sites/_contrast-queue.md`): agency pages, portfolios and launches that won nothing, and the remaining winners (`contrast-set.mjs --winners all`). With eight pages a side, a difference under 25 points is noise; annotate the slop scan only from a wider set.
+4. L11 does not judge text under a full-viewport canvas (a WebGL page's whole surface is a canvas). A pixel comparison with the canvas hidden would; deferred until a build shows a miss.
+5. Refresh `references/patterns/house-tells.md` and re-run `house-ledger.mjs --write` after the next showcase builds; a value stays spent until builds stop sharing it.
+6. The walk (`capture.mjs --walk`) was tested on three showcase builds and a fixture; run it on a framework build (Next or Nuxt) with client routing before trusting its URL-change test there.
+7. `assets.mjs search`: Wikimedia answered 429 and the Art Institute 403 from this container; re-test both from a normal network and record which collections a maintainer can rely on.
+8. Re-run `contrast-set.mjs` after every change to a rendered rule (it re-measures on its own when `audit.mjs` or `rules.json` changed) and read any rule that fires on most winners before shipping it at P0–P2; L11 and S11 were narrowed on 2026-10-26 for exactly that.
+9. A real build should exercise the new Seed line end to end: concept writes `· ENGINE <id>` after the answer locks a direction, and `house-ledger.mjs --against` reads it; until then the ledger infers engines from the five earlier builds' THESIS lines.
+
 ## Corpus wave 5 (2026-10-26) follow-ups
 
 1. Real-GPU and real-phone pass for the seven wave 5 recipes (`gl-swarm-light-field`, `gl-screen-paint-distortion`, `gl-grade-pass-scene-cuts`, `gl-dom-refraction-lens`, `gl-pointer-wake-reveal`, `point-cloud-shape-morph`, `wordmark-header-handoff`): frame times, the swarm's lazy chunk on a phone, the lens's repaint cost during a fast scroll. All were verified on SwiftShader only.
@@ -68,7 +82,7 @@ Excluded by that instruction (lower impact, larger effort): F5 jury panel, F6 mo
 - Maintainer: enable GitHub Pages with "GitHub Actions" as the source, then run `.github/workflows/site.yml`; check the deployed page once on a real phone and a trackpad (the strip's follow and chapter 3's scroll were measured headless only).
 - Paid evals: none ran for 0.8.0; `node plugins/awards/evals/pick.mjs v0.7.0` lists the cases the changes need, with their commands.
 - Site, open after ship (`site/.awards/ship/2026-10-23.md`): s00's arrow label in view; the hover crop's marks in paper ink. Each is material, so it needs a verdict round.
-- Still excluded by the review instruction (large effort, lower impact): F5, F6, B11, C2, B24, F7, D12, D13, E8, F8, F10, G9, R7, R10, R11, R12; C13 (paid); A12 (deferred).
+- Still excluded by the review instruction (large effort, lower impact): F5, F6, B11, C2, B24, F7, D12, D13, E8, F8, F10, G9, R7, R10, R11, R12; C13 (paid; the harness ships in 1.0.0); A12 done in 1.0.0.
 
 ## Quick wins (2026-10-22) follow-ups
 

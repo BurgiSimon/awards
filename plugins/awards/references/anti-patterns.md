@@ -1,6 +1,6 @@
 # Anti-patterns — the Awwwards default and other slop families
 
-A page fails the naming test in two directions: a juror can name the site it copies, or a juror can name the tool that generated it. This file catalogues the second failure. Each family lists its tells (what the audit or a glance catches) and the rewrite (what the corpus does instead). Read it during concept work and again during the jury's specificity test.
+A page fails the naming test in three directions: a juror can name the site it copies, a juror can name the tool that generated it, or the page would work as well for the nearest competitor. This file catalogues the second failure, the plugin's own habits included, and the test for the third. Each family lists its tells (what the audit or a glance catches) and the rewrite (what the corpus does instead). Read it during concept work and again during the jury's specificity test.
 
 ## The Awwwards default
 The register every model reaches for when asked for "an award-winning site": near-black ground, one neon accent with glow, an oversized grotesque headline, a WebGL blob or particle field behind it, sections that fade and rise, a marquee of logos, a cursor trail.
@@ -17,7 +17,7 @@ The register every model reaches for when asked for "an award-winning site": nea
 | Sound on by default, or UI sound with no switch | The visitor is ambushed; jurors browse muted | Opt-in behind a stated toggle `[pattern:sound#opt-in-only]`; `[site:pensatori-irrazionali]` `[site:haoqi]` `[site:spasoje]` `[site:siena]` `[site:aqualoqa]` are what to beat |
 
 ## The category defaults
-Each class has its own rut. Concept work names three ruts (category, Awwwards, template skeleton) before dealing directions.
+Each class has its own rut. Concept work names four ruts (category, Awwwards, template skeleton, and this plugin's own latest default from `references/patterns/house-tells.md`) before dealing directions, each written as it would look for this subject.
 
 | Class | What every model ships | What the corpus did instead |
 |---|---|---|
@@ -93,7 +93,12 @@ Paper ground, tracked mono labels and hairlines together count as one register, 
 | 01 / 02 / 03 section markers by habit, `/ 01` and `No. 01` included | X07 | The sequence means something to the reader; a middle-dot strip, No./Vol. issue line, locale or time strip, or version footer carries a fact of the world, not issue-number costume |
 | The same gap everywhere, so nothing groups | judge | — |
 | Opening columns of very different heights; a heading nearer the previous block than its own | judge | — |
-| Text under an opaque layer, or menus and popovers clipped by overflow | judge (L02 catches sideways overflow) | — |
+| Text, a heading or the primary action that is never readable: covered by another element at every scroll position where it is in view (a drawn line, a canvas wrapper, a cast shadow, a panel that never moves off it) | L11 *render* | — |
+| Text that a layer passes over on its way through (clouds, a curtain reveal, stacked panels) | judge | It is readable at rest, the pass is the scene's transition, and no action is hidden while it can be pressed |
+| Menus and popovers clipped by overflow | judge (L02 catches sideways overflow) | — |
+| Outer margins that differ left and right, or a desktop section that keeps its text in one half with nothing in the other | L12, L13 *render* | Asymmetry inside the grid, closed by the section's own picture or a second column |
+| A section of running text with no heading naming it | L14 *render* | The first sentence is the heading of a statement chapter, set at heading size |
+| A first screen that never says in words what this is, or says it only after a loader or an entrance | S11 *render*, P3 | The wait is for the first viewport's own assets and LOAD & CLOSE names them, or the opening is a film or an object that says it without words; most measured winners open this way (`references/sites/_prevalence.md`) |
 | Lines beyond about 90 characters | L07 *render* | — |
 | Paragraphs touching the edge of a phone screen | L08 *render* | — |
 | Text pressed against the edge of its button or card | judge | — |
@@ -128,6 +133,29 @@ Paper ground, tracked mono labels and hairlines together count as one register, 
 | Flat circles and blocks where a picture should be | judge | — |
 | Torn or jagged image masks | judge | The edge is the concept `[site:serotoninn]` |
 | Images buried under a near-opaque overlay | judge | — |
+| A fake dashboard of grey bars, donut charts and lorem figures standing in for a product's interface | judge | The product's own interface built in HTML with data that adds up `[pattern:imagery-and-assets#strategies]` |
+| Every picture made in code while open collections hold honest pictures of the subject's world | judge (the capture manifest's `pictures` metrics help) | The subject truly has none, and the made imagery has three levels of detail `[pattern:imagery-and-assets#finish-for-made-imagery]` |
+| A sentence on the page about where the pictures come from or what they are not | judge | — (the credit sits in the footer or on the credits page) |
+
+### Substance
+The avoidance aesthetic: a page with every tell removed and nothing put in their place. It is an empty page with good manners, and in blind comparisons a thin clean page loses to a richer page that still has its tells.
+
+| Tell | Caught by | Earned when |
+|---|---|---|
+| Two or more screens that are mostly plain ground, or a narrow column of small text with dead ground either side | L15 *render*, L09 | One deliberate rest per page, closed by something on its far side |
+| A section the brief asked for that is missing or reduced to a line (the menu without prices, one room where six exist, the line-up without times) | judge | — |
+| Sample content left at token density where the brief gives its shape (one rate for six rooms) | judge | — (write the full set, labelled synthetic in the brief) |
+| Running text set small and grey so the page looks finished from a distance | C01, T07 | — |
+
+### House concept
+This plugin's own latest defaults, dated in `references/patterns/house-tells.md`. Two or more of the current wave's devices, unearned, count as this family.
+
+| Tell | Caught by | Earned when |
+|---|---|---|
+| A thesis that begins "The page is [an object]" | judge (`house-ledger.mjs --against` counts it) | The object is this client's own and no competitor's |
+| The scroll as the engine of a physical process, with a numeric readout of it in the margin as wayfinding | judge | The sequence and the instrument are the subject's real ones, and its audience reads them |
+| Code-only imagery on a light restrained duotone with one accent | judge | The scene forces it and the open collections hold nothing honest |
+| THESIS refusals copied from the template instead of written for the subject | judge | — |
 
 ### Quality
 | Tell | Caught by | Earned when |
@@ -138,10 +166,11 @@ Paper ground, tracked mono labels and hairlines together count as one register, 
 
 Reflex faces, generated palettes and copy are listed in `reflex-lists.md`; `scripts/data/reflex-fonts.json` and `scripts/data/reflex-copy.json` are what the audit reads.
 
-## The specificity test (both directions)
+## The specificity test (three directions)
 1. Look at the first viewport alone. Could a juror name the source site? If yes, the DIVERGENCE block failed: change the hero archetype, the palette strategy or the signature, not the copy.
 2. Could a juror name the generator? Run the slop scan above; two or more families present means yes. Remove them before adding anything.
-3. Strip the copy. Does the skeleton still say what the page is and why it matters? If it only works once the words return, the design is in the font size.
+3. Could the page belong to the nearest competitor? Put that competitor's name on it (the bakery two streets away, another hut on the same mountain). If the idea, the first viewport and the signature still work, the idea is the category's: go back to the inventory in `## Brief`. It caps Creativity at 7 in the jury.
+4. Strip the copy. Does the skeleton still say what the page is and why it matters? If it only works once the words return, the design is in the font size.
 
 ## Concept-as-pun
 A name taken literally is a starting point, not a concept. Goats walking at the camera `[site:goats]`, a marble philosopher "in his prime" wearing a modern prop `[site:primesec]`, a pixel runner for a Rob `[site:runrobrun]` and a chemical tag for a mood `[site:serotoninn]` lean on the pun as a picture. The names that go further become a system or an act: road signage that supplies every render, loader and route curtain `[site:wearedirect]`, a mark that grows because the brand promises growth `[site:mensch]`, a paradox the pointer performs `[site:noth]`. Ask what the name makes the visitor do, not only what it makes them see.

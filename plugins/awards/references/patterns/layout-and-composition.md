@@ -147,6 +147,7 @@ Rules:
 - Space inside a group is smaller than the space around it; a heading sits nearer its own block than the block above.
 - Section padding grows with the viewport and floors in rem, so a phone does not inherit a 320 px gap.
 - Scroll runway is not spacing: buy it with section height or a spacer and keep the next chapter's edge in view as the hold ends [site:mensch]. A whole viewport with nothing in it is audit L09.
+- The frame, measured beyond the corpus on 97 recent Awwwards Sites of the Day [external, taste-skill `references/layout.md` §4–5, read 2026-10-26]: strong pages hold their left and right margins within a few pixels of each other (audit L12); about one text section in a hundred leaves half the width empty (L13); 82 % of text sections open with a heading (L14); sections sit about 120–240 px apart on desktop (median about 230–250 px) and 72–112 px on a phone, and more than about 40 % of a screen of plain ground between two sections reads as a hole, not a rest (L15). These are the numbers the rendered audit's frame rules are tuned to; the ladder above stays the page's own.
 
 ## Layout families
 

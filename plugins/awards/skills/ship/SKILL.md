@@ -91,7 +91,7 @@ Why: the jury and the user judge from these frames, and a stale or broken captur
 ```
 npm run build
 capture_out=".awards/captures/$(date -u +%Y%m%dT%H%M%S)-ship"
-node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" dist --out "$capture_out" --scroll 0,50,100 --mobile --reduced-motion --json
+node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" dist --out "$capture_out" --scroll 0,50,100 --mobile --reduced-motion --walk --json
 ```
 
 Use a fresh timestamp-plus-stage directory for every pass, including verdict/component/fallback recaptures, as in `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md`; if the name exists, allocate again. A recapture after a fix batch adds `--baseline <the jury round's capture_out>`, so the manifest's `diff[]` shows which frames the batch changed. Add scroll positions for uncovered Page map chapters; gaps stay unmeasured until a fresh capture covers them. For static HTML with no build script, capture the source directory directly. For a component, add `--selector "<selector>" --hover "<selector>"`. Add `--states <json-file>` for the recorded interaction plan; use `${CLAUDE_PLUGIN_ROOT}/references/capture-states.md` to create one for required menu, focus, drag or persistence states. Inspect each named frame and its manifest entry; a failed action is missing evidence, even when baseline frames passed. When the target is a URL with no local source, capture the URL and use `audit.mjs <url> --render` for rendered checks. Mark the static-source audit and build budgets unmeasured unless the served assets were actually fetched and inspected.
@@ -144,7 +144,7 @@ Why: usability is the lowest axis on 27 of the 31 corpus entries awarded since 2
 - A skip link first in the tab order, landing on `<main>` (A13).
 - Visible `:focus-visible` styles in the world's own register, never `outline: none` without a replacement (A06, A07).
 - Reduced-motion tiers verified, not assumed: `desktop-rm-s00` readable, state changes preserved (the menu opens, the theme swaps, the slider compares), loops static or paused, no global kill (M01, M02).
-- Keyboard walk: Tab through the whole page; the fullscreen menu traps focus, closes on Escape, returns focus and sets the page `inert`.
+- Keyboard walk: Tab through the whole page; the fullscreen menu traps focus, closes on Escape, returns focus and sets the page `inert`. Start from `walk.json` (`--walk` above): every finding it lists is resolved or recorded as an exception with its reason before Shipped is ticked.
 - Walk in this order and stop at the first dead end: skip link → header links → menu trigger and the open menu → every gesture in page order (hold gates, drags, compare sliders, rails) → forms → footer → the 404's way out.
 - Every drag, hold or draw gesture has a key path (A11); a virtual scroll still moves on Space, PageDown and arrows.
 - Coarse pointer: custom cursor and magnetic effects off under `(hover: none), (pointer: coarse)` (A08); nothing hover-only; touch targets at least 44 px; rails become native overflow.

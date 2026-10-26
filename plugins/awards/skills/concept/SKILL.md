@@ -38,7 +38,9 @@ Why: this is the heaviest reading phase of the plugin; the corpus is the taste, 
 - `${CLAUDE_PLUGIN_ROOT}/references/sites/_index.md` first: the table and its neighbour-picking rules. Project-local cards in `.awards/sites/` (written by `awards:research`) count as neighbours too.
 - The three nearest cards in `${CLAUDE_PLUGIN_ROOT}/references/sites/<slug>.md`, sections §7 Principles and §8 Take / Don't take only; §1–§4 are evidence, never a plan.
 - Each of those cards' composition skeleton, `${CLAUDE_PLUGIN_ROOT}/references/sites/skeletons/<slug>.png` (block maps of where headings, text and media sit at the top, middle and close, and on a phone), and its row in `_fingerprints.md`. This is the visual bar the deal has to clear: a dealt FIRST VIEWPORT that reproduces a neighbour's block map is that neighbour, whatever its colours.
-- `${CLAUDE_PLUGIN_ROOT}/references/anti-patterns.md` before naming the three ruts, and again before the naming test at the end.
+- `${CLAUDE_PLUGIN_ROOT}/references/anti-patterns.md` before naming the four ruts, and again before the naming test at the end.
+- `${CLAUDE_PLUGIN_ROOT}/references/patterns/house-tells.md` before the four ruts: the latest wave is the plugin rut, the shapes this plugin's own builds keep converging on.
+- `node "${CLAUDE_PLUGIN_ROOT}/scripts/roll.mjs" --list engines` before the seven worlds: the engines are the kinds of idea a world can rest on (`scripts/data/engines.json`, with the cards that run each).
 - `${CLAUDE_PLUGIN_ROOT}/references/patterns/negative-exemplars.md` and its six frames in `negative/`: the house style, the template product page and the clean, forgettable page. No dealt card may reduce to one of them with new colours.
 - `${CLAUDE_PLUGIN_ROOT}/references/patterns/narrative-structures.md` before writing STORY.
 - `${CLAUDE_PLUGIN_ROOT}/references/patterns/hero-archetypes.md` before writing FIRST VIEWPORT.
@@ -54,18 +56,31 @@ Why: a concept is derived from the mechanism, the audience's scene and the stake
 - Without it: ask two questions in one AskUserQuestion round. First, what only this subject can prove and who reads it, where (the physical scene). Second, the stakes and conversion, and the assets on hand (photo, video, 3D, copy, none). Assert your reading of the rest so the user edits rather than composes; never ask about fonts, colours or effects.
 - `--component`: skip to the mini contract at the end; no deal is run for a single element unless the user asked for options.
 
-## Step 1 — the mechanism, the scene and the three ruts
+## Step 1 — the inventory, the scene and the four ruts
 
-Why: a page defaults three times when nobody names the defaults: to what its category always ships, to the register every generator reaches for when asked for "award-winning", and to the layout every template ships under both.
+Why: a page defaults four times when nobody names the defaults: to what its category always ships, to the register every generator reaches for when asked for "award-winning", to the layout every template ships under both, and to what this plugin's own last builds did. The cure for all four starts from what belongs to this client and no one else.
 
-Write five lines in your working notes before any idea:
-- Mechanism: the one thing only this subject can prove (a range, a process, a place, a person's plurality).
+**The inventory.** Before any idea, list eight to twelve things that belong to this client and to no competitor, and write them on the `Inventory` line of `## Brief`, separated by semicolons (the one Brief line this skill writes; keep what craft already put there). Look for:
+- the name and what it means; the address, the street, the door and what that place looks like (its signs, tiles, light and weather);
+- the numbers in the brief (seats, rooms, minutes to the sea, the price, the year, the batch size);
+- the one constraint it lives with (one batch a month, closed in winter, by appointment only);
+- its materials and colours, its rituals and hours (the oven lit at five, the ferry at seven);
+- the printed and made things of its world (a timetable, a label, a ticket, a logbook) and its people.
+
+An item a competitor could also claim ("hand-made", "quality", "the sea") is replaced. The inventory is also the picture search list for WORLD's imagery (`assets.mjs search`).
+
+Then write seven lines in your working notes:
+- Mechanism: the inventory item only this subject can prove (a range, a process, a place, a person's plurality).
 - Scene: where the audience is when they read this, on what device, with how much attention.
-- Category rut: what every model ships for this class, from the category table in `anti-patterns.md` (a portfolio's card grid, a B2B page's metric row and feature triad, a luxury page's serif over a full-bleed photo).
-- Awwwards rut: near-black ground, one neon accent with glow, an oversized grotesque, a blob or particle field behind it, sections that fade and rise, a logo marquee, a cursor trail.
+- Category rut, as it would look for this subject: what every model ships for this class, from the category table in `anti-patterns.md` (a portfolio's card grid, a B2B page's metric row and feature triad, a luxury page's serif over a full-bleed photo), drawn for this client.
+- Awwwards rut, as it would look for this subject: near-black ground, one neon accent with glow, an oversized grotesque, a blob or particle field behind it, sections that fade and rise, a logo marquee, a cursor trail — in this subject's own costume (a salt works' crystal particles, a cable ship's marine snow).
 - Template rut: wordmark left with links right; a label over a two-line headline at bottom left; a subline; a filled plus outline button pair. Costume over this skeleton is still the template.
+- Plugin rut: the devices of the latest wave in `house-tells.md` this subject would pull towards (the page as an object, the scroll as a process with a readout in the margin, code-only imagery, a light restrained duotone). A contract may keep one, with its "earned when" written into THESIS; two or more send the direction back.
+- First idea: the concept that came to mind first. It enters the seven worlds only if it passes the competitor test below; otherwise THESIS refuses it by name.
 
-The thesis must refuse all three by name; a thesis that refuses one lands in another.
+The thesis must refuse all four ruts by name, each written for this subject; a thesis that refuses one lands in another, and a refusal copied from the template refuses nothing.
+
+**The competitor test.** Put the nearest real competitor's name into a thesis or a world in place of this client's (the bakery two streets away, another oak furniture maker, another hut on the same mountain). If the sentence still works, the idea belongs to the category: a loaf of bread is every bakery; the seven doors of the street this one is named after are only this one. Run it on every world in Step 3 and on the locked THESIS, and write the competitor's name and why the thesis breaks for it into the contract.
 
 ## Step 2 — corpus neighbours and the DIVERGENCE block
 
@@ -80,22 +95,27 @@ Why: three cards give a principle; one card gives a signature, and a signature i
 
 ## Step 3 — seven candidate worlds
 
-Why: the first three ideas any model produces are the ruts in different clothes; the seventh is where the audience's own culture starts to show.
+Why: the first three ideas any model produces are the ruts in different clothes; the seventh is where the client's own world starts to show. The seven are still one model's ideas, so two outside forces go in before they are written: an engine for each world, so they are seven kinds of idea, and two stimuli from outside any category, so two of them start somewhere the model would not go.
 
-- Derive seven worlds from the audience's culture, not from web design: the places, objects, paperwork, tools, rituals and graphic traditions the audience actually handles. Graphic traditions count (a call sheet, a timetable, a specimen sheet, a nautical chart, a model card).
-- Cover at least three material families across the seven (for example paper and print, metal and machine, glass and ice, textile, screen and console, botanical, stone and architecture).
-- Write each world as one line: name · material · the object or behaviour it hands the page. A world with no object or behaviour is a mood and is replaced.
-- Number them 1–7 and keep the list in your notes; only the winner and the seed reach `AWARDS.md`.
+1. Deal the stimuli first: `node "${CLAUDE_PLUGIN_ROOT}/scripts/roll.mjs" --stimulus 2`. It prints `SEED <key>` and `STIMULI a b`; keep the seed, the deal in Step 4 uses it.
+2. Derive the seven worlds from the inventory first and the audience's culture second, never from web design: the places, objects, paperwork, tools, rituals and graphic traditions this client and its audience actually handle. At least four of the seven are built on an inventory item. Graphic traditions count (a call sheet, a timetable, a specimen sheet, a nautical chart, a model card), when they are this client's own.
+3. Worlds 6 and 7 each fuse one dealt stimulus with one inventory item: what does this subject look like if it behaves like a seed packet, a tide table, a darts scoreboard? A stimulus is a provocation, never a theme to decorate with.
+4. Tag every world with one engine from `roll.mjs --list engines`. The seven span at least four engines; two worlds on one engine are one idea in two outfits. The engines the latest wave of `house-tells.md` lists as spent are written down for `--avoid`.
+5. Cover at least three material families across the seven (for example paper and print, metal and machine, glass and ice, textile, screen and console, botanical, stone and architecture).
+6. Write each world as one line: name · engine · inventory item (or stimulus + item) · material · the object or behaviour it hands the page. A world with no object or behaviour is a mood and is replaced; a world that passes the competitor test for the nearest competitor is the category and is replaced.
+7. Number them 1–7 and keep the list in your notes; only the winner, the seed, the engines and the stimuli reach `AWARDS.md`.
 
 ## Step 4 — the deal
 
 Why: a scripted deal stops the round from converging on the presenter's favourite, and the seed makes the round auditable and repeatable in a later session.
 
-Run `node "${CLAUDE_PLUGIN_ROOT}/scripts/roll.mjs" --deal 3 --of 7`. It prints `SEED <key>`, `DEALT a b c of 7` and `LEAD x`, where the lead is a seeded pick among the three, not the lowest index. Record the `SEED` line; it goes into the contract's `Seed` field.
+Run `node "${CLAUDE_PLUGIN_ROOT}/scripts/roll.mjs" --deal 3 --of 7 --seed <key from Step 3> --engines <engine of world 1>,…,<engine of world 7> --avoid <spent engines>`. It prints `SEED <key>`, `DEALT a b c of 7`, `LEAD x` and `ENGINES …`: the three dealt worlds come from three different engines when the tags allow, engines in `--avoid` only when nothing else is left, and the lead is a seeded pick among the three, not the lowest index. A `NOTE` that the worlds span fewer than four engines means Step 3 was not done; rewrite the worlds and roll again with the same seed. Record one Seed line for the contract: `SEED <key> · DEALT a b c · ENGINES … · STIMULI …`; once the answer in Step 5 locks a direction, end it with `· ENGINE <that direction's engine>` (`· ENGINE exit` for the conventional exit), the one value the house ledger counts.
 
 Write the three dealt worlds as full cards of equal weight, in `DEALT` order, the lead marked. Each card carries, in this order:
-- Thesis: the object or behaviour and the three ruts it refuses.
-- World: colour strategy, temperature, light or dark and why, the character of the type voice, the material policy, and the imagery strategy with what supplies it (names, not hexes or faces; `awards:system` chooses those; `${CLAUDE_PLUGIN_ROOT}/references/patterns/imagery-and-assets.md` lists the strategies, and "none, flat grounds" is not one).
+- Engine and source: the engine, and the inventory item (or the stimulus and the item) the world is built on.
+- Thesis: the object or behaviour and the four ruts it refuses, each as it would look for this subject.
+- Competitor test: the nearest real competitor's name in the thesis, and why the thesis no longer works for it.
+- World: colour strategy, temperature, light or dark and why, the character of the type voice, the material policy, and the imagery strategy with what supplies it (names, not hexes or faces; `awards:system` chooses those; `${CLAUDE_PLUGIN_ROOT}/references/patterns/imagery-and-assets.md` lists the strategies, and "none, flat grounds" is not one). With no assets on hand, the card names what the open collections hold of the subject's world (a query from the inventory) before it settles on made imagery.
 - First viewport: the composition in one sentence; copy placement, nav form and action form come from the world.
 - Signature interaction and its technique tier: DOM-only · moments · canvas-first · 100 % canvas (the rungs of `[pattern:webgl-architecture#dosage-ladder]`).
 - Scroll model: native + Lenis / sticky stages + invisible rails / virtual float / section switcher.
@@ -112,7 +132,7 @@ Options in the question: the three dealt cards by name with your pick marked, an
 
 Why: a user who declines all three is telling you something about register, not asking for three more of the same.
 
-- Plain: `node "${CLAUDE_PLUGIN_ROOT}/scripts/roll.mjs" --deal 3 --of 7 --seed <key> --reroll 1` deals a different three from the same seven; increment `--reroll` on each further call, keep the seed.
+- Plain: `node "${CLAUDE_PLUGIN_ROOT}/scripts/roll.mjs" --deal 3 --of 7 --seed <key> --reroll 1 --engines <the same seven tags> --avoid <the same>` deals a different three from the same seven; increment `--reroll` on each further call, keep the seed and the tags.
 - Safer: run the plain re-roll, then write each dealt card one technique tier down and one step closer to the category's conventions; the conventional exit stays on the table.
 - Bolder: run the plain re-roll, then write each card one tier up and further from the conventions, with the risk line honest about assets and budget.
 - At most two re-rolls per round; after that, propose the strongest world seen so far beside the exit and ask once more.
@@ -145,8 +165,10 @@ Why: one interaction carries the creativity score, and it does so only when it e
 
 Why: the contract is only usable when the first screen, the world, the scroll model and the load and close are decided at the same resolution as the story.
 
-- FIRST VIEWPORT: choose one archetype from `[pattern:hero-archetypes#choosing]` by model and dosage, then write the exact composition: what is where, at what scale, where the primary action sits, what moves once and for how long. Derive the copy block's placement, the nav's form and the action's form from WORLD (a timetable's columns, a stamp, a dial), never from the template skeleton. Run the six checks in `[pattern:hero-archetypes#the-first-viewport-test]` on it, including the phone version.
+- FIRST VIEWPORT: choose one archetype from `[pattern:hero-archetypes#choosing]` by model and dosage; when two or more fit, deal it with `roll.mjs --choose <the fitting archetypes> --label archetype --seed <key>` rather than taking the first that comes to mind. Then write the exact composition from the archetype's blueprint, saying where and why it departs: what is where, at what scale, where the primary action sits, what moves once and for how long. Derive the copy block's placement, the nav's form and the action's form from WORLD (a timetable's columns, a stamp, a dial), never from the template skeleton. Run the six checks in `[pattern:hero-archetypes#the-first-viewport-test]` on it, including the phone version.
 - WORLD: the colour strategy by name (`[pattern:color-and-material#colour-strategies]`), the token count, light or dark and the reason the scene forces it, the type contract type and the character class of the display voice, the material policy. Faces and hexes belong to `awards:system`; the world must be recognisable with every word removed.
+  - The colour strategy is dealt, not defaulted. List the strategies this world allows (at least two unless the brand fixes one, and then say so), and run `node "${CLAUDE_PLUGIN_ROOT}/scripts/roll.mjs" --choose <allowed,…> --label colour --seed <key> --avoid <the strategy the latest house-tells wave lists>`. Write the `CHOSEN` strategy and one sentence on why it fits; taking the avoided strategy anyway needs the scene's reason in WORLD. Restrained duotone is the corpus mode (21 cards), so it is never the strategy by default.
+  - The imagery strategy follows `[pattern:imagery-and-assets#choosing-one]`: the client's own pictures first; with none, real pictures of the subject's world from the open collections, searched from the inventory (`assets.mjs search`); made imagery (drawn, procedural, CSS-built, type) only for what no honest picture shows, and then with three levels of detail. Code-only imagery while an honest found picture exists is the plugin rut, not a choice.
 - SCROLL MODEL: one of the four with the reason this story needs it; native + Lenis is the default, a virtual float only when the story must gate or hold, a section switcher only for a short loop.
 - LOAD & CLOSE: the preloader archetype and its real load signal (`[pattern:preloaders-and-transitions#the-load-contract]`), the repeat-visit rule, what the last screen is, that the 404 ships with the first release.
 - FINISH: the template's line, verbatim.
@@ -157,8 +179,10 @@ Why: the block names are read by every other skill, the hook and the evals; a pa
 
 1. Open `AWARDS.md` (create it from `${CLAUDE_PLUGIN_ROOT}/assets/templates/AWARDS.md` when absent) and write `## Direction contract` with the blocks in the template's order and exact names: THESIS, WORLD, STORY, FIRST VIEWPORT, SIGNATURE, SCROLL MODEL, LOAD & CLOSE, DIVERGENCE, FINISH, Seed.
 2. Write the `## Page map` skeleton: one row per chapter or route with `#`, `Chapter / route` and `Beat (entrance · hold · exit)` filled from STORY; leave `Layout`, `Components (recipe id: keep · change · pair)` and `Notes` for `awards:structure`. A faceted world lists every route, the 404 included.
-3. Tick "Direction contract locked (concept)" in `## Status`. Touch no other section.
-4. Keep the seven worlds and the dealt cards in the reply, not in the file; the file carries the decision and the seed.
+3. THESIS ends with the competitor line: `Competitor test: <nearest competitor> — <why the thesis breaks for it>`. The Seed field carries the whole Seed line from Step 4 with the locked engine (`SEED … · DEALT … · ENGINES … · STIMULI … · ENGINE …`).
+4. When the project or the plugin's repository holds earlier builds, run `node "${CLAUDE_PLUGIN_ROOT}/scripts/house-ledger.mjs" <earlier build dirs…> --against AWARDS.md`; exit 2 (two or more spent features shared) sends the direction back unless THESIS already names each with the reason this subject earns it.
+5. Tick "Direction contract locked (concept)" in `## Status`. Touch no other section, except the `Inventory` line of `## Brief` written in Step 1.
+6. Keep the seven worlds and the dealt cards in the reply, not in the file; the file carries the decision, the seed, the engines and the stimuli.
 
 ### `--component`: the mini contract
 
@@ -178,14 +202,17 @@ When the user wants options for a component, run Steps 3 and 4 with three worlds
 
 - [ ] The memory-test answer for the locked direction is an object or a behaviour, written in one sentence with no mood word.
 - [ ] The naming test passes in both directions on the first viewport: no juror could name the source site, none could name the generator.
-- [ ] Every block is concrete: THESIS refuses all three ruts by name; STORY has a model, four to six beats, one interruption and a close; SIGNATURE names its jobs, tier, touch, keyboard, reduced-motion and fallback lines; FIRST VIEWPORT is a composition; WORLD names a strategy and a contract type; SCROLL MODEL gives a reason; LOAD & CLOSE names a real signal.
+- [ ] The inventory on the `Inventory` line has eight to twelve items no competitor could claim; THESIS is built on one of them and carries its competitor line.
+- [ ] The seven worlds spanned at least four engines, at least four were built on inventory items, worlds 6 and 7 fused a dealt stimulus; the dealt three come from three engines, or the NOTE says why not.
+- [ ] The plugin rut was named from the latest `house-tells.md` wave, and the contract keeps at most one of its devices, with the reason.
+- [ ] Every block is concrete: THESIS refuses all four ruts by name, each written for this subject; STORY has a model, four to six beats, one interruption and a close; SIGNATURE names its jobs, tier, touch, keyboard, reduced-motion and fallback lines; FIRST VIEWPORT is a composition; WORLD names a strategy and a contract type; SCROLL MODEL gives a reason; LOAD & CLOSE names a real signal.
 - [ ] The honest risk is stated for every dealt card and for the winner.
 - [ ] The concept survives with WebGL removed; the page still argues the thesis in the DOM.
 - [ ] DIVERGENCE names three real `[site:slug]` entries from the index or `.awards/sites/`, each with a take and a refuse line; no card's signature, section order, copy, hexes or pairing appears anywhere in the contract.
-- [ ] `roll.mjs` was actually run; the `SEED` line is in the `Seed` field; re-rolls used the same seed.
+- [ ] `roll.mjs` was actually run (`--stimulus`, then `--deal` with `--engines`, and `--choose` for the colour strategy); the Seed field holds the whole line; re-rolls used the same seed and tags.
 - [ ] The conventional exit was offered and its ceiling stated; the user locked the direction in one round, or, unattended, your pick among the dealt three was locked with its reason stated.
 - [ ] The visitor mode (from the brief or `--mode`) is honoured: no gate before content in persuade, a rail out in experience, the index on screen one in read.
-- [ ] `## Status` shows "Direction contract locked (concept)" ticked and nothing else changed.
+- [ ] `## Status` shows "Direction contract locked (concept)" ticked and nothing else changed but the `Inventory` line.
 
 ## Hand-off
 
@@ -195,7 +222,9 @@ The next phase belongs to `awards:system`, which needs the WORLD block and the b
 
 - Mood adjectives as concepts (premium, immersive, bold, cinematic, clean): they fail the memory test by definition.
 - Effect as concept ("a WebGL hero with distortion", "particles that react to the cursor"): an effect is a technique tier, and a technique is not an idea.
-- The category rut, the Awwwards rut and the template skeleton, however the user phrases the request; all three are named in THESIS as refusals.
+- The category rut, the Awwwards rut, the template skeleton and the plugin rut, however the user phrases the request; all four are named in THESIS as refusals, written for this subject rather than copied from the template.
+- An idea that still works with the nearest competitor's name in it, a world tagged with no engine, seven worlds on fewer than four engines, and stimuli dealt after the worlds were written.
+- Code-only imagery chosen before the open collections were searched, and the corpus's modal colour strategy taken without a deal or a reason.
 - Any card's signature, section order, copy, palette, type pairing or asset, including when the user asks for "something like" a named site; the card's principle is offered instead.
 - A direction that needs assets the user cannot supply (a commissioned object per variant, drone footage, a full bake pipeline) unless the brief labels them synthetic and they can be authored for the build.
 - A deal without the script, an undealt world locked or offered, three variants of one idea presented as three worlds, any option beyond the dealt cards, the exit and re-roll, more than two re-rolls, a second question round.

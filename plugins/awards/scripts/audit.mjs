@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Deterministic craft-floor audit for award-level front-ends, including the slop habits in references/anti-patterns.md.
-// Static by default; --render adds in-page checks (text and focus contrast against what is behind them, overflow, rendered fonts, stuck content, measure, edges, hierarchy, nested cards, ground vs DESIGN.md).
+// Static by default; --render adds in-page checks (text and focus contrast against what is behind them, overflow, rendered fonts, stuck content, measure, edges, hierarchy, nested cards, ground vs DESIGN.md, the frame: covered text, margins, lopsided and untitled sections, near-empty screens, the first screen's title).
 // Usage: node audit.mjs <dir|file|url> [--json] [--quick] [--changed-file <path|->] [--render]
 //   [--scope fonts,contrast,motion,a11y,layout,perf,surfaces,slop] [--ignore T01,…] [--config .awards/audit.json] [--no-write]
 // Exit: 0 clean (no P0/P1) · 2 P0/P1 findings · 3 missing browser · 1 error. Quick mode exits 0 and prints hook JSON.
@@ -663,14 +663,18 @@ function installShift() {
 }
 
 // Scrolls the page top to bottom in half-viewport steps (through the page's own hook when it has one,
-// so Lenis and virtual scrollers move too) and reports a viewport with no content in it, and on tablet
-// and phone a section whose content keeps to one narrow side. Content is any visible box with its own
-// text, media, a background image or a drawn edge, at any opacity: a reveal still waiting for its trigger counts.
-// Small fixed or sticky bars (a header) do not, or they would fill every viewport.
+// so Lenis and virtual scrollers move too) and reports what a stranger names first when a page looks wrong:
+// a viewport with no content in it (L09); a section whose content keeps to one narrow side with nothing on the
+// other (L10 on tablet and phone, L13 on desktop); text, a heading or an action covered by something painted
+// over it at every scroll position where it is in view, so a visitor can never read it (L11); outer margins that differ left and right (L12, desktop); a section of
+// running text with no heading (L14, desktop); and screens that are mostly plain ground (L15). Content is any
+// visible box with its own text, media, a background image or a drawn edge, at any opacity: a reveal still waiting
+// for its trigger counts. Small fixed or sticky bars (a header) do not, or they would fill every viewport.
 async function sweepPage(desktop) {
   // The layout viewport: under phone emulation a page that overflows widens innerWidth to its own width.
   const vh = innerHeight, vw = document.documentElement.clientWidth;
   const MEDIA = new Set(['IMG', 'PICTURE', 'VIDEO', 'CANVAS', 'SVG', 'svg', 'IFRAME', 'INPUT', 'TEXTAREA', 'SELECT', 'BUTTON', 'OBJECT', 'EMBED']);
+  const PICTURE = new Set(['IMG', 'PICTURE', 'VIDEO', 'CANVAS', 'SVG', 'svg', 'IFRAME']);
   // The nearest fixed or sticky box an element rides in, if any.
   const pinned = new Map();
   const pinOf = (el) => {
@@ -682,6 +686,8 @@ async function sweepPage(desktop) {
     return v;
   };
   const bar = (el) => { const pin = pinOf(el); return !!pin && pin.getBoundingClientRect().height < vh * 0.35; };
+  const tucked = (el) => !!el.closest('[hidden],[inert],[aria-hidden="true"],dialog:not([open]),template,noscript');
+  const say = (el) => `<${el.tagName.toLowerCase()}${el.id ? `#${el.id}` : el.classList[0] ? `.${el.classList[0]}` : ''}>${el.textContent.trim() ? ` “${el.textContent.trim().replace(/\s+/g, ' ').slice(0, 32)}”` : ''}`;
   const content = [];
   for (const el of document.body.querySelectorAll('*')) {
     if (el.closest('[hidden],template,dialog:not([open]),noscript,script,style')) continue;
@@ -696,6 +702,101 @@ async function sweepPage(desktop) {
     if ((s.clip && s.clip !== 'auto') || /inset\(50%/.test(s.clipPath || '')) continue;
     content.push(el);
   }
+  // Where an element's own text actually sits (a block box spans the column; its words may not).
+  const textRect = (el) => { const r = document.createRange(); r.selectNodeContents(el); const b = r.getBoundingClientRect(); return b.width && b.height ? b : el.getBoundingClientRect(); };
+  const opacityOf = (el) => { let o = 1; for (let n = el; n && n !== document.documentElement; n = n.parentElement) o *= Number(getComputedStyle(n).opacity); return o; };
+  // Whether an element paints over what is under it at (x, y). A gradient's alpha at one point is unknown, so a
+  // gradient alone (a fade, a scrim) never counts; a hit outside the element's own box came from ::before or
+  // ::after, which are judged on their own fill.
+  const solid = (c) => { const v = c.match(/rgba?\(([^)]+)\)/)?.[1].split(/[ ,/]+/).filter(Boolean).map(Number); return !!v && (v.length < 4 || v[3] >= 0.5); };
+  const paints = (el, x, y) => {
+    const b = el.getBoundingClientRect();
+    if (x < b.left || x > b.right || y < b.top || y > b.bottom) {
+      return ['::before', '::after'].some((pseudo) => { const ps = getComputedStyle(el, pseudo); return ps.content !== 'none' && (solid(ps.backgroundColor) || /url\(/.test(ps.backgroundImage)); });
+    }
+    const s = getComputedStyle(el);
+    if (PICTURE.has(el.tagName) || /url\(/.test(s.backgroundImage) || solid(s.backgroundColor)) return true;
+    if ((parseFloat(s.borderTopWidth) > 0 && s.borderTopStyle !== 'none') || s.boxShadow !== 'none' || s.textShadow !== 'none') return true;
+    return [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim());
+  };
+  // Readers' text: headings, statements and paragraphs, and actions drawn as buttons.
+  const readable = [...document.querySelectorAll('h1,h2,h3,p,blockquote,li,a[href],button,[role="button"]')].filter((el) => {
+    if (tucked(el) || bar(el)) return false;
+    const t = el.textContent.trim();
+    if (!t) return false;
+    if (/^(A|BUTTON)$/.test(el.tagName) || el.getAttribute('role') === 'button') {
+      const s = getComputedStyle(el);
+      return !/rgba\(0, 0, 0, 0\)|transparent/.test(s.backgroundColor) || (parseFloat(s.borderTopWidth) > 0 && s.borderTopStyle !== 'none');
+    }
+    return /^H[1-3]$/.test(el.tagName) || t.length >= 30;
+  });
+  const coverStyle = document.createElement('style');
+  coverStyle.textContent = '*, *::before, *::after { pointer-events: auto !important; }';
+  // Only text covered at every stop where it is in view counts: winners pass clouds, curtain reveals and stacked
+  // panels over their own titles on purpose, and the contrast set (references/sites/_prevalence.md) showed a rule
+  // that fired on any covered stop catching six of seven winners. Text that is clear at one stop can be read.
+  const covered = new Map(), clear = new Set();
+  const coveredAt = (p) => {
+    // Hit-testing ignores pointer-events: none, which is exactly how canvases and decorative layers sit; with it
+    // forced on, elementsFromPoint returns the real paint stack. Nothing is dispatched, so no handler runs.
+    document.head.appendChild(coverStyle);
+    try {
+      for (const el of readable) {
+        if (clear.has(el)) continue;
+        const b = textRect(el);
+        if (b.width < 4 || b.height < 4 || b.right <= 0 || b.left >= vw) continue;
+        // In view: the whole text, or for text taller than most of the screen, its middle in the central band.
+        if (b.height <= vh * 0.8 ? b.top < 0 || b.bottom > vh : b.top + b.height / 2 < vh * 0.1 || b.top + b.height / 2 > vh * 0.9) continue;
+        if (getComputedStyle(el).visibility !== 'visible' || opacityOf(el) < 0.25) continue;
+        const y = b.top + b.height / 2;
+        let hits = 0, by = null;
+        for (const fx of [0.15, 0.5, 0.85]) {
+          const x = b.left + b.width * fx;
+          if (x < 0 || x >= vw || y < 0 || y >= vh) continue;
+          for (const n of document.elementsFromPoint(x, y)) {
+            if (n === el || el.contains(n) || n.contains(el)) break;
+            if (n === document.body || n === document.documentElement) break;
+            const nb = n.getBoundingClientRect();
+            // A full-viewport canvas over text is usually the GL layer drawing that text (the DOM mirror): unmeasured here.
+            if (n.tagName === 'CANVAS' && nb.width >= vw * 0.9 && nb.height >= vh * 0.9) break;
+            // A small pinned bar passing over text as the page scrolls is the header doing its job.
+            if (bar(n)) break;
+            // A full-viewport texture (film grain, a vignette, a blended wash) sits over everything and hides nothing,
+            // and a faint layer leaves the text readable; look under both.
+            if (getComputedStyle(n).visibility !== 'visible' || opacityOf(n) < 0.5) continue;
+            if (nb.width >= vw * 0.9 && nb.height >= vh * 0.9 && (!solid(getComputedStyle(n).backgroundColor) || getComputedStyle(n).mixBlendMode !== 'normal')) continue;
+            if (paints(n, x, y)) { hits++; by = n; break; }
+          }
+        }
+        if (hits >= 2) { if (!covered.has(el)) covered.set(el, `${say(el)} under ${say(by)} at every stop where it is in view (first at ${Math.round(p * 100)} % down the page)`); }
+        else clear.add(el);
+      }
+    } finally {
+      coverStyle.remove();
+    }
+  };
+  // How much of a viewport holds something: the share of a 24 × 15 grid of points inside a content box (the text's
+  // own extent, a picture, a drawn panel), plus the words in view.
+  const fillOf = () => {
+    const boxes = [];
+    let words = 0;
+    for (const el of content) {
+      if (bar(el)) continue;
+      const own = [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim());
+      const b = own ? textRect(el) : el.getBoundingClientRect();
+      if (b.width < 2 || b.height < 2 || b.bottom <= 0 || b.top >= vh || b.right <= 0 || b.left >= vw) continue;
+      // A box the size of the viewport (a section ground) says nothing about whether the screen is full.
+      if (!own && b.width >= vw * 0.98 && b.height >= vh * 0.98 && !PICTURE.has(el.tagName) && !/url\(/.test(getComputedStyle(el).backgroundImage)) continue;
+      boxes.push(b);
+      if (own) words += [...el.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent.trim().split(/\s+/).filter(Boolean).length).reduce((a, c) => a + c, 0);
+    }
+    let hit = 0;
+    for (let i = 0; i < 24; i++) for (let k = 0; k < 15; k++) {
+      const x = (i + 0.5) * (vw / 24), y = (k + 0.5) * (vh / 15);
+      if (boxes.some((b) => x >= b.left && x <= b.right && y >= b.top && y <= b.bottom)) hit++;
+    }
+    return { fill: hit / 360, words };
+  };
   const hook = window.__awards?.scrollTo;
   const height = () => document.documentElement.scrollHeight;
   const steps = Math.min(80, Math.max(hook ? 12 : 2, Math.ceil((2 * height()) / vh)));
@@ -704,7 +805,7 @@ async function sweepPage(desktop) {
     else window.scrollTo(0, Math.round(Math.max(0, height() - vh) * p));
     await new Promise((r) => setTimeout(r, 120));
   };
-  const empty = [];
+  const empty = [], thin = [], wordsSeen = [];
   for (let i = 0; i < steps; i++) {
     const p = steps === 1 ? 0 : i / (steps - 1);
     await go(p);
@@ -713,43 +814,125 @@ async function sweepPage(desktop) {
       if (b.width < 2 || b.height < 2 || b.bottom <= 0 || b.top >= vh || b.right <= 0 || b.left >= vw) return false;
       return !bar(el);
     });
-    if (!filled) empty.push(p);
+    if (!filled) { empty.push(p); continue; }
+    const f = fillOf();
+    wordsSeen.push(f.words);
+    if (f.fill < 0.08) thin.push({ p, fill: f.fill });
+    coveredAt(p);
   }
-  const blank = [];
-  for (let i = 0; i < empty.length; i++) {
-    let j = i;
-    while (j + 1 < empty.length && empty[j + 1] - empty[j] <= 1.01 / (steps - 1)) j++;
-    blank.push(`a full viewport with nothing in it, ${Math.round(empty[i] * 100)}–${Math.round(empty[j] * 100)} % down the page`);
-    i = j;
-  }
-  const lopsided = [];
-  if (!desktop) {
-    await go(0);
-    const root = document.querySelector('main') ?? document.body;
-    for (const section of root.children) {
-      const sb = section.getBoundingClientRect();
-      if (sb.height < vh * 0.3 || pinOf(section)) continue;
-      const inside = content.filter((el) => section.contains(el) && el !== section);
-      const text = inside.reduce((n, el) => n + el.textContent.trim().length, 0);
-      if (inside.length < 2 || text < 120) continue;
-      let left = Infinity, right = -Infinity, wide = false;
-      for (const el of inside) {
-        const b = el.getBoundingClientRect();
-        if (b.width < 2 || b.height < 2) continue;
-        if (b.width >= vw * 0.9) wide = true;
-        left = Math.min(left, Math.max(0, b.left));
-        right = Math.max(right, Math.min(vw, b.right));
-      }
-      if (wide || right <= left) continue;
-      const span = (right - left) / vw, offset = ((left + right) / 2 - vw / 2) / vw;
-      if (span < 0.5 && Math.abs(offset) > 0.15) {
-        const name = section.id ? `#${section.id}` : section.classList[0] ? `.${section.classList[0]}` : section.tagName.toLowerCase();
-        lopsided.push(`${name}: content spans ${Math.round(span * 100)} % of the width, all on the ${offset < 0 ? 'left' : 'right'}`);
-      }
+  const runs = (list) => {
+    const out = [];
+    for (let i = 0; i < list.length; i++) {
+      let j = i;
+      while (j + 1 < list.length && list[j + 1] - list[j] <= 1.01 / (steps - 1)) j++;
+      out.push([list[i], list[j]]);
+      i = j;
+    }
+    return out;
+  };
+  const blank = runs(empty).map(([a, b]) => `a full viewport with nothing in it, ${Math.round(a * 100)}–${Math.round(b * 100)} % down the page`);
+  // A near-empty screen: under 8 % of the viewport holds anything. One is a rest; two or more is an underbuilt page.
+  const thinRuns = runs(thin.map((t) => t.p));
+  const nearEmpty = thinRuns.length >= 2 ? [`${thinRuns.length} screens that are mostly plain ground, at ${thinRuns.map(([a, b]) => a === b ? `${Math.round(a * 100)} %` : `${Math.round(a * 100)}–${Math.round(b * 100)} %`).join(', ')} down the page`] : [];
+  await go(0);
+  const sy = () => window.scrollY;
+  // Pictures that hold a side of a section: fixed ones hold it at every scroll position.
+  const pictures = [...document.querySelectorAll('img,picture,video,canvas,svg,iframe,*')].filter((el) => {
+    if (tucked(el)) return false;
+    const s = getComputedStyle(el);
+    if (s.display === 'none' || s.visibility === 'hidden') return false;
+    if (!(PICTURE.has(el.tagName) || /url\(/.test(s.backgroundImage))) return false;
+    const b = el.getBoundingClientRect();
+    return b.width >= 40 && b.height >= 40;
+  }).map((el) => { const b = el.getBoundingClientRect(); const fixed = pinOf(el) && getComputedStyle(pinOf(el)).position === 'fixed'; return { left: b.left, right: b.right, top: fixed ? -Infinity : b.top + sy(), bottom: fixed ? Infinity : b.bottom + sy() }; });
+  const lopsided = [], untitled = [];
+  const root = document.querySelector('main') ?? document.body;
+  const sections = [...root.children].filter((el) => !tucked(el));
+  for (const section of sections) {
+    const sb = section.getBoundingClientRect();
+    if (sb.height < vh * 0.3 || pinOf(section)) continue;
+    const inside = content.filter((el) => section.contains(el) && el !== section);
+    const text = inside.reduce((n, el) => n + [...el.childNodes].filter((c) => c.nodeType === 3).map((c) => c.textContent.trim().length).reduce((a, c) => a + c, 0), 0);
+    const name = section.id ? `#${section.id}` : section.classList[0] ? `.${section.classList[0]}` : section.tagName.toLowerCase();
+    if (desktop && text >= 200 && ![...section.querySelectorAll('h1,h2,h3,h4,h5,h6,[role="heading"]')].some((h) => !tucked(h) && getComputedStyle(h).display !== 'none' && h.textContent.trim())) {
+      untitled.push(`${name}: ${text} characters of running text and no heading naming the section`);
+    }
+    if (inside.length < 2 || text < 120) continue;
+    let left = Infinity, right = -Infinity, wide = false;
+    for (const el of inside) {
+      // Words where they sit: a heading's block box spans the column even when its words take a third of it.
+      const own = [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim());
+      const b = own ? textRect(el) : el.getBoundingClientRect();
+      if (b.width < 2 || b.height < 2) continue;
+      if (b.width >= vw * 0.9) wide = true;
+      left = Math.min(left, Math.max(0, b.left));
+      right = Math.max(right, Math.min(vw, b.right));
+    }
+    if (wide || right <= left) continue;
+    const span = (right - left) / vw, offset = ((left + right) / 2 - vw / 2) / vw;
+    if (span < 0.5 && Math.abs(offset) > 0.15) {
+      // The other side is closed when a picture (the section's own, a backdrop, a fixed canvas) holds it.
+      const [x0, x1] = offset < 0 ? [right, vw] : [0, left];
+      const top = sb.top + sy(), bottom = sb.bottom + sy();
+      const closed = pictures.some((m) => Math.min(m.right, x1) - Math.max(m.left, x0) >= (x1 - x0) * 0.4 && Math.min(m.bottom, bottom) - Math.max(m.top, top) >= Math.min(sb.height, vh) * 0.3);
+      if (!closed) lopsided.push(`${name}: content spans ${Math.round(span * 100)} % of the width, all on the ${offset < 0 ? 'left' : 'right'}, the other side empty`);
     }
   }
-  await go(0);
-  return { steps, blank, lopsided };
+  // Outer margins, desktop: the nearest text edge to each side of the screen over the whole page, header included,
+  // ignoring text that touches an edge (a bleed). Asymmetry inside the grid is fine; the frame's two margins match.
+  let margins = null;
+  if (desktop) {
+    let l = Infinity, r = Infinity;
+    for (const el of content) {
+      // Labels inside a drawing or a decorative figure belong to the picture, which may bleed; they are not the frame.
+      // The header counts: it is part of the frame, and its inset should match the page's.
+      if (el.closest('svg,[aria-hidden="true"]') || ![...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim())) continue;
+      // A control drawn as a box (a filled or outlined button) shows its box as the edge; plain text shows its words.
+      const control = el.closest('a,button,[role="button"]');
+      const st = control ? getComputedStyle(control) : null;
+      const boxed = !!control && (solid(st.backgroundColor) || (parseFloat(st.borderTopWidth) > 0 && st.borderTopStyle !== 'none'));
+      const b = boxed ? control.getBoundingClientRect() : textRect(el);
+      if (b.width < 8 || b.height < 4) continue;
+      if (b.left > 1) l = Math.min(l, b.left);
+      if (vw - b.right > 1) r = Math.min(r, vw - b.right);
+    }
+    if (Number.isFinite(l) && Number.isFinite(r)) margins = { left: Math.round(l), right: Math.round(r) };
+  }
+  const words = wordsSeen.length ? [...wordsSeen].sort((a, b) => a - b)[Math.floor(wordsSeen.length / 2)] : 0;
+  return { steps, blank, lopsided, covered: [...covered].filter(([el]) => !clear.has(el)).map(([, say]) => say), nearEmpty, untitled, margins, wordsPerScreen: words };
+}
+
+// The first screen 1.2 s after load: an h1 in view, visible and not under a loader or an entrance, that says in
+// words what this is. Measured before the ready wait, on purpose: a visitor does not wait for the page's signal.
+function firstScreenTitle() {
+  const tucked = (el) => !!el.closest('[hidden],[inert],[aria-hidden="true"],dialog:not([open]),template,noscript');
+  const h1s = [...document.querySelectorAll('h1')].filter((el) => !tucked(el));
+  if (!h1s.length) return { ok: false, why: 'no h1 on the page' };
+  const opacityOf = (el) => { let o = 1; for (let n = el; n && n !== document.documentElement; n = n.parentElement) o *= Number(getComputedStyle(n).opacity); return o; };
+  for (const h1 of h1s) {
+    const b = h1.getBoundingClientRect();
+    if (!h1.textContent.trim() && !h1.querySelector('img[alt],svg[aria-label],[aria-label]')) continue;
+    if (b.width < 2 || b.bottom <= 0 || b.top >= innerHeight) continue;
+    // A GL mirror: a canvas painted over the h1 draws the title. A canvas behind it (a hero scene) proves nothing.
+    const force = document.createElement('style');
+    force.textContent = '*, *::before, *::after { pointer-events: auto !important; }';
+    document.head.appendChild(force);
+    const stack = document.elementsFromPoint(Math.min(innerWidth - 1, Math.max(0, b.left + b.width / 2)), Math.min(innerHeight - 1, Math.max(0, b.top + b.height / 2)));
+    force.remove();
+    const own = stack.findIndex((n) => n === h1 || h1.contains(n));
+    if (stack.slice(0, own === -1 ? stack.length : own).some((n) => n.tagName === 'CANVAS')) return { ok: true, mirrored: true };
+    if (getComputedStyle(h1).visibility !== 'visible' || opacityOf(h1) < 0.5) return { ok: false, why: `the h1 “${h1.textContent.trim().slice(0, 40)}” is still hidden or faded 1.2 s after load (opacity ${opacityOf(h1).toFixed(2)})` };
+    const x = Math.min(innerWidth - 1, Math.max(0, b.left + Math.min(b.width / 2, 40))), y = Math.min(innerHeight - 1, Math.max(0, b.top + b.height / 2));
+    const top = document.elementFromPoint(x, y);
+    // A consent banner is the host's law, not the page's design.
+    const consent = (n) => { for (; n && n !== document.body; n = n.parentElement) if (/cookie|consent|gdpr|onetrust|didomi|cookiebot|usercentrics|\bcmp/i.test(`${n.id} ${n.className?.baseVal ?? n.className} ${n.getAttribute('aria-label') ?? ''}`)) return true; return false; };
+    if (top && top !== h1 && !h1.contains(top) && !top.contains(h1) && !consent(top)) {
+      const s = getComputedStyle(top);
+      if (!/rgba\(0, 0, 0, 0\)|transparent/.test(s.backgroundColor) && Number(s.opacity) > 0.5) return { ok: false, why: `the h1 is under <${top.tagName.toLowerCase()}${top.classList[0] ? `.${top.classList[0]}` : ''}> 1.2 s after load, a loader or a gate` };
+    }
+    return { ok: true };
+  }
+  return { ok: false, why: 'the h1 is not in the first viewport' };
 }
 
 // A bundler project's index.html imports /src modules and bare package names, which only its dev server
@@ -847,6 +1030,12 @@ if (args.render) {
         await page.addInitScript(installShift).catch(() => {});
         const loaded = await page.goto(url, { waitUntil: 'load', timeout: 30000 }).then(() => true, (e) => { errors.push(e.message); return false; });
         if (!loaded) dead = true;
+        // S11 reads the first screen as a visitor gets it, 1.2 s after load and before any ready signal.
+        if (!dead && label !== 'tablet') {
+          await page.waitForTimeout(1200);
+          const title = await step('first-screen title', () => page.evaluate(firstScreenTitle));
+          if (title && !title.ok) add('S11', `${label} (rendered)`, null, title.why);
+        }
         // Give entrances a fair chance: the page's own ready signal (capped), then two seconds.
         await step('ready', () => page.evaluate(() => Promise.race([window.__awards?.ready, new Promise((res) => setTimeout(res, 8000))])), 12000);
         if (!dead) await page.waitForTimeout(2000);
@@ -927,13 +1116,31 @@ if (args.render) {
           }
           return { bg: cs.backgroundColor, fg: cs.color, families: [...fams], overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1 ? (() => { const cw = document.documentElement.clientWidth; const el = [...document.body.querySelectorAll('*')].filter((e) => e.getBoundingClientRect().right > cw + 1).sort((a, b) => b.getBoundingClientRect().right - a.getBoundingClientRect().right).find((e) => !e.parentElement || e.parentElement.getBoundingClientRect().right <= cw + 1) ?? null; return `page is ${document.documentElement.scrollWidth} px wide in a ${cw} px viewport${el ? `, from <${el.tagName.toLowerCase()}${el.classList[0] ? `.${el.classList[0]}` : ''}>` : ''}`; })() : null, title: document.title, lang: document.documentElement.lang, stuck, long, edge, nested, ratioH1, grounds, eyebrows, sectionCount, soft };
         }, groundToken));
+        // Measured for the jury, never a rule (headline length and the action's place are judged by decision): how many
+        // lines each h1–h3 takes at this width, and which actions drawn as buttons sit in the first viewport.
+        const lines = await step('headline lines', () => page.evaluate(() => {
+          const tucked = (el) => !!el.closest('[hidden],[inert],[aria-hidden="true"],dialog:not([open]),template');
+          // Visible words only: a split heading often carries a clipped screen-reader copy beside its drawn lines.
+          const hidden = (n, stop) => { for (let e = n.parentElement; e && e !== stop.parentElement; e = e.parentElement) { const st = getComputedStyle(e); if (e.getAttribute('aria-hidden') === 'true' && e !== stop) continue; if ((st.clip && st.clip !== 'auto') || /inset\(50%/.test(st.clipPath || '') || st.display === 'none' || st.visibility === 'hidden') return true; const b = e.getBoundingClientRect(); if (b.width <= 1 || b.height <= 1) return true; } return false; };
+          const visibleText = (el) => { const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT); const out = []; for (let t = w.nextNode(); t; t = w.nextNode()) if (t.nodeValue.trim() && !hidden(t, el)) out.push(t); return out; };
+          const count = (nodes) => { const tops = new Set(); for (const t of nodes) { const r = document.createRange(); r.selectNodeContents(t); for (const b of r.getClientRects()) if (b.width > 1 && b.height > 1) tops.add(Math.round(b.top / 4)); } return tops.size; };
+          const headlines = [...document.querySelectorAll('h1,h2,h3')].filter((el) => !tucked(el) && el.textContent.trim() && el.getBoundingClientRect().width > 0)
+            .slice(0, 12).map((el) => { const nodes = visibleText(el); return { tag: el.tagName.toLowerCase(), text: (nodes.filter((t) => !t.parentElement.closest('[aria-hidden="true"]')).map((t) => t.nodeValue).join('') || nodes.map((t) => t.nodeValue).join('')).trim().replace(/\s+/g, ' ').slice(0, 48), lines: count(nodes), px: Math.round(parseFloat(getComputedStyle(el).fontSize)) }; });
+          const actions = [...document.querySelectorAll('a[href],button,[role="button"]')].filter((el) => {
+            if (tucked(el) || el.closest('nav,header')) return false;
+            const b = el.getBoundingClientRect(), st = getComputedStyle(el);
+            const drawn = !/rgba\(0, 0, 0, 0\)|transparent/.test(st.backgroundColor) || (parseFloat(st.borderTopWidth) > 0 && st.borderTopStyle !== 'none');
+            return drawn && b.width > 24 && b.height > 20 && b.top >= 0 && b.bottom <= innerHeight && st.visibility === 'visible';
+          }).map((el) => el.textContent.trim().replace(/\s+/g, ' ').slice(0, 32));
+          return { headlines, firstViewportActions: actions };
+        }));
         // Layout shift during load (P08), read before any scroll: the sweep jumps between positions, and a
         // pinned element handing off between fixed and in-flow at a jump would count as a shift no reader sees.
         const shift = await step('layout shift', () => page.evaluate(() => window.__awardsShift ?? null));
         if (shift && shift.value > 0.1) add('P08', `${label} (rendered)`, null, `CLS ${shift.value.toFixed(3)} during load${shift.top ? `, largest from ${shift.top}` : ''}`, shift.value > 0.25 ? 'P1' : undefined);
         if (r) {
           const where = `${label} (rendered)`;
-          renderedCoverage[label] = { textsMeasured: contrast?.measured ?? 'unmeasured', textsOverImagery: contrast?.unmeasured ?? 0, ...(shift ? { clsLoad: Number(shift.value.toFixed(4)) } : {}) };
+          renderedCoverage[label] = { textsMeasured: contrast?.measured ?? 'unmeasured', textsOverImagery: contrast?.unmeasured ?? 0, ...(shift ? { clsLoad: Number(shift.value.toFixed(4)) } : {}), ...(lines ?? {}) };
           for (const f of contrast?.fails.slice(0, 4) ?? []) add('C01', where, null, `${f.say} ${f.fg} on ${f.bg} = ${f.ratio}:1, needs ${f.need}:1`);
           if (r.overflow) add('L02', where, null, `horizontal overflow: ${r.overflow}`);
           for (const f of r.families) if (reflex.has(f.toLowerCase())) add('T01', where, null, f);
@@ -1001,14 +1208,18 @@ if (args.render) {
           for (const s of labels.slice(0, 4)) add('C01', `${label} (rendered, focus)`, null, s);
           for (const s of rings.slice(0, 4)) add('A12', `${label} (rendered, focus)`, null, s);
         }
-        // The whole page, scrolled through: a viewport with nothing in it (L09), and on tablet and phone a
-        // section whose content keeps to one narrow side (L10).
+        // The whole page, scrolled through: blank viewports (L09), lopsided sections (L10, L13), covered text (L11),
+        // unequal margins (L12), untitled sections (L14) and near-empty screens (L15).
         const sweep = await step('scroll sweep', () => page.evaluate(sweepPage, label === 'desktop'), 60000);
         if (sweep) {
           const where = `${label} (rendered)`;
           for (const s of sweep.blank.slice(0, 2)) add('L09', where, null, s);
-          for (const s of sweep.lopsided.slice(0, 2)) add('L10', where, null, s);
-          if (renderedCoverage[label]) renderedCoverage[label].sweepSteps = sweep.steps;
+          for (const s of sweep.lopsided.slice(0, 2)) add(label === 'desktop' ? 'L13' : 'L10', where, null, s);
+          for (const s of sweep.covered.slice(0, 3)) add('L11', where, null, s);
+          if (sweep.margins && Math.abs(sweep.margins.left - sweep.margins.right) > Math.max(16, 0.5 * Math.min(sweep.margins.left, sweep.margins.right))) add('L12', where, null, `nearest text ${sweep.margins.left} px from the left edge and ${sweep.margins.right} px from the right`);
+          for (const s of sweep.untitled.slice(0, 3)) add('L14', where, null, s);
+          for (const s of sweep.nearEmpty) add('L15', where, null, s);
+          if (renderedCoverage[label]) Object.assign(renderedCoverage[label], { sweepSteps: sweep.steps, wordsPerScreen: sweep.wordsPerScreen, ...(sweep.margins ? { margins: sweep.margins } : {}) });
         }
         for (const e of errors) findings.push({ rule: 'ERR', severity: 'P1', scope: 'render', file: label, line: null, message: `page error: ${e.slice(0, 160)}`, fix: 'Fix runtime errors before review' });
         await page.close().catch(() => {});
