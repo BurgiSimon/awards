@@ -193,6 +193,23 @@
         "S11"
       ],
       "date": "2026-10-26"
+    },
+    "https://white-desert.com/": {
+      "group": "winner",
+      "slug": "white-desert",
+      "status": "measured",
+      "rules": [
+        "A14",
+        "A16",
+        "A18",
+        "C01",
+        "L08",
+        "L11",
+        "P09",
+        "S11",
+        "T01"
+      ],
+      "date": "2026-10-26"
     }
   }
 }
