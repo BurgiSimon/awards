@@ -8,18 +8,19 @@
         "A18",
         "C01",
         "L07",
-        "L08",
         "L11",
         "L12",
         "P09",
         "S11",
         "T01"
       ],
+      "audit": "7aa25ebcad",
       "date": "2026-10-26"
     },
     "https://zean.framer.website/": {
       "group": "contrast",
       "status": "not measured: the rendered steps failed",
+      "audit": "7aa25ebcad",
       "date": "2026-10-26"
     },
     "https://patroon-app.framer.website/": {
