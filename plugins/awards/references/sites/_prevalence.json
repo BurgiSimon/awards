@@ -180,6 +180,19 @@
         "S11"
       ],
       "date": "2026-10-26"
+    },
+    "https://www.warmnfuzzy.tv/": {
+      "group": "winner",
+      "slug": "warmnfuzzy",
+      "status": "measured",
+      "rules": [
+        "A16",
+        "A18",
+        "C01",
+        "L11",
+        "S11"
+      ],
+      "date": "2026-10-26"
     }
   }
 }
