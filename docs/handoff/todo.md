@@ -61,7 +61,7 @@ Excluded by that instruction (lower impact, larger effort): F5 jury panel, F6 mo
 1. Real-GPU and real-phone pass for the seven wave 5 recipes (`gl-swarm-light-field`, `gl-screen-paint-distortion`, `gl-grade-pass-scene-cuts`, `gl-dom-refraction-lens`, `gl-pointer-wake-reveal`, `point-cloud-shape-morph`, `wordmark-header-handoff`): frame times, the swarm's lazy chunk on a phone, the lens's repaint cost during a fast scroll. All were verified on SwiftShader only.
 2. everswap's official scores: the Awwwards entry page returned 502; re-read it and replace the `[recalled]` award line with the jury figures.
 3. Not built from the wave (`recipe-proposals-2026-10-26-wave-5.md#not-built-candidates-left-in-this-file`): `gl-scroll-speed-tunnel`, `gl-texture-skinned-bird`, `gl-gpu-spline-trails`, `gl-voronoi-fracture-carry`, `gl-dual-gate-camera-track`. The bird and the camera track need authored DCC exports; the tunnel overlaps `gl-virtual-scroll-camera`.
-4. Stamp the seven recipes (`verify-recipes --only <ids> --stamp`) at the next release, and re-run `--pseudo` on `wordmark-header-handoff` and `gl-dom-refraction-lens` (both measure text).
+4. Stamp the seven recipes (`verify-recipes --only <ids> --stamp`) at the next release; all seven already pass `--pseudo`.
 
 ## Release 0.8.0 follow-ups (2026-10-23)
 - Maintainer: tag `v0.8.0` on the merge commit and publish the GitHub release from `CHANGELOG.md`.
