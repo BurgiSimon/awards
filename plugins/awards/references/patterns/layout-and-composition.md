@@ -27,7 +27,8 @@ Why: the column count sets the smallest offset a layout can take. The corpus pic
 | 8, as an overlay | the page's own columns, switched on by the reader | [site:grids-obys] | [verified, count measured from a frame] |
 | 12 → 6, 8 or 4 | 8-of-12 and 6-of-12 spans; one count per breakpoint; column rules over photography | [site:lama-lama] [site:trevor-noah] [site:white-desert] | [verified] |
 | 12, varied | cards at mixed spans and starts; a masonry wall of 3 / 2 / 1; hairline rows in a 1440 px container | [site:haoqi] [site:alectear] [site:runrobrun] | [verified] |
-| 16 → 6, 8 or 4 | outer columns as margin (`col-start-2 / col-span-14`); the gutter as a fraction of the column; padding per breakpoint | [site:mindmarket] [site:oryzo] [site:united-carriers] | [verified] |
+| 12 → 4, no gutters | equal bays margin to margin, drawn as 6 % hairlines under `difference` blending, every label hung on a bay edge | [site:daikifujita] | [verified] |
+| 16 → 6, 8 or 4 | outer columns as margin (`col-start-2 / col-span-14`); the gutter as a fraction of the column (`24/90`, or .15); padding per breakpoint | [site:mindmarket] [site:oryzo] [site:united-carriers] [site:everswap] | [verified] |
 | 24 → 8 | fine placement; the `<h1>` in a 24-column row; start columns per breakpoint | [site:seasats] [site:floema] [site:mont-fort] | [verified] |
 | 8 / 16 / 24 | media cards at mixed sizes | [site:warmnfuzzy] | [verified counts; which width gets which inferred] |
 | 4 or 2 | a one-column sidebar beside three of rows; hairline two-column lists | [site:boc] [site:cyphercapital] | [verified] |
@@ -36,7 +37,7 @@ Why: the column count sets the smallest offset a layout can take. The corpus pic
 Rules:
 - Count for the finest offset the page needs, then use few spans. Twelve gives halves, thirds and quarters; sixteen or twenty-four earn their place only where something starts on a sixteenth or a twenty-fourth.
 - No card keeps its desktop count on the phone: 4, 6 and 8 all appear; the intermediate counts sit between (6 [site:oryzo]; 8 [site:united-carriers] [site:trevor-noah]).
-- A visible grid is art direction only when content sits on it: rules over photography [site:white-desert], a reader-switched overlay [site:grids-obys], crosshairs over every section [site:haoqi], survey hairlines [site:abatable] [verified on each card]. A dev overlay left in production CSS is the miss [site:seasats] [verified]; lines painted in as texture are audit X09.
+- A visible grid is art direction only when content sits on it: rules over photography [site:white-desert], a reader-switched overlay [site:grids-obys], crosshairs over every section [site:haoqi], survey hairlines [site:abatable], bay hairlines that every label hangs from [site:daikifujita] [verified on each card]. A dev overlay left in production CSS is the miss [site:seasats] [verified]; lines painted in as texture are audit X09.
 
 ## Gutters, margins and artboards
 
@@ -66,7 +67,7 @@ Rules:
 - Running prose: 60–70ch as `max-width` on the text element, never on the section (L07). The editorial recipe holds its paragraphs in about 58ch beside the figure [recipe:editorial-image-text].
 - Display lines are measured in words. Three-line display headlines are the corpus habit in heroes [site:lama-lama] [site:usavionix] [site:haoqi] and closes [site:leo-parpeix] [verified on each card]; break by sense and check the same breaks at 390.
 - Flush left, ragged right by default; centre only short statements. Justified copy in a narrow column opens rivers: centred justified caps [site:serotoninn] and justified body on the phone [site:wearedirect] [verified] are the ones to beat.
-- A column over an image needs a quiet zone in the crop or a shade under the column alone: black from .88 to 0 by 72 % of the width [site:christoph-nagel] [verified]. A fixed header with no scrim over artwork is the miss [site:the-line] [verified].
+- A column over an image needs a quiet zone in the crop or a shade under the column alone: black from .88 to 0 by 72 % of the width [site:christoph-nagel] [verified]; over a busy painted world, a soft `0 0 .12em` shadow at .3 black on every DOM title [site:everswap] [verified]. A fixed header with no scrim over artwork is the miss [site:the-line] [verified].
 - Labels, side letters and notes hang in the gutter or margin, outside the measure [site:ascension-pegassi] [site:grids-obys] [verified].
 
 ## Asymmetry and offset columns
@@ -161,7 +162,7 @@ Why: the Page map's Layout cell needs names for geometry rather than content, so
 | Index rows | full-width rows, often ruled: title, metadata, optional media | Accent | rows stay rows; media below the title | [site:lama-lama] [site:boc] [site:spasoje] [site:leo-parpeix] [site:cyphercapital] | [verified] |
 | Uneven grid | tiles at varied spans and starts, or a masonry wall | Led | one or two columns, one offset step | [site:haoqi] [site:warmnfuzzy] [site:alectear] | [verified] |
 | Figure and spec | an image or numeral beside a table | Shared | figure, then table | [site:grids-obys] [site:pensatori-irrazionali]; [recipe:product-specification] | [verified] |
-| Object stage | one centred object, chrome pinned to corners and edges | Led | object larger, panels below | [site:areebali] [site:a24-raviklaassens] [site:igloo] [site:aqualoqa] | [verified] |
+| Object stage | one centred object, chrome pinned to corners and edges | Led | object larger, panels below | [site:areebali] [site:a24-raviklaassens] [site:igloo] [site:aqualoqa]; under left-set titles with a bottom-centre card [site:da-san333] | [verified] |
 | Edge-to-edge type | a word or title spans the measure | None or Accent | two lines, or scaled to the width | [site:white-desert] [site:gehry-getty] [site:bethebuzz] [site:spasoje] | [verified] |
 | Stepped indent | lines or paragraphs on a stair of indents | None | one or two steps | [site:ascension-pegassi] [site:the-boyd] | [verified] |
 | Rail | a horizontal track inside the vertical page | Led | native overflow with snap and a peek | [site:goats] [site:leo-parpeix] [site:robbietilton] [site:son-daven] | [verified] |
@@ -271,6 +272,8 @@ Why: the numbers each card records, in one place, so a new build can see where i
 | [site:okaydev] | [unknown] | — | 80 px round the header | ≈ 72 / 48 px | [unknown] | [verified token] |
 | [site:grids-obys] | 8, overlay | ≈ 14 px | [unknown] | ≈ 110 px titles, ≈ 280 px wordmark / phone gated | half-page split | [verified overlay; sizes inferred] |
 | [site:wearedirect] | 2 | [unknown] | [unknown] | 68 / 60 px | half | [verified] |
+| [site:daikifujita] | 12 → 4 bays | none | `clamp(20px, 2.8vw, 48px)`: ≈ 40 / 20 px | works titles ≈ 78 / 46 px; the hero line fitted to the viewport | one object over a type marquee | [verified tokens; px inferred] |
+| [site:everswap] | 16 → 8 | .15 of a column | [unknown] | h1 200 / ≈ 102 px, drawn in GL | a painted world to the glass | [verified tokens; px inferred] |
 
 Reading the table:
 - Four rows can pass 13 vw (≈ 187 px at 1440): a wordmark clamped up to 450 px [site:trevor-noah], a clamp with no real ceiling [site:agrumeafarm], a 15 vw poster face [site:wodniack] and a knockout word across the width [site:bethebuzz] (size inferred). Audit T03 holds display type near 12–13 vw (`[pattern:typography#fluid-scale]`); a word that spans the measure is an Edge-to-edge type row and is recorded under `AWARDS.md ## Exceptions`.
@@ -296,4 +299,4 @@ Reading the table:
 - Grid lines as texture with nothing on them, or a dev overlay shipped by accident (X09).
 - `100vw` bleeds, an inset invented per section, one gap everywhere.
 - A full-width wordmark close by default; the hero's family reused mid-page.
-- Any card's fingerprint as a set: The Line's 1728 artboard with an 8 px phone margin, Lama Lama's 12 columns at 24 / 40 px, Floema's 24-column clamps, Oryzo's ratio gutter, Seasats' 24 / 1.2rem / 3.2rem, Boc's quarter rail at 15 px, Christoph Nagel's 35vw column over footage.
+- Any card's fingerprint as a set: The Line's 1728 artboard with an 8 px phone margin, Lama Lama's 12 columns at 24 / 40 px, Floema's 24-column clamps, Oryzo's ratio gutter, Seasats' 24 / 1.2rem / 3.2rem, Boc's quarter rail at 15 px, Christoph Nagel's 35vw column over footage, Daiki Fujita's twelve gutterless hairline bays.
