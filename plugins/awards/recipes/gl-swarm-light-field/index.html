@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#1a1c1c">
+  <title>gl-swarm-light-field — awards recipe</title>
+  <meta name="description" content="A footer swarm of instanced shapes, lit by a light that follows the pointer and shadowed by a voxel light field.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">gl-swarm-light-field · <span data-gl-readout>dom</span></p></header>
+  <main id="main">
+    <section class="wrap section intro" aria-labelledby="t">
+      <h1 class="display" id="t">The close<br>is a lit room.</h1>
+      <p class="lede">Scroll to the footer. A swarm of instanced seeds drifts along a spiral path; a point light rides the pointer, and every seed shades its neighbours through a coarse voxel grid of where the swarm is. Nothing here is a model file.</p>
+    </section>
+    <section class="wrap section notes" aria-labelledby="rules">
+      <h2 id="rules">Rules</h2>
+      <ul>
+        <li>The simulation runs on the CPU and writes positions and rotations into two float textures; one instanced draw reads them by instance index.</li>
+        <li>The swarm splats itself as one-pixel points into a 32 × 16 × 16 voxel grid stored as a sliced 2D atlas, with <code>MAX</code> blending; one pass blurs across slices and eases toward the new occupancy.</li>
+        <li>Each seed reads ambient occlusion one voxel along its normal and shadow one and two voxels toward the light.</li>
+        <li>The loop runs only while the footer is on screen. Reduced motion draws one settled frame with the light parked; the static tier draws nothing and the footer is plain DOM.</li>
+      </ul>
+    </section>
+    <section class="wrap section notes" aria-labelledby="params">
+      <h2 id="params">Parameters</h2>
+      <ul>
+        <li>1,024 seeds on a desktop (32²), 576 on a phone or a low tier (24²); seed half-length 0.022 units.</li>
+        <li>Path: a diagonal across a landscape footer, a steep fall on a portrait one; curve amplitude 0.1 at frequency 8, spiral radius up to 0.2, drift 0.2 units a second, pull-back rate 0.5, damping 1.</li>
+        <li>Pointer: a sphere of radius 0.2 pushes at 0.25 and hands the seeds its own motion; the light floats 0.3 in front of the swarm and eases to the pointer at 12 per second.</li>
+        <li>Field: rise 0.15 and fall 0.05 a frame, so a seed that leaves a voxel keeps a short shadow behind it.</li>
+        <li>These are this recipe's own values. The corpus card names where the architecture came from; its numbers are not targets.</li>
+      </ul>
+    </section>
+    <section class="wrap section notes" aria-labelledby="access">
+      <h2 id="access">Accessibility and cost</h2>
+      <ul>
+        <li>The canvas is <code>aria-hidden</code>; every word and control in the footer is DOM above it, with 44 px targets.</li>
+        <li>Three.js is imported only when the footer is within a screen of the viewport, and the loop stops whenever the footer leaves it.</li>
+        <li>WebGL 2 is required (float data textures and <code>MAX</code> blending); without it the footer is plain DOM on its ground colour.</li>
+      </ul>
+    </section>
+  </main>
+  <footer class="site-footer" data-footer>
+    <canvas class="gl" data-gl aria-hidden="true"></canvas>
+    <div class="wrap site-footer__grid">
+      <p class="site-footer__head">If it holds your eye here,<br>imagine the rest of the page.</p>
+      <form class="site-footer__form" data-form>
+        <label for="email" class="label">Letters, four a year</label>
+        <div class="site-footer__field"><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required><button type="submit">Subscribe</button></div>
+      </form>
+      <nav class="site-footer__links" aria-label="Footer">
+        <a href="#main">Back to the top</a>
+        <a href="../index.html">All recipes</a>
+        <a href="https://example.com" rel="noopener">Studio (example)</a>
+      </nav>
+      <p class="label site-footer__small">Synthetic demo content · awards recipes · MIT</p>
+    </div>
+  </footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

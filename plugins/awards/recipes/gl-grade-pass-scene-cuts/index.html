@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#10231a">
+  <title>gl-grade-pass-scene-cuts — awards recipe</title>
+  <meta name="description" content="Three GL scenes on one canvas, cut inside the final grade pass: a staged blur dip, a diamond iris over a frozen frame, and a footer iris onto the brand ground.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2310231a'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <canvas class="gl" data-gl aria-hidden="true"></canvas>
+  <canvas class="outline" data-outline aria-hidden="true"></canvas>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">gl-grade-pass-scene-cuts · <span data-gl-readout>dom</span></p></header>
+  <main id="main">
+    <section class="chapter" id="dusk" data-scene="0" aria-labelledby="h-dusk">
+      <div class="wrap chapter__copy">
+        <p class="label">Scene one · dusk</p>
+        <h1 class="display" id="h-dusk">One canvas,<br>three worlds.</h1>
+        <p class="lede">Every scene renders into the same target. The cuts between them are not a second scene composited on top: they are three lines in the last pass, where the grade already is.</p>
+      </div>
+    </section>
+    <section class="chapter" id="tide" data-scene="1" aria-labelledby="h-tide">
+      <div class="wrap chapter__copy">
+        <p class="label">Scene two · tide</p>
+        <h2 id="h-tide">The first cut is a blur that runs out of image.</h2>
+        <p class="lede">Full-resolution blur first, then half, then quarter, then a flat colour. The scene swaps under the flat colour, where nothing can show the seam.</p>
+      </div>
+    </section>
+    <section class="chapter" id="moss" data-scene="2" aria-labelledby="h-moss">
+      <div class="wrap chapter__copy">
+        <p class="label">Scene three · moss</p>
+        <h2 id="h-moss">The second cut freezes the last frame.</h2>
+        <p class="lede">On its first frame the cut copies the outgoing image. The new scene opens inside a growing diamond while the still stays outside, and a 2D canvas draws the diamond's edge in sync.</p>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer" data-footer>
+    <div class="wrap site-footer__inner">
+      <p class="label">The close</p>
+      <p class="site-footer__head">The world closes to a window,<br>then to the ground colour.</p>
+      <p class="site-footer__links"><a href="#main">Back to the top</a><a href="../index.html">All recipes</a></p>
+      <p class="label site-footer__small">Synthetic demo content · awards recipes · MIT</p>
+    </div>
+  </footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

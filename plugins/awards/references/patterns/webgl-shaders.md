@@ -39,6 +39,7 @@ Why: scroll, pointer, velocity and time reach the GPU as named, damped numbers o
 - **Tweened uniforms.** Melt, hover and progress uniforms as GSAP targets with a `killTweensOf` first [site:why-zero] [verified]; values in `[pattern:gsap-choreography#driving-gl-from-timelines]`.
 - **Order in the data, not in the timeline.** Each texel of the pipe mask carries a branch id in R and a 16-bit arc length across G and B; one uniform array, `u_branchReveal[4]`, then turns any path set into a trim-path reveal whose tip rounds like a cap [site:cyphercapital] [verified]; values in `[pattern:webgl-architecture#effect-parameters]`.
 - **A phase eased toward a target, no time uniform.** The swirl's phase moves at `1 − e^(−6t)` toward a target, so the field rests when the target rests [site:cyphercapital] [verified]; that scroll sets the target is [inferred].
+- **Post profiles as data, rebuilt every frame.** One profile object of about forty numbers and colours (bloom, halo, bokeh, vignette, saturation, contrast, tint, screen paint, SMAA); each frame starts from the default, every live scene `blend()`s its own by its ratio (numbers mixed, colours mixed through `Color`), and one sync writes the passes [site:oryzo] [verified]. A chapter change is then a cross-fade of grades with no tween to kill.
 - **Clamp the hand, protect the message.** The brush reads pointer delta clamped per frame, and a painted mask through `smoothstep(.25, .75)` scales the force to zero over the content that must stay legible — the screen of a buried television [site:aqualoqa] [verified]; values in `[pattern:webgl-architecture#effect-parameters]`.
 
 ## Noise and field toolbox
@@ -60,6 +61,8 @@ Why: section transitions and feedback effects live in render targets; their size
 - **The scene cut as a pass.** Chapter changes run through a chromatic transition in the post queue with a dip to white, not through a second composited scene [site:edolus] [verified]; values in `[pattern:webgl-architecture#effect-parameters]`.
 - **Float state for a point field.** Two ping-pong pairs at 1102²: a wake timer, and motion with displacement in RG and velocity in BA; RGBA32F under WebGL2 with `EXT_color_buffer_float`, else WebGL1 with `OES_texture_float`, else the effect is skipped and the photograph and video stay; nearest filtering, swapped every frame [site:aqualoqa] [verified].
 - **Reveal a second layer, not a hole.** A points pass at each grain's home paints a prepared under-image where the grain has moved far enough; a reset glides the displacement home and then clears the buffers [site:aqualoqa] [verified]; values in `[pattern:webgl-architecture#effect-parameters]`.
+- **Screen paint instead of a solver.** A quarter-resolution ping-pong field (RGBA8, velocity around .5, two weights) plus a sixteenth-resolution blurred copy: a capsule stroke from the last pointer position to this one, self-advection along the blurred copy, curl from analytic-gradient noise, decay floored so 8-bit storage reaches zero; any pass may read it [site:oryzo] [verified]; values in `[pattern:webgl-architecture#effect-parameters]`, `[recipe:gl-screen-paint-distortion]`.
+- **A voxel grid in a 2D atlas.** A 32 × 16 × 16 occupancy grid stored as an R8 sliced atlas; one-pixel points splatted with `MAX` blending, a pass that blurs across slices and eases toward the new occupancy through a ping-pong pair, sampled with manual interpolation between slices [site:oryzo] [verified]; `[recipe:gl-swarm-light-field]`.
 - **No render target.** Tone mapping, gamma and dither inline in each program; no framebuffer is created [site:cyphercapital] [verified].
 
 ## Post chains
@@ -70,6 +73,7 @@ Why: post order changes the image (grain before or after the grade, bloom before
 |---|---|---|---|
 | film grain (.02 at 24 fps) → bokeh (maxBlur .02) → bloom → chromatic transition → satellite-feed screen effect | bloom is disabled in the scene, yet bloom and vignette presets are tweened .9 s `power2.inOut` on every chapter change (one preset: threshold .2, intensity 1.4); depth of field is pulled by scroll band | [site:edolus] | [verified script order and values]; that script order is render order [inferred]; the presets do nothing for bloom [inferred] |
 | RenderPass → GTAO (half resolution, radius .35, 8 samples, off by default) → bloom from a separate composer at .4 scale (strength .55, radius .4, threshold .85) → depth of field (off) → OutputPass → painterly quadrant filter (radius 6, step 2, sharpness 18) → ink contour from the GTAO depth and normals (threshold .1, thickness 1.4) → grade (vignette, warm base) → transition → lens shell with grain .045 → dither (desktop only) → portal lens (refraction .1, noise .035, chroma .006) | a stylisation stack after the output pass, so the render reads drawn; the frame-time governor drops the painterly pass last | [site:cutobot-byholm] | [verified values and order]; reading the filter as Kuwahara [inferred] |
+| TAA (history .8, velocity from a second colour attachment) → FXAA while TAA runs, else SMAA (.05) → bokeh (quality 0 on phones) → an edge-glow pass gated on its own amount → a magazine layer → bloom (no convolution) → box blur → screen-paint distortion → final grade with a per-frame dither seed and the preloader mask | every pass skips itself at amount 0, and a per-scene profile sets the amounts | [site:oryzo] | [verified order and defaults] |
 | none in GL; grain as a separate 2D canvas of eight 192 px random tiles at half resolution, overlay at .07, redrawn every third frame | the cheapest grain is outside the context | [site:aqualoqa] | [verified] |
 
 Rule: a preset that tweens a disabled pass is dead weight — check that every tweened parameter reaches a live pass. The scroll-banded focus pull is in `[pattern:webgl-architecture#effect-parameters]`.
@@ -89,6 +93,7 @@ Why: GL text must keep a DOM twin; this section records how the corpus distorts 
 | EDOLUS | PlayCanvas 2.21.4, one canvas, 40-odd named-uniform programs in five kinds, four ping-pong pairs, a grain → bokeh → bloom → chromatic → screen queue, all on one progress value; a frame-time DPR governor (`[pattern:webgl-architecture#scene-windows-and-disposal]`) and a warm-up walk behind the gate (`[pattern:preloaders-and-transitions#preloader-archetypes]`) | one pointer-push uniform family shared by every particle field; a focus pull banded to scroll | [site:edolus] |
 | Cypher Capital | raw WebGL2, four programs in four modules, no library; masks and fields generated from vector paths in a Worker; one detached context shared by many word canvases; inline tone map and dither, no render target; DPR ≤ 2 and ≤ 12.5 MP | arc length packed in two channels for a trim-path reveal; a 2D SDF raymarched into a chrome logo | [site:cyphercapital] |
 | Aqualoqa | raw WebGL2 with a WebGL1 float fallback, four programs; two float ping-pong pairs at 1102²; ≈ 1.21 M points twice a frame with no idle gate or tier; grain on a separate 2D canvas; a port of an open-source sand toy, credited in the source | a terrain and a protect mask on a pointer brush; a hole pass that reveals a prepared under-image | [site:aqualoqa] |
+| Oryzo | three r178 patched; one canvas; a ten-pass queue whose amounts come from per-scene profiles blended by ratio; a screen-paint field read by the distortion pass; a voxel light field for 1,024 instanced beans; TAA with an MRT velocity target | screen paint without a solver; occupancy-atlas AO and shadow | [site:oryzo] |
 
 ## Recipe map
 
@@ -106,6 +111,9 @@ Why: GL text must keep a DOM twin; this section records how the corpus distorts 
 | Dispersion stripes with fwidth anti-aliasing | [recipe:gl-dispersion-stripes] |
 | Raymarched extruded SDF symbol | [recipe:gl-sdf-extruded-symbol] |
 | Rendering off the main thread | [recipe:offscreen-canvas-worker] |
+| Pointer paint without a solver | [recipe:gl-screen-paint-distortion] |
+| Scene cuts inside the grade pass | [recipe:gl-grade-pass-scene-cuts] |
+| A pointer wake that opens a second world | [recipe:gl-pointer-wake-reveal] |
 
 ## Verify
 

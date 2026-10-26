@@ -1,0 +1,27 @@
+{
+  "id": "wordmark-header-handoff",
+  "title": "Hero wordmark that becomes the header logo, with an easing nav underline",
+  "intent": "Name docks in the bar",
+  "group": "arrival-and-chrome",
+  "summary": "One fixed link laid out in the header slot and transformed onto the hero's reference box, unwinding to identity over 60 % of the hero (cubic in-out); the nav underline eases both edges at 1 − e^(−10·dt) and snaps the last .05 px; reduced motion keeps the link docked and fades a decorative hero copy",
+  "tags": [
+    "navigation",
+    "typography",
+    "hero",
+    "scroll",
+    "keyboard",
+    "inertia",
+    "accessibility",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [],
+  "variants": [
+    "Vanilla transform on the shared ticker (this)",
+    "GSAP: one ScrollTrigger scrub on the hero with the same from-transform measured on refresh",
+    "CSS scroll-driven animation: animation-timeline: view() on the hero, with the from-transform written into custom properties on resize"
+  ],
+  "seenIn": [
+    "oryzo"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "gl-pointer-wake-reveal",
+  "title": "A pointer wake that opens the paper onto a second world",
+  "intent": "Wake reveals a world",
+  "group": "heroes-and-type",
+  "summary": "Up to 140 wake points (750 ms life, radius from speed) painted as radial gradients into a 320 × 200 mask canvas; a GL composite shows a night scene only where the mask is open; the world renders at 0.62 scale every second frame and nothing renders at rest; fine pointers only",
+  "tags": [
+    "webgl",
+    "three",
+    "shader",
+    "mask",
+    "render-target",
+    "canvas",
+    "hero",
+    "pointer",
+    "noise",
+    "performance",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [
+    "three@0.186.0"
+  ],
+  "variants": [
+    "Three.js (this)",
+    "A full second scene (a three.js world with its own camera) in place of the procedural night, rendered into the same reduced-scale target",
+    "Word mask: draw the hero's glyphs into the mask canvas as well, so the world shows inside the type"
+  ],
+  "seenIn": [
+    "daikifujita"
+  ]
+}

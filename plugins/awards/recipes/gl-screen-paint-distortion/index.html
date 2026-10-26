@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#1a1c1c">
+  <title>gl-screen-paint-distortion — awards recipe</title>
+  <meta name="description" content="A pointer paint field without a fluid solver: a capsule stroke, self-advection and curl noise, read by one smear-and-fringe post pass.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">gl-screen-paint-distortion · <span data-gl-readout>dom</span></p></header>
+  <main id="main">
+    <section class="hero" aria-labelledby="t" data-hero>
+      <canvas class="gl" data-gl aria-hidden="true"></canvas>
+      <div class="hero__copy wrap">
+        <p class="label">Pointer paint, no solver</p>
+        <h1 class="display" id="t" data-hero-title>Drag a brush<br>through the glass.</h1>
+        <p class="lede">The pointer paints a stroke into a quarter-resolution field. The field advects itself along a blurred copy of its own velocity and curls through gradient noise; one post pass smears the hero along it and fringes the colour where the stroke thins out.</p>
+      </div>
+    </section>
+    <section class="section wrap notes" aria-labelledby="rules">
+      <h2 id="rules">Rules</h2>
+      <ul>
+        <li>The stroke is a capsule from the last pointer position to this one, so a fast flick leaves a continuous mark, not dots.</li>
+        <li>Its radius grows with the distance moved in a frame (0 to 100 px over 0 to 100 px), so a resting pointer paints nothing.</li>
+        <li>Velocity is stored around 0.5 in an 8-bit target; every weight decays by at least 0.004 a frame, so the field always returns to exactly zero.</li>
+        <li>On a touch screen the brush paints only while a finger is down. Reduced motion: no field and no canvas; the hero is plain DOM.</li>
+      </ul>
+    </section>
+  </main>
+  <footer class="wrap footer"><p class="label">Synthetic demo content · awards recipes · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

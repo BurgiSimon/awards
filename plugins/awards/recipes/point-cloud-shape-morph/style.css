@@ -1,0 +1,17 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+/* Fixed heights keep the scroll arithmetic exact: the morph spans the section's 200vh of travel. */
+.topbar { height: 64px; display: flex; justify-content: space-between; align-items: center; }
+.morph { height: 300vh; position: relative; }
+.morph__stage { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+.morph__canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: pan-y; }
+.morph__copy { position: relative; z-index: 1; height: 100%; display: grid; grid-template-rows: auto 1fr auto; padding-block: calc(var(--unit) * 10); pointer-events: none; }
+.morph__title { font-family: var(--font-display); font-size: clamp(1.75rem, 4vw, 3.5rem); line-height: 1; letter-spacing: -0.02em; max-width: 14ch; }
+.morph__list { align-self: end; list-style: none; padding: 0; margin: 0; display: grid; gap: calc(var(--unit) * 2); font-size: clamp(1rem, 1.6vw, 1.375rem); }
+.morph__list li { color: var(--muted); transition: color var(--dur-routine) linear; }
+.morph__list li[aria-current="true"] { color: var(--ink); }
+.morph__count { justify-self: end; }
+.notes { height: 100vh; display: grid; align-content: center; }
+.notes ul { max-width: 62ch; padding-left: 1.2em; }
+.footer { height: 96px; display: flex; align-items: center; }

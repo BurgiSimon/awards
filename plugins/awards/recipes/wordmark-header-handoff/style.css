@@ -1,0 +1,40 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+.bar { position: fixed; inset: 0 0 auto 0; height: 72px; z-index: 10; display: flex; align-items: center; justify-content: space-between; padding-inline: var(--gutter); pointer-events: none; }
+.bar > * { pointer-events: auto; }
+/* The slot reserves the logo's resting box; the mark is laid out over it and transformed into the hero. */
+.bar__slot { width: 132px; height: 28px; }
+.mark { position: fixed; top: 22px; left: var(--gutter); width: 132px; height: 28px; display: block; transform-origin: 0 0; color: var(--ink); text-decoration: none; will-change: transform; border-radius: 2px; }
+.mark__word { display: block; font-family: var(--font-display); font-weight: 700; font-size: 28px; line-height: 28px; letter-spacing: -0.04em; white-space: nowrap; }
+.mark:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.bar__nav { position: relative; }
+.bar__nav ul { display: flex; gap: calc(var(--unit) * 6); list-style: none; margin: 0; padding: 0; }
+.bar__nav a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); text-decoration: none; font-size: 0.9375rem; }
+.bar__nav a[aria-current="true"] { font-weight: 600; }
+.bar__line { position: absolute; left: 0; bottom: 6px; height: 2px; width: 0; background: var(--ink); transform-origin: 0 0; }
+
+.hero { min-height: 100svh; display: grid; align-content: end; gap: calc(var(--unit) * 6); padding: 120px var(--gutter) calc(var(--unit) * 16); position: relative; }
+/* The reference box the big mark is fitted to: full width at the hero's foot. */
+.hero__ref { position: relative; width: 100%; height: calc((100vw - 2 * var(--gutter)) * 28 / 132); }
+.hero__copy { display: none; }
+.hero__line { font-size: clamp(1.25rem, 2.2vw, 2rem); max-width: 40ch; font-weight: 400; line-height: 1.25; }
+.chapter { min-height: 90vh; padding: calc(var(--unit) * 30) var(--gutter); display: grid; align-content: center; gap: calc(var(--unit) * 6); border-top: 1px solid var(--line); }
+.chapter h2 { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 4.5rem); line-height: 1; letter-spacing: -0.02em; max-width: 18ch; }
+.chapter p { max-width: 56ch; }
+.footer { padding-block: calc(var(--unit) * 12); }
+
+/* Reduced motion: the link stays in the bar; a decorative copy, scaled like the mark (from its slot size, by
+   transform), fills the hero's reference box and fades when the hero leaves. */
+html[data-motion-tier="reduced"] .hero__copy, html[data-motion="static"] .hero__copy { display: block; position: absolute; left: 0; top: 0; width: 132px; font-family: var(--font-display); font-weight: 700; font-size: 28px; line-height: 28px; letter-spacing: -0.04em; white-space: nowrap; transform-origin: 0 0; transform: scale(var(--big, 1)); transition: opacity 0.2s linear; }
+html[data-motion-tier="reduced"] .hero__copy.is-gone, html[data-motion="static"] .hero__copy.is-gone { opacity: 0; }
+
+@media (max-width: 760px) {
+  .bar { height: 60px; }
+  .bar__slot, .mark { width: 96px; height: 20px; }
+  .mark { top: 20px; }
+  .mark__word { font-size: 20px; line-height: 20px; }
+  .bar__nav ul { gap: calc(var(--unit) * 3); }
+  .hero__ref { height: calc((100vw - 2 * var(--gutter)) * 20 / 96); }
+  html[data-motion-tier="reduced"] .hero__copy { width: 96px; font-size: 20px; line-height: 20px; }
+}

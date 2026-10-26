@@ -1,0 +1,29 @@
+{
+  "id": "point-cloud-shape-morph",
+  "title": "Scroll morph between point clouds sampled from SVG shapes, on a 2D canvas",
+  "intent": "Point-cloud shape morph",
+  "group": "heroes-and-type",
+  "summary": "Points sampled from rasterised SVGs, projected in JS with a horizontal fov and drawn far to near in 16 depth buckets; scroll picks the shape pair with 18 % holds, a sin²(πe) mid-morph swirl, a segment-change burst and a pointer repel; paint skipped when settled; opacity cross-fade under reduced motion",
+  "tags": [
+    "canvas",
+    "procedural",
+    "scroll",
+    "scrub",
+    "pointer",
+    "spring",
+    "hero",
+    "particles",
+    "performance",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [],
+  "variants": [
+    "Canvas 2D with JS projection (this): no GPU, a few thousand points",
+    "WebGL points (three.js Points or a raw gl.POINTS draw) when the count passes ten thousand; targets in a float texture, blend in the vertex shader",
+    "Slot re-matching: a spatial hash that hands a scattered point the nearest free target instead of its fixed one"
+  ],
+  "seenIn": [
+    "da-san333"
+  ]
+}
