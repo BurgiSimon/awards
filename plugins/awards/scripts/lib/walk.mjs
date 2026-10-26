@@ -21,6 +21,8 @@ function stopState() {
   const d = window.__awardsWalkDescribe(el);
   const b = el.getBoundingClientRect();
   const out = { ...d, key: `${d.tag}|${d.id}|${d.cls}|${d.name}|${Math.round(b.left)}|${Math.round(b.top + scrollY)}`, rect: { x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height) }, problems: [] };
+  // An iframe or a shadow host keeps activeElement while Tab moves inside it: the embed's own stops are its business.
+  if (el.tagName === 'IFRAME' || el.shadowRoot) return { ...out, embed: true };
   if (!d.name && !el.matches('input,select,textarea') ) out.problems.push('no accessible name');
   if (el.matches('input,select,textarea') && !(el.labels?.length || el.getAttribute('aria-label') || el.getAttribute('aria-labelledby'))) out.problems.push('a field with no label');
   if (b.width < 1 || b.height < 1) out.problems.push('focus on an element with no size (hidden or collapsed)');
@@ -34,9 +36,15 @@ function stopState() {
     const top = document.elementFromPoint(x, y);
     style.remove();
     const tb = top?.getBoundingClientRect();
-    // A full-viewport canvas over the page is a GL layer, transparent where the controls are; it is not judged here.
-    const glLayer = top?.tagName === 'CANVAS' && tb.width >= innerWidth * 0.9 && tb.height >= innerHeight * 0.9;
-    if (top && !glLayer && top !== el && !el.contains(top) && !top.contains(el)) {
+    // A full-viewport texture over the whole page (a GL canvas, film grain, a vignette) is transparent where the
+    // controls are, and a faint layer hides nothing; neither is judged here. A full-screen panel with a solid fill
+    // (an open menu over the focused control) still is.
+    let faint = 1;
+    for (let n = top; n && n !== document.documentElement; n = n.parentElement) faint *= Number(getComputedStyle(n).opacity);
+    const fill = top && getComputedStyle(top).backgroundColor.match(/rgba?\(([^)]+)\)/)?.[1].split(/[ ,/]+/).filter(Boolean).map(Number);
+    const solidFill = !!fill && (fill.length < 4 || fill[3] >= 0.5) && getComputedStyle(top).mixBlendMode === 'normal';
+    const overlay = !!top && tb.width >= innerWidth * 0.9 && tb.height >= innerHeight * 0.9 && (top.tagName === 'CANVAS' || !solidFill);
+    if (top && !overlay && faint >= 0.5 && top !== el && !el.contains(top) && !top.contains(el)) {
       let pin = null;
       for (let n = top; n && n !== document.body; n = n.parentElement) { const p = getComputedStyle(n).position; if (p === 'fixed' || p === 'sticky') { pin = n; break; } }
       const ts = getComputedStyle(top);
@@ -45,12 +53,19 @@ function stopState() {
       if (painted) out.problems.push(`focus lands under ${pin ? 'the fixed ' : ''}<${top.tagName.toLowerCase()}${top.classList[0] ? `.${top.classList[0]}` : ''}>${headerBar ? ' (scroll-padding-top as tall as the bar would clear it)' : ''}`);
     }
   }
-  // A visible focus change: the computed look while focused against the look with focus removed.
-  const look = () => { const s = getComputedStyle(el); return [s.outlineStyle, s.outlineWidth, s.outlineColor, s.boxShadow, s.backgroundColor, s.color, s.borderTopColor, s.borderBottomColor, s.textDecorationLine, s.transform, s.opacity].join('|'); };
+  // A visible focus change: the computed look while focused against the look with focus removed, with transitions
+  // off (a transitioned ring would read its starting value) and the pseudo-elements and the parent (:focus-within)
+  // read too.
+  const still = document.createElement('style');
+  still.textContent = '*, *::before, *::after { transition: none !important; }';
+  document.head.appendChild(still);
+  const one = (s) => [s.outlineStyle, s.outlineWidth, s.outlineColor, s.boxShadow, s.backgroundColor, s.color, s.borderTopColor, s.borderBottomColor, s.textDecorationLine, s.transform, s.opacity, s.content, s.width].join('|');
+  const look = () => [getComputedStyle(el), getComputedStyle(el, '::before'), getComputedStyle(el, '::after'), el.parentElement && getComputedStyle(el.parentElement)].filter(Boolean).map(one).join('#');
   const focused = look();
   el.blur();
   const rest = look();
   el.focus({ preventScroll: true });
+  still.remove();
   if (focused === rest) out.problems.push('no visible change when focused');
   out.expanded = el.getAttribute('aria-expanded');
   out.button = el.matches('button,[role="button"],input[type="button"],input[type="submit"]');
@@ -93,12 +108,15 @@ export async function walkPage(browser, url, { outDir, name = '', desktop, mobil
   try {
     await open();
     const seen = new Set();
-    let frames = 0;
+    let frames = 0, inside = 0;
     for (let i = 0; i < maxStops; i++) {
       await page.keyboard.press('Tab');
       await page.waitForTimeout(150);
       const s = await page.evaluate(stopState).catch(() => ({ none: true }));
-      if (s.none || seen.has(s.key)) break;
+      if (s.none) break;
+      // Inside an embed the key repeats until Tab leaves it; keep going, up to forty presses per embed.
+      if (seen.has(s.key)) { if (s.embed && inside < 40) { inside++; i--; continue; } break; }
+      inside = 0;
       seen.add(s.key);
       report.desktop.stops.push({ n: i + 1, tag: s.tag, name: s.name, rect: s.rect, expanded: s.expanded, problems: s.problems });
       for (const problem of s.problems) {
@@ -155,13 +173,24 @@ export async function walkPage(browser, url, { outDir, name = '', desktop, mobil
         const t = document.querySelector(s);
         const panel = document.getElementById(t?.getAttribute('aria-controls') ?? '') ?? null;
         const a = document.activeElement;
-        const modal = !!panel && (panel.matches('[role="dialog"],[aria-modal="true"],dialog') || panel.getBoundingClientRect().height > innerHeight * 0.5);
+        // Modal: says so, or is a fixed panel over most of the screen; a tall accordion panel is neither.
+        const pb = panel?.getBoundingClientRect();
+        let fixed = false;
+        for (let n = panel; n && n !== document.body; n = n.parentElement) if (getComputedStyle(n).position === 'fixed') { fixed = true; break; }
+        const modal = !!panel && (panel.matches('[role="dialog"],[aria-modal="true"],dialog') || (fixed && pb.width >= innerWidth * 0.8 && pb.height >= innerHeight * 0.8));
         return { still: t?.getAttribute('aria-expanded') === 'true', inside: !!panel && panel.contains(a), onToggle: a === t, modal, to: window.__awardsWalkDescribe(a) };
       }, sel);
       if (back.still && back.modal && !back.inside && !back.onToggle) find('desktop', { control, problem: `Shift+Tab leaves the open panel for ${back.to ? `<${back.to.tag}> “${back.to.name.slice(0, 24)}”` : 'the page'} while it stays open`, frame: await shot(page, outDir, `${name}desktop-walk-t${i}-shift-tab.png`, manifest, 'desktop', 'shift-tab') });
-      // Escape closes it and gives focus back to the toggle.
+      // Escape, pressed from inside the panel where the visitor is, closes it and gives focus back to the toggle.
       await page.focus(sel).catch(() => {});
       if ((await page.locator(sel).getAttribute('aria-expanded').catch(() => null)) !== 'true') { await page.keyboard.press('Enter'); await page.waitForTimeout(300); }
+      await page.evaluate((s) => {
+        const panel = document.getElementById(document.querySelector(s)?.getAttribute('aria-controls') ?? '');
+        if (!panel) return;
+        const inner = [...panel.querySelectorAll('a[href],button,input,select,textarea,[tabindex]:not([tabindex="-1"])')].find((e) => e.getBoundingClientRect().width > 0 && !e.disabled);
+        if (inner) inner.focus();
+        else { if (!panel.hasAttribute('tabindex')) panel.setAttribute('tabindex', '-1'); panel.focus(); }
+      }, sel);
       await page.keyboard.press('Escape');
       await page.waitForTimeout(400);
       const after = await page.evaluate((s) => { const t = document.querySelector(s); return { open: t?.getAttribute('aria-expanded') === 'true', focus: document.activeElement === t }; }, sel);
@@ -177,11 +206,13 @@ export async function walkPage(browser, url, { outDir, name = '', desktop, mobil
       await open();
       const control = await pick(BUTTONS, i, `b${i}`);
       if (!control) continue;
+      // The URL as loaded (a redirect or a trailing slash makes it differ from the one typed).
+      const start = page.url();
       await page.evaluate(watchChanges);
       await page.keyboard.press('Enter');
       await page.waitForTimeout(400);
       let moved = await page.evaluate(changesSince).catch(() => ({ mutations: 1 }));
-      let answered = moved.mutations > 0 || moved.hashChanged || moved.scrolled || page.url() !== url;
+      let answered = moved.mutations > 0 || moved.hashChanged || moved.scrolled || page.url() !== start;
       if (!answered && !control.native) {
         await page.evaluate(watchChanges);
         await page.keyboard.press('Space');
@@ -220,11 +251,12 @@ export async function walkPage(browser, url, { outDir, name = '', desktop, mobil
         return { x: b.left + b.width / 2, y: b.top + b.height / 2, w: b.width, h: b.height, label: `<${d.tag}${d.cls ? `.${d.cls}` : ''}> “${d.name.slice(0, 32)}”`, submit: el.type === 'submit' };
       }, i);
       await thumb.waitForTimeout(300);
+      const start = thumb.url();
       await thumb.evaluate(watchChanges);
       await thumb.touchscreen.tap(target.x, target.y);
       await thumb.waitForTimeout(500);
       const moved = await thumb.evaluate(changesSince).catch(() => ({ mutations: 1 }));
-      const answered = moved.mutations > 0 || moved.hashChanged || moved.scrolled || thumb.url() !== url;
+      const answered = moved.mutations > 0 || moved.hashChanged || moved.scrolled || thumb.url() !== start;
       report.mobile.taps.push({ control: target.label, size: `${Math.round(target.w)}×${Math.round(target.h)}`, answered });
       if (!answered && !target.submit) find('mobile', { control: target.label, problem: 'nothing in the page changes when it is tapped', frame: await shot(thumb, outDir, `${name}mobile-walk-tap-${i + 1}.png`, manifest, 'mobile', 'tap') });
     }

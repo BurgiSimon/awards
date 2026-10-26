@@ -67,6 +67,8 @@ From the taste-skill comparison (`analysis-2026-10-26-taste-skill.md`); every re
 5. Refresh `references/patterns/house-tells.md` and re-run `house-ledger.mjs --write` after the next showcase builds; a value stays spent until builds stop sharing it.
 6. The walk (`capture.mjs --walk`) was tested on three showcase builds and a fixture; run it on a framework build (Next or Nuxt) with client routing before trusting its URL-change test there.
 7. `assets.mjs search`: Wikimedia answered 429 and the Art Institute 403 from this container; re-test both from a normal network and record which collections a maintainer can rely on.
+8. Re-run `contrast-set.mjs` after every change to a rendered rule (it re-measures on its own when `audit.mjs` or `rules.json` changed) and read any rule that fires on most winners before shipping it at P0–P2; L11 and S11 were narrowed on 2026-10-26 for exactly that.
+9. A real build should exercise the new Seed line end to end: concept writes `· ENGINE <id>` after the answer locks a direction, and `house-ledger.mjs --against` reads it; until then the ledger infers engines from the five earlier builds' THESIS lines.
 
 ## Corpus wave 5 (2026-10-26) follow-ups
 

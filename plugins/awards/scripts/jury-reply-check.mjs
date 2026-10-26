@@ -15,7 +15,7 @@ export function check(input) {
   if (/^disposition: (ship|fix|rebuild|recapture|blind)$/m.test(reply)) return null;
   return {
     decision: 'block',
-    reason: 'Your reply has no `disposition: ship|fix|rebuild|recapture` line, and the build routes on it. End with the verbatim block from your report: the disposition line, then the score line (numeric with rendered evidence, all `unmeasured` with `recapture`), then the floor and craft fixes. Do not re-score or re-capture; restate what the report already says.',
+    reason: 'Your reply has no `disposition: ship|fix|rebuild|recapture` line, and the build routes on it. End with the verbatim block from your report: the disposition line, then the score line (numeric with rendered evidence, all `unmeasured` with `recapture`), then the floor and craft fixes. Do not re-score or re-capture; restate what the report already says. In blind mode (`--blind`), end with `disposition: blind` instead.',
   };
 }
 

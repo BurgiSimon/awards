@@ -31,8 +31,9 @@ export function licence(raw, version) {
   if (/^(pdm|public ?domain|pd\b|pd-|no known restrictions|nasa)/.test(s)) return /no known/.test(s) ? 'No known restrictions on publication' : 'Public domain';
   if (/^cc0|zero/.test(s)) return 'CC0 1.0';
   const v = version ?? s.match(/(\d\.\d)/)?.[1] ?? '';
-  if (/(cc[- ]?)?by[- ]?sa\b/.test(s)) return `CC BY-SA ${v}`.trim();
-  if (/(cc[- ]?)?by\b/.test(s)) return `CC BY ${v}`.trim();
+  // Anchored: "Copyrighted by the author" is not CC BY.
+  if (/^(cc[- ]?)?by[- ]?sa\b/.test(s)) return `CC BY-SA ${v}`.trim();
+  if (/^(cc[- ]?)?by\b/.test(s)) return `CC BY ${v}`.trim();
   return null;
 }
 const licenceUrlFor = (name) => (/^CC0/.test(name) ? 'https://creativecommons.org/publicdomain/zero/1.0/'
@@ -51,8 +52,9 @@ const adapters = {
     const j = await getJson(`${base('openverse', 'https://api.openverse.org/v1/images/')}?q=${encodeURIComponent(q)}&license_type=commercial&page_size=${limit}`, 40000);
     return (j.results ?? []).map((r) => ({ id: r.id, title: r.title || 'Untitled', creator: r.creator || null, licence: licence(r.license, r.license_version), licenceUrl: r.license_url, page: r.foreign_landing_url, url: r.url, width: r.width ?? null, height: r.height ?? null, collection: `Openverse (${r.provider ?? r.source ?? 'source'})` }));
   },
+  // Footage only as WebM: Commons also holds Ogg Theora, which Safari cannot play.
   async commons(q, { limit, video }) {
-    const params = new URLSearchParams({ action: 'query', generator: 'search', gsrsearch: `${q} filetype:${video ? 'video' : 'bitmap'}`, gsrnamespace: '6', gsrlimit: String(limit), prop: 'imageinfo', iiprop: 'url|size|mime|extmetadata', iiurlwidth: '2400', format: 'json', origin: '*' });
+    const params = new URLSearchParams({ action: 'query', generator: 'search', gsrsearch: video ? `${q} filemime:video/webm` : `${q} filetype:bitmap`, gsrnamespace: '6', gsrlimit: String(limit), prop: 'imageinfo', iiprop: 'url|size|mime|extmetadata', iiurlwidth: '2400', format: 'json', origin: '*' });
     const j = await getJson(`${base('commons', 'https://commons.wikimedia.org/w/api.php')}?${params}`, 25000);
     return Object.values(j.query?.pages ?? {}).map((p) => {
       const ii = p.imageinfo?.[0] ?? {};
@@ -108,9 +110,14 @@ const adapters = {
   // The Internet Archive's moving images with a public-domain or BY / BY-SA licence; the file comes from metadata.
   async archive(q, { limit, video }) {
     if (!video) return [];
-    const query = `(${q}) AND mediatype:movies AND (licenseurl:*publicdomain* OR licenseurl:*licenses/by/* OR licenseurl:*licenses/by-sa/*)`;
-    const j = await getJson(`${base('archive', 'https://archive.org/advancedsearch.php')}?q=${encodeURIComponent(query)}&fl[]=identifier&fl[]=title&fl[]=creator&fl[]=licenseurl&rows=${limit}&output=json`, 25000);
-    return (j.response?.docs ?? []).map((d) => ({ id: d.identifier, title: [].concat(d.title ?? 'Untitled')[0], creator: [].concat(d.creator ?? [])[0] ?? null, licence: licence(/publicdomain/.test(d.licenseurl) ? 'pdm' : /by-sa/.test(d.licenseurl) ? 'by-sa' : 'by', d.licenseurl?.match(/(\d\.\d)/)?.[1]), licenceUrl: d.licenseurl, page: `https://archive.org/details/${d.identifier}`, url: null, width: null, height: null, collection: 'Internet Archive' }));
+    // The server narrows to Creative Commons URLs (a bare slash would start a regex in its query syntax); the
+    // licence itself is read from each URL's own code, so NC and ND items are refused here, not trusted to the query.
+    const query = `(${q}) AND mediatype:movies AND licenseurl:*creativecommons.org*`;
+    const j = await getJson(`${base('archive', 'https://archive.org/advancedsearch.php')}?q=${encodeURIComponent(query)}&fl[]=identifier&fl[]=title&fl[]=creator&fl[]=licenseurl&rows=${limit * 4}&output=json`, 25000);
+    const code = (u) => (/publicdomain\/zero/.test(u) ? 'cc0' : /publicdomain\/mark/.test(u) ? 'pdm' : u.match(/\/licenses\/([a-z-]+)\//)?.[1] ?? '');
+    return (j.response?.docs ?? []).filter((d) => typeof d.licenseurl === 'string')
+      .map((d) => ({ id: d.identifier, title: [].concat(d.title ?? 'Untitled')[0], creator: [].concat(d.creator ?? [])[0] ?? null, licence: licence(code(d.licenseurl), d.licenseurl.match(/(\d\.\d)/)?.[1]), licenceUrl: d.licenseurl, page: `https://archive.org/details/${d.identifier}`, url: null, width: null, height: null, collection: 'Internet Archive' }))
+      .filter((r) => r.licence).slice(0, limit);
   },
 };
 

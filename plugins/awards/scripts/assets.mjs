@@ -115,10 +115,15 @@ if (command === 'add') {
   let file;
   try {
     const { bytes, type } = await download(url);
-    const ext = (url.match(/\.(jpe?g|png|webp|gif|tiff?|mp4|webm)(?:$|[?#])/i)?.[1] ?? (/png/.test(type) ? 'png' : /webp/.test(type) ? 'webp' : /mp4/.test(type) ? 'mp4' : /webm/.test(type) ? 'webm' : 'jpg')).toLowerCase().replace('jpeg', 'jpg');
-    const slug = (args.name && args.name !== true ? String(args.name) : record.title).toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 48) || record.source;
+    // The extension the file names, else the one its type names, else the URL path's own; never a guess of jpg for a video.
+    const byType = /png/.test(type) ? 'png' : /webp/.test(type) ? 'webp' : /avif/.test(type) ? 'avif' : /gif/.test(type) ? 'gif' : /jpe?g/.test(type) ? 'jpg' : /mp4/.test(type) ? 'mp4' : /webm/.test(type) ? 'webm' : /ogg/.test(type) ? 'ogv' : /quicktime/.test(type) ? 'mov' : null;
+    const ext = (url.match(/\.(jpe?g|png|webp|avif|gif|tiff?|mp4|webm|ogv|mov)(?:$|[?#])/i)?.[1] ?? byType ?? new URL(url).pathname.match(/\.([a-z0-9]{2,5})$/i)?.[1] ?? (record.video ? 'mp4' : 'jpg')).toLowerCase().replace('jpeg', 'jpg');
+    let slug = (args.name && args.name !== true ? String(args.name) : record.title).toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 48) || record.source;
     const out = path.resolve(project, args.out && args.out !== true ? String(args.out) : record.video ? 'public/video' : 'public/images');
     fs.mkdirSync(out, { recursive: true });
+    // Two results with one title must not overwrite each other's file and credit.
+    const taken = (f) => fs.existsSync(f) && load().assets.some((a) => a.file === rel(f) && a.source !== record.page);
+    if (taken(path.join(out, `${slug}.${ext}`))) slug = `${slug}-${String(record.id).toLowerCase().replace(/[^a-z0-9]+/g, '').slice(-10)}`;
     file = path.join(out, `${slug}.${ext}`);
     fs.writeFileSync(file, bytes);
   } catch (e) {

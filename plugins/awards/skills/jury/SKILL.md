@@ -119,7 +119,7 @@ Score the six criteria Awwwards publishes, under its names:
 
 ## 4. Assessment C — the usability walk
 
-Why: usability is the lowest axis on 27 of the 31 corpus entries awarded since 2021 [verified per card; counted by `scripts/calibration.mjs --since 2021`, 2026-10-22], which makes it the axis where a new build beats the reference set instead of copying it. Read `${CLAUDE_PLUGIN_ROOT}/references/jury/usability-walk.md` and run its eight steps against the captures, the DOM and the source. Read `walk.json` before steps 1 and 2 when the capture has one (recapture with `--walk` when it does not): each of its findings, confirmed on its frame, fails the step it belongs to. The audit's L11 (covered text), S11 (no readable title at 1.2 s) and L12–L15 (the frame) findings in `.awards/audit.json` are evidence for steps 5 and 6. When a canvas exists, allocate a separate fresh `capture_out` and add the resilience capture for step 8:
+Why: usability is the lowest axis on 27 of the 31 corpus entries awarded since 2021 [verified per card; counted by `scripts/calibration.mjs --since 2021`, 2026-10-22], which makes it the axis where a new build beats the reference set instead of copying it. Read `${CLAUDE_PLUGIN_ROOT}/references/jury/usability-walk.md` and run its eight steps against the captures, the DOM and the source. Read `walk.json` before steps 1 and 2 when the capture has one (recapture with `--walk` when it does not): each of its findings, confirmed on its frame, fails the step it belongs to. The audit's L11 (text never readable), S11 (no readable title at 1.2 s, a P3 note: judge whether the wait is earned) and L12–L15 (the frame) findings in `.awards/audit.json` are evidence for steps 5 and 6. When a canvas exists, allocate a separate fresh `capture_out` and add the resilience capture for step 8:
 
 ```
 node "${CLAUDE_PLUGIN_ROOT}/scripts/capture.mjs" <target> --out "$capture_out" --only desktop --scroll 0 --no-webgl --name nogl
@@ -242,7 +242,7 @@ Why: the only test of whether the plugin makes better pages is a comparison nobo
 - For every letter: the memory test in one sentence, then Design, Usability, Creativity and Content against the anchors in `${CLAUDE_PLUGIN_ROOT}/references/jury/rubric.md`, each with a one-line reason drawn from a named frame. Usability is read from the frames alone (the first screen's title, legibility, the phone, reduced motion); say so in the reason.
 - Per brief, rank the letters best first with one sentence of reason.
 - Across all letters, group those that look made by the same tool or studio and name what gives each group away (a layout, a device, a type habit, a way of using pictures); "none" is an answer.
-- Write `<dir>/judgements/jury-<date>.json` with the Write tool in the shape `review.md` gives (`scores`, `ranking`, `rankingReason`, `sameTool`, `sameToolReason`), touch nothing else, and reply with the rankings and the same-tool groups. There is no disposition line in this mode; the reply-check hook accepts `disposition: blind` as its last line.
+- Write `<dir>/judgements/jury-<date>.json` with the Write tool in the shape `review.md` gives (`scores`, `ranking`, `rankingReason`, `sameTool`, `sameToolReason`), touch nothing else, and reply with the rankings and the same-tool groups. End the reply with the literal line `disposition: blind`: nothing routes on it, and the reply check blocks a juror's reply without a disposition line.
 
 ## Verify
 

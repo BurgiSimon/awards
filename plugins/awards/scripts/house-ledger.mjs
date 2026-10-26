@@ -33,7 +33,9 @@ export function features(md, name) {
   const first = thesis.split(/(?<=[.:;])\s/)[0].replace(/\*\*/g, '').slice(0, 90);
   const shape = /^(the|this) (page|site) is\b/i.test(thesis) ? 'page-is-object' : /^(the|this) (page|site)\b/i.test(thesis) ? 'page-does' : 'other';
   const selfRef = /\bof itself\b|\bits own (proof|contact|test|capture)|\bthis very page\b|\bthe page'?s own (captures|frames|screenshots)\b/i.test(thesis);
-  const declared = seedLine.match(/ENGINES?\s+([a-z-]+(?:[ ,]+[a-z-]+)*)/i)?.[1]?.split(/[ ,]+/) ?? null;
+  // `ENGINE <id>` is the locked direction's engine; `ENGINES …` lists all three dealt worlds and says nothing about
+  // which one was built, so a Seed line without the locked engine falls back to inference.
+  const declared = seedLine.match(/\bENGINE\s+([a-z][a-z-]*)/)?.[1]?.split(/[ ,]+/) ?? null;
   let engines;
   if (declared) engines = declared;
   else {
@@ -170,14 +172,16 @@ if (direct) {
     const others = rows.filter((r, i) => dirs[i] !== path.dirname(file));
     const spent = tally(others).filter((t) => t.spent);
     const shared = spent.filter((t) => KEYS.find(([k]) => k === t.feature)[1](mine).includes(t.value));
-    const report = { build: mine, comparedWith: others.length, shared: shared.map((t) => ({ feature: t.feature, value: t.value, builds: t.builds, of: t.of })) };
+    // Features, not values: an inferred pair of engines is one shared engine, not two.
+    const features = new Set(shared.map((t) => t.feature)).size;
+    const report = { build: mine, comparedWith: others.length, features, shared: shared.map((t) => ({ feature: t.feature, value: t.value, builds: t.builds, of: t.of })) };
     if (args.json) console.log(JSON.stringify(report, null, 2));
     else {
-      console.log(`against ${others.length} earlier build(s): ${shared.length} spent feature(s) shared`);
+      console.log(`against ${others.length} earlier build(s): ${features} spent feature(s) shared`);
       for (const t of report.shared) console.log(`  ${t.feature}: ${t.value} (${t.builds} of ${t.of})`);
-      if (shared.length >= 2) console.log('Two or more: the plugin rut. Name each in THESIS with the reason this subject earns it, or change the direction.');
+      if (features >= 2) console.log('Two or more: the plugin rut. Name each in THESIS with the reason this subject earns it, or change the direction.');
     }
-    process.exit(shared.length >= 2 ? 2 : 0);
+    process.exit(features >= 2 ? 2 : 0);
   }
   const tallies = tally(rows);
   const md = markdown(rows, tallies);

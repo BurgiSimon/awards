@@ -6,11 +6,13 @@
 // rule's prevalence in both groups. Owner policy first: a refused site is skipped, never retried.
 // Usage: node scripts/contrast-set.mjs [--queue references/sites/_contrast-queue.md] [--winners slug,slug|all]
 //        [--limit <n per group>] [--table-only] [--json]
-// Writes references/sites/_prevalence.json (one row per URL) and references/sites/_prevalence.md (the table).
+// Writes references/sites/_prevalence.json (one row per URL) and references/sites/_prevalence.md (the table). A row
+// measured by an earlier audit.mjs or rules.json is measured again and left out of the table until it is.
 // Exit: 0 · 1 usage · 3 browser unavailable.
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from './lib/report.mjs';
 import { cardFiles } from './lib/cards.mjs';
@@ -22,6 +24,8 @@ const args = parseArgs(process.argv.slice(2), { json: 'boolean', 'table-only': '
 const dataFile = path.join(sitesDir, '_prevalence.json');
 const tableFile = path.join(sitesDir, '_prevalence.md');
 const data = (() => { try { return JSON.parse(fs.readFileSync(dataFile, 'utf8')); } catch { return { runs: {} }; } })();
+// Which audit measured a row: a page measured before a rule changed is measured again, so the table never mixes two audits.
+const AUDIT = createHash('sha1').update(fs.readFileSync(path.join(here, 'audit.mjs'))).update(fs.readFileSync(path.join(here, 'data/rules.json'))).digest('hex').slice(0, 10);
 
 const run = (script, argv, ms) => new Promise((resolve) => {
   const child = spawn(process.execPath, [path.join(here, script), ...argv], { stdio: ['ignore', 'pipe', 'pipe'] });
@@ -36,6 +40,7 @@ async function measure(url, group, slug) {
   const policy = await run('policy.mjs', [url], 60000);
   if (policy.code === 2) return { group, slug, status: 'refused by the owner\'s policy' };
   if (policy.code === 4) return { group, slug, status: 'unreachable' };
+  if (policy.code !== 0) return { group, slug, status: 'not measured: the policy check did not finish' };
   const audit = await run('audit.mjs', [url, '--render', '--json', '--no-write'], 600000);
   if (audit.code === 3) { console.error('the rendered audit needs Playwright and Chromium'); process.exit(3); }
   try {
@@ -49,7 +54,7 @@ async function measure(url, group, slug) {
 }
 
 function table() {
-  const rows = Object.entries(data.runs).filter(([, r]) => r.status === 'measured');
+  const rows = Object.entries(data.runs).filter(([, r]) => r.status === 'measured' && r.audit === AUDIT);
   const groups = { winner: rows.filter(([, r]) => r.group === 'winner'), contrast: rows.filter(([, r]) => r.group === 'contrast') };
   const share = (list, id) => (list.length ? list.filter(([, r]) => r.rules.includes(id)).length / list.length : 0);
   const ids = [...new Set(rows.flatMap(([, r]) => r.rules))].filter((id) => RULES[id]);
@@ -70,7 +75,7 @@ function table() {
     '',
     '| URL | Group | Status |',
     '|---|---|---|',
-    ...Object.entries(data.runs).sort(([a], [b]) => a.localeCompare(b)).map(([url, r]) => `| ${url} | ${r.group}${r.slug ? ` ([site:${r.slug}])` : ''} | ${r.status}${r.date ? `, ${r.date}` : ''} |`),
+    ...Object.entries(data.runs).sort(([a], [b]) => a.localeCompare(b)).map(([url, r]) => `| ${url} | ${r.group}${r.slug ? ` ([site:${r.slug}])` : ''} | ${r.status}${r.status === 'measured' && r.audit !== AUDIT ? ' by an earlier audit (not in the table)' : ''}${r.date ? `, ${r.date}` : ''} |`),
     '',
   ];
   return out.join('\n');
@@ -85,10 +90,12 @@ if (!args['table-only']) {
     .filter((c) => c.url && c.slug !== 'floema-jewelry' && (!wanted || wanted.has(c.slug))).slice(0, wanted ? Infinity : limit);
   for (const [group, list] of [['contrast', contrast.map((url) => ({ url }))], ['winner', winners]]) {
     for (const { url, slug } of list) {
-      if (data.runs[url]?.status === 'measured') continue;
+      if (data.runs[url]?.status === 'measured' && data.runs[url].audit === AUDIT) continue;
+      // A refusal stands: never retried.
+      if (/refused/.test(data.runs[url]?.status ?? '')) continue;
       process.stderr.write(`${group} ${url} … `);
       const r = await measure(url, group, slug);
-      data.runs[url] = { ...r, date: new Date().toISOString().slice(0, 10) };
+      data.runs[url] = { ...r, audit: AUDIT, date: new Date().toISOString().slice(0, 10) };
       process.stderr.write(`${r.status}\n`);
       fs.writeFileSync(dataFile, JSON.stringify(data, null, 2) + '\n');
     }

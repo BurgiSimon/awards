@@ -666,7 +666,7 @@ function installShift() {
 // so Lenis and virtual scrollers move too) and reports what a stranger names first when a page looks wrong:
 // a viewport with no content in it (L09); a section whose content keeps to one narrow side with nothing on the
 // other (L10 on tablet and phone, L13 on desktop); text, a heading or an action covered by something painted
-// over it at some scroll position (L11); outer margins that differ left and right (L12, desktop); a section of
+// over it at every scroll position where it is in view, so a visitor can never read it (L11); outer margins that differ left and right (L12, desktop); a section of
 // running text with no heading (L14, desktop); and screens that are mostly plain ground (L15). Content is any
 // visible box with its own text, media, a background image or a drawn edge, at any opacity: a reveal still waiting
 // for its trigger counts. Small fixed or sticky bars (a header) do not, or they would fill every viewport.
@@ -732,16 +732,21 @@ async function sweepPage(desktop) {
   });
   const coverStyle = document.createElement('style');
   coverStyle.textContent = '*, *::before, *::after { pointer-events: auto !important; }';
-  const covered = new Map();
+  // Only text covered at every stop where it is in view counts: winners pass clouds, curtain reveals and stacked
+  // panels over their own titles on purpose, and the contrast set (references/sites/_prevalence.md) showed a rule
+  // that fired on any covered stop catching six of seven winners. Text that is clear at one stop can be read.
+  const covered = new Map(), clear = new Set();
   const coveredAt = (p) => {
     // Hit-testing ignores pointer-events: none, which is exactly how canvases and decorative layers sit; with it
     // forced on, elementsFromPoint returns the real paint stack. Nothing is dispatched, so no handler runs.
     document.head.appendChild(coverStyle);
     try {
       for (const el of readable) {
-        if (covered.has(el)) continue;
+        if (clear.has(el)) continue;
         const b = textRect(el);
-        if (b.width < 4 || b.height < 4 || b.bottom <= 0 || b.top >= vh || b.right <= 0 || b.left >= vw) continue;
+        if (b.width < 4 || b.height < 4 || b.right <= 0 || b.left >= vw) continue;
+        // In view: the whole text, or for text taller than most of the screen, its middle in the central band.
+        if (b.height <= vh * 0.8 ? b.top < 0 || b.bottom > vh : b.top + b.height / 2 < vh * 0.1 || b.top + b.height / 2 > vh * 0.9) continue;
         if (getComputedStyle(el).visibility !== 'visible' || opacityOf(el) < 0.25) continue;
         const y = b.top + b.height / 2;
         let hits = 0, by = null;
@@ -756,11 +761,15 @@ async function sweepPage(desktop) {
             if (n.tagName === 'CANVAS' && nb.width >= vw * 0.9 && nb.height >= vh * 0.9) break;
             // A small pinned bar passing over text as the page scrolls is the header doing its job.
             if (bar(n)) break;
-            if (getComputedStyle(n).visibility !== 'visible' || opacityOf(n) < 0.15) continue;
+            // A full-viewport texture (film grain, a vignette, a blended wash) sits over everything and hides nothing,
+            // and a faint layer leaves the text readable; look under both.
+            if (getComputedStyle(n).visibility !== 'visible' || opacityOf(n) < 0.5) continue;
+            if (nb.width >= vw * 0.9 && nb.height >= vh * 0.9 && (!solid(getComputedStyle(n).backgroundColor) || getComputedStyle(n).mixBlendMode !== 'normal')) continue;
             if (paints(n, x, y)) { hits++; by = n; break; }
           }
         }
-        if (hits >= 2) covered.set(el, `${say(el)} under ${say(by)} at ${Math.round(p * 100)} % down the page`);
+        if (hits >= 2) { if (!covered.has(el)) covered.set(el, `${say(el)} under ${say(by)} at every stop where it is in view (first at ${Math.round(p * 100)} % down the page)`); }
+        else clear.add(el);
       }
     } finally {
       coverStyle.remove();
@@ -890,7 +899,7 @@ async function sweepPage(desktop) {
     if (Number.isFinite(l) && Number.isFinite(r)) margins = { left: Math.round(l), right: Math.round(r) };
   }
   const words = wordsSeen.length ? [...wordsSeen].sort((a, b) => a - b)[Math.floor(wordsSeen.length / 2)] : 0;
-  return { steps, blank, lopsided, covered: [...covered.values()], nearEmpty, untitled, margins, wordsPerScreen: words };
+  return { steps, blank, lopsided, covered: [...covered].filter(([el]) => !clear.has(el)).map(([, say]) => say), nearEmpty, untitled, margins, wordsPerScreen: words };
 }
 
 // The first screen 1.2 s after load: an h1 in view, visible and not under a loader or an entrance, that says in
@@ -900,17 +909,24 @@ function firstScreenTitle() {
   const h1s = [...document.querySelectorAll('h1')].filter((el) => !tucked(el));
   if (!h1s.length) return { ok: false, why: 'no h1 on the page' };
   const opacityOf = (el) => { let o = 1; for (let n = el; n && n !== document.documentElement; n = n.parentElement) o *= Number(getComputedStyle(n).opacity); return o; };
-  const canvases = [...document.querySelectorAll('canvas')].map((c) => c.getBoundingClientRect()).filter((c) => c.width && c.height);
   for (const h1 of h1s) {
     const b = h1.getBoundingClientRect();
     if (!h1.textContent.trim() && !h1.querySelector('img[alt],svg[aria-label],[aria-label]')) continue;
     if (b.width < 2 || b.bottom <= 0 || b.top >= innerHeight) continue;
-    // A GL mirror: the canvas over it draws the title.
-    if (canvases.some((c) => b.left + b.width / 2 >= c.left && b.left + b.width / 2 <= c.right && b.top + b.height / 2 >= c.top && b.top + b.height / 2 <= c.bottom)) return { ok: true, mirrored: true };
+    // A GL mirror: a canvas painted over the h1 draws the title. A canvas behind it (a hero scene) proves nothing.
+    const force = document.createElement('style');
+    force.textContent = '*, *::before, *::after { pointer-events: auto !important; }';
+    document.head.appendChild(force);
+    const stack = document.elementsFromPoint(Math.min(innerWidth - 1, Math.max(0, b.left + b.width / 2)), Math.min(innerHeight - 1, Math.max(0, b.top + b.height / 2)));
+    force.remove();
+    const own = stack.findIndex((n) => n === h1 || h1.contains(n));
+    if (stack.slice(0, own === -1 ? stack.length : own).some((n) => n.tagName === 'CANVAS')) return { ok: true, mirrored: true };
     if (getComputedStyle(h1).visibility !== 'visible' || opacityOf(h1) < 0.5) return { ok: false, why: `the h1 “${h1.textContent.trim().slice(0, 40)}” is still hidden or faded 1.2 s after load (opacity ${opacityOf(h1).toFixed(2)})` };
     const x = Math.min(innerWidth - 1, Math.max(0, b.left + Math.min(b.width / 2, 40))), y = Math.min(innerHeight - 1, Math.max(0, b.top + b.height / 2));
     const top = document.elementFromPoint(x, y);
-    if (top && top !== h1 && !h1.contains(top) && !top.contains(h1)) {
+    // A consent banner is the host's law, not the page's design.
+    const consent = (n) => { for (; n && n !== document.body; n = n.parentElement) if (/cookie|consent|gdpr|onetrust|didomi|cookiebot|usercentrics|\bcmp/i.test(`${n.id} ${n.className?.baseVal ?? n.className} ${n.getAttribute('aria-label') ?? ''}`)) return true; return false; };
+    if (top && top !== h1 && !h1.contains(top) && !top.contains(h1) && !consent(top)) {
       const s = getComputedStyle(top);
       if (!/rgba\(0, 0, 0, 0\)|transparent/.test(s.backgroundColor) && Number(s.opacity) > 0.5) return { ok: false, why: `the h1 is under <${top.tagName.toLowerCase()}${top.classList[0] ? `.${top.classList[0]}` : ''}> 1.2 s after load, a loader or a gate` };
     }

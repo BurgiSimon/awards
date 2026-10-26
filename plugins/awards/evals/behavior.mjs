@@ -826,6 +826,12 @@ test('tools', 'the house ledger counts what builds share and flags a contract th
   fs.writeFileSync(path.join(fresh, 'AWARDS.md'), same('four'));
   assert.equal((await run('scripts/house-ledger.mjs', [...dirs, other, '--against', fresh])).code, 2, 'a contract sharing two or more spent features exits 2');
   assert.equal((await run('scripts/house-ledger.mjs', [...dirs, other, '--against', other])).code, 0, 'a different contract passes');
+  // ENGINES lists the three dealt worlds; only the locked ENGINE is the build's, and an unlocked line counts none.
+  const seeded = path.join(root, 'seeded');
+  fs.mkdirSync(seeded);
+  fs.writeFileSync(path.join(seeded, 'AWARDS.md'), contract('A field guide the visitor fills in.', 'Committed accent on a dark ground.', 'A switch. Technique tier: DOM-only.').replace('SEED x', 'SEED x · DEALT 1 2 3 · ENGINES artefact place visitor-acts · STIMULI litmus-strip · ENGINE place'));
+  const seededRow = JSON.parse((await run('scripts/house-ledger.mjs', [seeded, '--json'])).stdout).builds[0];
+  assert.deepEqual(seededRow.engines, ['place'], `the locked engine alone (got ${seededRow.engines})`);
   const md = path.join(root, 'ledger.md');
   await run('scripts/house-ledger.mjs', [...dirs, other, '--write', md]);
   assert.equal((await run('scripts/house-ledger.mjs', [...dirs, other, '--check-file', md])).code, 0);
@@ -884,7 +890,9 @@ body{margin:0;font:18px/1.5 sans-serif;padding:0 48px} section{display:grid;grid
   assert.deepEqual(['L11', 'L12', 'L13', 'L14', 'L15', 'S11'].filter((id) => quiet.has(id)), [], 'a composed page stays quiet');
   const report = JSON.parse((await run('scripts/audit.mjs', [good, '--render', '--json', '--no-write'])).stdout);
   assert.equal(report.rendered.desktop.headlines[0].lines, 1, 'headline lines are measured for the jury');
-  assert.ok(report.rendered.desktop.margins.left === report.rendered.desktop.margins.right, 'equal margins measure equal');
+  const { left, right } = report.rendered.desktop.margins;
+  // Ragged text ends short of its column, so equal margins measure within L12's own tolerance, not to the pixel.
+  assert.ok(Math.abs(left - right) <= 16, `equal margins measure within 16 px (${left} and ${right})`);
 });
 
 test('capture', 'the keyboard and thumb walk, and picture shares in the manifest', async () => {

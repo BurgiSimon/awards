@@ -9,7 +9,7 @@ Why: a preloader is only honest when it waits for something real. The corpus's b
 What a loader costs, measured beyond the corpus on 99 recent Sites of the Day [external, taste-skill `references/motion.md` §9, read 2026-10-26]: 60 open on a loading screen, 26 of them with a counter; half the usable pages were still unreadable 2.5 s after the browser's load event and a third at 4.5 s; the loaders sat mostly on pages whose documents had already loaded, 25 of the 29 that loaded in under 3 s still showed nothing readable at 4.5 s, and the readers' design marks were the same with or without the wait. Only usability fell.
 
 Rules:
-- No loader is the default. LOAD & CLOSE names one only when the first viewport's real assets take more than about a second on a throttled phone (`capture.mjs --throttle`), and says which assets; otherwise the title, the sentence and the picture are in the HTML and painted on the first frame. The rendered audit's S11 reads the first screen 1.2 s after load.
+- No loader is the default. LOAD & CLOSE names one only when the first viewport's real assets take more than about a second on a throttled phone (`capture.mjs --throttle`), and says which assets; otherwise the title, the sentence and the picture are in the HTML and painted on the first frame. The rendered audit's S11 reads the first screen 1.2 s after load; it is a P3 note, because most measured winners open on a loader, an entrance or a film (`references/sites/_prevalence.md`), so the question it asks is whether this wait is earned.
 - Gate on `Promise.all([document.fonts.ready, firstSceneAssets])` — the first viewport's assets, not the site's, and never an optional mode's: a gate held until a playable second world is ready charges every visitor for what only some will choose [site:daikifujita] [verified]. Stream the rest by `IntersectionObserver` or by scene window (`[pattern:webgl-architecture#scene-windows-and-disposal]`).
 - Add what the corpus lacks: a timeout that shows the page anyway with a degraded scene, and a visible skip control.
 - Never a timer alone. A counter that finishes at the same second on every connection is a tell.
@@ -121,7 +121,7 @@ A reload on crossing a breakpoint costs every transition above it: zoom users an
 
 ## Verify
 
-- [ ] A loader exists only because the first viewport's assets take more than about a second on a throttled phone; S11 is clean.
+- [ ] A loader exists only because the first viewport's assets take more than about a second on a throttled phone; S11 is clean, or LOAD & CLOSE names the assets the wait is for.
 - [ ] The loader resolves on `Promise.all([fonts, firstSceneAssets])` with a timeout and a skip; no timer-only counter.
 - [ ] Holds at 100 for ≈ 1 s, exits in ≤ 1.5 s, and skips or shortens to ≤ 2.5 s on a repeat visit.
 - [ ] `aria-live` status during load; the loader leaves the accessibility tree afterwards.

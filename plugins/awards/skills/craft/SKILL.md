@@ -171,7 +171,7 @@ Why: the contract is the only place the whole team of skills agrees on what the 
 | LOAD & CLOSE | Loading and the last screen are authored on every winner; left to defaults they are the first and last thing a juror sees | The preloader's real load signal and repeat-visit rule; what the last screen is; the 404 |
 | DIVERGENCE | The corpus is the taste; copying it fails the naming test. Three nearest cards, the principle taken from each, the literal move refused from each | Three `[site:slug]` entries with a take and a refuse line each |
 | FINISH | Unreviewed and unshipped is unfinished; the block is the promise that a jury disposition and a ship report end the build | Present verbatim from the template |
-| Seed | The line `roll.mjs` printed, so the concept round can be re-dealt or audited and the house ledger can read the engines | `SEED`, `DEALT`, `ENGINES` and `STIMULI` are recorded |
+| Seed | The line `roll.mjs` printed, so the concept round can be re-dealt or audited and the house ledger can read the engines | `SEED`, `DEALT`, `ENGINES`, `STIMULI` and the locked `ENGINE` are recorded |
 
 Accept a contract only when every "concrete when" column holds. A mood word in any block (premium, immersive, bold, cinematic) sends it back to `awards:concept`.
 

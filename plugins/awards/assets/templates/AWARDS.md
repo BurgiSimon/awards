@@ -36,7 +36,7 @@
 - **LOAD & CLOSE:** what the preloader does and its real load signal; what the last screen is.
 - **DIVERGENCE:** the three nearest corpus cards as `[site:slug]`; the principle taken from each; the literal move refused from each.
 - **FINISH:** unreviewed and unshipped is unfinished — this build ends with a jury disposition and a ship report.
-- **Seed:** (printed by `roll.mjs`: `SEED … · DEALT … · ENGINES … · STIMULI …`)
+- **Seed:** (printed by `roll.mjs`: `SEED … · DEALT … · ENGINES … · STIMULI …`, then `· ENGINE <the locked direction's engine>`)
 
 ## Page map
 | # | Chapter / route | Beat (entrance · hold · exit) | Layout | Components (recipe id: keep · change · pair) | Notes |

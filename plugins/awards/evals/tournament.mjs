@@ -46,6 +46,10 @@ if (command === 'prepare') {
   const rand = seeded(seed);
   const order = entries.map((e) => ({ e, r: rand() })).sort((a, b) => a.r - b.r).map((x) => x.e);
   const letters = order.map((_, i) => (i < 26 ? String.fromCharCode(65 + i) : `Z${i - 25}`));
+  // A new prepare is a new round: earlier frames would mix into the new letters, and earlier judgements name them.
+  const judged = fs.existsSync(path.join(out, 'judgements')) && fs.readdirSync(path.join(out, 'judgements')).some((f) => f.endsWith('.json'));
+  if (judged) fail(`${path.join(out, 'judgements')} already holds judgements for an earlier round; reveal it, or prepare into a new --out`);
+  for (const d of ['blind', '.private']) fs.rmSync(path.join(out, d), { recursive: true, force: true });
   fs.mkdirSync(path.join(out, '.private'), { recursive: true });
   fs.mkdirSync(path.join(out, 'judgements'), { recursive: true });
   const key = { seed, at: new Date().toISOString(), letters: {} };

@@ -68,9 +68,10 @@ if (args.stimulus !== undefined) {
   if (!(n > 0 && n <= deck.length)) fail(`--stimulus takes 1–${deck.length}`);
   // Two stimuli from one family would push worlds 6 and 7 towards the same material; prefer distinct families.
   const picked = [];
-  for (const s of shuffle(deck, stream(`${seed}:stimulus:${Number(args.reroll ?? 0)}`))) {
-    if (picked.length < n && !picked.some((p) => p.family === s.family)) picked.push(s);
-  }
+  const order = shuffle(deck, stream(`${seed}:stimulus:${Number(args.reroll ?? 0)}`));
+  for (const s of order) if (picked.length < n && !picked.some((p) => p.family === s.family)) picked.push(s);
+  // More than there are families: the rest in the same order, families repeating.
+  for (const s of order) if (picked.length < n && !picked.includes(s)) picked.push(s);
   console.log(`SEED ${seed}`);
   console.log(`STIMULI ${picked.map((s) => s.id).join(' ')}`);
   for (const s of picked) console.log(`  ${s.id}: ${s.name}`);
