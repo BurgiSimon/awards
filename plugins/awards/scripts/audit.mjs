@@ -933,44 +933,53 @@ async function coveredByPixels(page, candidates) {
   if (!candidates.length) return out;
   // A blank page of its own decodes the shots, out of reach of the audited page's content security policy.
   const scratch = await page.context().browser().newPage();
+  // A deadline inside the step's own: a candidate that cannot be checked in time is unverified and dropped, never an ERR.
+  const until = Date.now() + 40000;
   try {
     for (const c of candidates) {
-      await page.evaluate(async (p) => {
-        const hook = window.__awards?.scrollTo;
-        if (hook) await hook(p);
-        else window.scrollTo(0, Math.round(Math.max(0, document.documentElement.scrollHeight - innerHeight) * p));
-      }, c.p);
-      await page.waitForTimeout(600);
-      const box = await page.evaluate((id) => {
-        const el = document.querySelector(`[data-awards-l11="${id}"]`);
-        if (!el) return null;
-        const r = document.createRange(); r.selectNodeContents(el);
-        const b = r.getBoundingClientRect().width ? r.getBoundingClientRect() : el.getBoundingClientRect();
-        const x = Math.max(0, b.left), y = Math.max(0, b.top), w = Math.min(document.documentElement.clientWidth, b.right) - x, h = Math.min(innerHeight, b.bottom) - y;
-        return w >= 4 && h >= 4 ? { x, y, width: w, height: h } : null;
-      }, c.id);
-      if (!box) continue;
-      const shot = async () => `data:image/png;base64,${(await page.screenshot({ clip: box, animations: 'disabled' })).toString('base64')}`;
-      const a1 = await shot();
-      await page.waitForTimeout(150);
-      const a2 = await shot();
-      const hidden = await page.evaluate((id) => { const by = document.querySelector(`[data-awards-l11-by="${id}"]`); if (!by) return false; by.style.setProperty('visibility', 'hidden', 'important'); return true; }, c.id);
-      if (!hidden) continue;
-      await page.waitForTimeout(100);
-      const b = await shot();
-      await page.evaluate((id) => document.querySelector(`[data-awards-l11-by="${id}"]`)?.style.removeProperty('visibility'), c.id);
-      const [still, hides] = await scratch.evaluate(async ({ a1, a2, b }) => {
-        const load = (src) => new Promise((resolve, reject) => { const i = new Image(); i.onload = () => resolve(i); i.onerror = reject; i.src = src; });
-        const [x, y, z] = await Promise.all([load(a1), load(a2), load(b)]);
-        const canvas = document.createElement('canvas');
-        canvas.width = x.width; canvas.height = x.height;
-        const ctx = canvas.getContext('2d', { willReadFrequently: true });
-        const px = (img) => { ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.drawImage(img, 0, 0); return ctx.getImageData(0, 0, canvas.width, canvas.height).data; };
-        const share = (p, q) => { let n = 0; for (let i = 0; i < p.length; i += 4) if (Math.abs(p[i] - q[i]) + Math.abs(p[i + 1] - q[i + 1]) + Math.abs(p[i + 2] - q[i + 2]) > 96) n++; return n / (p.length / 4); };
-        const p1 = px(x), p2 = px(y), p3 = px(z);
-        return [share(p1, p2), share(p1, p3)];
-      }, { a1, a2, b });
-      if (still < 0.05 && hides >= 0.25) out.push(c);
+      if (Date.now() > until) break;
+      try {
+        await page.evaluate(async (p) => {
+          const hook = window.__awards?.scrollTo;
+          if (hook) await hook(p);
+          else window.scrollTo(0, Math.round(Math.max(0, document.documentElement.scrollHeight - innerHeight) * p));
+        }, c.p);
+        await page.waitForTimeout(600);
+        const box = await page.evaluate((id) => {
+          const el = document.querySelector(`[data-awards-l11="${id}"]`);
+          if (!el) return null;
+          const r = document.createRange(); r.selectNodeContents(el);
+          const b = r.getBoundingClientRect().width ? r.getBoundingClientRect() : el.getBoundingClientRect();
+          const x = Math.max(0, b.left), y = Math.max(0, b.top), w = Math.min(document.documentElement.clientWidth, b.right) - x, h = Math.min(innerHeight, b.bottom) - y;
+          return w >= 4 && h >= 4 ? { x, y, width: w, height: h } : null;
+        }, c.id);
+        if (!box) continue;
+        const shot = async () => `data:image/png;base64,${(await page.screenshot({ clip: box, timeout: 8000 })).toString('base64')}`;
+        const a1 = await shot();
+        await page.waitForTimeout(150);
+        const a2 = await shot();
+        const hidden = await page.evaluate((id) => { const by = document.querySelector(`[data-awards-l11-by="${id}"]`); if (!by) return false; by.style.setProperty('visibility', 'hidden', 'important'); return true; }, c.id);
+        if (!hidden) continue;
+        await page.waitForTimeout(100);
+        let b;
+        try {
+          b = await shot();
+        } finally {
+          await page.evaluate((id) => document.querySelector(`[data-awards-l11-by="${id}"]`)?.style.removeProperty('visibility'), c.id).catch(() => {});
+        }
+        const [still, hides] = await scratch.evaluate(async ({ a1, a2, b }) => {
+          const load = (src) => new Promise((resolve, reject) => { const i = new Image(); i.onload = () => resolve(i); i.onerror = reject; i.src = src; });
+          const [x, y, z] = await Promise.all([load(a1), load(a2), load(b)]);
+          const canvas = document.createElement('canvas');
+          canvas.width = x.width; canvas.height = x.height;
+          const ctx = canvas.getContext('2d', { willReadFrequently: true });
+          const px = (img) => { ctx.clearRect(0, 0, canvas.width, canvas.height); ctx.drawImage(img, 0, 0); return ctx.getImageData(0, 0, canvas.width, canvas.height).data; };
+          const share = (p, q) => { let n = 0; for (let i = 0; i < p.length; i += 4) if (Math.abs(p[i] - q[i]) + Math.abs(p[i + 1] - q[i + 1]) + Math.abs(p[i + 2] - q[i + 2]) > 96) n++; return n / (p.length / 4); };
+          const p1 = px(x), p2 = px(y), p3 = px(z);
+          return [share(p1, p2), share(p1, p3)];
+        }, { a1, a2, b });
+        if (still < 0.05 && hides >= 0.25) out.push(c);
+      } catch { /* unverified */ }
     }
   } finally {
     await scratch.close().catch(() => {});
