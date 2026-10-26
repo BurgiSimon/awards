@@ -8,6 +8,7 @@ Everything a future session needs to continue the `awards` plugin without re-der
 | `todo.md` | The open items, ordered by value |
 | `decisions.md` | Decisions taken with the user and the architectural choices with their reasons, plus the working conventions |
 | `corpus-ledger.md`, `verification-log.md`, `analysis-2026-10-06.md`, `recipe-proposals-*.md` | The corpus waves, the 0.2 verification ledger, the 0.6.0 analysis (open items still cited) and the recipe proposals the next recipe batch builds from |
+| `analysis-2026-10-26-taste-skill.md` | A ground-up comparison with taste-skill v2.1.5, the concept-level convergence in the 2026-10-23 builds, and the ranked recommendations that follow from both |
 | `archive/` | Superseded history, read only when a decision's origin matters: the 0.1.0 plan, the 0.2.0 plan and the 2026-09-22 visual comparison with its review data |
 | `archive/plan.md` | The original approved plan: research findings (§5–§6), architecture (§7), the individual plan for the core skill and each sub-skill (§8), reference and recipe catalogues (§10), scripts (§11), evals (§12), phases (§13), risks (§14) |
 | `research/` | The raw research reports the site cards were distilled from |
