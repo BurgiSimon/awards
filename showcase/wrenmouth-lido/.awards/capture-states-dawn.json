@@ -1,0 +1,4 @@
+[
+  { "name": "ballot-error", "actions": [ { "type": "click", "selector": "[data-ballot] button[type=submit]" }, { "type": "wait", "ms": 600 } ], "selector": "#ballot" },
+  { "name": "ballot-done", "actions": [ { "type": "click", "selector": "#b-name" }, { "type": "press", "key": "M" }, { "type": "press", "key": "a" }, { "type": "press", "key": "r" }, { "type": "press", "key": "y" }, { "type": "click", "selector": "#b-surname" }, { "type": "press", "key": "S" }, { "type": "click", "selector": "#b-email" }, { "type": "press", "key": "m" }, { "type": "press", "key": "@" }, { "type": "press", "key": "e" }, { "type": "press", "key": "." }, { "type": "press", "key": "c" }, { "type": "press", "key": "o" }, { "type": "click", "selector": "[data-ballot] input[name=rules]" }, { "type": "click", "selector": "[data-ballot] button[type=submit]" }, { "type": "wait", "ms": 2200 } ], "selector": "#ballot" }
+]

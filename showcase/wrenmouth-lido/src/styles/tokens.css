@@ -1,0 +1,81 @@
+/* The Wrenmouth Lido — tokens. Values identical to DESIGN.md frontmatter.
+   Strategy: theme-per-section. Two values live at a time (ground + ink) plus the flag accent,
+   remapped per chapter by [data-theme] on <html>. */
+:root {
+  color-scheme: light;
+
+  /* concrete (default): the sea wall by daylight */
+  --ground: #E7E5DF;
+  --ink: #221E1B;
+  --accent: #AE2E1A;
+  /* the unexposed paper of the empty frame: sea mixed into concrete, never a new hue */
+  --paper: color-mix(in srgb, #22333B 30%, #C9DDD8);
+
+  --font-display: "Young Serif", "Young Serif Fallback", Georgia, serif;
+  --font-body: "Commissioner", "Commissioner Fallback", Arial, sans-serif;
+  --font-mono: "Commissioner", "Commissioner Fallback", Arial, sans-serif; /* no monospace in this world: tabular Commissioner */
+  --font-pencil: "Reenie Beanie", "Reenie Beanie Fallback", cursive;
+
+  /* vw-lock on a 1440 artboard, clamped */
+  --artboard: 1440;
+  --display: clamp(2.625rem, 6.6667vw, 6rem);      /* 96px at 1440 · 42px floor */
+  --big: clamp(4rem, 12.5vw, 11.25rem);             /* 180px at 1440 · numerals that carry a chapter */
+  --h2: clamp(2rem, 3.8889vw, 3.5rem);              /* 56px */
+  --h3: clamp(1.375rem, 1.9444vw, 1.75rem);         /* 28px */
+  --body: clamp(1rem, 1.1806vw, 1.0625rem);         /* 17px */
+  --lede: clamp(1.1875rem, 1.5278vw, 1.375rem);     /* 22px */
+  --caption: 0.9375rem;                             /* 15px, Young Serif */
+  --pencil: clamp(1.625rem, 2.2222vw, 2rem);        /* 32px, Reenie Beanie */
+  --label: 0.8125rem;                               /* 13px */
+  --gutter: clamp(20px, 4.1667vw, 120px);           /* 60px at 1440 */
+  --unit: 4px;
+  --measure: 62ch;
+
+  /* organic register: a held paper, the sea, a town */
+  --ease-out-expo: cubic-bezier(0.33, 1, 0.68, 1);
+  --ease-in-out-expo: cubic-bezier(0.45, 0, 0.55, 1);
+  --ease-theme: cubic-bezier(0.45, 0, 0.55, 1);
+  --dur-feedback: 180ms;
+  --dur-routine: 420ms;
+  --dur-hero: 1200ms;
+  --dur-turn: 700ms;
+}
+
+/* derived tokens re-resolve wherever a theme is set (a section can carry its own data-theme) */
+:root,
+[data-theme] {
+  --muted: color-mix(in srgb, var(--ink) 70%, var(--ground));
+  --line: color-mix(in srgb, var(--ink) 22%, var(--ground));
+}
+
+[data-theme="concrete"] {
+  --ground: #E7E5DF;
+  --ink: #221E1B;
+  --accent: #AE2E1A;
+  color-scheme: light;
+}
+
+/* the cold sea at 06:00: the one dark field */
+[data-theme="sea"] {
+  --ground: #22333B;
+  --ink: #E7E5DF;
+  --accent: #F2836A;
+  color-scheme: dark;
+}
+
+/* the pale distemper of a painted pool */
+[data-theme="pool"] {
+  --ground: #C9DDD8;
+  --ink: #221E1B;
+  --accent: #AE2E1A;
+  color-scheme: light;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-feedback: 0ms;
+    --dur-routine: 120ms;
+    --dur-hero: 200ms;
+    --dur-turn: 200ms;
+  }
+}

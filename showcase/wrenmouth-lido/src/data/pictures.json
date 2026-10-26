@@ -1,0 +1,222 @@
+[
+ {
+  "slot": "hero",
+  "files": {
+   "800": "/images/hero-800.webp",
+   "1023": "/images/hero-1023.webp"
+  },
+  "width": 1023,
+  "height": 785,
+  "ratio": 1.303,
+  "alt": "Hundreds of bathers standing waist-deep in calm sea below a wooded headland, in black and white.",
+  "place": "Sandgate, Queensland, Australia",
+  "date": "December 1937",
+  "title": "Bathers and Moora Park, Sandgate, December 1937",
+  "creator": "Queensland State Archives",
+  "institution": "",
+  "licence": "Public domain",
+  "licenceUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+  "sourceUrl": "https://www.flickr.com/photos/60455048@N02/31475343415",
+  "bw": true
+ },
+ {
+  "slot": "sea",
+  "files": {
+   "800": "/images/sea-800.webp",
+   "1280": "/images/sea-1280.webp"
+  },
+  "width": 1280,
+  "height": 960,
+  "ratio": 1.333,
+  "alt": "The concrete wall of a sea pool running out into a choppy grey-blue sea, water washing over it, snow on the hills across the firth.",
+  "place": "Saltcoats sea-water bathing pool, North Ayrshire, Scotland",
+  "date": "",
+  "title": "Saltcoats Sea Water Bathing Pool - geograph.org.uk - 5680504",
+  "creator": "Raibeart MacAoidh",
+  "institution": "",
+  "licence": "CC BY-SA 2.0",
+  "licenceUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+  "sourceUrl": "https://commons.wikimedia.org/w/index.php?curid=140133740",
+  "bw": false
+ },
+ {
+  "slot": "empty",
+  "files": {
+   "800": "/images/empty-800.webp",
+   "1024": "/images/empty-1024.webp"
+  },
+  "width": 1024,
+  "height": 683,
+  "ratio": 1.499,
+  "alt": "A drained outdoor pool with a bare, weedy floor below a white 1930s pavilion and green cliffs.",
+  "place": "Tarlair, Macduff, Aberdeenshire, Scotland",
+  "date": "",
+  "title": "Tarlair swimming pool",
+  "creator": "yellow book",
+  "institution": "",
+  "licence": "CC BY 2.0",
+  "licenceUrl": "https://creativecommons.org/licenses/by/2.0/",
+  "sourceUrl": "https://www.flickr.com/photos/57899800@N00/9203406460",
+  "bw": false
+ },
+ {
+  "slot": "diving",
+  "files": {
+   "800": "/images/diving-800.webp",
+   "1000": "/images/diving-1000.webp"
+  },
+  "width": 1000,
+  "height": 1507,
+  "ratio": 0.664,
+  "alt": "A man diving from a high board above a sunlit pool while three young men sit on the edge watching, in black and white.",
+  "place": "a swimming pool, place not recorded",
+  "date": "",
+  "title": "Man springt van hoge duikplank in zwembad, Bestanddeelnr 350-6-5",
+  "creator": "Nationaal Archief",
+  "institution": "",
+  "licence": "CC0 1.0",
+  "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "sourceUrl": "https://commons.wikimedia.org/w/index.php?curid=65737217",
+  "bw": true
+ },
+ {
+  "slot": "sauna",
+  "files": {
+   "800": "/images/sauna-800.webp",
+   "1280": "/images/sauna-1280.webp"
+  },
+  "width": 1280,
+  "height": 960,
+  "ratio": 1.333,
+  "alt": "A small red wooden sauna with a lifebuoy by the door, a boardwalk leading to it between pine trees.",
+  "place": "Kirkkonummi, Finland",
+  "date": "",
+  "title": "Seaside sauna in Kirkkonummi",
+  "creator": "JIP",
+  "institution": "",
+  "licence": "CC BY-SA 4.0",
+  "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "sourceUrl": "https://commons.wikimedia.org/w/index.php?curid=140504700",
+  "bw": false
+ },
+ {
+  "slot": "cold",
+  "files": {
+   "800": "/images/cold-800.webp",
+   "1280": "/images/cold-1280.webp"
+  },
+  "width": 1280,
+  "height": 960,
+  "ratio": 1.333,
+  "alt": "A winter swimmer climbing down a ladder into a hole in the sea ice, the city waterfront behind under a clear sky.",
+  "place": "Katajanokka, Helsinki, Finland",
+  "date": "February 2022",
+  "title": "Winter swimming at Katajanokka in Helsinki, Finland, 2022 February",
+  "creator": "Annette Helander",
+  "institution": "",
+  "licence": "CC BY 4.0",
+  "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
+  "sourceUrl": "https://commons.wikimedia.org/w/index.php?curid=128470372",
+  "bw": false
+ },
+ {
+  "slot": "hall",
+  "files": {
+   "800": "/images/hall-800.webp",
+   "1024": "/images/hall-1024.webp"
+  },
+  "width": 1024,
+  "height": 800,
+  "ratio": 1.28,
+  "alt": "The white entrance building of a public baths, its name over the door, seen across a lawn between two large trees, in black and white.",
+  "place": "Tobruk Memorial Baths, Townsville, Queensland, Australia",
+  "date": "c. 1953",
+  "title": "Tobruk Memorial Baths, Townsville, c 1953",
+  "creator": "Queensland State Archives",
+  "institution": "",
+  "licence": "Public domain",
+  "licenceUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+  "sourceUrl": "https://www.flickr.com/photos/60455048@N02/36259214636",
+  "bw": true
+ },
+ {
+  "slot": "lesson",
+  "files": {
+   "800": "/images/lesson-800.webp",
+   "1280": "/images/lesson-1280.webp"
+  },
+  "width": 1280,
+  "height": 1788,
+  "ratio": 0.716,
+  "alt": "A swimming teacher stands on a wooden platform above a class of children in swimming caps in an outdoor pool, hills behind, in black and white.",
+  "place": "Álafoss, Iceland",
+  "date": "",
+  "title": "Alafoss De dochter van Sigurjón Pétursson uit Álafoss geeft zwemles aan een kla, Bestanddeelnr 190-0334",
+  "creator": "Willem van de Poll",
+  "institution": "Nationaal Archief",
+  "licence": "CC0 1.0",
+  "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "sourceUrl": "https://commons.wikimedia.org/w/index.php?curid=67039893",
+  "bw": true
+ },
+ {
+  "slot": "lifeguard",
+  "files": {
+   "800": "/images/lifeguard-800.webp",
+   "1280": "/images/lifeguard-1280.webp"
+  },
+  "width": 1280,
+  "height": 1019,
+  "ratio": 1.256,
+  "alt": "A lifeguard in a rowing boat in front of a crowd of swimmers and paddlers, in black and white.",
+  "place": "Green Lake, Seattle, USA",
+  "date": "1930",
+  "title": "Lifeguard and swimmers at Green Lake, 1930",
+  "creator": "Seattle Municipal Archives",
+  "institution": "",
+  "licence": "CC BY 2.0",
+  "licenceUrl": "https://creativecommons.org/licenses/by/2.0/",
+  "sourceUrl": "https://commons.wikimedia.org/w/index.php?curid=71150880",
+  "bw": true
+ },
+ {
+  "slot": "wall",
+  "files": {
+   "800": "/images/wall-800.webp",
+   "1280": "/images/wall-1280.webp"
+  },
+  "width": 1280,
+  "height": 955,
+  "ratio": 1.34,
+  "alt": "The curved concrete wall of a sea pool half covered by the tide, hills across the water.",
+  "place": "Saltcoats sea-water bathing pool, North Ayrshire, Scotland",
+  "date": "",
+  "title": "Saltcoats Sea Water Bathing Pool - geograph.org.uk - 5680528",
+  "creator": "Raibeart MacAoidh",
+  "institution": "",
+  "licence": "CC BY-SA 2.0",
+  "licenceUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+  "sourceUrl": "https://commons.wikimedia.org/w/index.php?curid=140133898",
+  "bw": false
+ },
+ {
+  "slot": "baths",
+  "files": {
+   "800": "/images/baths-800.webp",
+   "1023": "/images/baths-1023.webp"
+  },
+  "width": 1023,
+  "height": 627,
+  "ratio": 1.632,
+  "alt": "A hand-tinted postcard of an ocean bath: a wooden rail and jetty over shallow sea water, bathing sheds on the shore beyond.",
+  "place": "Forster, New South Wales, Australia",
+  "date": "c. 1940",
+  "title": "Ocean Baths at Forster, N.S.W. - circa 1940",
+  "creator": "Aussie~mobs",
+  "institution": "",
+  "licence": "Public domain",
+  "licenceUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+  "sourceUrl": "https://www.flickr.com/photos/70994841@N07/40396684215",
+  "bw": false
+ }
+]

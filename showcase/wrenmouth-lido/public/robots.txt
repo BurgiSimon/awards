@@ -1,0 +1,4 @@
+# The Wrenmouth Lido is a fictional client; this is a design study on a placeholder domain.
+User-agent: *
+Allow: /
+Sitemap: https://wrenmouthlido.example/sitemap.xml

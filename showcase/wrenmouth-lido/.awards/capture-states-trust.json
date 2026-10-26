@@ -1,0 +1,3 @@
+[
+  { "name": "card-turned", "actions": [ { "type": "click", "selector": ".page-hero [data-frame-turn]" }, { "type": "wait", "ms": 1100 } ], "selector": ".page-hero__frame" }
+]

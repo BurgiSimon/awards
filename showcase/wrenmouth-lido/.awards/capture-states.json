@@ -1,0 +1,6 @@
+[
+  { "name": "frame-turned", "actions": [ { "type": "click", "selector": ".hero [data-frame-turn]" }, { "type": "wait", "ms": 1100 } ], "selector": ".hero__frame" },
+  { "name": "frame-keyboard", "actions": [ { "type": "focus", "selector": ".hero [data-frame-turn]" }, { "type": "press", "key": "Enter" }, { "type": "wait", "ms": 1100 } ], "selector": ".hero__frame" },
+  { "name": "month-august", "actions": [ { "type": "click", "selector": "input[name=month][value='7']" }, { "type": "wait", "ms": 600 } ], "selector": ".months" },
+  { "name": "head-returns", "actions": [ { "type": "wheel", "dy": 3200 }, { "type": "wait", "ms": 900 }, { "type": "wheel", "dy": -240 }, { "type": "wait", "ms": 900 } ] }
+]

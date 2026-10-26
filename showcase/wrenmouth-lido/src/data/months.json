@@ -1,0 +1,122 @@
+[
+ {
+  "month": "January",
+  "short": "Jan",
+  "c": 10,
+  "f": 50,
+  "band": "cold",
+  "wear": "Swimsuit, a woolly hat, and gloves and boots if you have them.",
+  "time": "Two to four minutes the first time. By the third swim you'll want longer.",
+  "note": "Gloves on the steps, tea in the turnstile hall straight after."
+ },
+ {
+  "month": "February",
+  "short": "Feb",
+  "c": 9,
+  "f": 48,
+  "band": "cold",
+  "wear": "Swimsuit, a woolly hat, and gloves and boots if you have them.",
+  "time": "Two to four minutes the first time. By the third swim you'll want longer.",
+  "note": "The sea's at its coldest now and in March. Go in slowly and breathe out."
+ },
+ {
+  "month": "March",
+  "short": "Mar",
+  "c": 9,
+  "f": 48,
+  "band": "cold",
+  "wear": "Swimsuit, a woolly hat, and gloves and boots if you have them.",
+  "time": "Two to four minutes the first time. By the third swim you'll want longer.",
+  "note": "The coldest the water gets. The sauna's on the wall for a reason."
+ },
+ {
+  "month": "April",
+  "short": "Apr",
+  "c": 10,
+  "f": 50,
+  "band": "cold",
+  "wear": "Swimsuit, a woolly hat, and gloves and boots if you have them.",
+  "time": "Two to four minutes the first time. By the third swim you'll want longer.",
+  "note": "Still cold, but the light's back. Early swims start feeling possible."
+ },
+ {
+  "month": "May",
+  "short": "May",
+  "c": 12,
+  "f": 54,
+  "band": "cool",
+  "wear": "Swimsuit and a woolly hat; boots if your feet complain.",
+  "time": "Five to ten minutes the first time.",
+  "note": "Summer hours start: open from 06:30."
+ },
+ {
+  "month": "June",
+  "short": "Jun",
+  "c": 14,
+  "f": 57,
+  "band": "mild",
+  "wear": "A swimsuit. A hat for the walk home.",
+  "time": "Ten to twenty minutes, and you'll still gasp on the way in.",
+  "note": "The month we reopen. About 14 °C at the dawn swim, if the forecast holds."
+ },
+ {
+  "month": "July",
+  "short": "Jul",
+  "c": 17,
+  "f": 63,
+  "band": "warm",
+  "wear": "A swimsuit and nothing to prove.",
+  "time": "As long as you like. It's still colder than the bath.",
+  "note": "School holidays. The shallow end and the cascade belong to the under-tens."
+ },
+ {
+  "month": "August",
+  "short": "Aug",
+  "c": 19,
+  "f": 66,
+  "band": "warm",
+  "wear": "A swimsuit and nothing to prove.",
+  "time": "As long as you like. It's still colder than the bath.",
+  "note": "As warm as it gets. The tide refills bring the sea in at sea temperature, so it stays fresh."
+ },
+ {
+  "month": "September",
+  "short": "Sep",
+  "c": 17,
+  "f": 63,
+  "band": "warm",
+  "wear": "A swimsuit and nothing to prove.",
+  "time": "As long as you like. It's still colder than the bath.",
+  "note": "The best month, ask anyone who swims all year: the sea's kept its summer."
+ },
+ {
+  "month": "October",
+  "short": "Oct",
+  "c": 15,
+  "f": 59,
+  "band": "mild",
+  "wear": "A swimsuit. A hat for the walk home.",
+  "time": "Ten to twenty minutes, and you'll still gasp on the way in.",
+  "note": "Winter hours start: 07:00 to 17:00. The water's still warmer than the air."
+ },
+ {
+  "month": "November",
+  "short": "Nov",
+  "c": 13,
+  "f": 55,
+  "band": "cool",
+  "wear": "Swimsuit and a woolly hat; boots if your feet complain.",
+  "time": "Five to ten minutes the first time.",
+  "note": "Dark by five. The pool's lit, and the lifeguards are there till close."
+ },
+ {
+  "month": "December",
+  "short": "Dec",
+  "c": 11,
+  "f": 52,
+  "band": "cool",
+  "wear": "Swimsuit and a woolly hat; boots if your feet complain.",
+  "time": "Five to ten minutes the first time.",
+  "note": "Christmas morning swim at 10:00. The café shuts at noon on the 25th."
+ }
+]
