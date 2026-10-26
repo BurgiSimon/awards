@@ -1,0 +1,185 @@
+{
+  "runs": {
+    "https://saasone.framer.website/": {
+      "group": "contrast",
+      "status": "measured",
+      "rules": [
+        "A16",
+        "A18",
+        "C01",
+        "L07",
+        "L08",
+        "L11",
+        "L12",
+        "P09",
+        "S11",
+        "T01"
+      ],
+      "date": "2026-10-26"
+    },
+    "https://zean.framer.website/": {
+      "group": "contrast",
+      "status": "not measured: the rendered steps failed",
+      "date": "2026-10-26"
+    },
+    "https://patroon-app.framer.website/": {
+      "group": "contrast",
+      "status": "measured",
+      "rules": [
+        "A16",
+        "A18",
+        "C01",
+        "L02",
+        "L07",
+        "P09",
+        "T01"
+      ],
+      "date": "2026-10-26"
+    },
+    "https://flow-saas.framer.ai/": {
+      "group": "contrast",
+      "status": "measured",
+      "rules": [
+        "A16",
+        "A18",
+        "C01",
+        "L08",
+        "L11",
+        "T01"
+      ],
+      "date": "2026-10-26"
+    },
+    "https://ego-launchpad-tmpl.webflow.io/": {
+      "group": "contrast",
+      "status": "measured",
+      "rules": [
+        "A12",
+        "A18",
+        "C01",
+        "L07",
+        "P09",
+        "T01"
+      ],
+      "date": "2026-10-26"
+    },
+    "https://marija-template.webflow.io/": {
+      "group": "contrast",
+      "status": "refused by the owner's policy",
+      "date": "2026-10-26"
+    },
+    "https://saasnetic.webflow.io/": {
+      "group": "contrast",
+      "status": "measured",
+      "rules": [
+        "A12",
+        "A16",
+        "A18",
+        "P09",
+        "T01"
+      ],
+      "date": "2026-10-26"
+    },
+    "https://supify.webflow.io/": {
+      "group": "contrast",
+      "status": "measured",
+      "rules": [
+        "A12",
+        "A16",
+        "A18",
+        "C01",
+        "L12",
+        "P09",
+        "T01"
+      ],
+      "date": "2026-10-26"
+    },
+    "https://abatable.com/": {
+      "group": "winner",
+      "slug": "abatable",
+      "status": "measured",
+      "rules": [
+        "A16",
+        "A18",
+        "C01",
+        "L06",
+        "L11",
+        "L12",
+        "L14",
+        "P08",
+        "P09",
+        "S11"
+      ],
+      "date": "2026-10-26"
+    },
+    "https://lamalama.com/": {
+      "group": "winner",
+      "slug": "lama-lama",
+      "status": "measured",
+      "rules": [
+        "A12",
+        "A14",
+        "A16",
+        "A18",
+        "C01",
+        "L06"
+      ],
+      "date": "2026-10-26"
+    },
+    "https://www.seasats.com/": {
+      "group": "winner",
+      "slug": "seasats",
+      "status": "measured",
+      "rules": [
+        "A16",
+        "A18",
+        "C01",
+        "L08",
+        "L11",
+        "L12",
+        "L14",
+        "P09"
+      ],
+      "date": "2026-10-26"
+    },
+    "https://www.siteassist.com/": {
+      "group": "winner",
+      "slug": "siteassist",
+      "status": "not measured: the rendered steps failed",
+      "date": "2026-10-26"
+    },
+    "https://thelinestudio.com/": {
+      "group": "winner",
+      "slug": "the-line",
+      "status": "measured",
+      "rules": [
+        "A14",
+        "A16",
+        "A18",
+        "C01",
+        "L07",
+        "L08",
+        "L11",
+        "P09",
+        "S11"
+      ],
+      "date": "2026-10-26"
+    },
+    "https://unitedcarriers.com/": {
+      "group": "winner",
+      "slug": "united-carriers",
+      "status": "measured",
+      "rules": [
+        "A12",
+        "A14",
+        "A16",
+        "A18",
+        "C01",
+        "L11",
+        "L12",
+        "P09",
+        "S11"
+      ],
+      "date": "2026-10-26"
+    }
+  }
+}
