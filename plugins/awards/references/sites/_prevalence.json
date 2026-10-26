@@ -154,6 +154,7 @@
       "group": "winner",
       "slug": "siteassist",
       "status": "not measured: the rendered steps failed",
+      "audit": "7aa25ebcad",
       "date": "2026-10-26"
     },
     "https://thelinestudio.com/": {
@@ -171,6 +172,7 @@
         "P09",
         "S11"
       ],
+      "audit": "7aa25ebcad",
       "date": "2026-10-26"
     },
     "https://unitedcarriers.com/": {
