@@ -1,14 +1,6 @@
 {
   "assets": [
     {
-      "file": "public/favicon.svg",
-      "kind": "drawn",
-      "synthetic": false,
-      "author": "awards:system for this build",
-      "credit": "Favicon drawn from the tokens: a rebate square holding one frame with a black wax ring",
-      "date": "2026-10-22"
-    },
-    {
       "file": "public/fonts/enriqueta-latin-400.woff2",
       "kind": "licensed",
       "synthetic": false,
@@ -1498,32 +1490,167 @@
       "date": "2026-10-22"
     },
     {
-      "file": "public/og.png",
+      "file": "public/builds/awards-home-desktop.webp",
       "kind": "owned",
       "synthetic": false,
-      "source": "this site's own capture .awards/captures/20261022T153705Z-prejury-2/home/desktop-s00.png (capture.mjs), set in its rebate beside the job line by scripts/proof.mjs",
-      "author": "awards:ship for this build",
+      "source": "first viewport of the plugin's own build awards-home, captured by this site's build with capture.mjs, 2026-10-26",
       "licence": "MIT",
-      "tool": "Chromium screenshot of an HTML card in the site's own faces and tokens (scripts/proof.mjs renderOg)",
-      "date": "2026-10-22"
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/builds/ekvator-desktop.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "first viewport of the plugin's own build ekvator, captured by this site's build with capture.mjs, 2026-10-26",
+      "licence": "MIT",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/builds/extinct-desktop.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "first viewport of the plugin's own build extinct, captured by this site's build with capture.mjs, 2026-10-26",
+      "licence": "MIT",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/builds/petrel-desktop.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "first viewport of the plugin's own build petrel, captured by this site's build with capture.mjs, 2026-10-26",
+      "licence": "MIT",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/builds/contact-sheet-desktop.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "first viewport of the plugin's own build contact-sheet, captured by this site's build with capture.mjs, 2026-10-26",
+      "licence": "MIT",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/og.png",
+      "kind": "drawn",
+      "synthetic": false,
+      "source": "drawn for this site by scripts/og.mjs from the tokens and the build frames, 2026-10-26",
+      "licence": "MIT",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/favicon.svg",
+      "kind": "drawn",
+      "synthetic": false,
+      "source": "drawn for this site by scripts/icons.mjs from the tokens and the build frames, 2026-10-26",
+      "licence": "MIT",
+      "date": "2026-10-26"
     },
     {
       "file": "public/favicon-32.png",
       "kind": "drawn",
       "synthetic": false,
-      "author": "awards:ship for this build",
-      "credit": "PNG fallback of public/favicon.svg, drawn from the tokens",
-      "tool": "Chromium render of public/favicon.svg (scripts/icons.mjs)",
-      "date": "2026-10-22"
+      "source": "drawn for this site by scripts/icons.mjs from the tokens and the build frames, 2026-10-26",
+      "licence": "MIT",
+      "date": "2026-10-26"
     },
     {
       "file": "public/apple-touch-icon.png",
       "kind": "drawn",
       "synthetic": false,
-      "author": "awards:ship for this build",
-      "credit": "180 px touch icon of public/favicon.svg, drawn from the tokens",
-      "tool": "Chromium render of public/favicon.svg (scripts/icons.mjs)",
-      "date": "2026-10-22"
+      "source": "drawn for this site by scripts/icons.mjs from the tokens and the build frames, 2026-10-26",
+      "licence": "MIT",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "dist/recipes/gl-dom-refraction-lens.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "the plugin's recipe explorer frame, plugins/awards/recipes/_gallery/frames/gl-dom-refraction-lens.webp, copied at build",
+      "licence": "MIT",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "dist/recipes/gl-grade-pass-scene-cuts.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "the plugin's recipe explorer frame, plugins/awards/recipes/_gallery/frames/gl-grade-pass-scene-cuts.webp, copied at build",
+      "licence": "MIT",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "dist/recipes/gl-pointer-wake-reveal.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "the plugin's recipe explorer frame, plugins/awards/recipes/_gallery/frames/gl-pointer-wake-reveal.webp, copied at build",
+      "licence": "MIT",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "dist/recipes/gl-screen-paint-distortion.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "the plugin's recipe explorer frame, plugins/awards/recipes/_gallery/frames/gl-screen-paint-distortion.webp, copied at build",
+      "licence": "MIT",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "dist/recipes/gl-swarm-light-field.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "the plugin's recipe explorer frame, plugins/awards/recipes/_gallery/frames/gl-swarm-light-field.webp, copied at build",
+      "licence": "MIT",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "dist/recipes/point-cloud-shape-morph.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "the plugin's recipe explorer frame, plugins/awards/recipes/_gallery/frames/point-cloud-shape-morph.webp, copied at build",
+      "licence": "MIT",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "dist/recipes/wordmark-header-handoff.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "the plugin's recipe explorer frame, plugins/awards/recipes/_gallery/frames/wordmark-header-handoff.webp, copied at build",
+      "licence": "MIT",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/fonts/gloock-latin-400.woff2",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "google/fonts",
+      "licence": "OFL-1.1",
+      "licenceUrl": "https://github.com/google/fonts/blob/main/ofl/gloock/OFL.txt",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/fonts/familjen-grotesk-latin-400.woff2",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "google/fonts",
+      "licence": "OFL-1.1",
+      "licenceUrl": "https://github.com/google/fonts/blob/main/ofl/familjengrotesk/OFL.txt",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/fonts/familjen-grotesk-latin-600.woff2",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "google/fonts",
+      "licence": "OFL-1.1",
+      "licenceUrl": "https://github.com/google/fonts/blob/main/ofl/familjengrotesk/OFL.txt",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/builds/extinct-desktop-2x.webp",
+      "kind": "owned",
+      "synthetic": false,
+      "source": "first viewport of the plugin's own build extinct at device pixel ratio 2, captured by this site's build, 2026-10-26",
+      "licence": "MIT",
+      "date": "2026-10-26"
     }
   ]
 }

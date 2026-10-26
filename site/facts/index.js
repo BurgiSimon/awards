@@ -1,18 +1,15 @@
 // The facts plugin: every page is a hand-written HTML file whose literals the build rebinds from the plugin
-// repository and whose proof slots it fills from src/data/proof.json. Bindings (see the comment atop index.html):
+// repository. Bindings (see the comment atop index.html):
 //   data-fact="name"                 the element's text (or, for lists and tables, its rows) is that fact
 //   data-fact-attr="attr:name …"     an attribute holds that literal; numbers replace the attribute's integers in order
-//   <!-- @fact:name -->…<!-- /@fact -->  a region the build regenerates whole
-//   <!-- @fact:build -->, <!-- @fact:libraries -->  one-line facts
-//   <!-- @proof:slot … -->           evidence from proof.json; empty in state c
-//   <html data-proof="none">         none | capture | report, from proof.json's state
+//   <!-- @fact:name -->…<!-- /@fact -->  a region the build regenerates whole (the band, the record, the colophon …)
+// The recipes' frames are read from plugins/awards/recipes/_gallery/frames/ and served at ./recipes/<id>.webp.
 // Anything unknown, or a literal that cannot be found where the markup says it is, stops the build.
 import { basename, resolve } from 'node:path';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync, createReadStream } from 'node:fs';
 import { collectFacts, fail, siteRoot } from './collect.js';
-import { elementsWith, splice, replaceRegions, replaceSlots, esc, breakCode } from './html.js';
-import { simpleFacts, elementFacts, regions, assertWordedCounts, libraryRows, ENTRY_FACTS } from './render.js';
-import { loadProof, proofSlots, heroRingClasses, PROOF_ATTR } from './proof.js';
+import { elementsWith, splice, replaceRegions, esc, breakCode } from './html.js';
+import { simpleFacts, elementFacts, regions, assertWordedCounts } from './render.js';
 
 const ROUTES = { 'index.html': 'home', 'install.html': 'install', 'docs.html': 'docs', 'recipes.html': 'recipes', '404.html': '404' };
 
@@ -39,7 +36,7 @@ export function siteUrl() {
 export const INDEXED = ['index.html', 'install.html', 'docs.html', 'recipes.html'];
 const pageUrl = (page) => new URL(page === 'index.html' ? './' : `./${page}`, siteUrl()).href;
 
-// A page's own address in the head, made absolute: the canonical and og:url name the page, og:image the sheet.
+// A page's own address in the head, made absolute: the canonical and og:url name the page, og:image the card.
 function absoluteHead(html, page) {
   const base = siteUrl();
   const abs = (v) => new URL(v, base).href;
@@ -54,15 +51,6 @@ function absoluteHead(html, page) {
   }
   if (!out.includes(`<meta property="og:url" content="${esc(pageUrl(page))}"`)) fail(`${page}: og:url does not name this page`);
   return out.replace(/<link rel="canonical" href="[^"]*"/, `<link rel="canonical" href="${esc(pageUrl(page))}"`);
-}
-
-// The card's alt text follows the card: the proof step's screenshot card once a capture exists, else the drawing.
-const DRAWN_OG_ALT = 'A black film rebate along the top of a white proof sheet, the line \u201cYour site, proofed before anyone sees it.\u201d and an install ticket ringed in red pencil.';
-function ogAlt(html, page, proof) {
-  const re = /(<meta property="og:image:alt" content=")[^"]*(")/;
-  if (!re.test(html)) fail(`${page}: no <meta property="og:image:alt"> in the head`);
-  if (proof.og && !existsSync(resolve(siteRoot, 'public', proof.og.src))) fail(`proof.json names public/${proof.og.src}, which is not on disk; run npm run proof`);
-  return html.replace(re, (m, a, z) => `${a}${esc(proof.og?.alt ?? DRAWN_OG_ALT)}${z}`);
 }
 
 // Crawlers read robots.txt only at a host's root; under a project path it still says the same true thing.
@@ -80,7 +68,6 @@ function bindElements(html, simple, complex) {
   const edits = [];
   for (const el of elementsWith(html, 'data-fact')) {
     const name = el.value;
-    if (ENTRY_FACTS.has(name)) continue;
     const inner = html.slice(el.innerStart, el.innerEnd);
     let text;
     if (complex[name]) text = complex[name](inner);
@@ -104,7 +91,6 @@ function bindAttributes(html, simple) {
     const byAttr = new Map();
     for (const [attr, name] of pairs) {
       if (!attr || !name) fail(`data-fact-attr="${el.value}" is not attr:name pairs`);
-      if (ENTRY_FACTS.has(name)) continue;
       if (!(name in simple)) fail(`unknown fact data-fact-attr="${attr}:${name}"`);
       if (!byAttr.has(attr)) byAttr.set(attr, []);
       byAttr.get(attr).push(simple[name]);
@@ -136,28 +122,15 @@ export function transformPage(html, filename) {
   const f = collectFacts();
   assertWordedCounts(f);
   const simple = simpleFacts(f, { siteBase: siteBase() });
-  const proof = loadProof();
-
-  // One-line facts first, so a region's lazy match can never run across them.
-  let out = html
-    .replace(/<!-- @fact:build\b[^]*?-->/g, `<p class="colophon__build" data-build="${esc(f.build.id)}">This is build <span class="edge">${esc(f.build.id)}</span>.</p>`)
-    .replace(/<!-- @fact:libraries -->/g, libraryRows(f));
-  const region = regions(f);
-  out = replaceRegions(out, (name) => region[name]?.());
-  const slots = proofSlots({ proof, routeName, html: out, facts: f });
-  out = replaceSlots(out, 'proof', (name, params) => (slots[name] ? slots[name](params) : undefined));
+  const region = regions(f, routeName);
+  let out = replaceRegions(html, (name) => region[name]?.());
   out = bindElements(out, simple, elementFacts(f));
   out = bindAttributes(out, simple);
-  if (!/<html\b[^>]*\sdata-proof="none"/.test(out)) fail(`${page}: <html> has no data-proof="none" for the build to set`);
-  out = out.replace(/(<html\b[^>]*\sdata-proof=")none(")/, `$1${PROOF_ATTR[proof.state]}$2`);
-  const heroRing = routeName === 'home' ? heroRingClasses(proof) : [];
-  if (heroRing.length) out = out.replace(/(<html\b[^>]*\sdata-proof="[a-z]+")/, `$1 data-hero-ring="${heroRing.join(' ')}"`);
   out = absoluteHead(out, page);
-  out = ogAlt(out, page, proof);
   // A canonical link names a page, not an asset: Vite would otherwise try to bundle it as a file.
   out = out.replace(/<link rel="canonical"(?![^>]*vite-ignore)/g, '<link rel="canonical" vite-ignore');
   out = breakCode(out);
-  if (/<!-- @(?:proof|fact):/.test(out.replace(/<!-- @fact:[a-z0-9-]+ -->[^]*?<!-- \/@fact -->/g, ''))) fail(`${page}: a slot was left unfilled`);
+  if (/<!-- @fact:/.test(out.replace(/<!-- @fact:[a-z0-9-]+ -->[^]*?<!-- \/@fact -->/g, ''))) fail(`${page}: a region was left unfilled`);
   return out;
 }
 
@@ -170,14 +143,33 @@ export default function facts() {
       // window.__awards.state().build, so every capture manifest records which build it shot.
       return { define: { __AWARDS_BUILD__: JSON.stringify(build) } };
     },
+    // Dev: the recipes' frames straight from the plugin, at the address the build gives them.
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        const m = /^\/recipes\/([a-z0-9-]+)\.webp$/.exec(req.url?.split('?')[0] ?? '');
+        if (!m) return next();
+        const file = resolve(collectFacts().framesDir, `${m[1]}.webp`);
+        if (!existsSync(file)) return next();
+        res.setHeader('Content-Type', 'image/webp');
+        createReadStream(file).pipe(res);
+      });
+    },
     transformIndexHtml: {
       order: 'pre',
       handler: (html, ctx) => transformPage(html, ctx.filename),
     },
-    // robots.txt and sitemap.xml name the deployed address, so the build writes them rather than public/.
+    // robots.txt and sitemap.xml name the deployed address, so the build writes them rather than public/; the
+    // recipes' frames are copied from the plugin, one per recipe that has one.
     generateBundle() {
       this.emitFile({ type: 'asset', fileName: 'robots.txt', source: robotsTxt() });
       this.emitFile({ type: 'asset', fileName: 'sitemap.xml', source: sitemapXml() });
+      const f = collectFacts();
+      for (const r of f.recipes) {
+        const file = resolve(f.framesDir, `${r.id}.webp`);
+        if (f.frames.has(r.id) && existsSync(file)) this.emitFile({ type: 'asset', fileName: `recipes/${r.id}.webp`, source: readFileSync(file) });
+      }
     },
   };
 }
+
+export { siteRoot };

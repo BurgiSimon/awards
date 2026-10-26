@@ -1,43 +1,42 @@
-/* Self-hosted OFL faces, latin subset, woff2 (licence texts beside the files in public/fonts). Three files, 58 KB (59,380 bytes). */
+/* Self-hosted OFL faces, latin subset, woff2; licence texts beside the files in public/fonts. Three files, 50 KB.
+   The fallbacks are metric-matched to the metric-compatible system faces (Times New Roman / Liberation Serif,
+   Arial / Liberation Sans): size-adjust from rendered widths of one pangram, 2026-10-26. */
 @font-face {
-  font-family: "Enriqueta";
-  src: url("/fonts/enriqueta-latin-400.woff2") format("woff2");
+  font-family: "Gloock";
+  src: url("/fonts/gloock-latin-400.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Enriqueta";
-  src: url("/fonts/enriqueta-latin-500.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Saira Condensed";
-  src: url("/fonts/saira-condensed-latin-400.woff2") format("woff2");
+  font-family: "Familjen Grotesk";
+  src: url("/fonts/familjen-grotesk-latin-400.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
-
-/* Metric-matched fallbacks, measured against Liberation Serif and Liberation Sans (metric twins of Times New Roman
-   and Arial): size-adjust is the running-text width ratio, the overrides are the faces' own hhea metrics divided by it. */
 @font-face {
-  font-family: "Enriqueta Fallback";
-  src: local("Times New Roman"), local("Liberation Serif"), local("Tinos");
-  size-adjust: 109.2%;
-  ascent-override: 98.63%;
-  descent-override: 23.9%;
+  font-family: "Familjen Grotesk";
+  src: url("/fonts/familjen-grotesk-latin-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Gloock fallback";
+  src: local("Times New Roman"), local("Liberation Serif"), local("Georgia");
+  size-adjust: 111.2%;
+  ascent-override: 86%;
+  descent-override: 23%;
   line-gap-override: 0%;
   font-display: swap;
 }
 @font-face {
-  font-family: "Saira Condensed Fallback";
-  src: local("Arial"), local("Liberation Sans"), local("Arimo");
-  size-adjust: 78.55%;
-  ascent-override: 144.49%;
-  descent-override: 55.89%;
+  font-family: "Familjen fallback";
+  src: local("Arial"), local("Liberation Sans"), local("Helvetica");
+  size-adjust: 94.2%;
+  ascent-override: 104%;
+  descent-override: 30%;
   line-gap-override: 0%;
   font-display: swap;
 }

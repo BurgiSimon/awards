@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en" data-proof="none">
-<!-- Skeleton (awards:structure). Bindings as described at the top of index.html: data-fact, data-fact-attr, data-proof, @proof and @fact slots. -->
+<html lang="en" data-theme="fix">
+<!-- Re-skinned for the record (awards:structure, 2026-10-26). Bindings as described at the top of index.html: data-fact, data-fact-attr and @fact regions (the band and the colophon are shared). -->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Script-only controls keep their place from the first paint (no shift when the module wires them up). -->
-  <script>(function(d){d.classList.add('js');if(navigator.clipboard&&window.isSecureContext)d.classList.add('can-copy');if(window.HTMLDialogElement)d.classList.add('can-dialog');
+  <!-- Script-only controls keep their place from the first paint. -->
+  <script>(function(d){d.classList.add('js');if(navigator.clipboard&&window.isSecureContext)d.classList.add('can-copy');
     var still=matchMedia('(prefers-reduced-motion: reduce)').matches||/^(reduced|static)$/.test(d.dataset.motion||'');
     addEventListener('pagereveal',function(e){var t=e.viewTransition;window.__vt={ran:!!t,skipped:false,finished:false};if(!t)return;if(still){t.skipTransition();window.__vt.skipped=true}t.finished.then(function(){window.__vt.finished=true},function(){})});
   })(document.documentElement)</script>
@@ -16,13 +16,12 @@
   <meta name="description" content="The awards plugin: its 11 skills, the craft flow and its modes, the jury, 89 audit rules in eight families, the corpus and the scripts, read from the plugin at build time." data-fact-attr="content:skills content:rules">
   <link rel="canonical" href="./docs.html">
   <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#131211">
+  <meta name="theme-color" content="#d1942b">
   <link rel="icon" href="./favicon-32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  <link rel="preload" href="./fonts/enriqueta-latin-500.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="./fonts/enriqueta-latin-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="./fonts/saira-condensed-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./fonts/gloock-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./fonts/familjen-grotesk-latin-400.woff2" as="font" type="font/woff2" crossorigin>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="awards">
   <meta property="og:title" content="Docs · awards">
@@ -31,31 +30,17 @@
   <meta property="og:image" content="./og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="(written at build from src/data/proof.json)">
+  <meta property="og:image:alt" content="The line “Done when a jury says ship.” in black on green, with the first screens of five websites built by the plugin gathered along its foot.">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="./src/styles/site.css">
 </head>
 <body>
-<div id="page" class="sheet">
+<div id="page">
   <a class="skip" href="#main">Skip to the page</a>
 
-  <div class="rebate" data-theme="rebate">
-    <header class="rebate__head">
-      <p class="rebate__mark"><a class="rebate__wordmark" href="./">awards</a> <span class="rebate__version edge" data-fact="version">0.7.0</span></p>
-      <!-- @proof:disclosure — phone, states capture and report: the Frames disclosure, this route's phone frames as links -->
-      <nav class="rebate__nav" aria-label="Site">
-        <ul role="list">
-          <li><a class="rebate__install" href="./install.html">Install</a></li>
-          <li><a href="./docs.html" aria-current="page">Docs</a></li>
-          <li><a href="./recipes.html">Recipes</a></li>
-          <li><a href="https://github.com/burgisimon/awards" data-fact-attr="href:repo">Source</a></li>
-        </ul>
-      </nav>
-    </header>
-    <!-- @proof:strip route="docs" — the same frames nav as on the home route, with this route's own frames; nothing in state none -->
-  </div>
+  <!-- @fact:band --><!-- /@fact -->
 
-  <main id="main" class="paper">
+  <main id="main">
 
     <section class="chapter route-head" aria-labelledby="docs-title">
       <h1 id="docs-title">Docs</h1>
@@ -340,32 +325,7 @@
     </section>
   </main>
 
-  <footer class="colophon" aria-label="Colophon">
-    <div class="colophon__edition">
-      <p>awards <span data-fact="version">0.7.0</span>, <span data-fact="license">MIT</span> licence, by BurgiSimon.</p>
-      <!-- @proof:jury-line — when a page-round report exists: "Judged {date}: {disposition}, weighted {w}. Report: .awards/jury/{file} in the repository." -->
-      <!-- @fact:build — the build being read: "This is build {version}+{hash}." -->
-    </div>
-    <ul class="colophon__links" role="list">
-      <!-- @proof:pages — states capture and report: Docs and Recipes, which the phone band gives up to the Frames disclosure -->
-      <li><a href="https://github.com/burgisimon/awards" data-fact-attr="href:repo">Source on GitHub</a></li>
-      <li><a href="https://github.com/burgisimon/awards/blob/main/CHANGELOG.md">Release notes</a></li>
-      <li><a href="https://github.com/burgisimon/awards/blob/main/LICENSE">Licence</a></li>
-    </ul>
-    <div class="colophon__credits">
-      <table class="data">
-        <caption>Credits</caption>
-        <thead><tr><th scope="col">Part</th><th scope="col">Source</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">Enriqueta</th><td>FontFuror, SIL Open Font License 1.1</td></tr>
-          <tr><th scope="row">Saira Condensed</th><td>Omnibus-Type, SIL Open Font License 1.1</td></tr>
-          <tr><th scope="row">Commands and code</th><td>your system's monospace</td></tr>
-          <tr><th scope="row">Marks</th><td>drawn for this page</td></tr><!-- @fact:libraries -->
-        </tbody>
-      </table>
-    </div>
-    <p class="colophon__note caption">Every picture on this site is a capture of this site or of the plugin's own recipes, made by the plugin's own scripts. Nothing here is a screenshot of anyone else's work.</p>
-  </footer>
+  <!-- @fact:colophon --><!-- /@fact -->
 </div>
 <script type="module" src="./src/main.js"></script>
 </body>
