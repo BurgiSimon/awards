@@ -212,9 +212,12 @@ async function start() {
     }
     finalU.uDip.value = state.dip;
     finalU.uFrozen.value = state.frozen ? 1 : 0;
-    finalU.uIris.value = state.iris * 1.5;
+    // Diamond sizes are fractions of the frame's own reach (|x| + |y| at a corner), so 1 just clears the corners
+    // whatever the aspect: a portrait phone gets the same staging as a desktop.
+    const reach = finalU.uAspect.value / 2 + 0.5 + IRIS_LIFT + 0.01;
+    finalU.uIris.value = state.iris * reach;
     finalU.uClose.value = state.close;
-    finalU.uCloseSize.value = (1 - state.close) * 1.5;
+    finalU.uCloseSize.value = (1 - state.close) * reach;
     pass(finalMat, null);
     state.frames++;
     // The 2D edge redraws only when its geometry changes.
@@ -222,8 +225,8 @@ async function start() {
     const key = cutEdge ? `i${state.iris.toFixed(4)}` : state.close > 0 ? `c${state.close.toFixed(4)}` : 'none';
     if (key !== lastOutline) {
       lastOutline = key;
-      if (cutEdge) drawOutline(state.iris * 1.5, fit(state.iris, 0, 0.15, 0, 0.9) * fit(state.iris, 0.8, 1, 1, 0));
-      else if (state.close > 0) drawOutline((1 - state.close) * 1.5, fit(state.close, 0, 0.25, 0, 0.6));
+      if (cutEdge) drawOutline(finalU.uIris.value, fit(state.iris, 0, 0.15, 0, 0.9) * fit(state.iris, 0.8, 1, 1, 0));
+      else if (state.close > 0) drawOutline(finalU.uCloseSize.value, fit(state.close, 0, 0.25, 0, 0.6));
       else drawOutline(0, 0);
     }
   }

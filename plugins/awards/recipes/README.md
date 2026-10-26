@@ -15,7 +15,7 @@ node ../scripts/verify-recipes.mjs --only boot-lenis-gsap,marquee-raf-mask
 ```
 Screenshots land in `_verify/<id>/<state>.png`; `recipe.json.verified` is stamped on a pass. SwiftShader proves correctness, not frame rate: run a real-device pass before shipping anything GL.
 
-The six static visual examples declare their reviewed desktop/mobile image paths and notes in `recipe.json.visuals`. Select and open only relevant images through `references/patterns/visual-composition.md`. The catalogue now has 89 entries: 88 focused recipes and one complete composition.
+The six static visual examples declare their reviewed desktop/mobile image paths and notes in `recipe.json.visuals`. Select and open only relevant images through `references/patterns/visual-composition.md`. The catalogue now has 96 entries: 95 focused recipes and one complete composition.
 
 ## Catalogue
 
@@ -67,7 +67,7 @@ First viewports and text that moves. See `[pattern:hero-archetypes]`.
 | Typography hierarchy | `typography-specimen` | P0 | Same copy in poster, editorial and technical registers; measure and mobile reflow | the-line; synthetic example, frames in `recipe.json.visuals` |
 | Flicker text | `flicker-text` | P1 | Per-letter opacity ladder `[0,1,0,0,1,1]` | the-line |
 | Hero object | `gl-hero-object-inertia` | P1 | One object with pointer inertia and scroll rotation | oryzo, lando-norris, primesec, runrobrun, ascension-pegassi |
-| Wake reveals a world | `gl-pointer-wake-reveal` | P1 | Up to 140 wake points (750 ms life, radius from speed) painted as radial gradients into a 320 × 200 mask canvas; a GL composite shows a night scene only where the mask is open; the world renders at 0.62 scale every second frame and nothing renders at rest; fine pointers only | daikifujita |
+| Wake reveals a world | `gl-pointer-wake-reveal` | P1 | Up to 140 wake points (750 ms life, radius from speed) painted as radial gradients into a 480 × 300 mask canvas; a GL composite shows a night scene only where the mask is open; the world renders at 0.62 scale every second frame and nothing renders at rest; fine pointers only | daikifujita |
 | Name as a window | `knockout-wordmark-window` | P1 | SVG `<mask>` subtracting the wordmark's paths from a solid `--ground` rect that overflows the word's box and is clipped by the hero, over a fixed canvas-2D ground (four Lissajous blobs + light / shade folds at 1/6 resolution) on the shared ticker, stopped off-screen; `h1` with a hidden text twin, no media files, one still frame under reduced motion | bethebuzz, noth |
 | Point-cloud shape morph | `point-cloud-shape-morph` | P1 | Points sampled from rasterised SVGs, projected in JS with a horizontal fov and drawn far to near in 16 depth buckets; scroll picks the shape pair with 18 % holds, a sin²(πe) mid-morph swirl, a segment-change burst and a pointer repel; paint skipped when settled; opacity cross-fade under reduced motion | da-san333 |
 | Decode text | `scramble-decode-text` | P1 | Telemetry decode reveal | igloo, usavionix, lando-norris, serotoninn, edolus |

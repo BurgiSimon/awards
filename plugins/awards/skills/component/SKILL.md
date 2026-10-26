@@ -76,6 +76,7 @@ Why: the recipes are verified in a real browser with keyboard, touch and reduced
 |---|---|---|
 | Preloader | `preloader-counter-hold` | Tie the counter to the page's real signals; keep the repeat-visit skip |
 | Navigation overlay | `nav-overlay-fullscreen` | Keep `inert`, the trap, Escape and the theme swap; re-number the links |
+| Header logo that is the hero's wordmark | `wordmark-header-handoff` | One link, one accessible name; transform only; the reduced tier never moves it |
 | Custom cursor | `cursor-two-speed` | Badges only for real affordances; off on coarse pointers |
 | Magnetic CTA | `magnetic-button` | Radius from the button's own size; fine pointers only |
 | Marquee / ticker | `marquee-raf-mask` | Real links inside; pause on focus |
@@ -88,7 +89,7 @@ Why: the recipes are verified in a real browser with keyboard, touch and reduced
 | Page transition | `page-transitions` | Lifecycle in `gsap.context`; every page ships the contract |
 | Image-distortion grid | `gl-dom-tethered-planes` | Images stay `<img>`; canvas `aria-hidden` |
 | Hero | the archetype's recipes in `hero-archetypes.md` | The first-viewport test applies |
-| Footer, 404 | `${CLAUDE_PLUGIN_ROOT}/assets/templates/404.html` and the catalogue entries | Authored copy, a way out |
+| Footer, 404 | `${CLAUDE_PLUGIN_ROOT}/assets/templates/404.html` and the catalogue entries; `gl-swarm-light-field` for a GL close | Authored copy, a way out; GL loaded only near the footer, every link DOM |
 
 Before adapting, write one line per recipe used, beside its id in the Page map or Motion score: `keep:` the mechanism you need (the physics, the state machine, the accessibility scaffold), `change:` at least one of metaphor, material, trigger or spatial arrangement so the silhouette is the world's and not the recipe's, `pair:` what it answers in the page (the chapter beat or the other component it plays against). Renaming, re-tokening and re-timing alone ship the recipe's look; a jury that has seen the recipe sees it again.
 

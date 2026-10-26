@@ -6,7 +6,7 @@ What this file is for: the first viewports the corpus actually built — what ea
 1. [Common rules](#common-rules)
 2. [Two-state typographic](#two-state-typographic) · [Role-casting boot sequence](#role-casting-boot-sequence) · [Poster or video hero](#poster-or-video-hero)
 3. [Single object with inertia](#single-object-with-inertia) · [Collage of flat planes](#collage-of-flat-planes) · [Spatial descent](#spatial-descent)
-4. [Print artefact with an acetate](#print-artefact-with-an-acetate) · [Headline as string](#headline-as-string) · [Palette field bound to the product](#palette-field-bound-to-the-product) · [Generative line field](#generative-line-field)
+4. [Print artefact with an acetate](#print-artefact-with-an-acetate) · [Headline as string](#headline-as-string) · [Palette field bound to the product](#palette-field-bound-to-the-product) · [Generative line field](#generative-line-field) · [Point cloud that takes each chapter's shape](#point-cloud-that-takes-each-chapters-shape)
 5. [Wordmark as a window](#wordmark-as-a-window) · [Operable object](#operable-object) · [The work on screen one](#the-work-on-screen-one)
 6. [Choosing](#choosing) · [The first viewport test](#the-first-viewport-test) · [Verify](#verify) · [Refuse](#refuse)
 
@@ -51,14 +51,14 @@ A full-bleed moving image sets the energy before any reading and the type arrive
 
 ## Single object with inertia
 
-One object with real weight and lighting that answers its motion, and no scene around it [site:oryzo] [recalled high]. The object can also be a mascot carrying the brand colour only on its props, dissolved away to change the subject [site:primesec] [verified]; a mark cycled between two materials, bare and overgrown, as a 120-frame sequence [site:mensch] [verified]; or a goo that answers music from an in-page player [site:runrobrun] [verified]; an inflated chrome wordmark that flips up out of depth over a photographed doorway, star glints brightening as the pointer tilts it [site:ascension-pegassi] [verified].
+One object with real weight and lighting that answers its motion, and no scene around it [site:oryzo] [recalled high]. The object can also be a mascot carrying the brand colour only on its props, dissolved away to change the subject [site:primesec] [verified]; a mark cycled between two materials, bare and overgrown, as a 120-frame sequence [site:mensch] [verified]; or a goo that answers music from an in-page player [site:runrobrun] [verified]; an inflated chrome wordmark that flips up out of depth over a photographed doorway, star glints brightening as the pointer tilts it [site:ascension-pegassi] [verified]; a carved ice crystal over a paper page that bends the page's own type and pictures through itself, holds a different work in each chapter and follows the sections on a spring — hover breaks it into pieces, a held press dives into a second world [site:daikifujita] [verified].
 
-- **Anatomy.** One mesh with physical materials on a quiet ground; the display line beside or through it; tiny chrome; a four-value palette; the canvas DOM-tethered — `position: absolute`, re-offset every frame to the scroll position, ≈ 25 % over-render against clipping [verified technique, use on the site inferred].
+- **Anatomy.** One mesh with physical materials on a quiet ground; the display line beside or through it; tiny chrome; a four-value palette; the canvas DOM-tethered — fixed and mapped from DOM rects [site:oryzo] [site:daikifujita] [verified], or `position: absolute`, re-offset every frame to the scroll position with ≈ 25 % over-render against clipping [verified technique].
 - **Entrance.** An intro interaction with a skip and a keyboard trigger; the object settles with momentum; scroll later scrubs its rotation (a plain multiplier, as in `rotation.y = scrollY × 0.00015` [site:leo-parpeix] [recalled medium]); reduced motion completes the intro instantly.
 - **Mobile.** A purpose-built mobile treatment earned its own inspiration entry [site:oryzo] [recalled high]: DPR cap, a low-detail mesh, touch drag; a poster still on the low tier.
 - **DOM.** Product name, specs and the action as real text; the canvas `aria-hidden` over an `<img>` poster; the drag has arrow-key rotation.
-- **Recipes.** `[recipe:gl-hero-object-inertia]` `[recipe:gl-dom-tethered-planes]` `[recipe:quality-tiers]`.
-- **Refuse.** The coaster; floating primitives with no concept; a hero glb over 300 KB without a reason.
+- **Recipes.** `[recipe:gl-hero-object-inertia]` `[recipe:gl-dom-tethered-planes]` `[recipe:quality-tiers]`; `[recipe:gl-dom-refraction-lens]` when the object refracts the page and travels between anchors.
+- **Refuse.** The coaster; the ice crystal and its ring of caps; floating primitives with no concept; a hero glb over 300 KB without a reason.
 
 ## Collage of flat planes
 
@@ -127,15 +127,26 @@ A field of hairlines bent by noise and pushed by the pointer, drawn in on load, 
 - **Still variant.** A contour field drawn in by DrawSVG over 5 s `power3.out`, a second set drawn by the hero scrub, in a quadrant grid on hairlines with a crosshair at the centre and the `<h1>` bottom-left [site:abatable] [verified]. The lines are the domain's own drawing (terrain), not texture. A GL cousin: four branches of liquid chrome drawn in as trim paths that merge into one stream — the firm as a bridge — with three static SVG strokes as its reduced and failure tier [site:cyphercapital] [verified].
 - **Refuse.** The noise-bent vertical lines under a "CREATIVE ✦ DEVELOPER" title; the binary tickers; the contour quadrants and orange crosshair [site:abatable].
 
+## Point cloud that takes each chapter's shape
+
+One fixed budget of points sits behind the page and becomes each beat's figure — a twelve-armed starburst, the designer's own mark, four crossing ellipses — loosening into a round cloud between shapes while the project titles scroll over it [site:da-san333] [verified]. It is not the refused particle field: at rest it is a drawn figure, and the figure changes with the chapter.
+
+- **Anatomy.** A centred object under left-set two-line titles, a count on the right of a narrower centred column, chrome pinned to the corners and one bottom-centre card [site:da-san333] [verified]; targets sampled from the alpha of a few small SVGs; a few thousand points fit a 2D context, so no GPU is required (`[pattern:webgl-architecture#the-depth-ladder]`).
+- **Entrance.** The first figure is on screen at first paint; scroll morphs figure to figure, each holding still at both ends of its segment and moving only in the middle (`[pattern:webgl-architecture#effect-parameters]`); the pointer scatters points and they re-claim free slots.
+- **Mobile.** The object at 1.1 × the width with the titles across it [site:da-san333] [verified]; let the finger reach the cloud — the card's sections take every touch above it [verified CSS; consequence inferred].
+- **DOM.** Titles are links; the canvas `aria-hidden`; each chapter keeps a heading that says what the figure means — the card has no heading and no landmark at all [site:da-san333] [verified].
+- **Recipes.** `[recipe:point-cloud-shape-morph]`; `[recipe:reduced-motion-switch]` holds each figure still.
+- **Refuse.** The starburst, the pixel mark and the orbit figure; a cloud with no figure; per-frame lerps with no `dt`.
+
 ## Wordmark as a window
 
-The biggest type on the page is a hole: the letters show a moving layer behind an opaque ground, so the brand's texture sits inside its name [site:bethebuzz] [verified]; or the pointer wipes the wordmark away with fluid dye to show film behind it, acting out a name that means "nothing" [site:noth] [verified].
+The biggest type on the page is a hole: the letters show a moving layer behind an opaque ground, so the brand's texture sits inside its name [site:bethebuzz] [verified]; or the pointer wipes the wordmark away with fluid dye to show film behind it, acting out a name that means "nothing" [site:noth] [verified]. The window can be the whole ground: the pointer's wake opens a paper page onto a second world rendered beneath it, under the hero's object [site:daikifujita] [verified].
 
-- **Anatomy.** An opaque ground (white panel, rasterised SVG); the letters as a mask; one moving layer behind (a GL surface, a looping video); one short claim and one action beside it.
+- **Anatomy.** An opaque ground (white panel, rasterised SVG, a paper page); the letters or the wake as a mask; one moving layer behind (a GL surface, a looping video, a second scene); one short claim and one action beside it.
 - **Entrance.** Letters rise once, in shuffled order rather than left to right [site:noth] [verified]; the moving layer is already running; the pointer is the only other input.
-- **Mobile.** A tap or a slow automatic wipe instead of the pointer; neither card built one [verified].
+- **Mobile.** A tap or a slow automatic wipe instead of the pointer; neither wordmark card built one [verified]; the paper wake's touch path is [unknown].
 - **DOM.** The word as real text or an SVG with `<title>` — the knockout shipped unnamed [site:bethebuzz] [verified]; the canvas `aria-hidden`.
-- **Recipes.** `[recipe:gl-fluid-wake-post]` for the dye field, used as a mask rather than a distortion; `[recipe:reduced-motion-switch]` shows word and film side by side.
+- **Recipes.** `[recipe:gl-fluid-wake-post]` for the dye field, used as a mask rather than a distortion; `[recipe:gl-pointer-wake-reveal]` for a wake that opens the page onto a second world; `[recipe:reduced-motion-switch]` shows word and film side by side.
 - **Refuse.** The cloth inside the letters, the NOTHIN' wipe, a mask with no touch path.
 
 ## Operable object
@@ -169,14 +180,15 @@ Why: the archetype follows the narrative model and the WebGL dosage the budget a
 | Two-state typographic | collage index, specification, a faceted hub | none → canvas-first (a scene behind the DOM) | [site:leo-parpeix] |
 | Role-casting boot sequence | specification (role-casting), chaptered journey | moments → canvas-first | [site:usavionix] |
 | Poster or video hero | gallery, specification (place-led), chaptered journey | none → moments | [site:lama-lama] [site:white-desert] [site:seasats] |
-| Single object with inertia | single-object launch, a faceted hub | canvas-first | [site:oryzo] [site:ascension-pegassi] |
+| Single object with inertia | single-object launch, a faceted hub, a chaptered journey carried by one object | canvas-first | [site:oryzo] [site:ascension-pegassi] [site:daikifujita] |
 | Collage of flat planes | collage index, gallery | moments → canvas-first, planes only | [site:trevor-noah] [clone:floema-jewelry] |
 | Spatial descent | chaptered journey as a world, manifesto with gates | 100 % canvas | [site:igloo] [site:edolus]; gesture entry [site:why-zero] |
 | Print artefact with an acetate | print artefact, gallery | none → moments | [site:the-line] |
 | Headline as string | chaptered journey, faceted world | one canvas-first island in a static page | [site:mont-fort] |
 | Palette field bound to the product | single-object launch | canvas-first with a static per-variant tier | [site:slosh-seltzer] |
 | Generative line field | gallery, collage index, specification | none — SVG and canvas 2D; moments in GL | [site:wodniack]; drawn still [site:abatable]; GL pipes [site:cyphercapital] |
-| Wordmark as a window | gallery, specification | moments → canvas-first ground | [site:bethebuzz] [site:noth] |
+| Point cloud that takes each chapter's shape | gallery, single-object launch | none (2D canvas) → canvas-first | [site:da-san333] |
+| Wordmark as a window | gallery, specification | moments → canvas-first ground | [site:bethebuzz] [site:noth]; a paper ground over a second world [site:daikifujita] |
 | Operable object | faceted world, print artefact, single-object launch | none → canvas-first | [site:areebali] [site:spasoje] [site:nodeck] [site:aqualoqa] |
 | The work on screen one | gallery | none → 100 % canvas | [site:jesperlandberg] [site:siena] [site:robbietilton] [site:alectear] [site:a24-raviklaassens] [site:agrumeafarm] |
 
@@ -213,4 +225,4 @@ Write the result into `AWARDS.md ## Direction contract → FIRST VIEWPORT` as an
 - A boot sequence, intro interaction or preloader that gates the content or replays in full on every visit; a rotate-your-device gate instead of a portrait layout [site:grids-obys] [verified].
 - A video hero that autoplays with sound, or loads before its poster.
 - A WebGL headline or object with no DOM mirror and no poster.
-- Any card's signature as drawn: the identity-line device, the readouts, the coaster, the Polaroid curl, the igloo, the acetate hinge, the division string, the flavour can, the noise-bent line field, the chrome wordmark over a doorway, the buried television, the disc row, the jar ring, the chrome pipes.
+- Any card's signature as drawn: the identity-line device, the readouts, the coaster, the Polaroid curl, the igloo, the acetate hinge, the division string, the flavour can, the noise-bent line field, the chrome wordmark over a doorway, the buried television, the disc row, the jar ring, the chrome pipes, the refracting ice crystal, the point starburst.

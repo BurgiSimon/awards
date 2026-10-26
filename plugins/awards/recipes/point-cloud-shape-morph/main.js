@@ -31,7 +31,7 @@ const P = {
   stiffness: 42, damping: 8,  // the spring from each point to its target, per second
   swirl: 260,                 // mid-morph swirl, px/s at w = 1
   burst: 520,                 // outward kick when the segment changes, px/s, decaying over 260 ms
-  radius: coarse ? 200 : 100, repel: 900, repelFalloff: 3, tangential: 1.5,
+  radius: coarse ? 200 : 100, repel: 6000, repelFalloff: 3, tangential: 1.5,   // repel in px/s² against the spring: about 140 px at the centre
   fov: coarse ? 40 : 45, cameraZ: coarse ? 600 : 800, depth: 60, buckets: 16, dot: 1.6,
 };
 const N = coarse || innerWidth < 760 ? 2500 : 5000;
@@ -211,7 +211,9 @@ ground = cs.getPropertyValue('--ground').trim() || ground;
 let visible = true, unsubscribe = null;
 if (tier === 'full') {
   const frame = (dt) => {
-    step(Math.min(dt, 1 / 20));
+    // Fixed 1/60 s steps of real time: a slow frame neither slows the cloud down nor destabilises the spring.
+    const steps = Math.max(1, Math.min(6, Math.ceil(dt * 60)));
+    for (let n = 0; n < steps; n++) step(dt / steps);
     // Settled, unmoved and unpointed: skip the paint.
     if (state.meanSpeed < 0.5 && (state.e === 0 || state.e === 1) && !pointer.inside && burstT === 0 && state.frames > 2) { state.skipped++; return; }
     draw();

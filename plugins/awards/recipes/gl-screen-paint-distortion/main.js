@@ -21,8 +21,10 @@ const P = {
   maxRadius: 100, radiusRange: 100,           // CSS px: radius grows 0 → 100 as the pointer moves 0 → 100 px in a frame
   push: 25,                                    // self-advection along the blurred copy, in paint texels
   curlScale: 0.06, curlStrength: 1.75,
-  velocityKeep: 0.985, weightSlowKeep: 0.985, weightFastKeep: 0.75, accelKeep: 0.8,
+  velocityKeep: 0.985, weightSlowKeep: 0.985, weightFastKeep: 0.75, accelKeep: 0.8,   // per 60 Hz frame
+  speedScale: 0.0006,                          // paint texels per second → stored velocity
   amount: 20, multiplier: 5, rgbShift: 0.5, colorMul: 10, shade: 1.25,
+  maxTap: 8,                                   // CSS px between smear taps: with no TAA pass to resolve it, wider jitter reads as grain
 };
 
 const vert = /* glsl */ `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }`;
@@ -31,7 +33,7 @@ const paintFrag = /* glsl */ `
   precision highp float;
   uniform sampler2D uPrev; uniform sampler2D uLow; uniform vec2 uTexel;
   uniform vec4 uFrom; uniform vec4 uTo; uniform vec2 uVel; uniform vec3 uKeep;
-  uniform float uPush; uniform float uCurlScale; uniform float uCurlStrength;
+  uniform float uPush; uniform float uCurlScale; uniform float uCurlStrength; uniform float uFrames;
   varying vec2 vUv;
   vec2 sdSegment(vec2 p, vec2 a, vec2 b) { vec2 pa = p - a, ba = b - a; float h = clamp(dot(pa, ba) / max(dot(ba, ba), 1e-6), 0.0, 1.0); return vec2(length(pa - ba * h), h); }
   vec2 hash2(vec2 p) { vec3 p3 = fract(vec3(p.xyx) * vec3(0.1031, 0.1030, 0.0973)); p3 += dot(p3, p3.yzx + 33.33); return fract((p3.xx + p3.yz) * p3.zy) * 2.0 - 1.0; }
@@ -50,15 +52,15 @@ const paintFrag = /* glsl */ `
     vec2 rw = mix(uFrom.zw, uTo.zw, seg.y);
     float inside = 1.0 - smoothstep(-0.01, rw.x, seg.x);
     vec4 low = texture2D(uLow, vUv);
-    vec2 back = (0.5 - low.xy) * uPush;
+    vec2 back = (0.5 - low.xy) * uPush * uFrames;   // uFrames: this frame's length in 60 Hz frames, so speed is per second
     vec3 n1 = noised(gl_FragCoord.xy * uCurlScale * (1.0 - low.xy));
     vec2 curl = noised(gl_FragCoord.xy * uCurlScale * (2.0 - low.xy * (0.5 + n1.x)) + n1.yz * 0.1).yz;
-    back += curl * (low.z + low.w) * uCurlStrength;
+    back += curl * (low.z + low.w) * uCurlStrength * uFrames;
     vec4 data = texture2D(uPrev, vUv + back * uTexel);
     data.xy -= 0.5;
     vec4 delta = (uKeep.xxyz - 1.0) * data;
     delta += vec4(uVel * inside, rw.yy * inside);
-    delta.zw = sign(delta.zw) * max(vec2(0.004), abs(delta.zw)); // 8-bit storage: never stall a hair above zero
+    delta.zw = sign(delta.zw) * max(vec2(0.004 * uFrames), abs(delta.zw)); // 8-bit storage: never stall a hair above zero
     data += delta;
     data.xy += 0.5;
     gl_FragColor = clamp(data, 0.0, 1.0);
@@ -76,7 +78,7 @@ const blurFrag = /* glsl */ `
 
 const smearFrag = /* glsl */ `
   precision highp float;
-  uniform sampler2D uScene; uniform sampler2D uPaint; uniform vec2 uPaintTexel;
+  uniform sampler2D uScene; uniform sampler2D uPaint; uniform vec2 uPaintTexel; uniform vec2 uSize; uniform float uMaxTap;
   uniform float uAmount; uniform float uMultiplier; uniform float uRgbShift; uniform float uColorMul; uniform float uShade;
   varying vec2 vUv;
   void main() {
@@ -84,6 +86,7 @@ const smearFrag = /* glsl */ `
     float weight = (data.z + data.w) * 0.5;
     vec2 vel = (0.5 - data.xy - 0.001) * 2.0 * weight;
     vec2 step = vel * uAmount / 4.0 * uPaintTexel * uMultiplier;
+    step *= min(1.0, uMaxTap / max(length(step * uSize), 1e-5));
     float jitter = fract(52.9829189 * fract(dot(gl_FragCoord.xy, vec2(0.06711056, 0.00583715)))); // interleaved gradient noise
     vec2 uv = vUv + jitter * step;
     vec4 color = vec4(0.0);
@@ -95,14 +98,14 @@ const smearFrag = /* glsl */ `
     #include <colorspace_fragment>
   }`;
 
-// Tests read the field through a byte: mean weight over an 8 × 8 grid of the paint target.
+// Tests read the field through a byte: mean weight over a 16 × 16 grid of the paint target.
 const energyFrag = /* glsl */ `
   precision highp float;
   uniform sampler2D uPaint;
   void main() {
     float s = 0.0;
-    for (int y = 0; y < 8; y++) for (int x = 0; x < 8; x++) { vec4 d = texture2D(uPaint, (vec2(float(x), float(y)) + 0.5) / 8.0); s += (d.z + d.w) * 0.5; }
-    gl_FragColor = vec4(vec3(min(1.0, s / 64.0 * 8.0)), 1.0);
+    for (int y = 0; y < 16; y++) for (int x = 0; x < 16; x++) { vec4 d = texture2D(uPaint, (vec2(float(x), float(y)) + 0.5) / 16.0); s += (d.z + d.w) * 0.5; }
+    gl_FragColor = vec4(vec3(min(1.0, s / 256.0 * 16.0)), 1.0);
   }`;
 
 function heroTexture(w, h) {
@@ -167,10 +170,10 @@ async function start() {
     uPrev: { value: null }, uLow: { value: lowB.texture }, uTexel: { value: new THREE.Vector2() },
     uFrom: { value: new THREE.Vector4() }, uTo: { value: new THREE.Vector4() }, uVel: { value: new THREE.Vector2() },
     uKeep: { value: new THREE.Vector3(P.velocityKeep, P.weightSlowKeep, P.weightFastKeep) },
-    uPush: { value: P.push }, uCurlScale: { value: P.curlScale }, uCurlStrength: { value: P.curlStrength } } });
+    uPush: { value: P.push }, uCurlScale: { value: P.curlScale }, uCurlStrength: { value: P.curlStrength }, uFrames: { value: 1 } } });
   const blurMat = new THREE.ShaderMaterial({ vertexShader: vert, fragmentShader: blurFrag, depthTest: false, depthWrite: false, uniforms: { uTex: { value: null }, uDelta: { value: new THREE.Vector2() } } });
   const smearMat = new THREE.ShaderMaterial({ vertexShader: vert, fragmentShader: smearFrag, depthTest: false, depthWrite: false, uniforms: {
-    uScene: { value: null }, uPaint: { value: null }, uPaintTexel: { value: new THREE.Vector2() },
+    uScene: { value: null }, uPaint: { value: null }, uPaintTexel: { value: new THREE.Vector2() }, uSize: { value: new THREE.Vector2(1, 1) }, uMaxTap: { value: P.maxTap },
     uAmount: { value: P.amount }, uMultiplier: { value: P.multiplier }, uRgbShift: { value: P.rgbShift }, uColorMul: { value: P.colorMul }, uShade: { value: P.shade } } });
   const energyMat = new THREE.ShaderMaterial({ vertexShader: vert, fragmentShader: energyFrag, depthTest: false, depthWrite: false, uniforms: { uPaint: { value: null } } });
   const quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), paintMat);
@@ -192,6 +195,7 @@ async function start() {
     renderer.setRenderTarget(null);
     paintMat.uniforms.uTexel.value.set(1 / pw, 1 / ph);
     smearMat.uniforms.uPaintTexel.value.set(1 / pw, 1 / ph);
+    smearMat.uniforms.uSize.value.set(w, h);
     sceneTex?.dispose();
     sceneTex = heroTexture(w, h);
     smearMat.uniforms.uScene.value = sceneTex;
@@ -223,10 +227,15 @@ async function start() {
     from.copy(to);
     to.set((ptr.x / w) * pw, (1 - ptr.y / h) * ph, radius, 1);
     if (radius > 0) state.strokes++;
-    // The input is a velocity in paint texels: clamp the frame time (a slow frame must not saturate it) and keep it inside
-    // the ±0.5 an 8-bit channel centred on 0.5 can hold, or the self-advection throws the paint off the screen.
-    vel.multiplyScalar(P.accelKeep).add(push.set(to.x - from.x, to.y - from.y).multiplyScalar(Math.min(dt, 1 / 30) * 0.8));
-    vel.clampLength(0, 0.45);
+    // Everything is per second, not per frame: a 120 Hz screen and a slow software renderer paint the same stroke.
+    // The input is the pointer's speed in paint texels per second, scaled into the ±0.5 an 8-bit channel centred on 0.5
+    // can hold (250 texels/s → .15); the stored velocity eases toward it.
+    const frames = Math.min(Math.max(dt * 60, 0.25), 3);
+    push.set(to.x - from.x, to.y - from.y).multiplyScalar(P.speedScale / Math.max(dt, 1 / 240));
+    vel.lerp(push, 1 - Math.pow(P.accelKeep, frames)).clampLength(0, 0.45);
+    const keep = paintMat.uniforms.uKeep.value;
+    keep.set(Math.pow(P.velocityKeep, frames), Math.pow(P.weightSlowKeep, frames), Math.pow(P.weightFastKeep, frames));
+    paintMat.uniforms.uFrames.value = frames;
     ptr.px = ptr.x; ptr.py = ptr.y; ptr.moved = false;
 
     paintMat.uniforms.uPrev.value = paintA.texture;

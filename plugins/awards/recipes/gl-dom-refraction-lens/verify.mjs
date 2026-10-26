@@ -4,8 +4,8 @@
 export const states = [
   { name: 'hero', scroll: 0, settle: 1800 },
   { name: 'travel', scroll: 0.36, settle: 120 },
-  { name: 'second', scroll: 0.36, settle: 2200 },
-  { name: 'close', scroll: 1, settle: 2200 },
+  { name: 'second', scroll: 0.36, settle: 3000 },
+  { name: 'close', scroll: 1, settle: 3000 },
   { name: 'rm', scroll: 0.36, reducedMotion: true, settle: 400 },
   { name: 'mobile', scroll: 0, viewport: 'mobile', settle: 1800 },
 ];

@@ -3,7 +3,7 @@
   "title": "A pointer wake that opens the paper onto a second world",
   "intent": "Wake reveals a world",
   "group": "heroes-and-type",
-  "summary": "Up to 140 wake points (750 ms life, radius from speed) painted as radial gradients into a 320 × 200 mask canvas; a GL composite shows a night scene only where the mask is open; the world renders at 0.62 scale every second frame and nothing renders at rest; fine pointers only",
+  "summary": "Up to 140 wake points (750 ms life, radius from speed) painted as radial gradients into a 480 × 300 mask canvas; a GL composite shows a night scene only where the mask is open; the world renders at 0.62 scale every second frame and nothing renders at rest; fine pointers only",
   "tags": [
     "webgl",
     "three",

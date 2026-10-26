@@ -8,7 +8,7 @@ export const states = [
   { name: 'back', scroll: 0.44, settle: 900, actions: [{ type: 'wheel', dy: 3300 }, { type: 'wait', ms: 1800 }] },
   { name: 'close', scroll: 1, settle: 900 },
   { name: 'rm', scroll: 0.27, reducedMotion: true, settle: 900 },
-  { name: 'rm-iris', scroll: 0.5879, reducedMotion: true, settle: 900 },
+  { name: 'rm-iris', scroll: 0.62, reducedMotion: true, settle: 900 },
   { name: 'mobile', scroll: 0.588, viewport: 'mobile', settle: 1200 },
 ];
 

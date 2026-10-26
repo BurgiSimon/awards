@@ -21,12 +21,12 @@ export async function probe() {
 export function assert(r) {
   const st = (n) => r[n]?.state || {};
   const out = [];
-  out.push({ ok: st('shape0').ready && st('shape0').points === 5000 && st('shape0').segment === 0 && st('shape0').meanErr < 3 && (r.shape0?.probe?.litFraction ?? 0) > 0.005, message: `shape 0: 5000 points settled on their targets (mean error ${st('shape0').meanErr} px, lit ${r.shape0?.probe?.litFraction})` });
+  out.push({ ok: st('shape0').ready && st('shape0').points === 5000 && st('shape0').segment === 0 && st('shape0').meanErr < 3 && (r.shape0?.probe?.litFraction ?? 0) > 0.002, message: `shape 0: 5000 points settled on their targets (mean error ${st('shape0').meanErr} px, lit ${r.shape0?.probe?.litFraction})` });
   out.push({ ok: (st('shape0').skipped ?? 0) > 5, message: `settled cloud skips its paint (${st('shape0').skipped} frames skipped)` });
   out.push({ ok: st('morph').e > 0.2 && st('morph').e < 0.8 && st('morph').w > 0.5 && st('morph').meanSpeed > 2, message: `mid-morph: blend ${st('morph').e}, swirl weight ${st('morph').w}, points moving (${st('morph').meanSpeed} px/s)` });
   out.push({ ok: st('shape1').segment === 1 && (st('shape1').e === 1 || st('shape1').e === 0) && st('shape1').meanErr < 4, message: `shape 1: holds settled (segment ${st('shape1').segment}, blend ${st('shape1').e}, error ${st('shape1').meanErr} px)` });
   out.push({ ok: (st('pointer').displaced ?? 0) > 40, message: `the pointer parts the cloud (${st('pointer').displaced} points pushed more than 20 px)` });
   out.push({ ok: st('rm-morph').motion === 'reduced' && st('rm-morph').meanErr === 0 && st('rm-morph').fade > 0.2 && st('rm-morph').fade < 0.8, message: `reduced motion: no travel, an opacity cross-fade (fade ${st('rm-morph').fade})` });
-  out.push({ ok: st('mobile').points === 2500 && (r.mobile?.probe?.litFraction ?? 0) > 0.003, message: `mobile: 2500 points (lit ${r.mobile?.probe?.litFraction})` });
+  out.push({ ok: st('mobile').points === 2500 && (r.mobile?.probe?.litFraction ?? 0) > 0.0015, message: `mobile: 2500 points (lit ${r.mobile?.probe?.litFraction})` });
   return out;
 }

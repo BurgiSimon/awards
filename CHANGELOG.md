@@ -2,6 +2,12 @@
 
 Release notes for the awards plugin, newest first. The manifests carry the version; `scripts/check-sync.mjs` keeps them in step.
 
+## Unreleased
+
+- **Corpus wave 5 with a WebGL and 3D lens.** Four sites the maintainer named, read over the hero, nav, footer and whole page: a lens pass on `oryzo`, and new cards for `daikifujita`, `da-san333` and `everswap`. The index grows from 62 to 65 rows; the WebGL playbooks gain their teardown rows, post chains and effect parameters.
+- **Seven new recipes, 96 entries.** A footer swarm lit by an occupancy atlas, screen paint that bends the whole page, grade-pass scene cuts (blur dip, frozen-frame iris, footer close), a glass object that refracts the page's own words on section anchors, a pointer wake that opens a world under the hero, a point cloud that morphs between SVG shapes on a 2D canvas, and a header logo that is the hero's wordmark.
+- **Not yet measured.** The seven recipes ran on SwiftShader only; no real GPU or phone pass.
+
 ## 0.8.0 — 2026-10-23
 
 From the 2026-10-22 review, batches 1 to 5 (everything except the large, lower-impact items), and the plugin's own site rebuilt and shipped by the plugin's own loop.

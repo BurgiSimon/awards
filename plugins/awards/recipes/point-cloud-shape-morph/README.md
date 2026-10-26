@@ -14,8 +14,8 @@ A hero of a few thousand points that become one shape, then the next, as the pag
 | Points | 5,000 on a desktop, 2,500 on a phone or a coarse pointer; dot 1.6 px × perspective scale; alpha `clamp((scale − .85) × 3.3, .25, 1)` |
 | Projection | horizontal fov 45° (40° coarse), camera at 800 (600 coarse), depth ± 60 px, 16 buckets far to near |
 | Scroll | progress over the section's travel, followed at `1 − e^(−2.45·dt)`; hold 18 % at both ends; quadratic in-out between |
-| Motion | spring 42, damping 8 (per second); swirl 260 px/s × `sin²(πe)`; burst 520 px/s decaying over 260 ms on each segment change |
-| Pointer | radius 100 px (200 coarse), repel `(1 − d/R)³ × 900` px/s with a tangential half-share of 1.5 |
+| Motion | spring 42, damping 8 (per second), stepped at a fixed 1/60 s of real time; swirl 260 px/s × `sin²(πe)`; burst 520 px/s decaying over 260 ms on each segment change |
+| Pointer | radius 100 px (200 coarse), repel `(1 − d/R)³ × 6,000` px/s² against the spring (about 140 px at the centre) with a tangential half-share of 1.5 |
 
 These are this recipe's own values. The source site runs 6,000 points with its own tuning and re-matches scattered points through a spatial hash; see the variants in `recipe.json`.
 

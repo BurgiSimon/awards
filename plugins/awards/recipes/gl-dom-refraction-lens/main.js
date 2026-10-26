@@ -24,7 +24,7 @@ const state = { gl: false, x: 0, y: 0, r: 0, tx: 0, ty: 0, tr: 0, err: 0, rotY: 
 // This recipe's own values.
 const SPRING = 46, DAMP = 2 * Math.sqrt(46) * 0.94;   // stiff and just under critical: it arrives without drifting past
 const BAND = [0.25, 0.75];                              // sections are weighted by their overlap with this band of the viewport
-const GLASS = { ior: 1.31, spread: 0.06, thickness: 0.9, spin: 0.25 };
+const GLASS = { ior: 1.31, spread: 0.06, thickness: 0.45, spin: 0.25 };
 const BACK_SIZE = coarse ? 512 : 1024;
 
 const vertFront = /* glsl */ `
@@ -71,15 +71,16 @@ const fragFront = (taps) => /* glsl */ `
       float ior = uIor - (t - 0.5) * uSpread;              // red (t high) bends least
       vec3 r1 = refract(-V, N, 1.0 / ior);
       vec3 r2 = refract(r1, -Nb, ior);
-      if (dot(r2, r2) < 1e-4) r2 = reflect(r1, -Nb);        // total internal reflection
-      vec2 p = css + vec2(r2.x, -r2.y) * uThick;
+      if (dot(r2, r2) < 1e-4) r2 = r1;                      // total internal reflection: keep the entry bend
+      vec2 bend = r2.xy + V.xy;                               // deviation from the straight-through ray
+      vec2 p = css + vec2(bend.x, -bend.y) * uThick;
       vec2 uv = (p - uReg.xy) / uReg.z;
       vec3 s = texture2D(tBack, vec2(uv.x, 1.0 - uv.y)).rgb;
       vec3 wv = exp(-pow(vec3(t) - vec3(0.8, 0.5, 0.2), vec3(2.0)) / (2.0 * 0.19 * 0.19));
       acc += s * wv; wsum += wv;
     }
     vec3 refr = acc / wsum;
-    refr = mix(refr, vec3(0.96), 0.05 + 0.22 * pow(1.0 - ndv, 1.6));   // a little frost toward the rims
+    refr = mix(refr, vec3(0.96), 0.03 + 0.14 * pow(1.0 - ndv, 2.0));   // a little frost toward the rims
     float F = 0.06 + 0.94 * pow(1.0 - ndv, 4.0);
     gl_FragColor = vec4(mix(refr, studio(reflect(-V, N)), F), 1.0);
     #include <colorspace_fragment>
@@ -219,15 +220,16 @@ async function start() {
   }
 
   const unsubscribe = ticker.add((dt, now) => {
-    dt = Math.min(dt, 1 / 30);
     time += dt; frontU.uTime.value = tier === 'full' ? time : 0;
     scrollVel = (scrollY - lastScroll) / Math.max(dt, 1e-3); lastScroll = scrollY;
     targetFromAnchors();
     if (tier === 'full') {
-      for (const k of ['x', 'y', 'r']) {
+      // The spring integrates real time in fixed 1/120 s steps, so a slow frame neither slows it down nor blows it up.
+      const steps = Math.max(1, Math.ceil(dt * 120)), h = dt / steps;
+      for (let n = 0; n < steps; n++) for (const k of ['x', 'y', 'r']) {
         const t = state['t' + k];
-        v[k] += (SPRING * (t - state[k]) - DAMP * v[k]) * dt;
-        state[k] += v[k] * dt;
+        v[k] += (SPRING * (t - state[k]) - DAMP * v[k]) * h;
+        state[k] += v[k] * h;
       }
       state.rotY += (GLASS.spin + clamp(scrollVel * 8e-4, -1.6, 1.6)) * dt;
       pointer.tiltX += (pointer.x * 0.5 - pointer.tiltX) * (1 - Math.exp(-4 * dt));
@@ -242,13 +244,14 @@ async function start() {
 
   // Test hook: a fresh frame, then a grid of pixels inside the glass read in the same task.
   window.__lens = {
+    back,
     sample() {
       render(performance.now() + 1000);
       const gl = renderer.getContext(), pr = renderer.getPixelRatio(), px = new Uint8Array(4);
       const lum = [], chroma = [];
       let opaque = 0;
       for (let j = -4; j <= 4; j++) for (let i = -4; i <= 4; i++) {
-        const x = state.x + (i / 4) * state.r * 0.55, y = state.y + (j / 4) * state.r * 0.55;
+        const x = state.x + (i / 4) * state.r * 0.45, y = state.y + (j / 4) * state.r * 0.45;
         gl.readPixels(Math.round(x * pr), Math.round((H - y) * pr), 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px);
         if (px[3] > 250) opaque++;
         lum.push(0.2126 * px[0] + 0.7152 * px[1] + 0.0722 * px[2]);

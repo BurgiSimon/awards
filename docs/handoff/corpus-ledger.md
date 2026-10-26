@@ -797,20 +797,20 @@ edolus: basis-transcoder (wasm) — __settings__.js
 | Phase | Status | Note |
 |---|---|---|
 | setup | done | WebGL + 3D lens wave on branch claude/eager-mendel-prz05n, opened at the maintainer's request for four named sites with a focus on Three.js and WebGL in the hero, nav, footer and whole page; not gap-driven (the maintainer named the queue), though everswap fills web3 and finance |
-| triage | open | |
+| triage | done | 4 added: oryzo (existing card, lens only), daikifujita, da-san333, everswap; captures serialised behind the lock; gated captures for daikifujita (click gate) and an extra phone + reduced-motion pass for everswap |
 | synthesis | open | |
-| recipes | open | |
-| stacks | open | |
-| upkeep | open | |
+| recipes | done | 7 proposed and built (`docs/handoff/recipe-proposals-2026-10-26-wave-5.md`): gl-swarm-light-field, gl-screen-paint-distortion, gl-grade-pass-scene-cuts, gl-dom-refraction-lens, gl-pointer-wake-reveal, point-cloud-shape-morph, wordmark-header-handoff; each passes `verify-recipes --only` headless; 5 candidates left unbuilt |
+| stacks | done | no new stack note: Framer is covered by `references/stacks/host-platforms.md`; the three.js versions (0.169.0 from esm.sh, r136 bundled, r148, r178 modified) are all older than the pin and recorded on the cards; `skills/stack/SKILL.md` names the two Framer portfolios |
+| upkeep | done | counts 89 → 96 entries in CLAUDE.md, both READMEs, the catalogue preamble and three manifests; index 65 rows; catalogue regenerated; eval grader slug lists regenerated; check-sync 137 checks, 0 drift; lint-refs 0 dangling |
 
 ### Sites
 
 | Slug | URL | Lens | Status | Rating | Novelty | Synthesised | Reason | Date |
 |---|---|---|---|---|---|---|---|---|
 | oryzo | https://oryzo.ai/ | 3D, WebGL | added | D 7.8 / U 6.2 / C 8.6 / Co 7.8 → 7.48 [inferred]; official SOTD 13 Apr 2026 7.86 + Dev 7.87 [verified, entry page, 2026-09-18] | lens ×8: voxel occupancy light field (AO + shadow) for an instanced swarm; CPU swarm in float DataTextures read by instanceUv; per-scene post profiles blended by ratio from a default each frame; screen paint (capsule stroke, self-advection, curl, no solver); gobo projector over a photographic base; one object posed by every scene; AI-glow edge pulse pass; TAA from an MRT velocity attachment | | existing card; lens-only update, bundle unchanged by hash; Corpus rating row added; capture exit 2 (phone stopped after two frames) | 2026-10-26 |
-| daikifujita | https://daikifujita.com/ | 3D, WebGL | queued | | | | | |
-| da-san333 | https://da-san333.com/ | 3D, WebGL | queued | | | | | |
-| everswap | https://everswap.com/ | 3D, WebGL | queued | | | | | |
+| daikifujita | https://daikifujita.com/ | 3D, WebGL | added | D 7.7 / U 6.2 / C 8.1 / Co 7.0 → 7.26 [inferred]; official: none found (the page lists 11 awards for earlier work, its own claim) | stack: Framer code components importing three 0.169.0 and lenis 1.1.13 from esm.sh at run time (no Framer card before this wave); lens ×7: the page repainted as the refraction source; back-face normals + 12-tap spectral refraction; run-time Voronoi fracture with idle-built sets; one object on visibility-weighted section anchors; a fluid solver on rasterised display type only; a second world under the paper opened by a pointer-trail mask; pieces handed between two renderers; world: a portfolio with a playable second reading behind a role=switch | | Framer portfolio v2 behind an [Enter] gate; the ungated pass shows only the gate; 7 gated desktop and 5 gated phone states | 2026-10-26 |
+| da-san333 | https://da-san333.com/ | 3D, WebGL | added | D 7.0 / U 6.0 / C 6.8 / Co 5.8 → 6.54 [inferred]; official: none (the newer site claims CSSDA Special Kudos + CSS Winner SOTD for "Portfolio v1", unconfirmed) | lens ×5: 3D point cloud on a 2D canvas with JS perspective and 16 depth buckets; scroll-amount morph between SVG-sampled point sets (18 % holds, sin²(πu) drift, segment burst, spatial-hash rematch); LineSegments ring buffer faded on the GPU by birth time; scroll speed (not position) as a starfield's speed; opaque canvas blended away by mix-blend-mode lighten; technique: BPM-clocked bitmap flashes; world: a square-cell pixel world on black | | Framer portfolio (2025, the designer's v1); one extra desktop state pass; Framer covered by host-platforms.md, so no stack hit | 2026-10-26 |
+| everswap | https://everswap.com/ | 3D, WebGL | added | D 7.8 / U 5.8 / C 7.9 / Co 6.5 → 7.09 [inferred]; official: Awwwards Honorable Mention 22 May 2026 per search [recalled medium], entry page 502, no scores read | gap: industry web3 1 → 2; lens ×10: grade-pass scene cuts (frozen-frame rhombus iris with a 2D edge canvas, staged blur dip, footer iris); camera authored twice (2:1 and 1:2 gates) with the baked focus distance driving the bokeh; bones in float textures clocked by scroll with depth rewritten for the DOF; unlit painted terrain with analytic height fog and baked sweep attributes; GPU spline trails as instanced tubes; water as a post pass; selective bloom through alpha; flow-mapped tile strip; GL headline erased by the paint (DOM twin hidden — counter-example); 2:1 frame clamp; technique: shader warm-up metered into the preloader; world: a painted unlit landscape whose scenery is the product's nouns | | Lusion-built (console banner), the same framework as oryzo; capture exit 2 then a phone + reduced-motion pass; the iris state run lost its wheel to the load lock | 2026-10-26 |
 
 ### Techniques and stacks
 
@@ -826,7 +826,47 @@ oryzo: one shared hero object posed by every scene — hoisted.CRsATKbF.js (Visu
 oryzo: second-order dynamics — hoisted.CRsATKbF.js (SecondOrderDynamics) — f 1.5, ζ .8, r 2 default; stability-clamped k2 [lens:3d]
 oryzo: three@178-modified (unchanged) — hoisted.CRsATKbF.js
 
+da-san333: 2D-canvas projected point cloud — ScrollCounter.By-DpzJw.mjs — 6,000 points; horizontal fov 45, camera 800 (phone 40/600); 16 depth buckets .2×–4×; dot .6 px × scale (.25–2.8); alpha clamp(scale × 1.15, .25, 1) [lens:3d]
+da-san333: SVG-alpha point targets — ScrollCounter.By-DpzJw.mjs — 800 px raster, 2 px grid, alpha 255, z ±4, shuffled and cut to the smallest shape; disc fallback .45 [lens:3d]
+da-san333: scroll-amount point-set morph — ScrollCounter.By-DpzJw.mjs — scrollTop 1→1,500 (phone 1,200); lerp .04/frame (no dt); 18 % holds; quadratic in-out; drift × sin²(πu) (.5, .77, 1.2); 260 ms burst ×1.72 [lens:3d]
+da-san333: spatial-hash rematch and pointer repel — ScrollCounter.By-DpzJw.mjs — cell 16 px, ring 5; repel 100 px (phone 200), falloff 3, strength 2, swirl 1.5; follow .6; max 6 px/frame [lens:3d]
+da-san333: scroll-speed starfield tunnel — ScrollCounter.By-DpzJw.mjs (Tp) — three r136 Points 1,000 (phone 1,500) on a ring r 7 × (.85–1.15), 200 deep; fov 30 (phone 90) at z 5; speed = damp(speed × .9, min(|Δy| × .05, 3), 20) + .03/frame [lens:webgl]
+da-san333: LineSegments birth-time trail — ScrollCounter.By-DpzJw.mjs (Tp) — 10,000-segment ring buffer with aBirth; uLife .1 s; × exp(−|z| × .05); discard at 0 [lens:webgl]
+da-san333: opaque canvas blended by lighten — q1wSYo….mjs CSS + Tp — alpha false, black clear, fixed container z 10 with mix-blend-mode: lighten [lens:webgl]
+da-san333: BPM-clocked bitmap flashes — shared-lib.C8-bm9xa.mjs — 15 bpm at 1/2, 5 ± 1 glyphs, 100 ms, 8 px cells, ≤ 6 alive
+da-san333: pixel-cell pointer trail — shared-lib.C8-bm9xa.mjs — 32 px grid, decay 1/50 a frame, alpha v³, 3 Hz pulse, desktop only
+da-san333: three@0.136.0 — src/ScrollCounter.By-DpzJw.mjs
+da-san333: lenis@1.3.8 — src/shared-lib.C8-bm9xa.mjs
+da-san333: framer@3e5217b — index.html
+everswap: grade-pass scene cuts — hoisted.D5QinsOB.js (Final, HomePage.update) — sdRhombus iris over a cache copied on the first non-zero frame; blur dip smoothstep 0–.333 full, .25–.667 half, .667–1 quarter into a flat colour; footer fit(0, .95) capped .925, zoom to 3× by linearStep(.75, 1)²; 2D canvas edge [lens:webgl]
+everswap: camera authored twice — hoisted.D5QinsOB.js (CameraControls) — baked tracks with position, quaternion, focal, mobileFocal, focus distance; gates 2048×1024 and 1024×2048; focus drives bokeh; load dolly z −200→0, fov +5→0; Brownian shake .5/.15/.003/.3 [lens:3d]
+everswap: bones in textures clocked by scroll — hoisted.D5QinsOB.js (Scene1Bird) — 21 bones × 158 frames in two float textures; frame (scrollView × 2 + 2) × 30; depth rewritten to .6→.35→1→.8 of the focus distance [lens:3d]
+everswap: unlit painted terrain — hoisted.D5QinsOB.js (vert$3, frag$3, skyAndFog) — 0 lights, env maps or shadows; fog 1800–2500; height fog a .015, b .03; baked shadowmask sweep × mix(1, .25, dim) [lens:3d]
+everswap: selective bloom via alpha — hoisted.D5QinsOB.js — alpha (1 − fog) × (1 − N·V)^5 × g; selective 1→2.5 [lens:webgl]
+everswap: GPU spline trails — hoisted.D5QinsOB.js (Scene1Trails) — 24 × 256 float target, 3-sided instanced tubes, simplex radius [lens:webgl]
+everswap: water post pass — hoisted.D5QinsOB.js (WaterPass) — two Worley layers foreshortened by 10 + 50y; refraction .03; advected by the paint field [lens:webgl]
+everswap: GL title erased by paint — hoisted.D5QinsOB.js (Scene1Title) — fill × (1 − smoothstep(.2, .5, weight)); outline dash; DOM h1 visibility hidden [lens:webgl]
+everswap: metered shader warm-up — hoisted.D5QinsOB.js (Preloader) — one compile per frame in the last 15 % of the count, then a 1 s quartInOut exit [lens:webgl]
+everswap: three@148 — hoisted.D5QinsOB.js
+everswap: astro — index.html (/_astro/hoisted.*.js)
+everswap: Lusion framework (as oryzo) — hoisted.D5QinsOB.js
+daikifujita: page as refraction source — shared-lib.CTuRAKaB.mjs — DOM painted per glyph and word into a 1024² (512² coarse) 2D canvas, only the square round the crystal (48 px steps, ≤ .75·max(vw, vh)); repaint keyed on region, scroll, night, sky; throttles 30 / 12 / 400 ms [lens:webgl]
+daikifujita: two-surface spectral refraction — shared-lib.CTuRAKaB.mjs — BackSide normals at .6×DPR; 12 taps (6 coarse) at LOD .9, Gaussian weights .2/.5/.8, σ .19 [lens:webgl]
+daikifujita: analytic studio — shared-lib.CTuRAKaB.mjs — three soft boxes at 4×/7×/4×, key drifting sin(t·.21); shadow quad with a caustic streak [lens:3d]
+daikifujita: run-time Voronoi fracture — shared-lib.CTuRAKaB.mjs — ≤ 10 seeds; idle-built alternative sets (≤ 3) picked by hit direction; springs k 150/(.6+1.6m), damping 2√k·.72 [lens:3d]
+daikifujita: weighted section anchors — shared-lib.CTuRAKaB.mjs — overlap with the .25–.75 band; spring k 46, damping 2√k·.94; Catmull-Rom pieces over 7 keys [lens:3d]
+daikifujita: pixel-space camera — shared-lib.CTuRAKaB.mjs — z 1600, fov 2·atan(h/2/1600) [lens:3d]
+daikifujita: fluid on display type — shared-lib.CTuRAKaB.mjs — own context, fine pointer, dye 512², velocity 128² HalfFloat, curl .1, 3 pressure iterations, 20-tap advection [lens:webgl]
+daikifujita: dream under the paper — shared-lib.CTuRAKaB.mjs — 320×200 trail mask, ≤ 140 points, 750 ms, r .095·min(V,H)·(.6+.6·v/1600); pixel-ratio cap .62, every second frame [lens:webgl]
+daikifujita: cross-renderer hand-off — shared-lib.CTuRAKaB.mjs — screen x, y, scale, quaternion, velocity through window globals; Hermite blend [lens:3d]
+daikifujita: DPR governor and prewarm — shared-lib.CTuRAKaB.mjs — EMA .05 + 60-frame record of frames over 20 ms; ±.25 between 1.25 and a learned ceiling; second renderer at 3.5 s idle [lens:webgl]
+daikifujita: click gate — shared-lib.CTuRAKaB.mjs — 000→100 over 1.9 s, held ≤ 90 until prep (11/15 s cap), [Enter], no repeat skip
+daikifujita: three@0.169.0 (esm.sh) — shared-lib.CTuRAKaB.mjs + index.html modulepreload
+daikifujita: lenis@1.1.13 (esm.sh) — shared-lib.CTuRAKaB.mjs
+daikifujita: framer@13ebf9e, react@18.3.1 — index.html, react chunk
 ### Notes
 
 - Gaps at opening (`corpus-gaps.mjs`, 61 award cards): class docs 2 of 4, e-commerce 3 of 4; industry architecture, automotive, climate, finance, health-care, logistics, publishing, travel, web3 each 1 of 2; visitor mode read 3 of 6; inner routes 5 of 16.
 - Owner policy (`policy.mjs`, 2026-10-26): all four allowed.
+- Real GPU: none. Every capture and recipe frame ran on SwiftShader, so the cards' frame-time figures are absent and the recipes are proven correct, not fast.
+- everswap: the Awwwards entry page returned 502; the Honorable Mention is `[recalled]` from search and its scores were not read.

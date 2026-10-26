@@ -3,7 +3,7 @@
 The hero is paper, with a second world under it. Where the pointer passes it leaves a short-lived wake that opens the paper onto a GL scene, and the paper closes again within a second. The scene renders only while the wake is open, at a reduced scale and every second frame.
 
 ## Why
-- **A mask the 2D canvas can paint.** The wake is up to 140 points, each living 750 ms, drawn as radial gradients into a 320 × 200 canvas. The shader reads that canvas as a mask, so there is no trail simulation and no ping-pong target. `[site:daikifujita]` opens its "dream" behind the paper hero this way [verified, `shared-lib.CTuRAKaB.mjs`, 2026-10-26].
+- **A mask the 2D canvas can paint.** The wake is up to 140 points, each living 750 ms, drawn as radial gradients into a small canvas (480 × 300 here; the source uses 320 × 200). The shader reads that canvas as a mask, so there is no trail simulation and no ping-pong target. `[site:daikifujita]` opens its "dream" behind the paper hero this way [verified, `shared-lib.CTuRAKaB.mjs`, 2026-10-26].
 - **A render scale separate from the DPR.** The world renders into its own target at 0.62 of the canvas's pixel ratio and is upscaled in the composite. The mask edge stays crisp while the world under it stays soft and cheap.
 - **Nothing at rest.** With no live points the loop paints an empty mask and returns. The canvas is cleared once and stays clear.
 - **Speed widens the wake.** Radius is `0.095 × short side × (0.6 + 0.6 × speed / 1,600 px/s)`, so a flick opens more of the world than a drift does.
@@ -11,7 +11,7 @@ The hero is paper, with a second world under it. Where the pointer passes it lea
 ## Parameters
 | | |
 |---|---|
-| Wake | ≤ 140 points; one per 6 px of travel; life 750 ms; strength `(1 − age)²`; mask threshold `smoothstep(.05, .6)` |
+| Wake | ≤ 140 points; one per 6 px of travel; life 750 ms; strength `(1 − age)²`; a 480 × 300 mask canvas; threshold `smoothstep(.02, .5)` |
 | World | render scale .62; every second frame; procedural night (gradient, a warped ribbon, twinkling stars) |
 | Canvas | `alpha: true`, premultiplied; DPR ≤ 1.5 from the quality tier |
 

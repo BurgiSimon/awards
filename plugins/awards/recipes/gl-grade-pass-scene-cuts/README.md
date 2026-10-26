@@ -15,8 +15,8 @@ Three scenes share one fixed canvas and one scene target, and the cuts between t
 | | |
 |---|---|
 | Cut 1 | `dip = fit(top, 1 → .55) × fit(top, .35 → −.15)` of the second chapter's top in viewport heights; full-res 4-tap blur over 0–.333, half-res 9-tap over .25–.667, quarter-res over .667–1, flat colour over .8–1; the scene swaps at top < .45 |
-| Cut 2 | `iris = fit(top, .9 → .1)` of the third chapter; diamond half-diagonal `iris × 1.5` viewport heights, centred .06 above the middle; edge alpha up over 0–.15 and down over .8–1 |
-| Close | `close = fit(top, .95 → 0)` of the footer, capped at .925; diamond half-diagonal `(1 − close) × 1.5`; zoom `1 + 2 × ((close − .75)/.25)²`, lift .03 |
+| Cut 2 | `iris = fit(top, .9 → .1)` of the third chapter; diamond half-diagonal `iris × reach`, where reach = `aspect / 2 + .5 + lift` is the frame's own corner distance (so 1 just clears the corners at any aspect), centred .06 above the middle; edge alpha up over 0–.15 and down over .8–1 |
+| Close | `close = fit(top, .95 → 0)` of the footer, capped at .925; diamond half-diagonal `(1 − close) × reach`; zoom `1 + 2 × ((close − .75)/.25)²`, lift .03 |
 | Targets | half-float scene, cache, two half-res and two quarter-res blur targets; DPR and pixel budget from the quality tier |
 
 These are this recipe's own values and palette. Everswap's cuts use their own windows, a lavender dip and a dark-green ground; do not take those.

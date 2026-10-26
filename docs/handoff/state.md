@@ -1,9 +1,17 @@
-# State of the awards plugin — 2026-10-23 (release 0.8.0)
+# State of the awards plugin — 2026-10-26 (release 0.8.0 plus corpus wave 5, unreleased)
 
 Read this first, then `todo.md`. The visual composition candidate's deterministic verification is
 recorded below in [Candidate verification record](#candidate-verification-record). `archive/plan-0.2.md` and
 `verification-log.md` record the earlier 0.2.0 work. `archive/plan.md` is the 0.1.0 specification, kept for
 reference. `decisions.md` records choices already taken.
+
+## Corpus wave 5 — WebGL and 3D lens (branch `claude/eager-mendel-prz05n`, 2026-10-26, unreleased)
+
+- Four sites the maintainer named, read with a 3D and WebGL lens over the hero, nav, footer and whole page (`docs/handoff/corpus-ledger.md#wave-5--opened-2026-10-26`): `oryzo` (existing card, lens only, plus a Corpus rating row), and new cards for `daikifujita` and `da-san333` (both Framer portfolios: three.js from esm.sh at run time on the first, bundled in a component chunk on the second) and `everswap` (Lusion, the same framework as oryzo; web3 1 → 2). Index 65 rows. Ratings [inferred]: oryzo 7.48, daikifujita 7.26, everswap 7.09, da-san333 6.54.
+- Synthesis: the four lens findings went into `webgl-3d-scenes.md`, `webgl-shaders.md` and `webgl-architecture.md` (teardown rows, post chains, effect parameters, recipe map); proposals in `recipe-proposals-2026-10-26-wave-5.md`.
+- Seven new recipes, 96 entries (95 focused plus one composition): `gl-swarm-light-field` (footer swarm lit by an occupancy atlas), `gl-screen-paint-distortion` (whole page), `gl-grade-pass-scene-cuts` (blur dip, frozen-frame iris, footer close), `gl-dom-refraction-lens` (glass refracting the page's own words on section anchors), `gl-pointer-wake-reveal` (hero), `point-cloud-shape-morph` (hero, 2D canvas, no deps) and `wordmark-header-handoff` (nav: the header logo is the hero wordmark). Each passes `verify-recipes --only` headless; none is stamped (stamping is a release step). webgl, structure and component skills route to them; stack names Framer as a host.
+- Checks on the head of the branch: check-sync 137 checks, 0 drift; lint-refs 0 dangling; check-card 65 cards, 0 errors; the recipes audit carries P3 only; both validates; selftest pass.
+- Not measured: every frame here ran on SwiftShader; none of the seven recipes has run on a real GPU or phone. The everswap award is recalled from search (its entry page returned 502), and its entry scores were not read.
 
 ## Release 0.8.0 (2026-10-23)
 

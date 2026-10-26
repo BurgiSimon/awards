@@ -13,10 +13,10 @@ One faceted glass object sits over the page and refracts the page itself. The wo
 | | |
 |---|---|
 | Glass | convex hull of 18 seeded points plus two tips; flat facets; radius = anchor size × short side / 2 (× 1.35 under 760 px) |
-| Refraction | IOR 1.31, spread .06, thickness .9 × radius in CSS px; frost `.05 + .22 × (1 − n·v)^1.6`; Fresnel `.06 + .94 × (1 − n·v)^4` |
+| Refraction | IOR 1.31, spread .06; the deviation from the straight-through ray (entry bend kept on total internal reflection) × .45 × radius in CSS px; frost `.03 + .14 × (1 − n·v)²`; Fresnel `.06 + .94 × (1 − n·v)^4` |
 | Studio | a grey ramp and three soft boxes at 4×, 7× and 4×; the key drifts on `sin(t × .21)`, `cos(t × .17)` |
 | Back texture | 1,024² (512² on touch); region ≤ .75 × the longer side |
-| Motion | spring 46, damping `2√46 × .94`; idle spin .25 rad/s plus the scroll velocity × 8e-4 (± 1.6); pointer tilt eased at 4/s |
+| Motion | spring 46, damping `2√46 × .94`, integrated in fixed 1/120 s steps of real time; idle spin .25 rad/s plus the scroll velocity × 8e-4 (± 1.6); pointer tilt eased at 4/s |
 
 These are this recipe's own values. The source site runs a far larger shader with fractures, memories and a dream mode; this recipe keeps the refraction and the travel.
 

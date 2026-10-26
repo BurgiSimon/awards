@@ -18,7 +18,7 @@ const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
 const state = { gl: false, fine, points: 0, added: 0, worldFrames: 0, compositeFrames: 0, cleared: true, motion: tier };
 
 // This recipe's own values.
-const WAKE = { max: 140, life: 750, radiusK: 0.095, speedRef: 1600, minStep: 6, maskW: 320, maskH: 200 };
+const WAKE = { max: 140, life: 750, radiusK: 0.095, speedRef: 1600, minStep: 6, maskW: 480, maskH: 300 };
 const WORLD_SCALE = 0.62;   // the world's render scale, separate from the canvas's own pixel ratio
 
 const vert = /* glsl */ `varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }`;
@@ -48,7 +48,7 @@ const compositeFrag = /* glsl */ `
   precision highp float;
   uniform sampler2D uWorld; uniform sampler2D uMask; varying vec2 vUv;
   void main() {
-    float m = smoothstep(0.05, 0.6, texture2D(uMask, vUv).r);
+    float m = smoothstep(0.02, 0.5, texture2D(uMask, vUv).a); // alpha: the white paint uploads unpremultiplied, so .r is 1 wherever any alpha is
     gl_FragColor = vec4(texture2D(uWorld, vUv).rgb, 1.0);
     #include <colorspace_fragment>
     gl_FragColor = vec4(gl_FragColor.rgb * m, m); // premultiplied: the paper shows wherever the mask is shut
