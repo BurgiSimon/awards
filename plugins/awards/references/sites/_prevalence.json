@@ -186,11 +186,12 @@
         "A16",
         "A18",
         "C01",
-        "L11",
+        "L06",
+        "L12",
         "P09",
         "S11"
       ],
-      "audit": "7aa25ebcad",
+      "audit": "8fecee690c",
       "date": "2026-10-26"
     },
     "https://www.warmnfuzzy.tv/": {
@@ -203,7 +204,7 @@
         "C01",
         "S11"
       ],
-      "audit": "7aa25ebcad",
+      "audit": "8fecee690c",
       "date": "2026-10-26"
     },
     "https://white-desert.com/": {
