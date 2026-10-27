@@ -5,6 +5,8 @@ import { createHash } from 'node:crypto';
 import { resolve, dirname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
+import { collectBuilds, rebuildStory } from './builds.js';
+import { collectPhases } from './phases.js';
 
 export const siteRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const repoRoot = resolve(siteRoot, '..');
@@ -39,6 +41,8 @@ export const fail = (message) => { throw new FactError(`facts: ${message}`); };
 // The site's own build inputs: the five pages, the sources, the facts plugin, the public files (frames included)
 // and the build config. dist/, node_modules/ and .awards/ are outputs or evidence, never inputs.
 const SOURCE_ROOTS = ['index.html', 'install.html', 'docs.html', 'recipes.html', '404.html', 'src', 'facts', 'public', 'vite.config.js', 'package.json', 'package-lock.json'];
+// What the record and the recipe wall read outside the site: the showcase builds' records and the explorer's frames.
+const RECORD_INPUTS = ['showcase/awards-home', 'showcase/ekvator', 'showcase/extinct', 'showcase/petrel'];
 
 function sourceFiles() {
   const out = [];
@@ -82,7 +86,7 @@ export function buildInfo(version, factsDigest = '') {
       .split('\n').filter(Boolean).map((l) => { const [meta, path] = l.split('\t'); return [path.slice(site.length + 1), meta.split(' ')[2]]; }));
     const inSources = (rel) => SOURCE_ROOTS.some((r) => rel === r || rel.startsWith(`${r}/`));
     const siteDirty = files.some((rel) => head.get(rel) !== blobId(bytes.get(rel))) || [...head.keys()].some((rel) => inSources(rel) && !bytes.has(rel));
-    const pluginDirty = execFileSync('git', ['status', '--porcelain', '--untracked-files=no', '--', 'plugins/awards', 'README.md'], { cwd: repoRoot, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim().length > 0;
+    const pluginDirty = execFileSync('git', ['status', '--porcelain', '--untracked-files=no', '--', 'plugins/awards', 'README.md', ...RECORD_INPUTS], { cwd: repoRoot, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim().length > 0;
     dirty = siteDirty || pluginDirty;
   } catch {
     hash = process.env.GITHUB_SHA ? process.env.GITHUB_SHA.slice(0, 7) : null;
@@ -189,6 +193,16 @@ export function collectFacts() {
     libraries,
   };
   // The build id digests everything the page prints from the plugin too, so a changed count is a different build.
-  facts.build = buildInfo(manifest.version, createHash('sha256').update(JSON.stringify(facts)).digest('hex'));
+  // The recipe explorer's frames (plugins/awards/recipes/_gallery): one per recipe, shot in headless Chromium.
+  const gallery = json(fromPlugin('recipes/_gallery/frames.json'));
+  facts.frames = new Map(Object.entries(gallery.frames ?? {}));
+  facts.framesSize = gallery.frame;
+  facts.framesViewport = gallery.viewport;
+  facts.framesDir = fromPlugin('recipes/_gallery/frames');
+  facts.builds = collectBuilds();
+  facts.rebuild = rebuildStory(facts.builds);
+  facts.phases = collectPhases();
+  const { builds, rebuild, phases, frames, ...printed } = facts;
+  facts.build = buildInfo(manifest.version, createHash('sha256').update(JSON.stringify({ printed, builds, rebuild, phases, frames: [...frames] })).digest('hex'));
   return facts;
 }

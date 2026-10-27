@@ -1,0 +1,58 @@
+/* Self-hosted woff2, OFL-1.1 (google/fonts). Four files, 92 KB.
+   Fallbacks are metric-matched against the rendered faces (measured in Chromium, 2026-10-26). */
+@font-face {
+  font-family: "Young Serif";
+  src: url("/fonts/young-serif-latin-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Commissioner";
+  src: url("/fonts/commissioner-latin-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Commissioner";
+  src: url("/fonts/commissioner-latin-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Reenie Beanie";
+  src: url("/fonts/reenie-beanie-latin-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Young Serif Fallback";
+  src: local("Georgia"), local("Times New Roman"), local("Liberation Serif"), local("DejaVu Serif");
+  size-adjust: 122.6%;
+  ascent-override: 85.6%;
+  descent-override: 30.2%;
+  line-gap-override: 0%;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Commissioner Fallback";
+  src: local("Arial"), local("Helvetica"), local("Liberation Sans"), local("DejaVu Sans");
+  size-adjust: 100.3%;
+  ascent-override: 101.7%;
+  descent-override: 20.9%;
+  line-gap-override: 0%;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Reenie Beanie Fallback";
+  src: local("Arial"), local("Helvetica"), local("Liberation Sans");
+  size-adjust: 76.8%;
+  ascent-override: 97.7%;
+  descent-override: 32.6%;
+  line-gap-override: 0%;
+  font-display: swap;
+}

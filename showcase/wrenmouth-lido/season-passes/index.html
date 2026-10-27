@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en-GB" data-theme="concrete">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Season passes: £145 adult, £60 under-16s, £95 concessions · The Wrenmouth Lido</title>
+  <meta name="description" content="A Wrenmouth Lido season pass covers every session for a year from 14 June 2027, all year round, lifeguards always on. £145 adult, £60 under-16s, £95 concessions.">
+  <link rel="canonical" href="https://wrenmouthlido.example/season-passes/">
+  <meta property="og:title" content="Season passes · The Wrenmouth Lido">
+  <meta property="og:description" content="Every session for a year, in water that's 9&nbsp;°C in March and 19&nbsp;°C in August. From £60.">
+  <meta property="og:url" content="https://wrenmouthlido.example/season-passes/">
+  <!--#include head -->
+</head>
+<body data-page="season-passes">
+<div id="page" data-page-wrap>
+<!--#include header current="season-passes" -->
+
+<main id="main" tabindex="-1">
+
+  <section class="page-hero" data-theme="concrete" data-chapter="dawn" aria-labelledby="page-title">
+    <div class="page-hero__text">
+      <h1 class="page-title page-hero__title" id="page-title" data-split>A season pass, for every month of the sea.</h1>
+      <p class="page-hero__lede">Every session for a year from 14 June 2027, in March at 9&nbsp;°C and August at 19&nbsp;°C. Lifeguards on all of them.</p>
+      <div class="page-hero__act">
+        <a class="btn" href="#buy">Choose your passes</a>
+        <a class="link-arrow" href="#per-swim">What it costs per swim</a>
+      </div>
+    </div>
+    <div class="page-hero__frame page-hero__frame--portrait">
+      <figure class="frame" data-frame style="--frame-ratio: 4 / 5">
+        <div class="frame__card" data-frame-card>
+          <div class="frame__face frame__face--front">
+            <span class="frame__corner frame__corner--tl" aria-hidden="true"></span><span class="frame__corner frame__corner--tr" aria-hidden="true"></span><span class="frame__corner frame__corner--bl" aria-hidden="true"></span><span class="frame__corner frame__corner--br" aria-hidden="true"></span>
+            <span class="frame__stamp" aria-hidden="true">’28 3 5</span>
+          </div>
+          <div class="frame__face frame__face--back" id="frame-back" data-frame-back>
+            <p class="pencil">First March swim, 9°. Season-pass people, 7 a.m. Hats on. Nobody said a word for the first length<span data-pencil-name></span>.</p>
+          </div>
+        </div>
+        <button class="frame__turn" type="button" aria-pressed="false" aria-controls="frame-back" data-frame-turn hidden>Turn it over</button>
+        <figcaption class="caption caption--frame"><span class="caption__text">The first March swim, 9&nbsp;°C. Not taken yet.</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="page-section" data-theme="pool" aria-labelledby="prices-title">
+    <h2 id="prices-title" class="sr-only">Prices</h2>
+    <ul class="price-list">
+      <li class="price">
+        <p class="price__amount">£145</p>
+        <p class="price__who">Adult</p>
+        <p>Anyone 16 or over.</p>
+      </li>
+      <li class="price">
+        <p class="price__amount">£60</p>
+        <p class="price__who">Under-16s</p>
+        <p>Aged 4 to 15. Under-8s swim with a paying adult in the water.</p>
+      </li>
+      <li class="price">
+        <p class="price__amount">£95</p>
+        <p class="price__who">Concessions</p>
+        <p>Over-65s, students, and anyone on Universal Credit, Pension Credit or a disability benefit. Carers come in free.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="page-section" data-theme="concrete" aria-labelledby="included-title">
+    <div class="split">
+      <div class="split__head">
+        <h2 id="included-title">What's in it.</h2>
+        <p>A pass is for one named person, from 14 June 2027 to 13 June 2028.</p>
+        <!--#picture slot="cold" class="split__print" sizes="(max-width: 900px) 100vw, 30vw" note="The kind of February morning a season pass is for." -->
+      </div>
+      <div class="split__body">
+        <ul class="bullets">
+          <li><strong>Every public session</strong>, every day the lido's open: 06:30 to 20:00 in summer, 07:00 to 17:00 in winter.</li>
+          <li><strong>Early lanes</strong> for pass holders from 06:00 on weekdays, May to September.</li>
+          <li><strong>The sauna</strong> at £3 a session instead of £5.</li>
+          <li><strong>Not included</strong>: the opening dawn swim (that's the free ballot), swim school courses, and the Christmas morning swim, which raises money for the lifeboat.</li>
+          <li><strong>Refill mornings</strong>: twice a month the pool closes for about four hours while the tide refills it. Pass holders get a text the day before.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section" data-theme="concrete" id="per-swim" aria-labelledby="perswim-title">
+    <div class="split">
+      <div class="split__head">
+        <h2 id="perswim-title">Is it worth it?</h2>
+        <p>A single adult swim is £6. Tell us how often you'll come and we'll do the sum.</p>
+      </div>
+      <div class="split__body">
+        <div class="form" data-perswim>
+          <div class="field">
+            <label for="ps-type">Pass</label>
+            <select id="ps-type" name="type">
+              <option value="145" data-single="6">Adult, £145 (single swim £6)</option>
+              <option value="60" data-single="3">Under-16, £60 (single swim £3)</option>
+              <option value="95" data-single="4">Concession, £95 (single swim £4)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="ps-swims">Swims a month, on average</label>
+            <input id="ps-swims" name="swims" type="number" inputmode="numeric" min="1" max="60" value="4">
+          </div>
+          <p class="lede" aria-live="polite" data-perswim-out>At 4 swims a month, an adult pass works out at £3.02 a swim, against £6 for a single. It pays for itself after 25 swims.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section" data-theme="pool" id="buy" aria-labelledby="buy-title">
+    <div class="split">
+      <div class="split__head">
+        <h2 id="buy-title" tabindex="-1">Choose your passes.</h2>
+        <p>Passes are posted as a card with your name on it, or collected from the turnstile hall from 1 June 2027.</p>
+      </div>
+      <div class="split__body">
+        <form class="form" data-passes novalidate>
+          <div class="field">
+            <label for="p-adult">Adult passes, £145</label>
+            <input id="p-adult" name="adult" type="number" inputmode="numeric" min="0" max="10" value="1">
+          </div>
+          <div class="field">
+            <label for="p-child">Under-16 passes, £60</label>
+            <input id="p-child" name="child" type="number" inputmode="numeric" min="0" max="10" value="0">
+          </div>
+          <div class="field">
+            <label for="p-conc">Concession passes, £95</label>
+            <input id="p-conc" name="conc" type="number" inputmode="numeric" min="0" max="10" value="0">
+          </div>
+          <p class="lede" aria-live="polite" data-passes-total>Total: £145 for 1 pass.</p>
+          <div class="field">
+            <label for="p-email">Email for the receipt</label>
+            <input id="p-email" name="email" type="email" autocomplete="email" required aria-describedby="p-email-error">
+            <p class="field__error" id="p-email-error" aria-live="polite"></p>
+          </div>
+          <p class="field__error" data-passes-error aria-live="polite"></p>
+          <div><button class="btn" type="submit">Continue to payment</button></div>
+          <p class="form__note">This is a design study for a fictional lido: no payment is taken and no pass is issued. Nothing you type leaves this page.</p>
+        </form>
+        <div class="form__done" data-passes-done tabindex="-1" hidden>
+          <h3>That's where the payment page would be.</h3>
+          <p>The Wrenmouth Lido is fictional, so there's nothing to pay for. If it were real, your passes would be in the post by 1 June 2027.</p>
+          <p><a class="link-arrow" href="/trust/">The Trust, from £12 a year</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!--#include footer -->
+</div>
+<!--#include menu -->
+</body>
+</html>

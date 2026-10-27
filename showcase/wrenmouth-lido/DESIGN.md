@@ -1,0 +1,224 @@
+---
+name: The Wrenmouth Lido
+description: Prints on sea-wall concrete — found photographs of other people's sea pools, captioned plainly, around one empty frame for the photograph not taken yet; a warm 1930s printer's serif, a quiet humanist sans, one lifeguard-flag red for the three ways in.
+colors:
+  ground: "#E7E5DF"
+  ink: "#221E1B"
+  accent: "#AE2E1A"
+  sea: "#22333B"
+  sea-accent: "#F2836A"
+  pool: "#C9DDD8"
+typography:
+  display:
+    fontFamily: "Young Serif, Young Serif Fallback, Georgia, serif"
+    fontSize: "96px"
+    fontWeight: 400
+    lineHeight: 0.98
+    letterSpacing: "-0.02em"
+  big:
+    fontFamily: "Young Serif, Young Serif Fallback, Georgia, serif"
+    fontSize: "180px"
+    fontWeight: 400
+    lineHeight: 0.9
+    letterSpacing: "-0.03em"
+  h2:
+    fontFamily: "Young Serif, Young Serif Fallback, Georgia, serif"
+    fontSize: "56px"
+    fontWeight: 400
+    lineHeight: 1.02
+    letterSpacing: "-0.015em"
+  h3:
+    fontFamily: "Young Serif, Young Serif Fallback, Georgia, serif"
+    fontSize: "28px"
+    fontWeight: 400
+    lineHeight: 1.15
+    letterSpacing: "0em"
+  body:
+    fontFamily: "Commissioner, Commissioner Fallback, Arial, sans-serif"
+    fontSize: "17px"
+    fontWeight: 400
+    lineHeight: 1.55
+    letterSpacing: "0em"
+  lede:
+    fontFamily: "Commissioner, Commissioner Fallback, Arial, sans-serif"
+    fontSize: "22px"
+    fontWeight: 400
+    lineHeight: 1.4
+    letterSpacing: "0em"
+  caption:
+    fontFamily: "Young Serif, Young Serif Fallback, Georgia, serif"
+    fontSize: "15px"
+    fontWeight: 400
+    lineHeight: 1.4
+    letterSpacing: "0em"
+  pencil:
+    fontFamily: "Reenie Beanie, Reenie Beanie Fallback, cursive"
+    fontSize: "32px"
+    fontWeight: 400
+    lineHeight: 1.05
+    letterSpacing: "0em"
+  label:
+    fontFamily: "Commissioner, Commissioner Fallback, Arial, sans-serif"
+    fontSize: "13px"
+    fontWeight: 600
+    lineHeight: 1.3
+    letterSpacing: "0em"
+rounded:
+  none: "0px"
+spacing:
+  unit: "4px"
+  gutter: "60px"
+components:
+  button-primary:
+    backgroundColor: "{colors.accent}"
+    textColor: "{colors.ground}"
+    rounded: "{rounded.none}"
+    padding: "1rem 1.5rem"
+  button-primary-hover:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.ground}"
+  button-secondary:
+    backgroundColor: "{colors.ground}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.none}"
+    padding: "1rem 1.5rem"
+  chapter-sea:
+    backgroundColor: "{colors.sea}"
+    textColor: "{colors.ground}"
+  button-primary-on-sea:
+    backgroundColor: "{colors.sea-accent}"
+    textColor: "{colors.sea}"
+    rounded: "{rounded.none}"
+    padding: "1rem 1.5rem"
+  chapter-pool:
+    backgroundColor: "{colors.pool}"
+    textColor: "{colors.ink}"
+---
+
+# The Wrenmouth Lido — design system
+
+The frontmatter is the machine-readable layer; `src/styles/tokens.css` and `src/styles/fonts.css` carry the same values. Fluid sizes are recorded here at the 1440 artboard; their `clamp()` lives in `## Typography` and `tokens.css`.
+
+## Overview
+- **Creative north star:** *prints on concrete.* A pinned row of other people's photographs on the sea wall, each with a plain caption, and one empty print among them — ours, for the photograph that will be taken at 06:00 on 14 June 2027.
+- **Colour strategy:** **theme-per-section** (dealt in concept). The grounds are the lido's own surfaces and the sea's hour: *concrete* (the sea wall by daylight, the default), *sea* (the cold water at dawn, the one dark field), *pool* (the pale distemper of a painted tank). Two values are live at a time, plus one action colour taken from the lifeguard's flag and spent only on the three ways in (ballot, season pass, Trust) and the camera date stamp in the empty frame. Light-dominant because the readers are on phones in daylight and the found photographs are pale, sun-bleached prints; the sea chapter is dark because 06:00 on a northern coast is a blue-grey half-light.
+- **What this world refuses:** the Art Deco lido-poster pastiche (teal, coral, sunburst, deco capitals), the spa brochure (turquoise drone shot, golden hour, wellness icons), and the Awwwards sea (near-black, caustics shader, glow, giant grotesque "DIVE IN").
+- **Calibration:** `[site:white-desert]` — navy-ink display at giant size with one functional orange only on the conversion path → here the flag red is the only accent and only on actions; but the giant grotesque is refused: the voice is a warm serif at 96 px against 17 px body (≈ 5.6:1), because a town notice speaks plainly, not loudly.
+- **Calibration:** `[site:son-daven]` — two tokens inverted by a theme class on scroll, ≈ 5:1 → here three grounds (concrete / sea / pool) under the same two roles, each pair ≥ 10:1, because the chapters are places (the wall, the water, the tank), not a light/dark toggle.
+- **Calibration:** `[site:eugeniagrab]` — the subject is the only saturated colour on a quiet ground → here the photographs (often warm, sun-faded colour or sepia) are the only chroma besides the flag; tokens stay near-neutral so a 1937 print and a 2025 colour photo can sit on the same wall.
+
+## Colors
+| Role | Token | Value | Job |
+|---|---|---|---|
+| ground (concrete) | `--ground` | `#E7E5DF` | sea-wall concrete, cool and slightly green-grey, never paper-white |
+| ink (creosote) | `--ink` | `#221E1B` | the tarred-timber brown-black of groynes and sluice gates; warm against the cool ground |
+| accent (flag) | `--accent` | `#AE2E1A` | the red half of a lifeguard flag: primary buttons, the date stamp, focus ring, selection |
+| sea ground | `[data-theme=sea] --ground` | `#22333B` | the cold sea at dawn; the dark chapter |
+| sea accent | `[data-theme=sea] --accent` | `#F2836A` | the same flag, lit for a dark ground |
+| pool ground | `[data-theme=pool] --ground` | `#C9DDD8` | pale painted tank (distemper green-blue, desaturated so it is never cyan) |
+| muted | `--muted` | `color-mix(ink 70%, ground)` | captions' credit lines, meta |
+| line | `--line` | `color-mix(ink 22%, ground)` | hairlines, table rules, print borders' shadow side |
+| paper | `--paper` | `color-mix(#22333B 30%, #C9DDD8)` | the unexposed face of the empty frame |
+
+Hues in the file: six (`#E7E5DF`, `#221E1B`, `#AE2E1A`, `#22333B`, `#F2836A`, `#C9DDD8`); never more than three live at once.
+
+**Themes** (`data-theme` on `<html>` follows the section in view; sections carry their own `data-theme` so the ground is right without JS):
+
+| Theme | ground | ink | accent | color-scheme |
+|---|---|---|---|---|
+| `concrete` | `#E7E5DF` | `#221E1B` | `#AE2E1A` | light |
+| `sea` | `#22333B` | `#E7E5DF` | `#F2836A` | dark |
+| `pool` | `#C9DDD8` | `#221E1B` | `#AE2E1A` | light |
+
+**Contrast (computed, WCAG 2.x):**
+| Pair | Ratio | Use |
+|---|---|---|
+| ink on concrete | 13.13:1 | body, display |
+| concrete on sea | 10.39:1 | body on the sea chapter |
+| ink on pool | 11.67:1 | body on the pool chapter |
+| muted on concrete (70 % mix) | ≈ 5.4:1 | captions, credits |
+| muted on sea | ≈ 6.0:1 | captions on sea |
+| muted on pool | ≈ 5.2:1 | captions on pool |
+| flag `#AE2E1A` on concrete | 5.20:1 | text links in accent, focus ring |
+| concrete on flag (button label) | 5.20:1 | primary button |
+| flag on pool | 4.62:1 | focus ring and links on pool |
+| sea-accent `#F2836A` on sea | 5.13:1 | focus ring, links on sea |
+| sea on sea-accent (button label) | 5.13:1 | primary button on sea |
+| ink on paper (frame face) | ≈ 7.0:1 | the date stamp is flag on paper only as decoration (aria-hidden); the readable date is in the caption |
+
+Wide gamut: none; the flag is already inside sRGB and the contrast maths must hold.
+
+Chroma policy: tokens are near-neutral; the photographs carry their own colour, never recoloured or duotoned (they are documents of real places; altering them would misrepresent them). Black-and-white archive prints stay black-and-white.
+
+## Typography
+Voice: a warm, heavy-shouldered printer's serif with old-style figures, the kind a 1930s town printer used for a swimming-gala bill — plain, proud, a little salty; never Art Deco capitals.
+
+- **Candidates pulled and rendered** (`.awards/type/specimen.png`, `.awards/type/specimen-2.png`; `fonts.mjs search` random pulls for sans, serif and handwriting were mostly CJK, pixel or script faces unsuited to the brief, so a character-led shortlist was rendered instead): Cabin, Commissioner, Overpass, Young Serif, Bitter, Rokkitt, Libre Franklin, Anybody; for the pencil: Nothing You Could Do, Reenie Beanie, Cedarville Cursive, Zeyada, La Belle Aurore; for the body: Commissioner, Public Sans, Schibsted Grotesk.
+- **Chosen — display and captions: Young Serif** (Bastien Sozeau / Noirblancrouge, OFL-1.1, one weight 400). Its old-style figures make "1937", "14 June" and "06:00" read like a printed bill, and the heavy, soft serifs carry warmth without costume.
+- **Chosen — body, forms, tables, nav: Commissioner** (Kostas Bartsokas, OFL-1.1, 400 and 600). A humanist sans with a Johnston/Gill-era civic plainness; lining tabular figures for prices and times.
+- **Chosen — one rationed accent: Reenie Beanie** (James Grieshaber, OFL-1.1), only for the pencilled caption on the back of the empty frame and the visitor's pencilled name; never a heading, never body. Set at ≥ 26 px.
+- Rejected: Cabin — Johnston-flavoured but too soft and generic at display size; Overpass — highway signage, American, colder than the town; Bitter — a screen slab, reads as a blog; Rokkitt — too wide and geometric-Deco, edges towards the poster pastiche; Libre Franklin and Anybody — grotesque display, the Awwwards register this world refuses; Public Sans and Schibsted Grotesk — good bodies but colder and more corporate than Commissioner beside Young Serif; Nothing You Could Do — the accent face of `[site:to-top]`; Cedarville, La Belle Aurore, Zeyada — ink scripts, not pencil, and less legible at small sizes.
+- **Contract:** expressive display + neutral humanist sans, with one rationed accent face for the signature's single job. Four files, 92 KB.
+- **Scale** (vw-lock on a 1440 artboard, `clamp()`): `--display: clamp(2.625rem, 6.6667vw, 6rem)` (96 px; 42 px floor); `--big: clamp(4rem, 12.5vw, 11.25rem)` (180 px, for chapter numerals like "£1", "60 m", "9 °C" — ceiling 12.5 vw < 13 vw); `--h2: clamp(2rem, 3.8889vw, 3.5rem)` (56 px); `--h3: clamp(1.375rem, 1.9444vw, 1.75rem)` (28 px); `--lede: clamp(1.1875rem, 1.5278vw, 1.375rem)` (22 px); `--body: clamp(1rem, 1.1806vw, 1.0625rem)` (17 px); `--caption: 0.9375rem` (15 px, Young Serif); `--pencil: clamp(1.625rem, 2.2222vw, 2rem)`; `--label: 0.8125rem` (13 px, Commissioner 600, sentence case — this is not a metadata world, so no tracked capitals over headings).
+- **Setting:** display tracking −0.02em, `--big` −0.03em; display leading 0.98 (Young Serif's ascenders and the J of "June" were checked in the specimen); old-style figures (`onum`) in display and captions; lining tabular figures (`lnum`, `tnum`) in Commissioner tables and prices — set in the token layer on `body` and `.num`.
+- **Loading:** self-hosted woff2 in `public/fonts/`, `font-display: swap`, metric-matched fallbacks (`size-adjust` 122.6 % / 100.3 % / 76.8 % with ascent/descent overrides, measured in Chromium); Young Serif is preloaded; text is split for the hero entrance only after `document.fonts.ready` (1.2 s ceiling).
+
+## Layout
+- **Artboard** 1440, 12 columns, gutter `--gutter: clamp(20px, 4.1667vw, 120px)` (60 px at 1440, 20 px on a phone), column gap `calc(var(--unit) * 6)` (24 px). Sizes in vw-lock above 768 px, fixed floors below.
+- **Breakpoints:** one structural break at 900 px (12 columns → a single column with the prints stacked) and one at 600 px for the nav; never a reload; layouts are CSS grid that reflow.
+- **Measure:** prose at 62ch max; captions at 44ch.
+- **Section rhythm:** section padding `clamp(96px, 11.1111vw, 176px)` (160 px at 1440), rests between chapters; the same heading-to-body gap (32 px) everywhere.
+- **Pictures:** a picture leads its screen (≥ 60 %) or stays a caption-sized print; two crop ratios carry the pictures — **4:3 landscape prints** and **4:5 portrait prints** — and the empty frame always matches the ratio of the print it sits beside.
+- **Coarse pointers:** no hover-only affordances; every control ≥ 44 × 44 px; Lenis off on touch.
+
+## Elevation & Depth
+Material policy: **prints on concrete.** Photographs are prints: a 6 px paper border (`--ground` lightened toward white: `color-mix(#fff 55%, var(--ground))`), square corners, and one shadow policy — a short, soft contact shadow `0 1px 0 var(--line), 0 10px 24px -14px rgb(34 30 27 / .45)` that says "lying on concrete", used on prints and the empty frame only. Everything else (buttons, forms, tables, cards of text) is flat and shadowless; depth by luminance. Grain: only on the empty frame's unexposed face, three levels of detail — a fine SVG noise (alpha .34, multiplied), a low-frequency "uneven emulsion" noise beneath it (alpha .22), and worn edges as two inset shadows — never over text. The same contact shadow lengthens with a `--lift` number while a print is raised (the turn, hover/focus on its control, prints laid on the wall). No glass, no glow, no gradients (the dawn photograph carries its own tone).
+
+## Shapes
+One radius: 0. Corners are square everywhere, including buttons and inputs (prints and municipal signs are square). The only non-rectangular shapes are the four photo corners on the empty frame (small 14 px right-angled triangles in `--ink`) and the radio dots of the month picker. Icons: none, except a 1.5 px stroke arrow drawn as text (→) in the body face.
+
+## Components
+One entry per component in the page map. Every control is a real `<a>` or `<button>`, ≥ 44 × 44 px, with the 2 px flag ring at 4 px offset on focus.
+
+- **Button, primary** (`.btn`): `--accent` ground, `--ground` label, Commissioner 600 17 px, padding 14 × 24 px, min height 52 px, square. Hover: background → `--ink` over `--dur-feedback`; focus-visible: the ring; active: `translateY(1px)`; disabled: `--line` ground, `--muted` label, `not-allowed`. Used only for the three ways in and form submits.
+- **Button, quiet** (`.btn--quiet`): transparent, 1.5 px inset `--ink` outline; hover fills with `--ink`. The season pass's weight in "Three ways in".
+- **Text link with arrow** (`.link-arrow`): 600 weight, 1 px underline at 0.18em that thickens to 2 px on hover; the → moves 4 px on hover. Secondary actions everywhere.
+- **Header caption line** (`.head`, sticky): one left-aligned run — the name in Young Serif, ", on the sea wall since 1937" in `--muted`, an em dash, then the routes in Commissioner separated by middots, `aria-current` underlined 2 px; on home a muted clause names the chapter in words ("You're in “Twenty-eight years empty”, the fourth of seven"). It tucks away on scroll-down and returns on the first scroll-up (instant under reduced motion; never while focus is inside); `html` carries `scroll-padding-top` from its measured height and form fields a 4.5 rem `scroll-margin-top`, so a focused control is never under it. Under 900 px with JS: a square "Menu" button (`aria-expanded`, `aria-controls`); without JS the links wrap under the name.
+- **Menu dialog** (`.menu`, `role="dialog" aria-modal`): sea theme, after `#page`; `inert` on the page, focus to Close, trap, Escape, focus returns; a 0.42 s clip from the top in the full tier, instant otherwise. Each route has its price aside (free, from £60, £12 a year).
+- **Print** (`figure.print`): rendered at build time from `src/data/pictures.json`: `srcset` 800/1600 WebP with width/height, paper border, contact shadow, caption "Not Wrenmouth. {place}, {date}. {note}" in Young Serif 15 px, credit line (title link, creator / institution, licence link) in Commissioner 13 px `--muted`. Never recoloured.
+- **The empty frame** (`figure.frame`, SIGNATURE): one format per route via `--frame-ratio` — 4:3 on home and the ballot (the same photograph), a 4:5 portrait card for season passes (the March swim), an 85.6:54 membership card drawn small for the Trust ("No. 2401"), 35 mm 3:2 for visit (the first length); the hero frame carries `view-transition-name: empty-frame`, so it moves from page to page. Front = `--paper` with three levels of grain (see Elevation & Depth), four 16 px photo corners in `--ink`, a date stamp in the flag colour (decorative, `aria-hidden`); back = lighter paper with the pencilled caption (Reenie Beanie) and `[data-pencil-name]`. Under it, the "Turn it over" button (`aria-pressed`, `aria-controls` the back). Tiers: full = `rotateY` 0.7 s `sine.inOut` with an 8 px lift and the shadow lengthening (`--lift` 0 → 14 → 0); reduced = 200 ms cross-fade; static/no-JS = the back printed beneath the front. A polite live region reads the back once when turned. Variants: `--turned` (the close's bookend, back only), `--mini` (ballot confirmation), `--gone` (404: dashed, empty).
+- **Month picker** (`.months`, interruption): native radios (one per month) in a ruled 12-column row (6 × 2 on a phone), selected = `--ink` fill; answer panels in an `aria-live="polite"` region: a 180 px numeral + °C, the month sentence with °F, what to wear, first-swim time, a note. Opens on the current month. A skip link precedes it.
+- **Year rows** (`ol.years`): ruled rows, the year in Young Serif old-style figures at h2 size, text at body size; `--long` variant on the Trust page at h3 size.
+- **Ways list** (`ol.ways__list`): ruled rows; heading indents one column per row (1 / 2 / 3), the ballot heading at h2 size; action weight follows priority (btn → btn--quiet → link-arrow).
+- **Facts** (`dl.facts`): two columns, ruled, `dt` 600; one column under 600 px.
+- **Steps** (`ol.steps`): ruled, Young Serif numerals counting real steps of the ballot.
+- **Bullets** (`ul.bullets`): ruled list with a bold lead-in per item.
+- **Tables** (`.table`): tabular lining figures, ruled; wrapped in a focusable labelled scroll region on small screens.
+- **Price numerals** (`.price-list`): three £ figures at `--big` over a 1.5 px rule, who it's for, the terms.
+- **Share bar** (`figure.share`, Trust): a 72 px ruled bar split 61/39 (`aria-hidden`), with the figures in a `dl` beside it.
+- **Forms** (`.form`, `.field`): label above (600, 15 px), hint in `--muted`, 52 px fields with a 1.5 px `--ink` bottom rule on a lightened ground, errors in `--accent` 600 tied by `aria-describedby` and `aria-invalid`, focus to the first invalid field; confirmation panel (`.form__done`, `tabindex="-1"`) receives focus. Every form states that nothing leaves the page.
+- **Footer** (`.foot`, sea theme): "See you on the steps." + the three ways in as ruled rows with prices; address, hours, the Trust; the fictional-client note; picture credits in a `details`.
+- **404** (`.lost`): the dashed empty frame "’79", three routes out.
+
+## Motion
+- **Register: organic** — a paper held and turned, water arriving, a town at dawn; not mechanical, not cinematic.
+- `--ease-out-expo: cubic-bezier(0.33, 1, 0.68, 1)` (arrivals), `--ease-in-out-expo: cubic-bezier(0.45, 0, 0.55, 1)` (travel, the turn), `--ease-theme: cubic-bezier(0.45, 0, 0.55, 1)` (ground swaps).
+- Durations: `--dur-feedback: 180ms`, `--dur-routine: 420ms`, `--dur-hero: 1200ms` (once, the hero), `--dur-turn: 700ms` (the frame turning). Stagger 0.08 s.
+- **Tiers:** *full* — the hero entrance, the frame's settle, the turn, chapter grounds tweening, masked line reveals on chapter headings; *reduced* (`prefers-reduced-motion: reduce`) — durations shorten (feedback 0, routine 120 ms, hero 200 ms, turn 200 ms), the turn becomes a cross-fade, grounds swap instantly, no scroll-tethered motion; *static* (`?static` or no JS) — the settled composition, the frame's back printed beneath its front. Never a global animation kill.
+
+## Browser surfaces
+- `::selection`: `--accent` background, `--ground` text. `caret-color: var(--accent)`.
+- Scrollbar: thin, thumb `--muted`, track `--ground` (`scrollbar-color`), native scrolling kept.
+- Focus ring: `outline: 2px solid var(--accent); outline-offset: 4px` everywhere (≥ 4.6:1 on every ground).
+- `color-scheme` per theme; `<meta name="theme-color">` follows the theme in view (concrete `#E7E5DF`, sea `#22333B`, pool `#C9DDD8`).
+- Favicon: an SVG empty frame — a square outline in `--ink` with one flag-red date-stamp dot; `apple-touch-icon` PNG of the same.
+- Open Graph image: 1200 × 630, concrete ground, the empty frame with its date stamp `’27 6 14`, and the line "The Wrenmouth Lido reopens at 06:00 on 14 June 2027." in Young Serif (`public/og.png`, made in the build with Playwright from an HTML template).
+
+## Do's and Don'ts
+- Do caption every photograph with where it really is and who made it; "Not Wrenmouth." is the house phrase for archive pictures.
+- Do write numbers with units in sentences: 60 metres, 9 °C (48 °F), £145, 06:00.
+- Do keep the flag red for the three ways in, the date stamp and focus — nothing else.
+- Don't recolour, duotone or grade the photographs; don't crop out a credit.
+- Don't use Reenie Beanie for anything but the back of a frame.
+- Don't add a fourth ground, a gradient, a glow or a rounded corner.
+- Don't set labels in tracked capitals over headings; this is a town notice, not a catalogue.

@@ -1,0 +1,223 @@
+{
+  "assets": [
+    {
+      "file": "public/images/hero-800.webp",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://www.flickr.com/photos/60455048@N02/31475343415 — Bathers and Moora Park, Sandgate, December 1937, Queensland State Archives",
+      "licence": "Public domain",
+      "licenceUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/images/hero-1023.webp",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://www.flickr.com/photos/60455048@N02/31475343415 — Bathers and Moora Park, Sandgate, December 1937, Queensland State Archives",
+      "licence": "Public domain",
+      "licenceUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/images/sea-800.webp",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://commons.wikimedia.org/w/index.php?curid=140133740 — Saltcoats Sea Water Bathing Pool - geograph.org.uk - 5680504, Raibeart MacAoidh",
+      "licence": "CC BY-SA 2.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/images/sea-1280.webp",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://commons.wikimedia.org/w/index.php?curid=140133740 — Saltcoats Sea Water Bathing Pool - geograph.org.uk - 5680504, Raibeart MacAoidh",
+      "licence": "CC BY-SA 2.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/images/empty-800.webp",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://www.flickr.com/photos/57899800@N00/9203406460 — Tarlair swimming pool, yellow book",
+      "licence": "CC BY 2.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/images/empty-1024.webp",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://www.flickr.com/photos/57899800@N00/9203406460 — Tarlair swimming pool, yellow book",
+      "licence": "CC BY 2.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/images/diving-800.webp",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://commons.wikimedia.org/w/index.php?curid=65737217 — Man springt van hoge duikplank in zwembad, Bestanddeelnr 350-6-5, Nationaal Archief",
+      "licence": "CC0 1.0",
+      "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/images/diving-1000.webp",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://commons.wikimedia.org/w/index.php?curid=65737217 — Man springt van hoge duikplank in zwembad, Bestanddeelnr 350-6-5, Nationaal Archief",
+      "licence": "CC0 1.0",
+      "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/images/sauna-800.webp",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://commons.wikimedia.org/w/index.php?curid=140504700 — Seaside sauna in Kirkkonummi, JIP",
+      "licence": "CC BY-SA 4.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/images/sauna-1280.webp",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://commons.wikimedia.org/w/index.php?curid=140504700 — Seaside sauna in Kirkkonummi, JIP",
+      "licence": "CC BY-SA 4.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/images/cold-800.webp",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://commons.wikimedia.org/w/index.php?curid=128470372 — Winter swimming at Katajanokka in Helsinki, Finland, 2022 February, Annette Helander",
+      "licence": "CC BY 4.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/images/cold-1280.webp",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://commons.wikimedia.org/w/index.php?curid=128470372 — Winter swimming at Katajanokka in Helsinki, Finland, 2022 February, Annette Helander",
+      "licence": "CC BY 4.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/images/hall-800.webp",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://www.flickr.com/photos/60455048@N02/36259214636 — Tobruk Memorial Baths, Townsville, c 1953, Queensland State Archives",
+      "licence": "Public domain",
+      "licenceUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/images/hall-1024.webp",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://www.flickr.com/photos/60455048@N02/36259214636 — Tobruk Memorial Baths, Townsville, c 1953, Queensland State Archives",
+      "licence": "Public domain",
+      "licenceUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/images/lesson-800.webp",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://commons.wikimedia.org/w/index.php?curid=67039893 — Alafoss De dochter van Sigurjón Pétursson uit Álafoss geeft zwemles aan een kla, Bestanddeelnr 190-0334, Willem van de Poll",
+      "licence": "CC0 1.0",
+      "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/images/lesson-1280.webp",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://commons.wikimedia.org/w/index.php?curid=67039893 — Alafoss De dochter van Sigurjón Pétursson uit Álafoss geeft zwemles aan een kla, Bestanddeelnr 190-0334, Willem van de Poll",
+      "licence": "CC0 1.0",
+      "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/images/lifeguard-800.webp",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://commons.wikimedia.org/w/index.php?curid=71150880 — Lifeguard and swimmers at Green Lake, 1930, Seattle Municipal Archives",
+      "licence": "CC BY 2.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/images/lifeguard-1280.webp",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://commons.wikimedia.org/w/index.php?curid=71150880 — Lifeguard and swimmers at Green Lake, 1930, Seattle Municipal Archives",
+      "licence": "CC BY 2.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/images/wall-800.webp",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://commons.wikimedia.org/w/index.php?curid=140133898 — Saltcoats Sea Water Bathing Pool - geograph.org.uk - 5680528, Raibeart MacAoidh",
+      "licence": "CC BY-SA 2.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/images/wall-1280.webp",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://commons.wikimedia.org/w/index.php?curid=140133898 — Saltcoats Sea Water Bathing Pool - geograph.org.uk - 5680528, Raibeart MacAoidh",
+      "licence": "CC BY-SA 2.0",
+      "licenceUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/images/baths-800.webp",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://www.flickr.com/photos/70994841@N07/40396684215 — Ocean Baths at Forster, N.S.W. - circa 1940, Aussie~mobs",
+      "licence": "Public domain",
+      "licenceUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/images/baths-1023.webp",
+      "kind": "licensed",
+      "synthetic": false,
+      "source": "https://www.flickr.com/photos/70994841@N07/40396684215 — Ocean Baths at Forster, N.S.W. - circa 1940, Aussie~mobs",
+      "licence": "Public domain",
+      "licenceUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/og.png",
+      "kind": "drawn",
+      "synthetic": false,
+      "source": "Rendered in the build from .awards/og/og.html (Young Serif, Commissioner; the empty frame in CSS)",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/apple-touch-icon.png",
+      "kind": "drawn",
+      "synthetic": false,
+      "source": "Rendered from public/favicon.svg",
+      "date": "2026-10-26"
+    },
+    {
+      "file": "public/favicon.svg",
+      "kind": "drawn",
+      "synthetic": false,
+      "source": "Drawn for the build: the empty frame with photo corners and a flag-red date stamp",
+      "date": "2026-10-26"
+    }
+  ]
+}

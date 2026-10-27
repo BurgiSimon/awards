@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en" data-proof="none">
-<!-- Skeleton (awards:structure). Bindings as described at the top of index.html: data-fact, data-fact-attr, data-proof, @proof slots. -->
+<html lang="en" data-theme="ship">
+<!-- Re-skinned for the record (awards:structure, 2026-10-26). Bindings as described at the top of index.html: data-fact, data-fact-attr and @fact regions (the band and the colophon are shared). -->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Script-only controls keep their place from the first paint (no shift when the module wires them up). -->
-  <script>(function(d){d.classList.add('js');if(navigator.clipboard&&window.isSecureContext)d.classList.add('can-copy');if(window.HTMLDialogElement)d.classList.add('can-dialog');
+  <!-- Script-only controls keep their place from the first paint. -->
+  <script>(function(d){d.classList.add('js');if(navigator.clipboard&&window.isSecureContext)d.classList.add('can-copy');
     var still=matchMedia('(prefers-reduced-motion: reduce)').matches||/^(reduced|static)$/.test(d.dataset.motion||'');
     addEventListener('pagereveal',function(e){var t=e.viewTransition;window.__vt={ran:!!t,skipped:false,finished:false};if(!t)return;if(still){t.skipTransition();window.__vt.skipped=true}t.finished.then(function(){window.__vt.finished=true},function(){})});
   })(document.documentElement)</script>
@@ -16,13 +16,12 @@
   <meta name="description" content="Install the awards plugin in Claude Code or Codex with two commands, then the requirements: Node 22.12 or 24 LTS, and Playwright with Chromium for captures.">
   <link rel="canonical" href="./install.html">
   <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#131211">
+  <meta name="theme-color" content="#5cb973">
   <link rel="icon" href="./favicon-32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  <link rel="preload" href="./fonts/enriqueta-latin-500.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="./fonts/enriqueta-latin-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="./fonts/saira-condensed-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./fonts/gloock-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./fonts/familjen-grotesk-latin-400.woff2" as="font" type="font/woff2" crossorigin>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="awards">
   <meta property="og:title" content="Install · awards">
@@ -31,51 +30,34 @@
   <meta property="og:image" content="./og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="(written at build from src/data/proof.json)">
+  <meta property="og:image:alt" content="The line “Done when a jury says ship.” in black on green, with the first screens of five websites built by the plugin gathered along its foot.">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="./src/styles/site.css">
 </head>
 <body>
-<div id="page" class="sheet">
+<div id="page">
   <a class="skip" href="#main">Skip to the page</a>
 
-  <div class="rebate" data-theme="rebate">
-    <header class="rebate__head">
-      <p class="rebate__mark"><a class="rebate__wordmark" href="./">awards</a> <span class="rebate__version edge" data-fact="version">0.7.0</span></p>
-      <!-- @proof:disclosure — phone, states capture and report: the Frames disclosure, this route's phone frames as links -->
-      <nav class="rebate__nav" aria-label="Site">
-        <ul role="list">
-          <li><a class="rebate__install" href="./install.html" aria-current="page">Install</a></li>
-          <li><a href="./docs.html">Docs</a></li>
-          <li><a href="./recipes.html">Recipes</a></li>
-          <li><a href="https://github.com/burgisimon/awards" data-fact-attr="href:repo">Source</a></li>
-        </ul>
-      </nav>
-    </header>
-    <!-- @proof:strip route="install" — the same frames nav as on the home route, with this route's own frames; nothing in state none -->
-  </div>
+  <!-- @fact:band --><!-- /@fact -->
 
-  <main id="main" class="paper">
+  <main id="main">
 
     <section class="chapter route-head open" aria-labelledby="install-title">
       <h1 id="install-title">Install</h1>
       <p class="lede">Two commands in either client. The plugin installs as one folder: <span data-fact="skills">11</span> skills, the jury agent, the hooks, the corpus, <span data-fact="recipes">89</span> recipe entries and the scripts they share.</p>
       <div class="ticket" id="select-install" role="group" aria-label="Install commands">
-        <svg class="ticket__ring" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false" data-motion="select-ring">
-          <path d="M7 5 C 32 1, 72 0, 92 2 C 98 3, 100 8, 100 18 C 100 40, 100 64, 99 82 C 98 94, 95 98, 86 99 C 62 100, 32 100, 12 98 C 3 97, 0 92, 0 80 C 0 60, 0 38, 1 17 C 2 7, 6 3, 16 2 C 32 1, 50 1, 66 3"/>
-        </svg>
-        <div class="ticket__row" id="claude-code">
-          <h2 class="ticket__client">Claude Code</h2>
+        <div class="ticket__client" id="claude-code">
+          <h2>Claude Code</h2>
           <ol class="commands" role="list" data-fact="commands-claude-code">
-            <li><code>/plugin marketplace add burgisimon/awards</code><button class="copy" type="button" data-copy>Copy</button></li>
-            <li><code>/plugin install awards@awards</code><button class="copy" type="button" data-copy>Copy</button></li>
+            <li class="command"><code>/plugin marketplace add burgisimon/awards</code><button class="copy" type="button" data-copy>Copy</button></li>
+            <li class="command"><code>/plugin install awards@awards</code><button class="copy" type="button" data-copy>Copy</button></li>
           </ol>
         </div>
-        <div class="ticket__row" id="codex">
-          <h2 class="ticket__client">Codex</h2>
+        <div class="ticket__client" id="codex">
+          <h2>Codex</h2>
           <ol class="commands" role="list" data-fact="commands-codex">
-            <li><code>codex plugin marketplace add burgisimon/awards</code><button class="copy" type="button" data-copy>Copy</button></li>
-            <li><code>codex plugin add awards@awards</code><button class="copy" type="button" data-copy>Copy</button></li>
+            <li class="command"><code>codex plugin marketplace add burgisimon/awards</code><button class="copy" type="button" data-copy>Copy</button></li>
+            <li class="command"><code>codex plugin add awards@awards</code><button class="copy" type="button" data-copy>Copy</button></li>
           </ol>
         </div>
       </div>
@@ -103,8 +85,8 @@
       </table>
       <div class="command-list" role="group" aria-label="Playwright commands">
         <ol class="commands" role="list">
-          <li><code data-fact="playwright-install">npm install --global playwright@1.64.1</code><button class="copy" type="button" data-copy>Copy</button></li>
-          <li><code>npx playwright install chromium</code><button class="copy" type="button" data-copy>Copy</button></li>
+          <li class="command"><code data-fact="playwright-install">npm install --global playwright@1.64.1</code><button class="copy" type="button" data-copy>Copy</button></li>
+          <li class="command"><code>npx playwright install chromium</code><button class="copy" type="button" data-copy>Copy</button></li>
         </ol>
       </div>
       <div class="prose">
@@ -113,8 +95,8 @@
       </div>
       <div class="command-list" role="group" aria-label="Environment commands">
         <ol class="commands" role="list">
-          <li><code>npx playwright install --with-deps chromium</code><button class="copy" type="button" data-copy>Copy</button></li>
-          <li><code>node &lt;plugin&gt;/scripts/doctor.mjs . --json</code><button class="copy" type="button" data-copy>Copy</button></li>
+          <li class="command"><code>npx playwright install --with-deps chromium</code><button class="copy" type="button" data-copy>Copy</button></li>
+          <li class="command"><code>node &lt;plugin&gt;/scripts/doctor.mjs . --json</code><button class="copy" type="button" data-copy>Copy</button></li>
         </ol>
       </div>
     </section>
@@ -143,8 +125,8 @@
       </div>
       <div class="command-list" role="group" aria-label="Local copy commands">
         <ol class="commands" role="list">
-          <li><code>git clone https://github.com/burgisimon/awards</code><button class="copy" type="button" data-copy>Copy</button></li>
-          <li><code>claude --plugin-dir awards/plugins/awards</code><button class="copy" type="button" data-copy>Copy</button></li>
+          <li class="command"><code>git clone https://github.com/burgisimon/awards</code><button class="copy" type="button" data-copy>Copy</button></li>
+          <li class="command"><code>claude --plugin-dir awards/plugins/awards</code><button class="copy" type="button" data-copy>Copy</button></li>
         </ol>
       </div>
       <p class="archive__next"><a class="next" href="./docs.html">Read the docs</a></p>
@@ -153,32 +135,7 @@
     <p class="sr-only" role="status" data-copy-status></p>
   </main>
 
-  <footer class="colophon" aria-label="Colophon">
-    <div class="colophon__edition">
-      <p>awards <span data-fact="version">0.7.0</span>, <span data-fact="license">MIT</span> licence, by BurgiSimon.</p>
-      <!-- @proof:jury-line — when a page-round report exists: "Judged {date}: {disposition}, weighted {w}. Report: .awards/jury/{file} in the repository." -->
-      <!-- @fact:build — the build being read: "This is build {version}+{hash}." -->
-    </div>
-    <ul class="colophon__links" role="list">
-      <!-- @proof:pages — states capture and report: Docs and Recipes, which the phone band gives up to the Frames disclosure -->
-      <li><a href="https://github.com/burgisimon/awards" data-fact-attr="href:repo">Source on GitHub</a></li>
-      <li><a href="https://github.com/burgisimon/awards/blob/main/CHANGELOG.md">Release notes</a></li>
-      <li><a href="https://github.com/burgisimon/awards/blob/main/LICENSE">Licence</a></li>
-    </ul>
-    <div class="colophon__credits">
-      <table class="data">
-        <caption>Credits</caption>
-        <thead><tr><th scope="col">Part</th><th scope="col">Source</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">Enriqueta</th><td>FontFuror, SIL Open Font License 1.1</td></tr>
-          <tr><th scope="row">Saira Condensed</th><td>Omnibus-Type, SIL Open Font License 1.1</td></tr>
-          <tr><th scope="row">Commands and code</th><td>your system's monospace</td></tr>
-          <tr><th scope="row">Marks</th><td>drawn for this page</td></tr><!-- @fact:libraries -->
-        </tbody>
-      </table>
-    </div>
-    <p class="colophon__note caption">Every picture on this site is a capture of this site or of the plugin's own recipes, made by the plugin's own scripts. Nothing here is a screenshot of anyone else's work.</p>
-  </footer>
+  <!-- @fact:colophon --><!-- /@fact -->
 </div>
 <script type="module" src="./src/main.js"></script>
 </body>

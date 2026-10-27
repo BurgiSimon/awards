@@ -10,34 +10,40 @@ What the plugin's own finished builds share. A value carried by at least three b
 | `showcase/ekvator` | The page is a wall lit by another city's sun. | page-is-object | ~artefact, ~process-performed | restrained-duotone | light | code-only | margin readout | canvas-first | fix 7.3 (U 6) | fix 7.7 (U 7.2) |
 | `showcase/extinct` | The page is a paint cross-section under the museum's microscope: | page-is-object | ~artefact, ~process-performed | restrained-duotone | mixed | code-only | margin readout | canvas-first | ship 7.8 (U 7.6) | ship 7.8 (U 7.6) |
 | `showcase/petrel` | The page is the repair cable itself, paying out over the Petrel's bow sheave: | page-is-object | ~artefact, ~process-performed | theme-per-section | mixed | code-only | margin readout | canvas-first | fix 7.26 (U 6) | fix 7.26 (U 6) |
-| `site` | This page is its own proof sheet: | page-is-object, self-referential | ~artefact | restrained-duotone | light | owned | none | DOM-only | ship 7.7 (U 7.8) | ship 7.88 (U 8) |
+| `showcase/wrenmouth-lido` | The first photograph of the restored Wrenmouth Lido has not been taken yet. | other | visitor-cast | theme-per-section | light | found | none | DOM-only | fix 7.42 (U 7) | ship 8.1 (U 8.3) |
+| `site` | The sites this plugin has built, gathered at a size that reads as work, sort themselves on | other | collage-to-index | palette-as-navigation | light | owned | none | DOM-only | fix 7.53 (U 7) | ship 8 (U 7.8) |
 
 ## Spent
 
-- engine: **artefact**, 5 of 5 builds
-- shape: **page-is-object**, 5 of 5 builds
-- colour strategy: **restrained-duotone**, 4 of 5 builds
-- engine: **process-performed**, 4 of 5 builds
-- imagery: **code-only**, 4 of 5 builds
-- readout: **carried**, 4 of 5 builds
-- ground: **light**, 3 of 5 builds
+- engine: **artefact**, 4 of 6 builds
+- engine: **process-performed**, 4 of 6 builds
+- ground: **light**, 4 of 6 builds
+- imagery: **code-only**, 4 of 6 builds
+- readout: **carried**, 4 of 6 builds
+- shape: **page-is-object**, 4 of 6 builds
+- colour strategy: **restrained-duotone**, 3 of 6 builds
 
 ## Every value
 
 | Feature | Value | Builds |
 |---|---|---|
-| engine | artefact | 5 of 5 |
-| shape | page-is-object | 5 of 5 |
-| colour strategy | restrained-duotone | 4 of 5 |
-| engine | process-performed | 4 of 5 |
-| imagery | code-only | 4 of 5 |
-| readout | carried | 4 of 5 |
-| ground | light | 3 of 5 |
-| self-referential | no | 3 of 5 |
-| signature tier | canvas-first | 3 of 5 |
-| ground | mixed | 2 of 5 |
-| self-referential | yes | 2 of 5 |
-| signature tier | DOM-only | 2 of 5 |
-| colour strategy | theme-per-section | 1 of 5 |
-| imagery | owned | 1 of 5 |
-| readout | none | 1 of 5 |
+| self-referential | no | 5 of 6 |
+| engine | artefact | 4 of 6 |
+| engine | process-performed | 4 of 6 |
+| ground | light | 4 of 6 |
+| imagery | code-only | 4 of 6 |
+| readout | carried | 4 of 6 |
+| shape | page-is-object | 4 of 6 |
+| colour strategy | restrained-duotone | 3 of 6 |
+| signature tier | DOM-only | 3 of 6 |
+| signature tier | canvas-first | 3 of 6 |
+| colour strategy | theme-per-section | 2 of 6 |
+| ground | mixed | 2 of 6 |
+| readout | none | 2 of 6 |
+| shape | other | 2 of 6 |
+| colour strategy | palette-as-navigation | 1 of 6 |
+| engine | visitor-cast | 1 of 6 |
+| engine | collage-to-index | 1 of 6 |
+| imagery | found | 1 of 6 |
+| imagery | owned | 1 of 6 |
+| self-referential | yes | 1 of 6 |

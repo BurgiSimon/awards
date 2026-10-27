@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="en" data-proof="none">
-<!-- Skeleton (awards:structure), started from plugins/awards/assets/templates/404.html and rewritten in the contact
-     sheet. Served at any missing path: {base} is the site root (bound to SITE_ROOT at build), so every relative link
-     and stylesheet resolves at any depth. Links come first in the DOM. -->
+<html lang="en" data-theme="recapture">
+<!-- The 404 (awards:structure, 2026-10-26), started from plugins/awards/assets/templates/404.html and set on the
+     recapture ground: the juror's word for evidence that does not exist. Served at any missing path: {base} is the site
+     root (bound to SITE_ROOT at build), so every relative link and stylesheet resolves at any depth. Links come first. -->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Script-only controls keep their place from the first paint (no shift when the module wires them up). -->
-  <script>(function(d){d.classList.add('js');if(navigator.clipboard&&window.isSecureContext)d.classList.add('can-copy');if(window.HTMLDialogElement)d.classList.add('can-dialog');
+  <!-- Script-only controls keep their place from the first paint. -->
+  <script>(function(d){d.classList.add('js');if(navigator.clipboard&&window.isSecureContext)d.classList.add('can-copy');
     var still=matchMedia('(prefers-reduced-motion: reduce)').matches||/^(reduced|static)$/.test(d.dataset.motion||'');
     addEventListener('pagereveal',function(e){var t=e.viewTransition;window.__vt={ran:!!t,skipped:false,finished:false};if(!t)return;if(still){t.skipTransition();window.__vt.skipped=true}t.finished.then(function(){window.__vt.finished=true},function(){})});
   })(document.documentElement)</script>
@@ -16,92 +16,52 @@
   <style>@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }</style>
   <base href="/" data-fact-attr="href:site-root">
   <meta name="robots" content="noindex">
-  <title>No capture at this address · awards</title>
-  <meta name="description" content="Nothing was ever shot at this address. Three ways back into the awards plugin's site: the sheet, the recipes and the docs.">
+  <title>Nothing to judge at this address · awards</title>
+  <meta name="description" content="Nothing was captured at this address. Three ways back into the awards plugin's site: the home page, the recipes and the docs.">
   <link rel="canonical" href="./404.html">
   <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#131211">
+  <meta name="theme-color" content="#76a1ef">
   <link rel="icon" href="./favicon-32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-  <link rel="preload" href="./fonts/enriqueta-latin-500.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="./fonts/enriqueta-latin-400.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="./fonts/saira-condensed-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./fonts/gloock-latin-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="./fonts/familjen-grotesk-latin-400.woff2" as="font" type="font/woff2" crossorigin>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="awards">
-  <meta property="og:title" content="No capture at this address · awards">
-  <meta property="og:description" content="Nothing was ever shot here. The sheet, the recipes and the docs are one link away.">
+  <meta property="og:title" content="Nothing to judge at this address · awards">
+  <meta property="og:description" content="Nothing was captured here. The home page, the recipes and the docs are one link away.">
   <meta property="og:url" content="./404.html">
   <meta property="og:image" content="./og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="(written at build from src/data/proof.json)">
+  <meta property="og:image:alt" content="The line “Done when a jury says ship.” in black on green, with the first screens of five websites built by the plugin gathered along its foot.">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="./src/styles/site.css">
 </head>
 <body>
-<div id="page" class="sheet">
+<div id="page">
   <a class="skip" href="#main">Skip to the way back</a>
 
-  <div class="rebate" data-theme="rebate">
-    <header class="rebate__head">
-      <p class="rebate__mark"><a class="rebate__wordmark" href="./">awards</a> <span class="rebate__version edge" data-fact="version">0.7.0</span></p>
-      <!-- @proof:disclosure — phone, states capture and report: the Frames disclosure, this route's phone frames as links -->
-      <nav class="rebate__nav" aria-label="Site">
-        <ul role="list">
-          <li><a class="rebate__install" href="./install.html">Install</a></li>
-          <li><a href="./docs.html">Docs</a></li>
-          <li><a href="./recipes.html">Recipes</a></li>
-          <li><a href="https://github.com/burgisimon/awards" data-fact-attr="href:repo">Source</a></li>
-        </ul>
-      </nav>
-    </header>
-    <!-- @proof:strip route="404" — the same frames nav as on the home route, with this route's own frames; nothing in state none -->
-  </div>
+  <!-- @fact:band --><!-- /@fact -->
 
-  <main id="main" class="paper">
+  <main id="main">
     <section class="chapter lost" aria-labelledby="lost-title">
-      <h1 id="lost-title">No capture exists at this address.</h1>
-      <!-- The requested path as edge print under the line, never above it; script writes location.pathname into it. -->
-      <p class="lost__path edge">Requested: <span data-requested-path>this address</span></p>
+      <p class="lost__word" aria-hidden="true">recapture.</p>
+      <h1 id="lost-title">Nothing was captured at this address.</h1>
+      <p class="lost__path">Requested: <code data-requested-path>this address</code></p>
       <nav class="ways" aria-labelledby="ways-title">
-        <h2 id="ways-title">Three ways back onto the sheet</h2>
+        <h2 id="ways-title">Three ways back</h2>
         <ul role="list">
-          <li><a class="next" href="./">The sheet</a><p>The plugin, what it does to a website, and the two commands that install it.</p></li>
-          <li><a class="next" href="./recipes.html">Recipes</a><p>All <span data-fact="recipes">89</span> entries, by group, with their tags and pass dates.</p></li>
+          <li><a class="next" href="./">Home</a><p>What the plugin does to a website, five builds and their verdicts, and the two commands that install it.</p></li>
+          <li><a class="next" href="./recipes.html">Recipes</a><p>All <span data-fact="recipes">96</span> entries by group, each with its frame, its tags and its pass date.</p></li>
           <li><a class="next" href="./docs.html">Docs</a><p>Skills, the craft flow, the jury, the audit rules and the scripts.</p></li>
         </ul>
       </nav>
-      <p class="lede">Nothing was ever shot here: the page you asked for is not part of this site, or it moved when the site was rebuilt.</p>
+      <p class="lost__lede">When the juror cannot see what it was asked to judge, its word is recapture. The page you asked for is not part of this site, or it moved when the site was rebuilt.</p>
     </section>
   </main>
 
-  <footer class="colophon" aria-label="Colophon">
-    <div class="colophon__edition">
-      <p>awards <span data-fact="version">0.7.0</span>, <span data-fact="license">MIT</span> licence, by BurgiSimon.</p>
-      <!-- @proof:jury-line — when a page-round report exists: "Judged {date}: {disposition}, weighted {w}. Report: .awards/jury/{file} in the repository." -->
-      <!-- @fact:build — the build being read: "This is build {version}+{hash}." -->
-    </div>
-    <ul class="colophon__links" role="list">
-      <!-- @proof:pages — states capture and report: Docs and Recipes, which the phone band gives up to the Frames disclosure -->
-      <li><a href="https://github.com/burgisimon/awards" data-fact-attr="href:repo">Source on GitHub</a></li>
-      <li><a href="https://github.com/burgisimon/awards/blob/main/CHANGELOG.md">Release notes</a></li>
-      <li><a href="https://github.com/burgisimon/awards/blob/main/LICENSE">Licence</a></li>
-    </ul>
-    <div class="colophon__credits">
-      <table class="data">
-        <caption>Credits</caption>
-        <thead><tr><th scope="col">Part</th><th scope="col">Source</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">Enriqueta</th><td>FontFuror, SIL Open Font License 1.1</td></tr>
-          <tr><th scope="row">Saira Condensed</th><td>Omnibus-Type, SIL Open Font License 1.1</td></tr>
-          <tr><th scope="row">Commands and code</th><td>your system's monospace</td></tr>
-          <tr><th scope="row">Marks</th><td>drawn for this page</td></tr><!-- @fact:libraries -->
-        </tbody>
-      </table>
-    </div>
-    <p class="colophon__note caption">Every picture on this site is a capture of this site or of the plugin's own recipes, made by the plugin's own scripts. Nothing here is a screenshot of anyone else's work.</p>
-  </footer>
+  <!-- @fact:colophon --><!-- /@fact -->
 </div>
 <script type="module" src="./src/main.js"></script>
 </body>

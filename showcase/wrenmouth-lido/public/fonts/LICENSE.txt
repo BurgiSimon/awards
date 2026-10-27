@@ -1,0 +1,4 @@
+Young Serif (Bastien Sozeau), Commissioner (Kostas Bartsokas), Reenie Beanie (James Grieshaber)
+are licensed under the SIL Open Font License, Version 1.1.
+Full text: https://openfontlicense.org/open-font-license-official-text/
+Sources: https://github.com/google/fonts (ofl/youngserif, ofl/commissioner, ofl/reeniebeanie), via Fontsource.

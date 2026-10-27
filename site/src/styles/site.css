@@ -1,907 +1,486 @@
-/* The contact sheet: layout and components. Every value through the tokens in tokens.css (DESIGN.md).
-   Scaling: fluid clamp() from the 1440 baseline. Grid: 12 paper columns ≥ 1024 px, 8 from 600 px, 4 below.
-   States (AWARDS.md LOAD & CLOSE, bootstrapping): <html data-proof="none|capture|report">.
-     none     no capture exists: the rebate is a sticky top band at every width, the paper takes the full width.
-     capture  frames of the newest capture run, unmarked; the rebate becomes the left column from 768 px.
-     report   frames and the jury's marks; same layout as capture. */
+/* The record (DESIGN.md): four verdict grounds, one ink, one paper for the action. Every value through the tokens. */
 @import "./base.css";
-@import "lenis/dist/lenis.css"; /* html.lenis height and the stopped / prevent rules, in the stylesheet so they never wait on script */
 
-/* ---------- the sheet: page wrapper, rebate, paper ---------- */
+/* --- grounds: palette as navigation ------------------------------------------------------------------------------ */
+/* Without script each chapter paints its own ground; with script <html data-theme> follows the chapter being read and
+   the chapters are clear, so one ground is on screen at a time and the swap is the transition. */
+[data-theme] { --ground-paint: var(--ground); }
+:root { --band-h: 64px; }
+:root:has(.band--chapters) { --band-h: 100px; }
+@media (max-width: 767px) { :root { --band-h: 56px; } :root:has(.band--chapters) { --band-h: 100px; } }
+.chapter[data-theme] { background: var(--ground); }
+.js .chapter[data-theme] { background: transparent; }
 
-.sheet { position: relative; min-height: 100svh; }
-
+/* --- the skip links ------------------------------------------------------------------------------------------------ */
 .skip {
-  position: absolute;
-  inset-block-start: var(--space-1);
-  inset-inline-start: var(--space-1);
-  z-index: 10;
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--target);
-  padding-inline: var(--space-2);
+  position: absolute; left: var(--gutter); top: 8px; z-index: 50;
+  padding: 10px 16px; min-height: 44px; display: inline-flex; align-items: center;
+  background: var(--ink); color: var(--accent); font-weight: 600; text-decoration: none;
+  transform: translateY(-160%);
+}
+.skip:focus-visible { transform: none; }
+.skip--inline { top: 24px; transform: none; clip-path: inset(50%); }
+.skip--inline:focus-visible { clip-path: none; }
+
+/* --- the band ------------------------------------------------------------------------------------------------------ */
+.band {
+  position: sticky; top: 0; z-index: 40;
+  display: flex; align-items: center; gap: 24px;
+  min-height: 64px; padding: 0 var(--gutter);
   background: var(--ground);
-  color: var(--ink);
-  font-family: var(--font-edge);
-  font-size: var(--caption);
-  transform: translateY(-200%);
+  transition: background-color var(--dur-routine) var(--ease-theme);
+  view-transition-name: band;
 }
-.skip:focus-visible { transform: none; outline-offset: -6px; } /* it opens over the rebate: the ring sits inside its own paper */
+.band__mark { display: flex; align-items: baseline; gap: 10px; margin-right: auto; }
+.band__wordmark {
+  font-family: var(--font-display); font-size: 28px; line-height: 1; letter-spacing: -0.01em;
+  text-decoration: none; padding: 10px 0;
+}
+.band__version { font-size: var(--label); font-weight: 600; font-variant-numeric: tabular-nums; color: var(--muted); }
+.band__nav ul { display: flex; list-style: none; gap: 4px; }
+.band__nav a, .band__install, .band__menu {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px;
+  font-size: var(--label); font-weight: 600; text-decoration: none;
+}
+.band__nav a[aria-current="page"] { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+@media (hover: hover) { .band__nav a:hover { text-decoration: underline; text-underline-offset: 6px; } }
+.band__item--install { display: none; }
+.band__install { background: var(--ink); color: var(--accent); padding: 0 18px; }
+.band__install[aria-current="page"] { box-shadow: inset 0 -4px 0 var(--accent); }
+@media (hover: hover) { .band__install:hover { background: color-mix(in oklab, var(--ink) 82%, var(--accent)); } }
+.band__menu { display: none; background: none; border: 2px solid var(--ink); cursor: pointer; }
 
-/* The rebate: the ink's own surface (data-theme="rebate" remaps the tokens). */
-.rebate {
-  position: sticky;
-  inset-block-start: 0;
-  z-index: 5;
-  background: var(--ground);
-  color: var(--ink);
+/* Home: the chapters of the page as a second row, the one being read marked (walk 6). */
+.band--chapters { flex-wrap: wrap; row-gap: 0; padding-top: 10px; }
+@media (max-width: 767px) { .band--chapters { padding-top: 6px; } }
+.band__chapters { flex-basis: 100%; min-width: 0; max-width: calc(100% + 20px); margin: 0 -10px; }
+.band__chapters ol { list-style: none; display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; }
+.band__chapters a {
+  display: inline-flex; align-items: center; min-height: 36px; padding: 0 10px; white-space: nowrap;
+  font-size: 13px; font-weight: 600; text-decoration: none; color: var(--muted);
 }
-.rebate__head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  column-gap: var(--space-2);
-  min-height: var(--rebate-band);
-  padding-inline: var(--gutter);
-}
-.rebate__mark {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-1);
-  margin: 0;
-}
-.rebate__wordmark {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--target);
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: 1.25rem;
-  letter-spacing: -0.01em;
-  /* The rebate's link vocabulary: a 2 px paper underline that arrives on hover and keyboard focus. */
-  text-decoration-line: underline;
-  text-decoration-color: transparent;
-  text-decoration-thickness: var(--stroke);
-  text-underline-offset: 0.3em;
-  transition: text-decoration-color var(--dur-feedback) var(--ease-out-expo);
-}
-@media (hover: hover) { .rebate__wordmark:hover { text-decoration-color: currentColor; } }
-.rebate__wordmark:focus-visible { text-decoration-color: currentColor; }
-.rebate__version { color: var(--muted); }
-.rebate__nav ul { display: flex; flex-wrap: wrap; list-style: none; }
-.rebate__nav a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: var(--target);
-  min-height: var(--target);
-  padding-inline: var(--space-1);
-  font-family: var(--font-edge);
-  font-size: var(--caption);
-  line-height: 1;
-  text-decoration-line: underline;
-  text-decoration-color: transparent;
-  text-decoration-thickness: var(--stroke);
-  text-underline-offset: 0.45em;
-  transition: text-decoration-color var(--dur-feedback) var(--ease-out-expo);
-}
-.rebate__nav a:hover,
-.rebate__nav a:focus-visible,
-.rebate__nav a[aria-current="page"] { text-decoration-color: currentColor; }
-/* The rebate's Install: underlined in the grease hue at all times, the only red in the chrome. */
-.rebate__nav a.rebate__install,
-.rebate__nav a.rebate__install:hover,
-.rebate__nav a.rebate__install:focus-visible { text-decoration-color: var(--accent); }
-.rebate__nav a:focus-visible { outline-offset: -2px; }
-
-@media (max-width: 359px) {
-  .rebate__head { column-gap: var(--space-1); }
-  .rebate__version { display: none; }
-  .rebate__nav a { padding-inline: 6px; }
+.band__chapters a[aria-current="true"] { color: var(--ink); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+@media (hover: hover) { .band__chapters a:hover { color: var(--ink); } }
+@media (max-width: 767px) {
+  .band { min-height: 56px; gap: 8px; flex-wrap: wrap; }
+  .band__install { order: 2; }
+  .band__menu { order: 3; }
+  .band__chapters { order: 6; }
+  .band__chapters a { min-height: 44px; }
+  .band__wordmark { font-size: 24px; }
+  .band__nav { flex-basis: 100%; order: 5; }
+  .band__nav ul { flex-wrap: wrap; gap: 0; margin: 0 -12px; }
+  .js .band__menu { display: inline-flex; order: 4; }
+  .js .band__nav { display: none; }
+  .js .band.is-open .band__nav { display: block; padding-bottom: 12px; }
+  .js .band.is-open .band__nav ul { flex-direction: column; }
 }
 
-/* The paper. */
-.paper { padding-inline: var(--gutter); }
-
+/* --- chapters: twelve columns on a 1440 artboard -------------------------------------------------------------------- */
 .chapter {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: var(--gap);
-  align-items: start;
-  padding-block-start: var(--space-3);
+  position: relative;
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px;
+  padding: 160px var(--gutter);
 }
 .chapter > * { grid-column: 1 / -1; }
-@media (max-width: 1023px) { .chapter { grid-template-columns: repeat(8, minmax(0, 1fr)); } }
-@media (max-width: 599px) { .chapter { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-
-.chapter__intro { max-width: var(--measure); margin-block-start: var(--space-2); }
-.prose { max-width: var(--measure); }
-.prose > * + * { margin-block-start: 1em; }
-.lede { font-size: var(--lede); line-height: 1.45; }
-
-/* ---------- the evidence (states capture and report); the build writes it from src/data/proof.json ---------- */
-
-/* Each width class has its own frames; the reader sees their own: desktop ≥ 1024 px, tablet 768–1023, phone below.
-   :root raises these above any component's own display value. */
-@media (min-width: 1024px) { :root [data-class="tablet"], :root [data-class="mobile"] { display: none; } }
-@media (min-width: 768px) and (max-width: 1023px) { :root [data-class="desktop"], :root [data-class="mobile"] { display: none; } }
-@media (max-width: 767px) { :root [data-class="desktop"], :root [data-class="tablet"] { display: none; } }
-
-.strip { display: none; }
-.strip__list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-.strip__item { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 12px; row-gap: 4px; }
-.strip__item > * { grid-column: 1 / -1; }
-.strip__item > .frame--beside { grid-column: auto; }
-.frame { position: relative; display: block; text-decoration: none; color: var(--ink); }
-.frame__plate { position: relative; display: block; }
-/* A hover or focus frame is a crop around one control, shot at 1x. Seated beside its stop it takes half the
-   column (SIGNATURE: half-width beside its nearest stop) with its label on one line under it, and its own line from
-   the report stands in the other half; its marks sit on the crop itself. It shares its stop's depth, so it is
-   current with it and carries the same outline. */
-.strip__item > .frame--beside.frame--crop { grid-column: 1; }
-.strip__item > .frame__note--beside { grid-column: 2; align-self: start; margin-block-start: 0; }
-.frame--crop .frame__img { width: 100%; }
-.strip__item:has(> a.frame[aria-current="true"]) > .frame--beside .frame__img { outline-color: var(--ink); }
-/* A frame's states, all on its own outline (DESIGN.md Elevation; the rebate's ink is the paper): current, a 2 px ink
-   outline that arrives over --dur-routine; hover, the second ink, with the edge print lifted to the ink; pressed, the
-   outline steps 6 px inside the picture, like a thumb on the print. Hover only where a pointer can hover. */
-.frame__img {
-  width: 100%;
-  height: auto;
-  background: var(--ground);
-  outline: var(--stroke) solid transparent;
-  outline-offset: 0;
-  transition: outline-color var(--dur-feedback) var(--ease-out-expo), outline-offset var(--dur-feedback) var(--ease-out-expo);
-}
-.frame[aria-current="true"] .frame__img { outline-color: var(--ink); transition-duration: var(--dur-routine); }
-.frame__edge { transition: color var(--dur-feedback) var(--ease-out-expo); }
-@media (hover: hover) {
-  a.frame:hover .frame__img { outline-color: var(--muted); }
-  a.frame[aria-current="true"]:hover .frame__img { outline-color: var(--ink); }
-  a.frame:hover .frame__edge { color: var(--ink); }
-}
-a.frame:active .frame__img { outline-color: var(--ink); outline-offset: -6px; }
-a.frame:focus-visible { outline-offset: 3px; }
-.frame__edge {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--space-1);
-  padding-block: 4px 0;
-}
-.frame__edge > :last-child { text-align: end; overflow-wrap: anywhere; }
-.frame__marks { position: absolute; inset: -6px; width: calc(100% + 12px); height: calc(100% + 12px); max-width: none; overflow: visible; pointer-events: none; }
-.frame__marks path { fill: none; stroke: var(--mark-ink); stroke-width: var(--mark); stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
-.frame__note { margin-block-start: var(--space-1); max-width: none; }
-/* A mark's line (facts/proof.js): the memory sentence whole, any other row by its lead clause in two lines at most,
-   then where it comes from and, when a verdict has drawn an arrow, the label it points to. */
-.frame__quote { display: block; }
-.frame__note:not(.frame__note--memory) .frame__quote {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  overflow: hidden;
-}
-/* The report's lines quote its code (a selector list, a capture path): in a frame's narrow note it wraps at its
-   spaces, after an inner "/" and at its hyphens, and only a piece still wider than the note breaks inside, so nothing
-   runs past the rebate's edge or under the next frame. */
-.frame__note code { white-space: normal; overflow-wrap: anywhere; }
-.frame__note .nobr { white-space: normal; }
-.frame__source { display: block; margin-block-start: 2px; }
-.strip__caption { padding: var(--space-1) 0 var(--space-2); }
-
-/* Inline frames at a chapter's head: the phone's path to the same evidence (the strip does not follow on touch). */
-.chapter__frames { display: none; }
-.frames-disclosure { display: none; }
-
-:root:not([data-proof="none"]) .chapter__frames {
-  display: block;
-  padding: 12px;
-  margin-inline: calc(var(--gutter) * -1);
-  background: var(--ground); /* the element carries data-theme="rebate" */
-  color: var(--ink);
-}
-.chapter__frames--row { margin-block-start: var(--space-2); }
-/* Chapter 1's row: every phone frame of the route in one sideways run (native overflow with snap, to the band's
-   edges), and the report's lines under the run at its full width, so the band is as tall as its frames plus one
-   short line per row of the report: the quote to one line, then where it comes from. */
-.chapter__row {
-  list-style: none;
-  display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  scroll-padding-inline: 12px;
-  margin-inline: -12px;
-  padding-inline: 12px;
-}
-.chapter__row > li { flex: 0 0 42%; scroll-snap-align: start; }
-.chapter__notes .frame__note:not(.frame__note--memory) .frame__quote { -webkit-line-clamp: 1; line-clamp: 1; }
-/* One frame at a chapter's head: the frame at a third of the band, its edge print and notes beside it. */
-:root:not([data-proof="none"]) figure.chapter__frames { display: grid; grid-template-columns: 38% minmax(0, 1fr); column-gap: var(--space-2); align-items: start; overflow: visible; margin-block-end: var(--space-2); }
-figure.chapter__frames .frame__edge { flex-direction: column; justify-content: flex-start; padding-block-start: 0; }
-figure.chapter__frames .frame__edge > :last-child { text-align: start; }
-figure.chapter__frames figcaption { grid-column: 1 / -1; }
-
-/* The phone band once frames exist: wordmark and version, the Frames disclosure, Install (AWARDS.md, FIRST
-   VIEWPORT · Phone). Docs, Recipes and Source move to the colophon's first lines, so every target stays 44 px. */
 @media (max-width: 767px) {
-  :root:not([data-proof="none"]) .rebate__nav li:not(:first-child) { display: none; }
-  :root:not([data-proof="none"]) .rebate__head { flex-wrap: nowrap; column-gap: var(--space-1); }
-  :root:not([data-proof="none"]) .frames-disclosure { display: block; margin-inline-start: auto; }
-}
-.frames-disclosure summary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: var(--target);
-  min-height: var(--target);
-  padding-inline: var(--space-1);
-  font-family: var(--font-edge);
-  font-size: var(--caption);
-  line-height: 1;
-  list-style: none;
-  cursor: pointer;
-  text-decoration-line: underline;
-  text-decoration-color: transparent;
-  text-decoration-thickness: var(--stroke);
-  text-underline-offset: 0.45em;
-  transition: text-decoration-color var(--dur-feedback) var(--ease-out-expo);
-}
-.frames-disclosure summary::-webkit-details-marker { display: none; }
-.frames-disclosure summary:hover,
-.frames-disclosure summary:focus-visible,
-.frames-disclosure[open] summary { text-decoration-color: currentColor; }
-.frames-disclosure summary:focus-visible { outline-offset: -2px; }
-.frames-disclosure__panel {
-  position: absolute;
-  inset-inline: 0;
-  inset-block-start: 100%;
-  max-height: calc(100svh - var(--rebate-band));
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  padding: var(--space-1) var(--gutter) var(--space-2);
-  background: var(--ground);
-  color: var(--ink);
-}
-/* Closed, the panel is not laid out at all: a closed <details> lays its content out in a zero-size box, so a
-   closed panel's caption measured as a 15 px column running into the glass's edge (rendered audit L08). */
-.frames-disclosure:not([open]) .frames-disclosure__panel { display: none; }
-.frames-disclosure__list { list-style: none; display: grid; }
-.frames-disclosure__list a {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-2);
-  min-height: var(--target);
-  padding-block: 12px;
-  text-decoration: none;
-  font-family: var(--font-edge);
-  font-size: var(--caption);
-}
-.frames-disclosure__list a:hover > :first-child,
-.frames-disclosure__list a:focus-visible > :first-child { text-decoration: underline var(--stroke); text-underline-offset: 0.3em; }
-.frames-disclosure .strip__caption { padding-block-end: 0; }
-
-@media (min-width: 768px) {
-  :root:not([data-proof="none"]) .sheet {
-    display: grid;
-    grid-template-columns: var(--strip) minmax(0, 1fr);
-    column-gap: var(--strip-gap);
-  }
-  :root:not([data-proof="none"]) .rebate {
-    grid-column: 1;
-    grid-row: 1 / span 2;
-    align-self: start;
-    height: 100svh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-  :root:not([data-proof="none"]) .rebate__head {
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    min-height: var(--rebate-head);
-    padding-inline: 30px;
-  }
-  :root:not([data-proof="none"]) .rebate__nav a:first-child { padding-inline-start: 0; }
-  :root:not([data-proof="none"]) .rebate__nav li:first-child a { padding-inline-start: 0; }
-  /* The column is the height of the glass: the frames are cut at its foot (the motion phase moves them by
-     --strip-y, a transform) and the caption stays printed over the foot of the rebate. */
-  :root:not([data-proof="none"]) .strip {
-    position: relative;
-    flex: 1;
-    min-height: 0;
-    overflow: hidden;
-    display: block;
-    padding: 6px 30px 0;
-  }
-  :root:not([data-proof="none"]) .strip__list { transform: translate3d(0, var(--strip-y, 0px), 0); }
-  /* Without script nothing moves the frames, so the column scrolls on its own and every frame stays reachable. */
-  /* The static tier settles everything at load: the column stays where it is laid out and scrolls on its own. */
-  :root:is(:not(.js), [data-motion="static"]):not([data-proof="none"]) .strip { overflow-y: auto; overscroll-behavior: contain; scrollbar-color: var(--ink) var(--ground); padding-block-end: 0; }
-  :root:is(:not(.js), [data-motion="static"]):not([data-proof="none"]) .strip__caption { position: sticky; margin-inline: -30px; }
-  :root:not([data-proof="none"]) .strip__caption {
-    position: absolute;
-    inset-inline: 0;
-    inset-block-end: 0;
-    padding: var(--space-1) 30px var(--space-2);
-    background: var(--ground);
-  }
-  :root:not([data-proof="none"]) .paper,
-  :root:not([data-proof="none"]) .colophon { grid-column: 2; padding-inline: 0 var(--gutter); }
-  :root:not([data-proof="none"]) .chapter__frames,
-  :root:not([data-proof="none"]) figure.chapter__frames { display: none; }
-  /* The job line keeps two lines beside the strip: it takes the paper's twelve columns (contract: 104 px at 1440). */
-  :root:not([data-proof="none"]) .open h1 { grid-column: 1 / -1; }
-}
-@media (min-width: 768px) and (max-width: 1023px) {
-  :root:not([data-proof="none"]) { --strip: 22%; --strip-gap: 32px; }
-  :root:not([data-proof="none"]) .rebate__head,
-  :root:not([data-proof="none"]) .strip,
-  :root:not([data-proof="none"]) .strip__caption { padding-inline: 16px; }
-  /* Four 44 px targets do not fit 150 px of rebate: two by two, under the wordmark. */
-  :root:not([data-proof="none"]) .rebate__nav ul { display: grid; grid-template-columns: repeat(2, auto); justify-content: start; column-gap: var(--space-1); }
-  :root:not([data-proof="none"]) .rebate__nav li a { padding-inline: 0 4px; }
+  .chapter { grid-template-columns: minmax(0, 1fr); column-gap: 0; padding: 96px var(--gutter); }
 }
 
-/* Chapter 3's loupe: the frame at the paper's width, its figures beside it (the growth is the motion phase's). */
-.proof__loupe { position: relative; margin-block-start: var(--space-3); }
-.proof__skip {
-  position: absolute;
-  inset-block-start: 0;
-  inset-inline-start: 0;
-  z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--target);
-  padding-inline: var(--space-2);
-  background: var(--ground);
-  color: var(--ink);
-  font-family: var(--font-edge);
-  font-size: var(--caption);
-  transform: translateY(-120%);
-  opacity: 0;
+/* --- 1 · the correction ------------------------------------------------------------------------------------------- */
+.claim { padding-top: 96px; padding-bottom: 72px; row-gap: 40px; align-items: start; overflow-x: clip; }
+.claim__line { grid-column: 1 / span 11; position: relative; }
+/* The first state, "Stunning. Done.", is an overlay on the real line, so the correction moves nothing but itself. */
+.claim__was { display: none; position: absolute; left: 0; top: 0; white-space: nowrap; }
+.claim__w1, .claim__w2 { display: inline-block; position: relative; }
+.claim__strike {
+  position: absolute; left: -0.03em; right: -0.02em; top: 0.5em; height: 0.075em;
+  background: var(--ink); transform-origin: left center; transform: scaleX(0);
 }
-.proof__skip:focus-visible { transform: none; opacity: 1; }
-.loupe-frame__plate { position: relative; padding: 12px; background: var(--ground); color: var(--ink); transform-origin: 0 0; }
-/* In flight between the strip and the paper (src/motion/loupe.js): under the rebate (z-index 5), so it slides out
-   from beneath the strip column; never in the way of a click while it moves. */
-.loupe-frame__plate.is-flying { z-index: 4; pointer-events: none; will-change: transform; }
-.loupe-frame__link { display: block; }
-.loupe-frame__link:focus-visible { outline-offset: -6px; }
-.loupe-frame__img { width: 100%; height: auto; }
-.loupe-frame figcaption { margin-block-start: var(--space-1); }
-.loupe__open { margin-block-start: var(--space-2); }
-.proof__figures { margin-block-start: var(--space-3); }
-.proof__figures:focus { outline: none; }
-.figures caption { padding-block-end: var(--space-1); }
-.figures tbody th { font-weight: 400; }
-/* Enriqueta's figures are old-style (a 0 reads as an o): measured values are set in the edge-print face, lining. */
-.figures td.num, .figures--audit th, .figures--audit td { font-family: var(--font-edge); font-size: var(--h3); line-height: 1.2; }
-.figures--audit th code { font-size: 1rem; }
-.figures--audit th, .figures--audit td { text-align: start; }
-.figures__source + .figures { margin-block-start: var(--space-3); }
-.figures__source { margin-block-start: var(--space-1); max-width: none; }
-.figures__source code { font-size: 0.875rem; white-space: normal; }
-.figures__note { margin-block-start: var(--space-2); }
-.figures__disposition { margin-block-start: var(--space-2); display: flex; align-items: baseline; gap: var(--space-1); }
-.figures__disposition code { font-size: 1.25rem; }
-.figures__memory { margin-block-start: var(--space-2); font-size: var(--lede); line-height: 1.45; }
-/* Tablet and phone: the frame at the column's width, never taller than 80 % of the glass. The box keeps the
-   picture's own proportions from its width and height before it loads, so a lazy frame above the reader never
-   moves the page when it lands. */
+/* First visit, full tier: the correction waits in its first state (src/motion/claim.js plays it once). */
+.claim-pending .claim__was { display: block; }
+.claim-pending .claim__done { visibility: hidden; }
+.claim-pending .claim__rest { opacity: 0; }
+.claim__lede { grid-column: 1 / span 5; grid-row: 2; font-size: var(--lede); line-height: 1.4; max-width: 34em; }
+.ticket { grid-column: 7 / span 6; display: grid; gap: 20px; }
+.claim > .ticket { grid-row: 2 / span 2; }
+/* Where the five builds lie gathered before the record sorts them (src/motion/gather.js); empty without script. */
+.claim__pile { grid-column: 1 / span 6; grid-row: 3; height: 300px; pointer-events: none; }
+.ticket__switch { display: none; }
+.ticket__title { font-family: var(--font-body); font-size: var(--label); font-weight: 600; letter-spacing: 0; line-height: 1.3; }
+.ticket__client { display: grid; gap: 8px; }
+.ticket__client h3, .ticket__client h2 { font-size: var(--label); line-height: 1.3; }
 @media (max-width: 1023px) {
-  .loupe-frame__img { width: 100%; max-height: 80svh; object-fit: contain; }
+  .claim__line { grid-column: 1 / -1; }
+  .claim__lede { grid-column: 1 / span 9; grid-row: auto; }
+  .claim > .ticket { grid-column: 1 / span 10; grid-row: auto; }
+  .claim__pile { grid-column: 1 / -1; grid-row: auto; height: 260px; }
+}
+@media (max-width: 767px) {
+  .claim { padding-top: 40px; padding-bottom: 32px; row-gap: 24px; }
+  .claim__lede, .claim > .ticket { grid-column: 1 / -1; }
+  .claim__br { display: none; }
+  .claim__pile { height: 200px; }
+  /* One client at a time on a phone (with script), so the gathering reaches the first screen. */
+  .js .ticket__switch { display: flex; gap: 0; }
+  .js .ticket__switch button { flex: 1; min-height: 44px; border: 2px solid var(--ink); background: transparent; font-weight: 600; font-size: var(--label); cursor: pointer; }
+  .js .ticket__switch button[aria-selected="true"] { background: var(--ink); color: var(--accent); }
+  .js .claim .ticket__client[data-client]:not(.is-shown) { display: none; }
 }
 
-/* The 1:1 viewer: a modal surface of the rebate's black, the frame at its own pixels. */
-.loupe {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  max-height: none;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: var(--ground);
-  color: var(--ink);
+/* A command: a paper strip with the line in mono and its own Copy button. Without script the button is hidden and
+   one click on the line selects all of it. */
+.commands { display: grid; gap: 8px; list-style: none; }
+.command {
+  display: flex; align-items: stretch;
+  background: var(--accent); color: var(--ink);
+  min-height: 52px;
 }
-.loupe[open] { display: flex; flex-direction: column; }
-.loupe__bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-  min-height: var(--rebate-band);
-  padding-inline: var(--gutter);
+.command code {
+  flex: 1; display: block; align-self: center;
+  padding: 13px 16px 13px calc(16px + 2ch); text-indent: -2ch;
+  font-size: var(--code); line-height: 1.4;
+  user-select: all; -webkit-user-select: all;
+  overflow-wrap: anywhere;
 }
-.loupe__title { font-size: var(--body); line-height: 1.3; }
-.loupe__title .edge { margin-inline-start: var(--space-1); }
-.loupe__plate { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 0 var(--gutter) var(--gutter); }
-.loupe__img { max-width: none; width: auto; height: auto; margin-inline: auto; }
-
-/* Chapter 6: the strip's s100 frame, this close as it was shot, at the ticket's edge. */
-.select__frame { padding: 12px; background: var(--ground); color: var(--ink); align-self: start; margin-block-start: clamp(2.5rem, 3.8889vw, 3.5rem); }
-.select__frame .frame__edge { padding-block-start: var(--space-1); }
-@media (min-width: 1024px) {
-  .select__frame { grid-column: 11 / -1; grid-row: 2 / span 2; }
-  /* Beside the strip the paper is a quarter narrower: the close moves to the left edge so the heading keeps two lines. */
-  :root:not([data-proof="none"]) .select h2 { grid-column: 1 / span 10; }
-  :root:not([data-proof="none"]) .select .ticket { grid-column: 1 / span 9; }
-  :root:not([data-proof="none"]) .select__then { grid-column: 1 / span 8; }
-  :root:not([data-proof="none"]) .select__frame { grid-column: 10 / -1; }
-}
-@media (max-width: 1023px) { .select .select__frame { grid-column: 1 / span 3; margin-block-start: var(--space-3); } }
-@media (max-width: 599px) { .select .select__frame { grid-column: 1 / span 2; } }
-
-/* Chapter 4's audit sentence and the colophon's build and jury lines. */
-.marks-key__audit { max-width: var(--measure); }
-.colophon__build .edge, .colophon__jury code { font-size: 0.9375rem; }
-
-/* ---------- 1 · the sheet (job line, sentence, ticket) ---------- */
-
-.open { padding-block-start: clamp(2.5rem, 4.4444vw, 4rem); }
-.open h1 { grid-column: 1 / span 9; max-width: 9.6em; margin-inline-start: -0.04em; }
-.open .lede { grid-column: 1 / span 7; max-width: 46ch; margin-block-start: var(--space-2); }
-.open .ticket { grid-column: 1 / span 8; margin-block-start: clamp(2.5rem, 3.8889vw, 3.5rem); }
-/* Before a capture exists the paper has the full width: the sentence and the ticket share the row under the job line. */
-@media (min-width: 1024px) {
-  [data-proof="none"] .open .lede { grid-column: 1 / span 5; grid-row: 2; }
-  [data-proof="none"] .open .ticket { grid-column: 7 / -1; grid-row: 2; margin-block-start: var(--space-2); }
-}
-@media (max-width: 1023px) {
-  .open h1, .open .ticket { grid-column: 1 / -1; }
-  .open .lede { grid-column: 1 / span 7; }
-}
-@media (max-width: 599px) {
-  .open { padding-block-start: var(--space-2); }
-  .open .lede { grid-column: 1 / -1; }
-  .open .ticket { margin-block-start: var(--space-2); }
-}
-
-/* The ticket: the select. Ringed once in the grease hue by a drawn ellipse. */
-.ticket {
-  position: relative;
-  display: grid;
-  gap: var(--space-2);
-  padding: 28px 32px 32px;
-}
-/* The ring is a hand-drawn loop hugging the ticket's padded box: the padding keeps every glyph clear of the stroke. */
-.ticket__ring {
-  position: absolute;
-  inset: -6px -10px -8px -8px;
-  width: calc(100% + 18px);
-  height: calc(100% + 14px);
-  max-width: none;
-  overflow: visible;
-  pointer-events: none;
-}
-.ticket__ring path {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: var(--mark);
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
-}
-.ticket__title { font-size: var(--h3); }
-.ticket { container-type: inline-size; }
-.ticket__row {
-  display: grid;
-  grid-template-columns: 1fr;
-  column-gap: var(--gap);
-  align-items: baseline;
-}
-/* A wide ticket sets the client beside its commands; a narrow one sets it above them. */
-@container (min-width: 44rem) {
-  .ticket__row { grid-template-columns: 8.5rem 1fr; }
-}
-.ticket__client { font-size: var(--body); line-height: var(--target); white-space: nowrap; }
-.commands { list-style: none; display: grid; gap: 0; }
-/* Command and Copy share a row: the commands wrap in their own column, the buttons stand in one column at its edge. */
-.commands li {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  column-gap: var(--space-2);
-  min-height: var(--target);
-}
-:root:not(.can-copy) .commands li { grid-template-columns: minmax(0, 1fr); }
-.commands { row-gap: 4px; }
-.commands code {
-  min-width: 0;
-  font-size: 1rem;
-  line-height: 1.4;
-  /* A wrapped command hangs its continuation, so two commands never read as four. */
-  padding-inline-start: 2ch;
-  text-indent: -2ch;
-  user-select: all; /* one click selects the whole command, the copy path without script */
-}
-@media (max-width: 599px) {
-  .ticket { padding: 24px 18px 26px; margin-inline: -6px; }
-  .ticket__ring { inset: -4px -6px -6px -4px; width: calc(100% + 10px); height: calc(100% + 10px); }
-  .commands code { font-size: 0.9375rem; }
-}
-
-/* Copy: shown by script only (the commands stay selectable text without it). */
 .copy {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 4.5rem;
-  min-height: var(--target);
-  padding: 0 16px;
-  border: var(--stroke) solid var(--ink);
-  border-radius: 0;
-  background: var(--ground);
-  color: var(--ink);
-  font-family: var(--font-edge);
-  font-size: var(--caption);
-  line-height: 1;
-  cursor: pointer;
+  display: none; flex: none; min-width: 88px; min-height: 44px; padding: 0 16px;
+  border: 0; border-left: 2px solid var(--ground); background: var(--ink); color: var(--accent);
+  font-size: var(--label); font-weight: 600; cursor: pointer;
+  transition: background-color var(--dur-feedback) var(--ease-out-expo);
+}
+.can-copy .copy { display: inline-flex; align-items: center; justify-content: center; }
+@media (hover: hover) { .copy:hover { background: color-mix(in oklab, var(--ink) 78%, var(--accent)); } }
+.copy:active { box-shadow: inset 0 0 0 2px var(--accent); }
+.copy:focus-visible { outline-offset: 2px; }
+.copy[data-state="copied"], .copy[data-state="refused"] { background: var(--accent); color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
+.ticket__refused { font-size: var(--label); font-weight: 600; }
+
+/* --- 2 · the record: the jury table ------------------------------------------------------------------------------- */
+.record { padding-top: 0; padding-bottom: 120px; display: block; }
+.record__stage { position: relative; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; padding-top: 64px; }
+.record__head { grid-column: 9 / span 4; grid-row: 1; display: grid; align-content: start; gap: 24px; padding-left: 24px; position: relative; z-index: 3; }
+.record__intro { max-width: 34em; }
+.sort { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.sort[hidden] { display: none; }
+.sort__label { flex-basis: 100%; font-size: var(--label); font-weight: 600; }
+.sort__hint { flex-basis: 100%; font-size: 12px; color: var(--muted); }
+.sort__button {
+  min-height: 44px; padding: 0 14px; border: 2px solid var(--ink); background: transparent; color: var(--ink);
+  font-size: var(--label); font-weight: 600; cursor: pointer;
   transition: background-color var(--dur-feedback) var(--ease-out-expo), color var(--dur-feedback) var(--ease-out-expo);
 }
-/* Hover fills only where a pointer hovers: on a phone a tap leaves no sticky fill behind "Copied". */
-.copy:focus-visible { background: var(--ink); color: var(--ground); }
-@media (hover: hover) { .copy:hover { background: var(--ink); color: var(--ground); } }
-.copy:active { background: var(--muted); border-color: var(--muted); color: var(--ground); }
-.copy[data-state="copied"] { background: var(--ink); color: var(--ground); }
-/* A refused clipboard: the command is selected, the button says so, and a line on the ticket says what to press. */
-.copy[data-state="refused"] { background: var(--ground); color: var(--ink); border-color: var(--muted); }
-.ticket__refused { max-width: 56ch; color: var(--ink); }
-/* Script-only controls: the head script marks what this browser can do, so they keep their place from first paint. */
-:root:not(.can-copy) .copy[data-copy] { display: none; }
-:root:not(.can-dialog) .loupe__open { display: none; }
-.filter__button {
-  display: inline-flex; align-items: center; min-height: var(--target); padding: 0 12px;
-  border: var(--stroke) solid var(--ink); border-radius: 0; background: var(--ground); color: var(--ink);
-  font-family: var(--font-edge); font-size: var(--caption); cursor: pointer;
-  transition: background-color var(--dur-feedback) var(--ease-out-expo), color var(--dur-feedback) var(--ease-out-expo);
-}
-.filter__button:focus-visible, .filter__button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
-@media (hover: hover) { .filter__button:hover { background: var(--ink); color: var(--ground); } }
+.sort__button[aria-pressed="true"] { background: var(--ink); color: var(--accent); }
+@media (hover: hover) { .sort__button:hover:not([aria-pressed="true"]) { background: color-mix(in oklab, var(--ink) 12%, transparent); } }
+.sort__status { font-size: var(--label); line-height: 1.45; max-width: 34em; }
 
-/* ---------- 2 · the shoot (three cut runs) ---------- */
+.record__list { grid-column: 1 / span 8; grid-row: 1; list-style: none; display: grid; position: relative; }
+.row {
+  position: relative;
+  display: grid; align-items: center; column-gap: 20px; row-gap: 6px;
+  grid-template-columns: 176px minmax(0, 1fr) 116px 216px;
+  grid-template-areas: "frame id verdict scores" "frame trail trail trail";
+  padding: 14px 0; border-top: 1px solid var(--line);
+}
+.row:last-child { border-bottom: 1px solid var(--line); }
+.row__frame { grid-area: frame; position: relative; z-index: 2; transform-origin: 0 0; }
+.row__frame img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; outline: 1px solid var(--ink); outline-offset: -1px; background: var(--accent); }
+.row__id { grid-area: id; align-self: end; }
+.row__name { font-size: var(--body); line-height: 1.25; }
+.row__name a { text-decoration: none; }
+@media (hover: hover) { .row__name a:hover { text-decoration: underline; } }
+.row__what { font-size: var(--label); line-height: 1.4; color: var(--muted); max-width: 46ch; }
+.row__verdict { grid-area: verdict; display: grid; justify-items: start; }
+.row__verdict .trail__word { font-family: var(--font-display); font-size: 36px; line-height: 1; }
+.row__w { font-size: var(--h3); font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.2; }
+.row__when { font-size: 12px; font-weight: 600; color: var(--muted); }
+.row__scores { grid-area: scores; display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px 14px; }
+.row__scores dt { font-size: 12px; font-weight: 600; color: var(--muted); }
+.row__scores dd { font-size: var(--body); font-variant-numeric: tabular-nums; font-weight: 600; }
+.row__scores [data-axis].is-key dd, .row__w.is-key { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.row__trail { grid-area: trail; display: flex; flex-wrap: wrap; gap: 2px 10px; list-style: none; font-size: 13px; font-variant-numeric: tabular-nums; align-self: start; }
+.row__trail a { text-decoration: none; display: inline-flex; gap: 4px; min-height: 24px; align-items: center; }
+@media (hover: hover) { .row__trail a:hover { text-decoration: underline; } }
+.trail__word { font-weight: 600; }
+@media (max-width: 767px), (pointer: coarse) {
+  .row__trail { gap: 0 10px; }
+  .row__trail a { min-height: 44px; min-width: 44px; }
+}
+.row__trail li + li::before { content: "→"; margin-right: 10px; color: var(--muted); }
 
-.runs h2 { grid-column: 1 / span 8; }
-.runs .chapter__intro { grid-column: 1 / span 7; }
-.run {
-  display: grid;
-  grid-template-columns: subgrid;
-  grid-column: 1 / -1;
-  margin-block-start: var(--space-3);
-  row-gap: var(--space-2);
+.is-travel .row > :not(.row__frame) { opacity: var(--t, 1); }
+.is-travel .row { border-top-color: color-mix(in oklab, var(--line) calc(var(--t, 1) * 100%), transparent); }
+.is-travel .row__frame { will-change: transform; }
+.is-gathered .row__frame { pointer-events: none; }
+@media (max-width: 1023px), (max-height: 699px) { .is-gathered .record__head { background: var(--ground); box-shadow: 0 0 0 24px var(--ground); } }
+.is-gathered .row__frame img { outline-width: 2px; }
+/* Without travel (no script, reduced or static tier) the pile has nothing to hold. */
+.claim__pile { display: none; }
+.js[data-motion-tier="full"] .claim__pile, .js[data-motion-tier="reduced"] .claim__pile { display: block; }
+/* Reduced tier: no travel; the frames rest in the pile, then change place in one opacity step. */
+.is-stepped .row__frame { transition: opacity var(--dur-feedback) linear; }
+.is-stepped .row__frame.is-swapping { opacity: 0; }
+.record__floor { position: absolute; left: 0; right: 0; height: 0; border-top: 3px solid var(--ink); z-index: 3; pointer-events: none; }
+.record__floor-label { position: absolute; right: 0; top: 4px; font-size: 12px; font-weight: 600; background: var(--ground); padding: 2px 0 2px 8px; }
+
+/* Desktop with room: the stage holds still while the gathering sorts (src/motion/gather.js). */
+@media (min-width: 1024px) and (min-height: 700px) {
+  .js .record__run { height: calc(240svh - var(--band-h)); }
+  .js .record__stage { position: sticky; top: var(--band-h); height: calc(100svh - var(--band-h)); padding-top: 40px; padding-bottom: 24px; grid-template-rows: minmax(0, 1fr); }
+  .js .record__list { grid-template-rows: repeat(5, minmax(0, 1fr)); height: 100%; }
+  .js .row { padding: 6px 0; row-gap: 2px; }
+  .js .row__frame img { max-height: calc((100svh - var(--band-h) - 64px) / 5 - 14px); width: auto; max-width: 100%; }
 }
-.run + .run { margin-block-start: clamp(2.5rem, 4.4444vw, 4rem); }
-.run h3 { grid-column: 1 / span 2; }
-.run__phases {
-  grid-column: 3 / -1;
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  column-gap: var(--gap);
-  row-gap: var(--space-2);
-}
-.phase h4 { font-size: var(--h3); line-height: 1.2; letter-spacing: -0.01em; }
-.phase p { margin-block-start: var(--space-1); }
-.phase__file { font-size: 0.9375rem; color: var(--muted); }
-.phase__file code { font-size: 0.9375rem; color: var(--ink); }
+.record__after { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 24px; padding-top: 72px; }
+.record__calibration { grid-column: 5 / span 7; font-size: var(--lede); line-height: 1.4; }
+.memories__title { grid-column: 1 / span 4; font-family: var(--font-display); font-weight: 400; font-size: var(--h3); padding-top: 72px; }
+.memories__intro { grid-column: 1 / span 4; font-size: var(--label); }
+.memories { grid-column: 5 / -1; grid-row: 2 / span 2; padding-top: 72px; list-style: none; display: grid; gap: 40px; }
+.memory blockquote p { font-family: var(--font-display); font-size: clamp(1.375rem, 1.9444vw, 2rem); line-height: 1.4; letter-spacing: -0.005em; text-wrap: pretty; }
+.memory__source { margin-top: 10px; font-size: var(--label); }
+.memory__name { font-weight: 600; }
+
 @media (max-width: 1023px) {
-  .runs h2, .runs .chapter__intro { grid-column: 1 / -1; }
+  .record__head, .record__list { grid-column: 1 / -1; grid-row: auto; }
+  .record__head { padding-left: 0; margin-bottom: 40px; }
+  .record__calibration, .memories__title, .memories__intro, .memories { grid-column: 1 / -1; grid-row: auto; }
+  .memories { padding-top: 16px; }
+}
+@media (max-width: 767px) {
+  .record__stage, .record__after { grid-template-columns: minmax(0, 1fr); column-gap: 0; }
+  .row {
+    grid-template-columns: 112px minmax(0, 1fr);
+    grid-template-areas: "frame id" "frame verdict" "scores scores" "trail trail";
+    column-gap: 16px; row-gap: 10px; padding: 16px 0;
+  }
+  .row__verdict { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+  .row__verdict .trail__word { font-size: 28px; }
+  .record__after { padding-top: 48px; }
+  .memories__title, .memories { padding-top: 24px; }
+}
+
+/* --- 3 · rebuild, the interruption -------------------------------------------------------------------------------- */
+.rebuild { row-gap: 40px; padding-top: 120px; }
+.rebuild__word { font-size: var(--mega); line-height: 0.9; letter-spacing: -0.03em; grid-column: 1 / -1; text-align: center; }
+.rebuild__scores { grid-column: 3 / span 8; font-size: var(--lede); line-height: 1.4; text-align: center; }
+.rebuild__pair { grid-column: 2 / span 10; display: grid; grid-template-columns: 1fr 1fr; gap: 24px 48px; }
+.rebuild__pair .memory p { font-family: var(--font-display); font-size: var(--h3); line-height: 1.4; }
+.rebuild__pair footer { margin-top: 10px; font-size: var(--label); }
+.rebuild__frame { grid-column: 3 / span 8; display: grid; gap: 12px; }
+.rebuild__frame img { width: 100%; outline: 1px solid var(--ink); outline-offset: -1px; }
+.rebuild__frame figcaption { font-size: var(--label); text-align: center; }
+@media (max-width: 1023px) {
+  .rebuild__scores, .rebuild__frame { grid-column: 1 / -1; }
+  .rebuild__pair { grid-column: 1 / -1; }
+}
+@media (max-width: 767px) {
+  .rebuild__pair { grid-template-columns: minmax(0, 1fr); }
+  .rebuild__scores { text-align: left; }
+}
+
+/* --- 4 · how a build goes: three runs on a stair ------------------------------------------------------------------ */
+.build { row-gap: 32px; }
+.build h2 { grid-column: 1 / span 6; }
+.build__intro { grid-column: 7 / span 6; align-self: end; max-width: var(--measure); }
+.run { display: grid; grid-template-columns: subgrid; grid-column: 1 / -1; padding-top: 40px; border-top: 1px solid var(--line); row-gap: 24px; }
+.run h3 { grid-column: 1 / span 2; font-family: var(--font-display); font-weight: 400; font-size: var(--h2); line-height: 1; }
+.run:nth-of-type(1) .run__phases { grid-column: 3 / -1; }
+.run:nth-of-type(2) .run__phases { grid-column: 3 / -1; }
+.run:nth-of-type(3) .run__phases { grid-column: 3 / span 7; }
+.run__phases { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px 24px; }
+.run:nth-of-type(2) .run__phases { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.run:nth-of-type(1) .run__phases { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.phase { display: grid; align-content: start; gap: 8px; }
+.phase h4 { font-size: var(--h3); line-height: 1.15; }
+.phase__does { font-size: var(--label); line-height: 1.45; }
+.phase__file { font-size: var(--label); font-weight: 600; }
+.phase__quote { margin-top: 6px; padding-top: 10px; border-top: 1px solid var(--line); }
+.phase__quote p { font-size: var(--label); line-height: 1.45; font-style: normal; }
+.phase__quote p::before { content: "\201C"; } .phase__quote p::after { content: "\201D"; }
+.build__next { grid-column: 3 / -1; font-weight: 600; }
+@media (max-width: 1023px) {
+  .build h2, .build__intro { grid-column: 1 / -1; }
   .run h3 { grid-column: 1 / -1; }
-  .run__phases { grid-column: 1 / -1; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .run .run__phases, .run:nth-of-type(n) .run__phases { grid-column: 1 / -1; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .build__next { grid-column: 1 / -1; }
 }
-@media (max-width: 599px) {
-  .run__phases { grid-template-columns: 1fr; }
+@media (max-width: 767px) {
+  .run { grid-template-columns: minmax(0, 1fr); }
+  .run .run__phases, .run:nth-of-type(n) .run__phases { grid-template-columns: minmax(0, 1fr); }
 }
 
-/* ---------- 3 · the proof (the jury; the loupe and the figures arrive with evidence) ---------- */
-
-.proof { padding-block-start: var(--space-4); }
-.proof h2 { grid-column: 1 / span 8; }
-.proof .chapter__intro { grid-column: 1 / span 7; }
-.proof__loupe { grid-column: 1 / span 8; }
-.proof__figures { grid-column: 9 / -1; }
-.weights { grid-column: 1 / span 5; margin-block-start: var(--space-3); }
-.dispositions { grid-column: 7 / -1; margin-block-start: var(--space-3); }
-.proof__calibration { grid-column: 1 / span 7; margin-block-start: var(--space-3); max-width: var(--measure); }
-/* Beside the strip, the hold sets the calibration line in the plate's column under its button (Page map row 3:
-   scores, disposition, memory sentence and the calibration line are read beside the plate), so the plate's column
-   and the figures end together instead of leaving bare paper beside the memory sentence (verdict 2026-10-22). The
-   source order stays the terms' own: weights, dispositions, then this line. */
-@media (min-width: 1024px) {
-  :root:not([data-proof="none"]) .proof__loupe { grid-row: 3; }
-  :root:not([data-proof="none"]) .proof__figures { grid-row: 3 / span 2; }
-  :root:not([data-proof="none"]) .proof__calibration { grid-row: 4; grid-column: 1 / span 8; }
-}
+/* --- 5 · the recipes: an uneven wall ------------------------------------------------------------------------------ */
+.recipes { row-gap: 40px; }
+.recipes__head { grid-column: 1 / span 8; display: grid; gap: 24px; }
+.recipes__intro { max-width: 40em; }
+.wall { grid-column: 1 / -1; list-style: none; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-auto-flow: dense; gap: 8px; }
+.wall__tile { grid-column: span 1; position: relative; }
+.wall__tile--lead { grid-column: span 2; grid-row: span 2; }
+.wall__tile a { display: block; position: relative; height: 100%; }
+.wall__tile img { width: 100%; height: 100%; aspect-ratio: 16 / 10; object-fit: cover; outline: 1px solid var(--ink); outline-offset: -1px; background: var(--accent); transition: transform var(--dur-feedback) var(--ease-out-expo); }
+@media (hover: hover) { .wall__tile a:hover img { transform: translateY(-3px); } }
+.wall__group { position: absolute; left: 0; bottom: 0; padding: 4px 8px; background: var(--ink); color: var(--accent); font-size: 12px; font-weight: 600; }
+.recipes__facts { grid-column: 1 / -1; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.recipes__next { grid-column: 1 / -1; font-weight: 600; font-size: var(--lede); }
 @media (max-width: 1023px) {
-  .proof h2, .proof .chapter__intro, .proof__loupe, .proof__figures, .proof__calibration { grid-column: 1 / -1; }
-  .weights { grid-column: 1 / span 4; }
-  .dispositions { grid-column: 5 / -1; }
+  .recipes__head { grid-column: 1 / -1; }
+  .wall { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+  .recipes__facts { grid-template-columns: minmax(0, 1fr); }
 }
-@media (max-width: 599px) {
-  .weights, .dispositions { grid-column: 1 / -1; }
-  .dispositions { margin-block-start: var(--space-2); }
+@media (max-width: 767px) {
+  .wall { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+  .wall__tile:nth-child(n + 41) { display: none; }
 }
 
-/* Data tables: rows separated by space, one rule under the head. */
-.data { width: 100%; border-collapse: collapse; font-feature-settings: var(--font-feature-figures); }
-.data caption { text-align: start; font-family: var(--font-display); font-weight: 500; font-size: var(--h3); line-height: 1.2; padding-block-end: var(--space-2); }
-.data th, .data td { text-align: start; vertical-align: baseline; padding: 6px var(--space-2) 6px 0; }
-.data thead th {
-  font-family: var(--font-edge);
-  font-size: var(--caption);
-  font-weight: 400;
-  color: var(--muted);
-  padding-block-end: var(--space-1);
-  border-block-end: var(--stroke) solid var(--line);
-}
-.data tbody tr:first-child > * { padding-block-start: var(--space-1); }
-.data tbody th { font-weight: 500; }
-.data .num { text-align: end; white-space: nowrap; }
-.data td { overflow-wrap: anywhere; }
-@media (max-width: 599px) {
-  .data th, .data td { padding-inline-end: 12px; }
-  .data--stack thead { display: none; }
-  .data--stack tr { display: grid; row-gap: 2px; padding-block: var(--space-1); }
-  .data--stack th, .data--stack td { padding: 0; }
-  .data--stack tbody tr:first-child > * { padding-block-start: 0; }
-}
-.data tr > :last-child { padding-inline-end: 0; }
-
-.dispositions h3 { padding-block-end: var(--space-2); }
-.dispositions dl { display: grid; row-gap: var(--space-2); }
-.dispositions dt code { font-size: 1rem; font-weight: 400; }
-.dispositions dd { margin-block-start: 2px; }
-
-/* ---------- 4 · the marks (the marking key) ---------- */
-
-.marks-key .marks-key__copy { grid-column: 1 / span 5; }
-.marks-key .marks-key__copy > * + * { margin-block-start: var(--space-2); }
-.marks-key .families { grid-column: 7 / -1; }
-.marks-key .families td:last-child { max-width: 36ch; }
-.marks-key__slop { grid-column: 7 / -1; margin-block-start: var(--space-2); max-width: var(--measure); }
+/* --- 6 · the terms, and the close ---------------------------------------------------------------------------------- */
+.terms { row-gap: 48px; padding-bottom: 96px; }
+.terms__grid { display: grid; grid-template-columns: subgrid; grid-column: 1 / -1; row-gap: 40px; }
+.weights { grid-column: 1 / span 3; align-self: start; }
+.words { grid-column: 5 / span 8; display: grid; gap: 16px; }
+.words h3 { font-size: var(--body); }
+.words dl { display: grid; gap: 16px; }
+.word { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 24px; padding-top: 16px; border-top: 1px solid var(--line); }
+.word dt { font-family: var(--font-display); font-size: var(--h3); line-height: 1; }
+.word dd { font-size: var(--label); line-height: 1.5; }
+.terms__notes { grid-column: 5 / span 7; display: grid; gap: 16px; max-width: var(--measure); }
+.close { row-gap: 32px; padding-top: 96px; padding-bottom: 120px; }
+.close h2 { grid-column: 1 / span 8; font-size: var(--display); line-height: 0.95; letter-spacing: -0.02em; }
+.ticket--close { grid-column: 1 / span 7; grid-template-columns: 1fr 1fr; }
+.close__then { grid-column: 1 / span 6; max-width: 40em; }
 @media (max-width: 1023px) {
-  .marks-key .marks-key__copy, .marks-key .families, .marks-key__slop { grid-column: 1 / -1; }
-  .marks-key .families { margin-block-start: var(--space-2); }
+  .weights, .words, .terms__notes { grid-column: 1 / -1; }
+  .close h2, .ticket--close, .close__then { grid-column: 1 / -1; }
+  .ticket--close { grid-template-columns: minmax(0, 1fr); }
 }
-@media (max-width: 599px) {
-  .families thead th:nth-child(3), .families td:nth-child(3) { display: block; padding-block-start: 0; }
-  .families tr { display: grid; grid-template-columns: 1fr auto; column-gap: var(--space-2); padding-block: 6px; }
-  .families thead tr { display: none; }
-  .families th, .families td { padding: 0; }
-  .families td:nth-child(3) { grid-column: 1 / -1; color: var(--muted); }
+@media (max-width: 767px) {
+  .terms__grid { grid-template-columns: minmax(0, 1fr); }
+  .word { grid-template-columns: minmax(0, 1fr); gap: 6px; }
 }
 
-/* ---------- 5 · the archive ---------- */
+/* --- tables and specs -------------------------------------------------------------------------------------------- */
+.data { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+.data caption { text-align: left; font-weight: 600; font-size: var(--label); padding-bottom: 12px; }
+.data th, .data td { text-align: left; vertical-align: top; padding: 10px 16px 10px 0; font-size: var(--label); line-height: 1.45; }
+.data thead th { border-bottom: 1px solid var(--ink); font-weight: 600; }
+.data tbody th { font-weight: 600; }
+.data .num { text-align: right; }
+.weights th, .weights td { font-size: var(--body); }
 
-.archive h2 { grid-column: 1 / -1; }
-.archive__row { grid-column: 1 / -1; margin-inline-end: calc(var(--gutter) * -1); }
-/* The proof row: a cut strip of recipe frames in their rebate, bleeding off the right edge; native overflow on every pointer. */
-.proof-row {
-  list-style: none;
-  display: flex;
-  gap: 12px;
-  margin-block-start: var(--space-2);
-  padding: 12px;
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  scroll-padding-inline: 12px;
-  background: var(--ground);
-  color: var(--ink);
-}
-.proof-row__item { flex: 0 0 clamp(220px, 18.0556vw, 320px); display: grid; row-gap: 4px; scroll-snap-align: start; }
-.proof-row__frame { display: block; }
-.proof-row__frame:focus-visible, .entry__frame:focus-visible { outline-offset: -6px; }
-.proof-row__item .edge { overflow-wrap: anywhere; }
-.entry__frame { display: block; }
-.entry__frame img { width: 100%; }
-.archive__facts {
-  grid-column: 1 / -1;
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  column-gap: var(--gap);
-  row-gap: var(--space-2);
-  margin-block-start: var(--space-2);
-}
-.archive__facts p { max-width: 36ch; }
-.archive__next { grid-column: 1 / -1; margin-block-start: var(--space-2); }
-@media (max-width: 1023px) { .archive__facts { grid-template-columns: 1fr; } }
-
-/* Text links that act as a chapter's next step: a 44 px target, flush left. */
-.next {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--target);
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: var(--h3);
-  line-height: 1.2;
-}
-
-/* ---------- 6 · the select (close) ---------- */
-
-.select { padding-block: var(--space-4) var(--space-3); }
-.select h2 { grid-column: 3 / span 8; font-size: var(--display); line-height: 1; letter-spacing: -0.03em; }
-.select .ticket { grid-column: 3 / span 8; margin-block-start: clamp(2.5rem, 3.8889vw, 3.5rem); }
-.select__then { grid-column: 3 / span 7; margin-block-start: var(--space-3); max-width: var(--measure); }
-.select__frame { grid-column: 11 / -1; }
-@media (max-width: 1023px) {
-  .select h2, .select .ticket, .select__then, .select__frame { grid-column: 1 / -1; }
-}
-
-/* ---------- colophon (footer) ---------- */
-
+/* --- the colophon -------------------------------------------------------------------------------------------------- */
 .colophon {
-  padding: var(--space-3) var(--gutter) var(--space-2);
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: var(--gap);
-  row-gap: var(--space-2);
-  align-items: start;
-  font-size: 1rem;
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; row-gap: 32px;
+  padding: 72px var(--gutter) 56px; border-top: 2px solid var(--ink);
 }
-.colophon > * { grid-column: span 4; }
-.colophon__edition { grid-column: 1 / span 4; }
-.colophon__edition p + p { margin-block-start: var(--space-1); }
-.colophon__links { grid-column: 5 / span 3; list-style: none; }
-.colophon__links a { display: inline-flex; align-items: center; min-width: var(--target); min-height: var(--target); }
-.colophon__credits { grid-column: 8 / -1; }
-.colophon__credits .data caption { font-size: var(--body); padding-block-end: var(--space-1); }
-.colophon__credits .data td, .colophon__credits .data th { font-size: 0.9375rem; padding-block: 4px; }
-.colophon__note { grid-column: 1 / -1; }
+.colophon__edition { grid-column: 1 / span 4; display: grid; gap: 6px; font-size: var(--label); }
+.colophon__name { font-family: var(--font-display); font-size: var(--h3); line-height: 1; }
+.colophon__links { grid-column: 5 / span 3; list-style: none; display: grid; gap: 0; align-content: start; }
+.colophon__links a { display: inline-flex; min-height: 36px; align-items: center; font-size: var(--label); font-weight: 600; }
+.colophon__credits { grid-column: 8 / span 5; }
+.colophon__note { grid-column: 1 / span 7; font-size: var(--label); max-width: 72ch; }
 @media (max-width: 1023px) {
-  .colophon { grid-template-columns: repeat(8, minmax(0, 1fr)); }
-  .colophon__edition, .colophon__links { grid-column: span 4; }
+  .colophon__edition { grid-column: 1 / span 6; }
+  .colophon__links { grid-column: 7 / span 6; }
   .colophon__credits, .colophon__note { grid-column: 1 / -1; }
 }
-@media (max-width: 599px) {
-  .colophon { grid-template-columns: 1fr; }
-  .colophon > *, .colophon__edition, .colophon__links { grid-column: 1 / -1; }
+@media (max-width: 767px) {
+  .colophon { grid-template-columns: minmax(0, 1fr); }
+  .colophon > * { grid-column: 1 / -1 !important; }
+  .colophon__links a { min-height: 44px; }
 }
 
-/* ---------- read routes: install, docs, recipes ---------- */
-
-.route-head { padding-block-start: clamp(2.5rem, 4.4444vw, 4rem); }
-.route-head h1 { grid-column: 1 / span 9; }
-.route-head .lede { grid-column: 1 / span 7; max-width: 52ch; margin-block-start: var(--space-2); }
-@media (max-width: 1023px) { .route-head h1, .route-head .lede { grid-column: 1 / -1; } }
-
-.doc-section h2 { grid-column: 1 / span 8; font-size: var(--h2); }
-.doc-section .prose, .doc-section .chapter__intro { grid-column: 1 / span 7; }
-.doc-section > .data, .doc-section > .spec, .doc-section > .rules, .doc-section > .command-list { grid-column: 1 / span 8; margin-block-start: var(--space-2); }
-.doc-section > .prose { margin-block-start: var(--space-2); }
-.doc-section > .prose + .data, .doc-section > .prose + .spec { margin-block-start: var(--space-2); }
+/* --- inner routes ------------------------------------------------------------------------------------------------- */
+.route-head { padding-top: 72px; padding-bottom: 40px; row-gap: 24px; }
+.route-head h1 { font-size: clamp(2.75rem, 6.6667vw, 7.5rem); }
+.route-head + .group { padding-top: 32px; }
+.group:first-of-type { border-top: 0; }
+.route-head h1 { grid-column: 1 / span 8; }
+.route-head .lede { grid-column: 1 / span 6; font-size: var(--lede); line-height: 1.4; }
+.route-head .ticket { grid-column: 1 / span 7; }
+.lede { font-size: var(--lede); line-height: 1.4; max-width: 38em; }
+.doc-section { padding-top: 72px; padding-bottom: 72px; row-gap: 24px; border-top: 1px solid var(--line); }
+.doc-section h2 { grid-column: 1 / span 4; font-size: var(--h2); }
+.doc-section > :not(h2) { grid-column: 5 / span 8; }
+.prose { display: grid; gap: 16px; max-width: var(--measure); }
+.command-list { display: grid; gap: 8px; }
+.spec { display: grid; gap: 0; }
+.spec > div { display: grid; grid-template-columns: minmax(160px, 1fr) 2fr; gap: 24px; padding: 14px 0; border-top: 1px solid var(--line); }
+.spec dt { font-weight: 600; }
+.spec dd { font-size: var(--label); line-height: 1.5; }
+.next { font-weight: 600; }
+.build__next a, .recipes__next a, .archive__next a { display: inline-block; padding-block: 11px; }
+.next::after { content: "\00a0→"; }
+.archive__next { font-weight: 600; }
+.edge, .count { font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--muted); }
+.caption { font-size: var(--label); color: var(--muted); max-width: 48ch; }
 @media (max-width: 1023px) {
-  .doc-section h2, .doc-section .prose, .doc-section .chapter__intro,
-  .doc-section > .data, .doc-section > .spec, .doc-section > .rules, .doc-section > .command-list { grid-column: 1 / -1; }
+  .route-head h1, .route-head .lede, .route-head .ticket, .doc-section h2, .doc-section > :not(h2) { grid-column: 1 / -1; }
+}
+@media (max-width: 767px) {
+  .spec > div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .data--stack thead { display: none; }
+  .data--stack tr { display: grid; padding: 10px 0; border-top: 1px solid var(--line); }
+  .data--stack th, .data--stack td { padding: 2px 0; }
 }
 
-/* Definition lists as spec sheets: term in the voice at weight 500, rows separated by space. A term wider than its
-   column (a script with its arguments) stands above its description at the full width instead of breaking inside. */
-.spec { display: grid; row-gap: var(--space-2); }
-.spec > div { display: flex; flex-wrap: wrap; column-gap: var(--gap); row-gap: 4px; }
-.spec dt { flex: 0 0 auto; width: max(10rem, calc((100% - var(--gap)) / 4)); min-width: fit-content; max-width: 100%; font-weight: 500; }
-.spec dd { flex: 1 1 0; min-width: calc(100% - var(--gap) - max(10rem, calc((100% - var(--gap)) / 4))); }
-@media (max-width: 599px) { .spec > div { display: grid; grid-template-columns: 1fr; } .spec dt, .spec dd { width: auto; min-width: 0; } }
+/* docs: the contents run and the rule tables */
+.contents { grid-column: 1 / -1; display: grid; gap: 12px; }
+.contents ul, .contents ol { list-style: none; display: flex; flex-wrap: wrap; gap: 4px 8px; }
+.contents a { display: inline-flex; min-height: 44px; align-items: center; padding: 0 12px; border: 2px solid var(--ink); text-decoration: none; font-weight: 600; font-size: var(--label); }
+@media (hover: hover) { .contents a:hover { background: var(--ink); color: var(--accent); } }
+.rules { display: grid; gap: 8px; }
+details { border-top: 1px solid var(--line); }
+details summary { min-height: 44px; display: flex; align-items: center; gap: 12px; cursor: pointer; font-weight: 600; }
+details[open] summary { margin-bottom: 8px; }
+dl.skills > div, .skills > div { display: grid; grid-template-columns: 200px 1fr; gap: 24px; padding: 12px 0; border-top: 1px solid var(--line); }
 
-/* The docs index, on screen one: a run of links, not a sidebar. */
-.contents { grid-column: 1 / span 8; margin-block-start: var(--space-3); }
-.contents h2 { font-size: var(--h3); }
-.contents ol { list-style: none; display: flex; flex-wrap: wrap; column-gap: var(--space-2); margin-block-start: var(--space-1); }
-.contents a { display: inline-flex; align-items: center; min-width: var(--target); min-height: var(--target); font-size: var(--lede); }
-@media (max-width: 1023px) { .contents { grid-column: 1 / -1; } }
+/* recipes: the group index, the filter and the catalogue */
+.js .catalogue-index { display: none; }
+.filter { display: none; }
+.js .filter { display: grid; }
+.filter__button .count { margin-left: 6px; color: inherit; }
+.catalogue-index ol { list-style: none; display: flex; flex-wrap: wrap; gap: 4px 8px; }
+.catalogue-index a { display: inline-flex; min-height: 44px; align-items: center; gap: 8px; padding: 0 12px; border: 2px solid var(--ink); text-decoration: none; font-weight: 600; font-size: var(--label); }
+.catalogue-count { font-weight: 600; }
+.filter { display: grid; gap: 12px; }
+.filter fieldset { border: 0; padding: 0; margin: 0; min-width: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.filter legend { padding: 0; font-weight: 600; font-size: var(--label); }
+.filter[hidden] { display: none; }
+.filter__groups { display: flex; flex-wrap: wrap; gap: 8px; }
+.filter__button { min-height: 44px; padding: 0 14px; border: 2px solid var(--ink); background: transparent; font-weight: 600; font-size: var(--label); cursor: pointer; }
+.filter__button[aria-pressed="true"] { background: var(--ink); color: var(--accent); }
+.filter select { max-width: 360px; min-height: 44px; padding: 0 12px; border: 2px solid var(--ink); background: var(--accent); color: var(--ink); }
+.group { row-gap: 24px; padding-top: 72px; padding-bottom: 72px; border-top: 1px solid var(--line); }
+.group h2 { grid-column: 1 / span 6; }
+.group__intro { grid-column: 7 / span 6; align-self: end; font-size: var(--label); }
+.entries { grid-column: 1 / -1; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 24px; }
+.entry { display: grid; align-content: start; gap: 8px; }
+.entry[hidden] { display: none; }
+.entry__frame img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; outline: 1px solid var(--ink); outline-offset: -1px; background: var(--accent); }
+.entry h3 { font-size: var(--body); line-height: 1.3; }
+.entry__id { font-size: 12px; color: var(--muted); }
+.entry__summary { font-size: var(--label); line-height: 1.45; }
+.entry__meta { display: flex; flex-wrap: wrap; gap: 2px 10px; font-size: 12px; font-weight: 600; color: var(--muted); }
+@media (max-width: 1023px) { .entries { grid-template-columns: repeat(2, minmax(0, 1fr)); } .group h2, .group__intro { grid-column: 1 / -1; } }
+@media (max-width: 767px) { .entries { grid-template-columns: minmax(0, 1fr); } }
 
-/* Rule tables in <details>, one per family. */
-.rules { display: grid; }
-.rules details { padding-block: 4px; }
-.rules summary {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  min-height: var(--target);
-  cursor: pointer;
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: var(--h3);
-  line-height: 1.2;
-}
-.rules summary .edge { font-size: var(--caption); }
-.rules .data { margin-block: var(--space-1) var(--space-2); }
-.rules .data td:first-child code { white-space: nowrap; }
+/* 404 */
+.lost { padding-top: 72px; row-gap: 32px; }
+.lost__word { font-family: var(--font-display); font-size: var(--mega); line-height: 0.9; letter-spacing: -0.03em; }
+.lost h1 { grid-column: 1 / span 9; font-size: var(--h2); line-height: 1; }
+.lost__path { grid-column: 1 / -1; font-size: var(--label); font-weight: 600; }
+.ways { grid-column: 1 / span 8; display: grid; gap: 16px; }
+.ways h2 { font-size: var(--h3); font-family: var(--font-body); font-weight: 600; }
+.ways ul { list-style: none; display: grid; gap: 0; }
+.ways li { display: grid; grid-template-columns: 180px 1fr; gap: 24px; padding: 14px 0; border-top: 1px solid var(--line); align-items: baseline; }
+.ways a { font-size: var(--h3); font-family: var(--font-display); min-height: 44px; display: inline-flex; align-items: center; }
+.lost__lede { grid-column: 1 / span 7; }
+@media (max-width: 400px) { .lost__word { font-size: 3rem; } }
+@media (max-width: 767px) { .ways li { grid-template-columns: minmax(0, 1fr); gap: 4px; } }
 
-/* /recipes: the catalogue sheet. */
-.catalogue-index { grid-column: 1 / -1; margin-block-start: var(--space-2); }
-.catalogue-index ol { list-style: none; display: flex; flex-wrap: wrap; column-gap: var(--space-2); }
-.catalogue-index a { display: inline-flex; align-items: center; min-height: var(--target); font-size: var(--body); }
-.catalogue-index .edge { margin-inline-start: 4px; }
-.filter { grid-column: 1 / -1; }
-:root:not(.js) .filter { display: none; }
-.filter { display: flex; flex-wrap: wrap; align-items: center; column-gap: var(--space-2); row-gap: var(--space-1); margin-block-start: var(--space-2); }
-/* No box around the group buttons: the legend is edge print on the same line, like the tag's label. */
-.filter fieldset { flex: 1 1 100%; min-inline-size: 0; margin: 0; padding: 0; border: 0; }
-.filter legend, .filter label { font-family: var(--font-edge); font-size: var(--caption); line-height: var(--target); color: var(--muted); }
-.filter legend { float: left; padding: 0; margin-inline-end: var(--space-2); }
-.filter fieldset > .filter__button { margin: 0 var(--space-1) var(--space-1) 0; }
-.filter select {
-  min-height: var(--target);
-  min-width: 10rem;
-  padding: 0 12px;
-  border: var(--stroke) solid var(--ink);
-  border-radius: 0;
-  background: var(--ground);
-  color: var(--ink);
-  font-family: var(--font-edge);
-  font-size: var(--caption);
-  cursor: pointer;
-}
-@media (hover: hover) { .filter select:hover { background: var(--line); } }
-.catalogue-count { grid-column: 1 / -1; margin-block-start: var(--space-1); }
-.group { padding-block-start: var(--space-3); }
-.group h2 { grid-column: 1 / -1; font-size: var(--h2); }
-.group__intro { grid-column: 1 / span 7; margin-block-start: var(--space-1); }
-.entries {
-  grid-column: 1 / -1;
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  column-gap: var(--gap);
-  row-gap: clamp(2.5rem, 4.4444vw, 4rem);
-  margin-block-start: var(--space-2);
-}
-.entry { display: grid; align-content: start; row-gap: var(--space-1); }
-.entry__frame { background: var(--ground); padding: 12px; } /* data-theme="rebate" */
-.entry h3 { font-size: var(--h3); }
-.entry h3 a { display: inline-flex; align-items: center; min-height: var(--target); text-decoration-thickness: 1px; }
-.entry__id { font-family: var(--font-mono); font-size: 0.875rem; color: var(--muted); overflow-wrap: anywhere; }
-.entry__summary { font-size: 1rem; line-height: 1.5; }
-.entry__summary code { font-size: 0.875rem; }
-.entry__meta { display: flex; flex-wrap: wrap; column-gap: var(--space-2); row-gap: 2px; }
-@media (max-width: 1023px) { .entries { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 599px) { .entries { grid-template-columns: 1fr; } .group__intro { grid-column: 1 / -1; } }
-
-/* ---------- 404 ---------- */
-
-.lost { padding-block: clamp(2.5rem, 4.4444vw, 4rem) var(--space-3); }
-.lost h1 { grid-column: 1 / span 9; max-width: 9.6em; }
-.lost__path { grid-column: 1 / -1; margin-block-start: var(--space-2); overflow-wrap: anywhere; }
-.lost .lede { grid-column: 1 / span 7; margin-block-start: var(--space-2); max-width: 46ch; }
-.ways { grid-column: 1 / span 8; margin-block-start: var(--space-3); }
-.ways ul { list-style: none; display: grid; row-gap: var(--space-2); margin-block-start: var(--space-1); }
-.ways li { display: grid; grid-template-columns: minmax(8rem, 1fr) 2fr; column-gap: var(--gap); align-items: baseline; }
-.ways h2 { font-size: var(--h3); }
-@media (max-width: 1023px) { .lost h1, .lost .lede, .ways { grid-column: 1 / -1; } }
-@media (max-width: 599px) { .ways li { grid-template-columns: 1fr; } }
-
-/* ---------- motion (awards:motion; AWARDS.md ## Motion score) ---------- */
-
-/* Pre-paint: what draws later is hidden from the first frame. The head script adds draw-hero / draw-marks only in the
-   full tier and only for what this session has not seen; src/motion/index.js hides exactly what is still pending
-   and removes both classes at once. Without script neither class exists; if the module never runs, the failsafe
-   shows everything after 4 s. */
-:root.draw-marks :is(.strip, .chapter__frames, .select__frame) .frame__marks path,
-:root.draw-marks :is(.strip, .chapter__frames) .frame__note { opacity: 0; animation: awards-failsafe 0s 4s forwards; }
-@media (min-width: 1024px) { :root.draw-hero:not([data-hero-ring~="desktop"]) #select-open .ticket__ring path { opacity: 0; animation: awards-failsafe 0s 4s forwards; } }
-@media (min-width: 768px) and (max-width: 1023px) { :root.draw-hero:not([data-hero-ring~="tablet"]) #select-open .ticket__ring path { opacity: 0; animation: awards-failsafe 0s 4s forwards; } }
-@media (max-width: 767px) { :root.draw-hero:not([data-hero-ring~="mobile"]) #select-open .ticket__ring path { opacity: 0; animation: awards-failsafe 0s 4s forwards; } }
-@keyframes awards-failsafe { to { opacity: 1; } }
-
-/* Cross-document View Transitions between the five routes. The rebate is the same object on every route, so it
-   holds its place while its frames dissolve into the next route's; the paper is the next sheet laid on: out over
-   --dur-feedback, in over --dur-routine on the house expo-out, 24 px along the reading direction. The opt-in is
-   inline in each head inside the same query, so under reduced motion no transition exists at all. */
+/* --- route transitions: the band holds, the page is laid on ------------------------------------------------------- */
 @media (prefers-reduced-motion: no-preference) {
-  .rebate { view-transition-name: rebate; }
-  ::view-transition-group(rebate) { animation-duration: var(--dur-routine); animation-timing-function: var(--ease-out-expo); }
-  ::view-transition-old(rebate), ::view-transition-new(rebate) { animation-duration: var(--dur-routine); }
-  ::view-transition-old(root) { animation: vt-paper-out var(--dur-feedback) var(--ease-out-expo) both; }
-  ::view-transition-new(root) { animation: vt-paper-in var(--dur-routine) var(--ease-out-expo) 80ms both; }
+  ::view-transition-old(root) { animation: vt-out var(--dur-feedback) var(--ease-out-expo) both; }
+  ::view-transition-new(root) { animation: vt-in var(--dur-routine) var(--ease-out-expo) 80ms both; }
 }
-@keyframes vt-paper-out { to { opacity: 0; } }
-@keyframes vt-paper-in { from { opacity: 0; transform: translateX(var(--space-2)); } }
+@keyframes vt-out { to { opacity: 0; } }
+@keyframes vt-in { from { opacity: 0; transform: translateY(24px); } }

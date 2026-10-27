@@ -4,6 +4,7 @@
 // reader: the command is selected, the button reads "Selected", and a line under the commands says what to press.
 const COPIED_MS = 2000;
 const mac = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
+const touch = matchMedia('(pointer: coarse)').matches && !matchMedia('(any-pointer: fine)').matches;
 
 function refusedLine(ticket) {
   let line = ticket.querySelector(':scope > .ticket__refused');
@@ -52,13 +53,14 @@ export function initCopy() {
         sel?.addRange(range);
         button.dataset.state = 'refused';
         button.textContent = 'Selected';
-        const key = mac ? '⌘C' : 'Ctrl+C';
+        // On a touch screen there is no key to press: say the gesture instead (component jury, 2026-10-26).
+        const how = touch ? 'press and hold it, then choose Copy' : `press ${mac ? '⌘C' : 'Ctrl+C'} to copy it`;
         if (ticket) {
           const line = refusedLine(ticket);
-          line.textContent = `The browser refused the clipboard. The command is selected: press ${key} to copy it.`;
+          line.textContent = `The browser refused the clipboard. The command is selected: ${how}.`;
           line.hidden = false;
         }
-        if (status) status.textContent = `The clipboard refused; the command is selected. Press ${key} to copy it.`;
+        if (status) status.textContent = `The clipboard refused; the command is selected: ${how}.`;
         timer = setTimeout(() => reset(button), COPIED_MS * 3);
       }
     });

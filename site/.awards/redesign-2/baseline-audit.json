@@ -1,0 +1,381 @@
+{
+  "target": ".",
+  "scannedFiles": 35,
+  "at": "2026-10-26T13:51:19.583Z",
+  "summary": {
+    "P0": 0,
+    "P1": 0,
+    "P2": 9,
+    "P3": 1
+  },
+  "exceptions": [
+    "X02@docs.html",
+    "X07@docs.html",
+    "X18@recipes.html"
+  ],
+  "axe": "axe-core 4.14.0",
+  "rendered": {
+    "desktop": {
+      "textsMeasured": 229,
+      "textsOverImagery": 0,
+      "clsLoad": 0,
+      "headlines": [
+        {
+          "tag": "h1",
+          "text": "Your site, proofed before anyone sees it.",
+          "lines": 2,
+          "px": 104
+        },
+        {
+          "tag": "h2",
+          "text": "Install it: two commands in either client",
+          "lines": 1,
+          "px": 28
+        },
+        {
+          "tag": "h3",
+          "text": "Claude Code",
+          "lines": 1,
+          "px": 18
+        },
+        {
+          "tag": "h3",
+          "text": "Codex",
+          "lines": 1,
+          "px": 18
+        },
+        {
+          "tag": "h2",
+          "text": "Every phase leaves a file the next one reads",
+          "lines": 2,
+          "px": 56
+        },
+        {
+          "tag": "h3",
+          "text": "Decide",
+          "lines": 1,
+          "px": 28
+        },
+        {
+          "tag": "h3",
+          "text": "Build",
+          "lines": 1,
+          "px": 28
+        },
+        {
+          "tag": "h3",
+          "text": "Judge",
+          "lines": 1,
+          "px": 28
+        },
+        {
+          "tag": "h2",
+          "text": "The jury reads the captures before the contract",
+          "lines": 3,
+          "px": 56
+        },
+        {
+          "tag": "h3",
+          "text": "The one word it ends on",
+          "lines": 1,
+          "px": 28
+        },
+        {
+          "tag": "h2",
+          "text": "95 rules, the fast ones as you edit",
+          "lines": 3,
+          "px": 56
+        },
+        {
+          "tag": "h2",
+          "text": "Taste you can cite",
+          "lines": 1,
+          "px": 56
+        }
+      ],
+      "firstViewportActions": [
+        "Copy",
+        "Copy",
+        "Copy",
+        "Copy"
+      ],
+      "focusStops": 8,
+      "sweepSteps": 18,
+      "wordsPerScreen": 217,
+      "margins": {
+        "left": 8,
+        "right": 60
+      }
+    },
+    "tablet": {
+      "textsMeasured": 224,
+      "textsOverImagery": 0,
+      "clsLoad": 0,
+      "headlines": [
+        {
+          "tag": "h1",
+          "text": "Your site, proofed before anyone sees it.",
+          "lines": 2,
+          "px": 60
+        },
+        {
+          "tag": "h2",
+          "text": "Install it: two commands in either client",
+          "lines": 1,
+          "px": 22
+        },
+        {
+          "tag": "h3",
+          "text": "Claude Code",
+          "lines": 1,
+          "px": 17
+        },
+        {
+          "tag": "h3",
+          "text": "Codex",
+          "lines": 1,
+          "px": 17
+        },
+        {
+          "tag": "h2",
+          "text": "Every phase leaves a file the next one reads",
+          "lines": 2,
+          "px": 32
+        },
+        {
+          "tag": "h3",
+          "text": "Decide",
+          "lines": 1,
+          "px": 22
+        },
+        {
+          "tag": "h3",
+          "text": "Build",
+          "lines": 1,
+          "px": 22
+        },
+        {
+          "tag": "h3",
+          "text": "Judge",
+          "lines": 1,
+          "px": 22
+        },
+        {
+          "tag": "h2",
+          "text": "The jury reads the captures before the contract",
+          "lines": 2,
+          "px": 32
+        },
+        {
+          "tag": "h3",
+          "text": "The one word it ends on",
+          "lines": 1,
+          "px": 22
+        },
+        {
+          "tag": "h2",
+          "text": "95 rules, the fast ones as you edit",
+          "lines": 1,
+          "px": 32
+        },
+        {
+          "tag": "h2",
+          "text": "Taste you can cite",
+          "lines": 1,
+          "px": 32
+        }
+      ],
+      "firstViewportActions": [
+        "Copy",
+        "Copy",
+        "Copy",
+        "Copy"
+      ],
+      "sweepSteps": 16,
+      "wordsPerScreen": 209
+    },
+    "mobile": {
+      "textsMeasured": 218,
+      "textsOverImagery": 0,
+      "clsLoad": 0,
+      "headlines": [
+        {
+          "tag": "h1",
+          "text": "Your site, proofed before anyone sees it.",
+          "lines": 3,
+          "px": 44
+        },
+        {
+          "tag": "h2",
+          "text": "Install it: two commands in either client",
+          "lines": 2,
+          "px": 22
+        },
+        {
+          "tag": "h3",
+          "text": "Claude Code",
+          "lines": 1,
+          "px": 17
+        },
+        {
+          "tag": "h3",
+          "text": "Codex",
+          "lines": 1,
+          "px": 17
+        },
+        {
+          "tag": "h2",
+          "text": "Every phase leaves a file the next one reads",
+          "lines": 2,
+          "px": 32
+        },
+        {
+          "tag": "h3",
+          "text": "Decide",
+          "lines": 1,
+          "px": 22
+        },
+        {
+          "tag": "h3",
+          "text": "Build",
+          "lines": 1,
+          "px": 22
+        },
+        {
+          "tag": "h3",
+          "text": "Judge",
+          "lines": 1,
+          "px": 22
+        },
+        {
+          "tag": "h2",
+          "text": "The jury reads the captures before the contract",
+          "lines": 3,
+          "px": 32
+        },
+        {
+          "tag": "h3",
+          "text": "The one word it ends on",
+          "lines": 1,
+          "px": 22
+        },
+        {
+          "tag": "h2",
+          "text": "95 rules, the fast ones as you edit",
+          "lines": 2,
+          "px": 32
+        },
+        {
+          "tag": "h2",
+          "text": "Taste you can cite",
+          "lines": 1,
+          "px": 32
+        }
+      ],
+      "firstViewportActions": [
+        "Copy",
+        "Copy",
+        "Copy",
+        "Copy"
+      ],
+      "sweepSteps": 29,
+      "wordsPerScreen": 106
+    }
+  },
+  "renderedFrom": {
+    "dir": "dist",
+    "from": "dist"
+  },
+  "findings": [
+    {
+      "rule": "L11",
+      "severity": "P2",
+      "scope": "layout",
+      "file": "desktop (rendered)",
+      "line": null,
+      "message": "Text, a heading or an action covered by something painted over it at every scroll position where it is in view (rendered): <h2#ticket-title> “Install it: two commands in eith” under <svg.ticket__ring> at every stop where it is in view (first at 0 % down the page)",
+      "fix": "Move the covering layer (a picture, a filled panel, a drawn line, a cast shadow) off the text's box, or give the text a lane of its own; a layer that passes over text it leaves readable at another position (a curtain, clouds, a stacked panel) is not counted, nor is a small fixed header, a canvas (its pixels are judged from the frames) or a duplicate of the same text"
+    },
+    {
+      "rule": "L11",
+      "severity": "P2",
+      "scope": "layout",
+      "file": "desktop (rendered)",
+      "line": null,
+      "message": "Text, a heading or an action covered by something painted over it at every scroll position where it is in view (rendered): <h3.ticket__client> “Claude Code” under <svg.ticket__ring> at every stop where it is in view (first at 0 % down the page)",
+      "fix": "Move the covering layer (a picture, a filled panel, a drawn line, a cast shadow) off the text's box, or give the text a lane of its own; a layer that passes over text it leaves readable at another position (a curtain, clouds, a stacked panel) is not counted, nor is a small fixed header, a canvas (its pixels are judged from the frames) or a duplicate of the same text"
+    },
+    {
+      "rule": "L11",
+      "severity": "P2",
+      "scope": "layout",
+      "file": "desktop (rendered)",
+      "line": null,
+      "message": "Text, a heading or an action covered by something painted over it at every scroll position where it is in view (rendered): <li> “/plugin marketplace add burgisim” under <svg.ticket__ring> at every stop where it is in view (first at 0 % down the page)",
+      "fix": "Move the covering layer (a picture, a filled panel, a drawn line, a cast shadow) off the text's box, or give the text a lane of its own; a layer that passes over text it leaves readable at another position (a curtain, clouds, a stacked panel) is not counted, nor is a small fixed header, a canvas (its pixels are judged from the frames) or a duplicate of the same text"
+    },
+    {
+      "rule": "L11",
+      "severity": "P2",
+      "scope": "layout",
+      "file": "tablet (rendered)",
+      "line": null,
+      "message": "Text, a heading or an action covered by something painted over it at every scroll position where it is in view (rendered): <h2#ticket-title> “Install it: two commands in eith” under <svg.ticket__ring> at every stop where it is in view (first at 0 % down the page)",
+      "fix": "Move the covering layer (a picture, a filled panel, a drawn line, a cast shadow) off the text's box, or give the text a lane of its own; a layer that passes over text it leaves readable at another position (a curtain, clouds, a stacked panel) is not counted, nor is a small fixed header, a canvas (its pixels are judged from the frames) or a duplicate of the same text"
+    },
+    {
+      "rule": "L11",
+      "severity": "P2",
+      "scope": "layout",
+      "file": "tablet (rendered)",
+      "line": null,
+      "message": "Text, a heading or an action covered by something painted over it at every scroll position where it is in view (rendered): <h3.ticket__client> “Claude Code” under <svg.ticket__ring> at every stop where it is in view (first at 0 % down the page)",
+      "fix": "Move the covering layer (a picture, a filled panel, a drawn line, a cast shadow) off the text's box, or give the text a lane of its own; a layer that passes over text it leaves readable at another position (a curtain, clouds, a stacked panel) is not counted, nor is a small fixed header, a canvas (its pixels are judged from the frames) or a duplicate of the same text"
+    },
+    {
+      "rule": "L11",
+      "severity": "P2",
+      "scope": "layout",
+      "file": "tablet (rendered)",
+      "line": null,
+      "message": "Text, a heading or an action covered by something painted over it at every scroll position where it is in view (rendered): <li> “/plugin marketplace add burgisim” under <svg.ticket__ring> at every stop where it is in view (first at 0 % down the page)",
+      "fix": "Move the covering layer (a picture, a filled panel, a drawn line, a cast shadow) off the text's box, or give the text a lane of its own; a layer that passes over text it leaves readable at another position (a curtain, clouds, a stacked panel) is not counted, nor is a small fixed header, a canvas (its pixels are judged from the frames) or a duplicate of the same text"
+    },
+    {
+      "rule": "L11",
+      "severity": "P2",
+      "scope": "layout",
+      "file": "mobile (rendered)",
+      "line": null,
+      "message": "Text, a heading or an action covered by something painted over it at every scroll position where it is in view (rendered): <h2#ticket-title> “Install it: two commands in eith” under <svg.ticket__ring> at every stop where it is in view (first at 0 % down the page)",
+      "fix": "Move the covering layer (a picture, a filled panel, a drawn line, a cast shadow) off the text's box, or give the text a lane of its own; a layer that passes over text it leaves readable at another position (a curtain, clouds, a stacked panel) is not counted, nor is a small fixed header, a canvas (its pixels are judged from the frames) or a duplicate of the same text"
+    },
+    {
+      "rule": "L11",
+      "severity": "P2",
+      "scope": "layout",
+      "file": "mobile (rendered)",
+      "line": null,
+      "message": "Text, a heading or an action covered by something painted over it at every scroll position where it is in view (rendered): <h3.ticket__client> “Claude Code” under <svg.ticket__ring> at every stop where it is in view (first at 0 % down the page)",
+      "fix": "Move the covering layer (a picture, a filled panel, a drawn line, a cast shadow) off the text's box, or give the text a lane of its own; a layer that passes over text it leaves readable at another position (a curtain, clouds, a stacked panel) is not counted, nor is a small fixed header, a canvas (its pixels are judged from the frames) or a duplicate of the same text"
+    },
+    {
+      "rule": "L11",
+      "severity": "P2",
+      "scope": "layout",
+      "file": "mobile (rendered)",
+      "line": null,
+      "message": "Text, a heading or an action covered by something painted over it at every scroll position where it is in view (rendered): <li> “/plugin marketplace add burgisim” under <svg.ticket__ring> at every stop where it is in view (first at 0 % down the page)",
+      "fix": "Move the covering layer (a picture, a filled panel, a drawn line, a cast shadow) off the text's box, or give the text a lane of its own; a layer that passes over text it leaves readable at another position (a curtain, clouds, a stacked panel) is not counted, nor is a small fixed header, a canvas (its pixels are judged from the frames) or a duplicate of the same text"
+    },
+    {
+      "rule": "L12",
+      "severity": "P3",
+      "scope": "layout",
+      "file": "desktop (rendered)",
+      "line": null,
+      "message": "Outer margins differ left and right at desktop width (rendered): nearest text 8 px from the left edge and 60 px from the right",
+      "fix": "Set one pair of page margins and hang the navigation and every text block from them; keep asymmetry inside the grid, never in the frame"
+    }
+  ]
+}

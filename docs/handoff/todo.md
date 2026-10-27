@@ -56,6 +56,13 @@ Excluded by that instruction (lower impact, larger effort): F5 jury panel, F6 mo
 - [x] G1 the plugin's own site, rebuilt from scratch in redesign mode as the maintainer asked ("Contact sheet", seed `3zaj142iys4g`): three page jury rounds (ship 7.70, fix 7.71, ship 7.88; the third asked for by the maintainer), Shipped 2026-10-23. Left to the maintainer: enable GitHub Pages with Actions as the source and run `.github/workflows/site.yml`; one pass on a real phone and trackpad (the strip's follow and chapter 3's scroll were measured only headless); the Awwwards submission. Open after ship: two craft rows in `site/.awards/ship/2026-10-23.md` (s00's arrow label in view; the hover crop's marks in paper ink)
 
 
+## Demos built with 1.0.0 (2026-10-26) follow-ups
+
+1. Unattended runs: craft (and the build evals' prompts) should say that a run ends when the turn ends, so long work (picture searches, captures) runs in the foreground; the Wrenmouth build lost its first picture search that way. Headless runs can also set `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0`.
+2. Put Wrenmouth on the homepage's record: `site/facts/collect.js` lists the builds it reads and `render.js` holds the page to five; a sixth build is a homepage change and needs a verdict round.
+3. Wrenmouth's open phone fixes (the Trust card's size, one season-pass caption on the fold) and its four 1,024 px originals; its Creativity (7.6) is the lowest axis.
+4. Date a second house-tells wave once there are three or more 1.0 builds to compare.
+
 ## Release 1.0.0 (2026-10-26) follow-ups
 
 From the taste-skill comparison (`analysis-2026-10-26-taste-skill.md`); every recommendation landed as code or prose, none has been measured on a paid build.
@@ -63,7 +70,7 @@ From the taste-skill comparison (`analysis-2026-10-26-taste-skill.md`); every re
 1. Run one blind round (`evals/visual/tournament.md`, review item C13): three briefs, three arms (no plugin, awards, taste-skill at `12af471`), the forked jury in `--blind` mode plus one person. It is the only test of whether R1–R12 made better pages; budget $100–200. Add the no-asset persuade brief first.
 2. Paid contract cases for the new graders: `node evals/pick.mjs v0.8.0` lists them (`contract-southbound` inventory, competitor and Seed graders; `concept-deal-distinct` engines and stimuli). Then smoke and `trigger-jury`, because the jury's description changed ("says an award-level page looks generic, templated or AI-made"), and the route tier once.
 3. Widen the contrast set beyond SaaS templates (`references/sites/_contrast-queue.md`): agency pages, portfolios and launches that won nothing, and the remaining winners (`contrast-set.mjs --winners all`). With eight pages a side, a difference under 25 points is noise; annotate the slop scan only from a wider set.
-4. L11 does not judge text under a full-viewport canvas (a WebGL page's whole surface is a canvas). A pixel comparison with the canvas hidden would; deferred until a build shows a miss.
+4. L11 still skips canvases before the pixel check (a WebGL canvas redraws between shots, so the still check would set it aside anyway); text under a canvas is the jury's from the frames. Revisit if a build shows text under an opaque canvas that the jury missed.
 5. Refresh `references/patterns/house-tells.md` and re-run `house-ledger.mjs --write` after the next showcase builds; a value stays spent until builds stop sharing it.
 6. The walk (`capture.mjs --walk`) was tested on three showcase builds and a fixture; run it on a framework build (Next or Nuxt) with client routing before trusting its URL-change test there.
 7. `assets.mjs search`: Wikimedia answered 429 and the Art Institute 403 from this container; re-test both from a normal network and record which collections a maintainer can rely on.

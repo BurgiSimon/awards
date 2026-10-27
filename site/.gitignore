@@ -9,3 +9,7 @@ dist/
 .awards/browsers/
 # the old site's frames: evidence for the redesign, kept out of history
 .awards/redesign/baseline/
+# the redesign of 2026-10-26: the baseline's frames, the juror's extra passes and the showcase builds' raw captures
+.awards/redesign-2/baseline/
+.awards/redesign-2/jury-*/
+.awards/builds/

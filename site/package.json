@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "version": "0.1.0",
-  "description": "The awards plugin's public page: a contact sheet of its own captures. Counts are read from ../plugins/awards at build time.",
+  "description": "The awards plugin's public page: five builds the plugin made, sorted by what its jury said about each. Counts, commands and verdicts are read from ../plugins/awards and ../showcase at build time.",
   "engines": {
     "node": "^22.12.0 || >=24.0.0"
   },
@@ -11,8 +11,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "proof": "node scripts/proof.mjs",
-    "frames": "node scripts/recipe-frames.mjs"
+    "builds": "node scripts/builds.mjs",
+    "icons": "node scripts/icons.mjs",
+    "og": "node scripts/og.mjs"
   },
   "dependencies": {
     "gsap": "3.15.0",

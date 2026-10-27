@@ -8,19 +8,18 @@
         "A18",
         "C01",
         "L07",
-        "L11",
         "L12",
         "P09",
         "S11",
         "T01"
       ],
-      "audit": "7aa25ebcad",
+      "audit": "34c52e19fc",
       "date": "2026-10-26"
     },
     "https://zean.framer.website/": {
       "group": "contrast",
       "status": "not measured: the rendered steps failed",
-      "audit": "7aa25ebcad",
+      "audit": "34c52e19fc",
       "date": "2026-10-26"
     },
     "https://patroon-app.framer.website/": {
@@ -35,7 +34,7 @@
         "P09",
         "T01"
       ],
-      "audit": "7aa25ebcad",
+      "audit": "34c52e19fc",
       "date": "2026-10-26"
     },
     "https://flow-saas.framer.ai/": {
@@ -46,10 +45,9 @@
         "A18",
         "C01",
         "L08",
-        "L11",
         "T01"
       ],
-      "audit": "7aa25ebcad",
+      "audit": "34c52e19fc",
       "date": "2026-10-26"
     },
     "https://ego-launchpad-tmpl.webflow.io/": {
@@ -63,7 +61,7 @@
         "P09",
         "T01"
       ],
-      "audit": "7aa25ebcad",
+      "audit": "34c52e19fc",
       "date": "2026-10-26"
     },
     "https://marija-template.webflow.io/": {
@@ -81,7 +79,7 @@
         "P09",
         "T01"
       ],
-      "audit": "7aa25ebcad",
+      "audit": "34c52e19fc",
       "date": "2026-10-26"
     },
     "https://supify.webflow.io/": {
@@ -96,7 +94,7 @@
         "P09",
         "T01"
       ],
-      "audit": "7aa25ebcad",
+      "audit": "34c52e19fc",
       "date": "2026-10-26"
     },
     "https://abatable.com/": {
@@ -115,7 +113,7 @@
         "P09",
         "S11"
       ],
-      "audit": "7aa25ebcad",
+      "audit": "34c52e19fc",
       "date": "2026-10-26"
     },
     "https://lamalama.com/": {
@@ -127,9 +125,10 @@
         "A14",
         "A16",
         "A18",
+        "C01",
         "L06"
       ],
-      "audit": "7aa25ebcad",
+      "audit": "34c52e19fc",
       "date": "2026-10-26"
     },
     "https://www.seasats.com/": {
@@ -141,20 +140,19 @@
         "A18",
         "C01",
         "L08",
-        "L11",
         "L12",
         "L14",
         "P09",
         "S11"
       ],
-      "audit": "7aa25ebcad",
+      "audit": "34c52e19fc",
       "date": "2026-10-26"
     },
     "https://www.siteassist.com/": {
       "group": "winner",
       "slug": "siteassist",
       "status": "not measured: the rendered steps failed",
-      "audit": "7aa25ebcad",
+      "audit": "34c52e19fc",
       "date": "2026-10-26"
     },
     "https://thelinestudio.com/": {
@@ -172,7 +170,7 @@
         "P09",
         "S11"
       ],
-      "audit": "7aa25ebcad",
+      "audit": "34c52e19fc",
       "date": "2026-10-26"
     },
     "https://unitedcarriers.com/": {
@@ -185,11 +183,11 @@
         "A16",
         "A18",
         "C01",
-        "L11",
         "L12",
         "P09",
         "S11"
       ],
+      "audit": "34c52e19fc",
       "date": "2026-10-26"
     },
     "https://www.warmnfuzzy.tv/": {
@@ -200,9 +198,9 @@
         "A16",
         "A18",
         "C01",
-        "L11",
         "S11"
       ],
+      "audit": "34c52e19fc",
       "date": "2026-10-26"
     },
     "https://white-desert.com/": {
@@ -215,11 +213,10 @@
         "A18",
         "C01",
         "L08",
-        "L11",
         "P09",
-        "S11",
         "T01"
       ],
+      "audit": "34c52e19fc",
       "date": "2026-10-26"
     }
   }
