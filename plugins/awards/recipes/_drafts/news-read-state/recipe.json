@@ -3,7 +3,7 @@
   "title": "News with read state: a dated diary that remembers, and a count in the menu",
   "intent": "News that remembers what was read",
   "group": "the-close-and-beyond",
-  "summary": "A list of `<article>` entries with `<time datetime>` whose read state lives in one localStorage record behind a probe and try/catch (memory when the browser refuses, with the page saying so); a first visit treats the 21 days before the newest entry as new, a return visit gives entries dated after the newest one last seen a quiet arrival (a 3 px rust rule drawn `scaleX 0 → 1` over 900 ms, 140 ms apart, out of a 2.4 s colour wash); unread entries carry a New mark in their `<h2>` text plus a bold title and the rule; an entry is read when its native `<details>` opens or when it sits wholly in view below the sticky header for 1.2 s once the visitor has scrolled (never on load); the menu link reads `News 3 new` in text, Mark all as read turns `aria-disabled` at zero, and a polite status speaks only for the visitor's acts, gathering scroll reads for 600 ms; reduced motion keeps the wash and the fades and drops the drawing rule and the rising body",
+  "summary": "A list of `<article>` entries with `<time datetime>` whose read state is one shape-checked localStorage record behind a probe and try/catch (memory, said in words, when storage is refused or a write fails); a first visit marks the 21 days before the newest entry new and a return visit gives later entries a quiet arrival; an entry is read when its `<details>` opens or after 1.2 s wholly in view below the measured sticky masthead once the visitor has scrolled; the menu link reads `News 3 new`, and a polite status speaks only for open and mark all",
   "tags": [
     "list",
     "storage",

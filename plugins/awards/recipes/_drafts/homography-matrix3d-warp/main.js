@@ -3,22 +3,26 @@ import { clamp } from '../../_shared/raf.js';
 import { motionTier, onMotionTierChange, syncMotionTierAttribute } from '../../_shared/reduced-motion.js';
 
 // A live DOM screen warped onto a drawn quadrilateral. The target is four points of an SVG polygon, read through the
-// drawing's own viewBox, slice crop and position (getScreenCTM), so they follow the art at any size. The scroll lerps
-// each corner from the flat rectangle to its target; the 2D homography from the rectangle to those four points is
-// solved (8 × 8, Gaussian elimination) and written as one matrix3d with the origin at the element's top left. The
-// app inside stays DOM: selectable, focusable, clickable through the same matrix.
+// drawing's own viewBox, crop and position (getScreenCTM), so they follow the art at any size. The scroll lerps each
+// corner from the flat rectangle to its target; the 2D homography from the rectangle to those four points is solved
+// (8 × 8, Gaussian elimination) and written as one matrix3d with the origin at the element's top left. The app inside
+// stays DOM: selectable, focusable, clickable through the same matrix.
 
 syncMotionTierAttribute();
 let tier = motionTier();
 
+// Required hooks: the stage, the scene, the drawing, its screen polygon and the screen element.
 const stage = document.querySelector('[data-stage]');
-const scene = document.querySelector('[data-scene]');
+const scene = stage.querySelector('[data-scene]');
 const art = scene.querySelector('[data-scene-art]');
 const quad = art.querySelector('[data-screen-quad]');
-const glass = scene.querySelector('[data-glass]');
-const screen = document.querySelector('[data-screen]');
+const screen = scene.querySelector('[data-screen]');
+// Optional hooks: the shadow and the glare inside the screen, the app with its loop, and the loop's controls.
+const lift = screen.querySelector('[data-lift]');
+const glare = screen.querySelector('[data-glare]');
 const app = screen.querySelector('[data-app]');
-const toggle = app.querySelector('[data-loop-toggle]');
+const toggles = [...document.querySelectorAll('[data-loop-toggle], [data-loop-control]')];
+const status = document.querySelector('[data-loop-status]');
 
 const WINDOW = [0.12, 0.78];   // the part of the stage's scroll that does the warp; flat before, placed after
 const MAX_W = 640;             // px, the flat screen's widest
@@ -30,6 +34,7 @@ const smoothstep = (t) => t * t * (3 - 2 * t);
 const state = { progress: 0, eased: -1, writes: 0, measures: 0, W: 0, H: 0, origin: [0, 0], corners: null, target: null, playing: false };
 let target = null;   // the four target corners in the element's local px, TL, TR, BR, BL
 let dirty = true;
+let placed = null;   // whether the screen has left its flat box (the corner radius snaps once, not every frame)
 
 // The homography H (h33 = 1) sending src[i] to dst[i]: eight equations, eight unknowns.
 function homography(src, dst) {
@@ -93,8 +98,10 @@ function draw() {
   const dst = src.map(([x, y], i) => [x + (target[i][0] - x) * e, y + (target[i][1] - y) * e]);
   const h = e > 0 ? homography(src, dst) : null;
   screen.style.transform = h ? toMatrix3d(h) : 'none';
-  screen.style.setProperty('--lift', String(+(1 - e).toFixed(4)));
-  glass.style.opacity = String(+e.toFixed(4));
+  // Only opacity per frame: the shadow and the glare are their own layers inside the screen.
+  if (lift) lift.style.opacity = String(+(1 - e).toFixed(4));
+  if (glare) glare.style.opacity = String(+e.toFixed(4));
+  if (placed !== e > 0) { placed = e > 0; screen.toggleAttribute('data-placed', placed); }
   state.corners = dst;
   state.writes++;
 }
@@ -105,27 +112,39 @@ const schedule = () => { if (!queued) queued = requestAnimationFrame(() => { que
 addEventListener('scroll', schedule, { passive: true });
 new ResizeObserver(() => { measure(); draw(); }).observe(scene);
 
-// The recording: a CSS loop on the app, running only while it plays and the stage is on screen. Its button is the
-// app's own control and the page's pause; under reduced motion and static it starts paused.
-function play(on) {
+// The recording: a CSS loop on the app, running only while it plays, the screen is in view and the tab is visible.
+// Two buttons drive it: the app's own (part of the picture, warped with it) and the page's, under the scene at a
+// steady 44 px; both say what they will do, and a status line says what happened.
+function play(on, announce = false) {
   state.playing = on;
-  app.dataset.playing = String(on);
-  toggle.textContent = on ? 'Pause the loop' : 'Play the loop';
+  if (app) app.dataset.playing = String(on);
+  for (const b of toggles) b.textContent = on ? 'Pause the loop' : 'Play the loop';
+  if (announce && status) status.textContent = on ? 'Loop playing' : 'Loop paused';
 }
-toggle.addEventListener('click', () => play(!state.playing));
-new IntersectionObserver(([en]) => { if (en.isIntersecting) delete app.dataset.offscreen; else app.dataset.offscreen = ''; }).observe(stage);
-document.addEventListener('visibilitychange', () => { if (document.hidden) app.dataset.offscreen = ''; else if (stage.getBoundingClientRect().bottom > 0) delete app.dataset.offscreen; });
+for (const b of toggles) {
+  b.hidden = false;
+  b.addEventListener('click', () => play(!state.playing, true));
+}
+let onScreen = false;
+const pauseOffscreen = () => { if (app) app.toggleAttribute('data-offscreen', !onScreen || document.hidden); };
+// The screen itself is watched (its transformed box): the caption row can still show when the app has gone.
+new IntersectionObserver(([en]) => { onScreen = en.isIntersecting; pauseOffscreen(); }).observe(screen);
+document.addEventListener('visibilitychange', pauseOffscreen);
 
+// The script owns the rail: only the full tier scrubs, so only the full tier gets the tall stage.
 function applyTier(t) {
   tier = t;
+  stage.dataset.rail = String(t === 'full');
   dirty = true;
   if (t !== 'full') play(false);
+  measure();
   draw();
 }
 onMotionTierChange(applyTier);
-// The static tier can also be set on <html> after load (data-motion="static"); follow it.
+// A tier can also be set on <html> after load (data-motion="static", "reduced" or "full"); follow it.
 new MutationObserver(() => applyTier(motionTier())).observe(document.documentElement, { attributes: true, attributeFilter: ['data-motion'] });
 
+stage.dataset.rail = String(tier === 'full');
 measure();
 play(tier === 'full');
 draw();
@@ -135,6 +154,7 @@ awards.addState(() => {
   const start = Math.round(r.top + scrollY);
   return {
     motion: tier,
+    rail: stage.dataset.rail === 'true',
     progress: +state.progress.toFixed(4),
     eased: +state.eased.toFixed(4),
     window: WINDOW,
@@ -146,7 +166,8 @@ awards.addState(() => {
     writes: state.writes,
     measures: state.measures,
     playing: state.playing,
-    offscreen: 'offscreen' in app.dataset,
+    offscreen: !!app?.hasAttribute('data-offscreen'),
+    status: status?.textContent ?? '',
   };
 });
 awards.ready();

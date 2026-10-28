@@ -81,7 +81,7 @@
               </g>
               <!-- Chart lettering: water names, soundings, the hill's spot height. -->
               <g class="atlas__chart" fill="#e9dcb8">
-                <text x="140" y="52" class="atlas__water" letter-spacing="6">SKERROW SOUND</text>
+                <text x="140" y="52" class="atlas__water atlas__water--sound" letter-spacing="6">SKERROW SOUND</text>
                 <text x="688" y="379" class="atlas__water atlas__water--small" letter-spacing="2">Saltpan Loch</text>
                 <text x="380" y="790" class="atlas__note">to Ardnish, 3 km</text>
                 <g class="atlas__depth" fill-opacity=".55">
@@ -94,31 +94,31 @@
                 <path d="M0 26V-18M-7-6L0-20 7-6"/>
                 <text y="44" x="-5" class="atlas__north" fill="#e9dcb8" stroke="none">N</text>
               </g>
-              <g transform="translate(742 772)" fill="#e9dcb8">
+              <g class="atlas__scale" transform="translate(742 772)" fill="#e9dcb8">
                 <rect width="180" height="5" fill="none" stroke="#e9dcb8" stroke-width="1.2"/>
                 <rect width="90" height="5"/>
                 <text y="-8" class="atlas__note">0</text><text x="76" y="-8" class="atlas__note">250</text><text x="150" y="-8" class="atlas__note">500 m</text>
               </g>
               <rect x="1" y="1" width="998" height="798" fill="none" stroke="#e9dcb8" stroke-opacity=".5" stroke-width="2"/>
             </svg>
-            <div class="atlas__pins" role="group" aria-label="Places on the map" data-pins>
-              <button type="button" class="pin" data-place="well" style="--x: 42; --y: 13.75" aria-controls="map-card" aria-expanded="false" aria-describedby="well-fig well-line"><span class="pin__dot" aria-hidden="true"></span><span class="pin__label">North Well</span></button>
-              <button type="button" class="pin" data-place="light" data-label="start" style="--x: 80; --y: 18.75" aria-controls="map-card" aria-expanded="false" aria-describedby="light-fig light-line"><span class="pin__dot" aria-hidden="true"></span><span class="pin__label">Skerrow Head light</span></button>
-              <button type="button" class="pin" data-place="sisters" style="--x: 30; --y: 33.75" aria-controls="map-card" aria-expanded="false" aria-describedby="sisters-fig sisters-line"><span class="pin__dot" aria-hidden="true"></span><span class="pin__label">The Sisters</span></button>
-              <button type="button" class="pin" data-place="marsh" style="--x: 60; --y: 41.25" aria-controls="map-card" aria-expanded="false" aria-describedby="marsh-fig marsh-line"><span class="pin__dot" aria-hidden="true"></span><span class="pin__label">Marsh hide</span></button>
-              <button type="button" class="pin" data-place="bothy" style="--x: 15; --y: 56.25" aria-controls="map-card" aria-expanded="false" aria-describedby="bothy-fig bothy-line"><span class="pin__dot" aria-hidden="true"></span><span class="pin__label">West Cove bothy</span></button>
-              <button type="button" class="pin" data-place="kelp" style="--x: 47; --y: 62.5" aria-controls="map-card" aria-expanded="false" aria-describedby="kelp-fig kelp-line"><span class="pin__dot" aria-hidden="true"></span><span class="pin__label">Kelp Store</span></button>
-              <button type="button" class="pin" data-place="beach" data-label="start" style="--x: 78; --y: 65" aria-controls="map-card" aria-expanded="false" aria-describedby="beach-fig beach-line"><span class="pin__dot" aria-hidden="true"></span><span class="pin__label">Shell Beach</span></button>
-              <button type="button" class="pin" data-place="ferry" style="--x: 33; --y: 85" aria-controls="map-card" aria-expanded="false" aria-describedby="ferry-fig ferry-line"><span class="pin__dot" aria-hidden="true"></span><span class="pin__label">Ferry slip</span></button>
+            <div class="atlas__pins" role="group" aria-label="Places on the map" aria-describedby="atlas-keys" data-pins>
+              <button type="button" class="pin" data-place="well" style="--x: 42; --y: 13.75" aria-controls="map-card" aria-expanded="false" aria-describedby="well-fig well-line"><span class="pin__dot" aria-hidden="true">1</span><span class="pin__label">North Well</span></button>
+              <button type="button" class="pin" data-place="light" data-label="start" style="--x: 80; --y: 18.75" aria-controls="map-card" aria-expanded="false" aria-describedby="light-fig light-line"><span class="pin__dot" aria-hidden="true">2</span><span class="pin__label">Skerrow Head light</span></button>
+              <button type="button" class="pin" data-place="sisters" style="--x: 30; --y: 33.75" aria-controls="map-card" aria-expanded="false" aria-describedby="sisters-fig sisters-line"><span class="pin__dot" aria-hidden="true">3</span><span class="pin__label">The Sisters</span></button>
+              <button type="button" class="pin" data-place="marsh" style="--x: 60; --y: 41.25" aria-controls="map-card" aria-expanded="false" aria-describedby="marsh-fig marsh-line"><span class="pin__dot" aria-hidden="true">4</span><span class="pin__label">Marsh hide</span></button>
+              <button type="button" class="pin" data-place="bothy" style="--x: 15; --y: 56.25" aria-controls="map-card" aria-expanded="false" aria-describedby="bothy-fig bothy-line"><span class="pin__dot" aria-hidden="true">5</span><span class="pin__label">West Cove bothy</span></button>
+              <button type="button" class="pin" data-place="kelp" style="--x: 47; --y: 62.5" aria-controls="map-card" aria-expanded="false" aria-describedby="kelp-fig kelp-line"><span class="pin__dot" aria-hidden="true">6</span><span class="pin__label">Kelp Store</span></button>
+              <button type="button" class="pin" data-place="beach" data-label="start" style="--x: 78; --y: 65" aria-controls="map-card" aria-expanded="false" aria-describedby="beach-fig beach-line"><span class="pin__dot" aria-hidden="true">7</span><span class="pin__label">Shell Beach</span></button>
+              <button type="button" class="pin" data-place="ferry" style="--x: 33; --y: 85" aria-controls="map-card" aria-expanded="false" aria-describedby="ferry-fig ferry-line"><span class="pin__dot" aria-hidden="true">8</span><span class="pin__label">Ferry slip</span></button>
             </div>
           </div>
           <div class="card" id="map-card" data-card hidden>
-            <p class="card__name" data-card-name>Choose a pin or a place below</p>
+            <p class="card__name" data-card-name>Choose a pin or a place from the list</p>
             <p class="card__fig" data-card-fig hidden><span class="card__num" data-card-num></span> <span class="card__unit" data-card-unit></span> <span class="card__what" data-card-what></span></p>
             <p class="card__line" data-card-line hidden></p>
             <a class="card__link" href="#visit" data-card-link hidden></a>
           </div>
-          <figcaption class="atlas__caption">Skerrow at low water, north up, drawn for this demo. Dashed lines are the island's footpaths; the hill in the middle reaches 112 m.</figcaption>
+          <figcaption class="atlas__caption">Skerrow at low water, north up, drawn for this demo. Dashed lines are the island's footpaths; the hill in the middle reaches 112 m. <span id="atlas-keys">Keyboard: Tab reaches the pins, the arrow keys move between them, Enter or Escape closes a card.</span></figcaption>
         </figure>
 
         <ol class="places" aria-label="The same places as a list">

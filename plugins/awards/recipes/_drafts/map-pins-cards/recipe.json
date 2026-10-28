@@ -3,7 +3,7 @@
   "title": "Map pins and cards: named buttons over a drawn map, a list that drives it",
   "intent": "Places on a flat map",
   "group": "evidence-blocks",
-  "summary": "An inline-SVG map (viewBox 1000 × 800, aspect-ratio box) under eight named `<button>` pins placed at `left/top: var(--x|--y) %` and centred by a fixed `-22px` margin, so each sits on its drawn point to the pixel at any width; one card filled from the matching list entry opens on hover (140 ms grace into the card), focus and click (kept after the pointer leaves), floats 22 px above its pin or below it near the top edge, clamped 12 px inside the map, with a tick at the pin; pins rove in reading order inside one labelled group (arrow keys wrap, Home / End, one tab stop), Escape closes from a pin or from inside the card and returns focus; the same places as an ordered list whose entries open the card on hover and focus and whose Show on map buttons select and announce; pins drop in 70 ms apart (560 ms, expo-out) the first time the map is 35 % in view, full tier only; under 720 px the card docks under the map in the flow with a prompt when nothing is chosen",
+  "summary": "An inline-SVG map (viewBox 1000 × 800, aspect-ratio box) under eight named, numbered `<button>` pins placed at `left/top: var(--x|--y) %` and centred by a fixed `-22px` margin, so each sits on its drawn point to the pixel at any width; one card filled from the matching list entry opens on hover (140 ms grace into the card), focus and click or tap (a second one lets go), placed 36 px from the pin above, below or beside it away from its name, slid in 8 px steps to the position that covers fewest other pins and names, 12 px inside the map, with pins stacked above it; it docks under the map at its tallest place's height on phones and wherever a card could not clear its pin or would crowd the others, the sticky map shrinking to keep it on screen; names in the chart italic step back to their numbers where they would collide; pins rove in reading order inside one labelled group (arrows wrap, Home / End, Enter toggles, Escape closes), and the same places as a numbered list open the card on hover and focus and select it from Show on map; pins drop in 70 ms apart (560 ms, expo-out) the first time the map is 35 % in view, full tier only",
   "tags": [
     "svg",
     "hover",
@@ -22,12 +22,11 @@
   "tier": "P1",
   "deps": [],
   "variants": [
-    "a drawn map with pins by percentage, one card, a list that drives it (this, default)",
+    "a drawn map with pins by percentage, one card that never covers its pin, a numbered list that drives it (this, default)",
     "an image map: the same pins over a raster plan in an aspect-ratio box, the percentages read off the image",
     "a 3D model: pins projected from scene coordinates instead of percentages (gl-orbit-model-hotspots)"
   ],
   "seenIn": [
-    "son-daven",
     "likova"
   ],
   "drafted": "2026-10-28"

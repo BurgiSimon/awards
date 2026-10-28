@@ -2,7 +2,7 @@
    A draft sits one folder deeper than a recipe; scripts/drafts.mjs promote rewrites ../../ to ../ on the way out. */
 @import "../../_shared/base.css";
 
-/* Its own small world: a Victorian baths under restoration, celadon tile, bottle-green ink, a rust mark for new. */
+/* Its own small world: a Victorian baths under restoration, a bottle-green glazed dado, celadon walls, a rust mark for new. */
 :root {
   --ground: #dbe7dc;
   --ink: #10332c;
@@ -12,11 +12,21 @@
   --accent: var(--tile);
   --muted: color-mix(in oklab, var(--ink) 74%, var(--ground));
   --line: color-mix(in oklab, var(--ink) 22%, var(--ground));
+  --grout: color-mix(in oklab, var(--tile) 52%, var(--ground));
+  --plan-ink: color-mix(in oklab, var(--ink) 58%, var(--ground));
+  --plan-on: color-mix(in oklab, var(--tile) 42%, var(--ground));
   --font-read: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  /* The sticky masthead's height; main.js keeps it measured, so anchors and focus land below the masthead. */
+  --masthead-h: 64px;
 }
+html { scroll-padding-top: calc(var(--masthead-h) + 12px); }
 ::selection { background: var(--tile); color: var(--cream); }
 /* Components below set display; the hidden attribute must still win. */
 [hidden] { display: none !important; }
+
+.skip-link:not(:focus) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip-link:focus { position: fixed; inset-block-start: 10px; inset-inline-start: 10px; z-index: 10; display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; background: var(--cream); color: var(--ink); }
+.plan-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
 
 /* The masthead stays in view, so the count is always where the visitor will look for it. */
 .masthead { position: sticky; top: 0; z-index: 5; background: var(--tile); color: var(--cream); }
@@ -29,72 +39,104 @@
 .masthead__nav a[aria-current="page"] .masthead__label { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.35em; }
 .masthead a:focus-visible { outline-color: var(--cream); }
 /* The count is text, never a dot alone: "3 new" on the rust that marks every unread entry. */
-.masthead__count { display: inline-block; padding: 2px 8px; border-radius: 2px; background: var(--new); color: var(--cream); font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; }
+.masthead__count { display: inline-block; padding: 2px 8px; border-radius: 2px; background: var(--new); color: var(--cream); font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; white-space: nowrap; }
 
-.intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: calc(var(--unit) * 6) calc(var(--unit) * 12); align-items: end; padding-block: 120px calc(var(--unit) * 12); }
-.intro__title { margin: 0; font-family: var(--font-display); font-size: clamp(3.25rem, 10vw, 10.5rem); font-weight: 700; line-height: 0.86; letter-spacing: -0.045em; }
-.intro__lede { max-width: 46ch; margin: 0; font-family: var(--font-read); font-size: clamp(1.0625rem, 1.4vw, 1.3125rem); line-height: 1.45; }
+.intro { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: calc(var(--unit) * 4) calc(var(--unit) * 12); align-items: end; padding-block: 56px 36px; }
+.intro__title { margin: 0; font-family: var(--font-read); font-size: clamp(3rem, 6.4vw, 6.25rem); font-style: italic; font-weight: 400; line-height: 0.92; letter-spacing: -0.025em; }
+.intro__lede { max-width: 48ch; margin: 0; text-wrap: pretty; font-family: var(--font-read); font-size: clamp(1.0625rem, 1.4vw, 1.3125rem); line-height: 1.45; }
+/* The dado: the subject's own material, drawn in index.html as tiles with a glaze and a catch of light. */
+.dado { display: block; width: 100%; height: 54px; border-block: 2px solid var(--ink); }
+.dado__rail { fill: var(--ink); }
+.dado__grout { fill: var(--grout); }
+.dado__tile { fill: var(--tile); }
+.dado__tile--deep { fill: color-mix(in oklab, var(--tile) 84%, var(--ink)); }
+.dado__sheen { fill: none; stroke: rgb(255 255 255 / 0.2); stroke-width: 1.25; stroke-linecap: round; }
 
 .diary-wrap { padding-bottom: calc(var(--unit) * 20); }
-.diary__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; padding-block: 12px; border-bottom: 2px solid var(--ink); }
-.diary__summary { margin: 0; font-family: var(--font-mono); font-size: 0.875rem; font-variant-numeric: tabular-nums; }
+.diary__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; padding-block: 14px; border-bottom: 2px solid var(--ink); }
+.diary__head { display: grid; gap: 2px; }
+.diary__head > p { margin: 0; }
+.diary__summary { font-family: var(--font-mono); font-size: 0.875rem; font-variant-numeric: tabular-nums; }
+.diary__note { max-width: 60ch; color: var(--muted); font-family: var(--font-read); font-size: 0.9375rem; }
 .diary__all { min-height: 44px; padding: 0 18px; border: 1.5px solid var(--ink); border-radius: 22px; background: none; cursor: pointer; font-size: 0.9375rem; }
 .diary__all:hover { background: var(--ink); color: var(--ground); }
 .diary__all[aria-disabled="true"] { border-color: var(--line); color: var(--muted); cursor: default; }
 .diary__all[aria-disabled="true"]:hover { background: none; color: var(--muted); }
 
 .diary { list-style: none; margin: 0; padding: 0; }
-/* Unread: the rust rule over the entry, the heavier title, and the New mark in text. Read: none of the three. */
+/* Unread: a rust bar down the entry's inline-start edge, in the margin like a change bar, the heavier title, and the
+   New mark in text. Read: none of the three. The bar spans the entry, so it belongs to it and to no border. */
 .entry { position: relative; border-bottom: 1px solid var(--line); }
-.entry::before { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 3px; background: var(--new); transform-origin: 0 50%; transform: scaleX(0); transition: transform var(--dur-routine) var(--ease-out-expo); }
-.entry.is-unread::before { transform: scaleX(1); }
-.entry__article { display: grid; grid-template-columns: 9rem minmax(0, 1fr) minmax(10rem, 15rem); column-gap: calc(var(--unit) * 8); padding-block: 28px 18px; }
-.entry__date { display: grid; align-content: start; font-variant-numeric: tabular-nums; }
+.entry::before { content: ""; position: absolute; inset-block: 26px 18px; inset-inline-start: max(calc(-1 * var(--gutter) / 2 - 2px), -26px); width: 4px; background: var(--new); transform-origin: 50% 0; transform: scaleY(0); transition: transform var(--dur-routine) var(--ease-out-expo); }
+.entry.is-unread::before { transform: scaleY(1); }
+.entry__article { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr) 10rem; grid-template-areas: "date main plan"; column-gap: calc(var(--unit) * 8); padding-block: 28px 18px; }
+.entry__date { grid-area: date; display: grid; align-content: start; font-variant-numeric: tabular-nums; }
 .entry__day { font-family: var(--font-display); font-size: 3rem; font-weight: 700; line-height: 0.9; letter-spacing: -0.03em; }
 .entry__month { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--muted); }
+.entry__main { grid-area: main; }
 .entry__main > * { margin: 0; }
 .entry__meta { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--muted); }
 .entry__title { max-width: 30ch; margin-top: 6px; font-family: var(--font-display); font-size: clamp(1.375rem, 2.2vw, 2rem); font-weight: 400; line-height: 1.12; letter-spacing: -0.015em; }
 .entry.is-unread .entry__title { font-weight: 700; }
-.entry__flag { display: inline-block; margin-left: 8px; padding: 1px 7px; border: 1.5px solid var(--new); border-radius: 2px; color: var(--new); font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; line-height: 1.4; vertical-align: 0.3em; transition: opacity var(--dur-routine) ease-out; }
+/* Inline (not inline-block) and glued to the last word without a space, so it never wraps onto a line alone; isolated,
+   so in right-to-left text it follows the title in reading order, with its margin between the two. */
+.entry__flag { display: inline; unicode-bidi: isolate; margin-inline-start: 10px; padding: 3px 7px; border: 1.5px solid var(--new); border-radius: 2px; background: var(--new); color: var(--cream); font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; line-height: 1; white-space: nowrap; vertical-align: 0.4em; transition: opacity var(--dur-routine) ease-out; }
 .entry__flag.is-gone { opacity: 0; }
 .entry__lede { max-width: 58ch; margin-top: 8px; font-family: var(--font-read); font-size: 1.0625rem; line-height: 1.5; }
 
 .entry__more { margin-top: 4px; }
 .entry__toggle { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; cursor: pointer; list-style: none; font-size: 0.9375rem; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25em; }
 .entry__toggle::-webkit-details-marker { display: none; }
-.entry__toggle::after { content: "+"; font-family: var(--font-mono); text-decoration: none; }
-.entry__more[open] .entry__toggle::after { content: "−"; }
+/* The glyph has empty alternative text, so it never joins the summary's accessible name. */
+.entry__toggle::after { content: "+" / ""; font-family: var(--font-mono); text-decoration: none; }
+.entry__more[open] .entry__toggle::after { content: "−" / ""; }
 .entry__toggle-close, .entry__more[open] .entry__toggle-open { display: none; }
 .entry__more[open] .entry__toggle-close { display: inline; }
 .entry__body { display: grid; gap: 12px; max-width: 62ch; padding-block: 6px 12px; font-family: var(--font-read); font-size: 1.0625rem; line-height: 1.55; }
 .entry__body p { margin: 0; }
 .entry__more[open] .entry__body { animation: body-in var(--dur-routine) var(--ease-out-expo) both; }
-/* The works at the date of each entry: the diary's own running figure, a number in text over a bar that repeats it. */
-.entry__progress { display: flex; flex-wrap: wrap; align-content: start; align-items: baseline; justify-content: space-between; gap: 6px 12px; margin: 4px 0 0; font-family: var(--font-mono); font-size: 0.8125rem; }
-.entry__progress-label { color: var(--muted); }
-.entry__progress data { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
-.entry__bar { flex: 1 0 100%; height: 6px; background: var(--line); }
-.entry__bar::after { content: ""; display: block; height: 100%; background: var(--tile); transform-origin: 0 50%; transform: scaleX(var(--p)); }
 
-/* Arrival: an entry published since the last visit draws its rule in and settles out of a faint wash. */
-.entry[data-arrival]::before { animation: rule-in 900ms var(--ease-out-expo) both; animation-delay: calc(var(--k, 0) * 140ms); }
-.entry[data-arrival] { animation: wash 2400ms ease-out both; animation-delay: calc(var(--k, 0) * 140ms); }
-.entry[data-arrival] .entry__flag { animation: flag-in 400ms ease-out both; animation-delay: calc(var(--k, 0) * 140ms + 500ms); }
+/* The plan: the same drawing on every entry, with the part of the building the entry is about filled in. */
+.entry__plan { grid-area: plan; width: 100%; max-width: 10rem; height: auto; margin-top: 4px; color: var(--plan-ink); overflow: visible; }
+.plan__wall, .plan__area, .plan__lane { fill: transparent; stroke: currentColor; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.plan__lane { stroke-dasharray: 2 3; }
+.plan__lantern { stroke-dasharray: 3 2; }
+.plan__gallery { fill: var(--gallery, transparent); }
+.plan__tank { fill: var(--tank, transparent); }
+.plan__lantern { fill: var(--lantern, transparent); }
+.plan__small { fill: var(--small, transparent); }
+.plan__slipper { fill: var(--slipper, transparent); }
+.plan__boiler { fill: var(--boiler, transparent); }
+.plan__chimney { fill: var(--chimney, transparent); }
+.plan__entrance { fill: var(--entrance, transparent); }
+.entry__plan[data-area="gallery"] { --gallery: var(--plan-on); }
+.entry__plan[data-area="tank"] { --tank: var(--plan-on); }
+.entry__plan[data-area="lantern"] { --lantern: var(--plan-on); }
+.entry__plan[data-area="small"] { --small: var(--plan-on); }
+.entry__plan[data-area="slipper"] { --slipper: var(--plan-on); }
+.entry__plan[data-area="boiler"] { --boiler: var(--plan-on); }
+.entry__plan[data-area="chimney"] { --chimney: var(--plan-on); }
+.entry__plan[data-area="entrance"] { --entrance: var(--plan-on); }
 
-@keyframes rule-in { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+/* Arrival: an entry published since the last visit draws its bar down and settles out of a faint wash. Each animation
+   fills backwards only, and the bar and mark animate only while unread: once read, the class-driven values take over. */
+.entry[data-arrival].is-unread::before { animation: rule-in 900ms var(--ease-out-expo) backwards; animation-delay: calc(var(--k, 0) * 140ms); }
+.entry[data-arrival] { animation: wash 2400ms ease-out backwards; animation-delay: calc(var(--k, 0) * 140ms); }
+.entry[data-arrival].is-unread .entry__flag { animation: flag-in 400ms ease-out backwards; animation-delay: calc(var(--k, 0) * 140ms + 500ms); }
+
+@keyframes rule-in { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 @keyframes wash { from { background-color: color-mix(in oklab, var(--new) 14%, var(--ground)); } to { background-color: transparent; } }
 @keyframes flag-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes body-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @keyframes body-fade { from { opacity: 0; } to { opacity: 1; } }
 
-/* Reduced: no rule drawing in, no body rising; the wash and the fades stay, since they move nothing. */
+/* Reduced: no bar drawing down or easing back, no body rising; the wash and the fades stay, since they move nothing. */
 @media (prefers-reduced-motion: reduce) {
-  .entry[data-arrival]::before { animation: none; }
+  .entry[data-arrival].is-unread::before { animation: none; }
   .entry::before { transition: none; }
   .entry__more[open] .entry__body { animation-name: body-fade; }
 }
-html[data-motion="reduced"] .entry[data-arrival]::before { animation: none; }
+html[data-motion="reduced"] .entry[data-arrival].is-unread::before { animation: none; }
 html[data-motion="reduced"] .entry::before { transition: none; }
 html[data-motion="reduced"] .entry__more[open] .entry__body { animation-name: body-fade; }
 /* Static: everything settled. */
@@ -104,29 +146,36 @@ html[data-motion="static"] .entry, html[data-motion="static"] .entry::before, ht
 .demo__title { margin: 0; font-family: var(--font-display); font-size: clamp(1.5rem, 2.6vw, 2.25rem); line-height: 1.05; letter-spacing: -0.015em; }
 .demo__note { max-width: 60ch; margin: 0; font-family: var(--font-read); font-size: 1.0625rem; }
 .demo__actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 8px 0 0; }
-.demo__btn { min-height: 44px; padding: 0 20px; border: 0; border-radius: 22px; background: var(--tile); color: var(--cream); cursor: pointer; font-size: 0.9375rem; text-align: center; }
-.demo__btn--quiet { border: 1.5px solid var(--ink); background: none; color: var(--ink); }
+.demo__btn { min-height: 44px; padding: 0 20px; border: 1.5px solid var(--tile); border-radius: 22px; background: var(--tile); color: var(--cream); cursor: pointer; font-size: 0.9375rem; text-align: center; }
+.demo__btn--quiet { border-color: var(--ink); background: none; color: var(--ink); }
 .demo__btn[aria-disabled="true"] { background: var(--line); border-color: transparent; color: var(--muted); cursor: default; }
 
 .about { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: calc(var(--unit) * 12); padding-block: calc(var(--unit) * 16); }
 .about h2 { margin: 0 0 12px; font-family: var(--font-display); font-size: 1.5rem; letter-spacing: -0.01em; }
 .about p { max-width: 50ch; margin: 0; font-family: var(--font-read); font-size: 1.0625rem; }
-.footer { padding-block: calc(var(--unit) * 10); border-top: 1px solid var(--line); }
+.footer { display: grid; gap: 12px; padding-block: calc(var(--unit) * 8) calc(var(--unit) * 10); border-top: 1px solid var(--line); }
+.footer__nav { display: flex; flex-wrap: wrap; gap: 0 calc(var(--unit) * 6); }
+.footer__nav a { display: inline-flex; align-items: center; min-height: 44px; }
 .footer .label { margin: 0; }
 
 @media (max-width: 760px) {
-  .intro { grid-template-columns: minmax(0, 1fr); padding-top: 72px; }
-  .entry__article { grid-template-columns: minmax(0, 1fr); row-gap: 6px; padding-top: 22px; }
-  .entry__progress { max-width: 20rem; margin-top: 2px; }
-  .entry__progress data { font-size: 1.125rem; }
+  :root { --masthead-h: 56px; }
+  /* One row on a phone: the brand and the count. The other two links live in the footer. */
+  .masthead__inner { min-height: 56px; gap: 0 calc(var(--unit) * 4); }
+  .masthead__nav a:not([data-news-link]) { display: none; }
+  .intro { grid-template-columns: minmax(0, 1fr); padding-block: 40px 28px; }
+  .entry__article { grid-template-columns: minmax(0, 1fr) 4.5rem; grid-template-areas: "date plan" "main main"; row-gap: 4px; padding-top: 22px; }
   .entry__date { display: flex; align-items: baseline; gap: 8px; }
   .entry__day { font-size: 1.75rem; }
+  .entry__plan { margin-top: 0; }
+  .entry::before { inset-block: 22px 16px; }
   .about { grid-template-columns: minmax(0, 1fr); }
-  .masthead__nav { gap: 0 calc(var(--unit) * 4); }
 }
 
 @media (forced-colors: active) {
   .entry::before { forced-color-adjust: none; background: CanvasText; }
   .entry__flag { border-color: CanvasText; }
   .masthead__count { border: 1px solid CanvasText; }
+  .demo__btn, .diary__all { border-color: ButtonText; }
+  [aria-disabled="true"] { color: GrayText; border-color: GrayText; }
 }
