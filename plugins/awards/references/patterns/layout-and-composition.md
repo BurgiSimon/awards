@@ -77,6 +77,7 @@ Why: a symmetric section shows one thing at a time. An offset sets text against 
 | Device | Card | Confidence |
 |---|---|---|
 | Work cards at varied spans and starts on 12 columns; media at mixed sizes on 24 | [site:haoqi] [site:warmnfuzzy] | [verified] |
+| An 85-item work grid whose spans repeat a twelve-item cycle (`gsap.utils.wrap([5,4,3,3,3,9,4,5,3,3,3,9])` columns, a matching thumbnail-size cycle), so a long index has an authored rhythm with no per-item art direction | [site:the-line] | [verified, 2026-10-28] |
 | Uneven two-up tiles hung to the edges | [site:noth] | [inferred] |
 | A quarter rail holding the only `<h1>` and the filters; a statement in the right third | [site:boc] [site:911rennsport] | [verified] |
 | Headlines and menu items on staggered lines and indents; handwritten asides off the grid at a tilt | [site:the-boyd] [site:aardvarkbookclub] | [verified] |

@@ -83,13 +83,15 @@ Why: the recipes are verified in a real browser with keyboard, touch and reduced
 | Sticky stack | `sticky-stack-cards` | Cards stay articles with headings |
 | Horizontal gallery / rail | `horizontal-rail` | Native overflow on touch; arrow keys |
 | Hover-preview list | `hover-preview-list` | Focus shows the preview too |
+| Index with a row marker | `overprint-marker-index` | One marker, cut not slid; focus and touch move it too; sort announced |
 | Compare slider | `compare-hold-drag` | The handle is a slider role |
 | Text reveal | `split-text-masked-reveal`, `flicker-text`, `scramble-decode-text` | After fonts; mirror text for AT |
 | Theme switcher / colour as state | `theme-swap-tokens` | Tokens on `<html>`, canvas in the same tween |
 | Page transition | `page-transitions` | Lifecycle in `gsap.context`; every page ships the contract |
+| Next-case close | `next-case-handoff` | Real links; move the media node, never a clone; the arriving page's own `h1` takes focus |
 | Image-distortion grid | `gl-dom-tethered-planes` | Images stay `<img>`; canvas `aria-hidden` |
 | Hero | the archetype's recipes in `hero-archetypes.md` | The first-viewport test applies |
-| Footer, 404 | `${CLAUDE_PLUGIN_ROOT}/assets/templates/404.html` and the catalogue entries; `gl-swarm-light-field` for a GL close | Authored copy, a way out; GL loaded only near the footer, every link DOM |
+| Footer, 404 | `${CLAUDE_PLUGIN_ROOT}/assets/templates/404.html` and the catalogue entries; `footer-credits-hinge` for credits under a held footer; `gl-swarm-light-field` for a GL close | Authored copy, a way out; a panel under the footer `inert` while closed and no focus under a covering sheet; GL loaded only near the footer, every link DOM |
 
 Before adapting, write one line per recipe used, beside its id in the Page map or Motion score: `keep:` the mechanism you need (the physics, the state machine, the accessibility scaffold), `change:` at least one of metaphor, material, trigger or spatial arrangement so the silhouette is the world's and not the recipe's, `pair:` what it answers in the page (the chapter beat or the other component it plays against). Renaming, re-tokening and re-timing alone ship the recipe's look; a jury that has seen the recipe sees it again.
 
