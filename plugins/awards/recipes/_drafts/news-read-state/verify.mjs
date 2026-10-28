@@ -130,7 +130,7 @@ export function assert(r) {
   const first = (p.entries || [])[0] || {};
   out.push({ ok: ps.unread === 4 && ids(ps.arrivals) === '2026-10-27-small-pool' && first.id === '2026-10-27-small-pool' && first.arrival && (p.entries || []).filter((e) => e.arrival).length === 1, message: `return visit: the entry published since arrives at the top, alone (${ids(ps.arrivals)}; ${ps.unread} new)` });
   out.push({ ok: first.ruleAnim === 'rule-in' && first.wash === 'wash' && p.nav === 'News 4 new' && p.status === '', message: `return visit: a quiet arrival (rule ${first.ruleAnim}, wash ${first.wash}), the menu reads "${p.nav}", nothing announced` });
-  out.push({ ok: p.publishDisabled === 'true', message: 'return visit: the demo cannot publish the same entry twice' });
+  out.push({ ok: p.publishDisabled === 'true' && first.top > 0 && first.bottom < p.vh, message: `return visit: it starts at the top with the arrival in view (${Math.round(first.top)}–${Math.round(first.bottom)} of ${p.vh}), and the demo cannot publish the same entry twice` });
 
   // Storage that throws.
   const b = P('blocked'), bs = S('blocked');

@@ -12,9 +12,9 @@ A live HTML screen carried by the scroll from flat into a drawn laptop. The four
 ## Parameters
 | | |
 |---|---|
-| Screen | real DOM in a box `min(640px, 86 % of the scene's width, 62 % of its height × 1.6)` wide at 16:10, positioned in whole pixels: centred at `60 %` of a scene `≥ 900 px` wide, centred otherwise; inside, `font-size: 2.6cqw` so the app scales with the box |
+| Screen | real DOM in a box `min(640px, 86 % of the scene's width, 62 % of its height × 1.6)` wide at 16:10, centred in the scene in whole pixels; inside, `font-size: 2.6cqw` so the app scales with the box |
 | Target | the four points of `[data-screen-quad]` (TL, TR, BR, BL) through `svg.getScreenCTM()`, minus the scene's and the screen's offsets; re-read on every ResizeObserver change of the scene |
-| Stage | `280svh` with a `100svh` sticky frame; progress `−top / (height − innerHeight)`, clamped |
+| Stage | `280svh` with a `100svh` sticky frame after an intro in the flow (no words share the frame); progress `−top / (height − innerHeight)`, clamped; on phones the scene is a `64svh` band, `18svh` from the top, with the wall and the desk continued above and below it |
 | Warp window | flat until `.12`, placed from `.78`; `smoothstep` between |
 | Corners | `flat + (target − flat) × e` for each corner, then the homography from `(0,0) (W,0) (W,H) (0,H)` to them |
 | Solve | eight equations `u = (ax + by + c) / (gx + hy + 1)`, `v = (dx + ey + f) / (gx + hy + 1)`, Gaussian elimination with partial pivoting; three collinear corners return `null` |

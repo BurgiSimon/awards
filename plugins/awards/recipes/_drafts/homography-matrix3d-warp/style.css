@@ -32,11 +32,12 @@
   box-shadow: 0 40px 80px -30px rgb(58 32 18 / calc(0.55 * var(--lift, 1)));
 }
 
-.stage__caption { position: absolute; z-index: 4; left: var(--gutter); top: clamp(40px, 7svh, 72px); max-width: 30rem; display: grid; gap: 14px; }
-.stage__note { margin: 0; font-family: var(--font-mono); font-size: var(--label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-.stage__title { margin: 0; font-family: var(--font-display); font-size: clamp(2rem, 3.3vw, 3.25rem); font-weight: 600; line-height: 1; letter-spacing: -0.03em; }
-.stage__lede { margin: 0; max-width: 40ch; font-size: 1.0625rem; line-height: 1.45; }
-.stage__lede code, .how code { font-family: var(--font-mono); font-size: 0.9em; }
+/* The intro sits before the stage, in the flow, so no words ever share the frame with the warp. */
+.intro { min-height: 64svh; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: calc(var(--unit) * 12); align-content: end; align-items: end; padding-block: 96px calc(var(--unit) * 14); }
+.intro__note { grid-column: 1 / -1; margin: 0 0 calc(var(--unit) * 6); font-family: var(--font-mono); font-size: var(--label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.intro__title { margin: 0; max-width: 15ch; font-family: var(--font-display); font-size: clamp(2.5rem, 5.6vw, 6.25rem); font-weight: 600; line-height: 0.95; letter-spacing: -0.035em; }
+.intro__lede { margin: 0; max-width: 42ch; font-size: clamp(1.0625rem, 1.3vw, 1.25rem); line-height: 1.45; }
+.intro code, .how code { font-family: var(--font-mono); font-size: 0.9em; }
 
 /* The app: a sequencer in em units of a font size set by the screen's own width. */
 .app { position: absolute; inset: 0; display: grid; grid-template-rows: auto auto 1fr auto; font-family: var(--font-body); font-size: 2.6cqw; line-height: 1.2; }
@@ -93,12 +94,13 @@
 html[data-motion="reduced"] .stage, html[data-motion="static"] .stage { height: auto; }
 html[data-motion="reduced"] .stage__sticky, html[data-motion="static"] .stage__sticky { position: relative; }
 
-/* Phones: the scene takes the top of the frame (its slice crop keeps the laptop), the words sit under it. */
+/* Phones: a portrait frame cannot hold the whole laptop at full height, so the scene is a band across the middle
+   (its slice crop keeps the laptop) and the wall and the desk run on above and below it. */
 @media (max-width: 760px) {
-  .scene { bottom: auto; height: 58svh; }
-  .stage__caption { top: calc(58svh + 20px); right: var(--gutter); max-width: none; gap: 10px; }
-  .stage__title { font-size: clamp(1.625rem, 7vw, 2.25rem); }
-  .stage__lede { font-size: 1rem; }
+  .intro { grid-template-columns: minmax(0, 1fr); row-gap: calc(var(--unit) * 6); min-height: 70svh; }
+  .stage__sticky { background: linear-gradient(180deg, #e8cbb2 0 50%, #5a321d 50% 100%); }
+  .scene { top: 18svh; bottom: auto; height: 64svh; }
+  .scene__light { display: none; }   /* the window's light would end at the band's edges */
   .how__cols { grid-template-columns: minmax(0, 1fr); }
 }
 

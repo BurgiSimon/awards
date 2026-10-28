@@ -13,7 +13,13 @@
 <body>
   <a class="skip-link sr-only" href="#main">Skip to content</a>
   <main id="main">
-    <section class="stage" data-stage aria-labelledby="stage-t">
+    <section class="intro wrap" aria-labelledby="intro-t">
+      <p class="intro__note">Synthetic demo · recipe draft</p>
+      <h1 class="intro__title" id="intro-t">A live screen, set into the picture by its four corners</h1>
+      <p class="intro__lede">The app below is ordinary HTML: select its name, tab to its button. Scroll, and one <code>matrix3d</code> carries it from flat into the laptop on the desk, solved from four points measured off the drawing.</p>
+    </section>
+
+    <section class="stage" data-stage aria-label="A laptop on a desk, with the demo app">
       <div class="stage__sticky">
         <div class="scene" data-scene>
           <svg class="scene__art" data-scene-art viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
@@ -25,7 +31,7 @@
             </defs>
             <rect width="1600" height="1000" fill="url(#wall)"/>
             <!-- Afternoon light from a window off the frame, on the wall and on the desk. -->
-            <polygon points="1050,0 1430,0 1330,560 990,540" fill="#f2dcc6" opacity=".55"/>
+            <polygon class="scene__light" points="1050,0 1430,0 1330,560 990,540" fill="#f2dcc6" opacity=".55"/>
             <g transform="translate(1196 128)">
               <rect width="232" height="172" fill="#6b4a33"/>
               <rect x="10" y="10" width="212" height="152" fill="#f3ebdd"/>
@@ -37,7 +43,7 @@
             <g fill="none" stroke="#4a2915" stroke-opacity=".35" stroke-width="2">
               <path d="M0 724C400 716 900 704 1600 694"/><path d="M0 796C500 784 1000 776 1600 766"/><path d="M0 884C600 870 1100 864 1600 856"/><path d="M0 962C500 952 1200 946 1600 942"/>
             </g>
-            <polygon points="990,640 1330,628 1470,1000 1080,1000" fill="#d39363" opacity=".22"/>
+            <polygon class="scene__light" points="990,640 1330,628 1470,1000 1080,1000" fill="#d39363" opacity=".22"/>
             <!-- A plant, a mug, a notebook and a pencil. -->
             <ellipse cx="300" cy="712" rx="74" ry="11" fill="#3a2012" opacity=".3"/>
             <path d="M300 600C240 520 200 470 168 380C232 430 280 500 300 600Z" fill="#56723f"/>
@@ -92,12 +98,6 @@
             <defs><linearGradient id="glare" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".18"/><stop offset=".42" stop-color="#fff" stop-opacity=".04"/><stop offset=".43" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>
             <polygon points="546,298 1012,325 1004,612 556,630" fill="url(#glare)"/>
           </svg>
-        </div>
-
-        <div class="stage__caption">
-          <p class="stage__note">Synthetic demo · recipe draft</p>
-          <h1 class="stage__title" id="stage-t">A live screen, set into the picture by its four corners</h1>
-          <p class="stage__lede">The app is ordinary HTML: select its name, tab to its button. Scroll, and one <code>matrix3d</code> carries it from flat into the laptop, solved from four points measured off the drawing.</p>
         </div>
       </div>
     </section>

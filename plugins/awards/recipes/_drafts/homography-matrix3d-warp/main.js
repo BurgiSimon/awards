@@ -60,8 +60,7 @@ function measure() {
   const sw = scene.clientWidth, sh = scene.clientHeight;
   const W = Math.round(Math.min(MAX_W, sw * FILL, sh * TALL * ASPECT));
   const H = Math.round(W / ASPECT);
-  const cx = sw >= 900 ? sw * 0.6 : sw / 2;   // wide: flat to the right of the caption; narrow: centred
-  const left = Math.round(cx - W / 2), top = Math.round((sh - H) / 2);
+  const left = Math.round((sw - W) / 2), top = Math.round((sh - H) / 2);
   Object.assign(screen.style, { inset: 'auto', margin: '0', aspectRatio: 'auto', width: `${W}px`, height: `${H}px`, left: `${left}px`, top: `${top}px` });
   const ctm = art.getScreenCTM();
   const box = scene.getBoundingClientRect();

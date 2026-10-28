@@ -165,7 +165,13 @@ function arm() {
 }
 addEventListener('scroll', arm, { passive: true });
 
-// Demo controls: publish the held entry and come back (a reload is a return visit), or forget everything.
+// Demo controls: publish the held entry and come back (a reload is a return visit), or forget everything. A return
+// visit starts at the top, as arriving from elsewhere would, not at the restored scroll position of the demo strip.
+function revisit() {
+  history.scrollRestoration = 'manual';
+  scrollTo(0, 0);
+  location.reload();
+}
 if (store.mode === 'local') {
   note.textContent = 'This page keeps your read marks in this browser, on this device only.';
   if (data.published.includes(heldId)) {
@@ -176,9 +182,9 @@ if (store.mode === 'local') {
     if (publishBtn.getAttribute('aria-disabled') === 'true') return;
     data.published = [...new Set([...data.published, heldId])];
     store.save(data);
-    location.reload();
+    revisit();
   });
-  resetBtn.addEventListener('click', () => { store.clear(); location.reload(); });
+  resetBtn.addEventListener('click', () => { store.clear(); revisit(); });
 } else {
   note.textContent = 'This browser is refusing site storage, so your read marks last only until you leave the page.';
   for (const b of [publishBtn, resetBtn]) {
