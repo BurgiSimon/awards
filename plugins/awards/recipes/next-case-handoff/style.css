@@ -1,0 +1,45 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+:root {
+  --card-ground: var(--ground);
+  --card-ink: var(--ink);
+}
+
+/* The bar sits over the hero's moving plate, so it carries its own scrim. */
+.bar { position: absolute; inset: 0 0 auto 0; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: calc(var(--unit) * 4); min-height: 64px; padding-bottom: 24px; color: var(--ground); background: linear-gradient(to bottom, rgb(0 0 0 / 0.55), rgb(0 0 0 / 0)); }
+.bar__brand { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; }
+.bar .label { margin: 0; color: inherit; }
+.bar :focus-visible { outline-color: var(--ground); }
+
+/* The hero and the footer's frame share one geometry, so the frame, once lifted to the top and unwound, is exactly
+   where the next page's hero will be. */
+.case-hero, .next__frame { position: relative; display: block; height: 100svh; overflow: hidden; background: var(--ink); }
+.plate { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.card { position: absolute; left: var(--gutter); top: 24svh; display: block; width: min(64vw, 56rem); padding: calc(var(--unit) * 5) calc(var(--unit) * 6) calc(var(--unit) * 7); background: var(--card-ground); color: var(--card-ink); transform-origin: 100% 0; }
+.card__meta { display: flex; flex-wrap: wrap; gap: 0 calc(var(--unit) * 6); margin: 0 0 calc(var(--unit) * 5); font-family: var(--font-mono); font-size: var(--label); letter-spacing: 0.08em; text-transform: uppercase; }
+.card__title { display: block; margin: 0; font-family: var(--font-display); font-size: clamp(2.5rem, 7.2vw, 7.5rem); font-weight: 600; line-height: 0.9; letter-spacing: -0.035em; overflow-wrap: anywhere; outline-offset: 8px; }
+
+.case-body { display: grid; gap: calc(var(--unit) * 8); padding-block: calc(var(--unit) * 24); max-width: 72rem; }
+.case-body__lede { margin: 0; font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.75rem); line-height: 1.15; letter-spacing: -0.015em; max-width: 30ch; }
+.case-body p { margin: 0; max-width: 60ch; }
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: calc(var(--unit) * 6); margin: 0; border-top: 1px solid var(--line); padding-top: calc(var(--unit) * 5); }
+.facts dt { font-family: var(--font-mono); font-size: var(--label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.facts dd { margin: calc(var(--unit) * 2) 0 0; }
+
+/* The close: the label, then the next case's hero, clipped to what fits under it. */
+.next { position: relative; height: 72svh; overflow: clip; border-top: 1px solid var(--line); }
+.next__link { display: block; color: inherit; text-decoration: none; }
+.next__link:focus-visible { outline: none; }
+.next__link:focus-visible .next__label { outline: 2px solid var(--accent); outline-offset: -6px; }
+.next__label { display: flex; align-items: center; justify-content: space-between; min-height: 44px; padding-block: calc(var(--unit) * 5); font-family: var(--font-display); font-size: clamp(2.5rem, 7vw, 7rem); font-weight: 600; line-height: 0.9; letter-spacing: -0.035em; }
+.next__link:hover .next__label { text-decoration: underline; text-decoration-thickness: 0.06em; text-underline-offset: 0.12em; }
+/* During the hand-off the frame is lifted out of the clip (fixed at its own rect) and above everything. */
+.next__frame.is-lifting { z-index: 20; }
+
+@media (max-width: 760px) {
+  .card { width: auto; right: var(--gutter); top: 20svh; padding: calc(var(--unit) * 4) calc(var(--unit) * 4) calc(var(--unit) * 5); }
+  .card__meta { gap: 0 calc(var(--unit) * 3); }
+  .facts { grid-template-columns: minmax(0, 1fr); }
+  .next { height: 64svh; }
+}

@@ -54,6 +54,9 @@ const OVERRIDES = {
   'gl-dom-refraction-lens': 'hero',
   'gl-pointer-wake-reveal': 'wake',
   'point-cloud-shape-morph': 'shape1',
+  'footer-credits-hinge': 'open',
+  'overprint-marker-index': 'hover',
+  'next-case-handoff': 'footer',
 };
 
 export function pickState(id, states) {

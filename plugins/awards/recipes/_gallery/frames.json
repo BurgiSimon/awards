@@ -8,7 +8,7 @@
     "width": 800,
     "height": 500
   },
-  "total": 1304750,
+  "total": 1365090,
   "sheet": {
     "file": "sheet.webp",
     "tile": {
@@ -39,6 +39,7 @@
       "filmstrip-index-rows",
       "flicker-text",
       "flip-layout-state",
+      "footer-credits-hinge",
       "gl-arc-length-mask-reveal",
       "gl-built-studio-environment",
       "gl-depth-map-parallax",
@@ -77,7 +78,9 @@
       "magnetic-button",
       "marquee-raf-mask",
       "nav-overlay-fullscreen",
+      "next-case-handoff",
       "offscreen-canvas-worker",
+      "overprint-marker-index",
       "page-transitions",
       "persistent-mode-switch",
       "physics-pile-matter",
@@ -242,6 +245,12 @@
       "scroll": null,
       "captured": "2026-10-26",
       "bytes": 16866
+    },
+    "footer-credits-hinge": {
+      "state": "open",
+      "scroll": null,
+      "captured": "2026-10-28",
+      "bytes": 19476
     },
     "gl-arc-length-mask-reveal": {
       "state": "half",
@@ -471,11 +480,23 @@
       "captured": "2026-10-26",
       "bytes": 13454
     },
+    "next-case-handoff": {
+      "state": "footer",
+      "scroll": 1,
+      "captured": "2026-10-28",
+      "bytes": 20082
+    },
     "offscreen-canvas-worker": {
       "state": "worker",
       "scroll": 0,
       "captured": "2026-10-26",
       "bytes": 6944
+    },
+    "overprint-marker-index": {
+      "state": "hover",
+      "scroll": null,
+      "captured": "2026-10-28",
+      "bytes": 20782
     },
     "page-transitions": {
       "state": "top",

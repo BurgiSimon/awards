@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>overprint-marker-index — awards recipe</title>
+  <meta name="description" content="A project index with one overprint marker: a multiply-blended bar that cuts to the row under the pointer, the keyboard or the reading line, never slides, and tints whatever it covers.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f4f2ee'/%3E%3Crect y='12' width='32' height='8' fill='%230016cb'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="bar wrap">
+    <a class="bar__brand" href="#top">Corve &amp; Lisle</a>
+    <p class="label">Architects · synthetic demo</p>
+  </header>
+  <main id="main">
+    <section class="intro wrap" id="top" aria-labelledby="intro-t">
+      <p class="label">Recipe · the index</p>
+      <h1 class="intro__title" id="intro-t">Index <span class="intro__count">[14]</span></h1>
+      <p class="intro__lede">One marker for the whole list. It overprints the row you point at, tab to or read past, and it cuts from row to row instead of sliding, like a gel laid on a contact sheet.</p>
+    </section>
+    <section class="index wrap" aria-labelledby="index-t">
+      <h2 class="sr-only" id="index-t">Projects</h2>
+      <div class="index__head" role="group" aria-label="Sort projects">
+        <span class="index__h index__h--plate" aria-hidden="true"></span>
+        <button type="button" class="index__h" data-sort="year" aria-pressed="true">Year <span class="index__dir" aria-hidden="true">↓</span></button>
+        <button type="button" class="index__h" data-sort="title" aria-pressed="false">Project <span class="index__dir" aria-hidden="true"></span></button>
+        <button type="button" class="index__h index__h--wide" data-sort="client" aria-pressed="false">Client <span class="index__dir" aria-hidden="true"></span></button>
+        <button type="button" class="index__h index__h--wide" data-sort="type" aria-pressed="false">Type <span class="index__dir" aria-hidden="true"></span></button>
+      </div>
+      <ol class="index__list" data-list>
+        <li class="row" data-year="2026" data-title="Saltings Boathouse" data-client="Estuary Trust" data-type="Civic" style="--h: 196"><a class="row__link" href="#saltings"><span class="row__plate" aria-hidden="true"></span><span class="row__year">2026</span><span class="row__title">Saltings Boathouse</span><span class="row__client">Estuary Trust</span><span class="row__type">Civic</span></a></li>
+        <li class="row" data-year="2025" data-title="Kiln Row Houses" data-client="Brickfield Co-op" data-type="Housing" style="--h: 18"><a class="row__link" href="#kiln"><span class="row__plate" aria-hidden="true"></span><span class="row__year">2025</span><span class="row__title">Kiln Row Houses</span><span class="row__client">Brickfield Co-op</span><span class="row__type">Housing</span></a></li>
+        <li class="row" data-year="2025" data-title="Orchard Reading Room" data-client="Parish of Hale" data-type="Library" style="--h: 96"><a class="row__link" href="#orchard"><span class="row__plate" aria-hidden="true"></span><span class="row__year">2025</span><span class="row__title">Orchard Reading Room</span><span class="row__client">Parish of Hale</span><span class="row__type">Library</span></a></li>
+        <li class="row" data-year="2024" data-title="Weir Pavilion" data-client="River Board" data-type="Pavilion" style="--h: 168"><a class="row__link" href="#weir"><span class="row__plate" aria-hidden="true"></span><span class="row__year">2024</span><span class="row__title">Weir Pavilion</span><span class="row__client">River Board</span><span class="row__type">Pavilion</span></a></li>
+        <li class="row" data-year="2024" data-title="Bellhouse Studios" data-client="Private" data-type="Workplace" style="--h: 32"><a class="row__link" href="#bellhouse"><span class="row__plate" aria-hidden="true"></span><span class="row__year">2024</span><span class="row__title">Bellhouse Studios</span><span class="row__client">Private</span><span class="row__type">Workplace</span></a></li>
+        <li class="row" data-year="2023" data-title="Quarry Steps" data-client="Moorland Council" data-type="Landscape" style="--h: 60"><a class="row__link" href="#quarry"><span class="row__plate" aria-hidden="true"></span><span class="row__year">2023</span><span class="row__title">Quarry Steps</span><span class="row__client">Moorland Council</span><span class="row__type">Landscape</span></a></li>
+        <li class="row" data-year="2023" data-title="Ropewalk School" data-client="Northgate Trust" data-type="Education" style="--h: 216"><a class="row__link" href="#ropewalk"><span class="row__plate" aria-hidden="true"></span><span class="row__year">2023</span><span class="row__title">Ropewalk School</span><span class="row__client">Northgate Trust</span><span class="row__type">Education</span></a></li>
+        <li class="row" data-year="2022" data-title="Lantern Market" data-client="Old Town BID" data-type="Civic" style="--h: 42"><a class="row__link" href="#lantern"><span class="row__plate" aria-hidden="true"></span><span class="row__year">2022</span><span class="row__title">Lantern Market</span><span class="row__client">Old Town BID</span><span class="row__type">Civic</span></a></li>
+        <li class="row" data-year="2022" data-title="Tidewater Flats" data-client="Harbour Homes" data-type="Housing" style="--h: 184"><a class="row__link" href="#tidewater"><span class="row__plate" aria-hidden="true"></span><span class="row__year">2022</span><span class="row__title">Tidewater Flats</span><span class="row__client">Harbour Homes</span><span class="row__type">Housing</span></a></li>
+        <li class="row" data-year="2021" data-title="Glasshouse Annexe" data-client="Botanic Society" data-type="Museum" style="--h: 128"><a class="row__link" href="#glasshouse"><span class="row__plate" aria-hidden="true"></span><span class="row__year">2021</span><span class="row__title">Glasshouse Annexe</span><span class="row__client">Botanic Society</span><span class="row__type">Museum</span></a></li>
+        <li class="row" data-year="2020" data-title="Signal Box Cafe" data-client="Private" data-type="Hospitality" style="--h: 8"><a class="row__link" href="#signal"><span class="row__plate" aria-hidden="true"></span><span class="row__year">2020</span><span class="row__title">Signal Box Cafe</span><span class="row__client">Private</span><span class="row__type">Hospitality</span></a></li>
+        <li class="row" data-year="2019" data-title="Hayloft Archive" data-client="County Records" data-type="Library" style="--h: 76"><a class="row__link" href="#hayloft"><span class="row__plate" aria-hidden="true"></span><span class="row__year">2019</span><span class="row__title">Hayloft Archive</span><span class="row__client">County Records</span><span class="row__type">Library</span></a></li>
+        <li class="row" data-year="2018" data-title="Mill Lade Bridge" data-client="River Board" data-type="Infrastructure" style="--h: 204"><a class="row__link" href="#millade"><span class="row__plate" aria-hidden="true"></span><span class="row__year">2018</span><span class="row__title">Mill Lade Bridge</span><span class="row__client">River Board</span><span class="row__type">Infrastructure</span></a></li>
+        <li class="row" data-year="2017" data-title="Chapel Yard" data-client="Diocese Estates" data-type="Housing" style="--h: 24"><a class="row__link" href="#chapel"><span class="row__plate" aria-hidden="true"></span><span class="row__year">2017</span><span class="row__title">Chapel Yard</span><span class="row__client">Diocese Estates</span><span class="row__type">Housing</span></a></li>
+      </ol>
+      <span class="index__marker" data-marker aria-hidden="true"><span class="index__arrow">→</span></span>
+      <p class="sr-only" role="status" data-status></p>
+    </section>
+    <section class="chapter wrap" aria-labelledby="c-how">
+      <p class="label">How it moves</p>
+      <h2 id="c-how">A cut, not a slide.</h2>
+      <p>The marker is one element under the rows' text and over their plates, blended with multiply, so a plate under it takes the marker's colour while the paper around it does too. It moves by setting its offset to the row's own top, with no transition, which is why it reads as a gel laid down rather than a highlight chasing the pointer.</p>
+      <p>Keyboard focus moves it the same way, and on a touch screen it marks the row crossing a reading line two fifths of the way down the screen as you scroll.</p>
+    </section>
+  </main>
+  <footer class="wrap footer"><p class="label">Synthetic demo content · awards recipes · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
