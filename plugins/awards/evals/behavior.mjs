@@ -438,6 +438,9 @@ test('tools', 'after compaction the state card names the next phase and stays si
   assert.equal(said.hookEventName, 'SessionStart');
   assert.match(said.additionalContext, /4 of 9 done; next "Stack booted \(stack\)" → awards:stack/);
   assert.match(said.additionalContext, /Deep modes: motion gsap/);
+  assert.doesNotMatch(said.additionalContext, /Found pictures/, 'the unfilled template line says nothing');
+  fs.writeFileSync(path.join(dir, 'AWARDS.md'), md.replace(/^- Found pictures:.*$/m, '- Found pictures: off — the client licenses no outside pictures'));
+  assert.match(JSON.parse(await card()).hookSpecificOutput.additionalContext, /Found pictures: off — the client licenses no outside pictures/);
   fs.writeFileSync(path.join(dir, 'AWARDS.md'), md.replaceAll('- [ ]', '- [x]'));
   assert.equal(await card(), '', 'silent once every Status line is checked');
   fs.writeFileSync(path.join(dir, 'AWARDS.md'), md);
@@ -826,6 +829,17 @@ test('tools', 'the house ledger counts what builds share and flags a contract th
   fs.writeFileSync(path.join(fresh, 'AWARDS.md'), same('four'));
   assert.equal((await run('scripts/house-ledger.mjs', [...dirs, other, '--against', fresh])).code, 2, 'a contract sharing two or more spent features exits 2');
   assert.equal((await run('scripts/house-ledger.mjs', [...dirs, other, '--against', other])).code, 0, 'a different contract passes');
+  // Code-only imagery on a light ground shares two spent features; with found pictures off the imagery is the user's call.
+  const drawn = path.join(root, 'drawn');
+  fs.mkdirSync(drawn);
+  const drawnMd = contract('A field guide the visitor fills in.', 'Committed accent on a light ground because the guide is read outdoors. Imagery strategy: code — drawn SVG plates, no photography; open collections not searched.', 'A switch. Technique tier: DOM-only.');
+  fs.writeFileSync(path.join(drawn, 'AWARDS.md'), drawnMd);
+  assert.equal((await run('scripts/house-ledger.mjs', [...dirs, other, '--against', drawn])).code, 2, 'code-only imagery and a light ground: two spent features');
+  fs.writeFileSync(path.join(drawn, 'AWARDS.md'), drawnMd + '\n## Budgets & tiers\n- Found pictures: off — the client licenses no outside pictures\n');
+  const excused = await run('scripts/house-ledger.mjs', [...dirs, other, '--against', drawn, '--json']);
+  assert.equal(excused.code, 0, 'found pictures off: the imagery is not counted');
+  const report = JSON.parse(excused.stdout);
+  assert.deepEqual([report.build.imagery, report.build.foundPictures, report.excused.map((t) => t.feature), report.features], ['code-only', 'off', ['imagery'], 1]);
   // ENGINES lists the three dealt worlds; only the locked ENGINE is the build's, and an unlocked line counts none.
   const seeded = path.join(root, 'seeded');
   fs.mkdirSync(seeded);
@@ -864,6 +878,17 @@ test('tools', 'picture search keeps only open licences and get logs the credit',
   assert.match(log.credit, /Lifeboat station, 1902.*A\. Engraver.*CC BY-SA 1\.0/);
   const down = JSON.parse((await run('scripts/assets.mjs', ['search', 'salt', '--source', 'openverse', '--json', '--project', proj], { AWARDS_COLLECTION_OPENVERSE: `${url}missing.json` })).stdout);
   assert.equal(down.unreachable[0].source, 'openverse', 'a collection that fails is named, never fatal');
+  // `Found pictures: off` (craft --no-found-pictures) keeps the build off the collections until the line says search.
+  fs.writeFileSync(path.join(proj, 'AWARDS.md'), '# A\n\n## Budgets & tiers\n- Found pictures: off — the client licenses no outside pictures\n');
+  for (const argv of [['search', 'salt', '--source', 'openverse'], ['get', 'openverse:a1']]) {
+    const off = await execProj(argv);
+    assert.equal(off.code, 3, `${argv[0]} refuses while found pictures are off`);
+    assert.match(off.stderr, /found pictures are off/);
+  }
+  assert.equal(JSON.parse(fs.readFileSync(path.join(proj, '.awards/assets.json'), 'utf8')).assets.length, 1, 'nothing was downloaded or logged');
+  assert.equal((await execProj(['credits'])).code, 0, 'the asset log itself still works');
+  fs.writeFileSync(path.join(proj, 'AWARDS.md'), '# A\n\n## Budgets & tiers\n- Found pictures: search\n');
+  assert.equal((await execProj(['search', 'salt', '--source', 'openverse'])).code, 0, 'search again once the line says search');
 });
 
 test('audit', 'rendered frame rules: covered text, margins, lopsided and untitled sections, near-empty screens and a late title', async () => {

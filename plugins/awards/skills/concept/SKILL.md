@@ -1,7 +1,7 @@
 ---
 name: concept
 description: "Find the concept for an award-worthy site or component before any code: the one idea the page owns, its scroll story, the signature interaction and a committed visual world, diverging from a corpus of analysed award winners. Use when the user asks for ideas, creative direction, a 'big idea', storytelling or scrollytelling, 'how would an award-winning studio approach this', 'what would make this site win', or when a build has no direction yet. Deals three directions and a conventional exit with a seeded roll, locks one in a single question and writes the AWARDS.md contract. Never copies a reference site. Not for copywriting alone, dashboards or feature work."
-argument-hint: "[subject or brief] [--mode persuade|experience|read] [--reroll] [--component]"
+argument-hint: "[subject or brief] [--mode persuade|experience|read] [--reroll] [--component] [--no-found-pictures]"
 effort: high
 allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*)
 ---
@@ -67,7 +67,7 @@ Why: a page defaults four times when nobody names the defaults: to what its cate
 - its materials and colours, its rituals and hours (the oven lit at five, the ferry at seven);
 - the printed and made things of its world (a timetable, a label, a ticket, a logbook) and its people.
 
-An item a competitor could also claim ("hand-made", "quality", "the sea") is replaced. The inventory is also the picture search list for WORLD's imagery (`assets.mjs search`).
+An item a competitor could also claim ("hand-made", "quality", "the sea") is replaced. The inventory is also the picture search list for WORLD's imagery (`assets.mjs search`), unless found pictures are off.
 
 Then write seven lines in your working notes:
 - Mechanism: the inventory item only this subject can prove (a range, a process, a place, a person's plurality).
@@ -115,7 +115,7 @@ Write the three dealt worlds as full cards of equal weight, in `DEALT` order, th
 - Engine and source: the engine, and the inventory item (or the stimulus and the item) the world is built on.
 - Thesis: the object or behaviour and the four ruts it refuses, each as it would look for this subject.
 - Competitor test: the nearest real competitor's name in the thesis, and why the thesis no longer works for it.
-- World: colour strategy, temperature, light or dark and why, the character of the type voice, the material policy, and the imagery strategy with what supplies it (names, not hexes or faces; `awards:system` chooses those; `${CLAUDE_PLUGIN_ROOT}/references/patterns/imagery-and-assets.md` lists the strategies, and "none, flat grounds" is not one). With no assets on hand, the card names what the open collections hold of the subject's world (a query from the inventory) before it settles on made imagery.
+- World: colour strategy, temperature, light or dark and why, the character of the type voice, the material policy, and the imagery strategy with what supplies it (names, not hexes or faces; `awards:system` chooses those; `${CLAUDE_PLUGIN_ROOT}/references/patterns/imagery-and-assets.md` lists the strategies, and "none, flat grounds" is not one). With no assets on hand, the card names what the open collections hold of the subject's world (a query from the inventory) before it settles on made imagery; with found pictures off, it says so instead.
 - First viewport: the composition in one sentence; copy placement, nav form and action form come from the world.
 - Signature interaction and its technique tier: DOM-only · moments · canvas-first · 100 % canvas (the rungs of `[pattern:webgl-architecture#dosage-ladder]`).
 - Scroll model: native + Lenis / sticky stages + invisible rails / virtual float / section switcher.
@@ -169,6 +169,7 @@ Why: the contract is only usable when the first screen, the world, the scroll mo
 - WORLD: the colour strategy by name (`[pattern:color-and-material#colour-strategies]`), the token count, light or dark and the reason the scene forces it, the type contract type and the character class of the display voice, the material policy. Faces and hexes belong to `awards:system`; the world must be recognisable with every word removed.
   - The colour strategy is dealt, not defaulted. List the strategies this world allows (at least two unless the brand fixes one, and then say so), and run `node "${CLAUDE_PLUGIN_ROOT}/scripts/roll.mjs" --choose <allowed,…> --label colour --seed <key> --avoid <the strategy the latest house-tells wave lists>`. Write the `CHOSEN` strategy and one sentence on why it fits; taking the avoided strategy anyway needs the scene's reason in WORLD. Restrained duotone is the corpus mode (21 cards), so it is never the strategy by default.
   - The imagery strategy follows `[pattern:imagery-and-assets#choosing-one]`: the client's own pictures first; with none, real pictures of the subject's world from the open collections, searched from the inventory (`assets.mjs search`); made imagery (drawn, procedural, CSS-built, type) only for what no honest picture shows, and then with three levels of detail. Code-only imagery while an honest found picture exists is the plugin rut, not a choice.
+  - Found pictures off: when `## Budgets & tiers` says `Found pictures: off`, or this run got `--no-found-pictures` (write that line first, with the reason), skip the search. Take the client's own pictures first, then the made strategies in their order, and write `found pictures off (<the reason>)` in WORLD in place of what the search found. Made imagery keeps its three levels of detail, and the colour deal still avoids the house strategy: code-only imagery on a light restrained duotone is still the house shape.
 - SCROLL MODEL: one of the four with the reason this story needs it; native + Lenis is the default, a virtual float only when the story must gate or hold, a section switcher only for a short loop.
 - LOAD & CLOSE: the preloader archetype and its real load signal (`[pattern:preloaders-and-transitions#the-load-contract]`), the repeat-visit rule, what the last screen is, that the 404 ships with the first release.
 - FINISH: the template's line, verbatim.
@@ -180,8 +181,8 @@ Why: the block names are read by every other skill, the hook and the evals; a pa
 1. Open `AWARDS.md` (create it from `${CLAUDE_PLUGIN_ROOT}/assets/templates/AWARDS.md` when absent) and write `## Direction contract` with the blocks in the template's order and exact names: THESIS, WORLD, STORY, FIRST VIEWPORT, SIGNATURE, SCROLL MODEL, LOAD & CLOSE, DIVERGENCE, FINISH, Seed.
 2. Write the `## Page map` skeleton: one row per chapter or route with `#`, `Chapter / route` and `Beat (entrance · hold · exit)` filled from STORY; leave `Layout`, `Components (recipe id: keep · change · pair)` and `Notes` for `awards:structure`. A faceted world lists every route, the 404 included.
 3. THESIS ends with the competitor line: `Competitor test: <nearest competitor> — <why the thesis breaks for it>`. The Seed field carries the whole Seed line from Step 4 with the locked engine (`SEED … · DEALT … · ENGINES … · STIMULI … · ENGINE …`).
-4. When the project or the plugin's repository holds earlier builds, run `node "${CLAUDE_PLUGIN_ROOT}/scripts/house-ledger.mjs" <earlier build dirs…> --against AWARDS.md`; exit 2 (two or more spent features shared) sends the direction back unless THESIS already names each with the reason this subject earns it.
-5. Tick "Direction contract locked (concept)" in `## Status`. Touch no other section, except the `Inventory` line of `## Brief` written in Step 1.
+4. When the project or the plugin's repository holds earlier builds, run `node "${CLAUDE_PLUGIN_ROOT}/scripts/house-ledger.mjs" <earlier build dirs…> --against AWARDS.md`; exit 2 (two or more spent features shared) sends the direction back unless THESIS already names each with the reason this subject earns it. With found pictures off, it does not count code-only imagery and says so.
+5. Tick "Direction contract locked (concept)" in `## Status`. Touch no other section, except the `Inventory` line of `## Brief` written in Step 1 and the `Found pictures:` line when this run got `--no-found-pictures`.
 6. Keep the seven worlds and the dealt cards in the reply, not in the file; the file carries the decision, the seed, the engines and the stimuli.
 
 ### `--component`: the mini contract
@@ -212,7 +213,7 @@ When the user wants options for a component, run Steps 3 and 4 with three worlds
 - [ ] `roll.mjs` was actually run (`--stimulus`, then `--deal` with `--engines`, and `--choose` for the colour strategy); the Seed field holds the whole line; re-rolls used the same seed and tags.
 - [ ] The conventional exit was offered and its ceiling stated; the user locked the direction in one round, or, unattended, your pick among the dealt three was locked with its reason stated.
 - [ ] The visitor mode (from the brief or `--mode`) is honoured: no gate before content in persuade, a rail out in experience, the index on screen one in read.
-- [ ] `## Status` shows "Direction contract locked (concept)" ticked and nothing else changed but the `Inventory` line.
+- [ ] `## Status` shows "Direction contract locked (concept)" ticked and nothing else changed but the `Inventory` line (and the `Found pictures:` line under `--no-found-pictures`).
 
 ## Hand-off
 
@@ -224,7 +225,7 @@ The next phase belongs to `awards:system`, which needs the WORLD block and the b
 - Effect as concept ("a WebGL hero with distortion", "particles that react to the cursor"): an effect is a technique tier, and a technique is not an idea.
 - The category rut, the Awwwards rut, the template skeleton and the plugin rut, however the user phrases the request; all four are named in THESIS as refusals, written for this subject rather than copied from the template.
 - An idea that still works with the nearest competitor's name in it, a world tagged with no engine, seven worlds on fewer than four engines, and stimuli dealt after the worlds were written.
-- Code-only imagery chosen before the open collections were searched, and the corpus's modal colour strategy taken without a deal or a reason.
+- Code-only imagery chosen before the open collections were searched while found pictures are on, and the corpus's modal colour strategy taken without a deal or a reason.
 - Any card's signature, section order, copy, palette, type pairing or asset, including when the user asks for "something like" a named site; the card's principle is offered instead.
 - A direction that needs assets the user cannot supply (a commissioned object per variant, drone footage, a full bake pipeline) unless the brief labels them synthetic and they can be authored for the build.
 - A deal without the script, an undealt world locked or offered, three variants of one idea presented as three worlds, any option beyond the dealt cards, the exit and re-roll, more than two re-rolls, a second question round.

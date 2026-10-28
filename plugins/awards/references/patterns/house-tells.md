@@ -41,7 +41,7 @@ Why: every rule behind the wave is sound alone; knowing which rule pulls where i
 
 - Concept Step 1 writes the plugin rut as a fourth line: the devices from the latest wave this direction would use. A contract may use one, with its "earned when" written into THESIS; two or more send the direction back.
 - Concept Step 3 tags every world with an engine; the latest wave's spent engines go to `roll.mjs --avoid`, which deals other engines first and says so when it cannot.
-- The jury's slop scan treats the latest wave as a family, `House concept`: two or more of its devices present, unearned, count as one family, and two families cap Creativity at 6 as before.
+- The jury's slop scan treats the latest wave as a family, `House concept`: two or more of its devices present, unearned, count as one family, and two families cap Creativity at 6 as before. A build whose `AWARDS.md` says `Found pictures: off` made its imagery by the user's choice, so its code-only imagery is earned; the finish bar still applies.
 - The registry names procedures, never replacement devices: a list of "use this instead" becomes the next wave.
 
 ## Refreshing it
@@ -60,5 +60,5 @@ Why: every rule behind the wave is sound alone; knowing which rule pulls where i
 
 - A thesis that begins "The page is" because it is the shortest way to pass the memory test.
 - A readout added so that a metaphor can do wayfinding.
-- Code-only imagery chosen before the open collections were searched.
+- Code-only imagery chosen before the open collections were searched, unless the user turned found pictures off.
 - Rewriting an earlier wave to make a recurring device look new.

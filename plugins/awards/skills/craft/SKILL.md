@@ -1,7 +1,7 @@
 ---
 name: craft
 description: "Design and build award-worthy websites end to end (Site of the Day and Developer Award league): brief → concept → system → structure → stack → motion → WebGL → jury → ship. Use when the user wants a site, landing page, portfolio, campaign, product or studio site that should be 'award-worthy', 'award-level', 'immersive', 'cinematic', 'creative-developer style', with smooth scroll, GSAP or WebGL, names studios or award sites (Lusion, Igloo, Lando Norris), or says 'make it stunning'. The entry point when unsure which awards skill applies; owns AWARDS.md. Not for dashboards, admin CRUD, bug fixes, API docs or accessibility work without award framing."
-argument-hint: "[brief | site | redesign <url|dir> | component | resume | status | jury | ship] [target] [--quick] [--gsap|--shader|--3d]"
+argument-hint: "[brief | site | redesign <url|dir> | component | resume | status | jury | ship] [target] [--quick] [--gsap|--shader|--3d] [--no-found-pictures|--found-pictures]"
 allowed-tools: Bash(node ${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(node "${CLAUDE_PLUGIN_ROOT}/scripts/*), Bash(npm run build)
 ---
 
@@ -63,6 +63,8 @@ Why: skills cannot call each other programmatically, so the routing is a written
 | `jury`, `ship` | one phase | Invoke that skill with the routing line of its phase row |
 | Dashboard charts, admin CRUD, state bugs, API docs, a Tailwind conversion, plain accessibility fixes | out of scope | Say so in one line and stop; no awards skill applies |
 
+A `--no-found-pictures` or `--found-pictures` argument combines with any row above: apply `## Found pictures off` first, then route.
+
 A component request inside a project that already has `AWARDS.md` and `DESIGN.md` still routes to `awards:component`; it inherits the world from those files instead of opening a new concept round.
 
 ### The status menu
@@ -80,6 +82,14 @@ Why: a full build costs well over a hundred turns, and a one-page brief does not
 - Phases 2 and 3 run as one: invoke `awards:system` with `--quick`; it hands straight to `awards:structure --quick`, and you check both exit artefacts once, after structure returns. The hero probe still runs.
 - No component passes: skip the static-checkpoint jury before motion and the one after webgl. Motion covers the signature, the hero entrance and the reveals; webgl runs only when SIGNATURE is canvas or GL.
 - One page jury round and one ship pass. A verdict pass runs only when the user asks for it; otherwise ship records its fixes and the build ends on its ship report, with `quick` in the Ship log line.
+
+## Found pictures off
+
+Why: with no assets on hand, the workflow searches the open collections for real pictures of the subject's world before it makes any imagery. Some builds must not take outside pictures at all (a client's licensing policy, an offline machine, photographs that arrive later, a page meant to be drawn), so the user can switch the search off for one build.
+
+- `--no-found-pictures`, or a brief that rules out outside pictures (nothing downloaded, no open collections, no third-party images), writes `Found pictures: off — <the user's reason, or "--no-found-pictures">` on the `## Budgets & tiers` line, whatever phase the build is in. Every phase reads that line. Concept skips the search and chooses from the client's own pictures and the made strategies. `assets.mjs search` and `get` refuse while the line says off. The jury does not count code-only imagery as a `House concept` row, and `house-ledger.mjs --against` does not count it as a spent feature.
+- It switches off the search, not the finish: made imagery still needs its three levels of detail, and every other house tell still counts.
+- It lasts for this build only. `--found-pictures`, or setting the line to `search`, turns the rule back on. Turned back on after the contract locked, it holds the rest of the build to the search: before the next jury, which counts code-only imagery again, rerun concept or revise WORLD's imagery line from an `assets.mjs search`.
 
 ## Redesign mode
 
@@ -101,7 +111,7 @@ Why: every later decision is derived from seven facts, and a wrong guess about t
    When the user names sites they like, record at most two under **References the user likes** without spending a question on it; this is the only way their taste reaches the deal.
 3. Assert your likely reading of everything you did not ask ("I read this as a persuade site for buyers who see it on a phone between meetings; correct me") so the user edits instead of composes.
 4. Never ask for CSS values, fonts, colours or effects; those are outputs of later phases.
-5. Write `## Brief` with every field filled (the `Inventory` line from what the user said and the brief holds — names, places, numbers, the one constraint; concept completes it to eight to twelve items), label every asset that will be authored for the build as synthetic, set the visitor mode (persuade / experience / read), and tick "Brief captured". A `--gsap`, `--shader` or `--3d` argument, or a brief that asks for deep GSAP, shader or 3D work, is written to the `Deep modes:` line of `## Budgets & tiers` now; motion and webgl confirm or set it themselves.
+5. Write `## Brief` with every field filled (the `Inventory` line from what the user said and the brief holds — names, places, numbers, the one constraint; concept completes it to eight to twelve items), label every asset that will be authored for the build as synthetic, set the visitor mode (persuade / experience / read), and tick "Brief captured". A `--gsap`, `--shader` or `--3d` argument, or a brief that asks for deep GSAP, shader or 3D work, is written to the `Deep modes:` line of `## Budgets & tiers` now; motion and webgl confirm or set it themselves. A `--no-found-pictures` argument, or a brief that rules out outside pictures, is written to the `Found pictures:` line now (`## Found pictures off` above); otherwise write `search`.
 6. Ask once whether to commit at phase boundaries; a jury `rebuild` then has a known state to return to.
 
 ### Visitor modes

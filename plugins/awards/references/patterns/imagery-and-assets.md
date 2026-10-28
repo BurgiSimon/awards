@@ -45,6 +45,7 @@ Why: imagery is the most expensive part of a world to change late, so the contra
 - Write the strategy into WORLD, one line: the strategy by name, what supplies it (the client's photographs, a named open collection, a generation tool, a drawn language, code), and what is refused.
 - Assets on hand decide first. Real photographs of the subject beat everything else for Content; use them and design the crops. When there are none, search the open collections from the inventory before choosing anything else (`node "${CLAUDE_PLUGIN_ROOT}/scripts/assets.mjs" search "<inventory item>"`), then choose from the plugin strategies above in their order, never from stock.
 - WORLD that settles on made imagery says what the search found and why none of it fits; "photography refused" without a search is the plugin rut, not a decision.
+- Found pictures off: `Found pictures: off` on the `## Budgets & tiers` line of `AWARDS.md` (craft or concept `--no-found-pictures`, or a brief that rules out outside pictures) removes strategy 1 for that build. Nothing is searched or downloaded from the collections (`assets.mjs search` and `get` refuse), and WORLD writes `found pictures off` with the reason in place of what the search found. The client's own pictures still come first, the other strategies keep their order, and made imagery keeps its finish. Setting the line back to `search` restores the rule.
 - The strategy follows the visitor mode: read-led sites carry imagery that rewards a second look; experience-led sites can let the rendered world be the image; persuade-led sites need the product or the people, as they are.
 - One strategy per site, with at most one secondary (a documentary site may draw its diagrams). Mixing three reads as a mood board.
 - Placeholders are labelled synthetic in the brief and in the asset log until they are replaced, and the page map says where each real asset goes.
@@ -109,7 +110,7 @@ Why: credits, licences and synthetic labels are content the jury can see and a c
 
 ## Verify
 
-- [ ] WORLD names one imagery strategy, what supplies it and what it refuses; with no assets on hand, it says what `assets.mjs search` found for the inventory before any made imagery was chosen.
+- [ ] WORLD names one imagery strategy, what supplies it and what it refuses; with no assets on hand, it says what `assets.mjs search` found for the inventory before any made imagery was chosen, or that found pictures are off and why.
 - [ ] Made imagery has three levels of detail and one graphic language.
 - [ ] The jury had `metrics.<viewport>.pictures` from the capture manifest beside the frames.
 - [ ] Every shipped image, video and mesh has an entry in `.awards/assets.json`; `assets.mjs check` is clean.
@@ -119,7 +120,7 @@ Why: credits, licences and synthetic labels are content the jury can see and a c
 ## Refuse
 
 - "Assets: none" as a final answer, and a flat ground standing in for a decision.
-- Code-only imagery chosen before the open collections were searched, and a found picture presented as the client's own.
+- Code-only imagery chosen before the open collections were searched while found pictures are on, and a found picture presented as the client's own.
 - A sentence on the page about where the pictures come from; captions say what a picture shows.
 - Stock photography that would fit any company in the category.
 - Images lifted from award galleries, competitor sites or the research captures.

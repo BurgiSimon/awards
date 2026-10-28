@@ -111,6 +111,12 @@ Decisions taken during the build, with the reason, so a future session does not 
 | Contrast set | Rule hits only, template demos first, owner policy first, no pages stored; a row is re-measured whenever `audit.mjs` or `rules.json` changes. A rendered rule that fires on most measured winners is read as the genre's habit and narrowed or demoted, never kept at P0–P2 as it is (L11 and S11, 2026-10-26) | Cards for unawarded sites; stored captures; keeping a rule that fires on six of seven winners because the plugin's own builds passed it |
 | Version | 1.0.0, a major version at the maintainer's request: the concept round, the Brief, the Seed line and two P2 rules changed what a build is asked to do. No blind round has measured it yet (todo, Release 1.0.0 item 1) | 0.9.0, the version first proposed until a blind round had measured the change |
 
+## Taken with the user (2026-10-28, found pictures off)
+
+| Decision | Choice | Alternatives declined |
+|---|---|---|
+| Opting out of found pictures | A per-build switch: `--no-found-pictures` on craft or concept, or the brief's own words, recorded as `Found pictures: off` on the `## Budgets & tiers` line beside `Mode:` and `Deep modes:`. Every phase, the forked jury and the state card read it there. While it stands, `assets.mjs search` and `get` refuse (exit 3), and the jury and `house-ledger.mjs --against` stop counting code-only imagery. The finish bar for made imagery and the other house tells stay | A plugin-wide `userConfig` setting (the user asked for a temporary switch, and a standing default would bring the 2026-10-23 rut back to every build); an environment variable (invisible to the forked jury and to a resumed session); dropping the found-pictures order (the 1.0 decision above) |
+
 ## Architectural
 
 - **Corpus at the plugin root**, addressed as `${CLAUDE_PLUGIN_ROOT}/references/…`, `…/recipes/…`, `…/scripts/…`; skill folders hold no private copies. Copying a single skill folder elsewhere is unsupported.

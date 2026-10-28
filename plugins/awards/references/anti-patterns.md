@@ -134,7 +134,7 @@ Paper ground, tracked mono labels and hairlines together count as one register, 
 | Torn or jagged image masks | judge | The edge is the concept `[site:serotoninn]` |
 | Images buried under a near-opaque overlay | judge | — |
 | A fake dashboard of grey bars, donut charts and lorem figures standing in for a product's interface | judge | The product's own interface built in HTML with data that adds up `[pattern:imagery-and-assets#strategies]` |
-| Every picture made in code while open collections hold honest pictures of the subject's world | judge (the capture manifest's `pictures` metrics help) | The subject truly has none, and the made imagery has three levels of detail `[pattern:imagery-and-assets#finish-for-made-imagery]` |
+| Every picture made in code while open collections hold honest pictures of the subject's world | judge (the capture manifest's `pictures` metrics help) | The subject truly has none, or `AWARDS.md` says `Found pictures: off`; in both cases the made imagery has three levels of detail `[pattern:imagery-and-assets#finish-for-made-imagery]` |
 | A sentence on the page about where the pictures come from or what they are not | judge | — (the credit sits in the footer or on the credits page) |
 
 ### Substance
@@ -154,7 +154,7 @@ This plugin's own latest defaults, dated in `references/patterns/house-tells.md`
 |---|---|---|
 | A thesis that begins "The page is [an object]" | judge (`house-ledger.mjs --against` counts it) | The object is this client's own and no competitor's |
 | The scroll as the engine of a physical process, with a numeric readout of it in the margin as wayfinding | judge | The sequence and the instrument are the subject's real ones, and its audience reads them |
-| Code-only imagery on a light restrained duotone with one accent | judge | The scene forces it and the open collections hold nothing honest |
+| Code-only imagery on a light restrained duotone with one accent | judge | The scene forces it and the open collections hold nothing honest; with `Found pictures: off`, the scene alone must force it |
 | THESIS refusals copied from the template instead of written for the subject | judge | — |
 
 ### Quality

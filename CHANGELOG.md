@@ -2,6 +2,10 @@
 
 Release notes for the awards plugin, newest first. The manifests carry the version; `scripts/check-sync.mjs` keeps them in step.
 
+## Unreleased
+
+- **Found pictures off.** `craft` and `concept` take `--no-found-pictures`, or a brief that rules out outside pictures, and write `Found pictures: off` on the `## Budgets & tiers` line of `AWARDS.md`, for that build only. Concept then skips the open-collection search and goes from the client's own pictures straight to made imagery. `assets.mjs search` and `get` refuse with exit 3 while the line stands. The jury does not count code-only imagery as a `House concept` row, and `house-ledger.mjs --against` reports it without counting it. Made imagery still needs its three levels of detail. `--found-pictures`, or setting the line to `search`, turns the rule back on. A missing line reads as `search`, so existing builds are unchanged.
+
 ## 1.0.0 — 2026-10-26
 
 From the comparison with taste-skill v2.1.5 (`docs/handoff/analysis-2026-10-26-taste-skill.md`), all twelve of its recommendations, plus corpus wave 5 and the recipe explorer.
