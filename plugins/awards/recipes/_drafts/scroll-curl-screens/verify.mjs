@@ -9,9 +9,9 @@ export const states = [
   { name: 'top', scroll: 0, settle: 800 },
   // Screen 2's top at the viewport's top, then the page scrolls 800 px in 1 s (800 px/s); read 0.4 s in, mid-exit and mid-scroll.
   { name: 'scrolling', settle: 500, actions: run(1, 0, 800, 1, 400) },
-  // Screen 2's top 350 px under the viewport's, 700 px of scroll in 0.9 s, read 0.12 s after it stops: halfway out and
-  // still leaning, but less with every frame.
-  { name: 'easing', frame: true, settle: 500, actions: [{ type: 'waitFor', fn: park(1, -0.5) }, { type: 'wait', ms: 2200 }, { type: 'waitFor', fn: drive(700, 0.9) }, { type: 'wait', ms: 1020 }] },
+  // Screen 2's top half a screen under the viewport's, 700 px of scroll in 0.9 s, read 0.2 s after it stops: halfway
+  // out and still leaning, but less with every frame.
+  { name: 'easing', frame: true, settle: 500, actions: [{ type: 'waitFor', fn: park(1, -0.5) }, { type: 'wait', ms: 2200 }, { type: 'waitFor', fn: drive(700, 0.9) }, { type: 'wait', ms: 1100 }] },
   // The same screen parked 45 % out with nothing moving: position alone does not lean it.
   { name: 'parked', settle: 500, actions: [{ type: 'waitFor', fn: park(1, 0.45) }, { type: 'wait', ms: 2600 }] },
   // The same scroll, then quiet: everything relaxes to flat and the ticker removes itself.

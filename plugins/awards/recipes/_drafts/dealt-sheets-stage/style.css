@@ -95,9 +95,11 @@ html[data-staged] .sheet { position: absolute; pointer-events: auto; }
 html[data-staged] .sheet--media { left: 50%; top: 13svh; height: 74svh; transform-origin: 50% 50%; }
 html[data-staged] .sheet--caption { left: calc(50% + 3vw - var(--cap-w)); top: 46svh; width: var(--cap-w); z-index: 1; transform-origin: 0 0; }
 
-/* Reduced: no travel. Pairs cross-fade in place as the active pair changes. */
-html[data-deal="fade"] .pair { opacity: 0; visibility: hidden; transition: opacity 0.32s linear, visibility 0s linear 0.32s; }
-html[data-deal="fade"] .pair[data-active] { opacity: 1; visibility: visible; transition: opacity 0.32s linear, visibility 0s; }
+/* Reduced: no travel. Pairs cross-fade in place as the active pair changes. A faded pair stays in the tab order (its
+   ticket, once focused, brings it back) but takes no pointer, so a click always lands on the pair that is shown. */
+html[data-deal="fade"] .pair { opacity: 0; transition: opacity 0.32s linear; }
+html[data-deal="fade"] .pair[data-active] { opacity: 1; }
+html[data-deal="fade"] .pair:not([data-active]) .sheet { pointer-events: none; }
 
 /* A guard in CSS as well as in the script: with a reduced-motion preference (unless the page is forced to the full
    tier), no sheet is ever translated or turned, whatever else on the page tries to move it. */

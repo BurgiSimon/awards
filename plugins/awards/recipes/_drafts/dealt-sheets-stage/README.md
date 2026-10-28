@@ -25,7 +25,7 @@ Featured work dealt like cards onto one held stage. Each project is a pair of sh
 
 ## Tiers
 - **Full:** the deal, the sweep and the settle, all scrubbed.
-- **Reduced:** the same stage and the same score read as an index only. No sheet is translated or turned; the active pair fades in over `.32 s` and the others fade out, with `visibility` following so hidden pairs leave the accessibility tree. The status still announces each change.
+- **Reduced:** the same stage and the same score read as an index only. No sheet is translated or turned; the active pair fades in over `.32 s` and the others fade out. A faded pair takes no pointer but keeps its ticket in the tab order, and focusing it brings the pair back. The status still announces each change.
 - **Static:** the stage is dropped and the runs are a plain list of pairs, as without JavaScript.
 - **No JavaScript:** a list of pairs in reading order, ticket then print.
 

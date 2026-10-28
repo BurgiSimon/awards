@@ -67,12 +67,15 @@ body { font-family: var(--font-display); }
 .bar { display: flex; flex-wrap: wrap; align-items: stretch; justify-content: space-between; border-bottom: 1px solid var(--ink); }
 .bar__brand { display: flex; align-items: center; min-height: var(--bar-h); padding: 0 var(--gutter); font-weight: 800; font-size: 1.375rem; letter-spacing: -0.03em; text-decoration: none; }
 .bar__nav ul { display: flex; flex-wrap: wrap; height: 100%; list-style: none; margin: 0; padding: 0; }
-.bar__nav li { flex: 1 1 auto; border-inline-start: 1px solid var(--ink); }
+.bar__nav li { flex: 1 1 auto; border-inline-start: 1px solid var(--ink); box-shadow: 0 -1px 0 var(--ink); }
 .prism--cell { position: relative; display: block; height: 100%; }
 .prism--cell .prism__box { display: block; height: 100%; }
 .prism--cell .prism__face { display: flex; align-items: center; justify-content: center; height: 100%; min-height: var(--bar-h); padding: 0 clamp(18px, 2.4vw, 36px); font-size: 0.875rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; overflow-wrap: anywhere; text-align: center; }
 .prism--cell .prism__face--next { background: var(--ink); color: var(--ground); }
-.prism--cell:focus-visible { outline: 2px solid var(--ground); outline-offset: -7px; }
+/* The ring is drawn by a layer above the turning box (an outline would be painted under its 3D faces): paper on
+   the inked face, ink on the plain one in forced colours. */
+.prism--cell:focus-visible { outline: none; }
+.prism--cell:focus-visible::after { content: ""; position: absolute; z-index: 1; inset: 7px; border: 2px solid var(--ground); pointer-events: none; }
 /* Pointing at one cell dims the others, as the source does. */
 @media (hover: hover) {
   .bar__nav li { transition: opacity var(--turn) linear; }
@@ -90,7 +93,8 @@ body { font-family: var(--font-display); }
 .films__list li { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 0.1em; border-bottom: 1px solid var(--line); font-size: clamp(2.25rem, 6.4vw, 6.75rem); }
 .prism--letters { display: inline-block; max-width: 100%; padding-block: 0.04em; font-weight: 800; line-height: 1; letter-spacing: -0.035em; }
 .prism--letters:focus-visible { outline: 2px solid var(--ink); outline-offset: 6px; }
-.prism__word { display: inline-block; white-space: nowrap; }
+/* A word moves to the next line whole; only a word wider than the line breaks between its letters. */
+.prism__word { display: inline-flex; flex-wrap: wrap; max-width: 100%; }
 .prism--letters .prism__face--next { color: var(--accent); }
 .films__year { flex: none; font-family: var(--font-mono); font-size: 0.875rem; font-variant-numeric: tabular-nums; color: var(--muted); }
 .films__notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: calc(var(--unit) * 8) 4vw; margin-top: 10vh; }

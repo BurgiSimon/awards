@@ -18,6 +18,8 @@ export const states = [
   // Keyboard: focus the second ticket, then Tab to the third; each focus brings its pair to rest on the stage.
   { name: 'focus', settle: 500, actions: [{ type: 'focus', selector: caption(2) }, { type: 'wait', ms: 700 }, { type: 'press', key: 'Tab' }, { type: 'wait', ms: 1500 }] },
   { name: 'rm', reducedMotion: true, settle: 500, actions: go(at(4.0), 1000) },
+  // Reduced, keyboard: faded pairs keep their tickets in the tab order; Tab to the fourth brings it back in place.
+  { name: 'rm-focus', reducedMotion: true, settle: 500, actions: [...go(at(4.0), 600), { type: 'focus', selector: caption(3) }, { type: 'wait', ms: 400 }, { type: 'press', key: 'Tab' }, { type: 'wait', ms: 1000 }] },
   { name: 'static', settle: 500, actions: [{ type: 'waitFor', fn: "(document.documentElement.dataset.motion = 'static') === 'static'" }, { type: 'wait', ms: 600 }] },
   { name: 'mobile', viewport: 'mobile', settle: 600, actions: go(at(4.0)) },
   { name: 'mobile-deal', viewport: 'mobile', settle: 600, actions: go(at(1.85)) },
@@ -36,7 +38,7 @@ export function probe() {
   return {
     pairs: pairs.map((p) => {
       const c = p.querySelector('[data-caption]'); const md = p.querySelector('[data-media]');
-      return { opacity: Number(getComputedStyle(p).opacity), visibility: getComputedStyle(p).visibility, caption: m(c), media: m(md), cRect: rect(c), mRect: rect(md) };
+      return { opacity: Number(getComputedStyle(p).opacity), pointer: getComputedStyle(c).pointerEvents, caption: m(c), media: m(md), cRect: rect(c), mRect: rect(md) };
     }),
     links: pairs.map((p) => {
       const c = p.querySelector('[data-caption]'); const md = p.querySelector('[data-media]');
@@ -102,7 +104,9 @@ export function assert(r) {
   out.push({ ok: fo.focusedIsCaption && fo.focusedPair === 2 && /solid 3px/.test(fo.ring || '') && fs.active === 2 && Math.abs(fs.t - fs.rests?.[2]) < 0.05 && atRest(fp.caption) && atRest(fp.media) && fr[1] >= 0 && fr[3] <= fo.vh && fs.focusScrolls >= 2 && /^Run 3 of 5/.test(fs.status), message: `keyboard: Tab to the third ticket (ring ${fo.ring}) scrolls the stage to its rest (t ${fs.t} vs ${fs.rests?.[2]}, ${fs.focusScrolls} focus scrolls); pair 3 at rest and in view (${fr.join(',')}), announced` });
 
   const rm = P('rm'), rms = S('rm');
-  out.push({ ok: rms.motion === 'reduced' && rms.mode === 'fade' && rms.active === 2 && rm.pairs?.every((p) => p.caption.none && p.media.none) && rm.pairs.every((p, i) => (i === 2 ? p.opacity === 1 && p.visibility === 'visible' : p.opacity === 0 && p.visibility === 'hidden')) && /^Run 3 of 5/.test(rms.status), message: `reduced motion: no sheet is translated or turned; pair 3 alone is shown (opacity ${rm.pairs?.map((p) => p.opacity).join('/')}), the change still announced` });
+  out.push({ ok: rms.motion === 'reduced' && rms.mode === 'fade' && rms.active === 2 && rm.pairs?.every((p) => p.caption.none && p.media.none) && rm.pairs.every((p, i) => (i === 2 ? p.opacity === 1 && p.pointer === 'auto' : p.opacity === 0 && p.pointer === 'none')) && /^Run 3 of 5/.test(rms.status), message: `reduced motion: no sheet is translated or turned; pair 3 alone is shown and takes the pointer (opacity ${rm.pairs?.map((p) => p.opacity).join('/')}), the change still announced` });
+  const rf = P('rm-focus'), rfs = S('rm-focus');
+  out.push({ ok: rf.focusedIsCaption && rf.focusedPair === 3 && rfs.active === 3 && rf.pairs?.[3]?.opacity === 1 && rf.pairs.every((p) => p.caption.none && p.media.none) && /^Run 4 of 5/.test(rfs.status), message: `reduced motion, keyboard: Tab from a faded ticket reaches the fourth (${rf.focusedPair + 1}), which fades in in place (opacity ${rf.pairs?.[3]?.opacity}) and is announced ("${rfs.status}")` });
 
   const st = P('static');
   const tops = (st.pairs || []).map((p) => p.cRect[1]);

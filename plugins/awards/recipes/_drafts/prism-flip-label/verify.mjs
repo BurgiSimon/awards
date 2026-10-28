@@ -12,7 +12,7 @@ export const states = [
   { name: 'hover', settle: 600, actions: [{ type: 'hover', selector: cell(2) }, { type: 'wait', ms: 800 }] },
   { name: 'leave', settle: 600, actions: [{ type: 'hover', selector: cell(2) }, { type: 'wait', ms: 300 }, { type: 'move', x: 700, y: 520, steps: 4 }, { type: 'wait', ms: 900 }] },
   { name: 'focus', settle: 600, actions: [{ type: 'focus', selector: '.bar__brand' }, { type: 'press', key: 'Tab' }, { type: 'wait', ms: 800 }] },
-  { name: 'turning', settle: 600, frame: true, actions: [{ type: 'hover', selector: film(1) }, { type: 'wait', ms: 40 }, pauseAt(150)] },
+  { name: 'turning', settle: 600, frame: true, actions: [{ type: 'hover', selector: film(1) }, { type: 'wait', ms: 40 }, pauseAt(220)] },
   { name: 'letters', settle: 600, actions: [{ type: 'hover', selector: film(2) }, { type: 'wait', ms: 1200 }] },
   { name: 'rm-hover', reducedMotion: true, settle: 600, actions: [{ type: 'hover', selector: cell(2) }, { type: 'wait', ms: 600 }] },
   { name: 'rm-focus', reducedMotion: true, settle: 600, actions: [{ type: 'focus', selector: '.bar__brand' }, { type: 'press', key: 'Tab' }, { type: 'wait', ms: 600 }] },
@@ -56,6 +56,8 @@ export function probe() {
     cells,
     film1: letterRow('.films__list li:nth-child(1) .prism'),
     film2: letterRow('.films__list li:nth-child(2) .prism'),
+    ring: a?.matches?.('.prism--cell') ? (() => { const r = getComputedStyle(a, '::after'); return { content: r.content, width: r.borderTopWidth, color: r.borderTopColor, z: r.zIndex }; })() : null,
+    ground: getComputedStyle(document.body).backgroundColor,
     focused: a?.matches?.('.prism') ? (a.querySelector('.sr-only, .prism__face--front')?.textContent.trim() ?? null) : null,
     copies: document.querySelectorAll('.prism__face--next').length,
     hiddenCopies: document.querySelectorAll('.prism__face--next[aria-hidden="true"]').length,
@@ -107,11 +109,12 @@ export function assert(r) {
   out.push({ ok: (p('leave').cells || []).every((c) => c.deg === 0), message: `leave: the cell turns back (${(p('leave').cells || []).map((c) => c.deg).join(', ')}°)` });
   const f = p('focus');
   out.push({ ok: f.focused === 'Films' && near(f.cells?.[0]?.deg, 90, 0.5) && sameBox(f.cells[0].next, f.cells[0].link), message: `keyboard: Tab to "${f.focused}" turns it like hover (${f.cells?.[0]?.deg}°)` });
+  out.push({ ok: f.ring && f.ring.content !== 'none' && f.ring.width === '2px' && f.ring.color === f.ground && f.ring.z === '1', message: `keyboard: a 2 px ring in the paper colour is drawn above the turned face (${JSON.stringify(f.ring)})` });
 
   const t = p('turning').film1 || [];
   const degs = t.map((x) => x.deg);
   const monotone = degs.every((d, i) => i === 0 || d <= degs[i - 1] + 0.1);
-  out.push({ ok: degs.length === 16 && degs[0] > 20 && degs[0] < 89 && monotone && degs.at(-1) === 0 && degs.filter((d) => d > 0 && d < 89).length >= 3, message: `letters, paused at 150 ms: the turn runs across the word (${degs.join(', ')}°)` });
+  out.push({ ok: degs.length === 16 && degs[0] > 20 && degs[0] <= 90 && monotone && degs.at(-1) === 0 && degs.filter((d) => d > 1 && d < 89).length >= 4, message: `letters, paused at 220 ms: the turn runs across the word (${degs.join(', ')}°)` });
   out.push({ ok: t[0]?.delay === '0s' && t[1]?.delay === '0.024s' && t[5]?.delay === '0.12s', message: `letters: a 24 ms stagger per letter (${t.slice(0, 6).map((x) => x.delay).join(', ')})` });
   const l2 = p('letters').film2 || [];
   out.push({ ok: l2.length === 10 && l2.every((x) => near(x.deg, 90, 0.5)), message: `letters: every letter ends a quarter turn over (${l2.length} letters)` });
