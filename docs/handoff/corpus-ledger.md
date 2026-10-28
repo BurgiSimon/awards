@@ -871,3 +871,53 @@ daikifujita: framer@13ebf9e, react@18.3.1 — index.html, react chunk
 - Duplicates found in synthesis: `everswap` and `oryzo` are one studio (Lusion) on one in-house framework (screen paint, post profiles, DOM-rect scroll ranges, `.buf` intake, second-order springs); only the grade-pass cuts, the unlit painted world, the water, the trails and the bones are EverSwap's own. `daikifujita` and `da-san333` are one designer's newer and older Framer portfolios. As DIVERGENCE neighbours, each pair counts one source twice.
 - Real GPU: none. Every capture and recipe frame ran on SwiftShader, so the cards' frame-time figures are absent and the recipes are proven correct, not fast.
 - everswap: the Awwwards entry page returned 502; the Honorable Mention is `[recalled]` from search and its scores were not read.
+
+## Wave 6b — The Line motion lens, opened 2026-10-28
+
+| Phase | Status | Note |
+|---|---|---|
+| setup | done | motion and interaction lens on branch the-line-lens, at the maintainer's request ("analyze https://thelinestudio.com/ and make the awards skill better with it"); one existing card; not gap-driven. Wave 6a (Son Daven) runs beside it in the main checkout |
+| triage | done | 1 site: owner policy allows home, `/work` and one case route; three captures exit 0 (home: five scroll states at desktop, tablet and phone, reduced motion; routes at 0, 50, 100), plus a held-clock `--timeline` (0–4.2 s) and a `--walk` of the home route; 35 JS and 39 CSS chunks fetched as text |
+| synthesis | done | card rewritten in place (135 → 153 lines, `### Tech lens: GSAP` added, Routes read row); folded into gsap-choreography, preloaders-and-transitions, motion-vocabulary, components-catalog, inner-pages, layout-and-composition, copy-and-content, cursor-and-pointer and accessibility-and-reduced-motion; motion, structure and component skills route to the new recipes; the-line added to 6 recipe `seenIn` arrays; flicker-text's ladder re-attributed to the reconstruction it came from |
+| recipes | done | 3 proposed and built (`docs/handoff/recipe-proposals-2026-10-28-the-line.md`): footer-credits-hinge, overprint-marker-index, next-case-handoff; each passes `verify-recipes --only` headless and `--pseudo`; 3 candidates left unbuilt |
+| stacks | done | no new stack note or pin: Nuxt's JS-hook route transitions are covered by the new recipe's Vue / Nuxt adapter and `page-transitions` |
+| upkeep | done | counts 96 → 99 entries in CLAUDE.md, both READMEs, the catalogue preamble and three manifests; catalogue, explorer, frames and index regenerated; check-sync 188 checks, 0 drift; lint-refs 0 dangling; check-card 65 cards, 0 errors; recipes audit P0–P2 0 |
+
+### Sites
+
+| Slug | URL | Lens | Status | Rating | Novelty | Synthesised | Reason | Date |
+|---|---|---|---|---|---|---|---|---|
+| the-line | https://thelinestudio.com/ | motion, GSAP (DOM and CSS, no WebGL) | updated | official SOTD 5 Nov 2024 7.76, Animations/Transitions 9.00 [verified, entry read 2026-09-18]; no corpus rating added | lens ×12: four registered blink effects as the interaction grammar; stepped `.set` icon swap and list reveal; CustomEases built from the CSS curves; dealt sheets on per-item sticky rails; safe-area field guide with live measurements; closing sheet over a footer held on a `−50vh` rail; credits under a lifting stage, closed by scroll; header theme triggers; scrollbar stepping out during routes; a multiply marker cut by `set(yPercent)`; a twelve-item grid span cycle; the case-to-case transition that moves live nodes into the next hero | yes | existing card, lens update; bundle unchanged by hash since 2026-09-18; routes index `/work` and one case read for the first time | 2026-10-28 |
+
+### Techniques and stacks
+
+the-line: registered blink effects — BHubVMsw.js — `blink`, `blinkIn` (identical), `blinkOnce`, `blinkOut`; `extendTimeline: true`; sets at 0 / .09 / .15 / .21 s (`blinkOnce` 0 / .09, `blinkOut` ends at .15); header cascade after `PRELOADER:DONE` at .04 s steps from a .2 s delay; 25 `killTweensOf` before handler calls
+the-line: stepped icon swap — BHubVMsw.js (NavToggle) — per-path `.set` opacity, stagger .05; outgoing 0 / .08 / .16, incoming .35 / .43 / .51; no tween
+the-line: CSS curves as CustomEases — BHubVMsw.js — `expoOut` 0.19, 1, 0.22, 1; `pageOut` 0.44, 0.14, 0.28, 1; `gsap.defaults({ ease: "power2.out" })`
+the-line: dealt sheets on per-item rails — B6MUFv6g.js (FeaturedWorkAsset) — title in from yPercent 110, xPercent 15, rotate 15 (top left), media 130 / 20 / 15 at +.06, `top bottom` → `top top`; out `top top+=1` → `bottom top` to −80 / −25 / −7 and −50 / −5 / −5; last case 50 / −10 / −3 and 40 / −2.5 / −2; `ease: none`, `force3D`; video plays only in view
+the-line: field guide — Drc9zaOP.js, FieldGuide.-YBbzYnC.css — overscan dashed (top 16 %), crop solid (inset 3.47222vw), action safe dashed (5.09259 / 5.6713vw); sizes `Math.ceil(getBoundingClientRect())` on `WINDOW:RESIZE`; `[ 16:9 ]`, `100%`, crosshair 1.8 rem
+the-line: about fan and stepped clients — B6MUFv6g.js (About, Clients) — header −20 / 20 / 16° (left); first figure −45 / 20 / 4.89° → 0, last 25 / 0 / 8° → 45 / −10 / 4.89°, `top 102%` → `top 15%`, power1.inOut; clients `set(autoAlpha: 1)` at .05 (slashes) and .03 (names)
+the-line: footer close — CYc7OJsQ.js, Footer.1fXw1gXD.css — rail `top: -50vh`; logotype sheet xPercent −7, rotate −6 (≤ 1023 px: −14 / yPercent −40 / −6), top left, `top top` → `max`, power1.inOut; content yPercent 15 → 0, `bottom bottom` → `max`; footer `padding-bottom` = content + 8 px on resize
+the-line: credits under the footer — CYc7OJsQ.js, BRQUlf4y.js, FooterCredits.MnyzNeNx.css — `lenis.scrollTo(limit, { duration: .8 })`; open at once: stage `translate(5%, -16.2037vw) rotate(-6deg)` (phone −24rem / −3deg), 1 s (.19, 1, .22, 1); armed after .82 s, then any `SCROLL:UPDATE` closes; panel 50lvh, z 1 under the stage's z 2; close = a full-panel invisible button
+the-line: header theme triggers — E6z5nIBq.js — `top 2%` → `bottom 2%`; `onEnter` / `onEnterBack` set the section's theme, `onLeaveBack` flips it
+the-line: scrollbar during routes — BHubVMsw.js (ScrollbarCustom) — xPercent 110 out and 0 back, 1 s expoOut on `isTransitioning`; drag `mapRange(offset, trackH − (handleH − offset), 0, limit)` → `lenis.scrollTo(…, { immediate })`
+the-line: cursor — BHubVMsw.js (CursorCustom) — lerp .1 on `gsap.ticker`; optional rotation `mapRange(0, width, −10, 10)`, −30..30 after a resize; `gsap.matchMedia('(hover: hover)')`
+the-line: marker cut — D9wrofva.js, ICJAAGel.js, index.DFQ5Ncrj.css — list highlight `#ff391e` multiply, height 1.1em, `set(yPercent: 100 × index)`, hovered row text `#f8f8f8`, `(hover: hover)` only; carousel nav marker the same with `blink` on press
+the-line: work grid span cycle — D9wrofva.js (Grid) — `gsap.utils.wrap([5,4,3,3,3,9,4,5,3,3,3,9])` columns with a matching size cycle (medium, small, extra-small …)
+the-line: work filters and layout swap — D9wrofva.js, index.html — counts 0 → n over .6 s expoOut, brackets `blinkIn` / `blinkOut`; filter panel `translate(-10%, 115%) rotate(8deg)` .8 s (.14, 1, .34, 1); grid ↔ list `translate(20%, 120lvh) rotate(8deg)` after .6 s; grid hover excerpt lines from y 20 at .08, .8 s expoOut
+the-line: route sheets — index.html — enter `translate(-10%, 105lvh) rotate(-4deg)` .8 s (.44, .14, .28, 1); leave `translateY(-25lvh) rotate(4deg)` .78 s; `transform-origin: "top right"` quoted, invalid
+the-line: case-next hand-off — B_ZYxxOZ.js, Ds9jNxuD.js — `css: false`, `mode: "out-in"`; leave `y: −rect.top` 1 s expoOut with the card and acetate unwinding to 0; `lenis.scrollTo(0, { immediate })`, `lenis.stop()`, block fixed at top; enter `appendChild` figure, content and acetate; close hinge −16 → −8°, yPercent 28 → −10, xPercent −15 → −8, top right, scrub .5
+the-line: case hero — Ds9jNxuD.js — enter 120 / −10 / 6° → 0, 1 s expoOut after .5 s; leave scrub .5 to −30 / 15 / 8° (top right), figure yPercent −10; crew panel y −180, 1 s expoOut, a scroll past 150 px closes it
+the-line: preloader on a held clock — BHubVMsw.js + timeline/desktop-timeline.png — counter 3 s expoInOut after .8 s; frames: flat red to 1.8 s, line 2.1 s, `04/24 fps` 2.4 s, logotype whole 4.2 s; inner routes exit −125 / 10 / 15°, .8 s `pageOut`
+the-line: walk — walk/walk.json — 58 desktop tab stops, 29 findings (17 focus under the closing sheet, 2 in the closed credits, 6 with no visible focus, 1 unlabelled field, 1 unnamed video, 2 off screen); phone targets 84 × 12, 18 × 12, 52 × 14 px
+the-line: nuxt@3 (unchanged hashes since 2026-09-18) — `/_nuxt/` entry BHubVMsw.js 449,153 bytes
+the-line: gsap core + ScrollTrigger, lenis@1.1.13 — BHubVMsw.js
+
+### Notes
+
+- Owner policy (`policy.mjs`, 2026-10-28): home, `/work` and `/work/gorillaz-the-mountain-the-mooncave-and-the-sad-god` allowed. Two inner routes, as the research skill allows; the case is the first one the home page links.
+- New on the site since 2026-09-18: nothing observed. The entry, the home chunk and both stylesheets keep their hashed names, the featured trio and the `[ 85 ]` work count are unchanged. The gain is in reading: the first pass read the home chunk and the entry's top level; this one read every component chunk the three routes load.
+- Corrections to the card: four blink effects, not three; two CustomEases, not one; header theme triggers exist (the "no scrim" weakness stands, the "no theme handling" reading does not); the closed credits are reachable; the route `transform-origin` is invalid CSS; the Roman numeral survives on case heroes.
+- One phone capture of the case route logged a stylesheet refused for a `text/plain` MIME type; a re-request served `text/css`. Transient; recorded on the card, not as a weakness.
+- Real GPU and real phone: none. The site draws no canvas, so nothing here needs a GPU; the three recipes ran on SwiftShader and a 390 px phone emulation only.
+- Merge note: wave 6a adds recipes in parallel, so the recipe counts (99 here) and `scripts/gallery-frames.mjs` OVERRIDES need a merge.
