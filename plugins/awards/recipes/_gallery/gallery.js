@@ -1,17 +1,23 @@
 // The recipe explorer. The page (index.html, written by scripts/build-gallery.mjs) is a complete, linked catalogue
 // without this script; this adds search, facets and two layouts over the same plates, a plate that turns live
 // under a resting pointer, and a stage that runs one recipe beside its README and source, scrubbed from outside
-// through the page's own window.__awards hook.
+// through the page's own window.__awards hook. A Drafts tab lists the proposals in _drafts/ (read from
+// _drafts/drafts.json) and runs each in the same stage, with a form for the maintainer's decision.
 import { esc, markdown, highlight, numbered, languageOf } from './text.js';
 
 const root = document.documentElement;
 const data = JSON.parse(document.getElementById('gallery-data').textContent);
-const byId = new Map(data.recipes.map((r) => [r.id, r]));
+// Every entry has a key that is also its folder under recipes/: the id for a recipe, _drafts/<id> for a draft.
+for (const r of data.recipes) r.key = r.id;
+const byId = new Map(data.recipes.map((r) => [r.key, r]));
 const groupTitle = Object.fromEntries(data.groups.map((g) => [g.id, g.title]));
 const sites = new Set(data.sites);
 const repoFile = (p) => `${data.repo}/blob/main/plugins/awards/${p}`;
 const plates = new Map([...document.querySelectorAll('.plate')].map((el) => [el.dataset.id, el]));
 const order = [...plates.keys()];
+const draftPlates = new Map();
+let draftOrder = [];
+const plateOf = (key) => plates.get(key) ?? draftPlates.get(key);
 const sections = [...document.querySelectorAll('.group')];
 const mosaic = document.querySelector('.mosaic');
 const tiles = new Map([...document.querySelectorAll('.tile')].map((el) => [el.dataset.id, el]));
@@ -29,7 +35,7 @@ const FACETS = { group: 'Group', library: 'Library', input: 'Input', technique: 
 const facetOf = new Map(Object.entries(data.facets).flatMap(([f, tags]) => tags.map((t) => [t, f])));
 const VIEWPORTS = { desktop: { w: 1440, h: 900 }, phone: { w: 390, h: 844 } };
 const pct = (p) => `${Math.round(p * 100)} %`;
-const frameSrc = (id) => plates.get(id)?.querySelector('.plate__frame img')?.currentSrc || plates.get(id)?.querySelector('.plate__frame img')?.src || '';
+const frameSrc = (key) => plateOf(key)?.querySelector('.plate__frame img')?.currentSrc || plateOf(key)?.querySelector('.plate__frame img')?.src || '';
 const baseTitle = document.title;
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 // A recipe signals readiness through __awards.ready; a page that never does is shown after a few seconds anyway.
@@ -37,8 +43,9 @@ const ready = (win, ms = 6000) => Promise.race([Promise.resolve(win?.__awards?.r
 
 // ---------- state and URL ----------
 
-const state = { q: '', tier: '', view: 'plates', tags: new Set(), groups: new Set() };
+const state = { q: '', tier: '', view: 'plates', tags: new Set(), groups: new Set(), tab: 'catalogue', status: '' };
 
+// Returns the key of the entry the URL opens, if it is loaded yet (drafts arrive after boot).
 function readURL() {
   const p = new URLSearchParams(location.search);
   state.q = p.get('q') ?? '';
@@ -46,25 +53,31 @@ function readURL() {
   state.view = p.get('view') === 'index' ? 'index' : 'plates';
   state.tags = new Set((p.get('tags') ?? '').split(',').filter((t) => facetOf.has(t)));
   state.groups = new Set((p.get('groups') ?? '').split(',').filter((g) => groupTitle[g]));
+  state.tab = p.get('tab') === 'drafts' || p.has('draft') ? 'drafts' : 'catalogue';
+  state.status = p.get('status') ?? '';
+  if (p.has('draft')) return byId.has(`_drafts/${p.get('draft')}`) ? `_drafts/${p.get('draft')}` : null;
   return byId.has(p.get('recipe')) ? p.get('recipe') : null;
 }
 
-function urlFor(recipe) {
+function urlFor(key) {
   const p = new URLSearchParams();
   if (state.q) p.set('q', state.q);
   if (state.tags.size) p.set('tags', [...state.tags].join(','));
   if (state.groups.size) p.set('groups', [...state.groups].join(','));
   if (state.tier) p.set('tier', state.tier);
   if (state.view !== 'plates') p.set('view', state.view);
-  if (recipe) p.set('recipe', recipe);
+  if (state.tab === 'drafts') p.set('tab', 'drafts');
+  if (state.tab === 'drafts' && state.status) p.set('status', state.status);
+  const r = key && byId.get(key);
+  if (r) p.set(r.draft ? 'draft' : 'recipe', r.id);
   const qs = p.toString().replace(/%2C/g, ',');
-  return `${location.pathname}${qs ? `?${qs}` : ''}${recipe ? '' : location.hash}`;
+  return `${location.pathname}${qs ? `?${qs}` : ''}${key ? '' : location.hash}`;
 }
 
 let urlTimer;
 const writeURL = () => {
   clearTimeout(urlTimer);
-  urlTimer = setTimeout(() => history.replaceState(history.state, '', urlFor(detail.current?.id)), 150);
+  urlTimer = setTimeout(() => history.replaceState(history.state, '', urlFor(detail.current?.key)), 150);
 };
 
 // ---------- filtering ----------
@@ -244,7 +257,7 @@ function wireToolbar() {
   });
 
   addEventListener('keydown', (e) => {
-    if (detail.dialog.open || e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;
+    if (detail.dialog.open || state.tab !== 'catalogue' || e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;
     if (e.target.closest('input, textarea, select, [contenteditable]')) return;
     if (e.key === '/') { e.preventDefault(); search.focus(); search.select(); }
   });
@@ -522,7 +535,8 @@ const detail = {
     addEventListener('popstate', () => {
       const id = readURL();
       apply({ scroll: false });
-      if (id && id !== this.current?.id) this.open(id, { push: false, fromHistory: true });
+      draftsView.show(state.tab, { write: false });
+      if (id && id !== this.current?.key) this.open(id, { push: false, fromHistory: true });
       else if (!id && this.dialog.open && !this.closing) this.close({ fromHistory: true });
     });
   },
@@ -569,7 +583,7 @@ const detail = {
     if (!r) return;
     this.onOpen?.();
     const first = !this.dialog.open;
-    const plate = plates.get(id);
+    const plate = plateOf(id);
     const frame = plate?.querySelector('.plate__frame');
     const show = () => {
       if (first) {
@@ -594,7 +608,8 @@ const detail = {
   close({ fromHistory = false, then } = {}) {
     if (!this.dialog.open || this.closing) return;
     this.closing = true;
-    const id = this.current?.id;
+    const id = this.current?.key;
+    const wasDraft = this.current?.draft;
     this.stopPlay();
     const finish = () => {
       this.dialog.close();
@@ -603,17 +618,20 @@ const detail = {
       root.classList.remove('has-detail');
       this.unload();
       this.current = null;
-      const plate = plates.get(id);
+      // A draft opened from a link inside a recipe's README may not be in the tab that is showing.
+      if (wasDraft && state.tab !== 'drafts') draftsView.show('drafts');
+      const plate = plateOf(id);
       const link = plate && !plate.hidden ? plate.querySelector('.plate__title a') : null;
       if (link) {
         const r = plate.getBoundingClientRect();
-        if (r.top < toolbar.offsetHeight || r.bottom > innerHeight) plate.scrollIntoView({ block: 'center' });
+        if (r.top < (wasDraft ? 0 : toolbar.offsetHeight) || r.bottom > innerHeight) plate.scrollIntoView({ block: 'center' });
         link.focus({ preventScroll: true });
-      } else search.focus({ preventScroll: true });
+      } else if (state.tab === 'catalogue') search.focus({ preventScroll: true });
+      else draftsView.heading()?.focus({ preventScroll: true });
       if (then) setTimeout(then, 0);
     };
-    const frame = plates.get(id)?.querySelector('.plate__frame');
-    if (!then && canTransition() && frame && this.device.dataset.mode === 'desktop' && !plates.get(id).hidden && inView(frame)) {
+    const frame = plateOf(id)?.querySelector('.plate__frame');
+    if (!then && canTransition() && frame && this.device.dataset.mode === 'desktop' && !plateOf(id).hidden && inView(frame)) {
       transition(() => { this.device.style.viewTransitionName = ''; finish(); frame.style.viewTransitionName = 'stage'; }, [[this.device, 'stage']], { fade: true })
         .finished.finally(() => { frame.style.viewTransitionName = ''; });
     } else if (!then) transition(finish, [], { fade: true });
@@ -626,19 +644,24 @@ const detail = {
     this.pushed = false;
   },
 
+  // The neighbours of an entry: the filtered list it belongs to (recipes or drafts), or the whole of it.
+  neighbours(key) {
+    const draft = byId.get(key)?.draft;
+    const pool = draft ? draftsView.visible() : visibleIds();
+    return pool.includes(key) ? pool : draft ? draftOrder : order;
+  },
+
   step(dir) {
-    const pool = visibleIds();
-    const list = pool.includes(this.current?.id) ? pool : order;
-    const i = list.indexOf(this.current?.id);
+    const list = this.neighbours(this.current?.key);
+    const i = list.indexOf(this.current?.key);
     const next = list[(i + dir + list.length) % list.length];
     if (next) this.open(next, { push: false });
   },
 
   render(r) {
     this.current = r;
-    const pool = visibleIds();
-    const list = pool.includes(r.id) ? pool : order;
-    const i = list.indexOf(r.id);
+    const list = this.neighbours(r.key);
+    const i = list.indexOf(r.key);
     const prev = byId.get(list[(i - 1 + list.length) % list.length]);
     const next = byId.get(list[(i + 1) % list.length]);
     this.q('[data-prev-title]').textContent = prev.title;
@@ -646,8 +669,8 @@ const detail = {
     this.q('[data-step="-1"]').setAttribute('aria-label', `Previous: ${prev.title}`);
     this.q('[data-step="1"]').setAttribute('aria-label', `Next: ${next.title}`);
     this.q('[data-pos]').textContent = `${i + 1} / ${list.length}`;
-    this.q('[data-open-page]').href = `./${r.id}/index.html`;
-    document.title = `${r.title} · Recipes · awards`;
+    this.q('[data-open-page]').href = `./${r.key}/index.html`;
+    document.title = `${r.title} · ${r.draft ? 'Drafts' : 'Recipes'} · awards`;
 
     // Scrub marks and jump buttons for the positions the verifier checks.
     this.q('[data-marks]').innerHTML = r.states.map((s) => `<i style="left:${s.scroll * 100}%"></i>`).join('');
@@ -660,20 +683,31 @@ const detail = {
       ? r.seenIn.map((s) => (sites.has(s) ? `<a href="${repoFile(`references/sites/${s}.md`)}" target="_blank" rel="noopener">${esc(s)}</a>` : esc(s))).join(', ')
       : '—';
     const verified = r.verified ? `${esc(r.verified.date)}${r.verified.chromium ? ` · Chromium ${esc(r.verified.chromium.split('.')[0])}` : ''}` : 'No recorded pass yet';
+    // A draft is not in the catalogue yet: its group and tags are plain text, and its checks stand where a recipe's
+    // verification does.
+    const group = groupTitle[r.group] ?? r.group;
+    const kicker = r.draft
+      ? `<span>${esc(group)}</span><span class="tier" title="Tier ${r.tier}">${r.tier}</span><span data-kicker-status>${draftsView.chip(r)}</span>`
+      : `<button type="button" data-filter-group="${r.group}" aria-label="Show every recipe in ${esc(group)}">${esc(group)}</button><span class="tier" title="Tier ${r.tier}">${r.tier}</span>${r.isNew ? `<span class="new" title="Added ${esc(r.added)}">New</span>` : ''}`;
+    const checks = r.draft
+      ? (r.problems.length ? `<ul class="checks">${r.problems.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>` : 'Nothing missing: ready to promote')
+      : '';
     this.info.innerHTML = `
-      <p class="info__kicker"><button type="button" data-filter-group="${r.group}" aria-label="Show every recipe in ${esc(groupTitle[r.group])}">${esc(groupTitle[r.group])}</button><span class="tier" title="Tier ${r.tier}">${r.tier}</span>${r.isNew ? `<span class="new" title="Added ${esc(r.added)}">New</span>` : ''}</p>
+      <p class="info__kicker">${kicker}</p>
       <h2 id="detail-title">${esc(r.title)}</h2>
       <p class="info__intent">${esc(r.intent)}</p>
       <p class="info__summary">${esc(r.summary).replace(/`([^`]+)`/g, '<code>$1</code>')}</p>
+      ${r.draft ? draftsView.reviewForm(r) : ''}
       <dl class="facts">
         <dt>Libraries</dt><dd>${libs}</dd>
         <dt>Seen in</dt><dd>${seen}</dd>
         ${r.added ? `<dt>Added</dt><dd>${esc(r.added)}</dd>` : ''}
-        <dt>Verified</dt><dd>${verified}</dd>
-        <dt>Folder</dt><dd><a class="mono" href="${data.repo}/tree/main/plugins/awards/recipes/${r.id}" target="_blank" rel="noopener">recipes/${r.id}</a></dd>
+        ${r.draft && r.drafted ? `<dt>Drafted</dt><dd>${esc(draftsView.day(r.drafted))}</dd>` : ''}
+        ${r.draft ? `<dt>Checks</dt><dd>${checks}</dd>` : `<dt>Verified</dt><dd>${verified}</dd>`}
+        <dt>Folder</dt><dd><a class="mono" href="${data.repo}/tree/main/plugins/awards/recipes/${r.key}" target="_blank" rel="noopener">recipes/${r.key}</a></dd>
       </dl>
       <h3>Tags</h3>
-      <div class="tags">${r.tags.map((t) => `<button type="button" class="chip" data-filter-tag="${t}" aria-label="Show every recipe tagged ${esc(t)}">${esc(t)}</button>`).join('')}</div>
+      <div class="tags">${r.tags.map((t) => (r.draft ? `<span class="chip chip--plain">${esc(t)}</span>` : `<button type="button" class="chip" data-filter-tag="${t}" aria-label="Show every recipe tagged ${esc(t)}">${esc(t)}</button>`)).join('')}</div>
       ${r.variants.length ? `<h3>Variants</h3><ul class="variants">${r.variants.map((v) => `<li>${esc(v).replace(/`([^`]+)`/g, '<code>$1</code>')}</li>`).join('')}</ul>` : ''}
       <div class="files">
         <div class="tabs" role="tablist" aria-label="Files">${r.files.map((f, k) => `<button type="button" role="tab" id="tab-${k}" data-tab="${esc(f)}" aria-selected="false" aria-controls="file-panel" tabindex="-1">${esc(f)}</button>`).join('')}</div>
@@ -693,6 +727,7 @@ const detail = {
       this.showFile(all[to].dataset.tab);
     });
     if (r.files.length) this.showFile(r.files[0]);
+    if (r.draft) draftsView.wireForm(r, this.info.querySelector('[data-review]'));
     this.load();
   },
 
@@ -704,7 +739,7 @@ const detail = {
     this.device.classList.remove('is-live');
     const desktop = this.mode === 'desktop';
     this.poster.hidden = !(desktop && r.frame);
-    if (desktop && r.frame) this.poster.src = frameSrc(r.id);
+    if (desktop && r.frame) this.poster.src = frameSrc(r.key);
     const iframe = document.createElement('iframe');
     iframe.title = `${r.title}, running live`;
     iframe.setAttribute('allow', 'autoplay; fullscreen');
@@ -728,7 +763,7 @@ const detail = {
       win.addEventListener('scroll', () => this.syncScrub(), { passive: true });
       this.syncScrub();
     });
-    iframe.src = `./${r.id}/index.html`;
+    iframe.src = `./${r.key}/index.html`;
     this.device.append(iframe);
   },
 
@@ -781,11 +816,12 @@ const detail = {
     if (btn) { btn.setAttribute('aria-pressed', 'false'); btn.textContent = 'Play through'; }
   },
 
-  async source(id, file) {
-    const key = `${id}/${file}`;
-    if (!this.sources.has(key)) {
-      this.sources.set(key, fetch(`./_gallery/src/${id}/${file}.txt`).then((res) => {
-        if (!res.ok) throw new Error(res.status);
+  // Drafts change while they are reviewed, so their files are fetched fresh rather than kept for the session.
+  async source(entry, file) {
+    const key = `${entry.key}/${file}`;
+    if (entry.draft || !this.sources.has(key)) {
+      this.sources.set(key, fetch(`./_gallery/src/${entry.key}/${file}.txt`, { cache: entry.draft ? 'no-store' : 'default' }).then((res) => {
+        if (!res.ok || !(res.headers.get('content-type') ?? 'text/plain').startsWith('text/plain')) throw new Error(res.status);
         return res.text();
       }));
     }
@@ -802,13 +838,13 @@ const detail = {
       if (on) panel.setAttribute('aria-labelledby', t.id);
     }
     const link = this.info.querySelector('[data-file-link]');
-    link.href = repoFile(`recipes/${r.id}/${file}`);
+    link.href = repoFile(`recipes/${r.key}/${file}`);
     link.setAttribute('aria-label', `${file} on GitHub`);
     const copy = this.info.querySelector('[data-copy]');
     copy.hidden = true;
     panel.innerHTML = '<p class="file__msg">Loading…</p>';
     let text;
-    try { text = await this.source(r.id, file); }
+    try { text = await this.source(r, file); }
     catch {
       if (this.current === r) panel.innerHTML = `<p class="file__msg">This file could not be loaded here. <a href="${esc(link.href)}" target="_blank" rel="noopener">Read it on GitHub</a>.</p>`;
       return;
@@ -818,7 +854,7 @@ const detail = {
     copy.hidden = !navigator.clipboard;
     copy.textContent = 'Copy';
     if (file.endsWith('.md')) {
-      const base = `${data.repo}/blob/main/plugins/awards/recipes/${r.id}/`;
+      const base = `${data.repo}/blob/main/plugins/awards/recipes/${r.key}/`;
       // The README's own title repeats the dialog's heading.
       panel.innerHTML = `<div class="md">${markdown(text.replace(/^#\s.*\n+/, ''), {
         ref: (kind, target) => {
@@ -848,6 +884,274 @@ const detail = {
   },
 };
 
+// ---------- drafts: proposals waiting for the maintainer's decision ----------
+
+const LIBS = { gsap: 'GSAP', lenis: 'Lenis', three: 'three.js', animejs: 'anime.js', '@unseenco/taxi': 'Taxi', 'matter-js': 'matter.js', ogl: 'OGL', postprocessing: 'postprocessing' };
+const libName = (dep) => LIBS[dep.replace(/@[^@]*$/, '')] ?? dep.replace(/@[^@]*$/, '');
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+// Waiting on the maintainer first, then what waits on the builder, then the settled ones.
+const STATUS_ORDER = ['new', 'revised', 'improve', 'accept', 'reject'];
+const DECISIONS = { accept: 'Accept', improve: 'Improve', reject: 'Reject' };
+
+const draftsView = {
+  loaded: false,
+  writable: false,
+  statuses: {},
+  unsaved: new Map(),
+  tabs: document.querySelector('[data-views]'),
+  catalogue: document.getElementById('catalogue'),
+  panel: null,
+
+  day(iso) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso ?? '');
+    return m ? `${Number(m[3])} ${MONTHS[Number(m[2]) - 1]} ${m[1]}` : '';
+  },
+  chip(r) { return `<span class="status" data-status="${r.review.status}">${esc(this.statuses[r.review.status] ?? r.review.status)}</span>`; },
+  heading() { return this.panel?.querySelector('#drafts-title'); },
+  list() { return draftOrder.map((k) => byId.get(k)); },
+  visible() { return draftOrder.filter((k) => !state.status || byId.get(k).review.status === state.status); },
+
+  // Outside the dev server nothing can write review.json, so a decision is kept in this browser until it is copied.
+  local(id) { try { return JSON.parse(localStorage.getItem(`awards-draft-review:${id}`) ?? 'null'); } catch { return null; } },
+  keepLocal(id, review) { try { localStorage.setItem(`awards-draft-review:${id}`, JSON.stringify(review)); return true; } catch { return false; } },
+
+  async load() {
+    let json;
+    try {
+      const res = await fetch('./_drafts/drafts.json', { cache: 'no-store' });
+      if (!res.ok) throw new Error(String(res.status));
+      json = await res.json();
+    } catch { return; } // No drafts.json (an older build, a page opened from disk): the tab stays hidden.
+    if (!this.tabs || !this.catalogue || !Array.isArray(json?.drafts)) return;
+    this.loaded = true;
+    this.writable = Boolean(json.writable);
+    this.statuses = json.statuses ?? {};
+    for (const d of json.drafts) {
+      const r = { ...d, key: `_drafts/${d.id}`, draft: true };
+      const local = this.writable ? null : this.local(d.id);
+      if (local) r.review = { ...r.review, ...local, local: true };
+      byId.set(r.key, r);
+    }
+    draftOrder = json.drafts.map((d) => `_drafts/${d.id}`)
+      .sort((a, b) => STATUS_ORDER.indexOf(byId.get(a).review.status) - STATUS_ORDER.indexOf(byId.get(b).review.status) || a.localeCompare(b));
+    this.build();
+    this.tabs.hidden = false;
+    this.catalogue.setAttribute('role', 'tabpanel');
+    this.catalogue.setAttribute('aria-labelledby', 'tab-catalogue');
+    this.wireTabs();
+    const key = readURL();
+    this.show(state.tab, { write: false });
+    if (key?.startsWith('_drafts/') && !detail.dialog.open) detail.open(key, { push: false, fromHistory: true });
+  },
+
+  build() {
+    const count = draftOrder.length;
+    this.tabs.querySelector('[data-drafts-count]').textContent = count;
+    const badge = document.createElement('span');
+    badge.className = 'views__badge';
+    badge.dataset.draftsWaiting = '';
+    this.tabs.querySelector('#tab-drafts').append(badge);
+    const panel = document.createElement('section');
+    panel.className = 'drafts';
+    panel.id = 'drafts';
+    panel.hidden = true;
+    panel.setAttribute('role', 'tabpanel');
+    panel.setAttribute('aria-labelledby', 'tab-drafts');
+    const saving = this.writable
+      ? 'Your decision is saved to the draft’s <code>review.json</code>.'
+      : 'This copy of the explorer cannot write files, so a decision stays in this browser: copy it as text, or run <code>npm run dev</code> in <code>plugins/awards/recipes</code> to save it to the draft.';
+    panel.innerHTML = `
+      <div class="drafts__head">
+        <h2 class="drafts__title" id="drafts-title" tabindex="-1">Drafts <span class="intro__count">${count}</span></h2>
+        <div class="drafts__text">
+          <p class="lede">Proposed recipes waiting for your decision.</p>
+          <p>Open one to run it beside its README and source, then accept it into the catalogue, ask for changes or reject it. ${saving}</p>
+          <p>Then ask Claude to <em>work the draft reviews</em>. Accepted drafts are promoted, and drafts you marked Improve come back to you as Revised, with a note on what changed.</p>
+        </div>
+      </div>
+      <div class="drafts__bar">
+        <div class="segmented" role="group" aria-label="Status" data-status-filter></div>
+        <p class="toolbar__status" role="status" data-drafts-status></p>
+      </div>
+      <ol class="plates drafts__plates" role="list">${this.list().map((r) => this.plate(r)).join('')}</ol>
+      <p class="empty" data-drafts-empty hidden>${count ? 'No draft has this status. <button type="button" data-status-value="">Show all drafts</button>' : 'No drafts yet. Start one with <code>node scripts/drafts.mjs new &lt;id&gt;</code>, or ask Claude to draft a recipe.'}</p>`;
+    this.catalogue.after(panel);
+    this.panel = panel;
+    for (const el of panel.querySelectorAll('.plate')) draftPlates.set(el.dataset.id, el);
+    panel.addEventListener('click', (e) => {
+      const a = e.target.closest('.plate__title a');
+      if (a && e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey) { e.preventDefault(); detail.open(a.closest('.plate').dataset.id); return; }
+      const f = e.target.closest('[data-status-value]');
+      if (f) { state.status = f.dataset.statusValue; this.update(); writeURL(); }
+    });
+    this.update();
+  },
+
+  plate(r) {
+    const libs = [...new Set(r.deps.map(libName))];
+    const img = r.frame
+      ? `<img src="./${r.key}/frame.webp" width="800" height="500" alt="" loading="lazy" decoding="async">`
+      : `<span class="plate__blank" aria-hidden="true">${esc(r.intent)}</span>`;
+    return `<li class="plate plate--draft" data-id="${r.key}">
+          <div class="plate__frame">${img}</div>
+          <h3 class="plate__title"><a href="./${r.key}/index.html">${esc(r.title)}</a></h3>
+          <p class="plate__intent">${esc(r.intent)}</p>
+          <p class="plate__meta"><span data-plate-status>${this.chip(r)}</span><span class="tier" title="Tier ${r.tier}">${r.tier}</span> <span class="plate__libs">${esc(libs.join(' · ') || 'no library')}</span></p>
+          <p class="plate__notes" data-plate-notes>${this.excerpt(r)}</p>
+          ${r.problems.length ? `<p class="plate__checks">${r.problems.length} check${r.problems.length === 1 ? '' : 's'} open</p>` : ''}
+        </li>`;
+  },
+  excerpt(r) {
+    const rv = r.review;
+    if (rv.status === 'revised' && rv.reply) return `<span class="plate__who">Changed:</span> ${esc(rv.reply)}`;
+    return rv.notes ? `<span class="plate__who">Your notes:</span> ${esc(rv.notes)}` : '';
+  },
+
+  // Counts per status, the filter's pressed state and which plates show.
+  update() {
+    const all = this.list();
+    const counts = Object.fromEntries(STATUS_ORDER.map((s) => [s, all.filter((r) => r.review.status === s).length]));
+    if (state.status && !counts[state.status]) state.status = '';
+    const filter = this.panel.querySelector('[data-status-filter]');
+    filter.innerHTML = [['', 'All', all.length], ...STATUS_ORDER.filter((s) => counts[s]).map((s) => [s, this.statuses[s] ?? s, counts[s]])]
+      .map(([v, label, n]) => `<button type="button" data-status-value="${v}" aria-pressed="${state.status === v}">${esc(label)} <span>${n}</span></button>`).join('');
+    filter.hidden = !all.length;
+    const shown = new Set(this.visible());
+    for (const [key, el] of draftPlates) {
+      const r = byId.get(key);
+      el.hidden = !shown.has(key);
+      el.querySelector('[data-plate-status]').innerHTML = this.chip(r);
+      const notes = el.querySelector('[data-plate-notes]');
+      notes.innerHTML = this.excerpt(r);
+      notes.hidden = !notes.innerHTML;
+    }
+    const waiting = counts.new + counts.revised;
+    this.panel.querySelector('[data-drafts-status]').textContent = `${shown.size} of ${all.length} drafts · ${waiting} waiting for you`;
+    this.panel.querySelector('[data-drafts-empty]').hidden = shown.size > 0;
+    const badge = this.tabs.querySelector('[data-drafts-waiting]');
+    badge.hidden = !waiting;
+    badge.textContent = `${waiting} to review`;
+  },
+
+  wireTabs() {
+    const tabs = [...this.tabs.querySelectorAll('[role="tab"]')];
+    this.tabs.addEventListener('click', (e) => {
+      const t = e.target.closest('[role="tab"]');
+      if (t) this.show(t.id === 'tab-drafts' ? 'drafts' : 'catalogue');
+    });
+    this.tabs.addEventListener('keydown', (e) => {
+      if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
+      e.preventDefault();
+      const k = tabs.indexOf(document.activeElement);
+      const to = e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : (k + (e.key === 'ArrowLeft' ? -1 : 1) + tabs.length) % tabs.length;
+      tabs[to].focus();
+      this.show(tabs[to].id === 'tab-drafts' ? 'drafts' : 'catalogue');
+    });
+  },
+
+  show(tab, { write = true } = {}) {
+    if (!this.loaded) return;
+    state.tab = tab === 'drafts' ? 'drafts' : 'catalogue';
+    const drafts = state.tab === 'drafts';
+    this.catalogue.hidden = drafts;
+    this.panel.hidden = !drafts;
+    for (const t of this.tabs.querySelectorAll('[role="tab"]')) {
+      const on = (t.id === 'tab-drafts') === drafts;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+    }
+    if (drafts) this.update();
+    // Written at once, not on the debounce: an entry opened right after the switch must find the tab in the URL.
+    if (write) { clearTimeout(urlTimer); history.replaceState(history.state, '', urlFor(detail.current?.key)); }
+  },
+
+  // The decision form at the top of a draft's panel in the stage.
+  reviewForm(r) {
+    const rv = r.review;
+    const kept = this.unsaved.get(r.id);
+    const decided = DECISIONS[rv.status] ? rv.status : '';
+    const choice = kept?.decision ?? decided;
+    const notes = kept?.notes ?? (decided ? rv.notes : '');
+    const when = rv.date ? `Reviewed ${this.day(rv.date)}${rv.local ? ' · kept in this browser only' : ''}` : 'Not reviewed yet';
+    const earlier = rv.status === 'revised' && rv.notes
+      ? `<div class="review__note"><p class="review__label">Your notes</p><p>${esc(rv.notes)}</p></div>` : '';
+    const reply = rv.status === 'revised' && rv.reply
+      ? `<div class="review__note review__note--reply"><p class="review__label">What changed</p><p>${esc(rv.reply)}</p></div>` : '';
+    const history = rv.history?.length
+      ? `<details class="review__history"><summary>Earlier rounds (${rv.history.length})</summary><ol>${rv.history.map((h) => `<li><p><strong>${esc(this.statuses[h.status] ?? h.status)}</strong>${h.date ? ` · ${esc(this.day(h.date))}` : ''}</p>${h.notes ? `<p>${esc(h.notes)}</p>` : ''}${h.reply ? `<p class="review__label">What changed</p><p>${esc(h.reply)}</p>` : ''}</li>`).join('')}</ol></details>` : '';
+    return `
+      <section class="review" aria-labelledby="review-title" data-review>
+        <div class="review__head"><h3 id="review-title">Your decision</h3><span data-review-chip>${this.chip(r)}</span></div>
+        <p class="review__when" data-review-when>${esc(when)}</p>
+        ${earlier}${reply}
+        <form class="review__form" novalidate>
+          <fieldset class="review__choices">
+            <legend class="sr-only">Decision</legend>
+            ${Object.entries(DECISIONS).map(([v, label]) => `<label class="choice choice--${v}"><input type="radio" name="decision" value="${v}"${choice === v ? ' checked' : ''}><span>${label}</span></label>`).join('')}
+          </fieldset>
+          <label class="review__label" for="review-notes">Notes <span>what to change, or why</span></label>
+          <textarea id="review-notes" name="notes" rows="5" spellcheck="true">${esc(notes)}</textarea>
+          <div class="review__actions">
+            <button type="submit" class="review__save">Save decision</button>
+            <button type="button" class="ghost" data-copy-review>Copy as text</button>
+          </div>
+          <p class="review__msg" role="status" data-review-msg></p>
+        </form>
+        ${history}
+      </section>`;
+  },
+
+  wireForm(r, section) {
+    if (!section) return;
+    const form = section.querySelector('form');
+    const msg = section.querySelector('[data-review-msg]');
+    const notes = form.elements.notes;
+    const decision = () => form.querySelector('input[name="decision"]:checked')?.value ?? '';
+    const keep = () => this.unsaved.set(r.id, { decision: decision(), notes: notes.value });
+    form.addEventListener('input', keep);
+    form.addEventListener('change', keep);
+    const text = () => `Draft review: ${r.id} (recipes/_drafts/${r.id})\nDecision: ${DECISIONS[decision()] ?? 'none yet'}\n${notes.value.trim() ? `Notes: ${notes.value.trim()}\n` : ''}`;
+    section.querySelector('[data-copy-review]').addEventListener('click', async (e) => {
+      const btn = e.currentTarget;
+      try { await navigator.clipboard.writeText(text()); btn.textContent = 'Copied'; }
+      catch { btn.textContent = 'Copy failed'; }
+      setTimeout(() => { btn.textContent = 'Copy as text'; }, 1600);
+    });
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const status = decision();
+      if (!status) { msg.textContent = 'Choose Accept, Improve or Reject first.'; form.querySelector('input[name="decision"]').focus(); return; }
+      if (status === 'improve' && !notes.value.trim()) { msg.textContent = 'Say what to change in the notes.'; notes.focus(); return; }
+      const save = form.querySelector('.review__save');
+      save.disabled = true;
+      msg.textContent = 'Saving…';
+      try {
+        if (this.writable) {
+          const res = await fetch(`./_drafts/${r.id}/review`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status, notes: notes.value }) });
+          const body = await res.json().catch(() => ({}));
+          if (!res.ok) throw new Error(body.error ?? `the server answered ${res.status}`);
+          r.review = body.review;
+          msg.innerHTML = `Saved to <code>recipes/_drafts/${esc(r.id)}/review.json</code>.`;
+        } else {
+          const review = { ...r.review, status, notes: notes.value, date: new Date().toISOString().slice(0, 10) };
+          if (!this.keepLocal(r.id, { status, notes: notes.value, date: review.date })) throw new Error('this browser refused to store it; copy it as text instead');
+          r.review = { ...review, local: true };
+          msg.textContent = 'Kept in this browser. Copy it as text to hand it over.';
+        }
+        this.unsaved.delete(r.id);
+        for (const el of detail.info.querySelectorAll('[data-review-chip], [data-kicker-status]')) el.innerHTML = this.chip(r);
+        section.querySelector('[data-review-when]').textContent = `Reviewed ${this.day(r.review.date)}${r.review.local ? ' · kept in this browser only' : ''}`;
+        this.update();
+        if (draftOrder.length > 1) msg.insertAdjacentHTML('beforeend', ' <button type="button" class="review__next" data-step="1">Next draft</button>');
+      } catch (err) {
+        msg.textContent = `Not saved: ${err.message}.`;
+      } finally {
+        save.disabled = false;
+      }
+    });
+  },
+};
+
 // ---------- boot ----------
 
 detail.build();
@@ -859,4 +1163,5 @@ wirePlates();
 wireMosaic();
 apply({ scroll: false });
 if (initial) detail.open(initial, { push: false, fromHistory: true });
+draftsView.load();
 addEventListener('resize', () => { if (detail.dialog.open) { const before = detail.mode; detail.layoutModes(); if (detail.mode !== before) detail.load(); } });

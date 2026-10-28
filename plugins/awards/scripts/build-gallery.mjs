@@ -3,6 +3,8 @@
 // one plate per recipe (its frame from _gallery/frames/, title, intent, tier, libraries) in group order, readable
 // and linked without script, plus one JSON block the explorer (_gallery/gallery.js) reads for search, facets and
 // the live stage: the full manifest, the source files shown beside the demo and the verifier's desktop states.
+// Drafts (recipes/_drafts/) are not written into the page: its Drafts tab reads _drafts/drafts.json at run time,
+// so a new draft or a saved review never makes this page stale.
 // Usage: node scripts/build-gallery.mjs [--check]   Exit: 0 written or in sync · 1 drift.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -168,6 +170,13 @@ ${rows.map(plate).join('\n')}
   </header>
 
   <main id="main">
+    <div class="views js-only" data-views hidden>
+      <div class="views__tabs" role="tablist" aria-label="Catalogue or drafts">
+        <button type="button" role="tab" id="tab-catalogue" aria-controls="catalogue" aria-selected="true">Catalogue <span class="views__count">${count}</span></button>
+        <button type="button" role="tab" id="tab-drafts" aria-controls="drafts" aria-selected="false" tabindex="-1">Drafts <span class="views__count" data-drafts-count></span></button>
+      </div>
+    </div>
+    <div class="catalogue" id="catalogue">
     <section class="intro" aria-labelledby="title">
       <h1 id="title">Recipes <span class="intro__count">${count}</span></h1>
       <div class="intro__text">
@@ -209,6 +218,7 @@ ${toc}
     <div class="results" id="recipes" tabindex="-1">
 ${sections}
       <p class="empty" data-empty hidden>Nothing matches. <button type="button" data-clear>Clear the search and filters</button></p>
+    </div>
     </div>
   </main>
 
