@@ -68,7 +68,7 @@ function update(p) {
     chapters.forEach((c, i) => c.toggleAttribute('data-active', i === chapter));
     steps.forEach((b, i) => (i === chapter ? b.setAttribute('aria-current', 'step') : b.removeAttribute('aria-current')));
   }
-  if (level !== state.level || turn !== state.turn || state.renders === 0) {
+  if (level !== state.level || turn !== state.turn) {
     state.level = level; state.turn = turn;
     // The still burns too: its wavy clip and ember line move down the cone by the same level.
     state.burnY = Math.round(level * STILL_TRAVEL);
@@ -91,7 +91,7 @@ steps.forEach((b, i) => b.addEventListener('click', () => {
   else window.scrollTo({ top: y, behavior: 'instant' });
 }));
 
-// The patch: three chunk insertions; each throws if its include is missing, so a three upgrade fails loudly.
+// The patch: each chunk insertion throws if its include is missing, so a three upgrade fails loudly instead of drawing a whole cone.
 function patch(material, uniforms) {
   material.onBeforeCompile = (shader) => {
     Object.assign(shader.uniforms, uniforms);
