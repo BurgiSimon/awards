@@ -43,31 +43,36 @@
             </li>
             <li class="chapter" data-chapter="2">
               <h3 class="chapter__title">What stays is the room.</h3>
-              <p>Forty minutes later the cone is gone and the dish is clean. The scent has only started: it sits in the curtains until the evening.</p>
+              <p>Fifty minutes later the cone is gone and the dish is clean. The scent has only started: it sits in the curtains until the evening.</p>
             </li>
           </ol>
+          <p class="sr-only" role="status" aria-live="polite" data-status></p>
         </div>
         <figure class="stage__figure" data-figure>
-          <svg class="still" data-still viewBox="0 0 600 640" role="img" aria-labelledby="still-t">
-            <title id="still-t">Cone No. 7 standing on a pale green glazed dish</title>
+          <!-- The still is the GL camera's projection of the same lathe and dish (scripts set the viewBox to the camera's frame). -->
+          <svg class="still" data-still viewBox="-410 -350 820 700" role="img" aria-labelledby="still-t">
+            <title id="still-t" data-still-title>Cone No. 7, whole, standing on a glazed dish</title>
             <defs>
-              <linearGradient id="still-cone" x1="0" x2="1" y1="0" y2="0">
-                <stop offset="0" stop-color="#d0a27a"/><stop offset=".45" stop-color="#a87550"/><stop offset="1" stop-color="#4d3020"/>
+              <linearGradient id="still-cone" gradientUnits="userSpaceOnUse" x1="-190" x2="190" y1="0" y2="0">
+                <stop offset="0" stop-color="#b8784c"/><stop offset=".42" stop-color="#9a6040"/><stop offset="1" stop-color="#4a2a1a"/>
               </linearGradient>
-              <linearGradient id="still-dish" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0" stop-color="#b7cbbf"/><stop offset="1" stop-color="#5f7a6c"/>
+              <linearGradient id="still-rim" gradientUnits="userSpaceOnUse" x1="0" x2="0" y1="82" y2="292">
+                <stop offset="0" stop-color="#2c3631"/><stop offset=".6" stop-color="#4a5a51"/><stop offset="1" stop-color="#617468"/>
               </linearGradient>
-              <radialGradient id="still-shadow"><stop offset="0" stop-color="#000" stop-opacity=".6"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
-              <clipPath id="still-burn"><path data-still-burn d="M0 70q30 -14 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0V700H0z"/></clipPath>
-              <clipPath id="still-shape"><path d="M300 98q-9 0-12 10L184 512q116 30 232 0L312 108q-3-10-12-10z"/></clipPath>
+              <linearGradient id="still-bowl" gradientUnits="userSpaceOnUse" x1="0" x2="0" y1="86" y2="282">
+                <stop offset="0" stop-color="#4d5e55"/><stop offset=".5" stop-color="#3b4841"/><stop offset="1" stop-color="#33403a"/>
+              </linearGradient>
+              <radialGradient id="still-shadow"><stop offset="0" stop-color="#000" stop-opacity=".65"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+              <clipPath id="still-burn"><path data-still-burn transform="translate(0 -479)" d="M-240 18.2L-232 21.7L-224 17.8L-216 7.3L-208 4.7L-200 13.3L-192 19.7L-184 17.5L-176 16.2L-168 19.8L-160 17.1L-152 1.8L-144 -13.7L-136 -18.2L-128 -18.6L-120 -23.8L-112 -26.4L-104 -17.7L-96 -6.7L-88 -6.7L-80 -13.5L-72 -14.4L-64 -11.5L-56 -15L-48 -20.6L-40 -14.8L-32 1.2L-24 12.4L-16 15.5L-8 20.7L0 29.2L8 28.8L16 17L24 8.1L32 9.7L40 12.1L48 8.2L56 7L64 14.6L72 19.3L80 10.7L88 -2.9L96 -9.5L104 -13.6L112 -23.9L120 -33.1L128 -28.9L136 -16.9L144 -11.5L152 -12.5L160 -8.9L168 -2.2L176 -4.4L184 -13.9L192 -15.6L200 -5.9L208 2.8L216 6L224 13.3L232 27.4L240 34.5V900H-240Z"/></clipPath>
+              <clipPath id="still-shape"><path d="M-189.1 199.6L-188 194.8L-6.2 -314.5L0 -317.6L6.2 -314.5L188 194.8L189.1 199.6L188.8 204.4L187 209.3L183.7 214.2L179.6 219.6L174.8 224.3L168.6 229L160.8 233.4L151.6 237.7L141 241.8L129.1 245.5L115.9 248.9L101.6 252L86.3 254.7L70.1 256.9L53.2 258.7L35.8 259.9L18 260.7L0 261L-18 260.7L-35.8 259.9L-53.2 258.7L-70.1 256.9L-86.3 254.7L-101.6 252L-115.9 248.9L-129.1 245.5L-141 241.8L-151.6 237.7L-160.8 233.4L-168.6 229L-174.8 224.3L-179.6 219.6L-183.7 214.2L-187 209.3L-188.8 204.4Z"/></clipPath>
             </defs>
-            <ellipse cx="300" cy="560" rx="250" ry="46" fill="url(#still-shadow)"/>
-            <path d="M68 520q232 70 464 0l-24 26q-208 54-416 0z" fill="#41564b"/>
-            <ellipse cx="300" cy="520" rx="232" ry="40" fill="url(#still-dish)"/>
-            <ellipse cx="300" cy="522" rx="196" ry="30" fill="#7f998b"/>
-            <path clip-path="url(#still-burn)" d="M300 98q-9 0-12 10L184 512q116 30 232 0L312 108q-3-10-12-10z" fill="url(#still-cone)"/>
+            <ellipse cx="0" cy="249.4" rx="401.6" ry="125.7" fill="url(#still-shadow)"/>
+            <path d="M-378.6 183.9L-377.1 177L-374 170.2L-369.5 163.5L-363.4 157.1L-356.1 150.8L-347.5 144.8L-337.7 139L-326.8 133.5L-314.9 128.2L-302 123.2L-288.3 118.5L-273.8 114L-258.5 109.8L-242.6 105.9L-226.1 102.3L-209.1 99L-191.5 95.9L-173.6 93.2L-155.2 90.7L-136.5 88.6L-117.5 86.7L-98.3 85.1L-78.9 83.8L-59.3 82.8L-39.6 82.1L-19.8 81.6L0 81.5L19.8 81.6L39.6 82.1L59.3 82.8L78.9 83.8L98.3 85.1L117.5 86.7L136.5 88.6L155.2 90.7L173.6 93.2L191.5 95.9L209.1 99L226.1 102.3L242.6 105.9L258.5 109.8L273.8 114L288.3 118.5L302 123.2L314.9 128.2L326.8 133.5L337.7 139L347.5 144.8L356.1 150.8L363.4 157.1L369.5 163.5L374 170.2L377.1 177L378.6 183.9L378.4 191L376.4 198.1L372.6 205.3L367 212.6L360.2 219L352.7 226.1L343.2 233.2L331.8 240.2L318.5 246.9L303.2 253.5L286 259.8L240.2 276.3L223.8 281.4L205.9 286.2L186.8 290.7L166.4 294.7L144.8 298.3L122.3 301.3L98.9 303.9L74.8 305.9L50.2 307.4L25.2 308.3L0 308.6L-25.2 308.3L-50.2 307.4L-74.8 305.9L-98.9 303.9L-122.3 301.3L-144.8 298.3L-166.4 294.7L-186.8 290.7L-205.9 286.2L-223.8 281.4L-240.2 276.3L-286 259.8L-303.2 253.5L-318.5 246.9L-331.8 240.2L-343.2 233.2L-352.7 226.1L-360.2 219L-367 212.6L-372.6 205.3L-376.4 198.1L-378.4 191Z" fill="url(#still-rim)"/>
+            <ellipse cx="0" cy="183.4" rx="368.2" ry="101.7" fill="url(#still-bowl)"/>
+            <ellipse cx="0" cy="208.3" rx="237.2" ry="69.9" fill="#36443d"/>
+            <path clip-path="url(#still-burn)" d="M-189.1 199.6L-188 194.8L-6.2 -314.5L0 -317.6L6.2 -314.5L188 194.8L189.1 199.6L188.8 204.4L187 209.3L183.7 214.2L179.6 219.6L174.8 224.3L168.6 229L160.8 233.4L151.6 237.7L141 241.8L129.1 245.5L115.9 248.9L101.6 252L86.3 254.7L70.1 256.9L53.2 258.7L35.8 259.9L18 260.7L0 261L-18 260.7L-35.8 259.9L-53.2 258.7L-70.1 256.9L-86.3 254.7L-101.6 252L-115.9 248.9L-129.1 245.5L-141 241.8L-151.6 237.7L-160.8 233.4L-168.6 229L-174.8 224.3L-179.6 219.6L-183.7 214.2L-187 209.3L-188.8 204.4Z" fill="url(#still-cone)"/>
             <g clip-path="url(#still-shape)" fill="none">
-              <g data-still-burn><path d="M0 70q30 -14 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0" transform="translate(0 10)" stroke="#2a1810" stroke-width="16"/><path d="M0 70q30 -14 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0" stroke="#ff7a3d" stroke-width="5"/></g>
+              <g data-still-burn transform="translate(0 -479)"><path d="M-240 18.2L-232 21.7L-224 17.8L-216 7.3L-208 4.7L-200 13.3L-192 19.7L-184 17.5L-176 16.2L-168 19.8L-160 17.1L-152 1.8L-144 -13.7L-136 -18.2L-128 -18.6L-120 -23.8L-112 -26.4L-104 -17.7L-96 -6.7L-88 -6.7L-80 -13.5L-72 -14.4L-64 -11.5L-56 -15L-48 -20.6L-40 -14.8L-32 1.2L-24 12.4L-16 15.5L-8 20.7L0 29.2L8 28.8L16 17L24 8.1L32 9.7L40 12.1L48 8.2L56 7L64 14.6L72 19.3L80 10.7L88 -2.9L96 -9.5L104 -13.6L112 -23.9L120 -33.1L128 -28.9L136 -16.9L144 -11.5L152 -12.5L160 -8.9L168 -2.2L176 -4.4L184 -13.9L192 -15.6L200 -5.9L208 2.8L216 6L224 13.3L232 27.4L240 34.5" transform="translate(0 14)" stroke="#24150e" stroke-width="20"/><path d="M-240 18.2L-232 21.7L-224 17.8L-216 7.3L-208 4.7L-200 13.3L-192 19.7L-184 17.5L-176 16.2L-168 19.8L-160 17.1L-152 1.8L-144 -13.7L-136 -18.2L-128 -18.6L-120 -23.8L-112 -26.4L-104 -17.7L-96 -6.7L-88 -6.7L-80 -13.5L-72 -14.4L-64 -11.5L-56 -15L-48 -20.6L-40 -14.8L-32 1.2L-24 12.4L-16 15.5L-8 20.7L0 29.2L8 28.8L16 17L24 8.1L32 9.7L40 12.1L48 8.2L56 7L64 14.6L72 19.3L80 10.7L88 -2.9L96 -9.5L104 -13.6L112 -23.9L120 -33.1L128 -28.9L136 -16.9L144 -11.5L152 -12.5L160 -8.9L168 -2.2L176 -4.4L184 -13.9L192 -15.6L200 -5.9L208 2.8L216 6L224 13.3L232 27.4L240 34.5" transform="translate(0 4)" stroke="#b8300c" stroke-width="8"/><path d="M-240 18.2L-232 21.7L-224 17.8L-216 7.3L-208 4.7L-200 13.3L-192 19.7L-184 17.5L-176 16.2L-168 19.8L-160 17.1L-152 1.8L-144 -13.7L-136 -18.2L-128 -18.6L-120 -23.8L-112 -26.4L-104 -17.7L-96 -6.7L-88 -6.7L-80 -13.5L-72 -14.4L-64 -11.5L-56 -15L-48 -20.6L-40 -14.8L-32 1.2L-24 12.4L-16 15.5L-8 20.7L0 29.2L8 28.8L16 17L24 8.1L32 9.7L40 12.1L48 8.2L56 7L64 14.6L72 19.3L80 10.7L88 -2.9L96 -9.5L104 -13.6L112 -23.9L120 -33.1L128 -28.9L136 -16.9L144 -11.5L152 -12.5L160 -8.9L168 -2.2L176 -4.4L184 -13.9L192 -15.6L200 -5.9L208 2.8L216 6L224 13.3L232 27.4L240 34.5" stroke="#ff6a1c" stroke-width="4"/></g>
             </g>
           </svg>
           <canvas class="gl" data-gl aria-hidden="true"></canvas>

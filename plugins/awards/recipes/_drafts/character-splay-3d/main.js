@@ -8,14 +8,16 @@ import { motionTier, onMotionTierChange, syncMotionTierAttribute } from '../../_
 // A display headline split into characters that splay apart in 3D as the hero leaves. One number per character, its
 // distance from the headline's centre (0 at the pivot, 1 at the end of the widest line), sets all six channels, so
 // the pivot hardly moves and the ends take most of it. The scroll is the only clock: at progress 0 every transform is
-// removed and the heading is plain text in its own layout again. A second heading plays the same offsets once, open
-// to shut, on entry. Reduced motion: no split, the hero fades with the scroll. Static: no split, no fade.
+// removed and the heading is plain text in its own layout again. Behind it, the fan's ribs open from a pin under the
+// centre on the same clock. A second heading plays the same offsets once, open to shut, on entry. Reduced motion: no
+// split, the headline dims as the hero leaves. Static: no split, no fade.
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 syncMotionTierAttribute();
 
 // The boot every Lenis recipe follows: Lenis 1.3 has no clock of its own (autoRaf false), so GSAP's ticker drives it.
-const lenis = new Lenis({ lerp: 0.1, autoRaf: false });
+// Wheel smoothing only in the full tier: in reduced and static nothing coasts on after the hand stops.
+const lenis = new Lenis({ lerp: 0.1, autoRaf: false, smoothWheel: motionTier() === 'full' });
 lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.add((t) => lenis.raf(t * 1000));
 gsap.ticker.lagSmoothing(0);
@@ -25,20 +27,30 @@ window.lenis = lenis;
 const SPLAY = {
   shape: 1.6,        // weight = distance ** 1.6
   spread: 0.28,      // × half width, outward along the line
+  spreadNarrow: 0.1, // the same under 760 px, where the headline fills the width: a phone keeps the ends in frame
   drop: 0.8,         // × line height, the ends fall away so each line bends into an arc, like a fan's leaf
+  rows: 0.35,        // × line height, by row: lower rows fall further and upper rows less, so the rows part like ribs
   depth: 0.7,        // × half width, towards the viewer
+  depthNarrow: 0.5,  // the same under 760 px
   turn: 60,          // ° about Y at the ends, the faces turning outward
   tip: 36,           // ° about X at the ends, by row: rows above the middle tip back, rows below tip forward
   roll: 24,          // ° about Z at the ends, each letter leaning along its arc like a rib
   perspective: 2.6,  // × half width, set on each line (perspective-origin at the line's centre)
 };
-const ENTER = { duration: 1.2, ease: 'expo.out', start: 'center bottom' }; // the source's trigger and length
+const RIBS = { open: 64, opacity: 0.7, pivot: '600 770' }; // outermost rib at ±64° when fully open; pivot in SVG units
+const LEDE = { from: 0.08, to: 0.36 };                        // the lede has gone before the lowest row's ends reach it
+const ENTER = { duration: 1.2, ease: 'expo.out', start: 'center bottom' }; // the source's length and trigger
 const SPLIT = { type: 'lines,words,chars', linesClass: 'splay-line', wordsClass: 'splay-word', charsClass: 'splay-char', aria: 'auto', autoSplit: true };
+const narrow = matchMedia('(max-width: 760px)');
 
+const root = document.documentElement;
 const hero = document.querySelector('[data-splay-hero]');
 const stage = document.querySelector('[data-splay-stage]');
 const title = document.querySelector('[data-splay="scroll"]');
 const lede = stage.querySelector('.hero__lede');
+const ribGroup = stage.querySelector('.fan__ribs');
+const ribs = [...stage.querySelectorAll('.fan__rib')];
+const ribAngle = (i) => RIBS.open * ((2 * i) / (ribs.length - 1) - 1);
 const closer = document.querySelector('[data-splay="enter"]');
 
 const state = { splits: 0, progress: 0, rest: true, enterDone: false, enterSplits: 0 };
@@ -57,7 +69,9 @@ function splayTargets(split, el) {
   }
   const lineH = split.lines.length > 1 ? split.lines[1].offsetTop - split.lines[0].offsetTop : box.height;
   const mid = (rows.length - 1) / 2;
-  el.style.setProperty('--splay-perspective', `${Math.round(SPLAY.perspective * half)}px`);
+  const [spread, depth] = narrow.matches ? [SPLAY.spreadNarrow, SPLAY.depthNarrow] : [SPLAY.spread, SPLAY.depth];
+  // On the line elements SplitText made, so its revert takes the perspective away with them.
+  for (const line of split.lines) line.style.perspective = `${Math.round(SPLAY.perspective * half)}px`;
   return rows.flatMap((row, r) => row.map((ch) => {
     const b = rects.get(ch);
     const dx = (b.left + b.width / 2 - centre) / half;
@@ -67,9 +81,9 @@ function splayTargets(split, el) {
     const f = d ** SPLAY.shape;
     return {
       el: ch, d, s, v,
-      x: s * f * SPLAY.spread * half,
-      y: f * SPLAY.drop * lineH,
-      z: f * SPLAY.depth * half,
+      x: s * f * spread * half,
+      y: f * (SPLAY.drop + v * SPLAY.rows) * lineH,
+      z: f * depth * half,
       rotationY: s * f * SPLAY.turn,
       rotationX: -v * f * SPLAY.tip,
       rotation: s * f * SPLAY.roll,
@@ -108,14 +122,18 @@ function full() {
         },
       });
       tl.to(chars, { ...channels(targets), force3D: true }, 0)
-        .to(lede, { opacity: 0, duration: 0.4 }, 0.6);
+        // The ribs open on the same linear clock as the letters, so the pivot the offsets are measured from is drawn.
+        .fromTo(ribs, { rotation: 0, svgOrigin: RIBS.pivot }, { rotation: ribAngle, svgOrigin: RIBS.pivot }, 0)
+        .fromTo(ribGroup, { opacity: 0 }, { opacity: RIBS.opacity }, 0)
+        .to(lede, { opacity: 0, duration: LEDE.to - LEDE.from }, LEDE.from);
       state.progress = tl.scrollTrigger.progress;
       if (state.progress === 0) { settle(chars); state.rest = true; }
       return tl;
     },
   });
 
-  // The closing heading: the same offsets as a from-tween, open → shut once, the order the source plays them in.
+  // The closing heading: the same offsets as a from-tween, open → shut once (the plugin's reading of the source:
+  // its rotationY −270 ends edge-on, so a reveal on entry has to start from the offsets).
   SplitText.create(closer, {
     ...SPLIT,
     onSplit(self) {
@@ -133,9 +151,10 @@ function full() {
 }
 
 function reduced() {
-  // No split, so the headings keep whole sentences. The hero is one screen tall here (style.css) and fades as it
-  // leaves; the close fades in.
-  gsap.to(stage, { opacity: 0.12, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true, onUpdate: (st) => { state.progress = st.progress; } } });
+  // No split, so the headings keep whole sentences. The hero is one screen tall here (no splay-on class) and only the
+  // headline dims as it leaves: large text keeps 3:1 until it has scrolled off, and the small label and lede, which
+  // need 4.5:1, are never faded.
+  gsap.to(title, { opacity: 0.12, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true, onUpdate: (st) => { state.progress = st.progress; } } });
   gsap.from(closer, { opacity: 0, duration: 0.4, scrollTrigger: { trigger: closer, start: ENTER.start, once: true }, onComplete: () => { state.enterDone = true; } });
 }
 
@@ -149,6 +168,10 @@ function applyTier() {
   ctx?.revert();
   heroTargets = [];
   Object.assign(state, { progress: 0, rest: true, enterDone: false });
+  lenis.options.smoothWheel = tier === 'full';
+  // The tall track and the sticky stage exist only while the splay is built (style.css): without the script, and in
+  // the reduced and static tiers, the hero is one screen that simply scrolls away.
+  root.classList.toggle('splay-on', tier === 'full');
   ctx = gsap.context(() => {
     if (tier === 'full') full();
     else if (tier === 'reduced') reduced();
@@ -160,7 +183,7 @@ function applyTier() {
 await document.fonts.ready; // characters are measured on the real face, never on a fallback that swaps later
 applyTier();
 onMotionTierChange(applyTier);
-new MutationObserver(applyTier).observe(document.documentElement, { attributes: true, attributeFilter: ['data-motion'] });
+new MutationObserver(applyTier).observe(root, { attributes: true, attributeFilter: ['data-motion'] });
 addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
 
 const round = (n) => Number(Number(n).toFixed(2));
@@ -174,8 +197,9 @@ awards.addState(() => ({
   lines: title.querySelectorAll('.splay-line').length,
   chars: title.querySelectorAll('.splay-char').length,
   triggers: ScrollTrigger.getAll().length,
+  smoothWheel: lenis.options.smoothWheel,
   label: title.getAttribute('aria-label'),
-  perspective: getComputedStyle(title).getPropertyValue('--splay-perspective').trim() || null,
+  perspective: title.querySelector('.splay-line')?.style.perspective || null,
   // Per character, in reading order: its distance, side and row, the channels GSAP last wrote, and its set position.
   samples: heroTargets.filter((t) => t.el.isConnected).map((t) => ({
     d: Number(t.d.toFixed(4)), s: t.s, v: round(t.v),

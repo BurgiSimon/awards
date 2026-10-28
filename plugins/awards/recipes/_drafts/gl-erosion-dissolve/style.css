@@ -17,6 +17,8 @@
 }
 
 a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+/* The skip link keeps base.css's sr-only clip until it has focus, then sits in the corner, readable. */
+.skip-link:focus-visible { position: fixed; z-index: 10; top: 12px; left: 12px; width: auto; height: auto; margin: 0; padding: 12px 16px; clip: auto; overflow: visible; white-space: normal; background: var(--ink); color: var(--ground); }
 
 .bar { display: flex; align-items: center; justify-content: space-between; gap: calc(var(--unit) * 4); min-height: 64px; }
 .bar .label { margin: 0; }
@@ -32,13 +34,16 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outlin
 .stage__sticky { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); grid-template-areas: "copy figure"; gap: var(--gutter); padding-block: calc(var(--unit) * 10); }
 .stage__copy { grid-area: copy; display: grid; align-content: center; gap: calc(var(--unit) * 8); }
 .stage__name { margin: 0; }
-.stage__figure { grid-area: figure; position: relative; margin: 0; min-height: 70svh; background: linear-gradient(to bottom, var(--room-top), var(--room-floor)); }
+/* The figure is a size container, so the caption can step aside when the figure is short. */
+.stage__figure { grid-area: figure; position: relative; margin: 0; min-height: 70svh; background: linear-gradient(to bottom, var(--room-top), var(--room-floor)); container: figure / size; }
+/* The still fills the figure with no padding: its viewBox is the camera's frame, so it and the canvas line up. */
 .still, .gl { position: absolute; inset: 0; width: 100%; height: 100%; }
-.still { padding: 6% 8% 9%; }
 .gl { display: none; }
 html.gl-active .gl { display: block; }
-html.gl-active .still { visibility: hidden; }
+/* Under the canvas the still is only transparent: it stays the figure's image in the accessibility tree. */
+html.gl-active .still { opacity: 0; }
 .stage__caption { position: absolute; left: calc(var(--unit) * 4); bottom: calc(var(--unit) * 3); margin: 0; max-width: calc(100% - var(--unit) * 8); }
+@container figure (max-height: 420px) { .stage__caption { display: none; } }
 
 .steps { display: flex; flex-wrap: wrap; gap: calc(var(--unit) * 2); }
 .steps__btn {
@@ -73,14 +78,23 @@ html.is-staged .chapter[data-active] { opacity: 1; }
 .footer { padding-block: calc(var(--unit) * 12); border-top: 1px solid var(--line); }
 .footer .label { margin: 0; }
 
-/* Phones: the cone above, the chapter under it, both inside the sticky viewport. */
-@media (max-width: 760px) {
+/* Phones held upright: the cone above, the chapter under it, both inside the sticky viewport. A phone held sideways
+   keeps the two columns (stacked, the figure would get a strip a hundred pixels tall) with tighter copy, below. */
+@media (max-width: 760px) and (orientation: portrait) {
   .stage__sticky { grid-template-columns: minmax(0, 1fr); grid-template-areas: "figure" "copy"; gap: calc(var(--unit) * 5); }
   .stage__figure { min-height: 56svh; margin-inline: calc(var(--gutter) * -1); }
   html.is-staged .stage__sticky { grid-template-rows: minmax(0, 1fr) auto; padding-block: 0 calc(var(--unit) * 6); }
   .stage__copy { align-content: start; gap: calc(var(--unit) * 4); }
   .chapter__title { font-size: clamp(1.75rem, 8vw, 2.25rem); }
   .chapter p { margin-top: calc(var(--unit) * 2); font-size: 1rem; }
+}
+
+@media (orientation: landscape) and (max-height: 520px) {
+  html.is-staged .stage__sticky { padding-block: calc(var(--unit) * 3); }
+  .stage__copy { gap: calc(var(--unit) * 3); }
+  .steps__btn { padding: 0 calc(var(--unit) * 3); }
+  .chapter__title { font-size: clamp(1.375rem, 4.4vh, 2rem); }
+  .chapter p { margin-top: calc(var(--unit) * 2); font-size: .9375rem; line-height: 1.45; }
 }
 
 /* Reduced motion: the still cuts from chapter to chapter, so the chapter text cuts with it instead of fading. */

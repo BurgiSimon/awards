@@ -32,11 +32,17 @@
 .hero__copy .label { margin: 0; }
 .hero__title { margin: 0; max-width: 11ch; font-family: var(--font-display); font-size: clamp(2.75rem, 5.6vw, 6rem); font-weight: 500; line-height: 0.94; letter-spacing: -0.035em; overflow-wrap: break-word; }
 .hero__lede { margin: 0; max-width: 40ch; color: var(--muted); font-size: clamp(1rem, 1.2vw, 1.1875rem); }
+/* Two ledes in the markup: a hover device reads about the mouse and the keyboard, a touch device about the finger. */
+.for-touch { display: none; }
+@media (hover: none) {
+  .for-pointer { display: none; }
+  .for-touch { display: inline; }
+}
 .hero__note { margin: 0; padding-inline-start: calc(var(--unit) * 3); border-inline-start: 2px solid var(--accent); color: var(--ink); }
 .hero__note[hidden] { display: none; }
 .hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: calc(var(--unit) * 3) calc(var(--unit) * 6); }
 
-.nudge { display: inline-flex; align-items: center; min-height: 48px; padding: 0 calc(var(--unit) * 6); border: 0; border-radius: 999px; background: var(--accent); color: var(--felt); font-weight: 600; cursor: pointer; transition: background-color var(--dur-feedback) ease-out; }
+.nudge { display: inline-flex; align-items: center; min-height: 48px; padding: 0 calc(var(--unit) * 6); border: 1px solid transparent; border-radius: 999px; background: var(--accent); color: var(--felt); font-weight: 600; cursor: pointer; transition: background-color var(--dur-feedback) ease-out; }
 .nudge:hover { background: color-mix(in oklab, var(--accent) 86%, var(--ink)); }
 .nudge:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
 .nudge[hidden] { display: none; }
@@ -44,8 +50,9 @@
 .hero__link:focus-visible, .topbar__brand:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
 /* The tray: a felt panel with its own grid. Buttons sit centred in their cells; transforms only, about their centres.
-   The panel takes the pointer events itself (the buttons never do), and touch-action: none lets a finger drag
-   inside it without scrolling the page; the page still scrolls from everywhere else. */
+   The panel takes the pointer events itself (the buttons never do). Only while the full tier is live (.is-live, set
+   by main.js) does it keep sideways drags for itself: touch-action: pan-y still gives every vertical swipe to the
+   page, and pinch zoom stays. Without script, under reduced motion and in the static tier it is a plain block. */
 .tray {
   position: relative;
   justify-self: end;
@@ -59,11 +66,10 @@
   border-radius: 14px;
   background: radial-gradient(circle at 30% 20%, rgb(255 255 255 / 0.06), transparent 62%), var(--felt);
   box-shadow: inset 0 2px 14px rgb(0 0 0 / 0.45), 0 0 0 1px var(--line);
-  touch-action: none;
   user-select: none;
   -webkit-user-select: none;
-  cursor: crosshair;
 }
+.tray.is-live { touch-action: pan-y pinch-zoom; cursor: crosshair; }
 .tray i {
   --c: var(--bone);
   --hole: var(--felt);
@@ -81,7 +87,9 @@
     radial-gradient(circle, transparent 0 56%, rgb(0 0 0 / 0.16) 57% 62%, transparent 63%),
     radial-gradient(circle at 34% 28%, rgb(255 255 255 / 0.28), transparent 46%),
     var(--c);
-  box-shadow: inset 0 -2px 0 rgb(0 0 0 / 0.2), 0 2px 3px rgb(0 0 0 / 0.4);
+  /* A tight contact shadow and a soft cast one below it. Both live inside the transformed box, so a lifted (scaled)
+     button carries a wider, softer shade; the cast layer sits straight below, so the turn barely swings it. */
+  box-shadow: inset 0 -2px 0 rgb(0 0 0 / 0.2), 0 1px 1px rgb(0 0 0 / 0.38), 0 4px 9px rgb(0 0 0 / 0.3);
 }
 /* Two-hole buttons, so a turn reads at a glance. Every pattern below repeats on a period that shares no factor with
    the 12 or 8 columns, so no colour or shape lines up into a stripe. */
@@ -117,22 +125,33 @@
 .footer { padding-block: calc(var(--unit) * 10); border-top: 1px solid var(--line); }
 .footer .label { margin: 0; }
 
-/* Phones: the copy first, then a tray of eight by eight (the rest of the gross stays in the markup, undisplayed). */
+/* Portrait tablets: the copy above a tray that takes the width, instead of a thumbnail beside it. */
+@media (min-width: 761px) and (max-width: 1080px) and (orientation: portrait) {
+  .hero { grid-template-columns: minmax(0, 1fr); align-content: center; gap: calc(var(--unit) * 10); }
+  .hero__title { max-width: 14ch; }
+  .tray { justify-self: start; width: min(100%, calc(100svh - 470px)); }
+}
+
+/* Phones: the copy first, then a tray of eight by eight (the rest of the gross stays in the markup, undisplayed),
+   with the spacing trimmed so the whole tray lands in the first screen. */
 @media (max-width: 760px) {
   :root { --cols: 8; }
   .topbar { min-height: 60px; }
   .topbar .label { max-width: 18ch; }
-  .hero { grid-template-columns: minmax(0, 1fr); min-height: 0; padding-block: calc(var(--unit) * 4) calc(var(--unit) * 12); }
+  .hero { grid-template-columns: minmax(0, 1fr); min-height: 0; gap: calc(var(--unit) * 7); padding-block: calc(var(--unit) * 3) calc(var(--unit) * 12); }
+  .hero__copy { gap: calc(var(--unit) * 5); }
+  .hero__actions { column-gap: calc(var(--unit) * 4); }
   .tray { justify-self: stretch; width: 100%; }
   .tray i:nth-child(n + 65) { display: none; }
   .how { grid-template-columns: minmax(0, 1fr); padding-block: calc(var(--unit) * 20); }
 }
 
-/* Reduced motion and the static tier: a still tray; the nudge is hidden by main.js, the cursor says nothing moves. */
+/* Reduced motion and the static tier: main.js never sets .is-live there, and these rules (more specific than
+   .tray.is-live) make sure a stale class can never keep a touch from scrolling the page or promise a toy with the cursor. */
 @media (prefers-reduced-motion: reduce) {
-  html:not([data-motion="full"]) .tray { cursor: default; }
+  html:not([data-motion="full"]) .tray { touch-action: auto; cursor: default; }
 }
-html[data-motion="reduced"] .tray, html[data-motion="static"] .tray { cursor: default; }
+html[data-motion="reduced"] .tray, html[data-motion="static"] .tray { touch-action: auto; cursor: default; }
 
 /* Forced colours drop the drawn buttons' backgrounds: outline them so the tray still reads. */
 @media (forced-colors: active) {

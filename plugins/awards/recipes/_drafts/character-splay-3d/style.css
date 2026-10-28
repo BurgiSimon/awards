@@ -19,27 +19,43 @@
 .topbar .label { margin: 0; text-align: end; }
 .topbar__brand { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--font-display); font-weight: 700; letter-spacing: -0.01em; text-decoration: none; }
 
-/* The hero is the scroll's track; its stage is sticky and clips, so letters that fly towards the viewer leave the
-   frame instead of widening the page. */
-.hero { position: relative; height: 230svh; }
-.hero__stage { position: sticky; top: 0; height: 100svh; overflow: clip; display: grid; grid-template-rows: 1fr auto 1fr; justify-items: center; align-items: center; gap: calc(var(--unit) * 8); padding: 96px var(--gutter) calc(var(--unit) * 10); text-align: center; }
+/* The hero is one screen by default: without the script, and in the reduced and static tiers, it simply scrolls away.
+   Once the splay is built, main.js sets html.splay-on and the hero becomes the scroll's track, its stage sticky. The
+   stage clips (overflow: clip makes no scroll container, unlike hidden), so letters that fly towards the viewer leave
+   the frame instead of widening the page. The first viewport is the same either way. */
+.hero { position: relative; }
+.hero__stage { position: relative; isolation: isolate; height: 100svh; overflow: clip; display: grid; grid-template-rows: 1fr auto 1fr; justify-items: center; align-items: center; gap: calc(var(--unit) * 8); padding: 96px var(--gutter) calc(var(--unit) * 10); text-align: center; }
+html.splay-on .hero { height: 230svh; }
+html.splay-on .hero__stage { position: sticky; top: 0; }
 .hero__label { margin: 0; align-self: end; }
 .hero__title { margin: 0; max-width: 11ch; font-family: var(--font-display); font-size: clamp(3.25rem, 10.4vw, 10.5rem); font-weight: 500; line-height: 0.9; letter-spacing: -0.035em; text-wrap: balance; overflow-wrap: break-word; }
 .hero__lede { margin: 0; align-self: start; max-width: 44ch; color: var(--muted); font-size: clamp(1rem, 1.2vw, 1.1875rem); }
 
-/* The split: perspective on each line, centred on the line (the pivot), and the words pass the 3D space through to
-   their characters. SplitText writes position and display on these elements itself. */
-.splay-line { perspective: var(--splay-perspective, 1600px); perspective-origin: 50% 50%; }
-.splay-word { transform-style: preserve-3d; }
-
-/* Reduced and static tiers split nothing, so nothing should hold the scroll: the hero is one screen tall and simply
-   leaves (fading as it goes, in the reduced tier). html[data-motion="full"] keeps the held stage whatever the OS says. */
+/* The lede says what this tier does: the moving sentence where the line opens, the still one where it does not
+   (and, through a noscript rule in the HTML, without the script). */
+.lede-still { display: none; }
 @media (prefers-reduced-motion: reduce) {
-  html:not([data-motion="full"]) .hero { height: auto; }
-  html:not([data-motion="full"]) .hero__stage { position: relative; }
+  html:not([data-motion="full"]) .lede-moving { display: none; }
+  html:not([data-motion="full"]) .lede-still { display: inline; }
 }
-html[data-motion="reduced"] .hero, html[data-motion="static"] .hero { height: auto; }
-html[data-motion="reduced"] .hero__stage, html[data-motion="static"] .hero__stage { position: relative; }
+html[data-motion="reduced"] .lede-moving, html[data-motion="static"] .lede-moving { display: none; }
+html[data-motion="reduced"] .lede-still, html[data-motion="static"] .lede-still { display: inline; }
+
+/* The fan behind the headline: a gilt pin under its centre, and hairline ribs folded onto one another until the
+   scroll opens them on the same clock as the letters (main.js). The rib gradient is in each rib's own user space, so
+   it turns with the rib. Decorative, aria-hidden, under the text. */
+.fan { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; pointer-events: none; }
+.fan__ribs { opacity: 0; }
+.fan__rib { stroke: url(#fan-rib); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.fan stop { stop-color: var(--accent); }
+.fan stop + stop { stop-opacity: 0; } /* each rib fades out under the headline, like a stick under its leaf */
+.fan__ring { fill: none; stroke: var(--accent); stroke-width: 1; vector-effect: non-scaling-stroke; opacity: 0.6; }
+.fan__pin { fill: var(--accent); }
+
+/* The split: perspective on each line (main.js sets it from the line's width), centred on the line (the pivot), and
+   the words pass the 3D space through to their characters. SplitText writes position and display on these itself. */
+.splay-line { perspective-origin: 50% 50%; }
+.splay-word { transform-style: preserve-3d; }
 
 .how { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: calc(var(--unit) * 10) clamp(32px, 6vw, 120px); padding-block: calc(var(--unit) * 32); border-top: 1px solid var(--line); }
 .how__title { margin: 0; max-width: 12ch; font-family: var(--font-display); font-size: clamp(2rem, 4.4vw, 4rem); font-weight: 500; line-height: 0.98; letter-spacing: -0.025em; }
@@ -49,10 +65,10 @@ html[data-motion="reduced"] .hero__stage, html[data-motion="static"] .hero__stag
 .how__list strong { display: block; color: var(--ink); font-weight: 600; }
 
 /* The close clips too: before it plays, its open characters sit outside the heading's box. */
-.close { overflow: clip; display: grid; justify-items: center; gap: calc(var(--unit) * 6); padding-block: calc(var(--unit) * 40) calc(var(--unit) * 32); border-top: 1px solid var(--line); text-align: center; }
+.close { overflow: clip; display: grid; justify-items: center; gap: calc(var(--unit) * 7); padding-block: calc(var(--unit) * 40) calc(var(--unit) * 32); border-top: 1px solid var(--line); text-align: center; }
 .close .label { margin: 0; }
-.close__title { margin: 0; max-width: 13ch; font-family: var(--font-display); font-size: clamp(2.75rem, 8vw, 8rem); font-weight: 500; line-height: 0.92; letter-spacing: -0.03em; color: var(--accent); overflow-wrap: break-word; }
-.close__lede { margin: 0; max-width: 48ch; color: var(--muted); }
+.close__title { margin: 0; max-width: 13ch; font-family: var(--font-display); font-size: clamp(2.75rem, 8vw, 8rem); font-weight: 500; line-height: 0.98; letter-spacing: -0.03em; color: var(--accent); overflow-wrap: break-word; }
+.close__lede { margin: calc(var(--unit) * 3) 0 0; max-width: 48ch; color: var(--muted); }
 .close__link { display: inline-flex; align-items: center; min-height: 44px; padding-inline: calc(var(--unit) * 5); border: 1px solid var(--accent); border-radius: 999px; color: var(--ink); text-decoration: none; transition: background-color var(--dur-feedback) ease-out, color var(--dur-feedback) ease-out; }
 .close__link:hover, .close__link:focus-visible { background: var(--accent); color: var(--ground); }
 .topbar__brand:focus-visible, .close__link:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
@@ -63,9 +79,10 @@ html[data-motion="reduced"] .hero__stage, html[data-motion="static"] .hero__stag
 @media (max-width: 760px) {
   .topbar { min-height: 60px; }
   .topbar .label { max-width: 18ch; }
-  .hero { height: 200svh; }
-  .hero__stage { padding-top: 84px; gap: calc(var(--unit) * 7); }
-  .hero__title { font-size: clamp(3.25rem, 12vw, 4.25rem); }
+  html.splay-on .hero { height: 200svh; }
+  /* The stack sits on the lower part of the screen and the headline fills the width: a phone frame, not a shrunk desktop. */
+  .hero__stage { grid-template-rows: 1.5fr auto 1fr; padding-top: 84px; gap: calc(var(--unit) * 6); }
+  .hero__title { font-size: clamp(3.75rem, 12vw, 5rem); } /* 60 px on a 390 px phone: the floor sets it, the vw stays inside the artboard lock */
   .how { grid-template-columns: minmax(0, 1fr); padding-block: calc(var(--unit) * 20); }
   .close { padding-block: calc(var(--unit) * 24); }
 }
