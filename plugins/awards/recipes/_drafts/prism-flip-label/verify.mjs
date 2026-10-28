@@ -14,6 +14,8 @@ export const states = [
   { name: 'focus', settle: 600, actions: [{ type: 'focus', selector: '.bar__brand' }, { type: 'press', key: 'Tab' }, { type: 'wait', ms: 800 }] },
   { name: 'turning', settle: 600, frame: true, actions: [{ type: 'hover', selector: film(1) }, { type: 'wait', ms: 40 }, pauseAt(220)] },
   { name: 'letters', settle: 600, actions: [{ type: 'hover', selector: film(2) }, { type: 'wait', ms: 1200 }] },
+  // A right-to-left page: the letter boxes of a Latin title must still read left to right.
+  { name: 'rtl', settle: 600, actions: [{ type: 'waitFor', fn: '(() => { document.documentElement.dir = "rtl"; return true; })()' }, { type: 'wait', ms: 300 }] },
   { name: 'rm-hover', reducedMotion: true, settle: 600, actions: [{ type: 'hover', selector: cell(2) }, { type: 'wait', ms: 600 }] },
   { name: 'rm-focus', reducedMotion: true, settle: 600, actions: [{ type: 'focus', selector: '.bar__brand' }, { type: 'press', key: 'Tab' }, { type: 'wait', ms: 600 }] },
   { name: 'mobile', viewport: 'mobile', settle: 600, actions: [{ type: 'hover', selector: cell(2) }, { type: 'wait', ms: 800 }] },
@@ -50,7 +52,7 @@ export function probe() {
       liOpacity: getComputedStyle(a.closest('li')).opacity,
     };
   });
-  const letterRow = (sel) => [...document.querySelector(sel).querySelectorAll('.prism__box')].map((b) => ({ ...turn(b), delay: getComputedStyle(b).transitionDelay }));
+  const letterRow = (sel) => [...document.querySelector(sel).querySelectorAll('.prism__box')].map((b) => ({ ...turn(b), delay: getComputedStyle(b).transitionDelay, x: Math.round(b.getBoundingClientRect().left) }));
   const a = document.activeElement;
   return {
     cells,
@@ -61,6 +63,9 @@ export function probe() {
     focused: a?.matches?.('.prism') ? (a.querySelector('.sr-only, .prism__face--front')?.textContent.trim() ?? null) : null,
     copies: document.querySelectorAll('.prism__face--next').length,
     hiddenCopies: document.querySelectorAll('.prism__face--next[aria-hidden="true"]').length,
+    filmRight: Math.round(document.querySelector('.films__list li:nth-child(1) .prism').getBoundingClientRect().right),
+    listRight: Math.round(document.querySelector('.films__list').getBoundingClientRect().right),
+    dir: document.documentElement.dir || 'ltr',
     navRight: Math.round(document.querySelector('.bar__nav').getBoundingClientRect().right),
     viewport: innerWidth,
     overflowX: document.documentElement.scrollWidth - document.documentElement.clientWidth,
@@ -119,6 +124,9 @@ export function assert(r) {
   const l2 = p('letters').film2 || [];
   out.push({ ok: l2.length === 10 && l2.every((x) => near(x.deg, 90, 0.5)), message: `letters: every letter ends a quarter turn over (${l2.length} letters)` });
 
+  const rt = p('rtl');
+  const xs = (rt.film1 || []).map((x) => x.x);
+  out.push({ ok: rt.dir === 'rtl' && xs.length === 16 && xs.every((x, i) => i === 0 || x > xs[i - 1]) && near(rt.filmRight, rt.listRight, 2), message: `right-to-left page: the title's letters still run left to right (${xs.slice(0, 4).join(', ')}…), the title sits at the start edge (${rt.filmRight} vs ${rt.listRight})` });
   const rh = p('rm-hover').cells || [];
   out.push({ ok: s('rm-hover').swap && !s('rm-hover').turn && rh.every((c) => c.none) && !/transform/.test(rh[1]?.property || ''), message: `reduced motion: no box is transformed and nothing transitions a transform (${rh.map((c) => (c.none ? 'none' : c.deg)).join(', ')})` });
   out.push({ ok: rh[1]?.frontOpacity === '0' && rh[1]?.nextOpacity === '1' && rh[1]?.nextBg !== rh[1]?.frontBg && sameBox(rh[1]?.next, rh[1]?.link), message: `reduced motion: hover swaps the faces in place by colour (front ${rh[1]?.frontOpacity}, copy ${rh[1]?.nextOpacity}, ${rh[1]?.nextBg} over ${rh[1]?.frontBg})` });

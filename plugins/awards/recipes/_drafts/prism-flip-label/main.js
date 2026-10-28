@@ -19,6 +19,11 @@ applyTier();
 onMotionTierChange((t) => { tier = t; applyTier(); });
 
 const links = [...document.querySelectorAll('[data-prism]')];
+// Letters are split by grapheme, and their row keeps the label's own direction: separate boxes would otherwise be laid
+// out in the page's direction and spell a Latin title backwards on a right-to-left page.
+const segmenter = typeof Intl.Segmenter === 'function' ? new Intl.Segmenter(undefined, { granularity: 'grapheme' }) : null;
+const graphemes = (w) => (segmenter ? [...segmenter.segment(w)].map((g) => g.segment) : [...w]);
+const RTL = /[\u0590-\u08FF\uFB1D-\uFDFF\uFE70-\uFEFF]/;
 const span = (cls, text) => {
   const s = document.createElement('span');
   s.className = cls;
@@ -42,12 +47,13 @@ for (const a of links) {
     a.append(span('sr-only', label));
     const row = span('prism__row');
     row.setAttribute('aria-hidden', 'true');
+    row.dir = RTL.test(label) ? 'rtl' : 'ltr';
     let i = 0;
     for (const part of label.split(/(\s+)/)) {
       if (!part) continue;
       if (/^\s+$/.test(part)) { row.append(' '); continue; }
       const word = span('prism__word');          // words wrap as units; letters never break apart
-      for (const ch of part) {
+      for (const ch of graphemes(part)) {
         const b = box(ch);
         b.style.setProperty('--i', String(i++));
         word.append(b);

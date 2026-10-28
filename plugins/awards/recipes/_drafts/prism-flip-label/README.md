@@ -16,7 +16,7 @@ Links whose labels turn like a small block. Each label becomes a CSS 3D box with
 | Rest | box `translateZ(-d) rotateX(0deg)`; front face `translateZ(d)`; copy `rotateX(-90deg) translateZ(d)`, absolutely over the front face's box; `backface-visibility: hidden` on both |
 | Turn | box `translateZ(-d) rotateX(90deg)` on `:hover` (inside `@media (hover: hover)`) and on `:focus-visible`; `transform 400 ms cubic-bezier(.16, 1, .3, 1)` |
 | Perspective | `1000px` on the box's parent: the link, or the word in the letters variant |
-| Letters | one box per letter, `transition-delay: i × 24 ms`; words are `inline-flex` wrap units (a word moves to the next line whole, and breaks between letters only if it alone is wider than the line) |
+| Letters | one box per grapheme (`Intl.Segmenter`), `transition-delay: i × 24 ms`; words are `inline-flex` wrap units (a word moves to the next line whole, and breaks between letters only if it alone is wider than the line); the row carries the label's own `dir`, so a Latin title still reads left to right on a right-to-left page. Not for joined scripts such as Arabic, where separate boxes break the shaping: use the whole-label prism there |
 | Faces | header cell: transparent, then ink with paper text; footer link: paper tile on the ink footer; letters: ink, then madder red |
 | Siblings | the other header cells fade to `.55` over 400 ms while one is hovered |
 | Focus ring | header cells: a 2 px `::after` border in the paper colour, inset 7 px, `z-index: 1` above the box; letters and footer links: a 2 px outline outside the link |
