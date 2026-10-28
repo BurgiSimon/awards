@@ -21,7 +21,7 @@ The evidence is thin, and this file says so first. No card captures a case-study
 
 | Card | Inner routes and what is known | Confidence |
 |---|---|---|
-| [site:the-line] | `/work/<slug>`, `/blog/<slug>`, `/about`, `/contact`, `/shop`; route-scoped CSS for case pages, the work layout, a filter panel and a director's note; a designed 404 | [verified, served markup]; not rendered |
+| [site:the-line] | `/work/<slug>`, `/blog/<slug>`, `/about`, `/contact`, `/shop`; route-scoped CSS for case pages, the work layout, a filter panel and a director's note; a designed 404. Rendered 2026-10-28: `/work` (a filterable grid or a sortable list) and one case (an overprinted hero with a call-sheet row, a crew panel, credits as one run of role / name pairs, and a close that is the next case's hero, handed over node by node) | [verified, served markup and captures] |
 | [site:zainabkabira] | case studies entered by a tile-to-hero shared-element morph, then a cover-slide deck with a section pager, looping recordings and an 8 s auto-advancing "read next" slide; plain scroll at ≤ 820 px | [verified] |
 | [site:boc] | each still links "Open case study: …"; the chosen row rises under the bar before the route is pushed | [verified] |
 | [site:a24-raviklaassens] | `/production/<slug>`; the disc flies into its route | [verified]; routes [unknown] on screen |
@@ -52,7 +52,7 @@ Why: an inner page that restarts the home page's opening tells the visitor nothi
 - **Job.** Prove the home page's claim with one piece of work: what was asked, what was made, what changed, and who made it.
 - **Structure.** Title with a metadata row (client · year · discipline · team) → one lead image or film → context in ≤ 80 words → three to five chapters alternating media and text → the result as numbers with units → credits by role (`[pattern:copy-and-content#credits-pages]`) → the next project as a real link.
 - **World.** The still the visitor clicked becomes the lead image. Chapters use the home page's reveal vocabulary at routine durations, and the set-pieces stay on the home page.
-- **Corpus.** A deck with a section pager and a "read next" slide that advances after 8 s [site:zainabkabira] [verified]; a director's note styled for case pages [site:the-line] [verified]; case blocks with poster confidence [site:lama-lama] [recalled low-medium] (`[pattern:components-catalog#poster-scale-case-blocks]`).
+- **Corpus.** A deck with a section pager and a "read next" slide that advances after 8 s [site:zainabkabira] [verified]; a director's note and a crew panel on case pages, the credits as one justified run of role / name pairs, and a close that is the next case's hero, hinged, which becomes the next page's hero when followed [site:the-line] [verified]; case blocks with poster confidence [site:lama-lama] [recalled low-medium] (`[pattern:components-catalog#poster-scale-case-blocks]`).
 - **Rules.** Text in the DOM, with `CreativeWork` JSON-LD; a deck keeps native scroll in sync and turns into plain scroll on phones; "next" is a link the visitor chooses, never an autoplay.
 
 ## Project or product detail
@@ -92,8 +92,8 @@ Why: an inner page that restarts the home page's opening tells the visitor nothi
 - **Job.** Help the visitor find one item among many.
 - **Structure.** Names as links in a list first → a grid/list toggle → filters as `<button aria-pressed>` with counts → sort → pages or "load more" with their own URLs.
 - **World.** The home page's preview behaviour (hover stills, filmstrips) applies here, and every hover preview also appears on `:focus-visible`.
-- **Corpus.** A fixed "Work / All / Filter +" sidebar [site:boc]; a filter panel styled for its route [site:the-line]; a grid/list toggle over key-value rows [site:spasoje]; an "index" pill that toggles a list view [site:alectear]; a full index route beside a GL reel [site:jesperlandberg]; collections with live counts [site:floema] [verified on each card].
-- **Rules.** Each chunk of an infinite archive has a persistent URL [verified: developers.google.com, lazy-loading]. Recipes: `[recipe:hover-preview-list]`, `[recipe:filmstrip-index-rows]`. A reel or plane gallery has the list beside it (`[pattern:components-catalog#hover-preview-archive-list]`).
+- **Corpus.** A fixed "Work / All / Filter +" sidebar [site:boc]; a filter panel styled for its route, a Grid / List toggle and a list sortable by year, title, director and type with one marker cut between rows [site:the-line]; a grid/list toggle over key-value rows [site:spasoje]; an "index" pill that toggles a list view [site:alectear]; a full index route beside a GL reel [site:jesperlandberg]; collections with live counts [site:floema] [verified on each card].
+- **Rules.** Each chunk of an infinite archive has a persistent URL [verified: developers.google.com, lazy-loading]. Recipes: `[recipe:hover-preview-list]`, `[recipe:filmstrip-index-rows]`, `[recipe:overprint-marker-index]`. A reel or plane gallery has the list beside it (`[pattern:components-catalog#hover-preview-archive-list]`).
 
 ## Not found
 
@@ -110,6 +110,7 @@ Why: an inner page that restarts the home page's opening tells the visitor nothi
 | Item → its own route | the item is cloned and flown into the destination | [site:a24-raviklaassens] [site:agrumeafarm] [verified] |
 | Tile → case hero | a shared-element morph | [site:zainabkabira] [verified]; `[pattern:preloaders-and-transitions#transition-archetypes]` |
 | Inner → next inner | the site's one wipe or curtain | `[recipe:page-transitions]` |
+| Case → next case | the close is the next hero in the same geometry; it lifts to the top, its card unwinds, and its media node moves into the next page | `[recipe:next-case-handoff]` [site:the-line] [verified] |
 | Back to the index | scroll restored to the row that was opened | saved scroll restored on back navigation [site:wearedirect] [verified] |
 | Hard load of an inner route | the CSS loader at most, no home sequence | `[pattern:preloaders-and-transitions#the-load-contract]` |
 

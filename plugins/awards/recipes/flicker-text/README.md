@@ -3,7 +3,7 @@
 A line that switches on like a tube light: each glyph runs the opacity ladder `[0, 1, 0, 0, 1, 1]` in hard steps with a 40 ms stagger. On hover or focus the ladder replays with a small expo-out shift.
 
 ## Why
-- **Steps, not a fade.** The ladder is the character; `ease: 'none'` on keyframes keeps the switches hard `[site:the-line]` (`[pattern:motion-vocabulary#text-effects]`).
+- **Steps, not a fade.** The ladder is the character; `ease: 'none'` on keyframes keeps the switches hard (`[pattern:motion-vocabulary#text-effects]`). The per-glyph ladder and its 40 ms stagger come from a third-party reconstruction; the source site blinks whole elements with four GSAP effects registered once (`blink`, `blinkOnce`, `blinkIn`, `blinkOut`: hard `.set` steps at `.09 / .15 / .21 s`, `extendTimeline: true`) and composes them by name into its arrival timelines `[site:the-line]` [verified, BHubVMsw.js, 2026-10-28]. For that version see `[recipe:footer-credits-hinge]` and `[recipe:overprint-marker-index]`.
 - **Readable text first.** The original string stays in the element as a visually hidden mirror; the glyph spans are `aria-hidden`, so assistive technology reads a word, not twenty letters.
 - **Fonts first.** Splitting waits for `document.fonts.ready` so glyph widths are final.
 - **Reduced motion:** glyphs are simply visible; hover does nothing.

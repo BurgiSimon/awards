@@ -102,11 +102,12 @@ Why: chrome written in the audience's own dialect turns navigation into evidence
 
 | Device | Seen in | Confidence |
 |---|---|---|
-| Slash-prefixed labels — `/ MICRO / LABELS /` as a CSS pseudo-element; `///////` before a heading | [site:the-line]; [site:igloo] | [verified]; [verified] |
+| Slash-prefixed labels — `/ MICRO / LABELS /`, the slash a real `<i>`; `///////` before a heading | [site:the-line]; [site:igloo] | [verified]; [verified] |
 | A state label that states the current value: `Sound: Off` | [site:igloo] | [verified] |
 | Status dots and live open/closed timings | [site:the-line] | [verified] |
 | Underlined credit tables per project | [site:the-line] | [verified] |
-| A Roman-numeral year; a `00/24` frame counter at headline scale | [site:the-line] | [verified] |
+| A call-sheet row on each case hero (frame rate, type, month, a Roman-numeral year); a `00/24` frame counter at headline scale | [site:the-line] | [verified] |
+| Broadcast safe-area guides — overscan, crop and action-safe frames with their pixel sizes measured live on resize, `[ 16:9 ]`, a crosshair — printed on each featured-work sheet | [site:the-line] | [verified, 2026-10-28] |
 | Coordinate readouts, leader-line callouts, a HUD copyright line | [site:igloo] | [verified] |
 | Thermal, lidar and IR readouts as the loader | [site:usavionix] | [verified description] |
 | A live local clock and an ONLINE/OFFLINE studio status in the brand bar | [site:boc] | [verified] |

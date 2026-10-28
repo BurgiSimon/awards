@@ -32,4 +32,4 @@ The next view fades in over `.45 s`. The back link and history navigation have n
 - **View Transitions (MPA, Astro):** give the chosen row and the case heading the same `view-transition-name` just before navigating, set the sibling stagger through `animation-delay` from the distance, and drop taxi.
 - **Next / Nuxt:** run the same timeline in the link's click handler, call `router.push` in `tl.call`, and skip the timeline under `prefers-reduced-motion`.
 
-Seen in: `[site:boc]`.
+Seen in: `[site:boc]`, `[site:the-line]` (the next-case close lifted to the top and handed over node by node: `[recipe:next-case-handoff]`).

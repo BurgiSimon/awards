@@ -1,6 +1,6 @@
 # awards
 
-A plugin for Claude Code and Codex that teaches the agent to design and build websites and single components in the league of award winners. It is built from a reference corpus of analysed award-winning sites, the pattern language they share, 98 focused recipes and one complete composition (99 browser-verifiable entries), a deterministic craft-floor audit, and a fresh-context jury that scores the way the real one does.
+A plugin for Claude Code and Codex that teaches the agent to design and build websites and single components in the league of award winners. It is built from a reference corpus of analysed award-winning sites, the pattern language they share, 101 focused recipes and one complete composition (102 browser-verifiable entries), a deterministic craft-floor audit, and a fresh-context jury that scores the way the real one does.
 
 ## Install
 
@@ -154,7 +154,7 @@ npm ci                                       # includes the pinned Playwright (1
 npx playwright install chromium
 node ../scripts/doctor.mjs .                 # early prerequisite check; no installs
 node ../evals/behavior.mjs                   # live behavior regressions, no model calls
-node ../scripts/verify-recipes.mjs            # all 96 entries, headless Chromium with WebGL
+node ../scripts/verify-recipes.mjs            # all 102 entries, headless Chromium with WebGL
 node ../scripts/audit.mjs .                   # the craft floor: must stay free of P0-P2
 node ../scripts/lint-refs.mjs                 # every [site:]/[recipe:]/[pattern:] reference resolves
 node ../scripts/check-sync.mjs                # versions, pins, shared copies, licence files, quoted counts

@@ -1,0 +1,76 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+:root {
+  --marker: var(--accent);       /* the overprint colour */
+  --marker-ink: var(--ground);   /* the active row's text, above the marker */
+  --row-size: clamp(1.125rem, 2.1vw, 2rem);
+}
+
+.bar { display: flex; align-items: center; justify-content: space-between; gap: calc(var(--unit) * 4); min-height: 64px; }
+.bar__brand { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; }
+.bar .label { margin: 0; }
+
+.intro { min-height: 62svh; display: grid; align-content: end; gap: calc(var(--unit) * 5); padding-block: 96px calc(var(--unit) * 12); }
+.intro__title { margin: 0; font-family: var(--font-display); font-size: clamp(3rem, 10vw, 10rem); font-weight: 600; line-height: 0.85; letter-spacing: -0.04em; }
+.intro__count { font-size: 0.22em; font-weight: 400; letter-spacing: 0; vertical-align: top; font-variant-numeric: tabular-nums; }
+.intro__lede { max-width: 54ch; margin: 0; font-size: clamp(1.0625rem, 1.4vw, 1.25rem); }
+
+/* The index is its own stacking context with its own ground, so the marker's multiply blends with the paper and
+   the plates inside it and with nothing else on the page. Order inside: plates (1) < marker (2) < text (3). */
+.index { position: relative; isolation: isolate; background: var(--ground); padding-bottom: calc(var(--unit) * 24); }
+/* Head and rows share one column template, sized from the row's type size (not from each element's own font). */
+.index__head, .row__link { display: grid; grid-template-columns: calc(var(--row-size) * 2.2) calc(var(--row-size) * 3.2) minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 0.8fr); column-gap: calc(var(--unit) * 4); align-items: center; }
+.index__head { border-bottom: 1px solid var(--ink); font-family: var(--font-mono); font-size: var(--label); letter-spacing: 0.08em; text-transform: uppercase; }
+.index__h { justify-self: start; display: inline-flex; align-items: center; gap: 0.5em; min-height: 44px; padding: 0; border: 0; background: none; cursor: pointer; text-transform: inherit; letter-spacing: inherit; }
+.index__h[aria-pressed="true"] { font-weight: 700; }
+.index__dir { display: inline-block; min-width: 1ch; }
+.index__list { list-style: none; margin: 0; padding: 0; font-size: var(--row-size); }
+.row { position: relative; border-bottom: 1px solid var(--line); }
+/* The link opens no stacking context of its own (no z-index), so its plate can sit under the marker while its
+   words sit over it. */
+.row__link { position: relative; min-height: max(44px, 1.25em); padding-block: 0.08em; padding-right: 1.2em; color: var(--ink); text-decoration: none; line-height: 1.1; }
+.index__head { padding-right: calc(var(--row-size) * 1.2); }
+.row__year, .row__title, .row__client, .row__type { position: relative; z-index: 3; }
+.row__plate { position: relative; z-index: 1; display: block; height: 0.8em; width: 100%; background: linear-gradient(110deg, hsl(var(--h) 38% 58%), hsl(calc(var(--h) + 40) 30% 78%)); }
+/* The focus ring is drawn on the text layer in the paper colour: the marker always sits under the focused row, and
+   an outline painted with the link would be overprinted with it. */
+.row__link:focus-visible { outline: none; }
+.row__link:focus-visible::after { content: ""; position: absolute; z-index: 3; inset: 3px -3px; border: 2px solid var(--marker-ink); pointer-events: none; }
+.row__year { font-variant-numeric: tabular-nums; }
+.row__client, .row__type { color: var(--muted); }
+/* The active row's text sits above the marker in the paper colour; its plate stays under it and takes the tint. */
+.row[data-active] .row__link, .row[data-active] .row__client, .row[data-active] .row__type { color: var(--marker-ink); }
+
+/* The marker: one element, moved by a written offset and never transitioned. */
+.index__marker { position: absolute; z-index: 2; top: 0; left: calc(var(--gutter) - 6px); right: calc(var(--gutter) - 6px); height: 0; pointer-events: none; background: var(--marker); mix-blend-mode: multiply; opacity: 0; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; color: var(--ground); font-size: var(--row-size); line-height: 1; }
+.index__marker.is-on { opacity: 1; }
+.index__arrow { transform: rotate(180deg); }
+
+.chapter { display: grid; gap: calc(var(--unit) * 5); padding-block: calc(var(--unit) * 24); border-top: 1px solid var(--line); }
+.chapter h2 { margin: 0; font-family: var(--font-display); font-size: clamp(2rem, 5vw, 4.5rem); line-height: 1; letter-spacing: -0.02em; }
+.chapter p { max-width: 58ch; margin: 0; }
+.chapter .label { margin: 0; }
+.footer { padding-block: calc(var(--unit) * 12); }
+
+/* Narrow screens: plate, year and title on the first line, client and type under the title. */
+@media (max-width: 760px) {
+  .index__head, .row__link { grid-template-columns: calc(var(--row-size) * 1.6) calc(var(--row-size) * 2.8) minmax(0, 1fr); column-gap: calc(var(--unit) * 3); }
+  .index__h--wide { display: none; }
+  .index__arrow { display: none; }
+  .row__link { grid-template-areas: "plate year title" ". . meta"; padding-block: 0.3em; padding-right: 0; }
+  .index__head { padding-right: 0; }
+  .row__plate { grid-area: plate; }
+  .row__year { grid-area: year; }
+  .row__title { grid-area: title; }
+  .row__client, .row__type { grid-area: meta; font-size: 0.6em; }
+  .row__client { justify-self: start; }
+  .row__type { justify-self: end; }
+}
+
+/* Forced colours drop blends and backgrounds: the marker would vanish or paint over the text, so the active row
+   carries an outline instead. */
+@media (forced-colors: active) {
+  .index__marker { display: none; }
+  .row[data-active] .row__link { outline: 2px solid CanvasText; outline-offset: -2px; }
+}

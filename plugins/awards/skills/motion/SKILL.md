@@ -157,6 +157,9 @@ Read the recipe's README and `main.js` under `${CLAUDE_PLUGIN_ROOT}/recipes/<id>
 | Scrubbed doorway into a chapter | `clip-path-scrub-door` | the hole shape, the window, what the door reveals |
 | Copy that plays when a scrub crosses a point | `scrub-threshold-timelines` | the thresholds, play and reverse rates, the reduced tier |
 | Menu or panel that rewinds when closed mid-open | `two-phase-interruptible-timeline` | the hinge, the two halves, focus and Escape |
+| A state marker over rows or steps | `overprint-marker-index` | the blend and colour, the inputs (pointer, focus, a reading line on touch); it cuts, never slides |
+| A footer held under a closing sheet, credits under it | `footer-credits-hinge` | the rail offset, the tip and the lift, what the panel holds, focus in and back |
+| A case that closes on the next case | `next-case-handoff` | the shared geometry, which node moves, the hinge; real links underneath |
 | Shader values driven by timelines | `gl-uniform-tween-targets` | which uniforms move, eases, the interrupt rule |
 
 ## Build order
@@ -192,7 +195,7 @@ A line rising out of a clipped box reads as typesetting rather than a fade, whic
 
 - `SplitText.create(el, { type: 'lines', mask: 'lines', autoSplit: true, onSplit })` after `document.fonts.ready`; create the animation inside `onSplit` and return it, so a re-split carries its time `[recipe:split-text-masked-reveal]`. Anime: `splitText(el, { lines: { wrap: 'clip' } })` with `addEffect`, which survives re-splits.
 - Two text systems, split by role: masked reveals for headings; a per-character wave, roll, flicker or scramble for one accent phrase per chapter; never both on one element `[pattern:motion-vocabulary#text-effects]`.
-- Flicker: a per-letter opacity ladder such as `[0, 1, 0, 0, 1, 1]` with ≈ .04 s between glyphs, once on mount and again on pointer enter; the non-monotonic ladder is what reads as a tube striking `[recipe:flicker-text]`.
+- Flicker and blink: hard opacity steps, never a fade — a per-letter ladder such as `[0, 1, 0, 0, 1, 1]` with ≈ .04 s between glyphs `[recipe:flicker-text]`, or whole elements through effects registered once with `gsap.registerEffect({ …, extendTimeline: true })` and composed by name into arrival timelines and handlers, which is how the corpus's highest Animations score uses it `[pattern:motion-vocabulary#text-effects]`. A blink is one step or nothing in the reduced tier.
 - Scramble: anime's `scrambleText({ chars, cursor, revealRate: 60, settleRate: 30 })` or a vanilla character table; the final text equals the source `[recipe:scramble-decode-text]`.
 - Split spans are not readable text: keep an accessible copy (`aria-label` or a visually hidden original). Reduced tier: opacity only, ≤ .4 s; scramble and flicker show the final text.
 
@@ -215,6 +218,7 @@ One transition vocabulary per site; a shared-element flight and a wipe on the sa
 - Shared element: `Flip.getState(el)`, change the DOM, `Flip.from(state, { duration: 1–1.5, ease: 'expo.inOut', absolute: true })`; `Flip.fit` moves one element into another's box. In GL the source plane is lifted and tweened to the destination rect on the same curve `[clone:floema-jewelry]`.
 - Routes: taxi on Vite SPA and Webflow (`Renderer.onEnter` opens a `gsap.context`, `onLeave` reverts it; the `Transition` resets Lenis, then refreshes before `done()`); the framework router with View Transitions on Next, Nuxt, Astro and SvelteKit `[recipe:page-transitions]`.
 - Theme swap: tween `--ground`, `--ink` and `--accent` on `documentElement` over 1–1.5 s on the theme curve, retarget rather than stack under fast scrolling, and paint the canvas clear colour from the same live object; update `theme-color` on complete `[recipe:theme-swap-tokens]`.
+- Continuity: when an element carries across a route or out of the loader, move the live node into its new slot (`appendChild`, `replaceWith`) instead of cross-fading two copies; a playing video or canvas never restarts, the arriving page skips its own entrance for it, and its own `h1` takes focus `[recipe:next-case-handoff]`.
 - After any route change: scroll reset with `lenis.scrollTo(0, { immediate: true })`, focus to the new `<main>` or `<h1>`, old contexts reverted, `ScrollTrigger.refresh()` once fonts and images have landed `[pattern:preloaders-and-transitions#route-transition-mechanics]`.
 
 ## Preloader

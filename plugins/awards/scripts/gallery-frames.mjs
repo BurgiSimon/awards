@@ -57,6 +57,9 @@ const OVERRIDES = {
   'gl-video-dither-layers': 'glyphs',
   'gl-dither-scene-pool': 'seasons',
   'dither-cell-transition': 'sweep',
+  'footer-credits-hinge': 'open',
+  'overprint-marker-index': 'hover',
+  'next-case-handoff': 'footer',
 };
 
 export function pickState(id, states) {

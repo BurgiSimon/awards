@@ -1,0 +1,31 @@
+{
+  "id": "footer-credits-hinge",
+  "title": "Closing sheet over a held footer, with credits under a lifting stage",
+  "intent": "Credits under the footer",
+  "group": "the-close-and-beyond",
+  "summary": "The page's last sheet (ground and wordmark) slides off a footer stage that sticks inside a rail starting `50svh` above it, tipping `−5°` on its top-left corner on a scrub from the moment the stage sticks to `max`; the stage's content rises `12 % → 0` as the sheet's foot clears. A Site credits button scrolls to the end (`.8 s`), lifts the stage `40svh` and tilts it `−5°` on one `1 s` expo-out transition to uncover a colophon beneath; Escape, a real close button or a scroll past `24 px` after a `.85 s` arming delay put it back, focus returns to the trigger, and the panel is `inert` and hidden while closed. Footer links blink by a registered GSAP effect (hard opacity steps at `.06 s`). Reduced motion: nothing tips or lifts, the credits fade up over the stage; static: a cut",
+  "tags": [
+    "footer",
+    "sticky",
+    "scrub",
+    "gsap",
+    "scrolltrigger",
+    "lenis",
+    "keyboard",
+    "accessibility",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [
+    "gsap@3.15.0",
+    "lenis@1.3.26"
+  ],
+  "variants": [
+    "credits under a lifting stage (this, default)",
+    "a contact form or a newsletter under the stage instead of credits, same open, close and focus rules",
+    "no stage lift: the closing sheet alone tips off a held footer, for a page with no colophon"
+  ],
+  "seenIn": [
+    "the-line"
+  ]
+}

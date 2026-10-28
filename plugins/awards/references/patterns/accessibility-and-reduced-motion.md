@@ -81,6 +81,7 @@ Rules (`[recipe:nav-overlay-fullscreen]`):
 - An age gate is a dialog under the same contract, and its answer is remembered [site:slosh-seltzer] (skill).
 - Seen since [verified on each card]: a `role="dialog"` menu with `aria-modal`, Escape, a Tab trap, `inert` behind and Lenis stopped [site:goats]; a collapsed nav kept `inert`, Escape closing every layer [site:mensch]; legal iframe dialogs with a focus trap [site:christoph-nagel]; native `<dialog>` everywhere [site:nodeck]; a layer stack where Escape closes the topmost [site:jesperlandberg]. A regional acknowledgement dialog with the background `inert` and its answer kept for a year [site:cyphercapital] [verified]. Misses: a menu with no Escape, no `aria-expanded` and no focus move [site:wearedirect]; a panel driven by unlabelled checkboxes [site:siena].
 - After a route change, focus moves to the new `<main>` or `<h1>` (`[pattern:preloaders-and-transitions#route-transition-mechanics]`).
+- Panels that slide out from under something are overlays too. Closed, they are `inert` and hidden, not just covered: a credits panel kept under a footer left its link and its close button in the tab order and the accessibility tree [site:the-line] [verified, `capture.mjs --walk`, 2026-10-28]. And the opposite miss: a sticky footer still under a closing sheet takes focus where nobody can see it (17 of 58 stops on the same walk), because the browser counts a stuck element as in view. Jump to the uncovering scroll position on keyboard focus `[recipe:footer-credits-hinge]`.
 
 ## Preloader and live regions
 
@@ -123,7 +124,7 @@ Sound is opt-in behind a visible, keyboard-operable switch (`[pattern:sound#opt-
 - [ ] Reduced keeps state changes; static shows the final frame; no global animation kill in any stylesheet.
 - [ ] Every canvas string and image has a DOM twin; canvases `aria-hidden`; the `--no-webgl` capture reads as a full page.
 - [ ] Every gate, drag and hold has a keyboard path and a skip; every control is a button or link.
-- [ ] Overlays: `inert`, trap, Escape, focus return, Lenis stopped and restarted.
+- [ ] Overlays: `inert`, trap, Escape, focus return, Lenis stopped and restarted; panels hidden under another layer are `inert` while closed, and no focus stop lands under a covering sheet (`capture.mjs --walk` reports "focus lands under").
 - [ ] Preloader has a live region and a skip; other live regions are polite and singular.
 - [ ] Skip link, landmarks, one h1, `lang`; focus ring from the tokens on both grounds.
 - [ ] Contrast ≥ 4.5:1 for text on every theme; the measured pairs listed in `AWARDS.md`.

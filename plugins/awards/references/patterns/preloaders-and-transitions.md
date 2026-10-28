@@ -26,7 +26,7 @@ Rules:
 | Participatory gesture | draw a zero; when the stroke closes, frost spreads from it and dissolves into the scene | [site:why-zero] | [verified] |
 | Diegetic boot sequence | thermal, lidar and IR readouts flicker on before the hero — loading as the product's own console | [site:usavionix] | [verified description]; timing unknown |
 | Cinematic title card | a woven film of one sheep and "loading" copy over the dithered wordmark, which then flies into the hero by Flip over 1.8 s; the percentage counts scenes loaded, and the gate is `Promise.all` over every scene's media, 120 hero frames and the fonts, with no ceiling | [site:son-daven] | [verified, 2026-10-28]; on that date 17 of the 120 frames were still pending after 40 s and the gate never opened |
-| Frame counter | `00/24` at headline scale — a film leader, not a spinner | [site:the-line] | [verified]; hold and exit unknown |
+| Frame counter | `00/24` at headline scale — a film leader, not a spinner; counts to 24 over 3 s `expoInOut` after .8 s while the logo line draws and splits into letters, then the logotype SVG is appended into the hero rather than faded; on inner routes the loader leaves `yPercent −125, rotate 15°` over .8 s; a held-clock capture reads the logotype whole at ≈ 4.2 s of page time | [site:the-line] | [verified, 2026-10-28]; every visit, tied to no load signal |
 | Vector animation on an asset gate | a Rive file plays while GL assets load; reveal on `Promise.all` | [site:lando-norris] | [verified] |
 | Two-arc gradient ring | inline SVG with two linear gradients on `currentColor` | [site:mont-fort] | [verified] |
 | Zero-cost ASCII | pure CSS `content:` keyframes before the 3D app streams in | [site:igloo] | [verified] |
@@ -81,6 +81,8 @@ Rule: the gesture may enable sound, but content never waits for it. Either offer
 | Cell wipe | a full-screen grid of cells switching on per-cell delays radiating from one side, 20 ms each | [site:runrobrun] | [verified] |
 | Woven cells | a 20 × 12 grid whose cells scale on X from 0 to 1 in .4 s, staggered .03 s from the far corner across the grid, over a black veil fading in for 1.2 s; 1.2 s holds each side of the swap; scroll kept per path for back and forward — the page's own weave as the cut | [site:son-daven] | [verified] `[recipe:dither-cell-transition]` |
 | Discipline slide | the incoming route slides from ± 10 % in the direction of the switch, .8 s | [site:alectear] | [verified] |
+| Pages as sheets | the incoming page from `translate(−10%, 105lvh) rotate(−4°)` over .8 s on `.44,.14,.28,1`, the old one to `translateY(−25lvh) rotate(4°)` in .78 s, the drawn scrollbar stepping out `xPercent 110`; the declared `transform-origin` is a quoted string, invalid CSS, so both turn about their centres | [site:the-line] | [verified] |
+| The close becomes the next hero | a case ends on the next case's hero in the same geometry, hinged; following it lifts that block by `y: −rect.top` over 1 s expo out while the card unwinds to 0, resets scroll, and appends the same figure, content and overprint nodes into the incoming hero, which skips its entrance | [site:the-line] | [verified] `[recipe:next-case-handoff]` |
 | Page under a veil | `sync: true`; the old page rises 25vh under a dark veil going 0 → .8 while the new one rises from 100vh, 1.2 s on a custom in-out; reduced motion gets an `autoAlpha` swap only | [site:abatable] | [verified] |
 | Chromatic cut between chapters | inside one canvas the chapter change runs through a chromatic pass with a dip to white | [site:edolus] | [verified]; values in `[pattern:webgl-architecture#effect-parameters]` |
 | Stroke flood | one SVG path set to `drawSVG '0% 0%'` at `strokeWidth 8%`; keyframes hold to 15 %, draw `'0% 100%'` by 90 % and widen to `strokeWidth 70%` at 100 %, 1.25 s, so the line floods the viewport; the logo pops in .65 s on `elastic.out(1, .72)` after .5 s; first load reverses to `'100% 100%'`; reduced motion swaps by `autoAlpha` | [site:aardvarkbookclub] | [verified] |
@@ -91,7 +93,7 @@ Rule: the gesture may enable sound, but content never waits for it. Either offer
 | Frozen-frame iris | the outgoing frame is frozen into a cache target and the next world opens inside a rhombus iris over it, a 2D canvas drawing the iris edge; at the close the same shape shuts onto the ground while the frame zooms | [site:everswap] | [verified] `[recipe:gl-grade-pass-scene-cuts]` |
 | Circular reveal into a second world | entering grows a circle over 1.8 s; leaving takes 1.9 s while the pieces won inside fly back into the page's object across the two renderers (`[pattern:webgl-3d-scenes#interaction-and-physics]`); .5 s and .45 s under reduced motion | [site:daikifujita] | [verified] |
 
-Rules: make the transition the hero and the sections the rests — United Carriers stages its mode changes (road → sea → air) as the designed moments [site:united-carriers] [verified concept]. One transition vocabulary per site: a shared-element flight and a wipe on the same route are two ideas.
+Rules: when an element continues across the change — a loader's mark, a close that is the next hero — move the live node instead of cross-fading two copies, skip the arriving page's own entrance for it, and let that page's own `h1` take focus; a moved video or canvas never restarts [site:the-line] [verified]. Make the transition the hero and the sections the rests — United Carriers stages its mode changes (road → sea → air) as the designed moments [site:united-carriers] [verified concept]. One transition vocabulary per site: a shared-element flight and a wipe on the same route are two ideas.
 
 ## Theme swap as a transition
 
@@ -113,6 +115,7 @@ Rule: `data-theme` on `<html>` is the single source for the CSS tokens *and* the
 - **View Transitions (MPA)** [site:mont-fort] [verified]: the cinematic site without a SPA; content stays static HTML and only the island re-hydrates. In a Next.js app the same API through `next-view-transitions`, with Lenis read in the router hook [site:pensatori-irrazionali] [verified]; natively for a tile → hero morph in a hand-written site [site:zainabkabira] [verified].
 - **taxi on a Webflow shell** [site:noth] [site:siena] [verified]: an injected bundle owns routing; `NAVIGATE_END` runs a full teardown and re-init list [site:noth].
 - **Barba** [site:wearedirect] [site:likova] [verified]: Lenis destroyed and recreated around every swap; saved scroll restored on back navigation [site:wearedirect]; Lenis rebuilt on each entry [site:bleibtgleich]; `sync: true`, a 7 s timeout and `preventRunning` [site:a24-raviklaassens]; Barba prefetch with per-route destroy functions that `close()` every decoded frame [site:aardvarkbookclub] [verified on each]. A label pair on the enter timeline (`startEnter`, `pageReady`) resolves the router's promise; `debug: true` shipped to production is the miss [site:abatable] [verified].
+- **Nuxt `<Transition>`** [site:the-line] [verified]: CSS enter and leave classes for the default route; for the case-to-case move, route middleware swaps in a JS-hook transition (`css: false`, `mode: 'out-in'`) whose leave lifts the close and whose enter appends its nodes into the new hero; Lenis is stopped across the leave and restarted on enter `[recipe:next-case-handoff]`.
 - **A curtain before a full reload** [site:serotoninn] [verified]: every internal link intercepted for a 1.6 s curtain, then `location.assign` — the cost of a transition without the benefit of a router.
 - Whatever the router: reset scroll (`lenis.scrollTo(0, { immediate: true })`), move focus to the new `<main>` or `<h1>`, and refresh ScrollTrigger once the new fonts and images have landed.
 
@@ -130,6 +133,7 @@ A reload on crossing a breakpoint costs every transition above it: zoom users an
 - [ ] One transition vocabulary; the same duration unit for every hero-scale move.
 - [ ] Theme swaps tween `<html>` tokens and the canvas clear colour together; instant under reduced motion.
 - [ ] Route changes reset scroll, move focus, tear down tickers and triggers, and refresh measurements.
+- [ ] A seamless hand-off moves the live node (never a clone), lands the arriving page's own heading where the moved element ended, focuses it, and every link still navigates without script.
 - [ ] No reload on resize; scenes rebuild on `ResizeObserver`.
 
 ## Refuse
@@ -140,5 +144,5 @@ A reload on crossing a breakpoint costs every transition above it: zoom users an
 - Cross-fade as the only transition on a site that claims a world.
 - Two transition ideas on one route (a flight and a wipe).
 - Theme swaps that tween elements one by one, or that leave the canvas clear colour behind.
-- The drawn-zero gesture, the `00/24` leader, the boot readouts, the two-arc ring, the grid-to-detail flight, the row-rise exit or the title-mask tunnel as-is; the level meter, the CRT boot, the countdown, the crumple into a bin, the bowed curtain; the thrown sleeve, the robot drawn in a worker, the fruit pile, the word search, the strip fan, the zoom out of a television, the stroke flood; the diamond iris, the lavender dip and the dive into a dream.
+- The drawn-zero gesture, the `00/24` leader, the boot readouts, the two-arc ring, the grid-to-detail flight, the row-rise exit or the title-mask tunnel as-is; the level meter, the CRT boot, the countdown, the crumple into a bin, the bowed curtain; the thrown sleeve, the robot drawn in a worker, the fruit pile, the word search, the strip fan, the zoom out of a television, the stroke flood; the diamond iris, the lavender dip and the dive into a dream; the hinged next-case close under a red overprint.
 - A breakpoint reload.
