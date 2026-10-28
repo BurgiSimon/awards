@@ -13,6 +13,8 @@ export class FrameScrubber {
   #bitmapWidth;
   #keyAtOrBefore;
   #run = 0;                                 // id of the decode run in flight, for the stall watchdog
+  #keyNext = false;                         // after flush() the decoder accepts only a keyframe
+  #closed = false;
   #onError;
 
   decoderAt = null;                         // the last frame the decoder output: where a delta can continue from
@@ -26,7 +28,8 @@ export class FrameScrubber {
     this.#clip = clip;
     this.#draw = draw;
     this.#cacheSize = cacheSize;
-    this.#bitmapWidth = Math.min(clip.width, Math.max(1, Math.round(bitmapWidth)));
+    const w = Math.round(bitmapWidth);
+    this.#bitmapWidth = w >= 1 ? Math.min(clip.width, w) : clip.width;   // a hidden canvas has no width yet
     this.#onError = onError;
     // For every frame, the index of the keyframe a seek to it must start from.
     let k = 0;
@@ -80,24 +83,36 @@ export class FrameScrubber {
     }
     const frames = this.#clip.frames;
     const key = this.#keyAtOrBefore[t];
-    // Continue from the decoder's own position when the target is ahead of it in the same group of pictures.
-    const from = this.decoderAt !== null && t > this.decoderAt && key <= this.decoderAt ? this.decoderAt + 1 : key;
-    const next = this.decoderAt !== null && from === this.decoderAt + 1;
+    // Continue from the decoder's own position when the target is ahead of it in the same group of pictures; after a
+    // flush the decoder wants a keyframe, wherever it is.
+    const at = this.#keyNext ? null : this.decoderAt;
+    const from = at !== null && t > at && key <= at ? at + 1 : key;
+    const next = at !== null && from === at + 1;
     if (t === from && next) this.stats.sequential++;          // the next frame: one decode
     else if (next) this.stats.continued++;                    // ahead in the same group: on from where the decoder is
     else this.stats.keySeeks++;                               // anywhere else: from the keyframe
+    this.#keyNext = false;
     this.busy = true;
     this.target = t;
     const run = ++this.#run;
-    for (let i = from; i <= t; i++) {
-      const f = frames[i];
-      this.#decoder.decode(new EncodedVideoChunk({ type: f.ty, timestamp: f.t, data: f.data }));
-      this.stats.decodes++;
+    try {
+      for (let i = from; i <= t; i++) {
+        const f = frames[i];
+        this.#decoder.decode(new EncodedVideoChunk({ type: f.ty, timestamp: f.t, data: f.data }));
+        this.stats.decodes++;
+      }
+    } catch (e) {
+      // The decoder refused a chunk (closed, or not configured): hand over to the fallback rather than stay busy.
+      this.busy = false;
+      this.decoderAt = null;
+      this.#onError?.(e);
+      return;
     }
     // A decoder that holds its output back would leave the run busy for ever: flush once, then start clean.
     setTimeout(() => {
       if (!this.busy || run !== this.#run) return;
       this.stats.stalls++;
+      this.#keyNext = true;
       this.#decoder.flush().catch(() => {}).then(() => {
         if (!this.busy || run !== this.#run) return;
         this.#decoder.reset();
@@ -123,7 +138,11 @@ export class FrameScrubber {
     // Every frame decoded, shown or passed on the way, goes into the cache as a bitmap at display width.
     const h = Math.round((this.#bitmapWidth * frame.displayHeight) / frame.displayWidth);
     createImageBitmap(frame, { resizeWidth: this.#bitmapWidth, resizeHeight: h })
-      .then((bmp) => { this.#remember(i, bmp); })
+      .then((bmp) => {
+        // Destroyed, or resized while the bitmap was made: it would be drawn at the wrong width.
+        if (this.#closed || bmp.width !== this.#bitmapWidth) bmp.close();
+        else this.#remember(i, bmp);
+      })
       .catch(() => {})
       .finally(done);
     if (!this.busy && this.pending !== null) this.#start(this.pending);
@@ -141,16 +160,28 @@ export class FrameScrubber {
   }
 
   get cached() { return [...this.#cache.keys()]; }
+  get bitmapWidth() { return this.#bitmapWidth; }
 
-  // Draw the frame on screen again (after a resize cleared the canvas): from the cache, or by decoding it again.
+  // The screen's backing width changed: keep bitmaps at the new width from now on, and drop the ones at the old.
+  resize(width) {
+    const w = Math.min(this.#clip.width, Math.round(width));
+    if (!(w >= 1) || w === this.#bitmapWidth) return;
+    this.#bitmapWidth = w;
+    for (const bmp of this.#cache.values()) bmp.close();
+    this.#cache.clear();
+  }
+
+  // Draw the frame on screen again (after a resize cleared the canvas): from the cache, or by decoding it again. A run
+  // in flight draws its own target when it lands, and a request waiting behind it is newer than the frame shown.
   refresh() {
     const t = this.shown;
-    if (t === null) return;
     this.shown = null;
+    if (t === null || this.busy) return;
     this.seek(t);
   }
 
   destroy() {
+    this.#closed = true;
     this.#run++;
     try { this.#decoder?.close(); } catch {}
     for (const bmp of this.#cache.values()) bmp.close();

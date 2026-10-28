@@ -1,7 +1,9 @@
 // Every check reads the frame number the film edge carries, off the screen canvas: the frame shown is the frame asked
 // for. A jump decodes from the keyframe and no further; a step forward is one decode; a step back through frames just
 // decoded is a cache hit; a burst of requests runs only the newest; a real scroll sweep keeps showing frames; no
-// decoded frame is left open. Without WebCodecs the frames are still right; reduced motion is one still.
+// decoded frame is left open. A resize during a decode keeps the newest request and redraws the cache at the new width;
+// a main thread blocked past the watchdog does not wedge the decoder. Without WebCodecs the frames are still right;
+// reduced motion is one still, also when it is turned on while the page is open.
 const ready = { type: 'waitFor', fn: 'window.__scrub?.ready === true' };
 const plan = (name) => ({ type: 'waitFor', fn: `(window.__plan = '${name}', true)` });
 
@@ -15,6 +17,9 @@ export const states = [
   { name: 'burst', settle: 200, actions: [ready, plan('burst')] },
   { name: 'sweep', settle: 200, actions: [ready, plan('sweep')] },
   { name: 'compare', settle: 200, actions: [ready, plan('compare')] },
+  { name: 'resize', settle: 200, actions: [ready, plan('resize')] },
+  { name: 'stall', settle: 200, actions: [ready, plan('stall')] },
+  { name: 'retier', settle: 200, actions: [ready] },
   { name: 'fallback', settle: 300, actions: [ready, { type: 'waitFor', fn: "(sessionStorage.setItem('webcodecs-frame-scrub:fallback', '1'), true)" }, { type: 'reload' }, ready, plan('mid')] },
   { name: 'reduced', reducedMotion: true, scroll: 1, settle: 600, actions: [ready] },
   { name: 'mobile', viewport: 'mobile', settle: 300, actions: [ready, plan('mid')] },
@@ -64,12 +69,80 @@ export async function probe() {
     out.during = S.stats.shownCount - c0;
     let last = -1;
     await until(() => { const t = st().target; const same = t === last; last = t; return same && st().shown === t && !S.stats?.busy; }, 8000);
+  } else if (out.plan === 'resize') {
+    // A resize while a run decodes: the run's frame lands at the new size, not the frame shown before it.
+    const screen = document.querySelector('[data-screen]');
+    const wrap = document.querySelector('.screen-wrap');
+    await shownAt(20);
+    const w0 = screen.width;
+    let busyAtResize = null;
+    const ro = new ResizeObserver(() => { busyAtResize ??= S.stats.busy; });
+    ro.observe(screen);
+    wrap.style.width = '50%';
+    S.seek(39);                                   // ten decodes from the keyframe at 30
+    out.ok = await settled(39);
+    out.landedEdge = S.edge();
+    ro.disconnect();
+    out.busyAtResize = busyAtResize;
+    out.widths = { before: w0, canvas: screen.width, bitmaps: S.stats.bitmapWidth };
+    const h0 = S.stats.cacheHits;
+    out.back = await shownAt(37);                 // decoded after the resize: a cache hit at the new width
+    out.backHit = S.stats.cacheHits - h0;
+  } else if (out.plan === 'stall') {
+    // The main thread blocked past the 1 s watchdog while a run decodes: the watchdog flushes the decoder, after which
+    // it takes a keyframe first. The film must keep stepping forward through the same group afterwards.
+    await shownAt(0);
+    const s0 = S.stats.stalls;
+    out.tries = 0;
+    for (const t of [15, 45, 75, 105]) {
+      out.tries++;
+      S.seek(t);
+      const t0 = performance.now();
+      while (performance.now() - t0 < 1200) {}    // a long task: the timer comes due before the outputs are handled
+      out.landed = await settled(t);
+      if (S.stats.stalls > s0) {
+        out.at = t;
+        out.next = await shownAt(t + 1);
+        out.after = await shownAt(t + 3);
+        break;
+      }
+    }
+    out.stalls = S.stats.stalls - s0;
   } else if (out.plan === 'compare') {
     await until(() => st().compare !== null, 20000);
   }
   await new Promise((r) => setTimeout(r, 300));
   const s = st();
   return { ...out, edge: S.edge(), shown: s.shown, target: s.target, mode: s.mode, openFrames: S.stats?.openFrames ?? 0, compare: s.compare };
+}
+
+// Runs in Node after the probe: reduced motion turned on and off while the page is open.
+export async function inspect(page, state) {
+  if (state.name !== 'retier') return null;
+  const read = () => page.evaluate(async () => {
+    const film = document.querySelector('[data-film]');
+    window.scrollTo(0, film.offsetTop + film.offsetHeight * 0.75);
+    const st = () => window.__awards.state();
+    let last = -1;
+    const t0 = performance.now();
+    await new Promise((r) => setTimeout(r, 400));
+    while (performance.now() - t0 < 8000) {
+      const s = st();
+      if (s.target === last && s.shown === s.target && !window.__scrub.stats?.busy) break;
+      last = s.target;
+      await new Promise((r) => setTimeout(r, 50));
+    }
+    const s = st();
+    return { motion: s.motion, mode: s.mode, shown: s.shown, target: s.target, edge: window.__scrub.edge() };
+  });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.waitForTimeout(300);
+  const reduced = await read();
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.emulateMedia({ reducedMotion: 'no-preference' });
+  await page.waitForFunction(() => window.__awards.state().mode === 'webcodecs', null, { timeout: 15000 }).catch(() => {});
+  const full = await read();
+  return { reduced, full };
 }
 
 export function assert(r) {
@@ -90,7 +163,15 @@ export function assert(r) {
   const w = pr('sweep');
   out.push({ ok: w.during >= 5 && w.edge === w.target && w.target === 119 && w.openFrames === 0, message: `scroll sweep over 30 frames of scrolling: ${w.during} frames shown on the way, frame ${w.edge} at the end` });
   const c = pr('compare').compare;
-  out.push({ ok: !!c && c.packBytes * 3 < c.stillsBytes, message: `the same 120 frames: ${Math.round((c?.stillsBytes ?? 0) / 1024)} KB as WebP stills, ${Math.round((c?.packBytes ?? 0) / 1024)} KB as one stream` });
+  out.push({ ok: !!c && c.packBytes * 2.5 < c.stillsBytes, message: `the same 120 frames: ${Math.round((c?.stillsBytes ?? 0) / 1024)} KB as WebP stills, ${Math.round((c?.packBytes ?? 0) / 1024)} KB as one stream` });
+  const z = pr('resize');
+  out.push({ ok: z.ok && z.landedEdge === 39 && z.busyAtResize === true && z.widths?.canvas < z.widths?.before && z.widths?.bitmaps === z.widths?.canvas, message: `resize during a run (busy: ${z.busyAtResize}): frame ${z.landedEdge} for request 39; canvas ${z.widths?.before} → ${z.widths?.canvas} px, bitmaps ${z.widths?.bitmaps} px` });
+  out.push({ ok: z.back && z.backHit === 1, message: `after the resize, back to 37: ${z.backHit} cache hit at the new width` });
+  const k = pr('stall');
+  out.push({ ok: k.stalls >= 1 && k.landed && k.next && k.after && k.edge === k.at + 3 && k.openFrames === 0, message: `main thread blocked 1.2 s during a run (${k.tries} tries): ${k.stalls} watchdog flushes, frame ${k.at} shown, then ${k.next ? 'steps on' : 'stuck'} to ${k.edge}` });
+  const rt = r.retier?.inspect || {};
+  out.push({ ok: rt.reduced?.motion === 'reduced' && rt.reduced?.mode === 'still' && rt.reduced?.edge === 60, message: `reduced motion turned on while open: ${rt.reduced?.mode}, frame ${rt.reduced?.edge} after scrolling` });
+  out.push({ ok: rt.full?.motion === 'full' && rt.full?.mode === 'webcodecs' && rt.full?.edge === rt.full?.target && rt.full?.target > 80, message: `and off again: ${rt.full?.mode}, frame ${rt.full?.edge} for target ${rt.full?.target}` });
   const f = pr('fallback');
   out.push({ ok: st('fallback').mode === 'fallback' && f.edge === f.target && f.target >= 57 && f.target <= 62, message: `no WebCodecs: drawn directly, frame ${f.edge} for target ${f.target}` });
   const rd = st('reduced'), rp = pr('reduced');

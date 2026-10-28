@@ -8,6 +8,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { parseArgs } from './lib/report.mjs';
+import { isDay } from './build-catalogue.mjs';
 
 const plugin = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const recipesDir = path.join(plugin, 'recipes');
@@ -69,7 +70,7 @@ export async function gallery() {
     const hasFrame = fs.existsSync(path.join(recipesDir, '_gallery/frames', `${id}.webp`));
     recipes.push({
       id, title: j.title ?? id, intent: j.intent ?? '', group: j.group ?? '', summary: j.summary ?? '', tags: j.tags ?? [],
-      deps: j.deps ?? [], tier: j.tier ?? '', variants: j.variants ?? [], seenIn: j.seenIn ?? [], addedIso: j.added ?? null,
+      deps: j.deps ?? [], tier: j.tier ?? '', variants: j.variants ?? [], seenIn: j.seenIn ?? [], addedIso: isDay(j.added) ? j.added : null,
       verified: j.verified?.date ? { date: day(j.verified.date), chromium: j.verified.chromium ?? null } : null,
       frame: hasFrame ? { state: frames[id]?.state ?? null, scroll: frames[id]?.scroll ?? null } : null,
       states: await verifierStates(id),
@@ -99,7 +100,7 @@ export async function gallery() {
       : `<span class="plate__blank" aria-hidden="true">${esc(r.intent)}</span>`;
     return `        <li class="plate" data-id="${r.id}">
           <div class="plate__frame">${img}</div>
-          <h3 class="plate__title"><a href="./${r.id}/index.html">${esc(r.title)}</a>${r.isNew ? ` <span class="new" title="Added ${r.added}">New</span>` : ''}</h3>
+          <h3 class="plate__title"><a href="./${r.id}/index.html">${esc(r.title)}</a>${r.isNew ? ' <span class="new">New</span>' : ''}</h3>
           <p class="plate__intent">${esc(r.intent)}</p>
           <p class="plate__meta"><span class="tier" title="Tier ${r.tier}">${r.tier}</span>${libs.length ? ` <span class="plate__libs">${esc(libs.join(' · '))}</span>` : ' <span class="plate__libs">no library</span>'}</p>
         </li>`;

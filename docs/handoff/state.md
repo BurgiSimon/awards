@@ -20,7 +20,19 @@ reference. `decisions.md` records choices already taken.
   - requests made during a seek coalesce to the newest, so the decoder is never reset;
   - every frame decoded is kept as a bitmap at display width (`keyEvery + 2` of them);
   - a 1 s watchdog flushes, then resets.
-- The demo draws a 120-frame day with an edge code, encodes it on load (H.264 baseline in headless Chromium, about 255 KB at 500 kbps against 772 KB as WebP stills) and scrubs it from a sticky stage. The verifier reads the frame number off the canvas: 39 checks with `--pseudo`. Fallbacks: no WebCodecs draws frames directly (`?codecs=off`); reduced motion shows one still. Not run outside headless Chromium.
+- The demo draws a 120-frame day with an edge code, encodes it on load (H.264 baseline in headless Chromium, about 255 KB at 500 kbps against 772 KB as WebP stills) and scrubs it from a sticky stage. The verifier reads the frame number off the canvas: 50 checks with `--pseudo`. Fallbacks: no WebCodecs draws frames directly (`?codecs=off`); reduced motion shows one still, also when it is turned on while the page is open. Not run outside headless Chromium.
+- A review workflow (three scoped reviewers, each followed by a skeptic) confirmed 11 findings and refuted 4. Fixed:
+  - after the watchdog's `flush()` a decoder takes only a keyframe, and the next forward step in the same group fed it a delta: `decode()` threw and the scrubber stayed busy for good. The next run now starts from a keyframe, and a refused chunk hands over to the fallback;
+  - a resize during a run re-sought the old frame over the newest request;
+  - cached bitmaps kept the width from load after a resize;
+  - reduced motion turned on while the page was open was ignored;
+  - a browser without a WebP encoder would have shown PNG sizes as "WebP stills";
+  - the status line blamed missing WebCodecs for every fallback;
+  - the visible canvas was CPU-backed (`willReadFrequently`) only for the verifier;
+  - the compare check had 1.5 % headroom and failed on another Chromium build;
+  - a form-valid impossible `added` date (2026-13-01) turned every New label off and printed "undefined";
+  - the plate label carried a tooltip that the plate's stretched link covers.
+- New verifier states: a resize during a run, a 1.2 s long task that sets off the watchdog (four runs, the flush on the first try each time), and reduced motion turned on and off while the page is open; each failed on the code before the fix.
 - Routed from motion (Frame scrub), webgl (Frame sequence from one encoded clip), structure (Scroll set-pieces), `asset-pipeline.md`, `components-catalog.md` and the Son Daven card.
 - The explorer's New label: `recipe.json` takes an optional `added` date (`build-catalogue.mjs` rejects any other form); `build-gallery.mjs` marks a recipe New when its date is within 30 days of the newest `added` in the catalogue, so the page depends on the files, not the clock. The label sits after the plate title, in the stage's kicker, with an `Added` row in the facts; search matches "new". The seven recipes of this branch carry `added: 2026-10-28`; older recipes have no date and never show it.
 

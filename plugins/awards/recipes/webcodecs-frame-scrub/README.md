@@ -16,10 +16,10 @@ The film (dawn to dusk over a standing stone, 120 frames) is drawn in code and e
 |---|---|
 | Clip | 960 × 540, 30 fps, 120 frames; H.264 baseline (`avc1.42001f`) where the browser can encode and decode it, else VP9, else VP8 |
 | Encode | 500 kbps (flat drawn frames need little; photographic footage wants two to four times this), a keyframe every 10 frames |
-| Size, measured on load | about 255 KB as one stream (it varies by a few KB per encode) against 772 KB for the same frames as WebP stills at quality .8, in headless Chromium; drawn frames with flat colour are the best case for stills, so the gap on footage is wider |
-| Cache | `keyEvery + 2` bitmaps at the screen's backing width, oldest dropped first |
+| Size, measured on load | 255 to 266 KB as one stream against 772 to 790 KB for the same frames as WebP stills at quality .8, about three times smaller, in headless Chromium (the figures move with the encode and the browser build); drawn frames with flat colour are the best case for stills, so the gap on footage is wider. Where the browser cannot encode WebP the page shows no comparison rather than PNG sizes |
+| Cache | `keyEvery + 2` bitmaps at the screen's backing width, oldest dropped first; a resize drops them and caches at the new width |
 | Scroll | a 420 svh track with the screen in a sticky stage; `scrub: 0.3` |
-| Watchdog | a seek whose frame is not out after 1 s is flushed, then the decoder is reset and the newest request runs |
+| Watchdog | a seek whose frame is not out after 1 s is flushed, and the next run starts from a keyframe (a decoder takes nothing else after a flush); if the flush brings no frame, the decoder is reset and the newest request runs. A chunk the decoder refuses hands over to the fallback |
 
 These are this recipe's own values. Son Daven's hero scrubs 120 WebP frames on a 2D canvas with `snap: 'frame'` and `scrub: .25`, on desktops only [verified, `slater-55210.js` `initScrollVideo`, 2026-10-28].
 
@@ -46,9 +46,9 @@ Then on the page: `const clip = readPack(await (await fetch('/film/turn.bin')).a
 ## Tiers
 - **Full, with WebCodecs:** the scrub as above.
 - **Full, without WebCodecs** (or a decoder error): the frames are drawn directly, the stand-in for an image sequence or `<video>` `currentTime`. WebCodecs video is in Chromium-based browsers, Safari 16.4 and later and Firefox 130 and later on desktop [recalled].
-- **Reduced and static:** one still at midday; the scroll moves the page, not the film.
+- **Reduced and static:** one still at midday; the scroll moves the page, not the film. Turning reduced motion on while the page is open stops the scrub and shows the still; turning it off brings the scrub back without encoding again.
 
-`window.__scrub` exposes `go(p)` (scroll the track to a progress), `seek(i)`, `edge()` (read the frame number off the screen) and `stats` (decodes, keyframe seeks, sequential steps, cache hits, superseded requests, open frames) for verification.
+`window.__scrub` exposes `go(p)` (scroll the track to a progress), `seek(i)`, `edge()` (read the frame number off a copy of the screen, so the screen's own context never asks for pixel reads) and `stats` (decodes, keyframe seeks, sequential steps, cache hits, superseded requests, open frames) for verification.
 
 ## Accessibility
 The canvas is `aria-hidden`; the figure's caption names the film and a visible readout gives the frame and the time of day it shows. The scroll is the only input, and every way of scrolling drives it.
