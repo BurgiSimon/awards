@@ -56,7 +56,9 @@ export function features(md, name) {
   // "Imagery strategy: …" inside a paragraph, or an "Imagery, …:" sub-bullet of its own.
   const imageryText = world.match(/imagery[^:\n]{0,60}:\**\s*([^\n]+)/i)?.[1] ?? world;
   const refusesPhotos = /refused:?[^.]*photograph|no photograph|photography refused|without photograph/i.test(imageryText);
-  const imagery = /open collection|openverse|wikimedia|archive photograph|licensed photograph|public[- ]domain/i.test(imageryText) && !refusesPhotos ? 'found'
+  // `Found pictures: off` is the user's switch (craft --no-found-pictures): WORLD may name the collections it skipped.
+  const foundOff = /^- Found pictures:\s*off\b/im.test(md);
+  const imagery = /open collection|openverse|wikimedia|archive photograph|licensed photograph|public[- ]domain/i.test(imageryText) && !refusesPhotos && !foundOff ? 'found'
     : /owned photograph|the client'?s photograph|commissioned photograph|documentary photograph|\ball owned\b|the work is the imagery/i.test(imageryText) ? 'owned'
       : /generat(ed|ion) (raster|plate|image)|image tool|generation tool/i.test(imageryText) && !refusesPhotos ? 'generated'
         : /procedural|code|drawn|svg|css-built|halftone|line drawing/i.test(imageryText) ? 'code-only'
@@ -68,7 +70,7 @@ export function features(md, name) {
   const tier = signature.match(/technique tier:?\s*(DOM-only|moments|canvas-first|100 ?% canvas)/i)?.[1]?.replace(/\s+/g, ' ') ?? (/canvas-first/i.test(signature) ? 'canvas-first' : /DOM-only/i.test(signature) ? 'DOM-only' : '~unstated');
   const juryLines = section(md, 'Jury log').split('\n').filter((l) => /^- \d{4}-\d{2}-\d{2}/.test(l) && !/· (component|baseline) /.test(l));
   const score = (l) => l && { disposition: l.match(/· (?:verdict · )?(ship|fix|rebuild|recapture) ·/)?.[1] ?? null, usability: Number(l.match(/U (\d+(?:\.\d+)?)/)?.[1] ?? NaN) || null, weighted: Number(l.match(/→ (\d+(?:\.\d+)?)/)?.[1] ?? NaN) || null, date: l.slice(2, 12) };
-  return { build: name, thesis: first, shape, selfReferential: selfRef, engines, colour, ground, imagery, readout, tier, firstJury: score(juryLines[0]), lastJury: score(juryLines.at(-1)) };
+  return { build: name, thesis: first, shape, selfReferential: selfRef, engines, colour, ground, imagery, foundPictures: foundOff ? 'off' : 'search', readout, tier, firstJury: score(juryLines[0]), lastJury: score(juryLines.at(-1)) };
 }
 
 // The features a reader would name when they say two builds look like the same studio's work.
@@ -171,14 +173,19 @@ if (direct) {
     const mine = features(fs.readFileSync(file, 'utf8'), 'this build');
     const others = rows.filter((r, i) => dirs[i] !== path.dirname(file));
     const spent = tally(others).filter((t) => t.spent);
-    const shared = spent.filter((t) => KEYS.find(([k]) => k === t.feature)[1](mine).includes(t.value));
+    const sharing = spent.filter((t) => KEYS.find(([k]) => k === t.feature)[1](mine).includes(t.value));
+    // With found pictures off the imagery was the user's call, not the plugin's default: reported, never counted.
+    const excused = mine.foundPictures === 'off' ? sharing.filter((t) => t.feature === 'imagery') : [];
+    const shared = sharing.filter((t) => !excused.includes(t));
     // Features, not values: an inferred pair of engines is one shared engine, not two.
     const sharedFeatures = new Set(shared.map((t) => t.feature)).size;
-    const report = { build: mine, comparedWith: others.length, features: sharedFeatures, shared: shared.map((t) => ({ feature: t.feature, value: t.value, builds: t.builds, of: t.of })) };
+    const row = (t) => ({ feature: t.feature, value: t.value, builds: t.builds, of: t.of });
+    const report = { build: mine, comparedWith: others.length, features: sharedFeatures, shared: shared.map(row), excused: excused.map(row) };
     if (args.json) console.log(JSON.stringify(report, null, 2));
     else {
       console.log(`against ${others.length} earlier build(s): ${sharedFeatures} spent feature(s) shared`);
       for (const t of report.shared) console.log(`  ${t.feature}: ${t.value} (${t.builds} of ${t.of})`);
+      for (const t of report.excused) console.log(`  ${t.feature}: ${t.value} (${t.builds} of ${t.of}) — not counted: found pictures are off for this build`);
       if (sharedFeatures >= 2) console.log('Two or more: the plugin rut. Name each in THESIS with the reason this subject earns it, or change the direction.');
     }
     process.exit(sharedFeatures >= 2 ? 2 : 0);

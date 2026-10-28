@@ -28,6 +28,8 @@ export function card(md) {
   if (deep && !/gsap\|none/.test(deep)) out.push(`- Deep modes: ${deep}`);
   const mode = md.match(/^- Mode:\s*(.+)$/m)?.[1];
   if (mode && !/^full\b|\|/.test(mode)) out.push(`- Mode: ${mode}`);
+  const found = md.match(/^- Found pictures:\s*(off\b.*)$/im)?.[1];
+  if (found) out.push(`- Found pictures: ${found} (no open-collection search; own and made imagery only)`);
   const jury = last('Jury log');
   if (jury) out.push(`- Last jury: ${jury.slice(2)}`);
   const ship = last('Ship log');

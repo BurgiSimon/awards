@@ -117,6 +117,8 @@ Three ways into a whole site:
 - `/awards:craft redesign <url or folder>` for an existing site: a baseline capture and critique first, a content inventory, and the old site's faults as the new contract's refusals, on a branch.
 - `/awards:craft` for the full build. Name the award programs in the brief (`programs: awwwards, cssda`) and the jury reports a target line for each.
 
+Add `--no-found-pictures` to any of them when a build must not use outside pictures (a licensing policy, no network, photographs still to come). It skips the search of open collections for real pictures, so the imagery comes from your own files or is made for the build. `--found-pictures` turns the search back on.
+
 ## How a build runs
 
 1. **Brief.** `craft` copies `AWARDS.md` into the project, asks at most three questions, records the visitor mode and every synthetic asset.

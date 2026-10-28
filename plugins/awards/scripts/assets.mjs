@@ -11,7 +11,9 @@
 //        real pictures (or footage) of the subject's world from open collections that need no key, commercial-safe
 //        licences only; results are cached in .awards/asset-search.json so get can use their refs
 //   node assets.mjs get <ref> [--out public/images] [--name <file stem>]   download one result and log it, credit included
-// Exit: 0 clean, written or found · 2 check found gaps · 4 no collection reachable or the download failed · 1 usage.
+//   search and get refuse while the project's AWARDS.md says `Found pictures: off` (craft or concept --no-found-pictures).
+// Exit: 0 clean, written or found · 2 check found gaps · 3 found pictures are off for this build · 4 no collection
+//       reachable or the download failed · 1 usage.
 import fs from 'node:fs';
 import path from 'node:path';
 import { parseArgs, fmtTable } from './lib/report.mjs';
@@ -35,6 +37,12 @@ const logFile = path.join(project, '.awards', 'assets.json');
 const load = () => { try { return JSON.parse(fs.readFileSync(logFile, 'utf8')); } catch { return { assets: [] }; } };
 const save = (log) => { fs.mkdirSync(path.dirname(logFile), { recursive: true }); fs.writeFileSync(logFile, JSON.stringify(log, null, 2) + '\n'); };
 const rel = (f) => path.relative(project, path.resolve(f)).split(path.sep).join('/');
+const foundOff = () => { try { return /^- Found pictures:\s*off\b/im.test(fs.readFileSync(path.join(project, 'AWARDS.md'), 'utf8')); } catch { return false; } };
+
+if ((command === 'search' || command === 'get') && foundOff()) {
+  console.error('found pictures are off for this build (AWARDS.md `Found pictures: off`): use the client\'s own pictures or made imagery, or set that line to `search` to use the open collections');
+  process.exit(3);
+}
 
 if (command === 'add') {
   if (!args.file || !KINDS.includes(String(args.kind))) {

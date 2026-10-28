@@ -1,9 +1,20 @@
-# State of the awards plugin — 2026-10-26 (release 1.0.0, branch `claude/awards-0.9`)
+# State of the awards plugin — 2026-10-28 (release 1.0.0 and the found-pictures switch, branch `claude/quirky-newton-pthlep`)
 
 Read this first, then `todo.md`. The visual composition candidate's deterministic verification is
 recorded below in [Candidate verification record](#candidate-verification-record). `archive/plan-0.2.md` and
 `verification-log.md` record the earlier 0.2.0 work. `archive/plan.md` is the 0.1.0 specification, kept for
 reference. `decisions.md` records choices already taken.
+
+## Found pictures off (branch `claude/quirky-newton-pthlep`, 2026-10-28, unreleased)
+
+- At the user's request, a per-build switch for the 1.0.0 rule that a build with no assets searches the open collections before it makes any imagery. `craft` or `concept` with `--no-found-pictures` (or a brief that rules out outside pictures) writes `Found pictures: off — <reason>` on the `## Budgets & tiers` line of `AWARDS.md` (template: `Found pictures: search | off`). `--found-pictures`, or `search` on that line, restores the rule.
+- What reads the line:
+  - concept: WORLD writes `found pictures off (<reason>)` in place of the search;
+  - `assets.mjs search` and `get` exit 3;
+  - the jury's Pictures step and the `House concept` family: code-only imagery is earned, but its finish still counts;
+  - `house-ledger.mjs --against`: the imagery feature is reported under `excused` and not counted;
+  - `state-card.mjs` after a compaction.
+- Tested in `evals/behavior.mjs --only tools` (state card, ledger, picture search). No paid eval case covers the flag yet (todo).
 
 ## Two demos built with 1.0.0 (branch `claude/awards-1.0-demos`, 2026-10-26)
 

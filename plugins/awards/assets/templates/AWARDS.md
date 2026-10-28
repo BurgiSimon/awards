@@ -28,7 +28,7 @@
 
 ## Direction contract
 - **THESIS:** the one idea this surface owns, built on an inventory item; the category default, the Awwwards default, the template skeleton and the plugin's own latest default (`references/patterns/house-tells.md`) it refuses, each as it would look for this subject; then `Competitor test: <nearest competitor> — <why the thesis breaks for it>`.
-- **WORLD:** colour strategy (dealt with `roll.mjs --choose`, with the reason it fits) and tokens, type contract, materials, and one imagery strategy with what supplies it (owned photographs; with none, real pictures of the subject's world from a named open collection before a generation tool, a drawn language or code) — recognisable with every word removed. "None, flat grounds" is not a strategy.
+- **WORLD:** colour strategy (dealt with `roll.mjs --choose`, with the reason it fits) and tokens, type contract, materials, and one imagery strategy with what supplies it (owned photographs; with none, real pictures of the subject's world from a named open collection before a generation tool, a drawn language or code, unless `Found pictures: off`) — recognisable with every word removed. "None, flat grounds" is not a strategy.
 - **STORY:** the narrative model, the chapter beats (entrance · hold · exit), the interruption, the close.
 - **FIRST VIEWPORT:** the exact composition — what is where, at what scale, and where the primary action sits.
 - **SIGNATURE:** the one interaction, the physical metaphor it enacts and the jobs it does, its technique tier, its behaviour on touch, keyboard and reduced motion, its fallback.
@@ -50,6 +50,7 @@
 - Entry JS (gz): · GL chunk (gz): · Textures per scene: · Fonts (files / KB): · LCP target: · Tiers: high / mid / low →
 - Deep modes: motion gsap|none · webgl shader|3d|shader + 3d|none — because …
 - Mode: full | quick | redesign from <url or dir>
+- Found pictures: search | off — because …
 
 ## Jury log
 <!-- appended by awards:jury — date · disposition · D/U/C/Co · dev sub-scores · top fixes; component passes are marked `component` and a redesign's first score `baseline`; neither counts as a page round -->

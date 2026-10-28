@@ -39,7 +39,7 @@ node scripts/crux.mjs <url> [--origin]                     # Chrome UX Report fi
 node scripts/fonts.mjs search --category <class> --seed <key> | specimen --fonts <ids> --text "<headline>" | fetch --font <id>   # character-first faces from Fontsource
 node scripts/design-md.mjs lint | export --format dtcg|css-tailwind|json-tailwind | snapshot --label round-n | diff   # DESIGN.md through Google's design.md CLI (pinned 0.4.0, npx); unmeasured offline
 node scripts/assets.mjs add --file <f> --kind owned|licensed|generated|drawn|placeholder | check [dir] | credits   # the project's asset and licence log
-node scripts/assets.mjs search "<query>" [--video] [--source …] | get <ref> [--out public/images]   # real pictures from open collections (CC0, PD, BY, BY-SA only); get logs the credit
+node scripts/assets.mjs search "<query>" [--video] [--source …] | get <ref> [--out public/images]   # real pictures from open collections (CC0, PD, BY, BY-SA only); get logs the credit; both exit 3 while AWARDS.md says `Found pictures: off` (craft/concept `--no-found-pictures`)
 node scripts/skeleton.mjs <url|dir> --out <file.png>       # composition block map + measured fingerprint of one page (owner policy first)
 node scripts/corpus-skeletons.mjs [--only slug,…] [--missing] [--table-only]   # every card's skeleton and references/sites/_fingerprints.md
 
