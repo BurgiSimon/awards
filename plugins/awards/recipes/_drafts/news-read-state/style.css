@@ -23,7 +23,7 @@
 .masthead__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 calc(var(--unit) * 6); min-height: 64px; }
 .masthead__brand { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--font-display); font-weight: 700; letter-spacing: -0.01em; text-decoration: none; }
 .masthead__nav { display: flex; flex-wrap: wrap; gap: 0 calc(var(--unit) * 6); }
-.masthead__nav a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; text-decoration: none; }
+.masthead__nav a { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: 44px; min-height: 44px; text-decoration: none; }
 .masthead__nav a:hover { text-decoration: underline; }
 .masthead__nav a[aria-current="page"] { text-decoration: none; }
 .masthead__nav a[aria-current="page"] .masthead__label { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.35em; }

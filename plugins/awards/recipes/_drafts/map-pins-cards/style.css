@@ -110,7 +110,8 @@ html { color-scheme: dark; }
 .place__show { padding: 0; border: 0; background: none; cursor: pointer; text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 0.2em; }
 .place.is-on .place__show { color: var(--pin); }
 
-.visit { display: grid; gap: calc(var(--unit) * 5); padding-block: calc(var(--unit) * 20); border-top: 1px solid var(--line); }
+.visit { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: calc(var(--unit) * 5) calc(var(--unit) * 12); align-items: start; padding-block: calc(var(--unit) * 20); border-top: 1px solid var(--line); }
+.visit h2 { grid-row: span 2; }
 .visit h2 { margin: 0; font-family: var(--font-chart); font-size: clamp(1.75rem, 3.4vw, 3.25rem); font-weight: 400; font-style: italic; line-height: 1; }
 .visit p { max-width: 58ch; margin: 0; }
 .footer { padding-block: calc(var(--unit) * 12); border-top: 1px solid var(--line); }
@@ -119,7 +120,9 @@ html { color-scheme: dark; }
 /* Phones: the map takes the width, the card docks under it in the flow (always present, so nothing below jumps when
    a place opens), labels give way to the list. */
 @media (max-width: 720px) {
-  .intro { grid-template-columns: minmax(0, 1fr); row-gap: calc(var(--unit) * 6); min-height: 70svh; }
+  .intro, .visit { grid-template-columns: minmax(0, 1fr); }
+  .intro { row-gap: calc(var(--unit) * 6); min-height: 70svh; }
+  .visit h2 { grid-row: auto; }
   .atlas__grid { grid-template-columns: minmax(0, 1fr); gap: calc(var(--unit) * 8); }
   .pin__dot { width: 11px; height: 11px; }
   .atlas__figure { position: relative; top: auto; }

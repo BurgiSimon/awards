@@ -60,7 +60,6 @@ const entries = [...list.querySelectorAll('[data-entry]')].map((li) => ({
   li,
   id: li.dataset.id,
   date: li.querySelector('time').dateTime,
-  title: li.querySelector('.entry__title').firstChild.textContent.trim(),
   flag: li.querySelector('[data-flag]'),
   more: li.querySelector('[data-more]'),
   unread: false,
