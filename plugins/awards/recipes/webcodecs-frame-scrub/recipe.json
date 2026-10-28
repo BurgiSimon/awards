@@ -1,0 +1,32 @@
+{
+  "id": "webcodecs-frame-scrub",
+  "title": "Frame-exact scroll scrub of one encoded clip with WebCodecs",
+  "intent": "Film scrub, one file",
+  "group": "scroll-set-pieces",
+  "summary": "One clip packed as its encoded chunks, a JSON manifest of every frame's offset, length, time and type, and a four-byte pointer to the manifest: one fetch, no demuxer; WebCodecs decodes exactly the frame the scroll names, from the keyframe at or before it on a jump (ten at most), straight on from the decoder's own position when the target is ahead in the same group, one decode for the next frame; requests made while a seek decodes wait and only the newest runs (119 requests, 11 decodes); frames decoded on the way are kept as bitmaps, so scrubbing back is free; every `VideoFrame` closed; a 1 s watchdog; H.264, then VP9, then VP8; the demo encodes its film on load and measures it against WebP stills; frames drawn directly without WebCodecs; one still under reduced motion",
+  "tags": [
+    "scrub",
+    "video",
+    "sticky",
+    "canvas",
+    "gsap",
+    "scrolltrigger",
+    "sequence",
+    "performance",
+    "fallback",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [
+    "gsap@3.15.0"
+  ],
+  "variants": [
+    "One packed file and WebCodecs (this, default)",
+    "An image sequence of stills (image-sequence-scrub): simplest, several times heavier",
+    "`<video>` with `currentTime`: lightest to build, not frame-exact under a fast scroll"
+  ],
+  "seenIn": [
+    "son-daven"
+  ],
+  "added": "2026-10-28"
+}

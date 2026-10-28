@@ -56,6 +56,21 @@ Excluded by that instruction (lower impact, larger effort): F5 jury panel, F6 mo
 - [x] G1 the plugin's own site, rebuilt from scratch in redesign mode as the maintainer asked ("Contact sheet", seed `3zaj142iys4g`): three page jury rounds (ship 7.70, fix 7.71, ship 7.88; the third asked for by the maintainer), Shipped 2026-10-23. Left to the maintainer: enable GitHub Pages with Actions as the source and run `.github/workflows/site.yml`; one pass on a real phone and trackpad (the strip's follow and chapter 3's scroll were measured only headless); the Awwwards submission. Open after ship: two craft rows in `site/.awards/ship/2026-10-23.md` (s00's arrow label in view; the hover crop's marks in paper ink)
 
 
+## Corpus wave 6b — The Line motion lens (2026-10-28) follow-ups
+
+1. Run `footer-credits-hinge`, `overprint-marker-index` and `next-case-handoff` on a real phone and in Safari: the hand-off's fixed-position lift and `replaceWith` of a live node are untested outside Chromium. Stamp them at the next release.
+2. Paid evals for the motion, structure and component body changes of waves 6a and 6b (`node evals/pick.mjs 3270091` lists them; at least `trigger-motion-gsap-deep`, `motion-pass-fadeup`, `build-nav-component`).
+3. Unbuilt candidates (`recipe-proposals-2026-10-28-the-line.md`): `dealt-sheets-stage` as a `sticky-stages-rails` variant; `registered-blink-chrome` only if a brief's whole chrome speaks in steps; `measured-frame-guides`.
+
+## Corpus wave 6a — Son Daven video weave (2026-10-28) follow-ups
+
+1. Real-GPU and real-phone pass for `gl-video-dither-layers`, `gl-dither-scene-pool` and `dither-cell-transition`: frame time with three playing clips, the slice copies on a phone, `captureStream` and `requestVideoFrameCallback` on Safari (the recipes fall back to canvases when no frame arrives in 2.5 s; unproven there).
+2. Try the recipes with filed footage (an H.264 clip graded on black) and record the bitrate at which the weave stops showing compression.
+3. `webcodecs-frame-scrub` on real devices: Safari (16.4 and later) and Firefox decoding, a hardware decoder's output order and latency, a phone's frame time during a fast scrub, and a packed file built from filmed footage (bitrate where the scrub stops showing compression). Headless Chromium only so far; stamp it with the others.
+4. Re-read Son Daven's load from an ordinary network: from this container 17 of 120 hero frames were pending at 40 s.
+5. Stamp the three recipes at the next release.
+6. `evals/behavior.mjs --only capture`: the held-clock timeline baseline diff fails about one run in three with 1–3 changed pixels (0.0001–0.0003), on the unchanged `capture.mjs` too (observed 2026-10-28, while checking the load-timeout fallback); make the comparison tolerate antialiasing noise or find the source.
+
 ## Found pictures off (2026-10-28) follow-ups
 
 1. A contract-tier case for `--no-found-pictures`: the Southbound brief with the flag, graded on the `Found pictures: off` line, WORLD's `found pictures off`, and no `assets.mjs search` call (a few dollars, the maintainer's call).

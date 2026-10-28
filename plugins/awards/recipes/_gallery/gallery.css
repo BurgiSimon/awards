@@ -274,6 +274,13 @@ html.has-detail { overflow: hidden; }
   display: inline-block; padding: 3px 7px 2px; border: 1px solid var(--rule-strong); border-radius: 4px;
   font: 600 0.6875rem/1 var(--mono); letter-spacing: 0.02em; color: var(--ink);
 }
+/* A recipe from the newest batch: a small filled label after its title, and in the detail panel's kicker. */
+.new {
+  display: inline-block; margin-left: 6px; padding: 3px 6px 2px; border-radius: 4px; vertical-align: 0.25em;
+  background: var(--accent); color: var(--on-accent);
+  font: 600 0.625rem/1 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;
+}
+.info__kicker .new { margin-left: 0; vertical-align: baseline; }
 .plate:hover .plate__title a { text-decoration: underline; text-decoration-thickness: 1px; }
 .plate:hover .plate__frame::after { box-shadow: inset 0 0 0 2px var(--ink); }
 .plate:has(a:focus-visible) .plate__frame::after { box-shadow: inset 0 0 0 3px var(--accent); }

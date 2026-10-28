@@ -1,0 +1,34 @@
+{
+  "id": "gl-video-dither-layers",
+  "title": "Keyed footage woven into the close: bar dither or ASCII glyphs",
+  "intent": "Footage woven as ink",
+  "group": "the-close-and-beyond",
+  "summary": "Three clips graded on black composited in layers on one raw-WebGL canvas, one quad per layer: each cell reads the clip at its centre, drops near-black as the key (centre plus four inner points, or the centre alone for thin strokes), and draws a bar as wide as the cell is dark or a glyph from a ramp sorted by measured ink, in the section's own tokens; per-layer grid, black and white points (inverted when black is above white), bar range and ground and ink opacity are the GSAP tween targets, so the scroll develops the levels from blank and a loop carries the flock across; footage arrives as `<video>` (canvas streams here), uploads once per decoded frame, renders on change at 30 fps at most, never off screen; cells never under 5 CSS px (9 for glyphs); a pause control; one developed still under reduced motion",
+  "tags": [
+    "webgl",
+    "shader",
+    "video",
+    "footer",
+    "mask",
+    "scrub",
+    "gsap",
+    "scrolltrigger",
+    "canvas",
+    "performance",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [
+    "gsap@3.15.0"
+  ],
+  "variants": [
+    "Bars: one vertical bar per cell, width from the tone (this, default)",
+    "Glyphs: an ASCII ramp, sorted by each glyph's measured ink in the system monospace face (the toggle)",
+    "Negative weave: ink opacity 0 and ground opacity 1, so the picture is the gaps between bars",
+    "Many scenes down one page on a single context (gl-dither-scene-pool)"
+  ],
+  "seenIn": [
+    "son-daven"
+  ],
+  "added": "2026-10-28"
+}

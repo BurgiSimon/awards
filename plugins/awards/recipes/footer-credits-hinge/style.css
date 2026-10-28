@@ -1,0 +1,90 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+:root {
+  --stage-ground: var(--accent);
+  --stage-ink: var(--ground);
+  --panel-ground: color-mix(in oklab, var(--ink) 9%, var(--ground));
+  /* The open pose: how far the stage lifts and tilts to show the credits beneath it. main.js measures --lift from the
+     credits' own height plus what the tilt takes back at the corner that drops; 30svh until then. */
+  --lift: 30svh;
+  --shift: 4%;
+  --tilt: -5deg;
+}
+
+.bar { position: absolute; inset: 0 0 auto 0; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: calc(var(--unit) * 4); min-height: 64px; }
+.bar__brand { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; }
+.bar .label { margin: 0; }
+
+/* The page sits above the footer's stage: the stage's rail starts half a viewport early, under the last chapter. */
+main { position: relative; z-index: 3; background: var(--ground); }
+.intro { min-height: 100svh; display: grid; align-content: end; gap: calc(var(--unit) * 6); padding-block: 120px calc(var(--unit) * 16); }
+.intro__title { font-family: var(--font-display); font-size: clamp(2.5rem, 7vw, 7.5rem); font-weight: 600; line-height: 0.95; letter-spacing: -0.03em; max-width: 14ch; margin: 0; }
+.intro__lede { max-width: 52ch; margin: 0; font-size: clamp(1.0625rem, 1.4vw, 1.25rem); }
+.chapter { min-height: 80svh; display: grid; align-content: center; gap: calc(var(--unit) * 5); padding-block: calc(var(--unit) * 24); border-top: 1px solid var(--line); }
+.chapter h2 { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 4.5rem); line-height: 1; letter-spacing: -0.02em; max-width: 18ch; margin: 0; }
+.chapter p { max-width: 56ch; margin: 0; }
+.chapter .label { margin: 0; }
+
+/* ---- The close ---------------------------------------------------------------------------------------------- */
+/* Height = the closing sheet + the stage's content (measured into --content-h), so the last scroll position shows
+   the sheet's foot over the footer's content. The footer's own ground is the credits' ground: whatever the lifted
+   stage uncovers reads as one surface with the panel. */
+.close { position: relative; overflow: clip; padding-bottom: calc(var(--content-h, 60svh) + 8px); background: var(--panel-ground); }
+
+/* The closing sheet: the page's ground carrying the wordmark. Scrubbed in main.js: it tips on its top-left corner. */
+.close__sheet { position: relative; z-index: 3; background: var(--ground); padding: 16svh var(--gutter) 8px; transform-origin: 0 0; }
+.close__word { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: clamp(3.5rem, 12vw, 14rem); line-height: 0.8; letter-spacing: -0.05em; white-space: nowrap; }
+
+/* The rail: from half a viewport above the footer to its foot. The stage sticks inside it. */
+.close__scroller { position: absolute; top: -50svh; right: 0; bottom: 0; left: 0; }
+.close__stage { position: sticky; top: 0; height: 100svh; z-index: 2; color: var(--stage-ink); }
+.close__ground { position: absolute; inset: 0; background: var(--stage-ground); }
+/* A lip above the stage, so the tilted stage never shows a gap at its top edge. */
+.close__ground::before { content: ""; position: absolute; left: 0; right: 0; bottom: calc(100% - 1px); height: 12svh; background: var(--stage-ground); }
+.close__content { position: absolute; left: 0; right: 0; bottom: 0; display: grid; gap: calc(var(--unit) * 10); padding-bottom: 8px; }
+.close__cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: calc(var(--unit) * 8); }
+.close__col p, .close__list { margin: 0; }
+.close__label { margin: 0 0 calc(var(--unit) * 3); font-family: var(--font-mono); font-size: var(--label); font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; }
+.close__big { font-family: var(--font-display); font-size: clamp(1.25rem, 2vw, 1.75rem); line-height: 1.1; overflow-wrap: anywhere; }
+.close__list { list-style: none; padding: 0; display: grid; }
+.close a, .close button { color: inherit; }
+.close__list a, .close__base a, .close__base button { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }
+.close__list a:hover, .close__base a:hover, .close__credits:hover { text-decoration: underline; }
+.close__base { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 0 calc(var(--unit) * 3); margin: 0; text-transform: uppercase; letter-spacing: 0.02em; }
+.close__base i { font-style: normal; opacity: 0.7; }
+.close__credits { background: none; border: 0; padding: 0; cursor: pointer; text-transform: inherit; letter-spacing: inherit; }
+/* The paper ring only on the blue stage; the credits keep base.css's accent ring on their light ground. */
+.close__stage :focus-visible { outline-color: var(--stage-ink); }
+.close ::selection { background: var(--stage-ink); color: var(--stage-ground); }
+
+/* The open pose. Only the full tier moves the stage; the transition is declared inside the motion query, so the
+   pose is a cut wherever motion is not allowed. */
+.close.is-open .close__stage { transform: translate(var(--shift), calc(var(--lift) * -1)) rotate(var(--tilt)); }
+@media (prefers-reduced-motion: no-preference) {
+  html[data-motion-tier="full"] .close__stage, html[data-motion="full"] .close__stage { transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
+}
+
+/* The credits: under the stage, at the footer's foot, as tall as their own content. Hidden from everyone while closed (visibility waits for the
+   stage to land before it hides, so the panel never blinks out under a moving sheet). */
+.credits { position: absolute; right: 0; bottom: 0; left: 0; z-index: 1; display: flex; align-items: flex-end; justify-content: space-between; gap: calc(var(--unit) * 8); padding-bottom: calc(var(--unit) * 4); background: var(--panel-ground); visibility: hidden; transition: visibility 0s linear 1s; }
+.close.is-open .credits { visibility: visible; transition-delay: 0s; }
+.credits__title { margin: 0 auto 0 0; font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 6rem); font-weight: 600; line-height: 0.85; letter-spacing: -0.03em; outline-offset: 6px; }
+.credits__copy { max-width: 46ch; margin: 0; text-align: justify; }
+.credits__copy strong { font-weight: 600; color: var(--accent); }
+.credits__close { flex: none; min-height: 44px; padding: 0 calc(var(--unit) * 5); border: 1px solid currentColor; border-radius: 999px; background: none; cursor: pointer; }
+
+/* Reduced motion and static: the stage never moves; the credits come up over it as a plain sheet (opacity only in
+   the reduced tier, a cut in the static tier). */
+html:is([data-motion-tier="reduced"], [data-motion="reduced"], [data-motion="static"]) .close.is-open .close__stage { transform: none; }
+html:is([data-motion-tier="reduced"], [data-motion="reduced"], [data-motion="static"]) .credits { z-index: 4; opacity: 0; transition: opacity 0.2s linear, visibility 0s linear 0.2s; }
+html:is([data-motion-tier="reduced"], [data-motion="reduced"], [data-motion="static"]) .close.is-open .credits { opacity: 1; transition: opacity 0.2s linear, visibility 0s; }
+html[data-motion="static"] .credits { transition: none !important; }
+
+@media (max-width: 760px) {
+  :root { --tilt: -3deg; }
+  .close__cols { grid-template-columns: minmax(0, 1fr); gap: calc(var(--unit) * 5); }
+  .close__base { justify-content: flex-start; }
+  .credits { flex-direction: column; align-items: flex-start; justify-content: flex-end; gap: calc(var(--unit) * 3); }
+  .credits__title { margin: 0; }
+}

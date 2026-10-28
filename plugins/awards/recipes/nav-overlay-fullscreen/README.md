@@ -30,4 +30,4 @@ Use a native `<dialog>` with `showModal()` where the overlay does not need a cus
 - Inject: an entry in the engine loaded by the [recipe:boot-lenis-gsap] Footer-code loader; it stops and starts the boot's Lenis rather than creating one. Port the word entrance as `fromTo(…, { yPercent: 110 }, { yPercent: 0 })`: the recipe's `from` would read the −110 % the close leaves behind, so a second open would end above the mask.
 - Reduced motion: no wipe and no stagger. The overlay appears and disappears with the same focus handling.
 
-Seen in: `[site:son-daven]`, `[site:leo-parpeix]`, `[site:mont-fort]`.
+Seen in: `[site:son-daven]`, `[site:leo-parpeix]`, `[site:mont-fort]`, `[site:the-line]`.

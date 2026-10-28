@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Every picture on a page woven by one dither compositor on one WebGL context: pooled clips, scenes that draw only on screen, levels as state.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>gl-dither-scene-pool — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ gl-dither-scene-pool · <span data-gl-readout>dom</span></p><button type="button" class="pause" data-pause aria-pressed="false" hidden>Pause footage</button></header>
+  <main id="main">
+    <section class="band hero" aria-labelledby="t">
+      <div class="wrap band-copy">
+        <p class="label">/ synthetic demo · 1 of 5 scenes</p>
+        <h1 class="title" id="t">One weave,<br>every picture.</h1>
+        <p class="lede">Five pictures down this page are woven by the same compositor on one WebGL context. Four clips are pooled between them: a clip three scenes show is one texture, uploaded once per frame.</p>
+      </div>
+      <figure class="scene scene--wide" data-scene="hero"><canvas aria-hidden="true"></canvas><figcaption class="label">/ A ridge and a flock, developing on arrival</figcaption></figure>
+    </section>
+
+    <section class="band split" data-theme="dark" aria-labelledby="weather">
+      <div class="wrap band-copy">
+        <p class="label">/ 2 of 5</p>
+        <h2 id="weather">Weather</h2>
+        <p>Each scene is an ordinary canvas in the flow of its section, so it scrolls with the page and sits under the section's text. The GL context draws it into a slice of a detached buffer and copies the slice across.</p>
+      </div>
+      <figure class="scene" data-scene="weather"><canvas aria-hidden="true"></canvas><figcaption class="label">/ Reeds, inverted for a dark ground</figcaption></figure>
+    </section>
+
+    <section class="band split" aria-labelledby="seasons">
+      <div class="wrap band-copy">
+        <p class="label">/ 3 of 5</p>
+        <h2 id="seasons">Seasons</h2>
+        <p>Both seasons are layers of the same scene. Switching does not cross-fade two pictures: the outgoing layers lose their ink and the incoming ones develop, in the section's own ink.</p>
+        <div class="seg" role="group" aria-label="Season" data-season-group hidden>
+          <button type="button" data-season="summer" aria-pressed="true">Summer</button>
+          <button type="button" data-season="winter" aria-pressed="false">Winter</button>
+        </div>
+      </div>
+      <figure class="scene" data-scene="seasons"><canvas aria-hidden="true"></canvas><figcaption class="label">/ Summer: reeds and a flock · Winter: a ridge under snow</figcaption></figure>
+    </section>
+
+    <section class="band" data-theme="dark" aria-labelledby="interlude">
+      <div class="wrap band-copy">
+        <p class="label">/ 4 of 5</p>
+        <h2 id="interlude">The same footage, as type</h2>
+      </div>
+      <figure class="scene scene--wide" data-scene="interlude"><canvas aria-hidden="true"></canvas><figcaption class="label">/ Snow and the flock through the glyph ramp</figcaption></figure>
+    </section>
+  </main>
+
+  <footer class="band close" data-theme="dark" aria-labelledby="close-title">
+    <div class="wrap band-copy">
+      <p class="label">/ 5 of 5</p>
+      <h2 class="close-title" id="close-title">Come up for the weather.</h2>
+      <p><a href="mailto:hello@example.com">hello@example.com</a></p>
+    </div>
+    <figure class="scene scene--wide" data-scene="close"><canvas aria-hidden="true"></canvas><figcaption class="label">/ The ridge again: the same texture as the hero, a fifth draw</figcaption></figure>
+    <p class="wrap label colophon">awards · recipe · synthetic demo · MIT</p>
+  </footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

@@ -8,7 +8,7 @@
     "width": 800,
     "height": 500
   },
-  "total": 1304750,
+  "total": 1441440,
   "sheet": {
     "file": "sheet.webp",
     "tile": {
@@ -33,16 +33,19 @@
       "designed-404",
       "designed-footer",
       "dialog-nested-lenis-sheet",
+      "dither-cell-transition",
       "docked-media-grow",
       "drag-pan-infinite-grid",
       "editorial-image-text",
       "filmstrip-index-rows",
       "flicker-text",
       "flip-layout-state",
+      "footer-credits-hinge",
       "gl-arc-length-mask-reveal",
       "gl-built-studio-environment",
       "gl-depth-map-parallax",
       "gl-dispersion-stripes",
+      "gl-dither-scene-pool",
       "gl-dom-refraction-lens",
       "gl-dom-tethered-planes",
       "gl-endless-reel-sheets",
@@ -67,6 +70,7 @@
       "gl-spring-stepped-gallery",
       "gl-swarm-light-field",
       "gl-uniform-tween-targets",
+      "gl-video-dither-layers",
       "gl-virtual-scroll-camera",
       "horizontal-rail",
       "hover-preview-list",
@@ -77,7 +81,9 @@
       "magnetic-button",
       "marquee-raf-mask",
       "nav-overlay-fullscreen",
+      "next-case-handoff",
       "offscreen-canvas-worker",
+      "overprint-marker-index",
       "page-transitions",
       "persistent-mode-switch",
       "physics-pile-matter",
@@ -112,6 +118,7 @@
       "typography-specimen",
       "video-clip-wipe-panels",
       "view-transitions-mpa",
+      "webcodecs-frame-scrub",
       "word-cycle-hero",
       "wordmark-header-handoff"
     ]
@@ -207,6 +214,12 @@
       "captured": "2026-10-26",
       "bytes": 14576
     },
+    "dither-cell-transition": {
+      "state": "sweep",
+      "scroll": null,
+      "captured": "2026-10-28",
+      "bytes": 11106
+    },
     "docked-media-grow": {
       "state": "dock",
       "scroll": 0,
@@ -243,6 +256,12 @@
       "captured": "2026-10-26",
       "bytes": 16866
     },
+    "footer-credits-hinge": {
+      "state": "open",
+      "scroll": null,
+      "captured": "2026-10-28",
+      "bytes": 19512
+    },
     "gl-arc-length-mask-reveal": {
       "state": "half",
       "scroll": null,
@@ -266,6 +285,12 @@
       "scroll": null,
       "captured": "2026-10-26",
       "bytes": 21288
+    },
+    "gl-dither-scene-pool": {
+      "state": "seasons",
+      "scroll": null,
+      "captured": "2026-10-28",
+      "bytes": 28284
     },
     "gl-dom-refraction-lens": {
       "state": "hero",
@@ -411,6 +436,12 @@
       "captured": "2026-10-26",
       "bytes": 36630
     },
+    "gl-video-dither-layers": {
+      "state": "glyphs",
+      "scroll": 1,
+      "captured": "2026-10-28",
+      "bytes": 31158
+    },
     "gl-virtual-scroll-camera": {
       "state": "mid",
       "scroll": 0.5,
@@ -471,11 +502,23 @@
       "captured": "2026-10-26",
       "bytes": 13454
     },
+    "next-case-handoff": {
+      "state": "footer",
+      "scroll": 1,
+      "captured": "2026-10-28",
+      "bytes": 20110
+    },
     "offscreen-canvas-worker": {
       "state": "worker",
       "scroll": 0,
       "captured": "2026-10-26",
       "bytes": 6944
+    },
+    "overprint-marker-index": {
+      "state": "hover",
+      "scroll": null,
+      "captured": "2026-10-28",
+      "bytes": 20782
     },
     "page-transitions": {
       "state": "top",
@@ -680,6 +723,12 @@
       "scroll": null,
       "captured": "2026-10-26",
       "bytes": 22484
+    },
+    "webcodecs-frame-scrub": {
+      "state": "frame",
+      "scroll": null,
+      "captured": "2026-10-28",
+      "bytes": 5738
     },
     "word-cycle-hero": {
       "state": "timed",

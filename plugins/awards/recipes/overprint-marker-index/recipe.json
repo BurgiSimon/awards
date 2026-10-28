@@ -1,0 +1,31 @@
+{
+  "id": "overprint-marker-index",
+  "title": "Overprint marker index: one multiply bar that cuts between rows",
+  "intent": "Index with an overprint marker",
+  "group": "galleries-and-lists",
+  "summary": "A sortable project index with a single `aria-hidden` marker in an isolated stacking context, blended `multiply` between the rows' plates (z 1) and their words (z 3), so the plate under it is overprinted while the active row's words turn to the paper colour; it is moved by writing the row's own `offsetTop` and height, never transitioned, so every frame sits exactly on a row; it follows a mouse, keyboard focus (with a focus ring drawn on the text layer), and on touch screens the row crossing a reading line at 40 % of the viewport; sort buttons re-order the rows, announce the order in a status and step the rows back in by hard sets `.03 s` apart; a registered `blinkOnce` effect when the marker first appears; forced colours swap the marker for an outline; reduced motion keeps the cut and drops the blink and the stepped re-entry",
+  "tags": [
+    "list",
+    "hover",
+    "keyboard",
+    "touch",
+    "pointer",
+    "colour",
+    "gsap",
+    "accessibility",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [
+    "gsap@3.15.0"
+  ],
+  "variants": [
+    "one marker cut between rows, pointer, keyboard and reading line (this, default)",
+    "a marker inside a step indicator or carousel nav: the same cut by index, with a blink on the press",
+    "with a cursor-following preview beside the marked row: hover-preview-list for the preview, this for the mark"
+  ],
+  "seenIn": [
+    "the-line"
+  ],
+  "added": "2026-10-28"
+}

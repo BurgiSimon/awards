@@ -15,6 +15,8 @@
 // Without --hover or --states, desktop also records hover and focus-visible frames for the first three visible links and buttons.
 // Every scroll viewport also records metrics.<viewport>.pictures: how much of each frame is picture, and the page's photographs, clips and drawings.
 // Every viewport also writes its accessibility tree as <viewport>-aria.yml. Tablet is skipped for --selector runs unless named.
+// A page whose load event never fires within --timeout (a stalled frame queue, a retrying challenge iframe) is captured
+// after DOMContentLoaded and listed under manifest.loadTimeouts, not reported unreachable.
 // Exit codes: 0 ok · 2 page/action errors · 3 browser unavailable · 4 target unreachable · 5 --gpu got a software renderer · 1 usage.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -192,6 +194,28 @@ const INIT = `
   } catch {}
   ${webgl ? '' : `const gc = HTMLCanvasElement.prototype.getContext; HTMLCanvasElement.prototype.getContext = function (t, ...r) { return /webgl|webgpu/i.test(String(t)) ? null : gc.call(this, t, ...r); };`}
 })();`;
+
+// Navigates and waits for `load`. A page whose load event never fires inside the timeout (a long frame or video
+// queue, a challenge iframe that keeps retrying) is still captured once its document has parsed: the manifest lists
+// the viewport under `loadTimeouts` instead of calling a page that rendered unreachable. A label already listed (the
+// walk reloads the page for every disclosure and button) waits only for the parse, once per label.
+async function gotoLoaded(page, url, label) {
+  const resp = await page.goto(url, { waitUntil: 'commit', timeout });
+  if (!resp || resp.status() >= 400) return resp;
+  if (manifest.loadTimeouts?.includes(label)) {
+    await page.waitForLoadState('domcontentloaded', { timeout: 15000 });
+    return resp;
+  }
+  try {
+    await page.waitForLoadState('load', { timeout });
+  } catch (e) {
+    if (!/timeout/i.test(e.message)) throw e;
+    await page.waitForLoadState('domcontentloaded', { timeout: 15000 });
+    (manifest.loadTimeouts ??= []).push(label);
+    console.error(`warning: ${label}: no load event within ${timeout} ms; captured after DOMContentLoaded`);
+  }
+  return resp;
+}
 
 async function settlePage(page) {
   await page.evaluate(() => document.fonts?.ready).catch(() => {});
@@ -482,7 +506,7 @@ try {
     page.on('console', (m) => { if (m.type() === 'error') manifest.consoleErrors.push(`[${label}] ${m.text()}`); });
     page.on('pageerror', (e) => manifest.pageErrors.push(`[${label}] ${e.message}`));
     page.on('requestfailed', (r) => manifest.failedRequests.push(`[${label}] ${r.url()} ${r.failure()?.errorText ?? ''}`));
-    const resp = await page.goto(url, { waitUntil: 'load', timeout }).catch((e) => ({ error: e.message }));
+    const resp = await gotoLoaded(page, url, label).catch((e) => ({ error: e.message }));
     if (!resp || resp.error || (resp.status && resp.status() >= 400)) {
       console.error(`unreachable: ${url} ${resp?.error ?? resp?.status?.()}`);
       exitCode = 4;
@@ -590,7 +614,7 @@ try {
     for (const state of interactiveStates) {
       try {
         await page.mouse.up();
-        const response = await page.goto(url, { waitUntil: 'load', timeout });
+        const response = await gotoLoaded(page, url, `${label}:${state.name}`);
         if (!response || response.status() >= 400) throw new Error('target unreachable: ' + response?.status());
         await settlePage(page);
         await runActions(page, state.actions, { timeout });
@@ -622,7 +646,7 @@ try {
       const start = Date.now();
       await page.clock.install({ time: start });
       await page.clock.pauseAt(start + 1);
-      await page.goto(url, { waitUntil: 'load', timeout });
+      await gotoLoaded(page, url, 'timeline');
       const frames = [];
       let at = 0;
       for (const t of timeline) {
@@ -654,7 +678,7 @@ try {
     const page = await context.newPage();
     try {
       if (screencast) await page.screencast.start({ path: file, size });
-      await page.goto(url, { waitUntil: 'load', timeout });
+      await gotoLoaded(page, url, 'video');
       await settlePage(page);
       await page.mouse.move(Math.round(desktop.width / 2), Math.round(desktop.height / 2));
       const height = await page.evaluate(() => Math.max(document.documentElement.scrollHeight - innerHeight, innerHeight * 4));
@@ -680,7 +704,7 @@ try {
   // The keyboard and thumb walk: evidence for the jury's usability walk, read before its steps.
   if (args.walk && exitCode !== 4) {
     try {
-      const report = await walkPage(browser, url, { outDir, name, desktop, mobile, timeout, settle, settlePage, manifest });
+      const report = await walkPage(browser, url, { outDir, name, desktop, mobile, timeout, settle, settlePage, manifest, goto: (p, where) => gotoLoaded(p, url, `walk:${where}`) });
       const file = path.join(outDir, `${name}walk.json`);
       fs.writeFileSync(file, JSON.stringify({ at: now(), url, ...report }, null, 2) + '\n');
       manifest.walk = { file, desktopStops: report.desktop.stops.length, findings: report.desktop.findings.length + report.mobile.findings.length, ...(report.desktop.error || report.mobile.error ? { errors: [report.desktop.error, report.mobile.error].filter(Boolean) } : {}) };

@@ -1,0 +1,33 @@
+{
+  "id": "gl-dither-scene-pool",
+  "title": "One dither compositor for every picture on the page",
+  "intent": "Page-wide weave, one context",
+  "group": "webgl-surfaces",
+  "summary": "Five scenes (hero, two chapters, a glyph interlude, the close) woven by one raw-WebGL context on a detached canvas: each scene draws into the top-left slice of a shared buffer that only grows, then `drawImage`s the slice into its own in-flow 2D canvas in the same task, so pictures scroll natively and sit under their section's text; four clips are pooled (one texture each, uploaded at most once per new frame however many scenes show it), play only while a visible scene shows them, and a scene redraws only on screen and only when a clip frame or one of its settings changed, at 30 fps at most; light sections take normal levels and dark sections inverted ones; the hero develops on arrival, the rest with the scroll; seasons swap by levels, not a cross-fade; a measured single context; a page-level pause for the clips and flock loops; stills under reduced motion",
+  "tags": [
+    "webgl",
+    "shader",
+    "video",
+    "canvas",
+    "scrub",
+    "gsap",
+    "scrolltrigger",
+    "theme",
+    "toggle",
+    "performance",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [
+    "gsap@3.15.0"
+  ],
+  "variants": [
+    "Slices copied into in-flow 2D canvases (this, default): native scroll, DOM stacking, any number of scenes",
+    "One fixed full-viewport canvas scissored per scene rect (fewer copies, but it trails native touch scroll by a frame)",
+    "Per-scene contexts, as many shipped sites do: simplest, but Chromium keeps sixteen live contexts and loses the oldest"
+  ],
+  "seenIn": [
+    "son-daven"
+  ],
+  "added": "2026-10-28"
+}

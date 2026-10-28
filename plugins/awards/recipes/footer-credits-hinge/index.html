@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>footer-credits-hinge — awards recipe</title>
+  <meta name="description" content="A closing sheet slides off a footer held on a sticky rail, and a credits button lifts the whole footer like a sheet on a press bed to show who made the site.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230016cb'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="bar wrap">
+    <a class="bar__brand" href="#top">Orrin Vale</a>
+    <p class="label">Print studio · synthetic demo</p>
+  </header>
+  <main id="main">
+    <section class="intro wrap" id="top" aria-labelledby="intro-t">
+      <p class="label">Recipe · the close</p>
+      <h1 class="intro__title" id="intro-t">The last sheet lifts to show who made it.</h1>
+      <p class="intro__lede">Scroll to the end. The wordmark slides off the stack and tips on its corner while the footer waits beneath it, held still on a rail. The credits button lifts the whole footer like a sheet on a press bed.</p>
+    </section>
+    <section class="chapter wrap" aria-labelledby="c-plates">
+      <p class="label">01 · Plates</p>
+      <h2 id="c-plates">A footer that is already there.</h2>
+      <p>The footer is a sticky stage inside a rail that starts half a viewport above it. By the time the closing sheet reaches the middle of the screen the stage has stopped moving, so the sheet slides off something that stays put instead of two layers scrolling together.</p>
+    </section>
+    <section class="chapter wrap" aria-labelledby="c-editions">
+      <p class="label">02 · Editions</p>
+      <h2 id="c-editions">Credits live under the footer, not on a page.</h2>
+      <p>The colophon sits beneath the stage. Opening it scrolls to the end while it lifts and tilts the stage on one transition so the credits show in the gap. Escape, the close button or any scroll puts the sheet back down.</p>
+    </section>
+  </main>
+  <footer class="close" data-close>
+    <div class="close__sheet" data-sheet>
+      <p class="close__word" aria-hidden="true">Orrin Vale</p>
+    </div>
+    <div class="close__scroller">
+      <div class="close__stage" data-stage>
+        <div class="close__ground" aria-hidden="true"></div>
+        <div class="close__content wrap" data-content>
+          <div class="close__cols">
+            <section class="close__col" aria-labelledby="f-write">
+              <h2 class="close__label" id="f-write">Write</h2>
+              <p class="close__big"><a href="mailto:studio@example.com" data-blink>studio@example.com</a></p>
+            </section>
+            <section class="close__col" aria-labelledby="f-visit">
+              <h2 class="close__label" id="f-visit">Visit</h2>
+              <p>Unit 4, Saltmarsh Yard<br>Harrowgate Lane<br>By appointment</p>
+            </section>
+            <section class="close__col" aria-labelledby="f-follow">
+              <h2 class="close__label" id="f-follow">Follow</h2>
+              <ul class="close__list">
+                <li><a href="#top" data-blink>Journal</a></li>
+                <li><a href="#top" data-blink>Newsletter</a></li>
+                <li><a href="#top" data-blink>Archive</a></li>
+              </ul>
+            </section>
+            <nav class="close__col" aria-labelledby="f-pages">
+              <h2 class="close__label" id="f-pages">Pages</h2>
+              <ul class="close__list">
+                <li><a href="#c-plates" data-blink>Plates</a></li>
+                <li><a href="#c-editions" data-blink>Editions</a></li>
+                <li><a href="#top" data-blink>Studio</a></li>
+              </ul>
+            </nav>
+          </div>
+          <p class="close__base">
+            <span>© 2026 Orrin Vale</span>
+            <i aria-hidden="true">/</i>
+            <button type="button" class="close__credits" data-credits aria-expanded="false" aria-controls="credits" data-blink>Site credits</button>
+            <i aria-hidden="true">/</i>
+            <a href="#top" data-blink>Up</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <section class="credits wrap" id="credits" data-panel aria-labelledby="credits-t" inert>
+      <h2 class="credits__title" id="credits-t" tabindex="-1">Credits</h2>
+      <p class="credits__copy"><strong>Design</strong> / Ines Marlow · <strong>Development</strong> / Teo Varga · <strong>Type</strong> / system stacks, no font files · <strong>Plates</strong> / drawn in CSS · <strong>Thanks</strong> / the press room on the yard</p>
+      <button type="button" class="credits__close" data-credits-close>Close credits</button>
+    </section>
+  </footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

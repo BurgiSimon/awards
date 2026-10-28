@@ -1,0 +1,25 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+.topbar { display: flex; flex-wrap: wrap; gap: calc(var(--unit) * 2) calc(var(--unit) * 6); justify-content: space-between; padding-block: calc(var(--unit) * 5); }
+.hero { padding-block: calc(var(--unit) * 10) calc(var(--unit) * 16); }
+.title { font-family: var(--font-display); font-size: clamp(2.5rem, 7vw, 6.5rem); line-height: .92; letter-spacing: -.03em; margin: calc(var(--unit) * 4) 0 0; }
+.lede { max-width: 58ch; margin-top: calc(var(--unit) * 6); }
+
+/* The film: a tall track with the screen held in a sticky stage, so the scroll is the playhead. */
+.film { height: 420svh; }
+.stage { position: sticky; top: 0; height: 100svh; display: grid; place-items: center; padding: calc(var(--unit) * 6) var(--gutter); }
+.screen-wrap { margin: 0; width: min(100%, 1100px, calc((100svh - 9rem) * 16 / 9)); }
+.screen { display: block; width: 100%; aspect-ratio: 16 / 9; height: auto; background: #1a1c1c; }
+.screen-wrap figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: calc(var(--unit) * 2) calc(var(--unit) * 6); margin-top: calc(var(--unit) * 3); }
+.screen-wrap h2 { margin: 0; font: inherit; }
+.readout { margin: 0; font-family: var(--font-mono); font-size: .875rem; font-variant-numeric: tabular-nums; }
+
+.notes { padding-block: calc(var(--unit) * 16) calc(var(--unit) * 20); }
+.notes ul { max-width: 62ch; padding-left: 1.2em; }
+.notes li + li { margin-top: calc(var(--unit) * 2); }
+.compare { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: calc(var(--unit) * 6); margin: calc(var(--unit) * 12) 0 0; max-width: 60rem; }
+.compare[hidden] { display: none; }
+.compare dd { margin: calc(var(--unit) * 2) 0 0; font-family: var(--font-display); font-size: clamp(1.75rem, 4vw, 3rem); letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.footer { padding-block: calc(var(--unit) * 10); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }

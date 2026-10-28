@@ -1,0 +1,37 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+/* Mixed tokens re-derived per themed section: declared on :root they would carry the light theme's resolved values. */
+[data-theme] { --muted: color-mix(in oklab, var(--ink) 66%, var(--ground)); --line: color-mix(in oklab, var(--ink) 18%, var(--ground)); }
+
+.topbar { display: flex; flex-wrap: wrap; gap: calc(var(--unit) * 2) calc(var(--unit) * 6); justify-content: space-between; align-items: center; padding-block: calc(var(--unit) * 5); }
+.band { background: var(--ground); color: var(--ink); padding-block: calc(var(--unit) * 16); overflow: hidden; }
+.band-copy { max-width: 64rem; }
+.band-copy p:not(.label) { max-width: 52ch; }
+.band h2 { font-family: var(--font-display); font-size: clamp(2rem, 5vw, 4.5rem); line-height: .95; letter-spacing: -.02em; margin: calc(var(--unit) * 3) 0 calc(var(--unit) * 5); }
+.title { font-family: var(--font-display); font-size: clamp(2.5rem, 7vw, 6.5rem); line-height: .92; letter-spacing: -.03em; margin: calc(var(--unit) * 4) 0 0; }
+.lede { margin-top: calc(var(--unit) * 6); }
+
+/* A scene is a canvas in the page flow. Until (or unless) the pool draws, it keeps a quiet CSS bar texture. */
+.scene { margin: calc(var(--unit) * 8) 0 0; }
+.scene canvas { display: block; width: 100%; height: clamp(16rem, 48svh, 34rem);
+  background: repeating-linear-gradient(90deg, color-mix(in oklab, var(--ink) 14%, transparent) 0 2px, transparent 2px 9px) bottom / 100% 36% no-repeat; }
+html.gl-active .scene canvas { background: none; }
+.scene figcaption { padding: calc(var(--unit) * 3) var(--gutter) 0; color: var(--muted); }
+.scene--wide canvas { height: clamp(18rem, 58svh, 42rem); }
+
+@media (min-width: 900px) {
+  .split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: end; }
+  .split .scene { margin-top: 0; }
+}
+
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; margin-top: calc(var(--unit) * 4); }
+.seg button, .pause { font: inherit; font-size: .875rem; color: var(--ink); background: none; border: 0; border-radius: 999px; min-height: 44px; min-width: 44px; padding: 0 calc(var(--unit) * 5); cursor: pointer; }
+.seg button[aria-pressed="true"], .pause[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+/* The page-level pause: shown only in the full tier once the pool exists, since only there does anything loop. */
+.pause { border: 1px solid var(--line); }
+.pause[hidden], .seg[hidden] { display: none; }
+.close-title { overflow-wrap: anywhere; }
+.close a { color: inherit; font-size: clamp(1.125rem, 2vw, 1.75rem); text-underline-offset: .2em; }
+.colophon { padding-top: calc(var(--unit) * 10); color: var(--muted); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }

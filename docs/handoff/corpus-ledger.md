@@ -871,3 +871,90 @@ daikifujita: framer@13ebf9e, react@18.3.1 — index.html, react chunk
 - Duplicates found in synthesis: `everswap` and `oryzo` are one studio (Lusion) on one in-house framework (screen paint, post profiles, DOM-rect scroll ranges, `.buf` intake, second-order springs); only the grade-pass cuts, the unlit painted world, the water, the trails and the bones are EverSwap's own. `daikifujita` and `da-san333` are one designer's newer and older Framer portfolios. As DIVERGENCE neighbours, each pair counts one source twice.
 - Real GPU: none. Every capture and recipe frame ran on SwiftShader, so the cards' frame-time figures are absent and the recipes are proven correct, not fast.
 - everswap: the Awwwards entry page returned 502; the Honorable Mention is `[recalled]` from search and its scores were not read.
+
+## Wave 6a — Son Daven video-weave lens, opened 2026-10-28
+
+| Phase | Status | Note |
+|---|---|---|
+| setup | done | opened at the maintainer's request on branch claude/serene-pasteur-5g774f: a deep re-read of one existing card, focused on the video "ASCII" effect across the site and in the footer; not gap-driven. Wave 6b (The Line, motion lens) ran beside it as a separate task |
+| triage | done | 1 card updated (`son-daven`, last read 2026-09-18). `capture.mjs` reported the site unreachable (no `load` event in 120 s); that became a plugin fix (`loadTimeouts`, below). The gate never opened in the capture, so the scroll states came from a scratch Playwright pass that aborted the 120 hero-frame requests |
+| synthesis | done | the card's §3–§6 rewritten from the whole renderer (`slater-55210.js`, 146 KB) with a `### Tech lens: WebGL`; a halftone-weave beat, a teardown row and two recipe-map rows in `webgl-shaders.md`; a bar-weave effect-parameter row and a context-budget rule in `webgl-architecture.md`; the title-card row, a ceiling rule and a woven-cells transition row in `preloaders-and-transitions.md`; the footer totem in `components-catalog.md`; routes in the webgl, structure and component skills |
+| recipes | done | 3 proposed and built (`docs/handoff/recipe-proposals-2026-10-28-son-daven.md`): gl-video-dither-layers, gl-dither-scene-pool, dither-cell-transition; each passes `verify-recipes --only` headless and `--pseudo`; 1 candidate left unbuilt, then built the same day: webcodecs-frame-scrub (50 checks with `--pseudo`) |
+| stacks | done | no new stack note; Webflow + Slater, GSAP 3.13.0, Flip 3.14.1, Lenis 1.3.15 and Barba are recorded on the card |
+| upkeep | done | counts 96 → 102 entries with wave 6b's three; `capture.mjs` falls back to DOMContentLoaded when `load` never fires and lists the viewport in `manifest.loadTimeouts` (behavior check added); the research skill reads a gate that never opens as a §6 finding |
+
+### Sites
+
+| Slug | URL | Lens | Status | Rating | Novelty | Synthesised | Reason | Date |
+|---|---|---|---|---|---|---|---|---|
+| son-daven | https://sondaven.com/en | WebGL (video weave) | updated | D 7.9 / U 6.4 / C 8.4 / Co 7.4 → 7.50 [inferred]; official SOTD 5 Jun 2026 7.62 + Dev 8.09 [verified, entry page, 2026-09-18] | lens ×9: per-layer keyed footage on one dither program; levels as tween targets (develop, swap, fly-through); black-key ring; bar width from tone; ink opacity 0 as a negative weave; fifteen contexts; a gate with no ceiling; HEVC-only clips; a WebCodecs decoder shipped unused | webgl-shaders, webgl-architecture, preloaders-and-transitions, components-catalog; skills webgl, structure, component, research | the maintainer named the site and the effect | 2026-10-28 |
+
+### Techniques and stacks
+
+son-daven: layered keyed footage, one program — slater-55210.js (createCanvasInstance) — a full-canvas quad per layer, `u_bounds` discard; cell centre `(floor(lc/cs)+.5)·cs`; per-channel levels then the channel mean; bar `|cell.x − .5| < lw/2`, `lw = ((1 − br)(max − min) + min)/boundsW · gridX`, min −2 %, max 102 %; grids 100 × 100 default, up to 200 × 150 [lens:webgl]
+son-daven: black key with a texel ring — slater-55210.js (generateRadiusLoop) — `BLACK_PIXEL_RADIUS 2`: the centre plus 24 unrolled reads, any near-black or transparent read discards [lens:webgl]
+son-daven: levels as state — slater-55210.js (initSceneHeroOver, initSceneSeasons, initSceneBenefitsOutro) — GSAP tweens the layer config objects: hero ridge 25/200 → 45/175 scrubbed `50% bottom` → `bottom top`; seasons swapped to 254/255 and back over 1.2 s; inverted pairs (240/50, 200/25) for light pictures on dark grounds [lens:webgl]
+son-daven: fly-through by boxes — slater-55210.js (initSceneBenefitsIntro) — three layers grow to 148 %, 324 % and 240 % of the canvas on `InOut`/`In` as the section leaves [lens:webgl]
+son-daven: loops gated by visibility — slater-55210.js — birds `x` −33.33 % → 100 % in 5 s, `repeatDelay` 5 (the FAQ scene runs its two in sequence with a 5 s rest, a 15 s cycle); timelines and the scene's videos play only while the canvas intersects (`rootMargin 20%`) [lens:webgl]
+son-daven: uploads and loop — slater-55210.js (updateVideoTexture, animate) — `texSubImage2D` only when `currentTime` moved; a 16-float uniform cache; one rAF per canvas capped at 60 fps; DPR ≤ 1.5 through a ResizeObserver [lens:webgl]
+son-daven: woven-cells transition — slater-55210.js (animateTransition) + webflow-shared.css — 20 × 12 cells `scaleX 0 → 1`, .4 s `InOut`, stagger .03 from the end across the grid, a black veil 0 → 1 over 1.2 s; scroll per path in sessionStorage, restored on popstate
+son-daven: unbounded load gate — slater-55210.js (animatePreloaederIntro, animatePreloaederShort) — `Promise.all([120 WebP frames, every scene's media, document.fonts.ready])` on both paths, the frames requested only from 992 px; videos give up after 5 s, images never; 17 of 120 frames pending at 40 s on 2026-10-28
+son-daven: hero frame scrub — slater-55210.js (initScrollVideo) — 120 WebP frames on a 2D canvas, `snap: 'frame'`, `scrub .25`, desktop only
+son-daven: ActiveFrame.js — assets.sondaven.com — WebCodecs `VideoDecoder` over one binary (chunks + a JSON manifest, a 4-byte offset footer), keyframe seek then deltas, a sequential fast path; loaded, never instantiated
+son-daven: webflow + slater (unchanged), gsap@3.13.0, flip@3.14.1, lenis@1.3.15, swiper@11, @barba/core (unpkg, unversioned) — index.html
+
+### Notes
+
+- Capture: `capture.mjs` waited for `load` and called the site unreachable at 120 s on the first run; with the new fallback (45 s) it captured, but every frame showed the preloader. The diagnosis (`requestfinished` against `request`) found 17 hero frames pending at 40 s, so the scroll states were captured with those 120 requests aborted; the hero's frame canvas shows its CSS poster in them.
+- HEVC: three clips are `.hevc.mp4` with no H.264 sibling; in headless Chromium those requests aborted, so the footer mountain and the birds of five home-page layers are absent from every capture.
+- Real GPU: none. The site's fifteen contexts and the three recipes ran on SwiftShader only.
+
+## Wave 6b — The Line motion lens, opened 2026-10-28
+
+| Phase | Status | Note |
+|---|---|---|
+| setup | done | motion and interaction lens on branch the-line-lens, at the maintainer's request ("analyze https://thelinestudio.com/ and make the awards skill better with it"); one existing card; not gap-driven. Wave 6a (Son Daven) runs beside it in the main checkout |
+| triage | done | 1 site: owner policy allows home, `/work` and one case route; three captures exit 0 (home: five scroll states at desktop, tablet and phone, reduced motion; routes at 0, 50, 100), plus a held-clock `--timeline` (0–4.2 s) and a `--walk` of the home route; 35 JS and 39 CSS chunks fetched as text |
+| synthesis | done | card rewritten in place (135 → 153 lines, `### Tech lens: GSAP` added, Routes read row); folded into gsap-choreography, preloaders-and-transitions, motion-vocabulary, components-catalog, inner-pages, layout-and-composition, copy-and-content, cursor-and-pointer and accessibility-and-reduced-motion; motion, structure and component skills route to the new recipes; the-line added to 6 recipe `seenIn` arrays; flicker-text's ladder re-attributed to the reconstruction it came from |
+| recipes | done | 3 proposed and built (`docs/handoff/recipe-proposals-2026-10-28-the-line.md`): footer-credits-hinge, overprint-marker-index, next-case-handoff; each passes `verify-recipes --only` headless and `--pseudo`; 3 candidates left unbuilt |
+| stacks | done | no new stack note or pin: Nuxt's JS-hook route transitions are covered by the new recipe's Vue / Nuxt adapter and `page-transitions` |
+| upkeep | done | counts 96 → 99 entries on its own branch (102 after merging wave 6a; the catalogue preamble's own count, stuck at 96 and missed by check-sync, was corrected in the review fix) in CLAUDE.md, both READMEs, the catalogue preamble and three manifests; catalogue, explorer, frames and index regenerated; check-sync 188 checks, 0 drift; lint-refs 0 dangling; check-card 65 cards, 0 errors; recipes audit P0–P2 0 |
+
+### Sites
+
+| Slug | URL | Lens | Status | Rating | Novelty | Synthesised | Reason | Date |
+|---|---|---|---|---|---|---|---|---|
+| the-line | https://thelinestudio.com/ | motion, GSAP (DOM and CSS, no WebGL) | updated | official SOTD 5 Nov 2024 7.76, Animations/Transitions 9.00 [verified, entry read 2026-09-18]; no corpus rating added | lens ×12: four registered blink effects as the interaction grammar; stepped `.set` icon swap and list reveal; CustomEases built from the CSS curves; dealt sheets on per-item sticky rails; safe-area field guide with live measurements; closing sheet over a footer held on a `−50vh` rail; credits under a lifting stage, closed by scroll; header theme triggers; scrollbar stepping out during routes; a multiply marker cut by `set(yPercent)`; a twelve-item grid span cycle; the case-to-case transition that moves live nodes into the next hero | yes | existing card, lens update; bundle unchanged by hash since 2026-09-18; routes index `/work` and one case read for the first time | 2026-10-28 |
+
+### Techniques and stacks
+
+the-line: registered blink effects — BHubVMsw.js — `blink`, `blinkIn` (identical), `blinkOnce`, `blinkOut`; `extendTimeline: true`; sets at 0 / .09 / .15 / .21 s (`blinkOnce` 0 / .09, `blinkOut` ends at .15); header cascade on mount, over the preloader, at .04 s steps from a .2 s delay; 20 site `killTweensOf` calls, before most handler calls
+the-line: stepped icon swap — BHubVMsw.js (NavToggle) — per-path `.set` opacity, stagger .05; outgoing 0 / .08 / .16, incoming .35 / .43 / .51; no tween
+the-line: CSS curves as CustomEases — BHubVMsw.js — `expoOut` 0.19, 1, 0.22, 1; `pageOut` 0.44, 0.14, 0.28, 1; `gsap.defaults({ ease: "power2.out" })`
+the-line: dealt sheets on per-item rails — B6MUFv6g.js (FeaturedWorkAsset) — title in from yPercent 110, xPercent 15, rotate 15 (top left), media 130 / 20 / 15 at +.06, `top bottom` → `top top`; out `top top+=1` → `bottom top` to −80 / −25 / −7 and −50 / −5 / −5; last case 50 / −10 / −3 and 40 / −2.5 / −2; `ease: none`, `force3D`; video plays only in view
+the-line: field guide — Drc9zaOP.js, FieldGuide.-YBbzYnC.css — overscan dashed (top 16 %), crop solid (inset 3.47222vw), action safe dashed (5.09259 / 5.6713vw); sizes `Math.ceil(getBoundingClientRect())` on `WINDOW:RESIZE`; `[ 16:9 ]`, `100%`, crosshair 1.8 rem
+the-line: about fan and stepped clients — B6MUFv6g.js (About, Clients) — header −20 / 20 / 16° (left); first figure −45 / 20 / 4.89° → 0, last 25 / 0 / 8° → 45 / −10 / 4.89°, `top 102%` → `top 15%`, power1.inOut; clients `set(autoAlpha: 1)` at .05 (slashes) and .03 (names)
+the-line: footer close — CYc7OJsQ.js, Footer.1fXw1gXD.css — rail `top: -50vh`; logotype sheet xPercent −7, rotate −6 (≤ 1023 px: −14 / yPercent −40 / −6), top left, `top top` → `max`, power1.inOut; content yPercent 15 → 0, `bottom bottom` → `max`; footer `padding-bottom` = content + 8 px on resize
+the-line: credits under the footer — CYc7OJsQ.js, BRQUlf4y.js, FooterCredits.MnyzNeNx.css — `lenis.scrollTo(limit, { duration: .8 })`; open at once: stage `translate(5%, -16.2037vw) rotate(-6deg)` (phone −24rem / −3deg), 1 s (.19, 1, .22, 1); armed after .82 s, then any `SCROLL:UPDATE` closes; panel 50lvh, z 1 under the stage's z 2; close = a full-panel invisible button
+the-line: header theme triggers — E6z5nIBq.js — `top 2%` → `bottom 2%`; `onEnter` / `onEnterBack` set the section's theme, `onLeaveBack` flips it
+the-line: scrollbar during routes — BHubVMsw.js (ScrollbarCustom) — xPercent 110 out and 0 back, 1 s expoOut on `isTransitioning`; drag `mapRange(offset, trackH − (handleH − offset), 0, limit)` → `lenis.scrollTo(…, { immediate })`
+the-line: cursor — BHubVMsw.js (CursorCustom) — lerp .1 on `gsap.ticker`; optional rotation `mapRange(0, width, −10, 10)`, −30..30 after a resize; `gsap.matchMedia('(hover: hover)')`
+the-line: marker cut — D9wrofva.js, ICJAAGel.js, index.DFQ5Ncrj.css — list highlight `#ff391e` multiply, height 1.1em, `set(yPercent: 100 × index)`, hovered row text `#f8f8f8`, `(hover: hover)` only; carousel nav marker the same with `blink` on press
+the-line: work grid span cycle — D9wrofva.js (Grid) — `gsap.utils.wrap([5,4,3,3,3,9,4,5,3,3,3,9])` columns with a matching size cycle (medium, small, extra-small …)
+the-line: work filters and layout swap — D9wrofva.js, index.html — counts 0 → n over .6 s expoOut, brackets `blinkIn` / `blinkOut`; filter panel `translate(-10%, 115%) rotate(8deg)` .8 s (.14, 1, .34, 1); grid ↔ list `translate(20%, 120lvh) rotate(8deg)` after .6 s; grid hover excerpt lines from y 20 at .08, .8 s expoOut
+the-line: route sheets — index.html — enter `translate(-10%, 105lvh) rotate(-4deg)` .8 s (.44, .14, .28, 1); leave `translateY(-25lvh) rotate(4deg)` .78 s; `transform-origin: "top right"` quoted, invalid
+the-line: case-next hand-off — B_ZYxxOZ.js, Ds9jNxuD.js — `css: false`, `mode: "out-in"`; leave `y: −rect.top` 1 s expoOut with the card and acetate unwinding to 0; `lenis.scrollTo(0, { immediate })`, `lenis.stop()`, block fixed at top; enter `appendChild` figure, content and acetate; close hinge −16 → −8°, yPercent 28 → −10, xPercent −15 → −8, top right, scrub .5
+the-line: case hero — Ds9jNxuD.js — enter 120 / −10 / 6° → 0, 1 s expoOut after .5 s; leave scrub .5 to −30 / 15 / 8° (top right), figure yPercent −10; crew panel y −180, 1 s expoOut, a scroll past 150 px closes it
+the-line: preloader on a held clock — BHubVMsw.js + timeline/desktop-timeline.png — counter 3 s expoInOut after .8 s; frames: flat red to 1.8 s, line 2.1 s, `04/24 fps` 2.4 s, logotype whole 4.2 s; inner routes exit −125 / 10 / 15°, .8 s `pageOut`
+the-line: walk — walk/walk.json — 58 desktop tab stops, 29 findings (17 focus under the closing sheet, 2 in the closed credits, 6 with no visible focus, 1 unlabelled field, 1 unnamed video, 2 off screen); phone targets 84 × 12, 18 × 12, 52 × 14 px
+the-line: nuxt@3 (unchanged hashes since 2026-09-18) — `/_nuxt/` entry BHubVMsw.js 449,153 bytes
+the-line: gsap core + ScrollTrigger + SplitText 3.11.3 + CustomEase (MotionPath registered, unused), lenis@1.1.13 — BHubVMsw.js
+
+### Notes
+
+- Owner policy (`policy.mjs`, 2026-10-28): home, `/work` and `/work/gorillaz-the-mountain-the-mooncave-and-the-sad-god` allowed. Two inner routes, as the research skill allows; the case is the first one the home page links.
+- New on the site since 2026-09-18: nothing observed. The entry, the home chunk and both stylesheets keep their hashed names, the featured trio and the `[ 85 ]` work count are unchanged. The gain is in reading: the first pass read the home chunk and the entry's top level; this one read every component chunk the three routes load.
+- Corrections to the card: four blink effects, not three; two CustomEases, not one; header theme triggers exist (the "no scrim" weakness stands, the "no theme handling" reading does not); the closed credits are reachable; the route `transform-origin` is invalid CSS; the Roman numeral survives on case heroes; the text splitter is SplitText 3.11.3, not a custom one; the route, narrow-screen nav and filter transitions are not gated on reduced motion.
+- One phone capture of the case route logged a stylesheet refused for a `text/plain` MIME type; a re-request served `text/css`. Transient; recorded on the card, not as a weakness.
+- Real GPU and real phone: none. The site draws no canvas, so nothing here needs a GPU; the three recipes ran on SwiftShader and a 390 px phone emulation only.
+- Merge note: wave 6a adds recipes in parallel, so the recipe counts (99 here) and `scripts/gallery-frames.mjs` OVERRIDES need a merge.

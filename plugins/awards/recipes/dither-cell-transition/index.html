@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="One curtain of cells that weaves the page shut and open again, for the arrival and every route change, with a load gate that has a ceiling.">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>Valley — dither-cell-transition</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+  <noscript><style>.curtain { display: none; }</style></noscript>
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar">
+    <a href="../index.html" class="label">← recipes</a>
+    <nav aria-label="Pages" class="nav">
+      <a href="#/home" data-nav>Valley</a>
+      <a href="#/stay" data-nav>Stay</a>
+      <a href="#/journal" data-nav>Journal</a>
+    </nav>
+  </header>
+  <p class="sr-only" aria-live="polite" data-route-status></p>
+
+  <main id="main" data-container>
+    <article class="wrap view" data-route="home">
+      <p class="label">/ synthetic demo · page 1 of 3</p>
+      <h1 class="title" tabindex="-1">A valley,<br>slowly.</h1>
+      <p class="lede">Every page change here goes through one curtain: a grid of cells that grow from hairlines into solid bars, swept from the far corner, so the page weaves shut, changes, and weaves open again.</p>
+      <figure class="plate"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 260'%3E%3Crect width='600' height='260' fill='%23e4e0d8'/%3E%3Cpath d='M0 170 L90 120 L170 150 L260 80 L350 140 L440 100 L520 130 L600 110 V260 H0Z' fill='%231a1c1c'/%3E%3C/svg%3E" width="600" height="260" alt="A drawn ridge line over a pale sky"><figcaption class="label">/ The arrival gate waits for this picture to decode, and for the fonts, but never longer than four seconds.</figcaption></figure>
+      <section class="notes" aria-labelledby="h-rules">
+        <h2 id="h-rules">Rules</h2>
+        <ul>
+          <li>The grid is rebuilt to the viewport: cells about 72 × 75 CSS px, so a phone gets fewer, taller columns.</li>
+          <li>Each cell scales on X from a hairline to full width in 0.4 s; the sweep starts at the bottom-right cell, 0.02 s apart by grid distance.</li>
+          <li>Arrival: fonts and image decodes, at least 0.9 s on a first visit and 0.25 s on a repeat, never more than 4 s.</li>
+          <li>Routes: the scroll is saved on leaving and restored only on back and forward; a new visit starts at the top.</li>
+          <li>On arrival the new page's heading takes focus, the title names it and a polite live region announces it.</li>
+          <li>Reduced motion: the curtain fades in 0.2 s instead of weaving.</li>
+        </ul>
+      </section>
+      <p class="next"><a href="#/stay" data-nav>Next: Stay →</a></p>
+    </article>
+
+  </main>
+
+  <div class="curtain" data-curtain aria-hidden="true">
+    <div class="cells" data-cells></div>
+    <p class="gate label" data-gate-readout>0%</p>
+  </div>
+  <footer class="wrap footer"><p class="label">awards · recipe · synthetic demo · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

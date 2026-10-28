@@ -1,0 +1,31 @@
+{
+  "id": "next-case-handoff",
+  "title": "Next-case close that becomes the next page's hero, its live media node reparented",
+  "intent": "Next case hand-off",
+  "group": "arrival-and-chrome",
+  "summary": "Three static case pages whose close is the next case's hero in the same geometry (`100svh`), clipped under a Next case label and hinged on its top-right corner by a `scrub: .5` (`−10° → −5°`); following the real link (full tier) lifts the frame out of the clip (`position: fixed` at its own rect), raises it to the viewport top while the card unwinds to `0°` on one `1 s` expo-out clock, then swaps `<main>` for the fetched page's and moves the frame's canvas (a stand-in for a playing film, its painter on the element) into the new hero, so the picture never restarts; the arrived page skips its own entrance, scroll resets to 0, focus goes to the new `h1`, `pushState` records the URL and Back swaps without the lift; prefetch on intent; reduced motion, static, a failed fetch or no History API navigate for real",
+  "tags": [
+    "transition",
+    "router",
+    "gsap",
+    "scrolltrigger",
+    "scrub",
+    "canvas",
+    "fallback",
+    "accessibility",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [
+    "gsap@3.15.0"
+  ],
+  "variants": [
+    "hand-rolled fetch and swap of <main>, the live node moved with replaceWith (this, default)",
+    "inside a router's JS transition hooks (Nuxt <Transition :css=\"false\">, taxi, Barba): leave lifts and records the node, enter appends it into the incoming hero",
+    "a <video> as the live node: moved, never re-created, it keeps currentTime and keeps playing"
+  ],
+  "seenIn": [
+    "the-line"
+  ],
+  "added": "2026-10-28"
+}

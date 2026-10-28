@@ -41,7 +41,8 @@ Why: on an index of work, a preview that follows the pointer keeps the list typo
 Rules:
 - One preview element per list, repositioned by `damp()` in the loop; swap its source (or GL texture) on row enter and decode the first rows ahead (`img.decode()`).
 - The preview is `aria-hidden`; the row is a real `<a>` whose text names the work. On `:focus-visible` the same preview appears, anchored to the row instead of the pointer (`[recipe:hover-preview-list]`).
-- Coarse pointer: a static thumbnail in the row, or the row opens on tap — never a hover-only reveal; hover-native lists vanish on touch without such a fallback [site:mindmarket] [inferred].
+- Coarse pointer: a static thumbnail in the row, or the row opens on tap — never a hover-only reveal; hover-native lists vanish on touch without such a fallback [site:mindmarket] [inferred]. A row marker can survive touch by changing its input: on the source it exists only under `(hover: hover)` [site:the-line] [verified]; on a touch screen it can mark the row crossing a reading line as the list scrolls `[recipe:overprint-marker-index]`.
+- The cursor's own motion stays on the page's clock: The Line's dot lerps at `.1` on `gsap.ticker`, can tilt with the pointer's x (`mapRange` across the window width), and takes a text label per region through a hook rather than per-component logic [site:the-line] [verified, BHubVMsw.js 2026-10-28].
 - Reduced tier: the preview appears in place with an opacity step, no chase.
 - The preview can be the item itself: at rest every tile wears the house ink and hover swaps in the real colourway [site:alectear] [verified] — which then needs the same swap on `:focus-visible` and as a tap state, missing there. A service loop that plays on hover for fine pointers and while 55 % in view on touch is the coarse-pointer answer [site:mensch] [verified].
 
@@ -88,7 +89,7 @@ Rules:
 
 ## Hold gates
 
-Why: a hold asks for a commitment a click does not, and it can pace a story. Why Zero joins its stages with four gates — a drawn shape, a hold that shatters, a hold that launches — and owning the input is what lets it pause and redirect the flow [site:why-zero] [verified]; Son Daven's seasonal compare is a **drag**, and not a mask: a handle is dragged along an SVG path via `getPointAtLength`, `cursor` flips `grab`/`grabbing`, it snaps to either end on release, and at the 0.4/0.5 thresholds it programmatically clicks the real season buttons underneath [site:son-daven] [verified, live source 2026-09-18]. The buttons are the reason it works without a pointer at all.
+Why: a hold asks for a commitment a click does not, and it can pace a story. Why Zero joins its stages with four gates — a drawn shape, a hold that shatters, a hold that launches — and owning the input is what lets it pause and redirect the flow [site:why-zero] [verified]; Son Daven's seasonal compare is a **drag**, and not a mask: a handle is dragged along an SVG path via `getPointAtLength`, `cursor` flips `grab`/`grabbing`, it snaps to either end on release, and at the 0.4/0.5 thresholds it programmatically clicks the real summer/winter links (`<a href="#">`) underneath [site:son-daven] [verified, live source 2026-09-18]. The links are the reason it works without a pointer at all.
 
 Rules:
 - A hold fills visibly (ring, bar or mask) and completes in ≈ .8–1.2 s; releasing early rewinds rather than resets — a plugin default. The one published hold is 1.25 s on the hero object, named by the cursor's label and diving into a second world along a damped spring [site:daikifujita] [verified].

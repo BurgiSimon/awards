@@ -3,7 +3,8 @@
 // view, not under a fixed bar, a visible change when focused, an accessible name), then open each disclosure
 // (aria-expanded) with Enter and check that Tab goes in, Shift+Tab does not leave it open behind, and Escape closes
 // it and returns focus; then press Enter on each button and see whether anything answers. Phone: tap each button
-// and disclosure and see whether anything answers. Frames are kept only for stops with a finding.
+// and disclosure and see whether anything answers. Frames are kept only for stops with a finding. `goto(page, viewport)`
+// loads the page for every test; capture.mjs passes one that captures after DOMContentLoaded when `load` never fires.
 import path from 'node:path';
 
 // Everything below runs in the page.
@@ -92,7 +93,7 @@ async function shot(page, outDir, file, manifest, label, finding) {
   } catch { return null; }
 }
 
-export async function walkPage(browser, url, { outDir, name = '', desktop, mobile, timeout = 30000, settle = 600, settlePage, manifest, maxStops = 60, maxControls = 10 }) {
+export async function walkPage(browser, url, { outDir, name = '', desktop, mobile, timeout = 30000, settle = 600, settlePage, manifest, maxStops = 60, maxControls = 10, goto = (p) => p.goto(url, { waitUntil: 'load', timeout }) }) {
   const report = { desktop: { stops: [], findings: [] }, mobile: { taps: [], findings: [] } };
   const find = (where, finding) => report[where].findings.push(finding);
 
@@ -100,7 +101,7 @@ export async function walkPage(browser, url, { outDir, name = '', desktop, mobil
   const context = await browser.newContext({ viewport: desktop, reducedMotion: 'no-preference' });
   const page = await context.newPage();
   const open = async () => {
-    await page.goto(url, { waitUntil: 'load', timeout });
+    await goto(page, 'desktop');
     await settlePage(page);
     await page.evaluate(`window.__awardsWalkDescribe = ${describe.toString()}`);
     await page.mouse.move(0, 0);
@@ -235,7 +236,7 @@ export async function walkPage(browser, url, { outDir, name = '', desktop, mobil
   const thumb = await phone.newPage();
   try {
     const openPhone = async () => {
-      await thumb.goto(url, { waitUntil: 'load', timeout });
+      await goto(thumb, 'mobile');
       await settlePage(thumb);
       await thumb.evaluate(`window.__awardsWalkDescribe = ${describe.toString()}`);
     };

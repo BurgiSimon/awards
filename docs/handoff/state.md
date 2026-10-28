@@ -1,9 +1,74 @@
-# State of the awards plugin — 2026-10-28 (release 1.0.0 and the found-pictures switch, branch `claude/quirky-newton-pthlep`)
+# State of the awards plugin — 2026-10-28 (release 1.0.0, the found-pictures switch, corpus waves 6a and 6b, the WebCodecs scrub and the explorer's New label on branch `claude/serene-pasteur-5g774f`)
 
 Read this first, then `todo.md`. The visual composition candidate's deterministic verification is
 recorded below in [Candidate verification record](#candidate-verification-record). `archive/plan-0.2.md` and
 `verification-log.md` record the earlier 0.2.0 work. `archive/plan.md` is the 0.1.0 specification, kept for
 reference. `decisions.md` records choices already taken.
+
+## Son Daven video weave, corpus wave 6a (branch `claude/serene-pasteur-5g774f`, 2026-10-28, unreleased)
+
+- At the maintainer's request, a deep re-read of `son-daven` with the research skill, focused on the "video ASCII" effect across the site and in the footer, plus new recipes. The effect is a halftone weave (one vertical bar per cell, as wide as the cell is dark) over clips graded on black; the recipes add the ASCII glyph ramp the request names as a mode. Ledger: `docs/handoff/corpus-ledger.md#wave-6a--son-daven-video-weave-lens-opened-2026-10-28`; proposals: `recipe-proposals-2026-10-28-son-daven.md`.
+- Card: last verified 2026-10-28, a Corpus rating row (7.50 [inferred]), §2–§6 rewritten from the 146 KB module with a `### Tech lens: WebGL`; 98 lines. Synthesis in `webgl-shaders.md` (beat, teardown, recipe map), `webgl-architecture.md` (effect parameters, a context-budget rule), `preloaders-and-transitions.md` (title-card row, a ceiling rule, a woven-cells transition), `components-catalog.md` (the footer totem); routes in the webgl, structure and component skills.
+- Recipes (three of the six new ones; 96 → 102 entries with wave 6b's): `gl-video-dither-layers` (the close), `gl-dither-scene-pool` (whole page, one context), `dither-cell-transition` (arrival and routes). Each passes `verify-recipes --only <id>` and `--pseudo`; frames rendered; none stamped. Two defects found and fixed on the way: a video can report its size before it has a frame (uploading then leaves the texture undefined and every later `texSubImage2D` fails, seen as an intermittent blank scene), and a smoothstep bar edge drew a faint line at zero width (now box-filtered coverage).
+- Plugin fix: `capture.mjs` called Son Daven unreachable because `load` never fired in 120 s; it now captures after DOMContentLoaded and lists `manifest.loadTimeouts` (`gotoLoaded`, documented in `capture-states.md`, behavior check `capture: a page whose load event never fires…`). The research skill reads a gate that never opens as a §6 finding.
+- Not measured: a real GPU or phone for the three recipes; the site's own frame cost (fifteen contexts) beyond SwiftShader. The site's hero frames (17 of 120 pending at 40 s) stalled from this container; whether they stall from an ordinary network is unknown.
+
+## WebCodecs frame scrub and the explorer's New label (2026-10-28)
+
+- `webcodecs-frame-scrub`, the candidate wave 6a left unbuilt, built at the maintainer's request (103 entries). One packed file holds the encoded chunks, a JSON manifest and a four-byte offset footer, the layout of Son Daven's unused `ActiveFrame.js`. `FrameScrubber` decodes exactly the requested frame:
+  - from the keyframe at or before it, or onward from the decoder when the target is ahead in the same group;
+  - requests made during a seek coalesce to the newest, so the decoder is never reset;
+  - every frame decoded is kept as a bitmap at display width (`keyEvery + 2` of them);
+  - a 1 s watchdog flushes, then resets.
+- The demo draws a 120-frame day with an edge code, encodes it on load (H.264 baseline in headless Chromium, about 255 KB at 500 kbps against 772 KB as WebP stills) and scrubs it from a sticky stage. The verifier reads the frame number off the canvas: 50 checks with `--pseudo`. Fallbacks: no WebCodecs draws frames directly (`?codecs=off`); reduced motion shows one still, also when it is turned on while the page is open. Not run outside headless Chromium.
+- A review workflow (three scoped reviewers, each followed by a skeptic) confirmed 11 findings and refuted 4. Fixed:
+  - after the watchdog's `flush()` a decoder takes only a keyframe, and the next forward step in the same group fed it a delta: `decode()` threw and the scrubber stayed busy for good. The next run now starts from a keyframe, and a refused chunk hands over to the fallback;
+  - a resize during a run re-sought the old frame over the newest request;
+  - cached bitmaps kept the width from load after a resize;
+  - reduced motion turned on while the page was open was ignored;
+  - a browser without a WebP encoder would have shown PNG sizes as "WebP stills";
+  - the status line blamed missing WebCodecs for every fallback;
+  - the visible canvas was CPU-backed (`willReadFrequently`) only for the verifier;
+  - the compare check had 1.5 % headroom and failed on another Chromium build;
+  - a form-valid impossible `added` date (2026-13-01) turned every New label off and printed "undefined";
+  - the plate label carried a tooltip that the plate's stretched link covers.
+- New verifier states: a resize during a run, a 1.2 s long task that sets off the watchdog (four runs, the flush on the first try each time), and reduced motion turned on and off while the page is open; each failed on the code before the fix.
+- Routed from motion (Frame scrub), webgl (Frame sequence from one encoded clip), structure (Scroll set-pieces), `asset-pipeline.md`, `components-catalog.md` and the Son Daven card.
+- The explorer's New label: `recipe.json` takes an optional `added` date (`build-catalogue.mjs` rejects any other form); `build-gallery.mjs` marks a recipe New when its date is within 30 days of the newest `added` in the catalogue, so the page depends on the files, not the clock. The label sits after the plate title, in the stage's kicker, with an `Added` row in the facts; search matches "new". The seven recipes of this branch carry `added: 2026-10-28`; older recipes have no date and never show it.
+
+## Review of waves 6a and 6b (2026-10-28)
+
+- After the merge, an independent review workflow (five scoped reviewers, each finding put to a separate skeptic) confirmed 46 findings and refuted 4. A second workflow fixed them in five disjoint file groups, and a read-only checker per group re-read each fix; the follow-ups the checkers raised were applied by hand.
+- What changed:
+  - Recipes:
+    - the Son Daven footer's develop now runs while the picture is on screen (it used to finish below the fold);
+    - both dither shaders mix in premultiplied space (thin bars and glyph edges had drawn at cover² with the ground leaking);
+    - the pool recipe has a pause control;
+    - the curtain recipe sets manual scroll restoration, makes the page behind it inert, queues routes behind the arrival, and has a 5 s CSS failsafe that a late module respects;
+    - the case hand-off survives Back and Forward races;
+    - the footer-credits focus rings are visible;
+    - the index marker keeps the focused row's ring.
+  - Verifiers: assertions that had passed on empty frames now require real content, and each fixer showed the new checks fail on the old code.
+  - Cards:
+    - Son Daven's page order, the gate on repeat visits and phones, the rails' nested Lenis, the HEVC reach and the season links;
+    - The Line's reduced-motion coverage (not every CSS transition is gated), SplitText (the site wraps GSAP SplitText 3.11.3), the header arrival, the blink and stagger attributions, and its rank among Animations scores.
+  - Scripts:
+    - the load-timeout fallback now covers the timeline and walk lanes, with the behavior test extended to them;
+    - check-sync now checks the catalogue preamble's entry count, which had drifted to 96.
+
+## Corpus wave 6b — The Line motion lens (run as a separate task on local branch `the-line-lens`, merged into `claude/serene-pasteur-5g774f`, 2026-10-28, unreleased)
+
+- At the maintainer's request ("analyze https://thelinestudio.com/ and make the awards skill better with it"): a motion and interaction re-read of `the-line` over the home route, `/work` and one case study (`docs/handoff/corpus-ledger.md#wave-6b--the-line-motion-lens-opened-2026-10-28`). The site's bundle is unchanged by hash since 2026-09-18. The pass read the component chunks the first one did not:
+  - four registered blink effects as the interaction grammar, and two CustomEases built from the CSS curves;
+  - dealt sheets on per-item rails, and a live-measured safe-area guide;
+  - a footer held on a `-50vh` rail with credits under a lifting stage, header theme triggers, and the scrollbar stepping out during routes;
+  - a work grid on a twelve-item span cycle, and a multiply marker cut by `set(yPercent)`;
+  - a case-to-case Nuxt transition that moves live nodes into the next hero.
+- Card 135 → 153 lines with a GSAP tech lens. A keyboard walk found 17 of 58 stops focused under the closing sheet and the closed credits reachable.
+- Synthesis: gsap-choreography, preloaders-and-transitions, motion-vocabulary, components-catalog, inner-pages, layout-and-composition, copy-and-content, cursor-and-pointer, accessibility-and-reduced-motion; the motion, structure and component skills route to the new recipes; flicker-text's ladder re-attributed to the reconstruction it came from; `the-line` added to six recipes' `seenIn`.
+- Three new recipes: `footer-credits-hinge`, `overprint-marker-index`, `next-case-handoff`. Each passes `verify-recipes --only` and `--pseudo` (49, 38 and 39 checks), re-run after the merge; frames reviewed; unstamped. Proposals in `recipe-proposals-2026-10-28-the-line.md` (three left unbuilt).
+- Checks after merging 6a and 6b: check-sync 191 checks, 0 drift; lint-refs 847 files, 0 dangling; check-card 65 cards, 0 errors; index, catalogue and explorer in sync (102 recipes); recipes audit P0–P2 0 (P3 403); selftest, route-hint and adapters pass; both validates; the six new recipes pass `verify-recipes --only … --pseudo` together.
+- Not measured: a real GPU or phone for the three recipes, Safari and Firefox. No paid eval ran; `evals/pick.mjs` lists the cases the skill bodies touch.
 
 ## Found pictures off (branch `claude/quirky-newton-pthlep`, 2026-10-28, unreleased)
 

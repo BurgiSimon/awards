@@ -43,6 +43,7 @@ Why: a site reads as one hand when every movement decelerates the same way. The 
 | Soft expo-out | `cubic-bezier(.22,1,.36,1)` | 168 CSS uses [site:eugeniagrab]; `--ease-soft` and the header mark [site:agrumeafarm]; a 1.8 s zoom out of a screen [site:aqualoqa] | [verified] |
 | Elastic as the house voice | `elastic.out(1, .72–.75)`, 42 elastics in one bundle | [site:aardvarkbookclub] — landed objects and button hovers alike; strings in `[pattern:gsap-choreography#easing-as-shipped]` | [verified]; the hovers are the counter-example to the rule below |
 | Springs as CSS tokens | three `linear()` curves named flip, reveal and snappy beside quad and quart outs | [site:ascension-pegassi] | [verified] |
+| The CSS curves registered again in GSAP | CustomEase `expoOut` `0.19, 1, 0.22, 1` and `pageOut` `0.44, 0.14, 0.28, 1`, the control points of the site's own `cubic-bezier()` transitions, so a scripted move and a declared one land alike | [site:the-line] | [verified, 2026-10-28] `[recipe:custom-ease-house-defaults]` |
 | Anything scrubbed by scroll | `'none'` | `[recipe:scroll-pin-scrub]` | plugin rule |
 
 Rules:
@@ -83,7 +84,10 @@ Why: a stagger turns a block into a sequence the eye can follow; too wide and th
 |---|---|---|
 | Lines or words of a heading | .06–.1 s | 0.1 s on preloader titles [clone:floema-jewelry] [verified]; .09 s in `[recipe:boot-lenis-gsap]` |
 | Letters of a wordmark | 80 ms from the centre | [site:animejs] [verified] |
-| Flicker glyphs | ≈ .04 s baked into the keyframe `times` | [site:the-line] [verified] |
+| Flicker glyphs | ≈ .04 s baked into the keyframe `times` | a third-party reconstruction once attributed to [site:the-line]; the served site blinks whole elements instead [verified, 2026-10-28] `[recipe:flicker-text]` |
+| Chrome arriving over a loader | .04 s per item, each item a hard-step blink, logo first | [site:the-line] [verified] |
+| Names or logos stepping in on scroll entry | .05 s separators, then .03 s names, zero-duration sets, no tween | [site:the-line] [verified, B6MUFv6g.js] |
+| Rows re-entering after a sort | .03 s per row by zero-duration sets | plugin choice `[recipe:overprint-marker-index]` |
 | Scramble characters | 30 ms from the centre, eased | [site:animejs] [verified] |
 | Duplicate-char hover roll | 5 ms per char | [site:animejs] [verified] |
 | Onion-skin trail clones | 18 ms per clone, opacity 1 → .4 | [site:animejs] [verified] |
@@ -205,9 +209,11 @@ Why: `pin: true` inserts spacer elements and fights the native scroll; a `positi
 
 The hinge [site:the-line] [verified]: a full-viewport panel and its logo layer, both `transform-origin: bottom left`, translate `x: 0 → −10 %` and rotate `0 → −15°` across the hero's scroll range. Generalised rule (medium confidence as a generalisation): hinge 4–15° on a *named* corner, and let the child rotate harder and lag the parent so the sheet shears instead of moving as one rigid block.
 
+The same site deals its featured cases as sheets [site:the-line] [verified, 2026-10-28]: one sticky stage, one invisible rail per case; a title sheet enters from `yPercent 110, xPercent 15, rotate 15°` (top left) and its media from `130 / 20 / 15°` six hundredths later on `top bottom` → `top top`, both `ease: 'none'`, then leave on `top top+=1` → `bottom top` to `−80 / −25 / −7°` and `−50 / −5 / −5°`; the last case drifts down instead of leaving, so the stack ends at rest. Its close works the same way: the page's last sheet tips `−6°` off a footer held on a rail that starts half a viewport early, and the credits come out from under the lifted footer `[recipe:footer-credits-hinge]`. A case route closes on the next case's hero, hinged `−16° → −8°` on its top-right corner `[recipe:next-case-handoff]`.
+
 ## Text effects
 
-- **Flicker** [site:the-line] [verified]: per-letter opacity ladder `[0, 1, 0, 0, 1, 1]` with a `times` array staggered ≈ .04 s per glyph; runs once on mount and again on pointer enter. The non-monotonic ladder is what reads as a tube striking `[recipe:flicker-text]`.
+- **Blink and flicker**: hard opacity steps, never a fade. The Line registers four effects once — `blink` and `blinkIn` (0, 1, 0, 1 at `0 / .09 / .15 / .21 s`), `blinkOnce` (0, then 1 at `.09`), `blinkOut` — with `extendTimeline: true`, and uses them for every chrome change: the header arriving at .04 s steps, nav hover and press, footer links, filter brackets, the menu icon swapped path by path [site:the-line] [verified, BHubVMsw.js 2026-10-28]. Registered effects keep the signature one definition composed by name, not a ladder pasted at each call site `[recipe:footer-credits-hinge]`. The per-letter ladder `[0, 1, 0, 0, 1, 1]` at ≈ .04 s per glyph came from a third-party reconstruction, not from the served site; it stays a stylistic option `[recipe:flicker-text]`. Under reduced motion a blink is one step or nothing.
 - **Scramble decode**: Igloo offsets glyphs inside an MSDF atlas so nothing reflows [site:igloo] [recalled high]; Anime's `scrambleText` separates `revealRate` (60/s), `settleDuration` (300 ms) and `settleRate` (30/s) and ships block cursors such as `'░▒▓█'` [site:animejs] [verified] `[recipe:scramble-decode-text]`. A hand-written scrambler starts each glyph after 0–30 frames, settles it 0–40 frames later and swaps glyphs with probability .28 per frame [site:edolus] [verified]. The logo tagline runs the same idea as a `textContent` tween over a character table, 800 ms `inOutExpo` [site:animejs].
 - **Colour wave** [site:wearedirect] [verified]: glyphs start at .15 opacity in ink, then in batches of three at .04 s each fade to one of the accents over .1 s, hold .05 s and settle back to ink. Run it once, with a reduced tier.
 - **Two-layer line fill** [site:primesec] [verified]: a base and a fill copy per line; the fill's `clip-path: inset()` opens left to right, then leaves from the left.
@@ -219,6 +225,7 @@ The hinge [site:the-line] [verified]: a full-viewport panel and its logo layer, 
 ## Hover shifts
 
 - Whole-line `x` shift by a vw-locked amount on expo-out [site:the-line] [verified].
+- A marker over discrete things (rows, steps, a carousel's nav) moves by a written offset with no transition — `gsap.set(marker, { yPercent: 100 × index })` under a multiply bar — because a row is a place, not a path [site:the-line] [verified]. Let `:focus-visible` move it too, and on touch a reading line `[recipe:overprint-marker-index]`.
 - Duplicate-char roll: clone each char to the left inside a clipped wrapper, then stagger `x: '100%'` at 5 ms per char [site:animejs] [verified].
 - Cursor answer: no corpus card is a source for dot-and-ring scale figures — `[site:leo-parpeix]`, which these were attributed to, ships a contextual text label off an event bus [verified, live bundle 2026-09-18]. See `[pattern:cursor-and-pointer#two-speed-cursor]` for the technique on its own merits.
 - `composition: 'blend'` lets a hover offset and a scroll offset on the same property coexist [site:animejs] [verified]; in GSAP, drive the pointer part with `quickTo` `[recipe:magnetic-button]`.
@@ -232,7 +239,7 @@ Rules: ≤ 300 ms, transform and opacity only, and `:focus-visible` triggers the
 
 ## Reduced-motion tiers
 
-Why: one card documents a reduced-motion path — Boc stops its rows with `animation: none`, skips its case-open timeline and never mounts hover video, though it also ships a global `.01ms` duration clamp [site:boc] [verified]. Floema, the Anime.js source and Wodniack verifiably have none [clone:floema-jewelry] [site:animejs] [site:wodniack], Léo Parpeix appears to have none [site:leo-parpeix], and the rest are unknown. Newer cards do better: one helper that zeroes duration, delay and stagger and makes slide changes instant [site:nodeck] [verified]; every duration to .01 s with videos parked on posters [site:christoph-nagel] [verified]; each scroll effect jumped to its final state [site:mensch] [verified]; WebGPU canvases never created and grain frozen [site:warmnfuzzy] [verified]. The one gap to avoid: the reduced tier disconnected wheel navigation altogether instead of making it instant [site:nodeck] [verified]. Shipping tiers is where new work beats the reference set (`[pattern:accessibility-and-reduced-motion#motion-tiers]`).
+Why: one card documents a reduced-motion path — Boc stops its rows with `animation: none`, skips its case-open timeline and never mounts hover video, though it also ships a global `.01ms` duration clamp [site:boc] [verified]. Floema, the Anime.js source and Wodniack verifiably have none [clone:floema-jewelry] [site:animejs] [site:wodniack], Léo Parpeix appears to have none [site:leo-parpeix], and the rest are unknown. Newer cards do better: one helper that zeroes duration, delay and stagger and makes slide changes instant [site:nodeck] [verified]; every duration to .01 s with videos parked on posters [site:christoph-nagel] [verified]; each scroll effect jumped to its final state [site:mensch] [verified]; WebGPU canvases never created and grain frozen [site:warmnfuzzy] [verified]. The one gap to avoid: the reduced tier disconnected wheel navigation altogether instead of making it instant [site:nodeck] [verified]. Half a tier is the commonest shape: most CSS transitions gated in 33 `prefers-reduced-motion: no-preference` blocks (the route, nav and filter transitions left out) while the scripted scrubs, dealt sheets and blinks run unchanged, because the 35 script chunks never read the preference [site:the-line] [verified, 2026-10-28]. Shipping tiers is where new work beats the reference set (`[pattern:accessibility-and-reduced-motion#motion-tiers]`).
 
 | Tier | Trigger | Keeps | Drops |
 |---|---|---|---|
