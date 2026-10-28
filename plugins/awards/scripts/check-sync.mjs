@@ -12,6 +12,7 @@ import { fileURLToPath } from 'node:url';
 import { parseArgs } from './lib/report.mjs';
 import { catalogue } from './build-catalogue.mjs';
 import { gallery } from './build-gallery.mjs';
+import { draftIds, readManifest } from './lib/drafts.mjs';
 import { spawnSync } from 'node:child_process';
 
 const plugin = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -61,6 +62,13 @@ for (const id of recipes) {
   for (const dep of json(path.join(plugin, 'recipes', id, 'recipe.json')).deps ?? []) {
     const at = dep.lastIndexOf('@');
     if (at > 0) pinned(`recipes/${id}`, dep.slice(0, at), dep.slice(at + 1));
+  }
+}
+// Drafts are not counted or catalogued, but they import the same pinned packages.
+for (const id of draftIds()) {
+  for (const dep of readManifest(id)?.deps ?? []) {
+    const at = dep.lastIndexOf('@');
+    if (at > 0) pinned(`recipes/_drafts/${id}`, dep.slice(0, at), dep.slice(at + 1));
   }
 }
 

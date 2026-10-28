@@ -2,8 +2,9 @@
 // Build the recipes (Vite MPA), serve dist/, drive every recipe through its declared states in headless Chromium
 // (WebGL via SwiftShader), run the recipe's probe/assert, capture screenshots and write a report; --stamp also
 // records the pass in each recipe.json (a release step: it rewrites tracked files).
-// Usage: node verify-recipes.mjs [--only id,id] [--out <dir>] [--no-build] [--json] [--stamp] [--lock <path>] [--pseudo]
+// Usage: node verify-recipes.mjs [--only id,id] [--drafts] [--out <dir>] [--no-build] [--json] [--stamp] [--lock <path>] [--pseudo]
 // --only also builds only those entries (dist/ then holds just them); --lock serialises runs that share dist/.
+// Drafts (recipes/_drafts/<id>) run when --only names them or with --drafts (every draft, no recipes); never stamped.
 // --pseudo adds two phone passes per recipe: every text lengthened by about 40 % with accented letters, then the
 // same page right-to-left; each fails on horizontal overflow or a control whose label is cut off.
 import { acquireLock } from './lib/lock.mjs';
@@ -16,10 +17,11 @@ import { resolvePlaywright, launchChromium, MISSING_MESSAGE } from './lib/playwr
 import { serveDirectory } from './lib/server.mjs';
 import { runActions } from './lib/actions.mjs';
 import { gallery } from './build-gallery.mjs';
+import { draftIds, draftDir } from './lib/drafts.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const recipesDir = path.resolve(here, '../recipes');
-const args = parseArgs(process.argv.slice(2), { build: 'boolean', json: 'boolean', stamp: 'boolean', pseudo: 'boolean' });
+const args = parseArgs(process.argv.slice(2), { build: 'boolean', json: 'boolean', stamp: 'boolean', pseudo: 'boolean', drafts: 'boolean' });
 const only = args.only ? new Set(String(args.only).split(',').map((s) => s.trim())) : null;
 const outDir = path.resolve(args.out ?? path.join(recipesDir, '_verify'));
 const VIEWPORTS = { desktop: { width: 1440, height: 900 }, mobile: { width: 390, height: 844 } };
@@ -27,7 +29,11 @@ const VIEWPORTS = { desktop: { width: 1440, height: 900 }, mobile: { width: 390,
 const allIds = fs.readdirSync(recipesDir, { withFileTypes: true })
   .filter((d) => d.isDirectory() && !d.name.startsWith('_') && !['node_modules', 'dist'].includes(d.name) && fs.existsSync(path.join(recipesDir, d.name, 'index.html')))
   .map((d) => d.name);
-const ids = allIds.filter((id) => !only || only.has(id));
+const entries = [
+  ...allIds.filter((id) => (only ? only.has(id) : !args.drafts)).map((id) => ({ id, dir: path.join(recipesDir, id), page: `${id}/index.html`, draft: false })),
+  ...draftIds().filter((id) => (only ? only.has(id) && !allIds.includes(id) : args.drafts)).map((id) => ({ id, dir: draftDir(id), page: `_drafts/${id}/index.html`, draft: true })),
+];
+const ids = entries.map((e) => e.id);
 if (!ids.length) {
   console.error('no recipes found');
   process.exit(1);
@@ -47,7 +53,7 @@ if (args.build !== false) {
     const i = spawnSync(win ? 'npm.cmd' : 'npm', ['install', '--no-audit', '--no-fund'], { cwd: recipesDir, stdio: 'inherit', shell: win });
     if (i.status !== 0) process.exit(1);
   }
-  const env = only ? { ...process.env, AWARDS_RECIPES_ONLY: ids.join(',') } : process.env;
+  const env = only || args.drafts ? { ...process.env, AWARDS_RECIPES_ONLY: ids.join(',') } : process.env;
   const b = spawnSync(win ? 'npx.cmd' : 'npx', ['vite', 'build'], { cwd: recipesDir, stdio: 'pipe', encoding: 'utf8', shell: win, env });
   if (b.status !== 0) {
     console.error(b.stdout, b.stderr);
@@ -84,13 +90,12 @@ const DEFAULT_STATES = [
   { name: 'mobile', scroll: 0, viewport: 'mobile' },
 ];
 
-for (const id of ids) {
-  const dir = path.join(recipesDir, id);
+for (const { id, dir, page: pagePath, draft } of entries) {
   let verify = {};
   if (fs.existsSync(path.join(dir, 'verify.mjs'))) verify = await import(pathToFileURL(path.join(dir, 'verify.mjs')).href);
   const states = verify.states || DEFAULT_STATES;
   const results = {};
-  const rdir = path.join(outDir, id);
+  const rdir = path.join(outDir, draft ? '_drafts' : '', id);
   fs.mkdirSync(rdir, { recursive: true });
   for (const st of states) {
     const vp = VIEWPORTS[st.viewport || 'desktop'];
@@ -101,7 +106,7 @@ for (const id of ids) {
     page.on('pageerror', (e) => errors.push(e.message));
     page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
     try {
-      await page.goto(`${server.url}${id}/index.html`, { waitUntil: 'load', timeout: 30000 });
+      await page.goto(`${server.url}${pagePath}`, { waitUntil: 'load', timeout: 30000 });
       await page.evaluate(() => document.fonts?.ready).catch(() => {});
       await page.evaluate(() => Promise.race([window.__awards?.ready, new Promise((r) => setTimeout(r, 8000))])).catch(() => {});
       await page.waitForTimeout(st.settle ?? 500);
@@ -138,7 +143,7 @@ for (const id of ids) {
       const errors = [];
       page.on('pageerror', (e) => errors.push(e.message));
       try {
-        await page.goto(`${server.url}${id}/index.html`, { waitUntil: 'load', timeout: 30000 });
+        await page.goto(`${server.url}${pagePath}`, { waitUntil: 'load', timeout: 30000 });
         await page.evaluate(() => Promise.race([window.__awards?.ready, new Promise((r) => setTimeout(r, 8000))])).catch(() => {});
         await page.waitForTimeout(500);
         const probe = await within(page.evaluate(pseudoLocalise, dir), 30000, 'pseudo').catch((e) => ({ error: String(e) }));
@@ -170,16 +175,16 @@ for (const id of ids) {
   }
   const pass = checks.every((c) => c.ok);
   if (!pass) failed++;
-  report.recipes[id] = { pass, checks, states: Object.fromEntries(Object.entries(results).map(([k, v]) => [k, { state: v.state, probe: v.probe, inspect: v.inspect, errors: v.errors, screenshot: v.screenshot }])) };
+  report.recipes[draft ? `_drafts/${id}` : id] = { pass, draft, checks, states: Object.fromEntries(Object.entries(results).map(([k, v]) => [k, { state: v.state, probe: v.probe, inspect: v.inspect, errors: v.errors, screenshot: v.screenshot }])) };
   // Stamping rewrites tracked files, so it happens only when asked: a release pass, not every local run.
-  if (pass && args.stamp) {
+  if (pass && args.stamp && !draft) {
     const metaPath = path.join(dir, 'recipe.json');
     const meta = safeJson(metaPath) || { id };
     meta.verified = { date: now().slice(0, 10), chromium };
     fs.writeFileSync(metaPath, JSON.stringify(meta, null, 2) + '\n');
   }
   if (!args.json) {
-    console.log(`${pass ? 'PASS' : 'FAIL'}  ${id}`);
+    console.log(`${pass ? 'PASS' : 'FAIL'}  ${draft ? `_drafts/${id}` : id}`);
     for (const c of checks.filter((c) => !c.ok)) console.log(`      ✗ ${c.message}`);
   }
 }

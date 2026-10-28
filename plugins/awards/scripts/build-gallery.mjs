@@ -22,9 +22,9 @@ export const recipeIds = () => fs.readdirSync(recipesDir, { withFileTypes: true 
   .filter((d) => d.isDirectory() && !d.name.startsWith('_') && !['node_modules', 'dist'].includes(d.name) && fs.existsSync(path.join(recipesDir, d.name, 'recipe.json')))
   .map((d) => d.name).sort();
 
-// The text files of one recipe the explorer can show, README first and the verifier last.
-export function recipeFiles(id) {
-  const root = path.join(recipesDir, id);
+// The text files of one recipe the explorer can show, README first and the verifier last. A draft passes its own
+// folder (recipes/_drafts/<id>).
+export function recipeFiles(id, root = path.join(recipesDir, id)) {
   const out = [];
   (function walk(dir) {
     for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -47,8 +47,8 @@ const day = (iso) => {
 const LIBS = { gsap: 'GSAP', lenis: 'Lenis', three: 'three.js', animejs: 'anime.js', '@unseenco/taxi': 'Taxi', 'matter-js': 'matter.js', ogl: 'OGL', postprocessing: 'postprocessing' };
 const libName = (dep) => LIBS[dep.replace(/@[^@]*$/, '')] ?? dep.replace(/@[^@]*$/, '');
 
-async function verifierStates(id) {
-  const file = path.join(recipesDir, id, 'verify.mjs');
+export async function verifierStates(id, dir = path.join(recipesDir, id)) {
+  const file = path.join(dir, 'verify.mjs');
   if (!fs.existsSync(file)) return [];
   const mod = await import(pathToFileURL(file).href).catch(() => ({}));
   return (mod.states ?? [])
