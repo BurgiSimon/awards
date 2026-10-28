@@ -2,19 +2,130 @@
    A draft sits one folder deeper than a recipe; scripts/drafts.mjs promote rewrites ../../ to ../ on the way out. */
 @import "../../_shared/base.css";
 
-.hero { min-height: 80svh; display: grid; align-content: end; gap: calc(var(--unit) * 5); padding-block: 96px calc(var(--unit) * 16); }
-.hero .label { margin: 0; }
-.hero__title { margin: 0; max-width: 14ch; font-family: var(--font-display); font-size: clamp(2.75rem, 8vw, 8rem); font-weight: 600; line-height: 0.9; letter-spacing: -0.035em; }
-.hero__lede { max-width: 52ch; margin: 0; font-size: clamp(1.0625rem, 1.4vw, 1.25rem); }
+/* A kiln at night: smoked umber ground, cream ink, one ember for the action. */
+:root {
+  --ground: #1d1915;
+  --ink: #f1e8da;
+  --accent: #ff8a55;
+  --muted: color-mix(in oklab, var(--ink) 66%, var(--ground));
+  --line: color-mix(in oklab, var(--ink) 22%, var(--ground));
+  --col-gap: clamp(16px, 1.6667vw, 32px);
+  color-scheme: dark;
+}
 
-.stage { height: 260svh; }
-.stage__sticky { position: sticky; top: 0; min-height: 100svh; display: grid; align-content: center; gap: calc(var(--unit) * 6); }
-.stage__title { margin: 0; font-family: var(--font-display); font-size: clamp(2rem, 5vw, 4.5rem); line-height: 1; letter-spacing: -0.02em; }
-.stage__track { height: 12px; background: var(--line); overflow: hidden; }
-.stage__bar { display: block; height: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); }
-.stage__value { margin: 0; font-family: var(--font-mono); font-size: 0.875rem; font-variant-numeric: tabular-nums; }
+.skip-link:focus-visible { position: fixed; z-index: 50; top: 12px; left: 12px; width: auto; height: auto; margin: 0; padding: 12px 16px; clip: auto; overflow: visible; white-space: normal; background: var(--ink); color: var(--ground); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
-.after { padding-block: calc(var(--unit) * 24); border-top: 1px solid var(--line); }
-.after h2 { margin: 0 0 calc(var(--unit) * 4); font-family: var(--font-display); font-size: clamp(1.75rem, 4vw, 3rem); line-height: 1; }
-.after p { max-width: 54ch; margin: 0; }
-.footer { padding-block: calc(var(--unit) * 12); }
+.bar { display: flex; align-items: center; justify-content: space-between; gap: calc(var(--unit) * 4); min-height: 64px; }
+.bar__brand { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--font-display); font-weight: 700; letter-spacing: -0.01em; text-decoration: none; }
+.bar .label { margin: 0; }
+
+h1, h2 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.025em; margin: 0; }
+h2 { font-size: clamp(2rem, 4.4vw, 4.25rem); line-height: 1; }
+p { margin: 0; }
+
+/* Twelve columns on a wide screen; every slot takes its geometry from this grid, never from the script. */
+.hero, .halves, .reserve, .firing__head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); }
+
+.hero { min-height: calc(100svh - 64px); align-items: center; padding-block: 48px 96px; }
+.hero__text { grid-column: 1 / span 6; display: grid; gap: calc(var(--unit) * 8); align-self: end; padding-bottom: 6svh; }
+.hero__title { font-size: clamp(2.75rem, 6.6vw, 7.5rem); line-height: 0.92; max-width: 11ch; }
+.hero__lede { max-width: 44ch; font-size: clamp(1.0625rem, 1.3vw, 1.25rem); color: var(--muted); }
+.plate--hero { grid-column: 8 / span 4; }
+
+.halves { align-items: center; padding-block: 22svh 18svh; }
+.plate--halves { grid-column: 2 / span 3; }
+.halves__text { grid-column: 6 / span 6; display: grid; gap: calc(var(--unit) * 6); }
+.halves__text p, .firing__head p, .reserve__text p { max-width: 52ch; font-size: clamp(1rem, 1.15vw, 1.1875rem); color: var(--muted); }
+
+.firing { padding-block: 18svh 14svh; display: grid; gap: calc(var(--unit) * 10); }
+.firing__head { align-items: start; row-gap: calc(var(--unit) * 6); }
+.firing__head h2 { grid-column: 1 / span 6; max-width: 12ch; }
+.firing__head p { grid-column: 8 / span 5; }
+
+.reserve { min-height: 100svh; align-items: center; padding-block: 16svh 22svh; }
+.reserve__text { grid-column: 1 / span 5; display: grid; gap: calc(var(--unit) * 6); justify-items: start; }
+.plate--round { grid-column: 7 / span 4; }
+.cta { display: inline-flex; align-items: center; min-height: 48px; padding: 12px 22px; border-radius: 999px; background: var(--accent); color: var(--ground); font-weight: 600; text-decoration: none; }
+.cta { transition: background-color var(--dur-feedback) linear; }
+.cta:hover { background: var(--ink); }
+
+.footer { display: grid; gap: calc(var(--unit) * 3); padding-block: calc(var(--unit) * 16); border-top: 1px solid var(--line); color: var(--muted); }
+.footer p { max-width: 60ch; }
+
+/* ---- plates and slots ---------------------------------------------------------------------------------------
+   A slot is an empty picture box in the page's own layout: the grid gives it a width, aspect-ratio a height and
+   border-radius its corner. The script reads those three things and nothing else. No slot may clip or contain
+   (overflow, contain, container-type), because the first one is the flyer's home and it has to leave. */
+.plate { margin: 0; display: grid; gap: calc(var(--unit) * 3); }
+.plate figcaption { font-size: 0.875rem; color: var(--muted); }
+.slot { position: relative; width: 100%; }
+.slot--arch { aspect-ratio: 4 / 5; border-radius: 999px; }
+.slot--square { aspect-ratio: 1; border-radius: 28px; }
+.slot--shelf { aspect-ratio: 21 / 9; border-radius: 0; }
+.slot--round { aspect-ratio: 1; border-radius: 50%; }
+
+/* The empty box: a hairline frame and the jar's outline, shown only while the flight runs. */
+.ghost { position: absolute; inset: 0; border-radius: inherit; container-type: size; box-shadow: inset 0 0 0 1px var(--line); opacity: 0; }
+.ghost__jar { position: absolute; left: 50%; top: 52%; width: 60cqmin; height: 56cqmin; translate: -50% -50%; border-radius: 50% 50% 44% 44% / 46% 46% 54% 54%; border: 1px dashed var(--line); }
+
+/* ---- the picture, drawn in CSS ------------------------------------------------------------------------------
+   Sized in container units so the same drawing art-directs itself to a tall arch, a square, a wide shelf and a
+   circle: the jar takes 60 % of the shorter side and the shelf and glow follow the box. */
+.art {
+  position: absolute; inset: 0; overflow: hidden; border-radius: inherit; container-type: size;
+  background:
+    linear-gradient(180deg, transparent 0 74%, rgba(12, 6, 3, 0.34) 74% 100%),
+    linear-gradient(165deg, #8c3d1e 0%, #4b2316 46%, #26150f 100%);
+}
+.art__glow { position: absolute; left: 34%; top: 40%; width: 130cqmax; height: 130cqmax; translate: -50% -50%; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 170, 104, 0.5), rgba(255, 170, 104, 0)); }
+.art__shadow { position: absolute; left: 50%; top: calc(52% + 27cqmin); width: 66cqmin; height: 7cqmin; translate: -50% -50%; border-radius: 50%; background: radial-gradient(closest-side, rgba(10, 5, 2, 0.62), rgba(10, 5, 2, 0)); }
+.art__jar {
+  position: absolute; left: 50%; top: 52%; width: 60cqmin; height: 56cqmin; translate: -50% -50%;
+  border-radius: 50% 50% 44% 44% / 46% 46% 54% 54%;
+  background: radial-gradient(118% 104% at 32% 26%, #fffaf2 0%, #f1e7d6 30%, #d8c8ae 62%, #9e8b72 94%);
+}
+/* The lip, and the seam where the two bowls were joined. */
+.art__jar::before { content: ""; position: absolute; left: 50%; top: -2cqmin; width: 23cqmin; height: 5cqmin; translate: -50% 0; border-radius: 50%; background: linear-gradient(#f7efe2, #c9b79c); }
+.art__jar::after { content: ""; position: absolute; left: 1.5%; right: 1.5%; top: 41%; height: 7cqmin; border-radius: 50%; border-bottom: 0.45cqmin solid rgba(112, 90, 68, 0.38); }
+
+/* The one element that travels. At rest it fills the first slot exactly; Flip.fit writes x, y, width and height,
+   the timeline writes border-radius. Size and paint are contained, so a width change lays out its own drawing and
+   nothing else. It never takes a pointer. */
+.flyer { position: absolute; z-index: 20; top: 0; left: 0; width: 100%; height: 100%; display: none; overflow: hidden; contain: strict; border-radius: inherit; pointer-events: none; box-shadow: 0 44px 80px -36px rgba(0, 0, 0, 0.7); }
+
+/* The flight runs (full tier, set by main.js): the travelling jar shows, the stills step back behind their frames.
+   Without the script, or under reduced motion and static, every slot shows its own still and nothing travels. */
+html[data-flight="on"] .flyer { display: block; }
+html[data-flight="on"] .art--still { opacity: 0; }
+html[data-flight="on"] .ghost { opacity: 1; }
+
+/* With a reduced-motion preference (unless the page is forced to the full tier) the travelling copy never shows, even
+   before the script has run or if it never does: every slot keeps its own still. */
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-motion="full"]) .flyer { display: none; }
+  html:not([data-motion="full"]) .art--still { opacity: 1; }
+  html:not([data-motion="full"]) .ghost { opacity: 0; }
+}
+
+/* ---- phone: one column, each slot a different width and side so the flight still crosses the page ---------- */
+@media (max-width: 760px) {
+  .hero, .halves, .reserve, .firing__head { grid-template-columns: minmax(0, 1fr); }
+  .hero { min-height: auto; padding-block: 32px 72px; row-gap: 40px; }
+  .hero__text { grid-column: 1; padding-bottom: 0; }
+  .plate--hero { grid-column: 1; width: 76%; justify-self: end; }
+  .halves { padding-block: 64px; row-gap: 32px; }
+  .plate--halves { grid-column: 1; width: 58%; justify-self: start; }
+  .halves__text { grid-column: 1; }
+  .firing { padding-block: 64px; gap: 32px; }
+  .firing__head h2, .firing__head p { grid-column: 1; }
+  .slot--shelf { aspect-ratio: 4 / 3; }
+  .reserve { min-height: auto; padding-block: 64px 30svh; row-gap: 40px; }
+  .reserve__text { grid-column: 1; }
+  .plate--round { grid-column: 1; width: 70%; justify-self: center; }
+}
+
+@media (forced-colors: active) {
+  .ghost { box-shadow: none; outline: 1px solid CanvasText; }
+  .cta { border: 2px solid ButtonText; }
+}

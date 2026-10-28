@@ -2,19 +2,142 @@
    A draft sits one folder deeper than a recipe; scripts/drafts.mjs promote rewrites ../../ to ../ on the way out. */
 @import "../../_shared/base.css";
 
-.hero { min-height: 80svh; display: grid; align-content: end; gap: calc(var(--unit) * 5); padding-block: 96px calc(var(--unit) * 16); }
-.hero .label { margin: 0; }
-.hero__title { margin: 0; max-width: 14ch; font-family: var(--font-display); font-size: clamp(2.75rem, 8vw, 8rem); font-weight: 600; line-height: 0.9; letter-spacing: -0.035em; }
-.hero__lede { max-width: 52ch; margin: 0; font-size: clamp(1.0625rem, 1.4vw, 1.25rem); }
+/* Its own small world: a chart of a tidal island, dark sound, pale land, vermilion pins. */
+:root {
+  --ground: #10302e;          /* the sound */
+  --ink: #f3ecd8;             /* chalk */
+  --land: #e9dcb8;
+  --card-ink: #13201f;
+  --pin: #ff5a36;
+  --muted: color-mix(in oklab, var(--ink) 70%, var(--ground));
+  --line: color-mix(in oklab, var(--ink) 18%, var(--ground));
+  --accent: var(--pin);
+  --font-chart: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --pin-size: 44px;
+  --enter-step: 70ms;
+}
+html { color-scheme: dark; }
+::selection { background: var(--pin); color: var(--card-ink); }
+/* Components below set display; the hidden attribute must still win. */
+[hidden] { display: none !important; }
 
-.stage { height: 260svh; }
-.stage__sticky { position: sticky; top: 0; min-height: 100svh; display: grid; align-content: center; gap: calc(var(--unit) * 6); }
-.stage__title { margin: 0; font-family: var(--font-display); font-size: clamp(2rem, 5vw, 4.5rem); line-height: 1; letter-spacing: -0.02em; }
-.stage__track { height: 12px; background: var(--line); overflow: hidden; }
-.stage__bar { display: block; height: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); }
-.stage__value { margin: 0; font-family: var(--font-mono); font-size: 0.875rem; font-variant-numeric: tabular-nums; }
+.bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 calc(var(--unit) * 4); min-height: 64px; border-bottom: 1px solid var(--line); }
+.bar__brand { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--font-chart); font-size: 1.125rem; font-style: italic; text-decoration: none; }
+.bar__note { margin: 0; font-family: var(--font-mono); font-size: var(--label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 
-.after { padding-block: calc(var(--unit) * 24); border-top: 1px solid var(--line); }
-.after h2 { margin: 0 0 calc(var(--unit) * 4); font-family: var(--font-display); font-size: clamp(1.75rem, 4vw, 3rem); line-height: 1; }
-.after p { max-width: 54ch; margin: 0; }
-.footer { padding-block: calc(var(--unit) * 12); }
+/* The intro shares the atlas's columns: the title over the map's, the lede over the list's. */
+.intro { min-height: 62svh; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); column-gap: calc(var(--unit) * 12); align-items: end; align-content: end; padding-block: 96px calc(var(--unit) * 14); }
+.intro__title { margin: 0; max-width: 13ch; font-family: var(--font-chart); font-size: clamp(2.75rem, 7.4vw, 8rem); font-weight: 400; line-height: 0.92; letter-spacing: -0.02em; }
+.intro__lede { max-width: 50ch; margin: 0; font-size: clamp(1.0625rem, 1.35vw, 1.25rem); color: var(--muted); }
+
+.atlas { padding-block: calc(var(--unit) * 10) calc(var(--unit) * 24); border-top: 1px solid var(--line); }
+.atlas__title { margin: 0 0 calc(var(--unit) * 8); font-family: var(--font-chart); font-size: clamp(1.75rem, 3.4vw, 3.25rem); font-weight: 400; font-style: italic; line-height: 1; }
+.atlas__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: calc(var(--unit) * 12); align-items: start; }
+
+/* The figure is the card's containing block; the map box starts at its top-left corner, so card coordinates
+   measured in the map are the card's coordinates in the figure. */
+.atlas__figure { position: sticky; top: 24px; margin: 0; }
+.atlas__map { position: relative; aspect-ratio: 1000 / 800; width: min(100%, calc((100svh - 48px) * 1.25)); }
+.atlas__svg { width: 100%; height: 100%; }
+.atlas__water { font-family: var(--font-chart); font-size: 26px; font-style: italic; fill-opacity: 0.7; }
+.atlas__water--small { font-size: 16px; }
+.atlas__depth text, .atlas__note { font-family: var(--font-chart); font-size: 17px; font-style: italic; }
+.atlas__spot { font-family: var(--font-mono); font-size: 15px; }
+.atlas__north { font-family: var(--font-chart); font-size: 20px; }
+.atlas__caption { max-width: 60ch; margin-top: calc(var(--unit) * 4); font-size: 0.875rem; color: var(--muted); }
+
+/* Pins: buttons laid out by percentage of the map box, centred on the point by a fixed negative margin (so the
+   centre is exact, with no transform involved), and moved only by transforms for the entrance. */
+.atlas__pins { position: absolute; inset: 0; pointer-events: none; }
+.pin {
+  position: absolute; left: calc(var(--x) * 1%); top: calc(var(--y) * 1%);
+  width: var(--pin-size); height: var(--pin-size); margin: calc(var(--pin-size) / -2) 0 0 calc(var(--pin-size) / -2);
+  padding: 0; border: 0; border-radius: 50%; background: none; cursor: pointer; pointer-events: auto;
+  display: grid; place-items: center;
+}
+.pin__dot { width: 14px; height: 14px; border-radius: 50%; background: var(--pin); box-shadow: 0 0 0 2px var(--card-ink), 0 0 0 3.5px var(--land); transition: transform var(--dur-feedback) var(--ease-out-expo), background-color var(--dur-feedback); }
+.pin__label {
+  position: absolute; top: 50%; left: calc(50% + 14px); translate: 0 -50%;
+  padding: 3px 7px; white-space: nowrap; border-radius: 2px;
+  background: color-mix(in oklab, var(--land) 90%, transparent); color: var(--card-ink);
+  font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.04em; line-height: 1.2;
+}
+.pin[data-label="start"] .pin__label { left: auto; right: calc(50% + 14px); }
+.pin:hover .pin__dot, .pin.is-on .pin__dot { transform: scale(1.35); }
+.pin.is-on .pin__dot { background: var(--card-ink); box-shadow: 0 0 0 3px var(--pin), 0 0 0 5px var(--land); }
+.pin.is-on .pin__label { background: var(--card-ink); color: var(--land); }
+.pin:focus-visible { outline: 2px solid var(--ink); outline-offset: 0; }
+
+/* Entrance (full tier only, set by the script that runs it): pins drop in one by one in reading order. */
+[data-enter="pending"] .pin { opacity: 0; transform: translateY(-14px) scale(0.6); }
+[data-enter="in"] .pin { transition: opacity 360ms ease-out, transform 560ms var(--ease-out-expo); transition-delay: calc(var(--i) * var(--enter-step)); }
+
+/* The card: one element, filled from the list entry it shows. Floats over the map on wide screens. */
+.card {
+  position: absolute; z-index: 2; left: 0; top: 0; width: min(19rem, calc(100% - 24px));
+  display: grid; gap: 6px; padding: 16px 18px 14px; border-radius: 4px;
+  background: var(--ink); color: var(--card-ink);
+  box-shadow: 0 18px 36px -14px rgb(4 16 15 / 0.7);
+  transition: opacity var(--dur-feedback) ease-out, translate var(--dur-feedback) var(--ease-out-expo);
+}
+.card[data-state="enter"], .card[data-state="closed"] { opacity: 0; translate: 0 6px; }
+.card::after { content: ""; position: absolute; left: var(--tick, 50%); width: 12px; height: 12px; margin-left: -6px; background: inherit; rotate: 45deg; }
+.card[data-side="above"]::after { bottom: -6px; }
+.card[data-side="below"]::after { top: -6px; }
+.card p { margin: 0; }
+.card__name { font-family: var(--font-chart); font-size: 1.375rem; line-height: 1.1; }
+.card__fig { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 6px; }
+.card__num { font-family: var(--font-chart); font-size: 2.75rem; line-height: 1; letter-spacing: -0.02em; font-variant-numeric: lining-nums; }
+.card__unit { font-family: var(--font-mono); font-size: 0.875rem; }
+.card__what { font-size: 0.875rem; color: color-mix(in oklab, var(--card-ink) 72%, var(--ink)); }
+.card__line { font-size: 0.9375rem; line-height: 1.4; }
+.card__link { display: inline-flex; align-items: center; justify-self: start; min-height: 44px; font-weight: 600; text-decoration-thickness: 1px; }
+.card__link::after { content: "→"; margin-left: 0.4em; }
+.card__link:focus-visible { outline-color: var(--card-ink); outline-offset: 2px; }
+
+/* The list: the same places, in reading order, and a second way to drive the map. */
+.places { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.place { padding-block: 18px 14px; border-bottom: 1px solid var(--line); transition: background-color var(--dur-feedback); }
+.place.is-on { background: color-mix(in oklab, var(--pin) 9%, var(--ground)); }
+.place > * { margin: 0; }
+.place__name { font-family: var(--font-chart); font-size: 1.375rem; font-weight: 400; line-height: 1.15; }
+.place__fig { margin-top: 4px; font-family: var(--font-mono); font-size: 0.875rem; }
+.place__num { font-size: 1.0625rem; color: var(--ink); }
+.place__unit, .place__what { color: var(--muted); }
+.place__line { margin-top: 6px; max-width: 46ch; font-size: 0.9375rem; color: var(--muted); }
+.place__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0 20px; margin-top: 4px; }
+.place__link, .place__show { display: inline-flex; align-items: center; min-height: 44px; font-size: 0.875rem; }
+.place__show { padding: 0; border: 0; background: none; cursor: pointer; text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 0.2em; }
+.place.is-on .place__show { color: var(--pin); }
+
+.visit { display: grid; gap: calc(var(--unit) * 5); padding-block: calc(var(--unit) * 20); border-top: 1px solid var(--line); }
+.visit h2 { margin: 0; font-family: var(--font-chart); font-size: clamp(1.75rem, 3.4vw, 3.25rem); font-weight: 400; font-style: italic; line-height: 1; }
+.visit p { max-width: 58ch; margin: 0; }
+.footer { padding-block: calc(var(--unit) * 12); border-top: 1px solid var(--line); }
+.footer .label { margin: 0; }
+
+/* Phones: the map takes the width, the card docks under it in the flow (always present, so nothing below jumps when
+   a place opens), labels give way to the list. */
+@media (max-width: 720px) {
+  .intro { grid-template-columns: minmax(0, 1fr); row-gap: calc(var(--unit) * 6); min-height: 70svh; }
+  .atlas__grid { grid-template-columns: minmax(0, 1fr); gap: calc(var(--unit) * 8); }
+  .pin__dot { width: 11px; height: 11px; }
+  .atlas__figure { position: relative; top: auto; }
+  .atlas__map { width: 100%; }
+  .pin__label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  .card { position: relative; left: auto; top: auto; width: auto; margin-top: 12px; min-height: 9.5rem; transform: none !important; }
+  .card::after { display: none; }
+  .card[data-state="enter"], .card[data-state="closed"] { opacity: 1; translate: none; }
+  .card[data-empty] .card__name { font-size: 1.0625rem; color: color-mix(in oklab, var(--card-ink) 72%, var(--ink)); }
+}
+
+/* Reduced: the card fades without travelling (the entrance never starts on this tier). Static: no transitions. */
+@media (prefers-reduced-motion: reduce) { .card { translate: none !important; } }
+html[data-motion="reduced"] .card, html[data-motion="static"] .card { translate: none !important; }
+html[data-motion="static"] .card, html[data-motion="static"] .pin__dot { transition: none; }
+
+@media (forced-colors: active) {
+  .pin__dot { forced-color-adjust: none; background: Highlight; box-shadow: 0 0 0 2px Canvas; }
+  .pin.is-on .pin__dot { background: CanvasText; }
+  .card { border: 1px solid CanvasText; }
+}

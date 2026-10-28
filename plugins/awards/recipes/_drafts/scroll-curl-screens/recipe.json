@@ -1,19 +1,35 @@
 {
   "id": "scroll-curl-screens",
-  "title": "Draft template: one bar the scroll fills",
-  "intent": "Say what the recipe is for",
+  "title": "Scroll curl screens: case panels that lean back as they leave, by speed",
+  "intent": "Screens that lean away",
   "group": "scroll-set-pieces",
-  "summary": "Replace this with what the recipe demonstrates: the mechanism, its numbers, its tiers. This template fills one bar with the scroll progress of its section, written as a transform on the shared ticker, and holds the bar full under reduced motion",
+  "summary": "Full-width case screens (links with headings) inside list items that carry `perspective: 1500px` (900 px on a phone), each turned `rotateX` about its bottom edge by `34° × smoothstep(0, .65, exit progress) × energy`, where exit progress comes from a ScrollTrigger per item (`top top` → `bottom top`) and energy is the scroll speed from Lenis' scroll events over `1,400 px/s`, clamped to 1, damped up at `k 12` and down at `k 3.2`; each angle follows at `k 14` with framerate-independent `damp()` on the shared ticker, adds `scale(1 − .05 × lean)` and a shade to `.45`, is capped at 34° whatever the fling, and returns to flat about a second after the scroll goes quiet; the ticker wakes on scroll and removes itself once every screen is flat, a parked half-gone screen is flat, a focused screen is flat at once; reduced motion and static never tilt",
   "tags": [
     "scroll",
-    "scrub",
+    "velocity",
+    "css-3d",
+    "tilt",
+    "inertia",
+    "ticker",
+    "lenis",
+    "scrolltrigger",
+    "cards",
+    "keyboard",
+    "performance",
     "reduced-motion"
   ],
   "tier": "P2",
-  "deps": [],
-  "variants": [
-    "the one this folder builds (default)"
+  "deps": [
+    "gsap@3.15.0",
+    "lenis@1.3.26"
   ],
-  "seenIn": [],
+  "variants": [
+    "lean from position × speed, flat at rest (this, default)",
+    "lean from position alone, damped: a screen keeps its curl while parked half out",
+    "the same lean entering from below, about the top edge, for screens arriving as well as leaving"
+  ],
+  "seenIn": [
+    "okaydev"
+  ],
   "drafted": "2026-10-28"
 }

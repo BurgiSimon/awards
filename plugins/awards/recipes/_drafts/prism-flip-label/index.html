@@ -4,33 +4,69 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#f4f2ee">
+  <meta name="theme-color" content="#f2c6c9">
   <title>prism-flip-label — awards recipe draft</title>
-  <meta name="description" content="A draft recipe: one bar filled by the scroll progress of its section, the starting point for a new proposal.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f4f2ee'/%3E%3Crect x='4' y='14' width='16' height='4' fill='%230016cb'/%3E%3C/svg%3E">
+  <meta name="description" content="Nav cells and links that turn a second face into view like a small prism: CSS 3D, a quarter turn about each label's own centre on hover and keyboard focus, one real label for assistive technology, a colour swap under reduced motion.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f2c6c9'/%3E%3Crect x='6' y='16' width='20' height='10' fill='%2322121a'/%3E%3Cpath d='M6 16 L10 8 L30 8 L26 16 Z' fill='%23a3172f'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="bar">
+    <a class="bar__brand" href="#top">Hatchmoor</a>
+    <nav class="bar__nav" aria-label="Main">
+      <ul>
+        <li><a class="prism prism--cell" href="#films" data-prism>Films</a></li>
+        <li><a class="prism prism--cell" href="#studio" data-prism>Studio</a></li>
+        <li><a class="prism prism--cell" href="#journal" data-prism>Journal</a></li>
+        <li><a class="prism prism--cell" href="#contact" data-prism>Contact</a></li>
+      </ul>
+    </nav>
+  </header>
   <main id="main">
-    <section class="hero wrap" aria-labelledby="hero-t">
-      <p class="label">Recipe draft · synthetic demo</p>
-      <h1 class="hero__title" id="hero-t">One bar, filled by the scroll.</h1>
-      <p class="hero__lede">The template a new draft starts from. Replace the demo, keep the contract: the hook, the tiers, a README that says why, and a verifier that proves it.</p>
+    <section class="intro" id="top" aria-labelledby="intro-t">
+      <h1 class="intro__title" id="intro-t">Hatchmoor makes short films by hand, one frame at a time.</h1>
+      <p class="intro__lede">Paper, wire, felt and patience, in a converted chapel on the edge of the moor. Point at a name, or tab to it: each label turns over like a small block and shows its other side.</p>
     </section>
-    <section class="stage wrap" data-stage aria-labelledby="stage-t">
-      <div class="stage__sticky">
-        <h2 class="stage__title" id="stage-t">Progress</h2>
-        <div class="stage__track" aria-hidden="true"><span class="stage__bar" data-bar></span></div>
-        <p class="stage__value"><span data-value>0</span> % of the section read</p>
+
+    <section class="films" id="films" aria-labelledby="films-t">
+      <h2 class="films__title" id="films-t">Films</h2>
+      <ol class="films__list">
+        <li><a class="prism prism--letters" href="#the-lantern-keeper" data-prism="letters">The Lantern Keeper</a><span class="films__year">2026</span></li>
+        <li><a class="prism prism--letters" href="#moth-season" data-prism="letters">Moth Season</a><span class="films__year">2025</span></li>
+        <li><a class="prism prism--letters" href="#paper-harbour" data-prism="letters">Paper Harbour</a><span class="films__year">2024</span></li>
+        <li><a class="prism prism--letters" href="#seven-small-winters" data-prism="letters">Seven Small Winters</a><span class="films__year">2022</span></li>
+        <li><a class="prism prism--letters" href="#the-last-kiln" data-prism="letters">The Last Kiln</a><span class="films__year">2021</span></li>
+      </ol>
+      <div class="films__notes">
+        <article class="film" id="the-lantern-keeper" aria-labelledby="f1-t"><h3 id="f1-t">The Lantern Keeper</h3><p>Eleven minutes, paper and tin. A keeper lights a lamp for a ship that never comes.</p></article>
+        <article class="film" id="moth-season" aria-labelledby="f2-t"><h3 id="f2-t">Moth Season</h3><p>Six minutes, felt and wire. Three hundred moths, each moved by hand, around one porch light.</p></article>
+        <article class="film" id="paper-harbour" aria-labelledby="f3-t"><h3 id="f3-t">Paper Harbour</h3><p>Fourteen minutes, folded newsprint. A harbour town that rebuilds itself every tide.</p></article>
+        <article class="film" id="seven-small-winters" aria-labelledby="f4-t"><h3 id="f4-t">Seven Small Winters</h3><p>Nine minutes, wool and salt. A year on a hill farm, told by the dog.</p></article>
+        <article class="film" id="the-last-kiln" aria-labelledby="f5-t"><h3 id="f5-t">The Last Kiln</h3><p>Twelve minutes, clay that was really fired. The final firing of a village pottery.</p></article>
       </div>
     </section>
-    <section class="after wrap" aria-labelledby="after-t">
-      <h2 id="after-t">After the stage</h2>
-      <p>The bar holds full once its section has passed.</p>
+
+    <section class="studio" id="studio" aria-labelledby="studio-t">
+      <h2 class="studio__title" id="studio-t">Studio</h2>
+      <p>Four animators, one cinematographer and a model maker who used to build church organs. We shoot on a rostrum camera at twelve frames a second and build every set at the scale of a hand.</p>
+      <p>The labels on this page are the studio's habit made into an interface: a block with a word on each face, turned to show the next one. The real name of each link is the word you see first; the face that turns in is decoration and is hidden from screen readers.</p>
+    </section>
+
+    <section class="journal" id="journal" aria-labelledby="journal-t">
+      <h2 class="journal__title" id="journal-t">Journal</h2>
+      <p>Notes from the bench: how long a felt moth takes to make (two days), why paper harbours need a humid room, and what a lantern looks like at one frame a second.</p>
     </section>
   </main>
-  <footer class="wrap footer"><p class="label">Synthetic demo content · awards recipe draft · MIT</p></footer>
+  <footer class="footer" id="contact" aria-labelledby="contact-t">
+    <h2 class="footer__title" id="contact-t">Contact</h2>
+    <ul class="footer__links">
+      <li><a class="prism prism--inline" href="#contact" data-prism>Write to the studio</a></li>
+      <li><a class="prism prism--inline" href="#films" data-prism>Showreel</a></li>
+      <li><a class="prism prism--inline" href="#journal" data-prism>Press kit</a></li>
+    </ul>
+    <p class="footer__note">Synthetic demo content: Hatchmoor and its films are invented · awards recipe draft · MIT</p>
+  </footer>
   <script type="module" src="./main.js"></script>
 </body>
 </html>

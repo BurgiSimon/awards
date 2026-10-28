@@ -1,19 +1,29 @@
 {
   "id": "local-search-dialog",
-  "title": "Draft template: one bar the scroll fills",
-  "intent": "Say what the recipe is for",
-  "group": "scroll-set-pieces",
-  "summary": "Replace this with what the recipe demonstrates: the mechanism, its numbers, its tiers. This template fills one bar with the scroll progress of its section, written as a transform on the shared ticker, and holds the bar full under reduced motion",
+  "title": "Local search dialog: a combobox over the page's own list",
+  "intent": "Search and filter a long page without leaving it",
+  "group": "arrival-and-chrome",
+  "summary": "A catalogue of 48 synthetic release notes rendered as a real list (every title, summary and tag in the served HTML) and indexed once from the DOM; a header button plus `/` and Ctrl/Cmd+K (ignored inside text fields) open a native `<dialog>` with `showModal()` whose `role=\"combobox\"` input controls a `listbox`: every query word must start a word of the note's title, section, tags or summary (case and accents folded), title matches rank before tag matches before summary matches, matched word starts are wrapped in `<mark>` built as nodes, six section toggles (`aria-pressed`) narrow the set, a narrowed list makes its first option active, arrows move `aria-activedescendant` with wrap-around, Enter or a click closes the dialog, pushes the hash, scrolls the note under the sticky bar, focuses its heading and tints it for `1.6 s`; Escape (the `cancel` event, faded out over `80 ms`) returns focus to whatever opened it; the count is visible as `n of 48` and announced in a polite status `450 ms` after the last change; an empty result collapses the combobox (`aria-expanded=\"false\"`) and offers Clear filters; new results arrive on the feedback band (`160 ms`, opacity plus a 4 px rise); the dialog opens with a `240 ms` fade and 12 px rise in the full tier, a `160 ms` fade under reduced motion and a cut in the static tier; a full-screen sheet on phones",
   "tags": [
-    "scroll",
-    "scrub",
-    "reduced-motion"
+    "dialog",
+    "overlay",
+    "keyboard",
+    "list",
+    "toggle",
+    "accessibility",
+    "reduced-motion",
+    "responsive"
   ],
   "tier": "P2",
   "deps": [],
   "variants": [
-    "the one this folder builds (default)"
+    "a dialog over a release's notes, section toggles (this, default)",
+    "an inline combobox in the header that expands into the same listbox, for a page with fewer than about twenty items",
+    "a version switcher beside it: a native `<select>` of editions whose change navigates, with the search scoped to the edition shown"
   ],
-  "seenIn": [],
+  "seenIn": [
+    "shopify-editions-w26",
+    "mont-fort"
+  ],
   "drafted": "2026-10-28"
 }

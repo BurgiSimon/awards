@@ -1,19 +1,33 @@
 {
   "id": "flip-scroll-path",
-  "title": "Draft template: one bar the scroll fills",
-  "intent": "Say what the recipe is for",
+  "title": "Flip scroll path: one element carried through the page's own slots",
+  "intent": "Object that travels the page",
   "group": "scroll-set-pieces",
-  "summary": "Replace this with what the recipe demonstrates: the mechanism, its numbers, its tiers. This template fills one bar with the scroll progress of its section, written as a transform on the shared ticker, and holds the bar full under reduced motion",
+  "summary": "One CSS-drawn picture flown through four empty slots that the grid, `aspect-ratio` and `border-radius` lay out (an arch, a square, a 21:9 shelf, a circle) by `Flip.fit(flyer, nextSlot, { simple: true, scale: false })` legs chained into one `scrub: .6` timeline whose unit is the scroll pixel: slot k is fitted where its centre meets the viewport's, each leg lasts its scroll distance minus a dwell of `.3` viewport in which the picture rides with its slot, and a linear `borderRadius` tween to the slot's own corner runs beside each leg; the timeline is torn down on `refreshInit` and rebuilt on `refresh`, and a height change of `main` asks for a refresh, so resize, load and text zoom re-measure; the flyer is `aria-hidden`, `pointer-events: none` and `contain: strict`, the picture is drawn in container units so it art-directs itself to each box; reduced motion and static show each slot's own still and fly nothing",
   "tags": [
     "scroll",
+    "gsap",
+    "scrolltrigger",
     "scrub",
+    "timeline",
+    "lenis",
+    "images",
+    "layout",
+    "responsive",
     "reduced-motion"
   ],
   "tier": "P2",
-  "deps": [],
-  "variants": [
-    "the one this folder builds (default)"
+  "deps": [
+    "gsap@3.15.0",
+    "lenis@1.3.26"
   ],
-  "seenIn": [],
+  "variants": [
+    "one element through four slots in four sections, dwell in each, rebuilt on refresh (this, default)",
+    "no dwell: legs from centre to centre, so the element floats at the viewport's middle and only touches each slot",
+    "scale: true legs for a picture whose slots share one aspect ratio (transform only, no width or height writes)"
+  ],
+  "seenIn": [
+    "abatable"
+  ],
   "drafted": "2026-10-28"
 }

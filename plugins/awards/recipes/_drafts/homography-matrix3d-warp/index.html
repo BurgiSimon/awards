@@ -4,33 +4,113 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#f4f2ee">
+  <meta name="theme-color" content="#e2c3a9">
   <title>homography-matrix3d-warp — awards recipe draft</title>
-  <meta name="description" content="A draft recipe: one bar filled by the scroll progress of its section, the starting point for a new proposal.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f4f2ee'/%3E%3Crect x='4' y='14' width='16' height='4' fill='%230016cb'/%3E%3C/svg%3E">
+  <meta name="description" content="A live HTML app screen carried by the scroll from flat into a drawn laptop: four target corners measured off the SVG, a homography solved from them and written as one matrix3d, the app still selectable and focusable inside.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23e2c3a9'/%3E%3Cpath d='M6 7l20 2-1 15-18 1z' fill='%232b2d30'/%3E%3Cpath d='M9 10l15 1.5-.7 10.5-13.6.8z' fill='%23ffb547'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
   <a class="skip-link sr-only" href="#main">Skip to content</a>
   <main id="main">
-    <section class="hero wrap" aria-labelledby="hero-t">
-      <p class="label">Recipe draft · synthetic demo</p>
-      <h1 class="hero__title" id="hero-t">One bar, filled by the scroll.</h1>
-      <p class="hero__lede">The template a new draft starts from. Replace the demo, keep the contract: the hook, the tiers, a README that says why, and a verifier that proves it.</p>
-    </section>
-    <section class="stage wrap" data-stage aria-labelledby="stage-t">
+    <section class="stage" data-stage aria-labelledby="stage-t">
       <div class="stage__sticky">
-        <h2 class="stage__title" id="stage-t">Progress</h2>
-        <div class="stage__track" aria-hidden="true"><span class="stage__bar" data-bar></span></div>
-        <p class="stage__value"><span data-value>0</span> % of the section read</p>
+        <div class="scene" data-scene>
+          <svg class="scene__art" data-scene-art viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8cbb2"/><stop offset="1" stop-color="#d8b394"/></linearGradient>
+              <linearGradient id="desk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#80502f"/><stop offset="1" stop-color="#5a321d"/></linearGradient>
+              <linearGradient id="lid" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3c3f43"/><stop offset="1" stop-color="#25272a"/></linearGradient>
+              <linearGradient id="deck" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#55595e"/><stop offset="1" stop-color="#3d4044"/></linearGradient>
+            </defs>
+            <rect width="1600" height="1000" fill="url(#wall)"/>
+            <!-- Afternoon light from a window off the frame, on the wall and on the desk. -->
+            <polygon points="1050,0 1430,0 1330,560 990,540" fill="#f2dcc6" opacity=".55"/>
+            <g transform="translate(1196 128)">
+              <rect width="232" height="172" fill="#6b4a33"/>
+              <rect x="10" y="10" width="212" height="152" fill="#f3ebdd"/>
+              <circle cx="152" cy="62" r="22" fill="#d9774a"/>
+              <path d="M10 126C60 96 100 142 150 112C180 94 200 102 222 98V162H10Z" fill="#2f5d62"/>
+            </g>
+            <polygon points="0,668 1600,632 1600,1000 0,1000" fill="url(#desk)"/>
+            <path d="M0 668L1600 632" stroke="#a46d47" stroke-width="3"/>
+            <g fill="none" stroke="#4a2915" stroke-opacity=".35" stroke-width="2">
+              <path d="M0 724C400 716 900 704 1600 694"/><path d="M0 796C500 784 1000 776 1600 766"/><path d="M0 884C600 870 1100 864 1600 856"/><path d="M0 962C500 952 1200 946 1600 942"/>
+            </g>
+            <polygon points="990,640 1330,628 1470,1000 1080,1000" fill="#d39363" opacity=".22"/>
+            <!-- A plant, a mug, a notebook and a pencil. -->
+            <ellipse cx="300" cy="712" rx="74" ry="11" fill="#3a2012" opacity=".3"/>
+            <path d="M300 600C240 520 200 470 168 380C232 430 280 500 300 600Z" fill="#56723f"/>
+            <path d="M300 600C320 500 330 420 312 320C360 400 350 510 300 600Z" fill="#668548"/>
+            <path d="M300 600C360 540 420 500 470 470C440 540 380 590 300 600Z" fill="#4a6536"/>
+            <path d="M300 600C260 560 210 540 150 540C200 590 260 606 300 600Z" fill="#5d7a44"/>
+            <path d="M300 600C290 520 250 440 230 400C290 450 310 520 300 600Z" fill="#4f6b3a"/>
+            <path d="M246 598H354L341 706H259Z" fill="#b5603a"/>
+            <rect x="238" y="588" width="124" height="18" rx="3" fill="#c46d45"/>
+            <g transform="translate(1252 0)">
+              <ellipse cx="6" cy="728" rx="74" ry="12" fill="#3a2012" opacity=".3"/>
+              <path d="M52 628C94 628 94 690 52 690" fill="none" stroke="#e6ddcc" stroke-width="13"/>
+              <path d="M-52 600V706C-52 724 52 724 52 706V600Z" fill="#ece4d4"/>
+              <ellipse cx="0" cy="600" rx="52" ry="13" fill="#d8cdb9"/>
+              <ellipse cx="0" cy="602" rx="44" ry="9" fill="#3b2216"/>
+              <path d="M-30 640V700" stroke="#fff" stroke-opacity=".4" stroke-width="8" stroke-linecap="round"/>
+            </g>
+            <polygon points="150,812 440,792 470,930 168,958" fill="#efe6d2"/>
+            <g stroke="#cdbd9e" stroke-width="2"><path d="M178 846L440 828"/><path d="M182 870L446 852"/><path d="M186 894L452 876"/><path d="M190 918L458 900"/></g>
+            <path d="M520 904L716 866" stroke="#e0a63a" stroke-width="12" stroke-linecap="round"/>
+            <path d="M716 866L734 862" stroke="#3b2a1e" stroke-width="6" stroke-linecap="round"/>
+            <!-- The laptop: a shadow, the base, the lid, and the screen quad the app is solved onto. -->
+            <ellipse cx="782" cy="772" rx="370" ry="30" fill="#3a2012" opacity=".34"/>
+            <polygon points="478,770 1084,748 1086,764 480,787" fill="#222427"/>
+            <polygon points="538,656 1022,636 1084,748 478,770" fill="url(#deck)"/>
+            <polygon points="566,668 996,650 1040,716 520,736" fill="#2c2f33"/>
+            <g stroke="#1c1e21" stroke-width="2"><path d="M556.8 681.6L1004.8 663.2"/><path d="M547.6 695.2L1013.6 676.4"/><path d="M538.4 708.8L1022.4 689.6"/><path d="M529.2 722.4L1031.2 702.8"/></g>
+            <polygon points="708,724 866,718 876,742 702,749" fill="#474b50" stroke="#5c6066" stroke-width="1.5"/>
+            <polygon points="526,280 1032,308 1022,636 538,656" fill="url(#lid)" stroke="#5c6065" stroke-width="2"/>
+            <polygon data-screen-quad points="546,298 1012,325 1004,612 556,630" fill="#0c0d0f"/>
+            <path d="M538 656L1022 636" stroke="#18191b" stroke-width="4"/>
+          </svg>
+
+          <div class="screen" data-screen role="group" aria-label="Loomtone, a demo sequencer on the laptop">
+            <div class="app" data-app data-playing="false">
+              <div class="app__bar"><span class="app__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="app__name" data-app-name>Loomtone</span><span class="app__file">low-tide.loom</span></div>
+              <div class="app__head"><span class="app__title">Pattern B, Low tide</span><span class="app__tempo">96 BPM · 4/4</span></div>
+              <div class="app__tracks">
+                <div class="track"><span class="track__name">Kick</span><span class="track__steps" aria-hidden="true"><span class="cell on" style="--c: 0"></span><span class="cell" style="--c: 1"></span><span class="cell" style="--c: 2"></span><span class="cell" style="--c: 3"></span><span class="cell on" style="--c: 4"></span><span class="cell" style="--c: 5"></span><span class="cell" style="--c: 6"></span><span class="cell" style="--c: 7"></span><span class="cell on" style="--c: 8"></span><span class="cell" style="--c: 9"></span><span class="cell on" style="--c: 10"></span><span class="cell" style="--c: 11"></span><span class="cell on" style="--c: 12"></span><span class="cell" style="--c: 13"></span><span class="cell" style="--c: 14"></span><span class="cell" style="--c: 15"></span></span></div>
+                <div class="track"><span class="track__name">Clap</span><span class="track__steps" aria-hidden="true"><span class="cell" style="--c: 0"></span><span class="cell" style="--c: 1"></span><span class="cell" style="--c: 2"></span><span class="cell" style="--c: 3"></span><span class="cell on" style="--c: 4"></span><span class="cell" style="--c: 5"></span><span class="cell" style="--c: 6"></span><span class="cell" style="--c: 7"></span><span class="cell" style="--c: 8"></span><span class="cell" style="--c: 9"></span><span class="cell" style="--c: 10"></span><span class="cell" style="--c: 11"></span><span class="cell on" style="--c: 12"></span><span class="cell" style="--c: 13"></span><span class="cell" style="--c: 14"></span><span class="cell" style="--c: 15"></span></span></div>
+                <div class="track"><span class="track__name">Hat</span><span class="track__steps" aria-hidden="true"><span class="cell on" style="--c: 0"></span><span class="cell" style="--c: 1"></span><span class="cell on" style="--c: 2"></span><span class="cell" style="--c: 3"></span><span class="cell on" style="--c: 4"></span><span class="cell" style="--c: 5"></span><span class="cell on" style="--c: 6"></span><span class="cell" style="--c: 7"></span><span class="cell on" style="--c: 8"></span><span class="cell" style="--c: 9"></span><span class="cell on" style="--c: 10"></span><span class="cell" style="--c: 11"></span><span class="cell on" style="--c: 12"></span><span class="cell" style="--c: 13"></span><span class="cell on" style="--c: 14"></span><span class="cell on" style="--c: 15"></span></span></div>
+                <div class="track"><span class="track__name">Bell</span><span class="track__steps" aria-hidden="true"><span class="cell" style="--c: 0"></span><span class="cell" style="--c: 1"></span><span class="cell" style="--c: 2"></span><span class="cell on" style="--c: 3"></span><span class="cell" style="--c: 4"></span><span class="cell" style="--c: 5"></span><span class="cell" style="--c: 6"></span><span class="cell on" style="--c: 7"></span><span class="cell" style="--c: 8"></span><span class="cell" style="--c: 9"></span><span class="cell" style="--c: 10"></span><span class="cell on" style="--c: 11"></span><span class="cell" style="--c: 12"></span><span class="cell" style="--c: 13"></span><span class="cell on" style="--c: 14"></span><span class="cell" style="--c: 15"></span></span></div>
+                <span class="app__playhead" aria-hidden="true"></span>
+              </div>
+              <div class="app__foot"><button type="button" class="app__toggle" data-loop-toggle>Pause the loop</button><span class="app__note">16 steps, looping</span></div>
+              <span class="app__cursor" aria-hidden="true"></span>
+            </div>
+          </div>
+
+          <!-- Glass over the screen: the same quad, drawn above the app, never in the way of a pointer. -->
+          <svg class="scene__glass" data-glass viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+            <defs><linearGradient id="glare" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".18"/><stop offset=".42" stop-color="#fff" stop-opacity=".04"/><stop offset=".43" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>
+            <polygon points="546,298 1012,325 1004,612 556,630" fill="url(#glare)"/>
+          </svg>
+        </div>
+
+        <div class="stage__caption">
+          <p class="stage__note">Synthetic demo · recipe draft</p>
+          <h1 class="stage__title" id="stage-t">A live screen, set into the picture by its four corners</h1>
+          <p class="stage__lede">The app is ordinary HTML: select its name, tab to its button. Scroll, and one <code>matrix3d</code> carries it from flat into the laptop, solved from four points measured off the drawing.</p>
+        </div>
       </div>
     </section>
-    <section class="after wrap" aria-labelledby="after-t">
-      <h2 id="after-t">After the stage</h2>
-      <p>The bar holds full once its section has passed.</p>
+
+    <section class="how wrap" aria-labelledby="how-t">
+      <h2 id="how-t">Four corners in, one matrix out</h2>
+      <div class="how__cols">
+        <p>A flat rectangle seen at an angle is a projective transform of itself, and a projective transform of the plane is pinned down by where four points land. The page reads the four corners of the drawn screen through the drawing's own scaling and crop, lerps each corner from the flat rectangle toward its target as you scroll, and solves the eight unknowns that send the rectangle to those four points.</p>
+        <p>The eight numbers go into the corners of a <code>matrix3d</code> with the origin at the element's top left. Nothing is rasterised and nothing is copied: the text stays text, the button stays a button, and the browser maps every click and every selection back through the same matrix.</p>
+      </div>
     </section>
   </main>
-  <footer class="wrap footer"><p class="label">Synthetic demo content · awards recipe draft · MIT</p></footer>
+  <footer class="wrap footer"><p class="label">Synthetic demo content · Loomtone is invented · awards recipe draft · MIT</p></footer>
   <script type="module" src="./main.js"></script>
 </body>
 </html>

@@ -1,39 +1,131 @@
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from 'lenis';
 import { awards } from '../../_shared/awards-hook.js';
-import { ticker, clamp } from '../../_shared/raf.js';
+import { ticker, damp, clamp } from '../../_shared/raf.js';
 import { motionTier, onMotionTierChange, syncMotionTierAttribute } from '../../_shared/reduced-motion.js';
 
-// The template a draft starts from: one bar filled by its section's scroll progress, written as a transform on the
-// shared ticker only while the section is on screen; under reduced motion and static the bar holds its final state.
+// Screens that lean back as they leave. Each screen's lean is the product of two things: where it is (its exit
+// progress, 0 while its top is below the viewport's top, 1 when its bottom has passed it) and how hard the page is
+// moving (the scroll speed, as an energy that rises fast and relaxes slowly). Both are followed with framerate-
+// independent damping on the shared ticker, which runs only while something moves: a scroll wakes it and it removes
+// itself once the page is quiet and every screen is flat. A parked half-gone screen is flat; a focused one is flat.
 
+gsap.registerPlugin(ScrollTrigger);
 syncMotionTierAttribute();
+
+const lenis = new Lenis({ lerp: 0.1, autoRaf: false });
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((t) => lenis.raf(t * 1000));
+gsap.ticker.lagSmoothing(0);
+window.lenis = lenis;
+
+const MAX = 34;          // degrees: the furthest a screen ever leans, whatever the speed
+const FULL_AT = 0.65;    // exit progress at which a screen's share of the lean is complete (smoothstep from 0)
+const V_FULL = 1400;     // px/s of scroll that gives the full lean; faster is clamped
+const K_RISE = 12;       // energy damping while the scroll speeds up (≈ a .18 lerp at 60 fps)
+const K_FALL = 3.2;      // and while it slows: the relax, about a second to flat
+const K_ANGLE = 14;      // each screen's angle following its target
+const QUIET = 90;        // ms without a scroll event after which the speed counts as zero
+const SCALE = 0.05;      // scale given up at the full lean
+const SHADE = 0.5;       // shade opacity at the full lean
+const EPS = 0.05;        // degrees: flat enough to write no transform and, once the energy is spent, to stop
+const SPENT = 0.003;     // energy below which the page counts as quiet
+
 let tier = motionTier();
+const list = document.querySelector('[data-screens]');
+const items = [...document.querySelectorAll('[data-screen]')].map((el) => ({
+  el,
+  shade: el.querySelector('.screen__shade'),
+  st: ScrollTrigger.create({ trigger: el.parentElement, start: 'top top', end: 'bottom top' }), // the untransformed item
+  angle: 0,
+}));
+const state = { running: false, frames: 0, wakes: 0, energy: 0, velocity: 0, focused: -1 };
 
-const stage = document.querySelector('[data-stage]');
-const bar = document.querySelector('[data-bar]');
-const value = document.querySelector('[data-value]');
-const state = { progress: 0, frames: 0 };
-
-function progressOf(el) {
-  const r = el.getBoundingClientRect();
-  return clamp(-r.top / Math.max(1, r.height - innerHeight), 0, 1);
+// Speed from Lenis' own scroll events (one per frame while it moves, native scrolls included), timed by the clock.
+// The first event after a quiet spell has nothing to measure against and counts as zero, so a jump (a keyboard End,
+// an anchor, a programmatic scroll) never fakes a fling; the next event, a frame later, carries the real speed.
+let lastY = window.scrollY;
+let lastAt = -Infinity;
+function onScroll() {
+  const now = performance.now();
+  const y = window.scrollY;
+  state.velocity = now - lastAt > QUIET ? 0 : clamp((y - lastY) / (Math.max(1, now - lastAt) / 1000), -6000, 6000);
+  lastY = y;
+  lastAt = now;
+  wake();
 }
-function draw() {
-  const p = tier === 'full' ? progressOf(stage) : 1;
-  if (p === state.progress && state.frames) return;
-  state.progress = p;
+
+const smoothstep = (e0, e1, x) => { const t = clamp((x - e0) / (e1 - e0), 0, 1); return t * t * (3 - 2 * t); };
+
+function write(it) {
+  if (it.angle < EPS) {
+    it.el.style.transform = '';
+    it.shade.style.opacity = '';
+    return;
+  }
+  const k = it.angle / MAX;
+  it.el.style.transform = `rotateX(${it.angle.toFixed(3)}deg) scale(${(1 - SCALE * k).toFixed(4)})`;
+  it.shade.style.opacity = (SHADE * k).toFixed(3);
+}
+
+function tick(dt) {
   state.frames++;
-  bar.style.transform = `scaleX(${p.toFixed(4)})`;
-  value.textContent = String(Math.round(p * 100));
+  if (performance.now() - lastAt > QUIET) state.velocity = 0;
+  const target = Math.min(1, Math.abs(state.velocity) / V_FULL);
+  state.energy = damp(state.energy, target, target > state.energy ? K_RISE : K_FALL, dt);
+  let moving = state.energy > SPENT;
+  items.forEach((it, i) => {
+    if (i === state.focused) { it.angle = 0; write(it); return; }
+    const goal = MAX * smoothstep(0, FULL_AT, it.st.progress) * state.energy;
+    it.angle = Math.min(MAX, damp(it.angle, goal, K_ANGLE, dt));
+    if (it.angle >= EPS) moving = true;
+    write(it);
+  });
+  if (!moving && state.velocity === 0) sleep();
 }
 
-// The ticker runs only while the stage is in view.
 let off = null;
-new IntersectionObserver(([en]) => {
-  if (en.isIntersecting && !off) off = ticker.add(draw);
-  else if (!en.isIntersecting && off) { off(); off = null; draw(); }
-}).observe(stage);
-onMotionTierChange((t) => { tier = t; draw(); });
-draw();
+function wake() {
+  if (tier !== 'full' || off) return;
+  off = ticker.add(tick);
+  state.running = true;
+  state.wakes++;
+}
+function sleep() {
+  off?.();
+  off = null;
+  state.running = false;
+  state.energy = 0;
+  items.forEach((it) => { it.angle = 0; write(it); });
+}
 
-awards.addState(() => ({ motion: tier, ...state }));
+// A focused screen is flat at once and stays flat while it holds focus, so its ring is never drawn on a slant.
+list.addEventListener('focusin', (e) => {
+  const i = items.findIndex((it) => it.el.contains(e.target));
+  state.focused = i;
+  if (i >= 0) { items[i].angle = 0; write(items[i]); }
+});
+list.addEventListener('focusout', () => { state.focused = -1; });
+
+lenis.on('scroll', onScroll);
+function applyTier() {
+  tier = motionTier();
+  if (tier !== 'full') sleep();
+}
+onMotionTierChange(applyTier);
+new MutationObserver(applyTier).observe(document.documentElement, { attributes: true, attributeFilter: ['data-motion'] });
+window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
+
+awards.addState(() => ({
+  motion: tier,
+  running: state.running,
+  frames: state.frames,
+  wakes: state.wakes,
+  energy: Number(state.energy.toFixed(3)),
+  velocity: Math.round(state.velocity),
+  focused: state.focused,
+  angles: items.map((it) => Number(it.angle.toFixed(2))),
+  progress: items.map((it) => Number(it.st.progress.toFixed(3))),
+}));
 awards.ready();

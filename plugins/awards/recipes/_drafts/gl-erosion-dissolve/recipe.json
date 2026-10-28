@@ -1,19 +1,39 @@
 {
   "id": "gl-erosion-dissolve",
-  "title": "Draft template: one bar the scroll fills",
-  "intent": "Say what the recipe is for",
-  "group": "scroll-set-pieces",
-  "summary": "Replace this with what the recipe demonstrates: the mechanism, its numbers, its tiers. This template fills one bar with the scroll progress of its section, written as a transform on the shared ticker, and holds the bar full under reduced motion",
+  "title": "Erosion dissolve: a patched standard material discarded below a scrolled noise threshold",
+  "intent": "Dissolve the hero to change the subject",
+  "group": "webgl-surfaces",
+  "summary": "One stock `MeshStandardMaterial` on a lathe-turned cone patched by `onBeforeCompile`: three octaves of hashed 3D value noise in object space (frequency `2.6`, amplitude `±.14`) added to a 0–1 height along a world-space axis, `discard` below a front that runs from under every field value at `uProgress 0` to over every value at `1`, a hashed feather of `.025`, an emissive ember band `uEdge .03` that never thins below 1.5 px (`max(fwidth(d), 1e-5)`) and charring over four band widths; one ScrollTrigger maps a `380svh` sticky stage to `uProgress` between `.12` and `.88` (ease none, Lenis on the GSAP ticker), the cone turns `.8 rad` and the renderer draws one frame per change, none while idle or off screen; reduced motion cuts each of three chapters to a still (`0 / .5 / 1`), and the static tier, `?nogl` or no WebGL2 show an SVG still whose wavy clip burns to the same level",
   "tags": [
+    "webgl",
+    "three",
+    "shader",
+    "onbeforecompile",
+    "uniforms",
+    "noise",
+    "lathe",
     "scroll",
     "scrub",
+    "sticky",
+    "scrolltrigger",
+    "fallback",
     "reduced-motion"
   ],
   "tier": "P2",
-  "deps": [],
-  "variants": [
-    "the one this folder builds (default)"
+  "deps": [
+    "three@0.186.0",
+    "gsap@3.15.0",
+    "lenis@1.3.26"
   ],
-  "seenIn": [],
+  "variants": [
+    "erosion from the tip down along world −y with an ember band (this)",
+    "a sideways exit: uAxis (1, 0, 0), the noise frequency halved, no ember (a cool edge colour instead)",
+    "a loaded glTF: the same patch on its stock material, uMin / uMax from its bounding box along the axis",
+    "R3F: onBeforeCompile on a memoised <meshStandardMaterial>, uniforms in a ref, frameloop=\"demand\" and invalidate() from the trigger"
+  ],
+  "seenIn": [
+    "primesec",
+    "edolus"
+  ],
   "drafted": "2026-10-28"
 }

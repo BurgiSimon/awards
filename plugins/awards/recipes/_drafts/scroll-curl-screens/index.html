@@ -4,33 +4,115 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#f4f2ee">
+  <meta name="theme-color" content="#ece3c8">
   <title>scroll-curl-screens — awards recipe draft</title>
-  <meta name="description" content="A draft recipe: one bar filled by the scroll progress of its section, the starting point for a new proposal.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f4f2ee'/%3E%3Crect x='4' y='14' width='16' height='4' fill='%230016cb'/%3E%3C/svg%3E">
+  <meta name="description" content="Full-width case screens that lean back in rotateX about their bottom edge as they leave the viewport, by an amount set by their position and by how fast the page is moving, damped on the shared ticker, flat again once the scroll goes quiet.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23ece3c8'/%3E%3Cpath d='M6 24h20l-3-14H9z' fill='%230f4c4a'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
   <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="bar wrap">
+    <a class="bar__brand" href="#top">Mosswell</a>
+    <p class="label">Product studio · synthetic demo</p>
+  </header>
   <main id="main">
-    <section class="hero wrap" aria-labelledby="hero-t">
-      <p class="label">Recipe draft · synthetic demo</p>
-      <h1 class="hero__title" id="hero-t">One bar, filled by the scroll.</h1>
-      <p class="hero__lede">The template a new draft starts from. Replace the demo, keep the contract: the hook, the tiers, a README that says why, and a verifier that proves it.</p>
+    <section class="intro wrap" id="top" aria-labelledby="intro-t">
+      <h1 class="intro__title" id="intro-t">Five products we shipped this year.</h1>
+      <p class="intro__lede">Each case is a screen. As one leaves the top of the window it leans back, as far as your scrolling pushes it, and it lies flat again the moment you stop.</p>
     </section>
-    <section class="stage wrap" data-stage aria-labelledby="stage-t">
-      <div class="stage__sticky">
-        <h2 class="stage__title" id="stage-t">Progress</h2>
-        <div class="stage__track" aria-hidden="true"><span class="stage__bar" data-bar></span></div>
-        <p class="stage__value"><span data-value>0</span> % of the section read</p>
-      </div>
+
+    <section class="run wrap" aria-labelledby="run-t">
+      <h2 class="sr-only" id="run-t">Cases</h2>
+      <ol class="screens" data-screens>
+        <li class="screens__item">
+          <a class="screen screen--tern" href="#case-tern" data-screen>
+            <div class="screen__text">
+              <h3 class="screen__title">Tern</h3>
+              <span class="screen__line">Tide tables for 212 small harbours, readable offline at the end of a pier.</span>
+              <span class="screen__meta">Mobile app · 2026</span>
+            </div>
+            <span class="screen__art art-tide" aria-hidden="true">
+              <svg viewBox="0 0 600 320" preserveAspectRatio="none" focusable="false"><path class="tide-fill" d="M0 210 C 75 120 150 120 225 190 S 375 290 450 200 S 560 110 600 150 L600 320 L0 320 Z"/><path class="tide-line" d="M0 210 C 75 120 150 120 225 190 S 375 290 450 200 S 560 110 600 150"/></svg>
+              <span class="tide-tag tide-tag--hw">High 04:12 · 4.6 m</span>
+              <span class="tide-tag tide-tag--lw">Low 10:31 · 0.9 m</span>
+            </span>
+            <span class="screen__shade" aria-hidden="true"></span>
+          </a>
+        </li>
+        <li class="screens__item">
+          <a class="screen screen--pilcrow" href="#case-pilcrow" data-screen>
+            <div class="screen__text">
+              <h3 class="screen__title">Pilcrow</h3>
+              <span class="screen__line">An editor for a weekly paper that still sets its own columns, 46 writers deep.</span>
+              <span class="screen__meta">Web app · 2026</span>
+            </div>
+            <span class="screen__art art-columns" aria-hidden="true">
+              <span class="col-mark">¶</span>
+              <span class="col"><i style="--w: 92%"></i><i style="--w: 86%"></i><i style="--w: 95%"></i><i style="--w: 60%"></i><i style="--w: 90%"></i><i style="--w: 78%"></i><i style="--w: 0%"></i><i style="--w: 94%"></i><i style="--w: 89%"></i><i style="--w: 97%"></i><i style="--w: 66%"></i></span>
+              <span class="col"><i style="--w: 88%"></i><i style="--w: 94%"></i><i style="--w: 70%"></i><i style="--w: 91%"></i><i style="--w: 84%"></i><i style="--w: 52%"></i><i style="--w: 0%"></i><i style="--w: 90%"></i><i style="--w: 96%"></i><i style="--w: 82%"></i><i style="--w: 74%"></i></span>
+            </span>
+            <span class="screen__shade" aria-hidden="true"></span>
+          </a>
+        </li>
+        <li class="screens__item">
+          <a class="screen screen--bramble" href="#case-bramble" data-screen>
+            <div class="screen__text">
+              <h3 class="screen__title">Bramble</h3>
+              <span class="screen__line">A seed library's lending desk: 3,400 packets, each with a grower and a return date.</span>
+              <span class="screen__meta">Kiosk and web · 2026</span>
+            </div>
+            <span class="screen__art art-seeds" aria-hidden="true">
+              <i style="--s: 1"></i><i style="--s: .62"></i><i style="--s: .8"></i><i style="--s: .45"></i>
+              <i style="--s: .7"></i><i style="--s: .95"></i><i style="--s: .5"></i><i style="--s: .74"></i>
+              <i style="--s: .58"></i><i style="--s: .4"></i><i style="--s: .86"></i><i style="--s: .66"></i>
+            </span>
+            <span class="screen__shade" aria-hidden="true"></span>
+          </a>
+        </li>
+        <li class="screens__item">
+          <a class="screen screen--quay" href="#case-quay" data-screen>
+            <div class="screen__text">
+              <h3 class="screen__title">Quay</h3>
+              <span class="screen__line">Ferry tickets for four islands, bought in two taps and shown without signal.</span>
+              <span class="screen__meta">Mobile app · 2025</span>
+            </div>
+            <span class="screen__art art-ticket" aria-hidden="true">
+              <span class="ticket"><span class="ticket__route">Holm → Skerra</span><span class="ticket__time">07:40 · deck 2</span><span class="ticket__code"></span></span>
+            </span>
+            <span class="screen__shade" aria-hidden="true"></span>
+          </a>
+        </li>
+        <li class="screens__item">
+          <a class="screen screen--larch" href="#case-larch" data-screen>
+            <div class="screen__text">
+              <h3 class="screen__title">Larch</h3>
+              <span class="screen__line">Survey software for a forestry team that maps 900 hectares on foot each spring.</span>
+              <span class="screen__meta">Tablet app · 2025</span>
+            </div>
+            <span class="screen__art art-contours" aria-hidden="true">
+              <i style="--r: 1"></i><i style="--r: .8"></i><i style="--r: .6"></i><i style="--r: .4"></i><i style="--r: .2"></i><b></b>
+            </span>
+            <span class="screen__shade" aria-hidden="true"></span>
+          </a>
+        </li>
+      </ol>
     </section>
-    <section class="after wrap" aria-labelledby="after-t">
-      <h2 id="after-t">After the stage</h2>
-      <p>The bar holds full once its section has passed.</p>
+
+    <section class="notes wrap" aria-labelledby="notes-t">
+      <h2 id="notes-t">Case notes</h2>
+      <dl class="notes__list">
+        <div id="case-tern"><dt>Tern</dt><dd>Built around one chart per harbour, cached for 40 days, so the tide is there with no signal.</dd></div>
+        <div id="case-pilcrow"><dt>Pilcrow</dt><dd>Columns are set by the editor, not the template; the paper's own rules for widows ship as checks.</dd></div>
+        <div id="case-bramble"><dt>Bramble</dt><dd>Every packet carries its grower's name back to the desk when it is returned in autumn.</dd></div>
+        <div id="case-quay"><dt>Quay</dt><dd>Tickets are signed on the phone and checked on the gangway by a reader with no network.</dd></div>
+        <div id="case-larch"><dt>Larch</dt><dd>Plots are drawn on the tablet in the wood and merged in the office in the evening.</dd></div>
+      </dl>
     </section>
   </main>
-  <footer class="wrap footer"><p class="label">Synthetic demo content · awards recipe draft · MIT</p></footer>
+  <footer class="footer wrap">
+    <p>Mosswell and its five products are fictional; every name and number here is synthetic demo content. Awards recipe draft · MIT.</p>
+  </footer>
   <script type="module" src="./main.js"></script>
 </body>
 </html>

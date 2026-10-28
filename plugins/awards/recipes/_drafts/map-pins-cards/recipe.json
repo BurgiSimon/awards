@@ -1,19 +1,34 @@
 {
   "id": "map-pins-cards",
-  "title": "Draft template: one bar the scroll fills",
-  "intent": "Say what the recipe is for",
-  "group": "scroll-set-pieces",
-  "summary": "Replace this with what the recipe demonstrates: the mechanism, its numbers, its tiers. This template fills one bar with the scroll progress of its section, written as a transform on the shared ticker, and holds the bar full under reduced motion",
+  "title": "Map pins and cards: named buttons over a drawn map, a list that drives it",
+  "intent": "Places on a flat map",
+  "group": "evidence-blocks",
+  "summary": "An inline-SVG map (viewBox 1000 × 800, aspect-ratio box) under eight named `<button>` pins placed at `left/top: var(--x|--y) %` and centred by a fixed `-22px` margin, so each sits on its drawn point to the pixel at any width; one card filled from the matching list entry opens on hover (140 ms grace into the card), focus and click (kept after the pointer leaves), floats 22 px above its pin or below it near the top edge, clamped 12 px inside the map, with a tick at the pin; pins rove in reading order inside one labelled group (arrow keys wrap, Home / End, one tab stop), Escape closes from a pin or from inside the card and returns focus; the same places as an ordered list whose entries open the card on hover and focus and whose Show on map buttons select and announce; pins drop in 70 ms apart (560 ms, expo-out) the first time the map is 35 % in view, full tier only; under 720 px the card docks under the map in the flow with a prompt when nothing is chosen",
   "tags": [
-    "scroll",
-    "scrub",
+    "svg",
+    "hover",
+    "keyboard",
+    "touch",
+    "stagger",
+    "reveal",
+    "hotspots",
+    "cards",
+    "list",
+    "dom-mirror",
+    "responsive",
+    "accessibility",
     "reduced-motion"
   ],
-  "tier": "P2",
+  "tier": "P1",
   "deps": [],
   "variants": [
-    "the one this folder builds (default)"
+    "a drawn map with pins by percentage, one card, a list that drives it (this, default)",
+    "an image map: the same pins over a raster plan in an aspect-ratio box, the percentages read off the image",
+    "a 3D model: pins projected from scene coordinates instead of percentages (gl-orbit-model-hotspots)"
   ],
-  "seenIn": [],
+  "seenIn": [
+    "son-daven",
+    "likova"
+  ],
   "drafted": "2026-10-28"
 }

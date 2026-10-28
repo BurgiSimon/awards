@@ -2,19 +2,131 @@
    A draft sits one folder deeper than a recipe; scripts/drafts.mjs promote rewrites ../../ to ../ on the way out. */
 @import "../../_shared/base.css";
 
-.hero { min-height: 80svh; display: grid; align-content: end; gap: calc(var(--unit) * 5); padding-block: 96px calc(var(--unit) * 16); }
-.hero .label { margin: 0; }
-.hero__title { margin: 0; max-width: 14ch; font-family: var(--font-display); font-size: clamp(2.75rem, 8vw, 8rem); font-weight: 600; line-height: 0.9; letter-spacing: -0.035em; }
-.hero__lede { max-width: 52ch; margin: 0; font-size: clamp(1.0625rem, 1.4vw, 1.25rem); }
+/* Its own small world: a Victorian baths under restoration, celadon tile, bottle-green ink, a rust mark for new. */
+:root {
+  --ground: #dbe7dc;
+  --ink: #10332c;
+  --tile: #174a40;
+  --cream: #f4ecd9;
+  --new: #a3360f;
+  --accent: var(--tile);
+  --muted: color-mix(in oklab, var(--ink) 74%, var(--ground));
+  --line: color-mix(in oklab, var(--ink) 22%, var(--ground));
+  --font-read: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+}
+::selection { background: var(--tile); color: var(--cream); }
+/* Components below set display; the hidden attribute must still win. */
+[hidden] { display: none !important; }
 
-.stage { height: 260svh; }
-.stage__sticky { position: sticky; top: 0; min-height: 100svh; display: grid; align-content: center; gap: calc(var(--unit) * 6); }
-.stage__title { margin: 0; font-family: var(--font-display); font-size: clamp(2rem, 5vw, 4.5rem); line-height: 1; letter-spacing: -0.02em; }
-.stage__track { height: 12px; background: var(--line); overflow: hidden; }
-.stage__bar { display: block; height: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); }
-.stage__value { margin: 0; font-family: var(--font-mono); font-size: 0.875rem; font-variant-numeric: tabular-nums; }
+/* The masthead stays in view, so the count is always where the visitor will look for it. */
+.masthead { position: sticky; top: 0; z-index: 5; background: var(--tile); color: var(--cream); }
+.masthead__inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 calc(var(--unit) * 6); min-height: 64px; }
+.masthead__brand { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--font-display); font-weight: 700; letter-spacing: -0.01em; text-decoration: none; }
+.masthead__nav { display: flex; flex-wrap: wrap; gap: 0 calc(var(--unit) * 6); }
+.masthead__nav a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; text-decoration: none; }
+.masthead__nav a:hover { text-decoration: underline; }
+.masthead__nav a[aria-current="page"] { text-decoration: none; }
+.masthead__nav a[aria-current="page"] .masthead__label { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.35em; }
+.masthead a:focus-visible { outline-color: var(--cream); }
+/* The count is text, never a dot alone: "3 new" on the rust that marks every unread entry. */
+.masthead__count { display: inline-block; padding: 2px 8px; border-radius: 2px; background: var(--new); color: var(--cream); font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; }
 
-.after { padding-block: calc(var(--unit) * 24); border-top: 1px solid var(--line); }
-.after h2 { margin: 0 0 calc(var(--unit) * 4); font-family: var(--font-display); font-size: clamp(1.75rem, 4vw, 3rem); line-height: 1; }
-.after p { max-width: 54ch; margin: 0; }
-.footer { padding-block: calc(var(--unit) * 12); }
+.intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: calc(var(--unit) * 6) calc(var(--unit) * 12); align-items: end; padding-block: 120px calc(var(--unit) * 12); }
+.intro__title { margin: 0; font-family: var(--font-display); font-size: clamp(3.25rem, 10vw, 10.5rem); font-weight: 700; line-height: 0.86; letter-spacing: -0.045em; }
+.intro__lede { max-width: 46ch; margin: 0; font-family: var(--font-read); font-size: clamp(1.0625rem, 1.4vw, 1.3125rem); line-height: 1.45; }
+
+.diary-wrap { padding-bottom: calc(var(--unit) * 20); }
+.diary__bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 24px; padding-block: 12px; border-bottom: 2px solid var(--ink); }
+.diary__summary { margin: 0; font-family: var(--font-mono); font-size: 0.875rem; font-variant-numeric: tabular-nums; }
+.diary__all { min-height: 44px; padding: 0 18px; border: 1.5px solid var(--ink); border-radius: 22px; background: none; cursor: pointer; font-size: 0.9375rem; }
+.diary__all:hover { background: var(--ink); color: var(--ground); }
+.diary__all[aria-disabled="true"] { border-color: var(--line); color: var(--muted); cursor: default; }
+.diary__all[aria-disabled="true"]:hover { background: none; color: var(--muted); }
+
+.diary { list-style: none; margin: 0; padding: 0; }
+/* Unread: the rust rule over the entry, the heavier title, and the New mark in text. Read: none of the three. */
+.entry { position: relative; border-bottom: 1px solid var(--line); }
+.entry::before { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 3px; background: var(--new); transform-origin: 0 50%; transform: scaleX(0); transition: transform var(--dur-routine) var(--ease-out-expo); }
+.entry.is-unread::before { transform: scaleX(1); }
+.entry__article { display: grid; grid-template-columns: 9rem minmax(0, 1fr) minmax(10rem, 15rem); column-gap: calc(var(--unit) * 8); padding-block: 28px 18px; }
+.entry__date { display: grid; align-content: start; font-variant-numeric: tabular-nums; }
+.entry__day { font-family: var(--font-display); font-size: 3rem; font-weight: 700; line-height: 0.9; letter-spacing: -0.03em; }
+.entry__month { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--muted); }
+.entry__main > * { margin: 0; }
+.entry__meta { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--muted); }
+.entry__title { max-width: 30ch; margin-top: 6px; font-family: var(--font-display); font-size: clamp(1.375rem, 2.2vw, 2rem); font-weight: 400; line-height: 1.12; letter-spacing: -0.015em; }
+.entry.is-unread .entry__title { font-weight: 700; }
+.entry__flag { display: inline-block; margin-left: 8px; padding: 1px 7px; border: 1.5px solid var(--new); border-radius: 2px; color: var(--new); font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; line-height: 1.4; vertical-align: 0.3em; transition: opacity var(--dur-routine) ease-out; }
+.entry__flag.is-gone { opacity: 0; }
+.entry__lede { max-width: 58ch; margin-top: 8px; font-family: var(--font-read); font-size: 1.0625rem; line-height: 1.5; }
+
+.entry__more { margin-top: 4px; }
+.entry__toggle { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; cursor: pointer; list-style: none; font-size: 0.9375rem; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25em; }
+.entry__toggle::-webkit-details-marker { display: none; }
+.entry__toggle::after { content: "+"; font-family: var(--font-mono); text-decoration: none; }
+.entry__more[open] .entry__toggle::after { content: "−"; }
+.entry__toggle-close, .entry__more[open] .entry__toggle-open { display: none; }
+.entry__more[open] .entry__toggle-close { display: inline; }
+.entry__body { display: grid; gap: 12px; max-width: 62ch; padding-block: 6px 12px; font-family: var(--font-read); font-size: 1.0625rem; line-height: 1.55; }
+.entry__body p { margin: 0; }
+.entry__more[open] .entry__body { animation: body-in var(--dur-routine) var(--ease-out-expo) both; }
+/* The works at the date of each entry: the diary's own running figure, a number in text over a bar that repeats it. */
+.entry__progress { display: flex; flex-wrap: wrap; align-content: start; align-items: baseline; justify-content: space-between; gap: 6px 12px; margin: 4px 0 0; font-family: var(--font-mono); font-size: 0.8125rem; }
+.entry__progress-label { color: var(--muted); }
+.entry__progress data { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
+.entry__bar { flex: 1 0 100%; height: 6px; background: var(--line); }
+.entry__bar::after { content: ""; display: block; height: 100%; background: var(--tile); transform-origin: 0 50%; transform: scaleX(var(--p)); }
+
+/* Arrival: an entry published since the last visit draws its rule in and settles out of a faint wash. */
+.entry[data-arrival]::before { animation: rule-in 900ms var(--ease-out-expo) both; animation-delay: calc(var(--k, 0) * 140ms); }
+.entry[data-arrival] { animation: wash 2400ms ease-out both; animation-delay: calc(var(--k, 0) * 140ms); }
+.entry[data-arrival] .entry__flag { animation: flag-in 400ms ease-out both; animation-delay: calc(var(--k, 0) * 140ms + 500ms); }
+
+@keyframes rule-in { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes wash { from { background-color: color-mix(in oklab, var(--new) 14%, var(--ground)); } to { background-color: transparent; } }
+@keyframes flag-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes body-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes body-fade { from { opacity: 0; } to { opacity: 1; } }
+
+/* Reduced: no rule drawing in, no body rising; the wash and the fades stay, since they move nothing. */
+@media (prefers-reduced-motion: reduce) {
+  .entry[data-arrival]::before { animation: none; }
+  .entry::before { transition: none; }
+  .entry__more[open] .entry__body { animation-name: body-fade; }
+}
+html[data-motion="reduced"] .entry[data-arrival]::before { animation: none; }
+html[data-motion="reduced"] .entry::before { transition: none; }
+html[data-motion="reduced"] .entry__more[open] .entry__body { animation-name: body-fade; }
+/* Static: everything settled. */
+html[data-motion="static"] .entry, html[data-motion="static"] .entry::before, html[data-motion="static"] .entry__flag, html[data-motion="static"] .entry__body { animation: none !important; transition: none !important; }
+
+.demo { display: grid; gap: 12px; padding-block: calc(var(--unit) * 14); background: color-mix(in oklab, var(--tile) 9%, var(--ground)); }
+.demo__title { margin: 0; font-family: var(--font-display); font-size: clamp(1.5rem, 2.6vw, 2.25rem); line-height: 1.05; letter-spacing: -0.015em; }
+.demo__note { max-width: 60ch; margin: 0; font-family: var(--font-read); font-size: 1.0625rem; }
+.demo__actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 8px 0 0; }
+.demo__btn { min-height: 44px; padding: 0 20px; border: 0; border-radius: 22px; background: var(--tile); color: var(--cream); cursor: pointer; font-size: 0.9375rem; text-align: center; }
+.demo__btn--quiet { border: 1.5px solid var(--ink); background: none; color: var(--ink); }
+.demo__btn[aria-disabled="true"] { background: var(--line); border-color: transparent; color: var(--muted); cursor: default; }
+
+.about { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: calc(var(--unit) * 12); padding-block: calc(var(--unit) * 16); }
+.about h2 { margin: 0 0 12px; font-family: var(--font-display); font-size: 1.5rem; letter-spacing: -0.01em; }
+.about p { max-width: 50ch; margin: 0; font-family: var(--font-read); font-size: 1.0625rem; }
+.footer { padding-block: calc(var(--unit) * 10); border-top: 1px solid var(--line); }
+.footer .label { margin: 0; }
+
+@media (max-width: 760px) {
+  .intro { grid-template-columns: minmax(0, 1fr); padding-top: 72px; }
+  .entry__article { grid-template-columns: minmax(0, 1fr); row-gap: 6px; padding-top: 22px; }
+  .entry__progress { max-width: 20rem; margin-top: 2px; }
+  .entry__progress data { font-size: 1.125rem; }
+  .entry__date { display: flex; align-items: baseline; gap: 8px; }
+  .entry__day { font-size: 1.75rem; }
+  .about { grid-template-columns: minmax(0, 1fr); }
+  .masthead__nav { gap: 0 calc(var(--unit) * 4); }
+}
+
+@media (forced-colors: active) {
+  .entry::before { forced-color-adjust: none; background: CanvasText; }
+  .entry__flag { border-color: CanvasText; }
+  .masthead__count { border: 1px solid CanvasText; }
+}

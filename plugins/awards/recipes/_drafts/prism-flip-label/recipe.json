@@ -1,19 +1,30 @@
 {
   "id": "prism-flip-label",
-  "title": "Draft template: one bar the scroll fills",
-  "intent": "Say what the recipe is for",
-  "group": "scroll-set-pieces",
-  "summary": "Replace this with what the recipe demonstrates: the mechanism, its numbers, its tiers. This template fills one bar with the scroll progress of its section, written as a transform on the shared ticker, and holds the bar full under reduced motion",
+  "title": "Prism flip label: a quarter turn that rolls a copy of the label into view",
+  "intent": "Nav and link labels that turn like a block",
+  "group": "arrival-and-chrome",
+  "summary": "Each `[data-prism]` link ships as its plain label; the module wraps it in a `transform-style: preserve-3d` box holding the label on a front face (`translateZ(d)`) and an `aria-hidden` copy on the face below (`rotateX(-90deg) translateZ(d)`), with `backface-visibility: hidden` and `d` measured as half the box's own height, and sets the box back by `translateZ(-d)` so the front face rests exactly in the page plane and the box turns about its own centre; hover (fine pointers only, `(hover: hover)`) and `:focus-visible` turn it `rotateX(90deg)` under `perspective: 1000px` on its parent over `400 ms` expo-out, after which the copy sits on the label's exact box; four header cells roll to an inked cell while their siblings dim to `.55`, footer links roll to an inverted tile, and the `letters` variant builds one prism per letter inside no-wrap words with a `24 ms` stagger and a visually hidden label as the accessible name; touch gets no turn but a filled press state; reduced motion and static swap the two faces in place by opacity (`120 ms`, none in static) with no transform; forced colours show the plain label",
   "tags": [
-    "scroll",
-    "scrub",
+    "css-3d",
+    "hover",
+    "keyboard",
+    "touch",
+    "stagger",
+    "navigation",
+    "text",
+    "accessibility",
     "reduced-motion"
   ],
   "tier": "P2",
   "deps": [],
   "variants": [
-    "the one this folder builds (default)"
+    "whole label, header cells and footer links (this, default)",
+    "one prism per letter with a 24 ms stagger (`data-prism=\"letters\"`, the film list here)",
+    "perspective applied only while a box is turning, as the source does, for text that must stay on the page's own raster at rest",
+    "a third face: turn 180° about X to show a face on the back, for a label that says something different (a count, a date) rather than repeating itself"
   ],
-  "seenIn": [],
+  "seenIn": [
+    "warmnfuzzy"
+  ],
   "drafted": "2026-10-28"
 }

@@ -3,31 +3,82 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light">
-  <meta name="theme-color" content="#f4f2ee">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#171210">
   <title>gl-erosion-dissolve — awards recipe draft</title>
-  <meta name="description" content="A draft recipe: one bar filled by the scroll progress of its section, the starting point for a new proposal.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f4f2ee'/%3E%3Crect x='4' y='14' width='16' height='4' fill='%230016cb'/%3E%3C/svg%3E">
+  <meta name="description" content="A resin cone turned in code wears a stock standard material patched with a noise threshold: the scroll erodes it from the tip down behind a thin ember band, and scrolling back re-forms it.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23171210'/%3E%3Cpath d='M16 7l7 18H9z' fill='%23a87550'/%3E%3Cpath d='M12.6 15.6h6.8' stroke='%23ff7a3d' stroke-width='2'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
   <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="bar wrap">
+    <a class="bar__back" href="../../index.html">← recipes</a>
+    <p class="label">Moro Resin Co. · synthetic demo</p>
+  </header>
   <main id="main">
-    <section class="hero wrap" aria-labelledby="hero-t">
-      <p class="label">Recipe draft · synthetic demo</p>
-      <h1 class="hero__title" id="hero-t">One bar, filled by the scroll.</h1>
-      <p class="hero__lede">The template a new draft starts from. Replace the demo, keep the contract: the hook, the tiers, a README that says why, and a verifier that proves it.</p>
+    <section class="intro wrap" aria-labelledby="intro-t">
+      <p class="label">Recipe draft · erosion dissolve</p>
+      <h1 class="intro__title" id="intro-t">Lit at the tip, gone by the last line.</h1>
+      <p class="intro__lede">Scroll through the stage below. A resin cone, turned in code from a lathe profile, wears a stock standard material patched with a noise threshold. As the scroll advances, everything under the threshold is discarded from the tip down, and a thin ember band burns where the cone is about to go. Scroll back and it re-forms.</p>
     </section>
-    <section class="stage wrap" data-stage aria-labelledby="stage-t">
-      <div class="stage__sticky">
-        <h2 class="stage__title" id="stage-t">Progress</h2>
-        <div class="stage__track" aria-hidden="true"><span class="stage__bar" data-bar></span></div>
-        <p class="stage__value"><span data-value>0</span> % of the section read</p>
+
+    <section class="stage" data-stage aria-labelledby="stage-t">
+      <div class="stage__sticky wrap">
+        <div class="stage__copy">
+          <h2 class="stage__name label" id="stage-t">Cone No. 7 · cedar, benzoin, clove</h2>
+          <nav class="steps" aria-label="Chapters">
+            <button type="button" class="steps__btn" data-goto="0">Whole</button>
+            <button type="button" class="steps__btn" data-goto="1">Burning</button>
+            <button type="button" class="steps__btn" data-goto="2">Gone</button>
+          </nav>
+          <ol class="chapters" data-chapters>
+            <li class="chapter" data-chapter="0">
+              <h3 class="chapter__title">Pressed by hand.</h3>
+              <p>Cedar, benzoin and a pinch of clove, ground with charcoal and shaped into a cone six centimetres tall. It stands on a glazed dish and asks for one match.</p>
+            </li>
+            <li class="chapter" data-chapter="1">
+              <h3 class="chapter__title">It burns from the tip.</h3>
+              <p>The ember moves down the cone at about a centimetre every eight minutes. The grain of the resin decides the edge, so it is never a straight line and never the same twice.</p>
+            </li>
+            <li class="chapter" data-chapter="2">
+              <h3 class="chapter__title">What stays is the room.</h3>
+              <p>Forty minutes later the cone is gone and the dish is clean. The scent has only started: it sits in the curtains until the evening.</p>
+            </li>
+          </ol>
+        </div>
+        <figure class="stage__figure" data-figure>
+          <svg class="still" data-still viewBox="0 0 600 640" role="img" aria-labelledby="still-t">
+            <title id="still-t">Cone No. 7 standing on a pale green glazed dish</title>
+            <defs>
+              <linearGradient id="still-cone" x1="0" x2="1" y1="0" y2="0">
+                <stop offset="0" stop-color="#d0a27a"/><stop offset=".45" stop-color="#a87550"/><stop offset="1" stop-color="#4d3020"/>
+              </linearGradient>
+              <linearGradient id="still-dish" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0" stop-color="#b7cbbf"/><stop offset="1" stop-color="#5f7a6c"/>
+              </linearGradient>
+              <radialGradient id="still-shadow"><stop offset="0" stop-color="#000" stop-opacity=".6"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+              <clipPath id="still-burn"><path data-still-burn d="M0 70q30 -14 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0V700H0z"/></clipPath>
+              <clipPath id="still-shape"><path d="M300 98q-9 0-12 10L184 512q116 30 232 0L312 108q-3-10-12-10z"/></clipPath>
+            </defs>
+            <ellipse cx="300" cy="560" rx="250" ry="46" fill="url(#still-shadow)"/>
+            <path d="M68 520q232 70 464 0l-24 26q-208 54-416 0z" fill="#41564b"/>
+            <ellipse cx="300" cy="520" rx="232" ry="40" fill="url(#still-dish)"/>
+            <ellipse cx="300" cy="522" rx="196" ry="30" fill="#7f998b"/>
+            <path clip-path="url(#still-burn)" d="M300 98q-9 0-12 10L184 512q116 30 232 0L312 108q-3-10-12-10z" fill="url(#still-cone)"/>
+            <g clip-path="url(#still-shape)" fill="none">
+              <g data-still-burn><path d="M0 70q30 -14 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0" transform="translate(0 10)" stroke="#2a1810" stroke-width="16"/><path d="M0 70q30 -14 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0" stroke="#ff7a3d" stroke-width="5"/></g>
+            </g>
+          </svg>
+          <canvas class="gl" data-gl aria-hidden="true"></canvas>
+          <figcaption class="stage__caption label">Synthetic demo · lathe cone, patched material</figcaption>
+        </figure>
       </div>
     </section>
+
     <section class="after wrap" aria-labelledby="after-t">
-      <h2 id="after-t">After the stage</h2>
-      <p>The bar holds full once its section has passed.</p>
+      <h2 id="after-t">The threshold is the scroll.</h2>
+      <p>Nothing on this page is a video or a sequence of frames. One uniform, <code>uProgress</code>, is compared with a noise field that sticks to the cone and leans along the world's vertical axis. Scroll back up and the cone re-forms, grain for grain.</p>
     </section>
   </main>
   <footer class="wrap footer"><p class="label">Synthetic demo content · awards recipe draft · MIT</p></footer>

@@ -1,19 +1,31 @@
 {
   "id": "news-read-state",
-  "title": "Draft template: one bar the scroll fills",
-  "intent": "Say what the recipe is for",
-  "group": "scroll-set-pieces",
-  "summary": "Replace this with what the recipe demonstrates: the mechanism, its numbers, its tiers. This template fills one bar with the scroll progress of its section, written as a transform on the shared ticker, and holds the bar full under reduced motion",
+  "title": "News with read state: a dated diary that remembers, and a count in the menu",
+  "intent": "News that remembers what was read",
+  "group": "the-close-and-beyond",
+  "summary": "A list of `<article>` entries with `<time datetime>` whose read state lives in one localStorage record behind a probe and try/catch (memory when the browser refuses, with the page saying so); a first visit treats the 21 days before the newest entry as new, a return visit gives entries dated after the newest one last seen a quiet arrival (a 3 px rust rule drawn `scaleX 0 → 1` over 900 ms, 140 ms apart, out of a 2.4 s colour wash); unread entries carry a New mark in their `<h2>` text plus a bold title and the rule; an entry is read when its native `<details>` opens or when it sits wholly in view below the sticky header for 1.2 s once the visitor has scrolled (never on load); the menu link reads `News 3 new` in text, Mark all as read turns `aria-disabled` at zero, and a polite status speaks only for the visitor's acts, gathering scroll reads for 600 ms; reduced motion keeps the wash and the fades and drops the drawing rule and the rising body",
   "tags": [
+    "list",
+    "storage",
     "scroll",
-    "scrub",
+    "keyboard",
+    "reveal",
+    "progress",
+    "navigation",
+    "accessibility",
+    "fallback",
     "reduced-motion"
   ],
   "tier": "P2",
   "deps": [],
   "variants": [
-    "the one this folder builds (default)"
+    "read on open or dwell, a count in the menu, mark all (this, default)",
+    "read on open only: drop the dwell observer when entries are long and a glance is not a read",
+    "server-side: the same record keyed to a signed-in account, with localStorage as the offline copy"
   ],
-  "seenIn": [],
+  "seenIn": [
+    "mont-fort",
+    "son-daven"
+  ],
   "drafted": "2026-10-28"
 }

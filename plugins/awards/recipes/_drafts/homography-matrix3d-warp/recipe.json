@@ -1,19 +1,30 @@
 {
   "id": "homography-matrix3d-warp",
-  "title": "Draft template: one bar the scroll fills",
-  "intent": "Say what the recipe is for",
+  "title": "Homography warp: a live DOM screen set into a drawing by four corners",
+  "intent": "A live screen inside a picture",
   "group": "scroll-set-pieces",
-  "summary": "Replace this with what the recipe demonstrates: the mechanism, its numbers, its tiers. This template fills one bar with the scroll progress of its section, written as a transform on the shared ticker, and holds the bar full under reduced motion",
+  "summary": "A real HTML app (text, a button, a CSS loop) in a fixed box sized from its scene (at most 640 px, 86 % of the width, 62 % of the height, 16:10) is carried from its flat layout box onto the four corners of a drawn laptop screen: the corners are read off an SVG polygon through `getScreenCTM()`, so the `slice` crop and scale of the drawing are included, and re-read by a ResizeObserver; the scroll through a `280svh` sticky stage, smoothstepped over `.12–.78` of it, lerps each corner from flat to target, and the 2D homography from the rectangle to those points (eight unknowns, Gaussian elimination with partial pivoting) is written as one `matrix3d` with `transform-origin: 0 0`, `none` at the start; the browser hit-tests, selects and focuses through the same matrix; a glass quad above fades in with the landing, the box shadow and corner radius fade out; one scroll listener and one frame; the loop runs only while playing and on screen, behind the app's own Pause button; reduced motion and static drop the rail and sit placed and paused",
   "tags": [
     "scroll",
     "scrub",
+    "sticky",
+    "css-3d",
+    "svg",
+    "media",
+    "responsive",
+    "dom-mirror",
+    "accessibility",
     "reduced-motion"
   ],
-  "tier": "P2",
+  "tier": "P1",
   "deps": [],
   "variants": [
-    "the one this folder builds (default)"
+    "scrubbed from flat into the drawing (this, default)",
+    "always placed: the same solve on load and on resize only, for device mock-ups in a case study",
+    "a <video> or canvas in place of the app, warped into a photograph whose corners are given as fractions of the image"
   ],
-  "seenIn": [],
+  "seenIn": [
+    "zainabkabira"
+  ],
   "drafted": "2026-10-28"
 }

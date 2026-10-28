@@ -1,19 +1,34 @@
 {
   "id": "dealt-sheets-stage",
-  "title": "Draft template: one bar the scroll fills",
-  "intent": "Say what the recipe is for",
+  "title": "Dealt sheets stage: pairs of sheets dealt in and out on their own rails",
+  "intent": "Featured work dealt like cards",
   "group": "scroll-set-pieces",
-  "summary": "Replace this with what the recipe demonstrates: the mechanism, its numbers, its tiers. This template fills one bar with the scroll progress of its section, written as a transform on the shared ticker, and holds the bar full under reduced motion",
+  "summary": "One sticky stage in a section `(n − 1) × 140svh + 160svh` tall, never a pin, where each of five featured runs is a pair of sheets (a ticket link and a print link) on one `scrub: .5` timeline counted in viewports from the section's `top bottom`: the ticket is dealt over 1 viewport from `xPercent −42, yPercent 118, −9°` about its top-left corner, the print `.12` later from `34 / 136 / 7°` about its centre, each pair holds `.4` and is swept off (print first, to `22 / −128 / 6°`, ticket after, to `−20 / −112 / −5°`) while the next is dealt over it, and the last pair drifts into a resting pose (`3 / 5 / −2.5°` and `−2 / 0 / 1.5°`) and stays as the stage releases; the active pair switches halfway through its deal and is announced in a polite status, a ticket that takes keyboard focus scrolls the stage to its rest, the print is a duplicate link at `tabindex −1`; the phone stacks ticket over print; reduced motion cross-fades the pairs in place with no travel, static is a plain list",
   "tags": [
     "scroll",
+    "gsap",
+    "scrolltrigger",
     "scrub",
+    "sticky",
+    "timeline",
+    "lenis",
+    "cards",
+    "keyboard",
+    "accessibility",
     "reduced-motion"
   ],
   "tier": "P2",
-  "deps": [],
-  "variants": [
-    "the one this folder builds (default)"
+  "deps": [
+    "gsap@3.15.0",
+    "lenis@1.3.26"
   ],
-  "seenIn": [],
+  "variants": [
+    "pairs of sheets on their own rails, the last one settling (this, default)",
+    "one rail per pair as its own ScrollTrigger (`top bottom` → `top top` in, `top top` → `bottom top` out) for pairs of unequal length",
+    "a third sheet per pair (credits or a still), on a third rail with its own lag"
+  ],
+  "seenIn": [
+    "the-line"
+  ],
   "drafted": "2026-10-28"
 }
