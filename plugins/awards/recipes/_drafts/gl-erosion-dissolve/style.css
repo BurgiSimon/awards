@@ -71,7 +71,8 @@ html.is-staged .chapters { grid-template-areas: "c"; gap: 0; }
 html.is-staged .chapter { grid-area: c; opacity: 0; transition: opacity var(--dur-routine) var(--ease-theme); }
 html.is-staged .chapter[data-active] { opacity: 1; }
 
-.after { display: grid; gap: calc(var(--unit) * 6); padding-block: calc(var(--unit) * 28); border-top: 1px solid var(--line); }
+/* A full screen of its own: past the stage the figure leaves the viewport entirely, so the renderer can rest. */
+.after { display: grid; align-content: center; gap: calc(var(--unit) * 6); min-height: 100svh; padding-block: calc(var(--unit) * 28); border-top: 1px solid var(--line); }
 .after > * { margin: 0; max-width: 58ch; }
 .after h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(2rem, 5vw, 4.5rem); line-height: 1; letter-spacing: -.015em; }
 .after code { font-family: var(--font-mono); font-size: .9em; color: var(--accent); }

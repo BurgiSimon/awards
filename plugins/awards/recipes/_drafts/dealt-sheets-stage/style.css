@@ -15,11 +15,17 @@
   --blue: #2f55ad;
   --yellow: #ffd23f;
   --cap-w: clamp(260px, 21vw, 360px);
+  /* The print is sized by both axes: 74 % of the stage's height, or half the width less a gutter, whichever is less,
+     so a portrait tablet or a near-square window never pushes it past the right edge. */
+  --print-w: min(59.2svh, 50vw - var(--gutter));
   color-scheme: dark;
 }
 
 .skip-link:focus-visible { position: fixed; z-index: 50; top: 12px; left: 12px; width: auto; height: auto; margin: 0; padding: 12px 16px; clip: auto; overflow: visible; white-space: normal; background: var(--ink); color: var(--ground); }
-a:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+/* A two-tone ring: the yellow ink between two bands of the sheet's black, so it holds on the green mat and on a cream
+   print alike. The drop shadow is kept underneath. */
+a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.sheet:focus-visible { box-shadow: 0 0 0 3px var(--stock-ink), 0 0 0 8px var(--stock-ink), 0 22px 44px -22px rgba(4, 16, 12, 0.75); }
 
 .bar { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: calc(var(--unit) * 4); min-height: 64px; }
 .bar__brand { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--font-display); font-weight: 700; letter-spacing: -0.01em; text-decoration: none; }
@@ -44,8 +50,7 @@ a:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
 .p-small { left: 7cqw; bottom: 5cqw; font-family: var(--font-mono); font-size: 3.4cqw; letter-spacing: 0.06em; text-transform: uppercase; color: var(--stock-ink); }
 
 .poster--tidal .p-sun { width: 64cqw; aspect-ratio: 1; right: -10cqw; top: 22cqh; border-radius: 50%; background: var(--pink); }
-.poster--tidal .p-waves { left: 0; right: 0; bottom: 0; height: 52cqh; background: repeating-linear-gradient(180deg, var(--blue) 0 4.5cqh, transparent 4.5cqh 8cqh); }
-.poster--tidal .p-small { color: var(--stock); mix-blend-mode: normal; }
+.poster--tidal .p-waves { left: 0; right: 0; bottom: 11cqh; height: 43cqh; background: repeating-linear-gradient(180deg, var(--blue) 0 4.5cqh, transparent 4.5cqh 8cqh); }
 
 .poster--lanterns .p-night { inset: 0; background: radial-gradient(circle, transparent 0 34%, var(--blue) 35%) 0 0 / 22cqw 22cqw; }
 .poster--lanterns .p-lamps { inset: 0; background: radial-gradient(circle, var(--yellow) 0 36%, transparent 37%) 0.9cqw 0.7cqw / 22cqw 22cqw; }
@@ -59,6 +64,7 @@ a:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
 .poster--walk .p-path { left: -20cqw; right: -20cqw; top: 58cqh; height: 13cqh; rotate: -18deg; background: var(--yellow); }
 .poster--walk .p-dot { width: 22cqw; aspect-ratio: 1; right: 10cqw; top: 26cqh; border-radius: 50%; background: var(--pink); }
 .poster--walk .p-type { color: var(--pink); }
+.poster--walk .p-small { left: 20cqw; line-height: 1.35; color: var(--stock); mix-blend-mode: normal; }   /* knocked out of the arch */
 
 .poster--fair .p-blocks { inset: 38cqh 7cqw 12cqh; background:
     linear-gradient(var(--pink), var(--pink)) 0 0 / 31% 46% no-repeat,
@@ -86,14 +92,22 @@ a:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
 .pair { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 420px); gap: calc(var(--unit) * 6); align-items: start; }
 
 /* ---- staged (full and reduced tiers): one sticky stage, every pair stacked in the same place ------------------ */
-html[data-staged] .deal { position: relative; height: calc((var(--n) - 1) * 140svh + 160svh); padding: 0; }
+/* The section's height is the score's length, written inline by the script (T × 100svh); it is not repeated here. */
+html[data-staged] .deal { position: relative; padding: 0; }
 html[data-staged] .deal__stage { position: sticky; top: 0; height: 100svh; overflow: clip; display: block; }
 html[data-staged] .deal__head { position: absolute; left: 0; top: 14svh; width: calc(var(--gutter) + 26vw); }
 html[data-staged] .deal__pairs { position: absolute; inset: 0; display: block; padding: 0; }
 html[data-staged] .pair { position: absolute; inset: 0; display: block; z-index: var(--i); pointer-events: none; }
 html[data-staged] .sheet { position: absolute; pointer-events: auto; }
-html[data-staged] .sheet--media { left: 50%; top: 13svh; height: 74svh; transform-origin: 50% 50%; }
-html[data-staged] .sheet--caption { left: calc(50% + 3vw - var(--cap-w)); top: 46svh; width: var(--cap-w); z-index: 1; transform-origin: 0 0; }
+html[data-staged] .sheet--media { left: 50%; top: calc(50svh - var(--print-w) * 0.625); width: var(--print-w); transform-origin: 50% 50%; }
+html[data-staged] .sheet--caption { left: calc(50% + 3vw - var(--cap-w)); top: calc(50svh - var(--print-w) * 0.07); width: var(--cap-w); z-index: 1; transform-origin: 0 0; }
+
+/* A short window (a phone on its side, a laptop with the toolbars out): the note gives way, and the ticket sits on the
+   stage's lower edge rather than at a height it would run past. */
+@media (max-height: 520px) and (min-width: 761px) {
+  html[data-staged] .deal__note { display: none; }
+  html[data-staged] .sheet--caption { top: auto; bottom: 6svh; gap: 6px; padding: 16px 20px 18px; }
+}
 
 /* Reduced: no travel. Pairs cross-fade in place as the active pair changes. A faded pair stays in the tab order (its
    ticket, once focused, brings it back) but takes no pointer, so a click always lands on the pair that is shown. */
@@ -116,13 +130,14 @@ html[data-deal="fade"] .pair:not([data-active]) .sheet { pointer-events: none; }
 .footer { padding-block: calc(var(--unit) * 14); color: var(--muted); }
 .footer p { max-width: 64ch; margin: 0; }
 
-/* ---- phone: the pair stacks, ticket above print, inside the same sticky stage --------------------------------- */
+/* ---- phone: the print carries the frame, the ticket laid across its foot, inside the same sticky stage ---------- */
 @media (max-width: 760px) {
+  :root { --print-w: min(82vw, 40svh); }
   .pair { grid-template-columns: minmax(0, 1fr); }
   html[data-staged] .deal__head { top: 64px; width: auto; right: 0; padding-inline: var(--gutter); }
   html[data-staged] .deal__note { display: none; }
-  html[data-staged] .sheet--caption { left: var(--gutter); right: calc(var(--gutter) + 28px); width: auto; top: 22svh; padding: 18px 20px 20px; }
-  html[data-staged] .sheet--media { left: auto; right: var(--gutter); top: auto; bottom: 7svh; height: auto; width: 62%; }
+  html[data-staged] .sheet--media { left: auto; right: var(--gutter); top: 20svh; width: var(--print-w); }
+  html[data-staged] .sheet--caption { left: calc(var(--gutter) + 8px); right: calc(var(--gutter) + 16vw); width: auto; top: calc(20svh + var(--print-w) * 1.25 - 28px); padding: 18px 20px 20px; }
   .sheet__title { font-size: 1.5rem; }
 }
 

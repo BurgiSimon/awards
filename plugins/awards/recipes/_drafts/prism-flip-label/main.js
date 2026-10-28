@@ -1,11 +1,11 @@
 import { awards } from '../../_shared/awards-hook.js';
 import { motionTier, onMotionTierChange, syncMotionTierAttribute } from '../../_shared/reduced-motion.js';
 
-// Prism labels. Each [data-prism] link is written as its plain label; this module turns it into a CSS 3D box with the
-// label on its front face and an aria-hidden copy on the face below, so a quarter turn about X (CSS, on hover and on
-// keyboard focus) rolls the copy into view. The box sits back by half its height, so it turns about its own centre and
-// the front face rests exactly in the page plane. `letters` builds one box per letter with a stagger. The only script
-// work is building the faces and measuring each box's half-height; every state change is CSS.
+// Prism labels. Each [data-prism] link is written as its plain label; this module turns it into a box with the label
+// on its front face and an aria-hidden copy on the face below, so a quarter turn about X (CSS, on hover and on keyboard
+// focus) rolls the copy into view. The box turns about an axis half its own height behind the label, so the copy ends
+// exactly where the label was. `letters` builds one box per letter with a stagger. The only script work is building
+// the faces and measuring each box's half-height; every state change, and the 3D itself, is CSS.
 
 syncMotionTierAttribute();
 let tier = motionTier();
@@ -17,6 +17,11 @@ const applyTier = () => {
 };
 applyTier();
 onMotionTierChange((t) => { tier = t; applyTier(); });
+// A site's own motion setting writes data-motion on <html>; follow it as well as the system preference.
+new MutationObserver(() => { tier = motionTier(); applyTier(); }).observe(html, { attributes: true, attributeFilter: ['data-motion'] });
+// iOS Safari applies :active (the press state touch gets instead of a turn) only once the page has a touch listener;
+// an empty handler on the document is enough (it does nothing, so it cannot block scrolling).
+document.ontouchstart = () => {};
 
 const links = [...document.querySelectorAll('[data-prism]')];
 // Letters are split by grapheme, and their row keeps the label's own direction: separate boxes would otherwise be laid
@@ -60,20 +65,26 @@ for (const a of links) {
       }
       row.append(word);
     }
+    row.style.setProperty('--steps', String(Math.max(1, i - 1)));   // the stagger is capped per title in CSS
     a.append(row);
   } else {
     a.append(box(label));
   }
 }
 
-// Depth = half the box's own height, measured, so a label that wraps to two lines still turns about its centre.
+// Depth = half the box's own height, so a label that wraps to two lines still turns about its centre. Each box is
+// observed, so a font swap, a resize or a narrower column re-measures it; the observer hands over the sizes, so nothing
+// is read back from layout, and only a changed value is written.
 const boxes = [...document.querySelectorAll('.prism__box')];
-function measure() {
-  for (const b of boxes) b.style.setProperty('--depth', `${(b.offsetHeight / 2).toFixed(2)}px`);
-}
-measure();
-new ResizeObserver(measure).observe(document.body);
-document.fonts.ready.then(measure);
+const depths = new WeakMap();
+const sizes = new ResizeObserver((entries) => {
+  for (const e of entries) {
+    const h = e.borderBoxSize?.[0]?.blockSize ?? e.target.offsetHeight;
+    const d = `${(h / 2).toFixed(2)}px`;
+    if (depths.get(e.target) !== d) { depths.set(e.target, d); e.target.style.setProperty('--depth', d); }
+  }
+});
+for (const b of boxes) sizes.observe(b);
 
 awards.addState(() => ({
   motion: tier,

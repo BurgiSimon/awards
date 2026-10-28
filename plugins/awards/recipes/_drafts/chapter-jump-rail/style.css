@@ -51,9 +51,8 @@ html[dir="rtl"] .rail__fill { transform-origin: 100% 50%; }
 .rail__link[aria-current="true"] .rail__num { color: var(--accent); }
 .rail__link[aria-current="true"] .rail__fill { background: var(--accent); }
 
-/* The marker: one bar beside the list, moved by a written transform on the routine band. */
-.rail__marker { position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--accent); opacity: 0; pointer-events: none; transition: transform var(--dur-routine) var(--ease-out-expo), opacity var(--dur-routine) linear; }
-html[dir="rtl"] .rail__marker { left: auto; right: 0; }
+/* The marker: one bar riding the list's 1 px track, moved by a written transform on the routine band. */
+.rail__marker { position: absolute; top: 0; inset-inline-start: 0; width: 3px; height: 0; background: var(--accent); opacity: 0; pointer-events: none; transition: transform var(--dur-routine) var(--ease-out-expo), opacity var(--dur-routine) linear; }
 .rail__marker.is-on { opacity: 1; }
 .rail__marker.is-cut { transition-property: opacity; }
 
@@ -63,13 +62,19 @@ html[dir="rtl"] .rail__marker { left: auto; right: 0; }
 }
 
 /* ---------- The stages ---------- */
-.stage { min-height: 125svh; padding-block: 16vh 12vh; border-top: 1px solid var(--line); scroll-margin-top: 0; }
+.stage { padding-block: 12vh 10vh; border-top: 1px solid var(--line); scroll-margin-top: 0; }
 .stage__title { margin: 0 0 calc(var(--unit) * 8); max-width: 15ch; font-size: clamp(2.25rem, 4.8vw, 5rem); font-weight: 700; line-height: 0.98; letter-spacing: -0.025em; outline-offset: 8px; }
 .stage__num { display: block; margin-bottom: calc(var(--unit) * 4); font-family: var(--font-mono); font-size: 0.8125rem; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
 .stage__aside { margin: 0 0 calc(var(--unit) * 10); max-width: var(--content); }
-.stage__profile { width: 100%; height: clamp(88px, 12vw, 150px); }
-.stage__ground { fill: color-mix(in oklab, var(--ink) 9%, var(--ground)); }
+/* Every profile shares one altitude scale (0–600 m on the same baseline), so the six stages compare at a glance. */
+.stage__chart { position: relative; padding-inline-start: 3.25rem; }
+.stage__profile { display: block; width: 100%; height: clamp(88px, 12vw, 150px); }
+.stage__ground { fill: color-mix(in oklab, var(--ink) 16%, var(--ground)); }
+.stage__grid { fill: none; stroke: color-mix(in oklab, var(--ink) 34%, var(--ground)); stroke-width: 1; stroke-dasharray: 2 5; vector-effect: non-scaling-stroke; }
 .stage__line { fill: none; stroke: var(--ink); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.stage__alt { position: absolute; inset-inline-start: 0; translate: 0 -50%; font-family: var(--font-mono); font-size: 0.6875rem; line-height: 1; letter-spacing: 0.04em; color: var(--muted); white-space: nowrap; }
+.stage__alt--400 { top: calc(44 / 120 * 100%); }
+.stage__alt--200 { top: calc(80 / 120 * 100%); }
 .stage__facts { margin-top: calc(var(--unit) * 4); padding-top: calc(var(--unit) * 3); border-top: 1px solid var(--line); font-style: italic; font-size: 1.1875rem; line-height: 1.4; color: var(--muted); }
 .stage__text { max-width: var(--content); }
 .stage__text p { margin: 0 0 1.1em; }
@@ -105,11 +110,12 @@ html[dir="rtl"] .rail__marker { left: auto; right: 0; }
   .rail__ticket-fill { display: block; height: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); }
   html[dir="rtl"] .rail__ticket-fill { transform-origin: 100% 50%; }
   .rail__ticket:focus-visible { outline-offset: -4px; }
+  .rail[data-enhanced] .rail__marker { inset-inline-start: var(--gutter); }   /* on the list's track, inside the panel's padding */
   .rail[data-enhanced] .rail__body { display: none; position: absolute; top: calc(100% + 1px); left: 0; right: 0; max-height: calc(100svh - var(--ticket-h) - 24px); overflow: auto; overscroll-behavior: contain; padding: calc(var(--unit) * 5) var(--gutter) calc(var(--unit) * 6); background: var(--ground); border-bottom: 1px solid var(--line); }
   .rail[data-enhanced][data-open] .rail__body { display: block; transition: opacity var(--dur-routine) linear, translate var(--dur-routine) var(--ease-out-expo); }
   @starting-style { .rail[data-enhanced][data-open] .rail__body { opacity: 0; translate: 0 -8px; } }
   .rail__link { min-height: 56px; }
-  .stage { min-height: 0; padding-block: 12vh 10vh; scroll-margin-top: var(--ticket-h); }
+  .stage { padding-block: 12vh 10vh; scroll-margin-top: var(--ticket-h); }
 }
 
 /* Reduced motion keeps every state change (current link, colours, fills) and drops the travel: the marker cuts, the
@@ -120,8 +126,13 @@ html[dir="rtl"] .rail__marker { left: auto; right: 0; }
   .rail[data-enhanced][data-open] .rail__body { transition-property: opacity; }
   @starting-style { .rail[data-enhanced][data-open] .rail__body { translate: none; } }
 }
+/* The same for a tier forced on <html> (data-motion="reduced" or "static"), which motionTier() honours without the media query. */
 html[data-motion="reduced"] .rail__marker, html[data-motion="static"] .rail__marker { transition-property: opacity; }
-html[data-motion="static"] .rail__marker, html[data-motion="static"] .rail__link, html[data-motion="static"] .rail__num { transition: none; }
+html[data-motion="reduced"] .rail__chevron, html[data-motion="static"] .rail__chevron { transition: none; }
+html[data-motion="reduced"] .rail[data-enhanced][data-open] .rail__body { transition-property: opacity; }
+@starting-style { html[data-motion="reduced"] .rail[data-enhanced][data-open] .rail__body, html[data-motion="static"] .rail[data-enhanced][data-open] .rail__body { translate: none; } }
+/* Static settles everything: no colour transitions, the list opens without a fade. */
+html[data-motion="static"] .rail__marker, html[data-motion="static"] .rail__link, html[data-motion="static"] .rail__num, html[data-motion="static"] .rail[data-enhanced][data-open] .rail__body { transition: none; }
 
 /* Forced colours drop the marker's and the fills' backgrounds: the current link carries an outline instead. */
 @media (forced-colors: active) {

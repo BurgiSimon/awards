@@ -3,7 +3,7 @@
   "title": "Prism flip label: a quarter turn that rolls a copy of the label into view",
   "intent": "Nav and link labels that turn like a block",
   "group": "arrival-and-chrome",
-  "summary": "Each `[data-prism]` link ships as its plain label; the module wraps it in a `transform-style: preserve-3d` box holding the label on a front face (`translateZ(d)`) and an `aria-hidden` copy on the face below (`rotateX(-90deg) translateZ(d)`), with `backface-visibility: hidden` and `d` measured as half the box's own height, and sets the box back by `translateZ(-d)` so the front face rests exactly in the page plane and the box turns about its own centre; hover (fine pointers only, `(hover: hover)`) and `:focus-visible` turn it `rotateX(90deg)` under `perspective: 1000px` on its parent over `400 ms` expo-out, after which the copy sits on the label's exact box; four header cells roll to an inked cell while their siblings dim to `.55`, footer links roll to an inverted tile, and the `letters` variant builds one prism per letter inside no-wrap words with a `24 ms` stagger and a visually hidden label as the accessible name; touch gets no turn but a filled press state; reduced motion and static swap the two faces in place by opacity (`120 ms`, none in static) with no transform; forced colours show the plain label",
+  "summary": "Each `[data-prism]` link ships as its plain label; the module wraps it in a box holding the label on a front face and an `aria-hidden` copy folded `rotateX(-90deg)` under it, and writes `d`, half the box's own height, from a `ResizeObserver` on every box; at rest the box is flat (no transform, no 3D context, the copy `visibility: hidden`), so the page holds no 3D compositor layer; hover on hover-capable primary pointers (`(hover: hover)`) and `:focus-visible` make it `preserve-3d` and turn it `rotateX(90deg)` about `transform-origin: 50% 50% -d` under `perspective: 1000px` on its parent, after which the copy sits on the label's exact box, and leaving holds the 3D state with `transition-behavior: allow-discrete` until the turn back ends; four header cells roll to an inked cell over `400 ms` expo-out while their siblings dim to `.66` (never the focused cell), footer links roll to an inverted tile, and the `letters` variant builds one prism per grapheme inside no-wrap words, `300 ms` cubic-out each with a stagger of `min(40 ms, 400 ms / (letters − 1))` so every title finishes by `700 ms`, and a visually hidden label as the accessible name; the faces are shaded by the turn (the outgoing face brightens, the incoming one comes out of shade); touch gets no turn but a filled press state (an empty `ontouchstart` handler on the document keeps `:active` alive on iOS Safari); reduced motion swaps the two faces in place by opacity (`120 ms` under `prefers-reduced-motion`) with no transform, static cuts; forced colours show the plain label",
   "tags": [
     "css-3d",
     "hover",
@@ -19,12 +19,13 @@
   "deps": [],
   "variants": [
     "whole label, header cells and footer links (this, default)",
-    "one prism per letter with a 24 ms stagger (`data-prism=\"letters\"`, the film list here)",
-    "perspective applied only while a box is turning, as the source does, for text that must stay on the page's own raster at rest",
+    "one prism per letter with a capped stagger (`data-prism=\"letters\"`, the film list here)",
+    "always a prism: `preserve-3d`, `backface-visibility` and the copy's fold set at rest, for one or two labels where shorter CSS matters more than the layers each box then holds",
     "a third face: turn 180° about X to show a face on the back, for a label that says something different (a count, a date) rather than repeating itself"
   ],
   "seenIn": [
-    "warmnfuzzy"
+    "warmnfuzzy",
+    "seasats"
   ],
   "drafted": "2026-10-28"
 }

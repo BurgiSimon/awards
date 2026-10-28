@@ -1,9 +1,9 @@
 {
   "id": "chapter-jump-rail",
-  "title": "Chapter jump rail: a scrollspy of real links that jumps, lands and announces",
+  "title": "Chapter jump rail: a scrollspy of real links that jumps, lands on the heading and lets go",
   "intent": "Chapter jump rail and scrollspy index",
   "group": "arrival-and-chrome",
-  "summary": "One fixed `<nav aria-label>` of six numbered chapter links whose current one (`aria-current=\"true\"`) is the chapter with its midpoint nearest the viewport centre (none above the first chapter or below the last), measured from cached offsets on every Lenis and native scroll; a 2 px rule under each name fills with `scaleX` from the reading position (done chapters full, the current one at the centre line's share of its height); one marker bar moves by a written `translate3d` on the routine band (`.4 s` expo-out) and cuts when it first appears; any in-page chapter link jumps with `lenis.scrollTo` (`1.2 s`, Lenis on the GSAP ticker, `scroll-margin-top` honoured), marks the destination at the start of the glide and holds it until landing, then focuses the chapter heading (`tabindex=-1`, `preventScroll`), writes the hash and announces `Stage n of 6: title` once in a polite status; a wheel, touch or scrolling key mid-glide cancels the landing; below 900 px the same list sits behind a sticky ticket naming the current chapter (`n of 6` + short title) with its own progress rule, a disclosure (`aria-expanded`) closed by Escape, outside taps, Tab out and a jump; reduced motion jumps instantly and keeps the current link, fills and announcements while the marker cuts; forced colours outline the current link",
+  "summary": "One fixed `<nav aria-label>` of six numbered chapter links whose current one (`aria-current=\"true\"`) is the chapter with its midpoint nearest the viewport centre (none above the first chapter or below the last), measured from cached offsets once per Lenis scroll event; a 2 px rule under each name fills with `scaleX` from the reading position (done chapters full, the current one at the centre line's share of its height); one 3 px marker centred on the list's 1 px track moves by a written `translate3d` on the routine band (`.4 s` expo-out) and cuts when it first appears; any in-page chapter link jumps with `lenis.scrollTo` (`1.2 s`, Lenis on the GSAP ticker, `scroll-margin-top` honoured, the glide named by `userData`), marks the destination at the start and holds it until landing, then focuses the chapter heading (`tabindex=-1`, `preventScroll`, the only announcement; no live region) and replaces the hash; a `touchmove`, wheel or scrolling key mid-glide stops the glide where it is (`lenis.stop(); lenis.start()`) with no landing, a tap does not, and a check every `1.8 s` waits for a late glide and lets go of a replaced one; below 900 px the same list sits behind a sticky ticket (\"Stage n of 6\" + short title, described as opening the list) with its own progress rule, docked by a `0.5 s` glide when opened off the top, a disclosure (`aria-expanded`) closed by Escape, outside taps, Tab out and a jump, which parks focus on the ticket for the glide; reduced and static tiers (by media query or `html[data-motion]`) jump and dock instantly, cut the marker and chevron and keep the current link, fills and focus move; the six height profiles share one 0–600 m scale; forced colours outline the current link",
   "tags": [
     "navigation",
     "progress",
@@ -33,7 +33,8 @@
     "gehry-getty",
     "oryzo",
     "mont-fort",
-    "seasats"
+    "seasats",
+    "shopify-editions-w26"
   ],
   "drafted": "2026-10-28"
 }

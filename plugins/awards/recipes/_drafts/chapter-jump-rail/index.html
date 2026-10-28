@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#13201a">
   <title>chapter-jump-rail — awards recipe draft</title>
-  <meta name="description" content="A chaptered long read with a fixed rail of real chapter links: the current one follows the section nearest the viewport centre, a rule fills with the reading position, jumps land with focus on the heading and a polite announcement, and phones get a sticky ticket that opens the same list.">
+  <meta name="description" content="A chaptered long read with a fixed rail of real chapter links: the current one follows the section nearest the viewport centre, a rule fills with the reading position, jumps land with focus on the chapter heading, and phones get a sticky ticket that opens the same list.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2313201a'/%3E%3Crect x='6' y='6' width='3' height='20' fill='%23ece5d3'/%3E%3Crect x='6' y='12' width='3' height='6' fill='%23f0894b'/%3E%3Crect x='13' y='8' width='13' height='2' fill='%23ece5d3'/%3E%3Crect x='13' y='14' width='13' height='2' fill='%23f0894b'/%3E%3Crect x='13' y='20' width='9' height='2' fill='%23ece5d3'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="./style.css">
 </head>
@@ -24,21 +24,22 @@
     </section>
 
     <nav class="rail" aria-label="Stages of the walk" data-rail>
-      <button class="rail__ticket" type="button" aria-expanded="false" aria-controls="rail-list" data-ticket>
-        <span class="rail__ticket-num" data-ticket-num>6 stages</span>
+      <button class="rail__ticket" type="button" aria-expanded="false" aria-controls="rail-list" aria-describedby="rail-hint" data-ticket>
+        <span class="rail__ticket-num"><span class="sr-only" data-ticket-pre hidden>Stage </span><span data-ticket-count>6 stages</span></span>
         <span class="rail__ticket-name" data-ticket-name>Contents</span>
         <span class="rail__chevron" aria-hidden="true"></span>
         <span class="rail__ticket-rule" aria-hidden="true"><span class="rail__ticket-fill" data-ticket-fill></span></span>
       </button>
+      <span id="rail-hint" hidden>Shows the list of all six stages</span>
       <div class="rail__body" data-rail-body>
         <p class="rail__head" aria-hidden="true">Stages</p>
         <ol class="rail__list" id="rail-list" data-list>
-          <li><a class="rail__link" href="#stage-1" data-link><span class="rail__num" aria-hidden="true">1</span><span class="rail__name"><span class="sr-only">Stage 1: </span>Harbour Gate</span><span class="rail__rule" aria-hidden="true"><span class="rail__fill" data-fill></span></span></a></li>
-          <li><a class="rail__link" href="#stage-2" data-link><span class="rail__num" aria-hidden="true">2</span><span class="rail__name"><span class="sr-only">Stage 2: </span>Salt Flats</span><span class="rail__rule" aria-hidden="true"><span class="rail__fill" data-fill></span></span></a></li>
-          <li><a class="rail__link" href="#stage-3" data-link><span class="rail__num" aria-hidden="true">3</span><span class="rail__name"><span class="sr-only">Stage 3: </span>Kestrel Ridge</span><span class="rail__rule" aria-hidden="true"><span class="rail__fill" data-fill></span></span></a></li>
-          <li><a class="rail__link" href="#stage-4" data-link><span class="rail__num" aria-hidden="true">4</span><span class="rail__name"><span class="sr-only">Stage 4: </span>Lowmoor Wood</span><span class="rail__rule" aria-hidden="true"><span class="rail__fill" data-fill></span></span></a></li>
-          <li><a class="rail__link" href="#stage-5" data-link><span class="rail__num" aria-hidden="true">5</span><span class="rail__name"><span class="sr-only">Stage 5: </span>The Weirs</span><span class="rail__rule" aria-hidden="true"><span class="rail__fill" data-fill></span></span></a></li>
-          <li><a class="rail__link" href="#stage-6" data-link><span class="rail__num" aria-hidden="true">6</span><span class="rail__name"><span class="sr-only">Stage 6: </span>Orrin Cairn</span><span class="rail__rule" aria-hidden="true"><span class="rail__fill" data-fill></span></span></a></li>
+          <li><a class="rail__link" href="#stage-1" data-link><span class="rail__num"><span class="sr-only">Stage </span>1</span> <span class="rail__name">Harbour Gate</span><span class="rail__rule" aria-hidden="true"><span class="rail__fill" data-fill></span></span></a></li>
+          <li><a class="rail__link" href="#stage-2" data-link><span class="rail__num"><span class="sr-only">Stage </span>2</span> <span class="rail__name">Salt Flats</span><span class="rail__rule" aria-hidden="true"><span class="rail__fill" data-fill></span></span></a></li>
+          <li><a class="rail__link" href="#stage-3" data-link><span class="rail__num"><span class="sr-only">Stage </span>3</span> <span class="rail__name">Kestrel Ridge</span><span class="rail__rule" aria-hidden="true"><span class="rail__fill" data-fill></span></span></a></li>
+          <li><a class="rail__link" href="#stage-4" data-link><span class="rail__num"><span class="sr-only">Stage </span>4</span> <span class="rail__name">Lowmoor Wood</span><span class="rail__rule" aria-hidden="true"><span class="rail__fill" data-fill></span></span></a></li>
+          <li><a class="rail__link" href="#stage-5" data-link><span class="rail__num"><span class="sr-only">Stage </span>5</span> <span class="rail__name">The Weirs</span><span class="rail__rule" aria-hidden="true"><span class="rail__fill" data-fill></span></span></a></li>
+          <li><a class="rail__link" href="#stage-6" data-link><span class="rail__num"><span class="sr-only">Stage </span>6</span> <span class="rail__name">Orrin Cairn</span><span class="rail__rule" aria-hidden="true"><span class="rail__fill" data-fill></span></span></a></li>
         </ol>
         <span class="rail__marker" aria-hidden="true" data-marker></span>
       </div>
@@ -48,7 +49,7 @@
       <section class="stage" id="stage-1" aria-labelledby="stage-1-t" data-chapter data-short="Harbour Gate">
         <h2 class="stage__title" id="stage-1-t" tabindex="-1"><span class="stage__num">Stage 1</span> From the harbour gate to the first stile</h2>
         <figure class="stage__aside">
-          <svg class="stage__profile" viewBox="0 0 600 120" preserveAspectRatio="none" role="img" aria-label="Height profile of stage 1: almost flat, from 4 to 64 metres"><path class="stage__ground" d="M0 116 L60 114 L140 112 L220 108 L300 104 L380 100 L460 92 L540 86 L600 84 L600 120 L0 120 Z"/><path class="stage__line" d="M0 116 L60 114 L140 112 L220 108 L300 104 L380 100 L460 92 L540 86 L600 84"/></svg>
+          <div class="stage__chart"><svg class="stage__profile" viewBox="0 0 600 120" preserveAspectRatio="none" role="img" aria-label="Height profile of stage 1: low and rolling, never above 52 metres, back down to the shore at the stile"><path class="stage__ground" d="M0 115.3 L80 114.6 L160 113.5 L220 111 L300 111.7 L360 112.8 L440 109.5 L500 106.6 L560 110.6 L600 114.9 L600 120 L0 120 Z"/><path class="stage__grid" d="M0 80 H600 M0 44 H600"/><path class="stage__line" d="M0 115.3 L80 114.6 L160 113.5 L220 111 L300 111.7 L360 112.8 L440 109.5 L500 106.6 L560 110.6 L600 114.9"/></svg><span class="stage__alt stage__alt--400" aria-hidden="true">400 m</span><span class="stage__alt stage__alt--200" aria-hidden="true">200 m</span></div>
           <figcaption class="stage__facts">Nine and a half kilometres, sixty metres of climbing, about three hours.</figcaption>
         </figure>
         <div class="stage__text">
@@ -62,7 +63,7 @@
       <section class="stage" id="stage-2" aria-labelledby="stage-2-t" data-chapter data-short="Salt Flats">
         <h2 class="stage__title" id="stage-2-t" tabindex="-1"><span class="stage__num">Stage 2</span> Across the salt flats at low water</h2>
         <figure class="stage__aside">
-          <svg class="stage__profile" viewBox="0 0 600 120" preserveAspectRatio="none" role="img" aria-label="Height profile of stage 2: flat at sea level for the whole stage"><path class="stage__ground" d="M0 112 L100 114 L200 116 L300 116 L400 116 L500 114 L600 112 L600 120 L0 120 Z"/><path class="stage__line" d="M0 112 L100 114 L200 116 L300 116 L400 116 L500 114 L600 112"/></svg>
+          <div class="stage__chart"><svg class="stage__profile" viewBox="0 0 600 120" preserveAspectRatio="none" role="img" aria-label="Height profile of stage 2: flat at sea level for the whole stage"><path class="stage__ground" d="M0 114.9 L100 115.5 L200 115.6 L300 115.6 L400 115.6 L500 115.5 L600 114.9 L600 120 L0 120 Z"/><path class="stage__grid" d="M0 80 H600 M0 44 H600"/><path class="stage__line" d="M0 114.9 L100 115.5 L200 115.6 L300 115.6 L400 115.6 L500 115.5 L600 114.9"/></svg><span class="stage__alt stage__alt--400" aria-hidden="true">400 m</span><span class="stage__alt stage__alt--200" aria-hidden="true">200 m</span></div>
           <figcaption class="stage__facts">Fourteen kilometres on the level, about four hours, and only between two tides.</figcaption>
         </figure>
         <div class="stage__text">
@@ -76,7 +77,7 @@
       <section class="stage" id="stage-3" aria-labelledby="stage-3-t" data-chapter data-short="Kestrel Ridge">
         <h2 class="stage__title" id="stage-3-t" tabindex="-1"><span class="stage__num">Stage 3</span> Up Kestrel Ridge in a west wind</h2>
         <figure class="stage__aside">
-          <svg class="stage__profile" viewBox="0 0 600 120" preserveAspectRatio="none" role="img" aria-label="Height profile of stage 3: a steady climb from 6 to 296 metres, then a short descent"><path class="stage__ground" d="M0 114 L60 108 L120 92 L180 74 L240 58 L300 40 L360 28 L420 20 L480 18 L540 30 L600 44 L600 120 L0 120 Z"/><path class="stage__line" d="M0 114 L60 108 L120 92 L180 74 L240 58 L300 40 L360 28 L420 20 L480 18 L540 30 L600 44"/></svg>
+          <div class="stage__chart"><svg class="stage__profile" viewBox="0 0 600 120" preserveAspectRatio="none" role="img" aria-label="Height profile of stage 3: a steady climb from 6 to 296 metres, then a short descent to 250"><path class="stage__ground" d="M0 114.9 L60 112.4 L120 105.2 L180 96.2 L240 87.2 L300 78.2 L360 71 L420 65.6 L480 62.7 L540 67 L600 71 L600 120 L0 120 Z"/><path class="stage__grid" d="M0 80 H600 M0 44 H600"/><path class="stage__line" d="M0 114.9 L60 112.4 L120 105.2 L180 96.2 L240 87.2 L300 78.2 L360 71 L420 65.6 L480 62.7 L540 67 L600 71"/></svg><span class="stage__alt stage__alt--400" aria-hidden="true">400 m</span><span class="stage__alt stage__alt--200" aria-hidden="true">200 m</span></div>
           <figcaption class="stage__facts">Twelve kilometres, two hundred and ninety metres of climbing, about four and a half hours.</figcaption>
         </figure>
         <div class="stage__text">
@@ -90,7 +91,7 @@
       <section class="stage" id="stage-4" aria-labelledby="stage-4-t" data-chapter data-short="Lowmoor Wood">
         <h2 class="stage__title" id="stage-4-t" tabindex="-1"><span class="stage__num">Stage 4</span> Down through Lowmoor Wood</h2>
         <figure class="stage__aside">
-          <svg class="stage__profile" viewBox="0 0 600 120" preserveAspectRatio="none" role="img" aria-label="Height profile of stage 4: a descent from 250 to 70 metres through the wood"><path class="stage__ground" d="M0 30 L60 34 L120 44 L180 56 L240 66 L300 74 L360 84 L420 90 L480 96 L540 98 L600 100 L600 120 L0 120 Z"/><path class="stage__line" d="M0 30 L60 34 L120 44 L180 56 L240 66 L300 74 L360 84 L420 90 L480 96 L540 98 L600 100"/></svg>
+          <div class="stage__chart"><svg class="stage__profile" viewBox="0 0 600 120" preserveAspectRatio="none" role="img" aria-label="Height profile of stage 4: a descent from 250 to 70 metres through the wood"><path class="stage__ground" d="M0 71 L60 72.8 L120 77.3 L180 82.7 L240 87.2 L300 90.8 L360 94.8 L420 98 L480 100.5 L540 102.3 L600 103.4 L600 120 L0 120 Z"/><path class="stage__grid" d="M0 80 H600 M0 44 H600"/><path class="stage__line" d="M0 71 L60 72.8 L120 77.3 L180 82.7 L240 87.2 L300 90.8 L360 94.8 L420 98 L480 100.5 L540 102.3 L600 103.4"/></svg><span class="stage__alt stage__alt--400" aria-hidden="true">400 m</span><span class="stage__alt stage__alt--200" aria-hidden="true">200 m</span></div>
           <figcaption class="stage__facts">Eleven kilometres, mostly downhill, about three and a half hours.</figcaption>
         </figure>
         <div class="stage__text">
@@ -104,7 +105,7 @@
       <section class="stage" id="stage-5" aria-labelledby="stage-5-t" data-chapter data-short="The Weirs">
         <h2 class="stage__title" id="stage-5-t" tabindex="-1"><span class="stage__num">Stage 5</span> Along the weirs to Callow Bridge</h2>
         <figure class="stage__aside">
-          <svg class="stage__profile" viewBox="0 0 600 120" preserveAspectRatio="none" role="img" aria-label="Height profile of stage 5: a gentle rise in steps from 70 to 150 metres"><path class="stage__ground" d="M0 100 L80 100 L90 94 L180 94 L190 88 L290 88 L300 80 L400 80 L410 72 L510 72 L520 66 L600 66 L600 120 L0 120 Z"/><path class="stage__line" d="M0 100 L80 100 L90 94 L180 94 L190 88 L290 88 L300 80 L400 80 L410 72 L510 72 L520 66 L600 66"/></svg>
+          <div class="stage__chart"><svg class="stage__profile" viewBox="0 0 600 120" preserveAspectRatio="none" role="img" aria-label="Height profile of stage 5: a gentle rise in five steps from 70 to 150 metres"><path class="stage__ground" d="M0 103.4 L80 103.4 L90 100.5 L180 100.5 L190 97.6 L290 97.6 L300 94.8 L400 94.8 L410 91.9 L510 91.9 L520 89 L600 89 L600 120 L0 120 Z"/><path class="stage__grid" d="M0 80 H600 M0 44 H600"/><path class="stage__line" d="M0 103.4 L80 103.4 L90 100.5 L180 100.5 L190 97.6 L290 97.6 L300 94.8 L400 94.8 L410 91.9 L510 91.9 L520 89 L600 89"/></svg><span class="stage__alt stage__alt--400" aria-hidden="true">400 m</span><span class="stage__alt stage__alt--200" aria-hidden="true">200 m</span></div>
           <figcaption class="stage__facts">Fifteen kilometres beside the river, gently uphill, about four and a half hours.</figcaption>
         </figure>
         <div class="stage__text">
@@ -118,7 +119,7 @@
       <section class="stage" id="stage-6" aria-labelledby="stage-6-t" data-chapter data-short="Orrin Cairn">
         <h2 class="stage__title" id="stage-6-t" tabindex="-1"><span class="stage__num">Stage 6</span> The last climb to Orrin Cairn</h2>
         <figure class="stage__aside">
-          <svg class="stage__profile" viewBox="0 0 600 120" preserveAspectRatio="none" role="img" aria-label="Height profile of stage 6: a long climb from 150 to 560 metres"><path class="stage__ground" d="M0 104 L70 98 L140 88 L210 74 L280 62 L350 48 L420 34 L490 22 L560 12 L600 10 L600 120 L0 120 Z"/><path class="stage__line" d="M0 104 L70 98 L140 88 L210 74 L280 62 L350 48 L420 34 L490 22 L560 12 L600 10"/></svg>
+          <div class="stage__chart"><svg class="stage__profile" viewBox="0 0 600 120" preserveAspectRatio="none" role="img" aria-label="Height profile of stage 6: a long climb from 150 to 560 metres"><path class="stage__ground" d="M0 89 L70 84.5 L140 77.3 L210 67.4 L280 57.5 L350 46.7 L420 35.9 L490 26 L560 17.9 L600 15.2 L600 120 L0 120 Z"/><path class="stage__grid" d="M0 80 H600 M0 44 H600"/><path class="stage__line" d="M0 89 L70 84.5 L140 77.3 L210 67.4 L280 57.5 L350 46.7 L420 35.9 L490 26 L560 17.9 L600 15.2"/></svg><span class="stage__alt stage__alt--400" aria-hidden="true">400 m</span><span class="stage__alt stage__alt--200" aria-hidden="true">200 m</span></div>
           <figcaption class="stage__facts">Twelve and a half kilometres, four hundred and ten metres of climbing, about five hours.</figcaption>
         </figure>
         <div class="stage__text">
@@ -134,7 +135,6 @@
       <h2 id="close-t">Before you set out</h2>
       <p>Carry the tide table for stage 2 and a map for stage 6, whatever your phone says. The Trust's bunkhouses at the Salt Flats stile and at Callow Bridge take bookings from March to October.</p>
     </section>
-    <p class="sr-only" role="status" aria-live="polite" data-announcer></p>
   </main>
   <footer class="footer"><p class="footer__note">Synthetic demo content: the Orrin Line, its Trust and its places are invented · awards recipe draft · MIT</p></footer>
   <script type="module" src="./main.js"></script>

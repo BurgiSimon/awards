@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#1d1915">
   <title>flip-scroll-path — awards recipe draft</title>
-  <meta name="description" content="One CSS-drawn moon jar carried through four picture boxes that the page lays out, by Flip.fit legs chained into one scrubbed ScrollTrigger timeline, its corner radius changing alongside, rebuilt on every refresh.">
+  <meta name="description" content="One CSS-drawn moon jar carried down a picture lane through four boxes the page lays out, by Flip.fit legs chained into one scrubbed ScrollTrigger timeline, its four corners and its scene changing on the way, rebuilt on every refresh.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231d1915'/%3E%3Cellipse cx='16' cy='17' rx='9' ry='10' fill='%23f1e8da'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="./style.css">
 </head>
@@ -18,75 +18,76 @@
   </header>
   <main id="main">
     <section class="hero wrap" id="top" aria-labelledby="hero-t">
-      <div class="hero__text">
+      <div class="copy hero__text">
         <h1 class="hero__title" id="hero-t">Moon jar, an edition of twelve.</h1>
-        <p class="hero__lede">Porcelain, 41 cm tall, thrown as two bowls and joined at the waist. Scroll, and the one jar is carried into each picture box the page has laid out for it: a tall arch, a small square, a wide shelf, a round window.</p>
+        <p class="hero__lede">Porcelain, 41 cm tall, thrown as two bowls and joined at the waist. All twelve came out of one firing, and each carries its own warm cheek of ash.</p>
       </div>
       <figure class="plate plate--hero">
         <div class="slot slot--arch" data-slot>
-          <div class="ghost" aria-hidden="true"><span class="ghost__jar"></span></div>
-          <div class="art art--still" data-still role="img" aria-label="A round white porcelain jar on a dark shelf, lit warm from the left">
-            <span class="art__glow"></span><span class="art__shadow"></span><span class="art__jar"></span>
+          <div class="art art--set" data-scene="studio" aria-hidden="true"><span class="art__brick"></span><span class="art__glow"></span><span class="art__shadow"></span><span class="art__straw"></span></div>
+          <div class="art art--still" data-still data-scene="studio" role="img" aria-label="A round white porcelain jar on a dark studio shelf, lit warm from the left">
+            <span class="art__brick"></span><span class="art__glow"></span><span class="art__shadow"></span><span class="art__jar"></span><span class="art__straw"></span><span class="art__close"></span>
           </div>
           <div class="flyer" data-flyer aria-hidden="true">
-            <div class="art"><span class="art__glow"></span><span class="art__shadow"></span><span class="art__jar"></span></div>
+            <div class="art"><span class="art__brick"></span><span class="art__glow"></span><span class="art__shadow"></span><span class="art__jar"></span><span class="art__straw"></span><span class="art__close"></span></div>
           </div>
         </div>
-        <figcaption>Jar seven, under a clear glaze with a little iron in it.</figcaption>
+        <figcaption>Jar seven on the studio shelf, under a clear glaze with a little iron in it.</figcaption>
       </figure>
     </section>
 
     <section class="halves wrap" aria-labelledby="halves-t">
-      <figure class="plate plate--halves">
-        <div class="slot slot--square" data-slot>
-          <div class="ghost" aria-hidden="true"><span class="ghost__jar"></span></div>
-          <div class="art art--still" data-still role="img" aria-label="The same jar, close, with the faint seam around its widest point">
-            <span class="art__glow"></span><span class="art__shadow"></span><span class="art__jar"></span>
+      <div class="copy">
+        <h2 id="halves-t">Thrown as two bowls.</h2>
+        <p>A jar this wide will not stand on the wheel in one piece, so each is thrown as two deep bowls of 6 kg each. They are joined rim to rim when leather-hard, and the join is turned smooth but never hidden: hold the jar to the light and the line runs round its waist.</p>
+      </div>
+      <figure class="plate plate--detail">
+        <div class="slot slot--detail" data-slot>
+          <div class="art art--set" data-scene="detail" aria-hidden="true"><span class="art__brick"></span><span class="art__glow"></span><span class="art__shadow"></span><span class="art__straw"></span></div>
+          <div class="art art--still" data-still data-scene="detail" role="img" aria-label="Close on the jar's waist, where a faint seam runs round the porcelain">
+            <span class="art__brick"></span><span class="art__glow"></span><span class="art__shadow"></span><span class="art__jar"></span><span class="art__straw"></span><span class="art__close"></span>
           </div>
         </div>
         <figcaption>The seam stays as a faint belt.</figcaption>
       </figure>
-      <div class="halves__text">
-        <h2 id="halves-t">Thrown as two bowls.</h2>
-        <p>A jar this wide will not stand on the wheel in one piece, so each is thrown as two deep bowls of 6 kg each. They are joined rim to rim when leather-hard, and the join is turned smooth but never hidden: hold the jar to the light and the line runs round its waist.</p>
-      </div>
     </section>
 
     <section class="firing wrap" aria-labelledby="firing-t">
-      <figure class="plate plate--wide">
+      <div class="copy">
+        <h2 id="firing-t">Thirty-one hours in the kiln.</h2>
+        <p>Wood-fired to 1,300 °C over a day and a night, with the firebox fed every eight minutes. The ash settles on the shoulder of whichever jar faces the flame, so no two in the edition carry the same warm cheek.</p>
+      </div>
+      <figure class="plate plate--shelf">
         <div class="slot slot--shelf" data-slot>
-          <div class="ghost" aria-hidden="true"><span class="ghost__jar"></span></div>
-          <div class="art art--still" data-still role="img" aria-label="The jar alone on a long kiln shelf, the brick behind it glowing orange">
-            <span class="art__glow"></span><span class="art__shadow"></span><span class="art__jar"></span>
+          <div class="art art--set" data-scene="kiln" aria-hidden="true"><span class="art__brick"></span><span class="art__glow"></span><span class="art__shadow"></span><span class="art__straw"></span></div>
+          <div class="art art--still" data-still data-scene="kiln" role="img" aria-label="The jar small on a long kiln shelf, a course of brick behind it lit orange">
+            <span class="art__brick"></span><span class="art__glow"></span><span class="art__shadow"></span><span class="art__jar"></span><span class="art__straw"></span><span class="art__close"></span>
           </div>
         </div>
         <figcaption>Cooling on the top shelf, the morning after.</figcaption>
       </figure>
-      <div class="firing__head">
-        <h2 id="firing-t">Thirty-one hours in the kiln.</h2>
-        <p>Wood-fired to 1,300 °C over a day and a night, with the firebox fed every eight minutes. The ash settles on the shoulder of whichever jar faces the flame, so no two in the edition carry the same warm cheek.</p>
-      </div>
     </section>
 
     <section class="reserve wrap" id="reserve" aria-labelledby="reserve-t">
-      <div class="reserve__text">
+      <div class="copy reserve__text">
         <h2 id="reserve-t">Jar seven is still unspoken for.</h2>
         <p>Eleven of the twelve have gone to the people who asked first. The last one ships in a crate of oat straw, with a card that names the firing and the shelf it stood on.</p>
         <a class="cta" href="#enquiry">Write to the studio about jar seven</a>
       </div>
       <figure class="plate plate--round">
         <div class="slot slot--round" data-slot>
-          <div class="ghost" aria-hidden="true"><span class="ghost__jar"></span></div>
-          <div class="art art--still" data-still role="img" aria-label="The jar framed in a round window, as it will arrive">
-            <span class="art__glow"></span><span class="art__shadow"></span><span class="art__jar"></span>
+          <div class="art art--set" data-scene="crate" aria-hidden="true"><span class="art__brick"></span><span class="art__glow"></span><span class="art__shadow"></span><span class="art__straw"></span></div>
+          <div class="art art--still" data-still data-scene="crate" role="img" aria-label="The jar seen through a round window, sitting in a nest of oat straw">
+            <span class="art__brick"></span><span class="art__glow"></span><span class="art__shadow"></span><span class="art__jar"></span><span class="art__straw"></span><span class="art__close"></span>
           </div>
         </div>
-        <figcaption>As it leaves the studio.</figcaption>
+        <figcaption>Packed in oat straw, as it leaves the studio.</figcaption>
       </figure>
     </section>
   </main>
   <footer class="footer wrap" id="enquiry">
     <p>Wyke Hollow Pottery is a fictional studio. Its jar, its kiln and its numbers are synthetic demo content.</p>
+    <p>On a wide screen one drawing of the jar is carried from box to box as you scroll. With reduced motion, or on a narrow screen, each box shows its own.</p>
     <p class="label">Awards recipe draft · MIT</p>
   </footer>
   <script type="module" src="./main.js"></script>

@@ -9,9 +9,21 @@
   --accent: #a3172f;
   --muted: color-mix(in oklab, var(--ink) 72%, var(--ground));
   --line: color-mix(in oklab, var(--ink) 26%, var(--ground));
-  --turn: var(--dur-routine);      /* 400 ms: the routine band */
+  --turn: var(--dur-routine);      /* 400 ms: the routine band, whole labels */
   --turn-ease: var(--ease-out-expo);
-  --stagger: 24ms;                 /* per letter, `letters` variant */
+  /* Letters: each turns inside the hover band on a cubic out, and the wave across a title is capped, so the
+     longest title has finished 700 ms after the pointer arrives. */
+  --letter-turn: 300ms;
+  --letter-ease: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --stagger-max: 40ms;
+  --spread: 400ms;
+  --dim: 0.66;                     /* the sibling dim: 4.8:1 on the rose (.55 would be 3.5:1) */
+  /* Light from above: the face turning up and away brightens, the face coming up from below starts in shade. */
+  --lit-ground: color-mix(in oklab, var(--ground) 45%, #fff);
+  --lit-ink: color-mix(in oklab, var(--ink) 50%, var(--ground));
+  --shade-accent: color-mix(in oklab, var(--accent) 50%, var(--ink));
+  --lit-footer: color-mix(in oklab, var(--ink) 78%, var(--ground));
+  --shade-ground: color-mix(in oklab, var(--ground) 62%, var(--ink));
   --bar-h: 64px;
 }
 html { scrollbar-color: var(--ink) var(--ground); }
@@ -23,37 +35,58 @@ body { font-family: var(--font-display); }
 
 /* ---------- The prism ---------- */
 .prism { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
-.prism__box { position: relative; display: inline-block; vertical-align: top; transform-style: preserve-3d; }
+.prism__box { position: relative; display: inline-block; vertical-align: top; }
 .prism__face { display: block; }
-/* The 3D turn (full tier): the box sits back by half its height, its front face forward by the same, so at rest the
-   front face lies exactly in the page plane; the copy lies on the face below and a quarter turn rolls it up. */
+/* At rest, in every tier, the copy is hidden: not painted, not selectable, not found by find-in-page. */
+.prism__face--next { position: absolute; visibility: hidden; -webkit-user-select: none; user-select: none; }
+.prism__row { -webkit-user-select: none; user-select: none; }   /* a selection copies the hidden label once instead */
+
+/* The 3D turn (full tier). At rest a box is flat: no transform and no 3D context, so a page of prisms holds no
+   compositor layers. Hover or keyboard focus makes it a prism (`preserve-3d`, the copy shown on the face below,
+   folded back about its top edge) and turns it a quarter about an axis half its height behind the label
+   (`transform-origin` z = −d), so the copy rolls up into the label's exact place. Leaving turns it back, and the
+   prism and the copy are held until that turn has ended. */
 .prisms-turn .prism, .prisms-turn .prism__word { perspective: 1000px; }
-.prisms-turn .prism__box { transform: translateZ(calc(var(--depth, 0.5em) * -1)) rotateX(0deg); transition: transform var(--turn) var(--turn-ease); }
-.prisms-turn .prism__face { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
-.prisms-turn .prism__face--front { transform: translateZ(var(--depth, 0.5em)); }
-.prisms-turn .prism__face--next { position: absolute; inset: 0; transform: rotateX(-90deg) translateZ(var(--depth, 0.5em)); }
-.prisms-turn .prism:focus-visible .prism__box { transform: translateZ(calc(var(--depth, 0.5em) * -1)) rotateX(90deg); }
-@media (hover: hover) {
-  .prisms-turn .prism:hover .prism__box { transform: translateZ(calc(var(--depth, 0.5em) * -1)) rotateX(90deg); }
+.prisms-turn .prism__box {
+  transform-origin: 50% 50% calc(var(--depth, 0.5em) * -1);
+  transition: transform var(--turn) var(--turn-ease) var(--lag, 0s), transform-style 0s linear calc(var(--lag, 0s) + var(--turn));
+  transition-behavior: allow-discrete;
 }
-.prisms-turn .prism--letters .prism__box { transition-delay: calc(var(--i, 0) * var(--stagger)); }
+.prisms-turn .prism__face {
+  /* The light comes from above: the label brightens as it turns up and away, the copy comes up out of shade. */
+  transition: color var(--turn) var(--turn-ease) var(--lag, 0s), background-color var(--turn) var(--turn-ease) var(--lag, 0s),
+    visibility var(--turn) linear var(--lag, 0s), backface-visibility 0s linear calc(var(--lag, 0s) + var(--turn));
+  transition-behavior: allow-discrete;
+}
+.prisms-turn .prism__face--next { inset: 100% 0 auto; height: 100%; transform-origin: 50% 0; transform: rotateX(-90deg); }
+.prisms-turn .prism:focus-visible .prism__box { transform: rotateX(90deg); transform-style: preserve-3d; transition-delay: var(--lag, 0s), 0s; }
+.prisms-turn .prism:focus-visible .prism__face { backface-visibility: hidden; transition-delay: var(--lag, 0s), var(--lag, 0s), var(--lag, 0s), 0s; }
+.prisms-turn .prism:focus-visible .prism__face--next { visibility: visible; }
+@media (hover: hover) {
+  .prisms-turn .prism:hover .prism__box { transform: rotateX(90deg); transform-style: preserve-3d; transition-delay: var(--lag, 0s), 0s; }
+  .prisms-turn .prism:hover .prism__face { backface-visibility: hidden; transition-delay: var(--lag, 0s), var(--lag, 0s), var(--lag, 0s), 0s; }
+  .prisms-turn .prism:hover .prism__face--next { visibility: visible; }
+}
+.prisms-turn .prism--letters .prism__box { --turn: var(--letter-turn); --turn-ease: var(--letter-ease); --lag: calc(var(--i, 0) * var(--stagger)); }
+/* Per title: 40 ms a letter, or less when that would spread the wave past 400 ms (`--steps` is letters − 1). */
+.prism__row { --stagger: min(var(--stagger-max), var(--spread) / var(--steps, 1)); }
 
 /* Reduced and static: no rotation; the copy sits on top of the label and the two swap by opacity, a colour change. */
-.prisms-swap .prism__face--next { position: absolute; inset: 0; opacity: 0; transition: opacity var(--turn) linear; }
+.prisms-swap .prism__face--next { inset: 0; opacity: 0; transition: opacity var(--turn) linear, visibility var(--turn) linear; }
 .prisms-swap .prism__face--front { transition: opacity var(--turn) linear; }
-.prisms-swap .prism:focus-visible .prism__face--next { opacity: 1; }
+.prisms-swap .prism:focus-visible .prism__face--next { opacity: 1; visibility: visible; }
 .prisms-swap .prism:focus-visible .prism__face--front { opacity: 0; }
 @media (hover: hover) {
-  .prisms-swap .prism:hover .prism__face--next { opacity: 1; }
+  .prisms-swap .prism:hover .prism__face--next { opacity: 1; visibility: visible; }
   .prisms-swap .prism:hover .prism__face--front { opacity: 0; }
 }
-.prisms-still .prism__face { transition: none; }
+.prisms-still .prism__face, .prisms-still .bar__nav li { transition: none; }
 @media (prefers-reduced-motion: reduce) {
   .prism__box { transition-property: none; }
 }
 
-/* Touch screens have no hover, so no turn: a press fills the label instead. */
-.prism:active .prism__face--front { background: var(--ink); color: var(--ground); }
+/* Touch screens have no hover, so no turn: a press fills the label instead, at once. */
+.prism:active .prism__face--front { background: var(--ink); color: var(--ground); transition: none; }
 .prism--letters:active .prism__face--front { background: none; color: var(--accent); }
 
 /* Forced colours: the plain label, nothing turned, no copy. */
@@ -72,32 +105,42 @@ body { font-family: var(--font-display); }
 .prism--cell .prism__box { display: block; height: 100%; }
 .prism--cell .prism__face { display: flex; align-items: center; justify-content: center; height: 100%; min-height: var(--bar-h); padding: 0 clamp(18px, 2.4vw, 36px); font-size: 0.875rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; overflow-wrap: anywhere; text-align: center; }
 .prism--cell .prism__face--next { background: var(--ink); color: var(--ground); }
+.prisms-turn .prism--cell:focus-visible .prism__face--front { background: var(--lit-ground); }
+@media (hover: hover) { .prisms-turn .prism--cell:hover .prism__face--front { background: var(--lit-ground); } }
 /* The ring is drawn by a layer above the turning box (an outline would be painted under its 3D faces): paper on
    the inked face, ink on the plain one in forced colours. */
 .prism--cell:focus-visible { outline: none; }
 .prism--cell:focus-visible::after { content: ""; position: absolute; z-index: 1; inset: 7px; border: 2px solid var(--ground); pointer-events: none; }
-/* Pointing at one cell dims the others, as the source does. */
+/* Pointing at one cell dims the others, as the source does, though never the cell that has keyboard focus. */
 @media (hover: hover) {
   .bar__nav li { transition: opacity var(--turn) linear; }
-  .bar__nav ul:has(.prism:hover) li:not(:has(.prism:hover)) { opacity: 0.55; }
+  .bar__nav ul:has(.prism:hover) li:not(:has(.prism:hover, .prism:focus-visible)) { opacity: var(--dim); }
 }
 
 /* ---------- The page ---------- */
 .intro { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); column-gap: 6vw; align-items: end; padding: 12vh var(--gutter) 7vh; }
 .intro__title { margin: 0; max-width: 18ch; font-size: clamp(2rem, 3.6vw, 3.5rem); font-weight: 800; line-height: 1.02; letter-spacing: -0.03em; }
-.intro__lede { margin: 0; max-width: 40ch; font-family: var(--font-body); font-size: 1.0625rem; color: var(--muted); }
+.intro__lede { margin: 0; max-width: 40ch; font-family: var(--font-body); font-size: 1.0625rem; color: var(--muted); text-wrap: pretty; }
 
 .films { padding: 0 var(--gutter) 14vh; }
 .films__title { margin: 0 0 calc(var(--unit) * 4); font-family: var(--font-mono); font-size: var(--label); font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 .films__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
-.films__list li { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 0.1em; border-bottom: 1px solid var(--line); font-size: clamp(2.25rem, 6.4vw, 6.75rem); }
+.films__list li { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 0.16em; border-bottom: 1px solid var(--line); font-size: clamp(2.25rem, 6.4vw, 6.75rem); }
 .prism--letters { display: inline-block; max-width: 100%; padding-block: 0.04em; font-weight: 800; line-height: 1; letter-spacing: -0.035em; }
-.prism--letters:focus-visible { outline: 2px solid var(--ink); outline-offset: 6px; }
+.prism--letters:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
 /* A word moves to the next line whole; only a word wider than the line breaks between its letters. */
 .prism__word { display: inline-flex; flex-wrap: wrap; max-width: 100%; }
 .prism--letters .prism__face--next { color: var(--accent); }
+.prisms-turn .prism--letters .prism__face--next { color: var(--shade-accent); }
+.prisms-turn .prism--letters:focus-visible .prism__face--front { color: var(--lit-ink); }
+.prisms-turn .prism--letters:focus-visible .prism__face--next { color: var(--accent); }
+@media (hover: hover) {
+  .prisms-turn .prism--letters:hover .prism__face--front { color: var(--lit-ink); }
+  .prisms-turn .prism--letters:hover .prism__face--next { color: var(--accent); }
+}
 .films__year { flex: none; font-family: var(--font-mono); font-size: 0.875rem; font-variant-numeric: tabular-nums; color: var(--muted); }
 .films__notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: calc(var(--unit) * 8) 4vw; margin-top: 10vh; }
+@media (min-width: 1200px) { .films__notes { grid-template-columns: repeat(5, minmax(0, 1fr)); column-gap: 3vw; } }
 .film { scroll-margin-top: 24px; }
 .film h3 { margin: 0 0 6px; font-size: 1.125rem; letter-spacing: -0.01em; }
 .film p { margin: 0; font-family: var(--font-body); color: var(--muted); }
@@ -108,10 +151,20 @@ body { font-family: var(--font-display); }
 
 .footer { padding: 10vh var(--gutter) 6vh; background: var(--ink); color: var(--ground); }
 .footer__title { margin: 0 0 calc(var(--unit) * 6); font-family: var(--font-mono); font-size: var(--label); font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in oklab, var(--ground) 75%, var(--ink)); }
-.footer__links { display: flex; flex-wrap: wrap; gap: 8px 4px; list-style: none; margin: 0 0 12vh; padding: 0; }
-.prism--inline { display: inline-block; font-size: clamp(1.375rem, 2.6vw, 2.25rem); font-weight: 800; letter-spacing: -0.02em; }
+/* The links' type size is set on the list, so its negative start margin (in em) puts the first word, not its tile,
+   on the gutter that the heading and the note sit on. */
+.footer__links { display: flex; flex-wrap: wrap; gap: 8px 4px; list-style: none; margin: 0 0 12vh; margin-inline-start: -0.4em; padding: 0; font-size: clamp(1.375rem, 2.6vw, 2.25rem); }
+.prism--inline { display: inline-block; font-weight: 800; letter-spacing: -0.02em; }
+.prism--inline .prism__box { display: block; }   /* the link is exactly the tile: no line-box strut below it */
 .prism--inline .prism__face { display: flex; align-items: center; min-height: 48px; padding: 0.12em 0.4em; line-height: 1.15; }
 .prism--inline .prism__face--next { background: var(--ground); color: var(--ink); }
+.prisms-turn .prism--inline .prism__face--next { background: var(--shade-ground); }
+.prisms-turn .prism--inline:focus-visible .prism__face--front { background: var(--lit-footer); }
+.prisms-turn .prism--inline:focus-visible .prism__face--next { background: var(--ground); }
+@media (hover: hover) {
+  .prisms-turn .prism--inline:hover .prism__face--front { background: var(--lit-footer); }
+  .prisms-turn .prism--inline:hover .prism__face--next { background: var(--ground); }
+}
 .footer .prism:active .prism__face--front { background: var(--ground); color: var(--ink); }
 .prism--inline:focus-visible { outline: 2px solid var(--ground); outline-offset: 3px; }
 .footer__note { margin: 0; font-family: var(--font-mono); font-size: var(--label); letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in oklab, var(--ground) 75%, var(--ink)); }
@@ -121,7 +174,9 @@ body { font-family: var(--font-display); }
   .bar__nav li:first-child { border-inline-start: 0; }
   .prism--cell .prism__face { min-height: 56px; padding: 0 12px; font-size: 0.8125rem; letter-spacing: 0.06em; }
   .intro { grid-template-columns: minmax(0, 1fr); row-gap: calc(var(--unit) * 5); padding-top: 8vh; }
-  .films__list li { align-items: baseline; }
+  .films__list li { align-items: baseline; padding-block: 0.2em; }
+  .prism--letters { padding-block: 0.12em; }   /* 36 px type: a 44.6 px target */
+  .prism--letters:focus-visible { outline-offset: 2px; }
   .studio, .journal { grid-template-columns: minmax(0, 1fr); row-gap: calc(var(--unit) * 5); }
   .studio > *:not(h2), .journal > *:not(h2) { grid-column: 1; }
   .studio h2, .journal h2 { grid-row: auto; }

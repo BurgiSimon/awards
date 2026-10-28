@@ -19,79 +19,126 @@
   <main id="main">
     <section class="intro wrap" id="top" aria-labelledby="intro-t">
       <h1 class="intro__title" id="intro-t">Five products we shipped this year.</h1>
-      <p class="intro__lede">Each case is a screen. As one leaves the top of the window it leans back, as far as your scrolling pushes it, and it lies flat again the moment you stop.</p>
+      <p class="intro__lede">We are nine people in a harbour town, building software for work done outdoors: on piers and decks, in woods, behind a lending desk. Every screen here was tested where it is used.</p>
     </section>
 
     <section class="run wrap" aria-labelledby="run-t">
       <h2 class="sr-only" id="run-t">Cases</h2>
       <ol class="screens" data-screens>
         <li class="screens__item">
-          <a class="screen screen--tern" href="#case-tern" data-screen>
+          <a class="screen screen--tern" id="screen-tern" href="#case-tern" data-screen>
             <div class="screen__text">
               <h3 class="screen__title">Tern</h3>
               <span class="screen__line">Tide tables for 212 small harbours, readable offline at the end of a pier.</span>
               <span class="screen__meta">Mobile app · 2026</span>
             </div>
             <span class="screen__art art-tide" aria-hidden="true">
-              <svg viewBox="0 0 600 320" preserveAspectRatio="none" focusable="false"><path class="tide-fill" d="M0 210 C 75 120 150 120 225 190 S 375 290 450 200 S 560 110 600 150 L600 320 L0 320 Z"/><path class="tide-line" d="M0 210 C 75 120 150 120 225 190 S 375 290 450 200 S 560 110 600 150"/></svg>
-              <span class="tide-tag tide-tag--hw">High 04:12 · 4.6 m</span>
-              <span class="tide-tag tide-tag--lw">Low 10:31 · 0.9 m</span>
+              <span class="tide-head"><b>Skerra Pier</b><span>Thu 14 May · saved offline</span></span>
+              <span class="tide-plot">
+                <svg viewBox="0 0 600 300" preserveAspectRatio="none" focusable="false">
+                  <path class="tide-grid" d="M0 72H600M0 124H600M0 176H600M0 228H600"/>
+                  <path class="tide-fill" d="M0 145C40 85 70 41 105 41C184 41 184 233 263 233C340 233 340 51 416 51C495 51 495 223 573 223C587 223 594 221 600 218V300H0Z"/>
+                  <path class="tide-line" d="M0 145C40 85 70 41 105 41C184 41 184 233 263 233C340 233 340 51 416 51C495 51 495 223 573 223C587 223 594 221 600 218"/>
+                </svg>
+                <span class="tide-metre" style="--y: 24%">4 m</span><span class="tide-metre" style="--y: 58.7%">2 m</span>
+                <span class="tide-tag tide-tag--a" style="--x: 17.5%; --y: 13.7%">High 04:12<span class="tide-long"> · 4.6 m</span></span>
+                <span class="tide-tag tide-tag--b" style="--x: 43.8%; --y: 77.7%">Low 10:31<span class="tide-long"> · 0.9 m</span></span>
+                <span class="tide-tag tide-tag--c" style="--x: 69.4%; --y: 17%">High 16:40 · 4.4 m</span>
+                <span class="tide-now" style="--x: 31.25%; --y: 47.9%"><span>Now 07:30<span class="tide-long"> · 2.6 m, falling</span></span></span>
+              </span>
+              <span class="tide-hours"><i>00</i><i>06</i><i>12</i><i>18</i><i>24</i></span>
             </span>
             <span class="screen__shade" aria-hidden="true"></span>
           </a>
         </li>
         <li class="screens__item">
-          <a class="screen screen--pilcrow" href="#case-pilcrow" data-screen>
+          <a class="screen screen--pilcrow screen--flip" id="screen-pilcrow" href="#case-pilcrow" data-screen>
             <div class="screen__text">
               <h3 class="screen__title">Pilcrow</h3>
               <span class="screen__line">An editor for a weekly paper that still sets its own columns, 46 writers deep.</span>
               <span class="screen__meta">Web app · 2026</span>
             </div>
-            <span class="screen__art art-columns" aria-hidden="true">
-              <span class="col-mark">¶</span>
-              <span class="col"><i style="--w: 92%"></i><i style="--w: 86%"></i><i style="--w: 95%"></i><i style="--w: 60%"></i><i style="--w: 90%"></i><i style="--w: 78%"></i><i style="--w: 0%"></i><i style="--w: 94%"></i><i style="--w: 89%"></i><i style="--w: 97%"></i><i style="--w: 66%"></i></span>
-              <span class="col"><i style="--w: 88%"></i><i style="--w: 94%"></i><i style="--w: 70%"></i><i style="--w: 91%"></i><i style="--w: 84%"></i><i style="--w: 52%"></i><i style="--w: 0%"></i><i style="--w: 90%"></i><i style="--w: 96%"></i><i style="--w: 82%"></i><i style="--w: 74%"></i></span>
+            <span class="screen__art art-page" aria-hidden="true">
+              <span class="page-bar"><b>¶ Pilcrow</b><span>Page 3 of 24</span><span class="page-bar__checks">1 check</span></span>
+              <span class="page">
+                <span class="page__mast"><b>The Wick Weekly</b><span>No. 1,412 · Thursday · 60p</span></span>
+                <span class="page__head">Harbour board holds the winter fares</span>
+                <span class="page__cols">
+                  <span class="page__col"><i style="--n: 9; --end: 38%"></i><i style="--n: 6; --end: 62%"></i><i style="--n: 8; --end: 20%"></i><i style="--n: 5; --end: 48%"></i></span>
+                  <span class="page__col"><q class="page__quote">We set the paper the way the town reads it.</q><i style="--n: 5; --end: 45%"></i><i style="--n: 8; --end: 30%"></i><i style="--n: 6; --end: 66%"></i></span>
+                  <span class="page__col"><i class="page__widow" style="--n: 1; --end: 78%"></i><i style="--n: 7; --end: 25%"></i><i style="--n: 9; --end: 52%"></i><i style="--n: 6; --end: 34%"></i></span>
+                </span>
+              </span>
+              <span class="page-flag">Widow at the top of column 3</span>
             </span>
             <span class="screen__shade" aria-hidden="true"></span>
           </a>
         </li>
         <li class="screens__item">
-          <a class="screen screen--bramble" href="#case-bramble" data-screen>
+          <a class="screen screen--bramble screen--bleed" id="screen-bramble" href="#case-bramble" data-screen>
             <div class="screen__text">
               <h3 class="screen__title">Bramble</h3>
               <span class="screen__line">A seed library's lending desk: 3,400 packets, each with a grower and a return date.</span>
               <span class="screen__meta">Kiosk and web · 2026</span>
             </div>
-            <span class="screen__art art-seeds" aria-hidden="true">
-              <i style="--s: 1"></i><i style="--s: .62"></i><i style="--s: .8"></i><i style="--s: .45"></i>
-              <i style="--s: .7"></i><i style="--s: .95"></i><i style="--s: .5"></i><i style="--s: .74"></i>
-              <i style="--s: .58"></i><i style="--s: .4"></i><i style="--s: .86"></i><i style="--s: .66"></i>
+            <span class="screen__art art-packets" aria-hidden="true">
+              <span class="packet" style="--h: 74%; --paper: #d8c690"><b>Runner bean</b><span>Moss Hollow</span><span class="packet__seeds"></span><span class="packet__by">Grown by E. Pratt</span><span class="packet__due">Due 12 Oct</span></span>
+              <span class="packet packet--out" style="--h: 88%; --paper: #e9e1bd"><b>Calendula</b><span>Orange Lantern</span><span class="packet__seeds"></span><span class="packet__by">Grown by T. Okafor</span><span class="packet__card">Out · 3 Sep</span></span>
+              <span class="packet" style="--h: 66%; --paper: #cbd59a"><b>Broad bean</b><span>Crimson Stile</span><span class="packet__seeds"></span><span class="packet__by">Grown by the school</span><span class="packet__due">Due 1 Nov</span></span>
+              <span class="packet" style="--h: 82%; --paper: #dfeab8"><b>Kale</b><span>Wick Black</span><span class="packet__seeds"></span><span class="packet__by">Grown by M. Ruane</span><span class="packet__due">Due 20 Oct</span></span>
+              <span class="packet packet--out" style="--h: 70%; --paper: #d8c690"><b>Sweet pea</b><span>Gate House</span><span class="packet__seeds"></span><span class="packet__by">Grown by A. Lind</span><span class="packet__card">Out · 11 Sep</span></span>
+              <span class="packet" style="--h: 92%; --paper: #e9e1bd"><b>Parsnip</b><span>Long Field</span><span class="packet__seeds"></span><span class="packet__by">Grown by R. Haddow</span><span class="packet__due">Due 8 Nov</span></span>
+              <span class="packet" style="--h: 60%; --paper: #cbd59a"><b>Chard</b><span>Ember</span><span class="packet__seeds"></span><span class="packet__by">Grown by J. Bell</span><span class="packet__due">Due 15 Oct</span></span>
             </span>
             <span class="screen__shade" aria-hidden="true"></span>
           </a>
         </li>
         <li class="screens__item">
-          <a class="screen screen--quay" href="#case-quay" data-screen>
+          <a class="screen screen--quay" id="screen-quay" href="#case-quay" data-screen>
             <div class="screen__text">
               <h3 class="screen__title">Quay</h3>
               <span class="screen__line">Ferry tickets for four islands, bought in two taps and shown without signal.</span>
               <span class="screen__meta">Mobile app · 2025</span>
             </div>
             <span class="screen__art art-ticket" aria-hidden="true">
-              <span class="ticket"><span class="ticket__route">Holm → Skerra</span><span class="ticket__time">07:40 · deck 2</span><span class="ticket__code"></span></span>
+              <span class="ticket ticket--under"></span>
+              <span class="ticket">
+                <span class="ticket__main">
+                  <span class="ticket__op">Holm Ferries · deck pass</span>
+                  <span class="ticket__route">Holm → Skerra</span>
+                  <span class="ticket__rows"><span><small>Sails</small>Sat 07:40</span><span><small>Deck</small>2</span><span><small>Seat</small>14C</span></span>
+                  <span class="ticket__fare">Adult return · valid without signal</span>
+                </span>
+                <span class="ticket__stub"><svg class="ticket__code" viewBox="-1 -1 23 23" focusable="false"><path d="M0 0h7v1h-7zM8 0h1v1h-1zM10 0h2v1h-2zM14 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM9 1h1v1h-1zM14 1h1v1h-1zM20 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM11 2h2v1h-2zM14 2h1v1h-1zM16 2h3v1h-3zM20 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM10 3h1v1h-1zM12 3h1v1h-1zM14 3h1v1h-1zM16 3h3v1h-3zM20 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM10 4h1v1h-1zM14 4h1v1h-1zM16 4h3v1h-3zM20 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM14 5h1v1h-1zM20 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h7v1h-7zM8 7h3v1h-3zM2 8h2v1h-2zM6 8h2v1h-2zM9 8h3v1h-3zM15 8h6v1h-6zM2 9h1v1h-1zM4 9h1v1h-1zM12 9h1v1h-1zM14 9h1v1h-1zM16 9h3v1h-3zM0 10h1v1h-1zM2 10h6v1h-6zM9 10h2v1h-2zM12 10h1v1h-1zM19 10h2v1h-2zM0 11h3v1h-3zM4 11h1v1h-1zM8 11h1v1h-1zM10 11h2v1h-2zM13 11h1v1h-1zM15 11h1v1h-1zM19 11h1v1h-1zM0 12h1v1h-1zM4 12h3v1h-3zM8 12h1v1h-1zM13 12h2v1h-2zM16 12h1v1h-1zM19 12h1v1h-1zM12 13h2v1h-2zM16 13h3v1h-3zM0 14h7v1h-7zM8 14h1v1h-1zM11 14h1v1h-1zM13 14h3v1h-3zM0 15h1v1h-1zM6 15h1v1h-1zM8 15h1v1h-1zM10 15h1v1h-1zM16 15h3v1h-3zM0 16h1v1h-1zM2 16h3v1h-3zM6 16h1v1h-1zM11 16h1v1h-1zM13 16h2v1h-2zM16 16h1v1h-1zM18 16h2v1h-2zM0 17h1v1h-1zM2 17h3v1h-3zM6 17h1v1h-1zM8 17h2v1h-2zM16 17h1v1h-1zM0 18h1v1h-1zM2 18h3v1h-3zM6 18h1v1h-1zM8 18h6v1h-6zM16 18h3v1h-3zM20 18h1v1h-1zM0 19h1v1h-1zM6 19h1v1h-1zM8 19h1v1h-1zM10 19h1v1h-1zM13 19h4v1h-4zM19 19h1v1h-1zM0 20h7v1h-7zM9 20h2v1h-2zM12 20h3v1h-3zM19 20h2v1h-2z"/></svg><span>Q-4471-KX</span></span>
+              </span>
             </span>
             <span class="screen__shade" aria-hidden="true"></span>
           </a>
         </li>
         <li class="screens__item">
-          <a class="screen screen--larch" href="#case-larch" data-screen>
+          <a class="screen screen--larch screen--flip" id="screen-larch" href="#case-larch" data-screen>
             <div class="screen__text">
               <h3 class="screen__title">Larch</h3>
               <span class="screen__line">Survey software for a forestry team that maps 900 hectares on foot each spring.</span>
               <span class="screen__meta">Tablet app · 2025</span>
             </div>
-            <span class="screen__art art-contours" aria-hidden="true">
-              <i style="--r: 1"></i><i style="--r: .8"></i><i style="--r: .6"></i><i style="--r: .4"></i><i style="--r: .2"></i><b></b>
+            <span class="screen__art art-map" aria-hidden="true">
+              <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <g class="map-contours">
+                  <path d="M578 210C591 239 587 284 562 309C538 333 473 347 431 359C389 371 350 380 310 382C270 385 229 383 192 377C155 370 121 358 87 344C52 331 7 316 -14 293C-35 271 -38 238 -39 210C-41 182 -37 152 -23 124C-10 95 6 55 41 38C76 21 140 20 185 22C229 24 269 40 306 50C342 61 372 71 402 85C431 99 455 115 484 136C514 157 565 181 578 210Z"/><path d="M520 206C527 229 515 263 494 281C472 300 423 307 391 317C359 326 332 335 302 339C272 342 239 342 210 338C181 333 153 324 127 312C100 301 66 289 49 271C33 254 30 228 28 206C26 184 27 159 38 137C49 115 65 84 94 73C122 61 173 64 207 66C241 69 269 80 297 87C326 94 351 97 377 107C402 116 427 128 451 144C475 161 513 183 520 206Z"/><path d="M458 202C461 219 446 242 430 255C413 268 379 272 356 280C334 287 317 295 296 299C274 302 250 303 228 300C206 297 186 289 167 281C147 272 122 263 110 250C98 237 94 219 92 202C90 185 90 167 99 151C108 135 124 114 145 106C167 99 204 104 228 106C253 108 271 114 291 117C312 121 334 120 354 126C374 133 396 142 413 154C430 167 455 185 458 202Z"/><path d="M395 198C395 209 383 223 372 231C361 239 341 242 327 247C314 252 304 259 290 261C276 264 260 264 246 262C232 260 219 255 206 249C193 244 177 238 168 229C160 221 157 209 155 198C154 187 155 174 161 164C168 154 180 142 195 138C209 133 232 138 248 139C263 140 273 142 287 143C301 145 317 143 331 146C345 150 360 157 371 165C382 174 395 187 395 198Z"/><path d="M335 194C334 199 328 205 322 209C317 213 308 215 302 217C296 220 291 224 285 225C278 227 270 227 263 225C256 224 250 222 244 219C237 216 229 214 225 210C221 205 218 199 218 194C217 189 218 182 222 178C226 173 233 168 240 166C247 164 257 167 265 167C272 167 276 167 283 167C290 167 299 165 306 167C314 169 321 173 326 178C331 182 335 189 335 194Z"/>
+                  <path d="M610 110C607 122 595 135 586 144C576 153 565 158 554 165C543 172 534 184 521 187C509 190 492 188 479 185C466 182 454 177 441 171C428 165 410 159 401 149C393 139 389 123 389 110C390 97 395 82 404 72C413 62 428 54 441 50C455 46 470 51 483 49C496 48 506 40 520 39C534 37 555 34 569 39C583 44 595 58 601 70C608 82 612 98 610 110Z"/><path d="M567 113C565 121 558 129 553 135C547 141 540 145 533 150C527 155 520 163 511 165C503 167 492 165 483 163C474 161 466 158 457 154C448 151 435 147 429 140C424 133 422 121 423 113C424 105 430 95 436 89C442 83 452 78 460 75C469 73 477 75 486 72C494 70 501 63 511 62C521 60 536 60 545 64C554 68 560 79 563 87C567 95 569 105 567 113Z"/><path d="M527 116C527 120 524 124 521 127C519 130 516 132 512 135C509 137 505 141 501 142C497 143 492 142 487 141C482 140 478 139 473 137C468 136 462 133 459 130C457 126 457 120 458 116C459 112 462 108 465 105C468 102 473 100 477 98C480 96 484 96 488 95C492 93 497 89 502 88C507 88 514 88 518 91C523 93 525 99 526 103C528 108 528 112 527 116Z"/>
+                </g>
+                <path class="map-stream" d="M352 0C372 60 420 120 396 196S436 330 470 400"/>
+                <path class="map-track" d="M48 392L140 300L222 284L300 222L368 246L432 170L498 150"/>
+                <g class="map-plots">
+                  <rect x="134" y="294" width="12" height="12"/><rect x="216" y="278" width="12" height="12"/><rect x="294" y="216" width="12" height="12"/><rect x="426" y="164" width="12" height="12"/>
+                  <text x="152" y="318">P 11</text><text x="234" y="302">P 12</text><text x="312" y="212">P 13</text><text x="444" y="188">P 14</text>
+                  <circle class="map-here" cx="498" cy="150" r="9"/>
+                </g>
+              </svg>
+              <span class="map-legend"><b>Block 7</b><span>64 of 900 ha walked</span></span>
+              <span class="map-north">N</span>
+              <span class="map-scale"><i></i>200 m</span>
             </span>
             <span class="screen__shade" aria-hidden="true"></span>
           </a>
@@ -102,11 +149,11 @@
     <section class="notes wrap" aria-labelledby="notes-t">
       <h2 id="notes-t">Case notes</h2>
       <dl class="notes__list">
-        <div id="case-tern"><dt>Tern</dt><dd>Built around one chart per harbour, cached for 40 days, so the tide is there with no signal.</dd></div>
-        <div id="case-pilcrow"><dt>Pilcrow</dt><dd>Columns are set by the editor, not the template; the paper's own rules for widows ship as checks.</dd></div>
-        <div id="case-bramble"><dt>Bramble</dt><dd>Every packet carries its grower's name back to the desk when it is returned in autumn.</dd></div>
-        <div id="case-quay"><dt>Quay</dt><dd>Tickets are signed on the phone and checked on the gangway by a reader with no network.</dd></div>
-        <div id="case-larch"><dt>Larch</dt><dd>Plots are drawn on the tablet in the wood and merged in the office in the evening.</dd></div>
+        <div id="case-tern" tabindex="-1"><dt>Tern</dt><dd>Built around one chart per harbour, cached for 40 days, so the tide is there with no signal. <a class="notes__back" href="#screen-tern">Back to Tern</a></dd></div>
+        <div id="case-pilcrow" tabindex="-1"><dt>Pilcrow</dt><dd>Columns are set by the editor, not the template; the paper's own rules for widows ship as checks. <a class="notes__back" href="#screen-pilcrow">Back to Pilcrow</a></dd></div>
+        <div id="case-bramble" tabindex="-1"><dt>Bramble</dt><dd>Every packet carries its grower's name back to the desk when it is returned in autumn. <a class="notes__back" href="#screen-bramble">Back to Bramble</a></dd></div>
+        <div id="case-quay" tabindex="-1"><dt>Quay</dt><dd>Tickets are signed on the phone and checked on the gangway by a reader with no network. <a class="notes__back" href="#screen-quay">Back to Quay</a></dd></div>
+        <div id="case-larch" tabindex="-1"><dt>Larch</dt><dd>Plots are drawn on the tablet in the wood and merged in the office in the evening. <a class="notes__back" href="#screen-larch">Back to Larch</a></dd></div>
       </dl>
     </section>
   </main>

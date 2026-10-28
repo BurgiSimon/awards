@@ -3,11 +3,12 @@
   "title": "Erosion dissolve: a patched standard material discarded below a scrolled noise threshold",
   "intent": "Dissolve the hero to change the subject",
   "group": "webgl-surfaces",
-  "summary": "One stock `MeshStandardMaterial` on a lathe-turned cone patched by `onBeforeCompile`: three octaves of hashed 3D value noise in object space (frequency `2.6`, amplitude `±.14`) added to a 0–1 height along a world-space axis, `discard` below a front that runs from under every field value at `uProgress 0` to over every value at `1`, a hashed feather of `.025`, an emissive ember band `uEdge .03` that never thins below 1.5 px (`max(fwidth(d), 1e-5)`) and charring over four band widths; one ScrollTrigger maps a `380svh` sticky stage to `uProgress` between `.12` and `.88` (ease none, Lenis on the GSAP ticker), the cone turns `.8 rad` and the renderer draws one frame per change, none while idle or off screen; reduced motion cuts each of three chapters to a still (`0 / .5 / 1`), and the static tier, `?nogl` or no WebGL2 show an SVG still whose wavy clip burns to the same level",
+  "summary": "One stock `MeshStandardMaterial` on a lathe-turned cone patched by `onBeforeCompile` at seven sites: three octaves of hashed 3D value noise in object space (frequency `2.6`, amplitude `±.14`) added to a 0–1 height along a world-space axis, `discard` below a front `uFront (−.295, 1.15)` mixed by `uProgress` (nothing discarded or charred at 0, nothing left at 1), an ash-grey feather of `.025` hashed in cells of `1/72` unit or one pixel, a hot core and an ember band `uEdge .03` that never thin below a pixel (`max(fwidth(d), 1e-5)`), charring over four band widths, and back faces shaded as a flat smouldering cut so the shell reads solid; one ScrollTrigger maps a `380svh` sticky stage to `uProgress` between `.12` and `.88` (ease none, Lenis on the GSAP ticker), the cone turns `.8 rad` (a mould seam shows it), an orange point light peaks at `6` on the dish half-way, and the renderer draws one frame per change, none while idle or off screen; reduced motion cuts each of three chapters to a still (`0 / .5 / 1`), the static tier shows the whole SVG still, and `?nogl`, no WebGL2 or a lost context show the same still (the camera's projection of the lathe) burnt along a wavy clip to the same row",
   "tags": [
     "webgl",
     "three",
     "shader",
+    "3d",
     "onbeforecompile",
     "uniforms",
     "noise",
@@ -29,7 +30,7 @@
     "erosion from the tip down along world −y with an ember band (this)",
     "a sideways exit: uAxis (1, 0, 0), the noise frequency halved, no ember (a cool edge colour instead)",
     "a loaded glTF: the same patch on its stock material, uMin / uMax from its bounding box along the axis",
-    "R3F: onBeforeCompile on a memoised <meshStandardMaterial>, uniforms in a ref, frameloop=\"demand\" and invalidate() from the trigger"
+    "R3F: onBeforeCompile on a memoised <meshStandardMaterial side={DoubleSide}>, uniforms in a ref, frameloop=\"demand\" and invalidate() from the trigger"
   ],
   "seenIn": [
     "primesec",

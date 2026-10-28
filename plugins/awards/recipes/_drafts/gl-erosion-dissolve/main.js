@@ -43,7 +43,7 @@ const STILLS = [0, 0.5, 1];          // reduced motion: the still each chapter c
 const GOTO = [0.06, 0.5, 0.94];      // where the chapter buttons land
 const TURN = 0.8;                    // radians the cone turns across the stage (full tier only)
 const SEAM = 2.02;                   // object-space angle of the mould seam: left of centre at turn 0, right of it at .8
-const GLOW = 9;                      // peak intensity of the ember's point light, at uProgress .5 (decay 1.5)
+const GLOW = 6;                      // peak intensity of the ember's point light, at uProgress .5 (decay 1.5)
 const FIELD = { amp: 0.14, freq: 2.6, feather: 0.025, edge: 0.03, grain: 22 };
 // The front runs from below every field value (char included) to above every value, so 0 is untouched and 1 is gone.
 const FRONT = [-(FIELD.amp + FIELD.feather + 4 * FIELD.edge) - 0.01, 1 + FIELD.amp + 0.01];
@@ -185,21 +185,21 @@ function patch(material, uniforms) {
       float eChar = 1.0 - clamp((eX - uFeather) / max(4.0 * uEdge, 1.5 * eAA), 0.0, 1.0);
       float eGrain = eNoise(vErodeObj * uGrain);`);
     // Pressed-powder grain and a mould seam on the outside, charring just above the band, grey ash in the feather;
-    // a back face is the cut seen through the opening: ash, lit as one face.
+    // a back face is the cut seen through the opening: dark ash, lit as one flat face turned to the camera.
     f = swap(f, '#include <color_fragment>', /* glsl */ `
       #include <color_fragment>
       float eArc = abs(mod(atan(vErodeObj.z, vErodeObj.x) - uSeam + PI, 2.0 * PI) - PI) * length(vErodeObj.xz);
-      float eSeam = 1.0 - smoothstep(0.0, max(0.014, 1.5 * ePx), eArc);
-      vec3 eResin = diffuseColor.rgb * (0.82 + 0.36 * eN) * (0.86 + 0.28 * eGrain) * (1.0 - 0.5 * eSeam) * mix(1.0, 0.12, eChar * eChar);
-      diffuseColor.rgb = gl_FrontFacing ? mix(eResin, uAsh * (0.7 + 0.6 * eGrain), eAsh) : uAsh * (0.5 + 0.4 * eGrain);`);
+      float eSeam = 1.0 - smoothstep(0.0, max(0.022, 2.0 * ePx), eArc);
+      vec3 eResin = diffuseColor.rgb * (0.82 + 0.36 * eN) * (0.86 + 0.28 * eGrain) * (1.0 - 0.3 * eSeam) * mix(1.0, 0.12, eChar * eChar);
+      diffuseColor.rgb = gl_FrontFacing ? mix(eResin, uAsh * (0.6 + 0.8 * eGrain), eAsh) : uAsh * (0.1 + 0.15 * eGrain);`);
     f = swap(f, '#include <normal_fragment_maps>', /* glsl */ `
       #include <normal_fragment_maps>
-      if (!gl_FrontFacing) normal = normalize((viewMatrix * vec4(-uAxis, 0.0)).xyz);`);
+      if (!gl_FrontFacing) normal = vec3(0.0, 0.0, 1.0);`);
     // The ember: a thin hot core at the edge of what is left, deep orange over the band; the cut smoulders in patches.
     f = swap(f, '#include <emissivemap_fragment>', /* glsl */ `
       #include <emissivemap_fragment>
-      vec3 eGlow = (1.0 - eAsh) * (uEmber * eBand * 1.6 + uHot * eCore * 1.4) + eAsh * uEmber * 0.5 * eSpeck;
-      totalEmissiveRadiance += gl_FrontFacing ? eGlow : eGlow + uEmber * 0.9 * smoothstep(0.35, 0.85, eNoise(vErodeObj * 9.0));`);
+      vec3 eGlow = (1.0 - eAsh) * (uEmber * eBand * 1.2 + uHot * eCore * 1.2) + eAsh * uEmber * 0.6 * eSpeck;
+      totalEmissiveRadiance += gl_FrontFacing ? eGlow : eGlow + uEmber * 0.75 * smoothstep(0.3, 0.8, eNoise(vErodeObj * 9.0));`);
     shader.fragmentShader = f;
   };
 }
@@ -215,7 +215,6 @@ function coneProfile() {
   pts.push(new THREE.Vector2(0.03, CONE.top - 0.015), new THREE.Vector2(0, CONE.top));
   return pts;
 }
-const coneRadius = (y) => CONE.radius * clamp((CONE.top - y) / (CONE.top - CONE.base), 0, 1);
 // The dish: underside, rim and floor in one profile.
 const DISH = [[0, -0.02], [1.15, -0.02], [1.2, 0.02], [1.6, 0.1], [1.85, 0.24], [1.88, 0.275], [1.83, 0.285], [1.6, 0.17], [1.2, 0.09], [0, 0.08]].map(([x, y]) => new THREE.Vector2(x, y));
 
@@ -248,7 +247,8 @@ async function createGL() {
   scene.environment = env.texture; scene.environmentIntensity = 0.35;
   const key = new THREE.DirectionalLight(0xffd9b0, 2.6); key.position.set(-4, 5, 4);
   const rim = new THREE.DirectionalLight(0x9fb4ff, 1.5); rim.position.set(4, 3, -4);
-  // The ember's own light: a warm point just in front of the burning front, strongest half-way, so the dish catches it.
+  // The ember's own light: a warm point on the axis just under the burning front (never lower than .75), strongest
+  // half-way. From inside the cone it leaves the outer wall and the cut alone and lands on the dish.
   const glow = new THREE.PointLight(0xff5a1a, 0, 0, 1.5);
   scene.add(key, rim, glow, new THREE.HemisphereLight(0xf4e6d8, 0x1a1210, 0.35));
 
@@ -261,11 +261,11 @@ async function createGL() {
     uProgress: { value: 0 }, uEdge: { value: FIELD.edge }, uAmp: { value: FIELD.amp }, uFreq: { value: FIELD.freq }, uFeather: { value: FIELD.feather }, uGrain: { value: FIELD.grain },
     uFront: { value: new THREE.Vector2(...FRONT) }, uSeam: { value: SEAM },
     uAxis: { value: new THREE.Vector3(0, -1, 0) }, uMin: { value: -CONE.top }, uMax: { value: -CONE.base },
-    uEmber: { value: new THREE.Color(0.95, 0.12, 0.01) }, uHot: { value: new THREE.Color(1.0, 0.25, 0.03) }, uAsh: { value: new THREE.Color(0.2, 0.19, 0.18) },
+    uEmber: { value: new THREE.Color(1.0, 0.06, 0.004) }, uHot: { value: new THREE.Color(1.0, 0.25, 0.03) }, uAsh: { value: new THREE.Color(0.2, 0.19, 0.18) },
   };
   const resin = new THREE.MeshStandardMaterial({ color: 0x8a5a3c, roughness: 0.95, metalness: 0, side: THREE.DoubleSide });
   patch(resin, uniforms);
-  const glaze = new THREE.MeshStandardMaterial({ color: 0x4d5f55, roughness: 0.3, metalness: 0 });
+  const glaze = new THREE.MeshStandardMaterial({ color: 0x3a4840, roughness: 0.42, metalness: 0 });
   const shade = new THREE.MeshBasicMaterial({ map: shadowMap, transparent: true, depthWrite: false });
   const cone = new THREE.Mesh(coneGeo, resin);
   const dish = new THREE.Mesh(dishGeo, glaze);
@@ -294,7 +294,7 @@ async function createGL() {
     uniforms.uProgress.value = state.level;
     cone.rotation.y = state.turn;
     const y = CONE.top - (CONE.top - CONE.base) * clamp(FRONT[0] + (FRONT[1] - FRONT[0]) * state.level, 0, 1);
-    glow.position.set(0, y, coneRadius(y) + 0.3);
+    glow.position.set(0, Math.max(y - 0.15, 0.75), 0);
     glow.intensity = GLOW * Math.sin(Math.PI * state.level);
     renderer.render(scene, camera);
     state.renders++;

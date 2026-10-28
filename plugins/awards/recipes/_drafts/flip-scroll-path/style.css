@@ -21,31 +21,15 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .bar .label { margin: 0; }
 
 h1, h2 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.025em; margin: 0; }
-h2 { font-size: clamp(2rem, 4.4vw, 4.25rem); line-height: 1; }
+h2 { font-size: clamp(2rem, 3.6vw, 3.75rem); line-height: 1; }
 p { margin: 0; }
 
-/* Twelve columns on a wide screen; every slot takes its geometry from this grid, never from the script. */
-.hero, .halves, .reserve, .firing__head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); }
-
-.hero { min-height: calc(100svh - 64px); align-items: center; padding-block: 48px 96px; }
-.hero__text { grid-column: 1 / span 6; display: grid; gap: calc(var(--unit) * 8); align-self: end; padding-bottom: 6svh; }
+.copy { display: grid; gap: calc(var(--unit) * 6); justify-items: start; }
+.copy p { max-width: 52ch; font-size: clamp(1rem, 1.15vw, 1.1875rem); color: var(--muted); }
+.hero__text { gap: calc(var(--unit) * 8); }
 .hero__title { font-size: clamp(2.75rem, 6.6vw, 7.5rem); line-height: 0.92; max-width: 11ch; }
-.hero__lede { max-width: 44ch; font-size: clamp(1.0625rem, 1.3vw, 1.25rem); color: var(--muted); }
-.plate--hero { grid-column: 8 / span 4; }
+.copy .hero__lede { max-width: 44ch; font-size: clamp(1.0625rem, 1.3vw, 1.25rem); }
 
-.halves { align-items: center; padding-block: 22svh 18svh; }
-.plate--halves { grid-column: 2 / span 3; }
-.halves__text { grid-column: 6 / span 6; display: grid; gap: calc(var(--unit) * 6); }
-.halves__text p, .firing__head p, .reserve__text p { max-width: 52ch; font-size: clamp(1rem, 1.15vw, 1.1875rem); color: var(--muted); }
-
-.firing { padding-block: 18svh 14svh; display: grid; gap: calc(var(--unit) * 10); }
-.firing__head { align-items: start; row-gap: calc(var(--unit) * 6); }
-.firing__head h2 { grid-column: 1 / span 6; max-width: 12ch; }
-.firing__head p { grid-column: 8 / span 5; }
-
-.reserve { min-height: 100svh; align-items: center; padding-block: 16svh 22svh; }
-.reserve__text { grid-column: 1 / span 5; display: grid; gap: calc(var(--unit) * 6); justify-items: start; }
-.plate--round { grid-column: 7 / span 4; }
 .cta { display: inline-flex; align-items: center; min-height: 48px; padding: 12px 22px; border-radius: 999px; background: var(--accent); color: var(--ground); font-weight: 600; text-decoration: none; }
 .cta { transition: background-color var(--dur-feedback) linear; }
 .cta:hover { background: var(--ink); }
@@ -53,35 +37,74 @@ p { margin: 0; }
 .footer { display: grid; gap: calc(var(--unit) * 3); padding-block: calc(var(--unit) * 16); border-top: 1px solid var(--line); color: var(--muted); }
 .footer p { max-width: 60ch; }
 
-/* ---- plates and slots ---------------------------------------------------------------------------------------
-   A slot is an empty picture box in the page's own layout: the grid gives it a width, aspect-ratio a height and
-   border-radius its corner. The script reads those three things and nothing else. No slot may clip or contain
-   (overflow, contain, container-type), because the first one is the flyer's home and it has to leave. */
-.plate { margin: 0; display: grid; gap: calc(var(--unit) * 3); }
-.plate figcaption { font-size: 0.875rem; color: var(--muted); }
+/* ---- narrow screens (and the page without CSS grid lanes): one column, every box shows its own still --------- */
+.hero, .halves, .firing, .reserve { display: grid; gap: 32px; padding-block: 64px; }
+.hero { padding-block: 32px 72px; gap: 40px; }
+.reserve { padding-bottom: 96px; }
+.plate { margin: 0; display: grid; gap: calc(var(--unit) * 3); align-content: start; }
+.plate figcaption { font-size: 0.875rem; line-height: 1.45; color: var(--muted); }
+.plate--hero { width: min(76%, 440px); justify-self: end; }
+.plate--detail { width: min(64%, 400px); justify-self: start; }
+.plate--shelf { width: 100%; }
+.plate--round { width: min(70%, 420px); justify-self: center; }
+
+/* ---- wide screens: three lanes of the twelve columns -------------------------------------------------------------
+   Copy in columns 1–5, captions in 6–7, the picture lane in 8–12. Every slot sits in the picture lane, so the path
+   between two slots (the box the flight sweeps: the convex hull of the two boxes) never leaves it and never reaches a
+   line of text. A figure spans the caption and picture lanes as a subgrid: its caption hugs the lane's inner edge,
+   aligned to the foot of its slot. The breakpoint is the script's: main.js flies the jar only at 1024 px and up. */
+@media (min-width: 1024px) {
+  .hero, .halves, .firing, .reserve { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); row-gap: 0; align-items: center; min-height: 100svh; padding-block: 0; }
+  .hero { min-height: calc(100svh - 64px); }
+  .copy { grid-column: 1 / span 5; grid-row: 1; }
+  .plate { grid-column: 6 / -1; grid-row: 1; grid-template-columns: subgrid; align-items: end; width: auto; justify-self: stretch; }
+  .plate figcaption { grid-column: 1 / span 2; grid-row: 1; text-align: end; }
+  .plate .slot { grid-row: 1; }
+  .slot--arch { grid-column: 4 / span 4; }   /* page columns 9–12 */
+  .slot--detail { grid-column: 3 / span 3; } /* 8–10 */
+  .slot--shelf { grid-column: 3 / span 5; }  /* 8–12 */
+  .slot--round { grid-column: 3 / span 4; }  /* 8–11 */
+}
+
+/* ---- slots ------------------------------------------------------------------------------------------------------
+   A slot is a picture box in the page's own layout: the grid gives it a width, aspect-ratio a height and
+   border-radius its four corners. The script reads those and nothing else. No slot may clip or contain (overflow,
+   contain, container-type), because the first one is the flyer's home and it has to leave. */
 .slot { position: relative; width: 100%; }
-.slot--arch { aspect-ratio: 4 / 5; border-radius: 999px; }
-.slot--square { aspect-ratio: 1; border-radius: 28px; }
+.slot--arch { aspect-ratio: 4 / 5; border-radius: 999px 999px 0 0; }
+.slot--detail { aspect-ratio: 4 / 3; border-radius: 28px; }
 .slot--shelf { aspect-ratio: 21 / 9; border-radius: 0; }
 .slot--round { aspect-ratio: 1; border-radius: 50%; }
+@media (max-width: 1023.98px) { .slot--shelf { aspect-ratio: 2 / 1; } }
 
-/* The empty box: a hairline frame and the jar's outline, shown only while the flight runs. */
-.ghost { position: absolute; inset: 0; border-radius: inherit; container-type: size; box-shadow: inset 0 0 0 1px var(--line); opacity: 0; }
-.ghost__jar { position: absolute; left: 50%; top: 52%; width: 60cqmin; height: 56cqmin; translate: -50% -50%; border-radius: 50% 50% 44% 44% / 46% 46% 54% 54%; border: 1px dashed var(--line); }
-
-/* ---- the picture, drawn in CSS ------------------------------------------------------------------------------
-   Sized in container units so the same drawing art-directs itself to a tall arch, a square, a wide shelf and a
-   circle: the jar takes 60 % of the shorter side and the shelf and glow follow the box. */
+/* ---- the picture, drawn in CSS ----------------------------------------------------------------------------------
+   One drawing in four scenes, named by data-scene: a studio shelf (the arch), the seam close up (the detail), a
+   kiln shelf with brick behind (the shelf), a straw nest seen through a window (the round). Every measure is in
+   container units, so the jar keeps its proportions in any box. Each scene adds layers to the studio drawing, so the
+   travelling copy can blend from one scene to the next by their opacities. */
 .art {
   position: absolute; inset: 0; overflow: hidden; border-radius: inherit; container-type: size;
   background:
     linear-gradient(180deg, transparent 0 74%, rgba(12, 6, 3, 0.34) 74% 100%),
     linear-gradient(165deg, #8c3d1e 0%, #4b2316 46%, #26150f 100%);
 }
-.art__glow { position: absolute; left: 34%; top: 40%; width: 130cqmax; height: 130cqmax; translate: -50% -50%; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 170, 104, 0.5), rgba(255, 170, 104, 0)); }
-.art__shadow { position: absolute; left: 50%; top: calc(52% + 27cqmin); width: 66cqmin; height: 7cqmin; translate: -50% -50%; border-radius: 50%; background: radial-gradient(closest-side, rgba(10, 5, 2, 0.62), rgba(10, 5, 2, 0)); }
+.art > span, .art::before, .art::after { position: absolute; }
+.art__brick, .art__straw, .art__close, .art::before, .art::after { opacity: 0; }
+
+/* Kiln: courses of brick above the shelf, lit from below by what is left of the fire. */
+.art__brick {
+  inset: 0 0 26% 0;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='24' viewBox='0 0 36 24'%3E%3Cpath d='M0 .75H36M0 12.75H36M.75 0V12M18.75 12V24' fill='none' stroke='%23170904' stroke-opacity='.62' stroke-width='1.5'/%3E%3C/svg%3E") 0 100% / 30cqmin 20cqmin,
+    radial-gradient(64% 110% at 50% 100%, rgba(255, 150, 82, 0.62), rgba(255, 150, 82, 0) 72%),
+    linear-gradient(180deg, #5a2414, #8a3a1a);
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.5), #000 55%);
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.5), #000 55%);
+}
+.art__glow { left: 34%; top: 40%; width: 130cqmax; height: 130cqmax; translate: -50% -50%; border-radius: 50%; background: radial-gradient(closest-side, rgba(255, 170, 104, 0.5), rgba(255, 170, 104, 0)); }
+.art__shadow { left: 50%; top: calc(52% + 27cqmin); width: 66cqmin; height: 7cqmin; translate: -50% -50%; border-radius: 50%; background: radial-gradient(closest-side, rgba(10, 5, 2, 0.62), rgba(10, 5, 2, 0)); }
 .art__jar {
-  position: absolute; left: 50%; top: 52%; width: 60cqmin; height: 56cqmin; translate: -50% -50%;
+  left: 50%; top: 52%; width: 60cqmin; height: 56cqmin; translate: -50% -50%;
   border-radius: 50% 50% 44% 44% / 46% 46% 54% 54%;
   background: radial-gradient(118% 104% at 32% 26%, #fffaf2 0%, #f1e7d6 30%, #d8c8ae 62%, #9e8b72 94%);
 }
@@ -89,43 +112,65 @@ p { margin: 0; }
 .art__jar::before { content: ""; position: absolute; left: 50%; top: -2cqmin; width: 23cqmin; height: 5cqmin; translate: -50% 0; border-radius: 50%; background: linear-gradient(#f7efe2, #c9b79c); }
 .art__jar::after { content: ""; position: absolute; left: 1.5%; right: 1.5%; top: 41%; height: 7cqmin; border-radius: 50%; border-bottom: 0.45cqmin solid rgba(112, 90, 68, 0.38); }
 
-/* The one element that travels. At rest it fills the first slot exactly; Flip.fit writes x, y, width and height,
-   the timeline writes border-radius. Size and paint are contained, so a width change lays out its own drawing and
-   nothing else. It never takes a pointer. */
+/* Crate: the box goes dark, a nest of oat straw takes the jar's foot, and the window gets a rim. */
+.art::before { content: ""; inset: 0; background: radial-gradient(closest-side, rgba(14, 7, 4, 0.2) 55%, rgba(10, 5, 3, 0.86)), linear-gradient(180deg, rgba(24, 12, 7, 0.55), rgba(24, 12, 7, 0.2)); }
+.art::after { content: ""; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1.6cqmin rgba(62, 40, 20, 0.9), inset 0 0 0 2.2cqmin rgba(222, 186, 112, 0.35), inset 0 0 9cqmin 2cqmin rgba(0, 0, 0, 0.55); }
+.art__straw {
+  left: -6%; right: -6%; top: 63%; bottom: -24%; border-radius: 50% 50% 0 0 / 34% 34% 0 0;
+  background:
+    repeating-linear-gradient(58deg, rgba(236, 204, 132, 0.72) 0 0.35cqmin, rgba(236, 204, 132, 0) 0.35cqmin 1.3cqmin),
+    repeating-linear-gradient(-34deg, rgba(204, 160, 84, 0.66) 0 0.3cqmin, rgba(204, 160, 84, 0) 0.3cqmin 2.1cqmin),
+    repeating-linear-gradient(14deg, rgba(150, 108, 48, 0.62) 0 0.4cqmin, rgba(150, 108, 48, 0) 0.4cqmin 2.9cqmin),
+    repeating-linear-gradient(103deg, rgba(246, 222, 160, 0.45) 0 0.25cqmin, rgba(246, 222, 160, 0) 0.25cqmin 3.7cqmin),
+    radial-gradient(70% 60% at 50% 0%, rgba(255, 196, 120, 0.22), rgba(255, 196, 120, 0)),
+    linear-gradient(180deg, #634421, #22150a 85%);
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 8%);
+  mask-image: linear-gradient(180deg, transparent, #000 8%);
+}
+
+/* Detail: close on the waist. The porcelain fills the box under a curved shoulder, and the seam crosses it. */
+.art__close {
+  left: -18%; right: -18%; top: 9%; bottom: -70%; border-radius: 50%;
+  background:
+    linear-gradient(90deg, rgba(92, 68, 44, 0.42), rgba(92, 68, 44, 0) 24% 68%, rgba(92, 68, 44, 0.5)),
+    radial-gradient(56% 36% at 36% 16%, #fffaf2 0%, #f3eadb 36%, #dccdb4 70%, #b3a084 100%);
+  box-shadow: inset -7cqmin -3cqmin 12cqmin rgba(96, 72, 48, 0.38), 0 -1cqmin 4cqmin rgba(10, 5, 2, 0.5);
+}
+.art__close::after { content: ""; position: absolute; left: 3%; right: 3%; top: 21%; height: 12cqmin; border-radius: 50%; border-bottom: 1.1cqmin solid rgba(112, 88, 64, 0.42); box-shadow: 0 0.9cqmin 0.6cqmin -0.4cqmin rgba(255, 250, 240, 0.5); }
+
+.art[data-scene="kiln"] .art__brick,
+.art[data-scene="crate"]::before, .art[data-scene="crate"]::after, .art[data-scene="crate"] .art__straw,
+.art[data-scene="detail"] .art__close { opacity: 1; }
+/* The travelling copy takes its scene from the weights the timeline writes on it (--kiln: 0 to 1). */
+.flyer .art__brick { opacity: var(--kiln, 0); }
+.flyer .art__straw, .flyer .art::before, .flyer .art::after { opacity: var(--crate, 0); }
+.flyer .art__close { opacity: var(--detail, 0); }
+
+/* ---- the flight ---------------------------------------------------------------------------------------------------
+   The one element that travels. At rest it fills the first slot exactly; Flip.fit writes x, y, width and height, the
+   timeline writes the four corners and the scene weights. Size and paint are contained, so a width change lays out
+   its own drawing and nothing else. It never takes a pointer. */
 .flyer { position: absolute; z-index: 20; top: 0; left: 0; width: 100%; height: 100%; display: none; overflow: hidden; contain: strict; border-radius: inherit; pointer-events: none; box-shadow: 0 44px 80px -36px rgba(0, 0, 0, 0.7); }
 
-/* The flight runs (full tier, set by main.js): the travelling jar shows, the stills step back behind their frames.
-   Without the script, or under reduced motion and static, every slot shows its own still and nothing travels. */
+/* Each box's own set without the jar: the scene with its lights down, waiting. Shown only while the flight runs. */
+.art--set { opacity: 0; filter: brightness(0.52) saturate(0.8); }
+
+/* The flight runs (full tier on a wide screen, set by main.js): the travelling jar shows, each box shows its empty set
+   and its still steps back. Without the script, under reduced motion and static, and on a narrow screen, every box
+   shows its own still and nothing travels. */
 html[data-flight="on"] .flyer { display: block; }
 html[data-flight="on"] .art--still { opacity: 0; }
-html[data-flight="on"] .ghost { opacity: 1; }
+html[data-flight="on"] .art--set { opacity: 1; }
 
 /* With a reduced-motion preference (unless the page is forced to the full tier) the travelling copy never shows, even
    before the script has run or if it never does: every slot keeps its own still. */
 @media (prefers-reduced-motion: reduce) {
   html:not([data-motion="full"]) .flyer { display: none; }
   html:not([data-motion="full"]) .art--still { opacity: 1; }
-  html:not([data-motion="full"]) .ghost { opacity: 0; }
-}
-
-/* ---- phone: one column, each slot a different width and side so the flight still crosses the page ---------- */
-@media (max-width: 760px) {
-  .hero, .halves, .reserve, .firing__head { grid-template-columns: minmax(0, 1fr); }
-  .hero { min-height: auto; padding-block: 32px 72px; row-gap: 40px; }
-  .hero__text { grid-column: 1; padding-bottom: 0; }
-  .plate--hero { grid-column: 1; width: 76%; justify-self: end; }
-  .halves { padding-block: 64px; row-gap: 32px; }
-  .plate--halves { grid-column: 1; width: 58%; justify-self: start; }
-  .halves__text { grid-column: 1; }
-  .firing { padding-block: 64px; gap: 32px; }
-  .firing__head h2, .firing__head p { grid-column: 1; }
-  .slot--shelf { aspect-ratio: 4 / 3; }
-  .reserve { min-height: auto; padding-block: 64px 30svh; row-gap: 40px; }
-  .reserve__text { grid-column: 1; }
-  .plate--round { grid-column: 1; width: 70%; justify-self: center; }
+  html:not([data-motion="full"]) .art--set { opacity: 0; }
 }
 
 @media (forced-colors: active) {
-  .ghost { box-shadow: none; outline: 1px solid CanvasText; }
+  .slot { outline: 1px solid CanvasText; }
   .cta { border: 2px solid ButtonText; }
 }
