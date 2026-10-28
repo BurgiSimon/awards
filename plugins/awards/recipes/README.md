@@ -18,7 +18,7 @@ node ../scripts/verify-recipes.mjs --only boot-lenis-gsap,marquee-raf-mask
 ```
 Screenshots land in `_verify/<id>/<state>.png`; `recipe.json.verified` is stamped on a pass. SwiftShader proves correctness, not frame rate: run a real-device pass before shipping anything GL.
 
-The six static visual examples declare their reviewed desktop/mobile image paths and notes in `recipe.json.visuals`. Select and open only relevant images through `references/patterns/visual-composition.md`. The catalogue now has 96 entries: 95 focused recipes and one complete composition.
+The six static visual examples declare their reviewed desktop/mobile image paths and notes in `recipe.json.visuals`. Select and open only relevant images through `references/patterns/visual-composition.md`. The catalogue now has 96 entries: 98 focused recipes and one complete composition.
 
 ## Catalogue
 
