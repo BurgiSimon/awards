@@ -30,9 +30,11 @@ html.gl-active .gl { display: block; }
 
 .close-bar { display: flex; flex-wrap: wrap; align-items: center; gap: calc(var(--unit) * 4) calc(var(--unit) * 6); padding-block: calc(var(--unit) * 6) calc(var(--unit) * 10); border-top: 1px solid var(--line); }
 .close-bar > .label { margin-inline-start: auto; }
+/* The controls act on the GL picture, so they stay hidden until it exists (and again if the context is lost). */
 .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; }
+.seg[hidden] { display: none; }
 .seg button, .pause { font: inherit; font-size: .875rem; color: var(--ink); background: none; border: 0; border-radius: 999px; min-height: 44px; min-width: 44px; padding: 0 calc(var(--unit) * 5); cursor: pointer; }
-.seg button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+.seg button[aria-pressed="true"], .pause[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
 .pause { border: 1px solid var(--line); }
 .pause[hidden] { display: none; }
 a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }

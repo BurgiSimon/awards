@@ -13,6 +13,26 @@ reference. `decisions.md` records choices already taken.
 - Plugin fix: `capture.mjs` called Son Daven unreachable because `load` never fired in 120 s; it now captures after DOMContentLoaded and lists `manifest.loadTimeouts` (`gotoLoaded`, documented in `capture-states.md`, behavior check `capture: a page whose load event never fires…`). The research skill reads a gate that never opens as a §6 finding.
 - Not measured: a real GPU or phone for the three recipes; the site's own frame cost (fifteen contexts) beyond SwiftShader. The site's hero frames (17 of 120 pending at 40 s) stalled from this container; whether they stall from an ordinary network is unknown.
 
+## Review of waves 6a and 6b (2026-10-28)
+
+- After the merge, an independent review workflow (five scoped reviewers, each finding put to a separate skeptic) confirmed 46 findings and refuted 4. A second workflow fixed them in five disjoint file groups, and a read-only checker per group re-read each fix; the follow-ups the checkers raised were applied by hand.
+- What changed:
+  - Recipes:
+    - the Son Daven footer's develop now runs while the picture is on screen (it used to finish below the fold);
+    - both dither shaders mix in premultiplied space (thin bars and glyph edges had drawn at cover² with the ground leaking);
+    - the pool recipe has a pause control;
+    - the curtain recipe sets manual scroll restoration, makes the page behind it inert, queues routes behind the arrival, and has a 5 s CSS failsafe that a late module respects;
+    - the case hand-off survives Back and Forward races;
+    - the footer-credits focus rings are visible;
+    - the index marker keeps the focused row's ring.
+  - Verifiers: assertions that had passed on empty frames now require real content, and each fixer showed the new checks fail on the old code.
+  - Cards:
+    - Son Daven's page order, the gate on repeat visits and phones, the rails' nested Lenis, the HEVC reach and the season links;
+    - The Line's reduced-motion coverage (not every CSS transition is gated), SplitText (the site wraps GSAP SplitText 3.11.3), the header arrival, the blink and stagger attributions, and its rank among Animations scores.
+  - Scripts:
+    - the load-timeout fallback now covers the timeline and walk lanes, with the behavior test extended to them;
+    - check-sync now checks the catalogue preamble's entry count, which had drifted to 96.
+
 ## Corpus wave 6b — The Line motion lens (run as a separate task on local branch `the-line-lens`, merged into `claude/serene-pasteur-5g774f`, 2026-10-28, unreleased)
 
 - At the maintainer's request ("analyze https://thelinestudio.com/ and make the awards skill better with it"): a motion and interaction re-read of `the-line` over the home route, `/work` and one case study (`docs/handoff/corpus-ledger.md#wave-6b--the-line-motion-lens-opened-2026-10-28`). The site's bundle is unchanged by hash since 2026-09-18. The pass read the component chunks the first one did not:

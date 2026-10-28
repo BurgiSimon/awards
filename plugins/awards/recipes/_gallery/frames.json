@@ -8,7 +8,7 @@
     "width": 800,
     "height": 500
   },
-  "total": 1436094,
+  "total": 1435702,
   "sheet": {
     "file": "sheet.webp",
     "tile": {
@@ -217,7 +217,7 @@
       "state": "sweep",
       "scroll": null,
       "captured": "2026-10-28",
-      "bytes": 12162
+      "bytes": 11106
     },
     "docked-media-grow": {
       "state": "dock",
@@ -259,7 +259,7 @@
       "state": "open",
       "scroll": null,
       "captured": "2026-10-28",
-      "bytes": 19476
+      "bytes": 19512
     },
     "gl-arc-length-mask-reveal": {
       "state": "half",
@@ -289,7 +289,7 @@
       "state": "seasons",
       "scroll": null,
       "captured": "2026-10-28",
-      "bytes": 27762
+      "bytes": 28284
     },
     "gl-dom-refraction-lens": {
       "state": "hero",
@@ -439,7 +439,7 @@
       "state": "glyphs",
       "scroll": 1,
       "captured": "2026-10-28",
-      "bytes": 31052
+      "bytes": 31158
     },
     "gl-virtual-scroll-camera": {
       "state": "mid",

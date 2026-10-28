@@ -18,6 +18,12 @@ const container = document.querySelector('[data-container]');
 const PAGES = { home: { title: 'Valley', html: container.innerHTML }, ...ROUTES };
 const params = new URLSearchParams(location.search);
 const KEY = 'dither-cell-transition:visited';
+// The router restores the scroll itself, behind the shut curtain; the browser's own restore would jump the page being
+// left on back and forward, in view, and the scroll saved for it would then be the restored one.
+try { history.scrollRestoration = 'manual'; } catch {}
+// While the curtain is up, everything behind it is inert: no Tab stop hidden under the cells, no Enter that routes.
+const behind = [...document.body.children].filter((el) => el !== curtain && el !== status && el.localName !== 'script');
+const setInert = (on) => { for (const el of behind) el.inert = on; };
 
 // This recipe's own values, not a site's.
 const CELL = { w: 72, h: 75 };                          // target cell size in CSS px; the grid is rebuilt to fit
@@ -25,7 +31,7 @@ const SWEEP = { cell: 0.4, each: 0.02, ease: 'power3.inOut' };   // about 0.8 s 
 const GATE = { minFirst: 900, minRepeat: 250, ceiling: 4000 };
 const FADE = 0.2;                                       // reduced motion: the cover fades instead of weaving
 
-const state = { motion: tier, route: 'home', phase: 'arrival', gate: null, cols: 0, rows: 0, transitions: 0, restored: null, repeat: false, coveredAtSwap: null, lastMs: null };
+const state = { motion: tier, route: 'home', phase: 'arrival', gate: null, cols: 0, rows: 0, transitions: 0, restored: null, repeat: false, coveredAtSwap: null, lastMs: null, late: false };
 
 function build() {
   const cols = Math.max(4, Math.round(innerWidth / CELL.w));
@@ -45,12 +51,13 @@ const cells = () => grid.children;
 // row by row, so GSAP's grid is [rows, cols]). Uncovering runs the same sweep the other way.
 function cover() {
   curtain.hidden = false;
+  setInert(true);
   if (tier !== 'full') return gsap.fromTo(curtain, { opacity: 0 }, { opacity: 1, duration: tier === 'static' ? 0 : FADE });
   gsap.set(curtain, { opacity: 1 });
   return gsap.fromTo(cells(), { scaleX: 0 }, { scaleX: 1, duration: SWEEP.cell, ease: SWEEP.ease, stagger: { each: SWEEP.each, from: 'end', grid: [state.rows, state.cols] } });
 }
 function uncover() {
-  const done = () => { curtain.hidden = true; };
+  const done = () => { curtain.hidden = true; setInert(false); };
   if (tier !== 'full') return gsap.to(curtain, { opacity: 0, duration: tier === 'static' ? 0 : FADE, onComplete: done });
   return gsap.to(cells(), { scaleX: 0, duration: SWEEP.cell, ease: SWEEP.ease, stagger: { each: SWEEP.each, from: 'end', grid: [state.rows, state.cols] }, onComplete: done });
 }
@@ -79,7 +86,7 @@ async function gate() {
 }
 
 // Only the current page is in the document: the next one replaces it while the curtain is shut.
-function show(route, { restore = false } = {}) {
+function show(route, { restore = false, keepScroll = false } = {}) {
   const key = PAGES[route] ? route : 'home';
   if (key !== state.route) container.innerHTML = PAGES[key].html;
   state.route = key;
@@ -88,7 +95,7 @@ function show(route, { restore = false } = {}) {
   let saved = null;
   if (restore) { try { saved = Number(sessionStorage.getItem(`scroll:${key}`)); } catch {} }
   state.restored = restore && saved ? saved : null;
-  window.scrollTo(0, restore && saved ? saved : 0);
+  if (!keepScroll) window.scrollTo(0, restore && saved ? saved : 0);
 }
 
 let busy = Promise.resolve();
@@ -114,7 +121,14 @@ function go(route, { restore = false } = {}) {
   return busy;
 }
 
-const routeOf = () => (location.hash.replace(/^#\/?/, '') || 'home');
+// Only #/… hashes are routes. Any other hash is an in-page target (the skip link's #main): the entry it made is
+// rewritten to the current route, so a reload, back or forward to it stays on this page instead of routing.
+const routeOf = () => location.hash.match(/^#\/([\w-]+)/)?.[1] ?? 'home';
+const inPageTarget = () => {
+  if (!location.hash || location.hash.startsWith('#/')) return false;
+  history.replaceState(history.state, '', `#/${state.route}`);
+  return true;
+};
 document.addEventListener('click', (e) => {
   const a = e.target.closest('[data-nav]');
   if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;
@@ -125,12 +139,25 @@ document.addEventListener('click', (e) => {
   go(route);
 });
 // Back and forward restore the scroll the page was left at; a fresh visit to a route starts at the top.
-addEventListener('popstate', () => go(routeOf(), { restore: true }));
+addEventListener('popstate', () => { if (!inPageTarget()) go(routeOf(), { restore: true }); });
 
 async function arrive() {
+  // A module that runs after the CSS failsafe has already released the page must not shut it again: mark the curtain
+  // ready (which ends the failsafe), keep it hidden, and treat the arrival as done.
+  if (getComputedStyle(curtain).visibility === 'hidden') {
+    curtain.dataset.ready = '';
+    curtain.hidden = true;
+    readout.hidden = true;
+    state.late = true;
+    show(routeOf(), { keepScroll: true });
+    state.phase = 'idle';
+    awards.ready();
+    return;
+  }
   if (tier === 'full') gsap.set(cells(), { scaleX: 1 });
   curtain.hidden = false;
   curtain.dataset.ready = '';
+  setInert(true);
   show(routeOf());
   await gate();
   readout.hidden = true;                                // the percentage belongs to the arrival only
@@ -144,9 +171,20 @@ window.__curtain = { go: (r) => go(r), get phase() { return state.phase; } };
 awards.addState(() => ({
   ...state,
   curtainHidden: curtain.hidden,
+  behindInert: behind.every((el) => el.inert),
+  hash: location.hash,
   cells: cells().length,
   focused: document.activeElement?.tagName?.toLowerCase() ?? null,
   title: document.title,
   scrollY: Math.round(scrollY),
 }));
-arrive();
+// The arrival is on the same queue as every route change: one asked for while it is still shut waits for it to open.
+// Verification: a module that only runs after the failsafe (a slow network), simulated by holding the arrival 5.4 s.
+let late = false;
+try { late = sessionStorage.getItem('dither-cell-transition:late') === '1'; if (late) sessionStorage.removeItem('dither-cell-transition:late'); } catch {}
+busy = late ? new Promise((r) => setTimeout(r, 5400)).then(arrive) : arrive();
+// Verification: a route asked for mid-arrival, as a key press under the curtain would, to prove it queues.
+try {
+  const early = sessionStorage.getItem('dither-cell-transition:early');
+  if (early) { sessionStorage.removeItem('dither-cell-transition:early'); history.pushState(null, '', `#/${early}`); go(early); }
+} catch {}

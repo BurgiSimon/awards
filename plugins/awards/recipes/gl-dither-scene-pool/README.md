@@ -26,20 +26,21 @@ These are this recipe's own values, not a site's.
 Each clip is a pool entry, `pool.addClip(name, source)`, where `source` is `{ el: <video>, kind: 'video', version }`: see `[recipe:gl-video-dither-layers]` ("Real footage") for the video element and the per-frame version. Register a clip once and reference it by name from as many scenes as show it.
 
 ## Tiers
-- **Full:** clips play for the scenes that show them, levels develop with the scroll, flocks loop.
-- **Reduced and static:** one still per scene from the canvases at a fixed time, drawn when the scene first comes into view and on resize; no clock, nothing loops; the season switch is instant.
-- **No WebGL:** no context; each scene keeps a quiet CSS bar texture under its caption.
+- **Full:** clips play for the scenes that show them, levels develop with the scroll, flocks loop; a **Pause footage** button in the top bar stops every clip and flock loop at once, and with nothing changing no scene redraws (moving content longer than five seconds needs one, WCAG 2.2.2).
+- **Reduced and static:** one still per scene from the canvases at a fixed time, drawn when the scene first comes into view and on resize; no clock, nothing loops, no pause button; the season switch is instant.
+- **No WebGL:** no context; each scene keeps a quiet CSS bar texture under its caption, and the pause button stays hidden.
 
-`window.__pool.freeze()` pins the clips for verification, `inkShare(scene)` reads a scene's canvas back, and `setSeason(name, instant)` drives the switch.
+`window.__pool.freeze()` pins the clips for verification, `inkShare(scene)` reads a scene's canvas back (and checks that part-covered pixels carry no ground colour), `setSeason(name, instant)` drives the switch, and `colours(el)` returns a section's tokens as the shader gets them.
 
 ## Accessibility
-Scene canvases are `aria-hidden` and every scene has a visible caption; the season switch is a pair of `aria-pressed` buttons with 44 px targets. All text is DOM.
+Scene canvases are `aria-hidden` and every scene has a visible caption; the season switch is a pair of `aria-pressed` buttons with 44 px targets. **Pause footage** sits in the top bar, reachable from the first screen; it keeps its label while `aria-pressed` carries the state, as in `[recipe:gl-video-dither-layers]`. All text is DOM.
 
 ## Adapters
 
 ### Webflow
 - Designer: a Div with class `scene` in each section, holding an Embed `<canvas aria-hidden="true">` and a caption text element; mark each with a `data-scene` custom attribute.
 - Inject: one page-level `<script type="module">` that creates the pool once and registers every `[data-scene]` it finds; with Barba or another transition library, keep the pool across pages and re-register scenes on enter (dispose only the scene records, never the context).
-- Variables: a section's variable mode sets `--ground` and `--ink`, which the scene reads.
+- Controls: one page-level Button with `data-pause` and `aria-pressed="false"`, `hidden` until the pool runs (needed whenever footage loops past five seconds, WCAG 2.2.2); a scene's own switches (the seasons here) also start `hidden`. A page without them still draws.
+- Variables: a section's variable mode sets `--ground` and `--ink`, which the scene reads; hex directly, any other CSS colour (`rgb()`, `hsl()`, `oklch()`, named) through one painted pixel.
 
 Seen in: `[site:son-daven]` (one dither shader across fifteen scene canvases on the home page).

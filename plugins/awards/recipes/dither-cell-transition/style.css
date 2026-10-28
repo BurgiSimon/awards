@@ -24,10 +24,14 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 /* The curtain: a fixed grid of cells over everything, each a bar that scales on X about its centre. A cell overlaps
    its neighbours by half a pixel so fractional cell widths never leave a seam when the curtain is shut. */
-.curtain { position: fixed; inset: 0; z-index: 50; }   /* while shown it also takes the clicks: nothing navigates mid-sweep */
+/* While shown it takes the clicks, and the script makes the page behind it inert: nothing navigates mid-sweep. */
+.curtain { position: fixed; inset: 0; z-index: 50; }
 .curtain[hidden] { display: none; }
-/* Shut from first paint until the script has built the cells, so the page never flashes before the arrival. */
-.curtain:not([data-ready]) { background: var(--ink); }
+/* Shut from first paint until the script has built the cells, so the page never flashes before the arrival. The
+   script's 4 s ceiling only starts once the module runs, so a module that is slow, blocked or throws is covered by a
+   failsafe of its own: 5 s after first paint the shut curtain hides itself (visibility also drops its clicks). */
+.curtain:not([data-ready]) { background: var(--ink); animation: curtain-failsafe 0s linear 5s forwards; }
+@keyframes curtain-failsafe { to { visibility: hidden; } }
 .cells { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(var(--cols), 1fr); grid-template-rows: repeat(var(--rows), 1fr); }
 .cells > i { display: block; background: var(--ink); margin: -0.5px; transform: scaleX(0); will-change: transform; }
 html:not([data-motion-tier="full"]) .cells > i { transform: none; }

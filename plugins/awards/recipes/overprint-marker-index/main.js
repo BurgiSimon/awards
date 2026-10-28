@@ -76,7 +76,8 @@ list.addEventListener('focusout', (e) => { if (!list.contains(e.relatedTarget)) 
 // Touch screens: no hover, so the marker becomes a reading-line indicator while the list is on screen.
 const coarse = matchMedia('(hover: none), (pointer: coarse)');
 function readingLine() {
-  if (!coarse.matches || list.contains(document.activeElement)) return;
+  // Keyboard focus wins; the focus a tap leaves on a link (never :focus-visible) does not freeze the reading line.
+  if (!coarse.matches || list.querySelector(':focus-visible')) return;
   const y = innerHeight * READING_LINE;
   const row = rows.find((r) => { const b = r.getBoundingClientRect(); return b.top <= y && b.bottom > y; });
   if (row) mark(row, 'reading'); else if (state.mode === 'reading') unmark();

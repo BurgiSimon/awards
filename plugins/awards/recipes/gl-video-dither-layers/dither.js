@@ -64,8 +64,9 @@ void main() {
     float index = floor(ink * (u_glyphCount - 1.0) + 0.5);
     cover = texture2D(u_glyphs, vec2((index + f.x) / u_glyphCount, f.y)).a;
   }
-  vec4 col = mix(vec4(u_ground, u_alpha.x), vec4(u_ink, u_alpha.y), cover);
-  gl_FragColor = vec4(col.rgb * col.a, col.a);      // premultiplied
+  // Mixed in premultiplied space, so a part-covered pixel over a clear ground takes ink in proportion to its cover
+  // (not cover squared) and no ground colour; ground and ink are premultiplied first, the result is already.
+  gl_FragColor = mix(vec4(u_ground * u_alpha.x, u_alpha.x), vec4(u_ink * u_alpha.y, u_alpha.y), cover);
 }`;
 
 // Glyph candidates. The order is not trusted: the system monospace face differs per platform, so the atlas measures
@@ -105,10 +106,28 @@ const hex = (s) => {
   return [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16) / 255);
 };
 
+// Any other CSS colour (rgb(), hsl(), oklch(), a named colour, a Webflow variable emitted as rgba) is normalised by the
+// browser: painted into one pixel and read back. An invalid value leaves the fill style alone, so two different
+// sentinels disagree and the token is rejected rather than read as the sentinel.
+let swatch = null;
+const cssColour = (s) => {
+  s = String(s).trim();
+  if (!s) return null;
+  swatch ??= Object.assign(document.createElement('canvas'), { width: 1, height: 1 }).getContext('2d', { willReadFrequently: true });
+  swatch.fillStyle = '#000'; swatch.fillStyle = s; const a = swatch.fillStyle;
+  swatch.fillStyle = '#fff'; swatch.fillStyle = s;
+  if (swatch.fillStyle !== a) return null;
+  swatch.clearRect(0, 0, 1, 1);
+  swatch.fillRect(0, 0, 1, 1);
+  const d = swatch.getImageData(0, 0, 1, 1).data;
+  return d[3] ? [d[0] / 255, d[1] / 255, d[2] / 255] : null;
+};
+const colour = (s) => hex(s) ?? cssColour(s);
+
 // Reads the section's own tokens, so a scene inside a dark section weaves in that section's ink.
 export function tokenColours(el) {
   const cs = getComputedStyle(el);
-  return { ground: hex(cs.getPropertyValue('--ground')) ?? [1, 1, 1], ink: hex(cs.getPropertyValue('--ink')) ?? [0, 0, 0] };
+  return { ground: colour(cs.getPropertyValue('--ground')) ?? [1, 1, 1], ink: colour(cs.getPropertyValue('--ink')) ?? [0, 0, 0] };
 }
 
 // Cells never get smaller than this many CSS px, whatever the authored column count: on a phone the grid coarsens

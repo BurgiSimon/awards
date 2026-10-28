@@ -22,7 +22,7 @@ const panel = document.querySelector('[data-panel]');
 const title = panel.querySelector('h2');
 const closeBtn = panel.querySelector('[data-credits-close]');
 
-const OPEN_SCROLL = 0.8;   // s: the scroll to the end that precedes the lift
+const OPEN_SCROLL = 0.8;   // s: the scroll to the end, run alongside the lift
 const ARM = full ? 0.85 : 0.3; // s: after this, a scroll of more than SCROLL_CLOSE px closes the credits
 const SCROLL_CLOSE = 24;   // px
 const expoOut = (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t));
@@ -129,12 +129,15 @@ addEventListener('scroll', () => {
   setOpen(false, { restoreFocus: panel.contains(document.activeElement) });
 }, { passive: true });
 
-// Keyboard focus never lands under the closing sheet. Once the stage sticks, its links count as "in view" to the
-// browser even while the sheet still covers them, so keyboard focus on anything in the stage jumps to the end first.
+// Keyboard focus never lands under the closing sheet or the open credits. Once the stage sticks, its links count as
+// "in view" to the browser even while the sheet still covers them, so keyboard focus on anything in the stage jumps to
+// the end first; while the credits are open (the page is already at the end, but the lifted stage tucks its first
+// links under the sheet, and the reduced tier's panel covers its base row) it puts the credits away first.
 // Pointer focus (a press on the trigger) and the focus this script moves itself are left alone: a jump between
 // pointerdown and click would move the button out from under the press.
 content.addEventListener('focusin', (e) => {
   if (movingFocus || !e.target.matches(':focus-visible')) return;
+  if (open) { setOpen(false, { restoreFocus: false }); return; }
   const max = maxScroll();
   if (scrollY >= max - 2) return;
   if (lenis) lenis.scrollTo(max, { immediate: true, force: true });

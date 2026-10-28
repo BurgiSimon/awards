@@ -15,8 +15,11 @@ const html = document.documentElement;
 const tier = motionTier();
 const readout = document.querySelector('[data-gl-readout]');
 const seasonBtns = [...document.querySelectorAll('[data-season]')];
+const pauseBtn = document.querySelector('[data-pause]');
+// Optional controls: a page may ship without them; both stay hidden until the pool exists, since only then do they act.
+const seasonGroup = document.querySelector('[data-season-group]');
 const params = new URLSearchParams(location.search);
-const state = { gl: false, motion: tier, contexts: 0, source: 'none', season: 'summer', frozen: false, ready: false, videoFrames: 0 };
+const state = { gl: false, motion: tier, contexts: 0, source: 'none', season: 'summer', paused: false, frozen: false, ready: false, videoFrames: 0 };
 
 // Count WebGL contexts: the claim is exactly one for the whole page, so measure it.
 {
@@ -63,6 +66,7 @@ const SEASON_SWAP = 1.2;   // seconds; the outgoing season's layers fade to no i
 
 let pool = null, clips = null;
 const scenes = [];
+const loops = [];          // the flock crossings, held so the pause can stop them
 let clipTime = STILL_TIME, lastFrame = 0;
 
 const setReadout = () => { if (readout) readout.textContent = state.gl ? `webgl · ${state.contexts} context · ${scenes.length} scenes · ${state.source}` : 'dom'; };
@@ -93,7 +97,7 @@ function useSources(kind) {
 // A clip plays while at least one visible scene shows it; the rest hold their frame and their decoder.
 function syncClips() {
   const wanted = new Set(scenes.filter((s) => s.visible).flatMap((s) => s.layers.map((l) => l.clip)));
-  const run = tier === 'full' && !state.frozen;
+  const run = tier === 'full' && !state.frozen && !state.paused;
   for (const [name, c] of pool.clips) {
     const on = run && wanted.has(name);
     c.running = on;
@@ -117,7 +121,7 @@ function drawScene(s, force = false) {
 }
 
 function tick(time, dt) {
-  if (!state.frozen && tier === 'full') {
+  if (!state.frozen && !state.paused && tier === 'full') {
     clipTime += dt;
     for (const [name, c] of pool.clips) if (c.running) clips[name].at(clipTime);
   }
@@ -157,6 +161,7 @@ function init() {
   if (!pool) return;
   state.gl = true;
   html.classList.add('gl-active');
+  if (seasonGroup) seasonGroup.hidden = false;      // the switch acts on a scene, so it shows only once the pool can draw one
   clips = { ridge: createClip('ridge', CLIP_FPS), reeds: createClip('reeds', CLIP_FPS), flock: createClip('flock', CLIP_FPS), snow: createClip('snow', CLIP_FPS) };
   for (const [name, clip] of Object.entries(clips)) { clip.at(clipTime); pool.addClip(name, canvasSource(clip)); }
 
@@ -187,22 +192,33 @@ function init() {
     // The flocks cross on a loop, each scene on its own phase.
     for (const s of scenes) {
       const flock = s.layers.find((l) => l.clip === 'flock');
-      if (flock && s.name !== 'interlude') gsap.fromTo(flock.cfg, { x: -flock.cfg.w - 0.05 }, { x: 1.02, duration: 8, ease: 'none', repeat: -1, repeatDelay: 2, delay: scenes.indexOf(s) * 1.3 });
+      if (flock && s.name !== 'interlude') loops.push(gsap.fromTo(flock.cfg, { x: -flock.cfg.w - 0.05 }, { x: 1.02, duration: 8, ease: 'none', repeat: -1, repeatDelay: 2, delay: scenes.indexOf(s) * 1.3 }));
     }
     useSources(typeof HTMLCanvasElement.prototype.captureStream === 'function' && params.get('source') !== 'canvas' ? 'video' : 'canvas');
     if (state.source === 'video') setTimeout(() => { if (!state.videoFrames && !state.frozen) useSources('canvas'); }, 2500);
     gsap.ticker.add((time, deltaMs) => tick(time, Math.min(0.1, deltaMs / 1000)));
+    // Footage and flocks loop for longer than five seconds, so the page offers a way to stop them (WCAG 2.2.2). The
+    // reduced tiers draw stills and loop nothing, so they get no button.
+    if (pauseBtn) pauseBtn.hidden = false;
   } else {
     state.source = 'canvas';
   }
   const watch = new MutationObserver(() => { for (const s of scenes) { refreshColours(s); if (s.visible) drawScene(s); } });
   watch.observe(html, { attributes: true, attributeFilter: ['data-theme'] });
-  pool.canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); state.gl = false; html.classList.remove('gl-active'); setReadout(); });
+  pool.canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); state.gl = false; html.classList.remove('gl-active'); if (pauseBtn) pauseBtn.hidden = true; if (seasonGroup) seasonGroup.hidden = true; setReadout(); });
   state.ready = true;
   setReadout();
 }
 
 for (const b of seasonBtns) b.addEventListener('click', () => setSeason(b.dataset.season));
+// A toggle keeps its label; aria-pressed carries the state ("Pause footage, pressed" while paused). Clips hold their
+// frame, the flocks stop where they are, and with nothing changing no scene redraws.
+pauseBtn?.addEventListener('click', () => {
+  state.paused = !state.paused;
+  pauseBtn.setAttribute('aria-pressed', String(state.paused));
+  for (const t of loops) state.paused ? t.pause() : t.resume();
+  if (pool) syncClips();
+});
 init();
 
 // Verification: pin every clip, park the flocks and develop every scene fully.
@@ -212,6 +228,7 @@ function freeze(t = STILL_TIME) {
   ScrollTrigger.getAll().forEach((st) => st.disable(false));
   for (const s of scenes) { gsap.killTweensOf(s); s.develop = 1; }
   for (const s of scenes) for (const l of s.layers) if (l.clip === 'flock') { gsap.killTweensOf(l.cfg, 'x'); l.cfg.x = s.name === 'interlude' ? 0.3 : 0.4; }
+  loops.length = 0;
   if (state.source !== 'canvas') useSources('canvas');
   syncClips();
   clipTime = t;
@@ -236,10 +253,18 @@ function inkShare(name) {
       if (on) { grid[g]++; k++; }
     }
   }
-  return { share: Number((k / n).toFixed(4)), grid: grid.map((v, i) => Number((v / tot[i]).toFixed(3))) };
+  // A part-covered pixel over the clear sky of a scene is ink at part opacity: read back un-premultiplied, its colour is
+  // the ink and nothing else (no ground mixed in). The largest channel error over every such pixel.
+  let partial = 0, leak = 0;
+  for (let i = 0; i < data.length; i += 4) {
+    if (data[i + 3] < 64 || data[i + 3] > 250) continue;
+    partial++;
+    for (let c = 0; c < 3; c++) leak = Math.max(leak, Math.abs(data[i + c] - ink[c]));
+  }
+  return { share: Number((k / n).toFixed(4)), grid: grid.map((v, i) => Number((v / tot[i]).toFixed(3))), partial, leak: Number(leak.toFixed(1)) };
 }
 
-window.__pool = { freeze, inkShare, setSeason, get ready() { return state.ready; } };
+window.__pool = { freeze, inkShare, setSeason, colours: (el) => tokenColours(el), get ready() { return state.ready; } };
 
 awards.addState(() => ({
   ...state,
@@ -252,6 +277,8 @@ awards.addState(() => ({
   uploads: pool ? Object.fromEntries([...pool.clips].map(([n, c]) => [n, c.uploads])) : {},
   versions: clips ? Object.fromEntries(Object.entries(clips).map(([n, c]) => [n, c.version()])) : {},
   copies: pool?.stats.copies ?? 0,
+  pauseShown: !!pauseBtn && !pauseBtn.hidden,
+  seasonShown: !!seasonGroup && !seasonGroup.hidden,
   canvasesAriaHidden: [...document.querySelectorAll('[data-scene] canvas')].every((c) => c.getAttribute('aria-hidden') === 'true'),
 }));
 setReadout();

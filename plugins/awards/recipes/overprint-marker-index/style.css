@@ -33,10 +33,12 @@
 .index__head { padding-right: calc(var(--row-size) * 1.2); }
 .row__year, .row__title, .row__client, .row__type { position: relative; z-index: 3; }
 .row__plate { position: relative; z-index: 1; display: block; height: 0.8em; width: 100%; background: linear-gradient(110deg, hsl(var(--h) 38% 58%), hsl(calc(var(--h) + 40) 30% 78%)); }
-/* The focus ring is drawn on the text layer in the paper colour: the marker always sits under the focused row, and
-   an outline painted with the link would be overprinted with it. */
+/* The focus ring is drawn on the text layer (an outline painted with the link would be overprinted with it): in ink,
+   and in the paper colour while the marker sits under the focused row. A mouse can move the marker to another row
+   while focus stays put, so the ring cannot assume the marker. */
 .row__link:focus-visible { outline: none; }
-.row__link:focus-visible::after { content: ""; position: absolute; z-index: 3; inset: 3px -3px; border: 2px solid var(--marker-ink); pointer-events: none; }
+.row__link:focus-visible::after { content: ""; position: absolute; z-index: 3; inset: 3px -3px; border: 2px solid var(--ink); pointer-events: none; }
+.row[data-active] .row__link:focus-visible::after { border-color: var(--marker-ink); }
 .row__year { font-variant-numeric: tabular-nums; }
 .row__client, .row__type { color: var(--muted); }
 /* The active row's text sits above the marker in the paper colour; its plate stays under it and takes the tint. */

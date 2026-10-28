@@ -1,12 +1,12 @@
 # footer-credits-hinge
 
-The page ends on a closing sheet: the ground colour carrying the wordmark. It slides off a footer that is already there, a sticky stage held inside a rail that starts half a viewport above the footer, and it tips on its top-left corner as it goes. The site's credits live under that stage. The credits button scrolls to the end, then lifts and tilts the whole stage on one transition, so the colophon shows in the gap like a sheet raised on a press bed.
+The page ends on a closing sheet: the ground colour carrying the wordmark. It slides off a footer that is already there, a sticky stage held inside a rail that starts half a viewport above the footer, and it tips on its top-left corner as it goes. The site's credits live under that stage. The credits button scrolls to the end while it lifts and tilts the whole stage on one transition, so the colophon shows in the gap like a sheet raised on a press bed.
 
 ## Why
 - **A footer that waits.** The rail (`top: -50svh`) makes the stage stick while the footer's top is still in the middle of the screen, so the last sheet slides off something that holds still rather than two layers scrolling together. No `pin`, no spacer: the stage is `position: sticky` and the footer's height is the sheet plus the stage's measured content `[site:the-line]` [verified, `Footer.1fXw1gXD.css` `.footer__scroller{top:-50vh}`, 2026-10-28].
 - **The last move is a hinge, not a fade.** The sheet turns on a named corner (`transform-origin: 0 0`) on a scrub that runs from the moment the stage sticks to `max`, so the page's final gesture belongs to the same paper vocabulary as the rest of a hinged site `[pattern:motion-vocabulary#sticky-stages-and-hinges]`.
 - **Credits in place, not on a route.** A colophon is something a visitor checks once; putting it under the footer keeps it one press away and makes the reveal itself the credit. The source site opens it by scrolling to the end over `.8 s` and lifting the stage on a `1 s` expo-out transition, and closes it on any later scroll [verified, `CYc7OJsQ.js`, `Footer.1fXw1gXD.css`].
-- **What this recipe adds.** The source leaves the closed panel in the tab order and the accessibility tree, and footer links take focus while the closing sheet still covers them (17 of 58 tab stops in a `capture.mjs --walk`, 2026-10-28). Here the panel is `inert` and hidden while closed, focus moves to its heading on open and back to the trigger on close, Escape and a real close button work, and keyboard focus on anything in the stage jumps to the end first.
+- **What this recipe adds.** The source leaves the closed panel in the tab order and the accessibility tree, and footer links take focus while the closing sheet still covers them (17 of 58 tab stops in a `capture.mjs --walk`, 2026-10-28). Here the panel is `inert` and hidden while closed, focus moves to its heading on open and back to the trigger on close, Escape and a real close button work, and keyboard focus on anything in the stage jumps to the end first, or puts the credits away when they are open, so it never lands under the sheet or the panel.
 
 ## Parameters
 | | |
@@ -26,7 +26,7 @@ The page ends on a closing sheet: the ground colour carrying the wordmark. It sl
 - **Static:** the same as reduced, with the panel shown and hidden by a cut.
 
 ## Accessibility
-The trigger is a `<button aria-expanded aria-controls>`. The panel is a labelled `<section>`, `inert` and `visibility: hidden` while closed (the visibility waits `1 s` before hiding, so the panel never vanishes under a stage still in motion). On open, focus moves to the panel's heading (`tabindex="-1"`, `preventScroll`); on close it returns to the trigger. The blink is a two-step opacity flash on a small label, well under the WCAG 2.3.1 area threshold, and it does not run outside the full tier. Footer links are 44 px tall.
+The trigger is a `<button aria-expanded aria-controls>`. The panel is a labelled `<section>`, `inert` and `visibility: hidden` while closed (the visibility waits `1 s` before hiding, so the panel never vanishes under a stage still in motion). On open, focus moves to the panel's heading (`tabindex="-1"`, `preventScroll`); on close it returns to the trigger. Shift+Tab out of the panel into the stage closes the credits and leaves focus where it went. The paper-coloured focus ring is scoped to the blue stage; the credits keep the accent ring on their light ground. The blink is a two-step opacity flash on a small label, well under the WCAG 2.3.1 area threshold, and it does not run outside the full tier. Footer links are 44 px tall.
 
 ## Adapters
 

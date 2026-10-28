@@ -51,8 +51,8 @@ void main() {
   } else {
     cover = texture2D(u_glyphs, vec2((floor(ink * (u_glyphCount - 1.0) + 0.5) + f.x) / u_glyphCount, f.y)).a;
   }
-  vec4 col = mix(vec4(u_ground, u_alpha.x), vec4(u_ink, u_alpha.y), cover);
-  gl_FragColor = vec4(col.rgb * col.a, col.a);
+  // Mixed premultiplied: a part-covered pixel on a clear ground takes ink in proportion to its cover, no ground colour.
+  gl_FragColor = mix(vec4(u_ground * u_alpha.x, u_alpha.x), vec4(u_ink * u_alpha.y, u_alpha.y), cover);
 }`;
 
 const GLYPHS = [' ', '.', ':', '-', '=', '+', '*', '%', '#', '@'];
@@ -84,9 +84,24 @@ const hex = (s) => {
   const h = m[1].length === 3 ? m[1].replace(/./g, '$&$&') : m[1];
   return [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16) / 255);
 };
+// Any other CSS colour (rgb(), hsl(), oklch(), named) is painted into one pixel and read back; an invalid one leaves
+// each of two different sentinels in place, so it is rejected instead of read as a sentinel.
+let swatch = null;
+const cssColour = (s) => {
+  s = String(s).trim();
+  if (!s) return null;
+  swatch ??= Object.assign(document.createElement('canvas'), { width: 1, height: 1 }).getContext('2d', { willReadFrequently: true });
+  swatch.fillStyle = '#000'; swatch.fillStyle = s; const a = swatch.fillStyle;
+  swatch.fillStyle = '#fff'; swatch.fillStyle = s;
+  if (swatch.fillStyle !== a) return null;
+  swatch.clearRect(0, 0, 1, 1); swatch.fillRect(0, 0, 1, 1);
+  const d = swatch.getImageData(0, 0, 1, 1).data;
+  return d[3] ? [d[0] / 255, d[1] / 255, d[2] / 255] : null;
+};
+const colour = (s) => hex(s) ?? cssColour(s);
 export function tokenColours(el) {
   const cs = getComputedStyle(el);
-  return { ground: hex(cs.getPropertyValue('--ground')) ?? [1, 1, 1], ink: hex(cs.getPropertyValue('--ink')) ?? [0, 0, 0] };
+  return { ground: colour(cs.getPropertyValue('--ground')) ?? [1, 1, 1], ink: colour(cs.getPropertyValue('--ink')) ?? [0, 0, 0] };
 }
 
 export function createPool({ dprCap = 1.5 } = {}) {

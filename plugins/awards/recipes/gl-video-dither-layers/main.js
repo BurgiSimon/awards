@@ -7,7 +7,7 @@ import { createClip } from './footage.js';
 
 // A footer whose picture is footage woven into the section's own ink. Three keyed clips (a ridge in mist, reeds, a
 // crossing flock) are composited on one canvas, each with its own cell grid and levels. The levels develop from blank
-// as the close scrolls in; the flock crosses on a loop; bars can switch to an ASCII glyph ramp. Nothing is allocated
+// as the picture scrolls in; the flock crosses on a loop; bars can switch to an ASCII glyph ramp. Nothing is allocated
 // until the close is a viewport away, nothing renders off screen, and a frame renders only when something changed.
 
 gsap.registerPlugin(ScrollTrigger);
@@ -17,8 +17,10 @@ const tier = motionTier();
 const close = document.querySelector('[data-close]');
 const scene = document.querySelector('[data-scene]');
 const canvas = document.querySelector('[data-gl]');
+const stage = canvas.closest('.scene-stage') ?? canvas.parentElement;   // the picture's box, even if a wrapper holds the canvas
 const readout = document.querySelector('[data-gl-readout]');
 const pauseBtn = document.querySelector('[data-pause]');
+const modeGroup = document.querySelector('[data-mode-group]');
 const modeBtns = [...document.querySelectorAll('[data-mode]')];
 const params = new URLSearchParams(location.search);
 
@@ -90,7 +92,9 @@ function sig() {
   return s;
 }
 
-// Render only when a frame, a tween value, the size, the theme or the mode changed, and never above FPS_CAP.
+// Render only when a frame, a tween value, the size, the theme or the mode changed, and never above FPS_CAP. The cap
+// holds only where a ticker retries the skipped frame: the reduced tiers render on events alone, and a resize has
+// already cleared the canvas, so none of those renders may be dropped.
 function frame(time, dt) {
   if (!dither || !state.visible) return;
   if (state.running) {
@@ -98,7 +102,7 @@ function frame(time, dt) {
     for (const c of Object.values(clips)) c.at(clipTime);
   }
   const now = performance.now();
-  if (now - lastRender < 1000 / FPS_CAP - 2) return;
+  if (tier === 'full' && now - lastRender < 1000 / FPS_CAP - 2) return;
   const s = sig();
   if (s === signature) return;
   signature = s;
@@ -120,6 +124,10 @@ function init() {
   html.classList.add('gl-active');
   dither.resize();
   state.gl = true;
+  // The controls act on the GL picture only, so they appear with it. Moving footage that plays for more than five
+  // seconds needs a way to stop it (WCAG 2.2.2); the reduced tiers draw a still and need none.
+  if (modeGroup) modeGroup.hidden = false;
+  if (pauseBtn) pauseBtn.hidden = tier !== 'full';
   clips = { ridge: createClip('ridge', CLIP_FPS), reeds: createClip('reeds', CLIP_FPS), flock: createClip('flock', CLIP_FPS) };
   layers = Object.entries(LAYERS).map(([name, cfg]) => ({ name, clip: clips[name], cfg: { x: 0, y: 0, w: 1, ...cfg, aspect: clips[name].aspect }, source: null }));
   for (const c of Object.values(clips)) c.at(clipTime);
@@ -136,8 +144,10 @@ function init() {
     if (state.source === 'video') setTimeout(() => { if (!state.videoFrames && !state.frozen) useSources('canvas'); }, 2500);
     flockTl = gsap.timeline({ paused: true, repeat: -1, repeatDelay: FLOCK.repeatDelay })
       .fromTo(flockCfg, { x: FLOCK.from }, { x: FLOCK.to, duration: FLOCK.duration, ease: 'none' });
-    // The levels develop as the close arrives: ridge first, then reeds, then the flock, like a print in a tray.
-    developTl = gsap.timeline({ scrollTrigger: { trigger: close, start: 'top bottom', end: 'top 25%', scrub: true } })
+    // The levels develop as the picture arrives: ridge first, then reeds, then the flock, like a print in a tray. The
+    // scrub starts once the ridge band (the lowest layer) crosses the viewport bottom and ends at the page end, so
+    // every layer develops on screen; triggered by the close's top, it would finish before the picture was in view.
+    developTl = gsap.timeline({ scrollTrigger: { trigger: stage, start: '70% bottom', end: 'max', scrub: true } })
       .fromTo(layers[0].cfg, { develop: 0 }, { develop: 1, duration: 1, ease: 'none' }, 0)
       .fromTo(layers[1].cfg, { develop: 0 }, { develop: 1, duration: 0.8, ease: 'none' }, 0.2)
       .fromTo(layers[2].cfg, { develop: 0 }, { develop: 1, duration: 0.6, ease: 'none' }, 0.4);
@@ -153,7 +163,14 @@ function init() {
   const themeWatch = new MutationObserver(refreshColours);
   themeWatch.observe(html, { attributes: true, attributeFilter: ['data-theme'] });
   themeWatch.observe(close, { attributes: true, attributeFilter: ['data-theme'] });
-  canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); html.classList.remove('gl-active'); state.gl = false; setReadout(); });
+  canvas.addEventListener('webglcontextlost', (e) => {
+    e.preventDefault();
+    html.classList.remove('gl-active');
+    state.gl = false;
+    if (modeGroup) modeGroup.hidden = true;
+    if (pauseBtn) pauseBtn.hidden = true;
+    setReadout();
+  });
   // Only the full tier needs a clock; the reduced tiers render on resize, visibility, theme and mode alone.
   if (tier === 'full') gsap.ticker.add((time, deltaMs) => frame(time, Math.min(0.1, deltaMs / 1000)));
   state.ready = true;
@@ -175,12 +192,10 @@ for (const b of modeBtns) {
     setReadout();
   });
 }
-// Moving footage that plays for more than five seconds needs a way to stop it (WCAG 2.2.2).
-pauseBtn.hidden = tier !== 'full';
-pauseBtn.addEventListener('click', () => {
+// A toggle keeps its label; aria-pressed carries the state ("Pause footage, pressed" while paused).
+pauseBtn?.addEventListener('click', () => {
   state.paused = !state.paused;
   pauseBtn.setAttribute('aria-pressed', String(state.paused));
-  pauseBtn.textContent = state.paused ? 'Play footage' : 'Pause footage';
   if (layers) setRunning();
 });
 
@@ -217,8 +232,25 @@ function measure(layerName = 'ridge') {
   const { ink, ground } = tokenColours(scene);
   const d = ink.map((v, i) => (v - ground[i]) * 255);
   const dd = d.reduce((s, v) => s + v * v, 0);
-  // 0 where the pixel is the ground (or transparent), 1 where it is the ink.
-  const inkness = (p) => Math.min(1, Math.max(0, (p[3] / 255) * d.reduce((s, v, i) => s + v * (p[i] - ground[i] * 255), 0) / dd));
+  // 0 where the pixel is the ground (or transparent), 1 where it is the ink. Pixels are premultiplied, so the ground is
+  // weighted by the pixel's own opacity: a part-covered pixel of a clear-ground layer reads as its cover.
+  const inkness = (p) => Math.min(1, Math.max(0, d.reduce((s, v, i) => s + v * (p[i] - (p[3] / 255) * ground[i] * 255), 0) / dd));
+  // Where ground and ink opacities differ (a clear-ground layer), a pixel's opacity gives its cover, and its colour
+  // must be the premultiplied mix at that cover and nothing else: the largest channel error over every part-covered pixel.
+  const ga = l.cfg.groundAlpha ?? 1, ia = l.cfg.inkAlpha ?? 1;
+  let partial = 0, leak = 0;
+  if (ga !== ia) {
+    for (let i = 0; i < px.length; i += 4) {
+      const a = px[i + 3] / 255;
+      if (a < 0.02 || a > 0.98) continue;
+      const c = (a - ga) / (ia - ga);
+      partial++;
+      for (let k = 0; k < 3; k++) leak = Math.max(leak, Math.abs(px[i + k] - 255 * ((1 - c) * ga * ground[k] + c * ia * ink[k])));
+    }
+  }
+  // How many of the measured cells are inside the viewport: a develop check means nothing below the fold.
+  const box = canvas.getBoundingClientRect(), dpr = dither.size.dpr;
+  let inView = 0;
   const img = l.clip.canvas.getContext('2d').getImageData(0, 0, l.clip.canvas.width, l.clip.canvas.height);
   const texel = (ix, iy) => {
     const x = Math.min(img.width - 1, Math.max(0, ix)), y = Math.min(img.height - 1, Math.max(0, iy));
@@ -259,6 +291,8 @@ function measure(layerName = 'ridge') {
       const lum = 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
       const tone = Math.min(1, Math.max(0, (lum - black) / (white - black)));
       pairs.push([1 - tone, lattice.flat().reduce((s, p) => s + inkness(p), 0) / 64]);
+      const cyCss = box.top + (top + ch / 2) / dpr;
+      if (cyCss >= 0 && cyCss <= innerHeight) inView++;
       // A bar is the same in every row of its cell; a glyph is not.
       const sigs = lattice.map((row) => row.map((p) => (inkness(p) > 0.5 ? 1 : 0)).join(''));
       if (sigs.some((x) => x.includes('1'))) { inkedCells++; if (sigs.every((x) => x === sigs[0])) uniformCells++; }
@@ -272,6 +306,7 @@ function measure(layerName = 'ridge') {
   return {
     cells: pairs.length, correlation: sx && sy ? Number((cov / (sx * sy)).toFixed(3)) : 0, meanInk: Number(my.toFixed(3)),
     keyedCells, keyedClear, sameRowShare: Number((uniformCells / (inkedCells || 1)).toFixed(3)), cols, rows, ramp: dither.ramp.join(''),
+    partial, leak: Number(leak.toFixed(1)), inView: Number((inView / (pairs.length || 1)).toFixed(3)),
   };
 }
 
@@ -284,7 +319,7 @@ function seek(p) {
   return true;
 }
 
-window.__dither = { freeze, measure, seek, get ready() { return state.ready; } };
+window.__dither = { freeze, measure, seek, colours: () => tokenColours(scene), get ready() { return state.ready; } };
 
 awards.addState(() => ({
   ...state,
@@ -294,7 +329,8 @@ awards.addState(() => ({
   layers: layers?.length ?? 0,
   canvasAriaHidden: canvas.getAttribute('aria-hidden') === 'true',
   canvasShown: getComputedStyle(canvas).display !== 'none',
-  pauseShown: !pauseBtn.hidden,
+  pauseShown: !!pauseBtn && !pauseBtn.hidden,
+  modeShown: !!modeGroup && !modeGroup.hidden,
 }));
 setReadout();
 awards.ready();

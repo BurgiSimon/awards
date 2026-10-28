@@ -85,6 +85,7 @@ const described = [
   path.join(plugin, '.claude-plugin/plugin.json'),
   path.join(plugin, '.codex-plugin/plugin.json'),
   path.join(repo, '.claude-plugin/marketplace.json'),
+  path.join(plugin, 'recipes/README.md'),
 ];
 const intro = read(path.join(repo, 'README.md')).split(/^## /m)[0];
 for (const [file, text] of [...described.map((f) => [rel(f), read(f)]), ['README.md (intro)', intro]]) {
@@ -94,7 +95,11 @@ for (const [file, text] of [...described.map((f) => [rel(f), read(f)]), ['README
   for (const m of text.matchAll(/\b(\d+) focused recipes (?:plus|and) (one|\d+) complete compositions?\W+(\d+) (?:browser-)?verifiable entries/gi)) {
     check(`${file}: "${m[0]}"`, Number(m[1]) === recipes.length - compositions && num(m[2]) === compositions && Number(m[3]) === recipes.length, `${recipes.length - compositions} focused + ${compositions} composition = ${recipes.length} entries`);
   }
-  for (const m of text.matchAll(/\ball (\d+) entries\b/gi)) check(`${file}: "${m[0]}"`, Number(m[1]) === recipes.length, `${recipes.length} entries exist`);
+  // The same counts in other word orders: "has 102 entries: 101 focused recipes and one complete composition".
+  for (const m of text.matchAll(/\b(\d+) focused recipes (?:plus|and) (one|\d+) complete compositions?(?!\W+\d+ (?:browser-)?verifiable entries)/gi)) {
+    check(`${file}: "${m[0]}"`, Number(m[1]) === recipes.length - compositions && num(m[2]) === compositions, `${recipes.length - compositions} focused + ${compositions} composition exist`);
+  }
+  for (const m of text.matchAll(/\b(?:all|has) (\d+) entries\b/gi)) check(`${file}: "${m[0]}"`, Number(m[1]) === recipes.length, `${recipes.length} entries exist`);
   for (const m of text.matchAll(/\b(\d+) rules, prefixes\b/gi)) check(`${file}: "${m[0]}"`, Number(m[1]) === rules, `rules.json has ${rules}`);
 }
 

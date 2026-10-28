@@ -46,16 +46,23 @@ export function catalogue() {
   }).filter(Boolean);
   const facets = Object.entries(vocab.facets).map(([facet, tags]) => `- ${facet}: ${tags.map((t) => `\`${t}\``).join(' ')}`).join('\n');
   const body = `${START}\n${sections.join('\n')}\n### Tags\n\nEvery tag in a \`recipe.json\` comes from one facet of \`scripts/data/recipe-tags.json\`:\n\n${facets}\n${END}`;
-  return { body, problems, count: entries.length };
+  return { body, problems, count: entries.length, compositions: entries.filter((e) => e.id.startsWith('complete-')).length };
 }
+
+// The count sentence above the table ("has 102 entries: 101 focused recipes and one complete composition"), restated
+// from the same files so a new recipe cannot leave it behind.
+const restate = (text, count, compositions) => text.replace(
+  /\bhas \d+ entries: \d+ focused recipes and (?:one|\d+) complete compositions?/,
+  `has ${count} entries: ${count - compositions} focused recipes and ${compositions === 1 ? 'one complete composition' : `${compositions} complete compositions`}`,
+);
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const args = parseArgs(process.argv.slice(2), { check: 'boolean' });
-  const { body, problems, count } = catalogue();
+  const { body, problems, count, compositions } = catalogue();
   const readme = fs.readFileSync(readmeFile, 'utf8');
   const a = readme.indexOf(START), b = readme.indexOf(END);
   if (a < 0 || b < 0) { console.error(`recipes/README.md has no ${START.slice(0, 22)}… / ${END} markers`); process.exit(1); }
-  const next = readme.slice(0, a) + body + readme.slice(b + END.length);
+  const next = restate(readme.slice(0, a), count, compositions) + body + readme.slice(b + END.length);
   for (const p of problems) console.error(`  ${p}`);
   if (args.check) {
     const drift = next !== readme;

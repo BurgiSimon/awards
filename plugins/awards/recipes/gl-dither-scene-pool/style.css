@@ -4,7 +4,7 @@
 /* Mixed tokens re-derived per themed section: declared on :root they would carry the light theme's resolved values. */
 [data-theme] { --muted: color-mix(in oklab, var(--ink) 66%, var(--ground)); --line: color-mix(in oklab, var(--ink) 18%, var(--ground)); }
 
-.topbar { display: flex; flex-wrap: wrap; gap: calc(var(--unit) * 2) calc(var(--unit) * 6); justify-content: space-between; padding-block: calc(var(--unit) * 5); }
+.topbar { display: flex; flex-wrap: wrap; gap: calc(var(--unit) * 2) calc(var(--unit) * 6); justify-content: space-between; align-items: center; padding-block: calc(var(--unit) * 5); }
 .band { background: var(--ground); color: var(--ink); padding-block: calc(var(--unit) * 16); overflow: hidden; }
 .band-copy { max-width: 64rem; }
 .band-copy p:not(.label) { max-width: 52ch; }
@@ -26,8 +26,11 @@ html.gl-active .scene canvas { background: none; }
 }
 
 .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; margin-top: calc(var(--unit) * 4); }
-.seg button { font: inherit; font-size: .875rem; color: var(--ink); background: none; border: 0; border-radius: 999px; min-height: 44px; min-width: 44px; padding: 0 calc(var(--unit) * 5); cursor: pointer; }
-.seg button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+.seg button, .pause { font: inherit; font-size: .875rem; color: var(--ink); background: none; border: 0; border-radius: 999px; min-height: 44px; min-width: 44px; padding: 0 calc(var(--unit) * 5); cursor: pointer; }
+.seg button[aria-pressed="true"], .pause[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+/* The page-level pause: shown only in the full tier once the pool exists, since only there does anything loop. */
+.pause { border: 1px solid var(--line); }
+.pause[hidden], .seg[hidden] { display: none; }
 .close-title { overflow-wrap: anywhere; }
 .close a { color: inherit; font-size: clamp(1.125rem, 2vw, 1.75rem); text-underline-offset: .2em; }
 .colophon { padding-top: calc(var(--unit) * 10); color: var(--muted); }

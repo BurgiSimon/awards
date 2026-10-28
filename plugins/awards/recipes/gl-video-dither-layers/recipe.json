@@ -25,7 +25,7 @@
     "Bars: one vertical bar per cell, width from the tone (this, default)",
     "Glyphs: an ASCII ramp, sorted by each glyph's measured ink in the system monospace face (the toggle)",
     "Negative weave: ink opacity 0 and ground opacity 1, so the picture is the gaps between bars",
-    "Many scenes down one page on a single context (gl-dither-scenes-one-context)"
+    "Many scenes down one page on a single context (gl-dither-scene-pool)"
   ],
   "seenIn": [
     "son-daven"

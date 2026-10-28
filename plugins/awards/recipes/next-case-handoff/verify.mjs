@@ -1,8 +1,11 @@
 // The close hinges on a scrub; following it lifts the frame out of its clip while the card unwinds, then the next page
 // arrives with the very same canvas node in its hero (same painter id, frame count still climbing), the card exactly
-// where the lifted one ended, scroll at 0 and focus on the new h1; Back restores the previous case; reduced motion
-// navigates for real.
+// where the lifted one ended, scroll at 0 and focus on the new h1; Back restores the previous case, and wins over a lift
+// still in flight; the skip link's fragment never refetches the page; reduced motion navigates for real.
 const next = { type: 'click', selector: '[data-next-label]' };
+// The skip link's #main is a same-page traversal that still fires popstate; the counter proves it did.
+const countPops = { type: 'waitFor', fn: '(() => { window.__pops = 0; addEventListener("popstate", () => { window.__pops++; }); return true; })()' };
+const skip = [countPops, { type: 'focus', selector: '.skip-link' }, { type: 'press', key: 'Enter' }, { type: 'wait', ms: 800 }];
 export const states = [
   { name: 'top', scroll: 0, settle: 1600 },
   { name: 'footer', scroll: 1, settle: 1200 },
@@ -10,8 +13,13 @@ export const states = [
   { name: 'handoff', settle: 1500, actions: [next, { type: 'wait', ms: 2200 }] },
   { name: 'chain', settle: 1500, actions: [next, { type: 'wait', ms: 2200 }, next, { type: 'wait', ms: 2200 }] },
   { name: 'back', settle: 1500, actions: [next, { type: 'wait', ms: 2200 }, { type: 'waitFor', fn: '(() => { history.back(); return true; })()' }, { type: 'wait', ms: 1500 }] },
+  // After a hand-off, the skip link must keep the arrived page and its moved plate.
+  { name: 'skip', settle: 1500, actions: [next, { type: 'wait', ms: 2200 }, ...skip] },
+  // Back pressed a quarter of the way through a second lift: Back wins, the hand-off is dropped.
+  { name: 'back-during-lift', settle: 1500, actions: [next, { type: 'wait', ms: 2200 }, next, { type: 'wait', ms: 250 }, { type: 'waitFor', fn: '(() => { history.back(); return true; })()' }, { type: 'wait', ms: 2200 }] },
   { name: 'rm-footer', scroll: 1, reducedMotion: true, settle: 800 },
   { name: 'rm-next', reducedMotion: true, settle: 800, actions: [next, { type: 'wait', ms: 1500 }] },
+  { name: 'rm-skip', reducedMotion: true, settle: 800, actions: skip },
   { name: 'mobile', viewport: 'mobile', scroll: 1, settle: 1200 },
   { name: 'mobile-handoff', viewport: 'mobile', settle: 1500, actions: [next, { type: 'wait', ms: 2200 }] },
 ];
@@ -25,6 +33,7 @@ export function probe() {
     framePosition: f ? getComputedStyle(f).position : null,
     frameTop: f ? Math.round(f.getBoundingClientRect().top) : null,
     cardAngle: c ? angle(c) : null,
+    pops: window.__pops ?? null,
     overflowX: document.documentElement.scrollWidth - document.documentElement.clientWidth,
   };
 }
@@ -48,6 +57,12 @@ export function assert(r) {
   out.push({ ok: c.handoffs === 2 && c.path === 'case-3.html' && c.h1 === 'Tidewater Bottles' && c.heroPlateId === c.liveId, message: `chain: a second hand-off from the arrived page (${c.h1}, ${c.handoffs} hand-offs)` });
   const b = st('back');
   out.push({ ok: b.mode === 'pop' && b.path === 'index.html' && b.h1 === 'The Harbour Lamps' && b.mains === 1, message: `back: the browser's Back restores the previous case (${b.path}, "${b.h1}")` });
+  const sk = st('skip'), skp = pr('skip');
+  out.push({ ok: skp.pops >= 1 && sk.mode === 'handoff' && sk.handoffs === 1 && sk.path === 'case-2.html' && sk.heroPlateId === sk.liveId && sk.heroPlateFrame > sk.frameAtClick, message: `skip link: a same-page traversal (${skp.pops} popstate) keeps the arrived page and its moved plate (mode ${sk.mode}, plate ${sk.heroPlateId} = ${sk.liveId})` });
+  const bl = st('back-during-lift'), blp = pr('back-during-lift');
+  out.push({ ok: bl.mode === 'pop' && bl.path === 'index.html' && bl.h1 === 'The Harbour Lamps' && /^The Harbour Lamps/.test(bl.title) && bl.handoffs === 1 && bl.mains === 1 && !blp.lifted && bl.busy === false, message: `back during a lift: Back wins and the hand-off is dropped (${bl.path}, "${bl.h1}", ${bl.handoffs} hand-off, mode ${bl.mode})` });
+  const rs = st('rm-skip'), rsp = pr('rm-skip');
+  out.push({ ok: rsp.pops >= 1 && rs.mode === 'load' && rs.mains === 1 && rs.h1 === 'The Harbour Lamps', message: `reduced motion: the skip link (${rsp.pops} popstate) fetches and swaps nothing (mode ${rs.mode})` });
   out.push({ ok: st('rm-footer').motion === 'reduced' && near(st('rm-footer').nextAngle, 0, 0.01), message: `reduced motion: the close stays flat (${st('rm-footer').nextAngle}°)` });
   const rn = st('rm-next');
   out.push({ ok: rn.path === 'case-2.html' && rn.h1 === 'A Window for Hale Chapel' && rn.mode === 'load' && rn.handoffs === 0, message: `reduced motion: the link navigates for real (${rn.path}, mode ${rn.mode})` });

@@ -54,7 +54,8 @@ main { position: relative; z-index: 3; background: var(--ground); }
 .close__base { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 0 calc(var(--unit) * 3); margin: 0; text-transform: uppercase; letter-spacing: 0.02em; }
 .close__base i { font-style: normal; opacity: 0.7; }
 .close__credits { background: none; border: 0; padding: 0; cursor: pointer; text-transform: inherit; letter-spacing: inherit; }
-.close :focus-visible { outline-color: var(--stage-ink); }
+/* The paper ring only on the blue stage; the credits keep base.css's accent ring on their light ground. */
+.close__stage :focus-visible { outline-color: var(--stage-ink); }
 .close ::selection { background: var(--stage-ink); color: var(--stage-ground); }
 
 /* The open pose. Only the full tier moves the stage; the transition is declared inside the motion query, so the
@@ -75,10 +76,9 @@ main { position: relative; z-index: 3; background: var(--ground); }
 
 /* Reduced motion and static: the stage never moves; the credits come up over it as a plain sheet (opacity only in
    the reduced tier, a cut in the static tier). */
-html[data-motion-tier="reduced"] .close.is-open .close__stage,
-html[data-motion="static"] .close.is-open .close__stage { transform: none; }
-html[data-motion-tier="reduced"] .credits, html[data-motion="static"] .credits { z-index: 4; opacity: 0; transition: opacity 0.2s linear, visibility 0s linear 0.2s; }
-html[data-motion-tier="reduced"] .close.is-open .credits, html[data-motion="static"] .close.is-open .credits { opacity: 1; transition: opacity 0.2s linear, visibility 0s; }
+html:is([data-motion-tier="reduced"], [data-motion="reduced"], [data-motion="static"]) .close.is-open .close__stage { transform: none; }
+html:is([data-motion-tier="reduced"], [data-motion="reduced"], [data-motion="static"]) .credits { z-index: 4; opacity: 0; transition: opacity 0.2s linear, visibility 0s linear 0.2s; }
+html:is([data-motion-tier="reduced"], [data-motion="reduced"], [data-motion="static"]) .close.is-open .credits { opacity: 1; transition: opacity 0.2s linear, visibility 0s; }
 html[data-motion="static"] .credits { transition: none !important; }
 
 @media (max-width: 760px) {

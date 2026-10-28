@@ -197,10 +197,15 @@ const INIT = `
 
 // Navigates and waits for `load`. A page whose load event never fires inside the timeout (a long frame or video
 // queue, a challenge iframe that keeps retrying) is still captured once its document has parsed: the manifest lists
-// the viewport under `loadTimeouts` instead of calling a page that rendered unreachable.
+// the viewport under `loadTimeouts` instead of calling a page that rendered unreachable. A label already listed (the
+// walk reloads the page for every disclosure and button) waits only for the parse, once per label.
 async function gotoLoaded(page, url, label) {
   const resp = await page.goto(url, { waitUntil: 'commit', timeout });
   if (!resp || resp.status() >= 400) return resp;
+  if (manifest.loadTimeouts?.includes(label)) {
+    await page.waitForLoadState('domcontentloaded', { timeout: 15000 });
+    return resp;
+  }
   try {
     await page.waitForLoadState('load', { timeout });
   } catch (e) {
@@ -641,7 +646,7 @@ try {
       const start = Date.now();
       await page.clock.install({ time: start });
       await page.clock.pauseAt(start + 1);
-      await page.goto(url, { waitUntil: 'load', timeout });
+      await gotoLoaded(page, url, 'timeline');
       const frames = [];
       let at = 0;
       for (const t of timeline) {
@@ -699,7 +704,7 @@ try {
   // The keyboard and thumb walk: evidence for the jury's usability walk, read before its steps.
   if (args.walk && exitCode !== 4) {
     try {
-      const report = await walkPage(browser, url, { outDir, name, desktop, mobile, timeout, settle, settlePage, manifest });
+      const report = await walkPage(browser, url, { outDir, name, desktop, mobile, timeout, settle, settlePage, manifest, goto: (p, where) => gotoLoaded(p, url, `walk:${where}`) });
       const file = path.join(outDir, `${name}walk.json`);
       fs.writeFileSync(file, JSON.stringify({ at: now(), url, ...report }, null, 2) + '\n');
       manifest.walk = { file, desktopStops: report.desktop.stops.length, findings: report.desktop.findings.length + report.mobile.findings.length, ...(report.desktop.error || report.mobile.error ? { errors: [report.desktop.error, report.mobile.error].filter(Boolean) } : {}) };

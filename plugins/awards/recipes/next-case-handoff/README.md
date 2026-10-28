@@ -16,7 +16,7 @@ Each case study closes on the next case's hero, drawn in the hero's own geometry
 | Lift | on click: the frame's scrub killed, the frame set `position: fixed` at its own rect (out of the clip), then `y: −rect.top` and the card to `0°`, both `1 s expo.out` |
 | Swap | fetch the next document (prefetched on `pointerenter` and `focus`), `importNode` its `<main>`, `replaceWith` the live canvas into its hero, `scrollTo(0, 0)`, replace `<main>`, `document.title`, `pushState`, focus the new `h1` with `preventScroll` |
 | Arrival | no hero entrance after a hand-off; after a normal load the card rises from `yPercent 30, rotation 4` over `1 s` expo out after `.25 s` |
-| Back | `popstate` fetches and swaps without the lift |
+| Back | `popstate` (full tier only) fetches and swaps without the lift when the path changes; a fragment such as the skip link's `#main` is left to the browser; a Back during a lift cancels the hand-off (the newest navigation wins) |
 
 ## Tiers
 - **Full:** as above; the plates paint on the shared ticker while on screen.

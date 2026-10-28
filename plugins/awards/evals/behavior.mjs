@@ -789,21 +789,24 @@ test('capture', 'several routes of one local site are captured from its root int
   assert.ok(fs.existsSync(path.join(out, 'work', 'desktop-s00.png')));
 });
 
-test('capture', 'a page whose load event never fires is captured after DOMContentLoaded and says so', async () => {
+test('capture', 'a page whose load event never fires is captured after DOMContentLoaded in every lane, and says so', async () => {
   // An image request that never answers keeps `load` from firing; the page itself has parsed and painted.
   const server = http.createServer((req, res) => {
     if (req.url.startsWith('/never')) return;
     res.writeHead(200, { 'content-type': 'text/html' });
-    res.end('<!doctype html><html lang="en"><head><title>Stalled</title></head><body><main><h1>Parsed and painted</h1><img src="/never.webp" alt=""></main></body></html>');
+    res.end('<!doctype html><html lang="en"><head><title>Stalled</title></head><body><main><h1 id="top">Parsed and painted</h1><a href="#top">Top</a><img src="/never.webp" alt=""></main></body></html>');
   });
   await new Promise((r) => server.listen(0, '127.0.0.1', r));
   const out = path.join(tmp, 'stalled-out');
   try {
-    const result = await run('scripts/capture.mjs', [`http://127.0.0.1:${server.address().port}/`, '--out', out, '--scroll', '0', '--only', 'desktop', '--timeout', '3000', '--wait', '20']);
+    const result = await run('scripts/capture.mjs', [`http://127.0.0.1:${server.address().port}/`, '--out', out, '--scroll', '0', '--only', 'desktop', '--timeout', '3000', '--wait', '20', '--timeline', '0', '--walk']);
     assert.notEqual(result.code, 4, 'a page that rendered is not unreachable');
     const manifest = JSON.parse(fs.readFileSync(path.join(out, 'manifest.json'), 'utf8'));
-    assert.deepEqual(manifest.loadTimeouts, ['desktop']);
+    assert.deepEqual(manifest.loadTimeouts, ['desktop', 'timeline', 'walk:desktop', 'walk:mobile']);
     assert.ok(fs.existsSync(path.join(out, 'desktop-s00.png')));
+    assert.ok(fs.existsSync(path.join(out, 'desktop-t00000.png')), 'the timeline lane captured the stalled page');
+    const walk = JSON.parse(fs.readFileSync(path.join(out, 'walk.json'), 'utf8'));
+    assert.ok(!walk.desktop.error && walk.desktop.stops.length >= 1, 'the walk reached the stalled page');
   } finally {
     server.closeAllConnections?.();
     server.close();

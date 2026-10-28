@@ -99,6 +99,10 @@ function prefetch(href) {
 }
 
 const state = { mode: 'load', handoffs: 0, liveId: null, frameAtClick: null, riseFrom: null, endRect: null, busy: false };
+// The page on screen (path and query; a fragment is the same page), and a token per navigation: the newest wins, so a
+// Back pressed during a lift cancels the hand-off instead of racing it.
+let shown = location.pathname + location.search;
+let nav = 0;
 
 // Replace <main> with the next document's, optionally moving a live node into its hero, then reset scroll and focus.
 function swap(doc, href, { live = null, push = true } = {}) {
@@ -109,6 +113,8 @@ function swap(doc, href, { live = null, push = true } = {}) {
   document.querySelector('main').replaceWith(next);
   document.title = doc.title;
   if (push) history.pushState({ href }, '', href);
+  const u = new URL(href, location.href);
+  shown = u.pathname + u.search;
   initPage({ seamless: !!live });
   next.querySelector('h1').focus({ preventScroll: true });
 }
@@ -118,6 +124,7 @@ async function onNext(e) {
   e.preventDefault();
   if (state.busy) return;
   state.busy = true;
+  const my = ++nav;
   const href = page.link.href;
   const doc = prefetch(href);
   const { frame, card } = page;
@@ -139,6 +146,7 @@ async function onNext(e) {
         .then(),
       doc,
     ]);
+    if (my !== nav) return; // Back or Forward during the lift: that page is (being) swapped in instead
     const c = card.getBoundingClientRect();
     state.endRect = { x: Math.round(c.left), y: Math.round(c.top), w: Math.round(c.width) };
     swap(await doc, href, { live: plate });
@@ -146,20 +154,31 @@ async function onNext(e) {
     state.mode = 'handoff';
     state.handoffs++;
   } catch {
-    location.href = href; // a failed fetch still gets the reader there
+    if (my === nav) location.href = href; // a failed fetch still gets the reader there
   } finally {
     state.busy = false;
   }
 }
 
-// Back and forward after a hand-off: the plain swap, no lift.
-addEventListener('popstate', async () => {
-  try {
-    swap(await prefetch(location.href), location.href, { push: false });
-    state.mode = 'pop';
-  } catch { location.reload(); }
-});
-history.replaceState({ href: location.href }, '', location.href);
+// Back and forward after a hand-off: the plain swap, no lift. Only the full tier ever pushes an entry, so only it
+// listens; and a traversal that keeps the page (the skip link's #main, any other fragment) is left to the browser,
+// unless a pop or a lift is still in flight: then it takes a token too, so the stale one cannot land, and the page the
+// URL names is swapped in again.
+let popping = 0;
+if (full) {
+  addEventListener('popstate', async () => {
+    if (location.pathname + location.search === shown && !popping && !state.busy) return;
+    const my = ++nav;
+    popping++;
+    try {
+      const doc = await prefetch(location.href.split('#')[0]);
+      if (my !== nav) return;
+      swap(doc, location.href, { push: false });
+      state.mode = 'pop';
+    } catch { if (my === nav) location.reload(); } finally { popping--; }
+  });
+  history.replaceState({ href: location.href }, '', location.href);
+}
 
 initPage();
 if (!full) painters.forEach(draw); // one still frame per plate outside the full tier

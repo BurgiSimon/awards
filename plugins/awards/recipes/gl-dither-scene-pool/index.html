@@ -12,7 +12,7 @@
 </head>
 <body>
   <a class="skip-link sr-only" href="#main">Skip to content</a>
-  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ gl-dither-scene-pool · <span data-gl-readout>dom</span></p></header>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ gl-dither-scene-pool · <span data-gl-readout>dom</span></p><button type="button" class="pause" data-pause aria-pressed="false" hidden>Pause footage</button></header>
   <main id="main">
     <section class="band hero" aria-labelledby="t">
       <div class="wrap band-copy">
@@ -37,7 +37,7 @@
         <p class="label">/ 3 of 5</p>
         <h2 id="seasons">Seasons</h2>
         <p>Both seasons are layers of the same scene. Switching does not cross-fade two pictures: the outgoing layers lose their ink and the incoming ones develop, in the section's own ink.</p>
-        <div class="seg" role="group" aria-label="Season">
+        <div class="seg" role="group" aria-label="Season" data-season-group hidden>
           <button type="button" data-season="summer" aria-pressed="true">Summer</button>
           <button type="button" data-season="winter" aria-pressed="false">Winter</button>
         </div>
