@@ -68,8 +68,6 @@ function measure() {
 measure();
 new ResizeObserver(measure).observe(document.body);
 document.fonts.ready.then(measure);
-// iOS Safari applies :active (the press state on touch) only when some touch listener exists.
-document.addEventListener('touchstart', () => {}, { passive: true });
 
 awards.addState(() => ({
   motion: tier,

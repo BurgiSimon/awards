@@ -20,7 +20,7 @@ Links whose labels turn like a small block. Each label becomes a CSS 3D box with
 | Faces | header cell: transparent, then ink with paper text; footer link: paper tile on the ink footer; letters: ink, then madder red |
 | Siblings | the other header cells fade to `.55` over 400 ms while one is hovered |
 | Focus ring | header cells: a 2 px `::after` border in the paper colour, inset 7 px, `z-index: 1` above the box; letters and footer links: a 2 px outline outside the link |
-| Press | `:active` fills the front face (ink on the cells, paper on footer links, madder letters) |
+| Press | `:active` fills the front face (ink on the cells, paper on footer links, madder letters); iOS Safari applies `:active` only once the page has some touch listener, which most sites already register |
 | Reduced / static | no transforms and no transform transition; the copy lies over the label and the faces cross-fade over `--dur-routine` (120 ms under the media query); static cuts |
 
 ## Tiers
