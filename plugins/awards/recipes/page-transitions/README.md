@@ -26,4 +26,4 @@ The route layer of the injected-engine pattern (`references/stacks/webflow-expor
 - Inject once, in Site settings → Footer code (the [recipe:boot-lenis-gsap] Footer-code loader). Page-level custom code runs once per hard load, never after a swap, so per-page logic belongs in the renderer's `onEnter` and `onLeave`.
 - Reduced motion: the wipe is skipped and views swap instantly; focus still moves to `data-nav` after each navigation.
 
-Seen in: `[clone:floema-jewelry]`, `[site:lando-norris]`, `[site:mont-fort]`.
+Seen in: `[clone:floema-jewelry]`, `[site:lando-norris]`, `[site:mont-fort]`, `[site:the-line]` (Nuxt `<Transition>` classes, not taxi).

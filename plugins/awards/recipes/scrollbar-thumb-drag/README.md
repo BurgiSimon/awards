@@ -29,4 +29,4 @@ The heading, lede and chapter copy are synthetic demo text. No media or font fil
 - **Inner scroller:** read `el.scrollTop / (el.scrollHeight − el.clientHeight)` and write `el.scrollTop`; position the track inside the scroller's wrapper.
 - **React / Vue / Svelte:** mount the listeners, ticker subscription and `ResizeObserver` in an effect and remove all three in its cleanup.
 
-Seen in: `[site:wodniack]`.
+Seen in: `[site:wodniack]`, `[site:the-line]` (its handle also slides out `xPercent 110` while a route changes [verified, 2026-10-28]).
