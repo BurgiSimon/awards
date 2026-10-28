@@ -1,19 +1,37 @@
 {
   "id": "character-splay-3d",
-  "title": "Draft template: one bar the scroll fills",
-  "intent": "Say what the recipe is for",
-  "group": "scroll-set-pieces",
-  "summary": "Replace this with what the recipe demonstrates: the mechanism, its numbers, its tiers. This template fills one bar with the scroll progress of its section, written as a transform on the shared ticker, and holds the bar full under reduced motion",
+  "title": "Character splay: a headline that opens in 3D from its centre",
+  "intent": "Headline that splays apart in 3D",
+  "group": "heroes-and-type",
+  "summary": "A display headline split after `document.fonts.ready` by `SplitText.create` (lines, words, chars; `aria: 'auto'`, so the h1 keeps one accessible name; `autoSplit` re-splits when its width changes) whose characters each take one weight, `(distance from the headline's centre ÷ half the widest line)^1.6`, scaled into six channels: `x` outward `.28 × half`, `y` down `.8 ×` line height so each line bends into an arc, `z` forward `.7 × half`, `rotateY` `60°` towards its own side, `rotateX` `36°` by row and `rotate` `24°` along the arc, under a perspective of `2.6 × half` on each line centred on it; one timeline built in `onSplit`, scrubbed (`ease: none`) across a `230svh` hero's sticky stage, clears every inline transform at progress 0 so the heading returns to plain set text; a closing heading plays the same offsets once, open to shut, `1.2 s` expo-out at `center bottom`; reduced motion splits nothing, releases the hero to one screen and fades it to `.12` as it leaves, static only releases it",
   "tags": [
-    "scroll",
+    "text",
+    "typography",
+    "hero",
+    "gsap",
+    "splittext",
+    "scrolltrigger",
+    "lenis",
     "scrub",
+    "sticky",
+    "css-3d",
+    "scroll",
+    "accessibility",
     "reduced-motion"
   ],
-  "tier": "P2",
-  "deps": [],
-  "variants": [
-    "the one this folder builds (default)"
+  "tier": "P1",
+  "deps": [
+    "gsap@3.15.0",
+    "lenis@1.3.26"
   ],
-  "seenIn": [],
+  "variants": [
+    "scrubbed open as the hero leaves, from a sticky stage (this, default)",
+    "played once, open to shut, when a heading's centre reaches the viewport bottom: the same targets as a `gsap.from`, 1.2 s expo-out (the closing heading here; the source's own use)",
+    "per word instead of per headline: measure each word's centre and half width, so every word fans from its own middle like a deck",
+    "split-text-masked-reveal for a reading-weight reveal of lines; this is for one display line that should come apart"
+  ],
+  "seenIn": [
+    "the-boyd"
+  ],
   "drafted": "2026-10-28"
 }

@@ -1,19 +1,31 @@
 {
   "id": "pointer-repel-field",
-  "title": "Draft template: one bar the scroll fills",
-  "intent": "Say what the recipe is for",
-  "group": "scroll-set-pieces",
-  "summary": "Replace this with what the recipe demonstrates: the mechanism, its numbers, its tiers. This template fills one bar with the scroll progress of its section, written as a transform on the shared ticker, and holds the bar full under reduced motion",
+  "title": "Pointer repel field: items pushed, turned and lifted by falloff, sprung home",
+  "intent": "Field that parts around the pointer",
+  "group": "heroes-and-type",
+  "summary": "An `aria-hidden` tray of 144 CSS-drawn items laid out by a CSS grid (8 × 8 of them on a phone), their centres read once into typed arrays and again only on resize; each frame weighs every item by `w = ((R − d) / R)^1.6` from the pointer (`R 190 px`, `112 px` under 760 px) and gives those inside R a target of `w × 72 px` (`42`) straight away from it, a turn of `w × 38°` (`26°`) with a seeded direction per item and a lift of `w × .28` (`.18`), followed by a near-critical spring (`k 300, c 34`) and sent home by an elastic one (`k 130, c 10.3`, ζ ≈ .45), both stepped at a fixed `120 Hz` on the shared ticker; transforms are written only for items inside R or still settling, removed at rest, and the ticker leaves once nothing moves, even with the pointer resting; a mouse hovers, a finger presses and drags (`touch-action: none` on the tray only) and lets go on lift, and a real Nudge button sends one ring from the centre at `900 px/s` that kicks each item outward as it passes, and Escape stills everything at once; off screen everything is released; reduced motion and static hold a still tray, hide the nudge and say why",
   "tags": [
-    "scroll",
-    "scrub",
+    "pointer",
+    "touch",
+    "keyboard",
+    "spring",
+    "ticker",
+    "toy",
+    "hero",
+    "performance",
+    "accessibility",
     "reduced-motion"
   ],
-  "tier": "P2",
+  "tier": "P1",
   "deps": [],
   "variants": [
-    "the one this folder builds (default)"
+    "a grid of CSS-drawn items, hover or press-and-drag, a keyboard nudge (this, default)",
+    "scattered objects instead of a grid (the source's pre-rendered images): keep the cache of centres and the weight, place the objects by hand",
+    "tween-driven instead of springs, as the source does it: a `.45 s power4.out` push and a `1.2 s elastic.out(1, .35)` return through `gsap.quickTo` per channel (a gsap dependency)",
+    "svg-noise-line-field when the field is lines that drift on their own and the pointer is one more force on them"
   ],
-  "seenIn": [],
+  "seenIn": [
+    "noth"
+  ],
   "drafted": "2026-10-28"
 }
