@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Scroll through a day frame by frame: one encoded clip, decoded with WebCodecs exactly at the frame the scroll asks for.">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>webcodecs-frame-scrub — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ webcodecs-frame-scrub · <span data-status>preparing</span></p></header>
+  <main id="main">
+    <section class="wrap hero" aria-labelledby="t">
+      <p class="label">/ synthetic demo</p>
+      <h1 class="title" id="t">Scroll through<br>a day.</h1>
+      <p class="lede">One clip of a hundred and twenty frames, dawn to dusk. The scroll asks for a frame and WebCodecs decodes that frame and no other: from the nearest keyframe on a jump, one decode for the next frame, nothing at all for a frame it decoded a moment ago.</p>
+    </section>
+
+    <section class="film" data-film aria-labelledby="film-title">
+      <div class="stage">
+        <figure class="screen-wrap">
+          <canvas class="screen" data-screen width="960" height="540" aria-hidden="true"></canvas>
+          <figcaption>
+            <h2 class="label" id="film-title">/ A day over a standing stone</h2>
+            <p class="readout" data-readout>001 / 120 · 05:30</p>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="wrap notes" aria-labelledby="rules">
+      <h2 id="rules">Rules</h2>
+      <ul>
+        <li>One file: the encoded chunks, a JSON manifest of every frame's offset, length, time and type, and a four-byte pointer to the manifest. One fetch, no demuxer.</li>
+        <li>A keyframe every ten frames, so a jump decodes ten frames at most; a step forward decodes one.</li>
+        <li>Seeks never reset the decoder: a request made while one is decoding waits, and only the newest runs.</li>
+        <li>Frames decoded on the way to a target are kept as bitmaps, so scrubbing back through them is free.</li>
+        <li>Every decoded frame is closed once it is drawn or kept.</li>
+        <li>Without WebCodecs the frames are drawn directly; with reduced motion the film is one still at midday.</li>
+      </ul>
+      <dl class="compare" data-compare hidden>
+        <div><dt class="label">The same frames as WebP stills</dt><dd data-stills>—</dd></div>
+        <div><dt class="label">As one stream</dt><dd data-stream>—</dd></div>
+        <div><dt class="label">Smaller by</dt><dd data-ratio>—</dd></div>
+      </dl>
+    </section>
+  </main>
+  <footer class="wrap footer"><p class="label">awards · recipe · synthetic demo · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

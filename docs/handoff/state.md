@@ -1,4 +1,4 @@
-# State of the awards plugin — 2026-10-28 (release 1.0.0, the found-pictures switch, and corpus waves 6a and 6b on branch `claude/serene-pasteur-5g774f`)
+# State of the awards plugin — 2026-10-28 (release 1.0.0, the found-pictures switch, corpus waves 6a and 6b, the WebCodecs scrub and the explorer's New label on branch `claude/serene-pasteur-5g774f`)
 
 Read this first, then `todo.md`. The visual composition candidate's deterministic verification is
 recorded below in [Candidate verification record](#candidate-verification-record). `archive/plan-0.2.md` and
@@ -12,6 +12,17 @@ reference. `decisions.md` records choices already taken.
 - Recipes (three of the six new ones; 96 → 102 entries with wave 6b's): `gl-video-dither-layers` (the close), `gl-dither-scene-pool` (whole page, one context), `dither-cell-transition` (arrival and routes). Each passes `verify-recipes --only <id>` and `--pseudo`; frames rendered; none stamped. Two defects found and fixed on the way: a video can report its size before it has a frame (uploading then leaves the texture undefined and every later `texSubImage2D` fails, seen as an intermittent blank scene), and a smoothstep bar edge drew a faint line at zero width (now box-filtered coverage).
 - Plugin fix: `capture.mjs` called Son Daven unreachable because `load` never fired in 120 s; it now captures after DOMContentLoaded and lists `manifest.loadTimeouts` (`gotoLoaded`, documented in `capture-states.md`, behavior check `capture: a page whose load event never fires…`). The research skill reads a gate that never opens as a §6 finding.
 - Not measured: a real GPU or phone for the three recipes; the site's own frame cost (fifteen contexts) beyond SwiftShader. The site's hero frames (17 of 120 pending at 40 s) stalled from this container; whether they stall from an ordinary network is unknown.
+
+## WebCodecs frame scrub and the explorer's New label (2026-10-28)
+
+- `webcodecs-frame-scrub`, the candidate wave 6a left unbuilt, built at the maintainer's request (103 entries). One packed file holds the encoded chunks, a JSON manifest and a four-byte offset footer, the layout of Son Daven's unused `ActiveFrame.js`. `FrameScrubber` decodes exactly the requested frame:
+  - from the keyframe at or before it, or onward from the decoder when the target is ahead in the same group;
+  - requests made during a seek coalesce to the newest, so the decoder is never reset;
+  - every frame decoded is kept as a bitmap at display width (`keyEvery + 2` of them);
+  - a 1 s watchdog flushes, then resets.
+- The demo draws a 120-frame day with an edge code, encodes it on load (H.264 baseline in headless Chromium, about 255 KB at 500 kbps against 772 KB as WebP stills) and scrubs it from a sticky stage. The verifier reads the frame number off the canvas: 39 checks with `--pseudo`. Fallbacks: no WebCodecs draws frames directly (`?codecs=off`); reduced motion shows one still. Not run outside headless Chromium.
+- Routed from motion (Frame scrub), webgl (Frame sequence from one encoded clip), structure (Scroll set-pieces), `asset-pipeline.md`, `components-catalog.md` and the Son Daven card.
+- The explorer's New label: `recipe.json` takes an optional `added` date (`build-catalogue.mjs` rejects any other form); `build-gallery.mjs` marks a recipe New when its date is within 30 days of the newest `added` in the catalogue, so the page depends on the files, not the clock. The label sits after the plate title, in the stage's kicker, with an `Added` row in the facts; search matches "new". The seven recipes of this branch carry `added: 2026-10-28`; older recipes have no date and never show it.
 
 ## Review of waves 6a and 6b (2026-10-28)
 

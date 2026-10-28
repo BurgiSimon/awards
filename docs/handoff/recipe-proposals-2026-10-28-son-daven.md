@@ -54,7 +54,10 @@ The selection gate was answered in advance by the request; all three were built.
   - The repeat visit is short; reduced motion fades; the phone grid is about 5 × 11.
 - Lens: none (DOM), the transition the GL weave needs
 
-## Not built (candidates left in this file)
+## Built after the wave
+Left unbuilt by the wave and built the same day, at the maintainer's request. `VideoEncoder` works under headless Chromium (H.264 baseline, VP9 and VP8 all encode and decode there), so the demo encodes its own drawn film on load.
+
 - `webcodecs-frame-scrub`:
   - Frame-accurate scrubbing of one encoded clip with WebCodecs: chunks and a JSON manifest in one binary with an offset footer, a keyframe seek then deltas, a sequential fast path, `VideoFrame` closed after drawing. Son Daven ships the decoder (`ActiveFrame.js`) without using it, and scrubs 120 WebP frames instead.
-  - Build it next when a hero scrubs film. A demo can encode its own chunks at run time with `VideoEncoder` (VP9) from a drawn clip; check `VideoEncoder.isConfigSupported` under headless Chromium first.
+  - Built as proposed, with three changes from ActiveFrame: requests made during a seek wait and only the newest runs (ActiveFrame resets the decoder on every non-sequential seek), a target ahead in the same group continues from the decoder instead of the keyframe, and frames passed on the way are cached as bitmaps for scrubbing back. H.264 baseline first, VP9 and VP8 as fallbacks.
+  - Verified: a jump decodes from its keyframe and no further, a step forward is one decode, a step back through the group is a cache hit, a burst of 119 requests costs 11 decodes, the frame on screen is read off an edge code, and no `VideoFrame` is left open.

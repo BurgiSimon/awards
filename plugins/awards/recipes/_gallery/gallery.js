@@ -70,7 +70,7 @@ const writeURL = () => {
 // ---------- filtering ----------
 
 const haystack = new Map(data.recipes.map((r) => [r.id, [
-  r.id, r.title, r.intent, r.summary, groupTitle[r.group], r.tier, ...r.tags, ...r.deps, ...r.seenIn, ...r.variants,
+  r.id, r.title, r.intent, r.summary, groupTitle[r.group], r.tier, r.isNew ? 'new' : '', ...r.tags, ...r.deps, ...r.seenIn, ...r.variants,
 ].join(' ').toLowerCase().replace(/`/g, '')]));
 
 function matches(r, skip) {
@@ -661,13 +661,14 @@ const detail = {
       : '—';
     const verified = r.verified ? `${esc(r.verified.date)}${r.verified.chromium ? ` · Chromium ${esc(r.verified.chromium.split('.')[0])}` : ''}` : 'No recorded pass yet';
     this.info.innerHTML = `
-      <p class="info__kicker"><button type="button" data-filter-group="${r.group}" aria-label="Show every recipe in ${esc(groupTitle[r.group])}">${esc(groupTitle[r.group])}</button><span class="tier" title="Tier ${r.tier}">${r.tier}</span></p>
+      <p class="info__kicker"><button type="button" data-filter-group="${r.group}" aria-label="Show every recipe in ${esc(groupTitle[r.group])}">${esc(groupTitle[r.group])}</button><span class="tier" title="Tier ${r.tier}">${r.tier}</span>${r.isNew ? `<span class="new" title="Added ${esc(r.added)}">New</span>` : ''}</p>
       <h2 id="detail-title">${esc(r.title)}</h2>
       <p class="info__intent">${esc(r.intent)}</p>
       <p class="info__summary">${esc(r.summary).replace(/`([^`]+)`/g, '<code>$1</code>')}</p>
       <dl class="facts">
         <dt>Libraries</dt><dd>${libs}</dd>
         <dt>Seen in</dt><dd>${seen}</dd>
+        ${r.added ? `<dt>Added</dt><dd>${esc(r.added)}</dd>` : ''}
         <dt>Verified</dt><dd>${verified}</dd>
         <dt>Folder</dt><dd><a class="mono" href="${data.repo}/tree/main/plugins/awards/recipes/${r.id}" target="_blank" rel="noopener">recipes/${r.id}</a></dd>
       </dl>

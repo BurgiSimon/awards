@@ -8,7 +8,7 @@
     "width": 800,
     "height": 500
   },
-  "total": 1435702,
+  "total": 1441440,
   "sheet": {
     "file": "sheet.webp",
     "tile": {
@@ -118,6 +118,7 @@
       "typography-specimen",
       "video-clip-wipe-panels",
       "view-transitions-mpa",
+      "webcodecs-frame-scrub",
       "word-cycle-hero",
       "wordmark-header-handoff"
     ]
@@ -722,6 +723,12 @@
       "scroll": null,
       "captured": "2026-10-26",
       "bytes": 22484
+    },
+    "webcodecs-frame-scrub": {
+      "state": "frame",
+      "scroll": null,
+      "captured": "2026-10-28",
+      "bytes": 5738
     },
     "word-cycle-hero": {
       "state": "timed",

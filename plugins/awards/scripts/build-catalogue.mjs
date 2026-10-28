@@ -23,6 +23,7 @@ export function catalogue() {
     if (j.id !== id) problems.push(`${id}: id is ${j.id}`);
     for (const key of ['intent', 'group', 'summary']) if (!j[key]) problems.push(`${id}: no ${key}`);
     if (j.group && !vocab.groups[j.group]) problems.push(`${id}: unknown group ${j.group}`);
+    if (j.added !== undefined && !/^\d{4}-\d{2}-\d{2}$/.test(String(j.added))) problems.push(`${id}: added is ${j.added}, not YYYY-MM-DD`);
     for (const t of j.tags ?? []) {
       if (t in vocab.aliases) problems.push(`${id}: retired tag ${t}${vocab.aliases[t] ? ` (use ${vocab.aliases[t]})` : ''}`);
       else if (!facetOf.has(t)) problems.push(`${id}: tag ${t} is not in scripts/data/recipe-tags.json`);

@@ -152,7 +152,7 @@ Read the recipe's README and `main.js` under `${CLAUDE_PLUGIN_ROOT}/recipes/<id>
 | Drawn path | `scroll-drawn-svg-path` | dash-offset range |
 | Flicker accent | `flicker-text` | ladder, glyph stagger |
 | Decode accent | `scramble-decode-text` | charset, reveal and settle rates |
-| Frame scrub | `image-sequence-scrub` | frame count, poster |
+| Frame scrub | `image-sequence-scrub`; `webcodecs-frame-scrub` for one encoded clip, frame-exact | frame count, poster; keyframe spacing and the stills fallback |
 | House easing written once, read by GSAP and CSS | `custom-ease-house-defaults` | the curves and the duration ladder; never a corpus string |
 | Scrubbed doorway into a chapter | `clip-path-scrub-door` | the hole shape, the window, what the door reveals |
 | Copy that plays when a scrub crosses a point | `scrub-threshold-timelines` | the thresholds, play and reverse rates, the reduced tier |

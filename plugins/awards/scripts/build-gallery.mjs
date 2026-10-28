@@ -14,6 +14,7 @@ const recipesDir = path.join(plugin, 'recipes');
 const indexFile = path.join(recipesDir, 'index.html');
 const SOURCE_EXT = new Set(['.html', '.js', '.mjs', '.css', '.md', '.jsx', '.vue', '.svelte', '.astro', '.glsl', '.frag', '.vert']);
 const DEGRADED = /^(rm|reduced|static|fallback|nogl|offscreen|hidden|teardown|crash|forced|retier)(-|$)/;
+const NEW_DAYS = 30;
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 export const recipeIds = () => fs.readdirSync(recipesDir, { withFileTypes: true })
@@ -68,12 +69,20 @@ export async function gallery() {
     const hasFrame = fs.existsSync(path.join(recipesDir, '_gallery/frames', `${id}.webp`));
     recipes.push({
       id, title: j.title ?? id, intent: j.intent ?? '', group: j.group ?? '', summary: j.summary ?? '', tags: j.tags ?? [],
-      deps: j.deps ?? [], tier: j.tier ?? '', variants: j.variants ?? [], seenIn: j.seenIn ?? [],
+      deps: j.deps ?? [], tier: j.tier ?? '', variants: j.variants ?? [], seenIn: j.seenIn ?? [], addedIso: j.added ?? null,
       verified: j.verified?.date ? { date: day(j.verified.date), chromium: j.verified.chromium ?? null } : null,
       frame: hasFrame ? { state: frames[id]?.state ?? null, scroll: frames[id]?.scroll ?? null } : null,
       states: await verifierStates(id),
       files: recipeFiles(id),
     });
+  }
+  // New: added within NEW_DAYS of the newest `added` date in the catalogue. Measured against the data, not the clock,
+  // so the page is the same whenever it is built, and a batch stops being new once a later one lands.
+  const newest = recipes.reduce((m, r) => (r.addedIso && r.addedIso > m ? r.addedIso : m), '');
+  for (const r of recipes) {
+    r.added = day(r.addedIso);
+    r.isNew = !!r.addedIso && (Date.parse(newest) - Date.parse(r.addedIso)) / 86_400_000 <= NEW_DAYS;
+    delete r.addedIso;
   }
   const groups = Object.entries(vocab.groups).map(([key, g]) => ({ id: key, title: g.title, about: g.about, pattern: g.pattern ?? null }))
     .filter((g) => recipes.some((r) => r.group === g.id));
@@ -90,7 +99,7 @@ export async function gallery() {
       : `<span class="plate__blank" aria-hidden="true">${esc(r.intent)}</span>`;
     return `        <li class="plate" data-id="${r.id}">
           <div class="plate__frame">${img}</div>
-          <h3 class="plate__title"><a href="./${r.id}/index.html">${esc(r.title)}</a></h3>
+          <h3 class="plate__title"><a href="./${r.id}/index.html">${esc(r.title)}</a>${r.isNew ? ` <span class="new" title="Added ${r.added}">New</span>` : ''}</h3>
           <p class="plate__intent">${esc(r.intent)}</p>
           <p class="plate__meta"><span class="tier" title="Tier ${r.tier}">${r.tier}</span>${libs.length ? ` <span class="plate__libs">${esc(libs.join(' · '))}</span>` : ' <span class="plate__libs">no library</span>'}</p>
         </li>`;

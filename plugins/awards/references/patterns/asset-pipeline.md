@@ -61,6 +61,8 @@ Rules (`[recipe:image-sequence-scrub]`): encode with `ffmpeg` to WebP or AVIF fr
 
 Past ≈ 30 frames, keep a rolling window of decoded `ImageBitmap`s that follows the playhead and `close()`s what falls behind — 20 of 120 frames held, 45 MB instead of 273 MB — and gate the loader on that same window [site:mensch] [verified]. A sequence can also be N baked states in one KTX2 array, chosen per pixel by a shader instead of by time [site:pensatori-irrazionali] [verified].
 
+Or one encoded clip instead of stills: the chunks packed with a manifest of every frame's offset, time and type, decoded with WebCodecs exactly at the frame the scroll names, a keyframe every ten frames so a jump decodes ten at most. Son Daven ships such a decoder and the packed-file reader without using them [site:son-daven] [verified]; in the recipe the 120-frame film is about 255 KB as one H.264 stream against 772 KB as WebP stills, and the gap is wider on photographic footage [inferred] `[recipe:webcodecs-frame-scrub]`. Keep stills where WebCodecs is missing (the recipe falls back to drawing them).
+
 ## Images
 
 - AVIF or WebP; rasters under 1 MB [P02]; `width` and `height`, `sizes`, `loading="lazy"` below the fold and `fetchpriority="high"` on the LCP image [P01]. Léo Parpeix lazy-loads WebP in its carousel [site:leo-parpeix] [recalled medium]; Mont-fort's textures are WebP with KTX2 beside them [site:mont-fort] [verified].

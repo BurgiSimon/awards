@@ -124,7 +124,7 @@ Why: a component earns its place by the job it does in the story, not by being s
 - **Anatomy.** One canvas, DOM-tethered or fixed; scroll written to a ref or uniform and read in the render loop; a poster underneath.
 - **Motion.** `ease: 'none'` under the scrub; smoothing from Lenis or `scrub: .4`; a plain multiplier is the cheapest scrub (`[pattern:motion-vocabulary#scrub-and-refresh-rules]`).
 - **Accessibility.** Native scroll intact so keys work; a still on the reduced tier; a poster `<img>` and real text under an `aria-hidden` canvas.
-- **Recipe.** `[recipe:gl-hero-object-inertia]` `[recipe:image-sequence-scrub]` `[recipe:scroll-pin-scrub]`; `[recipe:point-cloud-shape-morph]` for a point figure; `[recipe:gl-dom-refraction-lens]` for an object travelling between section anchors.
+- **Recipe.** `[recipe:gl-hero-object-inertia]` `[recipe:image-sequence-scrub]` `[recipe:webcodecs-frame-scrub]` `[recipe:scroll-pin-scrub]`; `[recipe:point-cloud-shape-morph]` for a point figure; `[recipe:gl-dom-refraction-lens]` for an object travelling between section anchors.
 - **Refuse.** Floating primitives with no concept; scroll-jacking to make the object move.
 
 ### Pinned chapter with scrubbed media

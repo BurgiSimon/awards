@@ -66,7 +66,7 @@ Excluded by that instruction (lower impact, larger effort): F5 jury panel, F6 mo
 
 1. Real-GPU and real-phone pass for `gl-video-dither-layers`, `gl-dither-scene-pool` and `dither-cell-transition`: frame time with three playing clips, the slice copies on a phone, `captureStream` and `requestVideoFrameCallback` on Safari (the recipes fall back to canvases when no frame arrives in 2.5 s; unproven there).
 2. Try the recipes with filed footage (an H.264 clip graded on black) and record the bitrate at which the weave stops showing compression.
-3. `webcodecs-frame-scrub`, left unbuilt (`recipe-proposals-2026-10-28-son-daven.md`): check `VideoEncoder` under headless Chromium first.
+3. `webcodecs-frame-scrub` on real devices: Safari (16.4 and later) and Firefox decoding, a hardware decoder's output order and latency, a phone's frame time during a fast scrub, and a packed file built from filmed footage (bitrate where the scrub stops showing compression). Headless Chromium only so far; stamp it with the others.
 4. Re-read Son Daven's load from an ordinary network: from this container 17 of 120 hero frames were pending at 40 s.
 5. Stamp the three recipes at the next release.
 6. `evals/behavior.mjs --only capture`: the held-clock timeline baseline diff fails about one run in three with 1–3 changed pixels (0.0001–0.0003), on the unchanged `capture.mjs` too (observed 2026-10-28, while checking the load-timeout fallback); make the comparison tolerate antialiasing noise or find the source.

@@ -60,6 +60,7 @@ const OVERRIDES = {
   'footer-credits-hinge': 'open',
   'overprint-marker-index': 'hover',
   'next-case-handoff': 'footer',
+  'webcodecs-frame-scrub': 'frame',
 };
 
 export function pickState(id, states) {
