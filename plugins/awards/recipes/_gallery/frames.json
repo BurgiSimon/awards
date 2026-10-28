@@ -8,7 +8,7 @@
     "width": 800,
     "height": 500
   },
-  "total": 1304750,
+  "total": 1374780,
   "sheet": {
     "file": "sheet.webp",
     "tile": {
@@ -33,6 +33,7 @@
       "designed-404",
       "designed-footer",
       "dialog-nested-lenis-sheet",
+      "dither-cell-transition",
       "docked-media-grow",
       "drag-pan-infinite-grid",
       "editorial-image-text",
@@ -43,6 +44,7 @@
       "gl-built-studio-environment",
       "gl-depth-map-parallax",
       "gl-dispersion-stripes",
+      "gl-dither-scene-pool",
       "gl-dom-refraction-lens",
       "gl-dom-tethered-planes",
       "gl-endless-reel-sheets",
@@ -67,6 +69,7 @@
       "gl-spring-stepped-gallery",
       "gl-swarm-light-field",
       "gl-uniform-tween-targets",
+      "gl-video-dither-layers",
       "gl-virtual-scroll-camera",
       "horizontal-rail",
       "hover-preview-list",
@@ -207,6 +210,12 @@
       "captured": "2026-10-26",
       "bytes": 14576
     },
+    "dither-cell-transition": {
+      "state": "sweep",
+      "scroll": null,
+      "captured": "2026-10-28",
+      "bytes": 11216
+    },
     "docked-media-grow": {
       "state": "dock",
       "scroll": 0,
@@ -266,6 +275,12 @@
       "scroll": null,
       "captured": "2026-10-26",
       "bytes": 21288
+    },
+    "gl-dither-scene-pool": {
+      "state": "seasons",
+      "scroll": null,
+      "captured": "2026-10-28",
+      "bytes": 27762
     },
     "gl-dom-refraction-lens": {
       "state": "hero",
@@ -410,6 +425,12 @@
       "scroll": 0,
       "captured": "2026-10-26",
       "bytes": 36630
+    },
+    "gl-video-dither-layers": {
+      "state": "glyphs",
+      "scroll": 1,
+      "captured": "2026-10-28",
+      "bytes": 31052
     },
     "gl-virtual-scroll-camera": {
       "state": "mid",

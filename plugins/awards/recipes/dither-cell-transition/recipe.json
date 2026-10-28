@@ -1,0 +1,30 @@
+{
+  "id": "dither-cell-transition",
+  "title": "One woven curtain for the arrival and every route",
+  "intent": "Cell curtain transition",
+  "group": "arrival-and-chrome",
+  "summary": "A fixed grid of cells rebuilt to the viewport (about 72 × 75 CSS px, 20 × 12 on a desktop, 5 × 11 on a phone), each scaling on X from a hairline to a solid bar in `0.4 s power3.inOut`, swept from the bottom-right cell `0.02 s` apart by grid distance; shut from first paint; the arrival gate waits for fonts and image decodes, at least 0.9 s (0.25 s on a repeat visit) and never past a 4 s ceiling; routes swap only behind a fully shut curtain, save the scroll on leaving and restore it on back and forward only, move focus to the new `h1`, set the title and announce the page; a 0.2 s fade under reduced motion; a stylesheet in `<noscript>` drops the curtain without script",
+  "tags": [
+    "transition",
+    "router",
+    "preloader",
+    "gsap",
+    "stagger",
+    "loading",
+    "storage",
+    "accessibility",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [
+    "gsap@3.15.0"
+  ],
+  "variants": [
+    "Hash routes in one document (this, default)",
+    "As the cover of a transition library: call cover() in leave and uncover() in enter (Barba, Taxi: page-transitions)",
+    "Cells in the ground of the incoming page, so the page weaves into its next theme"
+  ],
+  "seenIn": [
+    "son-daven"
+  ]
+}

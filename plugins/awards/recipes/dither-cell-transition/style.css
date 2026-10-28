@@ -1,0 +1,35 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+.topbar { display: flex; flex-wrap: wrap; gap: calc(var(--unit) * 3) calc(var(--unit) * 6); justify-content: space-between; align-items: center; padding-block: calc(var(--unit) * 4); position: sticky; top: 0; background: var(--ground); z-index: 5; border-bottom: 1px solid var(--line); }
+.nav { display: flex; flex-wrap: wrap; gap: calc(var(--unit) * 2); }
+.nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 calc(var(--unit) * 3); color: var(--ink); text-decoration: none; border-radius: 999px; }
+.nav a[aria-current="page"] { background: var(--ink); color: var(--ground); }
+.view { min-height: 160svh; padding-block: calc(var(--unit) * 12) calc(var(--unit) * 20); }
+.title { font-family: var(--font-display); font-size: clamp(2.5rem, 7vw, 6.5rem); line-height: .92; letter-spacing: -.03em; margin: calc(var(--unit) * 4) 0 0; outline: none; }
+.title:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+.lede { max-width: 54ch; margin-top: calc(var(--unit) * 6); }
+.plate { margin: calc(var(--unit) * 12) 0; max-width: 60rem; }
+.plate img { display: block; width: 100%; height: auto; }
+.plate figcaption { margin-top: calc(var(--unit) * 3); color: var(--muted); }
+.notes ul { max-width: 62ch; padding-left: 1.2em; }
+.notes li + li { margin-top: calc(var(--unit) * 2); }
+.rooms, .entries { list-style: none; padding: 0; margin: calc(var(--unit) * 16) 0 0; display: grid; gap: calc(var(--unit) * 16); max-width: 52rem; }
+.rooms h2 { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.5rem); margin: 0 0 calc(var(--unit) * 2); }
+.entries p:not(.label) { font-size: clamp(1.125rem, 2vw, 1.5rem); max-width: 40ch; margin-top: calc(var(--unit) * 2); }
+.next { margin-top: calc(var(--unit) * 20); }
+.next a { color: var(--ink); font-size: clamp(1.125rem, 2vw, 1.5rem); text-underline-offset: .2em; }
+.footer { padding-block: calc(var(--unit) * 10); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* The curtain: a fixed grid of cells over everything, each a bar that scales on X about its centre. A cell overlaps
+   its neighbours by half a pixel so fractional cell widths never leave a seam when the curtain is shut. */
+.curtain { position: fixed; inset: 0; z-index: 50; }   /* while shown it also takes the clicks: nothing navigates mid-sweep */
+.curtain[hidden] { display: none; }
+/* Shut from first paint until the script has built the cells, so the page never flashes before the arrival. */
+.curtain:not([data-ready]) { background: var(--ink); }
+.cells { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(var(--cols), 1fr); grid-template-rows: repeat(var(--rows), 1fr); }
+.cells > i { display: block; background: var(--ink); margin: -0.5px; transform: scaleX(0); will-change: transform; }
+html:not([data-motion-tier="full"]) .cells > i { transform: none; }
+.gate { position: absolute; inset: auto var(--gutter) calc(var(--unit) * 8) auto; color: var(--ground); font-variant-numeric: tabular-nums; }
+.gate[hidden] { display: none; }

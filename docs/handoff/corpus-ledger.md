@@ -871,3 +871,40 @@ daikifujita: framer@13ebf9e, react@18.3.1 — index.html, react chunk
 - Duplicates found in synthesis: `everswap` and `oryzo` are one studio (Lusion) on one in-house framework (screen paint, post profiles, DOM-rect scroll ranges, `.buf` intake, second-order springs); only the grade-pass cuts, the unlit painted world, the water, the trails and the bones are EverSwap's own. `daikifujita` and `da-san333` are one designer's newer and older Framer portfolios. As DIVERGENCE neighbours, each pair counts one source twice.
 - Real GPU: none. Every capture and recipe frame ran on SwiftShader, so the cards' frame-time figures are absent and the recipes are proven correct, not fast.
 - everswap: the Awwwards entry page returned 502; the Honorable Mention is `[recalled]` from search and its scores were not read.
+
+## Wave 6a — Son Daven video-weave lens, opened 2026-10-28
+
+| Phase | Status | Note |
+|---|---|---|
+| setup | done | opened at the maintainer's request on branch claude/serene-pasteur-5g774f: a deep re-read of one existing card, focused on the video "ASCII" effect across the site and in the footer; not gap-driven. Wave 6b (The Line, motion lens) ran beside it as a separate task |
+| triage | done | 1 card updated (`son-daven`, last read 2026-09-18). `capture.mjs` reported the site unreachable (no `load` event in 120 s); that became a plugin fix (`loadTimeouts`, below). The gate never opened in the capture, so the scroll states came from a scratch Playwright pass that aborted the 120 hero-frame requests |
+| synthesis | done | the card's §3–§6 rewritten from the whole renderer (`slater-55210.js`, 146 KB) with a `### Tech lens: WebGL`; a halftone-weave beat, a teardown row and two recipe-map rows in `webgl-shaders.md`; a bar-weave effect-parameter row and a context-budget rule in `webgl-architecture.md`; the title-card row, a ceiling rule and a woven-cells transition row in `preloaders-and-transitions.md`; the footer totem in `components-catalog.md`; routes in the webgl, structure and component skills |
+| recipes | done | 3 proposed and built (`docs/handoff/recipe-proposals-2026-10-28-son-daven.md`): gl-video-dither-layers, gl-dither-scene-pool, dither-cell-transition; each passes `verify-recipes --only` headless and `--pseudo`; 1 candidate left unbuilt |
+| stacks | done | no new stack note; Webflow + Slater, GSAP 3.13.0, Flip 3.14.1, Lenis 1.3.15 and Barba are recorded on the card |
+| upkeep | done | counts 96 → 99 entries from this wave (plus wave 6b's); `capture.mjs` falls back to DOMContentLoaded when `load` never fires and lists the viewport in `manifest.loadTimeouts` (behavior check added); the research skill reads a gate that never opens as a §6 finding |
+
+### Sites
+
+| Slug | URL | Lens | Status | Rating | Novelty | Synthesised | Reason | Date |
+|---|---|---|---|---|---|---|---|---|
+| son-daven | https://sondaven.com/en | WebGL (video weave) | updated | D 7.9 / U 6.4 / C 8.4 / Co 7.4 → 7.50 [inferred]; official SOTD 5 Jun 2026 7.62 + Dev 8.09 [verified, entry page, 2026-09-18] | lens ×9: per-layer keyed footage on one dither program; levels as tween targets (develop, swap, fly-through); black-key ring; bar width from tone; ink opacity 0 as a negative weave; fifteen contexts; a gate with no ceiling; HEVC-only clips; a WebCodecs decoder shipped unused | webgl-shaders, webgl-architecture, preloaders-and-transitions, components-catalog; skills webgl, structure, component, research | the maintainer named the site and the effect | 2026-10-28 |
+
+### Techniques and stacks
+
+son-daven: layered keyed footage, one program — slater-55210.js (createCanvasInstance) — a full-canvas quad per layer, `u_bounds` discard; cell centre `(floor(lc/cs)+.5)·cs`; per-channel levels then the channel mean; bar `|cell.x − .5| < lw/2`, `lw = ((1 − br)(max − min) + min)/boundsW · gridX`, min −2 %, max 102 %; grids 100 × 100 default, up to 200 × 150 [lens:webgl]
+son-daven: black key with a texel ring — slater-55210.js (generateRadiusLoop) — `BLACK_PIXEL_RADIUS 2`: the centre plus 24 unrolled reads, any near-black or transparent read discards [lens:webgl]
+son-daven: levels as state — slater-55210.js (initSceneHeroOver, initSceneSeasons, initSceneBenefitsOutro) — GSAP tweens the layer config objects: hero ridge 25/200 → 45/175 scrubbed `50% bottom` → `bottom top`; seasons swapped to 254/255 and back over 1.2 s; inverted pairs (240/50, 200/25) for light pictures on dark grounds [lens:webgl]
+son-daven: fly-through by boxes — slater-55210.js (initSceneBenefitsIntro) — three layers grow to 148 %, 324 % and 240 % of the canvas on `InOut`/`In` as the section leaves [lens:webgl]
+son-daven: loops gated by visibility — slater-55210.js — birds `x` −33.33 % → 100 % in 5 s, `repeatDelay` 5; timelines and the scene's videos play only while the canvas intersects (`rootMargin 20%`) [lens:webgl]
+son-daven: uploads and loop — slater-55210.js (updateVideoTexture, animate) — `texSubImage2D` only when `currentTime` moved; a 16-float uniform cache; one rAF per canvas capped at 60 fps; DPR ≤ 1.5 through a ResizeObserver [lens:webgl]
+son-daven: woven-cells transition — slater-55210.js (animateTransition) + webflow-shared.css — 20 × 12 cells `scaleX 0 → 1`, .4 s `InOut`, stagger .03 from the end across the grid, a black veil 0 → 1 over 1.2 s; scroll per path in sessionStorage, restored on popstate
+son-daven: unbounded load gate — slater-55210.js (animatePreloaederIntro) — `Promise.all([120 WebP frames, every scene's media, document.fonts.ready])`; videos give up after 5 s, images never; 17 of 120 frames pending at 40 s on 2026-10-28
+son-daven: hero frame scrub — slater-55210.js (initScrollVideo) — 120 WebP frames on a 2D canvas, `snap: 'frame'`, `scrub .25`, desktop only
+son-daven: ActiveFrame.js — assets.sondaven.com — WebCodecs `VideoDecoder` over one binary (chunks + a JSON manifest, a 4-byte offset footer), keyframe seek then deltas, a sequential fast path; loaded, never instantiated
+son-daven: webflow + slater (unchanged), gsap@3.13.0, flip@3.14.1, lenis@1.3.15, swiper@11, @barba/core (unpkg, unversioned) — index.html
+
+### Notes
+
+- Capture: `capture.mjs` waited for `load` and called the site unreachable at 120 s on the first run; with the new fallback (45 s) it captured, but every frame showed the preloader. The diagnosis (`requestfinished` against `request`) found 17 hero frames pending at 40 s, so the scroll states were captured with those 120 requests aborted; the hero's frame canvas shows its CSS poster in them.
+- HEVC: three clips are `.hevc.mp4` with no H.264 sibling; in headless Chromium those requests aborted, so the footer mountain and two bird layers are absent from every capture.
+- Real GPU: none. The site's fifteen contexts and the three recipes ran on SwiftShader only.

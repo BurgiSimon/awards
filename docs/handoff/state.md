@@ -1,9 +1,17 @@
-# State of the awards plugin — 2026-10-28 (release 1.0.0 and the found-pictures switch, branch `claude/quirky-newton-pthlep`)
+# State of the awards plugin — 2026-10-28 (release 1.0.0, the found-pictures switch, and corpus waves 6a and 6b on branch `claude/serene-pasteur-5g774f`)
 
 Read this first, then `todo.md`. The visual composition candidate's deterministic verification is
 recorded below in [Candidate verification record](#candidate-verification-record). `archive/plan-0.2.md` and
 `verification-log.md` record the earlier 0.2.0 work. `archive/plan.md` is the 0.1.0 specification, kept for
 reference. `decisions.md` records choices already taken.
+
+## Son Daven video weave, corpus wave 6a (branch `claude/serene-pasteur-5g774f`, 2026-10-28, unreleased)
+
+- At the maintainer's request, a deep re-read of `son-daven` with the research skill, focused on the "video ASCII" effect across the site and in the footer, plus new recipes. The effect is a halftone weave (one vertical bar per cell, as wide as the cell is dark) over clips graded on black; the recipes add the ASCII glyph ramp the request names as a mode. Ledger: `docs/handoff/corpus-ledger.md#wave-6a--son-daven-video-weave-lens-opened-2026-10-28`; proposals: `recipe-proposals-2026-10-28-son-daven.md`.
+- Card: last verified 2026-10-28, a Corpus rating row (7.50 [inferred]), §2–§6 rewritten from the 146 KB module with a `### Tech lens: WebGL`; 98 lines. Synthesis in `webgl-shaders.md` (beat, teardown, recipe map), `webgl-architecture.md` (effect parameters, a context-budget rule), `preloaders-and-transitions.md` (title-card row, a ceiling rule, a woven-cells transition), `components-catalog.md` (the footer totem); routes in the webgl, structure and component skills.
+- Recipes, 96 → 99 entries: `gl-video-dither-layers` (the close), `gl-dither-scene-pool` (whole page, one context), `dither-cell-transition` (arrival and routes). Each passes `verify-recipes --only <id>` and `--pseudo`; frames rendered; none stamped. Two defects found and fixed on the way: a video can report its size before it has a frame (uploading then leaves the texture undefined and every later `texSubImage2D` fails, seen as an intermittent blank scene), and a smoothstep bar edge drew a faint line at zero width (now box-filtered coverage).
+- Plugin fix: `capture.mjs` called Son Daven unreachable because `load` never fired in 120 s; it now captures after DOMContentLoaded and lists `manifest.loadTimeouts` (`gotoLoaded`, documented in `capture-states.md`, behavior check `capture: a page whose load event never fires…`). The research skill reads a gate that never opens as a §6 finding.
+- Not measured: a real GPU or phone for the three recipes; the site's own frame cost (fifteen contexts) beyond SwiftShader. The site's hero frames (17 of 120 pending at 40 s) stalled from this container; whether they stall from an ordinary network is unknown.
 
 ## Found pictures off (branch `claude/quirky-newton-pthlep`, 2026-10-28, unreleased)
 

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Keyed footage composited in layers and woven into the section's own ink as bars or ASCII glyphs, developing as the close scrolls in.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>gl-video-dither-layers — awards recipe</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1c1c'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="wrap topbar"><a href="../index.html" class="label">← recipes</a><p class="label">/ gl-video-dither-layers · <span data-gl-readout>dom</span></p></header>
+  <main id="main">
+    <section class="wrap hero" aria-labelledby="t">
+      <p class="label">/ synthetic demo</p>
+      <h1 class="title" id="t">Footage, woven<br>into the page.</h1>
+      <p class="lede">Three short clips, each graded on black, are laid over one another on a single canvas. Black is the key, so every clip lands as a cut-out; everything else is read cell by cell and redrawn in the close's own ink, as a bar as wide as the cell is dark, or as a glyph from a ramp.</p>
+    </section>
+    <section class="wrap notes" aria-labelledby="rules">
+      <h2 id="rules">Rules</h2>
+      <ul>
+        <li>One canvas, one program, one quad per layer sized to the layer, so fill cost follows the footage, not the canvas.</li>
+        <li>Each layer carries its own cell grid, black and white points, bar range and ground and ink opacity; a black point above the white point inverts the tone.</li>
+        <li>The key is read at the cell centre and four points inside it, so silhouettes end on whole cells.</li>
+        <li>The layer settings are the tween targets: the scroll develops the levels from blank, a loop moves the flock across.</li>
+        <li>A clip uploads only when it has a new frame; the canvas renders only when something changed, at most 30 times a second, and never off screen.</li>
+        <li>Reduced motion and static: one developed still, the flock parked, no clock.</li>
+      </ul>
+    </section>
+  </main>
+  <footer class="close" data-theme="dark" data-close aria-labelledby="close-title">
+    <div class="wrap close-top">
+      <p class="label">/ The close</p>
+      <h2 class="close-title" id="close-title">Come up for<br>the weather.</h2>
+      <dl class="close-contact">
+        <div><dt class="label">Write</dt><dd><a href="mailto:hello@example.com">hello@example.com</a></dd></div>
+        <div><dt class="label">Call</dt><dd><a href="tel:+15550100">+1 555 0100</a></dd></div>
+        <div><dt class="label">Find us</dt><dd>The upper valley, past the last bridge</dd></div>
+      </dl>
+    </div>
+    <figure class="scene" data-scene data-texture="bars">
+      <div class="scene-stage"><canvas class="gl" data-gl aria-hidden="true"></canvas></div>
+      <figcaption class="label scene-cap">/ Footage: a ridge in mist, reeds, a flock crossing — woven live from three keyed clips</figcaption>
+    </figure>
+    <div class="wrap close-bar">
+      <div class="seg" role="group" aria-label="Texture">
+        <button type="button" data-mode="bars" aria-pressed="true">Bars</button>
+        <button type="button" data-mode="glyphs" aria-pressed="false">Glyphs</button>
+      </div>
+      <button type="button" class="pause" data-pause aria-pressed="false">Pause footage</button>
+      <p class="label">awards · recipe · synthetic demo · MIT</p>
+    </div>
+  </footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

@@ -32,6 +32,7 @@ Why: a fullscreen field, a tethered plane and a point cloud each cost and read d
 | Line and point field | ambience that answers how fast the visitor scrolls | points on a hollow cylinder flying forward by scroll speed, each move stamped as a line segment the GPU fades by age | [site:da-san333] | [verified]; values in `[pattern:webgl-architecture#effect-parameters]` |
 | Line and point field | light trails through a valley, one lit per audience | 24 GPU-simulated spline trails drawn as instanced tubes | [site:everswap] | [verified]; values in `[pattern:webgl-architecture#effect-parameters]` |
 | Fullscreen or backdrop field | the product's own noun as a surface | water drawn in post from two Worley layers, advected by the pointer, rising over a cut | [site:everswap] | [verified]; values in `[pattern:webgl-architecture#effect-parameters]` |
+| Halftone weave | every picture on the page, film included, in one texture and the brand's two inks | a cell grid over clips graded on black: one bar per cell, as wide as the cell is dark; near-black drops as the key, so clips composite as cut-outs; each layer's black and white points (inverted when black is above white), grid and box are the tween targets that develop, swap and fly it | [site:son-daven] | [verified]; values in `[pattern:webgl-architecture#effect-parameters]`, `[recipe:gl-video-dither-layers]` |
 
 Forty-odd programs, all named-uniform planes or point sets, sorted into five kinds [site:edolus] [verified]: the count is a 100 % canvas campaign's, not a target; the sort is the useful part — pick the kind per beat, then reuse one program per kind. The small end of the same sort: four programs and no render target [site:cyphercapital], four programs and two float ping-pong pairs [site:aqualoqa] [verified on both]; two programs, no render target and no post at all [site:da-san333] [verified].
 
@@ -77,7 +78,7 @@ Why: section transitions and feedback effects live in render targets; their size
 - **Simulate on the GPU, draw once.** One pass a frame writes 24 trails × 256 nodes into a 256 × 24 float target; one instanced draw reads it as tubes [site:everswap] [verified]. Beside it a two-phase flow map over six tiles that sample their neighbours across seams, lit trail masks re-saturating the path × 1.35 [verified].
 - **A back face into a target.** A BackSide pass writes the object's far-side normals into a target below the output DPR, and the front shader reads them as the second surface of thick glass [site:daikifujita] [verified]; values in `[pattern:webgl-architecture#effect-parameters]`, `[recipe:gl-dom-refraction-lens]`.
 - **A mask onto a second world.** A pointer trail painted into a small mask opens the page onto another engine drawn under the content at reduced scale every second frame [site:daikifujita] [verified]; values in `[pattern:webgl-architecture#effect-parameters]`, `[recipe:gl-pointer-wake-reveal]`.
-- **No render target.** Tone mapping, gamma and dither inline in each program; no framebuffer is created [site:cyphercapital] [verified].
+- **No render target.** Tone mapping, gamma and dither inline in each program; no framebuffer is created [site:cyphercapital] [verified]. A halftone weave needs none either: each layer is a quad, read once per cell, blended straight into the canvas [site:son-daven] [verified].
 
 ## Post chains
 
@@ -114,6 +115,7 @@ Why: GL text must keep a DOM twin; this section records how the corpus distorts 
 | Oryzo | three r178 patched; one canvas; a ten-pass queue whose amounts come from per-scene profiles blended by ratio; a screen-paint field read by the distortion pass; a voxel light field for 1,024 instanced beans; TAA with an MRT velocity target | screen paint without a solver; occupancy-atlas AO and shadow | [site:oryzo] |
 | EverSwap | three r148 under the same studio framework as Oryzo; one WebGL2 context; an eight-pass queue ending in a paint distortion after the grade; scene profiles rebuilt each frame; GPU spline trails; water drawn in post | scene cuts inside the grade pass; one paint field read by title, water and footer | [site:everswap] [verified] |
 | Daiki Fujita | three 0.169.0 from esm.sh in a Framer code component; a fixed canvas over the DOM; the page repainted behind a glass object; a back-face normal target; stable fluids in a context of their own; a second engine under the page opened by a pointer mask, with a 31 KB final pass | two-surface refraction in spectral taps; picture rects as an occlusion array | [site:daikifujita] [verified] |
+| Son Daven | raw WebGL 1, one dither program compiled per canvas, fifteen canvases and contexts on the home page; a quad per layer over the whole canvas with a bounds discard; a 25-read key ring per fragment; a `<video>` per layer per scene, uploaded only when `currentTime` moved; each canvas on its own rAF capped at 60 fps and stopped off screen; no render target, no post | footage graded on black, woven into two brand tokens by levels that GSAP tweens | [site:son-daven] |
 | Daiki Fujita (Portfolio, 2025) | three r136 for one overlay; two programs, no render target, no post; an opaque canvas blended away with `lighten` | a line ring buffer faded by birth time on the GPU; ambience driven by scroll speed | [site:da-san333] [verified] |
 
 ## Recipe map
@@ -135,6 +137,8 @@ Why: GL text must keep a DOM twin; this section records how the corpus distorts 
 | Pointer paint without a solver | [recipe:gl-screen-paint-distortion] |
 | Scene cuts inside the grade pass | [recipe:gl-grade-pass-scene-cuts] |
 | A pointer wake that opens a second world | [recipe:gl-pointer-wake-reveal] |
+| Keyed footage woven as bars or ASCII glyphs | [recipe:gl-video-dither-layers] |
+| Every woven scene on a page from one context | [recipe:gl-dither-scene-pool] |
 
 ## Verify
 

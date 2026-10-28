@@ -6,6 +6,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import vm from 'node:vm';
+import http from 'node:http';
 import { execFile } from 'node:child_process';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { serveDirectory } from '../scripts/lib/server.mjs';
@@ -786,6 +787,27 @@ test('capture', 'several routes of one local site are captured from its root int
   const work = JSON.parse(fs.readFileSync(path.join(out, 'work', 'manifest.json'), 'utf8'));
   assert.deepEqual(work.failedRequests, [], 'the inner route loads the root stylesheet');
   assert.ok(fs.existsSync(path.join(out, 'work', 'desktop-s00.png')));
+});
+
+test('capture', 'a page whose load event never fires is captured after DOMContentLoaded and says so', async () => {
+  // An image request that never answers keeps `load` from firing; the page itself has parsed and painted.
+  const server = http.createServer((req, res) => {
+    if (req.url.startsWith('/never')) return;
+    res.writeHead(200, { 'content-type': 'text/html' });
+    res.end('<!doctype html><html lang="en"><head><title>Stalled</title></head><body><main><h1>Parsed and painted</h1><img src="/never.webp" alt=""></main></body></html>');
+  });
+  await new Promise((r) => server.listen(0, '127.0.0.1', r));
+  const out = path.join(tmp, 'stalled-out');
+  try {
+    const result = await run('scripts/capture.mjs', [`http://127.0.0.1:${server.address().port}/`, '--out', out, '--scroll', '0', '--only', 'desktop', '--timeout', '3000', '--wait', '20']);
+    assert.notEqual(result.code, 4, 'a page that rendered is not unreachable');
+    const manifest = JSON.parse(fs.readFileSync(path.join(out, 'manifest.json'), 'utf8'));
+    assert.deepEqual(manifest.loadTimeouts, ['desktop']);
+    assert.ok(fs.existsSync(path.join(out, 'desktop-s00.png')));
+  } finally {
+    server.closeAllConnections?.();
+    server.close();
+  }
 });
 
 test('tools', 'the deal adds engines, stimuli and seeded choices without moving old seeds', async () => {

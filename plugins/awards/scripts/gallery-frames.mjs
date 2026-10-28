@@ -54,6 +54,9 @@ const OVERRIDES = {
   'gl-dom-refraction-lens': 'hero',
   'gl-pointer-wake-reveal': 'wake',
   'point-cloud-shape-morph': 'shape1',
+  'gl-video-dither-layers': 'glyphs',
+  'gl-dither-scene-pool': 'seasons',
+  'dither-cell-transition': 'sweep',
 };
 
 export function pickState(id, states) {

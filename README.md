@@ -1,6 +1,6 @@
 # awards
 
-A plugin for Claude Code and Codex that teaches the agent to design and build websites and single components in the league of award winners. It is built from a reference corpus of analysed award-winning sites, the pattern language they share, 95 focused recipes and one complete composition (96 browser-verifiable entries), a deterministic craft-floor audit, and a fresh-context jury that scores the way the real one does.
+A plugin for Claude Code and Codex that teaches the agent to design and build websites and single components in the league of award winners. It is built from a reference corpus of analysed award-winning sites, the pattern language they share, 98 focused recipes and one complete composition (99 browser-verifiable entries), a deterministic craft-floor audit, and a fresh-context jury that scores the way the real one does.
 
 ## Install
 

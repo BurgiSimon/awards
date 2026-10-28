@@ -1,0 +1,43 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after. */
+@import "../_shared/base.css";
+
+.topbar { display: flex; flex-wrap: wrap; gap: calc(var(--unit) * 2) calc(var(--unit) * 6); justify-content: space-between; padding-block: calc(var(--unit) * 5); }
+.hero { padding-block: calc(var(--unit) * 10) calc(var(--unit) * 12); }
+.title { font-family: var(--font-display); font-size: clamp(2.25rem, 6vw, 5.5rem); line-height: .95; letter-spacing: -.02em; margin: calc(var(--unit) * 4) 0 0; }
+.lede { max-width: 58ch; margin-top: calc(var(--unit) * 6); }
+.notes { min-height: 120svh; padding-block: calc(var(--unit) * 12) calc(var(--unit) * 24); }
+.notes ul { max-width: 62ch; padding-left: 1.2em; }
+.notes li + li { margin-top: calc(var(--unit) * 2); }
+
+/* The close: a dark section whose tokens the canvas reads for its ground and ink. */
+.close { background: var(--ground); color: var(--ink); overflow: hidden;
+  /* Re-derive the mixed tokens here: declared on :root, they would carry the light theme's resolved values. */
+  --muted: color-mix(in oklab, var(--ink) 66%, var(--ground)); --line: color-mix(in oklab, var(--ink) 18%, var(--ground)); }
+.close-top { display: grid; grid-template-columns: minmax(0, 1fr); gap: calc(var(--unit) * 8); padding-block: calc(var(--unit) * 20) calc(var(--unit) * 8); }
+.close-title { font-family: var(--font-display); font-size: clamp(2.5rem, 8vw, 8rem); line-height: .9; letter-spacing: -.03em; margin: 0; overflow-wrap: anywhere; }
+.close-contact { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: calc(var(--unit) * 6); margin: 0; }
+.close-contact dd { margin: calc(var(--unit) * 2) 0 0; font-size: clamp(1rem, 1.6vw, 1.5rem); overflow-wrap: anywhere; }
+.close-contact a { color: inherit; text-underline-offset: .2em; }
+
+/* The scene keeps a quiet bar texture in CSS until (or unless) the GL canvas takes over. */
+.scene { margin: 0; }
+.scene-stage { position: relative; height: clamp(18rem, 62svh, 46rem);
+  background: repeating-linear-gradient(90deg, color-mix(in oklab, var(--ink) 16%, transparent) 0 2px, transparent 2px 9px) bottom / 100% 38% no-repeat; }
+html.gl-active .scene-stage { background: none; }
+.gl { position: absolute; inset: 0; width: 100%; height: 100%; display: none; }
+html.gl-active .gl { display: block; }
+.scene-cap { padding: calc(var(--unit) * 3) var(--gutter) 0; color: var(--muted); }
+
+.close-bar { display: flex; flex-wrap: wrap; align-items: center; gap: calc(var(--unit) * 4) calc(var(--unit) * 6); padding-block: calc(var(--unit) * 6) calc(var(--unit) * 10); border-top: 1px solid var(--line); }
+.close-bar > .label { margin-inline-start: auto; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; }
+.seg button, .pause { font: inherit; font-size: .875rem; color: var(--ink); background: none; border: 0; border-radius: 999px; min-height: 44px; min-width: 44px; padding: 0 calc(var(--unit) * 5); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--ground); }
+.pause { border: 1px solid var(--line); }
+.pause[hidden] { display: none; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+@media (max-width: 600px) {
+  .scene-stage { height: clamp(16rem, 52svh, 30rem); }
+  .close-bar > .label { margin-inline-start: 0; flex-basis: 100%; }
+}
