@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#1b1a17">
+  <title>gl-product-configurator — awards recipe draft</title>
+  <meta name="description" content="A table lamp configurator: a lamp built in code on a clamped, damped orbit, native radio groups for colour, finish and shade that tween the material from its current value, a live price and summary, and a shareable URL.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231b1a17'/%3E%3Cpath d='M9 15q7-12 14 0z' fill='%23b4613f'/%3E%3Cpath d='M15.5 15h1v10h-1z' fill='%23ece5d8'/%3E%3Cellipse cx='16' cy='25.5' rx='4' ry='1.5' fill='%23ece5d8'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="bar">
+    <div class="bar__in wrap">
+      <a class="bar__back" href="../../index.html">← recipes</a>
+      <p class="bar__brand">Halde Workshop</p>
+      <p class="bar__bag" data-bag>Bag (0)</p>
+    </div>
+  </header>
+  <main id="main">
+    <section class="config" aria-labelledby="product-t">
+      <div class="stage" data-stage>
+        <div class="stage__view" data-view>
+          <canvas class="stage__gl" data-gl aria-hidden="true"></canvas>
+          <div class="preview" data-preview data-shade="dome" aria-hidden="true">
+            <div class="preview__lamp">
+              <span class="preview__glow"></span>
+              <span class="preview__stem"></span>
+              <span class="preview__foot"></span>
+              <span class="preview__shade"></span>
+            </div>
+          </div>
+        </div>
+        <p class="stage__hint" id="stage-hint" data-hint hidden><span class="stage__hint-long">Drag, or focus the lamp and use the arrow keys, to turn it.</span><span class="stage__hint-short" aria-hidden="true">Drag to turn</span></p>
+        <button type="button" class="stage__reset" data-reset hidden>Reset view</button>
+      </div>
+
+      <form class="panel" data-form>
+        <div class="panel__head">
+          <h1 class="panel__title" id="product-t">Ostra</h1>
+          <p class="panel__type">Table lamp · made to order · synthetic demo</p>
+          <p class="panel__lede">A turned ash foot, a brass stem and a spun steel shade lacquered in the colour you choose. Made by hand in six weeks.</p>
+          <p class="panel__price" data-price>£255</p>
+        </div>
+
+        <div class="panel__opts">
+          <fieldset class="opt">
+            <legend class="opt__legend">Colour <span class="opt__value" data-legend="colour">Clay</span></legend>
+            <div class="opt__list opt__list--swatches">
+              <label class="swatch"><input type="radio" name="colour" value="chalk"><span class="swatch__chip" style="--c: #e6e1d6" aria-hidden="true"></span><span class="swatch__name">Chalk</span></label>
+              <label class="swatch"><input type="radio" name="colour" value="clay" checked><span class="swatch__chip" style="--c: #b4613f" aria-hidden="true"></span><span class="swatch__name">Clay</span></label>
+              <label class="swatch"><input type="radio" name="colour" value="moss"><span class="swatch__chip" style="--c: #5f6e47" aria-hidden="true"></span><span class="swatch__name">Moss</span></label>
+              <label class="swatch"><input type="radio" name="colour" value="ink"><span class="swatch__chip" style="--c: #262a33" aria-hidden="true"></span><span class="swatch__name">Ink</span></label>
+              <label class="swatch"><input type="radio" name="colour" value="saffron"><span class="swatch__chip" style="--c: #d7a032" aria-hidden="true"></span><span class="swatch__name">Saffron</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="opt">
+            <legend class="opt__legend">Finish</legend>
+            <div class="opt__list opt__list--pills">
+              <label class="pill"><input type="radio" name="finish" value="matte"><span class="pill__name">Matte</span><span class="pill__delta" data-delta="finish:matte">included</span></label>
+              <label class="pill"><input type="radio" name="finish" value="satin" checked><span class="pill__name">Satin</span><span class="pill__delta" data-delta="finish:satin">+ £15</span></label>
+              <label class="pill"><input type="radio" name="finish" value="gloss"><span class="pill__name">Gloss</span><span class="pill__delta" data-delta="finish:gloss">+ £30</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="opt">
+            <legend class="opt__legend">Shade</legend>
+            <div class="opt__list opt__list--pills">
+              <label class="pill"><input type="radio" name="shade" value="dome" checked><span class="pill__name"><svg class="pill__icon" viewBox="0 0 24 16" aria-hidden="true"><path d="M2 14Q2 2 12 2t10 12z"/></svg>Dome</span><span class="pill__delta" data-delta="shade:dome">£240</span></label>
+              <label class="pill"><input type="radio" name="shade" value="cone"><span class="pill__name"><svg class="pill__icon" viewBox="0 0 24 16" aria-hidden="true"><path d="M8 2h8l6 12H2z"/></svg>Cone</span><span class="pill__delta" data-delta="shade:cone">£225</span></label>
+              <label class="pill"><input type="radio" name="shade" value="drum"><span class="pill__name"><svg class="pill__icon" viewBox="0 0 24 16" aria-hidden="true"><path d="M4 2h16v12H4z"/></svg>Drum</span><span class="pill__delta" data-delta="shade:drum">£260</span></label>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="panel__foot">
+          <p class="panel__spec" data-spec>Dome shade, Ø 38 cm, 52 cm tall · satin lacquer in Clay · E27 lamp holder, 2.7 m braided cable</p>
+          <p class="sr-only" data-summary>Ostra in Clay, satin, dome shade: £255.</p>
+          <div class="panel__actions">
+            <button type="submit" class="buy">Add to bag</button>
+            <a class="share" data-share href="?colour=clay&amp;finish=satin&amp;shade=dome">Link to this lamp</a>
+          </div>
+          <p class="panel__status" role="status" data-status></p>
+        </div>
+      </form>
+    </section>
+
+    <section class="notes wrap" aria-labelledby="notes-t">
+      <h2 id="notes-t">How it is built</h2>
+      <ul>
+        <li>The lamp is a turned foot, a cylinder and a shade, all made in code. The three shades are one geometry with two morph targets, so changing the shade blends one shape into the next.</li>
+        <li>Each choice tweens the lacquer from where it is now, in four tenths of a second, so a second choice mid-way turns the first one around without a jump. The price and the line under it change at once.</li>
+        <li>The address bar holds the configuration, and the link under the options copies it: the same lamp comes back.</li>
+        <li>Frames are drawn only while the view turns or a material moves.</li>
+      </ul>
+    </section>
+  </main>
+  <footer class="wrap footer"><p>Synthetic demo content · fictional maker and prices · awards recipe draft · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

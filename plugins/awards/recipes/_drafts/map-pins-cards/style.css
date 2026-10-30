@@ -1,0 +1,201 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after.
+   A draft sits one folder deeper than a recipe; scripts/drafts.mjs promote rewrites ../../ to ../ on the way out. */
+@import "../../_shared/base.css";
+
+/* Its own small world: a chart of a tidal island, dark sound, pale land, vermilion pins. */
+:root {
+  --ground: #10302e;          /* the sound */
+  --ink: #f3ecd8;             /* chalk */
+  --land: #e9dcb8;
+  --card-ink: #13201f;
+  --pin: #ff5a36;
+  --muted: color-mix(in oklab, var(--ink) 70%, var(--ground));
+  --line: color-mix(in oklab, var(--ink) 18%, var(--ground));
+  --accent: var(--pin);
+  --font-chart: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --pin-size: 44px;
+  --dot: 20px;
+  --label-gap: 16px;          /* from the pin's centre to its name; main.js reads it to keep cards off the names */
+  --enter-step: 70ms;
+}
+html { color-scheme: dark; }
+::selection { background: var(--pin); color: var(--card-ink); }
+/* Components below set display; the hidden attribute must still win. */
+[hidden] { display: none !important; }
+
+.bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 calc(var(--unit) * 4); min-height: 64px; border-bottom: 1px solid var(--line); }
+.bar__brand { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--font-chart); font-size: 1.125rem; font-style: italic; text-decoration: none; }
+.bar__note { margin: 0; font-family: var(--font-mono); font-size: var(--label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+/* The intro shares the atlas's columns: the title over the map's, the lede over the list's. */
+.intro { min-height: 62svh; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); column-gap: calc(var(--unit) * 12); align-items: end; align-content: end; padding-block: 96px calc(var(--unit) * 14); }
+.intro__title { margin: 0; max-width: 13ch; font-family: var(--font-chart); font-size: clamp(2.75rem, 7.4vw, 8rem); font-weight: 400; line-height: 0.92; letter-spacing: -0.02em; }
+.intro__lede { max-width: 50ch; margin: 0; font-size: clamp(1.0625rem, 1.35vw, 1.25rem); color: var(--muted); }
+
+.atlas { padding-block: calc(var(--unit) * 10) calc(var(--unit) * 24); border-top: 1px solid var(--line); }
+.atlas__title { margin: 0 0 calc(var(--unit) * 8); font-family: var(--font-chart); font-size: clamp(1.75rem, 3.4vw, 3.25rem); font-weight: 400; font-style: italic; line-height: 1; }
+.atlas__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: calc(var(--unit) * 12); align-items: start; }
+
+/* The figure is the card's containing block; the map box starts at its top-left corner, so card coordinates
+   measured in the map are the card's coordinates in the figure. A docked card takes the map's width. */
+.atlas__figure { --map-w: min(100%, calc((100svh - 48px) * 1.25)); position: sticky; top: 24px; margin: 0; }
+/* Docked beside the list, the map gives up the docked card's room (main.js measures it into --dock-room), so the
+   sticky figure still fits the screen; when that would leave too small a map, the figure scrolls instead. */
+.atlas__figure[data-dock] { --map-w: min(100%, calc((100svh - 48px - var(--dock-room, 0px)) * 1.25)); }
+.atlas__figure[data-tall] { --map-w: min(100%, calc((100svh - 48px) * 1.25)); position: relative; top: auto; }
+.atlas__map { position: relative; aspect-ratio: 1000 / 800; width: var(--map-w); }
+.atlas__svg { width: 100%; height: 100%; }
+.atlas__water { font-family: var(--font-chart); font-size: 26px; font-style: italic; fill-opacity: 0.7; }
+.atlas__water--small { font-size: 16px; }
+.atlas__depth text, .atlas__note { font-family: var(--font-chart); font-size: 17px; font-style: italic; }
+.atlas__spot { font-family: var(--font-mono); font-size: 15px; }
+.atlas__north { font-family: var(--font-chart); font-size: 20px; }
+.atlas__caption { max-width: 60ch; margin-top: calc(var(--unit) * 4); font-size: 0.875rem; color: var(--muted); }
+
+/* Pins: buttons laid out by percentage of the map box, centred on the point by a fixed negative margin (so the
+   centre is exact, with no transform involved), and moved only by transforms for the entrance. They sit above the
+   card, so a pin the open card covers can still be pointed at, clicked and tapped. */
+.atlas__pins { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+.pin {
+  position: absolute; left: calc(var(--x) * 1%); top: calc(var(--y) * 1%);
+  width: var(--pin-size); height: var(--pin-size); margin: calc(var(--pin-size) / -2) 0 0 calc(var(--pin-size) / -2);
+  padding: 0; border: 0; border-radius: 50%; background: none; color: var(--card-ink); cursor: pointer; pointer-events: auto;
+  display: grid; place-items: center;
+}
+.pin__dot {
+  display: grid; place-items: center; width: var(--dot); height: var(--dot); border-radius: 50%;
+  background: var(--pin); color: var(--card-ink); box-shadow: 0 0 0 2px var(--card-ink), 0 0 0 3.5px var(--land);
+  font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums;
+  transition: transform var(--dur-feedback) var(--ease-out-expo), background-color var(--dur-feedback), color var(--dur-feedback);
+}
+/* Names in the chart's own italic, knocked out of the drawing by a land-coloured halo (a stroke painted under the
+   letters, the way a chart clears the linework behind its lettering) rather than set on a chip. One stroke, not a
+   stack of blurred text shadows, which repaint slowly on software rasterisers. */
+.pin__label {
+  position: absolute; top: 50%; left: calc(50% + var(--label-gap)); translate: 0 -50%;
+  white-space: nowrap; color: var(--card-ink); -webkit-text-stroke: 3px var(--land); paint-order: stroke fill;
+  font-family: var(--font-chart); font-size: 0.875rem; font-style: italic; line-height: 1.2;
+  text-decoration: underline 2px transparent; text-underline-offset: 3px;
+}
+.pin[data-label="start"] .pin__label { left: auto; right: calc(50% + var(--label-gap)); }
+/* A focused pin's name steps 14 px out, past the focus rings (main.js keeps that room clear when it culls names). */
+.pin:focus-visible .pin__label { left: calc(50% + var(--label-gap) + 14px); }
+.pin[data-label="start"]:focus-visible .pin__label { left: auto; right: calc(50% + var(--label-gap) + 14px); }
+/* A name under the open card, or one that would collide with an earlier name or another pin at this width, steps back
+   to the number: transparent and out of the pointer's way, but still the button's accessible name. */
+.pin[data-under] .pin__label, .pin[data-unnamed] .pin__label { opacity: 0; pointer-events: none; }
+.pin:hover .pin__dot { transform: scale(1.15); }
+.pin.is-on .pin__dot { background: var(--card-ink); color: var(--land); box-shadow: 0 0 0 3px var(--pin), 0 0 0 5px var(--land); }
+.pin.is-on .pin__label { text-decoration-color: var(--pin); }
+/* Focus: a dark ring between two pale ones, so it reads on the land (the dark ring) and on the sea (the pale ones). It
+   is drawn on a layer after the pin's name, so a name beside the dot never paints over it. */
+.pin::after { content: ""; position: absolute; inset: -6px; border-radius: 50%; pointer-events: none; }
+.pin:focus-visible { outline: none; }
+.pin:focus-visible::after { box-shadow: inset 0 0 0 2px var(--land), inset 0 0 0 4px var(--card-ink), inset 0 0 0 6px var(--land); }
+
+/* Entrance (full tier only, set by the script that runs it): pins drop in one by one in reading order. */
+[data-enter="pending"] .pin { opacity: 0; transform: translateY(-14px) scale(0.6); pointer-events: none; }
+[data-enter="in"] .pin { transition: opacity 360ms ease-out, transform 560ms var(--ease-out-expo); transition-delay: calc(var(--i) * var(--enter-step)); }
+
+/* The card: one element, filled from the list entry it shows. Floating over the map it carries the name, the figure
+   and the action; the sentence stays in the list beside it. Docked it has the room for the sentence too. */
+.card {
+  position: absolute; z-index: 2; left: 0; top: 0; width: min(16rem, calc(100% - 24px));
+  display: grid; align-content: start; gap: 4px; padding: 14px 16px 2px; border-radius: 4px;
+  background: var(--ink); color: var(--card-ink);
+  box-shadow: 0 18px 36px -14px rgb(4 16 15 / 0.7);
+  transition: opacity var(--dur-feedback) ease-out, translate var(--dur-feedback) var(--ease-out-expo);
+}
+.card[data-state="enter"], .card[data-state="closed"] { opacity: 0; translate: 0 6px; }
+.card::after { content: ""; position: absolute; width: 10px; height: 10px; background: inherit; rotate: 45deg; }
+.card[data-side="above"]::after { left: var(--tick, 50%); bottom: -5px; margin-left: -5px; }
+.card[data-side="below"]::after { left: var(--tick, 50%); top: -5px; margin-left: -5px; }
+.card[data-side="left"]::after { top: var(--tick, 50%); right: -5px; margin-top: -5px; }
+.card[data-side="right"]::after { top: var(--tick, 50%); left: -5px; margin-top: -5px; }
+.card p { margin: 0; }
+.card__name { font-family: var(--font-chart); font-size: 1.25rem; line-height: 1.15; }
+.card__fig { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 6px; }
+.card__num { font-family: var(--font-chart); font-size: 2.25rem; line-height: 1.05; letter-spacing: -0.02em; font-variant-numeric: lining-nums; }
+.card__unit { font-family: var(--font-mono); font-size: 0.875rem; }
+.card__what { font-size: 0.875rem; color: color-mix(in oklab, var(--card-ink) 72%, var(--ink)); }
+.card__line { font-size: 0.9375rem; line-height: 1.4; }
+.card__link { display: inline-flex; align-items: center; justify-self: start; min-height: 44px; font-weight: 600; text-decoration-thickness: 1px; }
+.card__link::after { content: "→"; margin-left: 0.4em; }
+.card__link:focus-visible { outline-color: var(--card-ink); outline-offset: 2px; }
+.atlas__figure:not([data-dock]) .card__line { display: none; }
+
+/* Docked (always on phones; at any width where the floating card would cover its own pin or too many others): the
+   card sits in the flow under the map at the map's width, always present, and main.js reserves the height of its
+   tallest place so nothing below it moves when a place is chosen. */
+.atlas__figure[data-dock] .card { position: relative; left: auto; top: auto; width: var(--map-w); margin-top: 12px; padding: 14px 18px 4px; transform: none !important; }
+.atlas__figure[data-dock] .card::after { display: none; }
+.atlas__figure[data-dock] .card[data-state="enter"], .atlas__figure[data-dock] .card[data-state="closed"] { opacity: 1; translate: none; }
+/* Nothing chosen: the reserved space reads as an empty slot on the chart table, not a blank card. */
+.atlas__figure[data-dock] .card[data-empty] { align-content: center; background: transparent; color: var(--muted); box-shadow: none; outline: 1px dashed color-mix(in oklab, var(--ink) 40%, var(--ground)); outline-offset: -1px; }
+.atlas__figure[data-dock] .card[data-empty] .card__name { font-size: 1.0625rem; font-style: italic; text-align: center; }
+
+/* The list: the same places, in reading order and under the same numbers, and a second way to drive the map. */
+.places { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); counter-reset: place; }
+.place {
+  counter-increment: place; display: grid; grid-template-columns: var(--dot) minmax(0, 1fr); column-gap: 14px; align-items: start;
+  padding: 18px 12px 14px; border-bottom: 1px solid var(--line); transition: background-color var(--dur-feedback);
+}
+.place::before {
+  content: counter(place); content: counter(place) / "";
+  grid-column: 1; grid-row: 1; margin-top: 2px; display: grid; place-items: center; width: var(--dot); height: var(--dot); border-radius: 50%;
+  background: var(--pin); color: var(--card-ink); font-family: var(--font-mono); font-size: 0.6875rem; font-weight: 700; line-height: 1;
+  transition: background-color var(--dur-feedback), color var(--dur-feedback);
+}
+.place > * { grid-column: 2; margin: 0; }
+.place.is-on { background: color-mix(in oklab, var(--pin) 7%, var(--ground)); }
+.place.is-on::before { background: var(--card-ink); color: var(--land); box-shadow: 0 0 0 2px var(--pin); }
+.place__name { font-family: var(--font-chart); font-size: 1.375rem; font-weight: 400; line-height: 1.15; }
+.place__fig { margin-top: 4px; font-family: var(--font-mono); font-size: 0.875rem; }
+.place__num { font-size: 1.0625rem; color: var(--ink); }
+.place__unit, .place__what { color: var(--muted); }
+.place__line { margin-top: 6px; max-width: 46ch; font-size: 0.9375rem; color: var(--muted); }
+.place__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0 20px; margin-top: 4px; }
+.place__link, .place__show { display: inline-flex; align-items: center; min-height: 44px; font-size: 0.875rem; }
+.place__show { padding: 0; border: 0; background: none; cursor: pointer; text-decoration: underline dotted 1px; text-underline-offset: 0.2em; }
+/* The open place keeps its text in chalk (vermilion text would fall under 4.5:1 here); the rule turns solid vermilion. */
+.place.is-on .place__show { text-decoration: underline solid 2px var(--pin); }
+
+.visit { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: calc(var(--unit) * 5) calc(var(--unit) * 12); align-items: start; padding-block: calc(var(--unit) * 20); border-top: 1px solid var(--line); }
+.visit h2 { grid-row: span 2; }
+.visit h2 { margin: 0; font-family: var(--font-chart); font-size: clamp(1.75rem, 3.4vw, 3.25rem); font-weight: 400; font-style: italic; line-height: 1; }
+.visit p { max-width: 58ch; margin: 0; }
+.footer { padding-block: calc(var(--unit) * 12); border-top: 1px solid var(--line); }
+.footer .label { margin: 0; }
+
+/* Phones: the map takes the width and the card docks under it. Names give way to the numbers the list shares (the
+   names stay as the buttons' accessible names), and the chart keeps only the lettering that still reads at this size. */
+@media (max-width: 720px) {
+  .intro, .visit { grid-template-columns: minmax(0, 1fr); }
+  .intro { row-gap: calc(var(--unit) * 6); min-height: 70svh; }
+  .visit h2 { grid-row: auto; }
+  .atlas__grid { grid-template-columns: minmax(0, 1fr); gap: calc(var(--unit) * 8); }
+  .atlas__figure, .atlas__figure[data-dock], .atlas__figure[data-tall] { --map-w: 100%; position: relative; top: auto; }
+  :root { --dot: 22px; }
+  .pin__dot { font-size: 0.75rem; }
+  .pin__label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  /* Sizes in viewBox units: at a 358 px map, 36 and 34 units render at 12 to 13 px. */
+  .atlas__water { font-size: 36px; }
+  .atlas__water--sound { letter-spacing: 3px; transform: translateX(-96px); }
+  .atlas__water--small { font-size: 34px; letter-spacing: 1px; }
+  .atlas__spot { font-size: 34px; }
+  .atlas__north { font-size: 32px; }
+  .atlas__depth, .atlas__note, .atlas__scale { display: none; }
+}
+
+/* Reduced: the card fades without travelling (the entrance never starts on this tier). Static: no transitions. */
+@media (prefers-reduced-motion: reduce) { .card { translate: none !important; } }
+html[data-motion="reduced"] .card, html[data-motion="static"] .card { translate: none !important; }
+html[data-motion="static"] .card, html[data-motion="static"] .pin__dot, html[data-motion="static"] .place::before { transition: none; }
+
+@media (forced-colors: active) {
+  .pin__dot, .place::before { forced-color-adjust: none; background: Highlight; color: HighlightText; box-shadow: 0 0 0 2px Canvas; }
+  .pin.is-on .pin__dot, .place.is-on::before { background: CanvasText; color: Canvas; }
+  .pin__label { forced-color-adjust: none; background: Canvas; color: CanvasText; -webkit-text-stroke: 0; padding: 0 3px; }
+  .pin:focus-visible { outline: 2px solid Highlight; outline-offset: 2px; }
+  .card { border: 1px solid CanvasText; }
+}

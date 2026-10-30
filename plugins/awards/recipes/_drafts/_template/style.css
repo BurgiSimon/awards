@@ -1,0 +1,20 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after.
+   A draft sits one folder deeper than a recipe; scripts/drafts.mjs promote rewrites ../../ to ../ on the way out. */
+@import "../../_shared/base.css";
+
+.hero { min-height: 80svh; display: grid; align-content: end; gap: calc(var(--unit) * 5); padding-block: 96px calc(var(--unit) * 16); }
+.hero .label { margin: 0; }
+.hero__title { margin: 0; max-width: 14ch; font-family: var(--font-display); font-size: clamp(2.75rem, 8vw, 8rem); font-weight: 600; line-height: 0.9; letter-spacing: -0.035em; }
+.hero__lede { max-width: 52ch; margin: 0; font-size: clamp(1.0625rem, 1.4vw, 1.25rem); }
+
+.stage { height: 260svh; }
+.stage__sticky { position: sticky; top: 0; min-height: 100svh; display: grid; align-content: center; gap: calc(var(--unit) * 6); }
+.stage__title { margin: 0; font-family: var(--font-display); font-size: clamp(2rem, 5vw, 4.5rem); line-height: 1; letter-spacing: -0.02em; }
+.stage__track { height: 12px; background: var(--line); overflow: hidden; }
+.stage__bar { display: block; height: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); }
+.stage__value { margin: 0; font-family: var(--font-mono); font-size: 0.875rem; font-variant-numeric: tabular-nums; }
+
+.after { padding-block: calc(var(--unit) * 24); border-top: 1px solid var(--line); }
+.after h2 { margin: 0 0 calc(var(--unit) * 4); font-family: var(--font-display); font-size: clamp(1.75rem, 4vw, 3rem); line-height: 1; }
+.after p { max-width: 54ch; margin: 0; }
+.footer { padding-block: calc(var(--unit) * 12); }

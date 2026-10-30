@@ -1,0 +1,163 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after.
+   A draft sits one folder deeper than a recipe; scripts/drafts.mjs promote rewrites ../../ to ../ on the way out. */
+@import "../../_shared/base.css";
+
+/* A maker's showroom after hours: the lamp is judged lit, so the room is dim. The product stands on a mid-grey sweep
+   (L* about 54 at the top, 48 on the floor), the neutral surround colour is judged against; the shop sits on a warm
+   near-black, and the one action colour is the lamp's own light. */
+:root {
+  --ground: #1b1a17;
+  --ink: #ece5d8;
+  --accent: #f2d3a0;   /* the lamp's light: the action, the focus ring, the selection */
+  --muted: color-mix(in oklab, var(--ink) 64%, var(--ground));
+  --line: color-mix(in oklab, var(--ink) 20%, var(--ground));
+  --sweep-top: #84827d;
+  --sweep-floor: #72706b;
+  --stage-ink: #14130f;  /* focus and chips on the sweep */
+  --lamp: #b4613f;     /* written by main.js: the chosen colour */
+  --sheen: .28;        /* written by main.js: 0.06 matte, .28 satin, .6 gloss */
+  --bar-h: 64px;
+  color-scheme: dark;
+}
+
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.skip-link:focus { position: fixed; z-index: 10; inset: 8px auto auto 8px; width: auto; height: auto; margin: 0; padding: 10px 16px; clip: auto; overflow: visible; white-space: nowrap; background: var(--accent); color: var(--ground); border-radius: 8px; }
+
+/* The shop bar stays on screen on wide windows (the bag count answers the add), so the stage can stick under it. */
+.bar { position: sticky; top: 0; z-index: 3; background: var(--ground); border-bottom: 1px solid var(--line); }
+.bar__in { display: flex; flex-wrap: wrap; align-items: center; gap: 0 calc(var(--unit) * 6); min-height: var(--bar-h); }
+.bar__in > * { margin: 0; }
+.bar__back { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--font-mono); font-size: var(--label); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; color: var(--muted); white-space: nowrap; }
+.bar__brand { font-family: var(--font-display); font-weight: 700; letter-spacing: -.01em; }
+.bar__bag { margin-inline-start: auto; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* Desktop: the stage on the left, exactly the screen under the bar, the options beside it. */
+.config { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: start; }
+.stage { position: sticky; top: var(--bar-h); height: calc(100svh - var(--bar-h)); min-height: 520px; background: linear-gradient(to bottom, var(--sweep-top) 0 58%, var(--sweep-floor)); }
+.stage__view { position: absolute; inset: 0; touch-action: pan-y; }
+.stage__view[role="slider"] { cursor: grab; }
+.stage__view[role="slider"]:active { cursor: grabbing; }
+.stage__view:focus-visible { outline: 2px solid var(--stage-ink); outline-offset: -6px; }
+/* The canvas fades in as the arrival turn starts; until a mode is known the sweep stands empty (no CSS lamp first). */
+.stage__gl { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; visibility: hidden; }
+html.gl-active .stage__gl { opacity: 1; visibility: visible; transition: opacity .3s var(--ease-out-expo); }
+html.gl-active[data-motion="reduced"] .stage__gl, html.gl-active[data-motion="static"] .stage__gl { transition: none; }
+@media (prefers-reduced-motion: reduce) { html.gl-active .stage__gl { transition: none; } }
+@media (scripting: enabled) { .preview { visibility: hidden; } }
+html.lamp-css .preview { visibility: visible; }
+
+/* Two chips on the sweep, dark glass so they read on its light top and its darker floor alike. */
+.stage__hint, .stage__reset { position: absolute; bottom: calc(var(--unit) * 4); margin: 0; border-radius: 999px; background: rgb(20 19 15 / .66); color: #f3eee6; font-size: .8125rem; }
+.stage__hint { inset-inline-start: calc(var(--unit) * 4); max-width: min(36ch, calc(100% - 190px)); padding: calc(var(--unit) * 2) calc(var(--unit) * 4); border-radius: 18px; pointer-events: none; }
+.stage__reset { inset-inline-end: calc(var(--unit) * 4); min-height: 44px; padding: 0 calc(var(--unit) * 5); border: 1px solid rgb(255 255 255 / .22); cursor: pointer; font-size: .875rem; }
+.stage__reset:hover { background: rgb(20 19 15 / .85); }
+.stage__hint-short { display: none; }
+.stage__reset:focus-visible { outline-color: var(--stage-ink); }
+
+/* The CSS lamp: the static and no-WebGL tier. Same controls, drawn with backgrounds and clip paths. */
+.preview { position: absolute; inset: 0; display: grid; place-items: center; }
+.preview__lamp { position: relative; width: min(46%, 300px); aspect-ratio: 1 / 1.15; }
+.preview__lamp::after { content: ""; position: absolute; left: 6%; right: 6%; bottom: -3%; height: 14%; border-radius: 50%; background: radial-gradient(closest-side, rgb(255 214 150 / .34), rgb(255 214 150 / .1) 60%, transparent), radial-gradient(closest-side, rgb(0 0 0 / .34), transparent 46%); }
+.preview__shade {
+  position: absolute; top: 0; left: 0; right: 0; height: 44%;
+  background-color: var(--lamp);
+  background-image: linear-gradient(100deg, transparent 8%, rgb(255 255 255 / var(--sheen)) 22%, transparent 38%), linear-gradient(to bottom, transparent 55%, rgb(0 0 0 / .16));
+  transition: background-color var(--dur-routine) var(--ease-out-expo);
+}
+.preview[data-shade="dome"] .preview__shade { border-radius: 50% 50% 4% 4% / 100% 100% 6% 6%; }
+.preview[data-shade="cone"] .preview__shade { left: 2%; right: 2%; clip-path: polygon(31% 0, 69% 0, 100% 100%, 0 100%); }
+.preview[data-shade="drum"] .preview__shade { left: 13%; right: 13%; border-radius: 3px; }
+.preview__glow { position: absolute; left: 10%; right: 10%; top: 38%; height: 18%; background: radial-gradient(closest-side, rgb(255 226 170 / .9), transparent); }
+.preview__stem { position: absolute; left: calc(50% - 3px); width: 6px; top: 30%; bottom: 7%; background: linear-gradient(90deg, #7d5f2c, #e3c47f 45%, #8a6a33); }
+.preview__foot { position: absolute; left: 31%; right: 31%; bottom: 2%; height: 7%; border-radius: 50%; background: linear-gradient(to bottom, #e2c8a0, #9b7a52); }
+/* Reduced motion and the static tier: the CSS lamp swaps its colour at once, like the WebGL one. */
+@media (prefers-reduced-motion: reduce) { .preview__shade { transition: none; } }
+html[data-motion="reduced"] .preview__shade, html[data-motion="static"] .preview__shade { transition: none; }
+
+/* The options: a head (name, kind, lede, price) set tight, the three choices, then the spec and the actions. */
+.panel { display: grid; align-content: start; gap: calc(var(--unit) * 8); padding: calc(var(--unit) * 9) var(--gutter) calc(var(--unit) * 14); }
+.panel p { margin: 0; }
+.panel__head { display: grid; gap: calc(var(--unit) * 2); }
+.panel__title { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: clamp(3rem, 6vw, 5.5rem); line-height: .9; letter-spacing: -.035em; }
+.panel__type { font-family: var(--font-mono); font-size: var(--label); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.panel__head .panel__lede { max-width: 44ch; margin-top: calc(var(--unit) * 3); }
+.panel__head .panel__price { margin-top: calc(var(--unit) * 3); font-size: clamp(1.5rem, 2.2vw, 2rem); font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.panel__opts { display: grid; gap: calc(var(--unit) * 6); container-type: inline-size; }
+.panel__foot { display: grid; gap: calc(var(--unit) * 4); padding-top: calc(var(--unit) * 5); border-top: 1px solid var(--line); }
+
+.opt { margin: 0; padding: 0; border: 0; min-width: 0; display: grid; gap: calc(var(--unit) * 3); }
+.opt__legend { padding: 0; margin-bottom: calc(var(--unit) * 1); font-family: var(--font-mono); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.opt__value { margin-inline-start: .6em; color: var(--ink); }
+.opt__list { display: flex; flex-wrap: wrap; gap: calc(var(--unit) * 2); }
+
+/* Native radios, visually hidden but focusable: the label is the target and shows checked and focus. */
+.swatch input, .pill input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; }
+.pill { position: relative; display: inline-flex; align-items: center; gap: calc(var(--unit) * 2); min-height: 44px; padding: calc(var(--unit) * 1) calc(var(--unit) * 3.5); border: 1px solid var(--line); border-radius: 999px; cursor: pointer; background: rgb(255 255 255 / .03); }
+.pill:hover { border-color: var(--muted); }
+.pill:has(input:checked) { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); background: rgb(255 255 255 / .09); }
+/* Swatches: a chip over its name, the checked one ringed in ink with a gap of ground. */
+.opt__list--swatches { gap: calc(var(--unit) * 1) calc(var(--unit) * 2); }
+.swatch { position: relative; display: inline-grid; justify-items: center; align-content: start; gap: calc(var(--unit) * 1.5); min-width: 68px; padding: calc(var(--unit) * 1.5) calc(var(--unit) * 1) calc(var(--unit) * 1); border-radius: 12px; cursor: pointer; text-align: center; }
+.swatch__chip { width: 40px; height: 40px; border-radius: 50%; background: var(--c); box-shadow: inset 0 0 0 1px rgb(255 255 255 / .16), inset -6px -7px 12px rgb(0 0 0 / .2); transition: box-shadow var(--dur-feedback); }
+.swatch:hover .swatch__chip { box-shadow: inset 0 0 0 1px rgb(255 255 255 / .16), inset -6px -7px 12px rgb(0 0 0 / .2), 0 0 0 2px var(--ground), 0 0 0 3px var(--muted); }
+.swatch:has(input:checked) .swatch__chip { box-shadow: inset 0 0 0 1px rgb(255 255 255 / .16), inset -6px -7px 12px rgb(0 0 0 / .2), 0 0 0 3px var(--ground), 0 0 0 5px var(--ink); }
+.swatch:has(input:checked) .swatch__name { font-weight: 600; }
+.swatch:has(input:focus-visible), .pill:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 3px; }
+.swatch__name { font-size: .8125rem; line-height: 1.2; overflow-wrap: anywhere; }
+.pill__name { display: inline-flex; align-items: center; gap: calc(var(--unit) * 2); font-size: .9375rem; }
+.pill__delta { font-size: .8125rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.pill__icon { flex: none; width: 22px; height: 15px; fill: currentColor; opacity: .85; }
+
+.panel__spec { max-width: 52ch; font-size: .9375rem; color: var(--muted); }
+.panel__actions { display: flex; flex-wrap: wrap; align-items: center; gap: calc(var(--unit) * 3) calc(var(--unit) * 6); }
+.buy { min-height: 52px; padding: 0 calc(var(--unit) * 8); border: 1px solid transparent; border-radius: 999px; background: var(--accent); color: var(--ground); font-weight: 600; cursor: pointer; }
+.buy:hover { background: color-mix(in oklab, var(--accent) 80%, #fff); }
+.buy:focus-visible { outline-offset: 4px; }
+.share { display: inline-flex; align-items: center; min-height: 44px; }
+.panel__status { min-height: 1.5em; font-size: .9375rem; }
+
+.notes { padding-block: calc(var(--unit) * 24); border-top: 1px solid var(--line); }
+.notes h2 { margin: 0 0 calc(var(--unit) * 6); font-family: var(--font-display); font-size: clamp(1.75rem, 3.5vw, 3rem); line-height: 1; letter-spacing: -.02em; }
+.notes ul { max-width: 62ch; margin: 0; padding-inline-start: 1.2em; display: grid; gap: calc(var(--unit) * 3); }
+.footer { padding-block: calc(var(--unit) * 12); border-top: 1px solid var(--line); font-size: .875rem; color: var(--muted); }
+.footer p { margin: 0; }
+
+/* Phones and narrow windows: the bar scrolls away and the stage sticks at the top, a little under half the screen,
+   so every option is chosen with the lamp in view. */
+@media (max-width: 860px) {
+  .bar { position: static; }
+  .config { grid-template-columns: minmax(0, 1fr); }
+  .stage { top: 0; z-index: 2; height: clamp(220px, 42svh, 460px); min-height: 0; box-shadow: 0 1px 0 var(--line); }
+  /* The short hint on the floor, so nothing covers the lamp; the full sentence stays as the slider's description. */
+  .stage__hint, .stage__reset { bottom: calc(var(--unit) * 3); }
+  .stage__hint { display: flex; align-items: center; min-height: 44px; inset-inline-start: calc(var(--unit) * 3); max-width: calc(100% - 170px); padding-block: 0; border-radius: 999px; }
+  .stage__hint[hidden] { display: none; }
+  .stage__hint-long { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .stage__hint-short { display: inline; }
+  .stage__reset { inset-inline-end: calc(var(--unit) * 3); }
+  .panel { gap: calc(var(--unit) * 8); padding-top: calc(var(--unit) * 7); }
+}
+
+/* A narrow options column (a phone, or a laptop's 5/12 column): choices sit in even rows rather than wrapping ragged,
+   three pills (name over price) and five swatches to a row. */
+@container (max-width: 460px) {
+  .opt__list--pills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: calc(var(--unit) * 2); }
+  .pill { flex-direction: column; justify-content: center; gap: 2px; min-height: 56px; padding: calc(var(--unit) * 2) calc(var(--unit) * 1.5); border-radius: 14px; text-align: center; }
+  .pill__name { flex-wrap: wrap; justify-content: center; gap: calc(var(--unit) * 1.5); overflow-wrap: anywhere; }
+  .pill__delta { overflow-wrap: anywhere; }
+}
+@container (max-width: 380px) {
+  .opt__list--swatches { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: calc(var(--unit) * 1); }
+  .swatch { min-width: 0; padding-inline: 0; }
+}
+
+@media (forced-colors: active) {
+  /* Checked is a filled pill (as a selected list item is) and a Highlight ring round a swatch's chip; focus keeps its own
+     CanvasText ring on the label, so a focused option never looks like the checked one in another group. */
+  .swatch:has(input:checked) .swatch__chip { outline: 3px solid Highlight; outline-offset: 2px; }
+  .swatch__chip { forced-color-adjust: none; }
+  .pill:has(input:checked) { forced-color-adjust: none; background: Highlight; color: HighlightText; border-color: Highlight; }
+  .pill:has(input:checked) .pill__delta { color: HighlightText; }
+  .swatch:has(input:focus-visible), .pill:has(input:focus-visible) { outline: 2px solid CanvasText; outline-offset: 4px; }
+  .stage__hint, .stage__reset { border: 1px solid CanvasText; }
+}

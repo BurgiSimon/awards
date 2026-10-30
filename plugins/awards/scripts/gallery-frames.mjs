@@ -7,11 +7,14 @@
 // Which state is shown: from the recipe's verify.mjs states, keep those a visitor would see on a desktop at full
 // motion (no `viewport: 'mobile'`, no `reducedMotion`, none named for a degraded tier or a teardown check), then take
 // the first with a scroll fraction strictly between 0 and 1 (the effect under way), else the first of those, else the
-// first state. OVERRIDES names the recipes whose resting state shows only their heading.
+// first state. OVERRIDES names the recipes whose resting state shows only their heading; a state marked `frame: true`
+// in verify.mjs wins over both.
 // Every run also redraws recipes/_gallery/sheet.webp, all frames as small tiles in one image, for the index's overview.
 //
-// Usage: node scripts/gallery-frames.mjs [--only id,…] [--no-build] [--json]
+// Usage: node scripts/gallery-frames.mjs [--only id,…] [--drafts] [--no-build] [--json]
 //   --only      render just these entries (the others keep their frames)
+//   --drafts    render the drafts instead (recipes/_drafts/<id>/frame.webp, listed under `drafts` in frames.json; the
+//               contact sheet is left alone, since a draft is not in the catalogue)
 //   --no-build  use recipes/dist as it is
 // Exit: 0 written · 1 usage or build failure · 2 some frames failed (the rest are written) · 3 no browser
 import fs from 'node:fs';
@@ -22,6 +25,7 @@ import { parseArgs } from './lib/report.mjs';
 import { serveDirectory } from './lib/server.mjs';
 import { runActions } from './lib/actions.mjs';
 import { resolvePlaywright, launchChromium, MISSING_MESSAGE } from './lib/playwright.mjs';
+import { draftIds, draftDir } from './lib/drafts.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const recipesDir = path.resolve(here, '../recipes');
@@ -64,6 +68,9 @@ const OVERRIDES = {
 };
 
 export function pickState(id, states) {
+  // A verifier can name its own frame with `frame: true` on one state (drafts use this; OVERRIDES predates it).
+  const flagged = states.find((s) => s.frame === true);
+  if (flagged) return flagged;
   if (OVERRIDES[id]) {
     const named = states.find((s) => s.name === OVERRIDES[id]);
     if (named) return named;
@@ -115,7 +122,7 @@ async function sheetInPage({ srcs, tile, cols, quality }) {
   return url.slice(url.indexOf(',') + 1);
 }
 
-async function shoot(browser, server, id, st) {
+async function shoot(browser, server, page_, st) {
   const context = await browser.newContext({ viewport: VIEWPORT, deviceScaleFactor: 1, reducedMotion: 'no-preference' });
   const page = await context.newPage();
   const errors = [];
@@ -123,7 +130,7 @@ async function shoot(browser, server, id, st) {
   let timer;
   try {
     const run = (async () => {
-      await page.goto(`${server.url}${id}/index.html`, { waitUntil: 'load', timeout: 30000 });
+      await page.goto(`${server.url}${page_}`, { waitUntil: 'load', timeout: 30000 });
       await page.evaluate(() => document.fonts?.ready).catch(() => {});
       await page.evaluate(() => Promise.race([Promise.resolve(window.__awards?.ready), new Promise((r) => setTimeout(r, 8000))])).catch(() => {});
       await page.waitForTimeout(st.settle ?? 500);
@@ -148,20 +155,25 @@ async function shoot(browser, server, id, st) {
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  const args = parseArgs(process.argv.slice(2), { json: 'boolean', build: 'boolean' });
-  const allIds = fs.readdirSync(recipesDir, { withFileTypes: true })
+  const args = parseArgs(process.argv.slice(2), { json: 'boolean', build: 'boolean', drafts: 'boolean' });
+  const drafts = Boolean(args.drafts);
+  const allIds = drafts ? draftIds() : fs.readdirSync(recipesDir, { withFileTypes: true })
     .filter((d) => d.isDirectory() && !d.name.startsWith('_') && !['node_modules', 'dist'].includes(d.name) && fs.existsSync(path.join(recipesDir, d.name, 'recipe.json')))
     .map((d) => d.name).sort();
   const only = args.only ? String(args.only).split(',').map((s) => s.trim()).filter(Boolean) : null;
   const unknown = (only ?? []).filter((id) => !allIds.includes(id));
-  if (unknown.length) { console.error(`unknown recipe(s): ${unknown.join(', ')}`); process.exit(1); }
+  if (unknown.length) { console.error(`unknown ${drafts ? 'draft' : 'recipe'}(s): ${unknown.join(', ')}`); process.exit(1); }
   const ids = only ?? allIds;
+  if (!ids.length) { console.error(drafts ? 'no drafts in recipes/_drafts' : 'no recipes'); process.exit(1); }
+  const dirOf = (id) => (drafts ? draftDir(id) : path.join(recipesDir, id));
+  const pageOf = (id) => (drafts ? `_drafts/${id}/index.html` : `${id}/index.html`);
+  const fileOf = (id) => (drafts ? path.join(draftDir(id), 'frame.webp') : path.join(outDir, `${id}.webp`));
   const log = (s) => { if (!args.json) console.log(s); };
 
   if (args.build !== false) {
     log('building the recipes…');
     const win = process.platform === 'win32';
-    const env = only ? { ...process.env, AWARDS_RECIPES_ONLY: ids.join(',') } : process.env;
+    const env = only || drafts ? { ...process.env, AWARDS_RECIPES_ONLY: ids.join(',') } : process.env;
     const b = spawnSync(win ? 'npx.cmd' : 'npx', ['vite', 'build'], { cwd: recipesDir, stdio: 'pipe', encoding: 'utf8', shell: win, env });
     if (b.status !== 0) { console.error(b.stdout, b.stderr); process.exit(1); }
   }
@@ -169,7 +181,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   if (!found) { console.error(MISSING_MESSAGE); process.exit(3); }
 
   const previous = fs.existsSync(dataFile) ? JSON.parse(fs.readFileSync(dataFile, 'utf8')) : { frames: {} };
-  const frames = { ...previous.frames };
+  const frames = { ...(drafts ? previous.drafts : previous.frames) };
   const failed = [];
   fs.mkdirSync(outDir, { recursive: true });
   const server = await serveDirectory(distDir);
@@ -184,19 +196,29 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const encoder = await browser.newPage();
   const today = new Date().toISOString().slice(0, 10);
   for (const id of ids) {
-    const verify = await import(pathToFileURL(path.join(recipesDir, id, 'verify.mjs')).href).catch(() => ({}));
+    const verify = await import(pathToFileURL(path.join(dirOf(id), 'verify.mjs')).href).catch(() => ({}));
     const states = verify.states?.length ? verify.states : [{ name: 'top', scroll: 0 }];
     const st = pickState(id, states);
     try {
-      const shot = await shoot(browser, server, id, st);
+      const shot = await shoot(browser, server, pageOf(id), st);
       const { buf, over } = await encode(encoder, shot.png);
-      fs.writeFileSync(path.join(outDir, `${id}.webp`), buf);
+      fs.writeFileSync(fileOf(id), buf);
       frames[id] = { state: st.name, scroll: typeof st.scroll === 'number' ? st.scroll : null, captured: today, bytes: buf.length };
       log(`${over ? 'OVER' : 'ok  '}  ${id.padEnd(34)} ${st.name.padEnd(14)} ${(buf.length / 1024).toFixed(1).padStart(5)} KB${shot.errors.length ? `  ${shot.errors.length} page error(s): ${shot.errors[0].slice(0, 80)}` : ''}`);
     } catch (e) {
       failed.push(id);
       log(`FAIL  ${id.padEnd(34)} ${st.name.padEnd(14)} ${String(e.message).split('\n')[0]}`);
     }
+  }
+  if (drafts) {
+    await browser.close();
+    await server.close();
+    for (const id of Object.keys(frames)) if (!allIds.includes(id)) delete frames[id];
+    const sorted = Object.fromEntries(Object.keys(frames).sort().map((id) => [id, frames[id]]));
+    fs.writeFileSync(dataFile, JSON.stringify({ ...previous, drafts: sorted }, null, 2) + '\n');
+    if (args.json) console.log(JSON.stringify({ rendered: ids.length - failed.length, failed }));
+    else log(`\n${ids.length - failed.length}/${ids.length} draft frame(s) rendered${failed.length ? ` · failed: ${failed.join(', ')}` : ''}`);
+    process.exit(failed.length ? 2 : 0);
   }
   const sheetIds = Object.keys(frames).filter((id) => allIds.includes(id) && fs.existsSync(path.join(outDir, `${id}.webp`))).sort();
   const srcs = sheetIds.map((id) => `data:image/webp;base64,${fs.readFileSync(path.join(outDir, `${id}.webp`)).toString('base64')}`);
@@ -212,7 +234,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const sorted = Object.fromEntries(Object.keys(frames).sort().map((id) => [id, frames[id]]));
   const total = Object.values(sorted).reduce((n, f) => n + f.bytes, 0);
   const sheetInfo = { file: 'sheet.webp', tile: TILE, cols: SHEET_COLS, rows: Math.ceil(sheetIds.length / SHEET_COLS), ids: sheetIds };
-  fs.writeFileSync(dataFile, JSON.stringify({ generator: 'scripts/gallery-frames.mjs', viewport: VIEWPORT, frame: FRAME, total, sheet: sheetInfo, frames: sorted }, null, 2) + '\n');
+  fs.writeFileSync(dataFile, JSON.stringify({ generator: 'scripts/gallery-frames.mjs', viewport: VIEWPORT, frame: FRAME, total, sheet: sheetInfo, frames: sorted, ...(previous.drafts ? { drafts: previous.drafts } : {}) }, null, 2) + '\n');
   if (args.json) console.log(JSON.stringify({ rendered: ids.length - failed.length, failed, total }));
   else log(`\n${ids.length - failed.length}/${ids.length} rendered · ${Object.keys(sorted).length} frames · ${(total / 1024).toFixed(0)} KB in all${failed.length ? ` · failed: ${failed.join(', ')}` : ''}`);
   process.exit(failed.length ? 2 : 0);

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#3f110e">
+  <title>character-splay-3d — awards recipe draft</title>
+  <meta name="description" content="A display headline split into characters that splay apart in 3D as the hero leaves, each by an amount set by its distance from the headline's centre, and close exactly onto the set line on the way back.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%233f110e'/%3E%3Cpath d='M16 26 4 10M16 26 10 7M16 26V6M16 26l6-19M16 26l12-16' stroke='%23d9a548' stroke-width='2.4' fill='none'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+  <!-- Without the script nothing opens, so the lede says what actually happens. -->
+  <noscript><style>.hero__lede .lede-moving { display: none; } .hero__lede .lede-still { display: inline; }</style></noscript>
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="topbar wrap">
+    <a class="topbar__brand" href="#top">Atelier Vantail</a>
+    <p class="label">Fan makers · synthetic demo</p>
+  </header>
+  <main id="main">
+    <!-- Once the splay is built (html.splay-on) the hero is taller than the screen and its stage is sticky, so the headline holds still while the scroll opens it. -->
+    <section class="hero" id="top" data-splay-hero aria-labelledby="hero-t">
+      <div class="hero__stage" data-splay-stage>
+        <svg class="fan" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="fan-rib" gradientUnits="userSpaceOnUse" x1="600" y1="700" x2="600" y2="250">
+              <stop offset="0"/><stop offset="1"/>
+            </linearGradient>
+          </defs>
+          <g class="fan__ribs">
+            <line class="fan__rib" x1="600" y1="700" x2="600" y2="-240"/>
+            <line class="fan__rib" x1="600" y1="700" x2="600" y2="-240"/>
+            <line class="fan__rib" x1="600" y1="700" x2="600" y2="-240"/>
+            <line class="fan__rib" x1="600" y1="700" x2="600" y2="-240"/>
+            <line class="fan__rib" x1="600" y1="700" x2="600" y2="-240"/>
+            <line class="fan__rib" x1="600" y1="700" x2="600" y2="-240"/>
+            <line class="fan__rib" x1="600" y1="700" x2="600" y2="-240"/>
+            <line class="fan__rib" x1="600" y1="700" x2="600" y2="-240"/>
+            <line class="fan__rib" x1="600" y1="700" x2="600" y2="-240"/>
+            <line class="fan__rib" x1="600" y1="700" x2="600" y2="-240"/>
+            <line class="fan__rib" x1="600" y1="700" x2="600" y2="-240"/>
+            <line class="fan__rib" x1="600" y1="700" x2="600" y2="-240"/>
+            <line class="fan__rib" x1="600" y1="700" x2="600" y2="-240"/>
+            <line class="fan__rib" x1="600" y1="700" x2="600" y2="-240"/>
+            <line class="fan__rib" x1="600" y1="700" x2="600" y2="-240"/>
+          </g>
+          <circle class="fan__ring" cx="600" cy="770" r="15"/>
+          <circle class="fan__pin" cx="600" cy="770" r="6"/>
+        </svg>
+        <p class="label hero__label">Recipe draft · character splay</p>
+        <h1 class="hero__title" id="hero-t" dir="auto" data-splay="scroll">Every fan opens from its centre.</h1>
+        <p class="hero__lede"><span class="lede-moving">Scroll, and the line opens like a fan: the middle letters barely move, the outer ones swing out and towards you. Scroll back, and every letter lands where it was set.</span><span class="lede-still">Here the line stays as it was set: every letter keeps its place, and the page simply scrolls on to the bench below.</span></p>
+      </div>
+    </section>
+
+    <section class="how wrap" aria-labelledby="how-t">
+      <h2 class="how__title" id="how-t">Three rules from the bench</h2>
+      <ol class="how__list">
+        <li><strong>The pivot stays put.</strong> Every offset is a letter's distance from the headline's centre, raised to the power 1.6, so the letters at the pivot hardly travel and the ends take almost all of it.</li>
+        <li><strong>The ends travel furthest, and towards you.</strong> Each letter moves out along the line, comes forward in depth, turns on its upright and tips with its row, all from that one distance.</li>
+        <li><strong>Shut means shut.</strong> The scroll is the only clock. At the top of the page every letter's transform is removed, so the heading is plain text in its own layout again, and a narrower window splits it afresh.</li>
+      </ol>
+    </section>
+
+    <section class="close wrap" aria-labelledby="close-t">
+      <p class="label">The same offsets, played once</p>
+      <h2 class="close__title" id="close-t" dir="auto" data-splay="enter">Folded shut by evening.</h2>
+      <p class="close__lede">This heading starts open and closes onto its line once, as soon as half of it is on screen. It reads the same distances as the hero; only the direction and the clock differ.</p>
+      <a class="close__link" href="#top">Back to the top</a>
+    </section>
+  </main>
+  <footer class="footer wrap"><p class="label">Synthetic demo content · the atelier is invented · awards recipe draft · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

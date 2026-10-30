@@ -1,0 +1,40 @@
+{
+  "id": "gl-product-configurator",
+  "title": "Product configurator: native option groups driving a damped orbit, tweened materials and a shareable URL",
+  "intent": "Configure a product",
+  "group": "evidence-blocks",
+  "summary": "A lamp built in code (a lathe foot, a brass stem, a cord and a 28-point lathe shade whose cone and drum are morph targets of the dome) on a clamped orbit, azimuth `−50°…50°` and polar `1.1…1.5` rad damped by `1 − .002^dt`, turned by drag, touch or arrow keys on a focusable `role=\"slider\"` view with a reset; colour (five swatches), finish (matte / satin / gloss as roughness, clearcoat and its roughness) and shade are native radio groups whose every change tweens the live `MeshPhysicalMaterial` or morph weights from the current value (`.4 s`, `overwrite: true`), sets the `Intl` GBP price, the spec line and an `aria-live=\"polite\"` summary in the click's own task, and writes `?colour=…&finish=…&shade=…` with `replaceState`, restored on load; Neutral tone mapping at exposure `.7` with a built `RoomEnvironment` at `.62` lands every lacquer within ΔE2000 2.5 of its swatch in every finish; a GSAP ticker listener draws only while the view damps or a tween runs; reduced motion sets every choice at once with no arrival turn, and the static tier, `?nogl`, no WebGL2 or a lost context hand the same controls to a CSS-drawn lamp",
+  "tags": [
+    "webgl",
+    "three",
+    "3d",
+    "orbit",
+    "materials",
+    "environment",
+    "lathe",
+    "product",
+    "form",
+    "keyboard",
+    "drag",
+    "interruption",
+    "gsap",
+    "fallback",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [
+    "three@0.186.0",
+    "gsap@3.15.0"
+  ],
+  "variants": [
+    "lamp: colour, finish and a morphed shade (this)",
+    "a part swap instead of a morph: separate meshes toggled by visible, for options whose shapes do not share a vertex count",
+    "with a bag: the add-to-bag answer and a drawer from cart-drawer-quick-add",
+    "photographed variants: the same form and URL driving an image set when there is no model"
+  ],
+  "seenIn": [
+    "floema",
+    "the-boyd"
+  ],
+  "drafted": "2026-10-28"
+}

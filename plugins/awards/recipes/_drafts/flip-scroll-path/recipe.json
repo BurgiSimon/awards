@@ -1,0 +1,36 @@
+{
+  "id": "flip-scroll-path",
+  "title": "Flip scroll path: one element carried through the page's own slots",
+  "intent": "Object that travels the page",
+  "group": "scroll-set-pieces",
+  "summary": "One CSS-drawn picture flown down a picture lane through four slots that the grid, `aspect-ratio` and `border-radius` lay out (an arch at `999px 999px 0 0`, a 4:3 detail, a 21:9 shelf, a circle) by `Flip.fit(flyer, nextSlot, { simple: true, scale: false })` legs chained into one `scrub: .6` timeline whose unit is the scroll pixel: slot k is fitted where its centre meets the viewport's, each leg lasts its scroll distance minus a dwell of `.3` viewport in which the picture rides with its slot, and beside each leg run a tween of the eight used corner radii (CSS overflow scaling, so the arch stays an arch) and a crossfade of scene weights over `.3`–`.7` of the leg, so the jar lands on a studio shelf, in a seam close-up, before kiln brick and in a straw nest; copy in columns 1–5, captions in 6–7 and every slot in 8–12 keep the hull of each leg off every line of text, which the verifier sweeps leg by leg at 1440 and 1024 px; the timeline is torn down on `refreshInit` and rebuilt on `refresh`, and a size change of `body` or a slot, a `dir` or tier change ask for a refresh; slots out of document order warn and show the stills; below 1024 px, under reduced motion and static each slot shows its own still and nothing flies; `mount()` returns a `destroy()` that releases every observer, listener, timer and Lenis",
+  "tags": [
+    "scroll",
+    "gsap",
+    "scrolltrigger",
+    "scrub",
+    "timeline",
+    "lenis",
+    "images",
+    "layout",
+    "art-direction",
+    "responsive",
+    "accessibility",
+    "reduced-motion"
+  ],
+  "tier": "P2",
+  "deps": [
+    "gsap@3.15.0",
+    "lenis@1.3.26"
+  ],
+  "variants": [
+    "one element down a picture lane through four slots in four sections, dwell and a scene in each, rebuilt on refresh (this, default)",
+    "no dwell: legs from centre to centre, so the element floats at the viewport's middle and only touches each slot",
+    "a crossing from one lane to the other through an empty interval, sized so the hull of that leg clears both columns of copy (run the sweep on it)",
+    "scale: true legs for a picture whose slots share one aspect ratio (transform only, no width or height writes)"
+  ],
+  "seenIn": [
+    "abatable"
+  ],
+  "drafted": "2026-10-28"
+}

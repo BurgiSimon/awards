@@ -1,0 +1,36 @@
+{
+  "id": "scroll-curl-screens",
+  "title": "Scroll curl screens: case panels that lean back as they leave, by speed",
+  "intent": "Screens that lean away",
+  "group": "scroll-set-pieces",
+  "summary": "Full-width case screens (links with headings) inside list items that carry `perspective: 900px` (800 px on a phone), each turned `rotateX` about its bottom edge by `34° × smoothstep(0, .65, exit progress) × energy`, where exit progress comes from a ScrollTrigger per item (`top top` → `bottom top`) and energy is the scroll speed from Lenis' scroll events (timed over at least 6 ms, clamped to 6,000 px/s) over `1,400 px/s`, clamped to 1, damped up at `k 12` and down at `k 3.2`; each angle follows at `k 14` with framerate-independent `damp()` on the shared ticker, adds `scale(1 − .05 × lean)` and a shade to `.5` that is darkest at the receding top edge and clear at 78 % of the height, is capped at 34° whatever the fling, and relaxes to flat within about two seconds of the scroll going quiet; instant jumps and Home/End (which Chromium animates natively) read as zero speed while PageDown and the arrows lean like any scroll; the curl's callback joins the ticker on a scroll and leaves once every screen is flat (the GSAP ticker keeps driving Lenis), a parked half-gone screen is flat, a focused screen is flat at once; cards use a min-height so longer text or a 360 px landscape window grows them; reduced motion and static never tilt",
+  "tags": [
+    "scroll",
+    "velocity",
+    "css-3d",
+    "tilt",
+    "inertia",
+    "ticker",
+    "lenis",
+    "scrolltrigger",
+    "cards",
+    "keyboard",
+    "performance",
+    "reduced-motion"
+  ],
+  "tier": "P2",
+  "deps": [
+    "gsap@3.15.0",
+    "lenis@1.3.26"
+  ],
+  "variants": [
+    "lean from position × speed, flat at rest (this, default)",
+    "lean from position alone, damped: a screen keeps its curl while parked half out",
+    "the source's cylinder in place of this recipe's pivot, scale and shade: `rotateX` with `translateZ(−900px × (1 − cos θ))` and brightness from 1 to .35 past p = .55",
+    "the same lean entering from below, about the top edge, for screens arriving as well as leaving"
+  ],
+  "seenIn": [
+    "okaydev"
+  ],
+  "drafted": "2026-10-28"
+}

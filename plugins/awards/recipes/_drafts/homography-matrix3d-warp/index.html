@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#e2c3a9">
+  <title>homography-matrix3d-warp — awards recipe draft</title>
+  <meta name="description" content="A live HTML app screen carried by the scroll from flat into a drawn laptop: four target corners measured off the SVG, a homography solved from them and written as one matrix3d, the app still selectable and focusable inside.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23e2c3a9'/%3E%3Cpath d='M6 7l20 2-1 15-18 1z' fill='%232b2d30'/%3E%3Cpath d='M9 10l15 1.5-.7 10.5-13.6.8z' fill='%23ffb547'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main>
+    <section class="intro wrap" aria-labelledby="intro-t">
+      <p class="intro__note">Synthetic demo · recipe draft</p>
+      <h1 class="intro__title" id="intro-t">A live screen, set into the picture by its four corners</h1>
+      <p class="intro__lede">The app below is ordinary HTML: select its name, tab to its button. Scroll, and one <code>matrix3d</code> carries it from flat into the laptop on the desk, solved from four points measured off the drawing.</p>
+    </section>
+
+    <!-- data-rail="false" until the script turns the scrub on: without it (or under reduced motion) the stage is one screen tall. -->
+    <section class="stage" data-stage data-rail="false" aria-label="A laptop on a desk, with the demo app">
+      <div class="stage__sticky">
+        <div class="scene" data-scene>
+          <svg class="scene__art" data-scene-art viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2c3a9"/><stop offset="1" stop-color="#d4ad8c"/></linearGradient>
+              <linearGradient id="desk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6e4428"/><stop offset=".3" stop-color="#80502f"/><stop offset="1" stop-color="#5a321d"/></linearGradient>
+              <linearGradient id="lid" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3c3f43"/><stop offset="1" stop-color="#25272a"/></linearGradient>
+              <linearGradient id="deck" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5d6166"/><stop offset="1" stop-color="#3d4044"/></linearGradient>
+              <filter id="soft" x="-20%" y="-40%" width="140%" height="180%"><feGaussianBlur stdDeviation="14"/></filter>
+              <filter id="contact" x="-10%" y="-20%" width="120%" height="140%"><feGaussianBlur stdDeviation="3"/></filter>
+            </defs>
+            <!-- The wall starts on the page's own ground, so the intro runs into it without an edge; the desk meets it at y 340. -->
+            <rect width="1600" height="340" fill="url(#wall)"/>
+            <rect y="340" width="1600" height="660" fill="url(#desk)"/>
+            <!-- Afternoon light from a window off the frame: one beam, down the wall and on across the desk from the same two points. -->
+            <polygon points="1150,0 1470,0 1330,340 1030,340" fill="#f2dcc6" opacity=".5"/>
+            <polygon points="1030,340 1330,340 1600,820 1600,1000 1250,1000" fill="#d39363" opacity=".2"/>
+            <path d="M0 340H1600" stroke="#a46d47" stroke-width="3"/>
+            <g fill="none" stroke="#4a2915" stroke-opacity=".3" stroke-width="2">
+              <path d="M0 374C500 371 1000 369 1600 367"/><path d="M0 424C500 419 1100 417 1600 415"/><path d="M0 496C600 488 1000 486 1600 482"/><path d="M0 598C500 588 1100 586 1600 580"/><path d="M0 740C600 728 1100 724 1600 718"/><path d="M0 924C500 912 1200 906 1600 902"/>
+            </g>
+            <g transform="translate(1196 70)">
+              <rect width="212" height="158" fill="#6b4a33"/>
+              <rect x="9" y="9" width="194" height="140" fill="#f3ebdd"/>
+              <circle cx="140" cy="58" r="20" fill="#d9774a"/>
+              <path d="M9 116C55 88 92 130 138 102C165 86 184 94 203 90V149H9Z" fill="#2f5d62"/>
+            </g>
+            <!-- A plant behind the laptop, a mug, a notebook and a pencil. -->
+            <g transform="translate(150 -230)">
+              <ellipse cx="300" cy="712" rx="74" ry="11" fill="#3a2012" opacity=".3"/>
+              <path d="M300 600C240 520 200 470 168 380C232 430 280 500 300 600Z" fill="#56723f"/>
+              <path d="M300 600C320 500 330 420 312 320C360 400 350 510 300 600Z" fill="#668548"/>
+              <path d="M300 600C360 540 420 500 470 470C440 540 380 590 300 600Z" fill="#4a6536"/>
+              <path d="M300 600C260 560 210 540 150 540C200 590 260 606 300 600Z" fill="#5d7a44"/>
+              <path d="M300 600C290 520 250 440 230 400C290 450 310 520 300 600Z" fill="#4f6b3a"/>
+              <path d="M246 598H354L341 706H259Z" fill="#b5603a"/>
+              <rect x="238" y="588" width="124" height="18" rx="3" fill="#c46d45"/>
+            </g>
+            <g transform="translate(1290 -250)">
+              <ellipse cx="6" cy="728" rx="74" ry="12" fill="#3a2012" opacity=".3"/>
+              <path d="M52 628C94 628 94 690 52 690" fill="none" stroke="#e6ddcc" stroke-width="13"/>
+              <path d="M-52 600V706C-52 724 52 724 52 706V600Z" fill="#ece4d4"/>
+              <ellipse cx="0" cy="600" rx="52" ry="13" fill="#d8cdb9"/>
+              <ellipse cx="0" cy="602" rx="44" ry="9" fill="#3b2216"/>
+              <path d="M-30 640V700" stroke="#fff" stroke-opacity=".4" stroke-width="8" stroke-linecap="round"/>
+            </g>
+            <polygon points="120,700 410,664 452,846 136,890" fill="#efe6d2"/>
+            <g stroke="#cdbd9e" stroke-width="2"><path d="M150 738L412 706"/><path d="M155 772L420 738"/><path d="M160 806L428 770"/><path d="M165 840L436 802"/></g>
+            <path d="M500 912L716 872" stroke="#e0a63a" stroke-width="12" stroke-linecap="round"/>
+            <path d="M716 872L734 868" stroke="#3b2a1e" stroke-width="6" stroke-linecap="round"/>
+
+            <!-- The laptop, projected from a 32 × 22 cm model turned 42° on the desk with its lid open 104°, seen from above and to the right: the far edge of the screen is about two thirds of the near one. -->
+            <polygon points="496.1,561.7 924,412.1 1107,518.6 566,833.9" fill="#3a2012" opacity=".34" filter="url(#soft)"/>
+            <polygon points="570.1,575.3 965.7,424.7 1150.4,528.6 673.2,831.2" fill="#2a160b" opacity=".45" filter="url(#contact)"/>
+            <polygon points="576,556.4 683.4,805 690.7,824.1 582.2,572.3" fill="#2a2c30"/>
+            <polygon points="683.4,805 1159.6,511.1 1158,526.1 690.7,824.1" fill="#1f2124"/>
+            <polygon points="576,556.4 971.7,410.9 1159.6,511.1 683.4,805" fill="url(#deck)"/>
+            <polygon points="627,558.1 966.7,427.6 1036.4,467 670.2,638" fill="#2c2f33"/>
+            <path d="M640 570.1L976.7 435.9M648.1 584.8L990 443.4M656.9 600.6L1003.9 451.3M666.2 617.4L1018.4 459.6M660.7 546.9L705.9 618.9M691.9 534.9L740.5 602.8M721.4 523.5L773 587.7M749.5 512.7L803.6 573.5M776.2 502.4L832.6 560M801.6 492.6L859.9 547.3M825.8 483.2L885.8 535.3M848.9 474.3L910.4 523.8M871 465.8L933.7 513M892.1 457.6L955.9 502.7M912.3 449.8L977 492.9M931.7 442.4L997.1 483.5M950.2 435.2L1016.3 474.6" stroke="#1c1e21" stroke-width="1.5"/>
+            <polygon points="818.7,589.6 972.3,514.7 1040.5,562.9 879.5,657.8" fill="#4a4e53" stroke="#5c6066" stroke-width="1.2"/>
+            <polygon points="443.9,222.3 931.7,177 977.6,414.1 578.9,563.1" fill="url(#lid)"/>
+            <path d="M443.9 222.3L931.7 177M443.9 222.3L578.9 563.1" stroke="#6f737a" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon data-screen-quad points="473.7,237.7 924.1,189.9 966.4,403.8 589.9,538.2" fill="#0c0d0f"/>
+            <circle cx="741.6" cy="202" r="2.6" fill="#16171a"/>
+            <path d="M585.6 559L974 414.3" stroke="#16171a" stroke-width="3"/>
+          </svg>
+
+          <div class="screen" data-screen role="group" aria-label="Loomtone, a demo sequencer on the laptop">
+            <span class="screen__lift" data-lift aria-hidden="true"></span>
+            <div class="app" id="loomtone" data-app data-playing="false">
+              <div class="app__bar"><span class="app__dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="app__name" data-app-name>Loomtone</span><span class="app__file">low-tide.loom</span></div>
+              <div class="app__head"><span class="app__title">Pattern B, Low tide</span><span class="app__tempo">96 BPM · 4/4</span></div>
+              <div class="app__tracks">
+                <div class="track"><span class="track__name">Kick</span><span class="track__steps" aria-hidden="true"><span class="cell on" style="--c: 0"></span><span class="cell" style="--c: 1"></span><span class="cell" style="--c: 2"></span><span class="cell" style="--c: 3"></span><span class="cell on" style="--c: 4"></span><span class="cell" style="--c: 5"></span><span class="cell" style="--c: 6"></span><span class="cell" style="--c: 7"></span><span class="cell on" style="--c: 8"></span><span class="cell" style="--c: 9"></span><span class="cell on" style="--c: 10"></span><span class="cell" style="--c: 11"></span><span class="cell on" style="--c: 12"></span><span class="cell" style="--c: 13"></span><span class="cell" style="--c: 14"></span><span class="cell" style="--c: 15"></span></span></div>
+                <div class="track"><span class="track__name">Clap</span><span class="track__steps" aria-hidden="true"><span class="cell" style="--c: 0"></span><span class="cell" style="--c: 1"></span><span class="cell" style="--c: 2"></span><span class="cell" style="--c: 3"></span><span class="cell on" style="--c: 4"></span><span class="cell" style="--c: 5"></span><span class="cell" style="--c: 6"></span><span class="cell" style="--c: 7"></span><span class="cell" style="--c: 8"></span><span class="cell" style="--c: 9"></span><span class="cell" style="--c: 10"></span><span class="cell" style="--c: 11"></span><span class="cell on" style="--c: 12"></span><span class="cell" style="--c: 13"></span><span class="cell" style="--c: 14"></span><span class="cell" style="--c: 15"></span></span></div>
+                <div class="track"><span class="track__name">Hat</span><span class="track__steps" aria-hidden="true"><span class="cell on" style="--c: 0"></span><span class="cell" style="--c: 1"></span><span class="cell on" style="--c: 2"></span><span class="cell" style="--c: 3"></span><span class="cell on" style="--c: 4"></span><span class="cell" style="--c: 5"></span><span class="cell on" style="--c: 6"></span><span class="cell" style="--c: 7"></span><span class="cell on" style="--c: 8"></span><span class="cell" style="--c: 9"></span><span class="cell on" style="--c: 10"></span><span class="cell" style="--c: 11"></span><span class="cell on" style="--c: 12"></span><span class="cell" style="--c: 13"></span><span class="cell on" style="--c: 14"></span><span class="cell on" style="--c: 15"></span></span></div>
+                <div class="track"><span class="track__name">Bell</span><span class="track__steps" aria-hidden="true"><span class="cell" style="--c: 0"></span><span class="cell" style="--c: 1"></span><span class="cell" style="--c: 2"></span><span class="cell on" style="--c: 3"></span><span class="cell" style="--c: 4"></span><span class="cell" style="--c: 5"></span><span class="cell" style="--c: 6"></span><span class="cell on" style="--c: 7"></span><span class="cell" style="--c: 8"></span><span class="cell" style="--c: 9"></span><span class="cell" style="--c: 10"></span><span class="cell on" style="--c: 11"></span><span class="cell" style="--c: 12"></span><span class="cell" style="--c: 13"></span><span class="cell on" style="--c: 14"></span><span class="cell" style="--c: 15"></span></span></div>
+                <span class="app__playhead" aria-hidden="true"></span>
+              </div>
+              <div class="app__foot"><button type="button" class="app__toggle" data-loop-toggle hidden>Play the loop</button><span class="app__note">16 steps, looping</span></div>
+            </div>
+            <!-- Glare on the glass: a child of the screen, so the same matrix3d carries it and it can never drift off the app. -->
+            <span class="screen__glare" data-glare aria-hidden="true"></span>
+          </div>
+        </div>
+
+        <!-- The front edge of the desk carries the caption and the page's own pause control: always 44 px, outside the warp. -->
+        <div class="stage__caption">
+          <p class="stage__label">Loomtone is invented. The screen is live HTML, set into the drawing by one matrix.</p>
+          <button type="button" class="stage__toggle" data-loop-control aria-controls="loomtone" hidden>Play the loop</button>
+          <p class="sr-only" role="status" data-loop-status></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="how wrap" aria-labelledby="how-t">
+      <h2 id="how-t">Four corners in, one matrix out</h2>
+      <div class="how__cols">
+        <p>A flat rectangle seen at an angle is a projective transform of itself, and a projective transform of the plane is pinned down by where four points land. The page reads the four corners of the drawn screen through the drawing's own scaling and crop, lerps each corner from the flat rectangle toward its target as you scroll, and solves the eight unknowns that send the rectangle to those four points.</p>
+        <p>The eight numbers go into the corners of a <code>matrix3d</code> with the origin at the element's top left. Nothing is rasterised and nothing is copied: the text stays text, the button stays a button, and the browser maps every click and every selection back through the same matrix.</p>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap footer"><p class="label">Synthetic demo content · Loomtone is invented · awards recipe draft · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

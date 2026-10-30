@@ -56,6 +56,14 @@ Excluded by that instruction (lower impact, larger effort): F5 jury panel, F6 mo
 - [x] G1 the plugin's own site, rebuilt from scratch in redesign mode as the maintainer asked ("Contact sheet", seed `3zaj142iys4g`): three page jury rounds (ship 7.70, fix 7.71, ship 7.88; the third asked for by the maintainer), Shipped 2026-10-23. Left to the maintainer: enable GitHub Pages with Actions as the source and run `.github/workflows/site.yml`; one pass on a real phone and trackpad (the strip's follow and chapter 3's scroll were measured only headless); the Awwwards submission. Open after ship: two craft rows in `site/.awards/ship/2026-10-23.md` (s00's arrow label in view; the hover crop's marks in paper ink)
 
 
+## Recipe drafts (2026-10-28) follow-ups
+
+1. The maintainer reviews the thirteen drafts in the explorer's Drafts tab (`npm run dev` in `recipes/`), then asks to work the reviews: promote, change and reply, or drop (CLAUDE.md, "Recipe drafts"). Points the reviews left for a person: `homography-matrix3d-warp` repeats its in-screen loop button as a 44 px control under the scene; `news-read-state` keeps a fenced demo (publish button, `?storage=blocked`); `pointer-repel-field` stills the tray on Escape; `prism-flip-label` turns in 400 ms against the 300 ms hover-shift rule.
+2. Real GPU, phone and Safari passes for the drafts before any is stamped, first `scroll-curl-screens` (the unpainted strip while scrolling under SwiftShader), `gl-erosion-dissolve` and `gl-product-configurator`.
+3. `son-daven.md` lost the verified location-chapter SVG map (`initMapPins`, `slater-55210.js`) in wave 6a's rewrite; `components-catalog.md#interactive-map-cards` still cites it. Restore the line in the card (it was verified in the earlier pass) or drop the citation; `map-pins-cards` cites likova only until then.
+4. `audit.mjs` on a single recipe folder reports M01 because the reduced-motion check does not follow `_shared` imports; follow the imports, or say so in the rule's text.
+5. A paid eval for the review loop is not needed (no skill text changed), but `evals/behavior.mjs --only audit` should be run on every change to the token rules.
+
 ## Corpus wave 6b — The Line motion lens (2026-10-28) follow-ups
 
 1. Run `footer-credits-hinge`, `overprint-marker-index` and `next-case-handoff` on a real phone and in Safari: the hand-off's fixed-position lift and `replaceWith` of a live node are untested outside Chromium. Stamp them at the next release.

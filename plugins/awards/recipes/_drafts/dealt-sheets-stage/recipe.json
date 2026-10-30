@@ -1,0 +1,34 @@
+{
+  "id": "dealt-sheets-stage",
+  "title": "Dealt sheets stage: pairs of sheets dealt in and out on their own rails",
+  "intent": "Featured work dealt like cards",
+  "group": "scroll-set-pieces",
+  "summary": "One sticky stage in a section the script sizes to its own score (`T × 100svh`, 7.6 stage heights for five pairs), never a pin, where each featured run is a pair of sheets (a ticket link and a print link) on one `scrub: .5` timeline counted in stage heights from the moment the section's top is one stage height down: the ticket is dealt over 1 unit from `xPercent −42` (phone `−14`) and `−12°` about its top-left corner, its top `24px + width × sin 12°` under the stage, the print `.12` later from `34 / 9°` about its centre, each lands on its own small askew pose, and the resting pair is pulled out from under only once the next is `.7` in on top of it (print first, past the right edge at `8°`, ticket `.12` after, past the left at `−10°`, `.45` each, by `24px + height × sin θ`); the first pair rides in on the stage with only 30 % of its own height to travel, the last drifts into a resting pose (`3 %, 3 % of the stage, −2.5°` and `−2 %, 0, 1.5°`) and stays as the stage releases; the active pair switches when it covers the last and is announced in a polite status, a ticket that takes keyboard focus scrolls the stage to its rest and finishes the scrub (the status stays quiet), the print is a duplicate link at `tabindex −1`; the print is sized by both axes, the phone lays the ticket across the print's foot, and reduced motion cross-fades the pairs in place with no tween on a sheet, static is a plain list",
+  "tags": [
+    "scroll",
+    "gsap",
+    "scrolltrigger",
+    "scrub",
+    "sticky",
+    "timeline",
+    "lenis",
+    "cards",
+    "keyboard",
+    "accessibility",
+    "reduced-motion"
+  ],
+  "tier": "P2",
+  "deps": [
+    "gsap@3.15.0",
+    "lenis@1.3.26"
+  ],
+  "variants": [
+    "pairs of sheets dealt on top, the old pair pulled out from under, the last one settling (this, default)",
+    "one rail per pair as its own ScrollTrigger (`top bottom` → `top top` in, `top top` → `bottom top` out) for pairs of unequal length",
+    "a pile: no sweep, each pair lands on the last at its own pose and the stack lets go together"
+  ],
+  "seenIn": [
+    "the-line"
+  ],
+  "drafted": "2026-10-28"
+}

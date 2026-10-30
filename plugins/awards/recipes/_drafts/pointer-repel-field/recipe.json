@@ -1,0 +1,31 @@
+{
+  "id": "pointer-repel-field",
+  "title": "Pointer repel field: items pushed, turned and lifted by falloff, sprung home",
+  "intent": "Field that parts around the pointer",
+  "group": "heroes-and-type",
+  "summary": "An `aria-hidden` tray of 144 CSS-drawn items laid out by a CSS grid (8 × 8 of them on a phone), their centres, the pitch and the column count read once into typed arrays and again only on resize; each frame weighs every item by `w = ((R − d) / R)^1.6` from the pointer, with R `3.3` cells of the tray's own grid (`2.7` on the 8 × 8), and gives those inside R a target of `w × 1.25` cells (`1.0`) straight away from it, shortened along the same ray so no centre comes within `.45` cell of the rim, a turn of `w × 38°` (`26°`) with a seeded direction per item and a lift of `w × .28` (`.18`), followed by a near-critical spring (`k 300, c 34`) and sent home by an under-damped one (`k 130, c 10.3`, ζ ≈ .45, about a fifth past its place), both stepped at a fixed `120 Hz` on the shared ticker; transforms are written only for items inside R or still settling, removed at rest, and the ticker leaves once nothing moves, even with the pointer resting; a mouse hovers, a finger parts the tray where it lands and drags sideways while a vertical swipe still scrolls the page (`touch-action: pan-y pinch-zoom` on the live tray only, the browser's `pointercancel` letting go), a real Nudge button sends one ring from the centre at `15.8` cells/s that kicks each item outward at `12.5` cells/s as it passes, and Escape stills everything at once; off screen everything is released; reduced motion and static hold a still tray that takes no touch, hide the nudge and say why",
+  "tags": [
+    "pointer",
+    "touch",
+    "keyboard",
+    "spring",
+    "ticker",
+    "toy",
+    "hero",
+    "performance",
+    "accessibility",
+    "reduced-motion"
+  ],
+  "tier": "P1",
+  "deps": [],
+  "variants": [
+    "a grid of CSS-drawn items, hover or press-and-drag, a keyboard nudge (this, default)",
+    "scattered objects instead of a grid (the source's pre-rendered images): keep the cache of centres and the weight, place the objects by hand",
+    "tween-driven instead of springs, as the source does it: a `.45 s power4.out` push and a `1.2 s elastic.out(1, .35)` return through `gsap.quickTo` per channel (a gsap dependency)",
+    "svg-noise-line-field when the field is lines that drift on their own and the pointer is one more force on them"
+  ],
+  "seenIn": [
+    "noth"
+  ],
+  "drafted": "2026-10-28"
+}

@@ -1,0 +1,224 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after.
+   A draft sits one folder deeper than a recipe; scripts/drafts.mjs promote rewrites ../../ to ../ on the way out. */
+@import "../../_shared/base.css";
+
+/* A straw ground and near-black ink; each case screen brings its own deep colour. */
+:root {
+  --ground: #ece3c8;
+  --ink: #1c1a14;
+  --accent: #0f4c4a;
+  --muted: color-mix(in oklab, var(--ink) 70%, var(--ground));
+  --line: color-mix(in oklab, var(--ink) 18%, var(--ground));
+  color-scheme: light;
+}
+
+.skip-link:focus-visible { position: fixed; z-index: 50; top: 12px; left: 12px; width: auto; height: auto; margin: 0; padding: 12px 16px; clip: auto; overflow: visible; white-space: normal; background: var(--ink); color: var(--ground); }
+a:focus-visible { outline: 3px solid var(--ink); outline-offset: 6px; }
+
+.bar { display: flex; align-items: center; justify-content: space-between; gap: calc(var(--unit) * 4); min-height: 64px; }
+.bar__brand { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--font-display); font-weight: 700; letter-spacing: -0.01em; text-decoration: none; }
+.bar .label { margin: 0; }
+
+.intro { min-height: 64svh; display: grid; align-content: end; gap: calc(var(--unit) * 7); padding-block: 72px 10svh; }
+.intro__title { margin: 0; max-width: 12ch; font-family: var(--font-display); font-size: clamp(2.75rem, 7.4vw, 8.25rem); font-weight: 700; line-height: 0.9; letter-spacing: -0.04em; }
+.intro__lede { max-width: 50ch; margin: 0; font-size: clamp(1.0625rem, 1.35vw, 1.25rem); color: var(--muted); }
+
+/* ---- the run of screens ------------------------------------------------------------------------------------------
+   Each list item is the 3D context (perspective on the parent); the link inside it is the screen that leans. It turns
+   about its bottom edge: the hinge line stays put, everything above it recedes and foreshortens. main.js writes only
+   `transform` on the screen and `opacity` on its shade. The screen's height is a minimum, never a fixed size, so
+   longer text or a short landscape window grows the card instead of spilling out of it. */
+.run { padding-block: 4svh 16svh; }
+.screens { list-style: none; margin: 0; padding: 0; display: grid; gap: 7svh; }
+.screens__item { perspective: 900px; }
+.screen {
+  --pad: clamp(24px, 3.6vw, 60px);
+  position: relative; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); grid-template-rows: minmax(0, 1fr); gap: clamp(20px, 4vw, 64px);
+  min-height: min(78svh, 780px); padding: var(--pad); border-radius: 22px; scroll-margin-top: 24px;
+  color: var(--on); background: var(--screen-bg); text-decoration: none; transform-origin: 50% 100%;
+}
+.screen--flip { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+.screen--flip .screen__art { grid-column: 1; grid-row: 1; }
+.screen--flip .screen__text { grid-column: 2; grid-row: 1; }
+/* Title and sentence read together at the top; the meta line sits at the foot of the card. */
+.screen__text { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; overflow-wrap: break-word; }
+.screen__title { margin: 0; font-family: var(--font-display); font-size: clamp(3rem, 7.6vw, 8.25rem); font-weight: 700; line-height: 0.88; letter-spacing: -0.045em; }
+.screen__line { display: block; max-width: 28ch; margin-top: clamp(16px, 2.2vw, 32px); font-size: clamp(1.0625rem, 1.45vw, 1.4375rem); line-height: 1.35; }
+.screen__meta { display: block; margin-top: auto; padding-top: 24px; font-family: var(--font-mono); font-size: 0.8125rem; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.85; }
+/* The art never sets the card's height (contain: size) and never spills out of it (overflow: hidden). */
+.screen__art { position: relative; display: block; min-height: 0; contain: size; overflow: hidden; border-radius: 14px; background: var(--panel); }
+/* The shade deepens as the screen leans away from the light: darkest at the receding top edge, clear at the hinge, so
+   the part still in view keeps its contrast. Decoration, never a hit target. */
+.screen__shade { position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(to bottom, #0b0a07 0%, rgb(11 10 7 / 0.45) 40%, rgb(11 10 7 / 0) 78%); opacity: 0; pointer-events: none; }
+.screen:focus-visible { outline-offset: 8px; }
+
+/* One screen runs its picture edge to edge under a band of text. */
+.screen--bleed { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); padding-bottom: 0; overflow: hidden; }
+.screen--bleed .screen__text { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: clamp(20px, 4vw, 64px); align-items: start; }
+.screen--bleed .screen__title { grid-row: span 2; }
+.screen--bleed .screen__line { margin-top: 0.4em; }
+.screen--bleed .screen__meta { margin-top: 0; padding-top: 14px; }
+.screen--bleed .screen__art { margin-inline: calc(var(--pad) * -1); border-radius: 0; background: none; }
+
+.screen--tern { --screen-bg: #0f4c4a; --on: #f3e3bf; --panel: #0b3b39; }
+.screen--pilcrow { --screen-bg: #5e1a22; --on: #f7d9cc; --panel: #4a131a; }
+.screen--bramble { --screen-bg: #23402d; --on: #dfeab8; --panel: #1a3122; }
+.screen--quay { --screen-bg: #1f3a8a; --on: #ffd88a; --panel: #172d6c; }
+.screen--larch { --screen-bg: #26272c; --on: #a9d8cc; --panel: #1c1d21; }
+
+/* ---- the five drawn interfaces: one 2 px stroke, the screen's own two colours, three levels of detail ----------- */
+.screen__art :is(b, small) { font-weight: 700; }
+.screen__art svg { overflow: visible; }
+
+/* Tern: one harbour's day of tide, with the hour, the metre lines and where the water is now. */
+.art-tide { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; padding: clamp(16px, 2vw, 28px); gap: 10px; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; }
+.tide-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; }
+.tide-head b { font-family: var(--font-display); font-size: clamp(1rem, 1.5vw, 1.375rem); letter-spacing: -0.01em; }
+.tide-head span { opacity: 0.75; }
+.tide-plot { position: relative; min-height: 0; }
+.tide-plot svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.tide-grid { fill: none; stroke: var(--on); stroke-width: 1; stroke-dasharray: 2 6; opacity: 0.35; vector-effect: non-scaling-stroke; }
+.tide-fill { fill: color-mix(in oklab, var(--on) 14%, transparent); }
+.tide-line { fill: none; stroke: var(--on); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.tide-metre { position: absolute; right: 0; top: var(--y); translate: 0 -120%; opacity: 0.6; }
+.tide-tag { position: absolute; z-index: 1; left: var(--x); top: var(--y); padding: 5px 9px; border-radius: 999px; white-space: nowrap; background: var(--on); color: var(--screen-bg); }
+.tide-tag--a { translate: -62% calc(-100% - 10px); }
+.tide-tag--b { translate: -50% 12px; }
+.tide-tag--c { translate: -50% calc(-100% - 10px); }
+.tide-now { position: absolute; left: var(--x); top: 0; bottom: 0; border-left: 2px solid var(--on); }
+.tide-now::after { content: ""; position: absolute; left: -8px; top: var(--y); width: 14px; height: 14px; translate: 0 -50%; border-radius: 50%; background: var(--panel); border: 2px solid var(--on); }
+.tide-now > span { position: absolute; left: 10px; top: 0; white-space: nowrap; font-weight: 700; }
+.tide-hours { display: flex; justify-content: space-between; opacity: 0.75; }
+.tide-hours i { font-style: normal; }
+
+/* Pilcrow: page 3 of the paper in the editor, cropped like a photograph, with the one check it raises. */
+.art-page { --paper: var(--on); --print: #3a0f15; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.03em; }
+.page-bar { position: absolute; inset: 0 0 auto; z-index: 1; display: flex; gap: 18px; align-items: center; padding: 12px clamp(14px, 2vw, 24px); }
+.page-bar b { font-family: var(--font-display); font-size: 0.9375rem; letter-spacing: 0; }
+.page-bar__checks { margin-inline-start: auto; padding: 3px 9px; border-radius: 999px; background: var(--on); color: var(--screen-bg); }
+.page { position: absolute; inset: 52px 9% auto; height: 150%; display: flex; flex-direction: column; gap: 14px; padding: clamp(16px, 2.4vw, 32px); color: var(--print); background: var(--paper); box-shadow: 0 18px 40px rgb(0 0 0 / 0.35); }
+.page__mast { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 12px; padding-bottom: 8px; border-bottom: 4px double currentColor; }
+.page__mast b { font-family: var(--font-display); font-size: clamp(1.125rem, 2.2vw, 2rem); letter-spacing: -0.03em; }
+.page__head { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.25rem, 2.6vw, 2.5rem); line-height: 0.98; letter-spacing: -0.035em; text-wrap: balance; }
+.page__cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 clamp(10px, 1.4vw, 20px); }
+.page__col + .page__col { padding-inline-start: clamp(10px, 1.4vw, 20px); border-inline-start: 1px solid color-mix(in oklab, var(--print) 45%, transparent); }
+.page__col i { --lh: 11px; position: relative; display: block; height: calc(var(--n) * var(--lh)); margin-bottom: var(--lh); background: repeating-linear-gradient(to bottom, color-mix(in oklab, var(--print) 55%, var(--paper)) 0 5px, transparent 5px var(--lh)); }
+.page__col i::after { content: ""; position: absolute; inset-inline-end: 0; bottom: 0; width: var(--end); height: var(--lh); background: var(--paper); }
+.page__quote { display: block; margin-bottom: 12px; padding-block: 8px; border-block: 2px solid currentColor; font-family: var(--font-display); font-weight: 700; font-size: clamp(0.875rem, 1.2vw, 1.125rem); line-height: 1.15; letter-spacing: -0.01em; }
+.page__widow { outline: 2px solid var(--screen-bg); outline-offset: 3px; }
+.page-flag { position: absolute; z-index: 1; right: 4%; top: 46%; max-width: 13ch; padding: 6px 9px; border-radius: 8px; background: var(--screen-bg); color: var(--on); line-height: 1.3; box-shadow: 0 6px 16px rgb(0 0 0 / 0.3); }
+
+/* Bramble: the packets on the desk, edge to edge, each with its grower and its return date. */
+.art-packets { display: flex; align-items: flex-end; justify-content: center; gap: clamp(10px, 1.6vw, 22px); padding-inline: clamp(12px, 2vw, 28px); font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.03em; }
+.packet {
+  position: relative; flex: 0 0 clamp(120px, 12.4vw, 190px); height: var(--h); translate: 0 6%;
+  display: flex; flex-direction: column; gap: 3px; padding: 58px 12px 12px; border-radius: 6px 6px 0 0;
+  color: #1a3122; background: var(--paper); box-shadow: inset 0 -40px 40px -40px rgb(0 0 0 / 0.25);
+}
+.packet::before { content: ""; position: absolute; inset: 0 0 auto; height: 44px; border-radius: 6px 6px 0 0; background: color-mix(in oklab, var(--paper) 80%, #1a3122); clip-path: polygon(0 0, 100% 0, 100% 40%, 50% 100%, 0 40%); }
+.packet b { font-family: var(--font-display); font-size: clamp(0.9375rem, 1.3vw, 1.25rem); letter-spacing: -0.01em; line-height: 1.05; }
+.packet__seeds { height: 14px; margin-block: 6px; background: radial-gradient(circle at 50% 50%, #1a3122 0 3px, transparent 3.5px) 0 0 / 14px 14px space no-repeat; opacity: 0.7; }
+.packet__by { opacity: 0.75; }
+.packet__due, .packet__card { align-self: flex-start; margin-top: 6px; padding: 3px 7px; border: 2px solid currentColor; border-radius: 4px; rotate: -4deg; font-weight: 700; text-transform: uppercase; }
+.packet--out { rotate: 2deg; }
+.packet__card { rotate: 0deg; color: #f6ecd0; background: #7a2f1c; border-color: #7a2f1c; }
+
+/* Quay: tomorrow's ticket on top of last week's, perforated, with the code the gangway reads. */
+.art-ticket { display: grid; place-items: center; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.03em; }
+.ticket {
+  grid-area: 1 / 1; display: grid; grid-template-columns: 72% 28%; width: min(84%, 560px); aspect-ratio: 2.05; border-radius: 14px; rotate: -4deg;
+  color: var(--screen-bg); background: var(--on); box-shadow: 0 22px 44px rgb(0 0 0 / 0.35);
+  -webkit-mask: radial-gradient(circle 12px at 72% 0, #0000 97%, #000) top / 100% 51% no-repeat, radial-gradient(circle 12px at 72% 100%, #0000 97%, #000) bottom / 100% 51% no-repeat;
+  mask: radial-gradient(circle 12px at 72% 0, #0000 97%, #000) top / 100% 51% no-repeat, radial-gradient(circle 12px at 72% 100%, #0000 97%, #000) bottom / 100% 51% no-repeat;
+}
+.ticket--under { rotate: 5deg; translate: 7% -10%; background: #aebbe6; box-shadow: none; }
+.ticket__main { display: flex; flex-direction: column; gap: 6px; min-width: 0; padding: 7% 8%; }
+.ticket__op { text-transform: uppercase; opacity: 0.8; }
+.ticket__route { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.125rem, 2.4vw, 2.25rem); line-height: 1; letter-spacing: -0.03em; }
+.ticket__rows { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: auto; font-size: 0.875rem; font-weight: 700; }
+.ticket__rows small { display: block; font-size: 0.625rem; font-weight: 400; text-transform: uppercase; opacity: 0.75; }
+.ticket__fare { opacity: 0.8; }
+.ticket__stub { display: grid; align-content: center; justify-items: center; gap: 8px; min-width: 0; border-inline-start: 2px dashed currentColor; font-size: 0.625rem; }
+.ticket__code { width: 64%; height: auto; fill: currentColor; }
+
+/* Larch: a block of the forest by contour, the plots walked so far and where the surveyor stands. */
+.art-map { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.03em; }
+.art-map svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.map-contours path { fill: none; stroke: var(--on); stroke-width: 2; opacity: 0.45; vector-effect: non-scaling-stroke; }
+.map-contours path:nth-child(5), .map-contours path:nth-child(8) { opacity: 0.85; }
+.map-stream { fill: none; stroke: #6fa3c7; stroke-width: 2; vector-effect: non-scaling-stroke; }
+.map-track { fill: none; stroke: #f0c36a; stroke-width: 2; stroke-dasharray: 7 6; vector-effect: non-scaling-stroke; }
+.map-plots rect { fill: var(--panel); stroke: #f0c36a; stroke-width: 2; vector-effect: non-scaling-stroke; }
+.map-plots text { fill: var(--on); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em; }
+.map-here { fill: #f0c36a; stroke: var(--panel); stroke-width: 3; vector-effect: non-scaling-stroke; }
+.map-legend { position: absolute; left: 16px; bottom: 16px; display: grid; gap: 2px; padding: 8px 12px; border-radius: 8px; background: var(--panel); }
+.map-legend b { font-family: var(--font-display); font-size: 0.9375rem; }
+.map-north { position: absolute; top: 14px; right: 16px; display: grid; place-items: center; width: 34px; height: 34px; border: 2px solid var(--on); border-radius: 50%; font-weight: 700; }
+.map-scale { position: absolute; right: 16px; bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.map-scale i { display: block; width: 64px; height: 6px; border: 2px solid var(--on); border-top: 0; }
+
+/* A guard in CSS as well as in the script: with a reduced-motion preference (unless the page is forced to the full
+   tier) every screen is flat and unshaded, whatever else on the page tries to turn it. */
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-motion="full"]) .screen { transform: none !important; }
+  html:not([data-motion="full"]) .screen__shade { opacity: 0 !important; }
+}
+
+/* ---- case notes ------------------------------------------------------------------------------------------------- */
+.notes { display: grid; gap: calc(var(--unit) * 8); padding-block: 12svh 16svh; border-top: 1px solid var(--line); }
+.notes h2 { margin: 0; font-family: var(--font-display); font-size: clamp(2rem, 4.4vw, 4.25rem); font-weight: 700; line-height: 1; letter-spacing: -0.03em; }
+.notes__list { display: grid; gap: 0; max-width: 76ch; margin: 0; }
+.notes__list > div { display: grid; grid-template-columns: 9rem 1fr; gap: 24px; padding: 16px 12px; margin-inline: -12px; border-bottom: 1px solid var(--line); border-radius: 4px; scroll-margin-top: 24px; }
+.notes__list > div:target { background: color-mix(in oklab, var(--ink) 7%, var(--ground)); }
+.notes__list > div:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.notes__list dt { font-weight: 700; }
+.notes__list dd { margin: 0; color: var(--muted); }
+.notes__back { display: inline-flex; align-items: center; min-height: 44px; margin-inline-start: 4px; color: var(--ink); }
+.footer { padding-block: calc(var(--unit) * 12); color: var(--muted); }
+.footer p { max-width: 64ch; margin: 0; }
+
+/* ---- phone: text over picture inside each screen, and a nearer eye ---------------------------------------------- */
+@media (max-width: 760px) {
+  .screens { gap: 5svh; }
+  .screens__item { perspective: 800px; }
+  .screen, .screen--flip, .screen--bleed { --pad: 22px; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(240px, 1fr); min-height: 74svh; gap: 18px; border-radius: 16px; }
+  .screen--flip .screen__art, .screen--flip .screen__text { grid-column: 1; grid-row: auto; }
+  .screen__title { font-size: clamp(2.75rem, 12vw, 4rem); }
+  .screen__line { margin-top: 12px; }
+  .screen__meta { margin-top: 0; padding-top: 14px; }
+  .screen--bleed .screen__text { display: flex; }
+  .screen--bleed .screen__line { margin-top: 12px; }
+  .tide-tag--c, .tide-metre, .tide-long { display: none; }
+  .tide-tag--a { translate: -50% calc(-100% - 10px); }
+  .page { inset-inline: 6%; }
+  .page__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .page__col:nth-child(3) { display: none; }
+  .page-flag { display: none; }
+  .packet { flex-basis: 128px; }
+  .ticket { width: 92%; }
+  .notes__list > div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+}
+
+/* ---- a short landscape window (a phone on its side): text and picture side by side again, a smaller title ------- */
+@media (max-height: 520px) {
+  .screen, .screen--bleed { --pad: 20px; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); grid-template-rows: minmax(0, 1fr); min-height: max(84svh, 280px); gap: 20px; padding-bottom: var(--pad); }
+  .screen--flip { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); grid-template-rows: minmax(0, 1fr); }
+  .screen--flip .screen__art { grid-column: 1; grid-row: 1; }
+  .screen--flip .screen__text { grid-column: 2; grid-row: 1; }
+  .screen__title { font-size: clamp(2rem, 11svh, 3rem); }
+  .screen__line { margin-top: 10px; font-size: 1rem; }
+  .screen__meta { margin-top: auto; padding-top: 10px; }
+  .screen--bleed .screen__text { display: flex; }
+  .screen--bleed .screen__line { margin-top: 10px; }
+  .screen--bleed .screen__meta { margin-top: auto; }
+  .screen--bleed .screen__art { margin-inline: 0; border-radius: 14px; background: var(--panel); }
+  .packet { flex-basis: 112px; padding-top: 18%; }
+  .packet__by { display: none; }
+  .page-flag, .tide-metre, .tide-tag--c, .tide-long { display: none; }
+  .tide-tag--a { translate: -50% calc(-100% - 10px); }
+}
+
+@media (forced-colors: active) {
+  .screen { border: 2px solid CanvasText; }
+  .screen__shade { display: none; }
+}

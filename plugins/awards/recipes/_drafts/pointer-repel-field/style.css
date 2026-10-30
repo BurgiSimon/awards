@@ -1,0 +1,159 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after.
+   A draft sits one folder deeper than a recipe; scripts/drafts.mjs promote rewrites ../../ to ../ on the way out. */
+@import "../../_shared/base.css";
+
+/* The button makers' world: billiard-green felt, bone ink, buttons in horn, bone, mustard, oxblood and slate. */
+:root {
+  --ground: #1c372f;
+  --felt: #16302a;
+  --ink: #efe6d2;
+  --accent: #d6a23c;
+  --muted: color-mix(in oklab, var(--ink) 74%, var(--ground));
+  --line: color-mix(in oklab, var(--ink) 16%, var(--ground));
+  --bone: #e9dec4;
+  --mustard: #d6a23c;
+  --oxblood: #9b3a2e;
+  --horn: #7b553a;
+  --slate: #7590a6;
+  --cols: 12;
+  color-scheme: dark;
+}
+::selection { background: var(--accent); color: var(--ground); }
+
+.skip-link:focus { position: fixed; inset: var(--unit) auto auto var(--unit); z-index: 10; width: auto; height: auto; margin: 0; clip: auto; padding: calc(var(--unit) * 2) calc(var(--unit) * 3); background: var(--ink); color: var(--ground); }
+
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: calc(var(--unit) * 4); min-height: 72px; }
+.topbar .label { margin: 0; text-align: end; }
+.topbar__brand { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--font-display); font-weight: 700; letter-spacing: -0.01em; text-decoration: none; }
+
+/* Copy on the left, the tray on the right; the tray is square and never taller than the screen allows. */
+.hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; gap: calc(var(--unit) * 10) clamp(32px, 5vw, 96px); min-height: calc(100svh - 72px); padding-block: calc(var(--unit) * 6) calc(var(--unit) * 14); }
+.hero__copy { display: grid; gap: calc(var(--unit) * 6); justify-items: start; }
+.hero__copy .label { margin: 0; }
+.hero__title { margin: 0; max-width: 11ch; font-family: var(--font-display); font-size: clamp(2.75rem, 5.6vw, 6rem); font-weight: 500; line-height: 0.94; letter-spacing: -0.035em; overflow-wrap: break-word; }
+.hero__lede { margin: 0; max-width: 40ch; color: var(--muted); font-size: clamp(1rem, 1.2vw, 1.1875rem); }
+/* Two ledes in the markup: a hover device reads about the mouse and the keyboard, a touch device about the finger. */
+.for-touch { display: none; }
+@media (hover: none) {
+  .for-pointer { display: none; }
+  .for-touch { display: inline; }
+}
+.hero__note { margin: 0; padding-inline-start: calc(var(--unit) * 3); border-inline-start: 2px solid var(--accent); color: var(--ink); }
+.hero__note[hidden] { display: none; }
+.hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: calc(var(--unit) * 3) calc(var(--unit) * 6); }
+
+.nudge { display: inline-flex; align-items: center; min-height: 48px; padding: 0 calc(var(--unit) * 6); border: 1px solid transparent; border-radius: 999px; background: var(--accent); color: var(--felt); font-weight: 600; cursor: pointer; transition: background-color var(--dur-feedback) ease-out; }
+.nudge:hover { background: color-mix(in oklab, var(--accent) 86%, var(--ink)); }
+.nudge:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+.nudge[hidden] { display: none; }
+.hero__link { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); text-underline-offset: 0.3em; }
+.hero__link:focus-visible, .topbar__brand:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+/* The tray: a felt panel with its own grid. Buttons sit centred in their cells; transforms only, about their centres.
+   The panel takes the pointer events itself (the buttons never do). Only while the full tier is live (.is-live, set
+   by main.js) does it keep sideways drags for itself: touch-action: pan-y still gives every vertical swipe to the
+   page, and pinch zoom stays. Without script, under reduced motion and in the static tier it is a plain block. */
+.tray {
+  position: relative;
+  justify-self: end;
+  width: min(100%, calc(100svh - 160px));
+  aspect-ratio: 1;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  place-items: center;
+  padding: clamp(10px, 1.6vw, 22px);
+  border-radius: 14px;
+  background: radial-gradient(circle at 30% 20%, rgb(255 255 255 / 0.06), transparent 62%), var(--felt);
+  box-shadow: inset 0 2px 14px rgb(0 0 0 / 0.45), 0 0 0 1px var(--line);
+  user-select: none;
+  -webkit-user-select: none;
+}
+.tray.is-live { touch-action: pan-y pinch-zoom; cursor: crosshair; }
+.tray i {
+  --c: var(--bone);
+  --hole: var(--felt);
+  --s: 62%;
+  display: block;
+  width: var(--s);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 39% 39%, var(--hole) 0 7%, transparent 7.6%),
+    radial-gradient(circle at 61% 39%, var(--hole) 0 7%, transparent 7.6%),
+    radial-gradient(circle at 39% 61%, var(--hole) 0 7%, transparent 7.6%),
+    radial-gradient(circle at 61% 61%, var(--hole) 0 7%, transparent 7.6%),
+    radial-gradient(circle, transparent 0 56%, rgb(0 0 0 / 0.16) 57% 62%, transparent 63%),
+    radial-gradient(circle at 34% 28%, rgb(255 255 255 / 0.28), transparent 46%),
+    var(--c);
+  /* A tight contact shadow and a soft cast one below it. Both live inside the transformed box, so a lifted (scaled)
+     button carries a wider, softer shade; the cast layer sits straight below, so the turn barely swings it. */
+  box-shadow: inset 0 -2px 0 rgb(0 0 0 / 0.2), 0 1px 1px rgb(0 0 0 / 0.38), 0 4px 9px rgb(0 0 0 / 0.3);
+}
+/* Two-hole buttons, so a turn reads at a glance. Every pattern below repeats on a period that shares no factor with
+   the 12 or 8 columns, so no colour or shape lines up into a stripe. */
+.tray i:nth-child(5n + 1), .tray i:nth-child(5n + 3) {
+  background:
+    radial-gradient(circle at 40% 50%, var(--hole) 0 8%, transparent 8.6%),
+    radial-gradient(circle at 60% 50%, var(--hole) 0 8%, transparent 8.6%),
+    radial-gradient(circle, transparent 0 56%, rgb(0 0 0 / 0.16) 57% 62%, transparent 63%),
+    radial-gradient(circle at 34% 28%, rgb(255 255 255 / 0.28), transparent 46%),
+    var(--c);
+}
+/* Shank buttons: a domed face, no holes. */
+.tray i:nth-child(11n + 4), .tray i:nth-child(13n + 9) {
+  background:
+    radial-gradient(circle at 36% 30%, rgb(255 255 255 / 0.45), transparent 32%),
+    radial-gradient(circle, var(--c) 0 58%, color-mix(in oklab, var(--c) 70%, black) 72%);
+}
+.tray i:nth-child(7n + 1), .tray i:nth-child(7n + 5) { --c: var(--horn); }
+.tray i:nth-child(5n + 2) { --c: var(--mustard); }
+.tray i:nth-child(11n + 3) { --c: var(--oxblood); }
+.tray i:nth-child(13n + 6), .tray i:nth-child(13n + 11) { --c: var(--slate); }
+.tray i:nth-child(17n + 9) { --c: var(--ink); }
+.tray i:nth-child(7n + 3) { --s: 48%; }
+.tray i:nth-child(5n + 4) { --s: 72%; }
+
+.how { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: calc(var(--unit) * 10) clamp(32px, 5vw, 96px); padding-block: calc(var(--unit) * 28); border-top: 1px solid var(--line); }
+.how__title { margin: 0; max-width: 11ch; font-family: var(--font-display); font-size: clamp(2rem, 4.2vw, 3.75rem); font-weight: 500; line-height: 0.98; letter-spacing: -0.025em; }
+.how__list { margin: 0; padding: 0; list-style: none; counter-reset: rule; display: grid; gap: calc(var(--unit) * 8); }
+.how__list li { counter-increment: rule; position: relative; max-width: 60ch; padding-inline-start: 3.25rem; color: var(--muted); font-size: clamp(1rem, 1.2vw, 1.125rem); }
+.how__list li::before { content: counter(rule, decimal-leading-zero); position: absolute; inset-inline-start: 0; top: 0.2em; font-family: var(--font-mono); font-size: 0.8em; color: var(--accent); }
+.how__list strong { display: block; color: var(--ink); font-weight: 600; }
+
+.footer { padding-block: calc(var(--unit) * 10); border-top: 1px solid var(--line); }
+.footer .label { margin: 0; }
+
+/* Portrait tablets: the copy above a tray that takes the width, instead of a thumbnail beside it. */
+@media (min-width: 761px) and (max-width: 1080px) and (orientation: portrait) {
+  .hero { grid-template-columns: minmax(0, 1fr); align-content: center; gap: calc(var(--unit) * 10); }
+  .hero__title { max-width: 14ch; }
+  .tray { justify-self: start; width: min(100%, calc(100svh - 470px)); }
+}
+
+/* Phones: the copy first, then a tray of eight by eight (the rest of the gross stays in the markup, undisplayed),
+   with the spacing trimmed so the whole tray lands in the first screen. */
+@media (max-width: 760px) {
+  :root { --cols: 8; }
+  .topbar { min-height: 60px; }
+  .topbar .label { max-width: 18ch; }
+  .hero { grid-template-columns: minmax(0, 1fr); min-height: 0; gap: calc(var(--unit) * 7); padding-block: calc(var(--unit) * 3) calc(var(--unit) * 12); }
+  .hero__copy { gap: calc(var(--unit) * 5); }
+  .hero__actions { column-gap: calc(var(--unit) * 4); }
+  .tray { justify-self: stretch; width: 100%; }
+  .tray i:nth-child(n + 65) { display: none; }
+  .how { grid-template-columns: minmax(0, 1fr); padding-block: calc(var(--unit) * 20); }
+}
+
+/* Reduced motion and the static tier: main.js never sets .is-live there, and these rules (more specific than
+   .tray.is-live) make sure a stale class can never keep a touch from scrolling the page or promise a toy with the cursor. */
+@media (prefers-reduced-motion: reduce) {
+  html:not([data-motion="full"]) .tray { touch-action: auto; cursor: default; }
+}
+html[data-motion="reduced"] .tray, html[data-motion="static"] .tray { touch-action: auto; cursor: default; }
+
+/* Forced colours drop the drawn buttons' backgrounds: outline them so the tray still reads. */
+@media (forced-colors: active) {
+  .tray i { forced-color-adjust: none; border: 1px solid CanvasText; }
+}

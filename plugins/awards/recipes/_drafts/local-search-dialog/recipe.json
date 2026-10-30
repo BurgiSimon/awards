@@ -1,0 +1,28 @@
+{
+  "id": "local-search-dialog",
+  "title": "Local search dialog: a combobox over the page's own list",
+  "intent": "Search and filter a long page without leaving it",
+  "group": "arrival-and-chrome",
+  "summary": "48 synthetic release notes indexed once from the served DOM; a header button, `/` or Ctrl/Cmd+K (ignored in text fields) opens a native `<dialog>` (`showModal()`) whose `role=\"combobox\"` input controls a `listbox`: every query word must start a word of the note (case and accents folded), ranked title 3, section and tags 2, summary 1, matches wrapped in `<mark>` built as nodes; six `aria-pressed` toggles narrow the set; a narrowed list lights its first option, arrows move `aria-activedescendant`, Enter or a click follows to the note's heading with a `1.6 s` tint; a polite status announces the count `450 ms` after the last change; the open is a `240 ms` fade with a 12 px rise (full), a `160 ms` fade (reduced) or a cut (static), new results fade and rise 4 px over `160 ms` in the full tier only, and panel and backdrop fade out together over `80 ms`",
+  "tags": [
+    "dialog",
+    "overlay",
+    "keyboard",
+    "list",
+    "toggle",
+    "accessibility",
+    "reduced-motion",
+    "responsive"
+  ],
+  "tier": "P2",
+  "deps": [],
+  "variants": [
+    "a dialog over a release's notes, section toggles (this, default)",
+    "an inline combobox in the header that expands into the same listbox, for a page with fewer than about twenty items",
+    "a version switcher beside it: a native `<select>` of editions whose change navigates, with the search scoped to the edition shown"
+  ],
+  "seenIn": [
+    "shopify-editions-w26"
+  ],
+  "drafted": "2026-10-28"
+}

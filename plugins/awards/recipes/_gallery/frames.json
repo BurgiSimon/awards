@@ -742,5 +742,85 @@
       "captured": "2026-10-26",
       "bytes": 8428
     }
+  },
+  "drafts": {
+    "chapter-jump-rail": {
+      "state": "s50",
+      "scroll": 0.5,
+      "captured": "2026-10-28",
+      "bytes": 24758
+    },
+    "character-splay-3d": {
+      "state": "open",
+      "scroll": null,
+      "captured": "2026-10-28",
+      "bytes": 12924
+    },
+    "dealt-sheets-stage": {
+      "state": "deal",
+      "scroll": null,
+      "captured": "2026-10-28",
+      "bytes": 25000
+    },
+    "flip-scroll-path": {
+      "state": "leaving",
+      "scroll": null,
+      "captured": "2026-10-28",
+      "bytes": 12158
+    },
+    "gl-erosion-dissolve": {
+      "state": "mid",
+      "scroll": null,
+      "captured": "2026-10-28",
+      "bytes": 11600
+    },
+    "gl-product-configurator": {
+      "state": "configured",
+      "scroll": null,
+      "captured": "2026-10-28",
+      "bytes": 16184
+    },
+    "homography-matrix3d-warp": {
+      "state": "mid",
+      "scroll": null,
+      "captured": "2026-10-28",
+      "bytes": 16248
+    },
+    "local-search-dialog": {
+      "state": "type",
+      "scroll": null,
+      "captured": "2026-10-28",
+      "bytes": 26892
+    },
+    "map-pins-cards": {
+      "state": "hover",
+      "scroll": null,
+      "captured": "2026-10-28",
+      "bytes": 29096
+    },
+    "news-read-state": {
+      "state": "scene",
+      "scroll": null,
+      "captured": "2026-10-28",
+      "bytes": 22588
+    },
+    "pointer-repel-field": {
+      "state": "sweep",
+      "scroll": null,
+      "captured": "2026-10-28",
+      "bytes": 34902
+    },
+    "prism-flip-label": {
+      "state": "turning",
+      "scroll": null,
+      "captured": "2026-10-28",
+      "bytes": 24416
+    },
+    "scroll-curl-screens": {
+      "state": "flick",
+      "scroll": null,
+      "captured": "2026-10-28",
+      "bytes": 13708
+    }
   }
 }

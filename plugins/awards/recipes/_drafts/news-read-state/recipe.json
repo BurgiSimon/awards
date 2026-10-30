@@ -1,0 +1,31 @@
+{
+  "id": "news-read-state",
+  "title": "News with read state: a dated diary that remembers, and a count in the menu",
+  "intent": "News that remembers what was read",
+  "group": "the-close-and-beyond",
+  "summary": "A list of `<article>` entries with `<time datetime>` whose read state is one shape-checked localStorage record behind a probe and try/catch (memory, said in words, when storage is refused or a write fails); a first visit marks the 21 days before the newest entry new and a return visit gives later entries a quiet arrival; an entry is read when its `<details>` opens or after 1.2 s wholly in view below the measured sticky masthead once the visitor has scrolled; the menu link reads `News 3 new`, and a polite status speaks only for open and mark all",
+  "tags": [
+    "list",
+    "storage",
+    "scroll",
+    "keyboard",
+    "reveal",
+    "progress",
+    "navigation",
+    "accessibility",
+    "fallback",
+    "reduced-motion"
+  ],
+  "tier": "P2",
+  "deps": [],
+  "variants": [
+    "read on open or dwell, a count in the menu, mark all (this, default)",
+    "read on open only: drop the dwell observer when entries are long and a glance is not a read",
+    "server-side: the same record keyed to a signed-in account, with localStorage as the offline copy"
+  ],
+  "seenIn": [
+    "mont-fort",
+    "son-daven"
+  ],
+  "drafted": "2026-10-28"
+}

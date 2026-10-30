@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#d5ebe6">
+  <title>local-search-dialog — awards recipe draft</title>
+  <meta name="description" content="Release notes searched where they stand: a native dialog with a combobox over the page's own list, filter toggles, marked matches, arrow keys, a debounced polite count, and every note readable without JavaScript.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23d5ebe6'/%3E%3Ccircle cx='14' cy='14' r='7' fill='none' stroke='%2310282b' stroke-width='3'/%3E%3Crect x='19' y='19' width='4' height='9' transform='rotate(-45 21 23)' fill='%23c8402a'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="bar">
+    <a class="bar__brand" href="#top">Corvid <span class="bar__sub">4.0 release notes</span></a>
+    <button class="bar__search" type="button" aria-haspopup="dialog" aria-keyshortcuts="/ Control+K Meta+K" data-open hidden>
+      <svg class="bar__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12.5 12.5 L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg>
+      <span class="bar__label">Search the notes</span>
+      <kbd class="bar__kbd" aria-hidden="true">/</kbd>
+    </button>
+  </header>
+  <main id="main">
+    <section class="intro" id="top" aria-labelledby="intro-t">
+      <h1 class="intro__title" id="intro-t">Corvid 4.0, the Thaw release</h1>
+      <p class="intro__lede">Forty-eight changes to the Corvid groovebox: the sequencer, the voices, the effects, MIDI, the interface, and the fixes. Every note is on this page; search reads the page itself.</p>
+      <p class="intro__how" data-how hidden>Press <kbd>/</kbd> or <kbd>Ctrl</kbd> <kbd>K</kbd> to search, then arrows and Enter to open a note.</p>
+      <nav class="intro__parts" aria-label="Sections of the release">
+        <ol>
+          <li><a href="#sequencer">Sequencer <span class="intro__n">11<span class="sr-only"> changes</span></span></a></li>
+          <li><a href="#voices">Voices <span class="intro__n">7<span class="sr-only"> changes</span></span></a></li>
+          <li><a href="#effects">Effects <span class="intro__n">9<span class="sr-only"> changes</span></span></a></li>
+          <li><a href="#midi">MIDI <span class="intro__n">6<span class="sr-only"> changes</span></span></a></li>
+          <li><a href="#interface">Interface <span class="intro__n">5<span class="sr-only"> changes</span></span></a></li>
+          <li><a href="#fixes">Fixes <span class="intro__n">10<span class="sr-only"> changes</span></span></a></li>
+        </ol>
+      </nav>
+    </section>
+    <div class="catalogue" data-catalogue>
+      <section class="part" id="sequencer" aria-labelledby="sequencer-t" data-part="sequencer">
+        <header class="part__head"><h2 class="part__title" id="sequencer-t">Sequencer</h2><p class="part__about">Steps, timing and the order patterns play in. <span class="part__count">11 changes</span></p></header>
+        <ol class="part__list">
+          <li class="note" id="u-ratchets-per-step" data-note><h3 class="note__title" id="u-ratchets-per-step-t" tabindex="-1">Ratchets per step</h3><p class="note__summary">Each step can repeat two to eight times inside its own length; hold Shift and turn the step's knob.</p><ul class="note__tags" aria-label="Tags"><li>steps</li><li>timing</li></ul></li>
+          <li class="note" id="u-probability-on-every-step" data-note><h3 class="note__title" id="u-probability-on-every-step-t" tabindex="-1">Probability on every step</h3><p class="note__summary">Give any step a chance from 0 to 100 percent, in tens, so a pattern never plays quite the same way twice.</p><ul class="note__tags" aria-label="Tags"><li>steps</li><li>generative</li></ul></li>
+          <li class="note" id="u-pattern-chains-up-to-64" data-note><h3 class="note__title" id="u-pattern-chains-up-to-64-t" tabindex="-1">Pattern chains up to 64</h3><p class="note__summary">Chain up to 64 patterns into a song and edit the chain while it plays.</p><ul class="note__tags" aria-label="Tags"><li>song</li><li>patterns</li></ul></li>
+          <li class="note" id="u-swing-per-track" data-note><h3 class="note__title" id="u-swing-per-track-t" tabindex="-1">Swing per track</h3><p class="note__summary">Swing now lives on each track, from 50 to 75 percent, instead of on the whole machine.</p><ul class="note__tags" aria-label="Tags"><li>timing</li><li>groove</li></ul></li>
+          <li class="note" id="u-euclidean-fill" data-note><h3 class="note__title" id="u-euclidean-fill-t" tabindex="-1">Euclidean fill</h3><p class="note__summary">Spread a number of hits as evenly as possible across a track's length with one gesture.</p><ul class="note__tags" aria-label="Tags"><li>generative</li><li>steps</li></ul></li>
+          <li class="note" id="u-micro-timing-for-steps" data-note><h3 class="note__title" id="u-micro-timing-for-steps-t" tabindex="-1">Micro-timing for steps</h3><p class="note__summary">Nudge any step up to half a step early or late, in twenty-fourths.</p><ul class="note__tags" aria-label="Tags"><li>timing</li><li>steps</li></ul></li>
+          <li class="note" id="u-reverse-and-ping-pong-play" data-note><h3 class="note__title" id="u-reverse-and-ping-pong-play-t" tabindex="-1">Reverse and ping-pong play</h3><p class="note__summary">Tracks can play backwards, or bounce between their first and last step.</p><ul class="note__tags" aria-label="Tags"><li>patterns</li><li>direction</li></ul></li>
+          <li class="note" id="u-copy-a-page-to-every-track" data-note><h3 class="note__title" id="u-copy-a-page-to-every-track-t" tabindex="-1">Copy a page to every track</h3><p class="note__summary">Copy the visible sixteen steps to every track at once, keeping each track's own notes.</p><ul class="note__tags" aria-label="Tags"><li>editing</li><li>patterns</li></ul></li>
+          <li class="note" id="u-fill-while-held" data-note><h3 class="note__title" id="u-fill-while-held-t" tabindex="-1">Fill while held</h3><p class="note__summary">Hold Fill to play each track's fill variation; the pattern comes back on the next bar line.</p><ul class="note__tags" aria-label="Tags"><li>performance</li><li>patterns</li></ul></li>
+          <li class="note" id="u-undo-for-32-edits" data-note><h3 class="note__title" id="u-undo-for-32-edits-t" tabindex="-1">Undo for 32 edits</h3><p class="note__summary">Undo and redo the last 32 edits, deleted patterns included.</p><ul class="note__tags" aria-label="Tags"><li>editing</li></ul></li>
+          <li class="note" id="u-track-names" data-note><h3 class="note__title" id="u-track-names-t" tabindex="-1">Track names</h3><p class="note__summary">Name each track with up to twelve characters; the names show on the screen and in exports.</p><ul class="note__tags" aria-label="Tags"><li>tracks</li><li>display</li></ul></li>
+        </ol>
+      </section>
+      <section class="part" id="voices" aria-labelledby="voices-t" data-part="voices">
+        <header class="part__head"><h2 class="part__title" id="voices-t">Voices</h2><p class="part__about">Oscillators, filters, envelopes and the sampler. <span class="part__count">7 changes</span></p></header>
+        <ol class="part__list">
+          <li class="note" id="u-wavetable-morphing" data-note><h3 class="note__title" id="u-wavetable-morphing-t" tabindex="-1">Wavetable morphing</h3><p class="note__summary">The second oscillator scans 64 wavetables, and the morph position can be modulated like any other knob.</p><ul class="note__tags" aria-label="Tags"><li>oscillator</li><li>wavetable</li></ul></li>
+          <li class="note" id="u-unison-up-to-eight-voices" data-note><h3 class="note__title" id="u-unison-up-to-eight-voices-t" tabindex="-1">Unison up to eight voices</h3><p class="note__summary">Stack up to eight detuned voices per note, with a spread from 0 to 50 cents.</p><ul class="note__tags" aria-label="Tags"><li>oscillator</li><li>polyphony</li></ul></li>
+          <li class="note" id="u-filter-key-tracking" data-note><h3 class="note__title" id="u-filter-key-tracking-t" tabindex="-1">Filter key tracking</h3><p class="note__summary">The filter cutoff can follow the note played, from 0 to 100 percent.</p><ul class="note__tags" aria-label="Tags"><li>filter</li><li>modulation</li></ul></li>
+          <li class="note" id="u-ladder-filter-model" data-note><h3 class="note__title" id="u-ladder-filter-model-t" tabindex="-1">Ladder filter model</h3><p class="note__summary">A four-pole ladder filter joins the state-variable one, with a drive stage in front of it.</p><ul class="note__tags" aria-label="Tags"><li>filter</li><li>drive</li></ul></li>
+          <li class="note" id="u-looping-envelopes" data-note><h3 class="note__title" id="u-looping-envelopes-t" tabindex="-1">Looping envelopes</h3><p class="note__summary">Envelopes can loop between decay and release, which turns them into slow, shaped modulators.</p><ul class="note__tags" aria-label="Tags"><li>envelope</li><li>modulation</li></ul></li>
+          <li class="note" id="u-velocity-curves" data-note><h3 class="note__title" id="u-velocity-curves-t" tabindex="-1">Velocity curves</h3><p class="note__summary">Choose a soft, linear or hard response to velocity, on the pads and over MIDI.</p><ul class="note__tags" aria-label="Tags"><li>velocity</li><li>pads</li></ul></li>
+          <li class="note" id="u-sample-start-modulation" data-note><h3 class="note__title" id="u-sample-start-modulation-t" tabindex="-1">Sample start modulation</h3><p class="note__summary">Modulate where a sample starts playing, for drum loops that shuffle themselves.</p><ul class="note__tags" aria-label="Tags"><li>sampler</li><li>modulation</li></ul></li>
+        </ol>
+      </section>
+      <section class="part" id="effects" aria-labelledby="effects-t" data-part="effects">
+        <header class="part__head"><h2 class="part__title" id="effects-t">Effects</h2><p class="part__about">Delay, reverb, dynamics and the mix. <span class="part__count">9 changes</span></p></header>
+        <ol class="part__list">
+          <li class="note" id="u-tape-delay-with-wow" data-note><h3 class="note__title" id="u-tape-delay-with-wow-t" tabindex="-1">Tape delay with wow</h3><p class="note__summary">A tape-style delay with wow, flutter and saturation, synced to the tempo or free.</p><ul class="note__tags" aria-label="Tags"><li>delay</li><li>tape</li></ul></li>
+          <li class="note" id="u-shimmer-reverb" data-note><h3 class="note__title" id="u-shimmer-reverb-t" tabindex="-1">Shimmer reverb</h3><p class="note__summary">A reverb that pitches its tail up an octave, with its own mix knob for the shimmer.</p><ul class="note__tags" aria-label="Tags"><li>reverb</li></ul></li>
+          <li class="note" id="u-chorus-on-either-send" data-note><h3 class="note__title" id="u-chorus-on-either-send-t" tabindex="-1">Chorus on either send</h3><p class="note__summary">A stereo chorus can sit on either send, with its rate and depth on the first page of the screen.</p><ul class="note__tags" aria-label="Tags"><li>modulation</li><li>mixing</li></ul></li>
+          <li class="note" id="u-sidechain-from-any-track" data-note><h3 class="note__title" id="u-sidechain-from-any-track-t" tabindex="-1">Sidechain from any track</h3><p class="note__summary">Duck any track's level from any other, with attack and release set in milliseconds.</p><ul class="note__tags" aria-label="Tags"><li>dynamics</li><li>mixing</li></ul></li>
+          <li class="note" id="u-bit-crusher-per-track" data-note><h3 class="note__title" id="u-bit-crusher-per-track-t" tabindex="-1">Bit crusher per track</h3><p class="note__summary">Reduce sample rate and bit depth on a single track instead of on the master.</p><ul class="note__tags" aria-label="Tags"><li>distortion</li></ul></li>
+          <li class="note" id="u-post-fader-sends" data-note><h3 class="note__title" id="u-post-fader-sends-t" tabindex="-1">Post-fader sends</h3><p class="note__summary">Sends can take the signal after the track fader, so muting a track also mutes its echo.</p><ul class="note__tags" aria-label="Tags"><li>mixing</li></ul></li>
+          <li class="note" id="u-freeze-buffer" data-note><h3 class="note__title" id="u-freeze-buffer-t" tabindex="-1">Freeze buffer</h3><p class="note__summary">Hold the last beat in a buffer and loop it while the pattern carries on underneath.</p><ul class="note__tags" aria-label="Tags"><li>performance</li><li>looper</li></ul></li>
+          <li class="note" id="u-master-compressor-presets" data-note><h3 class="note__title" id="u-master-compressor-presets-t" tabindex="-1">Master compressor presets</h3><p class="note__summary">Three starting points for the master compressor: glue, punch and transparent.</p><ul class="note__tags" aria-label="Tags"><li>dynamics</li><li>master</li></ul></li>
+          <li class="note" id="u-stereo-width-per-track" data-note><h3 class="note__title" id="u-stereo-width-per-track-t" tabindex="-1">Stereo width per track</h3><p class="note__summary">Narrow or widen each track's stereo image, from mono to twice its width.</p><ul class="note__tags" aria-label="Tags"><li>mixing</li><li>stereo</li></ul></li>
+        </ol>
+      </section>
+      <section class="part" id="midi" aria-labelledby="midi-t" data-part="midi">
+        <header class="part__head"><h2 class="part__title" id="midi-t">MIDI</h2><p class="part__about">Controllers, clocks and other machines. <span class="part__count">6 changes</span></p></header>
+        <ol class="part__list">
+          <li class="note" id="u-mpe-input" data-note><h3 class="note__title" id="u-mpe-input-t" tabindex="-1">MPE input</h3><p class="note__summary">Per-note pitch bend, pressure and slide from MPE controllers now reach each voice.</p><ul class="note__tags" aria-label="Tags"><li>controllers</li><li>expression</li></ul></li>
+          <li class="note" id="u-clock-out-over-usb" data-note><h3 class="note__title" id="u-clock-out-over-usb-t" tabindex="-1">Clock out over USB</h3><p class="note__summary">Send MIDI clock to a computer over USB as well as from the five-pin port.</p><ul class="note__tags" aria-label="Tags"><li>sync</li><li>usb</li></ul></li>
+          <li class="note" id="u-program-change-per-pattern" data-note><h3 class="note__title" id="u-program-change-per-pattern-t" tabindex="-1">Program change per pattern</h3><p class="note__summary">Each pattern can send a program change to external gear as it starts.</p><ul class="note__tags" aria-label="Tags"><li>patterns</li><li>external</li></ul></li>
+          <li class="note" id="u-midi-learn-for-every-knob" data-note><h3 class="note__title" id="u-midi-learn-for-every-knob-t" tabindex="-1">MIDI learn for every knob</h3><p class="note__summary">Hold a knob and move a controller to map it; the maps are saved with the project.</p><ul class="note__tags" aria-label="Tags"><li>controllers</li><li>mapping</li></ul></li>
+          <li class="note" id="u-follow-start-and-stop" data-note><h3 class="note__title" id="u-follow-start-and-stop-t" tabindex="-1">Follow start and stop</h3><p class="note__summary">Corvid can follow start, stop and song position from an external clock.</p><ul class="note__tags" aria-label="Tags"><li>sync</li><li>transport</li></ul></li>
+          <li class="note" id="u-arpeggiator-to-midi-out" data-note><h3 class="note__title" id="u-arpeggiator-to-midi-out-t" tabindex="-1">Arpeggiator to MIDI out</h3><p class="note__summary">The arpeggiator's notes can be sent out to other machines instead of played inside.</p><ul class="note__tags" aria-label="Tags"><li>arpeggiator</li><li>external</li></ul></li>
+        </ol>
+      </section>
+      <section class="part" id="interface" aria-labelledby="interface-t" data-part="interface">
+        <header class="part__head"><h2 class="part__title" id="interface-t">Interface</h2><p class="part__about">The screen, the pads and the keys. <span class="part__count">5 changes</span></p></header>
+        <ol class="part__list">
+          <li class="note" id="u-larger-step-figures" data-note><h3 class="note__title" id="u-larger-step-figures-t" tabindex="-1">Larger step figures</h3><p class="note__summary">The step display uses a larger set of figures that can be read from across a stage.</p><ul class="note__tags" aria-label="Tags"><li>display</li><li>legibility</li></ul></li>
+          <li class="note" id="u-brightness-coded-pad-palette" data-note><h3 class="note__title" id="u-brightness-coded-pad-palette-t" tabindex="-1">Brightness-coded pad palette</h3><p class="note__summary">An optional pad palette that tells tracks apart by brightness as well as by hue.</p><ul class="note__tags" aria-label="Tags"><li>pads</li><li>legibility</li></ul></li>
+          <li class="note" id="u-pads-dim-when-idle" data-note><h3 class="note__title" id="u-pads-dim-when-idle-t" tabindex="-1">Pads dim when idle</h3><p class="note__summary">After ten idle minutes the pads dim to a tenth of their brightness.</p><ul class="note__tags" aria-label="Tags"><li>display</li><li>power</li></ul></li>
+          <li class="note" id="u-fine-mode-for-knobs" data-note><h3 class="note__title" id="u-fine-mode-for-knobs-t" tabindex="-1">Fine mode for knobs</h3><p class="note__summary">Hold Shift while turning any knob for steps ten times finer.</p><ul class="note__tags" aria-label="Tags"><li>editing</li><li>knobs</li></ul></li>
+          <li class="note" id="u-help-overlay" data-note><h3 class="note__title" id="u-help-overlay-t" tabindex="-1">Help overlay</h3><p class="note__summary">Hold the Help key to see what every lit control does on the current page.</p><ul class="note__tags" aria-label="Tags"><li>learning</li><li>display</li></ul></li>
+        </ol>
+      </section>
+      <section class="part" id="fixes" aria-labelledby="fixes-t" data-part="fixes">
+        <header class="part__head"><h2 class="part__title" id="fixes-t">Fixes</h2><p class="part__about">What used to go wrong and no longer does. <span class="part__count">10 changes</span></p></header>
+        <ol class="part__list">
+          <li class="note" id="u-clock-drift-at-fast-tempos" data-note><h3 class="note__title" id="u-clock-drift-at-fast-tempos-t" tabindex="-1">Clock drift at fast tempos</h3><p class="note__summary">Fixed a drift of up to 2 ms per bar above 180 BPM when synced to an external clock.</p><ul class="note__tags" aria-label="Tags"><li>sync</li><li>timing</li></ul></li>
+          <li class="note" id="u-stuck-notes-on-pattern-change" data-note><h3 class="note__title" id="u-stuck-notes-on-pattern-change-t" tabindex="-1">Stuck notes on pattern change</h3><p class="note__summary">Notes held across a pattern change now always receive their note off.</p><ul class="note__tags" aria-label="Tags"><li>midi</li><li>patterns</li></ul></li>
+          <li class="note" id="u-clicks-on-24-bit-wav-import" data-note><h3 class="note__title" id="u-clicks-on-24-bit-wav-import-t" tabindex="-1">Clicks on 24-bit WAV import</h3><p class="note__summary">24-bit WAV files no longer import with a click at the start.</p><ul class="note__tags" aria-label="Tags"><li>sampler</li><li>import</li></ul></li>
+          <li class="note" id="u-pad-latency" data-note><h3 class="note__title" id="u-pad-latency-t" tabindex="-1">Pad latency</h3><p class="note__summary">The time from a pad press to sound is down from 6 ms to under 3 ms.</p><ul class="note__tags" aria-label="Tags"><li>pads</li><li>timing</li></ul></li>
+          <li class="note" id="u-release-tails-stealing-voices" data-note><h3 class="note__title" id="u-release-tails-stealing-voices-t" tabindex="-1">Release tails stealing voices</h3><p class="note__summary">A long release tail no longer takes a voice from a note that is still held.</p><ul class="note__tags" aria-label="Tags"><li>polyphony</li></ul></li>
+          <li class="note" id="u-saving-during-a-power-cut" data-note><h3 class="note__title" id="u-saving-during-a-power-cut-t" tabindex="-1">Saving during a power cut</h3><p class="note__summary">A project being saved when the power is cut is no longer corrupted.</p><ul class="note__tags" aria-label="Tags"><li>projects</li><li>power</li></ul></li>
+          <li class="note" id="u-screen-flicker-in-the-cold" data-note><h3 class="note__title" id="u-screen-flicker-in-the-cold-t" tabindex="-1">Screen flicker in the cold</h3><p class="note__summary">Fixed a flicker of the screen in rooms below 10 degrees.</p><ul class="note__tags" aria-label="Tags"><li>display</li></ul></li>
+          <li class="note" id="u-arpeggiator-octave-reset" data-note><h3 class="note__title" id="u-arpeggiator-octave-reset-t" tabindex="-1">Arpeggiator octave reset</h3><p class="note__summary">The arpeggiator returns to its first octave when the pattern restarts.</p><ul class="note__tags" aria-label="Tags"><li>arpeggiator</li></ul></li>
+          <li class="note" id="u-tempo-jumps-in-chains" data-note><h3 class="note__title" id="u-tempo-jumps-in-chains-t" tabindex="-1">Tempo jumps in chains</h3><p class="note__summary">Chains that change tempo between patterns now change it on the bar line, not halfway through.</p><ul class="note__tags" aria-label="Tags"><li>song</li><li>timing</li></ul></li>
+          <li class="note" id="u-usb-audio-dropouts" data-note><h3 class="note__title" id="u-usb-audio-dropouts-t" tabindex="-1">USB audio dropouts</h3><p class="note__summary">Fixed dropouts in USB audio after the computer sleeps and wakes.</p><ul class="note__tags" aria-label="Tags"><li>usb</li><li>audio</li></ul></li>
+        </ol>
+      </section>
+    </div>
+    <section class="signup" aria-labelledby="signup-t">
+      <h2 class="signup__title" id="signup-t">The next release, by email</h2>
+      <form class="signup__form" action="#" data-signup>
+        <label class="signup__label" for="signup-email">Email address</label>
+        <div class="signup__row">
+          <input class="signup__input" id="signup-email" name="email" type="email" autocomplete="email" required>
+          <button class="signup__send" type="submit">Send me the notes</button>
+        </div>
+        <p class="signup__note" role="status" data-signup-status>Typing here never opens search: the shortcuts are ignored inside text fields.</p>
+      </form>
+    </section>
+  </main>
+
+  <dialog class="search" aria-labelledby="search-t" data-dialog>
+    <div class="search__panel" data-panel>
+      <h2 class="sr-only" id="search-t">Search the release notes</h2>
+      <div class="search__bar">
+        <label class="sr-only" for="search-q">Search 48 changes</label>
+        <svg class="search__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12.5 12.5 L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="square"/></svg>
+        <input class="search__input" id="search-q" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="search-results" aria-describedby="search-keys" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type to search 48 changes" data-q>
+        <span class="search__count" aria-hidden="true" data-count>48 of 48</span>
+        <button class="search__close" type="button" data-close><span class="sr-only">Close search</span><span class="search__esc" aria-hidden="true">Esc</span><span class="search__x" aria-hidden="true">Close</span></button>
+      </div>
+      <div class="search__filters">
+        <div class="search__toggles" role="group" aria-label="Sections to search">
+          <button class="filter" type="button" aria-pressed="false" data-filter="sequencer">Sequencer</button>
+          <button class="filter" type="button" aria-pressed="false" data-filter="voices">Voices</button>
+          <button class="filter" type="button" aria-pressed="false" data-filter="effects">Effects</button>
+          <button class="filter" type="button" aria-pressed="false" data-filter="midi">MIDI</button>
+          <button class="filter" type="button" aria-pressed="false" data-filter="interface">Interface</button>
+          <button class="filter" type="button" aria-pressed="false" data-filter="fixes">Fixes</button>
+        </div>
+      </div>
+      <ul class="search__results" id="search-results" role="listbox" aria-label="Matching changes" data-results></ul>
+      <div class="search__empty" data-empty hidden>
+        <p class="search__empty-text" data-empty-text>Nothing matches.</p>
+        <button class="search__clear" type="button" data-clear>Clear filters</button>
+      </div>
+      <p class="search__keys" id="search-keys" data-keys><kbd>↑</kbd> <kbd>↓</kbd> move through results, <kbd>Enter</kbd> opens the lit one, <kbd>Esc</kbd> closes.</p>
+      <p class="sr-only" role="status" aria-live="polite" data-status></p>
+    </div>
+  </dialog>
+
+  <footer class="footer"><p class="footer__note">Synthetic demo content: Corvid and its release are invented · awards recipe draft · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

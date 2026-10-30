@@ -315,24 +315,33 @@ eachCss((file, css, off = 0) => {
 });
 
 // ---------- rules: colour ----------
-{
-  const props = customProperties(cssText);
-  const groundKeys = Object.keys(props).filter((k) => /^(ground|bg|background|surface|paper|canvas|color-bg|color-background)/.test(k));
-  const inkKeys = Object.keys(props).filter((k) => /^(ink|text|fg|foreground|color-text|color-ink)/.test(k));
+// The token rules read one palette at a time. When two or more stylesheets each declare their own ground and ink (a
+// folder of independent pages, such as the recipes), each is read alone: pooled, one page's ink would be measured on
+// another page's paper, and which value a shared name kept would depend on the order the directory lists its files.
+// The stylesheets that declare only one side, or none, are still pooled, so tokens split across files are read whole;
+// with at most one such stylesheet the whole project is one palette, as before.
+const GROUND_TOKEN = /^(ground|bg|background|surface|paper|canvas|color-bg|color-background)/;
+const INK_TOKEN = /^(ink|text|fg|foreground|color-text|color-ink)/;
+const palettes = (() => {
+  const sheets = [
+    ...cssSources.map((s) => ({ file: s.file, css: stripComments(s.text) })),
+    ...htmlSources.map((s) => ({ file: s.file, css: stripComments((s.text.match(/<style[^>]*>([\s\S]*?)<\/style>/gi) || []).join('\n')) })),
+  ].map((s) => ({ ...s, props: customProperties(s.css) }));
+  const own = sheets.filter((s) => Object.keys(s.props).some((k) => GROUND_TOKEN.test(k)) && Object.keys(s.props).some((k) => INK_TOKEN.test(k)));
+  if (own.length < 2) return [{ where: 'tokens', props: customProperties(cssText) }];
+  const rest = sheets.filter((s) => !own.includes(s) && s.css.trim());
+  return [...own.map((s) => ({ where: rel(s.file), props: s.props })), ...(rest.length ? [{ where: 'tokens', props: customProperties(rest.map((s) => s.css).join('\n')) }] : [])];
+})();
+for (const { where, props } of palettes) {
+  const groundKeys = Object.keys(props).filter((k) => GROUND_TOKEN.test(k));
+  const inkKeys = Object.keys(props).filter((k) => INK_TOKEN.test(k));
   for (const g of groundKeys) for (const i of inkKeys) {
     const ratio = contrastRatio(props[g], props[i]);
-    if (ratio !== null && ratio < 4.5) add('C01', 'tokens', null, `--${i} on --${g} = ${ratio}:1`);
-  }
-  // The body selector itself, not .body, tbody or #body.
-  const bodyBg = cssText.match(/(?:^|[\s,}])body\s*\{[^}]*background(?:-color)?\s*:\s*([^;}]+)/i);
-  const bodyFg = cssText.match(/(?:^|[\s,}])body\s*\{[^}]*[^-]color\s*:\s*([^;}]+)/i);
-  if (bodyBg && bodyFg) {
-    const ratio = contrastRatio(bodyBg[1].trim(), bodyFg[1].trim());
-    if (ratio !== null && ratio < 4.5) add('C01', 'body', null, `${bodyFg[1].trim()} on ${bodyBg[1].trim()} = ${ratio}:1`);
+    if (ratio !== null && ratio < 4.5) add('C01', where, null, `--${i} on --${g} = ${ratio}:1`);
   }
   for (const g of groundKeys) {
     const v = props[g].toLowerCase().replace(/\s/g, '');
-    if (/^#(000|000000|fff|ffffff)$/.test(v)) add('C02', 'tokens', null, `--${g}: ${props[g]}`);
+    if (/^#(000|000000|fff|ffffff)$/.test(v)) add('C02', where, null, `--${g}: ${props[g]}`);
   }
   const hues = new Set();
   for (const v of Object.values(props)) {
@@ -341,7 +350,16 @@ eachCss((file, css, off = 0) => {
     const { hue, sat } = hueOf(c);
     if (hue !== null && sat > 0.15) hues.add(Math.round(hue / 15));
   }
-  if (hues.size > 6) add('C03', 'tokens', null, `${hues.size} hue families`);
+  if (hues.size > 6) add('C03', where, null, `${hues.size} hue families`);
+}
+{
+  // The body selector itself, not .body, tbody or #body.
+  const bodyBg = cssText.match(/(?:^|[\s,}])body\s*\{[^}]*background(?:-color)?\s*:\s*([^;}]+)/i);
+  const bodyFg = cssText.match(/(?:^|[\s,}])body\s*\{[^}]*[^-]color\s*:\s*([^;}]+)/i);
+  if (bodyBg && bodyFg) {
+    const ratio = contrastRatio(bodyBg[1].trim(), bodyFg[1].trim());
+    if (ratio !== null && ratio < 4.5) add('C01', 'body', null, `${bodyFg[1].trim()} on ${bodyBg[1].trim()} = ${ratio}:1`);
+  }
 }
 
 // ---------- rules: motion (JS) ----------

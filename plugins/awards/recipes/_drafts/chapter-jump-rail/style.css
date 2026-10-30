@@ -1,0 +1,142 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after.
+   A draft sits one folder deeper than a recipe; scripts/drafts.mjs promote rewrites ../../ to ../ on the way out. */
+@import "../../_shared/base.css";
+
+/* The guide's own world: peat ground, bone ink, one bracken accent for "you are here". */
+:root {
+  --ground: #13201a;
+  --ink: #ece5d3;
+  --accent: #f0894b;
+  --muted: color-mix(in oklab, var(--ink) 66%, var(--ground));
+  --line: color-mix(in oklab, var(--ink) 18%, var(--ground));
+  --font-serif: Charter, "Bitstream Charter", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --rail-w: 13.5rem;
+  --ticket-h: 60px;
+  --content: 40rem;
+}
+html { color-scheme: dark; scrollbar-color: var(--muted) var(--ground); }
+::selection { background: var(--accent); color: var(--ground); }
+body { font-family: var(--font-serif); font-size: 1.125rem; line-height: 1.6; }
+
+.skip-link { position: absolute; left: var(--gutter); top: 8px; z-index: 50; padding: 10px 14px; background: var(--ink); color: var(--ground); font-family: var(--font-body); font-size: 0.875rem; transform: translateY(-200%); }
+.skip-link:focus-visible { transform: none; }
+
+.masthead { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px calc(var(--unit) * 6); min-height: 72px; padding-inline: var(--gutter); font-family: var(--font-body); }
+.masthead__brand { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; letter-spacing: -0.01em; text-decoration: none; }
+.masthead__note { margin: 0; font-family: var(--font-mono); font-size: var(--label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+/* Desktop: the rail owns a fixed column on the left; the guide reads in the column beside it. */
+main { padding-left: calc(var(--gutter) * 2 + var(--rail-w)); padding-right: var(--gutter); }
+
+.intro { min-height: calc(100svh - 72px); display: grid; align-content: end; gap: calc(var(--unit) * 6); padding-block: 12vh 14vh; }
+.intro__title { margin: 0; font-size: clamp(3.5rem, 10vw, 10.5rem); font-weight: 700; line-height: 0.88; letter-spacing: -0.035em; }
+.intro__lede { margin: 0; max-width: 34ch; font-size: clamp(1.25rem, 1.9vw, 1.75rem); line-height: 1.35; }
+.intro__how { margin: 0; max-width: 52ch; color: var(--muted); }
+
+/* ---------- The rail ---------- */
+.rail { font-family: var(--font-body); }
+.rail__ticket { display: none; }
+.rail__body { position: relative; }
+.rail__head { margin: 0 0 calc(var(--unit) * 3); padding-inline-start: 19px; font-family: var(--font-mono); font-size: var(--label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.rail__list { list-style: none; margin: 0; padding: 0; border-inline-start: 1px solid var(--line); margin-inline-start: 1px; }
+.rail__link { position: relative; display: grid; grid-template-columns: 1.75rem minmax(0, 1fr); grid-template-rows: auto auto; align-items: baseline; column-gap: 6px; min-height: 52px; padding-block: 10px; padding-inline: 18px 0; color: var(--muted); text-decoration: none; transition: color var(--dur-routine) var(--ease-out-expo); }
+.rail__link:hover { color: var(--ink); }
+.rail__link:focus-visible { outline-offset: 0; }
+.rail__num { font-family: var(--font-mono); font-size: 0.8125rem; font-variant-numeric: tabular-nums; transition: color var(--dur-routine) var(--ease-out-expo); }
+.rail__name { font-size: 1.0625rem; line-height: 1.25; }
+.rail__rule { grid-column: 2; display: block; height: 2px; margin-top: 8px; background: var(--line); overflow: hidden; }
+.rail__fill { display: block; height: 100%; background: var(--muted); transform-origin: 0 50%; transform: scaleX(0); }
+html[dir="rtl"] .rail__fill { transform-origin: 100% 50%; }
+.rail__link[aria-current="true"] { color: var(--ink); }
+.rail__link[aria-current="true"] .rail__num { color: var(--accent); }
+.rail__link[aria-current="true"] .rail__fill { background: var(--accent); }
+
+/* The marker: one bar riding the list's 1 px track, moved by a written transform on the routine band. */
+.rail__marker { position: absolute; top: 0; inset-inline-start: 0; width: 3px; height: 0; background: var(--accent); opacity: 0; pointer-events: none; transition: transform var(--dur-routine) var(--ease-out-expo), opacity var(--dur-routine) linear; }
+.rail__marker.is-on { opacity: 1; }
+.rail__marker.is-cut { transition-property: opacity; }
+
+@media (min-width: 900px) {
+  .rail { position: fixed; z-index: 10; left: var(--gutter); top: 50%; width: var(--rail-w); transform: translateY(-50%); }
+  html[dir="rtl"] .rail { left: auto; right: var(--gutter); }
+}
+
+/* ---------- The stages ---------- */
+.stage { padding-block: 12vh 10vh; border-top: 1px solid var(--line); scroll-margin-top: 0; }
+.stage__title { margin: 0 0 calc(var(--unit) * 8); max-width: 15ch; font-size: clamp(2.25rem, 4.8vw, 5rem); font-weight: 700; line-height: 0.98; letter-spacing: -0.025em; outline-offset: 8px; }
+.stage__num { display: block; margin-bottom: calc(var(--unit) * 4); font-family: var(--font-mono); font-size: 0.8125rem; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.stage__aside { margin: 0 0 calc(var(--unit) * 10); max-width: var(--content); }
+/* Every profile shares one altitude scale (0–600 m on the same baseline), so the six stages compare at a glance. */
+.stage__chart { position: relative; padding-inline-start: 3.25rem; }
+.stage__profile { display: block; width: 100%; height: clamp(88px, 12vw, 150px); }
+.stage__ground { fill: color-mix(in oklab, var(--ink) 16%, var(--ground)); }
+.stage__grid { fill: none; stroke: color-mix(in oklab, var(--ink) 34%, var(--ground)); stroke-width: 1; stroke-dasharray: 2 5; vector-effect: non-scaling-stroke; }
+.stage__line { fill: none; stroke: var(--ink); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.stage__alt { position: absolute; inset-inline-start: 0; translate: 0 -50%; font-family: var(--font-mono); font-size: 0.6875rem; line-height: 1; letter-spacing: 0.04em; color: var(--muted); white-space: nowrap; }
+.stage__alt--400 { top: calc(44 / 120 * 100%); }
+.stage__alt--200 { top: calc(80 / 120 * 100%); }
+.stage__facts { margin-top: calc(var(--unit) * 4); padding-top: calc(var(--unit) * 3); border-top: 1px solid var(--line); font-style: italic; font-size: 1.1875rem; line-height: 1.4; color: var(--muted); }
+.stage__text { max-width: var(--content); }
+.stage__text p { margin: 0 0 1.1em; }
+.stage__next { margin-top: calc(var(--unit) * 10) !important; font-family: var(--font-body); font-size: 1rem; }
+.stage__next a { display: inline-flex; align-items: center; min-height: 44px; color: var(--accent); }
+
+/* Wide screens: the stage's profile and its facts hold beside the text while it is read. */
+@media (min-width: 1180px) {
+  .stage { display: grid; grid-template-columns: minmax(0, 36rem) minmax(0, 1fr); grid-template-rows: auto 1fr; column-gap: 5vw; align-items: start; }
+  .stage__title { grid-column: 1 / -1; }
+  .stage__text { grid-column: 1; grid-row: 2; }
+  .stage__aside { grid-column: 2; grid-row: 2; position: sticky; top: 24vh; margin: 0; }
+}
+
+.close { padding-block: 16vh; border-top: 1px solid var(--line); }
+.close h2 { margin: 0 0 calc(var(--unit) * 5); font-size: clamp(1.75rem, 3vw, 2.75rem); line-height: 1; }
+.close p { max-width: var(--content); margin: 0; }
+.footer { padding: calc(var(--unit) * 10) var(--gutter); }
+.footer__note { margin: 0; font-family: var(--font-mono); font-size: var(--label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+/* ---------- Phones and narrow tablets: the ticket ---------- */
+@media (max-width: 899.98px) {
+  main { padding-left: var(--gutter); }
+  .intro { min-height: 78svh; padding-block: 8vh 10vh; }
+  .rail { margin: 0 calc(var(--gutter) * -1); padding: 0 var(--gutter) calc(var(--unit) * 8); }
+  .rail[data-enhanced] { position: sticky; top: 0; z-index: 10; padding: 0; background: var(--ground); border-bottom: 1px solid var(--line); }
+  .rail[data-enhanced] .rail__ticket { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr) 20px; align-items: center; gap: 12px; width: 100%; min-height: var(--ticket-h); padding: 8px var(--gutter); border: 0; background: none; text-align: start; cursor: pointer; }
+  .rail__ticket-num { font-family: var(--font-mono); font-size: 0.8125rem; font-variant-numeric: tabular-nums; color: var(--accent); white-space: nowrap; }
+  .rail__ticket-name { font-size: 1.0625rem; font-weight: 700; line-height: 1.2; overflow-wrap: anywhere; }
+  .rail__chevron { justify-self: end; width: 10px; height: 10px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: translateY(-3px) rotate(45deg); transition: transform var(--dur-routine) var(--ease-out-expo); }
+  .rail__ticket[aria-expanded="true"] .rail__chevron { transform: translateY(2px) rotate(225deg); }
+  .rail__ticket-rule { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; overflow: hidden; }
+  .rail__ticket-fill { display: block; height: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); }
+  html[dir="rtl"] .rail__ticket-fill { transform-origin: 100% 50%; }
+  .rail__ticket:focus-visible { outline-offset: -4px; }
+  .rail[data-enhanced] .rail__marker { inset-inline-start: var(--gutter); }   /* on the list's track, inside the panel's padding */
+  .rail[data-enhanced] .rail__body { display: none; position: absolute; top: calc(100% + 1px); left: 0; right: 0; max-height: calc(100svh - var(--ticket-h) - 24px); overflow: auto; overscroll-behavior: contain; padding: calc(var(--unit) * 5) var(--gutter) calc(var(--unit) * 6); background: var(--ground); border-bottom: 1px solid var(--line); }
+  .rail[data-enhanced][data-open] .rail__body { display: block; transition: opacity var(--dur-routine) linear, translate var(--dur-routine) var(--ease-out-expo); }
+  @starting-style { .rail[data-enhanced][data-open] .rail__body { opacity: 0; translate: 0 -8px; } }
+  .rail__link { min-height: 56px; }
+  .stage { padding-block: 12vh 10vh; scroll-margin-top: var(--ticket-h); }
+}
+
+/* Reduced motion keeps every state change (current link, colours, fills) and drops the travel: the marker cuts, the
+   chevron and the open list do not move. */
+@media (prefers-reduced-motion: reduce) {
+  .rail__marker { transition-property: opacity; }
+  .rail__chevron { transition: none; }
+  .rail[data-enhanced][data-open] .rail__body { transition-property: opacity; }
+  @starting-style { .rail[data-enhanced][data-open] .rail__body { translate: none; } }
+}
+/* The same for a tier forced on <html> (data-motion="reduced" or "static"), which motionTier() honours without the media query. */
+html[data-motion="reduced"] .rail__marker, html[data-motion="static"] .rail__marker { transition-property: opacity; }
+html[data-motion="reduced"] .rail__chevron, html[data-motion="static"] .rail__chevron { transition: none; }
+html[data-motion="reduced"] .rail[data-enhanced][data-open] .rail__body { transition-property: opacity; }
+@starting-style { html[data-motion="reduced"] .rail[data-enhanced][data-open] .rail__body, html[data-motion="static"] .rail[data-enhanced][data-open] .rail__body { translate: none; } }
+/* Static settles everything: no colour transitions, the list opens without a fade. */
+html[data-motion="static"] .rail__marker, html[data-motion="static"] .rail__link, html[data-motion="static"] .rail__num, html[data-motion="static"] .rail[data-enhanced][data-open] .rail__body { transition: none; }
+
+/* Forced colours drop the marker's and the fills' backgrounds: the current link carries an outline instead. */
+@media (forced-colors: active) {
+  .rail__marker { display: none; }
+  .rail__link[aria-current="true"] { outline: 2px solid Highlight; outline-offset: -2px; }
+  .rail__fill, .rail__ticket-fill { forced-color-adjust: none; background: Highlight; }
+}

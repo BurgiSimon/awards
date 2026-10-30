@@ -1,0 +1,134 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after.
+   A draft sits one folder deeper than a recipe; scripts/drafts.mjs promote rewrites ../../ to ../ on the way out. */
+@import "../../_shared/base.css";
+
+/* Its own small world: a plaster wall in afternoon light, a walnut desk, and a dark app glowing amber on the laptop. */
+:root {
+  --ground: #e2c3a9;
+  --ink: #2a1a12;
+  --accent: #8a3f1c;
+  --muted: color-mix(in oklab, var(--ink) 74%, var(--ground));
+  --line: color-mix(in oklab, var(--ink) 18%, var(--ground));
+  --apron: #3b2216;
+  --apron-ink: #f0e2cf;
+  --app-bg: #17181b;
+  --app-ink: #ece5d6;
+  --app-dim: #a8a296;
+  --app-hit: #ffb547;
+}
+::selection { background: var(--ink); color: var(--ground); }
+
+/* The stage: a tall section and a sticky frame; the scroll through it is the warp's only input. The script sets
+   data-rail="true" in the full tier only; otherwise (reduced, static, no script) the stage is one screen tall. */
+.stage { position: relative; height: 280svh; }
+.stage[data-rail="false"] { height: auto; }
+.stage__sticky { position: sticky; top: 0; height: 100svh; display: flex; flex-direction: column; overflow: hidden; background: var(--ground); }
+.stage[data-rail="false"] .stage__sticky { position: relative; }
+.scene { position: relative; flex: 1 1 auto; min-height: 0; container-type: size; overflow: hidden; }
+
+/* The drawing covers the scene unless the frame is so narrow that covering would crop the lid: then it scales to fit
+   the lid across 92 % of the width, sits on the caption, and the wall runs on above it. The lid spans x 444–978 of the
+   1600-wide viewBox (centre .4444), so the fit is 1600 × .92 / 534 = 2.757 widths. Cropped either way, the lid's centre
+   stays in the middle and the drawing's point .45 of the way down (just above the laptop's middle) sits mid-frame, never
+   leaving a gap at an edge. The box keeps the viewBox's 16:10, and getScreenCTM reads the result whatever it is. */
+.scene__art {
+  --w: min(max(100cqw, 160cqh), 275.7cqw);
+  position: absolute; max-width: none;
+  width: var(--w); height: calc(var(--w) / 1.6);
+  left: clamp(100cqw - var(--w), 50cqw - 0.4444 * var(--w), 0px);
+  top: clamp(100cqh - var(--w) / 1.6, 50cqh - 0.45 * var(--w) / 1.6, 0px);
+}
+
+/* The screen: a fixed-size box of real DOM, positioned by the script (centred here as a fallback), transformed from its
+   top-left corner. Its size is the size of the flat state; everything inside scales with it through container units. */
+.screen {
+  position: absolute; z-index: 2; inset: 0; margin: auto; width: min(40rem, 86%); aspect-ratio: 16 / 10;
+  transform-origin: 0 0; container-type: size;
+  color: var(--app-ink);
+}
+/* The lift shadow and the glare are children of the screen, so the matrix carries them; the script writes only their
+   opacity (1 − e and e), on their own layers, so the scrub never repaints the app. */
+.screen__lift, .screen__glare { position: absolute; inset: 0; pointer-events: none; will-change: opacity; }
+.screen__lift { z-index: -1; border-radius: 12px; box-shadow: 0 40px 80px -30px rgb(58 32 18 / 0.55); }
+.screen__glare { z-index: 1; opacity: 0; background: linear-gradient(135deg, rgb(255 255 255 / 0.17), rgb(255 255 255 / 0.04) 42%, transparent 43%); }
+
+/* The intro sits before the stage, in the flow, so no words ever share the frame with the warp. */
+.intro { min-height: 64svh; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: calc(var(--unit) * 12); align-content: end; align-items: end; padding-block: 96px calc(var(--unit) * 14); }
+.intro__note { grid-column: 1 / -1; margin: 0 0 calc(var(--unit) * 6); font-family: var(--font-mono); font-size: var(--label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.intro__title { margin: 0; max-width: 15ch; font-family: var(--font-display); font-size: clamp(2.5rem, 5.6vw, 6.25rem); font-weight: 600; line-height: 0.95; letter-spacing: -0.035em; }
+.intro__lede { margin: 0; max-width: 42ch; font-size: clamp(1.0625rem, 1.3vw, 1.25rem); line-height: 1.45; }
+.intro code, .how code { font-family: var(--font-mono); font-size: 0.9em; }
+
+/* The app: a sequencer in em units of a font size set by the screen's own width. */
+.app { position: absolute; inset: 0; overflow: hidden; display: grid; grid-template-rows: auto auto 1fr auto; border-radius: 12px; background: var(--app-bg); font-family: var(--font-body); font-size: 2.6cqw; line-height: 1.2; }
+.screen[data-placed] .app { border-radius: 0; }
+.app__bar { display: flex; align-items: center; gap: 0.8em; height: 2.2em; padding: 0 0.9em; background: #212226; font-size: 0.8em; }
+.app__dots { display: inline-flex; flex: none; gap: 0.4em; }
+.app__dots i { width: 0.7em; height: 0.7em; border-radius: 50%; background: #45474d; }
+.app__name { font-weight: 700; }
+.app__file { margin-left: auto; font-family: var(--font-mono); color: var(--app-dim); }
+.app__name, .app__file, .app__title, .app__tempo, .app__note { min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.app__head { display: flex; align-items: baseline; justify-content: space-between; gap: 1em; padding: 0.9em 1em 0.5em; }
+.app__title { font-size: 1.35em; font-weight: 700; letter-spacing: -0.01em; }
+.app__tempo { flex: none; max-width: 45%; font-family: var(--font-mono); font-size: 0.8em; color: var(--app-dim); }
+.app__tracks { --name-w: 4.4em; position: relative; display: grid; align-content: center; gap: 0.35em; padding: 0 1em; }
+.track { display: grid; grid-template-columns: var(--name-w) minmax(0, 1fr); align-items: center; }
+.track__name { overflow: hidden; font-family: var(--font-mono); font-size: 0.8em; color: #c9c2b4; }
+.track__steps { display: grid; grid-template-columns: repeat(16, minmax(0, 1fr)); height: 2.1em; }
+.cell { position: relative; }
+.cell::before { content: ""; position: absolute; inset: 0.18em; border-radius: 0.2em; background: #2a2c31; }
+.cell:nth-child(4n + 1)::before { background: #33353b; }
+.cell.on::before { background: #b77e2e; }
+/* One playhead column swept in sixteen steps; every lit cell flashes as the head reaches it, from the same clock.
+   Both are stepped (no glide), so the reduced tier keeps them once the visitor presses Play. */
+.app__playhead { position: absolute; top: -0.2em; bottom: -0.2em; left: calc(1em + var(--name-w)); width: calc((100% - 2em - var(--name-w)) / 16); border-radius: 0.2em; background: rgb(236 229 214 / 0.14); box-shadow: inset 0 0 0 0.1em rgb(236 229 214 / 0.5); animation: sweep 4s steps(16, end) infinite; }
+.cell.on::before { animation: hit 4s steps(1, end) infinite; animation-delay: calc(var(--c) * 0.25s); }
+.app__foot { display: flex; align-items: center; justify-content: space-between; gap: 1em; padding: 0.6em 1em 0.9em; }
+.app__toggle { flex: none; min-height: 2.75em; padding: 0 1.2em; border: 2px solid transparent; border-radius: 1.4em; background: var(--app-hit); color: #1d1408; font-size: 1em; font-weight: 700; white-space: nowrap; cursor: pointer; }
+.app__toggle:focus-visible { outline: 0.15em solid var(--app-ink); outline-offset: 0.18em; }
+.app__note { font-family: var(--font-mono); font-size: 0.8em; color: var(--app-dim); }
+
+@keyframes sweep { to { transform: translateX(1600%); } }
+@keyframes hit { 0% { background: var(--app-hit); } 6.25% { background: #b77e2e; } }
+/* The recording runs only while it is playing and on screen. */
+.app:not([data-playing="true"]) .app__playhead, .app:not([data-playing="true"]) .cell.on::before,
+.app[data-offscreen] .app__playhead, .app[data-offscreen] .cell.on::before { animation-play-state: paused; }
+
+/* A small screen (a phone's flat box is about 335 px): larger type, tighter rows, so the app stays legible once placed. */
+@container (max-width: 480px) {
+  .app { font-size: 3.5cqw; }
+  .app__bar { height: 2em; }
+  .app__head { padding: 0.6em 1em 0.3em; }
+  .app__title { font-size: 1.2em; }
+  .app__tracks { --name-w: 3.4em; gap: 0.2em; }
+  .track__steps { height: 1.55em; }
+  .app__foot { padding: 0.4em 1em 0.6em; }
+}
+
+/* The front edge of the desk: the caption and the page's own loop control, outside the warp at a steady size. */
+.stage__caption { flex: none; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: calc(var(--unit) * 2) calc(var(--unit) * 6); padding: calc(var(--unit) * 3) var(--gutter); background: var(--apron); color: var(--apron-ink); box-shadow: inset 0 3px 0 #5a321d; }
+.stage__label { flex: 1 1 18rem; min-width: 0; margin: 0; font-size: 0.875rem; line-height: 1.35; }
+.stage__toggle { flex: none; min-width: 44px; min-height: 44px; padding: 0 calc(var(--unit) * 5); border: 2px solid transparent; border-radius: 22px; background: var(--app-hit); color: #1d1408; font-size: 0.9375rem; font-weight: 700; cursor: pointer; }
+.stage__toggle:focus-visible { outline: 2px solid var(--apron-ink); outline-offset: 3px; }
+
+.how { display: grid; gap: calc(var(--unit) * 8); padding-block: calc(var(--unit) * 24); }
+.how h2 { margin: 0; font-family: var(--font-display); font-size: clamp(1.75rem, 3.6vw, 3.5rem); font-weight: 600; line-height: 1; letter-spacing: -0.025em; }
+.how__cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: calc(var(--unit) * 10); }
+.how p { max-width: 54ch; margin: 0; }
+.footer { padding-block: calc(var(--unit) * 12); border-top: 1px solid var(--line); }
+.footer .label { margin: 0; }
+
+@media (max-width: 760px) {
+  .intro { grid-template-columns: minmax(0, 1fr); row-gap: calc(var(--unit) * 6); min-height: 70svh; }
+  .how__cols { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Forced colours: the text follows the visitor's palette; the step grid keeps its pattern in system colours, the
+   buttons show their transparent borders, and the shadow and glare go. */
+@media (forced-colors: active) {
+  .app { border: 1px solid CanvasText; }
+  .cell::before { border: 1px solid GrayText; }
+  .cell.on::before { forced-color-adjust: none; background: Highlight; animation: none; }
+  .app__playhead { forced-color-adjust: none; background: none; box-shadow: none; border: 0.12em solid CanvasText; }
+  .screen__lift, .screen__glare { display: none; }
+}

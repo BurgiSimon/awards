@@ -1,0 +1,19 @@
+{
+  "id": "draft-template",
+  "title": "Draft template: one bar the scroll fills",
+  "intent": "Say what the recipe is for",
+  "group": "scroll-set-pieces",
+  "summary": "Replace this with what the recipe demonstrates: the mechanism, its numbers, its tiers. This template fills one bar with the scroll progress of its section, written as a transform on the shared ticker, and holds the bar full under reduced motion",
+  "tags": [
+    "scroll",
+    "scrub",
+    "reduced-motion"
+  ],
+  "tier": "P2",
+  "deps": [],
+  "variants": [
+    "the one this folder builds (default)"
+  ],
+  "seenIn": [],
+  "drafted": "2026-01-01"
+}

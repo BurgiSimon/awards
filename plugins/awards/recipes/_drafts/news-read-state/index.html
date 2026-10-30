@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#174a40">
+  <title>news-read-state — awards recipe draft</title>
+  <meta name="description" content="A dated site diary that remembers what you have read: unread entries marked in text, a live count in the menu, entries read when opened or dwelt on, mark all, and storage that may fail.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23174a40'/%3E%3Crect x='6' y='6' width='9' height='9' fill='%23dbe7dc'/%3E%3Crect x='17' y='6' width='9' height='9' fill='%23dbe7dc'/%3E%3Crect x='6' y='17' width='9' height='9' fill='%23dbe7dc'/%3E%3Crect x='17' y='17' width='9' height='9' fill='%23a83a16'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <!-- The baths in plan, drawn once: each entry's copy fills the part of the building it is about (data-area). -->
+  <svg class="plan-defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <symbol id="plan" viewBox="0 0 160 104">
+      <path class="plan__lane" d="M0 100.5H160"/>
+      <rect class="plan__wall" x="40.5" y="6.5" width="80" height="70"/>
+      <rect class="plan__area plan__gallery" x="40.5" y="6.5" width="80" height="10"/>
+      <rect class="plan__area plan__tank" x="52.5" y="24.5" width="56" height="42"/>
+      <rect class="plan__area plan__lantern" x="66.5" y="32.5" width="28" height="26"/>
+      <rect class="plan__wall" x="120.5" y="6.5" width="34" height="36"/>
+      <rect class="plan__area plan__small" x="127.5" y="13.5" width="20" height="22"/>
+      <rect class="plan__wall" x="120.5" y="42.5" width="34" height="34"/>
+      <path class="plan__area plan__slipper" d="M124.5 46.5h12v8h-12zM138.5 46.5h12v8h-12zM124.5 56.5h12v8h-12zM138.5 56.5h12v8h-12zM124.5 66.5h12v8h-12zM138.5 66.5h12v8h-12z"/>
+      <rect class="plan__area plan__boiler" x="6.5" y="40.5" width="34" height="36"/>
+      <circle class="plan__area plan__chimney" cx="19" cy="27" r="7"/>
+      <rect class="plan__area plan__entrance" x="62.5" y="76.5" width="36" height="18"/>
+    </symbol>
+  </svg>
+  <header class="masthead" data-masthead>
+    <div class="masthead__inner wrap">
+      <a class="masthead__brand" href="#top">Marrow Lane Baths</a>
+      <nav class="masthead__nav" aria-label="Site">
+        <a href="#building">The building</a>
+        <a href="#visit">Visit</a>
+        <a href="#diary" aria-current="page" data-news-link><span class="masthead__label">News</span> <span class="masthead__count" data-count hidden></span></a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="intro wrap" id="top" aria-labelledby="intro-t">
+      <h1 class="intro__title" id="intro-t">Site diary</h1>
+      <p class="intro__lede">The 1891 baths on Marrow Lane are being restored so people can swim in them again. We write from the site every week or so, and mark on the plan where the work was.</p>
+    </section>
+    <!-- The dado: the baths' own bottle-green glazed tiles under a rail, drawn as tiles (a body, a glaze, a catch of light), not ruled. -->
+    <svg class="dado" aria-hidden="true" focusable="false">
+      <defs>
+        <pattern id="dado-tile" width="44" height="44" patternUnits="userSpaceOnUse" y="6">
+          <rect class="dado__grout" width="44" height="44"/>
+          <rect class="dado__tile" x="1" y="1" width="21" height="21" rx="1.5"/>
+          <rect class="dado__tile dado__tile--deep" x="23" y="1" width="20" height="21" rx="1.5"/>
+          <rect class="dado__tile dado__tile--deep" x="1" y="23" width="21" height="20" rx="1.5"/>
+          <rect class="dado__tile" x="23" y="23" width="20" height="20" rx="1.5"/>
+          <path class="dado__sheen" d="M4 6.5q4-3 10-2.5M26 7q3-2.5 8-2M4 28.5q4-3 10-2.5M26 28q3-2 9-2"/>
+        </pattern>
+      </defs>
+      <rect class="dado__rail" width="100%" height="6"/>
+      <rect y="6" width="100%" height="44" fill="url(#dado-tile)"/>
+    </svg>
+
+    <section class="diary-wrap wrap" id="diary" aria-labelledby="diary-t">
+      <h2 class="sr-only" id="diary-t">Diary entries, newest first</h2>
+      <div class="diary__bar">
+        <div class="diary__head">
+          <p class="diary__summary" data-summary>9 entries, newest first</p>
+          <p class="diary__note" id="storage-note" data-storage-note hidden></p>
+        </div>
+        <button type="button" class="diary__all" data-mark-all aria-disabled="true" hidden>Mark all as read</button>
+      </div>
+      <ol class="diary" data-diary>
+        <li class="entry" data-entry data-id="2026-10-24-lantern">
+          <article class="entry__article" aria-labelledby="t-lantern">
+            <time class="entry__date" datetime="2026-10-24"><span class="entry__day">24</span> <span class="entry__month">Oct 2026</span></time>
+            <div class="entry__main">
+              <p class="entry__meta">Week 41 · Roof · works <data value="74">74 %</data> done</p>
+              <h2 class="entry__title" id="t-lantern">The roof lantern goes back on<span class="entry__flag" data-flag hidden><span class="sr-only">, </span>New</span></h2>
+              <p class="entry__lede">Thirty-two panes cut to the 1891 drawings went up over the main pool hall in one dry morning.</p>
+              <details class="entry__more" data-more>
+                <summary class="entry__toggle"><span class="entry__toggle-open">Read the entry</span><span class="entry__toggle-close">Close the entry</span><span class="sr-only">: the roof lantern</span></summary>
+                <div class="entry__body">
+                  <p>The lantern frame came back from the foundry in August, blasted and primed; the glass waited for a day without wind. On Tuesday the crane lifted it in four sections and the glaziers had the last pane bedded by two.</p>
+                  <p>For the first time since the 1970s the pool hall is lit from above. The light falls exactly where the old photographs show it, on the deep end.</p>
+                </div>
+              </details>
+            </div>
+            <svg class="entry__plan" data-area="lantern" viewBox="0 0 160 104" aria-hidden="true" focusable="false"><use href="#plan"/></svg>
+          </article>
+        </li>
+        <li class="entry" data-entry data-id="2026-10-17-tiles">
+          <article class="entry__article" aria-labelledby="t-tiles">
+            <time class="entry__date" datetime="2026-10-17"><span class="entry__day">17</span> <span class="entry__month">Oct 2026</span></time>
+            <div class="entry__main">
+              <p class="entry__meta">Week 40 · Finishes · works <data value="71">71 %</data> done</p>
+              <h2 class="entry__title" id="t-tiles">Tiles from the reclamation yard match at last<span class="entry__flag" data-flag hidden><span class="sr-only">, </span>New</span></h2>
+              <p class="entry__lede">After four kiln batches that were nearly right, a yard in the north turned up 600 glazed green tiles from a demolished baths.</p>
+              <details class="entry__more" data-more>
+                <summary class="entry__toggle"><span class="entry__toggle-open">Read the entry</span><span class="entry__toggle-close">Close the entry</span><span class="sr-only">: the tiles</span></summary>
+                <div class="entry__body">
+                  <p>The surviving dado is a deep bottle green with a crackle that new glazes never quite reproduce. The reclaimed tiles are the same size to the millimetre, which suggests the same maker.</p>
+                  <p>They go on the gallery stair first, where the most original tiles were lost; the new kiln batch fills the plant room, where nobody will compare.</p>
+                </div>
+              </details>
+            </div>
+            <svg class="entry__plan" data-area="gallery" viewBox="0 0 160 104" aria-hidden="true" focusable="false"><use href="#plan"/></svg>
+          </article>
+        </li>
+        <li class="entry" data-entry data-id="2026-10-09-chimney">
+          <article class="entry__article" aria-labelledby="t-chimney">
+            <time class="entry__date" datetime="2026-10-09"><span class="entry__day">9</span> <span class="entry__month">Oct 2026</span></time>
+            <div class="entry__main">
+              <p class="entry__meta">Week 39 · Structure · works <data value="68">68 %</data> done</p>
+              <h2 class="entry__title" id="t-chimney">The boiler-house chimney is safe to climb<span class="entry__flag" data-flag hidden><span class="sr-only">, </span>New</span></h2>
+              <p class="entry__lede">Scaffold now runs the full 28 metres and the masons have repointed the top third.</p>
+              <details class="entry__more" data-more>
+                <summary class="entry__toggle"><span class="entry__toggle-open">Read the entry</span><span class="entry__toggle-close">Close the entry</span><span class="sr-only">: the chimney</span></summary>
+                <div class="entry__body">
+                  <p>The engineer's survey found the top six courses loose and the cap cracked through. Both have been rebuilt in matching brick, and the lightning conductor, missing since the war, is back.</p>
+                  <p>The chimney stays as a landmark only: the new heat pumps sit in the old coal store and need no flue.</p>
+                </div>
+              </details>
+            </div>
+            <svg class="entry__plan" data-area="chimney" viewBox="0 0 160 104" aria-hidden="true" focusable="false"><use href="#plan"/></svg>
+          </article>
+        </li>
+        <li class="entry" data-entry data-id="2026-09-30-open-day">
+          <article class="entry__article" aria-labelledby="t-open-day">
+            <time class="entry__date" datetime="2026-09-30"><span class="entry__day">30</span> <span class="entry__month">Sep 2026</span></time>
+            <div class="entry__main">
+              <p class="entry__meta">Week 38 · Neighbours · works <data value="66">66 %</data> done</p>
+              <h2 class="entry__title" id="t-open-day">Open day: 214 people in hard hats<span class="entry__flag" data-flag hidden><span class="sr-only">, </span>New</span></h2>
+              <p class="entry__lede">Two of them had learnt to swim in the small pool in 1958 and showed us where the steps used to be.</p>
+              <details class="entry__more" data-more>
+                <summary class="entry__toggle"><span class="entry__toggle-open">Read the entry</span><span class="entry__toggle-close">Close the entry</span><span class="sr-only">: the open day</span></summary>
+                <div class="entry__body">
+                  <p>Tours ran every half hour from ten. The most asked question was when the slipper baths will reopen; the answer is with the small pool, next summer.</p>
+                  <p>The steps our two visitors remembered were found under a later floor the following week.</p>
+                </div>
+              </details>
+            </div>
+            <svg class="entry__plan" data-area="entrance" viewBox="0 0 160 104" aria-hidden="true" focusable="false"><use href="#plan"/></svg>
+          </article>
+        </li>
+        <li class="entry" data-entry data-id="2026-09-19-slipper">
+          <article class="entry__article" aria-labelledby="t-slipper">
+            <time class="entry__date" datetime="2026-09-19"><span class="entry__day">19</span> <span class="entry__month">Sep 2026</span></time>
+            <div class="entry__main">
+              <p class="entry__meta">Week 36 · Archaeology · works <data value="63">63 %</data> done</p>
+              <h2 class="entry__title" id="t-slipper">Slipper baths found under the floor<span class="entry__flag" data-flag hidden><span class="sr-only">, </span>New</span></h2>
+              <p class="entry__lede">Six cast-iron tubs, still plumbed, sealed under a 1960s screed in the old ladies' wing.</p>
+              <details class="entry__more" data-more>
+                <summary class="entry__toggle"><span class="entry__toggle-open">Read the entry</span><span class="entry__toggle-close">Close the entry</span><span class="sr-only">: the slipper baths</span></summary>
+                <div class="entry__body">
+                  <p>Before houses on the lane had bathrooms, a slipper bath cost a penny and came with a towel. Ours were simply floored over when the last of them closed.</p>
+                  <p>Two will be restored and shown as they were; four go to the borough's museum store.</p>
+                </div>
+              </details>
+            </div>
+            <svg class="entry__plan" data-area="slipper" viewBox="0 0 160 104" aria-hidden="true" focusable="false"><use href="#plan"/></svg>
+          </article>
+        </li>
+        <li class="entry" data-entry data-id="2026-09-12-tank">
+          <article class="entry__article" aria-labelledby="t-tank">
+            <time class="entry__date" datetime="2026-09-12"><span class="entry__day">12</span> <span class="entry__month">Sep 2026</span></time>
+            <div class="entry__main">
+              <p class="entry__meta">Week 35 · Pool · works <data value="61">61 %</data> done</p>
+              <h2 class="entry__title" id="t-tank">The pool tank holds water for the first time in forty years<span class="entry__flag" data-flag hidden><span class="sr-only">, </span>New</span></h2>
+              <p class="entry__lede">A seven-day test fill lost less than two centimetres, all of it to evaporation.</p>
+              <details class="entry__more" data-more>
+                <summary class="entry__toggle"><span class="entry__toggle-open">Read the entry</span><span class="entry__toggle-close">Close the entry</span><span class="sr-only">: the test fill</span></summary>
+                <div class="entry__body">
+                  <p>The tank was relined in the spring. Filling it took most of a weekend from a single hydrant, and the street came to watch the level rise past the old depth markings.</p>
+                  <p>It has been drained again so the tilers can start; the next time it fills, it stays full.</p>
+                </div>
+              </details>
+            </div>
+            <svg class="entry__plan" data-area="tank" viewBox="0 0 160 104" aria-hidden="true" focusable="false"><use href="#plan"/></svg>
+          </article>
+        </li>
+        <li class="entry" data-entry data-id="2026-09-02-steel">
+          <article class="entry__article" aria-labelledby="t-steel">
+            <time class="entry__date" datetime="2026-09-02"><span class="entry__day">2</span> <span class="entry__month">Sep 2026</span></time>
+            <div class="entry__main">
+              <p class="entry__meta">Week 34 · Structure · works <data value="58">58 %</data> done</p>
+              <h2 class="entry__title" id="t-steel">Steel for the gallery arrives<span class="entry__flag" data-flag hidden><span class="sr-only">, </span>New</span></h2>
+              <p class="entry__lede">Eleven beams on two lorries, craned in over the lane before the school run.</p>
+              <details class="entry__more" data-more>
+                <summary class="entry__toggle"><span class="entry__toggle-open">Read the entry</span><span class="entry__toggle-close">Close the entry</span><span class="sr-only">: the gallery steel</span></summary>
+                <div class="entry__body">
+                  <p>The spectators' gallery was taken down in 1979 as unsafe. The new one follows its line exactly, in steel this time, with the original iron brackets kept as ornament.</p>
+                  <p>Lifting started at six and the lane reopened at eight fifteen.</p>
+                </div>
+              </details>
+            </div>
+            <svg class="entry__plan" data-area="gallery" viewBox="0 0 160 104" aria-hidden="true" focusable="false"><use href="#plan"/></svg>
+          </article>
+        </li>
+        <li class="entry" data-entry data-id="2026-08-22-bats">
+          <article class="entry__article" aria-labelledby="t-bats">
+            <time class="entry__date" datetime="2026-08-22"><span class="entry__day">22</span> <span class="entry__month">Aug 2026</span></time>
+            <div class="entry__main">
+              <p class="entry__meta">Week 32 · Roof · works <data value="55">55 %</data> done</p>
+              <h2 class="entry__title" id="t-bats">Lead flashing, and a bat survey<span class="entry__flag" data-flag hidden><span class="sr-only">, </span>New</span></h2>
+              <p class="entry__lede">The ecologist found pipistrelles in the boiler-house eaves, so that corner of the roof waits until November.</p>
+              <details class="entry__more" data-more>
+                <summary class="entry__toggle"><span class="entry__toggle-open">Read the entry</span><span class="entry__toggle-close">Close the entry</span><span class="sr-only">: the bat survey</span></summary>
+                <div class="entry__body">
+                  <p>Everywhere else the new lead is on: code 6 on the valleys, dressed by hand. The bats get two boxes of their own on the chimney when the scaffold comes down.</p>
+                </div>
+              </details>
+            </div>
+            <svg class="entry__plan" data-area="boiler" viewBox="0 0 160 104" aria-hidden="true" focusable="false"><use href="#plan"/></svg>
+          </article>
+        </li>
+        <li class="entry" data-entry data-id="2026-08-08-turnstiles">
+          <article class="entry__article" aria-labelledby="t-turnstiles">
+            <time class="entry__date" datetime="2026-08-08"><span class="entry__day">8</span> <span class="entry__month">Aug 2026</span></time>
+            <div class="entry__main">
+              <p class="entry__meta">Week 30 · Archive · works <data value="52">52 %</data> done</p>
+              <h2 class="entry__title" id="t-turnstiles">The turnstiles go to the museum<span class="entry__flag" data-flag hidden><span class="sr-only">, </span>New</span></h2>
+              <p class="entry__lede">Both brass turnstiles from the entrance hall, counters still reading 41,206 and 39,880.</p>
+              <details class="entry__more" data-more>
+                <summary class="entry__toggle"><span class="entry__toggle-open">Read the entry</span><span class="entry__toggle-close">Close the entry</span><span class="sr-only">: the turnstiles</span></summary>
+                <div class="entry__body">
+                  <p>The new entrance needs a level threshold, so the turnstiles could not stay. The museum will show them with the ticket window and the price board from 1951.</p>
+                </div>
+              </details>
+            </div>
+            <svg class="entry__plan" data-area="entrance" viewBox="0 0 160 104" aria-hidden="true" focusable="false"><use href="#plan"/></svg>
+          </article>
+        </li>
+      </ol>
+      <!-- Held back until the demo's publish button: a later entry, so a return visit has something new arrive. -->
+      <template data-held>
+        <li class="entry" data-entry data-id="2026-10-27-small-pool">
+          <article class="entry__article" aria-labelledby="t-small-pool">
+            <time class="entry__date" datetime="2026-10-27"><span class="entry__day">27</span> <span class="entry__month">Oct 2026</span></time>
+            <div class="entry__main">
+              <p class="entry__meta">Week 42 · Pool · works <data value="76">76 %</data> done</p>
+              <h2 class="entry__title" id="t-small-pool">Water in the small pool<span class="entry__flag" data-flag hidden><span class="sr-only">, </span>New</span></h2>
+              <p class="entry__lede">The learner pool is tiled, grouted and full, a season ahead of the main tank.</p>
+              <details class="entry__more" data-more>
+                <summary class="entry__toggle"><span class="entry__toggle-open">Read the entry</span><span class="entry__toggle-close">Close the entry</span><span class="sr-only">: the small pool</span></summary>
+                <div class="entry__body">
+                  <p>The steps our open-day visitors remembered are back where they were, rebuilt from the ones found under the floor. The water is at 29 degrees and staying there for the plant to be tested.</p>
+                </div>
+              </details>
+            </div>
+            <svg class="entry__plan" data-area="small" viewBox="0 0 160 104" aria-hidden="true" focusable="false"><use href="#plan"/></svg>
+          </article>
+        </li>
+      </template>
+      <p class="sr-only" role="status" data-status></p>
+    </section>
+
+    <!-- Demo only: shown by the script, since it does nothing without it. -->
+    <section class="demo wrap" aria-labelledby="demo-t" data-demo hidden>
+      <h2 class="demo__title" id="demo-t">Come back as a returning visitor</h2>
+      <p class="demo__note">Entries you have not read carry a New mark and a rust bar, and the count sits in the menu. Publish a later entry and the page reloads as your next visit would; forget clears what this page remembers.</p>
+      <p class="demo__actions">
+        <button type="button" class="demo__btn" data-publish data-needs-storage>Publish the next entry and come back</button>
+        <button type="button" class="demo__btn demo__btn--quiet" data-reset data-needs-storage>Forget my visits</button>
+      </p>
+    </section>
+
+    <section class="about wrap" aria-labelledby="building">
+      <div>
+        <h2 id="building">The building</h2>
+        <p>Public baths, opened 1891, closed 1984: a main pool, a learner pool, slipper baths and a laundry, built by the borough for streets that had no bathrooms.</p>
+      </div>
+      <div>
+        <h2 id="visit">Visit</h2>
+        <p>The site is closed while work goes on. Tours run on the last Saturday of each month and are announced here first.</p>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap footer">
+    <nav class="footer__nav" aria-label="Footer"><a href="#building">The building</a> <a href="#visit">Visit</a> <a href="#diary">News</a></nav>
+    <p class="label">Synthetic demo content · Marrow Lane Baths is invented · awards recipe draft · MIT</p>
+  </footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

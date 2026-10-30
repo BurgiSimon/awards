@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#10302e">
+  <title>map-pins-cards — awards recipe draft</title>
+  <meta name="description" content="A drawn island map with named pins: buttons placed by percentage over an inline SVG, one card per place on hover, focus and click, arrow keys between pins, and the same places as a list that drives the map.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2310302e'/%3E%3Cpath d='M7 22c2-9 9-14 18-13-1 7-6 13-18 13z' fill='%23e9dcb8'/%3E%3Ccircle cx='17' cy='14' r='3.5' fill='%23ff5a36'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="bar wrap">
+    <a class="bar__brand" href="#top">Skerrow Island Trust</a>
+    <p class="bar__note">Synthetic demo · recipe draft</p>
+  </header>
+  <main id="main">
+    <section class="intro wrap" id="top" aria-labelledby="intro-t">
+      <h1 class="intro__title" id="intro-t">Eight places on a small island</h1>
+      <p class="intro__lede">Skerrow is two kilometres of turf and shingle, reached by one small ferry. Point at a pin, tab to it or pick a place from the list: each one opens a card with the single number worth knowing before you walk there.</p>
+    </section>
+
+    <section class="atlas wrap" aria-labelledby="atlas-t">
+      <h2 class="atlas__title" id="atlas-t">The island, pinned</h2>
+      <div class="atlas__grid">
+        <figure class="atlas__figure" data-atlas>
+          <div class="atlas__map" data-map>
+            <svg class="atlas__svg" viewBox="0 0 1000 800" aria-hidden="true" focusable="false">
+              <defs>
+                <pattern id="sea-hatch" width="12" height="12" patternUnits="userSpaceOnUse"><path d="M0 6h12" stroke="#1a4744" stroke-width="1.2"/></pattern>
+                <pattern id="marsh-hatch" width="24" height="16" patternUnits="userSpaceOnUse"><path d="M3 8h9M14 3h7M15 13h6" stroke="#7a8a55" stroke-width="1.8" stroke-linecap="round"/></pattern>
+                <pattern id="shingle-dots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="2.5" cy="3" r="1.2" fill="#9c8452"/><circle cx="7.5" cy="7.5" r="1" fill="#9c8452"/></pattern>
+                <path id="coast" d="M360 70C391.7 58.3 446.7 50.7 480 52C513.3 53.3 533.3 75 560 78C586.7 81 613.3 67 640 70C666.7 73 693.3 90.3 720 96C746.7 101.7 777 98.7 800 104C823 109.3 849.3 116 858 128C866.7 140 863.3 162.3 852 176C840.7 189.7 805 197.3 790 210C775 222.7 757 238.7 762 252C767 265.3 797 279 820 290C843 301 900 309.3 900 318C900 326.7 853.3 336.3 820 342C786.7 347.7 728 347 700 352C672 357 652 365 652 372C652 379 672 388.7 700 394C728 399.3 785.8 399 820 404C854.2 409 895 413 905 424C915 435 890.5 454 880 470C869.5 486 846.7 501.7 842 520C837.3 538.3 859 560 852 580C845 600 825.3 626 800 640C774.7 654 733.3 654 700 664C666.7 674 636.7 689.3 600 700C563.3 710.7 513.3 726 480 728C446.7 730 425 715.8 400 712C375 708.2 351.7 702.3 330 705C308.3 707.7 291.7 728.8 270 728C248.3 727.2 220 714.3 200 700C180 685.7 165 661.7 150 642C135 622.3 113.7 601.7 110 582C106.3 562.3 131 540 128 524C125 508 93.7 499.3 92 486C90.3 472.7 119.7 458 118 444C116.3 430 83.7 421 82 402C80.3 383 93.7 353.3 108 330C122.3 306.7 149.3 285.3 168 262C186.7 238.7 199.7 213.3 220 190C240.3 166.7 266.7 142 290 122C313.3 102 328.3 81.7 360 70Z"/>
+              </defs>
+              <rect width="1000" height="800" fill="#123735"/>
+              <rect width="1000" height="800" fill="url(#sea-hatch)"/>
+              <!-- Water lines: the coast stroked wide and faint, twice, like an engraved chart. -->
+              <use href="#coast" fill="none" stroke="#e9dcb8" stroke-opacity=".06" stroke-width="64"/>
+              <use href="#coast" fill="none" stroke="#e9dcb8" stroke-opacity=".08" stroke-width="30"/>
+              <use href="#coast" fill="#e9dcb8" stroke="#9f8757" stroke-width="2.5"/>
+              <g fill="none" stroke="#c9b585" stroke-width="1.6">
+                <path d="M380 122C413.3 112.3 463.3 102.3 500 104C536.7 105.7 568.3 124.3 600 132C631.7 139.7 668.3 139.3 690 150C711.7 160.7 729.3 178.3 730 196C730.7 213.7 713 239 694 256C675 273 638.3 280.7 616 298C593.7 315.3 562 337.7 560 360C558 382.3 577.3 416.7 604 432C630.7 447.3 689.7 440.7 720 452C750.3 463.3 776.3 479 786 500C795.7 521 792.3 559.7 778 578C763.7 596.3 733 599.7 700 610C667 620.3 620 630.3 580 640C540 649.7 498.3 665.3 460 668C421.7 670.7 385 658 350 656C315 654 276.7 665.3 250 656C223.3 646.7 203.7 622.7 190 600C176.3 577.3 173 550 168 520C163 490 159.3 451.7 160 420C160.7 388.3 160.3 360 172 330C183.7 300 208.7 268 230 240C251.3 212 275 181.7 300 162C325 142.3 346.7 131.7 380 122Z"/>
+                <path d="M330 200C358.7 189.7 408.3 181.7 440 188C471.7 194.3 504.7 214.3 520 238C535.3 261.7 538.3 299.7 532 330C525.7 360.3 507.3 399.7 482 420C456.7 440.3 412 452 380 452C348 452 312 440.3 290 420C268 399.7 251.7 358.3 248 330C244.3 301.7 254.3 271.7 268 250C281.7 228.3 301.3 210.3 330 200Z"/>
+                <path d="M362 272C380 263.7 413.3 258 430 266C446.7 274 463 302.7 462 320C461 337.3 442.3 362.3 424 370C405.7 377.7 369 375 352 366C335 357 320.3 331.7 322 316C323.7 300.3 344 280.3 362 272Z"/>
+              </g>
+              <path d="M548 300C562.7 290.3 612.3 289.7 636 294C659.7 298.3 685.7 314.3 690 326C694.3 337.7 676.3 354.3 662 364C647.7 373.7 623 386 604 384C585 382 557.3 366 548 352C538.7 338 533.3 309.7 548 300Z" fill="url(#marsh-hatch)"/>
+              <path d="M870 468C872.7 472 853 496.7 848 512C843 527.3 840 545.7 840 560C840 574.3 851 592.3 848 598C845 603.7 827.7 603.7 822 594C816.3 584.3 812.3 557.7 814 540C815.7 522.3 822.7 500 832 488C841.3 476 867.3 464 870 468Z" fill="url(#shingle-dots)"/>
+              <!-- Footpaths between the places. -->
+              <g fill="none" stroke="#6f5d38" stroke-width="2" stroke-dasharray="7 6" stroke-linecap="round">
+                <path d="M330 690C337 678.3 355.3 641.7 372 620C388.7 598.3 413.7 580 430 560C446.3 540 463.3 510 470 500"/>
+                <path d="M470 500C481.7 491.7 521.3 466.7 540 450C558.7 433.3 572 420 582 400C592 380 597 341.7 600 330"/>
+                <path d="M600 330C613.3 318.7 656.3 283.7 680 262C703.7 240.3 722 218.7 742 200C762 181.3 790.3 158.3 800 150"/>
+                <path d="M300 270C305 258.3 316.7 220 330 200C343.3 180 365 165 380 150C395 135 413.3 116.7 420 110"/>
+                <path d="M300 270C288.7 281.7 251.7 318.3 232 340C212.3 361.7 195.7 381.7 182 400C168.3 418.3 155.3 441.7 150 450"/>
+                <path d="M470 500C491.7 503.7 561.7 516.7 600 522C638.3 527.3 670 532.3 700 532C730 531.7 766.7 522 780 520"/>
+                <path d="M470 500C455 497 408.3 494.7 380 482C351.7 469.3 318.7 446 300 424C281.3 402 268 375.7 268 350C268 324.3 294.7 283.3 300 270"/>
+              </g>
+              <!-- The ferry: a slip into the sound and the crossing off the sheet. -->
+              <path d="M330 702L342 752M330 752h24" stroke="#9f8757" stroke-width="5" stroke-linecap="round" fill="none"/>
+              <path d="M342 760C320 772 290 786 262 800" stroke="#e9dcb8" stroke-opacity=".55" stroke-width="1.6" stroke-dasharray="3 7" fill="none"/>
+              <!-- Symbols; each place's anchor is the small dark disc at its exact point. -->
+              <g fill="none" stroke="#3b3424" stroke-width="2">
+                <rect x="411" y="101" width="18" height="18"/>
+                <g transform="translate(800 150)"><circle r="9"/><path d="M0-15v-7M0 15v7M-15 0h-7M15 0h7M-11-11l-5-5M11 11l5 5M-11 11l-5 5M11-11l5-5"/></g>
+                <g transform="translate(300 270)"><circle cx="0" cy="-18" r="4"/><circle cx="17" cy="-6" r="4"/><circle cx="11" cy="15" r="4"/><circle cx="-11" cy="15" r="4"/><circle cx="-17" cy="-6" r="4"/></g>
+                <rect x="588" y="324" width="24" height="12"/>
+                <path d="M136 462v-14l14-11 14 11v14z"/>
+              </g>
+              <rect x="454" y="491" width="32" height="18" fill="#3b3424"/>
+              <g fill="#13201f">
+                <circle class="anchor" data-anchor="well" cx="420" cy="110" r="3"/>
+                <circle class="anchor" data-anchor="light" cx="800" cy="150" r="3"/>
+                <circle class="anchor" data-anchor="sisters" cx="300" cy="270" r="3"/>
+                <circle class="anchor" data-anchor="marsh" cx="600" cy="330" r="3"/>
+                <circle class="anchor" data-anchor="bothy" cx="150" cy="450" r="3"/>
+                <circle class="anchor" data-anchor="kelp" cx="470" cy="500" r="3"/>
+                <circle class="anchor" data-anchor="beach" cx="780" cy="520" r="3"/>
+                <circle class="anchor" data-anchor="ferry" cx="330" cy="680" r="3"/>
+              </g>
+              <!-- Chart lettering: water names, soundings, the hill's spot height. -->
+              <g class="atlas__chart" fill="#e9dcb8">
+                <text x="140" y="52" class="atlas__water atlas__water--sound" letter-spacing="6">SKERROW SOUND</text>
+                <text x="688" y="379" class="atlas__water atlas__water--small" letter-spacing="2">Saltpan Loch</text>
+                <text x="380" y="790" class="atlas__note">to Ardnish, 3 km</text>
+                <g class="atlas__depth" fill-opacity=".55">
+                  <text x="118" y="128">14</text><text x="930" y="92">22</text><text x="952" y="246">9</text><text x="958" y="566">17</text>
+                  <text x="900" y="724">31</text><text x="54" y="700">12</text><text x="560" y="772">19</text><text x="36" y="300">11</text>
+                </g>
+              </g>
+              <text x="392" y="326" class="atlas__spot" fill="#6f5d38">112</text>
+              <g transform="translate(64 96)" stroke="#e9dcb8" stroke-width="1.6" fill="none">
+                <path d="M0 26V-18M-7-6L0-20 7-6"/>
+                <text y="44" x="-5" class="atlas__north" fill="#e9dcb8" stroke="none">N</text>
+              </g>
+              <g class="atlas__scale" transform="translate(742 772)" fill="#e9dcb8">
+                <rect width="180" height="5" fill="none" stroke="#e9dcb8" stroke-width="1.2"/>
+                <rect width="90" height="5"/>
+                <text y="-8" class="atlas__note">0</text><text x="76" y="-8" class="atlas__note">250</text><text x="150" y="-8" class="atlas__note">500 m</text>
+              </g>
+              <rect x="1" y="1" width="998" height="798" fill="none" stroke="#e9dcb8" stroke-opacity=".5" stroke-width="2"/>
+            </svg>
+            <div class="atlas__pins" role="group" aria-label="Places on the map" aria-describedby="atlas-keys" data-pins>
+              <button type="button" class="pin" data-place="well" style="--x: 42; --y: 13.75" aria-controls="map-card" aria-expanded="false" aria-describedby="well-fig well-line"><span class="pin__dot" aria-hidden="true">1</span><span class="pin__label">North Well</span></button>
+              <button type="button" class="pin" data-place="light" data-label="start" style="--x: 80; --y: 18.75" aria-controls="map-card" aria-expanded="false" aria-describedby="light-fig light-line"><span class="pin__dot" aria-hidden="true">2</span><span class="pin__label">Skerrow Head light</span></button>
+              <button type="button" class="pin" data-place="sisters" style="--x: 30; --y: 33.75" aria-controls="map-card" aria-expanded="false" aria-describedby="sisters-fig sisters-line"><span class="pin__dot" aria-hidden="true">3</span><span class="pin__label">The Sisters</span></button>
+              <button type="button" class="pin" data-place="marsh" style="--x: 60; --y: 41.25" aria-controls="map-card" aria-expanded="false" aria-describedby="marsh-fig marsh-line"><span class="pin__dot" aria-hidden="true">4</span><span class="pin__label">Marsh hide</span></button>
+              <button type="button" class="pin" data-place="bothy" style="--x: 15; --y: 56.25" aria-controls="map-card" aria-expanded="false" aria-describedby="bothy-fig bothy-line"><span class="pin__dot" aria-hidden="true">5</span><span class="pin__label">West Cove bothy</span></button>
+              <button type="button" class="pin" data-place="kelp" style="--x: 47; --y: 62.5" aria-controls="map-card" aria-expanded="false" aria-describedby="kelp-fig kelp-line"><span class="pin__dot" aria-hidden="true">6</span><span class="pin__label">Kelp Store</span></button>
+              <button type="button" class="pin" data-place="beach" data-label="start" style="--x: 78; --y: 65" aria-controls="map-card" aria-expanded="false" aria-describedby="beach-fig beach-line"><span class="pin__dot" aria-hidden="true">7</span><span class="pin__label">Shell Beach</span></button>
+              <button type="button" class="pin" data-place="ferry" style="--x: 33; --y: 85" aria-controls="map-card" aria-expanded="false" aria-describedby="ferry-fig ferry-line"><span class="pin__dot" aria-hidden="true">8</span><span class="pin__label">Ferry slip</span></button>
+            </div>
+          </div>
+          <div class="card" id="map-card" data-card hidden>
+            <p class="card__name" data-card-name>Choose a pin or a place from the list</p>
+            <p class="card__fig" data-card-fig hidden><span class="card__num" data-card-num></span> <span class="card__unit" data-card-unit></span> <span class="card__what" data-card-what></span></p>
+            <p class="card__line" data-card-line hidden></p>
+            <a class="card__link" href="#visit" data-card-link hidden></a>
+          </div>
+          <figcaption class="atlas__caption">Skerrow at low water, north up, drawn for this demo. Dashed lines are the island's footpaths; the hill in the middle reaches 112 m. <span id="atlas-keys">Keyboard: Tab reaches the pins, the arrow keys move between them, Enter or Escape closes a card.</span></figcaption>
+        </figure>
+
+        <ol class="places" aria-label="The same places as a list">
+          <li class="place" data-place="well">
+            <h3 class="place__name">North Well</h3>
+            <p class="place__fig" id="well-fig"><span class="place__num">8</span> <span class="place__unit">°C</span> <span class="place__what">all year</span></p>
+            <p class="place__line" id="well-line">A spring under a corbelled stone hood, still the island's drinking water.</p>
+            <p class="place__actions"><a class="place__link" href="#visit">Refill points</a><button type="button" class="place__show" data-show="well" aria-controls="map-card">Show on map<span class="sr-only">: North Well</span></button></p>
+          </li>
+          <li class="place" data-place="light">
+            <h3 class="place__name">Skerrow Head light</h3>
+            <p class="place__fig" id="light-fig"><span class="place__num">31</span> <span class="place__unit">m</span> <span class="place__what">to the lantern</span></p>
+            <p class="place__line" id="light-line">Climb its 132 steps on summer weekends; the keeper's log lies open on the landing.</p>
+            <p class="place__actions"><a class="place__link" href="#visit">Climbing times</a><button type="button" class="place__show" data-show="light" aria-controls="map-card">Show on map<span class="sr-only">: Skerrow Head light</span></button></p>
+          </li>
+          <li class="place" data-place="sisters">
+            <h3 class="place__name">The Sisters</h3>
+            <p class="place__fig" id="sisters-fig"><span class="place__num">4,200</span> <span class="place__unit">years</span> <span class="place__what">standing</span></p>
+            <p class="place__line" id="sisters-line">Five stones in a ring on the hill's shoulder, the tallest set on the midwinter sunset.</p>
+            <p class="place__actions"><a class="place__link" href="#visit">Read the survey</a><button type="button" class="place__show" data-show="sisters" aria-controls="map-card">Show on map<span class="sr-only">: The Sisters</span></button></p>
+          </li>
+          <li class="place" data-place="marsh">
+            <h3 class="place__name">Marsh hide</h3>
+            <p class="place__fig" id="marsh-fig"><span class="place__num">212</span> <span class="place__unit">species</span> <span class="place__what">logged since 1998</span></p>
+            <p class="place__line" id="marsh-line">A turf-roofed hide over the saltings at the head of the loch: wigeon in winter, terns from May.</p>
+            <p class="place__actions"><a class="place__link" href="#visit">Recent sightings</a><button type="button" class="place__show" data-show="marsh" aria-controls="map-card">Show on map<span class="sr-only">: Marsh hide</span></button></p>
+          </li>
+          <li class="place" data-place="bothy">
+            <h3 class="place__name">West Cove bothy</h3>
+            <p class="place__fig" id="bothy-fig"><span class="place__num">6</span> <span class="place__unit">bunks</span> <span class="place__what">no booking</span></p>
+            <p class="place__line" id="bothy-line">An unlocked stone shelter above the cove, first come, first served, a stove and no tap.</p>
+            <p class="place__actions"><a class="place__link" href="#visit">The bothy code</a><button type="button" class="place__show" data-show="bothy" aria-controls="map-card">Show on map<span class="sr-only">: West Cove bothy</span></button></p>
+          </li>
+          <li class="place" data-place="kelp">
+            <h3 class="place__name">Kelp Store</h3>
+            <p class="place__fig" id="kelp-fig"><span class="place__num">38</span> <span class="place__unit">seats</span> <span class="place__what">and a stove</span></p>
+            <p class="place__line" id="kelp-line">Where weed was once burnt for soda ash; now a café and a room of the island's photographs.</p>
+            <p class="place__actions"><a class="place__link" href="#visit">Opening hours</a><button type="button" class="place__show" data-show="kelp" aria-controls="map-card">Show on map<span class="sr-only">: Kelp Store</span></button></p>
+          </li>
+          <li class="place" data-place="beach">
+            <h3 class="place__name">Shell Beach</h3>
+            <p class="place__fig" id="beach-fig"><span class="place__num">2.4</span> <span class="place__unit">km</span> <span class="place__what">of shingle</span></p>
+            <p class="place__line" id="beach-line">Crushed shell rather than sand, which is why it rings like glass underfoot.</p>
+            <p class="place__actions"><a class="place__link" href="#visit">Tide tables</a><button type="button" class="place__show" data-show="beach" aria-controls="map-card">Show on map<span class="sr-only">: Shell Beach</span></button></p>
+          </li>
+          <li class="place" data-place="ferry">
+            <h3 class="place__name">Ferry slip</h3>
+            <p class="place__fig" id="ferry-fig"><span class="place__num">40</span> <span class="place__unit">min</span> <span class="place__what">between sailings</span></p>
+            <p class="place__line" id="ferry-line">The only landing. The last boat leaves an hour before high water, whatever the timetable says.</p>
+            <p class="place__actions"><a class="place__link" href="#visit">Sailing times</a><button type="button" class="place__show" data-show="ferry" aria-controls="map-card">Show on map<span class="sr-only">: Ferry slip</span></button></p>
+          </li>
+        </ol>
+      </div>
+      <p class="sr-only" role="status" data-status></p>
+    </section>
+
+    <section class="visit wrap" id="visit" aria-labelledby="visit-t">
+      <h2 id="visit-t">Before you cross</h2>
+      <p>The ferry runs from Ardnish pier every forty minutes from eight until an hour before high water. There is one tap, at the Kelp Store, and the North Well beside the track; the bothy has neither.</p>
+      <p>Every link on the cards comes here in this demo. On a real site each would open its own page: the timetable, the survey, the sightings log.</p>
+    </section>
+  </main>
+  <footer class="wrap footer"><p class="label">Synthetic demo content · Skerrow is invented · awards recipe draft · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

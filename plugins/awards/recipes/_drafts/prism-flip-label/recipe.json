@@ -1,0 +1,31 @@
+{
+  "id": "prism-flip-label",
+  "title": "Prism flip label: a quarter turn that rolls a copy of the label into view",
+  "intent": "Nav and link labels that turn like a block",
+  "group": "arrival-and-chrome",
+  "summary": "Each `[data-prism]` link ships as its plain label; the module wraps it in a box holding the label on a front face and an `aria-hidden` copy folded `rotateX(-90deg)` under it, and writes `d`, half the box's own height, from a `ResizeObserver` on every box; at rest the box is flat (no transform, no 3D context, the copy `visibility: hidden`), so the page holds no 3D compositor layer; hover on hover-capable primary pointers (`(hover: hover)`) and `:focus-visible` make it `preserve-3d` and turn it `rotateX(90deg)` about `transform-origin: 50% 50% -d` under `perspective: 1000px` on its parent, after which the copy sits on the label's exact box, and leaving holds the 3D state with `transition-behavior: allow-discrete` until the turn back ends; four header cells roll to an inked cell over `400 ms` expo-out while their siblings dim to `.66` (never the focused cell), footer links roll to an inverted tile, and the `letters` variant builds one prism per grapheme inside no-wrap words, `300 ms` cubic-out each with a stagger of `min(40 ms, 400 ms / (letters − 1))` so every title finishes by `700 ms`, and a visually hidden label as the accessible name; the faces are shaded by the turn (the outgoing face brightens, the incoming one comes out of shade); touch gets no turn but a filled press state (an empty `ontouchstart` handler on the document keeps `:active` alive on iOS Safari); reduced motion swaps the two faces in place by opacity (`120 ms` under `prefers-reduced-motion`) with no transform, static cuts; forced colours show the plain label",
+  "tags": [
+    "css-3d",
+    "hover",
+    "keyboard",
+    "touch",
+    "stagger",
+    "navigation",
+    "text",
+    "accessibility",
+    "reduced-motion"
+  ],
+  "tier": "P2",
+  "deps": [],
+  "variants": [
+    "whole label, header cells and footer links (this, default)",
+    "one prism per letter with a capped stagger (`data-prism=\"letters\"`, the film list here)",
+    "always a prism: `preserve-3d`, `backface-visibility` and the copy's fold set at rest, for one or two labels where shorter CSS matters more than the layers each box then holds",
+    "a third face: turn 180° about X to show a face on the back, for a label that says something different (a count, a date) rather than repeating itself"
+  ],
+  "seenIn": [
+    "warmnfuzzy",
+    "seasats"
+  ],
+  "drafted": "2026-10-28"
+}

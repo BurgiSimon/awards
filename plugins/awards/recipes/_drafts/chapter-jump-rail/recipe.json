@@ -1,0 +1,40 @@
+{
+  "id": "chapter-jump-rail",
+  "title": "Chapter jump rail: a scrollspy of real links that jumps, lands on the heading and lets go",
+  "intent": "Chapter jump rail and scrollspy index",
+  "group": "arrival-and-chrome",
+  "summary": "One fixed `<nav aria-label>` of six numbered chapter links whose current one (`aria-current=\"true\"`) is the chapter with its midpoint nearest the viewport centre (none above the first chapter or below the last), measured from cached offsets once per Lenis scroll event; a 2 px rule under each name fills with `scaleX` from the reading position (done chapters full, the current one at the centre line's share of its height); one 3 px marker centred on the list's 1 px track moves by a written `translate3d` on the routine band (`.4 s` expo-out) and cuts when it first appears; any in-page chapter link jumps with `lenis.scrollTo` (`1.2 s`, Lenis on the GSAP ticker, `scroll-margin-top` honoured, the glide named by `userData`), marks the destination at the start and holds it until landing, then focuses the chapter heading (`tabindex=-1`, `preventScroll`, the only announcement; no live region) and replaces the hash; a `touchmove`, wheel or scrolling key mid-glide stops the glide where it is (`lenis.stop(); lenis.start()`) with no landing, a tap does not, and a check every `1.8 s` waits for a late glide and lets go of a replaced one; below 900 px the same list sits behind a sticky ticket (\"Stage n of 6\" + short title, described as opening the list) with its own progress rule, docked by a `0.5 s` glide when opened off the top, a disclosure (`aria-expanded`) closed by Escape, outside taps, Tab out and a jump, which parks focus on the ticket for the glide; reduced and static tiers (by media query or `html[data-motion]`) jump and dock instantly, cut the marker and chevron and keep the current link, fills and focus move; the six height profiles share one 0–600 m scale; forced colours outline the current link",
+  "tags": [
+    "navigation",
+    "progress",
+    "lenis",
+    "gsap",
+    "scroll",
+    "keyboard",
+    "touch",
+    "sticky",
+    "accessibility",
+    "reduced-motion",
+    "responsive"
+  ],
+  "tier": "P1",
+  "deps": [
+    "gsap@3.15.0",
+    "lenis@1.3.26"
+  ],
+  "variants": [
+    "a fixed rail beside the read, a sticky ticket on phones (this, default)",
+    "the rail rotated with `writing-mode: vertical-rl` against the right edge, for a page that cannot spare a column",
+    "chapters of very unequal length: mark the chapter containing the centre line instead of the nearest midpoint",
+    "on a virtual scroll: map the same list to section indices and jump by seeking the scalar"
+  ],
+  "seenIn": [
+    "christoph-nagel",
+    "gehry-getty",
+    "oryzo",
+    "mont-fort",
+    "seasats",
+    "shopify-editions-w26"
+  ],
+  "drafted": "2026-10-28"
+}

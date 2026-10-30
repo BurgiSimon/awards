@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#1c372f">
+  <title>pointer-repel-field — awards recipe draft</title>
+  <meta name="description" content="A tray of a gross of buttons that a pointer pushes, turns and lifts with a smooth falloff, each springing back to its place; a finger parts it sideways, a keyboard nudge sends a wave through it.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231c372f'/%3E%3Ccircle cx='16' cy='16' r='10' fill='%23d6a23c'/%3E%3Ccircle cx='13' cy='13' r='1.8' fill='%231c372f'/%3E%3Ccircle cx='19' cy='13' r='1.8' fill='%231c372f'/%3E%3Ccircle cx='13' cy='19' r='1.8' fill='%231c372f'/%3E%3Ccircle cx='19' cy='19' r='1.8' fill='%231c372f'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <header class="topbar wrap">
+    <a class="topbar__brand" href="#top">Marrow &amp; Pell</a>
+    <p class="label">Button makers · synthetic demo</p>
+  </header>
+  <main id="main">
+    <section class="hero wrap" id="top" aria-labelledby="hero-t">
+      <div class="hero__copy">
+        <p class="label">Recipe draft · pointer repel field</p>
+        <h1 class="hero__title" id="hero-t">A gross of buttons, sorted by hand.</h1>
+        <p class="hero__lede"><span class="for-pointer">Move a mouse across the tray: the buttons part around you and roll back to their places. On a keyboard, nudge the tray instead.</span><span class="for-touch">Touch the tray and slide a finger sideways: the buttons part around it and roll back to their places.</span></p>
+        <p class="hero__note" data-still-note hidden>Motion is reduced here, so the tray holds still.</p>
+        <div class="hero__actions">
+          <button type="button" class="nudge" data-nudge hidden>Nudge the tray</button>
+          <a class="hero__link" href="#how">How the tray behaves</a>
+        </div>
+      </div>
+      <!-- The field: decoration only. Twelve dozen buttons drawn in CSS and laid out by a CSS grid; main.js reads their
+           places once and moves only the ones near the pointer, or still settling, with transforms. -->
+      <div class="tray" data-field aria-hidden="true">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
+    </section>
+
+    <section class="how wrap" id="how" aria-labelledby="how-t">
+      <h2 class="how__title" id="how-t">How the tray behaves</h2>
+      <ol class="how__list">
+        <li><strong>Near you, pushed; far away, untouched.</strong> Inside a circle around the pointer each button is pushed straight away from it, turned and lifted a little, by a weight that falls from 1 at the pointer to 0 at the circle's edge. Outside the circle nothing is written at all.</li>
+        <li><strong>Home on a spring.</strong> Pushed buttons follow quickly and stop without a wobble; released, they swing back past their places once or twice and settle. The springs step at a fixed rate, so a fast screen and a slow one feel the same.</li>
+        <li><strong>Still when it is done.</strong> Places are read once and again only when the layout changes. Once every button has settled, the tray stops asking for frames until the pointer moves again.</li>
+        <li><strong>Not only for a mouse.</strong> A finger parts the tray where it lands and drags the circle sideways; a swipe up or down still scrolls the page and lets the tray go. The nudge button sends one wave out from the centre, so a keyboard reaches the toy too, and Escape stills the tray at once. With reduced motion the tray holds still, the nudge is hidden and every touch scrolls the page.</li>
+      </ol>
+    </section>
+  </main>
+  <footer class="footer wrap"><p class="label">Synthetic demo content · the button makers are invented · awards recipe draft · MIT</p></footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

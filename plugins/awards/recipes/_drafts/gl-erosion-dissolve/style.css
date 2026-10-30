@@ -1,0 +1,108 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after.
+   A draft sits one folder deeper than a recipe; scripts/drafts.mjs promote rewrites ../../ to ../ on the way out. */
+@import "../../_shared/base.css";
+
+/* Its own small world: a smoke-dark room, paper ink, one ember. The serif is a system stack; no font files. */
+:root {
+  --ground: #171210;
+  --ink: #f0e7dc;
+  --accent: #ff7a3d;
+  --muted: color-mix(in oklab, var(--ink) 66%, var(--ground));
+  --line: color-mix(in oklab, var(--ink) 18%, var(--ground));
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  /* The stage backdrop is a vertical gradient only, so every pixel on one row is the same colour behind the cone. */
+  --room-top: #241b16;
+  --room-floor: #0e0a08;
+  color-scheme: dark;
+}
+
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+/* The skip link keeps base.css's sr-only clip until it has focus, then sits in the corner, readable. */
+.skip-link:focus-visible { position: fixed; z-index: 10; top: 12px; left: 12px; width: auto; height: auto; margin: 0; padding: 12px 16px; clip: auto; overflow: visible; white-space: normal; background: var(--ink); color: var(--ground); }
+
+.bar { display: flex; align-items: center; justify-content: space-between; gap: calc(var(--unit) * 4); min-height: 64px; }
+.bar .label { margin: 0; }
+.bar__back { display: inline-flex; align-items: center; min-height: 44px; font-family: var(--font-mono); font-size: var(--label); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; color: var(--muted); }
+
+.intro { min-height: 78svh; display: grid; align-content: end; gap: calc(var(--unit) * 6); padding-block: 96px calc(var(--unit) * 16); }
+.intro > * { margin: 0; }
+.intro__title { max-width: 13ch; font-family: var(--font-display); font-weight: 400; font-size: clamp(2.75rem, 7.4vw, 7.5rem); line-height: .95; letter-spacing: -.02em; }
+.intro__lede { max-width: 58ch; font-size: clamp(1.0625rem, 1.3vw, 1.25rem); color: color-mix(in oklab, var(--ink) 86%, var(--ground)); }
+
+/* Without script, and in the static tier, the stage is ordinary flow: the still, then all three chapters. */
+.stage { position: relative; border-top: 1px solid var(--line); }
+.stage__sticky { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); grid-template-areas: "copy figure"; gap: var(--gutter); padding-block: calc(var(--unit) * 10); }
+.stage__copy { grid-area: copy; display: grid; align-content: center; gap: calc(var(--unit) * 8); }
+.stage__name { margin: 0; }
+/* The figure is a size container, so the caption can step aside when the figure is short. */
+.stage__figure { grid-area: figure; position: relative; margin: 0; min-height: 70svh; background: linear-gradient(to bottom, var(--room-top), var(--room-floor)); container: figure / size; }
+/* The still fills the figure with no padding: its viewBox is the camera's frame, so it and the canvas line up. */
+.still, .gl { position: absolute; inset: 0; width: 100%; height: 100%; }
+.gl { display: none; }
+html.gl-active .gl { display: block; }
+/* Under the canvas the still is only transparent: it stays the figure's image in the accessibility tree. */
+html.gl-active .still { opacity: 0; }
+.stage__caption { position: absolute; left: calc(var(--unit) * 4); bottom: calc(var(--unit) * 3); margin: 0; max-width: calc(100% - var(--unit) * 8); }
+@container figure (max-height: 420px) { .stage__caption { display: none; } }
+
+.steps { display: flex; flex-wrap: wrap; gap: calc(var(--unit) * 2); }
+.steps__btn {
+  min-height: 44px; padding: 0 calc(var(--unit) * 4); border: 1px solid var(--line); border-radius: 999px; background: transparent;
+  font-family: var(--font-mono); font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; cursor: pointer;
+  transition: background-color var(--dur-routine), color var(--dur-routine), border-color var(--dur-routine);
+}
+.steps__btn:hover { border-color: var(--ink); }
+.steps__btn[aria-current="step"] { background: var(--ink); color: var(--ground); border-color: var(--ink); }
+
+.chapters { list-style: none; margin: 0; padding: 0; display: grid; gap: calc(var(--unit) * 10); }
+.chapter { max-width: 34rem; }
+.chapter > * { margin: 0; }
+.chapter p { margin-top: calc(var(--unit) * 4); font-size: clamp(1.0625rem, 1.25vw, 1.1875rem); color: color-mix(in oklab, var(--ink) 84%, var(--ground)); }
+.chapter__title { font-family: var(--font-display); font-weight: 400; font-size: clamp(2rem, 3.6vw, 3.5rem); line-height: 1; letter-spacing: -.015em; }
+.steps { display: none; }
+
+/* Staged (script on, full or reduced tier): a tall section under a sticky stage. The chapters share one grid cell and
+   only the current one is shown; the others stay in the accessibility tree, in order. */
+html.is-staged .stage { height: 380svh; }
+html.is-staged .stage__sticky { position: sticky; top: 0; height: 100svh; padding-block: calc(var(--unit) * 6); }
+html.is-staged .stage__figure { min-height: 0; }
+html.is-staged .steps { display: flex; }
+html.is-staged .chapters { grid-template-areas: "c"; gap: 0; }
+html.is-staged .chapter { grid-area: c; opacity: 0; transition: opacity var(--dur-routine) var(--ease-theme); }
+html.is-staged .chapter[data-active] { opacity: 1; }
+
+/* A full screen of its own: past the stage the figure leaves the viewport entirely, so the renderer can rest. */
+.after { display: grid; align-content: center; gap: calc(var(--unit) * 6); min-height: 100svh; padding-block: calc(var(--unit) * 28); border-top: 1px solid var(--line); }
+.after > * { margin: 0; max-width: 58ch; }
+.after h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(2rem, 5vw, 4.5rem); line-height: 1; letter-spacing: -.015em; }
+.after code { font-family: var(--font-mono); font-size: .9em; color: var(--accent); }
+.footer { padding-block: calc(var(--unit) * 12); border-top: 1px solid var(--line); }
+.footer .label { margin: 0; }
+
+/* Phones held upright: the cone above, the chapter under it, both inside the sticky viewport. A phone held sideways
+   keeps the two columns (stacked, the figure would get a strip a hundred pixels tall) with tighter copy, below. */
+@media (max-width: 760px) and (orientation: portrait) {
+  .stage__sticky { grid-template-columns: minmax(0, 1fr); grid-template-areas: "figure" "copy"; gap: calc(var(--unit) * 5); }
+  .stage__figure { min-height: 56svh; margin-inline: calc(var(--gutter) * -1); }
+  html.is-staged .stage__sticky { grid-template-rows: minmax(0, 1fr) auto; padding-block: 0 calc(var(--unit) * 6); }
+  .stage__copy { align-content: start; gap: calc(var(--unit) * 4); }
+  .chapter__title { font-size: clamp(1.75rem, 8vw, 2.25rem); }
+  .chapter p { margin-top: calc(var(--unit) * 2); font-size: 1rem; }
+}
+
+@media (orientation: landscape) and (max-height: 520px) {
+  html.is-staged .stage__sticky { padding-block: calc(var(--unit) * 3); }
+  .stage__copy { gap: calc(var(--unit) * 3); }
+  .steps__btn { padding: 0 calc(var(--unit) * 3); }
+  .chapter__title { font-size: clamp(1.375rem, 4.4vh, 2rem); }
+  .chapter p { margin-top: calc(var(--unit) * 2); font-size: .9375rem; line-height: 1.45; }
+}
+
+/* Reduced motion: the still cuts from chapter to chapter, so the chapter text cuts with it instead of fading. */
+@media (prefers-reduced-motion: reduce) {
+  html.is-staged .chapter { transition: none; }
+}
+
+@media (forced-colors: active) {
+  .steps__btn[aria-current="step"] { outline: 2px solid CanvasText; }
+}
