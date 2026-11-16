@@ -5,6 +5,13 @@ recorded below in [Candidate verification record](#candidate-verification-record
 `verification-log.md` record the earlier 0.2.0 work. `archive/plan.md` is the 0.1.0 specification, kept for
 reference. `decisions.md` records choices already taken.
 
+## Living scene recipe (branch `living-scene-recipe`, 2026-11-16, unreleased)
+
+- `living-scene-canvas2d`, built at the maintainer's request for the six scene components of the AwardComponents library, which had no recipe to name (104 entries). The mechanism comes from the maintainer's own benchmark report footer, so there is no corpus card and `seenIn` is empty. `main.js` is the harness (size at `min(dpr, 2)`, the shared ticker only while on screen and in the full tier, mouse and pen `pointermove`, `click` rather than `pointerdown`, one still frame per input otherwise, a cue button as the keyboard path); `sky.js`, `lawn.js` and `pond.js` are the scenes behind one contract. The footer strip is what the folder builds; the hero staging is prose in the README and a variant line.
+- It was written as a draft, verified, then promoted in the same session without a review round, because the maintainer asked for the recipe itself rather than a draft. Passes `verify-recipes --only living-scene-canvas2d` and `--pseudo`; frame rendered; not stamped. `audit.mjs recipes` stays free of P0–P2; check-sync and lint-refs are clean.
+- Not measured: a real GPU or a phone; the full `verify-recipes` run over all 104 entries.
+- The scripts found no Playwright in this checkout; the runs borrowed it with `AWARDS_PLAYWRIGHT=<the AwardComponents checkout>` and `AWARDS_CHROMIUM=<a cached headless shell>`.
+
 ## Recipe drafts, the explorer's Drafts tab and thirteen drafts (branch `claude/charming-hopper-vaddgx`, 2026-10-28, unreleased)
 
 - At the maintainer's request: a sub-folder where proposed recipes wait for a decision, a new tab in the recipe explorer to review them (run each, then accept it, ask for changes or reject it), kept simple, and at least ten new drafts from what the plugin knows.

@@ -8,7 +8,7 @@
     "width": 800,
     "height": 500
   },
-  "total": 1441440,
+  "total": 1459862,
   "sheet": {
     "file": "sheet.webp",
     "tile": {
@@ -78,6 +78,7 @@
       "image-sequence-scrub",
       "image-trail-cursor",
       "knockout-wordmark-window",
+      "living-scene-canvas2d",
       "magnetic-button",
       "marquee-raf-mask",
       "nav-overlay-fullscreen",
@@ -483,6 +484,12 @@
       "scroll": null,
       "captured": "2026-10-26",
       "bytes": 17962
+    },
+    "living-scene-canvas2d": {
+      "state": "plant",
+      "scroll": null,
+      "captured": "2026-11-16",
+      "bytes": 18422
     },
     "magnetic-button": {
       "state": "pull",

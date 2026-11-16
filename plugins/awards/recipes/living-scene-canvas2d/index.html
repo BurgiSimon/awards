@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f4f2ee">
+  <title>living-scene-canvas2d — awards recipe</title>
+  <meta name="description" content="A footer that ends on a small drawn scene: a star chart, a lawn or a koi pond on one 2D canvas that idles, answers the pointer and keeps what a click leaves.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f4f2ee'/%3E%3Cpath d='M8 26q1-9 3-14M16 26V8M24 26q-1-8-4-12' fill='none' stroke='%231a1c1c' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='7' r='3' fill='%230016cb'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip-link sr-only" href="#main">Skip to content</a>
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="hero-t">
+      <p class="label">The close · synthetic demo</p>
+      <h1 class="hero__title" id="hero-t">Scroll to the end. Something lives there.</h1>
+      <p class="hero__lede">The last strip of this page is a small scene drawn on one canvas. It moves a little on its own, it answers the pointer, and a click leaves something behind. Three scenes share one harness: a star chart, a lawn and a koi pond.</p>
+    </section>
+    <section class="note wrap" aria-labelledby="n1">
+      <h2 id="n1">One harness, three scenes.</h2>
+      <p>The harness owns the canvas, the clock and the input. A scene is one small module that seeds itself, draws a frame, and says what a pointer and a click mean to it.</p>
+    </section>
+    <section class="note wrap" aria-labelledby="n2">
+      <h2 id="n2">The same picture on every load.</h2>
+      <p>Stars, blades and fish are placed by a hash of their index, never by chance, so the scene is the same after a reload and after a resize. Only what the visitor does changes it.</p>
+    </section>
+  </main>
+  <footer class="foot wrap" aria-labelledby="foot-t">
+    <h2 class="sr-only" id="foot-t">Footer</h2>
+    <!-- The picker belongs to the demo, not to the recipe: a real footer ships one scene. -->
+    <div class="foot__pick" role="group" aria-label="Scene">
+      <button type="button" data-pick="sky" aria-pressed="false">Star chart</button>
+      <button type="button" data-pick="lawn" aria-pressed="false">Lawn</button>
+      <button type="button" data-pick="pond" aria-pressed="false">Koi pond</button>
+    </div>
+    <!-- Decoration: the canvas is hidden from assistive tech. The button below does by keyboard what a click on it does. -->
+    <div class="scene" data-scene="lawn"><canvas aria-hidden="true"></canvas></div>
+    <div class="foot__row">
+      <nav aria-label="Footer"><a href="#main">Back to top</a><a href="#n1">How it is built</a></nav>
+      <button type="button" class="foot__cue" data-cue>Plant a flower</button>
+    </div>
+    <p class="label" data-status role="status" aria-live="polite"></p>
+    <p class="label foot__legal">Synthetic demo content · awards recipe · MIT</p>
+    <span class="scene-probe" aria-hidden="true"></span>
+  </footer>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

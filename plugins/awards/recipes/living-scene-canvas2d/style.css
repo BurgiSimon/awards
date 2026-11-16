@@ -1,0 +1,52 @@
+/* base.css is imported here (not linked from the HTML) so the bundler keeps the cascade order: base first, recipe overrides after.
+   A draft sits one folder deeper than a recipe; scripts/drafts.mjs promote rewrites ../../ to ../ on the way out. */
+@import "../_shared/base.css";
+
+/* The scene's three paints, mixed from the page's own tokens so a re-skin of the tokens re-skins the scene.
+   main.js resolves them through a hidden probe, because a canvas cannot read var(). */
+:root {
+  --scene-1: var(--accent);
+  --scene-2: color-mix(in srgb, var(--accent) 52%, var(--ground));
+  --scene-3: color-mix(in srgb, var(--ink) 58%, var(--accent));
+}
+
+.hero { min-height: 80svh; display: grid; align-content: end; gap: calc(var(--unit) * 5); padding-block: 96px calc(var(--unit) * 16); }
+.hero .label { margin: 0; }
+.hero__title { margin: 0; max-width: 15ch; font-family: var(--font-display); font-size: clamp(2.75rem, 8vw, 8rem); font-weight: 600; line-height: 0.9; letter-spacing: -0.035em; }
+.hero__lede { max-width: 54ch; margin: 0; font-size: clamp(1.0625rem, 1.4vw, 1.25rem); }
+
+.note { padding-block: calc(var(--unit) * 20); border-top: 1px solid var(--line); }
+.note h2 { margin: 0 0 calc(var(--unit) * 4); font-family: var(--font-display); font-size: clamp(1.75rem, 4vw, 3rem); line-height: 1; letter-spacing: -0.02em; }
+.note p { max-width: 56ch; margin: 0; }
+
+/* The close: a scene picker (the demo's own control), the scene, the links with the invitation beside them. */
+.foot { padding-block: calc(var(--unit) * 10) calc(var(--unit) * 12); border-top: 1px solid var(--line); }
+.foot__pick { display: flex; flex-wrap: wrap; gap: calc(var(--unit) * 2); margin-bottom: calc(var(--unit) * 8); }
+.foot__pick button { min-height: 44px; padding: 0 calc(var(--unit) * 4); border: 1px solid var(--line); background: none; font-family: var(--font-mono); font-size: var(--label); letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; }
+.foot__pick button:hover { border-color: var(--ink); }
+.foot__pick button[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--ground); }
+
+/* pan-y: a touch that starts on the scene still scrolls the page; only a tap reaches it as a click. */
+.scene { touch-action: pan-y; }
+.scene canvas { width: 100%; height: 100%; }
+.scene[data-scene="sky"] { height: 150px; }
+/* The chart's lines fade out at the top and bottom instead of ending at a hard edge. */
+.scene[data-scene="sky"] canvas { mask-image: linear-gradient(transparent, black 14%, black 86%, transparent); }
+.scene[data-scene="lawn"] { height: 112px; }
+.scene[data-scene="pond"] { height: 150px; border: 1px solid var(--line); border-radius: 18px; background: color-mix(in srgb, var(--ink) 4%, var(--ground)); overflow: hidden; cursor: pointer; }
+
+.foot__row { display: flex; flex-wrap: wrap; align-items: center; gap: calc(var(--unit) * 2) calc(var(--unit) * 6); margin-top: calc(var(--unit) * 4); }
+.foot__row nav { display: flex; flex-wrap: wrap; gap: 0 calc(var(--unit) * 6); }
+.foot__row a { display: inline-flex; align-items: center; min-height: 44px; }
+.foot__cue { margin-left: auto; min-height: 44px; padding: 0; border: 0; background: none; color: var(--muted); text-decoration: underline; text-underline-offset: 0.25em; cursor: pointer; }
+.foot__cue:hover { color: var(--ink); }
+.foot [data-status] { min-height: 1.5em; margin: calc(var(--unit) * 2) 0 0; }
+.foot__legal { margin: calc(var(--unit) * 6) 0 0; }
+
+/* The probe main.js reads the three paints from. */
+.scene-probe { position: absolute; width: 0; height: 0; overflow: hidden; visibility: hidden; }
+
+@media (max-width: 640px) {
+  .scene[data-scene="sky"], .scene[data-scene="pond"] { height: 130px; }
+  .foot__cue { margin-left: 0; flex-basis: 100%; text-align: left; }
+}
